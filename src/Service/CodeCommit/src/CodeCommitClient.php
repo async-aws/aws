@@ -22,15 +22,31 @@ use AsyncAws\CodeCommit\Exception\InvalidContinuationTokenException;
 use AsyncAws\CodeCommit\Exception\InvalidMaxResultsException;
 use AsyncAws\CodeCommit\Exception\InvalidPathException;
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryNameException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerBranchNameException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerCustomDataException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerDestinationArnException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerEventsException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerNameException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerRegionException;
+use AsyncAws\CodeCommit\Exception\MaximumBranchesExceededException;
+use AsyncAws\CodeCommit\Exception\MaximumRepositoryTriggersExceededException;
 use AsyncAws\CodeCommit\Exception\PathDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\RepositoryDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\RepositoryNameRequiredException;
+use AsyncAws\CodeCommit\Exception\RepositoryTriggerBranchNameListRequiredException;
+use AsyncAws\CodeCommit\Exception\RepositoryTriggerDestinationArnRequiredException;
+use AsyncAws\CodeCommit\Exception\RepositoryTriggerEventsListRequiredException;
+use AsyncAws\CodeCommit\Exception\RepositoryTriggerNameRequiredException;
+use AsyncAws\CodeCommit\Exception\RepositoryTriggersListRequiredException;
 use AsyncAws\CodeCommit\Input\GetBlobInput;
 use AsyncAws\CodeCommit\Input\GetBranchInput;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
+use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
 use AsyncAws\CodeCommit\Result\GetBlobOutput;
 use AsyncAws\CodeCommit\Result\GetBranchOutput;
 use AsyncAws\CodeCommit\Result\GetDifferencesOutput;
+use AsyncAws\CodeCommit\Result\PutRepositoryTriggersOutput;
+use AsyncAws\CodeCommit\ValueObject\RepositoryTrigger;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
@@ -187,6 +203,70 @@ class CodeCommitClient extends AbstractApi
         ]]));
 
         return new GetDifferencesOutput($response, $this, $input);
+    }
+
+    /**
+     * Replaces all triggers for a repository. Used to create or delete triggers.
+     *
+     * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_PutRepositoryTriggers.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#putrepositorytriggers
+     *
+     * @param array{
+     *   repositoryName: string,
+     *   triggers: RepositoryTrigger[],
+     *   @region?: string,
+     * }|PutRepositoryTriggersInput $input
+     *
+     * @throws RepositoryDoesNotExistException
+     * @throws RepositoryNameRequiredException
+     * @throws InvalidRepositoryNameException
+     * @throws RepositoryTriggersListRequiredException
+     * @throws MaximumRepositoryTriggersExceededException
+     * @throws InvalidRepositoryTriggerNameException
+     * @throws InvalidRepositoryTriggerDestinationArnException
+     * @throws InvalidRepositoryTriggerRegionException
+     * @throws InvalidRepositoryTriggerCustomDataException
+     * @throws MaximumBranchesExceededException
+     * @throws InvalidRepositoryTriggerBranchNameException
+     * @throws InvalidRepositoryTriggerEventsException
+     * @throws RepositoryTriggerNameRequiredException
+     * @throws RepositoryTriggerDestinationArnRequiredException
+     * @throws RepositoryTriggerBranchNameListRequiredException
+     * @throws RepositoryTriggerEventsListRequiredException
+     * @throws EncryptionIntegrityChecksFailedException
+     * @throws EncryptionKeyAccessDeniedException
+     * @throws EncryptionKeyDisabledException
+     * @throws EncryptionKeyNotFoundException
+     * @throws EncryptionKeyUnavailableException
+     */
+    public function putRepositoryTriggers($input): PutRepositoryTriggersOutput
+    {
+        $input = PutRepositoryTriggersInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRepositoryTriggers', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'RepositoryTriggersListRequiredException' => RepositoryTriggersListRequiredException::class,
+            'MaximumRepositoryTriggersExceededException' => MaximumRepositoryTriggersExceededException::class,
+            'InvalidRepositoryTriggerNameException' => InvalidRepositoryTriggerNameException::class,
+            'InvalidRepositoryTriggerDestinationArnException' => InvalidRepositoryTriggerDestinationArnException::class,
+            'InvalidRepositoryTriggerRegionException' => InvalidRepositoryTriggerRegionException::class,
+            'InvalidRepositoryTriggerCustomDataException' => InvalidRepositoryTriggerCustomDataException::class,
+            'MaximumBranchesExceededException' => MaximumBranchesExceededException::class,
+            'InvalidRepositoryTriggerBranchNameException' => InvalidRepositoryTriggerBranchNameException::class,
+            'InvalidRepositoryTriggerEventsException' => InvalidRepositoryTriggerEventsException::class,
+            'RepositoryTriggerNameRequiredException' => RepositoryTriggerNameRequiredException::class,
+            'RepositoryTriggerDestinationArnRequiredException' => RepositoryTriggerDestinationArnRequiredException::class,
+            'RepositoryTriggerBranchNameListRequiredException' => RepositoryTriggerBranchNameListRequiredException::class,
+            'RepositoryTriggerEventsListRequiredException' => RepositoryTriggerEventsListRequiredException::class,
+            'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
+            'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
+            'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
+            'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
+            'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+        ]]));
+
+        return new PutRepositoryTriggersOutput($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface

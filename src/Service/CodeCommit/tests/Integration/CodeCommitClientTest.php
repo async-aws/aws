@@ -6,6 +6,8 @@ use AsyncAws\CodeCommit\CodeCommitClient;
 use AsyncAws\CodeCommit\Input\GetBlobInput;
 use AsyncAws\CodeCommit\Input\GetBranchInput;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
+use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
+use AsyncAws\CodeCommit\ValueObject\RepositoryTrigger;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 
@@ -60,6 +62,27 @@ class CodeCommitClientTest extends TestCase
 
         // self::assertTODO(expected, $result->getdifferences());
         self::assertSame('changeIt', $result->getNextToken());
+    }
+
+    public function testPutRepositoryTriggers(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutRepositoryTriggersInput([
+            'repositoryName' => 'async-aws-monorepo',
+            'triggers' => [new RepositoryTrigger([
+                'name' => 'NotifyOfCodeChangesInMainBranch',
+                'destinationArn' => 'arn:aws:lambda:eu-west-1:123456789012:function:my-function',
+                'customData' => 'any additional data you want for the context',
+                'branches' => ['main'],
+                'events' => ['createReference', 'deleteReference', 'updateReference'],
+            ])],
+        ]);
+        $result = $client->putRepositoryTriggers($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getconfigurationId());
     }
 
     private function getClient(): CodeCommitClient

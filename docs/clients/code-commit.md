@@ -59,3 +59,27 @@ $blob = $codeCommit->getBlob(new GetBlobInput([
 
 echo $blob->getContent(); // Lorem ipsum dolor sit amet...
 ```
+
+
+### Update repository triggers
+
+```php
+use AsyncAws\CodeCommit\CodeCommitClient;
+use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
+
+$codeCommit = new CodeCommitClient();
+
+$result = $codeCommit->putRepositoryTriggers(new PutRepositoryTriggersInput([
+            'repositoryName' => 'async-aws-monorepo',
+            'triggers' => [new RepositoryTrigger([
+                'name' => 'NotifyOfCodeChanges',
+                # ARN of your Lambda function which is going to get executed when something happens
+                'destinationArn' => 'arn:aws:lambda:eu-west-1:123456789012:function:my-function',
+                'customData' => 'any additional data you want for the execution context - maybe an id of some sort?',
+                'branches' => ['main', 'development'], # send a blank array to be triggered on *all* branches
+                'events' => ['createReference', 'deleteReference', 'updateReference'], # 'all' is also a valid input
+            ])],
+        ]));
+
+echo $result->getConfigurationId(); // '6fa51cd8-35c1-EXAMPLE'
+```
