@@ -5,10 +5,12 @@ namespace AsyncAws\CodeCommit\Tests\Unit;
 use AsyncAws\CodeCommit\CodeCommitClient;
 use AsyncAws\CodeCommit\Input\GetBlobInput;
 use AsyncAws\CodeCommit\Input\GetBranchInput;
+use AsyncAws\CodeCommit\Input\GetCommitInput;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
 use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
 use AsyncAws\CodeCommit\Result\GetBlobOutput;
 use AsyncAws\CodeCommit\Result\GetBranchOutput;
+use AsyncAws\CodeCommit\Result\GetCommitOutput;
 use AsyncAws\CodeCommit\Result\GetDifferencesOutput;
 use AsyncAws\CodeCommit\Result\PutRepositoryTriggersOutput;
 use AsyncAws\CodeCommit\ValueObject\RepositoryTrigger;
@@ -42,6 +44,20 @@ class CodeCommitClientTest extends TestCase
         $result = $client->getBranch($input);
 
         self::assertInstanceOf(GetBranchOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetCommit(): void
+    {
+        $client = new CodeCommitClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetCommitInput([
+            'repositoryName' => 'my-super-code-repository',
+            'commitId' => 'full SHA hash of the commit',
+        ]);
+        $result = $client->getCommit($input);
+
+        self::assertInstanceOf(GetCommitOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

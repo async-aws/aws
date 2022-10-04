@@ -60,6 +60,25 @@ $blob = $codeCommit->getBlob(new GetBlobInput([
 echo $blob->getContent(); // Lorem ipsum dolor sit amet...
 ```
 
+### Get information about a commit
+
+```php
+use AsyncAws\CodeCommit\CodeCommitClient;
+use AsyncAws\CodeCommit\Input\GetCommitInput;
+
+$codeCommit = new CodeCommitClient();
+
+$commit = $codeCommit->getCommit(new GetCommitInput([
+    'repositoryName' => $repoName,
+    'commitId' => 'b58c341f3d493f7fc0b6b95a648a2e2397d0692f' # must be the full SHA hash of the commit
+]));
+
+echo $commit->getCommit()->getMessage(); // "Initial commit"
+
+// see example response at https://docs.aws.amazon.com/codecommit/latest/APIReference/API_GetCommit.html
+// for full list of information returned in $commit->getCommit()
+```
+
 
 ### Update repository triggers
 
