@@ -69,7 +69,7 @@ use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
 
 $codeCommit = new CodeCommitClient();
 
-$blob = $codeCommit->getBlob(new PutRepositoryTriggersInput([
+$result = $codeCommit->putRepositoryTriggers(new PutRepositoryTriggersInput([
             'repositoryName' => 'async-aws-monorepo',
             'triggers' => [new RepositoryTrigger([
                 'name' => 'NotifyOfCodeChanges',
@@ -81,5 +81,5 @@ $blob = $codeCommit->getBlob(new PutRepositoryTriggersInput([
             ])],
         ]));
 
-echo $blob->getContent(); // Lorem ipsum dolor sit amet...
+echo $result->getConfigurationId(); // '6fa51cd8-35c1-EXAMPLE'
 ```
