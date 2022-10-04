@@ -48,11 +48,11 @@ final class RepositoryTrigger
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'];
-        $this->destinationArn = $input['destinationArn'];
+        $this->name = $input['name'] ?? null;
+        $this->destinationArn = $input['destinationArn'] ?? null;
         $this->customData = $input['customData'] ?? null;
         $this->branches = $input['branches'] ?? null;
-        $this->events = $input['events'];
+        $this->events = $input['events'] ?? null;
     }
 
     public static function create($input): self
