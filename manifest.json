@@ -94,7 +94,8 @@
             "methods": [
                 "GetBlob",
                 "GetBranch",
-                "GetDifferences"
+                "GetDifferences",
+                "PutRepositoryTriggers"
             ]
         },
         "CodeDeploy": {
