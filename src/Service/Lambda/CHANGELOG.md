@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.0
+
 ### Added
 
 - AWS api-change: Adds support for increased ephemeral storage (/tmp) up to 10GB for Lambda functions. Customers can now provision up to 10 GB of ephemeral storage per function instance, a 20x increase over the previous limit of 512 MB.
