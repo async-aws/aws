@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.4.0
+
 ### Added
 
 - AWS api-change: This release allows you to override the alarm configurations when creating a deployment.
