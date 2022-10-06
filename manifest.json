@@ -94,6 +94,7 @@
             "methods": [
                 "GetBlob",
                 "GetBranch",
+                "GetCommit",
                 "GetDifferences",
                 "PutRepositoryTriggers"
             ]

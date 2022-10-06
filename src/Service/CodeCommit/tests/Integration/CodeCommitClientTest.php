@@ -5,6 +5,7 @@ namespace AsyncAws\CodeCommit\Tests\Integration;
 use AsyncAws\CodeCommit\CodeCommitClient;
 use AsyncAws\CodeCommit\Input\GetBlobInput;
 use AsyncAws\CodeCommit\Input\GetBranchInput;
+use AsyncAws\CodeCommit\Input\GetCommitInput;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
 use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
 use AsyncAws\CodeCommit\ValueObject\RepositoryTrigger;
@@ -41,6 +42,21 @@ class CodeCommitClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getbranch());
+    }
+
+    public function testGetCommit(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetCommitInput([
+            'repositoryName' => 'change me',
+            'commitId' => 'change me',
+        ]);
+        $result = $client->getCommit($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getcommit());
     }
 
     public function testGetDifferences(): void

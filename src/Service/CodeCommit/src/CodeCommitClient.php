@@ -7,6 +7,8 @@ use AsyncAws\CodeCommit\Exception\BlobIdRequiredException;
 use AsyncAws\CodeCommit\Exception\BranchDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\BranchNameRequiredException;
 use AsyncAws\CodeCommit\Exception\CommitDoesNotExistException;
+use AsyncAws\CodeCommit\Exception\CommitIdDoesNotExistException;
+use AsyncAws\CodeCommit\Exception\CommitIdRequiredException;
 use AsyncAws\CodeCommit\Exception\CommitRequiredException;
 use AsyncAws\CodeCommit\Exception\EncryptionIntegrityChecksFailedException;
 use AsyncAws\CodeCommit\Exception\EncryptionKeyAccessDeniedException;
@@ -40,10 +42,12 @@ use AsyncAws\CodeCommit\Exception\RepositoryTriggerNameRequiredException;
 use AsyncAws\CodeCommit\Exception\RepositoryTriggersListRequiredException;
 use AsyncAws\CodeCommit\Input\GetBlobInput;
 use AsyncAws\CodeCommit\Input\GetBranchInput;
+use AsyncAws\CodeCommit\Input\GetCommitInput;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
 use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
 use AsyncAws\CodeCommit\Result\GetBlobOutput;
 use AsyncAws\CodeCommit\Result\GetBranchOutput;
+use AsyncAws\CodeCommit\Result\GetCommitOutput;
 use AsyncAws\CodeCommit\Result\GetDifferencesOutput;
 use AsyncAws\CodeCommit\Result\PutRepositoryTriggersOutput;
 use AsyncAws\CodeCommit\ValueObject\RepositoryTrigger;
@@ -143,6 +147,50 @@ class CodeCommitClient extends AbstractApi
         ]]));
 
         return new GetBranchOutput($response);
+    }
+
+    /**
+     * Returns information about a commit, including commit message and committer information.
+     *
+     * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_GetCommit.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#getcommit
+     *
+     * @param array{
+     *   repositoryName: string,
+     *   commitId: string,
+     *   @region?: string,
+     * }|GetCommitInput $input
+     *
+     * @throws RepositoryNameRequiredException
+     * @throws InvalidRepositoryNameException
+     * @throws RepositoryDoesNotExistException
+     * @throws CommitIdRequiredException
+     * @throws InvalidCommitIdException
+     * @throws CommitIdDoesNotExistException
+     * @throws EncryptionIntegrityChecksFailedException
+     * @throws EncryptionKeyAccessDeniedException
+     * @throws EncryptionKeyDisabledException
+     * @throws EncryptionKeyNotFoundException
+     * @throws EncryptionKeyUnavailableException
+     */
+    public function getCommit($input): GetCommitOutput
+    {
+        $input = GetCommitInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCommit', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'CommitIdRequiredException' => CommitIdRequiredException::class,
+            'InvalidCommitIdException' => InvalidCommitIdException::class,
+            'CommitIdDoesNotExistException' => CommitIdDoesNotExistException::class,
+            'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
+            'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
+            'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
+            'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
+            'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+        ]]));
+
+        return new GetCommitOutput($response);
     }
 
     /**
