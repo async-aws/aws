@@ -111,6 +111,30 @@ class TimestreamWriteClient extends AbstractApi
             $region = Configuration::DEFAULT_REGION;
         }
 
+        switch ($region) {
+            case 'ingest-fips-us-east-1':
+                return [
+                    'endpoint' => 'https://ingest.timestream-fips.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'timestream',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ingest-fips-us-east-2':
+                return [
+                    'endpoint' => 'https://ingest.timestream-fips.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'timestream',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ingest-fips-us-west-2':
+                return [
+                    'endpoint' => 'https://ingest.timestream-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'timestream',
+                    'signVersions' => ['v4'],
+                ];
+        }
+
         return [
             'endpoint' => "https://ingest.timestream.$region.amazonaws.com",
             'signRegion' => $region,
