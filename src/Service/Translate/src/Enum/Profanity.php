@@ -8,9 +8,12 @@ namespace AsyncAws\Translate\Enum;
  * To mask profane words and phrases, Amazon Translate replaces them with the grawlix string “?$#@$“. This
  * 5-character sequence is used for each profane word or phrase, regardless of the length or number of words.
  * Amazon Translate doesn't detect profanity in all of its supported languages. For languages that support profanity
- * detection, see Supported Languages and Language Codes in the Amazon Translate Developer Guide.
+ * detection, see Masking profanity in the Amazon Translate Developer Guide.
+ * If you specify multiple target languages for the job, all the target languages must support profanity masking. If any
+ * of the target languages don't support profanity masking, the translation job won't mask profanity for any target
+ * language.
  *
- * @see https://docs.aws.amazon.com/translate/latest/dg/what-is.html
+ * @see https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-profanity.html
  */
 final class Profanity
 {

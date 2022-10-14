@@ -23,8 +23,9 @@ class TranslateClient extends AbstractApi
 {
     /**
      * Translates input text from the source language to the target language. For a list of available languages and language
-     * codes, see what-is-languages.
+     * codes, see Supported languages.
      *
+     * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
      * @see https://docs.aws.amazon.com/translate/latest/dg/API_TranslateText.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-translate-2017-07-01.html#translatetext
      *

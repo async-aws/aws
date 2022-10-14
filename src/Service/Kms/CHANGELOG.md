@@ -6,6 +6,7 @@
 
 - Added region `me-central-1-fips`
 - Added `me-central-1` region
+- Added `eu-south-2-fips` region
 
 ## 0.1.1
 

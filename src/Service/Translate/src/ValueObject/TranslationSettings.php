@@ -13,9 +13,9 @@ use AsyncAws\Translate\Enum\Profanity;
 final class TranslationSettings
 {
     /**
-     * You can optionally specify the desired level of formality for real-time translations to supported target languages.
-     * The formality setting controls the level of formal language usage (also known as register) in the translation output.
-     * You can set the value to informal or formal. If you don't specify a value for formality, or if the target language
+     * You can optionally specify the desired level of formality for translations to supported target languages. The
+     * formality setting controls the level of formal language usage (also known as register) in the translation output. You
+     * can set the value to informal or formal. If you don't specify a value for formality, or if the target language
      * doesn't support formality, the translation will ignore the formality setting.
      *
      * @see https://en.wikipedia.org/wiki/Register_(sociolinguistics)
