@@ -31,8 +31,9 @@ final class TranslateTextRequest extends Input
 
     /**
      * The language code for the language of the source text. The language must be a language supported by Amazon Translate.
-     * For a list of language codes, see what-is-languages.
+     * For a list of language codes, see Supported languages.
      *
+     * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
      * @required
      *
      * @var string|null
