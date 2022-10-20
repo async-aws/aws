@@ -5,6 +5,7 @@
 ### Added
 
 - Added `me-central-1` region
+- Added `ap-southeast-3` region
 
 ## 1.12.0
 
