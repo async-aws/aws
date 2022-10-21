@@ -4,21 +4,7 @@
 
 ### Added
 
-- AWS api-change: Support of AmazonLinux2022 by Patch Manager
-- AWS api-change: This release includes support for applying a CloudWatch alarm to Systems Manager capabilities like Automation, Run Command, State Manager, and Maintenance Windows.
-- AWS api-change: This release adds new SSM document types ConformancePackTemplate and CloudFormation
-- AWS api-change: This release adds support for Systems Manager State Manager Association tagging.
-- AWS enhancement: Adding doc updates for OpsCenter support in Service Setting actions.
-- AWS api-change: This release adds the TargetMaps parameter in SSM State Manager API.
-- AWS api-change: Update the StartChangeRequestExecution, adding TargetMaps to the Runbook parameter
-- AWS api-change: Added offset support for specifying the number of days to wait after the date and time specified by a CRON expression when creating SSM association.
-- AWS api-change: This Patch Manager release supports creating, updating, and deleting Patch Baselines for Rocky Linux OS.
-- AWS api-change: Update AddTagsToResource, ListTagsForResource, and RemoveTagsFromResource APIs to reflect the support for tagging Automation resources. Includes other minor documentation updates.
-- AWS enhancement: Assorted ticket fixes and updates for AWS Systems Manager.
-- AWS enhancement: Documentation updates for AWS Systems Manager.
-- AWS api-change: AWS Systems Manager adds category support for DescribeDocument API
-- AWS api-change: Added two new attributes to DescribeInstanceInformation called SourceId and SourceType along with new string filters SourceIds and SourceTypes to filter instance records.
-- AWS api-change: Adds new parameter to CreateActivation API . This parameter is for "internal use only".
+- Added `us-iso-west-1` region
 
 ## 1.3.0
 
