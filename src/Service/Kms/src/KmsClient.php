@@ -439,6 +439,13 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-central-2-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.eu-central-2.amazonaws.com',
+                    'signRegion' => 'eu-central-2',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
             case 'eu-north-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.eu-north-1.amazonaws.com',

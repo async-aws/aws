@@ -323,9 +323,10 @@ class SsmClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://ssm.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
+                    'endpoint' => "https://ssm.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];
