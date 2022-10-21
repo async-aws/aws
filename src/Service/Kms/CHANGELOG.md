@@ -4,9 +4,7 @@
 
 ### Added
 
-- Added region `me-central-1-fips`
-- Added `me-central-1` region
-- Added `eu-south-2-fips` region
+- Added `me-central-1`, `eu-south-2-fips`, `me-central-1-fips, `eu-central-2-fips` regions
 
 ## 0.1.1
 

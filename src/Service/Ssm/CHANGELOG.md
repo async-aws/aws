@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added `us-iso-west-1` region
+
 ## 1.3.0
 
 ### Added
