@@ -404,6 +404,13 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
+            case 'ap-south-2-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.ap-south-2.amazonaws.com',
+                    'signRegion' => 'ap-south-2',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
             case 'ap-southeast-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.ap-southeast-1.amazonaws.com',
