@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Restrict the list of available regions.
+
 ## 1.7.0
 
 ### Added
