@@ -163,6 +163,8 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
                 'ARN' => ($v = $item->ARN) ? (string) $v : null,
                 'ReplicationGroupLogDeliveryEnabled' => ($v = $item->ReplicationGroupLogDeliveryEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                 'LogDeliveryConfigurations' => !$item->LogDeliveryConfigurations ? null : $this->populateResultLogDeliveryConfigurationList($item->LogDeliveryConfigurations),
+                'NetworkType' => ($v = $item->NetworkType) ? (string) $v : null,
+                'IpDiscovery' => ($v = $item->IpDiscovery) ? (string) $v : null,
             ]);
         }
 

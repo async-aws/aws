@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Added support for IPv6 and dual stack for Memcached and Redis clusters. Customers can now launch new Redis and Memcached clusters with IPv6 and dual stack networking support.
 
 ## 0.1.1
 
