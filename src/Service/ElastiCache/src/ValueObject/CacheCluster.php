@@ -2,6 +2,9 @@
 
 namespace AsyncAws\ElastiCache\ValueObject;
 
+use AsyncAws\ElastiCache\Enum\IpDiscovery;
+use AsyncAws\ElastiCache\Enum\NetworkType;
+
 /**
  * Contains all of the attributes of a specific cluster.
  */
@@ -163,6 +166,22 @@ final class CacheCluster
     private $logDeliveryConfigurations;
 
     /**
+     * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Redis engine version 6.2 onward
+     * or Memcached engine version 1.6.6 on all instances built on the Nitro system.
+     *
+     * @see https://aws.amazon.com/ec2/nitro/
+     */
+    private $networkType;
+
+    /**
+     * The network type associated with the cluster, either `ipv4` | `ipv6`. IPv6 is supported for workloads using Redis
+     * engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the Nitro system.
+     *
+     * @see https://aws.amazon.com/ec2/nitro/
+     */
+    private $ipDiscovery;
+
+    /**
      * @param array{
      *   CacheClusterId?: null|string,
      *   ConfigurationEndpoint?: null|Endpoint|array,
@@ -194,6 +213,8 @@ final class CacheCluster
      *   ARN?: null|string,
      *   ReplicationGroupLogDeliveryEnabled?: null|bool,
      *   LogDeliveryConfigurations?: null|LogDeliveryConfiguration[],
+     *   NetworkType?: null|NetworkType::*,
+     *   IpDiscovery?: null|IpDiscovery::*,
      * } $input
      */
     public function __construct(array $input)
@@ -228,6 +249,8 @@ final class CacheCluster
         $this->arn = $input['ARN'] ?? null;
         $this->replicationGroupLogDeliveryEnabled = $input['ReplicationGroupLogDeliveryEnabled'] ?? null;
         $this->logDeliveryConfigurations = isset($input['LogDeliveryConfigurations']) ? array_map([LogDeliveryConfiguration::class, 'create'], $input['LogDeliveryConfigurations']) : null;
+        $this->networkType = $input['NetworkType'] ?? null;
+        $this->ipDiscovery = $input['IpDiscovery'] ?? null;
     }
 
     public static function create($input): self
@@ -327,11 +350,27 @@ final class CacheCluster
     }
 
     /**
+     * @return IpDiscovery::*|null
+     */
+    public function getIpDiscovery(): ?string
+    {
+        return $this->ipDiscovery;
+    }
+
+    /**
      * @return LogDeliveryConfiguration[]
      */
     public function getLogDeliveryConfigurations(): array
     {
         return $this->logDeliveryConfigurations ?? [];
+    }
+
+    /**
+     * @return NetworkType::*|null
+     */
+    public function getNetworkType(): ?string
+    {
+        return $this->networkType;
     }
 
     public function getNotificationConfiguration(): ?NotificationConfiguration

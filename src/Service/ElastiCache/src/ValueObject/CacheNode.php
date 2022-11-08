@@ -11,7 +11,7 @@ namespace AsyncAws\ElastiCache\ValueObject;
  * - General purpose:
  *
  *   - Current generation:
- *     **M6g node types:** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
+ *     **M6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
  *     onward): `cache.m6g.large`, `cache.m6g.xlarge`, `cache.m6g.2xlarge`, `cache.m6g.4xlarge`, `cache.m6g.8xlarge`,
  *     `cache.m6g.12xlarge`, `cache.m6g.16xlarge`
  *
@@ -21,7 +21,7 @@ namespace AsyncAws\ElastiCache\ValueObject;
  *     `cache.m5.12xlarge`, `cache.m5.24xlarge`
  *     **M4 node types:**`cache.m4.large`, `cache.m4.xlarge`, `cache.m4.2xlarge`, `cache.m4.4xlarge`,
  *     `cache.m4.10xlarge`
- *     **T4g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
+ *     **T4g node types** (available only for Redis engine version 5.0.6 onward and Memcached engine version 1.5.16
  *     onward): `cache.t4g.micro`, `cache.t4g.small`, `cache.t4g.medium`
  *     **T3 node types:**`cache.t3.micro`, `cache.t3.small`, `cache.t3.medium`
  *     **T2 node types:**`cache.t2.micro`, `cache.t2.small`, `cache.t2.medium`
@@ -36,13 +36,6 @@ namespace AsyncAws\ElastiCache\ValueObject;
  *   - Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
  *     supported for these types.)
  *     **C1 node types:**`cache.c1.xlarge`
- *
- * - Memory optimized with data tiering:
- *
- *   - Current generation:
- *     **R6gd node types** (available only for Redis engine version 6.2 onward).
- *     `cache.r6gd.xlarge`, `cache.r6gd.2xlarge`, `cache.r6gd.4xlarge`, `cache.r6gd.8xlarge`, `cache.r6gd.12xlarge`,
- *     `cache.r6gd.16xlarge`
  *
  * - Memory optimized:
  *
