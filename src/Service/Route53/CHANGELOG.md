@@ -13,6 +13,9 @@
 - AWS enhancement: SDK doc update for Route 53 to update some parameters with new information.
 - AWS enhancement: Documentation updates.
 - AWS api-change: Amazon Route 53 now supports the Middle East (UAE) Region (me-central-1) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+- AWS api-change: Amazon Route 53 now supports the Europe (Zurich) Region (eu-central-2) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+- AWS enhancement: Documentation updates for Amazon Route 53.
+- AWS api-change: Add PriorRequestNotComplete exception to UpdateHostedZoneComment API
 
 ## 0.1.1
 

@@ -19,6 +19,7 @@ final class VPCRegion
     public const CA_CENTRAL_1 = 'ca-central-1';
     public const CN_NORTH_1 = 'cn-north-1';
     public const EU_CENTRAL_1 = 'eu-central-1';
+    public const EU_CENTRAL_2 = 'eu-central-2';
     public const EU_NORTH_1 = 'eu-north-1';
     public const EU_SOUTH_1 = 'eu-south-1';
     public const EU_WEST_1 = 'eu-west-1';
@@ -52,6 +53,7 @@ final class VPCRegion
             self::CA_CENTRAL_1 => true,
             self::CN_NORTH_1 => true,
             self::EU_CENTRAL_1 => true,
+            self::EU_CENTRAL_2 => true,
             self::EU_NORTH_1 => true,
             self::EU_SOUTH_1 => true,
             self::EU_WEST_1 => true,
