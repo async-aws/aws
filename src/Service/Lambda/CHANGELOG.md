@@ -5,6 +5,16 @@
 ### Added
 
 - AWS api-change: Restrict the list of available regions.
+- AWS api-change: Added support for customization of Consumer Group ID for MSK and Kafka Event Source Mappings.
+- AWS api-change: Lambda releases NodeJs 16 managed runtime to be available in all commercial regions.
+- AWS api-change: This release adds new APIs for creating and managing Lambda Function URLs and adds a new FunctionUrlAuthType parameter to the AddPermission API. Customers can use Function URLs to create built-in HTTPS endpoints on their functions.
+- AWS api-change: Adds support for increased ephemeral storage (/tmp) up to 10GB for Lambda functions. Customers can now provision up to 10 GB of ephemeral storage per function instance, a 20x increase over the previous limit of 512 MB.
+- AWS api-change: Adds PrincipalOrgID support to AddPermission API. Customers can use it to manage permissions to lambda functions at AWS Organizations level.
+- AWS api-change: Lambda releases .NET 6 managed runtime to be available in all commercial regions.
+- AWS api-change: Remove Lambda function url apis
+- AWS api-change: Release Lambda event source filtering for SQS, Kinesis Streams, and DynamoDB Streams.
+- AWS api-change: Add support for Lambda Function URLs. Customers can use Function URLs to create built-in HTTPS endpoints on their functions.
+- AWS api-change: Added support for CLIENT_CERTIFICATE_TLS_AUTH and SERVER_ROOT_CA_CERTIFICATE as SourceAccessType for MSK and Kafka event source mappings.
 
 ## 1.7.0
 

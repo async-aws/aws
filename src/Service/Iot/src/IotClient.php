@@ -389,8 +389,10 @@ class IotClient extends AbstractApi
     /**
      * Lists your things. Use the **attributeName** and **attributeValue** parameters to filter your things. For example,
      * calling `ListThings` with attributeName=Color and attributeValue=Red retrieves all things in the registry that
-     * contain an attribute **Color** with the value **Red**.
+     * contain an attribute **Color** with the value **Red**. For more information, see List Things from the *Amazon Web
+     * Services IoT Core Developer Guide*.
      *
+     * @see https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html#list-things
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThings.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthings
      *
