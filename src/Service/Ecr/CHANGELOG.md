@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `eu-central-2` region
+
 ## 1.2.0
 
 ### Added

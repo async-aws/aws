@@ -6,6 +6,7 @@
 
 - Added `me-central-1` region
 - Added `ap-southeast-3` region
+- AWS api-change: Added `eu-central-2` region
 
 ## 1.12.0
 

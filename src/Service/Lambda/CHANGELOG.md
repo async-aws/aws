@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Restrict the list of available regions.
+- AWS api-change: Added `eu-central-2` region
 
 ## 1.7.0
 

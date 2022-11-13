@@ -378,6 +378,7 @@ class LambdaClient extends AbstractApi
             case 'ap-southeast-3':
             case 'ca-central-1':
             case 'eu-central-1':
+            case 'eu-central-2':
             case 'eu-north-1':
             case 'eu-south-1':
             case 'eu-west-1':
