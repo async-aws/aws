@@ -16,6 +16,8 @@ final class ValidationException extends ClientException
         if (0 < $data->Error->count()) {
             $data = $data->Error;
         }
-        $this->message = (string) $data->message;
+        if (null !== $v = (($v = $data->message) ? (string) $v : null)) {
+            $this->message = $v;
+        }
     }
 }
