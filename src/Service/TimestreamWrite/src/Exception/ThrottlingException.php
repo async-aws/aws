@@ -14,6 +14,8 @@ final class ThrottlingException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->message = (string) $data['message'];
+        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
+            $this->message = $v;
+        }
     }
 }

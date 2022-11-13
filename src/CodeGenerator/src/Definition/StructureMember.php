@@ -22,6 +22,10 @@ class StructureMember extends Member
 
     public function isRequired(): bool
     {
+        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(strtolower($this->data['_name']), ['code', 'message'], true)) {
+            return false;
+        }
+
         return $this->data['_required'];
     }
 
