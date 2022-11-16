@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fixed crashes when details in error responses are missing.
+
 ## 1.4.0
 
 ### Added
