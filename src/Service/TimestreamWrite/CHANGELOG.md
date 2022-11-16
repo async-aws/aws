@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `ingest-fips-us-` and `ingest-us-` regions.
 
+### Fixed
+
+- Fixed crashes when details in error responses are missing.
+
 ## 0.1.1
 
 ### Added
