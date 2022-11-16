@@ -1,0 +1,35 @@
+{
+    "name": "async-aws/scheduler",
+    "description": "Scheduler client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "scheduler"
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-filter": "*",
+        "ext-json": "*",
+        "async-aws/core": "^1.9",
+        "symfony/polyfill-uuid": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Scheduler\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Scheduler\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}

@@ -35,6 +35,7 @@ use AsyncAws\RdsDataService\RdsDataServiceClient;
 use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Route53\Route53Client;
 use AsyncAws\S3\S3Client;
+use AsyncAws\Scheduler\SchedulerClient;
 use AsyncAws\SecretsManager\SecretsManagerClient;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
@@ -406,6 +407,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new S3Client($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function scheduler(): SchedulerClient
+    {
+        if (!class_exists(SchedulerClient::class)) {
+            throw MissingDependency::create('async-aws/scheduler', 'Scheduler');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new SchedulerClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

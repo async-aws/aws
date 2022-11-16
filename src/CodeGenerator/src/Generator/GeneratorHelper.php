@@ -27,6 +27,7 @@ class GeneratorHelper
             'CRC32' => 'Crc32',
             'BOOL' => 'Bool',
             'CORS' => 'Cors',
+            'ECS' => 'Ecs',
             'ETag' => 'Etag',
             'NULL' => 'Null',
             'SHA1' => 'Sha1',

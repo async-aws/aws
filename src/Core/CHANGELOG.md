@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for Scheduler
+
 ## 1.17.0
 
 ### Added

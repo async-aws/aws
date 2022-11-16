@@ -1,0 +1,111 @@
+<?php
+
+namespace AsyncAws\Scheduler\ValueObject;
+
+use AsyncAws\Scheduler\Enum\ScheduleState;
+
+/**
+ * The details of a schedule.
+ */
+final class ScheduleSummary
+{
+    /**
+     * The Amazon Resource Name (ARN) of the schedule.
+     */
+    private $arn;
+
+    /**
+     * The time at which the schedule was created.
+     */
+    private $creationDate;
+
+    /**
+     * The name of the schedule group associated with this schedule.
+     */
+    private $groupName;
+
+    /**
+     * The time at which the schedule was last modified.
+     */
+    private $lastModificationDate;
+
+    /**
+     * The name of the schedule.
+     */
+    private $name;
+
+    /**
+     * Specifies whether the schedule is enabled or disabled.
+     */
+    private $state;
+
+    /**
+     * The schedule's target details.
+     */
+    private $target;
+
+    /**
+     * @param array{
+     *   Arn?: null|string,
+     *   CreationDate?: null|\DateTimeImmutable,
+     *   GroupName?: null|string,
+     *   LastModificationDate?: null|\DateTimeImmutable,
+     *   Name?: null|string,
+     *   State?: null|ScheduleState::*,
+     *   Target?: null|TargetSummary|array,
+     * } $input
+     */
+    public function __construct(array $input)
+    {
+        $this->arn = $input['Arn'] ?? null;
+        $this->creationDate = $input['CreationDate'] ?? null;
+        $this->groupName = $input['GroupName'] ?? null;
+        $this->lastModificationDate = $input['LastModificationDate'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->state = $input['State'] ?? null;
+        $this->target = isset($input['Target']) ? TargetSummary::create($input['Target']) : null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getArn(): ?string
+    {
+        return $this->arn;
+    }
+
+    public function getCreationDate(): ?\DateTimeImmutable
+    {
+        return $this->creationDate;
+    }
+
+    public function getGroupName(): ?string
+    {
+        return $this->groupName;
+    }
+
+    public function getLastModificationDate(): ?\DateTimeImmutable
+    {
+        return $this->lastModificationDate;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return ScheduleState::*|null
+     */
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function getTarget(): ?TargetSummary
+    {
+        return $this->target;
+    }
+}
