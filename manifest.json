@@ -461,6 +461,24 @@
                 "UploadPart"
             ]
         },
+        "Scheduler": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/scheduler/2021-06-30/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/scheduler/2021-06-30/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/scheduler/2021-06-30/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/scheduler/2021-06-30/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/scheduler/latest/APIReference",
+            "methods": [
+                "CreateSchedule",
+                "CreateScheduleGroup",
+                "DeleteSchedule",
+                "DeleteScheduleGroup",
+                "GetSchedule",
+                "GetScheduleGroup",
+                "ListScheduleGroups",
+                "ListSchedules",
+                "UpdateSchedule"
+            ]
+        },
         "SecretsManager": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/secretsmanager/2017-10-17/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/secretsmanager/2017-10-17/docs-2.json",

@@ -113,6 +113,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\SimpleS3\SimpleS3Client::class,
                 'package' => 'async-aws/simple-s3',
             ],
+            'scheduler' => [
+                'class' => \AsyncAws\Scheduler\SchedulerClient::class,
+                'package' => 'async-aws/scheduler',
+            ],
             'secrets_manager' => [
                 'class' => \AsyncAws\SecretsManager\SecretsManagerClient::class,
                 'package' => 'async-aws/secrets-manager',

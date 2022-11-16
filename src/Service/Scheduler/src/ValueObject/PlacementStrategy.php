@@ -1,0 +1,78 @@
+<?php
+
+namespace AsyncAws\Scheduler\ValueObject;
+
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Scheduler\Enum\PlacementStrategyType;
+
+/**
+ * The task placement strategy for a task or service.
+ */
+final class PlacementStrategy
+{
+    /**
+     * The field to apply the placement strategy against. For the spread placement strategy, valid values are `instanceId`
+     * (or `instanceId`, which has the same effect), or any platform or custom attribute that is applied to a container
+     * instance, such as `attribute:ecs.availability-zone`. For the binpack placement strategy, valid values are `cpu` and
+     * `memory`. For the random placement strategy, this field is not used.
+     */
+    private $field;
+
+    /**
+     * The type of placement strategy. The random placement strategy randomly places tasks on available candidates. The
+     * spread placement strategy spreads placement across available candidates evenly based on the field parameter. The
+     * binpack strategy places tasks on available candidates that have the least available amount of the resource that is
+     * specified with the field parameter. For example, if you binpack on memory, a task is placed on the instance with the
+     * least amount of remaining memory (but still enough to run the task).
+     */
+    private $type;
+
+    /**
+     * @param array{
+     *   field?: null|string,
+     *   type?: null|PlacementStrategyType::*,
+     * } $input
+     */
+    public function __construct(array $input)
+    {
+        $this->field = $input['field'] ?? null;
+        $this->type = $input['type'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getField(): ?string
+    {
+        return $this->field;
+    }
+
+    /**
+     * @return PlacementStrategyType::*|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->field) {
+            $payload['field'] = $v;
+        }
+        if (null !== $v = $this->type) {
+            if (!PlacementStrategyType::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "PlacementStrategyType".', __CLASS__, $v));
+            }
+            $payload['type'] = $v;
+        }
+
+        return $payload;
+    }
+}
