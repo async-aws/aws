@@ -37,6 +37,7 @@ final class ResourceRecordSetRegion
     public const EU_CENTRAL_2 = 'eu-central-2';
     public const EU_NORTH_1 = 'eu-north-1';
     public const EU_SOUTH_1 = 'eu-south-1';
+    public const EU_SOUTH_2 = 'eu-south-2';
     public const EU_WEST_1 = 'eu-west-1';
     public const EU_WEST_2 = 'eu-west-2';
     public const EU_WEST_3 = 'eu-west-3';
@@ -67,6 +68,7 @@ final class ResourceRecordSetRegion
             self::EU_CENTRAL_2 => true,
             self::EU_NORTH_1 => true,
             self::EU_SOUTH_1 => true,
+            self::EU_SOUTH_2 => true,
             self::EU_WEST_1 => true,
             self::EU_WEST_2 => true,
             self::EU_WEST_3 => true,
