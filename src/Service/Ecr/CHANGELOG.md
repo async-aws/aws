@@ -4,10 +4,7 @@
 
 ### Added
 
-- AWS api-change: Added `eu-central-2` region
-- AWS api-change: This release includes a fix in the DescribeImageScanFindings paginated output.
-- AWS api-change: This release adds support for tracking images lastRecordedPullTime.
-- AWS api-change: This release adds supports for pull through cache rules and enhanced scanning.
+- AWS api-change: Added `eu-central-2` and `eu-south-2` regions
 
 ## 1.2.0
 
