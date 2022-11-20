@@ -2,6 +2,14 @@
 
 ## NOT RELEASED
 
+## 0.2.0
+
+### Added
+
+- Added operation `ListRepositories`
+- Added operation `CreateRepository`
+- Added operation `DeleteRepository`
+
 ## 0.1.1
 
 ### Added
