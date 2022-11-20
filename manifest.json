@@ -92,10 +92,13 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codecommit/2015-04-13/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/codecommit/latest/APIReference",
             "methods": [
+                "CreateRepository",
+                "DeleteRepository",
                 "GetBlob",
                 "GetBranch",
                 "GetCommit",
                 "GetDifferences",
+                "ListRepositories",
                 "PutRepositoryTriggers"
             ]
         },

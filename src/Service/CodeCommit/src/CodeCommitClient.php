@@ -2,6 +2,8 @@
 
 namespace AsyncAws\CodeCommit;
 
+use AsyncAws\CodeCommit\Enum\OrderEnum;
+use AsyncAws\CodeCommit\Enum\SortByEnum;
 use AsyncAws\CodeCommit\Exception\BlobIdDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\BlobIdRequiredException;
 use AsyncAws\CodeCommit\Exception\BranchDoesNotExistException;
@@ -22,7 +24,9 @@ use AsyncAws\CodeCommit\Exception\InvalidCommitException;
 use AsyncAws\CodeCommit\Exception\InvalidCommitIdException;
 use AsyncAws\CodeCommit\Exception\InvalidContinuationTokenException;
 use AsyncAws\CodeCommit\Exception\InvalidMaxResultsException;
+use AsyncAws\CodeCommit\Exception\InvalidOrderException;
 use AsyncAws\CodeCommit\Exception\InvalidPathException;
+use AsyncAws\CodeCommit\Exception\InvalidRepositoryDescriptionException;
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryNameException;
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerBranchNameException;
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerCustomDataException;
@@ -30,25 +34,38 @@ use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerDestinationArnExceptio
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerEventsException;
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerNameException;
 use AsyncAws\CodeCommit\Exception\InvalidRepositoryTriggerRegionException;
+use AsyncAws\CodeCommit\Exception\InvalidSortByException;
+use AsyncAws\CodeCommit\Exception\InvalidSystemTagUsageException;
+use AsyncAws\CodeCommit\Exception\InvalidTagsMapException;
 use AsyncAws\CodeCommit\Exception\MaximumBranchesExceededException;
 use AsyncAws\CodeCommit\Exception\MaximumRepositoryTriggersExceededException;
 use AsyncAws\CodeCommit\Exception\PathDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\RepositoryDoesNotExistException;
+use AsyncAws\CodeCommit\Exception\RepositoryLimitExceededException;
+use AsyncAws\CodeCommit\Exception\RepositoryNameExistsException;
 use AsyncAws\CodeCommit\Exception\RepositoryNameRequiredException;
 use AsyncAws\CodeCommit\Exception\RepositoryTriggerBranchNameListRequiredException;
 use AsyncAws\CodeCommit\Exception\RepositoryTriggerDestinationArnRequiredException;
 use AsyncAws\CodeCommit\Exception\RepositoryTriggerEventsListRequiredException;
 use AsyncAws\CodeCommit\Exception\RepositoryTriggerNameRequiredException;
 use AsyncAws\CodeCommit\Exception\RepositoryTriggersListRequiredException;
+use AsyncAws\CodeCommit\Exception\TagPolicyException;
+use AsyncAws\CodeCommit\Exception\TooManyTagsException;
+use AsyncAws\CodeCommit\Input\CreateRepositoryInput;
+use AsyncAws\CodeCommit\Input\DeleteRepositoryInput;
 use AsyncAws\CodeCommit\Input\GetBlobInput;
 use AsyncAws\CodeCommit\Input\GetBranchInput;
 use AsyncAws\CodeCommit\Input\GetCommitInput;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
+use AsyncAws\CodeCommit\Input\ListRepositoriesInput;
 use AsyncAws\CodeCommit\Input\PutRepositoryTriggersInput;
+use AsyncAws\CodeCommit\Result\CreateRepositoryOutput;
+use AsyncAws\CodeCommit\Result\DeleteRepositoryOutput;
 use AsyncAws\CodeCommit\Result\GetBlobOutput;
 use AsyncAws\CodeCommit\Result\GetBranchOutput;
 use AsyncAws\CodeCommit\Result\GetCommitOutput;
 use AsyncAws\CodeCommit\Result\GetDifferencesOutput;
+use AsyncAws\CodeCommit\Result\ListRepositoriesOutput;
 use AsyncAws\CodeCommit\Result\PutRepositoryTriggersOutput;
 use AsyncAws\CodeCommit\ValueObject\RepositoryTrigger;
 use AsyncAws\Core\AbstractApi;
@@ -59,6 +76,92 @@ use AsyncAws\Core\RequestContext;
 
 class CodeCommitClient extends AbstractApi
 {
+    /**
+     * Creates a new, empty repository.
+     *
+     * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_CreateRepository.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#createrepository
+     *
+     * @param array{
+     *   repositoryName: string,
+     *   repositoryDescription?: string,
+     *   tags?: array<string, string>,
+     *   @region?: string,
+     * }|CreateRepositoryInput $input
+     *
+     * @throws RepositoryNameExistsException
+     * @throws RepositoryNameRequiredException
+     * @throws InvalidRepositoryNameException
+     * @throws InvalidRepositoryDescriptionException
+     * @throws RepositoryLimitExceededException
+     * @throws EncryptionIntegrityChecksFailedException
+     * @throws EncryptionKeyAccessDeniedException
+     * @throws EncryptionKeyDisabledException
+     * @throws EncryptionKeyNotFoundException
+     * @throws EncryptionKeyUnavailableException
+     * @throws InvalidTagsMapException
+     * @throws TooManyTagsException
+     * @throws InvalidSystemTagUsageException
+     * @throws TagPolicyException
+     */
+    public function createRepository($input): CreateRepositoryOutput
+    {
+        $input = CreateRepositoryInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateRepository', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'RepositoryNameExistsException' => RepositoryNameExistsException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'InvalidRepositoryDescriptionException' => InvalidRepositoryDescriptionException::class,
+            'RepositoryLimitExceededException' => RepositoryLimitExceededException::class,
+            'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
+            'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
+            'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
+            'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
+            'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidTagsMapException' => InvalidTagsMapException::class,
+            'TooManyTagsException' => TooManyTagsException::class,
+            'InvalidSystemTagUsageException' => InvalidSystemTagUsageException::class,
+            'TagPolicyException' => TagPolicyException::class,
+        ]]));
+
+        return new CreateRepositoryOutput($response);
+    }
+
+    /**
+     * Deletes a repository. If a specified repository was already deleted, a null repository ID is returned.
+     *
+     * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_DeleteRepository.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#deleterepository
+     *
+     * @param array{
+     *   repositoryName: string,
+     *   @region?: string,
+     * }|DeleteRepositoryInput $input
+     *
+     * @throws RepositoryNameRequiredException
+     * @throws InvalidRepositoryNameException
+     * @throws EncryptionIntegrityChecksFailedException
+     * @throws EncryptionKeyAccessDeniedException
+     * @throws EncryptionKeyDisabledException
+     * @throws EncryptionKeyNotFoundException
+     * @throws EncryptionKeyUnavailableException
+     */
+    public function deleteRepository($input): DeleteRepositoryOutput
+    {
+        $input = DeleteRepositoryInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteRepository', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
+            'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
+            'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
+            'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
+            'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+        ]]));
+
+        return new DeleteRepositoryOutput($response);
+    }
+
     /**
      * Returns the base-64 encoded content of an individual blob in a repository.
      *
@@ -251,6 +354,35 @@ class CodeCommitClient extends AbstractApi
         ]]));
 
         return new GetDifferencesOutput($response, $this, $input);
+    }
+
+    /**
+     * Gets information about one or more repositories.
+     *
+     * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_ListRepositories.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#listrepositories
+     *
+     * @param array{
+     *   nextToken?: string,
+     *   sortBy?: SortByEnum::*,
+     *   order?: OrderEnum::*,
+     *   @region?: string,
+     * }|ListRepositoriesInput $input
+     *
+     * @throws InvalidSortByException
+     * @throws InvalidOrderException
+     * @throws InvalidContinuationTokenException
+     */
+    public function listRepositories($input = []): ListRepositoriesOutput
+    {
+        $input = ListRepositoriesInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListRepositories', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidSortByException' => InvalidSortByException::class,
+            'InvalidOrderException' => InvalidOrderException::class,
+            'InvalidContinuationTokenException' => InvalidContinuationTokenException::class,
+        ]]));
+
+        return new ListRepositoriesOutput($response, $this, $input);
     }
 
     /**

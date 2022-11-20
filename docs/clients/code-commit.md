@@ -7,6 +7,66 @@ package: async-aws/code-commit
 
 ## Usage
 
+### List repositories
+
+```php
+use AsyncAws\CodeCommit\CodeCommitClient;
+use AsyncAws\CodeCommit\Input\ListRepositoriesInput;
+
+$codeCommit = new CodeCommitClient();
+
+$repoList = $codeCommit->listRepositories(new ListRepositoriesInput([
+    'order' => 'ascending', // can also be 'descending'
+    'sortBy' => 'repositoryName', // can also be 'lastModifiedDate'
+    'nextToken' => 'TOKEN-FROM-PREVIOUS-RESPONSE-IF-PAGINATING-THROUGH-RESULTS'
+]));
+
+$repos = $repoList->getRepositories();
+
+// see example response at https://docs.aws.amazon.com/codecommit/latest/APIReference/API_ListRepositories.html
+// for full list of information returned in $repos->getRepositories()
+```
+
+### Create a repository
+
+```php
+use AsyncAws\CodeCommit\CodeCommitClient;
+use AsyncAws\CodeCommit\Input\CreateRepositoryInput;
+
+$codeCommit = new CodeCommitClient();
+
+$repo = $codeCommit->createRepository(new CreateRepositoryInput([
+    'repositoryName' => 'my-repository-name', // name must be unique within your account
+    'repositoryDescription' => 'this can be null if you like',
+    'tags' => [
+        'team' => 'platform-eng',
+        'guild' => 'frontend',
+        'any-other-tag' => 'whatever-you-want'
+    ]
+]));
+
+$repo->getRepositoryMetadata();
+
+// see example response at https://docs.aws.amazon.com/codecommit/latest/APIReference/API_CreateRepository.html
+// for full list of information returned in $repo->getRepositoryMetadata()
+```
+
+### Delete a repository
+
+```php
+use AsyncAws\CodeCommit\CodeCommitClient;
+use AsyncAws\CodeCommit\Input\DeleteRepositoryInput;
+
+$codeCommit = new CodeCommitClient();
+
+$repo = $codeCommit->deleteRepository(new DeleteRepositoryInput([
+    'repositoryName' => 'name-of-repo-to-delete',
+    ]
+]));
+
+var_dump($repo->getRepositoryId()); // returned id of the deleted repo
+```
+
 ### Get a branch
 
 ```php
