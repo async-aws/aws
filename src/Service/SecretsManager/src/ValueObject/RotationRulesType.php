@@ -15,9 +15,11 @@ final class RotationRulesType
 
     /**
      * The length of the rotation window in hours, for example `3h` for a three hour window. Secrets Manager rotates your
-     * secret at any time during this window. The window must not go into the next UTC day. If you don't specify this value,
-     * the window automatically ends at the end of the UTC day. The window begins according to the `ScheduleExpression`. For
-     * more information, including examples, see Schedule expressions in Secrets Manager rotation.
+     * secret at any time during this window. The window must not extend into the next rotation window or the next UTC day.
+     * The window starts according to the `ScheduleExpression`. If you don't specify a `Duration`, for a
+     * `ScheduleExpression` in hours, the window automatically closes after one hour. For a `ScheduleExpression` in days,
+     * the window automatically closes at the end of the UTC day. For more information, including examples, see Schedule
+     * expressions in Secrets Manager rotation in the *Secrets Manager Users Guide*.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html
      */
@@ -25,7 +27,7 @@ final class RotationRulesType
 
     /**
      * A `cron()` or `rate()` expression that defines the schedule for rotating your secret. Secrets Manager rotation
-     * schedules use UTC time zone.
+     * schedules use UTC time zone. Secrets Manager rotates your secret any time during a rotation window.
      */
     private $scheduleExpression;
 

@@ -19,7 +19,7 @@ class BatchWriteItemOutput extends Result
 {
     /**
      * A map of tables and requests against those tables that were not processed. The `UnprocessedItems` value is in the
-     * same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchGetItem` operation. For
+     * same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchWriteItem` operation. For
      * more information, see `RequestItems` in the Request Parameters section.
      */
     private $unprocessedItems;

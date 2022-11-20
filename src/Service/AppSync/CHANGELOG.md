@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: `ttl` property is required in CreateResolverResponse, ListResolversResponse and UpdateResolverResponse
+- AWS api-change: This release introduces the APPSYNC_JS runtime, and adds support for JavaScript in AppSync functions and AppSync pipeline resolvers.
 
 ## 0.1.1
 

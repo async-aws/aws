@@ -3,14 +3,14 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * The function's environment variables.
+ * The function's environment variables. Omitted from CloudTrail logs.
  *
  * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
  */
 final class EnvironmentResponse
 {
     /**
-     * Environment variable key-value pairs.
+     * Environment variable key-value pairs. Omitted from CloudTrail logs.
      */
     private $variables;
 

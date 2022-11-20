@@ -88,7 +88,7 @@ final class FunctionConfiguration
     private $deadLetterConfig;
 
     /**
-     * The function's environment variables.
+     * The function's environment variables. Omitted from CloudTrail logs.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
      */

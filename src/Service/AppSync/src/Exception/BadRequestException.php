@@ -2,6 +2,10 @@
 
 namespace AsyncAws\AppSync\Exception;
 
+use AsyncAws\AppSync\Enum\BadRequestReason;
+use AsyncAws\AppSync\ValueObject\BadRequestDetail;
+use AsyncAws\AppSync\ValueObject\CodeError;
+use AsyncAws\AppSync\ValueObject\CodeErrorLocation;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -11,6 +15,23 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class BadRequestException extends ClientException
 {
+    private $reason;
+
+    private $detail;
+
+    public function getDetail(): ?BadRequestDetail
+    {
+        return $this->detail;
+    }
+
+    /**
+     * @return BadRequestReason::*|null
+     */
+    public function getReason(): ?string
+    {
+        return $this->reason;
+    }
+
     protected function populateResult(ResponseInterface $response): void
     {
         $data = $response->toArray(false);
@@ -18,5 +39,45 @@ final class BadRequestException extends ClientException
         if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
             $this->message = $v;
         }
+        $this->reason = isset($data['reason']) ? (string) $data['reason'] : null;
+        $this->detail = empty($data['detail']) ? null : $this->populateResultBadRequestDetail($data['detail']);
+    }
+
+    private function populateResultBadRequestDetail(array $json): BadRequestDetail
+    {
+        return new BadRequestDetail([
+            'codeErrors' => !isset($json['codeErrors']) ? null : $this->populateResultCodeErrors($json['codeErrors']),
+        ]);
+    }
+
+    private function populateResultCodeError(array $json): CodeError
+    {
+        return new CodeError([
+            'errorType' => isset($json['errorType']) ? (string) $json['errorType'] : null,
+            'value' => isset($json['value']) ? (string) $json['value'] : null,
+            'location' => empty($json['location']) ? null : $this->populateResultCodeErrorLocation($json['location']),
+        ]);
+    }
+
+    private function populateResultCodeErrorLocation(array $json): CodeErrorLocation
+    {
+        return new CodeErrorLocation([
+            'line' => isset($json['line']) ? (int) $json['line'] : null,
+            'column' => isset($json['column']) ? (int) $json['column'] : null,
+            'span' => isset($json['span']) ? (int) $json['span'] : null,
+        ]);
+    }
+
+    /**
+     * @return CodeError[]
+     */
+    private function populateResultCodeErrors(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultCodeError($item);
+        }
+
+        return $items;
     }
 }

@@ -3,7 +3,7 @@
 namespace AsyncAws\SecretsManager\Enum;
 
 /**
- * Lists secrets in the requested order.
+ * Secrets are listed by `CreatedDate`.
  */
 final class SortOrderType
 {

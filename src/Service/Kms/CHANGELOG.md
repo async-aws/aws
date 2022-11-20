@@ -4,8 +4,7 @@
 
 ### Added
 
-- Added `me-central-1`, `me-central-1-fips`, `ap-south-2-fips`, `eu-south-2-fips` and `eu-central-2-fips` regions
-- AWS api-change: Added `eu-central-2` region
+- Added `me-central-1`, `me-central-1-fips`, `ap-south-2-fips`, `eu-south-2-fips`, `eu-central-2-fips`, `eu-central-2` and `eu-south-2` region
 
 ## 0.1.1
 

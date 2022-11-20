@@ -19,8 +19,9 @@ final class StartExecutionInput extends Input
     private $stateMachineArn;
 
     /**
-     * The name of the execution. This name must be unique for your AWS account, region, and state machine for 90 days. For
-     * more information, see  Limits Related to State Machine Executions in the *AWS Step Functions Developer Guide*.
+     * The name of the execution. This name must be unique for your Amazon Web Services account, region, and state machine
+     * for 90 days. For more information, see  Limits Related to State Machine Executions in the *Step Functions Developer
+     * Guide*.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions
      *
@@ -36,7 +37,7 @@ final class StartExecutionInput extends Input
     private $input;
 
     /**
-     * Passes the AWS X-Ray trace header. The trace header can also be passed in the request payload.
+     * Passes the X-Ray trace header. The trace header can also be passed in the request payload.
      *
      * @var string|null
      */

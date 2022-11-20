@@ -2,6 +2,7 @@
 
 namespace AsyncAws\AppSync\Result;
 
+use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\LambdaConflictHandlerConfig;
 use AsyncAws\AppSync\ValueObject\PipelineConfig;
@@ -29,6 +30,14 @@ class UpdateResolverResponse extends Result
         $data = $response->toArray();
 
         $this->resolver = empty($data['resolver']) ? null : $this->populateResultResolver($data['resolver']);
+    }
+
+    private function populateResultAppSyncRuntime(array $json): AppSyncRuntime
+    {
+        return new AppSyncRuntime([
+            'name' => (string) $json['name'],
+            'runtimeVersion' => (string) $json['runtimeVersion'],
+        ]);
     }
 
     private function populateResultCachingConfig(array $json): CachingConfig
@@ -99,6 +108,8 @@ class UpdateResolverResponse extends Result
             'syncConfig' => empty($json['syncConfig']) ? null : $this->populateResultSyncConfig($json['syncConfig']),
             'cachingConfig' => empty($json['cachingConfig']) ? null : $this->populateResultCachingConfig($json['cachingConfig']),
             'maxBatchSize' => isset($json['maxBatchSize']) ? (int) $json['maxBatchSize'] : null,
+            'runtime' => empty($json['runtime']) ? null : $this->populateResultAppSyncRuntime($json['runtime']),
+            'code' => isset($json['code']) ? (string) $json['code'] : null,
         ]);
     }
 

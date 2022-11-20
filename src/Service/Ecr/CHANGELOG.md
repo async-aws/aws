@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Added `eu-central-2` region
+- AWS api-change: Added `eu-central-2` and `eu-south-2` regions
 
 ## 1.2.0
 
