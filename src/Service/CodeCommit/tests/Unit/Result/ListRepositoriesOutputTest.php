@@ -33,7 +33,7 @@ class ListRepositoriesOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListRepositoriesOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new CodeCommitClient(), new ListRepositoriesInput([]));
 
-        $repos = \iterator_to_array($result->getRepositories(true));
+        $repos = iterator_to_array($result->getRepositories(true));
 
         self::assertSame('NEXT_TOK', $result->getnextToken());
         self::assertSame('f7579e13-b83e-4027-aaef-650c0EXAMPLE', $repos[0]->getRepositoryId());

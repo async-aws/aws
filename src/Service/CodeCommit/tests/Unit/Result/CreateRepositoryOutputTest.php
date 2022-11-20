@@ -31,14 +31,14 @@ class CreateRepositoryOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new CreateRepositoryOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame("MyDemoRepo", $result->getrepositoryMetadata()->getRepositoryName());
-        self::assertSame("ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo", $result->getrepositoryMetadata()->getCloneUrlSsh());
-        self::assertEquals(\DateTimeImmutable::createFromFormat('U.u', "1446071622.494"), $result->getrepositoryMetadata()->getCreationDate());
-        self::assertSame("My demonstration repository", $result->getrepositoryMetadata()->getRepositoryDescription());
-        self::assertSame("https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo", $result->getrepositoryMetadata()->getCloneUrlHttp());
-        self::assertEquals(\DateTimeImmutable::createFromFormat('U.u', "1446071622.494"), $result->getrepositoryMetadata()->getLastModifiedDate());
-        self::assertSame("f7579e13-b83e-4027-aaef-650c0EXAMPLE", $result->getrepositoryMetadata()->getRepositoryId());
-        self::assertSame("arn:aws:codecommit:us-east-1:123456789012EXAMPLE:MyDemoRepo", $result->getrepositoryMetadata()->getArn());
-        self::assertSame("123456789012", $result->getrepositoryMetadata()->getAccountId());
+        self::assertSame('MyDemoRepo', $result->getrepositoryMetadata()->getRepositoryName());
+        self::assertSame('ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo', $result->getrepositoryMetadata()->getCloneUrlSsh());
+        self::assertEquals(\DateTimeImmutable::createFromFormat('U.u', '1446071622.494'), $result->getrepositoryMetadata()->getCreationDate());
+        self::assertSame('My demonstration repository', $result->getrepositoryMetadata()->getRepositoryDescription());
+        self::assertSame('https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo', $result->getrepositoryMetadata()->getCloneUrlHttp());
+        self::assertEquals(\DateTimeImmutable::createFromFormat('U.u', '1446071622.494'), $result->getrepositoryMetadata()->getLastModifiedDate());
+        self::assertSame('f7579e13-b83e-4027-aaef-650c0EXAMPLE', $result->getrepositoryMetadata()->getRepositoryId());
+        self::assertSame('arn:aws:codecommit:us-east-1:123456789012EXAMPLE:MyDemoRepo', $result->getrepositoryMetadata()->getArn());
+        self::assertSame('123456789012', $result->getrepositoryMetadata()->getAccountId());
     }
 }
