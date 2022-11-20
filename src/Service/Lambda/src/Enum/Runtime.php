@@ -21,6 +21,7 @@ final class Runtime
     public const NODEJS_12_X = 'nodejs12.x';
     public const NODEJS_14_X = 'nodejs14.x';
     public const NODEJS_16_X = 'nodejs16.x';
+    public const NODEJS_18_X = 'nodejs18.x';
     public const NODEJS_4_3 = 'nodejs4.3';
     public const NODEJS_4_3_EDGE = 'nodejs4.3-edge';
     public const NODEJS_6_10 = 'nodejs6.10';
@@ -52,6 +53,7 @@ final class Runtime
             self::NODEJS_12_X => true,
             self::NODEJS_14_X => true,
             self::NODEJS_16_X => true,
+            self::NODEJS_18_X => true,
             self::NODEJS_4_3 => true,
             self::NODEJS_4_3_EDGE => true,
             self::NODEJS_6_10 => true,

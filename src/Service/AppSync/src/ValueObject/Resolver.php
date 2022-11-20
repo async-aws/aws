@@ -64,6 +64,14 @@ final class Resolver
      */
     private $maxBatchSize;
 
+    private $runtime;
+
+    /**
+     * The `resolver` code that contains the request and response functions. When code is used, the `runtime` is required.
+     * The `runtime` value must be `APPSYNC_JS`.
+     */
+    private $code;
+
     /**
      * @param array{
      *   typeName?: null|string,
@@ -77,6 +85,8 @@ final class Resolver
      *   syncConfig?: null|SyncConfig|array,
      *   cachingConfig?: null|CachingConfig|array,
      *   maxBatchSize?: null|int,
+     *   runtime?: null|AppSyncRuntime|array,
+     *   code?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -92,6 +102,8 @@ final class Resolver
         $this->syncConfig = isset($input['syncConfig']) ? SyncConfig::create($input['syncConfig']) : null;
         $this->cachingConfig = isset($input['cachingConfig']) ? CachingConfig::create($input['cachingConfig']) : null;
         $this->maxBatchSize = $input['maxBatchSize'] ?? null;
+        $this->runtime = isset($input['runtime']) ? AppSyncRuntime::create($input['runtime']) : null;
+        $this->code = $input['code'] ?? null;
     }
 
     public static function create($input): self
@@ -102,6 +114,11 @@ final class Resolver
     public function getCachingConfig(): ?CachingConfig
     {
         return $this->cachingConfig;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
     }
 
     public function getDataSourceName(): ?string
@@ -145,6 +162,11 @@ final class Resolver
     public function getResponseMappingTemplate(): ?string
     {
         return $this->responseMappingTemplate;
+    }
+
+    public function getRuntime(): ?AppSyncRuntime
+    {
+        return $this->runtime;
     }
 
     public function getSyncConfig(): ?SyncConfig

@@ -34,7 +34,7 @@ final class ListSecretsRequest extends Input
     private $filters;
 
     /**
-     * Lists secrets in the requested order.
+     * Secrets are listed by `CreatedDate`.
      *
      * @var SortOrderType::*|null
      */

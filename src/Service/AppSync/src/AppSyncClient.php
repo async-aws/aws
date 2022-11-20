@@ -29,6 +29,7 @@ use AsyncAws\AppSync\Result\StartSchemaCreationResponse;
 use AsyncAws\AppSync\Result\UpdateApiKeyResponse;
 use AsyncAws\AppSync\Result\UpdateDataSourceResponse;
 use AsyncAws\AppSync\Result\UpdateResolverResponse;
+use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
@@ -64,6 +65,8 @@ class AppSyncClient extends AbstractApi
      *   syncConfig?: SyncConfig|array,
      *   cachingConfig?: CachingConfig|array,
      *   maxBatchSize?: int,
+     *   runtime?: AppSyncRuntime|array,
+     *   code?: string,
      *   @region?: string,
      * }|CreateResolverRequest $input
      *
@@ -71,6 +74,7 @@ class AppSyncClient extends AbstractApi
      * @throws NotFoundException
      * @throws UnauthorizedException
      * @throws InternalFailureException
+     * @throws BadRequestException
      */
     public function createResolver($input): CreateResolverResponse
     {
@@ -80,6 +84,7 @@ class AppSyncClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'BadRequestException' => BadRequestException::class,
         ]]));
 
         return new CreateResolverResponse($response);
@@ -102,6 +107,7 @@ class AppSyncClient extends AbstractApi
      * @throws NotFoundException
      * @throws UnauthorizedException
      * @throws InternalFailureException
+     * @throws BadRequestException
      */
     public function deleteResolver($input): DeleteResolverResponse
     {
@@ -111,6 +117,7 @@ class AppSyncClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'BadRequestException' => BadRequestException::class,
         ]]));
 
         return new DeleteResolverResponse($response);
@@ -335,6 +342,8 @@ class AppSyncClient extends AbstractApi
      *   syncConfig?: SyncConfig|array,
      *   cachingConfig?: CachingConfig|array,
      *   maxBatchSize?: int,
+     *   runtime?: AppSyncRuntime|array,
+     *   code?: string,
      *   @region?: string,
      * }|UpdateResolverRequest $input
      *
@@ -342,6 +351,7 @@ class AppSyncClient extends AbstractApi
      * @throws NotFoundException
      * @throws UnauthorizedException
      * @throws InternalFailureException
+     * @throws BadRequestException
      */
     public function updateResolver($input): UpdateResolverResponse
     {
@@ -351,6 +361,7 @@ class AppSyncClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'BadRequestException' => BadRequestException::class,
         ]]));
 
         return new UpdateResolverResponse($response);

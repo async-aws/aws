@@ -6,7 +6,8 @@ namespace AsyncAws\DynamoDb\Enum;
  * The current state of the table:.
  *
  * - `CREATING` - The table is being created.
- * - `UPDATING` - The table is being updated.
+ * - `UPDATING` - The table/index configuration is being updated. The table/index remains available for data operations
+ *   when `UPDATING`.
  * - `DELETING` - The table is being deleted.
  * - `ACTIVE` - The table is ready for use.
  * - `INACCESSIBLE_ENCRYPTION_CREDENTIALS` - The KMS key used to encrypt the table in inaccessible. Table operations may

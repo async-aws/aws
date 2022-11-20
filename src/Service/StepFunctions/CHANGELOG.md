@@ -4,6 +4,10 @@
 
 - Added operation `stopExecution`
 
+### Added
+
+- AWS enhancement: Documentation updates.
+
 ## 0.1.2
 
 ### Added

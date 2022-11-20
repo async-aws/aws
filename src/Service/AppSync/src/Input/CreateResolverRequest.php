@@ -3,6 +3,7 @@
 namespace AsyncAws\AppSync\Input;
 
 use AsyncAws\AppSync\Enum\ResolverKind;
+use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\PipelineConfig;
 use AsyncAws\AppSync\ValueObject\SyncConfig;
@@ -97,6 +98,19 @@ final class CreateResolverRequest extends Input
     private $maxBatchSize;
 
     /**
+     * @var AppSyncRuntime|null
+     */
+    private $runtime;
+
+    /**
+     * The `resolver` code that contains the request and response functions. When code is used, the `runtime` is required.
+     * The `runtime` value must be `APPSYNC_JS`.
+     *
+     * @var string|null
+     */
+    private $code;
+
+    /**
      * @param array{
      *   apiId?: string,
      *   typeName?: string,
@@ -109,6 +123,8 @@ final class CreateResolverRequest extends Input
      *   syncConfig?: SyncConfig|array,
      *   cachingConfig?: CachingConfig|array,
      *   maxBatchSize?: int,
+     *   runtime?: AppSyncRuntime|array,
+     *   code?: string,
      *   @region?: string,
      * } $input
      */
@@ -125,6 +141,8 @@ final class CreateResolverRequest extends Input
         $this->syncConfig = isset($input['syncConfig']) ? SyncConfig::create($input['syncConfig']) : null;
         $this->cachingConfig = isset($input['cachingConfig']) ? CachingConfig::create($input['cachingConfig']) : null;
         $this->maxBatchSize = $input['maxBatchSize'] ?? null;
+        $this->runtime = isset($input['runtime']) ? AppSyncRuntime::create($input['runtime']) : null;
+        $this->code = $input['code'] ?? null;
         parent::__construct($input);
     }
 
@@ -141,6 +159,11 @@ final class CreateResolverRequest extends Input
     public function getCachingConfig(): ?CachingConfig
     {
         return $this->cachingConfig;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
     }
 
     public function getDataSourceName(): ?string
@@ -179,6 +202,11 @@ final class CreateResolverRequest extends Input
     public function getResponseMappingTemplate(): ?string
     {
         return $this->responseMappingTemplate;
+    }
+
+    public function getRuntime(): ?AppSyncRuntime
+    {
+        return $this->runtime;
     }
 
     public function getSyncConfig(): ?SyncConfig
@@ -236,6 +264,13 @@ final class CreateResolverRequest extends Input
         return $this;
     }
 
+    public function setCode(?string $value): self
+    {
+        $this->code = $value;
+
+        return $this;
+    }
+
     public function setDataSourceName(?string $value): self
     {
         $this->dataSourceName = $value;
@@ -288,6 +323,13 @@ final class CreateResolverRequest extends Input
         return $this;
     }
 
+    public function setRuntime(?AppSyncRuntime $value): self
+    {
+        $this->runtime = $value;
+
+        return $this;
+    }
+
     public function setSyncConfig(?SyncConfig $value): self
     {
         $this->syncConfig = $value;
@@ -336,6 +378,12 @@ final class CreateResolverRequest extends Input
         }
         if (null !== $v = $this->maxBatchSize) {
             $payload['maxBatchSize'] = $v;
+        }
+        if (null !== $v = $this->runtime) {
+            $payload['runtime'] = $v->requestBody();
+        }
+        if (null !== $v = $this->code) {
+            $payload['code'] = $v;
         }
 
         return $payload;
