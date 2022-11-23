@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Restrict the list of available regions.
-- AWS api-change: Added `eu-central-2` and `eu-south-2` regions
+- AWS api-change: Added `eu-central-2`, `eu-south-2` and `ap-south-2` regions
 - AWS api-change: Add Node 18 (nodejs18.x) support to AWS Lambda.
 
 ## 1.7.0

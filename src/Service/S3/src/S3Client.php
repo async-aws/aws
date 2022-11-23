@@ -1009,6 +1009,7 @@ class S3Client extends AbstractApi
             case 'ap-northeast-2':
             case 'ap-northeast-3':
             case 'ap-south-1':
+            case 'ap-south-2':
             case 'ap-southeast-1':
             case 'ap-southeast-2':
             case 'ap-southeast-3':
