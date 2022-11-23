@@ -4,22 +4,7 @@
 
 ### Added
 
-- Added `me-central-1`, `ap-southeast-3`, `eu-central-2` and `eu-south-2` regions
-- AWS api-change: S3 on Outposts launches support for automatic bucket-style alias. You can use the automatic access point alias instead of an access point ARN for any object-level operation in an Outposts bucket.
-- AWS api-change: Updates internal logic for constructing API endpoints. We have added rule-based endpoints and internal model parameters.
-- AWS enhancement: Refactor of filepath resolution for S3 Transfer
-- AWS bugfix: Fixed possible issue in TransferManager's downloadDirectory operation where files could be downloaded to some sibling directories of the destination directory if the key contained specially-crafted relative paths.
-- AWS feature: Adds support for new object and bucket existence methods within the streamwrapper via `registerStreamWrapperV2`
-- AWS enhancement: Documentation only update for doc bug fixes for the S3 API docs.
-- AWS feature: Adds DoesBucketExistV2 and DoesObjectExistV2 helper methods
-- AWS feature: Restores automatic content-md5 calculating as a result of S3 model changes
-- AWS feature: Adds support for flexible checksums
-- AWS api-change: This release adds support for new integrity checking capabilities in Amazon S3. You can choose from four supported checksum algorithms for data integrity checking on your upload and download requests. In addition, AWS SDK can automatically calculate a checksum as it streams data into S3
-- AWS enhancement: Improved error handling for failed writes and appends on unclosed streams.
-- AWS enhancement: Minor doc-based updates based on feedback bugs received.
-- AWS api-change: Introduce Amazon S3 Glacier Instant Retrieval storage class and a new setting in S3 Object Ownership to disable ACLs for bucket and the objects in it.
-- AWS api-change: Amazon S3 Event Notifications adds Amazon EventBridge as a destination and supports additional event types. The PutBucketNotificationConfiguration API can now skip validation of Amazon SQS, Amazon SNS and AWS Lambda destinations.
-- AWS api-change: Introduce two new Filters to S3 Lifecycle configurations - ObjectSizeGreaterThan and ObjectSizeLessThan. Introduce a new way to trigger actions on noncurrent versions by providing the number of newer noncurrent versions along with noncurrent days.
+- Added `me-central-1`, `ap-southeast-3`, `eu-central-2`, `eu-south-2` and `ap-south-2` regions
 
 ## 1.12.0
 
