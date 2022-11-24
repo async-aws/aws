@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 final class ServerSideEncryptionConfiguration
 {
     /**
@@ -30,5 +32,20 @@ final class ServerSideEncryptionConfiguration
     public function getRules(): array
     {
         return $this->rules ?? [];
+    }
+
+    /**
+     * @internal
+     */
+    public function requestBody(\DOMElement $node, \DOMDocument $document): void
+    {
+        if (null === $v = $this->rules) {
+            throw new InvalidArgument(sprintf('Missing parameter "Rules" for "%s". The value cannot be null.', __CLASS__));
+        }
+        foreach ($v as $item) {
+            $node->appendChild($child = $document->createElement('Rule'));
+
+            $item->requestBody($child, $document);
+        }
     }
 }

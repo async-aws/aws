@@ -19,15 +19,19 @@ use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketTaggingRequest;
+use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
+use AsyncAws\S3\Input\ListObjectsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
+use AsyncAws\S3\Input\PutBucketEncryptionRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -51,6 +55,9 @@ use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
 use AsyncAws\S3\ValueObject\QueueConfiguration;
 use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\ServerSideEncryptionByDefault;
+use AsyncAws\S3\ValueObject\ServerSideEncryptionConfiguration;
+use AsyncAws\S3\ValueObject\ServerSideEncryptionRule;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
 
 class S3ClientTest extends TestCase
@@ -77,8 +84,8 @@ class S3ClientTest extends TestCase
         $input = new PutObjectRequest();
         $fileBody = 'foobar';
         $input->setBucket('foo')
-            ->setKey('bar')
-            ->setBody($fileBody);
+        ->setKey('bar')
+        ->setBody($fileBody);
         $result = $s3->putObject($input);
 
         $result->resolve();
@@ -88,7 +95,7 @@ class S3ClientTest extends TestCase
         // Test get object
         $input = new GetObjectRequest();
         $input->setBucket('foo')
-            ->setKey('bar');
+        ->setKey('bar');
         $result = $s3->getObject($input);
         $body = $result->getBody()->getContentAsString();
 
@@ -339,6 +346,37 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getServerSideEncryptionConfiguration());
     }
 
+    public function testGetBucketTagging(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetBucketTaggingRequest([
+            'Bucket' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->getBucketTagging($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getTagSet());
+    }
+
+    public function testGetBucketVersioning(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetBucketVersioningRequest([
+            'Bucket' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->getBucketVersioning($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getStatus());
+        self::assertSame('changeIt', $result->getMFADelete());
+    }
+
     public function testGetFileNotExist()
     {
         $s3 = $this->getClient();
@@ -559,6 +597,36 @@ class S3ClientTest extends TestCase
         self::assertSame('changeIt', $result->getEncodingType());
     }
 
+    public function testListObjects(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListObjectsRequest([
+            'Bucket' => 'change me',
+            'Delimiter' => 'change me',
+            'EncodingType' => 'change me',
+            'Marker' => 'change me',
+            'MaxKeys' => 1337,
+            'Prefix' => 'change me',
+            'RequestPayer' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->listObjects($input);
+
+        $result->resolve();
+
+        self::assertFalse($result->getIsTruncated());
+        self::assertSame('changeIt', $result->getMarker());
+        self::assertSame('changeIt', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getContents());
+        self::assertSame('changeIt', $result->getName());
+        self::assertSame('changeIt', $result->getPrefix());
+        self::assertSame('changeIt', $result->getDelimiter());
+        self::assertSame(1337, $result->getMaxKeys());
+        // self::assertTODO(expected, $result->getCommonPrefixes());
+        self::assertSame('changeIt', $result->getEncodingType());
+    }
+
     public function testListObjectsV2()
     {
         $s3 = $this->getClient();
@@ -655,6 +723,30 @@ class S3ClientTest extends TestCase
 
         $info = $result->info();
         self::assertEquals(200, $info['status']);
+    }
+
+    public function testPutBucketEncryption(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutBucketEncryptionRequest([
+            'Bucket' => 'change me',
+            'ContentMD5' => 'change me',
+            'ChecksumAlgorithm' => 'change me',
+            'ServerSideEncryptionConfiguration' => new ServerSideEncryptionConfiguration([
+                'Rules' => [new ServerSideEncryptionRule([
+                    'ApplyServerSideEncryptionByDefault' => new ServerSideEncryptionByDefault([
+                        'SSEAlgorithm' => 'change me',
+                        'KMSMasterKeyID' => 'change me',
+                    ]),
+                    'BucketKeyEnabled' => false,
+                ])],
+            ]),
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->putBucketEncryption($input);
+
+        $result->resolve();
     }
 
     public function testPutBucketNotificationConfiguration(): void

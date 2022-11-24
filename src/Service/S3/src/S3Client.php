@@ -39,15 +39,19 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketTaggingRequest;
+use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
+use AsyncAws\S3\Input\ListObjectsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
+use AsyncAws\S3\Input\PutBucketEncryptionRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -63,11 +67,14 @@ use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
+use AsyncAws\S3\Result\GetBucketTaggingOutput;
+use AsyncAws\S3\Result\GetBucketVersioningOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
+use AsyncAws\S3\Result\ListObjectsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\ObjectExistsWaiter;
@@ -84,6 +91,7 @@ use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\Part;
+use AsyncAws\S3\ValueObject\ServerSideEncryptionConfiguration;
 
 class S3Client extends AbstractApi
 {
@@ -484,6 +492,48 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Returns the tag set associated with the bucket.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETtagging.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbuckettagging
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|GetBucketTaggingRequest $input
+     */
+    public function getBucketTagging($input): GetBucketTaggingOutput
+    {
+        $input = GetBucketTaggingRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBucketTagging', 'region' => $input->getRegion()]));
+
+        return new GetBucketTaggingOutput($response);
+    }
+
+    /**
+     * Returns the versioning state of a bucket.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETversioningStatus.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketversioning
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|GetBucketVersioningRequest $input
+     */
+    public function getBucketVersioning($input): GetBucketVersioningOutput
+    {
+        $input = GetBucketVersioningRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBucketVersioning', 'region' => $input->getRegion()]));
+
+        return new GetBucketVersioningOutput($response);
+    }
+
+    /**
      * Retrieves objects from Amazon S3. To use `GET`, you must have `READ` access to the object. If you grant `READ` access
      * to the anonymous user, you can return the object without using an authorization header.
      *
@@ -649,6 +699,39 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection
+     * criteria to return a subset of the objects in a bucket. A 200 OK response can contain valid or invalid XML. Be sure
+     * to design your application to parse the contents of the response and handle it appropriately.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listobjects
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Delimiter?: string,
+     *   EncodingType?: EncodingType::*,
+     *   Marker?: string,
+     *   MaxKeys?: int,
+     *   Prefix?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|ListObjectsRequest $input
+     *
+     * @throws NoSuchBucketException
+     */
+    public function listObjects($input): ListObjectsOutput
+    {
+        $input = ListObjectsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjects', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchBucket' => NoSuchBucketException::class,
+        ]]));
+
+        return new ListObjectsOutput($response, $this, $input);
+    }
+
+    /**
      * Returns some or all (up to 1,000) of the objects in a bucket with each request. You can use the request parameters as
      * selection criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid
      * XML. Make sure to design your application to parse the contents of the response and handle it appropriately. Objects
@@ -805,6 +888,30 @@ class S3Client extends AbstractApi
     {
         $input = PutBucketCorsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketCors', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
+    /**
+     * This action uses the `encryption` subresource to configure default encryption and Amazon S3 Bucket Key for an
+     * existing bucket.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbucketencryption
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ServerSideEncryptionConfiguration: ServerSideEncryptionConfiguration|array,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|PutBucketEncryptionRequest $input
+     */
+    public function putBucketEncryption($input): Result
+    {
+        $input = PutBucketEncryptionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketEncryption', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }

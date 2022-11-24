@@ -3,8 +3,11 @@
 namespace AsyncAws\S3\Enum;
 
 /**
- * Indicates the algorithm you want Amazon S3 to use to create the checksum for the object. For more information, see
- * Checking object integrity in the *Amazon S3 User Guide*.
+ * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
+ * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
+ * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
+ * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+ * If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
  *
  * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
  */

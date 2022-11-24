@@ -46,4 +46,19 @@ final class ServerSideEncryptionRule
     {
         return $this->bucketKeyEnabled;
     }
+
+    /**
+     * @internal
+     */
+    public function requestBody(\DOMElement $node, \DOMDocument $document): void
+    {
+        if (null !== $v = $this->applyServerSideEncryptionByDefault) {
+            $node->appendChild($child = $document->createElement('ApplyServerSideEncryptionByDefault'));
+
+            $v->requestBody($child, $document);
+        }
+        if (null !== $v = $this->bucketKeyEnabled) {
+            $node->appendChild($document->createElement('BucketKeyEnabled', $v ? 'true' : 'false'));
+        }
+    }
 }

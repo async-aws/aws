@@ -17,14 +17,18 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketTaggingRequest;
+use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
+use AsyncAws\S3\Input\ListObjectsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
+use AsyncAws\S3\Input\PutBucketEncryptionRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -38,11 +42,14 @@ use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
+use AsyncAws\S3\Result\GetBucketTaggingOutput;
+use AsyncAws\S3\Result\GetBucketVersioningOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
+use AsyncAws\S3\Result\ListObjectsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\PutObjectAclOutput;
@@ -57,6 +64,8 @@ use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
 use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\ServerSideEncryptionConfiguration;
+use AsyncAws\S3\ValueObject\ServerSideEncryptionRule;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -273,6 +282,34 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testGetBucketTagging(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetBucketTaggingRequest([
+            'Bucket' => 'change me',
+
+        ]);
+        $result = $client->getBucketTagging($input);
+
+        self::assertInstanceOf(GetBucketTaggingOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetBucketVersioning(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetBucketVersioningRequest([
+            'Bucket' => 'change me',
+
+        ]);
+        $result = $client->getBucketVersioning($input);
+
+        self::assertInstanceOf(GetBucketVersioningOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testGetObject(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -339,6 +376,20 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testListObjects(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListObjectsRequest([
+            'Bucket' => 'change me',
+
+        ]);
+        $result = $client->listObjects($input);
+
+        self::assertInstanceOf(ListObjectsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testListObjectsV2(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -383,6 +434,26 @@ class S3ClientTest extends TestCase
 
         ]);
         $result = $client->PutBucketCors($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketEncryption(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketEncryptionRequest([
+            'Bucket' => 'change me',
+
+            'ServerSideEncryptionConfiguration' => new ServerSideEncryptionConfiguration([
+                'Rules' => [new ServerSideEncryptionRule([
+
+                ])],
+            ]),
+
+        ]);
+        $result = $client->putBucketEncryption($input);
 
         self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
