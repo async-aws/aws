@@ -458,6 +458,19 @@ class S3ClientTest extends TestCase
         self::assertEquals('content', implode('', iterator_to_array($result->getBody()->getChunks())));
     }
 
+    public function testHeadBucket(): void
+    {
+        $client = $this->getClient();
+
+        $input = new HeadBucketRequest([
+            'Bucket' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->headBucket($input);
+
+        $result->resolve();
+    }
+
     public function testHeadObject(): void
     {
         $client = $this->getClient();

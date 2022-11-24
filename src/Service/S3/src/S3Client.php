@@ -612,6 +612,32 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * This action is useful to determine if a bucket exists and you have permission to access it. The action returns a `200
+     * OK` if the bucket exists and you have permission to access it.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketHEAD.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadBucket.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#headbucket
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|HeadBucketRequest $input
+     *
+     * @throws NoSuchBucketException
+     */
+    public function headBucket($input): Result
+    {
+        $input = HeadBucketRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchBucket' => NoSuchBucketException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
+    /**
      * The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if
      * you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
      *

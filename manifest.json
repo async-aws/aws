@@ -452,6 +452,7 @@
                 "GetBucketVersioning",
                 "GetObject",
                 "GetObjectAcl",
+                "HeadBucket",
                 "HeadObject",
                 "ListBuckets",
                 "ListMultipartUploads",

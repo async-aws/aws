@@ -21,6 +21,7 @@ use AsyncAws\S3\Input\GetBucketTaggingRequest;
 use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
@@ -335,6 +336,20 @@ class S3ClientTest extends TestCase
         $result = $client->GetObjectAcl($input);
 
         self::assertInstanceOf(GetObjectAclOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testHeadBucket(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new HeadBucketRequest([
+            'Bucket' => 'change me',
+
+        ]);
+        $result = $client->headBucket($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
