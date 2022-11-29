@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lambda was unable to decrypt the environment variables because the KMS key used is in an invalid state for Decrypt.
+ * Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt.
  * Check the function's KMS key settings.
  */
 final class KMSInvalidStateException extends ServerException

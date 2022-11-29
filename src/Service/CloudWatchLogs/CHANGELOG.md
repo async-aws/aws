@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added filter on `logGroupIdentifier` in  `createLogGroup`, `DescribeLogStreams` and `FilterLogEvents`
+
 ## 1.4.0
 
 ### Added

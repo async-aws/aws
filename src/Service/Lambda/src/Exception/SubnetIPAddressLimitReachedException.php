@@ -6,8 +6,8 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lambda was not able to set up VPC access for the Lambda function because one or more configured subnets has no
- * available IP addresses.
+ * Lambda couldn't set up VPC access for the Lambda function because one or more configured subnets has no available IP
+ * addresses.
  */
 final class SubnetIPAddressLimitReachedException extends ServerException
 {

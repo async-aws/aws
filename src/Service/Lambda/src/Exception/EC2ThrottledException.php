@@ -6,8 +6,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lambda was throttled by Amazon EC2 during Lambda function initialization using the execution role provided for the
- * Lambda function.
+ * Amazon EC2 throttled Lambda during Lambda function initialization using the execution role provided for the function.
  */
 final class EC2ThrottledException extends ServerException
 {

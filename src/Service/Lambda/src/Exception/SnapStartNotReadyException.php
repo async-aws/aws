@@ -2,14 +2,15 @@
 
 namespace AsyncAws\Lambda\Exception;
 
-use AsyncAws\Core\Exception\Http\ServerException;
+use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS
- * permissions.
+ * Lambda is initializing your function. You can invoke the function when the function state becomes `Active`.
+ *
+ * @see https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html
  */
-final class KMSAccessDeniedException extends ServerException
+final class SnapStartNotReadyException extends ClientException
 {
     private $type;
 

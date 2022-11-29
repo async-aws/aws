@@ -71,6 +71,7 @@ class CloudWatchLogsClient extends AbstractApi
      *
      * @param array{
      *   logGroupName: string,
+     *   logGroupIdentifier?: string,
      *   logStreamNamePrefix?: string,
      *   orderBy?: OrderBy::*,
      *   descending?: bool,
@@ -104,6 +105,7 @@ class CloudWatchLogsClient extends AbstractApi
      *
      * @param array{
      *   logGroupName: string,
+     *   logGroupIdentifier?: string,
      *   logStreamNames?: string[],
      *   logStreamNamePrefix?: string,
      *   startTime?: string,
@@ -112,6 +114,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   nextToken?: string,
      *   limit?: int,
      *   interleaved?: bool,
+     *   unmask?: bool,
      *   @region?: string,
      * }|FilterLogEventsRequest $input
      *

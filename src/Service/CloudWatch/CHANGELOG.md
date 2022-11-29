@@ -5,6 +5,9 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Added FORBIDDEN status code
+- AWS api-change: Added includeLinkedAccounts and owningAccount in ListMetrics
+- BC BREAK: ListMetricsOutput now yields over `metrics` AND `owningAccounts`
 
 ## 0.1.1
 

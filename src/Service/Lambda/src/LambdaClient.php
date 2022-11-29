@@ -40,6 +40,9 @@ use AsyncAws\Lambda\Exception\ResourceConflictException;
 use AsyncAws\Lambda\Exception\ResourceNotFoundException;
 use AsyncAws\Lambda\Exception\ResourceNotReadyException;
 use AsyncAws\Lambda\Exception\ServiceException;
+use AsyncAws\Lambda\Exception\SnapStartException;
+use AsyncAws\Lambda\Exception\SnapStartNotReadyException;
+use AsyncAws\Lambda\Exception\SnapStartTimeoutException;
 use AsyncAws\Lambda\Exception\SubnetIPAddressLimitReachedException;
 use AsyncAws\Lambda\Exception\TooManyRequestsException;
 use AsyncAws\Lambda\Exception\UnsupportedMediaTypeException;
@@ -168,6 +171,9 @@ class LambdaClient extends AbstractApi
      * @throws EFSMountFailureException
      * @throws EFSMountTimeoutException
      * @throws EFSIOException
+     * @throws SnapStartException
+     * @throws SnapStartTimeoutException
+     * @throws SnapStartNotReadyException
      * @throws EC2ThrottledException
      * @throws EC2AccessDeniedException
      * @throws InvalidSubnetIDException
@@ -199,6 +205,9 @@ class LambdaClient extends AbstractApi
             'EFSMountFailureException' => EFSMountFailureException::class,
             'EFSMountTimeoutException' => EFSMountTimeoutException::class,
             'EFSIOException' => EFSIOException::class,
+            'SnapStartException' => SnapStartException::class,
+            'SnapStartTimeoutException' => SnapStartTimeoutException::class,
+            'SnapStartNotReadyException' => SnapStartNotReadyException::class,
             'EC2ThrottledException' => EC2ThrottledException::class,
             'EC2AccessDeniedException' => EC2AccessDeniedException::class,
             'InvalidSubnetIDException' => InvalidSubnetIDException::class,

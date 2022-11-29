@@ -21,8 +21,7 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
     private $events;
 
     /**
-     * **IMPORTANT** Starting on May 15, 2020, this parameter will be deprecated. This parameter will be an empty list after
-     * the deprecation occurs.
+     * **Important** As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
      */
     private $searchedLogStreams;
 

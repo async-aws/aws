@@ -19,6 +19,14 @@ final class FilterLogEventsRequest extends Input
     private $logGroupName;
 
     /**
+     * Specify either the name or ARN of the log group to view log events from. If the log group is in a source account and
+     * you are using a monitoring account, you must use the log group ARN.
+     *
+     * @var string|null
+     */
+    private $logGroupIdentifier;
+
+    /**
      * Filters the results to only logs from the log streams in this list.
      *
      * @var string[]|null
@@ -33,7 +41,7 @@ final class FilterLogEventsRequest extends Input
     private $logStreamNamePrefix;
 
     /**
-     * The start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
+     * The start of the time range, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`. Events with a
      * timestamp before this time are not returned.
      *
      * @var string|null
@@ -41,7 +49,7 @@ final class FilterLogEventsRequest extends Input
     private $startTime;
 
     /**
-     * The end of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
+     * The end of the time range, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`. Events with a
      * timestamp later than this time are not returned.
      *
      * @var string|null
@@ -72,17 +80,25 @@ final class FilterLogEventsRequest extends Input
     private $limit;
 
     /**
-     * If the value is true, the operation makes a best effort to provide responses that contain events from multiple log
-     * streams within the log group, interleaved in a single response. If the value is false, all the matched log events in
-     * the first log stream are searched first, then those in the next log stream, and so on. The default is false.
+     * If the value is true, the operation attempts to provide responses that contain events from multiple log streams
+     * within the log group, interleaved in a single response. If the value is false, all the matched log events in the
+     * first log stream are searched first, then those in the next log stream, and so on.
      *
      * @var bool|null
      */
     private $interleaved;
 
     /**
+     * Specify `true` to display the log event fields with all sensitive data unmasked and visible. The default is `false`.
+     *
+     * @var bool|null
+     */
+    private $unmask;
+
+    /**
      * @param array{
      *   logGroupName?: string,
+     *   logGroupIdentifier?: string,
      *   logStreamNames?: string[],
      *   logStreamNamePrefix?: string,
      *   startTime?: string,
@@ -91,12 +107,14 @@ final class FilterLogEventsRequest extends Input
      *   nextToken?: string,
      *   limit?: int,
      *   interleaved?: bool,
+     *   unmask?: bool,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->logGroupName = $input['logGroupName'] ?? null;
+        $this->logGroupIdentifier = $input['logGroupIdentifier'] ?? null;
         $this->logStreamNames = $input['logStreamNames'] ?? null;
         $this->logStreamNamePrefix = $input['logStreamNamePrefix'] ?? null;
         $this->startTime = $input['startTime'] ?? null;
@@ -105,6 +123,7 @@ final class FilterLogEventsRequest extends Input
         $this->nextToken = $input['nextToken'] ?? null;
         $this->limit = $input['limit'] ?? null;
         $this->interleaved = $input['interleaved'] ?? null;
+        $this->unmask = $input['unmask'] ?? null;
         parent::__construct($input);
     }
 
@@ -138,6 +157,11 @@ final class FilterLogEventsRequest extends Input
         return $this->limit;
     }
 
+    public function getLogGroupIdentifier(): ?string
+    {
+        return $this->logGroupIdentifier;
+    }
+
     public function getLogGroupName(): ?string
     {
         return $this->logGroupName;
@@ -164,6 +188,11 @@ final class FilterLogEventsRequest extends Input
     public function getStartTime(): ?string
     {
         return $this->startTime;
+    }
+
+    public function getUnmask(): ?bool
+    {
+        return $this->unmask;
     }
 
     /**
@@ -223,6 +252,13 @@ final class FilterLogEventsRequest extends Input
         return $this;
     }
 
+    public function setLogGroupIdentifier(?string $value): self
+    {
+        $this->logGroupIdentifier = $value;
+
+        return $this;
+    }
+
     public function setLogGroupName(?string $value): self
     {
         $this->logGroupName = $value;
@@ -261,6 +297,13 @@ final class FilterLogEventsRequest extends Input
         return $this;
     }
 
+    public function setUnmask(?bool $value): self
+    {
+        $this->unmask = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -268,6 +311,9 @@ final class FilterLogEventsRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logGroupName'] = $v;
+        if (null !== $v = $this->logGroupIdentifier) {
+            $payload['logGroupIdentifier'] = $v;
+        }
         if (null !== $v = $this->logStreamNames) {
             $index = -1;
             $payload['logStreamNames'] = [];
@@ -297,6 +343,9 @@ final class FilterLogEventsRequest extends Input
         if (null !== $v = $this->interleaved) {
             @trigger_error(sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             $payload['interleaved'] = (bool) $v;
+        }
+        if (null !== $v = $this->unmask) {
+            $payload['unmask'] = (bool) $v;
         }
 
         return $payload;

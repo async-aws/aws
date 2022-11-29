@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * Error response to GetFunctionConfiguration.
+ * Error response to `GetFunctionConfiguration`.
  */
 final class ImageConfigError
 {

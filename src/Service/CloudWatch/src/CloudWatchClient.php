@@ -100,7 +100,7 @@ class CloudWatchClient extends AbstractApi
     }
 
     /**
-     * List the specified metrics. You can use the returned metrics with GetMetricData or GetMetricStatistics to obtain
+     * List the specified metrics. You can use the returned metrics with GetMetricData or GetMetricStatistics to get
      * statistical data.
      *
      * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
@@ -114,6 +114,8 @@ class CloudWatchClient extends AbstractApi
      *   Dimensions?: DimensionFilter[],
      *   NextToken?: string,
      *   RecentlyActive?: RecentlyActive::*,
+     *   IncludeLinkedAccounts?: bool,
+     *   OwningAccount?: string,
      *   @region?: string,
      * }|ListMetricsInput $input
      *

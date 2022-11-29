@@ -7,7 +7,9 @@ use AsyncAws\Lambda\Enum\ThrottleReason;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request throughput limit was exceeded.
+ * The request throughput limit was exceeded. For more information, see Lambda quotas.
+ *
+ * @see https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests
  */
 final class TooManyRequestsException extends ClientException
 {

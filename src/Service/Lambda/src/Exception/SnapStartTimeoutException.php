@@ -2,14 +2,13 @@
 
 namespace AsyncAws\Lambda\Exception;
 
-use AsyncAws\Core\Exception\Http\ServerException;
+use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS
- * permissions.
+ * The runtime restore hook failed to complete within the timeout limit (2 seconds).
  */
-final class KMSAccessDeniedException extends ServerException
+final class SnapStartTimeoutException extends ClientException
 {
     private $type;
 

@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class InputLogEvent
 {
     /**
-     * The time the event occurred, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+     * The time the event occurred, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
      */
     private $timestamp;
 

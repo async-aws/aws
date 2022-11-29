@@ -36,7 +36,7 @@ final class FunctionConfiguration
     private $role;
 
     /**
-     * The function that Lambda calls to begin executing your function.
+     * The function that Lambda calls to begin running your function.
      */
     private $handler;
 
@@ -95,7 +95,7 @@ final class FunctionConfiguration
     private $environment;
 
     /**
-     * The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've
+     * The KMS key that's used to encrypt the function's environment variables. This key is returned only if you've
      * configured a customer managed key.
      */
     private $kmsKeyArn;
@@ -116,7 +116,7 @@ final class FunctionConfiguration
     private $revisionId;
 
     /**
-     * The function's  layers.
+     * The function's layers.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      */
@@ -188,10 +188,18 @@ final class FunctionConfiguration
     private $architectures;
 
     /**
-     * The size of the function’s /tmp directory in MB. The default value is 512, but can be any whole number between 512
-     * and 10240 MB.
+     * The size of the function’s `/tmp` directory in MB. The default value is 512, but it can be any whole number between
+     * 512 and 10,240 MB.
      */
     private $ephemeralStorage;
+
+    /**
+     * Set `ApplyOn` to `PublishedVersions` to create a snapshot of the initialized execution environment when you publish a
+     * function version. For more information, see Reducing startup time with Lambda SnapStart.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+     */
+    private $snapStart;
 
     /**
      * @param array{
@@ -228,6 +236,7 @@ final class FunctionConfiguration
      *   SigningJobArn?: null|string,
      *   Architectures?: null|list<Architecture::*>,
      *   EphemeralStorage?: null|EphemeralStorage|array,
+     *   SnapStart?: null|SnapStartResponse|array,
      * } $input
      */
     public function __construct(array $input)
@@ -265,6 +274,7 @@ final class FunctionConfiguration
         $this->signingJobArn = $input['SigningJobArn'] ?? null;
         $this->architectures = $input['Architectures'] ?? null;
         $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
+        $this->snapStart = isset($input['SnapStart']) ? SnapStartResponse::create($input['SnapStart']) : null;
     }
 
     public static function create($input): self
@@ -421,6 +431,11 @@ final class FunctionConfiguration
     public function getSigningProfileVersionArn(): ?string
     {
         return $this->signingProfileVersionArn;
+    }
+
+    public function getSnapStart(): ?SnapStartResponse
+    {
+        return $this->snapStart;
     }
 
     /**

@@ -13,7 +13,7 @@ final class FilteredLogEvent
     private $logStreamName;
 
     /**
-     * The time the event occurred, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+     * The time the event occurred, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
      */
     private $timestamp;
 
@@ -23,7 +23,7 @@ final class FilteredLogEvent
     private $message;
 
     /**
-     * The time the event was ingested, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+     * The time the event was ingested, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
      */
     private $ingestionTime;
 

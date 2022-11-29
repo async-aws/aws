@@ -145,9 +145,10 @@ class FirehoseClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://firehose.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
+                    'endpoint' => "https://firehose.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];

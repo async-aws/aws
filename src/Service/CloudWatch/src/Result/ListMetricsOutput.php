@@ -11,7 +11,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
- * @implements \IteratorAggregate<Metric>
+ * @implements \IteratorAggregate<Metric|string>
  */
 class ListMetricsOutput extends Result implements \IteratorAggregate
 {
@@ -26,13 +26,47 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     private $nextToken;
 
     /**
-     * Iterates over Metrics.
+     * If you are using this operation in a monitoring account, this array contains the account IDs of the source accounts
+     * where the metrics in the returned data are from.
+     */
+    private $owningAccounts;
+
+    /**
+     * Iterates over Metrics and OwningAccounts.
      *
-     * @return \Traversable<Metric>
+     * @return \Traversable<Metric|string>
      */
     public function getIterator(): \Traversable
     {
-        yield from $this->getMetrics();
+        $client = $this->awsClient;
+        if (!$client instanceof CloudWatchClient) {
+            throw new InvalidArgument('missing client injected in paginated result');
+        }
+        if (!$this->input instanceof ListMetricsInput) {
+            throw new InvalidArgument('missing last request injected in paginated result');
+        }
+        $input = clone $this->input;
+        $page = $this;
+        while (true) {
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
+
+                $this->registerPrefetch($nextPage = $client->listMetrics($input));
+            } else {
+                $nextPage = null;
+            }
+
+            yield from $page->getMetrics(true);
+            yield from $page->getOwningAccounts(true);
+
+            if (null === $nextPage) {
+                break;
+            }
+
+            $this->unregisterPrefetch($nextPage);
+            $page = $nextPage;
+        }
     }
 
     /**
@@ -86,6 +120,50 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
         return $this->nextToken;
     }
 
+    /**
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<string>
+     */
+    public function getOwningAccounts(bool $currentPageOnly = false): iterable
+    {
+        if ($currentPageOnly) {
+            $this->initialize();
+            yield from $this->owningAccounts;
+
+            return;
+        }
+
+        $client = $this->awsClient;
+        if (!$client instanceof CloudWatchClient) {
+            throw new InvalidArgument('missing client injected in paginated result');
+        }
+        if (!$this->input instanceof ListMetricsInput) {
+            throw new InvalidArgument('missing last request injected in paginated result');
+        }
+        $input = clone $this->input;
+        $page = $this;
+        while (true) {
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
+
+                $this->registerPrefetch($nextPage = $client->listMetrics($input));
+            } else {
+                $nextPage = null;
+            }
+
+            yield from $page->owningAccounts;
+
+            if (null === $nextPage) {
+                break;
+            }
+
+            $this->unregisterPrefetch($nextPage);
+            $page = $nextPage;
+        }
+    }
+
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
@@ -93,6 +171,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
 
         $this->metrics = !$data->Metrics ? [] : $this->populateResultMetrics($data->Metrics);
         $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->owningAccounts = !$data->OwningAccounts ? [] : $this->populateResultOwningAccounts($data->OwningAccounts);
     }
 
     /**
@@ -123,6 +202,22 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
                 'MetricName' => ($v = $item->MetricName) ? (string) $v : null,
                 'Dimensions' => !$item->Dimensions ? null : $this->populateResultDimensions($item->Dimensions),
             ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultOwningAccounts(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->member as $item) {
+            $a = ($v = $item) ? (string) $v : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;
