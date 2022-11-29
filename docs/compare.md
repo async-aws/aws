@@ -183,7 +183,7 @@ $command = $s3->getCommand('GetObject', [
     'Bucket' => 'my-bucket',
     'Key' => 'test',
 ]);
-$psr7 = $s3->createPresignedRequest($cmd, '+60 min');
+$psr7 = $s3->createPresignedRequest($command, '+60 min');
 echo (string) $psr7->getUri();
 
 ```
