@@ -35,7 +35,7 @@ final class InvocationRequest extends Input
     private $logType;
 
     /**
-     * Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
      *
      * @var string|null
      */

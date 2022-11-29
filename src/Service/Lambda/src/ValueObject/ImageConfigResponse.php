@@ -13,7 +13,7 @@ final class ImageConfigResponse
     private $imageConfig;
 
     /**
-     * Error response to GetFunctionConfiguration.
+     * Error response to `GetFunctionConfiguration`.
      */
     private $error;
 

@@ -18,6 +18,7 @@ use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
 use AsyncAws\Lambda\ValueObject\Layer;
+use AsyncAws\Lambda\ValueObject\SnapStartResponse;
 use AsyncAws\Lambda\ValueObject\TracingConfigResponse;
 use AsyncAws\Lambda\ValueObject\VpcConfigResponse;
 
@@ -221,6 +222,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
             'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
             'Architectures' => !isset($json['Architectures']) ? null : $this->populateResultArchitecturesList($json['Architectures']),
             'EphemeralStorage' => empty($json['EphemeralStorage']) ? null : $this->populateResultEphemeralStorage($json['EphemeralStorage']),
+            'SnapStart' => empty($json['SnapStart']) ? null : $this->populateResultSnapStartResponse($json['SnapStart']),
         ]);
     }
 
@@ -299,6 +301,14 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         }
 
         return $items;
+    }
+
+    private function populateResultSnapStartResponse(array $json): SnapStartResponse
+    {
+        return new SnapStartResponse([
+            'ApplyOn' => isset($json['ApplyOn']) ? (string) $json['ApplyOn'] : null,
+            'OptimizationStatus' => isset($json['OptimizationStatus']) ? (string) $json['OptimizationStatus'] : null,
+        ]);
     }
 
     /**

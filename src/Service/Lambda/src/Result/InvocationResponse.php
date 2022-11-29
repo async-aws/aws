@@ -21,7 +21,7 @@ class InvocationResponse extends Result
     private $functionError;
 
     /**
-     * The last 4 KB of the execution log, which is base64 encoded.
+     * The last 4 KB of the execution log, which is base64-encoded.
      */
     private $logResult;
 

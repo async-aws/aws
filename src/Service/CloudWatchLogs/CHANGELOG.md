@@ -2,6 +2,14 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Updates to support CloudWatch Logs data protection and CloudWatch cross-account observability
+- AWS enhancement: Doc-only update for bug fixes and support of export to buckets encrypted with SSE-KMS
+- AWS api-change: SDK release to support tagging for destinations and log groups with TagResource. Also supports tag on create with PutDestination.
+- AWS enhancement: Doc-only update to publish the new valid values for log retention
+- AWS api-change: This release adds AWS Organizations support as condition key in destination policy for cross account Subscriptions in CloudWatch Logs.
+
 ## 1.4.0
 
 ### Added

@@ -7,7 +7,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The RevisionId provided does not match the latest RevisionId for the Lambda function or alias. Call the `GetFunction`
- * or the `GetAlias` API to retrieve the latest RevisionId for your resource.
+ * or the `GetAlias` API operation to retrieve the latest RevisionId for your resource.
  */
 final class PreconditionFailedException extends ClientException
 {

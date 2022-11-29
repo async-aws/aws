@@ -13,7 +13,7 @@ final class RejectedLogEventsInfo
     private $tooNewLogEventStartIndex;
 
     /**
-     * The log events that are too old.
+     * The log events that are dated too far in the past.
      */
     private $tooOldLogEventEndIndex;
 

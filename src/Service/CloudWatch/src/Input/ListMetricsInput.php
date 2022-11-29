@@ -48,12 +48,30 @@ final class ListMetricsInput extends Input
     private $recentlyActive;
 
     /**
+     * If you are using this operation in a monitoring account, specify `true` to include metrics from source accounts in
+     * the returned data.
+     *
+     * @var bool|null
+     */
+    private $includeLinkedAccounts;
+
+    /**
+     * When you use this operation in a monitoring account, use this field to return metrics only from one source account.
+     * To do so, specify that source account ID in this field, and also specify `true` for `IncludeLinkedAccounts`.
+     *
+     * @var string|null
+     */
+    private $owningAccount;
+
+    /**
      * @param array{
      *   Namespace?: string,
      *   MetricName?: string,
      *   Dimensions?: DimensionFilter[],
      *   NextToken?: string,
      *   RecentlyActive?: RecentlyActive::*,
+     *   IncludeLinkedAccounts?: bool,
+     *   OwningAccount?: string,
      *   @region?: string,
      * } $input
      */
@@ -64,6 +82,8 @@ final class ListMetricsInput extends Input
         $this->dimensions = isset($input['Dimensions']) ? array_map([DimensionFilter::class, 'create'], $input['Dimensions']) : null;
         $this->nextToken = $input['NextToken'] ?? null;
         $this->recentlyActive = $input['RecentlyActive'] ?? null;
+        $this->includeLinkedAccounts = $input['IncludeLinkedAccounts'] ?? null;
+        $this->owningAccount = $input['OwningAccount'] ?? null;
         parent::__construct($input);
     }
 
@@ -80,6 +100,11 @@ final class ListMetricsInput extends Input
         return $this->dimensions ?? [];
     }
 
+    public function getIncludeLinkedAccounts(): ?bool
+    {
+        return $this->includeLinkedAccounts;
+    }
+
     public function getMetricName(): ?string
     {
         return $this->metricName;
@@ -93,6 +118,11 @@ final class ListMetricsInput extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    public function getOwningAccount(): ?string
+    {
+        return $this->owningAccount;
     }
 
     /**
@@ -134,6 +164,13 @@ final class ListMetricsInput extends Input
         return $this;
     }
 
+    public function setIncludeLinkedAccounts(?bool $value): self
+    {
+        $this->includeLinkedAccounts = $value;
+
+        return $this;
+    }
+
     public function setMetricName(?string $value): self
     {
         $this->metricName = $value;
@@ -151,6 +188,13 @@ final class ListMetricsInput extends Input
     public function setNextToken(?string $value): self
     {
         $this->nextToken = $value;
+
+        return $this;
+    }
+
+    public function setOwningAccount(?string $value): self
+    {
+        $this->owningAccount = $value;
 
         return $this;
     }
@@ -191,6 +235,12 @@ final class ListMetricsInput extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "RecentlyActive" for "%s". The value "%s" is not a valid "RecentlyActive".', __CLASS__, $v));
             }
             $payload['RecentlyActive'] = $v;
+        }
+        if (null !== $v = $this->includeLinkedAccounts) {
+            $payload['IncludeLinkedAccounts'] = $v ? 'true' : 'false';
+        }
+        if (null !== $v = $this->owningAccount) {
+            $payload['OwningAccount'] = $v;
         }
 
         return $payload;

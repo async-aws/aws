@@ -19,8 +19,8 @@ final class CreateLogGroupRequest extends Input
     private $logGroupName;
 
     /**
-     * The Amazon Resource Name (ARN) of the CMK to use when encrypting log data. For more information, see Amazon Resource
-     * Names - Key Management Service.
+     * The Amazon Resource Name (ARN) of the KMS key to use when encrypting log data. For more information, see Amazon
+     * Resource Names.
      *
      * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms
      *

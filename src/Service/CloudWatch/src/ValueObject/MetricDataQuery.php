@@ -15,7 +15,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * retrieved metrics. A single `PutMetricAlarm` call can include up to 20 `MetricDataQuery` structures in the array. The
  * 20 structures can include as many as 10 structures that contain a `MetricStat` parameter to retrieve a metric, and as
  * many as 10 structures that contain the `Expression` parameter to perform a math expression. Of those `Expression`
- * structures, one must have `True` as the value for `ReturnData`. The result of this expression is the value the alarm
+ * structures, one must have `true` as the value for `ReturnData`. The result of this expression is the value the alarm
  * watches.
  * Any expression used in a `PutMetricAlarm` operation must return a single time series. For more information, see
  * Metric Math Syntax and Functions in the *Amazon CloudWatch User Guide*.
@@ -60,7 +60,7 @@ final class MetricDataQuery
     /**
      * When used in `GetMetricData`, this option indicates whether to return the timestamps and raw data values of this
      * metric. If you are performing this call just to do math expressions and do not also need the raw data returned, you
-     * can specify `False`. If you omit this, the default of `True` is used.
+     * can specify `false`. If you omit this, the default of `true` is used.
      */
     private $returnData;
 
@@ -73,7 +73,7 @@ final class MetricDataQuery
     private $period;
 
     /**
-     * The ID of the account where the metrics are located, if this is a cross-account alarm.
+     * The ID of the account where the metrics are located.
      */
     private $accountId;
 

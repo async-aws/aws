@@ -13,24 +13,24 @@ final class LogStream
     private $logStreamName;
 
     /**
-     * The creation time of the stream, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+     * The creation time of the stream, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
      */
     private $creationTime;
 
     /**
-     * The time of the first event, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+     * The time of the first event, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
      */
     private $firstEventTimestamp;
 
     /**
      * The time of the most recent log event in the log stream in CloudWatch Logs. This number is expressed as the number of
-     * milliseconds after Jan 1, 1970 00:00:00 UTC. The `lastEventTime` value updates on an eventual consistency basis. It
+     * milliseconds after `Jan 1, 1970 00:00:00 UTC`. The `lastEventTime` value updates on an eventual consistency basis. It
      * typically updates in less than an hour from ingestion, but in rare situations might take longer.
      */
     private $lastEventTimestamp;
 
     /**
-     * The ingestion time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+     * The ingestion time, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
      */
     private $lastIngestionTime;
 

@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The function couldn't make a network connection to the configured file system.
+ * The Lambda function couldn't make a network connection to the configured file system.
  */
 final class EFSMountConnectivityException extends ClientException
 {

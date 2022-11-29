@@ -20,6 +20,14 @@ final class DescribeLogStreamsRequest extends Input
     private $logGroupName;
 
     /**
+     * Specify either the name or ARN of the log group to view. If the log group is in a source account and you are using a
+     * monitoring account, you must use the log group ARN.
+     *
+     * @var string|null
+     */
+    private $logGroupIdentifier;
+
+    /**
      * The prefix to match.
      *
      * @var string|null
@@ -59,6 +67,7 @@ final class DescribeLogStreamsRequest extends Input
     /**
      * @param array{
      *   logGroupName?: string,
+     *   logGroupIdentifier?: string,
      *   logStreamNamePrefix?: string,
      *   orderBy?: OrderBy::*,
      *   descending?: bool,
@@ -70,6 +79,7 @@ final class DescribeLogStreamsRequest extends Input
     public function __construct(array $input = [])
     {
         $this->logGroupName = $input['logGroupName'] ?? null;
+        $this->logGroupIdentifier = $input['logGroupIdentifier'] ?? null;
         $this->logStreamNamePrefix = $input['logStreamNamePrefix'] ?? null;
         $this->orderBy = $input['orderBy'] ?? null;
         $this->descending = $input['descending'] ?? null;
@@ -91,6 +101,11 @@ final class DescribeLogStreamsRequest extends Input
     public function getLimit(): ?int
     {
         return $this->limit;
+    }
+
+    public function getLogGroupIdentifier(): ?string
+    {
+        return $this->logGroupIdentifier;
     }
 
     public function getLogGroupName(): ?string
@@ -155,6 +170,13 @@ final class DescribeLogStreamsRequest extends Input
         return $this;
     }
 
+    public function setLogGroupIdentifier(?string $value): self
+    {
+        $this->logGroupIdentifier = $value;
+
+        return $this;
+    }
+
     public function setLogGroupName(?string $value): self
     {
         $this->logGroupName = $value;
@@ -193,6 +215,9 @@ final class DescribeLogStreamsRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logGroupName'] = $v;
+        if (null !== $v = $this->logGroupIdentifier) {
+            $payload['logGroupIdentifier'] = $v;
+        }
         if (null !== $v = $this->logStreamNamePrefix) {
             $payload['logStreamNamePrefix'] = $v;
         }

@@ -13,7 +13,7 @@ final class VpcConfigResponse
     private $subnetIds;
 
     /**
-     * A list of VPC security groups IDs.
+     * A list of VPC security group IDs.
      */
     private $securityGroupIds;
 

@@ -19,7 +19,7 @@ final class DeleteFunctionRequest extends Input
     private $functionName;
 
     /**
-     * Specify a version to delete. You can't delete a version that's referenced by an alias.
+     * Specify a version to delete. You can't delete a version that an alias references.
      *
      * @var string|null
      */

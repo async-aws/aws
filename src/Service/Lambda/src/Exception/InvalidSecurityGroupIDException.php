@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The Security Group ID provided in the Lambda function VPC configuration is invalid.
+ * The security group ID provided in the Lambda function VPC configuration is not valid.
  */
 final class InvalidSecurityGroupIDException extends ServerException
 {

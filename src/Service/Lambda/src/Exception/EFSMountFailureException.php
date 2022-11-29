@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The function couldn't mount the configured file system due to a permission or configuration issue.
+ * The Lambda function couldn't mount the configured file system due to a permission or configuration issue.
  */
 final class EFSMountFailureException extends ClientException
 {
