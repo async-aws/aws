@@ -5,13 +5,9 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
-- AWS api-change: Adds cross-account support to the GetMetricData API. Adds cross-account support to the ListMetrics API through the usage of the IncludeLinkedAccounts flag and the new OwningAccounts field.
-- AWS api-change: Add support for managed Contributor Insights Rules
-- AWS api-change: Various quota increases related to dimensions and custom metrics
-- AWS api-change: Adding support for the suppression of Composite Alarm actions
-- AWS enhancement: Updates documentation for additional statistics in CloudWatch Metric Streams.
-- AWS api-change: Adds support for additional statistics in CloudWatch Metric Streams.
-- AWS api-change: CloudWatch Anomaly Detection now supports anomaly detectors that use metric math as input.
+- AWS api-change: Added FORBIDDEN status code
+- AWS api-change: Added includeLinkedAccounts and owningAccount in ListMetrics
+- BC BREAK: ListMetricsOutput now yields over `metrics` AND `owningAccounts`
 
 ## 0.1.1
 
