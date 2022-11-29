@@ -151,7 +151,8 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/CloudWatchLogs/src/Input/FilterLogEventsRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
