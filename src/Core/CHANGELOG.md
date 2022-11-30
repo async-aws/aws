@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.18.0
+
 ### Added
 
 - Added support for Scheduler

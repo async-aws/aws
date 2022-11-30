@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
 ### Added
 
 - Added operation `ListRepositories`

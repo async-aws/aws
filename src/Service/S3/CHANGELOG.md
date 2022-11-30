@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.13.0
+
 ### Added
 
 - Added `me-central-1`, `ap-southeast-3`, `eu-central-2`, `eu-south-2` and `ap-south-2` regions

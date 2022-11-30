@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.4.1
+
 ### Fixed
 
 - Fixed crashes when details in error responses are missing.
