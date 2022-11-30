@@ -36,6 +36,9 @@ use AsyncAws\Kms\Exception\MalformedPolicyDocumentException;
 use AsyncAws\Kms\Exception\NotFoundException;
 use AsyncAws\Kms\Exception\TagException;
 use AsyncAws\Kms\Exception\UnsupportedOperationException;
+use AsyncAws\Kms\Exception\XksKeyAlreadyInUseException;
+use AsyncAws\Kms\Exception\XksKeyInvalidConfigurationException;
+use AsyncAws\Kms\Exception\XksKeyNotFoundException;
 use AsyncAws\Kms\Input\CreateAliasRequest;
 use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
@@ -88,7 +91,9 @@ class KmsClient extends AbstractApi
     }
 
     /**
-     * Creates a unique customer managed KMS key in your Amazon Web Services account and Region.
+     * Creates a unique customer managed KMS key in your Amazon Web Services account and Region. You can use a KMS key in
+     * cryptographic operations, such as encryption and signing. Some Amazon Web Services services let you use KMS keys that
+     * you create and manage to protect your service resources.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms-keys
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html
@@ -105,6 +110,7 @@ class KmsClient extends AbstractApi
      *   BypassPolicyLockoutSafetyCheck?: bool,
      *   Tags?: Tag[],
      *   MultiRegion?: bool,
+     *   XksKeyId?: string,
      *   @region?: string,
      * }|CreateKeyRequest $input
      *
@@ -118,6 +124,9 @@ class KmsClient extends AbstractApi
      * @throws CustomKeyStoreNotFoundException
      * @throws CustomKeyStoreInvalidStateException
      * @throws CloudHsmClusterInvalidConfigurationException
+     * @throws XksKeyInvalidConfigurationException
+     * @throws XksKeyAlreadyInUseException
+     * @throws XksKeyNotFoundException
      */
     public function createKey($input = []): CreateKeyResponse
     {
@@ -133,6 +142,9 @@ class KmsClient extends AbstractApi
             'CustomKeyStoreNotFoundException' => CustomKeyStoreNotFoundException::class,
             'CustomKeyStoreInvalidStateException' => CustomKeyStoreInvalidStateException::class,
             'CloudHsmClusterInvalidConfigurationException' => CloudHsmClusterInvalidConfigurationException::class,
+            'XksKeyInvalidConfigurationException' => XksKeyInvalidConfigurationException::class,
+            'XksKeyAlreadyInUseException' => XksKeyAlreadyInUseException::class,
+            'XksKeyNotFoundException' => XksKeyNotFoundException::class,
         ]]));
 
         return new CreateKeyResponse($response);

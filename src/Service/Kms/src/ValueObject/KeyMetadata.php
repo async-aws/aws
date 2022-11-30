@@ -84,7 +84,7 @@ final class KeyMetadata
     private $origin;
 
     /**
-     * A unique identifier for the custom key store that contains the KMS key. This value is present only when the KMS key
+     * A unique identifier for the custom key store that contains the KMS key. This field is present only when the KMS key
      * is created in a custom key store.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
@@ -92,9 +92,9 @@ final class KeyMetadata
     private $customKeyStoreId;
 
     /**
-     * The cluster ID of the CloudHSM cluster that contains the key material for the KMS key. When you create a KMS key in a
-     * custom key store, KMS creates the key material for the KMS key in the associated CloudHSM cluster. This value is
-     * present only when the KMS key is created in a custom key store.
+     * The cluster ID of the CloudHSM cluster that contains the key material for the KMS key. When you create a KMS key in
+     * an CloudHSM custom key store, KMS creates the key material for the KMS key in the associated CloudHSM cluster. This
+     * field is present only when the KMS key is created in an CloudHSM key store.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
      */
@@ -163,6 +163,11 @@ final class KeyMetadata
     private $macAlgorithms;
 
     /**
+     * Information about the external key that is associated with a KMS key in an external key store.
+     */
+    private $xksKeyConfiguration;
+
+    /**
      * @param array{
      *   AWSAccountId?: null|string,
      *   KeyId: string,
@@ -187,6 +192,7 @@ final class KeyMetadata
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
      *   MacAlgorithms?: null|list<MacAlgorithmSpec::*>,
+     *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
      * } $input
      */
     public function __construct(array $input)
@@ -214,6 +220,7 @@ final class KeyMetadata
         $this->multiRegionConfiguration = isset($input['MultiRegionConfiguration']) ? MultiRegionConfiguration::create($input['MultiRegionConfiguration']) : null;
         $this->pendingDeletionWindowInDays = $input['PendingDeletionWindowInDays'] ?? null;
         $this->macAlgorithms = $input['MacAlgorithms'] ?? null;
+        $this->xksKeyConfiguration = isset($input['XksKeyConfiguration']) ? XksKeyConfigurationType::create($input['XksKeyConfiguration']) : null;
     }
 
     public static function create($input): self
@@ -368,5 +375,10 @@ final class KeyMetadata
     public function getValidTo(): ?\DateTimeImmutable
     {
         return $this->validTo;
+    }
+
+    public function getXksKeyConfiguration(): ?XksKeyConfigurationType
+    {
+        return $this->xksKeyConfiguration;
     }
 }

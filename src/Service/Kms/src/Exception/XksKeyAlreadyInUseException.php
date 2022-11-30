@@ -6,9 +6,10 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The system timed out while trying to fulfill the request. You can retry the request.
+ * The request was rejected because the (`XksKeyId`) is already associated with a KMS key in this external key store.
+ * Each KMS key in an external key store must be associated with a different external key.
  */
-final class DependencyTimeoutException extends ClientException
+final class XksKeyAlreadyInUseException extends ClientException
 {
     protected function populateResult(ResponseInterface $response): void
     {
