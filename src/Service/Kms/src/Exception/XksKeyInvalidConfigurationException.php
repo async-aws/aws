@@ -6,9 +6,11 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The system timed out while trying to fulfill the request. You can retry the request.
+ * The request was rejected because the external key specified by the `XksKeyId` parameter did not meet the
+ * configuration requirements for an external key store.
+ * The external key must be an AES-256 symmetric key that is enabled and performs encryption and decryption.
  */
-final class DependencyTimeoutException extends ClientException
+final class XksKeyInvalidConfigurationException extends ClientException
 {
     protected function populateResult(ResponseInterface $response): void
     {

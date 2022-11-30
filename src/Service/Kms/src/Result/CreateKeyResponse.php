@@ -10,6 +10,7 @@ use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\ValueObject\KeyMetadata;
 use AsyncAws\Kms\ValueObject\MultiRegionConfiguration;
 use AsyncAws\Kms\ValueObject\MultiRegionKey;
+use AsyncAws\Kms\ValueObject\XksKeyConfigurationType;
 
 class CreateKeyResponse extends Result
 {
@@ -74,6 +75,7 @@ class CreateKeyResponse extends Result
             'MultiRegionConfiguration' => empty($json['MultiRegionConfiguration']) ? null : $this->populateResultMultiRegionConfiguration($json['MultiRegionConfiguration']),
             'PendingDeletionWindowInDays' => isset($json['PendingDeletionWindowInDays']) ? (int) $json['PendingDeletionWindowInDays'] : null,
             'MacAlgorithms' => !isset($json['MacAlgorithms']) ? null : $this->populateResultMacAlgorithmSpecList($json['MacAlgorithms']),
+            'XksKeyConfiguration' => empty($json['XksKeyConfiguration']) ? null : $this->populateResultXksKeyConfigurationType($json['XksKeyConfiguration']),
         ]);
     }
 
@@ -137,5 +139,12 @@ class CreateKeyResponse extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultXksKeyConfigurationType(array $json): XksKeyConfigurationType
+    {
+        return new XksKeyConfigurationType([
+            'Id' => isset($json['Id']) ? (string) $json['Id'] : null,
+        ]);
     }
 }

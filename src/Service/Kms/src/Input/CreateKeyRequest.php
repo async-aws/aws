@@ -15,10 +15,7 @@ use AsyncAws\Kms\ValueObject\Tag;
 final class CreateKeyRequest extends Input
 {
     /**
-     * The key policy to attach to the KMS key. If you do not specify a key policy, KMS attaches a default key policy to the
-     * KMS key. For more information, see Default key policy in the *Key Management Service Developer Guide*.
-     *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default
+     * The key policy to attach to the KMS key.
      *
      * @var string|null
      */
@@ -70,10 +67,8 @@ final class CreateKeyRequest extends Input
     private $origin;
 
     /**
-     * Creates the KMS key in the specified custom key store and the key material in its associated CloudHSM cluster. To
-     * create a KMS key in a custom key store, you must also specify the `Origin` parameter with a value of `AWS_CLOUDHSM`.
-     * The CloudHSM cluster that is associated with the custom key store must have at least two active HSMs, each in a
-     * different Availability Zone in the Region.
+     * Creates the KMS key in the specified custom key store. The `ConnectionState` of the custom key store must be
+     * `CONNECTED`. To find the CustomKeyStoreID and ConnectionState use the DescribeCustomKeyStores operation.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
      *
@@ -105,6 +100,19 @@ final class CreateKeyRequest extends Input
     private $multiRegion;
 
     /**
+     * Identifies the external key that serves as key material for the KMS key in an external key store. Specify the ID that
+     * the external key store proxy uses to refer to the external key. For help, see the documentation for your external key
+     * store proxy.
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-xks-proxy
+     *
+     * @var string|null
+     */
+    private $xksKeyId;
+
+    /**
      * @param array{
      *   Policy?: string,
      *   Description?: string,
@@ -116,6 +124,7 @@ final class CreateKeyRequest extends Input
      *   BypassPolicyLockoutSafetyCheck?: bool,
      *   Tags?: Tag[],
      *   MultiRegion?: bool,
+     *   XksKeyId?: string,
      *   @region?: string,
      * } $input
      */
@@ -131,6 +140,7 @@ final class CreateKeyRequest extends Input
         $this->bypassPolicyLockoutSafetyCheck = $input['BypassPolicyLockoutSafetyCheck'] ?? null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->multiRegion = $input['MultiRegion'] ?? null;
+        $this->xksKeyId = $input['XksKeyId'] ?? null;
         parent::__construct($input);
     }
 
@@ -206,6 +216,11 @@ final class CreateKeyRequest extends Input
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    public function getXksKeyId(): ?string
+    {
+        return $this->xksKeyId;
     }
 
     /**
@@ -321,6 +336,13 @@ final class CreateKeyRequest extends Input
         return $this;
     }
 
+    public function setXksKeyId(?string $value): self
+    {
+        $this->xksKeyId = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -371,6 +393,9 @@ final class CreateKeyRequest extends Input
         }
         if (null !== $v = $this->multiRegion) {
             $payload['MultiRegion'] = (bool) $v;
+        }
+        if (null !== $v = $this->xksKeyId) {
+            $payload['XksKeyId'] = $v;
         }
 
         return $payload;

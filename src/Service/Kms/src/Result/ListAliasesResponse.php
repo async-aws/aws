@@ -57,7 +57,7 @@ class ListAliasesResponse extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->truncated) {
+            if ($page->nextMarker) {
                 $input->setMarker($page->nextMarker);
 
                 $this->registerPrefetch($nextPage = $client->listAliases($input));
