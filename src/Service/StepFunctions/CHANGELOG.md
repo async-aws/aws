@@ -2,11 +2,12 @@
 
 ## NOT RELEASED
 
-- Added operation `stopExecution`
+## 1.0.0
 
 ### Added
 
 - AWS enhancement: Documentation updates.
+- Added operation `stopExecution`
 
 ## 0.1.2
 

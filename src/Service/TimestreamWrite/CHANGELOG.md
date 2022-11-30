@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
 ### Added
 
 - AWS api-change: Added `ingest-fips-us-` and `ingest-us-` regions.

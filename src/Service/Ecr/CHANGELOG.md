@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
 ### Added
 
 - AWS api-change: Added `eu-central-2`, `eu-south-2` and `ap-south-2` regions
