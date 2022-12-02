@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Add a `ValidationException` exception
 
 ## 1.0.0
 
