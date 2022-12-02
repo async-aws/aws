@@ -7,7 +7,9 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Kms\Enum\DataKeySpec;
 use AsyncAws\Kms\Enum\KeySpec;
 use AsyncAws\Kms\Enum\KeyUsageType;
+use AsyncAws\Kms\Enum\MessageType;
 use AsyncAws\Kms\Enum\OriginType;
+use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\Input\CreateAliasRequest;
 use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
@@ -138,20 +140,21 @@ class KmsClientTest extends TestCase
     {
         $client = $this->getClient();
 
+        $key = $client->createKey(['KeyUsage' => KeyUsageType::SIGN_VERIFY]);
+
         $input = new SignRequest([
-            'KeyId' => 'change me',
-            'Message' => 'change me',
-            'MessageType' => 'change me',
-            'GrantTokens' => ['change me'],
-            'SigningAlgorithm' => 'change me',
+            'KeyId' => $key->getKeyMetadata()->getKeyId(),
+            'Message' => '<message to be signed>',
+            'MessageType' => MessageType::RAW,
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
         ]);
         $result = $client->sign($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getKeyId());
+        self::assertSame($key->getKeyMetadata()->getKeyId(), $result->getKeyId());
         // self::assertTODO(expected, $result->getSignature());
-        self::assertSame('changeIt', $result->getSigningAlgorithm());
+        self::assertSame('RSASSA_PSS_SHA_512', $result->getSigningAlgorithm());
     }
 
     private function getClient(): KmsClient
