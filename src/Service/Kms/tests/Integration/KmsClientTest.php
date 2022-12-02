@@ -140,7 +140,10 @@ class KmsClientTest extends TestCase
     {
         $client = $this->getClient();
 
-        $key = $client->createKey(['KeyUsage' => KeyUsageType::SIGN_VERIFY]);
+        $key = $client->createKey([
+            'KeyUsage' => KeyUsageType::SIGN_VERIFY,
+            'KeySpec' => KeySpec::RSA_4096,
+        ]);
 
         $input = new SignRequest([
             'KeyId' => $key->getKeyMetadata()->getKeyId(),

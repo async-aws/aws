@@ -13,9 +13,6 @@ class SignResponseTest extends TestCase
 {
     public function testSignResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "KeyId": "arn:aws:kms:us-east-2:111122223333:key\\/1234abcd-12ab-34cd-56ef-1234567890ab",
             "Signature": "<binary data>",
@@ -25,8 +22,8 @@ class SignResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new SignResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getKeyId());
+        self::assertSame('arn:aws:kms:us-east-2:111122223333:key\\/1234abcd-12ab-34cd-56ef-1234567890ab', $result->getKeyId());
         // self::assertTODO(expected, $result->getSignature());
-        self::assertSame('changeIt', $result->getSigningAlgorithm());
+        self::assertSame('ECDSA_SHA_384', $result->getSigningAlgorithm());
     }
 }
