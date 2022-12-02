@@ -3,23 +3,21 @@
 namespace AsyncAws\Kms\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Kms\Enum\MessageType;
+use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\Input\SignRequest;
 
 class SignRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new SignRequest([
-            'KeyId' => 'change me',
-            'Message' => 'change me',
-            'MessageType' => 'change me',
-            'GrantTokens' => ['change me'],
-            'SigningAlgorithm' => 'change me',
+            'KeyId' => 'alias\\/ECC_signing_key',
+            'Message' => '<message to be signed>',
+            'MessageType' => MessageType::RAW,
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
         ]);
 
-        // see example-1.json from SDK
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
@@ -28,7 +26,7 @@ class SignRequestTest extends TestCase
             "KeyId": "alias\\/ECC_signing_key",
             "Message": "<message to be signed>",
             "MessageType": "RAW",
-            "SigningAlgorithm": "ECDSA_SHA_384"
+            "SigningAlgorithm": "RSASSA_PSS_SHA_512"
         }
                 ';
 
