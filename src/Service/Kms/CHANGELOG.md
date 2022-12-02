@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added operation `Sign`
+
 ## 1.0.0
 
 ### Added

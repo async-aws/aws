@@ -156,7 +156,6 @@ class KmsClientTest extends TestCase
         $result->resolve();
 
         self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
-        // self::assertTODO(expected, $result->getSignature());
         self::assertSame('RSASSA_PSS_SHA_512', $result->getSigningAlgorithm());
     }
 
