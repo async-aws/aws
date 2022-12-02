@@ -12,7 +12,7 @@ class SignRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new SignRequest([
-            'KeyId' => 'alias\\/ECC_signing_key',
+            'KeyId' => 'alias/ECC_signing_key',
             'Message' => '<message to be signed>',
             'MessageType' => MessageType::RAW,
             'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
@@ -25,7 +25,7 @@ class SignRequestTest extends TestCase
 
             {
             "KeyId": "alias\\/ECC_signing_key",
-            "Message": "<message to be signed>",
+            "Message": "PG1lc3NhZ2UgdG8gYmUgc2lnbmVkPg==",
             "MessageType": "RAW",
             "SigningAlgorithm": "RSASSA_PSS_SHA_512"
         }

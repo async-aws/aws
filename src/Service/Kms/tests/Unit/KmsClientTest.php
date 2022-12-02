@@ -5,6 +5,7 @@ namespace AsyncAws\Kms\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\Input\CreateAliasRequest;
 use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
@@ -111,10 +112,10 @@ class KmsClientTest extends TestCase
         $client = new KmsClient([], new NullProvider(), new MockHttpClient());
 
         $input = new SignRequest([
-            'KeyId' => 'change me',
-            'Message' => 'change me',
+            'KeyId' => 'signing_key',
+            'Message' => '<message to be signed>',
 
-            'SigningAlgorithm' => 'change me',
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
         ]);
         $result = $client->sign($input);
 
