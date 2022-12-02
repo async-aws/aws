@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The provided token is invalid.
+ * The provided token is not valid.
  */
 final class InvalidTokenException extends ClientException
 {

@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The provided Amazon Resource Name (ARN) is invalid.
+ * The provided Amazon Resource Name (ARN) is not valid.
  */
 final class InvalidArnException extends ClientException
 {

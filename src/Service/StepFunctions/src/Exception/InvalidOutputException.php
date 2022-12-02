@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The provided JSON output data is invalid.
+ * The provided JSON output data is not valid.
  */
 final class InvalidOutputException extends ClientException
 {

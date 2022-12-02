@@ -19,6 +19,7 @@ use AsyncAws\StepFunctions\Exception\StateMachineDeletingException;
 use AsyncAws\StepFunctions\Exception\StateMachineDoesNotExistException;
 use AsyncAws\StepFunctions\Exception\TaskDoesNotExistException;
 use AsyncAws\StepFunctions\Exception\TaskTimedOutException;
+use AsyncAws\StepFunctions\Exception\ValidationException;
 use AsyncAws\StepFunctions\Input\SendTaskFailureInput;
 use AsyncAws\StepFunctions\Input\SendTaskHeartbeatInput;
 use AsyncAws\StepFunctions\Input\SendTaskSuccessInput;
@@ -131,7 +132,8 @@ class StepFunctionsClient extends AbstractApi
     }
 
     /**
-     * Starts a state machine execution.
+     * Starts a state machine execution. If the given state machine Amazon Resource Name (ARN) is a qualified state machine
+     * ARN, it will fail with ValidationException.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#startexecution
@@ -151,6 +153,7 @@ class StepFunctionsClient extends AbstractApi
      * @throws InvalidNameException
      * @throws StateMachineDoesNotExistException
      * @throws StateMachineDeletingException
+     * @throws ValidationException
      */
     public function startExecution($input): StartExecutionOutput
     {
@@ -163,6 +166,7 @@ class StepFunctionsClient extends AbstractApi
             'InvalidName' => InvalidNameException::class,
             'StateMachineDoesNotExist' => StateMachineDoesNotExistException::class,
             'StateMachineDeleting' => StateMachineDeletingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new StartExecutionOutput($response);
@@ -183,6 +187,7 @@ class StepFunctionsClient extends AbstractApi
      *
      * @throws ExecutionDoesNotExistException
      * @throws InvalidArnException
+     * @throws ValidationException
      */
     public function stopExecution($input): StopExecutionOutput
     {
@@ -190,6 +195,7 @@ class StepFunctionsClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StopExecution', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ExecutionDoesNotExist' => ExecutionDoesNotExistException::class,
             'InvalidArn' => InvalidArnException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new StopExecutionOutput($response);
