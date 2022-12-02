@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add a `ValidationException` exception
+
 ## 1.0.0
 
 ### Added
