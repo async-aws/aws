@@ -2,6 +2,10 @@
 
 namespace AsyncAws\Kms\Enum;
 
+/**
+ * Specifies the signing algorithm to use when signing the message.
+ * Choose an algorithm that is compatible with the type and size of the specified asymmetric KMS key.
+ */
 final class SigningAlgorithmSpec
 {
     public const ECDSA_SHA_256 = 'ECDSA_SHA_256';

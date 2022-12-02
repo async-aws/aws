@@ -14,11 +14,28 @@ use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
+use AsyncAws\Kms\Input\SignRequest;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Kms\ValueObject\Tag;
 
 class KmsClientTest extends TestCase
 {
+    public function testCreateAlias(): void
+    {
+        $client = $this->getClient();
+        $key = $client->createKey(['KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT]);
+
+        $input = new CreateAliasRequest([
+            'AliasName' => 'alias/demo-' . uniqid('', true),
+            'TargetKeyId' => $key->getKeyMetadata()->getKeyId(),
+        ]);
+        $result = $client->createAlias($input);
+
+        $result->resolve();
+
+        $this->expectNotToPerformAssertions();
+    }
+
     public function testCreateKey(): void
     {
         $client = $this->getClient();
@@ -95,22 +112,6 @@ class KmsClientTest extends TestCase
         self::assertStringStartsWith('Karn:aws:kms:', $result->getCiphertextBlob());
     }
 
-    public function testCreateAlias(): void
-    {
-        $client = $this->getClient();
-        $key = $client->createKey(['KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT]);
-
-        $input = new CreateAliasRequest([
-            'AliasName' => 'alias/demo-' . uniqid('', true),
-            'TargetKeyId' => $key->getKeyMetadata()->getKeyId(),
-        ]);
-        $result = $client->createAlias($input);
-
-        $result->resolve();
-
-        $this->expectNotToPerformAssertions();
-    }
-
     public function testListAliases(): void
     {
         $client = $this->getClient();
@@ -131,6 +132,26 @@ class KmsClientTest extends TestCase
         $result = $client->listAliases($input);
         self::assertCount(1, $result);
         self::assertSame($name, iterator_to_array($result)[0]->getAliasName());
+    }
+
+    public function testSign(): void
+    {
+        $client = $this->getClient();
+
+        $input = new SignRequest([
+            'KeyId' => 'change me',
+            'Message' => 'change me',
+            'MessageType' => 'change me',
+            'GrantTokens' => ['change me'],
+            'SigningAlgorithm' => 'change me',
+        ]);
+        $result = $client->sign($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getKeyId());
+        // self::assertTODO(expected, $result->getSignature());
+        self::assertSame('changeIt', $result->getSigningAlgorithm());
     }
 
     private function getClient(): KmsClient

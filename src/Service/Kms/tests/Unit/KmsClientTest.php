@@ -11,12 +11,14 @@ use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
+use AsyncAws\Kms\Input\SignRequest;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Kms\Result\CreateKeyResponse;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
 use AsyncAws\Kms\Result\ListAliasesResponse;
+use AsyncAws\Kms\Result\SignResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class KmsClientTest extends TestCase
@@ -101,6 +103,22 @@ class KmsClientTest extends TestCase
         $result = $client->listAliases($input);
 
         self::assertInstanceOf(ListAliasesResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testSign(): void
+    {
+        $client = new KmsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new SignRequest([
+            'KeyId' => 'change me',
+            'Message' => 'change me',
+
+            'SigningAlgorithm' => 'change me',
+        ]);
+        $result = $client->sign($input);
+
+        self::assertInstanceOf(SignResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }
