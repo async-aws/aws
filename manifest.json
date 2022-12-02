@@ -335,7 +335,8 @@
                 "Decrypt",
                 "Encrypt",
                 "GenerateDataKey",
-                "ListAliases"
+                "ListAliases",
+                "Sign"
             ]
         },
         "Lambda": {

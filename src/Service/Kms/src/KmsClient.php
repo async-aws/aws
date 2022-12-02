@@ -14,7 +14,9 @@ use AsyncAws\Kms\Enum\DataKeySpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\KeySpec;
 use AsyncAws\Kms\Enum\KeyUsageType;
+use AsyncAws\Kms\Enum\MessageType;
 use AsyncAws\Kms\Enum\OriginType;
+use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\Exception\AlreadyExistsException;
 use AsyncAws\Kms\Exception\CloudHsmClusterInvalidConfigurationException;
 use AsyncAws\Kms\Exception\CustomKeyStoreInvalidStateException;
@@ -45,11 +47,13 @@ use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
+use AsyncAws\Kms\Input\SignRequest;
 use AsyncAws\Kms\Result\CreateKeyResponse;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
 use AsyncAws\Kms\Result\ListAliasesResponse;
+use AsyncAws\Kms\Result\SignResponse;
 use AsyncAws\Kms\ValueObject\Tag;
 
 class KmsClient extends AbstractApi
@@ -313,6 +317,52 @@ class KmsClient extends AbstractApi
         ]]));
 
         return new ListAliasesResponse($response, $this, $input);
+    }
+
+    /**
+     * Creates a digital signature for a message or message digest by using the private key in an asymmetric signing KMS
+     * key. To verify the signature, use the Verify operation, or use the public key in the same asymmetric KMS key outside
+     * of KMS. For information about asymmetric KMS keys, see Asymmetric KMS keys in the *Key Management Service Developer
+     * Guide*.
+     *
+     * @see https://en.wikipedia.org/wiki/Digital_signature
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
+     * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#sign
+     *
+     * @param array{
+     *   KeyId: string,
+     *   Message: string,
+     *   MessageType?: MessageType::*,
+     *   GrantTokens?: string[],
+     *   SigningAlgorithm: SigningAlgorithmSpec::*,
+     *   @region?: string,
+     * }|SignRequest $input
+     *
+     * @throws NotFoundException
+     * @throws DisabledException
+     * @throws KeyUnavailableException
+     * @throws DependencyTimeoutException
+     * @throws InvalidKeyUsageException
+     * @throws InvalidGrantTokenException
+     * @throws KMSInternalException
+     * @throws KMSInvalidStateException
+     */
+    public function sign($input): SignResponse
+    {
+        $input = SignRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Sign', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NotFoundException' => NotFoundException::class,
+            'DisabledException' => DisabledException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'KMSInvalidStateException' => KMSInvalidStateException::class,
+        ]]));
+
+        return new SignResponse($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface

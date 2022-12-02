@@ -7,18 +7,37 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Kms\Enum\DataKeySpec;
 use AsyncAws\Kms\Enum\KeySpec;
 use AsyncAws\Kms\Enum\KeyUsageType;
+use AsyncAws\Kms\Enum\MessageType;
 use AsyncAws\Kms\Enum\OriginType;
+use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\Input\CreateAliasRequest;
 use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
+use AsyncAws\Kms\Input\SignRequest;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Kms\ValueObject\Tag;
 
 class KmsClientTest extends TestCase
 {
+    public function testCreateAlias(): void
+    {
+        $client = $this->getClient();
+        $key = $client->createKey(['KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT]);
+
+        $input = new CreateAliasRequest([
+            'AliasName' => 'alias/demo-' . uniqid('', true),
+            'TargetKeyId' => $key->getKeyMetadata()->getKeyId(),
+        ]);
+        $result = $client->createAlias($input);
+
+        $result->resolve();
+
+        $this->expectNotToPerformAssertions();
+    }
+
     public function testCreateKey(): void
     {
         $client = $this->getClient();
@@ -95,22 +114,6 @@ class KmsClientTest extends TestCase
         self::assertStringStartsWith('Karn:aws:kms:', $result->getCiphertextBlob());
     }
 
-    public function testCreateAlias(): void
-    {
-        $client = $this->getClient();
-        $key = $client->createKey(['KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT]);
-
-        $input = new CreateAliasRequest([
-            'AliasName' => 'alias/demo-' . uniqid('', true),
-            'TargetKeyId' => $key->getKeyMetadata()->getKeyId(),
-        ]);
-        $result = $client->createAlias($input);
-
-        $result->resolve();
-
-        $this->expectNotToPerformAssertions();
-    }
-
     public function testListAliases(): void
     {
         $client = $this->getClient();
@@ -131,6 +134,29 @@ class KmsClientTest extends TestCase
         $result = $client->listAliases($input);
         self::assertCount(1, $result);
         self::assertSame($name, iterator_to_array($result)[0]->getAliasName());
+    }
+
+    public function testSign(): void
+    {
+        $client = $this->getClient();
+
+        $key = $client->createKey([
+            'KeyUsage' => KeyUsageType::SIGN_VERIFY,
+            'KeySpec' => KeySpec::RSA_4096,
+        ]);
+
+        $input = new SignRequest([
+            'KeyId' => $key->getKeyMetadata()->getKeyId(),
+            'Message' => '<message to be signed>',
+            'MessageType' => MessageType::RAW,
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
+        ]);
+        $result = $client->sign($input);
+
+        $result->resolve();
+
+        self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
+        self::assertSame('RSASSA_PSS_SHA_512', $result->getSigningAlgorithm());
     }
 
     private function getClient(): KmsClient
