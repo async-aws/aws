@@ -26,14 +26,14 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.sha }}
           restore-keys: composer-
 
       - name: Cache PHPStan
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .cache/phpstan/
           key: phpstan-${{ github.sha }}
@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cache PhpCsFixer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .cache/php-cs-fixer/
           key: php-cs-fixer-${{ github.sha }}
@@ -87,14 +87,14 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.sha }}
           restore-keys: composer-
 
       - name: Cache Psalm
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .cache/psalm/
           key: psalm-${{ github.sha }}
