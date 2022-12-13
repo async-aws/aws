@@ -9,7 +9,7 @@ namespace AsyncAws\Rekognition\ValueObject;
  * GetFaceDetection is the only Amazon Rekognition Video stored video operation that can return a `FaceDetail` object
  * with all attributes. To specify which attributes to return, use the `FaceAttributes` input parameter for
  * StartFaceDetection. The following Amazon Rekognition Video operations return only the default attributes. The
- * corresponding Start operations don't have a `FaceAttributes` input parameter.
+ * corresponding Start operations don't have a `FaceAttributes` input parameter:.
  *
  * - GetCelebrityRecognition
  * - GetPersonTracking
