@@ -5,6 +5,7 @@
 ### Added
 
 - Added operation `Sign`
+- Added `ap-southeast-4-fips` region
 
 ## 1.0.0
 
