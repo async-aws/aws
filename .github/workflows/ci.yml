@@ -7,19 +7,18 @@ on:
       - master
 
 jobs:
-
   build:
     name: Components tests
     runs-on: Ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
-        strategy: ['default']
+        php: ["7.2", "7.3", "7.4", "8.0", "8.1", "8.2"]
+        strategy: ["default"]
         include:
-        # Minimum supported dependencies with the oldest PHP version
-        - php: '7.2'
-          strategy: 'lowest'
+          # Minimum supported dependencies with the oldest PHP version
+          - php: "7.2"
+            strategy: "lowest"
 
     steps:
       - name: Set up PHP
@@ -40,7 +39,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         if: steps.composer-cache.outputs.dir
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
@@ -124,7 +123,7 @@ jobs:
         env:
           PHP_VERSION: ${{ matrix.php }}
           # Make sure we dont download awfully old Symfony versions.
-          SYMFONY_REQUIRE: '>=4.4'
+          SYMFONY_REQUIRE: ">=4.4"
         run: |
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
@@ -189,7 +188,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.sha }}
@@ -206,4 +205,3 @@ jobs:
           ./vendor/bin/simple-phpunit install
           echo ::endgroup::
           ./vendor/bin/simple-phpunit
-

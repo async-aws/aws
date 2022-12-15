@@ -2,7 +2,7 @@ name: Watch for changes
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: "0 6 * * *"
 
 jobs:
   generated-code:
@@ -27,7 +27,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.sha }}
@@ -38,7 +38,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Cache PhpCsFixer
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             .cache/php-cs-fixer/
