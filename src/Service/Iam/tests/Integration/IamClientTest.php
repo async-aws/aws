@@ -205,6 +205,11 @@ class IamClientTest extends TestCase
         $client->putUserPolicy($input);
 
         self::expectNotToPerformAssertions();
+
+        $client->deleteUserPolicy(new DeleteUserPolicyRequest([
+            'UserName' => 'jderusse',
+            'PolicyName' => 'Access All Account Resources',
+        ]));
     }
 
     public function testUpdateUser(): void
