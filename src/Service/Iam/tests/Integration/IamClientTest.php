@@ -81,13 +81,13 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateServiceSpecificCredentialRequest([
-            'UserName' => 'user@async-aws.com',
+            'UserName' => 'jderusse',
             'ServiceName' => 'codecommit.amazonaws.com',
         ]);
         $result = $client->createServiceSpecificCredential($input);
 
         self::assertSame(
-            'user@async-aws.com',
+            'jderusse',
             $result->getServiceSpecificCredential()->getUserName()
         );
         self::assertSame(
@@ -150,7 +150,7 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new DeleteUserPolicyRequest([
-            'UserName' => 'user@async-aws.com',
+            'UserName' => 'jderusse',
             'PolicyName' => 'Access All Account Resources',
         ]);
         $client->deleteUserPolicy($input);
@@ -190,7 +190,7 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new PutUserPolicyRequest([
-            'UserName' => 'user@async-aws.com',
+            'UserName' => 'jderusse',
             'PolicyName' => 'Access All Account Resources',
             'PolicyDocument' => '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"*","Resource":"*"}}',
         ]);
