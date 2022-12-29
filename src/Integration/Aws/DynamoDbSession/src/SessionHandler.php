@@ -193,7 +193,7 @@ class SessionHandler implements \SessionHandlerInterface
 
     private function doWrite(string $id, bool $updateData, string $data = ''): bool
     {
-        $expires = time() + ($this->options['session_lifetime'] ?? (int) \ini_get('session.gc_maxlifetime'));
+        $expires = time() + ($this->options['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
 
         $attributes = [
             $this->options['session_lifetime_attribute'] => ['Value' => ['N' => (string) $expires]],

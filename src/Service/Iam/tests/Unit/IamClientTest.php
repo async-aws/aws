@@ -8,13 +8,17 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateAccessKeyRequest;
+use AsyncAws\Iam\Input\CreateServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
+use AsyncAws\Iam\Input\DeleteUserPolicyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
+use AsyncAws\Iam\Input\PutUserPolicyRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
 use AsyncAws\Iam\Result\CreateAccessKeyResponse;
+use AsyncAws\Iam\Result\CreateServiceSpecificCredentialResponse;
 use AsyncAws\Iam\Result\CreateUserResponse;
 use AsyncAws\Iam\Result\GetUserResponse;
 use AsyncAws\Iam\Result\ListUsersResponse;
@@ -46,6 +50,20 @@ class IamClientTest extends TestCase
         $result = $client->CreateAccessKey($input);
 
         self::assertInstanceOf(CreateAccessKeyResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCreateServiceSpecificCredential(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateServiceSpecificCredentialRequest([
+            'UserName' => 'test@async-aws.com',
+            'ServiceName' => 'dynamodb.amazonaws.com',
+        ]);
+        $result = $client->createServiceSpecificCredential($input);
+
+        self::assertInstanceOf(CreateServiceSpecificCredentialResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -91,6 +109,20 @@ class IamClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDeleteUserPolicy(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteUserPolicyRequest([
+            'UserName' => 'test@async-aws.com',
+            'PolicyName' => 'Unrestricted Access',
+        ]);
+        $result = $client->deleteUserPolicy($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testGetUser(): void
     {
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
@@ -114,6 +146,21 @@ class IamClientTest extends TestCase
         $result = $client->ListUsers($input);
 
         self::assertInstanceOf(ListUsersResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutUserPolicy(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutUserPolicyRequest([
+            'UserName' => 'test@async-aws.com',
+            'PolicyName' => 'Unrestricted Access',
+            'PolicyDocument' => '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"*","Resource":"*"}}',
+        ]);
+        $result = $client->putUserPolicy($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
