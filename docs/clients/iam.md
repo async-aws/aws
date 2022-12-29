@@ -1,5 +1,8 @@
 ---
-layout: client category: clients name: Iam package: async-aws/iam
+layout: client
+category: clients
+name: Iam
+package: async-aws/iam
 ---
 
 ## Usage
