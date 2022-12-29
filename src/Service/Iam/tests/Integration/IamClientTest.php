@@ -78,6 +78,7 @@ class IamClientTest extends TestCase
 
     public function testCreateServiceSpecificCredential(): void
     {
+        self::markTestSkipped('Localstack does not support the CreateServiceSpecificCredentialRequest API action');
         $client = $this->getClient();
 
         $input = new CreateServiceSpecificCredentialRequest([
@@ -148,6 +149,13 @@ class IamClientTest extends TestCase
     public function testDeleteUserPolicy(): void
     {
         $client = $this->getClient();
+
+        $input = new PutUserPolicyRequest([
+            'UserName' => 'jderusse',
+            'PolicyName' => 'Access All Account Resources',
+            'PolicyDocument' => '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"*","Resource":"*"}}',
+        ]);
+        $client->putUserPolicy($input);
 
         $input = new DeleteUserPolicyRequest([
             'UserName' => 'jderusse',
