@@ -23,3 +23,44 @@ foreach ($users as $user) {
     echo $user->getUserName().' '.($user->getPasswordLastUsed() ? $user->getPasswordLastUsed()->format('Y-m-d') : '').PHP_EOL;
 }
 ```
+
+### Create / Delete a user's individual policy document
+
+```php
+use AsyncAws\Iam\IamClient;
+use AsyncAws\Iam\Input\PutUserPolicyRequest;
+use AsyncAws\Iam\Input\DeleteUserPolicyRequest;
+
+$iam = new IamClient();
+
+$iam->putUserPolicy(new PutUserPolicyRequest([
+    'UserName' => 'Thomas',
+    'PolicyName' => 'Disallow Access To Everything',
+    'PolicyDocument' => '{"Version":"2012-10-17","Statement":{"Effect":"Deny","Action":"*","Resource":"*"}}',
+]));
+
+// Uh-oh, that policy is a bit *too* restrictive, let's delete it
+
+$iam->deleteUserPolicy(new DeleteUserPolicyRequest([
+    'UserName' => 'Thomas',
+    'PolicyName' => 'Disallow Access To Everything',
+]));
+```
+
+### Create service-specific credentials
+
+```php
+use AsyncAws\Iam\IamClient;
+use AsyncAws\Iam\Input\CreateServiceSpecificCredentialRequest;
+
+$iam = new IamClient();
+
+$creds = $iam->createServiceSpecificCredential(new CreateServiceSpecificCredentialRequest([
+    'UserName' => 'Thomas',
+    'ServiceName' => 'codecommit.amazonaws.com',
+]));
+
+echo $creds->getServiceSpecificCredential()->getServiceUserName(); // example: thomas-at-123456789012
+echo $creds->getServiceSpecificCredential()->getServicePassword(); // example: xTBAr/czp+D3EXAMPLE47lrJ6/43r2zqGwR3EXAMPLE=
+
+```

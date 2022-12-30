@@ -244,11 +244,14 @@
             "methods": [
                 "AddUserToGroup",
                 "CreateAccessKey",
+                "CreateServiceSpecificCredential",
                 "CreateUser",
                 "DeleteAccessKey",
                 "DeleteUser",
+                "DeleteUserPolicy",
                 "GetUser",
                 "ListUsers",
+                "PutUserPolicy",
                 "UpdateUser"
             ]
         },

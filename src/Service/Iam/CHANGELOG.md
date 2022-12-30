@@ -2,6 +2,14 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
+### Added
+
+- Added `IamClient::putUserPolicy()`
+- Added `IamClient::deleteUserPolicy()`
+- Added `IamClient::::createServiceSpecificCredential()`
+
 ## 1.2.0
 
 ### Added

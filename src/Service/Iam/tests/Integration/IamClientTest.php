@@ -9,11 +9,14 @@ use AsyncAws\Iam\Enum\StatusType;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateAccessKeyRequest;
+use AsyncAws\Iam\Input\CreateServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
+use AsyncAws\Iam\Input\DeleteUserPolicyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
+use AsyncAws\Iam\Input\PutUserPolicyRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
 use AsyncAws\Iam\ValueObject\Tag;
 
@@ -73,6 +76,27 @@ class IamClientTest extends TestCase
         self::assertSame(StatusType::ACTIVE, $result->getAccessKey()->getStatus());
     }
 
+    public function testCreateServiceSpecificCredential(): void
+    {
+        self::markTestSkipped('Localstack does not support the CreateServiceSpecificCredentialRequest API action');
+        $client = $this->getClient();
+
+        $input = new CreateServiceSpecificCredentialRequest([
+            'UserName' => 'jderusse',
+            'ServiceName' => 'codecommit.amazonaws.com',
+        ]);
+        $result = $client->createServiceSpecificCredential($input);
+
+        self::assertSame(
+            'jderusse',
+            $result->getServiceSpecificCredential()->getUserName()
+        );
+        self::assertSame(
+            'codecommit.amazonaws.com',
+            $result->getServiceSpecificCredential()->getServiceName()
+        );
+    }
+
     public function testCreateUser(): void
     {
         $client = $this->getClient();
@@ -122,6 +146,26 @@ class IamClientTest extends TestCase
         $client->getUser(['UserName' => 'jderusse']);
     }
 
+    public function testDeleteUserPolicy(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutUserPolicyRequest([
+            'UserName' => 'jderusse',
+            'PolicyName' => 'Access All Account Resources',
+            'PolicyDocument' => '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"*","Resource":"*"}}',
+        ]);
+        $client->putUserPolicy($input);
+
+        $input = new DeleteUserPolicyRequest([
+            'UserName' => 'jderusse',
+            'PolicyName' => 'Access All Account Resources',
+        ]);
+        $client->deleteUserPolicy($input);
+
+        self::expectNotToPerformAssertions();
+    }
+
     public function testGetUser(): void
     {
         $client = $this->getClient();
@@ -147,6 +191,25 @@ class IamClientTest extends TestCase
         self::assertCount(1, $users = iterator_to_array($result->getUsers()));
         self::assertSame('jderusse', $users[0]->getUserName());
         self::assertSame('arn:aws:iam::000000000000:user/async-aws/jderusse', $users[0]->getArn());
+    }
+
+    public function testPutUserPolicy(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutUserPolicyRequest([
+            'UserName' => 'jderusse',
+            'PolicyName' => 'Access All Account Resources',
+            'PolicyDocument' => '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"*","Resource":"*"}}',
+        ]);
+        $client->putUserPolicy($input);
+
+        self::expectNotToPerformAssertions();
+
+        $client->deleteUserPolicy(new DeleteUserPolicyRequest([
+            'UserName' => 'jderusse',
+            'PolicyName' => 'Access All Account Resources',
+        ]));
     }
 
     public function testUpdateUser(): void
