@@ -22,11 +22,23 @@ class UpdateShardCountOutput extends Result
      */
     private $targetShardCount;
 
+    /**
+     * The ARN of the stream.
+     */
+    private $streamArn;
+
     public function getCurrentShardCount(): ?int
     {
         $this->initialize();
 
         return $this->currentShardCount;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        $this->initialize();
+
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -50,5 +62,6 @@ class UpdateShardCountOutput extends Result
         $this->streamName = isset($data['StreamName']) ? (string) $data['StreamName'] : null;
         $this->currentShardCount = isset($data['CurrentShardCount']) ? (int) $data['CurrentShardCount'] : null;
         $this->targetShardCount = isset($data['TargetShardCount']) ? (int) $data['TargetShardCount'] : null;
+        $this->streamArn = isset($data['StreamARN']) ? (string) $data['StreamARN'] : null;
     }
 }

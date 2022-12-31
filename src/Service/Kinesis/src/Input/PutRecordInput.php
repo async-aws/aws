@@ -15,8 +15,6 @@ final class PutRecordInput extends Input
     /**
      * The name of the stream to put the data record into.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
@@ -63,12 +61,20 @@ final class PutRecordInput extends Input
     private $sequenceNumberForOrdering;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   Data?: string,
      *   PartitionKey?: string,
      *   ExplicitHashKey?: string,
      *   SequenceNumberForOrdering?: string,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -79,6 +85,7 @@ final class PutRecordInput extends Input
         $this->partitionKey = $input['PartitionKey'] ?? null;
         $this->explicitHashKey = $input['ExplicitHashKey'] ?? null;
         $this->sequenceNumberForOrdering = $input['SequenceNumberForOrdering'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -105,6 +112,11 @@ final class PutRecordInput extends Input
     public function getSequenceNumberForOrdering(): ?string
     {
         return $this->sequenceNumberForOrdering;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -165,6 +177,13 @@ final class PutRecordInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -175,10 +194,9 @@ final class PutRecordInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null === $v = $this->data) {
             throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -192,6 +210,9 @@ final class PutRecordInput extends Input
         }
         if (null !== $v = $this->sequenceNumberForOrdering) {
             $payload['SequenceNumberForOrdering'] = $v;
+        }
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
         }
 
         return $payload;

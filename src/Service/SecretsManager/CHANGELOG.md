@@ -5,6 +5,18 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Added owning service filter, include planned deletion flag, and next rotation date response parameter in ListSecrets.
+- AWS enhancement: Documentation updates for Secrets Manager
+- AWS enhancement: Documentation updates for Secrets Manager.
+- AWS enhancement: Documentation updates for Secrets Manager
+- AWS enhancement: Documentation updates for Secrets Manager.
+- AWS enhancement: Documentation updates for Secrets Manager
+- AWS enhancement: Documentation updates for Secrets Manager
+- AWS enhancement: Doc only update for Secrets Manager that fixes several customer-reported issues.
+- AWS enhancement: Documentation updates for Secrets Manager
+- AWS enhancement: Documentation updates for Secrets Manager.
+- AWS api-change: Feature are ready to release on Jan 28th
+- AWS enhancement: Documentation updates for Secrets Manager
 
 ## 0.1.3
 

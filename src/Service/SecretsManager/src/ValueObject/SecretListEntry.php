@@ -77,6 +77,8 @@ final class SecretListEntry
      */
     private $deletedDate;
 
+    private $nextRotationDate;
+
     /**
      * The list of user-defined tags associated with the secret. To add tags to a secret, use `TagResource`. To remove tags,
      * use `UntagResource`.
@@ -120,6 +122,7 @@ final class SecretListEntry
      *   LastChangedDate?: null|\DateTimeImmutable,
      *   LastAccessedDate?: null|\DateTimeImmutable,
      *   DeletedDate?: null|\DateTimeImmutable,
+     *   NextRotationDate?: null|\DateTimeImmutable,
      *   Tags?: null|Tag[],
      *   SecretVersionsToStages?: null|array<string, array>,
      *   OwningService?: null|string,
@@ -140,6 +143,7 @@ final class SecretListEntry
         $this->lastChangedDate = $input['LastChangedDate'] ?? null;
         $this->lastAccessedDate = $input['LastAccessedDate'] ?? null;
         $this->deletedDate = $input['DeletedDate'] ?? null;
+        $this->nextRotationDate = $input['NextRotationDate'] ?? null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->secretVersionsToStages = $input['SecretVersionsToStages'] ?? null;
         $this->owningService = $input['OwningService'] ?? null;
@@ -195,6 +199,11 @@ final class SecretListEntry
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getNextRotationDate(): ?\DateTimeImmutable
+    {
+        return $this->nextRotationDate;
     }
 
     public function getOwningService(): ?string

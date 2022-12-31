@@ -6,10 +6,9 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only
- * supported for data streams with the provisioned capacity mode.
+ * Specifies that you do not have the permissions required to perform this operation.
  */
-final class ValidationException extends ClientException
+final class AccessDeniedException extends ClientException
 {
     protected function populateResult(ResponseInterface $response): void
     {

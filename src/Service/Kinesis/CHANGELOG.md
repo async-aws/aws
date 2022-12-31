@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added StreamARN parameter for Kinesis Data Streams APIs. Added a new opaque pagination token for ListStreams. SDKs will auto-generate Account Endpoint when accessing Kinesis Data Streams.
+- AWS api-change: Amazon Kinesis Data Streams now supports on demand streams.
+
 ## 1.1.0
 
 ### Added

@@ -25,16 +25,22 @@ final class PutRecordsInput extends Input
     /**
      * The stream name associated with the request.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   Records?: PutRecordsRequestEntry[],
      *   StreamName?: string,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -42,6 +48,7 @@ final class PutRecordsInput extends Input
     {
         $this->records = isset($input['Records']) ? array_map([PutRecordsRequestEntry::class, 'create'], $input['Records']) : null;
         $this->streamName = $input['StreamName'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -56,6 +63,11 @@ final class PutRecordsInput extends Input
     public function getRecords(): array
     {
         return $this->records ?? [];
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -98,6 +110,13 @@ final class PutRecordsInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -119,10 +138,12 @@ final class PutRecordsInput extends Input
             $payload['Records'][$index] = $listValue->requestBody();
         }
 
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
+        }
 
         return $payload;
     }
