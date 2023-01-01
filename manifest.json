@@ -247,9 +247,11 @@
                 "CreateServiceSpecificCredential",
                 "CreateUser",
                 "DeleteAccessKey",
+                "DeleteServiceSpecificCredential",
                 "DeleteUser",
                 "DeleteUserPolicy",
                 "GetUser",
+                "ListServiceSpecificCredentials",
                 "ListUsers",
                 "PutUserPolicy",
                 "UpdateUser"

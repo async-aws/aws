@@ -22,9 +22,11 @@ use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
+use AsyncAws\Iam\Input\DeleteServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\DeleteUserPolicyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
+use AsyncAws\Iam\Input\ListServiceSpecificCredentialsRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
 use AsyncAws\Iam\Input\PutUserPolicyRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
@@ -32,6 +34,7 @@ use AsyncAws\Iam\Result\CreateAccessKeyResponse;
 use AsyncAws\Iam\Result\CreateServiceSpecificCredentialResponse;
 use AsyncAws\Iam\Result\CreateUserResponse;
 use AsyncAws\Iam\Result\GetUserResponse;
+use AsyncAws\Iam\Result\ListServiceSpecificCredentialsResponse;
 use AsyncAws\Iam\Result\ListUsersResponse;
 use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
@@ -188,6 +191,30 @@ class IamClient extends AbstractApi
     }
 
     /**
+     * Deletes the specified service-specific credential.
+     *
+     * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteServiceSpecificCredential.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#deleteservicespecificcredential
+     *
+     * @param array{
+     *   UserName?: string,
+     *   ServiceSpecificCredentialId: string,
+     *   @region?: string,
+     * }|DeleteServiceSpecificCredentialRequest $input
+     *
+     * @throws NoSuchEntityException
+     */
+    public function deleteServiceSpecificCredential($input): Result
+    {
+        $input = DeleteServiceSpecificCredentialRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteServiceSpecificCredential', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchEntity' => NoSuchEntityException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
+    /**
      * Deletes the specified IAM user. Unlike the Amazon Web Services Management Console, when you delete a user
      * programmatically, you must delete the items attached to the user manually, or the deletion fails. For more
      * information, see Deleting an IAM user. Before attempting to delete a user, remove the following items:.
@@ -272,6 +299,36 @@ class IamClient extends AbstractApi
         ]]));
 
         return new GetUserResponse($response);
+    }
+
+    /**
+     * Returns information about the service-specific credentials associated with the specified IAM user. If none exists,
+     * the operation returns an empty list. The service-specific credentials returned by this operation are used only for
+     * authenticating the IAM user to a specific service. For more information about using service-specific credentials to
+     * authenticate to an Amazon Web Services service, see Set up service-specific credentials in the CodeCommit User Guide.
+     *
+     * @see https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html
+     * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListServiceSpecificCredentials.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#listservicespecificcredentials
+     *
+     * @param array{
+     *   UserName?: string,
+     *   ServiceName?: string,
+     *   @region?: string,
+     * }|ListServiceSpecificCredentialsRequest $input
+     *
+     * @throws NoSuchEntityException
+     * @throws ServiceNotSupportedException
+     */
+    public function listServiceSpecificCredentials($input = []): ListServiceSpecificCredentialsResponse
+    {
+        $input = ListServiceSpecificCredentialsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListServiceSpecificCredentials', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchEntity' => NoSuchEntityException::class,
+            'NotSupportedService' => ServiceNotSupportedException::class,
+        ]]));
+
+        return new ListServiceSpecificCredentialsResponse($response);
     }
 
     /**
