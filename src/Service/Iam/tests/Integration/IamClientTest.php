@@ -136,6 +136,7 @@ class IamClientTest extends TestCase
 
     public function testDeleteServiceSpecificCredential(): void
     {
+        self::markTestSkipped('Localstack does not support the CreateServiceSpecificCredentialRequest API action');
         $client = $this->getClient();
 
         $client->createServiceSpecificCredential(new CreateServiceSpecificCredentialRequest([
@@ -210,6 +211,7 @@ class IamClientTest extends TestCase
 
     public function testListServiceSpecificCredentials(): void
     {
+        self::markTestSkipped('Localstack does not support the CreateServiceSpecificCredentialRequest API action');
         $client = $this->getClient();
 
         $client->createServiceSpecificCredential(new CreateServiceSpecificCredentialRequest([
