@@ -79,9 +79,11 @@ final class ListScheduleGroupsInput extends Input
         $query = [];
         if (null !== $this->maxResults) {
             $query['MaxResults'] = (string) $this->maxResults;
-        }if (null !== $this->namePrefix) {
+        }
+        if (null !== $this->namePrefix) {
             $query['NamePrefix'] = $this->namePrefix;
-        }if (null !== $this->nextToken) {
+        }
+        if (null !== $this->nextToken) {
             $query['NextToken'] = $this->nextToken;
         }
 

@@ -186,19 +186,26 @@ final class CreateBucketRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->acl));
             }
             $headers['x-amz-acl'] = $this->acl;
-        }if (null !== $this->grantFullControl) {
+        }
+        if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
-        }if (null !== $this->grantRead) {
+        }
+        if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
-        }if (null !== $this->grantReadAcp) {
+        }
+        if (null !== $this->grantReadAcp) {
             $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
-        }if (null !== $this->grantWrite) {
+        }
+        if (null !== $this->grantWrite) {
             $headers['x-amz-grant-write'] = $this->grantWrite;
-        }if (null !== $this->grantWriteAcp) {
+        }
+        if (null !== $this->grantWriteAcp) {
             $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
-        }if (null !== $this->objectLockEnabledForBucket) {
+        }
+        if (null !== $this->objectLockEnabledForBucket) {
             $headers['x-amz-bucket-object-lock-enabled'] = $this->objectLockEnabledForBucket ? 'true' : 'false';
-        }if (null !== $this->objectOwnership) {
+        }
+        if (null !== $this->objectOwnership) {
             if (!ObjectOwnership::exists($this->objectOwnership)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ObjectOwnership" for "%s". The value "%s" is not a valid "ObjectOwnership".', __CLASS__, $this->objectOwnership));
             }

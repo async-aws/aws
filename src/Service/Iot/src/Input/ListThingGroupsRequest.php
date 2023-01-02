@@ -107,13 +107,17 @@ final class ListThingGroupsRequest extends Input
         $query = [];
         if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }if (null !== $this->maxResults) {
+        }
+        if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
-        }if (null !== $this->parentGroup) {
+        }
+        if (null !== $this->parentGroup) {
             $query['parentGroup'] = $this->parentGroup;
-        }if (null !== $this->namePrefixFilter) {
+        }
+        if (null !== $this->namePrefixFilter) {
             $query['namePrefixFilter'] = $this->namePrefixFilter;
-        }if (null !== $this->recursive) {
+        }
+        if (null !== $this->recursive) {
             $query['recursive'] = $this->recursive ? 'true' : 'false';
         }
 

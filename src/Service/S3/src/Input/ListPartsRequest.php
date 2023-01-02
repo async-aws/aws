@@ -196,13 +196,17 @@ final class ListPartsRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }if (null !== $this->expectedBucketOwner) {
+        }
+        if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
-        }if (null !== $this->sseCustomerAlgorithm) {
+        }
+        if (null !== $this->sseCustomerAlgorithm) {
             $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
-        }if (null !== $this->sseCustomerKey) {
+        }
+        if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
-        }if (null !== $this->sseCustomerKeyMd5) {
+        }
+        if (null !== $this->sseCustomerKeyMd5) {
             $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
 
@@ -210,9 +214,11 @@ final class ListPartsRequest extends Input
         $query = [];
         if (null !== $this->maxParts) {
             $query['max-parts'] = (string) $this->maxParts;
-        }if (null !== $this->partNumberMarker) {
+        }
+        if (null !== $this->partNumberMarker) {
             $query['part-number-marker'] = (string) $this->partNumberMarker;
-        }if (null === $v = $this->uploadId) {
+        }
+        if (null === $v = $this->uploadId) {
             throw new InvalidArgument(sprintf('Missing parameter "UploadId" for "%s". The value cannot be null.', __CLASS__));
         }
         $query['uploadId'] = $v;

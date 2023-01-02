@@ -125,12 +125,14 @@ final class PutBucketCorsRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
-        }if (null !== $this->checksumAlgorithm) {
+        }
+        if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
-        }if (null !== $this->expectedBucketOwner) {
+        }
+        if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 

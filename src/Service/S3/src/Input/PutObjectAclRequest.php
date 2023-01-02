@@ -261,29 +261,38 @@ final class PutObjectAclRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
             $headers['x-amz-acl'] = $this->acl;
-        }if (null !== $this->contentMd5) {
+        }
+        if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
-        }if (null !== $this->checksumAlgorithm) {
+        }
+        if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
-        }if (null !== $this->grantFullControl) {
+        }
+        if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
-        }if (null !== $this->grantRead) {
+        }
+        if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
-        }if (null !== $this->grantReadAcp) {
+        }
+        if (null !== $this->grantReadAcp) {
             $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
-        }if (null !== $this->grantWrite) {
+        }
+        if (null !== $this->grantWrite) {
             $headers['x-amz-grant-write'] = $this->grantWrite;
-        }if (null !== $this->grantWriteAcp) {
+        }
+        if (null !== $this->grantWriteAcp) {
             $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
-        }if (null !== $this->requestPayer) {
+        }
+        if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }if (null !== $this->expectedBucketOwner) {
+        }
+        if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 

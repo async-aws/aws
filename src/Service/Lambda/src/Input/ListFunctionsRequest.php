@@ -100,14 +100,17 @@ final class ListFunctionsRequest extends Input
         $query = [];
         if (null !== $this->masterRegion) {
             $query['MasterRegion'] = $this->masterRegion;
-        }if (null !== $this->functionVersion) {
+        }
+        if (null !== $this->functionVersion) {
             if (!FunctionVersion::exists($this->functionVersion)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "FunctionVersion" for "%s". The value "%s" is not a valid "FunctionVersion".', __CLASS__, $this->functionVersion));
             }
             $query['FunctionVersion'] = $this->functionVersion;
-        }if (null !== $this->marker) {
+        }
+        if (null !== $this->marker) {
             $query['Marker'] = $this->marker;
-        }if (null !== $this->maxItems) {
+        }
+        if (null !== $this->maxItems) {
             $query['MaxItems'] = (string) $this->maxItems;
         }
 

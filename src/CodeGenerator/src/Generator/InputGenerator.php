@@ -371,7 +371,10 @@ class InputGenerator
                 if (!isset($body[$requestPart])) {
                     $body[$requestPart] = $varName . ' = [];' . "\n";
                 }
-                $body[$requestPart] .= implode("\n", array_filter(array_map('trim', explode("\n", $bodyCode))));
+                $body[$requestPart] .= $bodyCode . "\n";
+            }
+            if (isset($body[$requestPart])) {
+                $body[$requestPart] = implode("\n", array_filter(array_map('trim', explode("\n", $body[$requestPart]))));
             }
         }
 
