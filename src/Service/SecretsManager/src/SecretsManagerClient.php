@@ -165,6 +165,7 @@ class SecretsManagerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#listsecrets
      *
      * @param array{
+     *   IncludePlannedDeletion?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
      *   Filters?: Filter[],

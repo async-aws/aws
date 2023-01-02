@@ -13,8 +13,6 @@ final class UpdateShardCountInput extends Input
     /**
      * The name of the stream.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
@@ -38,10 +36,18 @@ final class UpdateShardCountInput extends Input
     private $scalingType;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -50,6 +56,7 @@ final class UpdateShardCountInput extends Input
         $this->streamName = $input['StreamName'] ?? null;
         $this->targetShardCount = $input['TargetShardCount'] ?? null;
         $this->scalingType = $input['ScalingType'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -64,6 +71,11 @@ final class UpdateShardCountInput extends Input
     public function getScalingType(): ?string
     {
         return $this->scalingType;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -111,6 +123,13 @@ final class UpdateShardCountInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -128,10 +147,9 @@ final class UpdateShardCountInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null === $v = $this->targetShardCount) {
             throw new InvalidArgument(sprintf('Missing parameter "TargetShardCount" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -143,6 +161,9 @@ final class UpdateShardCountInput extends Input
             throw new InvalidArgument(sprintf('Invalid parameter "ScalingType" for "%s". The value "%s" is not a valid "ScalingType".', __CLASS__, $v));
         }
         $payload['ScalingType'] = $v;
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
+        }
 
         return $payload;
     }

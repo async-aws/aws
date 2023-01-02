@@ -2,7 +2,6 @@
 
 namespace AsyncAws\Kinesis\Input;
 
-use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -12,27 +11,39 @@ final class DescribeStreamSummaryInput extends Input
     /**
      * The name of the stream to describe.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->streamName = $input['StreamName'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -65,6 +76,13 @@ final class DescribeStreamSummaryInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -75,10 +93,12 @@ final class DescribeStreamSummaryInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
+        }
 
         return $payload;
     }

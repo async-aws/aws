@@ -2,7 +2,6 @@
 
 namespace AsyncAws\Kinesis\Input;
 
-use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -14,8 +13,6 @@ final class ListTagsForStreamInput extends Input
 {
     /**
      * The name of the stream.
-     *
-     * @required
      *
      * @var string|null
      */
@@ -38,10 +35,18 @@ final class ListTagsForStreamInput extends Input
     private $limit;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   ExclusiveStartTagKey?: string,
      *   Limit?: int,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -50,6 +55,7 @@ final class ListTagsForStreamInput extends Input
         $this->streamName = $input['StreamName'] ?? null;
         $this->exclusiveStartTagKey = $input['ExclusiveStartTagKey'] ?? null;
         $this->limit = $input['Limit'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -66,6 +72,11 @@ final class ListTagsForStreamInput extends Input
     public function getLimit(): ?int
     {
         return $this->limit;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -112,6 +123,13 @@ final class ListTagsForStreamInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -122,15 +140,17 @@ final class ListTagsForStreamInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null !== $v = $this->exclusiveStartTagKey) {
             $payload['ExclusiveStartTagKey'] = $v;
         }
         if (null !== $v = $this->limit) {
             $payload['Limit'] = $v;
+        }
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
         }
 
         return $payload;

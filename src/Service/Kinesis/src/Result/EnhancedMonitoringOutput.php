@@ -27,6 +27,11 @@ class EnhancedMonitoringOutput extends Result
     private $desiredShardLevelMetrics;
 
     /**
+     * The ARN of the stream.
+     */
+    private $streamArn;
+
+    /**
      * @return list<MetricsName::*>
      */
     public function getCurrentShardLevelMetrics(): array
@@ -46,6 +51,13 @@ class EnhancedMonitoringOutput extends Result
         return $this->desiredShardLevelMetrics;
     }
 
+    public function getStreamArn(): ?string
+    {
+        $this->initialize();
+
+        return $this->streamArn;
+    }
+
     public function getStreamName(): ?string
     {
         $this->initialize();
@@ -60,6 +72,7 @@ class EnhancedMonitoringOutput extends Result
         $this->streamName = isset($data['StreamName']) ? (string) $data['StreamName'] : null;
         $this->currentShardLevelMetrics = empty($data['CurrentShardLevelMetrics']) ? [] : $this->populateResultMetricsNameList($data['CurrentShardLevelMetrics']);
         $this->desiredShardLevelMetrics = empty($data['DesiredShardLevelMetrics']) ? [] : $this->populateResultMetricsNameList($data['DesiredShardLevelMetrics']);
+        $this->streamArn = isset($data['StreamARN']) ? (string) $data['StreamARN'] : null;
     }
 
     /**

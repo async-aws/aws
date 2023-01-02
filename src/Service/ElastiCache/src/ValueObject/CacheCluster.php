@@ -4,6 +4,7 @@ namespace AsyncAws\ElastiCache\ValueObject;
 
 use AsyncAws\ElastiCache\Enum\IpDiscovery;
 use AsyncAws\ElastiCache\Enum\NetworkType;
+use AsyncAws\ElastiCache\Enum\TransitEncryptionMode;
 
 /**
  * Contains all of the attributes of a specific cluster.
@@ -182,6 +183,11 @@ final class CacheCluster
     private $ipDiscovery;
 
     /**
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     */
+    private $transitEncryptionMode;
+
+    /**
      * @param array{
      *   CacheClusterId?: null|string,
      *   ConfigurationEndpoint?: null|Endpoint|array,
@@ -215,6 +221,7 @@ final class CacheCluster
      *   LogDeliveryConfigurations?: null|LogDeliveryConfiguration[],
      *   NetworkType?: null|NetworkType::*,
      *   IpDiscovery?: null|IpDiscovery::*,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
      * } $input
      */
     public function __construct(array $input)
@@ -251,6 +258,7 @@ final class CacheCluster
         $this->logDeliveryConfigurations = isset($input['LogDeliveryConfigurations']) ? array_map([LogDeliveryConfiguration::class, 'create'], $input['LogDeliveryConfigurations']) : null;
         $this->networkType = $input['NetworkType'] ?? null;
         $this->ipDiscovery = $input['IpDiscovery'] ?? null;
+        $this->transitEncryptionMode = $input['TransitEncryptionMode'] ?? null;
     }
 
     public static function create($input): self
@@ -434,5 +442,13 @@ final class CacheCluster
     public function getTransitEncryptionEnabled(): ?bool
     {
         return $this->transitEncryptionEnabled;
+    }
+
+    /**
+     * @return TransitEncryptionMode::*|null
+     */
+    public function getTransitEncryptionMode(): ?string
+    {
+        return $this->transitEncryptionMode;
     }
 }

@@ -31,9 +31,17 @@ final class GetRecordsInput extends Input
     private $limit;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   ShardIterator?: string,
      *   Limit?: int,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -41,6 +49,7 @@ final class GetRecordsInput extends Input
     {
         $this->shardIterator = $input['ShardIterator'] ?? null;
         $this->limit = $input['Limit'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -57,6 +66,11 @@ final class GetRecordsInput extends Input
     public function getShardIterator(): ?string
     {
         return $this->shardIterator;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     /**
@@ -98,6 +112,13 @@ final class GetRecordsInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -107,6 +128,9 @@ final class GetRecordsInput extends Input
         $payload['ShardIterator'] = $v;
         if (null !== $v = $this->limit) {
             $payload['Limit'] = $v;
+        }
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
         }
 
         return $payload;

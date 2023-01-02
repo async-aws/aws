@@ -59,6 +59,13 @@ final class ListShardsInput extends Input
     private $shardFilter;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   NextToken?: string,
@@ -66,6 +73,7 @@ final class ListShardsInput extends Input
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
      *   ShardFilter?: ShardFilter|array,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -77,6 +85,7 @@ final class ListShardsInput extends Input
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->streamCreationTimestamp = !isset($input['StreamCreationTimestamp']) ? null : ($input['StreamCreationTimestamp'] instanceof \DateTimeImmutable ? $input['StreamCreationTimestamp'] : new \DateTimeImmutable($input['StreamCreationTimestamp']));
         $this->shardFilter = isset($input['ShardFilter']) ? ShardFilter::create($input['ShardFilter']) : null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -103,6 +112,11 @@ final class ListShardsInput extends Input
     public function getShardFilter(): ?ShardFilter
     {
         return $this->shardFilter;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamCreationTimestamp(): ?\DateTimeImmutable
@@ -168,6 +182,13 @@ final class ListShardsInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamCreationTimestamp(?\DateTimeImmutable $value): self
     {
         $this->streamCreationTimestamp = $value;
@@ -202,6 +223,9 @@ final class ListShardsInput extends Input
         }
         if (null !== $v = $this->shardFilter) {
             $payload['ShardFilter'] = $v->requestBody();
+        }
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
         }
 
         return $payload;

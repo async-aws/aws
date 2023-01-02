@@ -27,9 +27,15 @@ final class ListStreamsInput extends Input
     private $exclusiveStartStreamName;
 
     /**
+     * @var string|null
+     */
+    private $nextToken;
+
+    /**
      * @param array{
      *   Limit?: int,
      *   ExclusiveStartStreamName?: string,
+     *   NextToken?: string,
      *   @region?: string,
      * } $input
      */
@@ -37,6 +43,7 @@ final class ListStreamsInput extends Input
     {
         $this->limit = $input['Limit'] ?? null;
         $this->exclusiveStartStreamName = $input['ExclusiveStartStreamName'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -53,6 +60,11 @@ final class ListStreamsInput extends Input
     public function getLimit(): ?int
     {
         return $this->limit;
+    }
+
+    public function getNextToken(): ?string
+    {
+        return $this->nextToken;
     }
 
     /**
@@ -94,6 +106,13 @@ final class ListStreamsInput extends Input
         return $this;
     }
 
+    public function setNextToken(?string $value): self
+    {
+        $this->nextToken = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -102,6 +121,9 @@ final class ListStreamsInput extends Input
         }
         if (null !== $v = $this->exclusiveStartStreamName) {
             $payload['ExclusiveStartStreamName'] = $v;
+        }
+        if (null !== $v = $this->nextToken) {
+            $payload['NextToken'] = $v;
         }
 
         return $payload;

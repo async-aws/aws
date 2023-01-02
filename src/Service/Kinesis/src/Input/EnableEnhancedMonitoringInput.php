@@ -16,8 +16,6 @@ final class EnableEnhancedMonitoringInput extends Input
     /**
      * The name of the stream for which to enable enhanced monitoring.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
@@ -32,9 +30,17 @@ final class EnableEnhancedMonitoringInput extends Input
     private $shardLevelMetrics;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   ShardLevelMetrics?: list<MetricsName::*>,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -42,6 +48,7 @@ final class EnableEnhancedMonitoringInput extends Input
     {
         $this->streamName = $input['StreamName'] ?? null;
         $this->shardLevelMetrics = $input['ShardLevelMetrics'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -56,6 +63,11 @@ final class EnableEnhancedMonitoringInput extends Input
     public function getShardLevelMetrics(): array
     {
         return $this->shardLevelMetrics ?? [];
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -98,6 +110,13 @@ final class EnableEnhancedMonitoringInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -108,10 +127,9 @@ final class EnableEnhancedMonitoringInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null === $v = $this->shardLevelMetrics) {
             throw new InvalidArgument(sprintf('Missing parameter "ShardLevelMetrics" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -124,6 +142,10 @@ final class EnableEnhancedMonitoringInput extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "ShardLevelMetrics" for "%s". The value "%s" is not a valid "MetricsName".', __CLASS__, $listValue));
             }
             $payload['ShardLevelMetrics'][$index] = $listValue;
+        }
+
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
         }
 
         return $payload;

@@ -15,8 +15,6 @@ final class DecreaseStreamRetentionPeriodInput extends Input
     /**
      * The name of the stream to modify.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
@@ -31,9 +29,17 @@ final class DecreaseStreamRetentionPeriodInput extends Input
     private $retentionPeriodHours;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   RetentionPeriodHours?: int,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -41,6 +47,7 @@ final class DecreaseStreamRetentionPeriodInput extends Input
     {
         $this->streamName = $input['StreamName'] ?? null;
         $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -52,6 +59,11 @@ final class DecreaseStreamRetentionPeriodInput extends Input
     public function getRetentionPeriodHours(): ?int
     {
         return $this->retentionPeriodHours;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -91,6 +103,13 @@ final class DecreaseStreamRetentionPeriodInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -101,14 +120,16 @@ final class DecreaseStreamRetentionPeriodInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null === $v = $this->retentionPeriodHours) {
             throw new InvalidArgument(sprintf('Missing parameter "RetentionPeriodHours" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RetentionPeriodHours'] = $v;
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
+        }
 
         return $payload;
     }

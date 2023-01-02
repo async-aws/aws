@@ -2,7 +2,6 @@
 
 namespace AsyncAws\Kinesis\Input;
 
-use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -14,8 +13,6 @@ final class DeleteStreamInput extends Input
 {
     /**
      * The name of the stream to delete.
-     *
-     * @required
      *
      * @var string|null
      */
@@ -30,9 +27,17 @@ final class DeleteStreamInput extends Input
     private $enforceConsumerDeletion;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   EnforceConsumerDeletion?: bool,
+     *   StreamARN?: string,
      *   @region?: string,
      * } $input
      */
@@ -40,6 +45,7 @@ final class DeleteStreamInput extends Input
     {
         $this->streamName = $input['StreamName'] ?? null;
         $this->enforceConsumerDeletion = $input['EnforceConsumerDeletion'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -51,6 +57,11 @@ final class DeleteStreamInput extends Input
     public function getEnforceConsumerDeletion(): ?bool
     {
         return $this->enforceConsumerDeletion;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -90,6 +101,13 @@ final class DeleteStreamInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -100,12 +118,14 @@ final class DeleteStreamInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null !== $v = $this->enforceConsumerDeletion) {
             $payload['EnforceConsumerDeletion'] = (bool) $v;
+        }
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
         }
 
         return $payload;
