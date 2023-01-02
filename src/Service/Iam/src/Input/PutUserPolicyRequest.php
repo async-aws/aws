@@ -41,6 +41,7 @@ final class PutUserPolicyRequest extends Input
      *   UserName?: string,
      *   PolicyName?: string,
      *   PolicyDocument?: string,
+     *
      *   @region?: string,
      * } $input
      */

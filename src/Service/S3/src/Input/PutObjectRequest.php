@@ -386,6 +386,7 @@ final class PutObjectRequest extends Input
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -660,122 +661,89 @@ final class PutObjectRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
             $headers['x-amz-acl'] = $this->acl;
-        }
-        if (null !== $this->cacheControl) {
+        }if (null !== $this->cacheControl) {
             $headers['Cache-Control'] = $this->cacheControl;
-        }
-        if (null !== $this->contentDisposition) {
+        }if (null !== $this->contentDisposition) {
             $headers['Content-Disposition'] = $this->contentDisposition;
-        }
-        if (null !== $this->contentEncoding) {
+        }if (null !== $this->contentEncoding) {
             $headers['Content-Encoding'] = $this->contentEncoding;
-        }
-        if (null !== $this->contentLanguage) {
+        }if (null !== $this->contentLanguage) {
             $headers['Content-Language'] = $this->contentLanguage;
-        }
-        if (null !== $this->contentLength) {
+        }if (null !== $this->contentLength) {
             $headers['Content-Length'] = $this->contentLength;
-        }
-        if (null !== $this->contentMd5) {
+        }if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
-        }
-        if (null !== $this->contentType) {
+        }if (null !== $this->contentType) {
             $headers['Content-Type'] = $this->contentType;
-        }
-        if (null !== $this->checksumAlgorithm) {
+        }if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
-        }
-        if (null !== $this->checksumCrc32) {
+        }if (null !== $this->checksumCrc32) {
             $headers['x-amz-checksum-crc32'] = $this->checksumCrc32;
-        }
-        if (null !== $this->checksumCrc32C) {
+        }if (null !== $this->checksumCrc32C) {
             $headers['x-amz-checksum-crc32c'] = $this->checksumCrc32C;
-        }
-        if (null !== $this->checksumSha1) {
+        }if (null !== $this->checksumSha1) {
             $headers['x-amz-checksum-sha1'] = $this->checksumSha1;
-        }
-        if (null !== $this->checksumSha256) {
+        }if (null !== $this->checksumSha256) {
             $headers['x-amz-checksum-sha256'] = $this->checksumSha256;
-        }
-        if (null !== $this->expires) {
+        }if (null !== $this->expires) {
             $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
-        }
-        if (null !== $this->grantFullControl) {
+        }if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
-        }
-        if (null !== $this->grantRead) {
+        }if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
-        }
-        if (null !== $this->grantReadAcp) {
+        }if (null !== $this->grantReadAcp) {
             $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
-        }
-        if (null !== $this->grantWriteAcp) {
+        }if (null !== $this->grantWriteAcp) {
             $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
-        }
-        if (null !== $this->serverSideEncryption) {
+        }if (null !== $this->serverSideEncryption) {
             if (!ServerSideEncryption::exists($this->serverSideEncryption)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" for "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->serverSideEncryption));
             }
             $headers['x-amz-server-side-encryption'] = $this->serverSideEncryption;
-        }
-        if (null !== $this->storageClass) {
+        }if (null !== $this->storageClass) {
             if (!StorageClass::exists($this->storageClass)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" for "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->storageClass));
             }
             $headers['x-amz-storage-class'] = $this->storageClass;
-        }
-        if (null !== $this->websiteRedirectLocation) {
+        }if (null !== $this->websiteRedirectLocation) {
             $headers['x-amz-website-redirect-location'] = $this->websiteRedirectLocation;
-        }
-        if (null !== $this->sseCustomerAlgorithm) {
+        }if (null !== $this->sseCustomerAlgorithm) {
             $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
-        }
-        if (null !== $this->sseCustomerKey) {
+        }if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
-        }
-        if (null !== $this->sseCustomerKeyMd5) {
+        }if (null !== $this->sseCustomerKeyMd5) {
             $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
-        }
-        if (null !== $this->sseKmsKeyId) {
+        }if (null !== $this->sseKmsKeyId) {
             $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKmsKeyId;
-        }
-        if (null !== $this->sseKmsEncryptionContext) {
+        }if (null !== $this->sseKmsEncryptionContext) {
             $headers['x-amz-server-side-encryption-context'] = $this->sseKmsEncryptionContext;
-        }
-        if (null !== $this->bucketKeyEnabled) {
+        }if (null !== $this->bucketKeyEnabled) {
             $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->bucketKeyEnabled ? 'true' : 'false';
-        }
-        if (null !== $this->requestPayer) {
+        }if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }
-        if (null !== $this->tagging) {
+        }if (null !== $this->tagging) {
             $headers['x-amz-tagging'] = $this->tagging;
-        }
-        if (null !== $this->objectLockMode) {
+        }if (null !== $this->objectLockMode) {
             if (!ObjectLockMode::exists($this->objectLockMode)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" for "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->objectLockMode));
             }
             $headers['x-amz-object-lock-mode'] = $this->objectLockMode;
-        }
-        if (null !== $this->objectLockRetainUntilDate) {
+        }if (null !== $this->objectLockRetainUntilDate) {
             $headers['x-amz-object-lock-retain-until-date'] = $this->objectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
-        }
-        if (null !== $this->objectLockLegalHoldStatus) {
+        }if (null !== $this->objectLockLegalHoldStatus) {
             if (!ObjectLockLegalHoldStatus::exists($this->objectLockLegalHoldStatus)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->objectLockLegalHoldStatus));
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->objectLockLegalHoldStatus;
-        }
-        if (null !== $this->expectedBucketOwner) {
+        }if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
-        }
-        if (null !== $this->metadata) {
+        }if (null !== $this->metadata) {
             foreach ($this->metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
             }

@@ -72,6 +72,7 @@ final class InitiateAuthRequest extends Input
      *   ClientId?: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
+     *
      *   @region?: string,
      * } $input
      */

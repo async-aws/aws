@@ -10,6 +10,7 @@ final class ListBucketsRequest extends Input
 {
     /**
      * @param array{
+     *
      *   @region?: string,
      * } $input
      */

@@ -37,6 +37,7 @@ class TimestreamQueryClient extends AbstractApi
      *
      * @param array{
      *   QueryId: string,
+     *
      *   @region?: string,
      * }|CancelQueryRequest $input
      *
@@ -68,6 +69,7 @@ class TimestreamQueryClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#describeendpoints
      *
      * @param array{
+     *
      *   @region?: string,
      * }|DescribeEndpointsRequest $input
      *
@@ -97,6 +99,7 @@ class TimestreamQueryClient extends AbstractApi
      * @param array{
      *   QueryString: string,
      *   ValidateOnly?: bool,
+     *
      *   @region?: string,
      * }|PrepareQueryRequest $input
      *
@@ -134,6 +137,7 @@ class TimestreamQueryClient extends AbstractApi
      *   ClientToken?: string,
      *   NextToken?: string,
      *   MaxRows?: int,
+     *
      *   @region?: string,
      * }|QueryRequest $input
      *

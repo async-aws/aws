@@ -29,6 +29,7 @@ final class CreateCollectionRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   Tags?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

@@ -47,6 +47,7 @@ final class ListTagsForStreamInput extends Input
      *   ExclusiveStartTagKey?: string,
      *   Limit?: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

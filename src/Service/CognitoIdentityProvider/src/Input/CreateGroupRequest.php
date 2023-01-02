@@ -59,6 +59,7 @@ final class CreateGroupRequest extends Input
      *   Description?: string,
      *   RoleArn?: string,
      *   Precedence?: int,
+     *
      *   @region?: string,
      * } $input
      */

@@ -24,6 +24,7 @@ final class GetUserRequest extends Input
     /**
      * @param array{
      *   AccessToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

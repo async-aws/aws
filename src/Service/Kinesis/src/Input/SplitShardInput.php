@@ -54,6 +54,7 @@ final class SplitShardInput extends Input
      *   ShardToSplit?: string,
      *   NewStartingHashKey?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

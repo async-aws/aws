@@ -80,6 +80,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *   Principal?: string,
      *   OrganizationId?: string,
      *   RevisionId?: string,
+     *
      *   @region?: string,
      * } $input
      */

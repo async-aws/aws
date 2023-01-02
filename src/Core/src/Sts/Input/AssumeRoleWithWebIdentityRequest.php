@@ -87,6 +87,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   PolicyArns?: PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
+     *
      *   @region?: string,
      * } $input
      */

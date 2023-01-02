@@ -42,6 +42,7 @@ final class UpdateThingShadowRequest extends Input
      *   thingName?: string,
      *   shadowName?: string,
      *   payload?: string,
+     *
      *   @region?: string,
      * } $input
      */

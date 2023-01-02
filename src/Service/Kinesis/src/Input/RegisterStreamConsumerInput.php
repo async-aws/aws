@@ -14,6 +14,7 @@ final class RegisterStreamConsumerInput extends Input
      * Names (ARNs) and Amazon Web Services Service Namespaces.
      *
      * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams
+     *
      * @required
      *
      * @var string|null
@@ -34,6 +35,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
+     *
      *   @region?: string,
      * } $input
      */

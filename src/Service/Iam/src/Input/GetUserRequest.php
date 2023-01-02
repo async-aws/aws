@@ -18,6 +18,7 @@ final class GetUserRequest extends Input
     /**
      * @param array{
      *   UserName?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -53,6 +53,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *   Username?: string,
      *   UserAttributes?: AttributeType[],
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

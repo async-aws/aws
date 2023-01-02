@@ -66,6 +66,7 @@ final class GetParametersByPathRequest extends Input
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

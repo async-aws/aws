@@ -108,6 +108,7 @@ final class FilterLogEventsRequest extends Input
      *   limit?: int,
      *   interleaved?: bool,
      *   unmask?: bool,
+     *
      *   @region?: string,
      * } $input
      */

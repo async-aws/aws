@@ -21,6 +21,7 @@ final class DeleteCollectionRequest extends Input
     /**
      * @param array{
      *   CollectionId?: string,
+     *
      *   @region?: string,
      * } $input
      */

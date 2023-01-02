@@ -30,6 +30,7 @@ final class GetBucketEncryptionRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */

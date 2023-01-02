@@ -9,7 +9,6 @@ use AsyncAws\Iot\Input\ListThingTypesRequest;
 use AsyncAws\Iot\IotClient;
 use AsyncAws\Iot\Result\ListThingTypesResponse;
 use AsyncAws\Iot\ValueObject\ThingTypeDefinition;
-use DateTimeImmutable;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -52,8 +51,8 @@ class ListThingTypesResponseTest extends TestCase
         $result = new ListThingTypesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new IotClient(), new ListThingTypesRequest([]));
 
         $expected = [
-            new ThingTypeDefinition(['thingTypeName' => 'hvac', 'thingTypeArn' => 'hvac:arn', 'thingTypeMetadata' => ['creationDate' => new DateTimeImmutable('2022-06-28T14:37:11.774000+0000'), 'deprecated' => false], 'thingTypeProperties' => ['searchableAttributes' => ['energy'], 'thingTypeDescription' => 'HVAC']]),
-            new ThingTypeDefinition(['thingTypeName' => 'sensor', 'thingTypeArn' => 'sensor:arn', 'thingTypeMetadata' => ['creationDate' => new DateTimeImmutable('2022-06-28T14:37:11.774000+0000'), 'deprecated' => true, 'deprecationDate' => new DateTimeImmutable('2022-06-28T14:37:11.774000+0000')], 'thingTypeProperties' => ['thingTypeDescription' => 'All kind of sensor']]),
+            new ThingTypeDefinition(['thingTypeName' => 'hvac', 'thingTypeArn' => 'hvac:arn', 'thingTypeMetadata' => ['creationDate' => new \DateTimeImmutable('2022-06-28T14:37:11.774000+0000'), 'deprecated' => false], 'thingTypeProperties' => ['searchableAttributes' => ['energy'], 'thingTypeDescription' => 'HVAC']]),
+            new ThingTypeDefinition(['thingTypeName' => 'sensor', 'thingTypeArn' => 'sensor:arn', 'thingTypeMetadata' => ['creationDate' => new \DateTimeImmutable('2022-06-28T14:37:11.774000+0000'), 'deprecated' => true, 'deprecationDate' => new \DateTimeImmutable('2022-06-28T14:37:11.774000+0000')], 'thingTypeProperties' => ['thingTypeDescription' => 'All kind of sensor']]),
         ];
         self::assertEquals($expected, iterator_to_array($result->getThingTypes()));
         self::assertSame(null, $result->getNextToken());

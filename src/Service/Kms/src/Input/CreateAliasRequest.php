@@ -23,6 +23,7 @@ final class CreateAliasRequest extends Input
      * Region.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk
+     *
      * @required
      *
      * @var string|null
@@ -33,6 +34,7 @@ final class CreateAliasRequest extends Input
      * @param array{
      *   AliasName?: string,
      *   TargetKeyId?: string,
+     *
      *   @region?: string,
      * } $input
      */

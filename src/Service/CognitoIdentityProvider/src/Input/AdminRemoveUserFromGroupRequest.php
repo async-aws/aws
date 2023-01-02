@@ -41,6 +41,7 @@ final class AdminRemoveUserFromGroupRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   GroupName?: string,
+     *
      *   @region?: string,
      * } $input
      */

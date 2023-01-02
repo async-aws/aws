@@ -44,6 +44,7 @@ final class RollbackTransactionRequest extends Input
      *   resourceArn?: string,
      *   secretArn?: string,
      *   transactionId?: string,
+     *
      *   @region?: string,
      * } $input
      */

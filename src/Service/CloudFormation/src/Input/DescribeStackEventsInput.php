@@ -29,6 +29,7 @@ final class DescribeStackEventsInput extends Input
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

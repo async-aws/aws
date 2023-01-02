@@ -22,6 +22,7 @@ final class GetCelebrityInfoRequest extends Input
     /**
      * @param array{
      *   Id?: string,
+     *
      *   @region?: string,
      * } $input
      */

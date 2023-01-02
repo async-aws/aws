@@ -57,6 +57,7 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
+     *
      *   @region?: string,
      * }|DeleteParameterRequest $input
      *
@@ -83,6 +84,7 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Names: string[],
+     *
      *   @region?: string,
      * }|DeleteParametersRequest $input
      *
@@ -107,6 +109,7 @@ class SsmClient extends AbstractApi
      * @param array{
      *   Name: string,
      *   WithDecryption?: bool,
+     *
      *   @region?: string,
      * }|GetParameterRequest $input
      *
@@ -137,6 +140,7 @@ class SsmClient extends AbstractApi
      * @param array{
      *   Names: string[],
      *   WithDecryption?: bool,
+     *
      *   @region?: string,
      * }|GetParametersRequest $input
      *
@@ -167,6 +171,7 @@ class SsmClient extends AbstractApi
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|GetParametersByPathRequest $input
      *
@@ -210,6 +215,7 @@ class SsmClient extends AbstractApi
      *   Tier?: ParameterTier::*,
      *   Policies?: string,
      *   DataType?: string,
+     *
      *   @region?: string,
      * }|PutParameterRequest $input
      *

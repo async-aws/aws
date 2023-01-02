@@ -92,6 +92,7 @@ final class ConfirmSignUpRequest extends Input
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

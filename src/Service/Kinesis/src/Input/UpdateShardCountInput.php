@@ -48,6 +48,7 @@ final class UpdateShardCountInput extends Input
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

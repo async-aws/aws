@@ -45,6 +45,7 @@ class StepFunctionsClient extends AbstractApi
      *   taskToken: string,
      *   error?: string,
      *   cause?: string,
+     *
      *   @region?: string,
      * }|SendTaskFailureInput $input
      *
@@ -80,6 +81,7 @@ class StepFunctionsClient extends AbstractApi
      *
      * @param array{
      *   taskToken: string,
+     *
      *   @region?: string,
      * }|SendTaskHeartbeatInput $input
      *
@@ -110,6 +112,7 @@ class StepFunctionsClient extends AbstractApi
      * @param array{
      *   taskToken: string,
      *   output: string,
+     *
      *   @region?: string,
      * }|SendTaskSuccessInput $input
      *
@@ -143,6 +146,7 @@ class StepFunctionsClient extends AbstractApi
      *   name?: string,
      *   input?: string,
      *   traceHeader?: string,
+     *
      *   @region?: string,
      * }|StartExecutionInput $input
      *
@@ -182,6 +186,7 @@ class StepFunctionsClient extends AbstractApi
      *   executionArn: string,
      *   error?: string,
      *   cause?: string,
+     *
      *   @region?: string,
      * }|StopExecutionInput $input
      *

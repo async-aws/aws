@@ -51,6 +51,7 @@ final class CreateUserRequest extends Input
      *   UserName?: string,
      *   PermissionsBoundary?: string,
      *   Tags?: Tag[],
+     *
      *   @region?: string,
      * } $input
      */

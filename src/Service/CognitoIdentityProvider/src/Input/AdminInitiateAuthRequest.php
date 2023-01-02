@@ -82,6 +82,7 @@ final class AdminInitiateAuthRequest extends Input
      *   ClientMetadata?: array<string, string>,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ContextData?: ContextDataType|array,
+     *
      *   @region?: string,
      * } $input
      */

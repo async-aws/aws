@@ -70,6 +70,7 @@ final class PublishLayerVersionRequest extends Input
      *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
      *   CompatibleArchitectures?: list<Architecture::*>,
+     *
      *   @region?: string,
      * } $input
      */

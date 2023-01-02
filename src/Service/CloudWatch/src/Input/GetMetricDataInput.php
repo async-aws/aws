@@ -83,6 +83,7 @@ final class GetMetricDataInput extends Input
      *   ScanBy?: ScanBy::*,
      *   MaxDatapoints?: int,
      *   LabelOptions?: LabelOptions|array,
+     *
      *   @region?: string,
      * } $input
      */

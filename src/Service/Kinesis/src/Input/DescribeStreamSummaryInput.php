@@ -26,6 +26,7 @@ final class DescribeStreamSummaryInput extends Input
      * @param array{
      *   StreamName?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

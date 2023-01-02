@@ -37,6 +37,7 @@ final class UpdateUserRequest extends Input
      *   UserName?: string,
      *   NewPath?: string,
      *   NewUserName?: string,
+     *
      *   @region?: string,
      * } $input
      */

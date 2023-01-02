@@ -30,6 +30,7 @@ final class ListTablesInput extends Input
      * @param array{
      *   ExclusiveStartTableName?: string,
      *   Limit?: int,
+     *
      *   @region?: string,
      * } $input
      */

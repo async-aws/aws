@@ -21,6 +21,7 @@ final class DeleteQueueRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
+     *
      *   @region?: string,
      * } $input
      */

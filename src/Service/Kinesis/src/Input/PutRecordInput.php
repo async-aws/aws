@@ -75,6 +75,7 @@ final class PutRecordInput extends Input
      *   ExplicitHashKey?: string,
      *   SequenceNumberForOrdering?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

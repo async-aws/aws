@@ -40,6 +40,7 @@ final class AddTagsToStreamInput extends Input
      *   StreamName?: string,
      *   Tags?: array<string, string>,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

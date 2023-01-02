@@ -41,6 +41,7 @@ final class DisableEnhancedMonitoringInput extends Input
      *   StreamName?: string,
      *   ShardLevelMetrics?: list<MetricsName::*>,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

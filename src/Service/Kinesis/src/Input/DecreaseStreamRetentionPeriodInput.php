@@ -40,6 +40,7 @@ final class DecreaseStreamRetentionPeriodInput extends Input
      *   StreamName?: string,
      *   RetentionPeriodHours?: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -30,6 +30,7 @@ final class GetParametersRequest extends Input
      * @param array{
      *   Names?: string[],
      *   WithDecryption?: bool,
+     *
      *   @region?: string,
      * } $input
      */

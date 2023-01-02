@@ -24,6 +24,7 @@ final class DeleteHostedZoneRequest extends Input
     /**
      * @param array{
      *   Id?: string,
+     *
      *   @region?: string,
      * } $input
      */

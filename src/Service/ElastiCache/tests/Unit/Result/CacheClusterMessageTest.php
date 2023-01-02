@@ -17,7 +17,7 @@ class CacheClusterMessageTest extends TestCase
     {
         // see example-1.json from SDK
         $response = new SimpleMockedResponse(
-'<DescribeCacheClustersResult xmlns="http://elasticache.amazonaws.com/doc/2015-02-02/">
+            '<DescribeCacheClustersResult xmlns="http://elasticache.amazonaws.com/doc/2015-02-02/">
   <DescribeCacheClustersResult>
     <CacheClusters>
       <CacheCluster>

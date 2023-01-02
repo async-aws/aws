@@ -72,6 +72,7 @@ final class GetShardIteratorInput extends Input
      *   StartingSequenceNumber?: string,
      *   Timestamp?: \DateTimeImmutable|string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

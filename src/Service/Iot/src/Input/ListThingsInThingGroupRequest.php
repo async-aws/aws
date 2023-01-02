@@ -46,6 +46,7 @@ final class ListThingsInThingGroupRequest extends Input
      *   recursive?: bool,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * } $input
      */
@@ -95,11 +96,9 @@ final class ListThingsInThingGroupRequest extends Input
         $query = [];
         if (null !== $this->recursive) {
             $query['recursive'] = $this->recursive ? 'true' : 'false';
-        }
-        if (null !== $this->nextToken) {
+        }if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }
-        if (null !== $this->maxResults) {
+        }if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
         }
 

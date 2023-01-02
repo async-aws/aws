@@ -28,6 +28,7 @@ final class RespondToAuthChallengeRequest extends Input
      * The challenge name. For more information, see InitiateAuth.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+     *
      * @required
      *
      * @var ChallengeNameType::*|null
@@ -82,6 +83,7 @@ final class RespondToAuthChallengeRequest extends Input
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

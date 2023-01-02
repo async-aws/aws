@@ -36,6 +36,7 @@ final class ListStreamsInput extends Input
      *   Limit?: int,
      *   ExclusiveStartStreamName?: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

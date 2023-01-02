@@ -42,6 +42,7 @@ final class AdminConfirmSignUpRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

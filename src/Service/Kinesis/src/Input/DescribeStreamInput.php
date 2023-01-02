@@ -46,6 +46,7 @@ final class DescribeStreamInput extends Input
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

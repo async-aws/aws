@@ -7,7 +7,6 @@ use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\RawMessage;
 use Illuminate\Mail\Transport\Transport;
-use Swift_Mime_SimpleMessage;
 
 /**
  * This class is a port from Illuminate\Mail\Transport\SesTransport.
@@ -44,7 +43,7 @@ class AsyncAwsSesTransport extends Transport
     /**
      * {@inheritdoc}
      */
-    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null): int
+    public function send(\Swift_Mime_SimpleMessage $message, &$failedRecipients = null): int
     {
         $this->beforeSendPerformed($message);
 

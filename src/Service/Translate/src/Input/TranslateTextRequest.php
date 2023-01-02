@@ -34,6 +34,7 @@ final class TranslateTextRequest extends Input
      * For a list of language codes, see Supported languages.
      *
      * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
+     *
      * @required
      *
      * @var string|null
@@ -65,6 +66,7 @@ final class TranslateTextRequest extends Input
      *   SourceLanguageCode?: string,
      *   TargetLanguageCode?: string,
      *   Settings?: TranslationSettings|array,
+     *
      *   @region?: string,
      * } $input
      */

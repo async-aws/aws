@@ -32,6 +32,7 @@ final class PutRecordBatchInput extends Input
      * @param array{
      *   DeliveryStreamName?: string,
      *   Records?: Record[],
+     *
      *   @region?: string,
      * } $input
      */

@@ -38,6 +38,7 @@ final class ListGroupsRequest extends Input
      *   UserPoolId?: string,
      *   Limit?: int,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

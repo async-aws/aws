@@ -21,6 +21,7 @@ final class CreateProjectRequest extends Input
     /**
      * @param array{
      *   ProjectName?: string,
+     *
      *   @region?: string,
      * } $input
      */

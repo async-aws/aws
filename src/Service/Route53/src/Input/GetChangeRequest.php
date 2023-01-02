@@ -25,6 +25,7 @@ final class GetChangeRequest extends Input
     /**
      * @param array{
      *   Id?: string,
+     *
      *   @region?: string,
      * } $input
      */

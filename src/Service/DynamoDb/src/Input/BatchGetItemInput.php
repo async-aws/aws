@@ -33,6 +33,7 @@ final class BatchGetItemInput extends Input
      * @param array{
      *   RequestItems?: array<string, KeysAndAttributes>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *
      *   @region?: string,
      * } $input
      */

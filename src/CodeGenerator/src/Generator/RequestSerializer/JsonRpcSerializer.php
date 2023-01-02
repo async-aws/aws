@@ -24,9 +24,9 @@ class JsonRpcSerializer extends RestJsonSerializer
 ];
 
 PHP
-        , [
-            'VERSION' => number_format($operation->getService()->getJsonVersion(), 1),
-            'TARGET' => sprintf('%s.%s', $operation->getService()->getTargetPrefix(), $operation->getName()),
-        ]);
+            , [
+                'VERSION' => number_format($operation->getService()->getJsonVersion(), 1),
+                'TARGET' => sprintf('%s.%s', $operation->getService()->getTargetPrefix(), $operation->getName()),
+            ]);
     }
 }

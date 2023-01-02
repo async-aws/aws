@@ -74,6 +74,7 @@ final class ListShardsInput extends Input
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
      *   ShardFilter?: ShardFilter|array,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -48,6 +48,7 @@ final class UpdateApiKeyRequest extends Input
      *   id?: string,
      *   description?: string,
      *   expires?: string,
+     *
      *   @region?: string,
      * } $input
      */

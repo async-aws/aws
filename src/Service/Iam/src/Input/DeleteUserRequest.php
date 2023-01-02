@@ -21,6 +21,7 @@ final class DeleteUserRequest extends Input
     /**
      * @param array{
      *   UserName?: string,
+     *
      *   @region?: string,
      * } $input
      */

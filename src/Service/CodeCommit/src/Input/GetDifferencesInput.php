@@ -76,6 +76,7 @@ final class GetDifferencesInput extends Input
      *   afterPath?: string,
      *   MaxResults?: int,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

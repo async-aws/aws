@@ -10,6 +10,7 @@ final class DescribeEndpointsRequest extends Input
 {
     /**
      * @param array{
+     *
      *   @region?: string,
      * } $input
      */

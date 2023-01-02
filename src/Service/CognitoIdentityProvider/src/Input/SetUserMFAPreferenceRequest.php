@@ -39,6 +39,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *   SMSMfaSettings?: SMSMfaSettingsType|array,
      *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
      *   AccessToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

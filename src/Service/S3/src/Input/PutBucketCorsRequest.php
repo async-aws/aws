@@ -25,6 +25,7 @@ final class PutBucketCorsRequest extends Input
      * Enabling Cross-Origin Resource Sharing in the *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
+     *
      * @required
      *
      * @var CORSConfiguration|null
@@ -68,6 +69,7 @@ final class PutBucketCorsRequest extends Input
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -123,14 +125,12 @@ final class PutBucketCorsRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
-        }
-        if (null !== $this->checksumAlgorithm) {
+        }if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
-        }
-        if (null !== $this->expectedBucketOwner) {
+        }if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 

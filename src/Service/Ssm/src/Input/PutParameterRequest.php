@@ -116,6 +116,7 @@ final class PutParameterRequest extends Input
      *   Tier?: ParameterTier::*,
      *   Policies?: string,
      *   DataType?: string,
+     *
      *   @region?: string,
      * } $input
      */

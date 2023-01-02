@@ -21,6 +21,7 @@ final class DescribeStackDriftDetectionStatusInput extends Input
     /**
      * @param array{
      *   StackDriftDetectionId?: string,
+     *
      *   @region?: string,
      * } $input
      */

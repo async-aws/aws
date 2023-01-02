@@ -51,6 +51,7 @@ final class StartStreamEncryptionInput extends Input
      *   EncryptionType?: EncryptionType::*,
      *   KeyId?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

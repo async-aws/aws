@@ -41,6 +41,7 @@ final class PutRecordsInput extends Input
      *   Records?: PutRecordsRequestEntry[],
      *   StreamName?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

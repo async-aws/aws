@@ -41,6 +41,7 @@ final class DeleteSecretRequest extends Input
      *   SecretId?: string,
      *   RecoveryWindowInDays?: string,
      *   ForceDeleteWithoutRecovery?: bool,
+     *
      *   @region?: string,
      * } $input
      */

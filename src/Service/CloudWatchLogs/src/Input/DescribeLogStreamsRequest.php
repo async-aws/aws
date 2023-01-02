@@ -73,6 +73,7 @@ final class DescribeLogStreamsRequest extends Input
      *   descending?: bool,
      *   nextToken?: string,
      *   limit?: int,
+     *
      *   @region?: string,
      * } $input
      */

@@ -23,6 +23,7 @@ final class RecognizeCelebritiesRequest extends Input
     /**
      * @param array{
      *   Image?: Image|array,
+     *
      *   @region?: string,
      * } $input
      */

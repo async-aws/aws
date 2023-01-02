@@ -32,6 +32,7 @@ final class SendMessageBatchRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   Entries?: SendMessageBatchRequestEntry[],
+     *
      *   @region?: string,
      * } $input
      */

@@ -68,6 +68,7 @@ final class UpdateSecretRequest extends Input
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
+     *
      *   @region?: string,
      * } $input
      */

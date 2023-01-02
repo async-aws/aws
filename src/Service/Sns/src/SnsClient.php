@@ -74,6 +74,7 @@ class SnsClient extends AbstractApi
      *   Token: string,
      *   CustomUserData?: string,
      *   Attributes?: array<string, string>,
+     *
      *   @region?: string,
      * }|CreatePlatformEndpointInput $input
      *
@@ -110,6 +111,7 @@ class SnsClient extends AbstractApi
      *   Attributes?: array<string, string>,
      *   Tags?: Tag[],
      *   DataProtectionPolicy?: string,
+     *
      *   @region?: string,
      * }|CreateTopicInput $input
      *
@@ -151,6 +153,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   EndpointArn: string,
+     *
      *   @region?: string,
      * }|DeleteEndpointInput $input
      *
@@ -180,6 +183,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   TopicArn: string,
+     *
      *   @region?: string,
      * }|DeleteTopicInput $input
      *
@@ -218,6 +222,7 @@ class SnsClient extends AbstractApi
      * @param array{
      *   TopicArn: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|ListSubscriptionsByTopicInput $input
      *
@@ -256,6 +261,7 @@ class SnsClient extends AbstractApi
      *   MessageAttributes?: array<string, MessageAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
+     *
      *   @region?: string,
      * }|PublishInput $input
      *
@@ -310,6 +316,7 @@ class SnsClient extends AbstractApi
      * @param array{
      *   TopicArn: string,
      *   PublishBatchRequestEntries: PublishBatchRequestEntry[],
+     *
      *   @region?: string,
      * }|PublishBatchInput $input
      *
@@ -377,6 +384,7 @@ class SnsClient extends AbstractApi
      *   Endpoint?: string,
      *   Attributes?: array<string, string>,
      *   ReturnSubscriptionArn?: bool,
+     *
      *   @region?: string,
      * }|SubscribeInput $input
      *
@@ -416,6 +424,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   SubscriptionArn: string,
+     *
      *   @region?: string,
      * }|UnsubscribeInput $input
      *

@@ -103,6 +103,7 @@ class S3Client extends AbstractApi
      *   UploadId: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|AbortMultipartUploadRequest $input
      *
@@ -124,6 +125,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|HeadBucketRequest $input
      */
@@ -143,6 +145,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|HeadBucketRequest $input
      */
@@ -177,6 +180,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
+     *
      *   @region?: string,
      * }|CompleteMultipartUploadRequest $input
      */
@@ -237,6 +241,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
      *   ExpectedSourceBucketOwner?: string,
+     *
      *   @region?: string,
      * }|CopyObjectRequest $input
      *
@@ -272,6 +277,7 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
      *   ObjectOwnership?: ObjectOwnership::*,
+     *
      *   @region?: string,
      * }|CreateBucketRequest $input
      *
@@ -331,6 +337,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *
      *   @region?: string,
      * }|CreateMultipartUploadRequest $input
      */
@@ -353,6 +360,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|DeleteBucketRequest $input
      */
@@ -374,6 +382,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|DeleteBucketCorsRequest $input
      */
@@ -402,6 +411,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|DeleteObjectRequest $input
      */
@@ -430,6 +440,7 @@ class S3Client extends AbstractApi
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *
      *   @region?: string,
      * }|DeleteObjectsRequest $input
      */
@@ -451,6 +462,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|GetBucketCorsRequest $input
      */
@@ -472,6 +484,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|GetBucketEncryptionRequest $input
      */
@@ -513,6 +526,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
+     *
      *   @region?: string,
      * }|GetObjectRequest $input
      *
@@ -546,6 +560,7 @@ class S3Client extends AbstractApi
      *   VersionId?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|GetObjectAclRequest $input
      *
@@ -585,6 +600,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
+     *
      *   @region?: string,
      * }|HeadObjectRequest $input
      *
@@ -609,6 +625,7 @@ class S3Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listbuckets
      *
      * @param array{
+     *
      *   @region?: string,
      * }|ListBucketsRequest $input
      */
@@ -637,6 +654,7 @@ class S3Client extends AbstractApi
      *   Prefix?: string,
      *   UploadIdMarker?: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|ListMultipartUploadsRequest $input
      */
@@ -670,6 +688,7 @@ class S3Client extends AbstractApi
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|ListObjectsV2Request $input
      *
@@ -710,6 +729,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
+     *
      *   @region?: string,
      * }|ListPartsRequest $input
      */
@@ -740,6 +760,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
+     *
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -772,6 +793,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
+     *
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -798,6 +820,7 @@ class S3Client extends AbstractApi
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|PutBucketCorsRequest $input
      */
@@ -822,6 +845,7 @@ class S3Client extends AbstractApi
      *   NotificationConfiguration: NotificationConfiguration|array,
      *   ExpectedBucketOwner?: string,
      *   SkipDestinationValidation?: bool,
+     *
      *   @region?: string,
      * }|PutBucketNotificationConfigurationRequest $input
      */
@@ -878,6 +902,7 @@ class S3Client extends AbstractApi
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|PutObjectRequest $input
      */
@@ -914,6 +939,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|PutObjectAclRequest $input
      *
@@ -954,6 +980,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * }|UploadPartRequest $input
      */
@@ -979,11 +1006,11 @@ class S3Client extends AbstractApi
         $configuration = $this->getConfiguration();
 
         if (
-        $bucketLen < 3 || $bucketLen > 63
-        || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
-        || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
-        || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
-        || filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
+            $bucketLen < 3 || $bucketLen > 63
+            || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
+            || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
+            || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
+            || filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
         ) {
             return parent::getEndpoint($uri, $query, $region);
         }

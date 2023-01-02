@@ -35,6 +35,7 @@ final class DetectFacesRequest extends Input
      * @param array{
      *   Image?: Image|array,
      *   Attributes?: list<Attribute::*>,
+     *
      *   @region?: string,
      * } $input
      */

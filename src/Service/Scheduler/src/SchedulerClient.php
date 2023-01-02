@@ -57,6 +57,7 @@ class SchedulerClient extends AbstractApi
      *   StartDate?: \DateTimeImmutable|string,
      *   State?: ScheduleState::*,
      *   Target: Target|array,
+     *
      *   @region?: string,
      * }|CreateScheduleInput $input
      *
@@ -92,6 +93,7 @@ class SchedulerClient extends AbstractApi
      *   ClientToken?: string,
      *   Name: string,
      *   Tags?: Tag[],
+     *
      *   @region?: string,
      * }|CreateScheduleGroupInput $input
      *
@@ -125,6 +127,7 @@ class SchedulerClient extends AbstractApi
      *   ClientToken?: string,
      *   GroupName?: string,
      *   Name: string,
+     *
      *   @region?: string,
      * }|DeleteScheduleInput $input
      *
@@ -161,6 +164,7 @@ class SchedulerClient extends AbstractApi
      * @param array{
      *   ClientToken?: string,
      *   Name: string,
+     *
      *   @region?: string,
      * }|DeleteScheduleGroupInput $input
      *
@@ -193,6 +197,7 @@ class SchedulerClient extends AbstractApi
      * @param array{
      *   GroupName?: string,
      *   Name: string,
+     *
      *   @region?: string,
      * }|GetScheduleInput $input
      *
@@ -222,6 +227,7 @@ class SchedulerClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
+     *
      *   @region?: string,
      * }|GetScheduleGroupInput $input
      *
@@ -253,6 +259,7 @@ class SchedulerClient extends AbstractApi
      *   MaxResults?: int,
      *   NamePrefix?: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|ListScheduleGroupsInput $input
      *
@@ -284,6 +291,7 @@ class SchedulerClient extends AbstractApi
      *   NamePrefix?: string,
      *   NextToken?: string,
      *   State?: ScheduleState::*,
+     *
      *   @region?: string,
      * }|ListSchedulesInput $input
      *
@@ -326,6 +334,7 @@ class SchedulerClient extends AbstractApi
      *   StartDate?: \DateTimeImmutable|string,
      *   State?: ScheduleState::*,
      *   Target: Target|array,
+     *
      *   @region?: string,
      * }|UpdateScheduleInput $input
      *

@@ -69,6 +69,7 @@ final class CreateHostedZoneRequest extends Input
      *   CallerReference?: string,
      *   HostedZoneConfig?: HostedZoneConfig|array,
      *   DelegationSetId?: string,
+     *
      *   @region?: string,
      * } $input
      */

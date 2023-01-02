@@ -65,6 +65,7 @@ final class SearchFacesByImageRequest extends Input
      *   MaxFaces?: int,
      *   FaceMatchThreshold?: float,
      *   QualityFilter?: QualityFilter::*,
+     *
      *   @region?: string,
      * } $input
      */

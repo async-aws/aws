@@ -44,6 +44,7 @@ final class ConfirmForgotPasswordRequest extends Input
      * The confirmation code from your user's request to reset their password. For more information, see ForgotPassword.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
+     *
      * @required
      *
      * @var string|null
@@ -92,6 +93,7 @@ final class ConfirmForgotPasswordRequest extends Input
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

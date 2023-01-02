@@ -21,6 +21,7 @@ final class BatchGetBuildsInput extends Input
     /**
      * @param array{
      *   ids?: string[],
+     *
      *   @region?: string,
      * } $input
      */

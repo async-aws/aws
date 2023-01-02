@@ -30,6 +30,7 @@ final class HeadBucketRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */

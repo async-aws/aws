@@ -49,6 +49,7 @@ final class CreateThingRequest extends Input
      *   thingTypeName?: string,
      *   attributePayload?: AttributePayload|array,
      *   billingGroupName?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -57,6 +57,7 @@ final class GenerateDataKeyRequest extends Input
      *   NumberOfBytes?: int,
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
+     *
      *   @region?: string,
      * } $input
      */

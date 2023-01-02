@@ -39,6 +39,7 @@ final class DeregisterStreamConsumerInput extends Input
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

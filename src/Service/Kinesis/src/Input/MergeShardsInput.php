@@ -50,6 +50,7 @@ final class MergeShardsInput extends Input
      *   ShardToMerge?: string,
      *   AdjacentShardToMerge?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

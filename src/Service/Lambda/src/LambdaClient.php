@@ -80,6 +80,7 @@ class LambdaClient extends AbstractApi
      *   Principal: string,
      *   OrganizationId?: string,
      *   RevisionId?: string,
+     *
      *   @region?: string,
      * }|AddLayerVersionPermissionRequest $input
      *
@@ -117,6 +118,7 @@ class LambdaClient extends AbstractApi
      * @param array{
      *   FunctionName: string,
      *   Qualifier?: string,
+     *
      *   @region?: string,
      * }|DeleteFunctionRequest $input
      *
@@ -154,6 +156,7 @@ class LambdaClient extends AbstractApi
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
+     *
      *   @region?: string,
      * }|InvocationRequest $input
      *
@@ -237,6 +240,7 @@ class LambdaClient extends AbstractApi
      *   FunctionVersion?: FunctionVersion::*,
      *   Marker?: string,
      *   MaxItems?: int,
+     *
      *   @region?: string,
      * }|ListFunctionsRequest $input
      *
@@ -272,6 +276,7 @@ class LambdaClient extends AbstractApi
      *   Marker?: string,
      *   MaxItems?: int,
      *   CompatibleArchitecture?: Architecture::*,
+     *
      *   @region?: string,
      * }|ListLayerVersionsRequest $input
      *
@@ -305,6 +310,7 @@ class LambdaClient extends AbstractApi
      *   FunctionName: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *
      *   @region?: string,
      * }|ListVersionsByFunctionRequest $input
      *
@@ -341,6 +347,7 @@ class LambdaClient extends AbstractApi
      *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
      *   CompatibleArchitectures?: list<Architecture::*>,
+     *
      *   @region?: string,
      * }|PublishLayerVersionRequest $input
      *

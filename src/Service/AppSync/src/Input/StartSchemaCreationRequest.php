@@ -31,6 +31,7 @@ final class StartSchemaCreationRequest extends Input
      * @param array{
      *   apiId?: string,
      *   definition?: string,
+     *
      *   @region?: string,
      * } $input
      */

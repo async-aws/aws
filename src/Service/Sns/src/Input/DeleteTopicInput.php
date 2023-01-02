@@ -21,6 +21,7 @@ final class DeleteTopicInput extends Input
     /**
      * @param array{
      *   TopicArn?: string,
+     *
      *   @region?: string,
      * } $input
      */
