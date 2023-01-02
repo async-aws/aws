@@ -114,6 +114,7 @@ final class SendEmailRequest extends Input
      *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
      *   ListManagementOptions?: ListManagementOptions|array,
+     *
      *   @region?: string,
      * } $input
      */

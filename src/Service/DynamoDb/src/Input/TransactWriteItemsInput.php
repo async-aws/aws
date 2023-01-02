@@ -55,6 +55,7 @@ final class TransactWriteItemsInput extends Input
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

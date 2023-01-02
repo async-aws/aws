@@ -21,6 +21,7 @@ final class PurgeQueueRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
+     *
      *   @region?: string,
      * } $input
      */

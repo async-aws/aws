@@ -41,6 +41,7 @@ final class AdminAddUserToGroupRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   GroupName?: string,
+     *
      *   @region?: string,
      * } $input
      */

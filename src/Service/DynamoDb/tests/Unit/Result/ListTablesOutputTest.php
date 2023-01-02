@@ -13,7 +13,6 @@ class ListTablesOutputTest extends TestCase
 {
     public function testListTablesOutput(): void
     {
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "TableNames": [

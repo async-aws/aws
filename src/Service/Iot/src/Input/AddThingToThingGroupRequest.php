@@ -52,6 +52,7 @@ final class AddThingToThingGroupRequest extends Input
      *   thingName?: string,
      *   thingArn?: string,
      *   overrideDynamicGroups?: bool,
+     *
      *   @region?: string,
      * } $input
      */

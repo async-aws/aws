@@ -53,6 +53,7 @@ final class ListSchedulesInput extends Input
      *   NamePrefix?: string,
      *   NextToken?: string,
      *   State?: ScheduleState::*,
+     *
      *   @region?: string,
      * } $input
      */
@@ -111,17 +112,13 @@ final class ListSchedulesInput extends Input
         $query = [];
         if (null !== $this->groupName) {
             $query['ScheduleGroup'] = $this->groupName;
-        }
-        if (null !== $this->maxResults) {
+        }if (null !== $this->maxResults) {
             $query['MaxResults'] = (string) $this->maxResults;
-        }
-        if (null !== $this->namePrefix) {
+        }if (null !== $this->namePrefix) {
             $query['NamePrefix'] = $this->namePrefix;
-        }
-        if (null !== $this->nextToken) {
+        }if (null !== $this->nextToken) {
             $query['NextToken'] = $this->nextToken;
-        }
-        if (null !== $this->state) {
+        }if (null !== $this->state) {
             if (!ScheduleState::exists($this->state)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $this->state));
             }

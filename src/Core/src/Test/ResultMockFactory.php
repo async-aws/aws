@@ -27,6 +27,7 @@ class ResultMockFactory
      * </code>
      *
      * @template T
+     *
      * @psalm-param class-string<T> $class
      *
      * @return Result|T
@@ -61,6 +62,7 @@ class ResultMockFactory
      * </code>
      *
      * @template T
+     *
      * @psalm-param class-string<T> $class
      *
      * @return Result|T
@@ -123,6 +125,7 @@ class ResultMockFactory
      * Instantiate a Waiter class with a final state.
      *
      * @template T
+     *
      * @psalm-param class-string<T> $class
      *
      * @return Result|T
@@ -241,7 +244,7 @@ class ResultMockFactory
             throw new LogicException(sprintf('Expected base namespace "%s" to have a backslash. ', $baseNamespace));
         }
 
-        $awsClientClass = $baseNamespace . (substr($baseNamespace, $pos)) . 'Client';
+        $awsClientClass = $baseNamespace . substr($baseNamespace, $pos) . 'Client';
         $inputClass = $baseNamespace . '\\Input\\' . $classNameWithoutSuffix . 'Request';
 
         if (class_exists($awsClientClass)) {

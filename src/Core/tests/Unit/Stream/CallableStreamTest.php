@@ -41,9 +41,9 @@ class CallableStreamTest extends TestCase
 
     public function provideLengths(): iterable
     {
-        yield [(function () {
+        yield [function () {
             return 'Hello world';
-        }), null];
+        }, null];
     }
 
     public function provideStrings(): iterable

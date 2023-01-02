@@ -117,6 +117,7 @@ final class ExecuteStatementRequest extends Input
      *   continueAfterTimeout?: bool,
      *   resultSetOptions?: ResultSetOptions|array,
      *   formatRecordsAs?: RecordsFormatType::*,
+     *
      *   @region?: string,
      * } $input
      */

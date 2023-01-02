@@ -62,6 +62,7 @@ final class EncryptRequest extends Input
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *
      *   @region?: string,
      * } $input
      */

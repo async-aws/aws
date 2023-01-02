@@ -59,6 +59,7 @@ final class SubscribeInput extends Input
      *   Endpoint?: string,
      *   Attributes?: array<string, string>,
      *   ReturnSubscriptionArn?: bool,
+     *
      *   @region?: string,
      * } $input
      */

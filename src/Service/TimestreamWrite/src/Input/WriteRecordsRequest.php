@@ -55,6 +55,7 @@ final class WriteRecordsRequest extends Input
      *   TableName?: string,
      *   CommonAttributes?: Record|array,
      *   Records?: Record[],
+     *
      *   @region?: string,
      * } $input
      */

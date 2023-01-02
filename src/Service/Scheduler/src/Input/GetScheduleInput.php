@@ -30,6 +30,7 @@ final class GetScheduleInput extends Input
      * @param array{
      *   GroupName?: string,
      *   Name?: string,
+     *
      *   @region?: string,
      * } $input
      */

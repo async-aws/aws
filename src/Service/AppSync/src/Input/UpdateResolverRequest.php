@@ -125,6 +125,7 @@ final class UpdateResolverRequest extends Input
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -18,6 +18,7 @@ class XmlAwsErrorFactory implements AwsErrorFactoryInterface
         try {
             /**
              * @phpstan-ignore-next-line
+             *
              * @psalm-suppress InvalidArgument
              */
             set_error_handler(static function ($errno, $errstr) {

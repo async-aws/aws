@@ -39,6 +39,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   logGroupName: string,
      *   kmsKeyId?: string,
      *   tags?: array<string, string>,
+     *
      *   @region?: string,
      * }|CreateLogGroupRequest $input
      *
@@ -77,6 +78,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   descending?: bool,
      *   nextToken?: string,
      *   limit?: int,
+     *
      *   @region?: string,
      * }|DescribeLogStreamsRequest $input
      *
@@ -115,6 +117,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   limit?: int,
      *   interleaved?: bool,
      *   unmask?: bool,
+     *
      *   @region?: string,
      * }|FilterLogEventsRequest $input
      *
@@ -145,6 +148,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   logStreamName: string,
      *   logEvents: InputLogEvent[],
      *   sequenceToken?: string,
+     *
      *   @region?: string,
      * }|PutLogEventsRequest $input
      *

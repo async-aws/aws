@@ -95,6 +95,7 @@ final class PublishInput extends Input
      *   MessageAttributes?: array<string, MessageAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
+     *
      *   @region?: string,
      * } $input
      */

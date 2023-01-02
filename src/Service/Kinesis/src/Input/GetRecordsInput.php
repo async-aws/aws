@@ -42,6 +42,7 @@ final class GetRecordsInput extends Input
      *   ShardIterator?: string,
      *   Limit?: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

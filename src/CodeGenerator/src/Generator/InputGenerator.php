@@ -463,7 +463,7 @@ class InputGenerator
 // Return the Request
 return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create(\$body));
 PHP
-);
+        );
     }
 
     /**
@@ -495,7 +495,7 @@ PHP
             case 'long':
                 return $variable;
             case 'integer':
-            return '(string) ' . $variable;
+                return '(string) ' . $variable;
         }
 
         throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));

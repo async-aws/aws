@@ -49,6 +49,7 @@ final class CreateTopicInput extends Input
      *   Attributes?: array<string, string>,
      *   Tags?: Tag[],
      *   DataProtectionPolicy?: string,
+     *
      *   @region?: string,
      * } $input
      */

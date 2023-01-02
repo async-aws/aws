@@ -51,6 +51,7 @@ final class StopStreamEncryptionInput extends Input
      *   EncryptionType?: EncryptionType::*,
      *   KeyId?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

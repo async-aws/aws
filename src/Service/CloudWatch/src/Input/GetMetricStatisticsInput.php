@@ -113,6 +113,7 @@ final class GetMetricStatisticsInput extends Input
      *   Statistics?: list<Statistic::*>,
      *   ExtendedStatistics?: string[],
      *   Unit?: StandardUnit::*,
+     *
      *   @region?: string,
      * } $input
      */

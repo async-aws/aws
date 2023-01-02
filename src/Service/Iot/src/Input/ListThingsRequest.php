@@ -63,6 +63,7 @@ final class ListThingsRequest extends Input
      *   attributeValue?: string,
      *   thingTypeName?: string,
      *   usePrefixAttributeValue?: bool,
+     *
      *   @region?: string,
      * } $input
      */
@@ -124,20 +125,15 @@ final class ListThingsRequest extends Input
         $query = [];
         if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }
-        if (null !== $this->maxResults) {
+        }if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
-        }
-        if (null !== $this->attributeName) {
+        }if (null !== $this->attributeName) {
             $query['attributeName'] = $this->attributeName;
-        }
-        if (null !== $this->attributeValue) {
+        }if (null !== $this->attributeValue) {
             $query['attributeValue'] = $this->attributeValue;
-        }
-        if (null !== $this->thingTypeName) {
+        }if (null !== $this->thingTypeName) {
             $query['thingTypeName'] = $this->thingTypeName;
-        }
-        if (null !== $this->usePrefixAttributeValue) {
+        }if (null !== $this->usePrefixAttributeValue) {
             $query['usePrefixAttributeValue'] = $this->usePrefixAttributeValue ? 'true' : 'false';
         }
 

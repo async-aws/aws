@@ -40,6 +40,7 @@ final class RemoveTagsFromStreamInput extends Input
      *   StreamName?: string,
      *   TagKeys?: string[],
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

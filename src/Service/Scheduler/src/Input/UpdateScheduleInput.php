@@ -126,6 +126,7 @@ final class UpdateScheduleInput extends Input
      *   StartDate?: \DateTimeImmutable|string,
      *   State?: ScheduleState::*,
      *   Target?: Target|array,
+     *
      *   @region?: string,
      * } $input
      */

@@ -46,6 +46,7 @@ final class CreateTableInput extends Input
      * Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html
+     *
      * @required
      *
      * @var KeySchemaElement[]|null
@@ -128,6 +129,7 @@ final class CreateTableInput extends Input
      *   SSESpecification?: SSESpecification|array,
      *   Tags?: Tag[],
      *   TableClass?: TableClass::*,
+     *
      *   @region?: string,
      * } $input
      */

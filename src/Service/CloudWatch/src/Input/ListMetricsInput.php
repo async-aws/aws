@@ -72,6 +72,7 @@ final class ListMetricsInput extends Input
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,
      *   OwningAccount?: string,
+     *
      *   @region?: string,
      * } $input
      */

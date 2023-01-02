@@ -30,6 +30,7 @@ final class GetQueueUrlRequest extends Input
      * @param array{
      *   QueueName?: string,
      *   QueueOwnerAWSAccountId?: string,
+     *
      *   @region?: string,
      * } $input
      */

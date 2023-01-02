@@ -83,6 +83,7 @@ final class ListMultipartUploadsRequest extends Input
      *   Prefix?: string,
      *   UploadIdMarker?: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -162,23 +163,18 @@ final class ListMultipartUploadsRequest extends Input
         $query = [];
         if (null !== $this->delimiter) {
             $query['delimiter'] = $this->delimiter;
-        }
-        if (null !== $this->encodingType) {
+        }if (null !== $this->encodingType) {
             if (!EncodingType::exists($this->encodingType)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" for "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->encodingType));
             }
             $query['encoding-type'] = $this->encodingType;
-        }
-        if (null !== $this->keyMarker) {
+        }if (null !== $this->keyMarker) {
             $query['key-marker'] = $this->keyMarker;
-        }
-        if (null !== $this->maxUploads) {
+        }if (null !== $this->maxUploads) {
             $query['max-uploads'] = (string) $this->maxUploads;
-        }
-        if (null !== $this->prefix) {
+        }if (null !== $this->prefix) {
             $query['prefix'] = $this->prefix;
-        }
-        if (null !== $this->uploadIdMarker) {
+        }if (null !== $this->uploadIdMarker) {
             $query['upload-id-marker'] = $this->uploadIdMarker;
         }
 

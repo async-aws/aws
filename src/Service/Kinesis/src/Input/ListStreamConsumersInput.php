@@ -14,6 +14,7 @@ final class ListStreamConsumersInput extends Input
      * Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces.
      *
      * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams
+     *
      * @required
      *
      * @var string|null
@@ -54,6 +55,7 @@ final class ListStreamConsumersInput extends Input
      *   NextToken?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
+     *
      *   @region?: string,
      * } $input
      */

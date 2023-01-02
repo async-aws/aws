@@ -13,7 +13,6 @@ class PutItemOutputTest extends TestCase
 {
     public function testPutItemOutput(): void
     {
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "ConsumedCapacity": {

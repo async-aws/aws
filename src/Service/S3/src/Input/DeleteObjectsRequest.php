@@ -81,6 +81,7 @@ final class DeleteObjectsRequest extends Input
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *
      *   @region?: string,
      * } $input
      */
@@ -151,20 +152,16 @@ final class DeleteObjectsRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->mfa) {
             $headers['x-amz-mfa'] = $this->mfa;
-        }
-        if (null !== $this->requestPayer) {
+        }if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }
-        if (null !== $this->bypassGovernanceRetention) {
+        }if (null !== $this->bypassGovernanceRetention) {
             $headers['x-amz-bypass-governance-retention'] = $this->bypassGovernanceRetention ? 'true' : 'false';
-        }
-        if (null !== $this->expectedBucketOwner) {
+        }if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
-        }
-        if (null !== $this->checksumAlgorithm) {
+        }if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }

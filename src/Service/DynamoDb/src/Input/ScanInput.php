@@ -174,6 +174,7 @@ final class ScanInput extends Input
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   ConsistentRead?: bool,
+     *
      *   @region?: string,
      * } $input
      */

@@ -38,6 +38,7 @@ final class DeleteStreamInput extends Input
      *   StreamName?: string,
      *   EnforceConsumerDeletion?: bool,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

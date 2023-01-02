@@ -41,6 +41,7 @@ final class DeleteResolverRequest extends Input
      *   apiId?: string,
      *   typeName?: string,
      *   fieldName?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -56,6 +56,7 @@ class SecretsManagerClient extends AbstractApi
      *   Tags?: Tag[],
      *   AddReplicaRegions?: ReplicaRegionType[],
      *   ForceOverwriteReplicaSecret?: bool,
+     *
      *   @region?: string,
      * }|CreateSecretRequest $input
      *
@@ -102,6 +103,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretId: string,
      *   RecoveryWindowInDays?: string,
      *   ForceDeleteWithoutRecovery?: bool,
+     *
      *   @region?: string,
      * }|DeleteSecretRequest $input
      *
@@ -134,6 +136,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretId: string,
      *   VersionId?: string,
      *   VersionStage?: string,
+     *
      *   @region?: string,
      * }|GetSecretValueRequest $input
      *
@@ -170,6 +173,7 @@ class SecretsManagerClient extends AbstractApi
      *   NextToken?: string,
      *   Filters?: Filter[],
      *   SortOrder?: SortOrderType::*,
+     *
      *   @region?: string,
      * }|ListSecretsRequest $input
      *
@@ -202,6 +206,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretBinary?: string,
      *   SecretString?: string,
      *   VersionStages?: string[],
+     *
      *   @region?: string,
      * }|PutSecretValueRequest $input
      *
@@ -245,6 +250,7 @@ class SecretsManagerClient extends AbstractApi
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
+     *
      *   @region?: string,
      * }|UpdateSecretRequest $input
      *

@@ -29,6 +29,7 @@ class FirehoseClient extends AbstractApi
      * @param array{
      *   DeliveryStreamName: string,
      *   Record: Record|array,
+     *
      *   @region?: string,
      * }|PutRecordInput $input
      *
@@ -61,6 +62,7 @@ class FirehoseClient extends AbstractApi
      * @param array{
      *   DeliveryStreamName: string,
      *   Records: Record[],
+     *
      *   @region?: string,
      * }|PutRecordBatchInput $input
      *

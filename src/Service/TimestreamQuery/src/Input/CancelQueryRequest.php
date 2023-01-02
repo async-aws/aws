@@ -21,6 +21,7 @@ final class CancelQueryRequest extends Input
     /**
      * @param array{
      *   QueryId?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -21,6 +21,7 @@ final class DeleteParameterRequest extends Input
     /**
      * @param array{
      *   Name?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -44,6 +44,7 @@ final class BatchWriteItemInput extends Input
      *   RequestItems?: array<string, array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *
      *   @region?: string,
      * } $input
      */

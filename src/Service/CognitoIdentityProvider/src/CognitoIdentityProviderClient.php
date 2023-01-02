@@ -120,6 +120,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   GroupName: string,
+     *
      *   @region?: string,
      * }|AdminAddUserToGroupRequest $input
      *
@@ -155,6 +156,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|AdminConfirmSignUpRequest $input
      *
@@ -206,6 +208,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   MessageAction?: MessageActionType::*,
      *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|AdminCreateUserRequest $input
      *
@@ -260,6 +263,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
+     *
      *   @region?: string,
      * }|AdminDeleteUserRequest $input
      *
@@ -295,6 +299,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
+     *
      *   @region?: string,
      * }|AdminDisableUserRequest $input
      *
@@ -329,6 +334,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
+     *
      *   @region?: string,
      * }|AdminEnableUserRequest $input
      *
@@ -363,6 +369,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
+     *
      *   @region?: string,
      * }|AdminGetUserRequest $input
      *
@@ -402,6 +409,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ContextData?: ContextDataType|array,
+     *
      *   @region?: string,
      * }|AdminInitiateAuthRequest $input
      *
@@ -455,6 +463,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   GroupName: string,
+     *
      *   @region?: string,
      * }|AdminRemoveUserFromGroupRequest $input
      *
@@ -490,6 +499,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|AdminResetUserPasswordRequest $input
      *
@@ -540,6 +550,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   Password: string,
      *   Permanent?: bool,
+     *
      *   @region?: string,
      * }|AdminSetUserPasswordRequest $input
      *
@@ -578,6 +589,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   UserAttributes: AttributeType[],
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|AdminUpdateUserAttributesRequest $input
      *
@@ -630,6 +642,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
+     *
      *   @region?: string,
      * }|AdminUserGlobalSignOutRequest $input
      *
@@ -667,6 +680,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   AccessToken?: string,
      *   Session?: string,
+     *
      *   @region?: string,
      * }|AssociateSoftwareTokenRequest $input
      *
@@ -704,6 +718,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   PreviousPassword: string,
      *   ProposedPassword: string,
      *   AccessToken: string,
+     *
      *   @region?: string,
      * }|ChangePasswordRequest $input
      *
@@ -754,6 +769,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|ConfirmForgotPasswordRequest $input
      *
@@ -814,6 +830,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|ConfirmSignUpRequest $input
      *
@@ -869,6 +886,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Description?: string,
      *   RoleArn?: string,
      *   Precedence?: int,
+     *
      *   @region?: string,
      * }|CreateGroupRequest $input
      *
@@ -916,6 +934,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|ForgotPasswordRequest $input
      *
@@ -967,6 +986,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   AccessToken: string,
+     *
      *   @region?: string,
      * }|GetUserRequest $input
      *
@@ -1013,6 +1033,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientId: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
+     *
      *   @region?: string,
      * }|InitiateAuthRequest $input
      *
@@ -1066,6 +1087,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Limit?: int,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|ListGroupsRequest $input
      *
@@ -1101,6 +1123,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Limit?: int,
      *   PaginationToken?: string,
      *   Filter?: string,
+     *
      *   @region?: string,
      * }|ListUsersRequest $input
      *
@@ -1137,6 +1160,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|ResendConfirmationCodeRequest $input
      *
@@ -1194,6 +1218,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|RespondToAuthChallengeRequest $input
      *
@@ -1261,6 +1286,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Token: string,
      *   ClientId: string,
      *   ClientSecret?: string,
+     *
      *   @region?: string,
      * }|RevokeTokenRequest $input
      *
@@ -1304,6 +1330,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   SMSMfaSettings?: SMSMfaSettingsType|array,
      *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
      *   AccessToken: string,
+     *
      *   @region?: string,
      * }|SetUserMFAPreferenceRequest $input
      *
@@ -1349,6 +1376,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * }|SignUpRequest $input
      *
@@ -1404,6 +1432,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Session?: string,
      *   UserCode: string,
      *   FriendlyDeviceName?: string,
+     *
      *   @region?: string,
      * }|VerifySoftwareTokenRequest $input
      *

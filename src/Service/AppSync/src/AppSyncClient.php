@@ -67,6 +67,7 @@ class AppSyncClient extends AbstractApi
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
+     *
      *   @region?: string,
      * }|CreateResolverRequest $input
      *
@@ -100,6 +101,7 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   typeName: string,
      *   fieldName: string,
+     *
      *   @region?: string,
      * }|DeleteResolverRequest $input
      *
@@ -131,6 +133,7 @@ class AppSyncClient extends AbstractApi
      *
      * @param array{
      *   apiId: string,
+     *
      *   @region?: string,
      * }|GetSchemaCreationStatusRequest $input
      *
@@ -162,6 +165,7 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * }|ListApiKeysRequest $input
      *
@@ -194,6 +198,7 @@ class AppSyncClient extends AbstractApi
      *   typeName: string,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * }|ListResolversRequest $input
      *
@@ -224,6 +229,7 @@ class AppSyncClient extends AbstractApi
      * @param array{
      *   apiId: string,
      *   definition: string,
+     *
      *   @region?: string,
      * }|StartSchemaCreationRequest $input
      *
@@ -258,6 +264,7 @@ class AppSyncClient extends AbstractApi
      *   id: string,
      *   description?: string,
      *   expires?: string,
+     *
      *   @region?: string,
      * }|UpdateApiKeyRequest $input
      *
@@ -301,6 +308,7 @@ class AppSyncClient extends AbstractApi
      *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
+     *
      *   @region?: string,
      * }|UpdateDataSourceRequest $input
      *
@@ -344,6 +352,7 @@ class AppSyncClient extends AbstractApi
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
+     *
      *   @region?: string,
      * }|UpdateResolverRequest $input
      *

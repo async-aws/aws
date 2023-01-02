@@ -58,6 +58,7 @@ class IotClient extends AbstractApi
      *   thingName?: string,
      *   thingArn?: string,
      *   overrideDynamicGroups?: bool,
+     *
      *   @region?: string,
      * }|AddThingToThingGroupRequest $input
      *
@@ -92,6 +93,7 @@ class IotClient extends AbstractApi
      *   thingTypeName?: string,
      *   attributePayload?: AttributePayload|array,
      *   billingGroupName?: string,
+     *
      *   @region?: string,
      * }|CreateThingRequest $input
      *
@@ -130,6 +132,7 @@ class IotClient extends AbstractApi
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
      *   tags?: Tag[],
+     *
      *   @region?: string,
      * }|CreateThingGroupRequest $input
      *
@@ -161,6 +164,7 @@ class IotClient extends AbstractApi
      *   thingTypeName: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
      *   tags?: Tag[],
+     *
      *   @region?: string,
      * }|CreateThingTypeRequest $input
      *
@@ -196,6 +200,7 @@ class IotClient extends AbstractApi
      * @param array{
      *   thingName: string,
      *   expectedVersion?: string,
+     *
      *   @region?: string,
      * }|DeleteThingRequest $input
      *
@@ -232,6 +237,7 @@ class IotClient extends AbstractApi
      * @param array{
      *   thingGroupName: string,
      *   expectedVersion?: string,
+     *
      *   @region?: string,
      * }|DeleteThingGroupRequest $input
      *
@@ -264,6 +270,7 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingTypeName: string,
+     *
      *   @region?: string,
      * }|DeleteThingTypeRequest $input
      *
@@ -301,6 +308,7 @@ class IotClient extends AbstractApi
      *   parentGroup?: string,
      *   namePrefixFilter?: string,
      *   recursive?: bool,
+     *
      *   @region?: string,
      * }|ListThingGroupsRequest $input
      *
@@ -332,6 +340,7 @@ class IotClient extends AbstractApi
      *   thingName: string,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * }|ListThingGroupsForThingRequest $input
      *
@@ -363,6 +372,7 @@ class IotClient extends AbstractApi
      *   nextToken?: string,
      *   maxResults?: int,
      *   thingTypeName?: string,
+     *
      *   @region?: string,
      * }|ListThingTypesRequest $input
      *
@@ -403,6 +413,7 @@ class IotClient extends AbstractApi
      *   attributeValue?: string,
      *   thingTypeName?: string,
      *   usePrefixAttributeValue?: bool,
+     *
      *   @region?: string,
      * }|ListThingsRequest $input
      *
@@ -437,6 +448,7 @@ class IotClient extends AbstractApi
      *   recursive?: bool,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * }|ListThingsInThingGroupRequest $input
      *

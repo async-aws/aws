@@ -49,6 +49,7 @@ final class AdminSetUserPasswordRequest extends Input
      *   Username?: string,
      *   Password?: string,
      *   Permanent?: bool,
+     *
      *   @region?: string,
      * } $input
      */

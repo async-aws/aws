@@ -55,6 +55,7 @@ final class PutLogEventsRequest extends Input
      *   logStreamName?: string,
      *   logEvents?: InputLogEvent[],
      *   sequenceToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

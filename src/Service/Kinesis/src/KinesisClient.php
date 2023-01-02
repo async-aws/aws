@@ -87,6 +87,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   Tags: array<string, string>,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|AddTagsToStreamInput $input
      *
@@ -122,6 +123,7 @@ class KinesisClient extends AbstractApi
      *   StreamName: string,
      *   ShardCount?: int,
      *   StreamModeDetails?: StreamModeDetails|array,
+     *
      *   @region?: string,
      * }|CreateStreamInput $input
      *
@@ -152,6 +154,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   RetentionPeriodHours: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DecreaseStreamRetentionPeriodInput $input
      *
@@ -187,6 +190,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   EnforceConsumerDeletion?: bool,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DeleteStreamInput $input
      *
@@ -224,6 +228,7 @@ class KinesisClient extends AbstractApi
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
+     *
      *   @region?: string,
      * }|DeregisterStreamConsumerInput $input
      *
@@ -250,6 +255,7 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describelimits
      *
      * @param array{
+     *
      *   @region?: string,
      * }|DescribeLimitsInput $input
      *
@@ -276,6 +282,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamInput $input
      *
@@ -311,6 +318,7 @@ class KinesisClient extends AbstractApi
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamConsumerInput $input
      *
@@ -339,6 +347,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamName?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamSummaryInput $input
      *
@@ -370,6 +379,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   ShardLevelMetrics: list<MetricsName::*>,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DisableEnhancedMonitoringInput $input
      *
@@ -403,6 +413,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   ShardLevelMetrics: list<MetricsName::*>,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|EnableEnhancedMonitoringInput $input
      *
@@ -436,6 +447,7 @@ class KinesisClient extends AbstractApi
      *   ShardIterator: string,
      *   Limit?: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|GetRecordsInput $input
      *
@@ -484,6 +496,7 @@ class KinesisClient extends AbstractApi
      *   StartingSequenceNumber?: string,
      *   Timestamp?: \DateTimeImmutable|string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|GetShardIteratorInput $input
      *
@@ -516,6 +529,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   RetentionPeriodHours: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|IncreaseStreamRetentionPeriodInput $input
      *
@@ -554,6 +568,7 @@ class KinesisClient extends AbstractApi
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
      *   ShardFilter?: ShardFilter|array,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|ListShardsInput $input
      *
@@ -591,6 +606,7 @@ class KinesisClient extends AbstractApi
      *   NextToken?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
+     *
      *   @region?: string,
      * }|ListStreamConsumersInput $input
      *
@@ -624,6 +640,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartStreamName?: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|ListStreamsInput $input
      *
@@ -655,6 +672,7 @@ class KinesisClient extends AbstractApi
      *   ExclusiveStartTagKey?: string,
      *   Limit?: int,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|ListTagsForStreamInput $input
      *
@@ -693,6 +711,7 @@ class KinesisClient extends AbstractApi
      *   ShardToMerge: string,
      *   AdjacentShardToMerge: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|MergeShardsInput $input
      *
@@ -733,6 +752,7 @@ class KinesisClient extends AbstractApi
      *   ExplicitHashKey?: string,
      *   SequenceNumberForOrdering?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|PutRecordInput $input
      *
@@ -777,6 +797,7 @@ class KinesisClient extends AbstractApi
      *   Records: PutRecordsRequestEntry[],
      *   StreamName?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|PutRecordsInput $input
      *
@@ -822,6 +843,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamARN: string,
      *   ConsumerName: string,
+     *
      *   @region?: string,
      * }|RegisterStreamConsumerInput $input
      *
@@ -854,6 +876,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   TagKeys: string[],
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|RemoveTagsFromStreamInput $input
      *
@@ -891,6 +914,7 @@ class KinesisClient extends AbstractApi
      *   ShardToSplit: string,
      *   NewStartingHashKey: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|SplitShardInput $input
      *
@@ -927,6 +951,7 @@ class KinesisClient extends AbstractApi
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|StartStreamEncryptionInput $input
      *
@@ -973,6 +998,7 @@ class KinesisClient extends AbstractApi
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|StopStreamEncryptionInput $input
      *
@@ -1004,6 +1030,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamInput $input
      */
@@ -1028,6 +1055,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamInput $input
      */
@@ -1056,6 +1084,7 @@ class KinesisClient extends AbstractApi
      *   TargetShardCount: int,
      *   ScalingType: ScalingType::*,
      *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|UpdateShardCountInput $input
      *

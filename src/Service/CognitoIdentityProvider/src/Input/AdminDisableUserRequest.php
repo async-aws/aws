@@ -34,6 +34,7 @@ final class AdminDisableUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
+     *
      *   @region?: string,
      * } $input
      */

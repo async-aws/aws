@@ -24,6 +24,7 @@ final class GetDeploymentInput extends Input
     /**
      * @param array{
      *   deploymentId?: string,
+     *
      *   @region?: string,
      * } $input
      */

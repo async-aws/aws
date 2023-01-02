@@ -29,6 +29,7 @@ final class GetBranchInput extends Input
      * @param array{
      *   repositoryName?: string,
      *   branchName?: string,
+     *
      *   @region?: string,
      * } $input
      */

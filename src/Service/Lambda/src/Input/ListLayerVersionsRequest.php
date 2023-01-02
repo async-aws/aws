@@ -57,6 +57,7 @@ final class ListLayerVersionsRequest extends Input
      *   Marker?: string,
      *   MaxItems?: int,
      *   CompatibleArchitecture?: Architecture::*,
+     *
      *   @region?: string,
      * } $input
      */
@@ -121,14 +122,11 @@ final class ListLayerVersionsRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->compatibleRuntime));
             }
             $query['CompatibleRuntime'] = $this->compatibleRuntime;
-        }
-        if (null !== $this->marker) {
+        }if (null !== $this->marker) {
             $query['Marker'] = $this->marker;
-        }
-        if (null !== $this->maxItems) {
+        }if (null !== $this->maxItems) {
             $query['MaxItems'] = (string) $this->maxItems;
-        }
-        if (null !== $this->compatibleArchitecture) {
+        }if (null !== $this->compatibleArchitecture) {
             if (!Architecture::exists($this->compatibleArchitecture)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "CompatibleArchitecture" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $this->compatibleArchitecture));
             }

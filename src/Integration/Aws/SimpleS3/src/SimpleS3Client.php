@@ -11,7 +11,6 @@ use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
-use DateTimeImmutable;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -28,7 +27,7 @@ class SimpleS3Client extends S3Client
         return $this->getEndpoint($uri, [], null);
     }
 
-    public function getPresignedUrl(string $bucket, string $key, ?DateTimeImmutable $expires = null): string
+    public function getPresignedUrl(string $bucket, string $key, ?\DateTimeImmutable $expires = null): string
     {
         $request = new GetObjectRequest([
             'Bucket' => $bucket,

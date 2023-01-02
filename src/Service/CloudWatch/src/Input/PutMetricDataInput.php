@@ -32,6 +32,7 @@ final class PutMetricDataInput extends Input
      * @param array{
      *   Namespace?: string,
      *   MetricData?: MetricDatum[],
+     *
      *   @region?: string,
      * } $input
      */

@@ -41,6 +41,7 @@ class CodeBuildClient extends AbstractApi
      *
      * @param array{
      *   ids: string[],
+     *
      *   @region?: string,
      * }|BatchGetBuildsInput $input
      *
@@ -94,6 +95,7 @@ class CodeBuildClient extends AbstractApi
      *   registryCredentialOverride?: RegistryCredential|array,
      *   imagePullCredentialsTypeOverride?: ImagePullCredentialsType::*,
      *   debugSessionEnabled?: bool,
+     *
      *   @region?: string,
      * }|StartBuildInput $input
      *
@@ -121,6 +123,7 @@ class CodeBuildClient extends AbstractApi
      *
      * @param array{
      *   id: string,
+     *
      *   @region?: string,
      * }|StopBuildInput $input
      *

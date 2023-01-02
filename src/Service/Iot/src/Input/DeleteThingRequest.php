@@ -34,6 +34,7 @@ final class DeleteThingRequest extends Input
      * @param array{
      *   thingName?: string,
      *   expectedVersion?: string,
+     *
      *   @region?: string,
      * } $input
      */

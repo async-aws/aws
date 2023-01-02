@@ -38,6 +38,7 @@ final class ListVersionsByFunctionRequest extends Input
      *   FunctionName?: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *
      *   @region?: string,
      * } $input
      */
@@ -81,8 +82,7 @@ final class ListVersionsByFunctionRequest extends Input
         $query = [];
         if (null !== $this->marker) {
             $query['Marker'] = $this->marker;
-        }
-        if (null !== $this->maxItems) {
+        }if (null !== $this->maxItems) {
             $query['MaxItems'] = (string) $this->maxItems;
         }
 

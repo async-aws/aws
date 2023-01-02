@@ -39,6 +39,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      *   deploymentId?: string,
      *   lifecycleEventHookExecutionId?: string,
      *   status?: LifecycleEventStatus::*,
+     *
      *   @region?: string,
      * } $input
      */

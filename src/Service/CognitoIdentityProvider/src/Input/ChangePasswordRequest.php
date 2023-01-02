@@ -44,6 +44,7 @@ final class ChangePasswordRequest extends Input
      *   PreviousPassword?: string,
      *   ProposedPassword?: string,
      *   AccessToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

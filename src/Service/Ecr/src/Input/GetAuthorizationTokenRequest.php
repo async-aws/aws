@@ -19,6 +19,7 @@ final class GetAuthorizationTokenRequest extends Input
     /**
      * @param array{
      *   registryIds?: string[],
+     *
      *   @region?: string,
      * } $input
      */

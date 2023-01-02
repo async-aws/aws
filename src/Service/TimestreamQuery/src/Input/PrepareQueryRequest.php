@@ -31,6 +31,7 @@ final class PrepareQueryRequest extends Input
      * @param array{
      *   QueryString?: string,
      *   ValidateOnly?: bool,
+     *
      *   @region?: string,
      * } $input
      */

@@ -10,6 +10,7 @@ final class DescribeLimitsInput extends Input
 {
     /**
      * @param array{
+     *
      *   @region?: string,
      * } $input
      */

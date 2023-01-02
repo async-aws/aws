@@ -38,6 +38,7 @@ final class ListUsersRequest extends Input
      *   PathPrefix?: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *
      *   @region?: string,
      * } $input
      */

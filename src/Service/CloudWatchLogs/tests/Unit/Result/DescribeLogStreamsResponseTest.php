@@ -58,6 +58,7 @@ class DescribeLogStreamsResponseTest extends TestCase
 
     /**
      * @group legacy
+     *
      * @expectedDeprecation The property "storedBytes" of "%s" is deprecated by AWS.
      */
     public function testDescribeLogStreamsResponseDeprecatedAttribute(): void

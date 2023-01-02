@@ -95,6 +95,7 @@ final class CreateSecretRequest extends Input
      *   Tags?: Tag[],
      *   AddReplicaRegions?: ReplicaRegionType[],
      *   ForceOverwriteReplicaSecret?: bool,
+     *
      *   @region?: string,
      * } $input
      */

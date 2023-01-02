@@ -38,6 +38,7 @@ final class DeleteScheduleInput extends Input
      *   ClientToken?: string,
      *   GroupName?: string,
      *   Name?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -81,8 +82,7 @@ final class DeleteScheduleInput extends Input
         $query = [];
         if (null !== $this->clientToken) {
             $query['clientToken'] = $this->clientToken;
-        }
-        if (null !== $this->groupName) {
+        }if (null !== $this->groupName) {
             $query['groupName'] = $this->groupName;
         }
 

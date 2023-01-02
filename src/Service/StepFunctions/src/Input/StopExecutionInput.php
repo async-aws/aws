@@ -37,6 +37,7 @@ final class StopExecutionInput extends Input
      *   executionArn?: string,
      *   error?: string,
      *   cause?: string,
+     *
      *   @region?: string,
      * } $input
      */

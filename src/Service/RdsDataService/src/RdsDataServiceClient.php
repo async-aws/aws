@@ -44,6 +44,7 @@ class RdsDataServiceClient extends AbstractApi
      *   schema?: string,
      *   parameterSets?: array[],
      *   transactionId?: string,
+     *
      *   @region?: string,
      * }|BatchExecuteStatementRequest $input
      *
@@ -80,6 +81,7 @@ class RdsDataServiceClient extends AbstractApi
      *   secretArn: string,
      *   database?: string,
      *   schema?: string,
+     *
      *   @region?: string,
      * }|BeginTransactionRequest $input
      *
@@ -115,6 +117,7 @@ class RdsDataServiceClient extends AbstractApi
      *   resourceArn: string,
      *   secretArn: string,
      *   transactionId: string,
+     *
      *   @region?: string,
      * }|CommitTransactionRequest $input
      *
@@ -160,6 +163,7 @@ class RdsDataServiceClient extends AbstractApi
      *   continueAfterTimeout?: bool,
      *   resultSetOptions?: ResultSetOptions|array,
      *   formatRecordsAs?: RecordsFormatType::*,
+     *
      *   @region?: string,
      * }|ExecuteStatementRequest $input
      *
@@ -195,6 +199,7 @@ class RdsDataServiceClient extends AbstractApi
      *   resourceArn: string,
      *   secretArn: string,
      *   transactionId: string,
+     *
      *   @region?: string,
      * }|RollbackTransactionRequest $input
      *

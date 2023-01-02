@@ -30,6 +30,7 @@ class CloudFormationClient extends AbstractApi
      *
      * @param array{
      *   StackDriftDetectionId: string,
+     *
      *   @region?: string,
      * }|DescribeStackDriftDetectionStatusInput $input
      */
@@ -52,6 +53,7 @@ class CloudFormationClient extends AbstractApi
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|DescribeStackEventsInput $input
      */
@@ -73,6 +75,7 @@ class CloudFormationClient extends AbstractApi
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|DescribeStacksInput $input
      */

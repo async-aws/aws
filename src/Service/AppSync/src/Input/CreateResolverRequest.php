@@ -125,6 +125,7 @@ final class CreateResolverRequest extends Input
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
+     *
      *   @region?: string,
      * } $input
      */

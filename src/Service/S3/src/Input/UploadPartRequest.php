@@ -182,6 +182,7 @@ final class UploadPartRequest extends Input
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -315,44 +316,33 @@ final class UploadPartRequest extends Input
         $headers = [];
         if (null !== $this->contentLength) {
             $headers['Content-Length'] = $this->contentLength;
-        }
-        if (null !== $this->contentMd5) {
+        }if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
-        }
-        if (null !== $this->checksumAlgorithm) {
+        }if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
-        }
-        if (null !== $this->checksumCrc32) {
+        }if (null !== $this->checksumCrc32) {
             $headers['x-amz-checksum-crc32'] = $this->checksumCrc32;
-        }
-        if (null !== $this->checksumCrc32C) {
+        }if (null !== $this->checksumCrc32C) {
             $headers['x-amz-checksum-crc32c'] = $this->checksumCrc32C;
-        }
-        if (null !== $this->checksumSha1) {
+        }if (null !== $this->checksumSha1) {
             $headers['x-amz-checksum-sha1'] = $this->checksumSha1;
-        }
-        if (null !== $this->checksumSha256) {
+        }if (null !== $this->checksumSha256) {
             $headers['x-amz-checksum-sha256'] = $this->checksumSha256;
-        }
-        if (null !== $this->sseCustomerAlgorithm) {
+        }if (null !== $this->sseCustomerAlgorithm) {
             $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
-        }
-        if (null !== $this->sseCustomerKey) {
+        }if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
-        }
-        if (null !== $this->sseCustomerKeyMd5) {
+        }if (null !== $this->sseCustomerKeyMd5) {
             $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
-        }
-        if (null !== $this->requestPayer) {
+        }if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }
-        if (null !== $this->expectedBucketOwner) {
+        }if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
