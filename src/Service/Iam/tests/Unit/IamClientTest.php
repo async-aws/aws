@@ -11,9 +11,11 @@ use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
+use AsyncAws\Iam\Input\DeleteServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\DeleteUserPolicyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
+use AsyncAws\Iam\Input\ListServiceSpecificCredentialsRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
 use AsyncAws\Iam\Input\PutUserPolicyRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
@@ -21,6 +23,7 @@ use AsyncAws\Iam\Result\CreateAccessKeyResponse;
 use AsyncAws\Iam\Result\CreateServiceSpecificCredentialResponse;
 use AsyncAws\Iam\Result\CreateUserResponse;
 use AsyncAws\Iam\Result\GetUserResponse;
+use AsyncAws\Iam\Result\ListServiceSpecificCredentialsResponse;
 use AsyncAws\Iam\Result\ListUsersResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -96,6 +99,20 @@ class IamClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDeleteServiceSpecificCredential(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteServiceSpecificCredentialRequest([
+
+            'ServiceSpecificCredentialId' => 'change me',
+        ]);
+        $result = $client->deleteServiceSpecificCredential($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testDeleteUser(): void
     {
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
@@ -133,6 +150,19 @@ class IamClientTest extends TestCase
         $result = $client->GetUser($input);
 
         self::assertInstanceOf(GetUserResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListServiceSpecificCredentials(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListServiceSpecificCredentialsRequest([
+
+        ]);
+        $result = $client->listServiceSpecificCredentials($input);
+
+        self::assertInstanceOf(ListServiceSpecificCredentialsResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

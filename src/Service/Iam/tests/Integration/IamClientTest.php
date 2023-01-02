@@ -12,9 +12,11 @@ use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
+use AsyncAws\Iam\Input\DeleteServiceSpecificCredentialRequest;
 use AsyncAws\Iam\Input\DeleteUserPolicyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
+use AsyncAws\Iam\Input\ListServiceSpecificCredentialsRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
 use AsyncAws\Iam\Input\PutUserPolicyRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
@@ -132,6 +134,34 @@ class IamClientTest extends TestCase
         self::expectNotToPerformAssertions();
     }
 
+    public function testDeleteServiceSpecificCredential(): void
+    {
+        self::markTestSkipped('Localstack does not support the CreateServiceSpecificCredentialRequest API action');
+        $client = $this->getClient();
+
+        $client->createServiceSpecificCredential(new CreateServiceSpecificCredentialRequest([
+            'UserName' => 'jderusse',
+            'ServiceName' => 'codecommit.amazonaws.com',
+        ]));
+
+        $input = new ListServiceSpecificCredentialsRequest([
+            'UserName' => 'jderusse',
+        ]);
+        $result = $client->listServiceSpecificCredentials($input);
+
+        $result->resolve();
+
+        $input = new DeleteServiceSpecificCredentialRequest([
+            'UserName' => 'jderusse',
+            'ServiceSpecificCredentialId' => $result->getServiceSpecificCredentials()[0]->getServiceSpecificCredentialId(),
+        ]);
+        $result = $client->deleteServiceSpecificCredential($input);
+
+        $result->resolve();
+
+        self::assertCount(0, $result->getServiceSpecificCredentials());
+    }
+
     public function testDeleteUser(): void
     {
         $client = $this->getClient();
@@ -177,6 +207,27 @@ class IamClientTest extends TestCase
 
         self::assertSame('jderusse', $result->getUser()->getUserName());
         self::assertSame('arn:aws:iam::000000000000:user/async-aws/jderusse', $result->getUser()->getArn());
+    }
+
+    public function testListServiceSpecificCredentials(): void
+    {
+        self::markTestSkipped('Localstack does not support the CreateServiceSpecificCredentialRequest API action');
+        $client = $this->getClient();
+
+        $client->createServiceSpecificCredential(new CreateServiceSpecificCredentialRequest([
+            'UserName' => 'jderusse',
+            'ServiceName' => 'codecommit.amazonaws.com',
+        ]));
+
+        $input = new ListServiceSpecificCredentialsRequest([
+            'UserName' => 'jderusse',
+        ]);
+        $result = $client->listServiceSpecificCredentials($input);
+
+        $result->resolve();
+
+        self::assertCount(1, $result->getServiceSpecificCredentials());
+        self::assertSame('codecommit.amazonaws.com', $result->getServiceSpecificCredentials()[0]->getServiceName());
     }
 
     public function testListUsers(): void
