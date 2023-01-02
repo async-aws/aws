@@ -204,6 +204,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: string,
      *   ServiceSpecificCredentialId: string,
+     *
      *   @region?: string,
      * }|DeleteServiceSpecificCredentialRequest $input
      *
@@ -322,6 +323,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
+     *
      *   @region?: string,
      * }|ListServiceSpecificCredentialsRequest $input
      *

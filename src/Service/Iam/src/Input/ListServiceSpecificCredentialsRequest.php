@@ -28,6 +28,7 @@ final class ListServiceSpecificCredentialsRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -31,6 +31,7 @@ final class DeleteServiceSpecificCredentialRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceSpecificCredentialId?: string,
+     *
      *   @region?: string,
      * } $input
      */

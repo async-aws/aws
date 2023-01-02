@@ -90,12 +90,12 @@ class IamClientTest extends TestCase
         $result = $client->createServiceSpecificCredential($input);
 
         self::assertSame(
-        'jderusse',
-        $result->getServiceSpecificCredential()->getUserName()
+            'jderusse',
+            $result->getServiceSpecificCredential()->getUserName()
         );
         self::assertSame(
-        'codecommit.amazonaws.com',
-        $result->getServiceSpecificCredential()->getServiceName()
+            'codecommit.amazonaws.com',
+            $result->getServiceSpecificCredential()->getServiceName()
         );
     }
 
