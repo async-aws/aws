@@ -372,6 +372,11 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Service/SecretsManager/src/Input/ListSecretsRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/Ssm/src/Input/GetParameterRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
