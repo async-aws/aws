@@ -18,6 +18,7 @@ abstract class Input
 
     /**
      * @param array{
+     *
      *   @region?: ?string,
      * } $input
      */

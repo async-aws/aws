@@ -56,6 +56,7 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   CollectionId: string,
      *   Tags?: array<string, string>,
+     *
      *   @region?: string,
      * }|CreateCollectionRequest $input
      *
@@ -92,6 +93,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   ProjectName: string,
+     *
      *   @region?: string,
      * }|CreateProjectRequest $input
      *
@@ -129,6 +131,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   CollectionId: string,
+     *
      *   @region?: string,
      * }|DeleteCollectionRequest $input
      *
@@ -163,6 +166,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   ProjectArn: string,
+     *
      *   @region?: string,
      * }|DeleteProjectRequest $input
      *
@@ -199,6 +203,7 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   Image: Image|array,
      *   Attributes?: list<Attribute::*>,
+     *
      *   @region?: string,
      * }|DetectFacesRequest $input
      *
@@ -238,6 +243,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Id: string,
+     *
      *   @region?: string,
      * }|GetCelebrityInfoRequest $input
      *
@@ -276,6 +282,7 @@ class RekognitionClient extends AbstractApi
      *   DetectionAttributes?: list<Attribute::*>,
      *   MaxFaces?: int,
      *   QualityFilter?: QualityFilter::*,
+     *
      *   @region?: string,
      * }|IndexFacesRequest $input
      *
@@ -319,6 +326,7 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   NextToken?: string,
      *   MaxResults?: int,
+     *
      *   @region?: string,
      * }|ListCollectionsRequest $input
      *
@@ -355,6 +363,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
+     *
      *   @region?: string,
      * }|RecognizeCelebritiesRequest $input
      *
@@ -397,6 +406,7 @@ class RekognitionClient extends AbstractApi
      *   MaxFaces?: int,
      *   FaceMatchThreshold?: float,
      *   QualityFilter?: QualityFilter::*,
+     *
      *   @region?: string,
      * }|SearchFacesByImageRequest $input
      *

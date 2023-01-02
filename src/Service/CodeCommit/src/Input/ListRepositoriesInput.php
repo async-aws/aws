@@ -42,6 +42,7 @@ final class ListRepositoriesInput extends Input
      *   nextToken?: string,
      *   sortBy?: SortByEnum::*,
      *   order?: OrderEnum::*,
+     *
      *   @region?: string,
      * } $input
      */

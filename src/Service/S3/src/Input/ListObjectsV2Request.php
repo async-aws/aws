@@ -101,6 +101,7 @@ final class ListObjectsV2Request extends Input
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -192,8 +193,7 @@ final class ListObjectsV2Request extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }
-        if (null !== $this->expectedBucketOwner) {
+        }if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
@@ -201,26 +201,20 @@ final class ListObjectsV2Request extends Input
         $query = [];
         if (null !== $this->delimiter) {
             $query['delimiter'] = $this->delimiter;
-        }
-        if (null !== $this->encodingType) {
+        }if (null !== $this->encodingType) {
             if (!EncodingType::exists($this->encodingType)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" for "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->encodingType));
             }
             $query['encoding-type'] = $this->encodingType;
-        }
-        if (null !== $this->maxKeys) {
+        }if (null !== $this->maxKeys) {
             $query['max-keys'] = (string) $this->maxKeys;
-        }
-        if (null !== $this->prefix) {
+        }if (null !== $this->prefix) {
             $query['prefix'] = $this->prefix;
-        }
-        if (null !== $this->continuationToken) {
+        }if (null !== $this->continuationToken) {
             $query['continuation-token'] = $this->continuationToken;
-        }
-        if (null !== $this->fetchOwner) {
+        }if (null !== $this->fetchOwner) {
             $query['fetch-owner'] = $this->fetchOwner ? 'true' : 'false';
-        }
-        if (null !== $this->startAfter) {
+        }if (null !== $this->startAfter) {
             $query['start-after'] = $this->startAfter;
         }
 

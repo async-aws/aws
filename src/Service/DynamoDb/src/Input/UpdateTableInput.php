@@ -101,6 +101,7 @@ final class UpdateTableInput extends Input
      *   SSESpecification?: SSESpecification|array,
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   TableClass?: TableClass::*,
+     *
      *   @region?: string,
      * } $input
      */

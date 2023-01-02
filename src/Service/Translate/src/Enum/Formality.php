@@ -9,10 +9,11 @@ namespace AsyncAws\Translate\Enum;
  * doesn't support formality, the translation will ignore the formality setting.
  * If you specify multiple target languages for the job, translate ignores the formality setting for any unsupported
  * target language.
- * For a list of target languages that support formality, see Setting Formality in the Amazon Translate Developer Guide.
+ * For a list of target languages that support formality, see Supported languages in the Amazon Translate Developer
+ * Guide.
  *
  * @see https://en.wikipedia.org/wiki/Register_(sociolinguistics)
- * @see https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-formality.html
+ * @see https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-formality.html#customizing-translations-formality-languages
  */
 final class Formality
 {

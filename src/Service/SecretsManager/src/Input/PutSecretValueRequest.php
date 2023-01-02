@@ -55,6 +55,7 @@ final class PutSecretValueRequest extends Input
      *   SecretBinary?: string,
      *   SecretString?: string,
      *   VersionStages?: string[],
+     *
      *   @region?: string,
      * } $input
      */

@@ -63,6 +63,7 @@ final class SignRequest extends Input
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
+     *
      *   @region?: string,
      * } $input
      */

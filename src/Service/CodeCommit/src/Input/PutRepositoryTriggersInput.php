@@ -35,6 +35,7 @@ final class PutRepositoryTriggersInput extends Input
      * @param array{
      *   repositoryName?: string,
      *   triggers?: RepositoryTrigger[],
+     *
      *   @region?: string,
      * } $input
      */

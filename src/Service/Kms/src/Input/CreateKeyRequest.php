@@ -125,6 +125,7 @@ final class CreateKeyRequest extends Input
      *   Tags?: Tag[],
      *   MultiRegion?: bool,
      *   XksKeyId?: string,
+     *
      *   @region?: string,
      * } $input
      */

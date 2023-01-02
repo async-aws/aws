@@ -27,6 +27,7 @@ final class AssociateSoftwareTokenRequest extends Input
      * @param array{
      *   AccessToken?: string,
      *   Session?: string,
+     *
      *   @region?: string,
      * } $input
      */

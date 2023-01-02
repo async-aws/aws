@@ -31,6 +31,7 @@ final class DeleteUserPolicyRequest extends Input
      * @param array{
      *   UserName?: string,
      *   PolicyName?: string,
+     *
      *   @region?: string,
      * } $input
      */

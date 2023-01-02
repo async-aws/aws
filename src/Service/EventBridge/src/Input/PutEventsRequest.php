@@ -32,6 +32,7 @@ final class PutEventsRequest extends Input
      * @param array{
      *   Entries?: PutEventsRequestEntry[],
      *   EndpointId?: string,
+     *
      *   @region?: string,
      * } $input
      */

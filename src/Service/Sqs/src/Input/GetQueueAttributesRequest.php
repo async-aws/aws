@@ -30,6 +30,7 @@ final class GetQueueAttributesRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   AttributeNames?: list<QueueAttributeName::*>,
+     *
      *   @region?: string,
      * } $input
      */

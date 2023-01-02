@@ -50,6 +50,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   GroupName: string,
      *   UserName: string,
+     *
      *   @region?: string,
      * }|AddUserToGroupRequest $input
      *
@@ -78,6 +79,7 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName?: string,
+     *
      *   @region?: string,
      * }|CreateAccessKeyRequest $input
      *
@@ -107,6 +109,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName: string,
      *   ServiceName: string,
+     *
      *   @region?: string,
      * }|CreateServiceSpecificCredentialRequest $input
      *
@@ -137,6 +140,7 @@ class IamClient extends AbstractApi
      *   UserName: string,
      *   PermissionsBoundary?: string,
      *   Tags?: Tag[],
+     *
      *   @region?: string,
      * }|CreateUserRequest $input
      *
@@ -171,6 +175,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: string,
      *   AccessKeyId: string,
+     *
      *   @region?: string,
      * }|DeleteAccessKeyRequest $input
      *
@@ -225,6 +230,7 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName: string,
+     *
      *   @region?: string,
      * }|DeleteUserRequest $input
      *
@@ -257,6 +263,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName: string,
      *   PolicyName: string,
+     *
      *   @region?: string,
      * }|DeleteUserPolicyRequest $input
      *
@@ -284,6 +291,7 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName?: string,
+     *
      *   @region?: string,
      * }|GetUserRequest $input
      *
@@ -342,6 +350,7 @@ class IamClient extends AbstractApi
      *   PathPrefix?: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *
      *   @region?: string,
      * }|ListUsersRequest $input
      *
@@ -367,6 +376,7 @@ class IamClient extends AbstractApi
      *   UserName: string,
      *   PolicyName: string,
      *   PolicyDocument: string,
+     *
      *   @region?: string,
      * }|PutUserPolicyRequest $input
      *
@@ -398,6 +408,7 @@ class IamClient extends AbstractApi
      *   UserName: string,
      *   NewPath?: string,
      *   NewUserName?: string,
+     *
      *   @region?: string,
      * }|UpdateUserRequest $input
      *

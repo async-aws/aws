@@ -24,6 +24,7 @@ final class DeleteRepositoryInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
+     *
      *   @region?: string,
      * } $input
      */

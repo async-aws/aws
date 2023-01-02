@@ -14,6 +14,7 @@ final class SendTaskFailureInput extends Input
      * or in the context object when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html
+     *
      * @required
      *
      * @var string|null
@@ -39,6 +40,7 @@ final class SendTaskFailureInput extends Input
      *   taskToken?: string,
      *   error?: string,
      *   cause?: string,
+     *
      *   @region?: string,
      * } $input
      */

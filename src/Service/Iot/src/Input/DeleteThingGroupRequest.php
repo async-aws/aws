@@ -29,6 +29,7 @@ final class DeleteThingGroupRequest extends Input
      * @param array{
      *   thingGroupName?: string,
      *   expectedVersion?: string,
+     *
      *   @region?: string,
      * } $input
      */

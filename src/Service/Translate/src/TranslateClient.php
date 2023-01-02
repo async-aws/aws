@@ -35,6 +35,7 @@ class TranslateClient extends AbstractApi
      *   SourceLanguageCode: string,
      *   TargetLanguageCode: string,
      *   Settings?: TranslationSettings|array,
+     *
      *   @region?: string,
      * }|TranslateTextRequest $input
      *

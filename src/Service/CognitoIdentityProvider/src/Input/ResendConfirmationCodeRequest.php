@@ -71,6 +71,7 @@ final class ResendConfirmationCodeRequest extends Input
      *   Username?: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

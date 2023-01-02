@@ -71,6 +71,7 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   ReceiptHandle: string,
      *   VisibilityTimeout: int,
+     *
      *   @region?: string,
      * }|ChangeMessageVisibilityRequest $input
      *
@@ -99,6 +100,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   Entries: ChangeMessageVisibilityBatchRequestEntry[],
+     *
      *   @region?: string,
      * }|ChangeMessageVisibilityBatchRequest $input
      *
@@ -130,6 +132,7 @@ class SqsClient extends AbstractApi
      *   QueueName: string,
      *   Attributes?: array<QueueAttributeName::*, string>,
      *   tags?: array<string, string>,
+     *
      *   @region?: string,
      * }|CreateQueueRequest $input
      *
@@ -159,6 +162,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   ReceiptHandle: string,
+     *
      *   @region?: string,
      * }|DeleteMessageRequest $input
      *
@@ -186,6 +190,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   Entries: DeleteMessageBatchRequestEntry[],
+     *
      *   @region?: string,
      * }|DeleteMessageBatchRequest $input
      *
@@ -215,6 +220,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
+     *
      *   @region?: string,
      * }|DeleteQueueRequest $input
      */
@@ -235,6 +241,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   AttributeNames?: list<QueueAttributeName::*>,
+     *
      *   @region?: string,
      * }|GetQueueAttributesRequest $input
      *
@@ -259,6 +266,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   QueueOwnerAWSAccountId?: string,
+     *
      *   @region?: string,
      * }|GetQueueUrlRequest $input
      *
@@ -286,6 +294,7 @@ class SqsClient extends AbstractApi
      *   QueueNamePrefix?: string,
      *   NextToken?: string,
      *   MaxResults?: int,
+     *
      *   @region?: string,
      * }|ListQueuesRequest $input
      */
@@ -305,6 +314,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
+     *
      *   @region?: string,
      * }|PurgeQueueRequest $input
      *
@@ -328,6 +338,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   QueueOwnerAWSAccountId?: string,
+     *
      *   @region?: string,
      * }|GetQueueUrlRequest $input
      */
@@ -357,6 +368,7 @@ class SqsClient extends AbstractApi
      *   VisibilityTimeout?: int,
      *   WaitTimeSeconds?: int,
      *   ReceiveRequestAttemptId?: string,
+     *
      *   @region?: string,
      * }|ReceiveMessageRequest $input
      *
@@ -386,6 +398,7 @@ class SqsClient extends AbstractApi
      *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
+     *
      *   @region?: string,
      * }|SendMessageRequest $input
      *
@@ -413,6 +426,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   Entries: SendMessageBatchRequestEntry[],
+     *
      *   @region?: string,
      * }|SendMessageBatchRequest $input
      *

@@ -80,6 +80,7 @@ final class GetItemInput extends Input
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

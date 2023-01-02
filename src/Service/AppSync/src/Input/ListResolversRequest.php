@@ -48,6 +48,7 @@ final class ListResolversRequest extends Input
      *   typeName?: string,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * } $input
      */
@@ -97,8 +98,7 @@ final class ListResolversRequest extends Input
         $query = [];
         if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }
-        if (null !== $this->maxResults) {
+        }if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
         }
 

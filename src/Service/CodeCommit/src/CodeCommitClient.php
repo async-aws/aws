@@ -86,6 +86,7 @@ class CodeCommitClient extends AbstractApi
      *   repositoryName: string,
      *   repositoryDescription?: string,
      *   tags?: array<string, string>,
+     *
      *   @region?: string,
      * }|CreateRepositoryInput $input
      *
@@ -135,6 +136,7 @@ class CodeCommitClient extends AbstractApi
      *
      * @param array{
      *   repositoryName: string,
+     *
      *   @region?: string,
      * }|DeleteRepositoryInput $input
      *
@@ -171,6 +173,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName: string,
      *   blobId: string,
+     *
      *   @region?: string,
      * }|GetBlobInput $input
      *
@@ -217,6 +220,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName?: string,
      *   branchName?: string,
+     *
      *   @region?: string,
      * }|GetBranchInput $input
      *
@@ -261,6 +265,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName: string,
      *   commitId: string,
+     *
      *   @region?: string,
      * }|GetCommitInput $input
      *
@@ -311,6 +316,7 @@ class CodeCommitClient extends AbstractApi
      *   afterPath?: string,
      *   MaxResults?: int,
      *   NextToken?: string,
+     *
      *   @region?: string,
      * }|GetDifferencesInput $input
      *
@@ -366,6 +372,7 @@ class CodeCommitClient extends AbstractApi
      *   nextToken?: string,
      *   sortBy?: SortByEnum::*,
      *   order?: OrderEnum::*,
+     *
      *   @region?: string,
      * }|ListRepositoriesInput $input
      *
@@ -394,6 +401,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName: string,
      *   triggers: RepositoryTrigger[],
+     *
      *   @region?: string,
      * }|PutRepositoryTriggersInput $input
      *

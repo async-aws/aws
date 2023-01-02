@@ -12,6 +12,11 @@ use AsyncAws\SecretsManager\ValueObject\Filter;
 final class ListSecretsRequest extends Input
 {
     /**
+     * @var bool|null
+     */
+    private $includePlannedDeletion;
+
+    /**
      * The number of results to include in the response.
      *
      * @var int|null
@@ -42,15 +47,18 @@ final class ListSecretsRequest extends Input
 
     /**
      * @param array{
+     *   IncludePlannedDeletion?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
      *   Filters?: Filter[],
      *   SortOrder?: SortOrderType::*,
+     *
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
+        $this->includePlannedDeletion = $input['IncludePlannedDeletion'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->nextToken = $input['NextToken'] ?? null;
         $this->filters = isset($input['Filters']) ? array_map([Filter::class, 'create'], $input['Filters']) : null;
@@ -69,6 +77,11 @@ final class ListSecretsRequest extends Input
     public function getFilters(): array
     {
         return $this->filters ?? [];
+    }
+
+    public function getIncludePlannedDeletion(): ?bool
+    {
+        return $this->includePlannedDeletion;
     }
 
     public function getMaxResults(): ?int
@@ -124,6 +137,13 @@ final class ListSecretsRequest extends Input
         return $this;
     }
 
+    public function setIncludePlannedDeletion(?bool $value): self
+    {
+        $this->includePlannedDeletion = $value;
+
+        return $this;
+    }
+
     public function setMaxResults(?int $value): self
     {
         $this->maxResults = $value;
@@ -151,6 +171,9 @@ final class ListSecretsRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->includePlannedDeletion) {
+            $payload['IncludePlannedDeletion'] = (bool) $v;
+        }
         if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
         }

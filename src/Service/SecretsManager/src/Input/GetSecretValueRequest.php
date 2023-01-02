@@ -39,6 +39,7 @@ final class GetSecretValueRequest extends Input
      *   SecretId?: string,
      *   VersionId?: string,
      *   VersionStage?: string,
+     *
      *   @region?: string,
      * } $input
      */

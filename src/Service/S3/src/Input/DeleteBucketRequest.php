@@ -30,6 +30,7 @@ final class DeleteBucketRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string,
+     *
      *   @region?: string,
      * } $input
      */

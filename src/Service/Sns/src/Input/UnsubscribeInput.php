@@ -24,6 +24,7 @@ final class UnsubscribeInput extends Input
     /**
      * @param array{
      *   SubscriptionArn?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -67,6 +67,7 @@ final class ExecuteStatementInput extends Input
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
+     *
      *   @region?: string,
      * } $input
      */

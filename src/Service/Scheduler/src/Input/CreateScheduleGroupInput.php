@@ -39,6 +39,7 @@ final class CreateScheduleGroupInput extends Input
      *   ClientToken?: string,
      *   Name?: string,
      *   Tags?: Tag[],
+     *
      *   @region?: string,
      * } $input
      */

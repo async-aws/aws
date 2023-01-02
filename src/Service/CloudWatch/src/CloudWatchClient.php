@@ -47,6 +47,7 @@ class CloudWatchClient extends AbstractApi
      *   ScanBy?: ScanBy::*,
      *   MaxDatapoints?: int,
      *   LabelOptions?: LabelOptions|array,
+     *
      *   @region?: string,
      * }|GetMetricDataInput $input
      *
@@ -78,6 +79,7 @@ class CloudWatchClient extends AbstractApi
      *   Statistics?: list<Statistic::*>,
      *   ExtendedStatistics?: string[],
      *   Unit?: StandardUnit::*,
+     *
      *   @region?: string,
      * }|GetMetricStatisticsInput $input
      *
@@ -116,6 +118,7 @@ class CloudWatchClient extends AbstractApi
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,
      *   OwningAccount?: string,
+     *
      *   @region?: string,
      * }|ListMetricsInput $input
      *
@@ -145,6 +148,7 @@ class CloudWatchClient extends AbstractApi
      * @param array{
      *   Namespace: string,
      *   MetricData: MetricDatum[],
+     *
      *   @region?: string,
      * }|PutMetricDataInput $input
      *

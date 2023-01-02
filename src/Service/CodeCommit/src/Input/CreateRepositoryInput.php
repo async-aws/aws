@@ -40,6 +40,7 @@ final class CreateRepositoryInput extends Input
      *   repositoryName?: string,
      *   repositoryDescription?: string,
      *   tags?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

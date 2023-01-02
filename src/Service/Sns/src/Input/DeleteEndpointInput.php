@@ -24,6 +24,7 @@ final class DeleteEndpointInput extends Input
     /**
      * @param array{
      *   EndpointArn?: string,
+     *
      *   @region?: string,
      * } $input
      */

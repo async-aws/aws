@@ -40,6 +40,7 @@ final class CreateLogGroupRequest extends Input
      *   logGroupName?: string,
      *   kmsKeyId?: string,
      *   tags?: array<string, string>,
+     *
      *   @region?: string,
      * } $input
      */

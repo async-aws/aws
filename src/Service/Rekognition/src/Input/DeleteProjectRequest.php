@@ -21,6 +21,7 @@ final class DeleteProjectRequest extends Input
     /**
      * @param array{
      *   ProjectArn?: string,
+     *
      *   @region?: string,
      * } $input
      */

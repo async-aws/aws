@@ -42,6 +42,7 @@ final class ListHostedZonesRequest extends Input
      *   Marker?: string,
      *   MaxItems?: string,
      *   DelegationSetId?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -85,11 +86,9 @@ final class ListHostedZonesRequest extends Input
         $query = [];
         if (null !== $this->marker) {
             $query['marker'] = $this->marker;
-        }
-        if (null !== $this->maxItems) {
+        }if (null !== $this->maxItems) {
             $query['maxitems'] = $this->maxItems;
-        }
-        if (null !== $this->delegationSetId) {
+        }if (null !== $this->delegationSetId) {
             $query['delegationsetid'] = $this->delegationSetId;
         }
 

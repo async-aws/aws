@@ -3,6 +3,7 @@
 namespace AsyncAws\ElastiCache\ValueObject;
 
 use AsyncAws\ElastiCache\Enum\AuthTokenUpdateStatus;
+use AsyncAws\ElastiCache\Enum\TransitEncryptionMode;
 
 final class PendingModifiedValues
 {
@@ -38,6 +39,16 @@ final class PendingModifiedValues
     private $logDeliveryConfigurations;
 
     /**
+     * A flag that enables in-transit encryption when set to true.
+     */
+    private $transitEncryptionEnabled;
+
+    /**
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     */
+    private $transitEncryptionMode;
+
+    /**
      * @param array{
      *   NumCacheNodes?: null|int,
      *   CacheNodeIdsToRemove?: null|string[],
@@ -45,6 +56,8 @@ final class PendingModifiedValues
      *   CacheNodeType?: null|string,
      *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
      *   LogDeliveryConfigurations?: null|PendingLogDeliveryConfiguration[],
+     *   TransitEncryptionEnabled?: null|bool,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
      * } $input
      */
     public function __construct(array $input)
@@ -55,6 +68,8 @@ final class PendingModifiedValues
         $this->cacheNodeType = $input['CacheNodeType'] ?? null;
         $this->authTokenStatus = $input['AuthTokenStatus'] ?? null;
         $this->logDeliveryConfigurations = isset($input['LogDeliveryConfigurations']) ? array_map([PendingLogDeliveryConfiguration::class, 'create'], $input['LogDeliveryConfigurations']) : null;
+        $this->transitEncryptionEnabled = $input['TransitEncryptionEnabled'] ?? null;
+        $this->transitEncryptionMode = $input['TransitEncryptionMode'] ?? null;
     }
 
     public static function create($input): self
@@ -99,5 +114,18 @@ final class PendingModifiedValues
     public function getNumCacheNodes(): ?int
     {
         return $this->numCacheNodes;
+    }
+
+    public function getTransitEncryptionEnabled(): ?bool
+    {
+        return $this->transitEncryptionEnabled;
+    }
+
+    /**
+     * @return TransitEncryptionMode::*|null
+     */
+    public function getTransitEncryptionMode(): ?string
+    {
+        return $this->transitEncryptionMode;
     }
 }

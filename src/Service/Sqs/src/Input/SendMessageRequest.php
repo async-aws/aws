@@ -79,6 +79,7 @@ final class SendMessageRequest extends Input
      *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
+     *
      *   @region?: string,
      * } $input
      */

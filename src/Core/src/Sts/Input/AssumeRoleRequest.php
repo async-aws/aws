@@ -130,6 +130,7 @@ final class AssumeRoleRequest extends Input
      *   SerialNumber?: string,
      *   TokenCode?: string,
      *   SourceIdentity?: string,
+     *
      *   @region?: string,
      * } $input
      */

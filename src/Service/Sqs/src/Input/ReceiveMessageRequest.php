@@ -72,6 +72,7 @@ final class ReceiveMessageRequest extends Input
      *   VisibilityTimeout?: int,
      *   WaitTimeSeconds?: int,
      *   ReceiveRequestAttemptId?: string,
+     *
      *   @region?: string,
      * } $input
      */

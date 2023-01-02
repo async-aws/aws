@@ -76,6 +76,7 @@ final class IndexFacesRequest extends Input
      *   DetectionAttributes?: list<Attribute::*>,
      *   MaxFaces?: int,
      *   QualityFilter?: QualityFilter::*,
+     *
      *   @region?: string,
      * } $input
      */

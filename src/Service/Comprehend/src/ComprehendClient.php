@@ -25,6 +25,7 @@ class ComprehendClient extends AbstractApi
      *
      * @param array{
      *   Text: string,
+     *
      *   @region?: string,
      * }|DetectDominantLanguageRequest $input
      *

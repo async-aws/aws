@@ -21,6 +21,7 @@ final class StopBuildInput extends Input
     /**
      * @param array{
      *   id?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -10,6 +10,7 @@ final class GetCallerIdentityRequest extends Input
 {
     /**
      * @param array{
+     *
      *   @region?: string,
      * } $input
      */

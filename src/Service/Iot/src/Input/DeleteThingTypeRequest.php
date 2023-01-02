@@ -24,6 +24,7 @@ final class DeleteThingTypeRequest extends Input
     /**
      * @param array{
      *   thingTypeName?: string,
+     *
      *   @region?: string,
      * } $input
      */

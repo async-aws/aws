@@ -37,6 +37,7 @@ final class DescribeStreamConsumerInput extends Input
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
+     *
      *   @region?: string,
      * } $input
      */

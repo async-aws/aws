@@ -59,6 +59,7 @@ final class DecryptRequest extends Input
      *   GrantTokens?: string[],
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *
      *   @region?: string,
      * } $input
      */

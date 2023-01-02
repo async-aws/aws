@@ -111,6 +111,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
         /**
          * @phpstan-ignore-next-line
+         *
          * @psalm-suppress ArgumentTypeCoercion
          */
         parent::__construct($level, $bubble);

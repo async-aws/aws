@@ -34,6 +34,7 @@ final class AdminUserGlobalSignOutRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
+     *
      *   @region?: string,
      * } $input
      */

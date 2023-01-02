@@ -12,8 +12,8 @@ use AsyncAws\Translate\ValueObject\TranslationSettings;
 final class TranslateTextRequest extends Input
 {
     /**
-     * The text to translate. The text string can be a maximum of 5,000 bytes long. Depending on your character set, this
-     * may be fewer than 5,000 characters.
+     * The text to translate. The text string can be a maximum of 10,000 bytes long. Depending on your character set, this
+     * may be fewer than 10,000 characters.
      *
      * @required
      *
@@ -34,6 +34,7 @@ final class TranslateTextRequest extends Input
      * For a list of language codes, see Supported languages.
      *
      * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
+     *
      * @required
      *
      * @var string|null
@@ -65,6 +66,7 @@ final class TranslateTextRequest extends Input
      *   SourceLanguageCode?: string,
      *   TargetLanguageCode?: string,
      *   Settings?: TranslationSettings|array,
+     *
      *   @region?: string,
      * } $input
      */

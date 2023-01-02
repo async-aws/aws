@@ -50,6 +50,7 @@ final class BeginTransactionRequest extends Input
      *   secretArn?: string,
      *   database?: string,
      *   schema?: string,
+     *
      *   @region?: string,
      * } $input
      */

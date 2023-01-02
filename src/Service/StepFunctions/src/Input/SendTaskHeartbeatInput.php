@@ -14,6 +14,7 @@ final class SendTaskHeartbeatInput extends Input
      * or in the context object when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html
+     *
      * @required
      *
      * @var string|null
@@ -23,6 +24,7 @@ final class SendTaskHeartbeatInput extends Input
     /**
      * @param array{
      *   taskToken?: string,
+     *
      *   @region?: string,
      * } $input
      */

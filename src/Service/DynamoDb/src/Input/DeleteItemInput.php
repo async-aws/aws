@@ -112,6 +112,7 @@ final class DeleteItemInput extends Input
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *
      *   @region?: string,
      * } $input
      */

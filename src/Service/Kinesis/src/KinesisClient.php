@@ -12,6 +12,7 @@ use AsyncAws\Kinesis\Enum\EncryptionType;
 use AsyncAws\Kinesis\Enum\MetricsName;
 use AsyncAws\Kinesis\Enum\ScalingType;
 use AsyncAws\Kinesis\Enum\ShardIteratorType;
+use AsyncAws\Kinesis\Exception\AccessDeniedException;
 use AsyncAws\Kinesis\Exception\ExpiredIteratorException;
 use AsyncAws\Kinesis\Exception\ExpiredNextTokenException;
 use AsyncAws\Kinesis\Exception\InvalidArgumentException;
@@ -83,8 +84,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#addtagstostream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   Tags: array<string, string>,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|AddTagsToStreamInput $input
      *
@@ -92,6 +95,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceInUseException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws AccessDeniedException
      */
     public function addTagsToStream($input): Result
     {
@@ -101,6 +105,7 @@ class KinesisClient extends AbstractApi
             'ResourceInUseException' => ResourceInUseException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -118,6 +123,7 @@ class KinesisClient extends AbstractApi
      *   StreamName: string,
      *   ShardCount?: int,
      *   StreamModeDetails?: StreamModeDetails|array,
+     *
      *   @region?: string,
      * }|CreateStreamInput $input
      *
@@ -145,8 +151,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#decreasestreamretentionperiod
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   RetentionPeriodHours: int,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DecreaseStreamRetentionPeriodInput $input
      *
@@ -154,6 +162,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws LimitExceededException
      * @throws InvalidArgumentException
+     * @throws AccessDeniedException
      */
     public function decreaseStreamRetentionPeriod($input): Result
     {
@@ -163,6 +172,7 @@ class KinesisClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -177,22 +187,28 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#deletestream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   EnforceConsumerDeletion?: bool,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DeleteStreamInput $input
      *
      * @throws ResourceNotFoundException
      * @throws LimitExceededException
      * @throws ResourceInUseException
+     * @throws InvalidArgumentException
+     * @throws AccessDeniedException
      */
-    public function deleteStream($input): Result
+    public function deleteStream($input = []): Result
     {
         $input = DeleteStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -212,6 +228,7 @@ class KinesisClient extends AbstractApi
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
+     *
      *   @region?: string,
      * }|DeregisterStreamConsumerInput $input
      *
@@ -238,6 +255,7 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describelimits
      *
      * @param array{
+     *
      *   @region?: string,
      * }|DescribeLimitsInput $input
      *
@@ -260,21 +278,27 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamInput $input
      *
      * @throws ResourceNotFoundException
      * @throws LimitExceededException
+     * @throws InvalidArgumentException
+     * @throws AccessDeniedException
      */
-    public function describeStream($input): DescribeStreamOutput
+    public function describeStream($input = []): DescribeStreamOutput
     {
         $input = DescribeStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new DescribeStreamOutput($response, $this, $input);
@@ -294,6 +318,7 @@ class KinesisClient extends AbstractApi
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamConsumerInput $input
      *
@@ -320,19 +345,25 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestreamsummary
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamSummaryInput $input
      *
      * @throws ResourceNotFoundException
      * @throws LimitExceededException
+     * @throws InvalidArgumentException
+     * @throws AccessDeniedException
      */
-    public function describeStreamSummary($input): DescribeStreamSummaryOutput
+    public function describeStreamSummary($input = []): DescribeStreamSummaryOutput
     {
         $input = DescribeStreamSummaryInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStreamSummary', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new DescribeStreamSummaryOutput($response);
@@ -345,8 +376,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#disableenhancedmonitoring
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   ShardLevelMetrics: list<MetricsName::*>,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DisableEnhancedMonitoringInput $input
      *
@@ -354,6 +387,7 @@ class KinesisClient extends AbstractApi
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      */
     public function disableEnhancedMonitoring($input): EnhancedMonitoringOutput
     {
@@ -363,6 +397,7 @@ class KinesisClient extends AbstractApi
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new EnhancedMonitoringOutput($response);
@@ -375,8 +410,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#enableenhancedmonitoring
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   ShardLevelMetrics: list<MetricsName::*>,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|EnableEnhancedMonitoringInput $input
      *
@@ -384,6 +421,7 @@ class KinesisClient extends AbstractApi
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      */
     public function enableEnhancedMonitoring($input): EnhancedMonitoringOutput
     {
@@ -393,6 +431,7 @@ class KinesisClient extends AbstractApi
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new EnhancedMonitoringOutput($response);
@@ -407,6 +446,8 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   ShardIterator: string,
      *   Limit?: int,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|GetRecordsInput $input
      *
@@ -420,6 +461,7 @@ class KinesisClient extends AbstractApi
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
+     * @throws AccessDeniedException
      */
     public function getRecords($input): GetRecordsOutput
     {
@@ -435,6 +477,7 @@ class KinesisClient extends AbstractApi
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new GetRecordsOutput($response);
@@ -447,17 +490,20 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#getsharditerator
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   ShardId: string,
      *   ShardIteratorType: ShardIteratorType::*,
      *   StartingSequenceNumber?: string,
      *   Timestamp?: \DateTimeImmutable|string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|GetShardIteratorInput $input
      *
      * @throws ResourceNotFoundException
      * @throws InvalidArgumentException
      * @throws ProvisionedThroughputExceededException
+     * @throws AccessDeniedException
      */
     public function getShardIterator($input): GetShardIteratorOutput
     {
@@ -466,6 +512,7 @@ class KinesisClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new GetShardIteratorOutput($response);
@@ -479,8 +526,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#increasestreamretentionperiod
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   RetentionPeriodHours: int,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|IncreaseStreamRetentionPeriodInput $input
      *
@@ -488,6 +537,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws LimitExceededException
      * @throws InvalidArgumentException
+     * @throws AccessDeniedException
      */
     public function increaseStreamRetentionPeriod($input): Result
     {
@@ -497,6 +547,7 @@ class KinesisClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -516,6 +567,8 @@ class KinesisClient extends AbstractApi
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
      *   ShardFilter?: ShardFilter|array,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|ListShardsInput $input
      *
@@ -524,6 +577,7 @@ class KinesisClient extends AbstractApi
      * @throws LimitExceededException
      * @throws ExpiredNextTokenException
      * @throws ResourceInUseException
+     * @throws AccessDeniedException
      */
     public function listShards($input = []): ListShardsOutput
     {
@@ -534,6 +588,7 @@ class KinesisClient extends AbstractApi
             'LimitExceededException' => LimitExceededException::class,
             'ExpiredNextTokenException' => ExpiredNextTokenException::class,
             'ResourceInUseException' => ResourceInUseException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new ListShardsOutput($response);
@@ -551,6 +606,7 @@ class KinesisClient extends AbstractApi
      *   NextToken?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
+     *
      *   @region?: string,
      * }|ListStreamConsumersInput $input
      *
@@ -583,16 +639,22 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   Limit?: int,
      *   ExclusiveStartStreamName?: string,
+     *   NextToken?: string,
+     *
      *   @region?: string,
      * }|ListStreamsInput $input
      *
      * @throws LimitExceededException
+     * @throws ExpiredNextTokenException
+     * @throws InvalidArgumentException
      */
     public function listStreams($input = []): ListStreamsOutput
     {
         $input = ListStreamsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListStreams', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'LimitExceededException' => LimitExceededException::class,
+            'ExpiredNextTokenException' => ExpiredNextTokenException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
         ]]));
 
         return new ListStreamsOutput($response, $this, $input);
@@ -606,23 +668,27 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#listtagsforstream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   ExclusiveStartTagKey?: string,
      *   Limit?: int,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|ListTagsForStreamInput $input
      *
      * @throws ResourceNotFoundException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws AccessDeniedException
      */
-    public function listTagsForStream($input): ListTagsForStreamOutput
+    public function listTagsForStream($input = []): ListTagsForStreamOutput
     {
         $input = ListTagsForStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTagsForStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new ListTagsForStreamOutput($response);
@@ -630,19 +696,22 @@ class KinesisClient extends AbstractApi
 
     /**
      * Merges two adjacent shards in a Kinesis data stream and combines them into a single shard to reduce the stream's
-     * capacity to ingest and transport data. Two shards are considered adjacent if the union of the hash key ranges for the
-     * two shards form a contiguous set with no gaps. For example, if you have two shards, one with a hash key range of
-     * 276...381 and the other with a hash key range of 382...454, then you could merge these two shards into a single shard
-     * that would have a hash key range of 276...454. After the merge, the single child shard receives data for all hash key
-     * values covered by the two parent shards.
+     * capacity to ingest and transport data. This API is only supported for the data streams with the provisioned capacity
+     * mode. Two shards are considered adjacent if the union of the hash key ranges for the two shards form a contiguous set
+     * with no gaps. For example, if you have two shards, one with a hash key range of 276...381 and the other with a hash
+     * key range of 382...454, then you could merge these two shards into a single shard that would have a hash key range of
+     * 276...454. After the merge, the single child shard receives data for all hash key values covered by the two parent
+     * shards.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_MergeShards.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#mergeshards
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   ShardToMerge: string,
      *   AdjacentShardToMerge: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|MergeShardsInput $input
      *
@@ -651,6 +720,7 @@ class KinesisClient extends AbstractApi
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ValidationException
+     * @throws AccessDeniedException
      */
     public function mergeShards($input): Result
     {
@@ -661,6 +731,7 @@ class KinesisClient extends AbstractApi
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ValidationException' => ValidationException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -675,11 +746,13 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#putrecord
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   Data: string,
      *   PartitionKey: string,
      *   ExplicitHashKey?: string,
      *   SequenceNumberForOrdering?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|PutRecordInput $input
      *
@@ -692,6 +765,7 @@ class KinesisClient extends AbstractApi
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
+     * @throws AccessDeniedException
      */
     public function putRecord($input): PutRecordOutput
     {
@@ -706,6 +780,7 @@ class KinesisClient extends AbstractApi
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new PutRecordOutput($response);
@@ -720,7 +795,9 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   Records: PutRecordsRequestEntry[],
-     *   StreamName: string,
+     *   StreamName?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|PutRecordsInput $input
      *
@@ -733,6 +810,7 @@ class KinesisClient extends AbstractApi
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
+     * @throws AccessDeniedException
      */
     public function putRecords($input): PutRecordsOutput
     {
@@ -747,6 +825,7 @@ class KinesisClient extends AbstractApi
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new PutRecordsOutput($response);
@@ -764,6 +843,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamARN: string,
      *   ConsumerName: string,
+     *
      *   @region?: string,
      * }|RegisterStreamConsumerInput $input
      *
@@ -793,8 +873,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#removetagsfromstream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   TagKeys: string[],
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|RemoveTagsFromStreamInput $input
      *
@@ -802,6 +884,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceInUseException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws AccessDeniedException
      */
     public function removeTagsFromStream($input): Result
     {
@@ -811,6 +894,7 @@ class KinesisClient extends AbstractApi
             'ResourceInUseException' => ResourceInUseException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -819,15 +903,18 @@ class KinesisClient extends AbstractApi
     /**
      * Splits a shard into two new shards in the Kinesis data stream, to increase the stream's capacity to ingest and
      * transport data. `SplitShard` is called when there is a need to increase the overall capacity of a stream because of
-     * an expected increase in the volume of data records being ingested.
+     * an expected increase in the volume of data records being ingested. This API is only supported for the data streams
+     * with the provisioned capacity mode.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_SplitShard.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#splitshard
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   ShardToSplit: string,
      *   NewStartingHashKey: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|SplitShardInput $input
      *
@@ -836,6 +923,7 @@ class KinesisClient extends AbstractApi
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ValidationException
+     * @throws AccessDeniedException
      */
     public function splitShard($input): Result
     {
@@ -846,6 +934,7 @@ class KinesisClient extends AbstractApi
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ValidationException' => ValidationException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -858,9 +947,11 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#startstreamencryption
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|StartStreamEncryptionInput $input
      *
@@ -874,6 +965,7 @@ class KinesisClient extends AbstractApi
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
+     * @throws AccessDeniedException
      */
     public function startStreamEncryption($input): Result
     {
@@ -889,6 +981,7 @@ class KinesisClient extends AbstractApi
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -901,9 +994,11 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#stopstreamencryption
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|StopStreamEncryptionInput $input
      *
@@ -911,6 +1006,7 @@ class KinesisClient extends AbstractApi
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      */
     public function stopStreamEncryption($input): Result
     {
@@ -920,6 +1016,7 @@ class KinesisClient extends AbstractApi
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -929,18 +1026,22 @@ class KinesisClient extends AbstractApi
      * @see describeStream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamInput $input
      */
-    public function streamExists($input): StreamExistsWaiter
+    public function streamExists($input = []): StreamExistsWaiter
     {
         $input = DescribeStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new StreamExistsWaiter($response, $this, $input);
@@ -950,33 +1051,40 @@ class KinesisClient extends AbstractApi
      * @see describeStream
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|DescribeStreamInput $input
      */
-    public function streamNotExists($input): StreamNotExistsWaiter
+    public function streamNotExists($input = []): StreamNotExistsWaiter
     {
         $input = DescribeStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new StreamNotExistsWaiter($response, $this, $input);
     }
 
     /**
-     * Updates the shard count of the specified stream to the specified number of shards.
+     * Updates the shard count of the specified stream to the specified number of shards. This API is only supported for the
+     * data streams with the provisioned capacity mode.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_UpdateShardCount.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#updateshardcount
      *
      * @param array{
-     *   StreamName: string,
+     *   StreamName?: string,
      *   TargetShardCount: int,
      *   ScalingType: ScalingType::*,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * }|UpdateShardCountInput $input
      *
@@ -985,6 +1093,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
      * @throws ValidationException
+     * @throws AccessDeniedException
      */
     public function updateShardCount($input): UpdateShardCountOutput
     {
@@ -995,6 +1104,7 @@ class KinesisClient extends AbstractApi
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ValidationException' => ValidationException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new UpdateShardCountOutput($response);

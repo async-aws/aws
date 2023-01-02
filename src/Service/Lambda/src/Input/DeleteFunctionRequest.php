@@ -29,6 +29,7 @@ final class DeleteFunctionRequest extends Input
      * @param array{
      *   FunctionName?: string,
      *   Qualifier?: string,
+     *
      *   @region?: string,
      * } $input
      */

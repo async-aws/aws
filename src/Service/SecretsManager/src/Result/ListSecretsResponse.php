@@ -120,6 +120,7 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
             'LastChangedDate' => (isset($json['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastChangedDate'])))) ? $d : null,
             'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,
             'DeletedDate' => (isset($json['DeletedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['DeletedDate'])))) ? $d : null,
+            'NextRotationDate' => (isset($json['NextRotationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['NextRotationDate'])))) ? $d : null,
             'Tags' => !isset($json['Tags']) ? null : $this->populateResultTagListType($json['Tags']),
             'SecretVersionsToStages' => !isset($json['SecretVersionsToStages']) ? null : $this->populateResultSecretVersionsToStagesMapType($json['SecretVersionsToStages']),
             'OwningService' => isset($json['OwningService']) ? (string) $json['OwningService'] : null,

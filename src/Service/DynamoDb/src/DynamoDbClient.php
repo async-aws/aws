@@ -93,6 +93,7 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   RequestItems: array<string, KeysAndAttributes>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *
      *   @region?: string,
      * }|BatchGetItemInput $input
      *
@@ -129,6 +130,7 @@ class DynamoDbClient extends AbstractApi
      *   RequestItems: array<string, array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *
      *   @region?: string,
      * }|BatchWriteItemInput $input
      *
@@ -172,6 +174,7 @@ class DynamoDbClient extends AbstractApi
      *   SSESpecification?: SSESpecification|array,
      *   Tags?: Tag[],
      *   TableClass?: TableClass::*,
+     *
      *   @region?: string,
      * }|CreateTableInput $input
      *
@@ -209,6 +212,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *
      *   @region?: string,
      * }|DeleteItemInput $input
      *
@@ -248,6 +252,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *
      *   @region?: string,
      * }|DeleteTableInput $input
      *
@@ -276,6 +281,7 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describeendpoints
      *
      * @param array{
+     *
      *   @region?: string,
      * }|DescribeEndpointsRequest $input
      */
@@ -296,6 +302,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *
      *   @region?: string,
      * }|DescribeTableInput $input
      *
@@ -326,6 +333,7 @@ class DynamoDbClient extends AbstractApi
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
+     *
      *   @region?: string,
      * }|ExecuteStatementInput $input
      *
@@ -370,6 +378,7 @@ class DynamoDbClient extends AbstractApi
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
+     *
      *   @region?: string,
      * }|GetItemInput $input
      *
@@ -401,6 +410,7 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   ExclusiveStartTableName?: string,
      *   Limit?: int,
+     *
      *   @region?: string,
      * }|ListTablesInput $input
      *
@@ -437,6 +447,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *
      *   @region?: string,
      * }|PutItemInput $input
      *
@@ -490,6 +501,7 @@ class DynamoDbClient extends AbstractApi
      *   KeyConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *
      *   @region?: string,
      * }|QueryInput $input
      *
@@ -535,6 +547,7 @@ class DynamoDbClient extends AbstractApi
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   ConsistentRead?: bool,
+     *
      *   @region?: string,
      * }|ScanInput $input
      *
@@ -561,6 +574,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *
      *   @region?: string,
      * }|DescribeTableInput $input
      */
@@ -580,6 +594,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *
      *   @region?: string,
      * }|DescribeTableInput $input
      */
@@ -608,6 +623,7 @@ class DynamoDbClient extends AbstractApi
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,
+     *
      *   @region?: string,
      * }|TransactWriteItemsInput $input
      *
@@ -657,6 +673,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *
      *   @region?: string,
      * }|UpdateItemInput $input
      *
@@ -701,6 +718,7 @@ class DynamoDbClient extends AbstractApi
      *   SSESpecification?: SSESpecification|array,
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   TableClass?: TableClass::*,
+     *
      *   @region?: string,
      * }|UpdateTableInput $input
      *
@@ -734,6 +752,7 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   TimeToLiveSpecification: TimeToLiveSpecification|array,
+     *
      *   @region?: string,
      * }|UpdateTimeToLiveInput $input
      *

@@ -13,8 +13,6 @@ final class StartStreamEncryptionInput extends Input
     /**
      * The name of the stream for which to start encrypting records.
      *
-     * @required
-     *
      * @var string|null
      */
     private $streamName;
@@ -41,10 +39,19 @@ final class StartStreamEncryptionInput extends Input
     private $keyId;
 
     /**
+     * The ARN of the stream.
+     *
+     * @var string|null
+     */
+    private $streamArn;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   EncryptionType?: EncryptionType::*,
      *   KeyId?: string,
+     *   StreamARN?: string,
+     *
      *   @region?: string,
      * } $input
      */
@@ -53,6 +60,7 @@ final class StartStreamEncryptionInput extends Input
         $this->streamName = $input['StreamName'] ?? null;
         $this->encryptionType = $input['EncryptionType'] ?? null;
         $this->keyId = $input['KeyId'] ?? null;
+        $this->streamArn = $input['StreamARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -72,6 +80,11 @@ final class StartStreamEncryptionInput extends Input
     public function getKeyId(): ?string
     {
         return $this->keyId;
+    }
+
+    public function getStreamArn(): ?string
+    {
+        return $this->streamArn;
     }
 
     public function getStreamName(): ?string
@@ -121,6 +134,13 @@ final class StartStreamEncryptionInput extends Input
         return $this;
     }
 
+    public function setStreamArn(?string $value): self
+    {
+        $this->streamArn = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -131,10 +151,9 @@ final class StartStreamEncryptionInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->streamName) {
+            $payload['StreamName'] = $v;
         }
-        $payload['StreamName'] = $v;
         if (null === $v = $this->encryptionType) {
             throw new InvalidArgument(sprintf('Missing parameter "EncryptionType" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -146,6 +165,9 @@ final class StartStreamEncryptionInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['KeyId'] = $v;
+        if (null !== $v = $this->streamArn) {
+            $payload['StreamARN'] = $v;
+        }
 
         return $payload;
     }

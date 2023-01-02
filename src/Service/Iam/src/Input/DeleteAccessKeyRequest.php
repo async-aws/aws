@@ -29,6 +29,7 @@ final class DeleteAccessKeyRequest extends Input
      * @param array{
      *   UserName?: string,
      *   AccessKeyId?: string,
+     *
      *   @region?: string,
      * } $input
      */

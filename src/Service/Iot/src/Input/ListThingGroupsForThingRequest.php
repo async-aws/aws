@@ -38,6 +38,7 @@ final class ListThingGroupsForThingRequest extends Input
      *   thingName?: string,
      *   nextToken?: string,
      *   maxResults?: int,
+     *
      *   @region?: string,
      * } $input
      */
@@ -81,8 +82,7 @@ final class ListThingGroupsForThingRequest extends Input
         $query = [];
         if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }
-        if (null !== $this->maxResults) {
+        }if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
         }
 

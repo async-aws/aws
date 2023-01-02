@@ -59,6 +59,7 @@ final class ListUsersRequest extends Input
      *   Limit?: int,
      *   PaginationToken?: string,
      *   Filter?: string,
+     *
      *   @region?: string,
      * } $input
      */

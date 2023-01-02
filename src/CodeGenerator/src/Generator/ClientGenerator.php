@@ -62,7 +62,7 @@ class ClientGenerator
             $signatureVersions = array_intersect($supportedVersions, $config['signVersions']);
             rsort($signatureVersions);
 
-            return strtr('        return [
+            return strtr('return [
                 "endpoint" => "ENDPOINT",
                 "signRegion" => "REGION",
                 "signService" => SIGN_SERVICE,
@@ -230,6 +230,7 @@ class ClientGenerator
             $body .= '}';
         }
 
+        $body .= "\n";
         if (isset($endpoints['_default']['aws'])) {
             $body .= $dumpConfig($endpoints['_default']['aws']);
         } elseif (isset($endpoints['_global']['aws'])) {

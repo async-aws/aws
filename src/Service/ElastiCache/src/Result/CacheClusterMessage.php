@@ -138,6 +138,8 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
                     'CacheNodeType' => ($v = $item->PendingModifiedValues->CacheNodeType) ? (string) $v : null,
                     'AuthTokenStatus' => ($v = $item->PendingModifiedValues->AuthTokenStatus) ? (string) $v : null,
                     'LogDeliveryConfigurations' => !$item->PendingModifiedValues->LogDeliveryConfigurations ? null : $this->populateResultPendingLogDeliveryConfigurationList($item->PendingModifiedValues->LogDeliveryConfigurations),
+                    'TransitEncryptionEnabled' => ($v = $item->PendingModifiedValues->TransitEncryptionEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+                    'TransitEncryptionMode' => ($v = $item->PendingModifiedValues->TransitEncryptionMode) ? (string) $v : null,
                 ]),
                 'NotificationConfiguration' => !$item->NotificationConfiguration ? null : new NotificationConfiguration([
                     'TopicArn' => ($v = $item->NotificationConfiguration->TopicArn) ? (string) $v : null,
@@ -165,6 +167,7 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
                 'LogDeliveryConfigurations' => !$item->LogDeliveryConfigurations ? null : $this->populateResultLogDeliveryConfigurationList($item->LogDeliveryConfigurations),
                 'NetworkType' => ($v = $item->NetworkType) ? (string) $v : null,
                 'IpDiscovery' => ($v = $item->IpDiscovery) ? (string) $v : null,
+                'TransitEncryptionMode' => ($v = $item->TransitEncryptionMode) ? (string) $v : null,
             ]);
         }
 

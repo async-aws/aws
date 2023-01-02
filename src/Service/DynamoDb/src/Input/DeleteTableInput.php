@@ -24,6 +24,7 @@ final class DeleteTableInput extends Input
     /**
      * @param array{
      *   TableName?: string,
+     *
      *   @region?: string,
      * } $input
      */

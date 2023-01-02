@@ -30,6 +30,7 @@ final class DeleteScheduleGroupInput extends Input
      * @param array{
      *   ClientToken?: string,
      *   Name?: string,
+     *
      *   @region?: string,
      * } $input
      */

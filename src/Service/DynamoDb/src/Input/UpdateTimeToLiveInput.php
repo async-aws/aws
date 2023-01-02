@@ -35,6 +35,7 @@ final class UpdateTimeToLiveInput extends Input
      * @param array{
      *   TableName?: string,
      *   TimeToLiveSpecification?: TimeToLiveSpecification|array,
+     *
      *   @region?: string,
      * } $input
      */

@@ -32,6 +32,7 @@ final class DeleteMessageBatchRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   Entries?: DeleteMessageBatchRequestEntry[],
+     *
      *   @region?: string,
      * } $input
      */

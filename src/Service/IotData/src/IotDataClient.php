@@ -33,6 +33,7 @@ class IotDataClient extends AbstractApi
      * @param array{
      *   thingName: string,
      *   shadowName?: string,
+     *
      *   @region?: string,
      * }|GetThingShadowRequest $input
      *
@@ -72,6 +73,7 @@ class IotDataClient extends AbstractApi
      *   thingName: string,
      *   shadowName?: string,
      *   payload: string,
+     *
      *   @region?: string,
      * }|UpdateThingShadowRequest $input
      *

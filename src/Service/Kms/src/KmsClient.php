@@ -67,6 +67,7 @@ class KmsClient extends AbstractApi
      * @param array{
      *   AliasName: string,
      *   TargetKeyId: string,
+     *
      *   @region?: string,
      * }|CreateAliasRequest $input
      *
@@ -115,6 +116,7 @@ class KmsClient extends AbstractApi
      *   Tags?: Tag[],
      *   MultiRegion?: bool,
      *   XksKeyId?: string,
+     *
      *   @region?: string,
      * }|CreateKeyRequest $input
      *
@@ -166,6 +168,7 @@ class KmsClient extends AbstractApi
      *   GrantTokens?: string[],
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *
      *   @region?: string,
      * }|DecryptRequest $input
      *
@@ -212,6 +215,7 @@ class KmsClient extends AbstractApi
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *
      *   @region?: string,
      * }|EncryptRequest $input
      *
@@ -256,6 +260,7 @@ class KmsClient extends AbstractApi
      *   NumberOfBytes?: int,
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
+     *
      *   @region?: string,
      * }|GenerateDataKeyRequest $input
      *
@@ -296,6 +301,7 @@ class KmsClient extends AbstractApi
      *   KeyId?: string,
      *   Limit?: int,
      *   Marker?: string,
+     *
      *   @region?: string,
      * }|ListAliasesRequest $input
      *
@@ -336,6 +342,7 @@ class KmsClient extends AbstractApi
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm: SigningAlgorithmSpec::*,
+     *
      *   @region?: string,
      * }|SignRequest $input
      *

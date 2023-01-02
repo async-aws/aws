@@ -34,6 +34,7 @@ final class GetCommitInput extends Input
      * @param array{
      *   repositoryName?: string,
      *   commitId?: string,
+     *
      *   @region?: string,
      * } $input
      */

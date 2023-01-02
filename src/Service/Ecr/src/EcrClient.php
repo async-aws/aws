@@ -25,6 +25,7 @@ class EcrClient extends AbstractApi
      *
      * @param array{
      *   registryIds?: string[],
+     *
      *   @region?: string,
      * }|GetAuthorizationTokenRequest $input
      *

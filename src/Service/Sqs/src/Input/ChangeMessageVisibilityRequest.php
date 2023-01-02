@@ -42,6 +42,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
      *   VisibilityTimeout?: int,
+     *
      *   @region?: string,
      * } $input
      */

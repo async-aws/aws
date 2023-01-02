@@ -21,6 +21,7 @@ final class PutTraceSegmentsRequest extends Input
     /**
      * @param array{
      *   TraceSegmentDocuments?: string[],
+     *
      *   @region?: string,
      * } $input
      */

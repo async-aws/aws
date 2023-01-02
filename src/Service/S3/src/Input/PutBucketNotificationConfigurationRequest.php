@@ -47,6 +47,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
      *   NotificationConfiguration?: NotificationConfiguration|array,
      *   ExpectedBucketOwner?: string,
      *   SkipDestinationValidation?: bool,
+     *
      *   @region?: string,
      * } $input
      */
@@ -93,8 +94,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
-        }
-        if (null !== $this->skipDestinationValidation) {
+        }if (null !== $this->skipDestinationValidation) {
             $headers['x-amz-skip-destination-validation'] = $this->skipDestinationValidation ? 'true' : 'false';
         }
 

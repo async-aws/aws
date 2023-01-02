@@ -53,6 +53,7 @@ class Route53Client extends AbstractApi
      * @param array{
      *   HostedZoneId: string,
      *   ChangeBatch: ChangeBatch|array,
+     *
      *   @region?: string,
      * }|ChangeResourceRecordSetsRequest $input
      *
@@ -91,6 +92,7 @@ class Route53Client extends AbstractApi
      *   CallerReference: string,
      *   HostedZoneConfig?: HostedZoneConfig|array,
      *   DelegationSetId?: string,
+     *
      *   @region?: string,
      * }|CreateHostedZoneRequest $input
      *
@@ -130,6 +132,7 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   Id: string,
+     *
      *   @region?: string,
      * }|DeleteHostedZoneRequest $input
      *
@@ -164,6 +167,7 @@ class Route53Client extends AbstractApi
      *   Marker?: string,
      *   MaxItems?: string,
      *   DelegationSetId?: string,
+     *
      *   @region?: string,
      * }|ListHostedZonesRequest $input
      *
@@ -194,6 +198,7 @@ class Route53Client extends AbstractApi
      *   DNSName?: string,
      *   HostedZoneId?: string,
      *   MaxItems?: string,
+     *
      *   @region?: string,
      * }|ListHostedZonesByNameRequest $input
      *
@@ -223,6 +228,7 @@ class Route53Client extends AbstractApi
      *   StartRecordType?: RRType::*,
      *   StartRecordIdentifier?: string,
      *   MaxItems?: string,
+     *
      *   @region?: string,
      * }|ListResourceRecordSetsRequest $input
      *
@@ -245,6 +251,7 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   Id: string,
+     *
      *   @region?: string,
      * }|GetChangeRequest $input
      */

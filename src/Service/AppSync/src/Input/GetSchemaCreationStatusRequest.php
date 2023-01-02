@@ -21,6 +21,7 @@ final class GetSchemaCreationStatusRequest extends Input
     /**
      * @param array{
      *   apiId?: string,
+     *
      *   @region?: string,
      * } $input
      */

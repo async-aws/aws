@@ -39,6 +39,7 @@ final class RevokeTokenRequest extends Input
      *   Token?: string,
      *   ClientId?: string,
      *   ClientSecret?: string,
+     *
      *   @region?: string,
      * } $input
      */

@@ -52,6 +52,7 @@ final class QueryRequest extends Input
      *   ClientToken?: string,
      *   NextToken?: string,
      *   MaxRows?: int,
+     *
      *   @region?: string,
      * } $input
      */

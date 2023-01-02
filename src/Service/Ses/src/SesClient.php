@@ -41,6 +41,7 @@ class SesClient extends AbstractApi
      *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
      *   ListManagementOptions?: ListManagementOptions|array,
+     *
      *   @region?: string,
      * }|SendEmailRequest $input
      *

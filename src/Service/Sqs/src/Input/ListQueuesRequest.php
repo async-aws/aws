@@ -36,6 +36,7 @@ final class ListQueuesRequest extends Input
      *   QueueNamePrefix?: string,
      *   NextToken?: string,
      *   MaxResults?: int,
+     *
      *   @region?: string,
      * } $input
      */

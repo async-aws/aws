@@ -13,7 +13,6 @@ class CreateTableOutputTest extends TestCase
 {
     public function testCreateTableOutput(): void
     {
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "TableDescription": {

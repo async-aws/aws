@@ -43,6 +43,7 @@ final class CreateThingTypeRequest extends Input
      *   thingTypeName?: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
      *   tags?: Tag[],
+     *
      *   @region?: string,
      * } $input
      */

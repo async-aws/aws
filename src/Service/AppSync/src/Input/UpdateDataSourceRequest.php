@@ -112,6 +112,7 @@ final class UpdateDataSourceRequest extends Input
      *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
+     *
      *   @region?: string,
      * } $input
      */

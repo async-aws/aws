@@ -47,6 +47,7 @@ final class CreateThingGroupRequest extends Input
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
      *   tags?: Tag[],
+     *
      *   @region?: string,
      * } $input
      */
