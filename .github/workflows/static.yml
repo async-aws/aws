@@ -108,7 +108,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Psalm
-        uses: docker://vimeo/psalm-github-actions:4.22.0
+        uses: docker://vimeo/psalm-github-actions:5.1.0
         env:
           REQUIRE_DEV: "true"
         with:
