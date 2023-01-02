@@ -88,9 +88,11 @@ final class ListHostedZonesByNameRequest extends Input
         $query = [];
         if (null !== $this->dnsName) {
             $query['dnsname'] = $this->dnsName;
-        }if (null !== $this->hostedZoneId) {
+        }
+        if (null !== $this->hostedZoneId) {
             $query['hostedzoneid'] = $this->hostedZoneId;
-        }if (null !== $this->maxItems) {
+        }
+        if (null !== $this->maxItems) {
             $query['maxitems'] = $this->maxItems;
         }
 

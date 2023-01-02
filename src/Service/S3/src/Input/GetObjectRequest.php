@@ -350,28 +350,38 @@ final class GetObjectRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ifMatch) {
             $headers['If-Match'] = $this->ifMatch;
-        }if (null !== $this->ifModifiedSince) {
+        }
+        if (null !== $this->ifModifiedSince) {
             $headers['If-Modified-Since'] = $this->ifModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
-        }if (null !== $this->ifNoneMatch) {
+        }
+        if (null !== $this->ifNoneMatch) {
             $headers['If-None-Match'] = $this->ifNoneMatch;
-        }if (null !== $this->ifUnmodifiedSince) {
+        }
+        if (null !== $this->ifUnmodifiedSince) {
             $headers['If-Unmodified-Since'] = $this->ifUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
-        }if (null !== $this->range) {
+        }
+        if (null !== $this->range) {
             $headers['Range'] = $this->range;
-        }if (null !== $this->sseCustomerAlgorithm) {
+        }
+        if (null !== $this->sseCustomerAlgorithm) {
             $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
-        }if (null !== $this->sseCustomerKey) {
+        }
+        if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
-        }if (null !== $this->sseCustomerKeyMd5) {
+        }
+        if (null !== $this->sseCustomerKeyMd5) {
             $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
-        }if (null !== $this->requestPayer) {
+        }
+        if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
-        }if (null !== $this->expectedBucketOwner) {
+        }
+        if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
-        }if (null !== $this->checksumMode) {
+        }
+        if (null !== $this->checksumMode) {
             if (!ChecksumMode::exists($this->checksumMode)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumMode" for "%s". The value "%s" is not a valid "ChecksumMode".', __CLASS__, $this->checksumMode));
             }
@@ -382,19 +392,26 @@ final class GetObjectRequest extends Input
         $query = [];
         if (null !== $this->responseCacheControl) {
             $query['response-cache-control'] = $this->responseCacheControl;
-        }if (null !== $this->responseContentDisposition) {
+        }
+        if (null !== $this->responseContentDisposition) {
             $query['response-content-disposition'] = $this->responseContentDisposition;
-        }if (null !== $this->responseContentEncoding) {
+        }
+        if (null !== $this->responseContentEncoding) {
             $query['response-content-encoding'] = $this->responseContentEncoding;
-        }if (null !== $this->responseContentLanguage) {
+        }
+        if (null !== $this->responseContentLanguage) {
             $query['response-content-language'] = $this->responseContentLanguage;
-        }if (null !== $this->responseContentType) {
+        }
+        if (null !== $this->responseContentType) {
             $query['response-content-type'] = $this->responseContentType;
-        }if (null !== $this->responseExpires) {
+        }
+        if (null !== $this->responseExpires) {
             $query['response-expires'] = $this->responseExpires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
-        }if (null !== $this->versionId) {
+        }
+        if (null !== $this->versionId) {
             $query['versionId'] = $this->versionId;
-        }if (null !== $this->partNumber) {
+        }
+        if (null !== $this->partNumber) {
             $query['partNumber'] = (string) $this->partNumber;
         }
 

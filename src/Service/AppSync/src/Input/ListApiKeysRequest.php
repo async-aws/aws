@@ -82,7 +82,8 @@ final class ListApiKeysRequest extends Input
         $query = [];
         if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }if (null !== $this->maxResults) {
+        }
+        if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
         }
 

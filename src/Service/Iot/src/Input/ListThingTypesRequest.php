@@ -82,9 +82,11 @@ final class ListThingTypesRequest extends Input
         $query = [];
         if (null !== $this->nextToken) {
             $query['nextToken'] = $this->nextToken;
-        }if (null !== $this->maxResults) {
+        }
+        if (null !== $this->maxResults) {
             $query['maxResults'] = (string) $this->maxResults;
-        }if (null !== $this->thingTypeName) {
+        }
+        if (null !== $this->thingTypeName) {
             $query['thingTypeName'] = $this->thingTypeName;
         }
 

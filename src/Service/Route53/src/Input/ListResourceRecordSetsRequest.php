@@ -123,14 +123,17 @@ final class ListResourceRecordSetsRequest extends Input
         $query = [];
         if (null !== $this->startRecordName) {
             $query['name'] = $this->startRecordName;
-        }if (null !== $this->startRecordType) {
+        }
+        if (null !== $this->startRecordType) {
             if (!RRType::exists($this->startRecordType)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "StartRecordType" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $this->startRecordType));
             }
             $query['type'] = $this->startRecordType;
-        }if (null !== $this->startRecordIdentifier) {
+        }
+        if (null !== $this->startRecordIdentifier) {
             $query['identifier'] = $this->startRecordIdentifier;
-        }if (null !== $this->maxItems) {
+        }
+        if (null !== $this->maxItems) {
             $query['maxitems'] = $this->maxItems;
         }
 

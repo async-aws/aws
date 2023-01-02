@@ -131,12 +131,14 @@ final class InvocationRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->invocationType));
             }
             $headers['X-Amz-Invocation-Type'] = $this->invocationType;
-        }if (null !== $this->logType) {
+        }
+        if (null !== $this->logType) {
             if (!LogType::exists($this->logType)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "LogType" for "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->logType));
             }
             $headers['X-Amz-Log-Type'] = $this->logType;
-        }if (null !== $this->clientContext) {
+        }
+        if (null !== $this->clientContext) {
             $headers['X-Amz-Client-Context'] = $this->clientContext;
         }
 
