@@ -1,98 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.x-dev@">
-  <file src="src/Core/src/AwsClientFactory.php">
-    <NullableReturnStatement occurrences="37">
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-    </NullableReturnStatement>
-    <PossiblyUndefinedArrayOffset occurrences="37">
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this-&gt;serviceCache[__METHOD__]</code>
-    </PossiblyUndefinedArrayOffset>
-  </file>
+<files psalm-version="5.1.0@4defa177c89397c5e14737a80fe4896584130674">
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
     <InvalidCatch occurrences="1"/>
     <InvalidThrow occurrences="1">
-      <code>CacheException</code>
+        <code>CacheException</code>
     </InvalidThrow>
+    <UndefinedClass occurrences="4">
+      <code>$this-&gt;cache</code>
+      <code>$this-&gt;cache</code>
+      <code>CacheException</code>
+      <code>CacheItemPoolInterface</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="1">
+      <code>CacheException</code>
+    </UndefinedDocblockClass>
   </file>
   <file src="src/Core/src/Credentials/SymfonyCacheProvider.php">
     <InvalidCatch occurrences="1"/>
+    <UndefinedClass occurrences="4">
+      <code>$this-&gt;cache</code>
+      <code>CacheException</code>
+      <code>CacheInterface</code>
+      <code>ItemInterface</code>
+    </UndefinedClass>
   </file>
   <file src="src/Core/src/Request.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(string) $value</code>
     </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Core/src/Stream/RequestStream.php">
+    <MissingTemplateParam occurrences="1">
+      <code>\IteratorAggregate</code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Core/src/Waiter.php">
     <ArgumentTypeCoercion occurrences="1">
@@ -102,6 +42,23 @@
       <code>$exception</code>
     </PossiblyUndefinedVariable>
   </file>
+  <file src="src/Integration/Flysystem/S3/src/AsyncAwsS3Adapter.php">
+    <UndefinedClass occurrences="2">
+      <code>AbstractAdapter</code>
+      <code>CanOverwriteFiles</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbLock.php">
+    <UndefinedClass occurrences="1">
+      <code>Lock</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
+    <RedundantCast occurrences="1"/>
+    <UndefinedClass occurrences="1">
+      <code>LockProvider</code>
+    </UndefinedClass>
+  </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
@@ -110,24 +67,76 @@
       <code>getPrefix</code>
       <code>repository</code>
     </UndefinedMethod>
+    <UndefinedClass occurrences="1">
+      <code>AbstractServiceProvider</code>
+    </UndefinedClass>
   </file>
   <file src="src/Integration/Laravel/Filesystem/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
+    <UndefinedClass occurrences="1">
+      <code>AbstractServiceProvider</code>
+    </UndefinedClass>
   </file>
   <file src="src/Integration/Laravel/Mail/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
+    <UndefinedClass occurrences="1">
+      <code>AbstractServiceProvider</code>
+    </UndefinedClass>
   </file>
   <file src="src/Integration/Laravel/Mail/src/Transport/AsyncAwsSesTransport.php">
     <InvalidArgument occurrences="1"/>
+    <UndefinedClass occurrences="1">
+      <code>Transport</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Laravel/Queue/src/AsyncAwsSqsQueue.php">
+    <UndefinedClass occurrences="2">
+      <code>Queue</code>
+      <code>QueueContract</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Laravel/Queue/src/Connector/AsyncAwsSqsConnector.php">
+    <UndefinedClass occurrences="1">
+      <code>ConnectorInterface</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Laravel/Queue/src/Job/AsyncAwsSqsJob.php">
+    <UndefinedClass occurrences="2">
+      <code>Job</code>
+      <code>JobContract</code>
+    </UndefinedClass>
   </file>
   <file src="src/Integration/Laravel/Queue/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
+    <UndefinedClass occurrences="1">
+      <code>AbstractServiceProvider</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
+    <UndefinedClass occurrences="1">
+      <code>AbstractProcessingHandler</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Symfony/Bundle/src/AsyncAwsBundle.php">
+    <UndefinedClass occurrences="1">
+      <code>Bundle</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/AsyncAwsExtension.php">
+    <UndefinedClass occurrences="1">
+      <code>Extension</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Compiler/InjectCasterPass.php">
+    <UndefinedClass occurrences="1">
+      <code>CompilerPassInterface</code>
+    </UndefinedClass>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">
@@ -136,6 +145,25 @@
     <PossiblyUndefinedMethod occurrences="1">
       <code>scalarNode</code>
     </PossiblyUndefinedMethod>
+    <UndefinedClass occurrences="1">
+      <code>ConfigurationInterface</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Symfony/Bundle/src/Secrets/CachedEnvVarLoader.php">
+    <UndefinedClass occurrences="1">
+      <code>EnvVarLoaderInterface</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Symfony/Bundle/src/Secrets/SsmVault.php">
+    <UndefinedClass occurrences="1">
+      <code>EnvVarLoaderInterface</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Integration/Symfony/Bundle/src/VarDumper/ResultCaster.php">
+    <UndefinedClass occurrences="2">
+      <code>Stub</code>
+      <code>Stub</code>
+    </UndefinedClass>
   </file>
   <file src="src/Service/CloudFormation/src/Result/DescribeStacksOutput.php">
     <LessSpecificReturnStatement occurrences="1">
@@ -144,6 +172,16 @@
     <MoreSpecificReturnType occurrences="1">
       <code>list&lt;Capability::*&gt;</code>
     </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/CloudWatch/src/Result/GetMetricDataOutput.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;MetricDataResult|MessageData&gt;</code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Service/CloudWatch/src/Result/ListMetricsOutput.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;Metric|string&gt;</code>
+    </InvalidReturnType>
   </file>
   <file src="src/Service/CloudWatchLogs/src/Input/DescribeLogStreamsRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
@@ -155,6 +193,11 @@
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/CloudWatchLogs/src/Result/FilterLogEventsResponse.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;FilteredLogEvent|SearchedLogStream&gt;</code>
+    </InvalidReturnType>
   </file>
   <file src="src/Service/CodeBuild/src/Input/StartBuildInput.php">
     <RedundantCastGivenDocblockType occurrences="4">
@@ -238,6 +281,20 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Service/DynamoDb/src/Input/TransactWriteItemsInput.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Service/DynamoDb/src/ValueObject/AttributeValue.php">
+    <InvalidArrayOffset occurrences="2">
+      <code>$input['BOOL']</code>
+      <code>$input['NULL']</code>
+    </InvalidArrayOffset>
+  </file>
   <file src="src/Service/Firehose/src/Exception/InvalidKMSResourceException.php">
     <InvalidPropertyAssignmentValue occurrences="1">
       <code>$v</code>
@@ -257,6 +314,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;Shard&gt;</code>
+    </InvalidReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>
     </LessSpecificReturnStatement>
@@ -279,6 +339,11 @@
     <MoreSpecificReturnType occurrences="1">
       <code>list&lt;MetricsName::*&gt;</code>
     </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Kinesis/src/Result/ListStreamsOutput.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;string|StreamSummary&gt;</code>
+    </InvalidReturnType>
   </file>
   <file src="src/Service/Kms/src/Input/CreateKeyRequest.php">
     <RedundantCastGivenDocblockType occurrences="2">
@@ -348,13 +413,56 @@
       <code>list&lt;Reason::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/S3/src/Result/ListMultipartUploadsOutput.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;MultipartUpload|CommonPrefix&gt;</code>
+    </InvalidReturnType>
+  </file>
   <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
+    <InvalidReturnType occurrences="1">
+      <code>\Traversable&lt;AwsObject|CommonPrefix&gt;</code>
+    </InvalidReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>list&lt;ChecksumAlgorithm::*&gt;</code>
     </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/S3/src/Signer/SignerV4ForS3.php">
+    <InvalidArgument occurrences="1">
+      <code>array_keys($s3SignerOptions)</code>
+    </InvalidArgument>
+    <NoValue occurrences="1">
+      <code>$s3SignerOptions</code>
+    </NoValue>
+    <TypeDoesNotContainType occurrences="1">
+      <code>empty($s3SignerOptions)</code>
+    </TypeDoesNotContainType>
+  </file>
+  <file src="src/Service/Scheduler/src/Input/CreateScheduleGroupInput.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Service/Scheduler/src/Input/CreateScheduleInput.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Service/Scheduler/src/Input/UpdateScheduleInput.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Service/Scheduler/src/Result/ListScheduleGroupsOutput.php">
     <InvalidArgument occurrences="1"/>
@@ -366,6 +474,12 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Service/SecretsManager/src/Input/DeleteSecretRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
@@ -376,6 +490,22 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/SecretsManager/src/Input/PutSecretValueRequest.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Service/SecretsManager/src/Input/UpdateSecretRequest.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Service/Ssm/src/Input/GetParameterRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
@@ -402,5 +532,13 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/TimestreamQuery/src/Input/QueryRequest.php">
+    <UndefinedConstant occurrences="1">
+      <code>\UUID_TYPE_RANDOM</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="1">
+      <code>uuid_create(\UUID_TYPE_RANDOM)</code>
+    </UndefinedFunction>
   </file>
 </files>
