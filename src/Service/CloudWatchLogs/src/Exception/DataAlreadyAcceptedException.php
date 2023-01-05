@@ -7,6 +7,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The event was already logged.
+ *
+ * ! `PutLogEvents` actions are now always accepted and never return `DataAlreadyAcceptedException` regardless of
+ * ! whether a given batch of log events has already been accepted.
  */
 final class DataAlreadyAcceptedException extends ClientException
 {
