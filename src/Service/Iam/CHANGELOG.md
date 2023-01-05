@@ -8,14 +8,13 @@
 
 - Added `IamClient::listServiceSpecificCredentials()`
 - Added `IamClient::deleteServiceSpecificCredential()`
-
-## 1.3.0
-
-### Added
-
 - Added `IamClient::putUserPolicy()`
 - Added `IamClient::deleteUserPolicy()`
 - Added `IamClient::createServiceSpecificCredential()`
+
+## 1.3.0
+
+- Empty release
 
 ## 1.2.0
 
