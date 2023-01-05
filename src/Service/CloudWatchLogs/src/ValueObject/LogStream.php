@@ -30,7 +30,9 @@ final class LogStream
     private $lastEventTimestamp;
 
     /**
-     * The ingestion time, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
+     * The ingestion time, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC` The `lastIngestionTime`
+     * value updates on an eventual consistency basis. It typically updates in less than an hour after ingestion, but in
+     * rare situations might take longer.
      */
     private $lastIngestionTime;
 

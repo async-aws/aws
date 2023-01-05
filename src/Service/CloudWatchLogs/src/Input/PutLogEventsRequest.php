@@ -38,12 +38,7 @@ final class PutLogEventsRequest extends Input
     private $logEvents;
 
     /**
-     * The sequence token obtained from the response of the previous `PutLogEvents` call. An upload in a newly created log
-     * stream does not require a sequence token. You can also get the sequence token using DescribeLogStreams. If you call
-     * `PutLogEvents` twice within a narrow time period using the same value for `sequenceToken`, both calls might be
-     * successful or one might be rejected.
-     *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogStreams.html
+     * The sequence token obtained from the response of the previous `PutLogEvents` call.
      *
      * @var string|null
      */
