@@ -5,6 +5,7 @@ namespace AsyncAws\CloudWatchLogs\Tests\Integration;
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\Enum\OrderBy;
 use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
+use AsyncAws\CloudWatchLogs\Input\CreateLogStreamRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
@@ -27,6 +28,22 @@ class CloudWatchLogsClientTest extends TestCase
 
         $result->resolve();
         self::assertEquals(200, $result->info()['status']);
+    }
+
+    public function testCreateLogStream(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateLogStreamRequest([
+            'logGroupName' => 'my-log-group',
+            'logStreamName' => 'my-log-stream' . mt_rand(1000, 10000) . time(),
+        ]);
+        $result = $client->createLogStream($input);
+
+        self::expectException(ClientException::class);
+        self::expectExceptionMessageMatches('/The specified log group does not exist/');
+
+        $result->resolve();
     }
 
     public function testDescribeLogStreams(): void
