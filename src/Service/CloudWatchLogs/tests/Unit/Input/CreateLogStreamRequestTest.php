@@ -19,6 +19,7 @@ class CreateLogStreamRequestTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 X-Amz-Target: Logs_20140328.CreateLogStream
+
 {
   "logGroupName": "my-log-group",
   "logStreamName": "my-log-stream"
