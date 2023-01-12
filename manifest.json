@@ -68,6 +68,7 @@
             "api-reference": "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference",
             "methods": [
                 "CreateLogGroup",
+                "CreateLogStream",
                 "DescribeLogStreams",
                 "FilterLogEvents",
                 "PutLogEvents"

@@ -13,6 +13,7 @@ use AsyncAws\CloudWatchLogs\Exception\ResourceNotFoundException;
 use AsyncAws\CloudWatchLogs\Exception\ServiceUnavailableException;
 use AsyncAws\CloudWatchLogs\Exception\UnrecognizedClientException;
 use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
+use AsyncAws\CloudWatchLogs\Input\CreateLogStreamRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
@@ -57,6 +58,38 @@ class CloudWatchLogsClient extends AbstractApi
             'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
             'LimitExceededException' => LimitExceededException::class,
             'OperationAbortedException' => OperationAbortedException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
+    /**
+     * Creates a log stream for the specified log group. A log stream is a sequence of log events that originate from a
+     * single source, such as an application instance or a resource that is being monitored.
+     *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateLogStream.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#createlogstream
+     *
+     * @param array{
+     *   logGroupName: string,
+     *   logStreamName: string,
+     *
+     *   @region?: string,
+     * }|CreateLogStreamRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceAlreadyExistsException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
+     */
+    public function createLogStream($input): Result
+    {
+        $input = CreateLogStreamRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateLogStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 
