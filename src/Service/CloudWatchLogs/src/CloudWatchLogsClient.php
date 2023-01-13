@@ -104,7 +104,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#describelogstreams
      *
      * @param array{
-     *   logGroupName: string,
+     *   logGroupName?: string,
      *   logGroupIdentifier?: string,
      *   logStreamNamePrefix?: string,
      *   orderBy?: OrderBy::*,
@@ -119,7 +119,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws ServiceUnavailableException
      */
-    public function describeLogStreams($input): DescribeLogStreamsResponse
+    public function describeLogStreams($input = []): DescribeLogStreamsResponse
     {
         $input = DescribeLogStreamsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeLogStreams', 'region' => $input->getRegion(), 'exceptionMapping' => [
@@ -139,7 +139,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#filterlogevents
      *
      * @param array{
-     *   logGroupName: string,
+     *   logGroupName?: string,
      *   logGroupIdentifier?: string,
      *   logStreamNames?: string[],
      *   logStreamNamePrefix?: string,
@@ -158,7 +158,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws ServiceUnavailableException
      */
-    public function filterLogEvents($input): FilterLogEventsResponse
+    public function filterLogEvents($input = []): FilterLogEventsResponse
     {
         $input = FilterLogEventsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'FilterLogEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [

@@ -2,7 +2,6 @@
 
 namespace AsyncAws\CloudWatchLogs\Input;
 
-use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -11,8 +10,6 @@ final class FilterLogEventsRequest extends Input
 {
     /**
      * The name of the log group to search.
-     *
-     * @required
      *
      * @var string|null
      */
@@ -308,10 +305,9 @@ final class FilterLogEventsRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->logGroupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->logGroupName) {
+            $payload['logGroupName'] = $v;
         }
-        $payload['logGroupName'] = $v;
         if (null !== $v = $this->logGroupIdentifier) {
             $payload['logGroupIdentifier'] = $v;
         }

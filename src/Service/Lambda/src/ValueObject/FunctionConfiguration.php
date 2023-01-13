@@ -195,7 +195,7 @@ final class FunctionConfiguration
 
     /**
      * Set `ApplyOn` to `PublishedVersions` to create a snapshot of the initialized execution environment when you publish a
-     * function version. For more information, see Reducing startup time with Lambda SnapStart.
+     * function version. For more information, see Improving startup performance with Lambda SnapStart.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
      */
