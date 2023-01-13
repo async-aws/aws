@@ -12,6 +12,8 @@ use AsyncAws\SecretsManager\ValueObject\Filter;
 final class ListSecretsRequest extends Input
 {
     /**
+     * Specifies whether to include secrets scheduled for deletion.
+     *
      * @var bool|null
      */
     private $includePlannedDeletion;

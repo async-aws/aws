@@ -10,6 +10,7 @@ namespace AsyncAws\SecretsManager\Enum;
  * - **tag-key**: Prefix match, case-sensitive.
  * - **tag-value**: Prefix match, case-sensitive.
  * - **primary-region**: Prefix match, case-sensitive.
+ * - **owning-service**: Prefix match, case-sensitive.
  * - **all**: Breaks the filter value string into words and then searches all attributes for matches. Not
  *   case-sensitive.
  */

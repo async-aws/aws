@@ -8,8 +8,10 @@ namespace AsyncAws\SecretsManager\ValueObject;
 final class RotationRulesType
 {
     /**
-     * The number of days between automatic scheduled rotations of the secret. You can use this value to check that your
-     * secret meets your compliance guidelines for how often secrets must be rotated.
+     * The number of days between rotations of the secret. You can use this value to check that your secret meets your
+     * compliance guidelines for how often secrets must be rotated. If you use this field to set the rotation schedule,
+     * Secrets Manager calculates the next rotation date based on the previous rotation. Manually updating the secret value
+     * by calling `PutSecretValue` or `UpdateSecret` is considered a valid rotation.
      */
     private $automaticallyAfterDays;
 

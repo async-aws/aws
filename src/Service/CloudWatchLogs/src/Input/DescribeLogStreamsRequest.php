@@ -13,8 +13,6 @@ final class DescribeLogStreamsRequest extends Input
     /**
      * The name of the log group.
      *
-     * @required
-     *
      * @var string|null
      */
     private $logGroupName;
@@ -212,10 +210,9 @@ final class DescribeLogStreamsRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->logGroupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->logGroupName) {
+            $payload['logGroupName'] = $v;
         }
-        $payload['logGroupName'] = $v;
         if (null !== $v = $this->logGroupIdentifier) {
             $payload['logGroupIdentifier'] = $v;
         }
