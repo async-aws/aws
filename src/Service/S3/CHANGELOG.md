@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `ap-southeast-4` region.
+
 ## 1.13.0
 
 ### Added

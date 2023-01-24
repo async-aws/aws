@@ -5,6 +5,8 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Release Lambda RuntimeManagementConfig, enabling customers to better manage runtime updates to their Lambda functions. This release adds two new APIs, GetRuntimeManagementConfig and PutRuntimeManagementConfig, as well as support on existing Create/Get/Update function APIs.
+- AWS api-change: Added `ap-southeast-4` region.
 
 ## 1.8.0
 

@@ -6,7 +6,9 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The runtime restore hook encountered an error. For more information, check the Amazon CloudWatch logs.
+ * The `afterRestore()`runtime hook encountered an error. For more information, check the Amazon CloudWatch logs.
+ *
+ * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart-runtime-hooks.html
  */
 final class SnapStartException extends ClientException
 {

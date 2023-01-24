@@ -6,6 +6,7 @@
 
 - Added operation `Sign`
 - Added `ap-southeast-4-fips` region
+- AWS api-change: Added `ap-southeast-4` region.
 
 ## 1.0.0
 

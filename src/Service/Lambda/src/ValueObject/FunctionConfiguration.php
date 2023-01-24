@@ -202,6 +202,11 @@ final class FunctionConfiguration
     private $snapStart;
 
     /**
+     * The ARN of the runtime and any errors that occured.
+     */
+    private $runtimeVersionConfig;
+
+    /**
      * @param array{
      *   FunctionName?: null|string,
      *   FunctionArn?: null|string,
@@ -237,6 +242,7 @@ final class FunctionConfiguration
      *   Architectures?: null|list<Architecture::*>,
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStartResponse|array,
+     *   RuntimeVersionConfig?: null|RuntimeVersionConfig|array,
      * } $input
      */
     public function __construct(array $input)
@@ -275,6 +281,7 @@ final class FunctionConfiguration
         $this->architectures = $input['Architectures'] ?? null;
         $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
         $this->snapStart = isset($input['SnapStart']) ? SnapStartResponse::create($input['SnapStart']) : null;
+        $this->runtimeVersionConfig = isset($input['RuntimeVersionConfig']) ? RuntimeVersionConfig::create($input['RuntimeVersionConfig']) : null;
     }
 
     public static function create($input): self
@@ -421,6 +428,11 @@ final class FunctionConfiguration
     public function getRuntime(): ?string
     {
         return $this->runtime;
+    }
+
+    public function getRuntimeVersionConfig(): ?RuntimeVersionConfig
+    {
+        return $this->runtimeVersionConfig;
     }
 
     public function getSigningJobArn(): ?string
