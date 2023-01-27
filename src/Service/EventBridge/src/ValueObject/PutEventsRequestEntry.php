@@ -27,7 +27,7 @@ final class PutEventsRequestEntry
     private $resources;
 
     /**
-     * Free-form string used to decide what fields to expect in the event detail.
+     * Free-form string, with a maximum of 128 characters, used to decide what fields to expect in the event detail.
      */
     private $detailType;
 

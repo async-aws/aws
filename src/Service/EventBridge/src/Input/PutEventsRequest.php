@@ -21,8 +21,8 @@ final class PutEventsRequest extends Input
     private $entries;
 
     /**
-     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is abcde.veo.endpoints.event.amazonaws.com,
-     * then the EndpointId is `abcde.veo`.
+     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     * https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is `abcde.veo`.
      *
      * @var string|null
      */
