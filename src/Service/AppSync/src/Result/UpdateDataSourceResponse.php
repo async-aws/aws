@@ -8,6 +8,7 @@ use AsyncAws\AppSync\ValueObject\DataSource;
 use AsyncAws\AppSync\ValueObject\DeltaSyncConfig;
 use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
+use AsyncAws\AppSync\ValueObject\EventBridgeDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\HttpDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\LambdaDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\OpenSearchServiceDataSourceConfig;
@@ -67,6 +68,7 @@ class UpdateDataSourceResponse extends Result
             'openSearchServiceConfig' => empty($json['openSearchServiceConfig']) ? null : $this->populateResultOpenSearchServiceDataSourceConfig($json['openSearchServiceConfig']),
             'httpConfig' => empty($json['httpConfig']) ? null : $this->populateResultHttpDataSourceConfig($json['httpConfig']),
             'relationalDatabaseConfig' => empty($json['relationalDatabaseConfig']) ? null : $this->populateResultRelationalDatabaseDataSourceConfig($json['relationalDatabaseConfig']),
+            'eventBridgeConfig' => empty($json['eventBridgeConfig']) ? null : $this->populateResultEventBridgeDataSourceConfig($json['eventBridgeConfig']),
         ]);
     }
 
@@ -95,6 +97,13 @@ class UpdateDataSourceResponse extends Result
         return new ElasticsearchDataSourceConfig([
             'endpoint' => (string) $json['endpoint'],
             'awsRegion' => (string) $json['awsRegion'],
+        ]);
+    }
+
+    private function populateResultEventBridgeDataSourceConfig(array $json): EventBridgeDataSourceConfig
+    {
+        return new EventBridgeDataSourceConfig([
+            'eventBusArn' => (string) $json['eventBusArn'],
         ]);
     }
 

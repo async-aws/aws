@@ -33,6 +33,7 @@ use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
+use AsyncAws\AppSync\ValueObject\EventBridgeDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\HttpDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\LambdaDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\OpenSearchServiceDataSourceConfig;
@@ -308,6 +309,7 @@ class AppSyncClient extends AbstractApi
      *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
+     *   eventBridgeConfig?: EventBridgeDataSourceConfig|array,
      *
      *   @region?: string,
      * }|UpdateDataSourceRequest $input

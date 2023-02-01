@@ -66,6 +66,11 @@ final class DataSource
     private $relationalDatabaseConfig;
 
     /**
+     * Amazon EventBridge settings.
+     */
+    private $eventBridgeConfig;
+
+    /**
      * @param array{
      *   dataSourceArn?: null|string,
      *   name?: null|string,
@@ -78,6 +83,7 @@ final class DataSource
      *   openSearchServiceConfig?: null|OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
+     *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
      * } $input
      */
     public function __construct(array $input)
@@ -93,6 +99,7 @@ final class DataSource
         $this->openSearchServiceConfig = isset($input['openSearchServiceConfig']) ? OpenSearchServiceDataSourceConfig::create($input['openSearchServiceConfig']) : null;
         $this->httpConfig = isset($input['httpConfig']) ? HttpDataSourceConfig::create($input['httpConfig']) : null;
         $this->relationalDatabaseConfig = isset($input['relationalDatabaseConfig']) ? RelationalDatabaseDataSourceConfig::create($input['relationalDatabaseConfig']) : null;
+        $this->eventBridgeConfig = isset($input['eventBridgeConfig']) ? EventBridgeDataSourceConfig::create($input['eventBridgeConfig']) : null;
     }
 
     public static function create($input): self
@@ -118,6 +125,11 @@ final class DataSource
     public function getElasticsearchConfig(): ?ElasticsearchDataSourceConfig
     {
         return $this->elasticsearchConfig;
+    }
+
+    public function getEventBridgeConfig(): ?EventBridgeDataSourceConfig
+    {
+        return $this->eventBridgeConfig;
     }
 
     public function getHttpConfig(): ?HttpDataSourceConfig
