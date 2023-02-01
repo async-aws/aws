@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release introduces the feature to support EventBridge as AppSync data source.
+
 ## 1.0.0
 
 ### Added

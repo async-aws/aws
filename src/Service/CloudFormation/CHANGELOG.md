@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Added `us-gov-east-1-fips` and `us-gov-west-1-fips` regions
 
 ## 1.3.0
 

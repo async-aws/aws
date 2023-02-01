@@ -5,6 +5,7 @@ namespace AsyncAws\AppSync\Input;
 use AsyncAws\AppSync\Enum\DataSourceType;
 use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
+use AsyncAws\AppSync\ValueObject\EventBridgeDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\HttpDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\LambdaDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\OpenSearchServiceDataSourceConfig;
@@ -100,6 +101,13 @@ final class UpdateDataSourceRequest extends Input
     private $relationalDatabaseConfig;
 
     /**
+     * The new Amazon EventBridge settings.
+     *
+     * @var EventBridgeDataSourceConfig|null
+     */
+    private $eventBridgeConfig;
+
+    /**
      * @param array{
      *   apiId?: string,
      *   name?: string,
@@ -112,6 +120,7 @@ final class UpdateDataSourceRequest extends Input
      *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
+     *   eventBridgeConfig?: EventBridgeDataSourceConfig|array,
      *
      *   @region?: string,
      * } $input
@@ -129,6 +138,7 @@ final class UpdateDataSourceRequest extends Input
         $this->openSearchServiceConfig = isset($input['openSearchServiceConfig']) ? OpenSearchServiceDataSourceConfig::create($input['openSearchServiceConfig']) : null;
         $this->httpConfig = isset($input['httpConfig']) ? HttpDataSourceConfig::create($input['httpConfig']) : null;
         $this->relationalDatabaseConfig = isset($input['relationalDatabaseConfig']) ? RelationalDatabaseDataSourceConfig::create($input['relationalDatabaseConfig']) : null;
+        $this->eventBridgeConfig = isset($input['eventBridgeConfig']) ? EventBridgeDataSourceConfig::create($input['eventBridgeConfig']) : null;
         parent::__construct($input);
     }
 
@@ -155,6 +165,11 @@ final class UpdateDataSourceRequest extends Input
     public function getElasticsearchConfig(): ?ElasticsearchDataSourceConfig
     {
         return $this->elasticsearchConfig;
+    }
+
+    public function getEventBridgeConfig(): ?EventBridgeDataSourceConfig
+    {
+        return $this->eventBridgeConfig;
     }
 
     public function getHttpConfig(): ?HttpDataSourceConfig
@@ -254,6 +269,13 @@ final class UpdateDataSourceRequest extends Input
         return $this;
     }
 
+    public function setEventBridgeConfig(?EventBridgeDataSourceConfig $value): self
+    {
+        $this->eventBridgeConfig = $value;
+
+        return $this;
+    }
+
     public function setHttpConfig(?HttpDataSourceConfig $value): self
     {
         $this->httpConfig = $value;
@@ -340,6 +362,9 @@ final class UpdateDataSourceRequest extends Input
         }
         if (null !== $v = $this->relationalDatabaseConfig) {
             $payload['relationalDatabaseConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->eventBridgeConfig) {
+            $payload['eventBridgeConfig'] = $v->requestBody();
         }
 
         return $payload;
