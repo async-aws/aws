@@ -5,16 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
-- AWS api-change: This feature provides a method of obtaining which regions a stackset has stack instances deployed in.
-- AWS api-change: Enabled FIPS aws-us-gov endpoints in SDK.
-- AWS api-change: Added UnsupportedTarget HandlerErrorCode for use with CFN Resource Hooks
-- AWS api-change: This release adds more fields to improves visibility of AWS CloudFormation StackSets information in following APIs: ListStackInstances, DescribeStackInstance, ListStackSetOperationResults, ListStackSetOperations, DescribeStackSetOperation.
-- AWS api-change: My AWS Service (placeholder) - Add a new feature Account-level Targeting for StackSet operation
-- AWS api-change: Add a new parameter statusReason to DescribeStackSetOperation output for additional details
-- AWS api-change: This SDK release adds AWS CloudFormation Hooks HandlerErrorCodes
-- AWS api-change: This SDK release is for the feature launch of AWS CloudFormation Hooks.
-- AWS api-change: This release include SDK changes for the feature launch of Stack Import to Service Managed StackSet.
-- AWS api-change: The StackSets ManagedExecution feature will allow concurrency for non-conflicting StackSet operations and queuing the StackSet operations that conflict at a given time for later execution.
+- AWS api-change: Added `us-gov-east-1-fips` and `us-gov-west-1-fips` regions
 
 ## 1.3.0
 
