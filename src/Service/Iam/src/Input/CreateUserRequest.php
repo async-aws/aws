@@ -29,7 +29,7 @@ final class CreateUserRequest extends Input
     private $userName;
 
     /**
-     * The ARN of the policy that is used to set the permissions boundary for the user.
+     * The ARN of the managed policy that is used to set the permissions boundary for the user.
      *
      * @var string|null
      */
