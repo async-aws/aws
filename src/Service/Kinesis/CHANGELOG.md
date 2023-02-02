@@ -6,8 +6,7 @@
 
 - AWS api-change: Added StreamARN parameter for Kinesis Data Streams APIs. Added a new opaque pagination token for ListStreams. SDKs will auto-generate Account Endpoint when accessing Kinesis Data Streams.
 - BC BREAK: `listStreams` now yield over stream names AND descriptions
-- AWS api-change: Enabled FIPS endpoints for GovCloud (US) regions in SDK.
-- AWS api-change: Amazon Kinesis Data Streams now supports on demand streams.
+- AWS api-change: added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 
 ## 1.1.0
 
