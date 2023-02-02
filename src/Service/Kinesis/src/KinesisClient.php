@@ -1158,6 +1158,20 @@ class KinesisClient extends AbstractApi
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://kinesis.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'kinesis',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://kinesis.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'kinesis',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
