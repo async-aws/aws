@@ -156,6 +156,13 @@ class TimestreamWriteClient extends AbstractApi
                     'signService' => 'timestream',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-gov-west-1-fips':
+                return [
+                    'endpoint' => 'https://ingest.timestream.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'timestream',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [
