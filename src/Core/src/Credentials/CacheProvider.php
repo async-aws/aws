@@ -38,7 +38,7 @@ final class CacheProvider implements CredentialProvider, ResetInterface
         return $this->cache[$key];
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->cache = [];
     }
