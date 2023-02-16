@@ -60,7 +60,7 @@ final class ChainProvider implements CredentialProvider, ResetInterface
         return null;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->lastSuccessfulProvider = [];
     }
