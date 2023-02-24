@@ -48,9 +48,8 @@ final class PutParameterRequest extends Input
     private $type;
 
     /**
-     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Either the default KMS key
-     * automatically assigned to your Amazon Web Services account or a custom key. Required for parameters that use the
-     * `SecureString` data type.
+     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for better
+     * security. Required for parameters that use the `SecureString` data type.
      *
      * @var string|null
      */
