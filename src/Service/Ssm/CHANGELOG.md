@@ -5,6 +5,7 @@
 ### Added
 
 - Added `us-iso-west-1` region
+- AWS enhancement: Documentation updates.
 
 ## 1.3.0
 
