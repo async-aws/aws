@@ -16,7 +16,7 @@
         "async-aws/core": "^1.9"
     },
     "conflict": {
-        "symfony/http-client": "<4.4.16,<5.1.7"
+        "symfony/http-client": "<4.4.16 <5.1.7"
     },
     "autoload": {
         "psr-4": {
