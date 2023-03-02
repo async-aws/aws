@@ -7,15 +7,15 @@ use AsyncAws\TimestreamWrite\Enum\MeasureValueType;
 use AsyncAws\TimestreamWrite\Enum\TimeUnit;
 
 /**
- * A record containing the common measure, dimension, time, and version attributes shared across all the records in the
- * request. The measure and dimension attributes specified will be merged with the measure and dimension attributes in
- * the records object when the data is written into Timestream. Dimensions may not overlap, or a `ValidationException`
- * will be thrown. In other words, a record must contain dimensions with unique names.
+ * A record that contains the common measure, dimension, time, and version attributes shared across all the records in
+ * the request. The measure and dimension attributes specified will be merged with the measure and dimension attributes
+ * in the records object when the data is written into Timestream. Dimensions may not overlap, or a
+ * `ValidationException` will be thrown. In other words, a record must contain dimensions with unique names.
  */
 final class Record
 {
     /**
-     * Contains the list of dimensions for time series data points.
+     * Contains the list of dimensions for time-series data points.
      */
     private $dimensions;
 
@@ -26,12 +26,12 @@ final class Record
     private $measureName;
 
     /**
-     * Contains the measure value for the time series data point.
+     * Contains the measure value for the time-series data point.
      */
     private $measureValue;
 
     /**
-     * Contains the data type of the measure value for the time series data point. Default type is `DOUBLE`.
+     * Contains the data type of the measure value for the time-series data point. Default type is `DOUBLE`.
      */
     private $measureValueType;
 
@@ -43,20 +43,20 @@ final class Record
     private $time;
 
     /**
-     * The granularity of the timestamp unit. It indicates if the time value is in seconds, milliseconds, nanoseconds or
+     * The granularity of the timestamp unit. It indicates if the time value is in seconds, milliseconds, nanoseconds, or
      * other supported values. Default is `MILLISECONDS`.
      */
     private $timeUnit;
 
     /**
      * 64-bit attribute used for record updates. Write requests for duplicate data with a higher version number will update
-     * the existing measure value and version. In cases where the measure value is the same, `Version` will still be updated
-     * . Default value is `1`.
+     * the existing measure value and version. In cases where the measure value is the same, `Version` will still be
+     * updated. Default value is `1`.
      */
     private $version;
 
     /**
-     * Contains the list of MeasureValue for time series data points.
+     * Contains the list of MeasureValue for time-series data points.
      */
     private $measureValues;
 

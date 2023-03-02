@@ -77,7 +77,7 @@ final class CreateKeyRequest extends Input
     private $customKeyStoreId;
 
     /**
-     * A flag to indicate whether to bypass the key policy lockout safety check.
+     * Skips ("bypasses") the key policy lockout safety check. The default value is false.
      *
      * @var bool|null
      */

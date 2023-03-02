@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Too many requests were made by a user exceeding service quotas. The request was throttled.
+ * Too many requests were made by a user and they exceeded the service quotas. The request was throttled.
  */
 final class ThrottlingException extends ClientException
 {

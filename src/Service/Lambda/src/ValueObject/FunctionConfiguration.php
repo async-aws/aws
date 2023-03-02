@@ -95,8 +95,12 @@ final class FunctionConfiguration
     private $environment;
 
     /**
-     * The KMS key that's used to encrypt the function's environment variables. This key is returned only if you've
-     * configured a customer managed key.
+     * The KMS key that's used to encrypt the function's environment variables. When Lambda SnapStart is activated, this key
+     * is also used to encrypt the function's snapshot. This key is returned only if you've configured a customer managed
+     * key.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html
      */
     private $kmsKeyArn;
 

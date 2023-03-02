@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The requested endpoint was invalid.
+ * The requested endpoint was not valid.
  */
 final class InvalidEndpointException extends ClientException
 {

@@ -3,7 +3,7 @@
 namespace AsyncAws\TimestreamWrite\Enum;
 
 /**
- * The data type of the dimension for the time series data point.
+ * The data type of the dimension for the time-series data point.
  */
 final class DimensionValueType
 {

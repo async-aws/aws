@@ -3,8 +3,8 @@
 namespace AsyncAws\TimestreamWrite\ValueObject;
 
 /**
- * Records that were not successfully inserted into Timestream due to data validation issues that must be resolved prior
- * to reinserting time series data into the system.
+ * Represents records that were not successfully inserted into Timestream due to data validation issues that must be
+ * resolved before reinserting time-series data into the system.
  */
 final class RejectedRecord
 {

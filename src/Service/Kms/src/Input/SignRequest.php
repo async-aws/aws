@@ -23,7 +23,7 @@ final class SignRequest extends Input
     private $keyId;
 
     /**
-     * Specifies the message or message digest to sign. Messages can be 0-4096 bytes. To sign a larger message, provide the
+     * Specifies the message or message digest to sign. Messages can be 0-4096 bytes. To sign a larger message, provide a
      * message digest.
      *
      * @required
@@ -33,8 +33,8 @@ final class SignRequest extends Input
     private $message;
 
     /**
-     * Tells KMS whether the value of the `Message` parameter is a message or message digest. The default value, RAW,
-     * indicates a message. To indicate a message digest, enter `DIGEST`.
+     * Tells KMS whether the value of the `Message` parameter should be hashed as part of the signing algorithm. Use `RAW`
+     * for unhashed messages; use `DIGEST` for message digests, which are already hashed.
      *
      * @var MessageType::*|null
      */

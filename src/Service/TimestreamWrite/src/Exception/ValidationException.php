@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Invalid or malformed request.
+ * An invalid or malformed request.
  */
 final class ValidationException extends ClientException
 {

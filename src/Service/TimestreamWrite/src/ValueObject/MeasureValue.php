@@ -6,25 +6,25 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\TimestreamWrite\Enum\MeasureValueType;
 
 /**
- * MeasureValue represents the data attribute of the time series. For example, the CPU utilization of an EC2 instance or
- * the RPM of a wind turbine are measures. MeasureValue has both name and value.
+ * Represents the data attribute of the time series. For example, the CPU utilization of an EC2 instance or the RPM of a
+ * wind turbine are measures. MeasureValue has both name and value.
  * MeasureValue is only allowed for type `MULTI`. Using `MULTI` type, you can pass multiple data attributes associated
  * with the same time series in a single record.
  */
 final class MeasureValue
 {
     /**
-     * Name of the MeasureValue.
+     * The name of the MeasureValue.
      */
     private $name;
 
     /**
-     * Value for the MeasureValue.
+     * The value for the MeasureValue.
      */
     private $value;
 
     /**
-     * Contains the data type of the MeasureValue for the time series data point.
+     * Contains the data type of the MeasureValue for the time-series data point.
      */
     private $type;
 
