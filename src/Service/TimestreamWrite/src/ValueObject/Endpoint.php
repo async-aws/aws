@@ -5,7 +5,7 @@ namespace AsyncAws\TimestreamWrite\ValueObject;
 use AsyncAws\Core\EndpointDiscovery\EndpointInterface;
 
 /**
- * Represents an available endpoint against which to make API calls agaisnt, as well as the TTL for that endpoint.
+ * Represents an available endpoint against which to make API calls against, as well as the TTL for that endpoint.
  */
 final class Endpoint implements EndpointInterface
 {

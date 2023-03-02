@@ -3,7 +3,7 @@
 namespace AsyncAws\TimestreamWrite\Enum;
 
 /**
- * Contains the data type of the MeasureValue for the time series data point.
+ * Contains the data type of the MeasureValue for the time-series data point.
  */
 final class MeasureValueType
 {
