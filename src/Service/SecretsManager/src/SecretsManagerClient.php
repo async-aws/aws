@@ -354,9 +354,10 @@ class SecretsManagerClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://secretsmanager.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
+                    'endpoint' => "https://secretsmanager.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
