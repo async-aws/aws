@@ -275,8 +275,11 @@ class DynamoDbClient extends AbstractApi
     }
 
     /**
-     * Returns the regional endpoint information.
+     * Returns the regional endpoint information. This action must be included in your VPC endpoint policies, or access to
+     * the DescribeEndpoints API will be denied. For more information on policy permissions, please see Internetwork traffic
+     * privacy.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeEndpoints.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describeendpoints
      *
