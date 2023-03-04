@@ -68,8 +68,8 @@ final class UpdateItemInput extends Input
     private $conditionalOperator;
 
     /**
-     * Use `ReturnValues` if you want to get the item attributes as they appear before or after they are updated. For
-     * `UpdateItem`, the valid values are:.
+     * Use `ReturnValues` if you want to get the item attributes as they appear before or after they are successfully
+     * updated. For `UpdateItem`, the valid values are:.
      *
      * @var ReturnValue::*|null
      */

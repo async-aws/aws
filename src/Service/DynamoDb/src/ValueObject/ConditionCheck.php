@@ -21,17 +21,26 @@ final class ConditionCheck
     private $tableName;
 
     /**
-     * A condition that must be satisfied in order for a conditional update to succeed.
+     * A condition that must be satisfied in order for a conditional update to succeed. For more information, see Condition
+     * expressions in the *Amazon DynamoDB Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html
      */
     private $conditionExpression;
 
     /**
-     * One or more substitution tokens for attribute names in an expression.
+     * One or more substitution tokens for attribute names in an expression. For more information, see Expression attribute
+     * names in the *Amazon DynamoDB Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
      */
     private $expressionAttributeNames;
 
     /**
-     * One or more values that can be substituted in an expression.
+     * One or more values that can be substituted in an expression. For more information, see Condition expressions in the
+     * *Amazon DynamoDB Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html
      */
     private $expressionAttributeValues;
 

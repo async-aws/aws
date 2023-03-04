@@ -50,7 +50,7 @@ class ScanOutput extends Result implements \IteratorAggregate
      * returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see Provisioned Throughput in
      * the *Amazon DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads
      */
     private $consumedCapacity;
 
