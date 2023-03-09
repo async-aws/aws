@@ -281,6 +281,16 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Service/DynamoDb/src/Input/CreateTableInput.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/DynamoDb/src/Input/UpdateTableInput.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/DynamoDb/src/Input/TransactWriteItemsInput.php">
     <UndefinedConstant occurrences="1">
       <code>\UUID_TYPE_RANDOM</code>
