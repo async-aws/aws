@@ -5,6 +5,17 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Adds deletion protection support to DynamoDB tables. Tables with deletion protection enabled cannot be deleted. Deletion protection is disabled by default, can be enabled via the CreateTable or UpdateTable APIs, and is visible in TableDescription. This setting is not replicated for Global Tables.
+- AWS enhancement: Documentation updates for DynamoDB.
+- AWS api-change: Endpoint Ruleset update: Use http instead of https for the "local" region.
+- AWS enhancement: Updated minor fixes for DynamoDB documentation.
+- AWS api-change: Increased DynamoDB transaction limit from 25 to 100.
+- AWS api-change: This release adds support for importing data from S3 into a new DynamoDB table
+- AWS enhancement: Doc only update for DynamoDB service
+- AWS api-change: DynamoDB ExecuteStatement API now supports Limit as a request parameter to specify the maximum number of items to evaluate. If specified, the service will process up to the Limit and the results will include a LastEvaluatedKey value to continue the read in a subsequent operation.
+- AWS enhancement: Documentation update for DynamoDB Java SDK.
+- AWS api-change: Add support for Table Classes and introduce the Standard Infrequent Access table class.
+- AWS api-change: DynamoDB PartiQL now supports ReturnConsumedCapacity, which returns capacity units consumed by PartiQL APIs if the request specified returnConsumedCapacity parameter. PartiQL APIs include ExecuteStatement, BatchExecuteStatement, and ExecuteTransaction.
 
 ## 1.3.0
 

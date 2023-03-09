@@ -174,6 +174,7 @@ class DynamoDbClient extends AbstractApi
      *   SSESpecification?: SSESpecification|array,
      *   Tags?: Tag[],
      *   TableClass?: TableClass::*,
+     *   DeletionProtectionEnabled?: bool,
      *
      *   @region?: string,
      * }|CreateTableInput $input
@@ -721,6 +722,7 @@ class DynamoDbClient extends AbstractApi
      *   SSESpecification?: SSESpecification|array,
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   TableClass?: TableClass::*,
+     *   DeletionProtectionEnabled?: bool,
      *
      *   @region?: string,
      * }|UpdateTableInput $input

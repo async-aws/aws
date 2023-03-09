@@ -117,6 +117,13 @@ final class CreateTableInput extends Input
     private $tableClass;
 
     /**
+     * Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     *
+     * @var bool|null
+     */
+    private $deletionProtectionEnabled;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: AttributeDefinition[],
      *   TableName?: string,
@@ -129,6 +136,7 @@ final class CreateTableInput extends Input
      *   SSESpecification?: SSESpecification|array,
      *   Tags?: Tag[],
      *   TableClass?: TableClass::*,
+     *   DeletionProtectionEnabled?: bool,
      *
      *   @region?: string,
      * } $input
@@ -146,6 +154,7 @@ final class CreateTableInput extends Input
         $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->tableClass = $input['TableClass'] ?? null;
+        $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
         parent::__construct($input);
     }
 
@@ -168,6 +177,11 @@ final class CreateTableInput extends Input
     public function getBillingMode(): ?string
     {
         return $this->billingMode;
+    }
+
+    public function getDeletionProtectionEnabled(): ?bool
+    {
+        return $this->deletionProtectionEnabled;
     }
 
     /**
@@ -271,6 +285,13 @@ final class CreateTableInput extends Input
     public function setBillingMode(?string $value): self
     {
         $this->billingMode = $value;
+
+        return $this;
+    }
+
+    public function setDeletionProtectionEnabled(?bool $value): self
+    {
+        $this->deletionProtectionEnabled = $value;
 
         return $this;
     }
@@ -426,6 +447,9 @@ final class CreateTableInput extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
             }
             $payload['TableClass'] = $v;
+        }
+        if (null !== $v = $this->deletionProtectionEnabled) {
+            $payload['DeletionProtectionEnabled'] = (bool) $v;
         }
 
         return $payload;
