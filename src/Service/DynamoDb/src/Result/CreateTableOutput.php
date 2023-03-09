@@ -309,6 +309,7 @@ class CreateTableOutput extends Result
             'SSEDescription' => empty($json['SSEDescription']) ? null : $this->populateResultSSEDescription($json['SSEDescription']),
             'ArchivalSummary' => empty($json['ArchivalSummary']) ? null : $this->populateResultArchivalSummary($json['ArchivalSummary']),
             'TableClassSummary' => empty($json['TableClassSummary']) ? null : $this->populateResultTableClassSummary($json['TableClassSummary']),
+            'DeletionProtectionEnabled' => isset($json['DeletionProtectionEnabled']) ? filter_var($json['DeletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
         ]);
     }
 }

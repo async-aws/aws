@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Adds deletion protection support to DynamoDB tables. Tables with deletion protection enabled cannot be deleted. Deletion protection is disabled by default, can be enabled via the CreateTable or UpdateTable APIs, and is visible in TableDescription. This setting is not replicated for Global Tables.
 
 ## 1.3.0
 

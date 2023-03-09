@@ -131,6 +131,11 @@ final class TableDescription
     private $tableClassSummary;
 
     /**
+     * Indicates whether deletion protection is enabled (true) or disabled (false) on the table.
+     */
+    private $deletionProtectionEnabled;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|AttributeDefinition[],
      *   TableName?: null|string,
@@ -154,6 +159,7 @@ final class TableDescription
      *   SSEDescription?: null|SSEDescription|array,
      *   ArchivalSummary?: null|ArchivalSummary|array,
      *   TableClassSummary?: null|TableClassSummary|array,
+     *   DeletionProtectionEnabled?: null|bool,
      * } $input
      */
     public function __construct(array $input)
@@ -180,6 +186,7 @@ final class TableDescription
         $this->sseDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
         $this->tableClassSummary = isset($input['TableClassSummary']) ? TableClassSummary::create($input['TableClassSummary']) : null;
+        $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
     }
 
     public static function create($input): self
@@ -208,6 +215,11 @@ final class TableDescription
     public function getCreationDateTime(): ?\DateTimeImmutable
     {
         return $this->creationDateTime;
+    }
+
+    public function getDeletionProtectionEnabled(): ?bool
+    {
+        return $this->deletionProtectionEnabled;
     }
 
     /**
