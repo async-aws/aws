@@ -17,7 +17,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Provides Credentials from the running EC2 metadata server using the IMDS version 2.
+ * Provides Credentials from the running EC2 metadata server using the IMDSv1 and IMDSv2.
  *
  * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
  *
@@ -46,27 +46,25 @@ final class InstanceProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        try {
-            // Fetch token
-            $response = $this->httpClient->request('PUT', self::TOKEN_ENDPOINT,
-                [
-                    'timeout' => $this->timeout,
-                    'headers' => ['X-aws-ec2-metadata-token-ttl-seconds' => $this->tokenTtl],
-                ]
-            );
-            $token = $response->getContent();
+        $token = $this->getToken();
+        $headers = [];
 
+        if (null !== $token) {
+            $headers = ['X-aws-ec2-metadata-token' => $token];
+        }
+
+        try {
             // Fetch current Profile
             $response = $this->httpClient->request('GET', self::METADATA_ENDPOINT, [
                 'timeout' => $this->timeout,
-                'headers' => ['X-aws-ec2-metadata-token' => $token],
+                'headers' => $headers,
             ]);
             $profile = $response->getContent();
 
             // Fetch credentials from profile
             $response = $this->httpClient->request('GET', self::METADATA_ENDPOINT . '/' . $profile, [
                 'timeout' => $this->timeout,
-                'headers' => ['X-aws-ec2-metadata-token' => $token],
+                'headers' => $headers,
             ]);
             $result = $this->toArray($response);
 
@@ -124,5 +122,23 @@ final class InstanceProvider implements CredentialProvider
         }
 
         return $content;
+    }
+
+    private function getToken(): ?string
+    {
+        try {
+            $response = $this->httpClient->request('PUT', self::TOKEN_ENDPOINT,
+                [
+                    'timeout' => $this->timeout,
+                    'headers' => ['X-aws-ec2-metadata-token-ttl-seconds' => $this->tokenTtl],
+                ]
+            );
+
+            return $response->getContent();
+        } catch (TransportExceptionInterface|HttpExceptionInterface $e) {
+            $this->logger->info('Failed to fetch metadata token for IMDSv2, fallback to IMDSv1.', ['exception' => $e]);
+
+            return null;
+        }
     }
 }
