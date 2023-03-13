@@ -17,7 +17,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Provides Credentials from the running EC2 metadata server using the IMDS version 1.
+ * Provides Credentials from the running EC2 metadata server using the IMDS version 2.
  *
  * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
  *
@@ -25,7 +25,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InstanceProvider implements CredentialProvider
 {
-    private const ENDPOINT = 'http://169.254.169.254/latest/meta-data/iam/security-credentials';
+    private const TOKEN_ENDPOINT = 'http://169.254.169.254/latest/api/token';
+    private const METADATA_ENDPOINT = 'http://169.254.169.254/latest/meta-data/iam/security-credentials';
 
     private $logger;
 
@@ -33,22 +34,40 @@ final class InstanceProvider implements CredentialProvider
 
     private $timeout;
 
-    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
+    private $tokenTtl;
+
+    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0, int $tokenTtl = 21600)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->timeout = $timeout;
+        $this->tokenTtl = $tokenTtl;
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
         try {
+            // Fetch token
+            $response = $this->httpClient->request('PUT', self::TOKEN_ENDPOINT,
+                [
+                    'timeout' => $this->timeout,
+                    'headers' => ['X-aws-ec2-metadata-token-ttl-seconds' => $this->tokenTtl],
+                ]
+            );
+            $token = $response->getContent();
+
             // Fetch current Profile
-            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $this->timeout]);
+            $response = $this->httpClient->request('GET', self::METADATA_ENDPOINT, [
+                'timeout' => $this->timeout,
+                'headers' => ['X-aws-ec2-metadata-token' => $token],
+            ]);
             $profile = $response->getContent();
 
             // Fetch credentials from profile
-            $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => $this->timeout]);
+            $response = $this->httpClient->request('GET', self::METADATA_ENDPOINT . '/' . $profile, [
+                'timeout' => $this->timeout,
+                'headers' => ['X-aws-ec2-metadata-token' => $token],
+            ]);
             $result = $this->toArray($response);
 
             if ('Success' !== $result['Code']) {
