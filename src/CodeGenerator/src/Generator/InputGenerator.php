@@ -306,7 +306,8 @@ class InputGenerator
         $body['querystring'] = '$query = [];' . "\n";
 
         $usesEndpointDiscovery = $operation->usesEndpointDiscovery();
-        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $requestPart => $varName) {
+        $requestParts = ['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'];
+        foreach ($requestParts as $requestPart => $varName) {
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart !== $member->getLocation()) {
@@ -373,9 +374,6 @@ class InputGenerator
                 }
                 $body[$requestPart] .= $bodyCode . "\n";
             }
-            if (isset($body[$requestPart])) {
-                $body[$requestPart] = implode("\n", array_filter(array_map('trim', explode("\n", $body[$requestPart]))));
-            }
         }
 
         // "headers" are not "header"
@@ -406,7 +404,13 @@ class InputGenerator
                 'LOCATION' => $member->getLocationName() ?? $member->getName(),
                 'VALUE' => $inputElement,
             ]);
-            $body['header'] .= implode("\n", array_filter(array_map('trim', explode("\n", $bodyCode))));
+            $body['header'] .= $bodyCode . "\n";
+        }
+
+        foreach (array_keys($requestParts) as $requestPart) {
+            if (isset($body[$requestPart])) {
+                $body[$requestPart] = implode("\n", array_filter(array_map('trim', explode("\n", $body[$requestPart]))));
+            }
         }
 
         if ($operation->hasBody()) {

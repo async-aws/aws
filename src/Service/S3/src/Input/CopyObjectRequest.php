@@ -820,7 +820,8 @@ final class CopyObjectRequest extends Input
         }
         if (null !== $this->expectedSourceBucketOwner) {
             $headers['x-amz-source-expected-bucket-owner'] = $this->expectedSourceBucketOwner;
-        }if (null !== $this->metadata) {
+        }
+        if (null !== $this->metadata) {
             foreach ($this->metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
             }

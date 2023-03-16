@@ -608,7 +608,8 @@ final class CreateMultipartUploadRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-checksum-algorithm'] = $this->checksumAlgorithm;
-        }if (null !== $this->metadata) {
+        }
+        if (null !== $this->metadata) {
             foreach ($this->metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
             }
