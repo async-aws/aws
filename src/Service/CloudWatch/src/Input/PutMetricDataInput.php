@@ -11,7 +11,8 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class PutMetricDataInput extends Input
 {
     /**
-     * The namespace for the metric data.
+     * The namespace for the metric data. You can use ASCII characters for the namespace, except for control characters
+     * which are not supported.
      *
      * @required
      *
