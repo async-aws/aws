@@ -509,7 +509,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sesv2/2019-09-27/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sesv2/2019-09-27/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/email/2010-12-01/examples-1.json",
-            "api-reference": "https://docs.aws.amazon.com/ses/latest/APIReference",
+            "api-reference": "https://docs.aws.amazon.com/ses/latest/APIReference-V2",
             "methods": [
                 "SendEmail"
             ],
