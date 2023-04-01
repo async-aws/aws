@@ -149,7 +149,7 @@ class GetObjectOutput extends Result
     private $websiteRedirectLocation;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
      */
     private $serverSideEncryption;
 
@@ -172,7 +172,7 @@ class GetObjectOutput extends Result
 
     /**
      * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * customer managed key that was used for the object.
+     * encryption customer managed key that was used for the object.
      */
     private $sseKmsKeyId;
 
