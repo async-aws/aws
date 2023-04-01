@@ -79,9 +79,7 @@ class CompleteMultipartUploadOutput extends Result
     private $checksumSha256;
 
     /**
-     * If you specified server-side encryption either with an Amazon S3-managed encryption key or an Amazon Web Services KMS
-     * key in your initiate multipart upload request, the response includes this header. It confirms the encryption
-     * algorithm that Amazon S3 used to encrypt the object.
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
      */
     private $serverSideEncryption;
 
@@ -92,7 +90,7 @@ class CompleteMultipartUploadOutput extends Result
 
     /**
      * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * customer managed key that was used for the object.
+     * encryption customer managed key that was used for the object.
      */
     private $sseKmsKeyId;
 

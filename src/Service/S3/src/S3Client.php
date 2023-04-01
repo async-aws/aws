@@ -475,9 +475,11 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Returns the default encryption configuration for an Amazon S3 bucket. If the bucket does not have a default
-     * encryption configuration, GetBucketEncryption returns `ServerSideEncryptionConfigurationNotFoundError`.
+     * Returns the default encryption configuration for an Amazon S3 bucket. By default, all buckets have a default
+     * encryption configuration that uses server-side encryption with Amazon S3 managed keys (SSE-S3). For information about
+     * the bucket default encryption feature, see Amazon S3 Bucket Default Encryption in the *Amazon S3 User Guide*.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketencryption
      *

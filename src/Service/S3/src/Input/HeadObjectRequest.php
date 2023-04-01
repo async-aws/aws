@@ -62,7 +62,8 @@ final class HeadObjectRequest extends Input
     private $key;
 
     /**
-     * Because `HeadObject` returns only the metadata for an object, this parameter has no effect.
+     * HeadObject returns only the metadata for an object. If the Range is satisfiable, only the `ContentLength` is affected
+     * in the response. If the Range is not satisfiable, S3 returns a `416 - Requested Range Not Satisfiable` error.
      *
      * @var string|null
      */
