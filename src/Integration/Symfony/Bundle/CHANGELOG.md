@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.11.0
+
+### Added
+
+- Support for Athena
+
 ## 1.10.0
 
 ### Added

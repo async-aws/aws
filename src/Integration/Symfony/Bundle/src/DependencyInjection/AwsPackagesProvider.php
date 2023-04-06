@@ -13,6 +13,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\AppSync\AppSyncClient::class,
                 'package' => 'async-aws/app-sync',
             ],
+            'athena' => [
+                'class' => \AsyncAws\Athena\AthenaClient::class,
+                'package' => 'async-aws/athena',
+            ],
             'cloud_formation' => [
                 'class' => \AsyncAws\CloudFormation\CloudFormationClient::class,
                 'package' => 'async-aws/cloud-formation',

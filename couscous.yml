@@ -34,6 +34,9 @@ menu:
             app-sync:
                 text: AppSync
                 url: /clients/app-sync.html
+            athena:
+                text: Athena
+                url: /clients/athena.html
             cf:
                 text: Cloud Formation
                 url: /clients/cf.html
