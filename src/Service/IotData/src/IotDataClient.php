@@ -118,10 +118,16 @@ class IotDataClient extends AbstractApi
 
         switch ($region) {
             case 'cn-north-1':
+                return [
+                    'endpoint' => 'https://data.ats.iot.cn-north-1.amazonaws.com.cn',
+                    'signRegion' => 'cn-north-1',
+                    'signService' => 'iotdata',
+                    'signVersions' => ['v4'],
+                ];
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => "https://data-ats.iot.$region.amazonaws.com.cn",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://data-ats.iot.cn-northwest-1.amazonaws.com.cn',
+                    'signRegion' => 'cn-northwest-1',
                     'signService' => 'iotdata',
                     'signVersions' => ['v4'],
                 ];

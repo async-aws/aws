@@ -11,7 +11,7 @@ namespace AsyncAws\Rekognition\ValueObject;
 final class Image
 {
     /**
-     * Blob of image bytes up to 5 MBs.
+     * Blob of image bytes up to 5 MBs. Note that the maximum image size you can pass to `DetectCustomLabels` is 4MB.
      */
     private $bytes;
 
