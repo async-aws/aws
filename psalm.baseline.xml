@@ -551,4 +551,12 @@
       <code>uuid_create(\UUID_TYPE_RANDOM)</code>
     </UndefinedFunction>
   </file>
+  <file src="src/Service/Athena/src/Result/GetQueryResultsOutput.php">
+      <InvalidReturnType occurrences="1">
+          <code>\Traversable&lt;Row&gt;</code>
+      </InvalidReturnType>
+      <PossiblyNullReference occurrences="1">
+          <code>getRows</code>
+      </PossiblyNullReference>
+  </file>
 </files>

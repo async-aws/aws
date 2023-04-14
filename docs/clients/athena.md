@@ -55,9 +55,9 @@ $startQueryResult = $athena->startQueryExecution(new StartQueryExecutionInput([
              'Database' => 'production_db', // REQUIRED
         ]),
         'ResultConfiguration' => new ResultConfiguration([
-            'OutputLocation' => 's3://output_bucket_Location', // REQUIRED
+            'OutputLocation' => 's3://test_output_bucket', // REQUIRED
             'EncryptionConfiguration' => new EncryptionConfiguration([
-                'EncryptionOption' => 'SSE_S3', // REQUIRED SSE_S3|SSE_KMS|CSE_KMS
+                'EncryptionOption' => 'SSE_S3', // REQUIRED
             ])
         ]),
 ]));
@@ -92,7 +92,7 @@ $results = $athena->getQueryResults(new GetQueryResultsInput([
 /** @var Row $row */
 foreach ($results => $row) {
     if ($index === 0) {
-        $columnLabels = array_column($row->getData(), 'VarCharValue'); // $row->getData() return [ 'VarCharValue' => value]
+        $columnLabels = array_column($row->getData(), 'VarCharValue'); // $row->getData() return [ 'VarCharValue' => value, ...]
     }
     $columnValues[] = array_column($row->getData(), 'VarCharValue');
 }
