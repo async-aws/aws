@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: changed `cn-north-1` région endpoint
 
 ## 0.1.0
 
