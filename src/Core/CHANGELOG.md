@@ -2,12 +2,9 @@
 
 ## NOT RELEASED
 
-## 1.19.0
-
 ### Added
 
 - Support for Athena
-- AWS enhancement: Documentation updates.
 
 ## 1.18.1
 
