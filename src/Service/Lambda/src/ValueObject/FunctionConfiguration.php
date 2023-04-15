@@ -26,7 +26,9 @@ final class FunctionConfiguration
     private $functionArn;
 
     /**
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's runtime. Runtime is required if the deployment package is a .zip file archive.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
      */
     private $runtime;
 
