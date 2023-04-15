@@ -22,6 +22,48 @@
                 "UpdateResolver"
             ]
         },
+        "Athena": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/paginators-1.json",
+            "endpoint-rule-set": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/endpoint-rule-set-1.json",
+            "endpoint-tests": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/endpoint-tests-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/examples-1.json",
+            "smoke": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/athena/2017-05-18/smoke.json",
+            "api-reference": "https://docs.aws.amazon.com/athena/latest/APIReference",
+            "methods": [
+                "GetCalculationExecution",
+                "GetCalculationExecutionStatus",
+                "GetDataCatalog",
+                "GetDatabase",
+                "GetNamedQuery",
+                "GetQueryExecution",
+                "GetQueryResults",
+                "GetSession",
+                "GetSessionStatus",
+                "GetTableMetadata",
+                "GetWorkGroup",
+                "ListDatabases",
+                "ListNamedQueries",
+                "ListQueryExecutions",
+                "ListTableMetadata",
+                "StartCalculationExecution",
+                "StartQueryExecution",
+                "StartSession",
+                "StopCalculationExecution",
+                "StopQueryExecution",
+                "TerminateSession"
+            ],
+            "patches": {
+                "pagination": [
+                    {
+                        "value": "ResultSet.Rows",
+                        "op": "add",
+                        "path": "/pagination/GetQueryResults/result_key"
+                    }
+                ]
+            }
+        },
         "CloudFormation": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/docs-2.json",

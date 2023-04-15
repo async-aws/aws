@@ -31,6 +31,7 @@ parameters:
           paths:
               - src/Core/src/Sts/ValueObject
               - src/Service/AppSync/src/ValueObject
+              - src/Service/Athena/src/ValueObject
               - src/Service/CodeBuild/src/ValueObject
               - src/Service/CodeCommit/src/ValueObject
               - src/Service/CloudFormation/src/ValueObject
