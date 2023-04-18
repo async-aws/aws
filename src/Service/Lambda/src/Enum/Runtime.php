@@ -33,6 +33,7 @@ final class Runtime
     public const PROVIDED = 'provided';
     public const PROVIDED_AL_2 = 'provided.al2';
     public const PYTHON_2_7 = 'python2.7';
+    public const PYTHON_3_10 = 'python3.10';
     public const PYTHON_3_6 = 'python3.6';
     public const PYTHON_3_7 = 'python3.7';
     public const PYTHON_3_8 = 'python3.8';
@@ -65,6 +66,7 @@ final class Runtime
             self::PROVIDED => true,
             self::PROVIDED_AL_2 => true,
             self::PYTHON_2_7 => true,
+            self::PYTHON_3_10 => true,
             self::PYTHON_3_6 => true,
             self::PYTHON_3_7 => true,
             self::PYTHON_3_8 => true,
