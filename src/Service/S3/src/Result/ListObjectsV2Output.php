@@ -64,8 +64,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $encodingType;
 
     /**
-     * KeyCount is the number of keys returned with this request. KeyCount will always be less than or equal to the
-     * `MaxKeys` field. Say you ask for 50 keys, your result will include 50 keys or fewer.
+     * KeyCount is the number of keys returned with this request. KeyCount will always be less than or equals to MaxKeys
+     * field. Say you ask for 50 keys, your result will include less than equals 50 keys.
      */
     private $keyCount;
 

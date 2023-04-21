@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `ap-southeast-4` region.
 - AWS enhancement: Documentation updates.
+- AWS api-change: Provides support for "Snow" Storage class.
 
 ## 1.13.0
 

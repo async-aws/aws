@@ -6,8 +6,7 @@
 
 - Added operation `Sign`
 - Added `ap-southeast-4-fips` region
-- AWS api-change: Added `ap-southeast-4` region.
-- AWS enhancement: Documentation updates.
+- AWS api-change: Added `ap-southeast-4` and `il-central-1-fips` regions.
 
 ## 1.0.0
 

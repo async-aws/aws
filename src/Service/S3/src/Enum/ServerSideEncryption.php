@@ -3,7 +3,9 @@
 namespace AsyncAws\S3\Enum;
 
 /**
- * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+ * If you specified server-side encryption either with an Amazon S3-managed encryption key or an Amazon Web Services KMS
+ * key in your initiate multipart upload request, the response includes this header. It confirms the encryption
+ * algorithm that Amazon S3 used to encrypt the object.
  */
 final class ServerSideEncryption
 {

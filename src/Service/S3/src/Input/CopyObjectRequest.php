@@ -187,7 +187,7 @@ final class CopyObjectRequest extends Input
     private $taggingDirective;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
      * @var ServerSideEncryption::*|null
      */
@@ -207,9 +207,7 @@ final class CopyObjectRequest extends Input
 
     /**
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
-     * to an external URL. Amazon S3 stores the value of this header in the object metadata. This value is unique to each
-     * object and is not copied when using the `x-amz-metadata-directive` header. Instead, you may opt to provide this
-     * header in combination with the directive.
+     * to an external URL. Amazon S3 stores the value of this header in the object metadata.
      *
      * @var string|null
      */
