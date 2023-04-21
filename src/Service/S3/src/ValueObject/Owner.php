@@ -8,8 +8,7 @@ namespace AsyncAws\S3\ValueObject;
 final class Owner
 {
     /**
-     * Container for the display name of the owner. This value is only supported in the following Amazon Web Services
-     * Regions:.
+     * Container for the display name of the owner.
      */
     private $displayName;
 

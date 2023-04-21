@@ -14,6 +14,7 @@ final class ObjectStorageClass
     public const ONEZONE_IA = 'ONEZONE_IA';
     public const OUTPOSTS = 'OUTPOSTS';
     public const REDUCED_REDUNDANCY = 'REDUCED_REDUNDANCY';
+    public const SNOW = 'SNOW';
     public const STANDARD = 'STANDARD';
     public const STANDARD_IA = 'STANDARD_IA';
 
@@ -27,6 +28,7 @@ final class ObjectStorageClass
             self::ONEZONE_IA => true,
             self::OUTPOSTS => true,
             self::REDUCED_REDUNDANCY => true,
+            self::SNOW => true,
             self::STANDARD => true,
             self::STANDARD_IA => true,
         ][$value]);

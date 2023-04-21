@@ -78,7 +78,8 @@ final class CreateSecretRequest extends Input
     private $addReplicaRegions;
 
     /**
-     * Specifies whether to overwrite a secret with the same name in the destination Region.
+     * Specifies whether to overwrite a secret with the same name in the destination Region. By default, secrets aren't
+     * overwritten.
      *
      * @var bool|null
      */

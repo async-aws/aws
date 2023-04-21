@@ -53,9 +53,9 @@ final class PutObjectRequest extends Input
 
     /**
      * Specifies presentational information for the object. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc6266#section-4.
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1.
      *
-     * @see https://www.rfc-editor.org/rfc/rfc6266#section-4
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1
      *
      * @var string|null
      */
@@ -64,9 +64,9 @@ final class PutObjectRequest extends Input
     /**
      * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
      * obtain the media-type referenced by the Content-Type header field. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding.
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11.
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11
      *
      * @var string|null
      */
@@ -81,9 +81,9 @@ final class PutObjectRequest extends Input
 
     /**
      * Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically. For
-     * more information, see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length.
+     * more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13.
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13
      *
      * @var string|null
      */
@@ -103,9 +103,9 @@ final class PutObjectRequest extends Input
 
     /**
      * A standard MIME type describing the format of the contents. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type.
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17.
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
      *
      * @var string|null
      */
@@ -169,9 +169,9 @@ final class PutObjectRequest extends Input
 
     /**
      * The date and time at which the object is no longer cacheable. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc7234#section-5.3.
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21.
      *
-     * @see https://www.rfc-editor.org/rfc/rfc7234#section-5.3
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
      *
      * @var \DateTimeImmutable|null
      */
@@ -222,7 +222,7 @@ final class PutObjectRequest extends Input
     private $metadata;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
      * @var ServerSideEncryption::*|null
      */
@@ -276,9 +276,9 @@ final class PutObjectRequest extends Input
     private $sseCustomerKeyMd5;
 
     /**
-     * If `x-amz-server-side-encryption` has a valid value of `aws:kms`, this header specifies the ID of the Amazon Web
-     * Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for
-     * the object. If you specify `x-amz-server-side-encryption:aws:kms`, but do not provide`
+     * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the
+     * Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetrical customer managed key that was used
+     * for the object. If you specify `x-amz-server-side-encryption:aws:kms`, but do not provide`
      * x-amz-server-side-encryption-aws-kms-key-id`, Amazon S3 uses the Amazon Web Services managed key to protect the data.
      * If the KMS key does not exist in the same account issuing the command, you must use the full ARN and not just the ID.
      *
@@ -288,9 +288,7 @@ final class PutObjectRequest extends Input
 
     /**
      * Specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a
-     * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value is stored as object
-     * metadata and automatically gets passed on to Amazon Web Services KMS for future `GetObject` or `CopyObject`
-     * operations on this object.
+     * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
      *
      * @var string|null
      */

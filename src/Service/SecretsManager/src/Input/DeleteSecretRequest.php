@@ -20,8 +20,8 @@ final class DeleteSecretRequest extends Input
 
     /**
      * The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use both
-     * this parameter and `ForceDeleteWithoutRecovery` in the same call. If you don't use either, then Secrets Manager
-     * defaults to a 30 day recovery window.
+     * this parameter and `ForceDeleteWithoutRecovery` in the same call. If you don't use either, then by default Secrets
+     * Manager uses a 30 day recovery window.
      *
      * @var string|null
      */
@@ -29,8 +29,8 @@ final class DeleteSecretRequest extends Input
 
     /**
      * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
-     * `RecoveryWindowInDays` in the same call. If you don't use either, then Secrets Manager defaults to a 30 day recovery
-     * window.
+     * `RecoveryWindowInDays` in the same call. If you don't use either, then by default Secrets Manager uses a 30 day
+     * recovery window.
      *
      * @var bool|null
      */
