@@ -781,6 +781,13 @@ class AthenaClient extends AbstractApi
                     'signService' => 'athena',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-iso-east-1':
+                return [
+                    'endpoint' => 'https://athena.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 'athena',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Athena".', $region));

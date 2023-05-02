@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
+use AsyncAws\Kms\ValueObject\RecipientInfo;
 
 final class DecryptRequest extends Input
 {
@@ -53,12 +54,23 @@ final class DecryptRequest extends Input
     private $encryptionAlgorithm;
 
     /**
+     * A signed attestation document from an Amazon Web Services Nitro enclave and the encryption algorithm to use with the
+     * enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
+     *
+     * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
+     *
+     * @var RecipientInfo|null
+     */
+    private $recipient;
+
+    /**
      * @param array{
      *   CiphertextBlob?: string,
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   Recipient?: RecipientInfo|array,
      *
      *   @region?: string,
      * } $input
@@ -70,6 +82,7 @@ final class DecryptRequest extends Input
         $this->grantTokens = $input['GrantTokens'] ?? null;
         $this->keyId = $input['KeyId'] ?? null;
         $this->encryptionAlgorithm = $input['EncryptionAlgorithm'] ?? null;
+        $this->recipient = isset($input['Recipient']) ? RecipientInfo::create($input['Recipient']) : null;
         parent::__construct($input);
     }
 
@@ -110,6 +123,11 @@ final class DecryptRequest extends Input
     public function getKeyId(): ?string
     {
         return $this->keyId;
+    }
+
+    public function getRecipient(): ?RecipientInfo
+    {
+        return $this->recipient;
     }
 
     /**
@@ -181,6 +199,13 @@ final class DecryptRequest extends Input
         return $this;
     }
 
+    public function setRecipient(?RecipientInfo $value): self
+    {
+        $this->recipient = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -214,6 +239,9 @@ final class DecryptRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "EncryptionAlgorithm" for "%s". The value "%s" is not a valid "EncryptionAlgorithmSpec".', __CLASS__, $v));
             }
             $payload['EncryptionAlgorithm'] = $v;
+        }
+        if (null !== $v = $this->recipient) {
+            $payload['Recipient'] = $v->requestBody();
         }
 
         return $payload;

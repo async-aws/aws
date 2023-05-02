@@ -18,6 +18,7 @@ final class Runtime
     public const DOTNET_6 = 'dotnet6';
     public const GO_1_X = 'go1.x';
     public const JAVA_11 = 'java11';
+    public const JAVA_17 = 'java17';
     public const JAVA_8 = 'java8';
     public const JAVA_8_AL_2 = 'java8.al2';
     public const NODEJS = 'nodejs';
@@ -51,6 +52,7 @@ final class Runtime
             self::DOTNET_6 => true,
             self::GO_1_X => true,
             self::JAVA_11 => true,
+            self::JAVA_17 => true,
             self::JAVA_8 => true,
             self::JAVA_8_AL_2 => true,
             self::NODEJS => true,

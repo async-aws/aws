@@ -54,6 +54,7 @@ use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
 use AsyncAws\Kms\Result\ListAliasesResponse;
 use AsyncAws\Kms\Result\SignResponse;
+use AsyncAws\Kms\ValueObject\RecipientInfo;
 use AsyncAws\Kms\ValueObject\Tag;
 
 class KmsClient extends AbstractApi
@@ -168,6 +169,7 @@ class KmsClient extends AbstractApi
      *   GrantTokens?: string[],
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   Recipient?: RecipientInfo|array,
      *
      *   @region?: string,
      * }|DecryptRequest $input
@@ -260,6 +262,7 @@ class KmsClient extends AbstractApi
      *   NumberOfBytes?: int,
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
+     *   Recipient?: RecipientInfo|array,
      *
      *   @region?: string,
      * }|GenerateDataKeyRequest $input

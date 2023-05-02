@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Kms\Enum\DataKeySpec;
+use AsyncAws\Kms\ValueObject\RecipientInfo;
 
 final class GenerateDataKeyRequest extends Input
 {
@@ -51,12 +52,23 @@ final class GenerateDataKeyRequest extends Input
     private $grantTokens;
 
     /**
+     * A signed attestation document from an Amazon Web Services Nitro enclave and the encryption algorithm to use with the
+     * enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
+     *
+     * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
+     *
+     * @var RecipientInfo|null
+     */
+    private $recipient;
+
+    /**
      * @param array{
      *   KeyId?: string,
      *   EncryptionContext?: array<string, string>,
      *   NumberOfBytes?: int,
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
+     *   Recipient?: RecipientInfo|array,
      *
      *   @region?: string,
      * } $input
@@ -68,6 +80,7 @@ final class GenerateDataKeyRequest extends Input
         $this->numberOfBytes = $input['NumberOfBytes'] ?? null;
         $this->keySpec = $input['KeySpec'] ?? null;
         $this->grantTokens = $input['GrantTokens'] ?? null;
+        $this->recipient = isset($input['Recipient']) ? RecipientInfo::create($input['Recipient']) : null;
         parent::__construct($input);
     }
 
@@ -108,6 +121,11 @@ final class GenerateDataKeyRequest extends Input
     public function getNumberOfBytes(): ?int
     {
         return $this->numberOfBytes;
+    }
+
+    public function getRecipient(): ?RecipientInfo
+    {
+        return $this->recipient;
     }
 
     /**
@@ -179,6 +197,13 @@ final class GenerateDataKeyRequest extends Input
         return $this;
     }
 
+    public function setRecipient(?RecipientInfo $value): self
+    {
+        $this->recipient = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -212,6 +237,9 @@ final class GenerateDataKeyRequest extends Input
                 ++$index;
                 $payload['GrantTokens'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->recipient) {
+            $payload['Recipient'] = $v->requestBody();
         }
 
         return $payload;
