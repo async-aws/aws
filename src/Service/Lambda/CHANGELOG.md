@@ -9,23 +9,6 @@
 - AWS api-change: Added `ap-southeast-4` region.
 - AWS api-change: Add Python 3.10 (python3.10) support to AWS Lambda
 - AWS api-change: Add Java 17 (java17) support to AWS Lambda
-- AWS api-change: This release adds SnapStart related exceptions to InvokeWithResponseStream API. IAM access related documentation is also added for this API.
-- AWS api-change: This release adds a new Lambda InvokeWithResponseStream API to support streaming Lambda function responses. The release also adds a new InvokeMode parameter to Function Url APIs to control whether the response will be streamed or buffered.
-- AWS api-change: This release adds the ability to create ESMs with Document DB change streams as event source. For more information see https://docs.aws.amazon.com/lambda/latest/dg/with-documentdb.html.
-- AWS api-change: Add support for MaximumConcurrency parameter for SQS event source. Customers can now limit the maximum concurrent invocations for their SQS Event Source Mapping.
-- AWS api-change: Adds support for Lambda SnapStart, which helps improve the startup performance of functions. Customers can now manage SnapStart based functions via CreateFunction and UpdateFunctionConfiguration APIs
-- AWS api-change: Add Node 18 (nodejs18.x) support to AWS Lambda.
-- AWS api-change: Added support for customization of Consumer Group ID for MSK and Kafka Event Source Mappings.
-- AWS api-change: Lambda releases NodeJs 16 managed runtime to be available in all commercial regions.
-- AWS api-change: This release adds new APIs for creating and managing Lambda Function URLs and adds a new FunctionUrlAuthType parameter to the AddPermission API. Customers can use Function URLs to create built-in HTTPS endpoints on their functions.
-- AWS api-change: Adds support for increased ephemeral storage (/tmp) up to 10GB for Lambda functions. Customers can now provision up to 10 GB of ephemeral storage per function instance, a 20x increase over the previous limit of 512 MB.
-- AWS api-change: Adds PrincipalOrgID support to AddPermission API. Customers can use it to manage permissions to lambda functions at AWS Organizations level.
-- AWS api-change: Lambda releases .NET 6 managed runtime to be available in all commercial regions.
-- AWS api-change: Remove Lambda function url apis
-- AWS api-change: Release Lambda event source filtering for SQS, Kinesis Streams, and DynamoDB Streams.
-- AWS api-change: Add support for Lambda Function URLs. Customers can use Function URLs to create built-in HTTPS endpoints on their functions.
-- AWS api-change: Added support for CLIENT_CERTIFICATE_TLS_AUTH and SERVER_ROOT_CA_CERTIFICATE as SourceAccessType for MSK and Kafka event source mappings.
-
 ## 1.8.0
 
 ### Added

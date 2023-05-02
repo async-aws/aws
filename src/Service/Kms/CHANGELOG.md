@@ -8,12 +8,6 @@
 - Added `ap-southeast-4-fips` region
 - AWS api-change: Added `ap-southeast-4` and `il-central-1-fips` regions.
 - AWS api-change: This release makes the NitroEnclave request parameter Recipient and the response field for CiphertextForRecipient available in AWS SDKs. It also adds the regex pattern for CloudHsmClusterId validation.
-- AWS enhancement: AWS KMS is deprecating the RSAES_PKCS1_V1_5 wrapping algorithm option in the GetParametersForImport API that is used in the AWS KMS Import Key Material feature. AWS KMS will end support for this wrapping algorithm by October 1, 2023.
-- AWS enhancement: Updated examples and exceptions for External Key Store (XKS).
-- AWS api-change: AWS KMS introduces the External Key Store (XKS), a new feature for customers who want to protect their data with encryption keys stored in an external key management system under their control.
-- AWS api-change: Added support for the SM2 KeySpec in China Partition Regions
-- AWS enhancement: Add HMAC best practice tip, annual rotation of AWS managed keys.
-- AWS api-change: Adds support for KMS keys and APIs that generate and verify HMAC codes
 
 ## 1.0.0
 

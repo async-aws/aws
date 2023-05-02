@@ -6,21 +6,7 @@
 
 - AWS enhancement: Documentation updates.
 - AWS api-change: Added owning service filter, include planned deletion flag, and next rotation date response parameter in ListSecrets.
-- AWS api-change: Added `us-iso-west-1` region
-- AWS enhancement: Documentation updates for Secrets Manager
-- AWS api-change: The type definitions of SecretString and SecretBinary now have a minimum length of 1 in the model to match the exception thrown when you pass in empty values.
-- AWS enhancement: Update documentation for new ListSecrets and DescribeSecret parameters
-- AWS enhancement: Documentation updates for Secrets Manager
-- AWS enhancement: Documentation updates for Secrets Manager.
-- AWS enhancement: Documentation updates for Secrets Manager
-- AWS enhancement: Documentation updates for Secrets Manager.
-- AWS enhancement: Documentation updates for Secrets Manager
-- AWS enhancement: Documentation updates for Secrets Manager
-- AWS enhancement: Doc only update for Secrets Manager that fixes several customer-reported issues.
-- AWS enhancement: Documentation updates for Secrets Manager
-- AWS enhancement: Documentation updates for Secrets Manager.
-- AWS api-change: Feature are ready to release on Jan 28th
-- AWS enhancement: Documentation updates for Secrets Manager
+- AWS api-change: Added `us-iso-west-1` and `us-isob-east-1` regions
 
 ## 0.1.3
 
