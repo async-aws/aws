@@ -6,7 +6,7 @@
 
 - AWS enhancement: Documentation updates.
 - AWS api-change: Added owning service filter, include planned deletion flag, and next rotation date response parameter in ListSecrets.
-- AWS api-change: Added `us-iso-west-1` region
+- AWS api-change: Added `us-iso-west-1` and `us-isob-east-1` regions
 
 ## 0.1.3
 

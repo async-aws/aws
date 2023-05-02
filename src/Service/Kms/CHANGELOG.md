@@ -7,6 +7,7 @@
 - Added operation `Sign`
 - Added `ap-southeast-4-fips` region
 - AWS api-change: Added `ap-southeast-4` and `il-central-1-fips` regions.
+- AWS api-change: This release makes the NitroEnclave request parameter Recipient and the response field for CiphertextForRecipient available in AWS SDKs. It also adds the regex pattern for CloudHsmClusterId validation.
 
 ## 1.0.0
 

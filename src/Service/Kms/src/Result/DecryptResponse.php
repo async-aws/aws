@@ -27,6 +27,18 @@ class DecryptResponse extends Result
     private $encryptionAlgorithm;
 
     /**
+     * The plaintext data encrypted with the public key in the attestation document.
+     */
+    private $ciphertextForRecipient;
+
+    public function getCiphertextForRecipient(): ?string
+    {
+        $this->initialize();
+
+        return $this->ciphertextForRecipient;
+    }
+
+    /**
      * @return EncryptionAlgorithmSpec::*|null
      */
     public function getEncryptionAlgorithm(): ?string
@@ -57,5 +69,6 @@ class DecryptResponse extends Result
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
         $this->plaintext = isset($data['Plaintext']) ? base64_decode((string) $data['Plaintext']) : null;
         $this->encryptionAlgorithm = isset($data['EncryptionAlgorithm']) ? (string) $data['EncryptionAlgorithm'] : null;
+        $this->ciphertextForRecipient = isset($data['CiphertextForRecipient']) ? base64_decode((string) $data['CiphertextForRecipient']) : null;
     }
 }

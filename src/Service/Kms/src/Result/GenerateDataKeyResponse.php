@@ -27,11 +27,24 @@ class GenerateDataKeyResponse extends Result
      */
     private $keyId;
 
+    /**
+     * The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be decrypted only by
+     * using a private key in the Nitro enclave.
+     */
+    private $ciphertextForRecipient;
+
     public function getCiphertextBlob(): ?string
     {
         $this->initialize();
 
         return $this->ciphertextBlob;
+    }
+
+    public function getCiphertextForRecipient(): ?string
+    {
+        $this->initialize();
+
+        return $this->ciphertextForRecipient;
     }
 
     public function getKeyId(): ?string
@@ -55,5 +68,6 @@ class GenerateDataKeyResponse extends Result
         $this->ciphertextBlob = isset($data['CiphertextBlob']) ? base64_decode((string) $data['CiphertextBlob']) : null;
         $this->plaintext = isset($data['Plaintext']) ? base64_decode((string) $data['Plaintext']) : null;
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
+        $this->ciphertextForRecipient = isset($data['CiphertextForRecipient']) ? base64_decode((string) $data['CiphertextForRecipient']) : null;
     }
 }

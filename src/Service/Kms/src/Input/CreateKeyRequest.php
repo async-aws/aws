@@ -22,7 +22,8 @@ final class CreateKeyRequest extends Input
     private $policy;
 
     /**
-     * A description of the KMS key.
+     * A description of the KMS key. Use a description that helps you decide whether the KMS key is appropriate for a task.
+     * The default value is an empty string (no description).
      *
      * @var string|null
      */
