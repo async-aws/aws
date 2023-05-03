@@ -50,11 +50,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private $initialized = false;
 
     /**
-     * @var string|null
-     */
-    private $sequenceToken;
-
-    /**
      * @var array
      */
     private $buffer = [];
@@ -234,22 +229,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
     private function initialize(): void
     {
-        $existingStreams = $this->client
-            ->describeLogStreams(
-                [
-                    'logGroupName' => $this->options['group'],
-                    'logStreamNamePrefix' => $this->options['stream'],
-                ]
-            )
-            ->getLogStreams(true);
-
-        /** @var LogStream $stream */
-        foreach ($existingStreams as $stream) {
-            if ($stream->getLogStreamName() === $this->options['stream'] && $stream->getUploadSequenceToken()) {
-                $this->sequenceToken = $stream->getUploadSequenceToken();
-            }
-        }
-
         $this->initialized = true;
     }
 
@@ -281,13 +260,10 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             'logGroupName' => $this->options['group'],
             'logStreamName' => $this->options['stream'],
             'logEvents' => $entries,
-            'sequenceToken' => $this->sequenceToken,
         ];
 
         $this->checkThrottle();
 
         $response = $this->client->putLogEvents($data);
-
-        $this->sequenceToken = $response->getNextSequenceToken();
     }
 }
