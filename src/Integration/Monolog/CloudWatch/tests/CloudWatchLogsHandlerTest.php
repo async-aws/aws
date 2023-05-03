@@ -52,8 +52,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testInitialize()
     {
-        $this->mockDescribeLogStreams();
-
         $handler = new CloudWatchLogsHandler($this->clientMock, [
             'group' => $this->groupName,
             'stream' => $this->streamName,
@@ -73,8 +71,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testSendsOnClose()
     {
-        $this->mockDescribeLogStreams();
-
         $this->clientMock
             ->expects(self::once())
             ->method('putLogEvents')
@@ -89,8 +85,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testSendsBatches()
     {
-        $this->mockDescribeLogStreams();
-
         $this->clientMock
             ->expects(self::exactly(2))
             ->method('putLogEvents')
@@ -118,8 +112,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testSortsEntriesChronologically()
     {
-        $this->mockDescribeLogStreams();
-
         $this->clientMock
             ->expects(self::once())
             ->method('putLogEvents')
@@ -150,25 +142,6 @@ class CloudWatchLogsHandlerTest extends TestCase
         $handler->handle($records[1]);
 
         $handler->close();
-    }
-
-    private function mockDescribeLogStreams(): void
-    {
-        $this->clientMock
-            ->expects(self::once())
-            ->method('describeLogStreams')
-            ->with([
-                'logGroupName' => $this->groupName,
-                'logStreamNamePrefix' => $this->streamName,
-            ])
-            ->willReturn(ResultMockFactory::create(DescribeLogStreamsResponse::class, [
-                'logStreams' => [
-                    new LogStream([
-                        'logStreamName' => $this->streamName,
-                        'uploadSequenceToken' => '49559307804604887372466686181995921714853186581450198322',
-                    ]),
-                ],
-            ]));
     }
 
     private function getHandler($batchSize = 1000): CloudWatchLogsHandler
