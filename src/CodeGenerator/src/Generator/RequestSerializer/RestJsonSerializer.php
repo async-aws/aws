@@ -269,10 +269,16 @@ if (empty(INPUT)) {
 
     private function dumpArrayTimestamp(string $output, string $input, Shape $shape): string
     {
-        return strtr('$payloadOUTPUT = INPUT->format(\DateTimeInterface::ATOM);', [
-            'OUTPUT' => $output,
-            'INPUT' => $input,
-        ]);
+        $format = $shape->get('timestampFormat') ?? 'unixTimestamp';
+        switch ($format) {
+            case 'unixTimestamp':
+                return strtr('$payloadOUTPUT = INPUT->getTimestamp();', [
+                    'OUTPUT' => $output,
+                    'INPUT' => $input,
+                ]);
+            default:
+                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
+        }
     }
 
     private function dumpArrayBlob(string $output, string $input, Shape $shape, bool $isRequired): string

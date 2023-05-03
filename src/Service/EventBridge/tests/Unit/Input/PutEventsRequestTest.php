@@ -36,7 +36,7 @@ X-Amz-Target: AWSEvents.PutEvents
             "resource2"
          ],
          "DetailType":"myDetailType",
-         "Time": "2020-05-10T12:14:00+00:00"
+         "Time": 1589112840
       }
    ]
 }

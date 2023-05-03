@@ -220,7 +220,7 @@ final class ListShardsInput extends Input
             $payload['MaxResults'] = $v;
         }
         if (null !== $v = $this->streamCreationTimestamp) {
-            $payload['StreamCreationTimestamp'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['StreamCreationTimestamp'] = $v->getTimestamp();
         }
         if (null !== $v = $this->shardFilter) {
             $payload['ShardFilter'] = $v->requestBody();

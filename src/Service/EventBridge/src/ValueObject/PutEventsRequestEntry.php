@@ -120,7 +120,7 @@ final class PutEventsRequestEntry
     {
         $payload = [];
         if (null !== $v = $this->time) {
-            $payload['Time'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['Time'] = $v->getTimestamp();
         }
         if (null !== $v = $this->source) {
             $payload['Source'] = $v;
