@@ -1,0 +1,61 @@
+<?php
+
+namespace AsyncAws\Rekognition\ValueObject;
+
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Rekognition\Enum\ContentClassifier;
+
+/**
+ * Sets attributes of the input data.
+ */
+final class HumanLoopDataAttributes
+{
+    /**
+     * Sets whether the input image is free of personally identifiable information.
+     */
+    private $contentClassifiers;
+
+    /**
+     * @param array{
+     *   ContentClassifiers?: null|list<ContentClassifier::*>,
+     * } $input
+     */
+    public function __construct(array $input)
+    {
+        $this->contentClassifiers = $input['ContentClassifiers'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<ContentClassifier::*>
+     */
+    public function getContentClassifiers(): array
+    {
+        return $this->contentClassifiers ?? [];
+    }
+
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->contentClassifiers) {
+            $index = -1;
+            $payload['ContentClassifiers'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!ContentClassifier::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "ContentClassifiers" for "%s". The value "%s" is not a valid "ContentClassifier".', __CLASS__, $listValue));
+                }
+                $payload['ContentClassifiers'][$index] = $listValue;
+            }
+        }
+
+        return $payload;
+    }
+}

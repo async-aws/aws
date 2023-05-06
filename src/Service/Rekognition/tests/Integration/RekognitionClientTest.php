@@ -9,12 +9,15 @@ use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
 use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
+use AsyncAws\Rekognition\Input\DetectModerationLabelsRequest;
 use AsyncAws\Rekognition\Input\GetCelebrityInfoRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
 use AsyncAws\Rekognition\Input\RecognizeCelebritiesRequest;
 use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\RekognitionClient;
+use AsyncAws\Rekognition\ValueObject\HumanLoopConfig;
+use AsyncAws\Rekognition\ValueObject\HumanLoopDataAttributes;
 use AsyncAws\Rekognition\ValueObject\Image;
 use AsyncAws\Rekognition\ValueObject\S3Object;
 
@@ -99,6 +102,37 @@ class RekognitionClientTest extends TestCase
 
         // self::assertTODO(expected, $result->getFaceDetails());
         self::assertSame('changeIt', $result->getOrientationCorrection());
+    }
+
+    public function testDetectModerationLabels(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DetectModerationLabelsRequest([
+            'Image' => new Image([
+                'Bytes' => 'change me',
+                'S3Object' => new S3Object([
+                    'Bucket' => 'change me',
+                    'Name' => 'change me',
+                    'Version' => 'change me',
+                ]),
+            ]),
+            'MinConfidence' => 1337,
+            'HumanLoopConfig' => new HumanLoopConfig([
+                'HumanLoopName' => 'change me',
+                'FlowDefinitionArn' => 'change me',
+                'DataAttributes' => new HumanLoopDataAttributes([
+                    'ContentClassifiers' => ['change me'],
+                ]),
+            ]),
+        ]);
+        $result = $client->detectModerationLabels($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getModerationLabels());
+        self::assertSame('changeIt', $result->getModerationModelVersion());
+        // self::assertTODO(expected, $result->getHumanLoopActivationOutput());
     }
 
     public function testGetCelebrityInfo(): void
