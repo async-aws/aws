@@ -20,6 +20,7 @@ use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\MissingDependency;
+use AsyncAws\Core\HttpClient\AwsHttpClientFactory;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\Ecr\EcrClient;
