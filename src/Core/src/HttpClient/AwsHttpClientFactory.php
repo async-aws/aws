@@ -2,10 +2,10 @@
 
 namespace AsyncAws\Core\HttpClient;
 
-use Symfony\Component\HttpClient\CurlHttpClient;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpClient\RetryableHttpClient;
+use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpClient\RetryableHttpClient;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
