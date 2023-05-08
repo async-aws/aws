@@ -14,7 +14,7 @@ class AwsHttpClientFactory
 {
     public static function createClient(): HttpClientInterface
     {
-        return return new CurlHttpClient([
+        return new CurlHttpClient([
             'extra' => [
                 'curl' => [
                     \CURLOPT_PROTOCOLS => \CURLPROTO_HTTPS,
