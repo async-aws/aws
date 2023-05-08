@@ -4,8 +4,8 @@ namespace AsyncAws\Core\HttpClient;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\CurlHttpClient;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpClient\RetryableHttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -17,8 +17,6 @@ class AwsHttpClientFactory
         return new CurlHttpClient([
             'extra' => [
                 'curl' => [
-                    \CURLOPT_PROTOCOLS => \CURLPROTO_HTTPS,
-                    \CURLOPT_REDIR_PROTOCOLS => \CURLPROTO_HTTPS,
                     \CURLOPT_SSLVERSION => \CURL_SSLVERSION_TLSv1_2,
                 ],
             ],
