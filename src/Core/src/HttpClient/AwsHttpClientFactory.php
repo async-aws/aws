@@ -17,10 +17,10 @@ class AwsHttpClientFactory
             'extra' => [
                 'curl' => [
                     \CURLOPT_PROTOCOLS => \CURLPROTO_HTTPS,
-                    \CURLOPT_REDIR_PROTOCOLS => \CURLPROTO_HTTPS
+                    \CURLOPT_REDIR_PROTOCOLS => \CURLPROTO_HTTPS,
                     \CURLOPT_SSLVERSION => \CURL_SSLVERSION_TLSv1_2,
                 ],
-            ]
+            ],
         ]);
     }
 
