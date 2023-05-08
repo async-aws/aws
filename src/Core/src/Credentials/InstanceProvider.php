@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Credentials;
 
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\HttpClient\AwsHttpClientFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\Exception\JsonException;
@@ -39,7 +40,7 @@ final class InstanceProvider implements CredentialProvider
     public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0, int $tokenTtl = 21600)
     {
         $this->logger = $logger ?? new NullLogger();
-        $this->httpClient = $httpClient ?? HttpClient::create();
+        $this->httpClient = $httpClient ?? AwsHttpClientFactory::createClient();
         $this->timeout = $timeout;
         $this->tokenTtl = $tokenTtl;
     }

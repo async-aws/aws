@@ -13,6 +13,7 @@ use AsyncAws\Core\EndpointDiscovery\EndpointCache;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\HttpClient\AwsHttpClientFactory;
 use AsyncAws\Core\HttpClient\AwsRetryStrategy;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
@@ -81,7 +82,7 @@ abstract class AbstractApi
         $this->awsErrorFactory = $this->getAwsErrorFactory();
         $this->endpointCache = new EndpointCache();
         if (!isset($httpClient)) {
-            $httpClient = HttpClient::create();
+            $httpClient = AwsHttpClientFactory::createClient();
             if (class_exists(RetryableHttpClient::class)) {
                 /** @psalm-suppress MissingDependency */
                 $httpClient = new RetryableHttpClient(

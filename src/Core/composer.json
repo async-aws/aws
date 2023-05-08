@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
+        "ext-curl": "*",
         "ext-hash": "*",
         "ext-json": "*",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",

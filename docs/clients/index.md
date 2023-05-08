@@ -28,7 +28,7 @@ $config = Configuration::create([
     'region' => 'eu-central-1',
 ]);
 $credentialProvider = new ConfigurationProvider();
-$httpClient = HttpClient::create(); // ... Instance of Symfony's HttpClientInterface
+$httpClient = AwsHttpClientFactory::createClient(); // ... Instance of Symfony's HttpClientInterface
 // Or, to enable automatic retries on top of your own HttpClient
 // $httpClient = AwsHttpClientFactory::createRetryableClient($httpClient); T
 $logger = // ... A PSR-3 logger

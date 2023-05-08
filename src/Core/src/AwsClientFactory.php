@@ -95,7 +95,7 @@ class AwsClientFactory
             throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
         }
 
-        $this->httpClient = $httpClient ?? HttpClient::create();
+        $this->httpClient = $httpClient ?? AwsHttpClientFactory::createClient();
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
