@@ -338,7 +338,7 @@ final class CreateScheduleInput extends Input
             $payload['Description'] = $v;
         }
         if (null !== $v = $this->endDate) {
-            $payload['EndDate'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['EndDate'] = $v->getTimestamp();
         }
         if (null === $v = $this->flexibleTimeWindow) {
             throw new InvalidArgument(sprintf('Missing parameter "FlexibleTimeWindow" for "%s". The value cannot be null.', __CLASS__));
@@ -359,7 +359,7 @@ final class CreateScheduleInput extends Input
             $payload['ScheduleExpressionTimezone'] = $v;
         }
         if (null !== $v = $this->startDate) {
-            $payload['StartDate'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['StartDate'] = $v->getTimestamp();
         }
         if (null !== $v = $this->state) {
             if (!ScheduleState::exists($v)) {
