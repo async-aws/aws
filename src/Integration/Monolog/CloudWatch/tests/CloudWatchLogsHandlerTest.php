@@ -62,7 +62,7 @@ class CloudWatchLogsHandlerTest extends TestCase
 
         $reflectionProperty = $reflection->getProperty('initialized');
         $reflectionProperty->setAccessible(true);
-        
+
         self::assertTrue($reflectionProperty->getValue($handler));
     }
 
