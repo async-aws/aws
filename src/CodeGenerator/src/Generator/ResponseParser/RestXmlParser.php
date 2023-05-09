@@ -248,19 +248,21 @@ class RestXmlParser implements Parser
 
     private function parseXmlResponseTimestamp(Shape $shape, string $input, bool $required): string
     {
-        if ('unixTimestamp' === $shape->get('timestampFormat')) {
-            if ($required) {
-                return strtr('\DateTimeImmutable::setTimestamp((string) INPUT)', ['INPUT' => $input]);
-            }
+        $format = $shape->get('timestampFormat') ?? '';
+        switch ($format) {
+            case '':
+                $body = 'new \DateTimeImmutable((string) INPUT)';
 
-            return strtr('($v = INPUT) ? \DateTimeImmutable::setTimestamp((string) $v) : null', ['INPUT' => $input]);
+                break;
+            default:
+                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
         }
 
-        if ($required) {
-            return strtr('new \DateTimeImmutable((string) INPUT)', ['INPUT' => $input]);
+        if (!$required) {
+            $body = '($v = INPUT) ? ' . strtr($body, ['INPUT' => '$v']) . ' : null';
         }
 
-        return strtr('($v = INPUT) ? new \DateTimeImmutable((string) $v) : null', ['INPUT' => $input]);
+        return strtr($body, ['INPUT' => $input]);
     }
 
     private function parseXmlResponseList(ListShape $shape, string $input, bool $required, bool $inObject): string

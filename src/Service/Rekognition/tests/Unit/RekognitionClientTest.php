@@ -9,6 +9,7 @@ use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
 use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
+use AsyncAws\Rekognition\Input\DetectModerationLabelsRequest;
 use AsyncAws\Rekognition\Input\GetCelebrityInfoRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
@@ -20,6 +21,7 @@ use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
 use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
+use AsyncAws\Rekognition\Result\DetectModerationLabelsResponse;
 use AsyncAws\Rekognition\Result\GetCelebrityInfoResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
@@ -95,6 +97,21 @@ class RekognitionClientTest extends TestCase
         $result = $client->DetectFaces($input);
 
         self::assertInstanceOf(DetectFacesResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDetectModerationLabels(): void
+    {
+        $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DetectModerationLabelsRequest([
+            'Image' => new Image([
+
+            ]),
+        ]);
+        $result = $client->detectModerationLabels($input);
+
+        self::assertInstanceOf(DetectModerationLabelsResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

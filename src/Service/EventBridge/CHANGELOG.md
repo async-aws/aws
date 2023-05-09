@@ -6,6 +6,10 @@
 
 - AWS enhancement: Documentation updates.
 
+### Fixed
+
+- Timestamp format
+
 ## 1.4.0
 
 ### Added

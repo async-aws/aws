@@ -430,6 +430,7 @@
                 "DeleteCollection",
                 "DeleteProject",
                 "DetectFaces",
+                "DetectModerationLabels",
                 "GetCelebrityInfo",
                 "IndexFaces",
                 "ListCollections",

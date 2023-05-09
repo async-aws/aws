@@ -6,6 +6,7 @@
 
 - AWS enhancement: Documentation updates.
 - AWS api-change: This release adds a new attribute FaceOccluded. Additionally, you can now select attributes individually (e.g. ["DEFAULT", "FACE_OCCLUDED", "AGE_RANGE"] instead of ["ALL"]), which can reduce response time.
+- Added operation `detectModerationLabels`
 
 ## 0.1.7
 

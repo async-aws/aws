@@ -216,7 +216,7 @@ final class GetShardIteratorInput extends Input
             $payload['StartingSequenceNumber'] = $v;
         }
         if (null !== $v = $this->timestamp) {
-            $payload['Timestamp'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['Timestamp'] = $v->getTimestamp();
         }
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
