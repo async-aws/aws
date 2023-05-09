@@ -3,9 +3,7 @@
 namespace AsyncAws\Monolog\CloudWatch\Tests;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
-use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
-use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler;
 use Monolog\Formatter\LineFormatter;
@@ -64,7 +62,8 @@ class CloudWatchLogsHandlerTest extends TestCase
 
         $reflectionProperty = $reflection->getProperty('initialized');
         $reflectionProperty->setAccessible(true);
-        self::assertTrue($reflectionProperty->getValue($handler));       
+        
+        self::assertTrue($reflectionProperty->getValue($handler));
     }
 
     public function testLimitExceeded()

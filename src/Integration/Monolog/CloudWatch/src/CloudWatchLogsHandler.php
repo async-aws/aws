@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\Monolog\CloudWatch;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
-use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
