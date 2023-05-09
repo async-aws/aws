@@ -61,6 +61,10 @@ class CloudWatchLogsHandlerTest extends TestCase
         $reflectionMethod = $reflection->getMethod('initialize');
         $reflectionMethod->setAccessible(true);
         $reflectionMethod->invoke($handler);
+
+        $reflectionProperty = $reflection->getProperty('initialized');
+        $reflectionProperty->setAccessible(true);
+        self::assertTrue($reflectionProperty->getValue($handler));       
     }
 
     public function testLimitExceeded()
