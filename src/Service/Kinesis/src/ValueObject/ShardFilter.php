@@ -93,7 +93,7 @@ final class ShardFilter
             $payload['ShardId'] = $v;
         }
         if (null !== $v = $this->timestamp) {
-            $payload['Timestamp'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['Timestamp'] = $v->getTimestamp();
         }
 
         return $payload;

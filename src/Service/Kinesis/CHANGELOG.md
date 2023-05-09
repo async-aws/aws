@@ -8,6 +8,10 @@
 - BC BREAK: `listStreams` now yield over stream names AND descriptions
 - AWS api-change: added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 
+### Fixed
+
+- Timestamp format
+
 ## 1.1.0
 
 ### Added

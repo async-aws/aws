@@ -23,7 +23,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in
      * the lifecycle rule matches the object name in the request, then the response includes this header indicating when the
      * initiated multipart upload will become eligible for abort operation. For more information, see Aborting Incomplete
-     * Multipart Uploads Using a Bucket Lifecycle Policy.
+     * Multipart Uploads Using a Bucket Lifecycle Configuration.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
      */

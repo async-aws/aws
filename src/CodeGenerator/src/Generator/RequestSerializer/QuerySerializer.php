@@ -270,10 +270,16 @@ class QuerySerializer implements Serializer
 
     private function dumpArrayTimestamp(string $output, string $input, Shape $shape): string
     {
-        return strtr('$payload["OUTPUT"] = INPUT->format(\DateTimeInterface::ATOM);', [
-            'OUTPUT' => $output,
-            'INPUT' => $input,
-        ]);
+        $format = $shape->get('timestampFormat') ?? 'iso8601';
+        switch ($format) {
+            case 'iso8601':
+                return strtr('$payload["OUTPUT"] = INPUT->format(\DateTimeInterface::ATOM);', [
+                    'OUTPUT' => $output,
+                    'INPUT' => $input,
+                ]);
+            default:
+                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
+        }
     }
 
     private function dumpArrayBlob(string $output, string $input, Shape $shape): string

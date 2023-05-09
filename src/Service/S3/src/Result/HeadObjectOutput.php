@@ -147,9 +147,7 @@ class HeadObjectOutput extends Result
     private $websiteRedirectLocation;
 
     /**
-     * If the object is stored using server-side encryption either with an Amazon Web Services KMS key or an Amazon
-     * S3-managed encryption key, the response includes this header with the value of the server-side encryption algorithm
-     * used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
      */
     private $serverSideEncryption;
 
@@ -172,7 +170,7 @@ class HeadObjectOutput extends Result
 
     /**
      * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * customer managed key that was used for the object.
+     * encryption customer managed key that was used for the object.
      */
     private $sseKmsKeyId;
 

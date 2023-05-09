@@ -19,7 +19,10 @@ final class Error
 
     /**
      * The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by
-     * programs that detect and handle errors by type.
+     * programs that detect and handle errors by type. The following is a list of Amazon S3 error codes. For more
+     * information, see Error responses.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
      */
     private $code;
 

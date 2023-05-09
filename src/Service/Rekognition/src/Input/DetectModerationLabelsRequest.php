@@ -6,10 +6,10 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Rekognition\Enum\Attribute;
+use AsyncAws\Rekognition\ValueObject\HumanLoopConfig;
 use AsyncAws\Rekognition\ValueObject\Image;
 
-final class DetectFacesRequest extends Input
+final class DetectModerationLabelsRequest extends Input
 {
     /**
      * The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition
@@ -22,19 +22,25 @@ final class DetectFacesRequest extends Input
     private $image;
 
     /**
-     * An array of facial attributes you want to be returned. A `DEFAULT` subset of facial attributes - `BoundingBox`,
-     * `Confidence`, `Pose`, `Quality`, and `Landmarks` - will always be returned. You can request for specific facial
-     * attributes (in addition to the default list) - by using [`"DEFAULT", "FACE_OCCLUDED"`] or just [`"FACE_OCCLUDED"`].
-     * You can request for all facial attributes by using [`"ALL"]`. Requesting more attributes may increase response time.
+     * Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with a
+     * confidence level lower than this specified value.
      *
-     * @var list<Attribute::*>|null
+     * @var float|null
      */
-    private $attributes;
+    private $minConfidence;
+
+    /**
+     * Sets up the configuration for human evaluation, including the FlowDefinition the image will be sent to.
+     *
+     * @var HumanLoopConfig|null
+     */
+    private $humanLoopConfig;
 
     /**
      * @param array{
      *   Image?: Image|array,
-     *   Attributes?: list<Attribute::*>,
+     *   MinConfidence?: float,
+     *   HumanLoopConfig?: HumanLoopConfig|array,
      *
      *   @region?: string,
      * } $input
@@ -42,7 +48,8 @@ final class DetectFacesRequest extends Input
     public function __construct(array $input = [])
     {
         $this->image = isset($input['Image']) ? Image::create($input['Image']) : null;
-        $this->attributes = $input['Attributes'] ?? null;
+        $this->minConfidence = $input['MinConfidence'] ?? null;
+        $this->humanLoopConfig = isset($input['HumanLoopConfig']) ? HumanLoopConfig::create($input['HumanLoopConfig']) : null;
         parent::__construct($input);
     }
 
@@ -51,17 +58,19 @@ final class DetectFacesRequest extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    /**
-     * @return list<Attribute::*>
-     */
-    public function getAttributes(): array
+    public function getHumanLoopConfig(): ?HumanLoopConfig
     {
-        return $this->attributes ?? [];
+        return $this->humanLoopConfig;
     }
 
     public function getImage(): ?Image
     {
         return $this->image;
+    }
+
+    public function getMinConfidence(): ?float
+    {
+        return $this->minConfidence;
     }
 
     /**
@@ -72,7 +81,7 @@ final class DetectFacesRequest extends Input
         // Prepare headers
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
-            'X-Amz-Target' => 'RekognitionService.DetectFaces',
+            'X-Amz-Target' => 'RekognitionService.DetectModerationLabels',
         ];
 
         // Prepare query
@@ -89,12 +98,9 @@ final class DetectFacesRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    /**
-     * @param list<Attribute::*> $value
-     */
-    public function setAttributes(array $value): self
+    public function setHumanLoopConfig(?HumanLoopConfig $value): self
     {
-        $this->attributes = $value;
+        $this->humanLoopConfig = $value;
 
         return $this;
     }
@@ -106,6 +112,13 @@ final class DetectFacesRequest extends Input
         return $this;
     }
 
+    public function setMinConfidence(?float $value): self
+    {
+        $this->minConfidence = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -113,16 +126,11 @@ final class DetectFacesRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
-        if (null !== $v = $this->attributes) {
-            $index = -1;
-            $payload['Attributes'] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                if (!Attribute::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "Attributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
-                }
-                $payload['Attributes'][$index] = $listValue;
-            }
+        if (null !== $v = $this->minConfidence) {
+            $payload['MinConfidence'] = $v;
+        }
+        if (null !== $v = $this->humanLoopConfig) {
+            $payload['HumanLoopConfig'] = $v->requestBody();
         }
 
         return $payload;

@@ -47,6 +47,7 @@ parameters:
               - src/Service/Kinesis/src/ValueObject
               - src/Service/Lambda/src/ValueObject
               - src/Service/Iot/src/ValueObject/Tag.php
+              - src/Service/Rekognition/src/ValueObject
               - src/Service/Route53/src/ValueObject
               - src/Service/S3/src/ValueObject
               - src/Service/Scheduler/src/ValueObject

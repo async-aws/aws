@@ -85,20 +85,25 @@ while ($isQueryStillRunning) {
 
 // retrieves the results of a query
 $results = $athena->getQueryResults(new GetQueryResultsInput([
-    'QueryExecutionId' => $startQueryResult->getQueryExecutionId(),
-    'MaxResults' => 10000
+    'QueryExecutionId' => $startQueryResult->getQueryExecutionId()
 ]));
 
-/** @var Row $row */
-foreach ($results => $row) {
-    if ($index === 0) {
-        $columnLabels = array_column($row->getData(), 'VarCharValue'); // $row->getData() return [ 'VarCharValue' => value, ...]
-    }
-    $columnValues[] = array_column($row->getData(), 'VarCharValue');
-}
+// Check results structure
+var_dump($results);
 
+//Retrieve results rows values as Array
+/** @var Row $row */
+foreach ($results as $row) {
+    $resultRowsToArray [] = array_map(
+        static function ($data) {
+            return (string)$data->getVarCharValue();
+        },
+        $row->getData()
+    );
+}
+var_dump($resultRowsToArray);
 // retrieves the results column structure details
 $columnsDetail = $result->getResultSet()->getResultSetMetadata()->getColumnInfo();
 
-print_r($columnsDetail);
+var_dump($columnsDetail);
 ```
