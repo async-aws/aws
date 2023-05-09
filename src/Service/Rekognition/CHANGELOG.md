@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- Added operation `detectModerationLabels`
 
 ## 0.1.7
 

@@ -10,6 +10,7 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Rekognition\Enum\Attribute;
 use AsyncAws\Rekognition\Enum\QualityFilter;
 use AsyncAws\Rekognition\Exception\AccessDeniedException;
+use AsyncAws\Rekognition\Exception\HumanLoopQuotaExceededException;
 use AsyncAws\Rekognition\Exception\ImageTooLargeException;
 use AsyncAws\Rekognition\Exception\InternalServerErrorException;
 use AsyncAws\Rekognition\Exception\InvalidImageFormatException;
@@ -28,6 +29,7 @@ use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
 use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
+use AsyncAws\Rekognition\Input\DetectModerationLabelsRequest;
 use AsyncAws\Rekognition\Input\GetCelebrityInfoRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
@@ -38,11 +40,13 @@ use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
 use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
+use AsyncAws\Rekognition\Result\DetectModerationLabelsResponse;
 use AsyncAws\Rekognition\Result\GetCelebrityInfoResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
 use AsyncAws\Rekognition\Result\RecognizeCelebritiesResponse;
 use AsyncAws\Rekognition\Result\SearchFacesByImageResponse;
+use AsyncAws\Rekognition\ValueObject\HumanLoopConfig;
 use AsyncAws\Rekognition\ValueObject\Image;
 
 class RekognitionClient extends AbstractApi
@@ -231,6 +235,50 @@ class RekognitionClient extends AbstractApi
         ]]));
 
         return new DetectFacesResponse($response);
+    }
+
+    /**
+     * Detects unsafe content in a specified JPEG or PNG format image. Use `DetectModerationLabels` to moderate images
+     * depending on your requirements. For example, you might want to filter images that contain nudity, but not images
+     * containing suggestive content.
+     *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectModerationLabels.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#detectmoderationlabels
+     *
+     * @param array{
+     *   Image: Image|array,
+     *   MinConfidence?: float,
+     *   HumanLoopConfig?: HumanLoopConfig|array,
+     *
+     *   @region?: string,
+     * }|DetectModerationLabelsRequest $input
+     *
+     * @throws InvalidS3ObjectException
+     * @throws InvalidParameterException
+     * @throws ImageTooLargeException
+     * @throws AccessDeniedException
+     * @throws InternalServerErrorException
+     * @throws ThrottlingException
+     * @throws ProvisionedThroughputExceededException
+     * @throws InvalidImageFormatException
+     * @throws HumanLoopQuotaExceededException
+     */
+    public function detectModerationLabels($input): DetectModerationLabelsResponse
+    {
+        $input = DetectModerationLabelsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DetectModerationLabels', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'ThrottlingException' => ThrottlingException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'HumanLoopQuotaExceededException' => HumanLoopQuotaExceededException::class,
+        ]]));
+
+        return new DetectModerationLabelsResponse($response);
     }
 
     /**
