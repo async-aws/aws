@@ -14,7 +14,7 @@ class CreateMultipartUploadOutput extends Result
      * If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in
      * the lifecycle rule matches the object name in the request, the response includes this header. The header indicates
      * when the initiated multipart upload becomes eligible for an abort operation. For more information, see  Aborting
-     * Incomplete Multipart Uploads Using a Bucket Lifecycle Policy.
+     * Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
      */
@@ -43,7 +43,7 @@ class CreateMultipartUploadOutput extends Result
     private $uploadId;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
      */
     private $serverSideEncryption;
 
@@ -61,7 +61,7 @@ class CreateMultipartUploadOutput extends Result
 
     /**
      * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * customer managed key that was used for the object.
+     * encryption customer managed key that was used for the object.
      */
     private $sseKmsKeyId;
 

@@ -102,6 +102,14 @@ final class FaceDetail
     private $confidence;
 
     /**
+     * `FaceOccluded` should return "true" with a high confidence score if a detected face’s eyes, nose, and mouth are
+     * partially captured or if they are covered by masks, dark sunglasses, cell phones, hands, or other objects.
+     * `FaceOccluded` should return "false" with a high confidence score if common occurrences that do not impact face
+     * verification are detected, such as eye glasses, lightly tinted sunglasses, strands of hair, and others.
+     */
+    private $faceOccluded;
+
+    /**
      * @param array{
      *   BoundingBox?: null|BoundingBox|array,
      *   AgeRange?: null|AgeRange|array,
@@ -118,6 +126,7 @@ final class FaceDetail
      *   Pose?: null|Pose|array,
      *   Quality?: null|ImageQuality|array,
      *   Confidence?: null|float,
+     *   FaceOccluded?: null|FaceOccluded|array,
      * } $input
      */
     public function __construct(array $input)
@@ -137,6 +146,7 @@ final class FaceDetail
         $this->pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
         $this->quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
         $this->confidence = $input['Confidence'] ?? null;
+        $this->faceOccluded = isset($input['FaceOccluded']) ? FaceOccluded::create($input['FaceOccluded']) : null;
     }
 
     public static function create($input): self
@@ -180,6 +190,11 @@ final class FaceDetail
     public function getEyesOpen(): ?EyeOpen
     {
         return $this->eyesOpen;
+    }
+
+    public function getFaceOccluded(): ?FaceOccluded
+    {
+        return $this->faceOccluded;
     }
 
     public function getGender(): ?Gender

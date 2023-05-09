@@ -14,6 +14,7 @@ use AsyncAws\Rekognition\ValueObject\Eyeglasses;
 use AsyncAws\Rekognition\ValueObject\EyeOpen;
 use AsyncAws\Rekognition\ValueObject\Face;
 use AsyncAws\Rekognition\ValueObject\FaceDetail;
+use AsyncAws\Rekognition\ValueObject\FaceOccluded;
 use AsyncAws\Rekognition\ValueObject\FaceRecord;
 use AsyncAws\Rekognition\ValueObject\Gender;
 use AsyncAws\Rekognition\ValueObject\ImageQuality;
@@ -190,6 +191,15 @@ class IndexFacesResponse extends Result
             'Landmarks' => !isset($json['Landmarks']) ? null : $this->populateResultLandmarks($json['Landmarks']),
             'Pose' => empty($json['Pose']) ? null : $this->populateResultPose($json['Pose']),
             'Quality' => empty($json['Quality']) ? null : $this->populateResultImageQuality($json['Quality']),
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+            'FaceOccluded' => empty($json['FaceOccluded']) ? null : $this->populateResultFaceOccluded($json['FaceOccluded']),
+        ]);
+    }
+
+    private function populateResultFaceOccluded(array $json): FaceOccluded
+    {
+        return new FaceOccluded([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
         ]);
     }
