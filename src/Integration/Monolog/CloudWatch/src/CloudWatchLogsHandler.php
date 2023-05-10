@@ -44,11 +44,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private $options;
 
     /**
-     * @var bool
-     */
-    private $initialized = false;
-
-    /**
      * @var array
      */
     private $buffer = [];
@@ -177,17 +172,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             return;
         }
 
-        if (!$this->initialized) {
-            $this->initialize();
-        }
-
-        // send items, retry once with a fresh sequence token
-        try {
-            $this->send($this->buffer);
-        } catch (ClientException $e) {
-            $this->initialize();
-            $this->send($this->buffer);
-        }
+        $this->send($this->buffer);
 
         // clear buffer
         $this->buffer = [];
@@ -224,11 +209,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private function getMessageSize($record): int
     {
         return \strlen($record['message']) + 26;
-    }
-
-    private function initialize(): void
-    {
-        $this->initialized = true;
     }
 
     /**

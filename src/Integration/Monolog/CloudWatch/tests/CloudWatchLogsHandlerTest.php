@@ -48,24 +48,6 @@ class CloudWatchLogsHandlerTest extends TestCase
         self::assertFalse($handler->getBubble());
     }
 
-    public function testInitialize()
-    {
-        $handler = new CloudWatchLogsHandler($this->clientMock, [
-            'group' => $this->groupName,
-            'stream' => $this->streamName,
-        ]);
-
-        $reflection = new \ReflectionClass($handler);
-        $reflectionMethod = $reflection->getMethod('initialize');
-        $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($handler);
-
-        $reflectionProperty = $reflection->getProperty('initialized');
-        $reflectionProperty->setAccessible(true);
-
-        self::assertTrue($reflectionProperty->getValue($handler));
-    }
-
     public function testLimitExceeded()
     {
         $this->expectException(\InvalidArgumentException::class);
