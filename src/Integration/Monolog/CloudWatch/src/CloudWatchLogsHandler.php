@@ -263,6 +263,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
         $this->checkThrottle();
 
-        $response = $this->client->putLogEvents($data);
+        $this->client->putLogEvents($data);
     }
 }
