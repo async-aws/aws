@@ -6,7 +6,7 @@ namespace AsyncAws\ElastiCache\Enum;
  * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Redis engine version 6.2 onward
  * or Memcached engine version 1.6.6 on all instances built on the Nitro system.
  *
- * @see https://aws.amazon.com/ec2/nitro/
+ * @see http://aws.amazon.com/ec2/nitro/
  */
 final class NetworkType
 {
