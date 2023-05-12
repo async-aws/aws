@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\Monolog\CloudWatch;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
-use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
-use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
@@ -43,16 +41,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * @var array
      */
     private $options;
-
-    /**
-     * @var bool
-     */
-    private $initialized = false;
-
-    /**
-     * @var string|null
-     */
-    private $sequenceToken;
 
     /**
      * @var array
@@ -183,17 +171,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             return;
         }
 
-        if (!$this->initialized) {
-            $this->initialize();
-        }
-
-        // send items, retry once with a fresh sequence token
-        try {
-            $this->send($this->buffer);
-        } catch (ClientException $e) {
-            $this->initialize();
-            $this->send($this->buffer);
-        }
+        $this->send($this->buffer);
 
         // clear buffer
         $this->buffer = [];
@@ -232,27 +210,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         return \strlen($record['message']) + 26;
     }
 
-    private function initialize(): void
-    {
-        $existingStreams = $this->client
-            ->describeLogStreams(
-                [
-                    'logGroupName' => $this->options['group'],
-                    'logStreamNamePrefix' => $this->options['stream'],
-                ]
-            )
-            ->getLogStreams(true);
-
-        /** @var LogStream $stream */
-        foreach ($existingStreams as $stream) {
-            if ($stream->getLogStreamName() === $this->options['stream'] && $stream->getUploadSequenceToken()) {
-                $this->sequenceToken = $stream->getUploadSequenceToken();
-            }
-        }
-
-        $this->initialized = true;
-    }
-
     /**
      * The batch of events must satisfy the following constraints:
      *  - The maximum batch size is 1,048,576 bytes, and this size is calculated as the sum of all event messages in
@@ -281,13 +238,10 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             'logGroupName' => $this->options['group'],
             'logStreamName' => $this->options['stream'],
             'logEvents' => $entries,
-            'sequenceToken' => $this->sequenceToken,
         ];
 
         $this->checkThrottle();
 
-        $response = $this->client->putLogEvents($data);
-
-        $this->sequenceToken = $response->getNextSequenceToken();
+        $this->client->putLogEvents($data);
     }
 }

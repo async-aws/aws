@@ -3,9 +3,7 @@
 namespace AsyncAws\Monolog\CloudWatch\Tests;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
-use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
-use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler;
 use Monolog\Formatter\LineFormatter;
@@ -50,21 +48,6 @@ class CloudWatchLogsHandlerTest extends TestCase
         self::assertFalse($handler->getBubble());
     }
 
-    public function testInitialize()
-    {
-        $this->mockDescribeLogStreams();
-
-        $handler = new CloudWatchLogsHandler($this->clientMock, [
-            'group' => $this->groupName,
-            'stream' => $this->streamName,
-        ]);
-
-        $reflection = new \ReflectionClass($handler);
-        $reflectionMethod = $reflection->getMethod('initialize');
-        $reflectionMethod->setAccessible(true);
-        $reflectionMethod->invoke($handler);
-    }
-
     public function testLimitExceeded()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -73,8 +56,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testSendsOnClose()
     {
-        $this->mockDescribeLogStreams();
-
         $this->clientMock
             ->expects(self::once())
             ->method('putLogEvents')
@@ -89,8 +70,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testSendsBatches()
     {
-        $this->mockDescribeLogStreams();
-
         $this->clientMock
             ->expects(self::exactly(2))
             ->method('putLogEvents')
@@ -118,8 +97,6 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     public function testSortsEntriesChronologically()
     {
-        $this->mockDescribeLogStreams();
-
         $this->clientMock
             ->expects(self::once())
             ->method('putLogEvents')
@@ -150,25 +127,6 @@ class CloudWatchLogsHandlerTest extends TestCase
         $handler->handle($records[1]);
 
         $handler->close();
-    }
-
-    private function mockDescribeLogStreams(): void
-    {
-        $this->clientMock
-            ->expects(self::once())
-            ->method('describeLogStreams')
-            ->with([
-                'logGroupName' => $this->groupName,
-                'logStreamNamePrefix' => $this->streamName,
-            ])
-            ->willReturn(ResultMockFactory::create(DescribeLogStreamsResponse::class, [
-                'logStreams' => [
-                    new LogStream([
-                        'logStreamName' => $this->streamName,
-                        'uploadSequenceToken' => '49559307804604887372466686181995921714853186581450198322',
-                    ]),
-                ],
-            ]));
     }
 
     private function getHandler($batchSize = 1000): CloudWatchLogsHandler
