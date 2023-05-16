@@ -9,6 +9,7 @@ use AsyncAws\Rekognition\ValueObject\AgeRange;
 use AsyncAws\Rekognition\ValueObject\Beard;
 use AsyncAws\Rekognition\ValueObject\BoundingBox;
 use AsyncAws\Rekognition\ValueObject\Emotion;
+use AsyncAws\Rekognition\ValueObject\EyeDirection;
 use AsyncAws\Rekognition\ValueObject\Eyeglasses;
 use AsyncAws\Rekognition\ValueObject\EyeOpen;
 use AsyncAws\Rekognition\ValueObject\FaceDetail;
@@ -109,6 +110,15 @@ class DetectFacesResponse extends Result
         return $items;
     }
 
+    private function populateResultEyeDirection(array $json): EyeDirection
+    {
+        return new EyeDirection([
+            'Yaw' => isset($json['Yaw']) ? (float) $json['Yaw'] : null,
+            'Pitch' => isset($json['Pitch']) ? (float) $json['Pitch'] : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
     private function populateResultEyeOpen(array $json): EyeOpen
     {
         return new EyeOpen([
@@ -144,6 +154,7 @@ class DetectFacesResponse extends Result
             'Quality' => empty($json['Quality']) ? null : $this->populateResultImageQuality($json['Quality']),
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
             'FaceOccluded' => empty($json['FaceOccluded']) ? null : $this->populateResultFaceOccluded($json['FaceOccluded']),
+            'EyeDirection' => empty($json['EyeDirection']) ? null : $this->populateResultEyeDirection($json['EyeDirection']),
         ]);
     }
 
