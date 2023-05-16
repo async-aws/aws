@@ -11,6 +11,7 @@ final class Attribute
     public const EMOTIONS = 'EMOTIONS';
     public const EYEGLASSES = 'EYEGLASSES';
     public const EYES_OPEN = 'EYES_OPEN';
+    public const EYE_DIRECTION = 'EYE_DIRECTION';
     public const FACE_OCCLUDED = 'FACE_OCCLUDED';
     public const GENDER = 'GENDER';
     public const MOUTH_OPEN = 'MOUTH_OPEN';
@@ -28,6 +29,7 @@ final class Attribute
             self::EMOTIONS => true,
             self::EYEGLASSES => true,
             self::EYES_OPEN => true,
+            self::EYE_DIRECTION => true,
             self::FACE_OCCLUDED => true,
             self::GENDER => true,
             self::MOUTH_OPEN => true,

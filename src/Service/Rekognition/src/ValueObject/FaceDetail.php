@@ -110,6 +110,11 @@ final class FaceDetail
     private $faceOccluded;
 
     /**
+     * Indicates the direction the eyes are gazing in, as defined by pitch and yaw.
+     */
+    private $eyeDirection;
+
+    /**
      * @param array{
      *   BoundingBox?: null|BoundingBox|array,
      *   AgeRange?: null|AgeRange|array,
@@ -127,6 +132,7 @@ final class FaceDetail
      *   Quality?: null|ImageQuality|array,
      *   Confidence?: null|float,
      *   FaceOccluded?: null|FaceOccluded|array,
+     *   EyeDirection?: null|EyeDirection|array,
      * } $input
      */
     public function __construct(array $input)
@@ -147,6 +153,7 @@ final class FaceDetail
         $this->quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
         $this->confidence = $input['Confidence'] ?? null;
         $this->faceOccluded = isset($input['FaceOccluded']) ? FaceOccluded::create($input['FaceOccluded']) : null;
+        $this->eyeDirection = isset($input['EyeDirection']) ? EyeDirection::create($input['EyeDirection']) : null;
     }
 
     public static function create($input): self
@@ -180,6 +187,11 @@ final class FaceDetail
     public function getEmotions(): array
     {
         return $this->emotions ?? [];
+    }
+
+    public function getEyeDirection(): ?EyeDirection
+    {
+        return $this->eyeDirection;
     }
 
     public function getEyeglasses(): ?Eyeglasses
