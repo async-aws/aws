@@ -78,8 +78,8 @@ final class SecretListEntry
     private $deletedDate;
 
     /**
-     * The next date and time that Secrets Manager will attempt to rotate the secret, rounded to the nearest hour. This
-     * value is null if the secret is not set up for rotation.
+     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation, Secrets
+     * Manager returns null.
      */
     private $nextRotationDate;
 
