@@ -35,18 +35,11 @@ final class EngineConfiguration
     private $additionalConfigs;
 
     /**
-     * Specifies custom jar files and Spark properties for use cases like cluster encryption, table formats, and general
-     * Spark tuning.
-     */
-    private $sparkProperties;
-
-    /**
      * @param array{
      *   CoordinatorDpuSize?: null|int,
      *   MaxConcurrentDpus: int,
      *   DefaultExecutorDpuSize?: null|int,
      *   AdditionalConfigs?: null|array<string, string>,
-     *   SparkProperties?: null|array<string, string>,
      * } $input
      */
     public function __construct(array $input)
@@ -55,7 +48,6 @@ final class EngineConfiguration
         $this->maxConcurrentDpus = $input['MaxConcurrentDpus'] ?? null;
         $this->defaultExecutorDpuSize = $input['DefaultExecutorDpuSize'] ?? null;
         $this->additionalConfigs = $input['AdditionalConfigs'] ?? null;
-        $this->sparkProperties = $input['SparkProperties'] ?? null;
     }
 
     public static function create($input): self
@@ -87,14 +79,6 @@ final class EngineConfiguration
     }
 
     /**
-     * @return array<string, string>
-     */
-    public function getSparkProperties(): array
-    {
-        return $this->sparkProperties ?? [];
-    }
-
-    /**
      * @internal
      */
     public function requestBody(): array
@@ -117,16 +101,6 @@ final class EngineConfiguration
                 $payload['AdditionalConfigs'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['AdditionalConfigs'][$name] = $mv;
-                }
-            }
-        }
-        if (null !== $v = $this->sparkProperties) {
-            if (empty($v)) {
-                $payload['SparkProperties'] = new \stdClass();
-            } else {
-                $payload['SparkProperties'] = [];
-                foreach ($v as $name => $mv) {
-                    $payload['SparkProperties'][$name] = $mv;
                 }
             }
         }
