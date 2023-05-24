@@ -7,9 +7,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Amazon Translate does not support translation from the language of the source text into the requested target
- * language. For more information, see Error messages.
+ * language. For more information, see Supported languages.
  *
- * @see https://docs.aws.amazon.com/translate/latest/dg/how-to-error-msg.html
+ * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
  */
 final class UnsupportedLanguagePairException extends ClientException
 {

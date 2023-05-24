@@ -22,16 +22,16 @@ final class TranslateTextRequest extends Input
     private $text;
 
     /**
-     * The name of the terminology list file to be used in the TranslateText request. You can use 1 terminology list at most
-     * in a `TranslateText` request. Terminology lists can contain a maximum of 256 terms.
+     * The name of a terminology list file to add to the translation job. This file provides source terms and the desired
+     * translation for each term. A terminology list can contain a maximum of 256 terms. You can use one custom terminology
+     * resource in your translation request.
      *
      * @var string[]|null
      */
     private $terminologyNames;
 
     /**
-     * The language code for the language of the source text. The language must be a language supported by Amazon Translate.
-     * For a list of language codes, see Supported languages.
+     * The language code for the language of the source text. For a list of language codes, see Supported languages.
      *
      * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
      *
@@ -42,8 +42,10 @@ final class TranslateTextRequest extends Input
     private $sourceLanguageCode;
 
     /**
-     * The language code requested for the language of the target text. The language must be a language supported by Amazon
-     * Translate.
+     * The language code requested for the language of the target text. For a list of language codes, see Supported
+     * languages.
+     *
+     * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
      *
      * @required
      *
