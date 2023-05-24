@@ -31,7 +31,7 @@ class TranslateTextResponse extends Result
     private $appliedTerminologies;
 
     /**
-     * Settings that configure the translation output.
+     * Optional settings that modify the translation output.
      */
     private $appliedSettings;
 
