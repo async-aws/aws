@@ -16,6 +16,7 @@ use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Runner\Runner;
 use PhpCsFixer\ToolInfo;
 use Swaggest\JsonDiff\JsonPatch;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,6 +31,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
+#[AsCommand(name: 'generate', description: 'Create or update API client methods.', aliases: ['update'])]
 class GenerateCommand extends Command
 {
     protected static $defaultName = 'generate';
@@ -69,7 +71,7 @@ class GenerateCommand extends Command
         ]);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var ConsoleOutputInterface $output */
         $io = new SymfonyStyle($input, $output);
