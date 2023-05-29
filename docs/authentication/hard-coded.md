@@ -32,6 +32,7 @@ $client = new AwsClientFactory([
     'roleArn' => 'arn:aws:iam::1234567891011:role/name-of-my-role',
     'roleSessionName' => 'my-session-name', // Optionnal
 ]);
+```
 
 > **Warning**: Hard-coding your credentials can be dangerous because it’s easy to commit your credentials into an SCM
 > repository accidentally
