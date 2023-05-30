@@ -72,6 +72,11 @@ class InputGenerator
      */
     private $generated = [];
 
+    /**
+     * @var RequirementsRegistry
+     */
+    private $requirementsRegistry;
+
     public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?HookGenerator $hookGenerator = null)
     {
         $this->classRegistry = $classRegistry;
@@ -81,6 +86,7 @@ class InputGenerator
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
         $this->hookGenerator = $hookGenerator ?? new HookGenerator();
         $this->serializer = new SerializerProvider($this->namespaceRegistry, $requirementsRegistry);
+        $this->requirementsRegistry = $requirementsRegistry;
     }
 
     /**
@@ -315,7 +321,7 @@ class InputGenerator
                 }
 
                 if ('querystring' === $requestPart && $usesEndpointDiscovery) {
-                    throw new \InvalidArgumentException('Query string is not compatible with endpoint discovery');
+                    $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
                 }
 
                 $memberShape = $member->getShape();
@@ -446,7 +452,7 @@ class InputGenerator
         $uriStringCode = preg_replace('/(^""\.|\.""$|\.""\.)/', '', $uriStringCode);
 
         if ($usesEndpointDiscovery && '"/"' !== $uriStringCode) {
-            throw new \InvalidArgumentException('URI is not compatible with endpoint discovery');
+            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
         }
 
         $body['uri'] .= '$uriString = ' . $uriStringCode . ';';
