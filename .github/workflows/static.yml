@@ -9,7 +9,7 @@ on:
 jobs:
   phpstan:
     name: PHPStan
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up PHP
@@ -19,7 +19,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get composer cache directory
         id: composer-cache
@@ -51,11 +51,11 @@ jobs:
 
   php-cs-fixer:
     name: PHP-CS-Fixer
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache PhpCsFixer
         uses: actions/cache@v3
@@ -71,7 +71,7 @@ jobs:
 
   psalm:
     name: Psalm
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -80,7 +80,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get composer cache directory
         id: composer-cache

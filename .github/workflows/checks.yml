@@ -5,7 +5,7 @@ on: pull_request
 jobs:
   composer-normalize:
     name: Composer Normalize
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up PHP
@@ -16,7 +16,7 @@ jobs:
           tools: composer-normalize
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Normalize
         run: |
@@ -40,7 +40,7 @@ jobs:
 
   output-generated:
     name: Generated output not changed
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up PHP
@@ -50,7 +50,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get composer cache directory
         id: composer-cache
