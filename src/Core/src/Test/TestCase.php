@@ -59,7 +59,7 @@ class TestCase extends PHPUnitTestCase
         $actualUrl = $actual->getUri();
         if ($actual->getQuery()) {
             $actualUrl .= false !== strpos($actual->getUri(), '?') ? '&' : '?';
-            $actualUrl .= http_build_query($actual->getQuery());
+            $actualUrl .= http_build_query($actual->getQuery(), '', '&', \PHP_QUERY_RFC3986);
         }
         self::assertUrlEqualsUrl($url, $actualUrl);
 

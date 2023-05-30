@@ -125,7 +125,7 @@ class Request
     public function getEndpoint(): string
     {
         if (empty($this->endpoint)) {
-            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query) : '');
+            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986) : '');
         }
 
         return $this->endpoint;
