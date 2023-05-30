@@ -303,7 +303,12 @@ abstract class AbstractApi
             }
         }
 
-        return $endpoint;
+        $endpoint .= $uri;
+        if (empty($query)) {
+            return $endpoint;
+        }
+
+        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
     /**
