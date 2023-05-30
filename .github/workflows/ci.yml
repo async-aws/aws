@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Components tests
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -29,7 +29,7 @@ jobs:
           tools: flex
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Initialize tests
         run: make initialize -j 4
@@ -165,7 +165,7 @@ jobs:
 
   root:
     name: Root tests
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -178,7 +178,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Initialize tests
         run: make initialize -j 4
