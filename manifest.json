@@ -410,6 +410,10 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/mediaconvert/2017-08-29/paginators-1.json",
             "api-reference": "https://docs.aws.amazon.com/mediaconvert/latest/apireference",
             "methods": [
+                "CancelJob",
+                "CreateJob",
+                "DescribeEndpoints",
+                "GetJob"
             ]
         },
         "RdsDataService": {
