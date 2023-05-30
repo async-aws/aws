@@ -20,9 +20,9 @@ final class CreateLogGroupRequest extends Input
 
     /**
      * The Amazon Resource Name (ARN) of the KMS key to use when encrypting log data. For more information, see Amazon
-     * Resource Names.
+     * Resource Names [^1].
      *
-     * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms
      *
      * @var string|null
      */
@@ -30,6 +30,15 @@ final class CreateLogGroupRequest extends Input
 
     /**
      * The key-value pairs to use for the tags.
+     *
+     * You can grant users access to certain log groups while preventing them from accessing other log groups. To do so, tag
+     * your groups and use IAM policies that refer to those tags. To assign tags when you create a log group, you must have
+     * either the `logs:TagResource` or `logs:TagLogGroup` permission. For more information about tagging, see Tagging
+     * Amazon Web Services resources [^1]. For more information about using tags to control access, see Controlling access
+     * to Amazon Web Services resources using tags [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html
      *
      * @var array<string, string>|null
      */

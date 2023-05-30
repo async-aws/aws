@@ -7,9 +7,9 @@ use AsyncAws\Scheduler\Enum\LaunchType;
 use AsyncAws\Scheduler\Enum\PropagateTags;
 
 /**
- * The templated target type for the Amazon ECS `RunTask` API operation.
+ * The templated target type for the Amazon ECS `RunTask` [^1] API operation.
  *
- * @see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
+ * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
  */
 final class EcsParameters
 {
@@ -20,9 +20,9 @@ final class EcsParameters
 
     /**
      * Specifies whether to enable Amazon ECS managed tags for the task. For more information, see Tagging Your Amazon ECS
-     * Resources in the *Amazon ECS Developer Guide*.
+     * Resources [^1] in the *Amazon ECS Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html
      */
     private $enableEcsManagedTags;
 
@@ -40,10 +40,10 @@ final class EcsParameters
     /**
      * Specifies the launch type on which your task is running. The launch type that you specify here must match one of the
      * launch type (compatibilities) of the target task. The `FARGATE` value is supported only in the Regions where Fargate
-     * with Amazon ECS is supported. For more information, see AWS Fargate on Amazon ECS in the *Amazon ECS Developer
+     * with Amazon ECS is supported. For more information, see AWS Fargate on Amazon ECS [^1] in the *Amazon ECS Developer
      * Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html
      */
     private $launchType;
 
@@ -72,9 +72,9 @@ final class EcsParameters
     /**
      * Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags are
      * not propagated. Tags can only be propagated to the task during task creation. To add tags to a task after task
-     * creation, use Amazon ECS's `TagResource` API action.
+     * creation, use Amazon ECS's `TagResource` [^1] API action.
      *
-     * @see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html
      */
     private $propagateTags;
 
@@ -85,9 +85,9 @@ final class EcsParameters
 
     /**
      * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an
-     * optional value, both of which you define. For more information, see `RunTask` in the *Amazon ECS API Reference*.
+     * optional value, both of which you define. For more information, see `RunTask` [^1] in the *Amazon ECS API Reference*.
      *
-     * @see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
      */
     private $tags;
 

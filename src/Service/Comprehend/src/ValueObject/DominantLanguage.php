@@ -10,9 +10,9 @@ final class DominantLanguage
 {
     /**
      * The RFC 5646 language code for the dominant language. For more information about RFC 5646, see Tags for Identifying
-     * Languages on the *IETF Tools* web site.
+     * Languages [^1] on the *IETF Tools* web site.
      *
-     * @see https://tools.ietf.org/html/rfc5646
+     * [^1]: https://tools.ietf.org/html/rfc5646
      */
     private $languageCode;
 

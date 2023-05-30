@@ -13,6 +13,8 @@ final class ChangeMessageVisibilityBatchRequest extends Input
     /**
      * The URL of the Amazon SQS queue whose messages' visibility is changed.
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

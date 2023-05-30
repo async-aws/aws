@@ -26,6 +26,10 @@ final class StartQueryExecutionInput extends Input
      * another `StartQueryExecution` request is received, the same response is returned and another query is not created. If
      * a parameter has changed, for example, the `QueryString`, an error is returned.
      *
+     * ! This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK for
+     * ! Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * ! Services CLI, you must provide this token or the action will fail.
+     *
      * @var string|null
      */
     private $clientRequestToken;

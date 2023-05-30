@@ -6,7 +6,8 @@ use AsyncAws\CodeDeploy\Enum\AutoRollbackEvent;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Configuration information for an automatic rollback that is added when a deployment is created.
+ * Information about a configuration for automatically rolling back to a previous version of an application revision
+ * when a deployment is not completed successfully.
  */
 final class AutoRollbackConfiguration
 {

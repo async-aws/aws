@@ -2,9 +2,6 @@
 
 namespace AsyncAws\ElastiCache\Enum;
 
-/**
- * Returns the destination type, either CloudWatch Logs or Kinesis Data Firehose.
- */
 final class DestinationType
 {
     public const CLOUDWATCH_LOGS = 'cloudwatch-logs';

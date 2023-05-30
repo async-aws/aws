@@ -4,7 +4,7 @@ namespace AsyncAws\Iot\ValueObject;
 
 /**
  * The ThingTypeMetadata contains additional information about the thing type including: creation date and time, a value
- * indicating whether the thing type is deprecated, and a date and time when it was deprecated.
+ * indicating whether the thing type is deprecated, and a date and time when time was deprecated.
  */
 final class ThingTypeMetadata
 {

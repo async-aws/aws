@@ -7,6 +7,9 @@ namespace AsyncAws\Rekognition\ValueObject;
  * partially captured or if they are covered by masks, dark sunglasses, cell phones, hands, or other objects.
  * `FaceOccluded` should return "false" with a high confidence score if common occurrences that do not impact face
  * verification are detected, such as eye glasses, lightly tinted sunglasses, strands of hair, and others.
+ *
+ * You can use `FaceOccluded` to determine if an obstruction on a face negatively impacts using the image for face
+ * matching.
  */
 final class FaceOccluded
 {

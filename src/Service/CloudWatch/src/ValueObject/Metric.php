@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudWatch\ValueObject;
 
 /**
- * The metric to return, including the metric name, namespace, and dimensions.
+ * Represents a specific metric.
  */
 final class Metric
 {

@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Scheduler\Enum;
 
-/**
- * Specifies the state of the schedule group.
- */
 final class ScheduleGroupState
 {
     public const ACTIVE = 'ACTIVE';

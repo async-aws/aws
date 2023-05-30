@@ -3,7 +3,7 @@
 namespace AsyncAws\Ses\ValueObject;
 
 /**
- * The body of the message. You can specify an HTML version of the message, a text-only version of the message, or both.
+ * Represents the body of the email message.
  */
 final class Body
 {

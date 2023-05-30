@@ -3,7 +3,7 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
- * Contains information about the table archive.
+ * Contains details of a table archival operation.
  */
 final class ArchivalSummary
 {
@@ -14,6 +14,9 @@ final class ArchivalSummary
 
     /**
      * The reason DynamoDB archived the table. Currently, the only possible value is:.
+     *
+     * - `INACCESSIBLE_ENCRYPTION_CREDENTIALS` - The table was archived due to the table's KMS key being inaccessible for
+     *   more than seven days. An On-Demand backup was created at the archival time.
      */
     private $archivalReason;
 

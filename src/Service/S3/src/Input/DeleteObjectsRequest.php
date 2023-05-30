@@ -15,6 +15,20 @@ final class DeleteObjectsRequest extends Input
     /**
      * The bucket name containing the objects to delete.
      *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
      * @required
      *
      * @var string|null
@@ -64,9 +78,14 @@ final class DeleteObjectsRequest extends Input
      * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
      * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
      * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
-     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     * `400 Bad Request`. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+     *
+     * This checksum algorithm must be the same for all parts and it match the checksum value supplied in the
+     * `CreateMultipartUpload` request.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var ChecksumAlgorithm::*|null
      */

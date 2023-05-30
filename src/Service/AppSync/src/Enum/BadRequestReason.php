@@ -2,6 +2,9 @@
 
 namespace AsyncAws\AppSync\Enum;
 
+/**
+ * Provides context for the cause of the bad request. The only supported value is `CODE_ERROR`.
+ */
 final class BadRequestReason
 {
     public const CODE_ERROR = 'CODE_ERROR';

@@ -11,15 +11,17 @@ final class RollbackTrigger
 {
     /**
      * The Amazon Resource Name (ARN) of the rollback trigger.
+     *
+     * If a specified trigger is missing, the entire stack operation fails and is rolled back.
      */
     private $arn;
 
     /**
-     * The resource type of the rollback trigger. Specify either AWS::CloudWatch::Alarm or AWS::CloudWatch::CompositeAlarm
-     * resource types.
+     * The resource type of the rollback trigger. Specify either AWS::CloudWatch::Alarm [^1] or
+     * AWS::CloudWatch::CompositeAlarm [^2] resource types.
      *
-     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
-     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
+     * [^2]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html
      */
     private $type;
 

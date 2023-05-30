@@ -34,9 +34,19 @@ class HeadObjectOutput extends Result
 
     /**
      * If the object is an archived object (an object whose storage class is GLACIER), the response includes this header if
-     * either the archive restoration is in progress (see RestoreObject or an archive copy is already restored.
+     * either the archive restoration is in progress (see RestoreObject [^1] or an archive copy is already restored.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
+     * If an archive copy is already restored, the header value indicates when Amazon S3 is scheduled to delete the object
+     * copy. For example:
+     *
+     * `x-amz-restore: ongoing-request="false", expiry-date="Fri, 21 Dec 2012 00:00:00 GMT"`
+     *
+     * If the object restoration is in progress, the header returns the value `ongoing-request="true"`.
+     *
+     * For more information about archiving objects, see Transitioning Objects: General Considerations [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-transition-general-considerations
      */
     private $restore;
 
@@ -58,36 +68,36 @@ class HeadObjectOutput extends Result
     /**
      * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
      * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      */
     private $checksumCrc32;
 
     /**
      * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
      * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      */
     private $checksumCrc32C;
 
     /**
      * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
      * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
-     * calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      */
     private $checksumSha1;
 
     /**
      * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
      * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      */
     private $checksumSha256;
 
@@ -182,6 +192,10 @@ class HeadObjectOutput extends Result
     /**
      * Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3
      * Standard storage class objects.
+     *
+     * For more information, see Storage Classes [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      */
     private $storageClass;
 
@@ -190,6 +204,32 @@ class HeadObjectOutput extends Result
     /**
      * Amazon S3 can return this header if your request involves a bucket that is either a source or a destination in a
      * replication rule.
+     *
+     * In replication, you have a source bucket on which you configure replication and destination bucket or buckets where
+     * Amazon S3 stores object replicas. When you request an object (`GetObject`) or object metadata (`HeadObject`) from
+     * these buckets, Amazon S3 will return the `x-amz-replication-status` header in the response as follows:
+     *
+     * - **If requesting an object from the source bucket**, Amazon S3 will return the `x-amz-replication-status` header if
+     *   the object in your request is eligible for replication.
+     *
+     *   For example, suppose that in your replication configuration, you specify object prefix `TaxDocs` requesting Amazon
+     *   S3 to replicate objects with key prefix `TaxDocs`. Any objects you upload with this key name prefix, for example
+     *   `TaxDocs/document1.pdf`, are eligible for replication. For any object request with this key name prefix, Amazon S3
+     *   will return the `x-amz-replication-status` header with value PENDING, COMPLETED or FAILED indicating object
+     *   replication status.
+     * -
+     * - **If requesting an object from a destination bucket**, Amazon S3 will return the `x-amz-replication-status` header
+     *   with value REPLICA if the object in your request is a replica that Amazon S3 created and there is no replica
+     *   modification replication in progress.
+     * -
+     * - **When replicating objects to multiple destination buckets**, the `x-amz-replication-status` header acts
+     *   differently. The header of the source object will only return a value of COMPLETED when replication is successful
+     *   to all destinations. The header will remain at value PENDING until replication has completed for all destinations.
+     *   If one or more destinations fails replication the header will return FAILED.
+     *
+     * For more information, see Replication [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      */
     private $replicationStatus;
 
@@ -201,9 +241,9 @@ class HeadObjectOutput extends Result
 
     /**
      * The Object Lock mode, if any, that's in effect for this object. This header is only returned if the requester has the
-     * `s3:GetObjectRetention` permission. For more information about S3 Object Lock, see Object Lock.
+     * `s3:GetObjectRetention` permission. For more information about S3 Object Lock, see Object Lock [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      */
     private $objectLockMode;
 
@@ -216,9 +256,9 @@ class HeadObjectOutput extends Result
     /**
      * Specifies whether a legal hold is in effect for this object. This header is only returned if the requester has the
      * `s3:GetObjectLegalHold` permission. This header is not returned if the specified version of this object has never had
-     * a legal hold applied. For more information about S3 Object Lock, see Object Lock.
+     * a legal hold applied. For more information about S3 Object Lock, see Object Lock [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      */
     private $objectLockLegalHoldStatus;
 

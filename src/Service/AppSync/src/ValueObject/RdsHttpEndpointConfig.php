@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * Amazon RDS HTTP endpoint settings.
+ * The Amazon Relational Database Service (Amazon RDS) HTTP endpoint configuration.
  */
 final class RdsHttpEndpointConfig
 {

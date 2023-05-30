@@ -3,7 +3,8 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Shows the results of the human in the loop evaluation.
+ * Shows the results of the human in the loop evaluation. If there is no HumanLoopArn, the input did not trigger human
+ * review.
  */
 final class HumanLoopActivationOutput
 {

@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
-/**
- * The destination platform type for the deployment (`Lambda`, `Server`, or `ECS`).
- */
 final class ComputePlatform
 {
     public const ECS = 'ECS';

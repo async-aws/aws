@@ -40,6 +40,8 @@ class ListHostedZonesByNameResponse extends Result
      * If `IsTruncated` is true, the value of `NextDNSName` is the name of the first hosted zone in the next group of
      * `maxitems` hosted zones. Call `ListHostedZonesByName` again and specify the value of `NextDNSName` and
      * `NextHostedZoneId` in the `dnsname` and `hostedzoneid` parameters, respectively.
+     *
+     * This element is present only if `IsTruncated` is `true`.
      */
     private $nextDnsName;
 
@@ -47,6 +49,8 @@ class ListHostedZonesByNameResponse extends Result
      * If `IsTruncated` is `true`, the value of `NextHostedZoneId` identifies the first hosted zone in the next group of
      * `maxitems` hosted zones. Call `ListHostedZonesByName` again and specify the value of `NextDNSName` and
      * `NextHostedZoneId` in the `dnsname` and `hostedzoneid` parameters, respectively.
+     *
+     * This element is present only if `IsTruncated` is `true`.
      */
     private $nextHostedZoneId;
 

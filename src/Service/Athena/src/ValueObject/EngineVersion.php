@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * The engine version that executed the query.
+ * The Athena engine version for running queries, or the PySpark engine version for running sessions.
  */
 final class EngineVersion
 {

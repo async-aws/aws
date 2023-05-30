@@ -16,6 +16,9 @@ class AssumeRoleResponse extends Result
     /**
      * The temporary security credentials, which include an access key ID, a secret access key, and a security (or session)
      * token.
+     *
+     * > The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no
+     * > assumptions about the maximum size.
      */
     private $credentials;
 
@@ -36,6 +39,17 @@ class AssumeRoleResponse extends Result
 
     /**
      * The source identity specified by the principal that is calling the `AssumeRole` operation.
+     *
+     * You can require users to specify a source identity when they assume a role. You do this by using the
+     * `sts:SourceIdentity` condition key in a role trust policy. You can use source identity information in CloudTrail logs
+     * to determine who took actions with a role. You can use the `aws:SourceIdentity` condition key to further control
+     * access to Amazon Web Services resources based on the value of source identity. For more information about using
+     * source identity, see Monitor and control actions taken with assumed roles [^1] in the *IAM User Guide*.
+     *
+     * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
+     * characters with no spaces. You can also include underscores or any of the following characters: =,.@-
+     *
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html
      */
     private $sourceIdentity;
 

@@ -64,11 +64,14 @@ use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 class LambdaClient extends AbstractApi
 {
     /**
-     * Adds permissions to the resource-based policy of a version of an Lambda layer. Use this action to grant layer usage
-     * permission to other accounts. You can grant permission to a single account, all accounts in an organization, or all
-     * Amazon Web Services accounts.
+     * Adds permissions to the resource-based policy of a version of an Lambda layer [^1]. Use this action to grant layer
+     * usage permission to other accounts. You can grant permission to a single account, all accounts in an organization, or
+     * all Amazon Web Services accounts.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     * To revoke permission, call RemoveLayerVersionPermission with the statement ID that you specified when you added it.
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_AddLayerVersionPermission.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#addlayerversionpermission
      *
@@ -112,6 +115,10 @@ class LambdaClient extends AbstractApi
      * Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all
      * versions and aliases are deleted.
      *
+     * To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping. For Amazon Web Services
+     * and resources that invoke your function directly, delete the trigger in the service where you originally configured
+     * it.
+     *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_DeleteFunction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#deletefunction
      *
@@ -145,6 +152,42 @@ class LambdaClient extends AbstractApi
     /**
      * Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. To
      * invoke a function asynchronously, set `InvocationType` to `Event`.
+     *
+     * For synchronous invocation [^1], details about the function response, including errors, are included in the response
+     * body and headers. For either invocation type, you can find more information in the execution log [^2] and trace [^3].
+     *
+     * When an error occurs, your function may be invoked multiple times. Retry behavior varies by error type, client, event
+     * source, and invocation type. For example, if you invoke a function asynchronously and it returns an error, Lambda
+     * executes the function up to two more times. For more information, see Error handling and automatic retries in Lambda
+     * [^4].
+     *
+     * For asynchronous invocation [^5], Lambda adds events to a queue before sending them to your function. If your
+     * function does not have enough capacity to keep up with the queue, events may be lost. Occasionally, your function may
+     * receive the same event multiple times, even if no error occurs. To retain events that were not processed, configure
+     * your function with a dead-letter queue [^6].
+     *
+     * The status code in the API response doesn't reflect function errors. Error codes are reserved for errors that prevent
+     * your function from executing, such as permissions errors, quota [^7] errors, or issues with your function's code and
+     * configuration. For example, Lambda returns `TooManyRequestsException` if running the function would cause you to
+     * exceed a concurrency limit at either the account level (`ConcurrentInvocationLimitExceeded`) or function level
+     * (`ReservedFunctionConcurrentInvocationLimitExceeded`).
+     *
+     * For functions with a long timeout, your client might disconnect during synchronous invocation while it waits for a
+     * response. Configure your HTTP client, SDK, firewall, proxy, or operating system to allow for long connections with
+     * timeout or keep-alive settings.
+     *
+     * This operation requires permission for the lambda:InvokeFunction [^8] action. For details on how to set up
+     * permissions for cross-account invocations, see Granting function access to other accounts [^9].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html
+     * [^3]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
+     * [^4]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html
+     * [^5]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html
+     * [^6]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq
+     * [^7]: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+     * [^8]: https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awslambda.html
+     * [^9]: https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html#permissions-resource-xaccountinvoke
      *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_Invoke.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#invoke
@@ -232,6 +275,13 @@ class LambdaClient extends AbstractApi
      * Returns a list of Lambda functions, with the version-specific configuration of each. Lambda returns up to 50
      * functions per call.
      *
+     * Set `FunctionVersion` to `ALL` to include all published versions of each function in addition to the unpublished
+     * version.
+     *
+     * > The `ListFunctions` operation returns a subset of the FunctionConfiguration fields. To get the additional fields
+     * > (State, StateReasonCode, StateReason, LastUpdateStatus, LastUpdateStatusReason, LastUpdateStatusReasonCode,
+     * > RuntimeVersionConfig) for a function or version, use GetFunction.
+     *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListFunctions.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listfunctions
      *
@@ -261,12 +311,13 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Lists the versions of an Lambda layer. Versions that have been deleted aren't listed. Specify a runtime identifier to
-     * list only versions that indicate that they're compatible with that runtime. Specify a compatible architecture to
-     * include only layer versions that are compatible with that architecture.
+     * Lists the versions of an Lambda layer [^1]. Versions that have been deleted aren't listed. Specify a runtime
+     * identifier [^2] to list only versions that indicate that they're compatible with that runtime. Specify a compatible
+     * architecture to include only layer versions that are compatible with that architecture.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListLayerVersions.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
@@ -299,10 +350,11 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Returns a list of versions, with the version-specific configuration of each. Lambda returns up to 50 versions per
-     * call.
+     * Returns a list of versions [^1], with the version-specific configuration of each. Lambda returns up to 50 versions
+     * per call.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html
+     *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListVersionsByFunction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listversionsbyfunction
      *
@@ -333,10 +385,13 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Creates an Lambda layer from a ZIP archive. Each time you call `PublishLayerVersion` with the same layer name, a new
-     * version is created.
+     * Creates an Lambda layer [^1] from a ZIP archive. Each time you call `PublishLayerVersion` with the same layer name, a
+     * new version is created.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     * Add layers to your function with CreateFunction or UpdateFunctionConfiguration.
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_PublishLayerVersion.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#publishlayerversion
      *

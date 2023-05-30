@@ -12,6 +12,8 @@ final class AuthorizationConfig
 {
     /**
      * The authorization type that the HTTP endpoint requires.
+     *
+     * - **AWS_IAM**: The authorization type is Signature Version 4 (SigV4).
      */
     private $authorizationType;
 

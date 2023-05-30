@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeCommit\ValueObject;
 
 /**
- * The name of the branch.
+ * Returns information about a branch.
  */
 final class BranchInfo
 {

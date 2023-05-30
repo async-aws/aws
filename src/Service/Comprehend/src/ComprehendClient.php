@@ -17,9 +17,10 @@ class ComprehendClient extends AbstractApi
 {
     /**
      * Determines the dominant language of the input text. For a list of languages that Amazon Comprehend can detect, see
-     * Amazon Comprehend Supported Languages.
+     * Amazon Comprehend Supported Languages [^1].
      *
-     * @see https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html
+     * [^1]: https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html
+     *
      * @see https://docs.aws.amazon.com/comprehend/latest/dg/API_DetectDominantLanguage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-comprehend-2017-11-27.html#detectdominantlanguage
      *

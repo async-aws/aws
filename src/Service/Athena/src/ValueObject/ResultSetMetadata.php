@@ -3,7 +3,8 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * The metadata that describes the column structure and data types of a table of query results.
+ * The metadata that describes the column structure and data types of a table of query results. To return a
+ * `ResultSetMetadata` object, use GetQueryResults.
  */
 final class ResultSetMetadata
 {

@@ -3,7 +3,8 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
- * Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
+ * Replica-specific provisioned throughput settings. If not specified, uses the source table's provisioned throughput
+ * settings.
  */
 final class ProvisionedThroughputOverride
 {

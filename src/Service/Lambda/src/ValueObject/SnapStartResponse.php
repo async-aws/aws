@@ -6,10 +6,9 @@ use AsyncAws\Lambda\Enum\SnapStartApplyOn;
 use AsyncAws\Lambda\Enum\SnapStartOptimizationStatus;
 
 /**
- * Set `ApplyOn` to `PublishedVersions` to create a snapshot of the initialized execution environment when you publish a
- * function version. For more information, see Improving startup performance with Lambda SnapStart.
+ * The function's SnapStart [^1] setting.
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
  */
 final class SnapStartResponse
 {
@@ -20,10 +19,10 @@ final class SnapStartResponse
     private $applyOn;
 
     /**
-     * When you provide a qualified Amazon Resource Name (ARN), this response element indicates whether SnapStart is
+     * When you provide a qualified Amazon Resource Name (ARN) [^1], this response element indicates whether SnapStart is
      * activated for the specified function version.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using
      */
     private $optimizationStatus;
 

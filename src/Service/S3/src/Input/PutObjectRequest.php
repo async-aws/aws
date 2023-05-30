@@ -17,9 +17,11 @@ use AsyncAws\S3\Enum\StorageClass;
 final class PutObjectRequest extends Input
 {
     /**
-     * The canned ACL to apply to the object. For more information, see Canned ACL.
+     * The canned ACL to apply to the object. For more information, see Canned ACL [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
+     * This action is not supported by Amazon S3 on Outposts.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
      * @var ObjectCannedACL::*|null
      */
@@ -35,6 +37,20 @@ final class PutObjectRequest extends Input
     /**
      * The bucket name to which the PUT action was initiated.
      *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
      * @required
      *
      * @var string|null
@@ -43,9 +59,9 @@ final class PutObjectRequest extends Input
 
     /**
      * Can be used to specify caching behavior along the request/reply chain. For more information, see
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9 [^1].
      *
-     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+     * [^1]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
      *
      * @var string|null
      */
@@ -53,9 +69,9 @@ final class PutObjectRequest extends Input
 
     /**
      * Specifies presentational information for the object. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc6266#section-4.
+     * https://www.rfc-editor.org/rfc/rfc6266#section-4 [^1].
      *
-     * @see https://www.rfc-editor.org/rfc/rfc6266#section-4
+     * [^1]: https://www.rfc-editor.org/rfc/rfc6266#section-4
      *
      * @var string|null
      */
@@ -64,9 +80,9 @@ final class PutObjectRequest extends Input
     /**
      * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
      * obtain the media-type referenced by the Content-Type header field. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding.
+     * https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding [^1].
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding
+     * [^1]: https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding
      *
      * @var string|null
      */
@@ -81,9 +97,9 @@ final class PutObjectRequest extends Input
 
     /**
      * Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically. For
-     * more information, see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length.
+     * more information, see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length [^1].
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length
+     * [^1]: https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length
      *
      * @var string|null
      */
@@ -93,9 +109,9 @@ final class PutObjectRequest extends Input
      * The base64-encoded 128-bit MD5 digest of the message (without the headers) according to RFC 1864. This header can be
      * used as a message integrity check to verify that the data is the same data that was originally sent. Although it is
      * optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about
-     * REST request authentication, see REST Authentication.
+     * REST request authentication, see REST Authentication [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
      *
      * @var string|null
      */
@@ -103,9 +119,9 @@ final class PutObjectRequest extends Input
 
     /**
      * A standard MIME type describing the format of the contents. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type.
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type [^1].
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type
+     * [^1]: https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type
      *
      * @var string|null
      */
@@ -115,9 +131,11 @@ final class PutObjectRequest extends Input
      * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
      * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
      * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
-     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     * `400 Bad Request`. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var ChecksumAlgorithm::*|null
      */
@@ -126,9 +144,9 @@ final class PutObjectRequest extends Input
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
      * originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information,
-     * see Checking object integrity in the *Amazon S3 User Guide*.
+     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -137,9 +155,9 @@ final class PutObjectRequest extends Input
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
      * originally sent. This header specifies the base64-encoded, 32-bit CRC32C checksum of the object. For more
-     * information, see Checking object integrity in the *Amazon S3 User Guide*.
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -148,9 +166,9 @@ final class PutObjectRequest extends Input
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
      * originally sent. This header specifies the base64-encoded, 160-bit SHA-1 digest of the object. For more information,
-     * see Checking object integrity in the *Amazon S3 User Guide*.
+     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -159,9 +177,9 @@ final class PutObjectRequest extends Input
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
      * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
-     * information, see Checking object integrity in the *Amazon S3 User Guide*.
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -169,9 +187,9 @@ final class PutObjectRequest extends Input
 
     /**
      * The date and time at which the object is no longer cacheable. For more information, see
-     * https://www.rfc-editor.org/rfc/rfc7234#section-5.3.
+     * https://www.rfc-editor.org/rfc/rfc7234#section-5.3 [^1].
      *
-     * @see https://www.rfc-editor.org/rfc/rfc7234#section-5.3
+     * [^1]: https://www.rfc-editor.org/rfc/rfc7234#section-5.3
      *
      * @var \DateTimeImmutable|null
      */
@@ -180,12 +198,16 @@ final class PutObjectRequest extends Input
     /**
      * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
      *
+     * This action is not supported by Amazon S3 on Outposts.
+     *
      * @var string|null
      */
     private $grantFullControl;
 
     /**
      * Allows grantee to read the object data and its metadata.
+     *
+     * This action is not supported by Amazon S3 on Outposts.
      *
      * @var string|null
      */
@@ -194,12 +216,16 @@ final class PutObjectRequest extends Input
     /**
      * Allows grantee to read the object ACL.
      *
+     * This action is not supported by Amazon S3 on Outposts.
+     *
      * @var string|null
      */
     private $grantReadAcp;
 
     /**
      * Allows grantee to write the ACL for the applicable object.
+     *
+     * This action is not supported by Amazon S3 on Outposts.
      *
      * @var string|null
      */
@@ -231,10 +257,10 @@ final class PutObjectRequest extends Input
     /**
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
      * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
-     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
-     * *Amazon S3 User Guide*.
+     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes [^1] in
+     * the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
      * @var StorageClass::*|null
      */
@@ -243,9 +269,22 @@ final class PutObjectRequest extends Input
     /**
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
      * to an external URL. Amazon S3 stores the value of this header in the object metadata. For information about object
-     * metadata, see Object Key and Metadata.
+     * metadata, see Object Key and Metadata [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
+     * In the following example, the request header sets the redirect to an object (anotherPage.html) in the same bucket:
+     *
+     * `x-amz-website-redirect-location: /anotherPage.html`
+     *
+     * In the following example, the request header sets the object redirect to another website:
+     *
+     * `x-amz-website-redirect-location: http://www.example.com/`
+     *
+     * For more information about website hosting in Amazon S3, see Hosting Websites on Amazon S3 [^2] and How to Configure
+     * Website Page Redirects [^3].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html
      *
      * @var string|null
      */
@@ -301,6 +340,8 @@ final class PutObjectRequest extends Input
      * KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with
      * SSE-KMS.
      *
+     * Specifying this header with a PUT action doesn’t affect bucket-level settings for S3 Bucket Key.
+     *
      * @var bool|null
      */
     private $bucketKeyEnabled;
@@ -333,9 +374,9 @@ final class PutObjectRequest extends Input
 
     /**
      * Specifies whether a legal hold will be applied to this object. For more information about S3 Object Lock, see Object
-     * Lock.
+     * Lock [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      *
      * @var ObjectLockLegalHoldStatus::*|null
      */

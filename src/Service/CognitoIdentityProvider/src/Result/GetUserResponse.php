@@ -19,6 +19,8 @@ class GetUserResponse extends Result
 
     /**
      * An array of name-value pairs representing user attributes.
+     *
+     * For custom attributes, you must prepend the `custom:` prefix to the attribute name.
      */
     private $userAttributes;
 

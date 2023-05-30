@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Rekognition\Enum;
 
-/**
- * Type of landmark.
- */
 final class LandmarkType
 {
     public const CHIN_BOTTOM = 'chinBottom';

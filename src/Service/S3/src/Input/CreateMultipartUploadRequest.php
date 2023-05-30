@@ -19,12 +19,28 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * The canned ACL to apply to the object.
      *
+     * This action is not supported by Amazon S3 on Outposts.
+     *
      * @var ObjectCannedACL::*|null
      */
     private $acl;
 
     /**
      * The name of the bucket to which to initiate the upload.
+     *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      *
      * @required
      *
@@ -78,12 +94,16 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
      *
+     * This action is not supported by Amazon S3 on Outposts.
+     *
      * @var string|null
      */
     private $grantFullControl;
 
     /**
      * Allows grantee to read the object data and its metadata.
+     *
+     * This action is not supported by Amazon S3 on Outposts.
      *
      * @var string|null
      */
@@ -92,12 +112,16 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * Allows grantee to read the object ACL.
      *
+     * This action is not supported by Amazon S3 on Outposts.
+     *
      * @var string|null
      */
     private $grantReadAcp;
 
     /**
      * Allows grantee to write the ACL for the applicable object.
+     *
+     * This action is not supported by Amazon S3 on Outposts.
      *
      * @var string|null
      */
@@ -129,10 +153,10 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
      * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
-     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
-     * *Amazon S3 User Guide*.
+     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes [^1] in
+     * the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
      * @var StorageClass::*|null
      */
@@ -174,9 +198,9 @@ final class CreateMultipartUploadRequest extends Input
      * Specifies the ID of the symmetric encryption customer managed key to use for object encryption. All GET and PUT
      * requests for an object protected by Amazon Web Services KMS will fail if not made via SSL or using SigV4. For
      * information about configuring using any of the officially supported Amazon Web Services SDKs and Amazon Web Services
-     * CLI, see Specifying the Signature Version in Request Authentication in the *Amazon S3 User Guide*.
+     * CLI, see Specifying the Signature Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      *
      * @var string|null
      */
@@ -194,6 +218,8 @@ final class CreateMultipartUploadRequest extends Input
      * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
      * KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with
      * SSE-KMS.
+     *
+     * Specifying this header with an object action doesn’t affect bucket-level settings for S3 Bucket Key.
      *
      * @var bool|null
      */
@@ -242,9 +268,9 @@ final class CreateMultipartUploadRequest extends Input
 
     /**
      * Indicates the algorithm you want Amazon S3 to use to create the checksum for the object. For more information, see
-     * Checking object integrity in the *Amazon S3 User Guide*.
+     * Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var ChecksumAlgorithm::*|null
      */

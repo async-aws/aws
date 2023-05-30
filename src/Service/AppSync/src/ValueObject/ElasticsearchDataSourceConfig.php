@@ -5,9 +5,10 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new OpenSearch configuration.
+ * Describes an OpenSearch data source configuration.
+ *
  * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is deprecated.
- * Instead, use UpdateDataSourceRequest$openSearchServiceConfig to update an OpenSearch data source.
+ * For new data sources, use OpenSearchServiceDataSourceConfig to specify an OpenSearch data source.
  */
 final class ElasticsearchDataSourceConfig
 {

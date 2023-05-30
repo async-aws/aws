@@ -6,8 +6,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kinesis\Enum\StreamMode;
 
 /**
- * Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an
- * **on-demand** capacity mode and a **provisioned** capacity mode for your data streams.
+ * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can
+ * choose between an **on-demand** capacity mode and a **provisioned** capacity mode for your data streams.
  */
 final class StreamModeDetails
 {

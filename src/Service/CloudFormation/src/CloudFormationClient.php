@@ -22,9 +22,15 @@ class CloudFormationClient extends AbstractApi
      * stack's actual configuration differs, or has *drifted*, from its expected configuration, as defined in the stack
      * template and any values specified as template parameters. A stack is considered to have drifted if one or more of its
      * resources have drifted. For more information about stack and resource drift, see Detecting Unregulated Configuration
-     * Changes to Stacks and Resources.
+     * Changes to Stacks and Resources [^1].
      *
-     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+     * Use DetectStackDrift to initiate a stack drift detection operation. `DetectStackDrift` returns a
+     * `StackDriftDetectionId` you can use to monitor the progress of the operation using
+     * `DescribeStackDriftDetectionStatus`. Once the drift detection operation has completed, use
+     * DescribeStackResourceDrifts to return drift information about the stack and its resources.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+     *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStackDriftDetectionStatus.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestackdriftdetectionstatus
      *
@@ -44,9 +50,13 @@ class CloudFormationClient extends AbstractApi
 
     /**
      * Returns all stack related events for a specified stack in reverse chronological order. For more information about a
-     * stack's event history, go to Stacks in the CloudFormation User Guide.
+     * stack's event history, go to Stacks [^1] in the CloudFormation User Guide.
      *
-     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html
+     * > You can list events for stacks that have failed to create or have been deleted by specifying the unique stack
+     * > identifier (stack ID).
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html
+     *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStackEvents.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestackevents
      *
@@ -68,6 +78,8 @@ class CloudFormationClient extends AbstractApi
     /**
      * Returns the description for the specified stack; if no stack name was specified, then it returns the description for
      * all the stacks created.
+     *
+     * > If the stack doesn't exist, an `ValidationError` is returned.
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStacks.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestacks

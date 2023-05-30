@@ -2,10 +2,6 @@
 
 namespace AsyncAws\Athena\Enum;
 
-/**
- * The type of data catalog to create: `LAMBDA` for a federated catalog, `HIVE` for an external hive metastore, or
- * `GLUE` for an Glue Data Catalog.
- */
 final class DataCatalogType
 {
     public const GLUE = 'GLUE';

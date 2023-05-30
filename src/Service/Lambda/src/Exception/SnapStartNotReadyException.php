@@ -6,9 +6,9 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lambda is initializing your function. You can invoke the function when the function state becomes `Active`.
+ * Lambda is initializing your function. You can invoke the function when the function state [^1] becomes `Active`.
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html
  */
 final class SnapStartNotReadyException extends ClientException
 {

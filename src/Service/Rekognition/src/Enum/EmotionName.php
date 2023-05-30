@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Rekognition\Enum;
 
-/**
- * Type of emotion detected.
- */
 final class EmotionName
 {
     public const ANGRY = 'ANGRY';

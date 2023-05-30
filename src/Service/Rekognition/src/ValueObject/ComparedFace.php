@@ -3,7 +3,7 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Provides information about the celebrity's face, such as its location on the image.
+ * Provides face metadata for target image faces that are analyzed by `CompareFaces` and `RecognizeCelebrities`.
  */
 final class ComparedFace
 {

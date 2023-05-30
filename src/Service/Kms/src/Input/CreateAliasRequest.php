@@ -12,6 +12,15 @@ final class CreateAliasRequest extends Input
     /**
      * Specifies the alias name. This value must begin with `alias/` followed by a name, such as `alias/ExampleAlias`.
      *
+     * ! Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * ! CloudTrail logs and other output.
+     *
+     * The `AliasName` value must be string of 1-256 characters. It can contain only alphanumeric characters, forward
+     * slashes (/), underscores (_), and dashes (-). The alias name cannot begin with `alias/aws/`. The `alias/aws/` prefix
+     * is reserved for Amazon Web Services managed keys [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk
+     *
      * @required
      *
      * @var string|null
@@ -19,10 +28,26 @@ final class CreateAliasRequest extends Input
     private $aliasName;
 
     /**
-     * Associates the alias with the specified customer managed key. The KMS key must be in the same Amazon Web Services
-     * Region.
+     * Associates the alias with the specified customer managed key [^1]. The KMS key must be in the same Amazon Web
+     * Services Region.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk
+     * A valid key ID is required. If you supply a null or empty string value, this operation returns an error.
+     *
+     * For help finding the key ID and ARN, see Finding the Key ID and ARN [^2] in the **Key Management Service Developer
+     * Guide**.
+     *
+     * Specify the key ID or key ARN of the KMS key.
+     *
+     * For example:
+     *
+     * - Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+     * -
+     * - Key ARN: `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+     *
+     * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn
      *
      * @required
      *

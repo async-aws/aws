@@ -2,9 +2,6 @@
 
 namespace AsyncAws\SecretsManager\Enum;
 
-/**
- * Secrets are listed by `CreatedDate`.
- */
 final class SortOrderType
 {
     public const ASC = 'asc';

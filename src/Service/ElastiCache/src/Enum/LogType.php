@@ -2,11 +2,6 @@
 
 namespace AsyncAws\ElastiCache\Enum;
 
-/**
- * Refers to slow-log or engine-log..
- *
- * @see https://redis.io/commands/slowlog
- */
 final class LogType
 {
     public const ENGINE_LOG = 'engine-log';

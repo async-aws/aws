@@ -2,9 +2,6 @@
 
 namespace AsyncAws\S3\Enum;
 
-/**
- * To retrieve the checksum, this mode must be enabled.
- */
 final class ChecksumMode
 {
     public const ENABLED = 'ENABLED';

@@ -5,7 +5,7 @@ namespace AsyncAws\CodeBuild\ValueObject;
 use AsyncAws\CodeBuild\Enum\BucketOwnerAccess;
 
 /**
- * Information about the output artifacts for the build.
+ * Information about build output artifacts.
  */
 final class BuildArtifacts
 {
@@ -16,11 +16,19 @@ final class BuildArtifacts
 
     /**
      * The SHA-256 hash of the build artifact.
+     *
+     * You can use this hash along with a checksum tool to confirm file integrity and authenticity.
+     *
+     * > This value is available only if the build project's `packaging` value is set to `ZIP`.
      */
     private $sha256sum;
 
     /**
      * The MD5 hash of the build artifact.
+     *
+     * You can use this hash along with a checksum tool to confirm file integrity and authenticity.
+     *
+     * > This value is available only if the build project's `packaging` value is set to `ZIP`.
      */
     private $md5sum;
 

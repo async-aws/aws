@@ -6,12 +6,15 @@ use AsyncAws\AppSync\Enum\RelationalDatabaseSourceType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new relational database configuration.
+ * Describes a relational database data source configuration.
  */
 final class RelationalDatabaseDataSourceConfig
 {
     /**
      * Source type for the relational database.
+     *
+     * - **RDS_HTTP_ENDPOINT**: The relational database source type is an Amazon Relational Database Service (Amazon RDS)
+     *   HTTP endpoint.
      */
     private $relationalDatabaseSourceType;
 

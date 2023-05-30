@@ -14,9 +14,13 @@ final class ResourceRecord
     /**
      * The current or new DNS record value, not to exceed 4,000 characters. In the case of a `DELETE` action, if the current
      * value does not match the actual value, an error is returned. For descriptions about how to format `Value` for
-     * different record types, see Supported DNS Resource Record Types in the *Amazon Route 53 Developer Guide*.
+     * different record types, see Supported DNS Resource Record Types [^1] in the *Amazon Route 53 Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html
+     * You can specify more than one value for all record types except `CNAME` and `SOA`.
+     *
+     * > If you're creating an alias resource record set, omit `Value`.
+     *
+     * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html
      */
     private $value;
 

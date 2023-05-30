@@ -13,6 +13,20 @@ final class ListMultipartUploadsRequest extends Input
     /**
      * The name of the bucket to which the multipart upload was initiated.
      *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
      * @required
      *
      * @var string|null
@@ -21,6 +35,11 @@ final class ListMultipartUploadsRequest extends Input
 
     /**
      * Character you use to group keys.
+     *
+     * All keys that contain the same string between the prefix, if specified, and the first occurrence of the delimiter
+     * after the prefix are grouped under a single result element, `CommonPrefixes`. If you don't specify the prefix
+     * parameter, then the substring starts at the beginning of the key. The keys that are grouped under `CommonPrefixes`
+     * result element are not returned elsewhere in the response.
      *
      * @var string|null
      */
@@ -33,6 +52,12 @@ final class ListMultipartUploadsRequest extends Input
 
     /**
      * Together with upload-id-marker, this parameter specifies the multipart upload after which listing should begin.
+     *
+     * If `upload-id-marker` is not specified, only the keys lexicographically greater than the specified `key-marker` will
+     * be included in the list.
+     *
+     * If `upload-id-marker` is specified, any multipart uploads for a key equal to the `key-marker` might also be included,
+     * provided those multipart uploads have upload IDs lexicographically greater than the specified `upload-id-marker`.
      *
      * @var string|null
      */

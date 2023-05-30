@@ -15,6 +15,22 @@ final class GenerateDataKeyRequest extends Input
      * Specifies the symmetric encryption KMS key that encrypts the data key. You cannot specify an asymmetric KMS key or a
      * KMS key in a custom key store. To get the type and origin of your KMS key, use the DescribeKey operation.
      *
+     * To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix it with
+     * `"alias/"`. To specify a KMS key in a different Amazon Web Services account, you must use the key ARN or alias ARN.
+     *
+     * For example:
+     *
+     * - Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+     * -
+     * - Key ARN: `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+     * -
+     * - Alias name: `alias/ExampleAlias`
+     * -
+     * - Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
+     *
+     * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey. To get the alias name and alias ARN, use
+     * ListAliases.
+     *
      * @required
      *
      * @var string|null
@@ -24,6 +40,19 @@ final class GenerateDataKeyRequest extends Input
     /**
      * Specifies the encryption context that will be used when encrypting the data key.
      *
+     * ! Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * ! CloudTrail logs and other output.
+     *
+     * An *encryption context* is a collection of non-secret key-value pairs that represent additional authenticated data.
+     * When you use an encryption context to encrypt data, you must specify the same (an exact case-sensitive match)
+     * encryption context to decrypt the data. An encryption context is supported only on operations with symmetric
+     * encryption KMS keys. On operations with symmetric encryption KMS keys, an encryption context is optional, but it is
+     * strongly recommended.
+     *
+     * For more information, see Encryption context [^1] in the *Key Management Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
+     *
      * @var array<string, string>|null
      */
     private $encryptionContext;
@@ -31,6 +60,9 @@ final class GenerateDataKeyRequest extends Input
     /**
      * Specifies the length of the data key in bytes. For example, use the value 64 to generate a 512-bit data key (64 bytes
      * is 512 bits). For 128-bit (16-byte) and 256-bit (32-byte) data keys, use the `KeySpec` parameter.
+     *
+     * You must specify either the `KeySpec` or the `NumberOfBytes` parameter (but not both) in every `GenerateDataKey`
+     * request.
      *
      * @var int|null
      */
@@ -40,6 +72,9 @@ final class GenerateDataKeyRequest extends Input
      * Specifies the length of the data key. Use `AES_128` to generate a 128-bit symmetric key, or `AES_256` to generate a
      * 256-bit symmetric key.
      *
+     * You must specify either the `KeySpec` or the `NumberOfBytes` parameter (but not both) in every `GenerateDataKey`
+     * request.
+     *
      * @var DataKeySpec::*|null
      */
     private $keySpec;
@@ -47,15 +82,36 @@ final class GenerateDataKeyRequest extends Input
     /**
      * A list of grant tokens.
      *
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * *eventual consistency*. For more information, see Grant token [^1] and Using a grant token [^2] in the *Key
+     * Management Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token
+     *
      * @var string[]|null
      */
     private $grantTokens;
 
     /**
-     * A signed attestation document from an Amazon Web Services Nitro enclave and the encryption algorithm to use with the
-     * enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
+     * A signed attestation document [^1] from an Amazon Web Services Nitro enclave and the encryption algorithm to use with
+     * the enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
      *
-     * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
+     * This parameter only supports attestation documents for Amazon Web Services Nitro Enclaves. To include this parameter,
+     * use the Amazon Web Services Nitro Enclaves SDK [^2] or any Amazon Web Services SDK.
+     *
+     * When you use this parameter, instead of returning the plaintext data key, KMS encrypts the plaintext data key under
+     * the public key in the attestation document, and returns the resulting ciphertext in the `CiphertextForRecipient`
+     * field in the response. This ciphertext can be decrypted only with the private key in the enclave. The
+     * `CiphertextBlob` field in the response contains a copy of the data key encrypted under the KMS key specified by the
+     * `KeyId` parameter. The `Plaintext` field in the response is null or empty.
+     *
+     * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services
+     * Nitro Enclaves uses KMS [^3] in the *Key Management Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
+     * [^2]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
      *
      * @var RecipientInfo|null
      */

@@ -2,12 +2,6 @@
 
 namespace AsyncAws\AppSync\Enum;
 
-/**
- * Source type for the relational database.
- *
- * - **RDS_HTTP_ENDPOINT**: The relational database source type is an Amazon Relational Database Service (Amazon RDS)
- *   HTTP endpoint.
- */
 final class RelationalDatabaseSourceType
 {
     public const RDS_HTTP_ENDPOINT = 'RDS_HTTP_ENDPOINT';

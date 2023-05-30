@@ -3,9 +3,9 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * Details about the connection between a Lambda function and an Amazon EFS file system.
+ * Details about the connection between a Lambda function and an Amazon EFS file system [^1].
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
  */
 final class FileSystemConfig
 {

@@ -3,13 +3,13 @@
 namespace AsyncAws\Scheduler\ValueObject;
 
 /**
- * The templated target type for the Amazon SQS `SendMessage` API operation. Contains the message group ID to use when
- * the target is a FIFO queue. If you specify an Amazon SQS FIFO queue as a target, the queue must have content-based
- * deduplication enabled. For more information, see Using the Amazon SQS message deduplication ID in the *Amazon SQS
- * Developer Guide*.
+ * The templated target type for the Amazon SQS `SendMessage` [^1] API operation. Contains the message group ID to use
+ * when the target is a FIFO queue. If you specify an Amazon SQS FIFO queue as a target, the queue must have
+ * content-based deduplication enabled. For more information, see Using the Amazon SQS message deduplication ID [^2] in
+ * the *Amazon SQS Developer Guide*.
  *
- * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
- * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html
+ * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
+ * [^2]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html
  */
 final class SqsParameters
 {

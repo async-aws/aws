@@ -2,13 +2,6 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
-/**
- * The file type of the application revision. Must be one of the following:.
- *
- * - `tar`: A tar archive file.
- * - `tgz`: A compressed tar archive file.
- * - `zip`: A zip archive file.
- */
 final class BundleType
 {
     public const JSON = 'JSON';

@@ -5,7 +5,7 @@ namespace AsyncAws\Firehose\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The record.
+ * The unit of data in a delivery stream.
  */
 final class Record
 {

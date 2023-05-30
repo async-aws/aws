@@ -2,9 +2,6 @@
 
 namespace AsyncAws\ElastiCache\Enum;
 
-/**
- * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
- */
 final class TransitEncryptionMode
 {
     public const PREFERRED = 'preferred';

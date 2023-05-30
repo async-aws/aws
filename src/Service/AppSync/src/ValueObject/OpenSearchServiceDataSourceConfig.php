@@ -5,7 +5,7 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new OpenSearch configuration.
+ * Describes an OpenSearch data source configuration.
  */
 final class OpenSearchServiceDataSourceConfig
 {

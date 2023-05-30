@@ -5,7 +5,8 @@ namespace AsyncAws\Kinesis\ValueObject;
 use AsyncAws\Kinesis\Enum\ConsumerStatus;
 
 /**
- * An object that represents the details of the consumer.
+ * An object that represents the details of a registered consumer. This type of object is returned by
+ * DescribeStreamConsumer.
  */
 final class ConsumerDescription
 {
@@ -17,6 +18,10 @@ final class ConsumerDescription
     /**
      * When you register a consumer, Kinesis Data Streams generates an ARN for it. You need this ARN to be able to call
      * SubscribeToShard.
+     *
+     * If you delete a consumer and then create a new one with the same name, it won't have the same ARN. That's because
+     * consumer ARNs contain the creation timestamp. This is important to keep in mind if you have IAM policies that
+     * reference consumer ARNs.
      */
     private $consumerArn;
 

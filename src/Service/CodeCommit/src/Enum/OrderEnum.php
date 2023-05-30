@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeCommit\Enum;
 
-/**
- * The order in which to sort the results of a list repositories operation.
- */
 final class OrderEnum
 {
     public const ASCENDING = 'ascending';

@@ -5,17 +5,21 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The caching configuration for the resolver.
+ * The caching configuration for a resolver that has caching activated.
  */
 final class CachingConfig
 {
     /**
      * The TTL in seconds for a resolver that has caching activated.
+     *
+     * Valid values are 1–3,600 seconds.
      */
     private $ttl;
 
     /**
      * The caching keys for a resolver that has caching activated.
+     *
+     * Valid values are entries from the `$context.arguments`, `$context.source`, and `$context.identity` maps.
      */
     private $cachingKeys;
 

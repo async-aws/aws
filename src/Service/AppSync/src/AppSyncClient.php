@@ -51,6 +51,9 @@ class AppSyncClient extends AbstractApi
     /**
      * Creates a `Resolver` object.
      *
+     * A resolver converts incoming requests into a format that a data source can understand, and converts the data source's
+     * responses into GraphQL.
+     *
      * @see https://docs.aws.amazon.com/appsync/latest/APIReference/API_CreateResolver.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-appsync-2017-07-25.html#createresolver
      *
@@ -159,6 +162,10 @@ class AppSyncClient extends AbstractApi
     /**
      * Lists the API keys for a given API.
      *
+     * > API keys are deleted automatically 60 days after they expire. However, they may still be included in the response
+     * > until they have actually been deleted. You can safely call `DeleteApiKey` to manually delete a key before it's
+     * > automatically deleted.
+     *
      * @see https://docs.aws.amazon.com/appsync/latest/APIReference/API_ListApiKeys.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-appsync-2017-07-25.html#listapikeys
      *
@@ -223,6 +230,8 @@ class AppSyncClient extends AbstractApi
 
     /**
      * Adds a new schema to your GraphQL API.
+     *
+     * This operation is asynchronous. Use to determine when it has completed.
      *
      * @see https://docs.aws.amazon.com/appsync/latest/APIReference/API_StartSchemaCreation.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-appsync-2017-07-25.html#startschemacreation

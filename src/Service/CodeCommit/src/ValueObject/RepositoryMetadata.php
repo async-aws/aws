@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeCommit\ValueObject;
 
 /**
- * Information about the newly created repository.
+ * Information about a repository.
  */
 final class RepositoryMetadata
 {

@@ -2,9 +2,6 @@
 
 namespace AsyncAws\SecretsManager\Enum;
 
-/**
- * The status can be `InProgress`, `Failed`, or `InSync`.
- */
 final class StatusType
 {
     public const FAILED = 'Failed';

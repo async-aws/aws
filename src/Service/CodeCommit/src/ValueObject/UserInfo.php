@@ -3,8 +3,7 @@
 namespace AsyncAws\CodeCommit\ValueObject;
 
 /**
- * Information about the author of the specified commit. Information includes the date in timestamp format with GMT
- * offset, the name of the author, and the email address for the author, as configured in Git.
+ * Information about the user who made a specified commit.
  */
 final class UserInfo
 {

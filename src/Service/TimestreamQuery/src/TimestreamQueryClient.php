@@ -28,10 +28,11 @@ class TimestreamQueryClient extends AbstractApi
     /**
      * Cancels a query that has been issued. Cancellation is provided only if the query has not completed running before the
      * cancellation request was issued. Because cancellation is an idempotent operation, subsequent cancellation requests
-     * will return a `CancellationMessage`, indicating that the query has already been canceled. See code sample for
+     * will return a `CancellationMessage`, indicating that the query has already been canceled. See code sample [^1] for
      * details.
      *
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.cancel-query.html
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.cancel-query.html
+     *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_CancelQuery.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#cancelquery
      *
@@ -64,6 +65,21 @@ class TimestreamQueryClient extends AbstractApi
     /**
      * DescribeEndpoints returns a list of available endpoints to make Timestream API calls against. This API is available
      * through both Write and Query.
+     *
+     * Because the Timestream SDKs are designed to transparently work with the service’s architecture, including the
+     * management and mapping of the service endpoints, *it is not recommended that you use this API unless*:
+     *
+     * - You are using VPC endpoints (Amazon Web Services PrivateLink) with Timestream  [^1]
+     * -
+     * - Your application uses a programming language that does not yet have SDK support
+     * -
+     * - You require better control over the client-side implementation
+     *
+     * For detailed information on how and when to use and implement DescribeEndpoints, see The Endpoint Discovery Pattern
+     * [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/VPCEndpoints
+     * [^2]: https://docs.aws.amazon.com/timestream/latest/developerguide/Using.API.html#Using-API.endpoint-discovery
      *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_DescribeEndpoints.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#describeendpoints
@@ -126,9 +142,26 @@ class TimestreamQueryClient extends AbstractApi
     /**
      * `Query` is a synchronous operation that enables you to run a query against your Amazon Timestream data. `Query` will
      * time out after 60 seconds. You must update the default timeout in the SDK to support a timeout of 60 seconds. See the
-     * code sample for details.
+     * code sample [^1] for details.
      *
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.run-query.html
+     * Your query request will fail in the following cases:
+     *
+     * - If you submit a `Query` request with the same client token outside of the 5-minute idempotency window.
+     * -
+     * - If you submit a `Query` request with the same client token, but change other parameters, within the 5-minute
+     *   idempotency window.
+     * -
+     * - If the size of the row (including the query metadata) exceeds 1 MB, then the query will fail with the following
+     *   error message:
+     *
+     *   `Query aborted as max page response size has been exceeded by the output result row`
+     * -
+     * - If the IAM principal of the query initiator and the result reader are not the same and/or the query initiator and
+     *   the result reader do not have the same query string in the query requests, the query will fail with an `Invalid
+     *   pagination token` error.
+     *
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.run-query.html
+     *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Query.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#query
      *

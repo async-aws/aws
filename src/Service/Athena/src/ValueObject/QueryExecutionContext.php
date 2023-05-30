@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * The database in which the query execution occurred.
+ * The database and data catalog context in which the query execution occurs.
  */
 final class QueryExecutionContext
 {

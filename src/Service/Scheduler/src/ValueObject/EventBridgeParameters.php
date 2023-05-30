@@ -5,9 +5,9 @@ namespace AsyncAws\Scheduler\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The templated target type for the EventBridge `PutEvents` API operation.
+ * The templated target type for the EventBridge `PutEvents` [^1] API operation.
  *
- * @see https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
+ * [^1]: https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
  */
 final class EventBridgeParameters
 {

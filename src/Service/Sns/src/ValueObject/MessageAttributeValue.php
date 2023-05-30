@@ -6,30 +6,31 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The user-specified message attribute value. For string data types, the value attribute has the same restrictions on
- * the content as the message body. For more information, see Publish.
+ * the content as the message body. For more information, see Publish [^1].
+ *
  * Name, type, and value must not be empty or null. In addition, the message body should not be empty or null. All parts
  * of the message attribute, including name, type, and value, are included in the message size restriction, which is
- * currently 256 KB (262,144 bytes). For more information, see Amazon SNS message attributes and Publishing to a mobile
- * phone in the *Amazon SNS Developer Guide.*.
+ * currently 256 KB (262,144 bytes). For more information, see Amazon SNS message attributes [^2] and Publishing to a
+ * mobile phone [^3] in the *Amazon SNS Developer Guide.*
  *
- * @see https://docs.aws.amazon.com/sns/latest/api/API_Publish.html
- * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html
- * @see https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html
+ * [^1]: https://docs.aws.amazon.com/sns/latest/api/API_Publish.html
+ * [^2]: https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html
+ * [^3]: https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html
  */
 final class MessageAttributeValue
 {
     /**
      * Amazon SNS supports the following logical data types: String, String.Array, Number, and Binary. For more information,
-     * see Message Attribute Data Types.
+     * see Message Attribute Data Types [^1].
      *
-     * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes
+     * [^1]: https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes
      */
     private $dataType;
 
     /**
-     * Strings are Unicode with UTF8 binary encoding. For a list of code values, see ASCII Printable Characters.
+     * Strings are Unicode with UTF8 binary encoding. For a list of code values, see ASCII Printable Characters [^1].
      *
-     * @see https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+     * [^1]: https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
      */
     private $stringValue;
 

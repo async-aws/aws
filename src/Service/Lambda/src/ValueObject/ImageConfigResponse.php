@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * The function's image configuration values.
+ * Response to a `GetFunctionConfiguration` request.
  */
 final class ImageConfigResponse
 {

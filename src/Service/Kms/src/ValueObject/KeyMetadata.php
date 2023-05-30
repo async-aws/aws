@@ -14,7 +14,9 @@ use AsyncAws\Kms\Enum\OriginType;
 use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 
 /**
- * Metadata associated with the KMS key.
+ * Contains metadata about a KMS key.
+ *
+ * This data type is used as a response element for the CreateKey, DescribeKey, and ReplicateKey operations.
  */
 final class KeyMetadata
 {
@@ -29,10 +31,10 @@ final class KeyMetadata
     private $keyId;
 
     /**
-     * The Amazon Resource Name (ARN) of the KMS key. For examples, see Key Management Service (KMS) in the Example ARNs
-     * section of the *Amazon Web Services General Reference*.
+     * The Amazon Resource Name (ARN) of the KMS key. For examples, see Key Management Service (KMS) [^1] in the Example
+     * ARNs section of the *Amazon Web Services General Reference*.
      *
-     * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms
      */
     private $arn;
 
@@ -52,20 +54,29 @@ final class KeyMetadata
     private $description;
 
     /**
-     * The cryptographic operations for which you can use the KMS key.
+     * The cryptographic operations [^1] for which you can use the KMS key.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
      */
     private $keyUsage;
 
     /**
      * The current status of the KMS key.
+     *
+     * For more information about how key state affects the use of a KMS key, see Key states of KMS keys [^1] in the *Key
+     * Management Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      */
     private $keyState;
 
     /**
      * The date and time after which KMS deletes this KMS key. This value is present only when the KMS key is scheduled for
      * deletion, that is, when its `KeyState` is `PendingDeletion`.
+     *
+     * When the primary key in a multi-Region key is scheduled for deletion but still has replica keys, its key state is
+     * `PendingReplicaDeletion` and the length of its waiting period is displayed in the `PendingDeletionWindowInDays`
+     * field.
      */
     private $deletionDate;
 
@@ -84,19 +95,19 @@ final class KeyMetadata
     private $origin;
 
     /**
-     * A unique identifier for the custom key store that contains the KMS key. This field is present only when the KMS key
-     * is created in a custom key store.
+     * A unique identifier for the custom key store [^1] that contains the KMS key. This field is present only when the KMS
+     * key is created in a custom key store.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
      */
     private $customKeyStoreId;
 
     /**
      * The cluster ID of the CloudHSM cluster that contains the key material for the KMS key. When you create a KMS key in
-     * an CloudHSM custom key store, KMS creates the key material for the KMS key in the associated CloudHSM cluster. This
-     * field is present only when the KMS key is created in an CloudHSM key store.
+     * an CloudHSM custom key store [^1], KMS creates the key material for the KMS key in the associated CloudHSM cluster.
+     * This field is present only when the KMS key is created in an CloudHSM key store.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
      */
     private $cloudHsmClusterId;
 
@@ -108,15 +119,18 @@ final class KeyMetadata
 
     /**
      * The manager of the KMS key. KMS keys in your Amazon Web Services account are either customer managed or Amazon Web
-     * Services managed. For more information about the difference, see KMS keys in the *Key Management Service Developer
-     * Guide*.
+     * Services managed. For more information about the difference, see KMS keys [^1] in the *Key Management Service
+     * Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys
      */
     private $keyManager;
 
     /**
      * Instead, use the `KeySpec` field.
+     *
+     * The `KeySpec` and `CustomerMasterKeySpec` fields have the same value. We recommend that you use the `KeySpec` field
+     * in your code. However, to avoid breaking changes, KMS supports both fields.
      */
     private $customerMasterKeySpec;
 
@@ -128,24 +142,43 @@ final class KeyMetadata
     /**
      * The encryption algorithms that the KMS key supports. You cannot use the KMS key with other encryption algorithms
      * within KMS.
+     *
+     * This value is present only when the `KeyUsage` of the KMS key is `ENCRYPT_DECRYPT`.
      */
     private $encryptionAlgorithms;
 
     /**
      * The signing algorithms that the KMS key supports. You cannot use the KMS key with other signing algorithms within
      * KMS.
+     *
+     * This field appears only when the `KeyUsage` of the KMS key is `SIGN_VERIFY`.
      */
     private $signingAlgorithms;
 
     /**
      * Indicates whether the KMS key is a multi-Region (`True`) or regional (`False`) key. This value is `True` for
      * multi-Region primary and replica keys and `False` for regional KMS keys.
+     *
+     * For more information about multi-Region keys, see Multi-Region keys in KMS [^1] in the *Key Management Service
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html
      */
     private $multiRegion;
 
     /**
      * Lists the primary and replica keys in same multi-Region key. This field is present only when the value of the
      * `MultiRegion` field is `True`.
+     *
+     * For more information about any listed KMS key, use the DescribeKey operation.
+     *
+     * - `MultiRegionKeyType` indicates whether the KMS key is a `PRIMARY` or `REPLICA` key.
+     * -
+     * - `PrimaryKey` displays the key ARN and Region of the primary key. This field displays the current KMS key if it is
+     *   the primary key.
+     * -
+     * - `ReplicaKeys` displays the key ARNs and Regions of all replica keys. This field includes the current KMS key if it
+     *   is a replica key.
      */
     private $multiRegionConfiguration;
 
@@ -154,16 +187,28 @@ final class KeyMetadata
      * of its replica keys is deleted. This value is present only when the `KeyState` of the KMS key is
      * `PendingReplicaDeletion`. That indicates that the KMS key is the primary key in a multi-Region key, it is scheduled
      * for deletion, and it still has existing replica keys.
+     *
+     * When a single-Region KMS key or a multi-Region replica key is scheduled for deletion, its deletion date is displayed
+     * in the `DeletionDate` field. However, when the primary key in a multi-Region key is scheduled for deletion, its
+     * waiting period doesn't begin until all of its replica keys are deleted. This value displays that waiting period. When
+     * the last replica key in the multi-Region key is deleted, the `KeyState` of the scheduled primary key changes from
+     * `PendingReplicaDeletion` to `PendingDeletion` and the deletion date appears in the `DeletionDate` field.
      */
     private $pendingDeletionWindowInDays;
 
     /**
      * The message authentication code (MAC) algorithm that the HMAC KMS key supports.
+     *
+     * This value is present only when the `KeyUsage` of the KMS key is `GENERATE_VERIFY_MAC`.
      */
     private $macAlgorithms;
 
     /**
      * Information about the external key that is associated with a KMS key in an external key store.
+     *
+     * For more information, see External key [^1] in the *Key Management Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
      */
     private $xksKeyConfiguration;
 

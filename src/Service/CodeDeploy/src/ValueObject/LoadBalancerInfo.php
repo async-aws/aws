@@ -3,19 +3,23 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * Information about the load balancer used in the deployment.
+ * Information about the Elastic Load Balancing load balancer or target group used in a deployment.
  */
 final class LoadBalancerInfo
 {
     /**
      * An array that contains information about the load balancer to use for load balancing in a deployment. In Elastic Load
      * Balancing, load balancers are used with Classic Load Balancers.
+     *
+     * > Adding more than one load balancer to the array is not supported.
      */
     private $elbInfoList;
 
     /**
      * An array that contains information about the target group to use for load balancing in a deployment. In Elastic Load
      * Balancing, target groups are used with Application Load Balancers.
+     *
+     * > Adding more than one target group to the array is not supported.
      */
     private $targetGroupInfoList;
 

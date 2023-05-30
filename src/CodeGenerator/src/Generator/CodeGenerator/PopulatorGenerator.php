@@ -85,7 +85,7 @@ class PopulatorGenerator
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
             $property = $classBuilder->addProperty($propertyName)->setPrivate();
-            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
+            if (null !== $propertyDocumentation = $memberShape->getDocumentationMember()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);

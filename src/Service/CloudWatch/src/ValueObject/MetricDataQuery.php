@@ -7,9 +7,11 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * This structure is used in both `GetMetricData` and `PutMetricAlarm`. The supported use of this structure is different
  * for those two operations.
+ *
  * When used in `GetMetricData`, it indicates the metric data to return, and whether this call is just retrieving a
  * batch set of data for one metric, or is performing a Metrics Insights query or a math expression. A single
  * `GetMetricData` call can include up to 500 `MetricDataQuery` structures.
+ *
  * When used in `PutMetricAlarm`, it enables you to create an alarm based on a metric math expression. Each
  * `MetricDataQuery` in the array specifies either a metric to retrieve, or a math expression to be performed on
  * retrieved metrics. A single `PutMetricAlarm` call can include up to 20 `MetricDataQuery` structures in the array. The
@@ -17,13 +19,15 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * many as 10 structures that contain the `Expression` parameter to perform a math expression. Of those `Expression`
  * structures, one must have `true` as the value for `ReturnData`. The result of this expression is the value the alarm
  * watches.
+ *
  * Any expression used in a `PutMetricAlarm` operation must return a single time series. For more information, see
- * Metric Math Syntax and Functions in the *Amazon CloudWatch User Guide*.
+ * Metric Math Syntax and Functions [^1] in the *Amazon CloudWatch User Guide*.
+ *
  * Some of the parameters of this structure also have different uses whether you are using this structure in a
  * `GetMetricData` operation or a `PutMetricAlarm` operation. These differences are explained in the following parameter
  * list.
  *
- * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax
+ * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax
  */
 final class MetricDataQuery
 {
@@ -38,15 +42,24 @@ final class MetricDataQuery
     /**
      * The metric to be returned, along with statistics, period, and units. Use this parameter only if this object is
      * retrieving a metric and not performing a math expression on returned data.
+     *
+     * Within one MetricDataQuery object, you must specify either `Expression` or `MetricStat` but not both.
      */
     private $metricStat;
 
     /**
      * This field can contain either a Metrics Insights query, or a metric math expression to be performed on the returned
-     * data. For more information about Metrics Insights queries, see Metrics Insights query components and syntax in the
-     * *Amazon CloudWatch User Guide*.
+     * data. For more information about Metrics Insights queries, see Metrics Insights query components and syntax [^1] in
+     * the *Amazon CloudWatch User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage
+     * A math expression can use the `Id` of the other metrics or queries to refer to those metrics, and can also use the
+     * `Id` of other expressions to use the result of those expressions. For more information about metric math expressions,
+     * see Metric Math Syntax and Functions [^2] in the *Amazon CloudWatch User Guide*.
+     *
+     * Within each MetricDataQuery object, you must specify either `Expression` or `MetricStat` but not both.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax
      */
     private $expression;
 
@@ -54,6 +67,11 @@ final class MetricDataQuery
      * A human-readable label for this metric or expression. This is especially useful if this is an expression, so that you
      * know what the value represents. If the metric or expression is shown in a CloudWatch dashboard widget, the label is
      * shown. If Label is omitted, CloudWatch generates a default.
+     *
+     * You can put dynamic expressions into a label, so that it is more descriptive. For more information, see Using Dynamic
+     * Labels [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html
      */
     private $label;
 
@@ -61,6 +79,9 @@ final class MetricDataQuery
      * When used in `GetMetricData`, this option indicates whether to return the timestamps and raw data values of this
      * metric. If you are performing this call just to do math expressions and do not also need the raw data returned, you
      * can specify `false`. If you omit this, the default of `true` is used.
+     *
+     * When used in `PutMetricAlarm`, specify `true` for the one expression result to use as the alarm. For all other
+     * metrics and expressions in the same `PutMetricAlarm` operation, specify `ReturnData` as False.
      */
     private $returnData;
 
@@ -74,6 +95,12 @@ final class MetricDataQuery
 
     /**
      * The ID of the account where the metrics are located.
+     *
+     * If you are performing a `GetMetricData` operation in a monitoring account, use this to specify which account to
+     * retrieve this metric from.
+     *
+     * If you are performing a `PutMetricAlarm` operation, use this to specify which account contains the metric that the
+     * alarm is watching.
      */
     private $accountId;
 

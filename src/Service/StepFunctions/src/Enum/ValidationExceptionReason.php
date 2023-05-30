@@ -2,9 +2,6 @@
 
 namespace AsyncAws\StepFunctions\Enum;
 
-/**
- * The input does not satisfy the constraints specified by an Amazon Web Services service.
- */
 final class ValidationExceptionReason
 {
     public const API_DOES_NOT_SUPPORT_LABELED_ARNS = 'API_DOES_NOT_SUPPORT_LABELED_ARNS';

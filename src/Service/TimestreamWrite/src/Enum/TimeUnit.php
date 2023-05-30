@@ -2,10 +2,6 @@
 
 namespace AsyncAws\TimestreamWrite\Enum;
 
-/**
- * The granularity of the timestamp unit. It indicates if the time value is in seconds, milliseconds, nanoseconds, or
- * other supported values. Default is `MILLISECONDS`.
- */
 final class TimeUnit
 {
     public const MICROSECONDS = 'MICROSECONDS';

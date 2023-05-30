@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Information about the query.
+ * A query, where `QueryString` contains the SQL statements that make up the query.
  */
 final class NamedQuery
 {

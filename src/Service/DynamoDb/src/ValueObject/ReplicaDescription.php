@@ -16,6 +16,24 @@ final class ReplicaDescription
 
     /**
      * The current state of the replica:.
+     *
+     * - `CREATING` - The replica is being created.
+     * -
+     * - `UPDATING` - The replica is being updated.
+     * -
+     * - `DELETING` - The replica is being deleted.
+     * -
+     * - `ACTIVE` - The replica is ready for use.
+     * -
+     * - `REGION_DISABLED` - The replica is inaccessible because the Amazon Web Services Region has been disabled.
+     *
+     *   > If the Amazon Web Services Region remains inaccessible for more than 20 hours, DynamoDB will remove this replica
+     *   > from the replication group. The replica will not be deleted and replication will stop from and to this region.
+     *
+     * - `INACCESSIBLE_ENCRYPTION_CREDENTIALS ` - The KMS key used to encrypt the table is inaccessible.
+     *
+     *   > If the KMS key remains inaccessible for more than 20 hours, DynamoDB will remove this replica from the
+     *   > replication group. The replica will not be deleted and replication will stop from and to this region.
      */
     private $replicaStatus;
 

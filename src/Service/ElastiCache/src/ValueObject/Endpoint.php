@@ -3,9 +3,7 @@
 namespace AsyncAws\ElastiCache\ValueObject;
 
 /**
- * Represents a Memcached cluster endpoint which can be used by an application to connect to any node in the cluster.
- * The configuration endpoint will always have `.cfg` in it.
- * Example: `mem-3.9dvc4r.cfg.usw2.cache.amazonaws.com:11211`.
+ * Represents the information required for client programs to connect to a cache node.
  */
 final class Endpoint
 {

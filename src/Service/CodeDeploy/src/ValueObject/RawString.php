@@ -3,7 +3,8 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * Information about the location of an Lambda deployment revision stored as a RawString.
+ * A revision for an Lambda deployment that is a YAML-formatted or JSON-formatted string. For Lambda deployments, the
+ * revision is the same as the AppSpec file.
  */
 final class RawString
 {

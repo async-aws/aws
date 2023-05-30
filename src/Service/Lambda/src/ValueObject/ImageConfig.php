@@ -3,7 +3,10 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * Configuration values that override the container image Dockerfile.
+ * Configuration values that override the container image Dockerfile settings. For more information, see Container image
+ * settings [^1].
+ *
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms
  */
 final class ImageConfig
 {

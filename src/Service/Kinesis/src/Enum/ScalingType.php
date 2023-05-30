@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Kinesis\Enum;
 
-/**
- * The scaling type. Uniform scaling creates shards of equal size.
- */
 final class ScalingType
 {
     public const UNIFORM_SCALING = 'UNIFORM_SCALING';

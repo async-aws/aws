@@ -6,9 +6,9 @@ use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 
 /**
- * Details about a version of an Lambda layer.
+ * Details about a version of an Lambda layer [^1].
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
  */
 final class LayerVersionsListItem
 {
@@ -34,6 +34,10 @@ final class LayerVersionsListItem
 
     /**
      * The layer's compatible runtimes.
+     *
+     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
      */
     private $compatibleRuntimes;
 
@@ -43,9 +47,9 @@ final class LayerVersionsListItem
     private $licenseInfo;
 
     /**
-     * A list of compatible instruction set architectures.
+     * A list of compatible instruction set architectures [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      */
     private $compatibleArchitectures;
 

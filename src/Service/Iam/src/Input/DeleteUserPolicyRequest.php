@@ -12,6 +12,11 @@ final class DeleteUserPolicyRequest extends Input
     /**
      * The name (friendly name, not ARN) identifying the user that the policy is embedded in.
      *
+     * This parameter allows (through its regex pattern [^1]) a string of characters consisting of upper and lowercase
+     * alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+     *
+     * [^1]: http://wikipedia.org/wiki/regex
+     *
      * @required
      *
      * @var string|null
@@ -20,6 +25,11 @@ final class DeleteUserPolicyRequest extends Input
 
     /**
      * The name identifying the policy document to delete.
+     *
+     * This parameter allows (through its regex pattern [^1]) a string of characters consisting of upper and lowercase
+     * alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+     *
+     * [^1]: http://wikipedia.org/wiki/regex
      *
      * @required
      *

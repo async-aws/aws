@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeBuild\ValueObject;
 
 /**
- * Information about the build's logs in CloudWatch Logs.
+ * Information about build logs in CloudWatch Logs.
  */
 final class LogsLocation
 {
@@ -30,17 +30,17 @@ final class LogsLocation
     /**
      * The ARN of CloudWatch Logs for a build project. Its format is
      * `arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}`. For more
-     * information, see Resources Defined by CloudWatch Logs.
+     * information, see Resources Defined by CloudWatch Logs [^1].
      *
-     * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies
      */
     private $cloudWatchLogsArn;
 
     /**
      * The ARN of S3 logs for a build project. Its format is `arn:${Partition}:s3:::${BucketName}/${ObjectName}`. For more
-     * information, see Resources Defined by Amazon S3.
+     * information, see Resources Defined by Amazon S3 [^1].
      *
-     * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies
      */
     private $s3LogsArn;
 

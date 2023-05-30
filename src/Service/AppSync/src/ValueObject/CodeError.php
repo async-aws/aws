@@ -9,11 +9,15 @@ final class CodeError
 {
     /**
      * The type of code error.
+     *
+     * Examples include, but aren't limited to: `LINT_ERROR`, `PARSER_ERROR`.
      */
     private $errorType;
 
     /**
      * A user presentable error.
+     *
+     * Examples include, but aren't limited to: `Parsing error: Unterminated string literal`.
      */
     private $value;
 

@@ -3,7 +3,9 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * Details about the layer version.
+ * Details about a version of an Lambda layer [^1].
+ *
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
  */
 final class LayerVersionContentOutput
 {

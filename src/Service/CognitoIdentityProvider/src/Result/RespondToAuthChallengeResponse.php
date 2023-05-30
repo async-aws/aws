@@ -14,9 +14,9 @@ use AsyncAws\Core\Result;
 class RespondToAuthChallengeResponse extends Result
 {
     /**
-     * The challenge name. For more information, see InitiateAuth.
+     * The challenge name. For more information, see InitiateAuth [^1].
      *
-     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
     private $challengeName;
 
@@ -28,9 +28,9 @@ class RespondToAuthChallengeResponse extends Result
     private $session;
 
     /**
-     * The challenge parameters. For more information, see InitiateAuth.
+     * The challenge parameters. For more information, see InitiateAuth [^1].
      *
-     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
     private $challengeParameters;
 

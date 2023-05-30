@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ReturnValuesOnConditionCheckFailure;
 
 /**
- * A request to perform an `UpdateItem` operation.
+ * Represents a request to perform an `UpdateItem` operation.
  */
 final class Update
 {

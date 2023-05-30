@@ -2,9 +2,6 @@
 
 namespace AsyncAws\AppSync\Enum;
 
-/**
- * The new data source type.
- */
 final class DataSourceType
 {
     public const AMAZON_DYNAMODB = 'AMAZON_DYNAMODB';

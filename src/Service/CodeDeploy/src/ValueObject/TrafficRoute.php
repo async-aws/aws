@@ -3,7 +3,8 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * The path used by a load balancer to route production traffic when an Amazon ECS deployment is complete.
+ * Information about a listener. The listener contains the path used to route traffic that is received from the load
+ * balancer to a target group.
  */
 final class TrafficRoute
 {

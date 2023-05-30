@@ -3,7 +3,16 @@
 namespace AsyncAws\Ses\ValueObject;
 
 /**
- * An object that contains the recipients of the email message.
+ * An object that describes the recipients for an email.
+ *
+ * > Amazon SES does not support the SMTPUTF8 extension, as described in RFC6531 [^1]. For this reason, the *local part*
+ * > of a destination email address (the part of the email address that precedes the @ sign) may only contain 7-bit
+ * > ASCII characters [^2]. If the *domain part* of an address (the part after the @ sign) contains non-ASCII
+ * > characters, they must be encoded using Punycode, as described in RFC3492 [^3].
+ *
+ * [^1]: https://tools.ietf.org/html/rfc6531
+ * [^2]: https://en.wikipedia.org/wiki/Email_address#Local-part
+ * [^3]: https://tools.ietf.org/html/rfc3492.html
  */
 final class Destination
 {

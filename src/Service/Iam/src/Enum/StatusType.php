@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Iam\Enum;
 
-/**
- * The status of the access key. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
- */
 final class StatusType
 {
     public const ACTIVE = 'Active';

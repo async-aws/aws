@@ -62,9 +62,14 @@ class Shape
         return $this->name;
     }
 
-    public function getDocumentation(): ?string
+    public function getDocumentationMain(): ?string
     {
-        return $this->data['_documentation'] ?? null;
+        return $this->data['_documentation_main'] ?? null;
+    }
+
+    public function getDocumentationMember(): ?string
+    {
+        return $this->data['_documentation_member'] ?? null;
     }
 
     public function getType(): string

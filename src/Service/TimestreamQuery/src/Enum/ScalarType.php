@@ -2,9 +2,6 @@
 
 namespace AsyncAws\TimestreamQuery\Enum;
 
-/**
- * Indicates if the column is of type string, integer, Boolean, double, timestamp, date, time.
- */
 final class ScalarType
 {
     public const BIGINT = 'BIGINT';

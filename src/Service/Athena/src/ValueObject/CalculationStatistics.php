@@ -3,8 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Contains information about the data processing unit (DPU) execution time and progress. This field is populated only
- * when statistics are available.
+ * Contains statistics for a notebook calculation.
  */
 final class CalculationStatistics
 {

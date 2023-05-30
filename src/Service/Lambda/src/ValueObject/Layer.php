@@ -3,9 +3,9 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * An Lambda layer.
+ * An Lambda layer [^1].
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
  */
 final class Layer
 {

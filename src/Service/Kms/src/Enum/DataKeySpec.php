@@ -2,12 +2,6 @@
 
 namespace AsyncAws\Kms\Enum;
 
-/**
- * Specifies the length of the data key. Use `AES_128` to generate a 128-bit symmetric key, or `AES_256` to generate a
- * 256-bit symmetric key.
- * You must specify either the `KeySpec` or the `NumberOfBytes` parameter (but not both) in every `GenerateDataKey`
- * request.
- */
 final class DataKeySpec
 {
     public const AES_128 = 'AES_128';

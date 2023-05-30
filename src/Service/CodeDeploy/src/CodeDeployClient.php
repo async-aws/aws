@@ -142,6 +142,10 @@ class CodeDeployClient extends AbstractApi
     /**
      * Gets information about a deployment.
      *
+     * > The `content` property of the `appSpecContent` object in the returned revision is always null. Use
+     * > `GetApplicationRevision` and the `sha256` property of the returned `appSpecContent` object to get the content of
+     * > the deployment’s AppSpec file.
+     *
      * @see https://docs.aws.amazon.com/codedeploy/latest/APIReference/API_GetDeployment.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codedeploy-2014-10-06.html#getdeployment
      *
@@ -173,10 +177,11 @@ class CodeDeployClient extends AbstractApi
      * `BeforeAllowTraffic` and `AfterAllowTraffic`. For Amazon ECS deployments, the available lifecycle hooks are
      * `BeforeInstall`, `AfterInstall`, `AfterAllowTestTraffic`, `BeforeAllowTraffic`, and `AfterAllowTraffic`. Lambda
      * validation functions return `Succeeded` or `Failed`. For more information, see AppSpec 'hooks' Section for an Lambda
-     * Deployment  and AppSpec 'hooks' Section for an Amazon ECS Deployment.
+     * Deployment  [^1] and AppSpec 'hooks' Section for an Amazon ECS Deployment [^2].
      *
-     * @see https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-lambda
-     * @see https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-ecs
+     * [^1]: https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-lambda
+     * [^2]: https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-ecs
+     *
      * @see https://docs.aws.amazon.com/codedeploy/latest/APIReference/API_PutLifecycleEventHookExecutionStatus.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codedeploy-2014-10-06.html#putlifecycleeventhookexecutionstatus
      *

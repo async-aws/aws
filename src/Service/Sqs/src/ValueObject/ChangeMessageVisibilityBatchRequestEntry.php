@@ -11,6 +11,11 @@ final class ChangeMessageVisibilityBatchRequestEntry
 {
     /**
      * An identifier for this particular receipt handle used to communicate the result.
+     *
+     * > The `Id`s of a batch request need to be unique within a request.
+     * >
+     * > This identifier can have up to 80 characters. The following characters are accepted: alphanumeric characters,
+     * > hyphens(-), and underscores (_).
      */
     private $id;
 

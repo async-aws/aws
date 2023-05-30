@@ -76,8 +76,8 @@ class ResultGenerator
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getResult($shape);
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
-        if (null !== $documentation = $shape->getDocumentation()) {
-            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        if (null !== $documentation = $shape->getDocumentationMain()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
         $classBuilder->addUse(Result::class);

@@ -3,8 +3,11 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * The estimated age range, in years, for the face. Low represents the lowest estimated age and High represents the
- * highest estimated age.
+ * Structure containing the estimated age range, in years, for a face.
+ *
+ * Amazon Rekognition estimates an age range for faces detected in the input image. Estimated age ranges can overlap. A
+ * face of a 5-year-old might have an estimated range of 4-6, while the face of a 6-year-old might have an estimated
+ * range of 4-8.
  */
 final class AgeRange
 {

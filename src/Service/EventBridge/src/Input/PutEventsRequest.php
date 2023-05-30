@@ -24,6 +24,8 @@ final class PutEventsRequest extends Input
      * The URL subdomain of the endpoint. For example, if the URL for Endpoint is
      * https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is `abcde.veo`.
      *
+     * ! When using Java, you must include `auth-crt` on the class path.
+     *
      * @var string|null
      */
     private $endpointId;

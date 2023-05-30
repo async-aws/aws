@@ -38,6 +38,8 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
      * If `IsTruncated` is `true`, the value of `NextMarker` identifies the first hosted zone in the next group of hosted
      * zones. Submit another `ListHostedZones` request, and specify the value of `NextMarker` from the response in the
      * `marker` parameter.
+     *
+     * This element is present only if `IsTruncated` is `true`.
      */
     private $nextMarker;
 

@@ -75,6 +75,9 @@ final class UpdateDataSourceRequest extends Input
     /**
      * The new OpenSearch configuration.
      *
+     * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is deprecated.
+     * Instead, use UpdateDataSourceRequest$openSearchServiceConfig to update an OpenSearch data source.
+     *
      * @var ElasticsearchDataSourceConfig|null
      */
     private $elasticsearchConfig;

@@ -10,6 +10,8 @@ final class GitHubLocation
     /**
      * The GitHub account and repository pair that stores a reference to the commit that represents the bundled artifacts
      * for the application revision.
+     *
+     * Specified as account/repository.
      */
     private $repository;
 

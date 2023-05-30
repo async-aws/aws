@@ -13,6 +13,20 @@ final class ListPartsRequest extends Input
     /**
      * The name of the bucket to which the parts are being uploaded.
      *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
      * @required
      *
      * @var string|null
@@ -66,10 +80,10 @@ final class ListPartsRequest extends Input
 
     /**
      * The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is needed only when the object
-     * was created using a checksum algorithm. For more information, see Protecting data using SSE-C keys in the *Amazon S3
-     * User Guide*.
+     * was created using a checksum algorithm. For more information, see Protecting data using SSE-C keys [^1] in the
+     * *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
      *
      * @var string|null
      */
@@ -77,9 +91,10 @@ final class ListPartsRequest extends Input
 
     /**
      * The server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created
-     * using a checksum algorithm. For more information, see Protecting data using SSE-C keys in the *Amazon S3 User Guide*.
+     * using a checksum algorithm. For more information, see Protecting data using SSE-C keys [^1] in the *Amazon S3 User
+     * Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
      *
      * @var string|null
      */
@@ -87,9 +102,10 @@ final class ListPartsRequest extends Input
 
     /**
      * The MD5 server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created
-     * using a checksum algorithm. For more information, see Protecting data using SSE-C keys in the *Amazon S3 User Guide*.
+     * using a checksum algorithm. For more information, see Protecting data using SSE-C keys [^1] in the *Amazon S3 User
+     * Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
      *
      * @var string|null
      */

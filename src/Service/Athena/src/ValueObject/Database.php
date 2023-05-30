@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * The database returned.
+ * Contains metadata information for a database in a data catalog.
  */
 final class Database
 {

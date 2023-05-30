@@ -103,6 +103,8 @@ class SsmClient extends AbstractApi
     /**
      * Get information about a single parameter by specifying the parameter name.
      *
+     * > To get information about more than one parameter at a time, use the GetParameters operation.
+     *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameter
      *
@@ -134,6 +136,8 @@ class SsmClient extends AbstractApi
     /**
      * Get information about one or more parameters by specifying multiple parameter names.
      *
+     * > To get information about a single parameter, you can use the GetParameter operation instead.
+     *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameters
      *
@@ -160,6 +164,12 @@ class SsmClient extends AbstractApi
 
     /**
      * Retrieve information about one or more parameters in a specific hierarchy.
+     *
+     * Request results are returned on a best-effort basis. If you specify `MaxResults` in the request, the response
+     * includes information up to the limit specified. The number of items returned, however, can be between zero and the
+     * value of `MaxResults`. If the service reaches an internal limit while processing the results, it stops the operation
+     * and returns the matching values up to that point and a `NextToken`. You can specify the `NextToken` in a subsequent
+     * call to get the next set of results.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparametersbypath

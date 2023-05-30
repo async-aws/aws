@@ -5,7 +5,7 @@ namespace AsyncAws\CodeBuild\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Information about the Git submodules configuration for the build project.
+ * Information about the Git submodules configuration for an CodeBuild build project.
  */
 final class GitSubmodulesConfig
 {

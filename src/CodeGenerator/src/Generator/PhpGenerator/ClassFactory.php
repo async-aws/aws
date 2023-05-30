@@ -36,7 +36,7 @@ class ClassFactory
                 break;
             }
 
-            if (preg_match('#use ([^;]+)( as [^;]+)?;#i', $row, $match)) {
+            if (preg_match('#^use ([^;]+)( as [^;]+)?;#im', $row, $match)) {
                 $namespace->addUse($match[1], $match[2] ?? null);
             }
         }

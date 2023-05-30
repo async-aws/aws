@@ -3,8 +3,8 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Query execution statistics, such as the amount of data scanned, the amount of time that the query took to process,
- * and the type of statement that was run.
+ * The amount of data scanned during the query execution and the amount of time that it took to execute, and the type of
+ * statement that was run.
  */
 final class QueryExecutionStatistics
 {
@@ -22,10 +22,10 @@ final class QueryExecutionStatistics
      * The location and file name of a data manifest file. The manifest file is saved to the Athena query results location
      * in Amazon S3. The manifest file tracks files that the query wrote to Amazon S3. If the query fails, the manifest file
      * also tracks files that the query intended to write. The manifest is useful for identifying orphaned files resulting
-     * from a failed query. For more information, see Working with Query Results, Output Files, and Query History in the
-     * *Amazon Athena User Guide*.
+     * from a failed query. For more information, see Working with Query Results, Output Files, and Query History [^1] in
+     * the *Amazon Athena User Guide*.
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
      */
     private $dataManifestLocation;
 

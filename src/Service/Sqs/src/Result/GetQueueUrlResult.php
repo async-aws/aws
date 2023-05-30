@@ -6,9 +6,9 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
- * For more information, see Interpreting Responses in the *Amazon SQS Developer Guide*.
+ * For more information, see Interpreting Responses [^1] in the *Amazon SQS Developer Guide*.
  *
- * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-api-responses.html
+ * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-api-responses.html
  */
 class GetQueueUrlResult extends Result
 {

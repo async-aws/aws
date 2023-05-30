@@ -5,8 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that
- * index.
+ * Represents the new provisioned throughput settings to be applied to a global secondary index.
  */
 final class UpdateGlobalSecondaryIndexAction
 {
@@ -17,6 +16,11 @@ final class UpdateGlobalSecondaryIndexAction
 
     /**
      * Represents the provisioned throughput settings for the specified global secondary index.
+     *
+     * For current minimum and maximum provisioned throughput values, see Service, Account, and Table Quotas [^1] in the
+     * *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
      */
     private $provisionedThroughput;
 

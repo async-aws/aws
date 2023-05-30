@@ -49,6 +49,10 @@ class IotClient extends AbstractApi
     /**
      * Adds a thing to a thing group.
      *
+     * Requires permission to access the AddThingToThingGroup [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#addthingtothinggroup
      *
@@ -84,6 +88,13 @@ class IotClient extends AbstractApi
      * Creates a thing record in the registry. If this call is made multiple times using the same thing name and
      * configuration, the call will succeed. If this call is made with the same thing name but different configuration a
      * `ResourceAlreadyExistsException` is thrown.
+     *
+     * > This is a control plane operation. See Authorization [^1] for information about authorizing control plane actions.
+     *
+     * Requires permission to access the CreateThing [^2] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html
+     * [^2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
      *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#creatething
@@ -124,6 +135,13 @@ class IotClient extends AbstractApi
     /**
      * Create a thing group.
      *
+     * > This is a control plane operation. See Authorization [^1] for information about authorizing control plane actions.
+     *
+     * Requires permission to access the CreateThingGroup [^2] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html
+     * [^2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#createthinggroup
      *
@@ -156,6 +174,10 @@ class IotClient extends AbstractApi
 
     /**
      * Creates a new thing type.
+     *
+     * Requires permission to access the CreateThingType [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
      *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingType.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#createthingtype
@@ -194,6 +216,10 @@ class IotClient extends AbstractApi
      * Deletes the specified thing. Returns successfully with no error if the deletion is successful or you specify a thing
      * that doesn't exist.
      *
+     * Requires permission to access the DeleteThing [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThing.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#deletething
      *
@@ -231,6 +257,10 @@ class IotClient extends AbstractApi
     /**
      * Deletes a thing group.
      *
+     * Requires permission to access the DeleteThingGroup [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#deletethinggroup
      *
@@ -264,6 +294,10 @@ class IotClient extends AbstractApi
      * thing type, first mark it as deprecated by calling DeprecateThingType, then remove any associated things by calling
      * UpdateThing to change the thing type on any associated thing, and finally use DeleteThingType to delete the thing
      * type.
+     *
+     * Requires permission to access the DeleteThingType [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
      *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingType.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#deletethingtype
@@ -299,6 +333,10 @@ class IotClient extends AbstractApi
     /**
      * List the thing groups in your account.
      *
+     * Requires permission to access the ListThingGroups [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingGroups.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthinggroups
      *
@@ -333,6 +371,10 @@ class IotClient extends AbstractApi
     /**
      * List the thing groups to which the specified thing belongs.
      *
+     * Requires permission to access the ListThingGroupsForThing [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingGroupsForThing.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthinggroupsforthing
      *
@@ -364,6 +406,10 @@ class IotClient extends AbstractApi
 
     /**
      * Lists the existing thing types.
+     *
+     * Requires permission to access the ListThingTypes [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
      *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingTypes.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthingtypes
@@ -399,10 +445,17 @@ class IotClient extends AbstractApi
     /**
      * Lists your things. Use the **attributeName** and **attributeValue** parameters to filter your things. For example,
      * calling `ListThings` with attributeName=Color and attributeValue=Red retrieves all things in the registry that
-     * contain an attribute **Color** with the value **Red**. For more information, see List Things from the *Amazon Web
-     * Services IoT Core Developer Guide*.
+     * contain an attribute **Color** with the value **Red**. For more information, see List Things [^1] from the *Amazon
+     * Web Services IoT Core Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html#list-things
+     * Requires permission to access the ListThings [^2] action.
+     *
+     * > You will not be charged for calling this API if an `Access denied` error is returned. You will also not be charged
+     * > if no attributes or pagination token was provided in request and no pagination token and no results were returned.
+     *
+     * [^1]: https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html#list-things
+     * [^2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThings.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthings
      *
@@ -439,6 +492,10 @@ class IotClient extends AbstractApi
 
     /**
      * Lists the things in the specified group.
+     *
+     * Requires permission to access the ListThingsInThingGroup [^1] action.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
      *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingsInThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthingsinthinggroup

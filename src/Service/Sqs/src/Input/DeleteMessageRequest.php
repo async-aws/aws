@@ -12,6 +12,8 @@ final class DeleteMessageRequest extends Input
     /**
      * The URL of the Amazon SQS queue from which messages are deleted.
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

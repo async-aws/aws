@@ -3,9 +3,7 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The result of the authentication response. This is only returned if the caller doesn't need to pass another
- * challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`,
- * `ChallengeParameters`, and `Session` are returned.
+ * The authentication result.
  */
 final class AuthenticationResultType
 {

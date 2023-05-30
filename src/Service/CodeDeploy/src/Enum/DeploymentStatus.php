@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
-/**
- * The current state of the deployment as a whole.
- */
 final class DeploymentStatus
 {
     public const BAKING = 'Baking';

@@ -5,15 +5,15 @@ namespace AsyncAws\Ses\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The simple email message. The message consists of a subject and a message body.
+ * Represents the email message that you're sending. The `Message` object consists of a subject line and a message body.
  */
 final class Message
 {
     /**
      * The subject line of the email. The subject line can only contain 7-bit ASCII characters. However, you can specify
-     * non-ASCII characters in the subject line by using encoded-word syntax, as described in RFC 2047.
+     * non-ASCII characters in the subject line by using encoded-word syntax, as described in RFC 2047 [^1].
      *
-     * @see https://tools.ietf.org/html/rfc2047
+     * [^1]: https://tools.ietf.org/html/rfc2047
      */
     private $subject;
 

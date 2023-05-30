@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * An object that contains table metadata.
+ * Contains metadata for a table.
  */
 final class TableMetadata
 {

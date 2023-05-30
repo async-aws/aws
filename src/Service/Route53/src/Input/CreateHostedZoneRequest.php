@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Route53\Enum\VPCRegion;
 use AsyncAws\Route53\ValueObject\HostedZoneConfig;
 use AsyncAws\Route53\ValueObject\VPC;
 
@@ -19,6 +20,10 @@ final class CreateHostedZoneRequest extends Input
      * optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
      * *www.example.com* (without a trailing dot) and *www.example.com.* (with a trailing dot) as identical.
      *
+     * If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your domain
+     * name is registered with a registrar other than Route 53, change the name servers for your domain to the set of
+     * `NameServers` that `CreateHostedZone` returns in `DelegationSet`.
+     *
      * @required
      *
      * @var string|null
@@ -28,6 +33,14 @@ final class CreateHostedZoneRequest extends Input
     /**
      * (Private hosted zones only) A complex type that contains information about the Amazon VPC that you're associating
      * with this hosted zone.
+     *
+     * You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC with a hosted
+     * zone with this request, the paramaters `VPCId` and `VPCRegion` are also required.
+     *
+     * To associate additional Amazon VPCs with the hosted zone, use AssociateVPCWithHostedZone [^1] after you create a
+     * hosted zone.
+     *
+     * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html
      *
      * @var VPC|null
      */
@@ -47,6 +60,12 @@ final class CreateHostedZoneRequest extends Input
     /**
      * (Optional) A complex type that contains the following optional values:.
      *
+     * - For public and private hosted zones, an optional comment
+     * -
+     * - For private hosted zones, an optional `PrivateZone` element
+     *
+     * If you don't specify a comment or the `PrivateZone` element, omit `HostedZoneConfig` and the other elements.
+     *
      * @var HostedZoneConfig|null
      */
     private $hostedZoneConfig;
@@ -54,9 +73,9 @@ final class CreateHostedZoneRequest extends Input
     /**
      * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
      * the reusable delegation set when you created it. For more information about reusable delegation sets, see
-     * CreateReusableDelegationSet.
+     * CreateReusableDelegationSet [^1].
      *
-     * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html
+     * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html
      *
      * @var string|null
      */

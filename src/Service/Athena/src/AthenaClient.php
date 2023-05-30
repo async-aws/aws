@@ -231,11 +231,19 @@ class AthenaClient extends AbstractApi
 
     /**
      * Streams the results of a single query execution specified by `QueryExecutionId` from the Athena query results
-     * location in Amazon S3. For more information, see Working with query results, recent queries, and output files in the
-     * *Amazon Athena User Guide*. This request does not execute the query but returns results. Use StartQueryExecution to
-     * run a query.
+     * location in Amazon S3. For more information, see Working with query results, recent queries, and output files [^1] in
+     * the *Amazon Athena User Guide*. This request does not execute the query but returns results. Use StartQueryExecution
+     * to run a query.
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     * To stream query results successfully, the IAM principal with permission to call `GetQueryResults` also must have
+     * permissions to the Amazon S3 `GetObject` action for the Athena query results location.
+     *
+     * ! IAM principals with permission to the Amazon S3 `GetObject` action for the query results location are able to
+     * ! retrieve query results from Amazon S3 even if permission to the `GetQueryResults` action is denied. To restrict
+     * ! user or role access, ensure that Amazon S3 permissions to the Athena query location are denied.
+     *
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_GetQueryResults.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#getqueryresults
      *
@@ -410,6 +418,11 @@ class AthenaClient extends AbstractApi
      * access to the specified workgroup. If a workgroup is not specified, lists the saved queries for the primary
      * workgroup.
      *
+     * For code samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena
+     * User Guide*.
+     *
+     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
+     *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_ListNamedQueries.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listnamedqueries
      *
@@ -439,6 +452,11 @@ class AthenaClient extends AbstractApi
      * Provides a list of available query execution IDs for the queries in the specified workgroup. If a workgroup is not
      * specified, returns a list of query execution IDs for the primary workgroup. Requires you to have access to the
      * workgroup in which the queries ran.
+     *
+     * For code samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena
+     * User Guide*.
+     *
+     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
      *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_ListQueryExecutions.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listqueryexecutions
@@ -533,9 +551,11 @@ class AthenaClient extends AbstractApi
     /**
      * Runs the SQL query statements contained in the `Query`. Requires you to have access to the workgroup in which the
      * query ran. Running queries against an external catalog requires GetDataCatalog permission to the catalog. For code
-     * samples using the Amazon Web Services SDK for Java, see Examples and Code Samples in the *Amazon Athena User Guide*.
+     * samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena User
+     * Guide*.
      *
-     * @see http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
+     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
+     *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_StartQueryExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#startqueryexecution
      *
@@ -608,6 +628,10 @@ class AthenaClient extends AbstractApi
      * Requests the cancellation of a calculation. A `StopCalculationExecution` call on a calculation that is already in a
      * terminal state (for example, `STOPPED`, `FAILED`, or `COMPLETED`) succeeds but has no effect.
      *
+     * > Cancelling a calculation is done on a best effort basis. If a calculation cannot be cancelled, you can be charged
+     * > for its completion. If you are concerned about being charged for a calculation that cannot be cancelled, consider
+     * > terminating the session in which the calculation is running.
+     *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_StopCalculationExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#stopcalculationexecution
      *
@@ -635,6 +659,11 @@ class AthenaClient extends AbstractApi
 
     /**
      * Stops a query execution. Requires you to have access to the workgroup in which the query ran.
+     *
+     * For code samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena
+     * User Guide*.
+     *
+     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
      *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_StopQueryExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#stopqueryexecution

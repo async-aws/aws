@@ -38,15 +38,46 @@ final class QueryInput extends Input
      * The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the
      * count of matching items, or in the case of an index, some or all of the attributes projected into the index.
      *
+     * - `ALL_ATTRIBUTES` - Returns all of the item attributes from the specified table or index. If you query a local
+     *   secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table.
+     *   If the index is configured to project all item attributes, then all of the data can be obtained from the local
+     *   secondary index, and no fetching is required.
+     * -
+     * - `ALL_PROJECTED_ATTRIBUTES` - Allowed only when querying an index. Retrieves all attributes that have been projected
+     *   into the index. If the index is configured to project all attributes, this return value is equivalent to specifying
+     *   `ALL_ATTRIBUTES`.
+     * -
+     * - `COUNT` - Returns the number of matching items, rather than the matching items themselves. Note that this uses the
+     *   same quantity of read capacity units as getting the items, and is subject to the same item size calculations.
+     * -
+     * - `SPECIFIC_ATTRIBUTES` - Returns only the attributes listed in `ProjectionExpression`. This return value is
+     *   equivalent to specifying `ProjectionExpression` without specifying any value for `Select`.
+     *
+     *   If you query or scan a local secondary index and request only attributes that are projected into that index, the
+     *   operation will read only the index and not the table. If any of the requested attributes are not projected into the
+     *   local secondary index, DynamoDB fetches each of these attributes from the parent table. This extra fetching incurs
+     *   additional throughput cost and latency.
+     *
+     *   If you query or scan a global secondary index, you can only request attributes that are projected into the index.
+     *   Global secondary index queries cannot fetch attributes from the parent table.
+     *
+     * If neither `Select` nor `ProjectionExpression` are specified, DynamoDB defaults to `ALL_ATTRIBUTES` when accessing a
+     * table, and `ALL_PROJECTED_ATTRIBUTES` when accessing an index. You cannot use both `Select` and
+     * `ProjectionExpression` together in a single request, unless the value for `Select` is `SPECIFIC_ATTRIBUTES`. (This
+     * usage is equivalent to specifying `ProjectionExpression` without any value for `Select`.)
+     *
+     * > If you use the `ProjectionExpression` parameter, then the value for `Select` can only be `SPECIFIC_ATTRIBUTES`. Any
+     * > other value for `Select` will return an error.
+     *
      * @var Select::*|null
      */
     private $select;
 
     /**
-     * This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see AttributesToGet in the
+     * This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see AttributesToGet [^1] in the
      * *Amazon DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
      *
      * @var string[]|null
      */
@@ -58,10 +89,10 @@ final class QueryInput extends Input
      * up to that point, and a key in `LastEvaluatedKey` to apply in a subsequent operation, so that you can pick up where
      * you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the
      * operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent
-     * operation to continue the operation. For more information, see Query and Scan in the *Amazon DynamoDB Developer
+     * operation to continue the operation. For more information, see Query and Scan [^1] in the *Amazon DynamoDB Developer
      * Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html
      *
      * @var int|null
      */
@@ -71,35 +102,38 @@ final class QueryInput extends Input
      * Determines the read consistency model: If set to `true`, then the operation uses strongly consistent reads;
      * otherwise, the operation uses eventually consistent reads.
      *
+     * Strongly consistent reads are not supported on global secondary indexes. If you query a global secondary index with
+     * `ConsistentRead` set to `true`, you will receive a `ValidationException`.
+     *
      * @var bool|null
      */
     private $consistentRead;
 
     /**
-     * This is a legacy parameter. Use `KeyConditionExpression` instead. For more information, see KeyConditions in the
+     * This is a legacy parameter. Use `KeyConditionExpression` instead. For more information, see KeyConditions [^1] in the
      * *Amazon DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html
      *
      * @var array<string, Condition>|null
      */
     private $keyConditions;
 
     /**
-     * This is a legacy parameter. Use `FilterExpression` instead. For more information, see QueryFilter in the *Amazon
+     * This is a legacy parameter. Use `FilterExpression` instead. For more information, see QueryFilter [^1] in the *Amazon
      * DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.QueryFilter.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.QueryFilter.html
      *
      * @var array<string, Condition>|null
      */
     private $queryFilter;
 
     /**
-     * This is a legacy parameter. Use `FilterExpression` instead. For more information, see ConditionalOperator in the
+     * This is a legacy parameter. Use `FilterExpression` instead. For more information, see ConditionalOperator [^1] in the
      * *Amazon DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
      * @var ConditionalOperator::*|null
      */
@@ -109,6 +143,14 @@ final class QueryInput extends Input
      * Specifies the order for index traversal: If `true` (default), the traversal is performed in ascending order; if
      * `false`, the traversal is performed in descending order.
      *
+     * Items with the same partition key value are stored in sorted order by sort key. If the sort key data type is Number,
+     * the results are stored in numeric order. For type String, the results are stored in order of UTF-8 bytes. For type
+     * Binary, DynamoDB treats each byte of the binary data as unsigned.
+     *
+     * If `ScanIndexForward` is `true`, DynamoDB returns the results in the order in which they are stored (by sort key
+     * value). This is the default behavior. If `ScanIndexForward` is `false`, DynamoDB reads the results in reverse order
+     * by sort key value, and then returns the results to the client.
+     *
      * @var bool|null
      */
     private $scanIndexForward;
@@ -116,6 +158,8 @@ final class QueryInput extends Input
     /**
      * The primary key of the first item that this operation will evaluate. Use the value that was returned for
      * `LastEvaluatedKey` in the previous operation.
+     *
+     * The data type for `ExclusiveStartKey` must be String, Number, or Binary. No set data types are allowed.
      *
      * @var array<string, AttributeValue>|null
      */
@@ -130,6 +174,13 @@ final class QueryInput extends Input
      * A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars,
      * sets, or elements of a JSON document. The attributes in the expression must be separated by commas.
      *
+     * If no attribute names are specified, then all attributes will be returned. If any of the requested attributes are not
+     * found, they will not appear in the result.
+     *
+     * For more information, see Accessing Item Attributes [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html
+     *
      * @var string|null
      */
     private $projectionExpression;
@@ -138,12 +189,79 @@ final class QueryInput extends Input
      * A string that contains conditions that DynamoDB applies after the `Query` operation, but before the data is returned
      * to you. Items that do not satisfy the `FilterExpression` criteria are not returned.
      *
+     * A `FilterExpression` does not allow key attributes. You cannot define a filter expression based on a partition key or
+     * a sort key.
+     *
+     * > A `FilterExpression` is applied after the items have already been read; the process of filtering does not consume
+     * > any additional read capacity units.
+     *
+     * For more information, see Filter Expressions [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Query.FilterExpression
+     *
      * @var string|null
      */
     private $filterExpression;
 
     /**
      * The condition that specifies the key values for items to be retrieved by the `Query` action.
+     *
+     * The condition must perform an equality test on a single partition key value.
+     *
+     * The condition can optionally perform one of several comparison tests on a single sort key value. This allows `Query`
+     * to retrieve one item with a given partition key value and sort key value, or several items that have the same
+     * partition key value but different sort key values.
+     *
+     * The partition key equality test is required, and must be specified in the following format:
+     *
+     * `partitionKeyName`*=*`:partitionkeyval`
+     *
+     * If you also want to provide a condition for the sort key, it must be combined using `AND` with the condition for the
+     * sort key. Following is an example, using the **=** comparison operator for the sort key:
+     *
+     * `partitionKeyName``=``:partitionkeyval``AND``sortKeyName``=``:sortkeyval`
+     *
+     * Valid comparisons for the sort key condition are as follows:
+     *
+     * - `sortKeyName``=``:sortkeyval` - true if the sort key value is equal to `:sortkeyval`.
+     * -
+     * - `sortKeyName``<``:sortkeyval` - true if the sort key value is less than `:sortkeyval`.
+     * -
+     * - `sortKeyName``<=``:sortkeyval` - true if the sort key value is less than or equal to `:sortkeyval`.
+     * -
+     * - `sortKeyName``>``:sortkeyval` - true if the sort key value is greater than `:sortkeyval`.
+     * -
+     * - `sortKeyName``>= ``:sortkeyval` - true if the sort key value is greater than or equal to `:sortkeyval`.
+     * -
+     * - `sortKeyName``BETWEEN``:sortkeyval1``AND``:sortkeyval2` - true if the sort key value is greater than or equal to
+     *   `:sortkeyval1`, and less than or equal to `:sortkeyval2`.
+     * -
+     * - `begins_with (``sortKeyName`, `:sortkeyval``)` - true if the sort key value begins with a particular operand. (You
+     *   cannot use this function with a sort key that is of type Number.) Note that the function name `begins_with` is
+     *   case-sensitive.
+     *
+     * Use the `ExpressionAttributeValues` parameter to replace tokens such as `:partitionval` and `:sortval` with actual
+     * values at runtime.
+     *
+     * You can optionally use the `ExpressionAttributeNames` parameter to replace the names of the partition key and sort
+     * key with placeholder tokens. This option might be necessary if an attribute name conflicts with a DynamoDB reserved
+     * word. For example, the following `KeyConditionExpression` parameter causes an error because *Size* is a reserved
+     * word:
+     *
+     * - `Size = :myval`
+     *
+     * To work around this, define a placeholder (such a `#S`) to represent the attribute name *Size*.
+     * `KeyConditionExpression` then is as follows:
+     *
+     * - `#S = :myval`
+     *
+     * For a list of reserved words, see Reserved Words [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * For more information on `ExpressionAttributeNames` and `ExpressionAttributeValues`, see Using Placeholders for
+     * Attribute Names and Values [^2] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ExpressionPlaceholders.html
      *
      * @var string|null
      */
@@ -153,12 +271,60 @@ final class QueryInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
+     * - To access an attribute whose name conflicts with a DynamoDB reserved word.
+     * -
+     * - To create a placeholder for repeating occurrences of an attribute name in an expression.
+     * -
+     * - To prevent special characters in an attribute name from being misinterpreted in an expression.
+     *
+     * Use the **#** character in an expression to dereference an attribute name. For example, consider the following
+     * attribute name:
+     *
+     * - `Percentile`
+     *
+     * The name of this attribute conflicts with a reserved word, so it cannot be used directly in an expression. (For the
+     * complete list of reserved words, see Reserved Words [^1] in the *Amazon DynamoDB Developer Guide*). To work around
+     * this, you could specify the following for `ExpressionAttributeNames`:
+     *
+     * - `{"#P":"Percentile"}`
+     *
+     * You could then use this substitution in an expression, as in this example:
+     *
+     * - `#P = :val`
+     *
+     * > Tokens that begin with the **:** character are *expression attribute values*, which are placeholders for the actual
+     * > value at runtime.
+     *
+     * For more information on expression attribute names, see Specifying Item Attributes [^2] in the *Amazon DynamoDB
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html
+     *
      * @var array<string, string>|null
      */
     private $expressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
+     *
+     * Use the **:** (colon) character in an expression to dereference an attribute value. For example, suppose that you
+     * wanted to check whether the value of the *ProductStatus* attribute was one of the following:
+     *
+     * `Available | Backordered | Discontinued`
+     *
+     * You would first need to specify `ExpressionAttributeValues` as follows:
+     *
+     * `{ ":avail":{"S":"Available"}, ":back":{"S":"Backordered"}, ":disc":{"S":"Discontinued"} }`
+     *
+     * You could then use these values in an expression, such as this:
+     *
+     * `ProductStatus IN (:avail, :back, :disc)`
+     *
+     * For more information on expression attribute values, see Specifying Conditions [^1] in the *Amazon DynamoDB Developer
+     * Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html
      *
      * @var array<string, AttributeValue>|null
      */

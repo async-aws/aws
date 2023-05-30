@@ -12,6 +12,11 @@ final class ListServiceSpecificCredentialsRequest extends Input
      * The name of the user whose service-specific credentials you want information about. If this value is not specified,
      * then the operation assumes the user whose credentials are used to call the operation.
      *
+     * This parameter allows (through its regex pattern [^1]) a string of characters consisting of upper and lowercase
+     * alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+     *
+     * [^1]: http://wikipedia.org/wiki/regex
+     *
      * @var string|null
      */
     private $userName;

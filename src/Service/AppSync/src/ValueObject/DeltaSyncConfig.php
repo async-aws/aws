@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The `DeltaSyncConfig` for a versioned data source.
+ * Describes a Delta Sync configuration.
  */
 final class DeltaSyncConfig
 {

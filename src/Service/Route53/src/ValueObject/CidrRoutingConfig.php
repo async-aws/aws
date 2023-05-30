@@ -4,6 +4,13 @@ namespace AsyncAws\Route53\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The object that is specified in resource record set object when you are linking a resource record set to a CIDR
+ * location.
+ *
+ * A `LocationName` with an asterisk “*” can be used to create a default CIDR record. `CollectionId` is still
+ * required for default record.
+ */
 final class CidrRoutingConfig
 {
     /**

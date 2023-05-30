@@ -131,6 +131,9 @@ class CodeCommitClient extends AbstractApi
     /**
      * Deletes a repository. If a specified repository was already deleted, a null repository ID is returned.
      *
+     * ! Deleting a repository also deletes all associated objects and metadata. After a repository is deleted, all future
+     * ! push calls to the deleted repository fail.
+     *
      * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_DeleteRepository.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#deleterepository
      *

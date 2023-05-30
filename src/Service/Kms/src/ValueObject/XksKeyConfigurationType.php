@@ -3,10 +3,17 @@
 namespace AsyncAws\Kms\ValueObject;
 
 /**
- * Information about the external key that is associated with a KMS key in an external key store.
- * For more information, see External key in the *Key Management Service Developer Guide*.
+ * Information about the external key  [^1]that is associated with a KMS key in an external key store.
  *
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
+ * This element appears in a CreateKey or DescribeKey response only for a KMS key in an external key store.
+ *
+ * The *external key* is a symmetric encryption key that is hosted by an external key manager outside of Amazon Web
+ * Services. When you use the KMS key in an external key store in a cryptographic operation, the cryptographic operation
+ * is performed in the external key manager using the specified external key. For more information, see External key
+ * [^2] in the *Key Management Service Developer Guide*.
+ *
+ * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
+ * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
  */
 final class XksKeyConfigurationType
 {

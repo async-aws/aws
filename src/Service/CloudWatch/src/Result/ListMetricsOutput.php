@@ -28,6 +28,8 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     /**
      * If you are using this operation in a monitoring account, this array contains the account IDs of the source accounts
      * where the metrics in the returned data are from.
+     *
+     * This field is a 1:1 mapping between each metric that is returned and the ID of the owning account.
      */
     private $owningAccounts;
 

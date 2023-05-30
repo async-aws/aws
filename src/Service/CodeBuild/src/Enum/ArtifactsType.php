@@ -2,16 +2,6 @@
 
 namespace AsyncAws\CodeBuild\Enum;
 
-/**
- * The type of build output artifact. Valid values include:.
- *
- * - `CODEPIPELINE`: The build project has build output generated through CodePipeline.
- *
- *   > The `CODEPIPELINE` type is not supported for `secondaryArtifacts`.
- *
- * - `NO_ARTIFACTS`: The build project does not produce any build output.
- * - `S3`: The build project stores build output in Amazon S3.
- */
 final class ArtifactsType
 {
     public const CODEPIPELINE = 'CODEPIPELINE';

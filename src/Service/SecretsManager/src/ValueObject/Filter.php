@@ -7,19 +7,36 @@ use AsyncAws\SecretsManager\Enum\FilterNameStringType;
 
 /**
  * Allows you to add filters when you use the search function in Secrets Manager. For more information, see Find secrets
- * in Secrets Manager.
+ * in Secrets Manager [^1].
  *
- * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_search-secret.html
+ * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_search-secret.html
  */
 final class Filter
 {
     /**
      * The following are keys you can use:.
+     *
+     * - **description**: Prefix match, not case-sensitive.
+     * -
+     * - **name**: Prefix match, case-sensitive.
+     * -
+     * - **tag-key**: Prefix match, case-sensitive.
+     * -
+     * - **tag-value**: Prefix match, case-sensitive.
+     * -
+     * - **primary-region**: Prefix match, case-sensitive.
+     * -
+     * - **owning-service**: Prefix match, case-sensitive.
+     * -
+     * - **all**: Breaks the filter value string into words and then searches all attributes for matches. Not
+     *   case-sensitive.
      */
     private $key;
 
     /**
      * The keyword to filter for.
+     *
+     * You can prefix your search value with an exclamation mark (`!`) in order to perform negation filters.
      */
     private $values;
 

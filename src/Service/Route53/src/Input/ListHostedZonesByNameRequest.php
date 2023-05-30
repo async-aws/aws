@@ -26,6 +26,11 @@ final class ListHostedZonesByNameRequest extends Input
     /**
      * (Optional) For your first request to `ListHostedZonesByName`, do not include the `hostedzoneid` parameter.
      *
+     * If you have more hosted zones than the value of `maxitems`, `ListHostedZonesByName` returns only the first `maxitems`
+     * hosted zones. To get the next group of `maxitems` hosted zones, submit another request to `ListHostedZonesByName` and
+     * include both `dnsname` and `hostedzoneid` parameters. For the value of `hostedzoneid`, specify the value of the
+     * `NextHostedZoneId` element from the previous response.
+     *
      * @var string|null
      */
     private $hostedZoneId;

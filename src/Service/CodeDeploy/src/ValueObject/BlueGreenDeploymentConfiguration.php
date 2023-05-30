@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * Information about blue/green deployment options for this deployment.
+ * Information about blue/green deployment options for a deployment group.
  */
 final class BlueGreenDeploymentConfiguration
 {

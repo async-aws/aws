@@ -14,6 +14,12 @@ final class CreateSecretRequest extends Input
     /**
      * The name of the new secret.
      *
+     * The secret name can contain ASCII letters, numbers, and the following characters: /_+=.@-
+     *
+     * Do not end your secret name with a hyphen followed by six characters. If you do so, you risk confusion and unexpected
+     * results when searching for a secret by partial ARN. Secrets Manager automatically adds a hyphen and six random
+     * characters after the secret name at the end of the ARN.
+     *
      * @required
      *
      * @var string|null
@@ -23,6 +29,30 @@ final class CreateSecretRequest extends Input
     /**
      * If you include `SecretString` or `SecretBinary`, then Secrets Manager creates an initial version for the secret, and
      * this parameter specifies the unique identifier for the new version.
+     *
+     * > If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then you can
+     * > leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the value for this
+     * > parameter in the request. If you don't use the SDK and instead generate a raw HTTP request to the Secrets Manager
+     * > service endpoint, then you must generate a `ClientRequestToken` yourself for the new version and include the value
+     * > in the request.
+     *
+     * This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of duplicate
+     * versions if there are failures and retries during a rotation. We recommend that you generate a UUID-type [^1] value
+     * to ensure uniqueness of your versions within the specified secret.
+     *
+     * - If the `ClientRequestToken` value isn't already associated with a version of the secret then a new version of the
+     *   secret is created.
+     * -
+     * - If a version with this value already exists and the version `SecretString` and `SecretBinary` values are the same
+     *   as those in the request, then the request is ignored.
+     * -
+     * - If a version with this value already exists and that version's `SecretString` and `SecretBinary` values are
+     *   different from those in the request, then the request fails because you cannot modify an existing version. Instead,
+     *   use PutSecretValue to create a new version.
+     *
+     * This value becomes the `VersionId` of the new version.
+     *
+     * [^1]: https://wikipedia.org/wiki/Universally_unique_identifier
      *
      * @var string|null
      */
@@ -37,10 +67,18 @@ final class CreateSecretRequest extends Input
 
     /**
      * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt the secret value in the secret. An
-     * alias is always prefixed by `alias/`, for example `alias/aws/secretsmanager`. For more information, see About
-     * aliases.
+     * alias is always prefixed by `alias/`, for example `alias/aws/secretsmanager`. For more information, see About aliases
+     * [^1].
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html
+     * To use a KMS key in a different account, use the key ARN or the alias ARN.
+     *
+     * If you don't specify this value, then Secrets Manager uses the key `aws/secretsmanager`. If that key doesn't yet
+     * exist, then Secrets Manager creates it for you automatically the first time it encrypts the secret value.
+     *
+     * If the secret is in a different Amazon Web Services account from the credentials calling the API, then you can't use
+     * `aws/secretsmanager` to encrypt the secret, and you must create and use a customer managed KMS key.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html
      *
      * @var string|null
      */
@@ -50,6 +88,10 @@ final class CreateSecretRequest extends Input
      * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary data
      * in a file and then pass the contents of the file as a parameter.
      *
+     * Either `SecretString` or `SecretBinary` must have a value, but not both.
+     *
+     * This parameter is not available in the Secrets Manager console.
+     *
      * @var string|null
      */
     private $secretBinary;
@@ -58,6 +100,12 @@ final class CreateSecretRequest extends Input
      * The text data to encrypt and store in this new version of the secret. We recommend you use a JSON structure of
      * key/value pairs for your secret value.
      *
+     * Either `SecretString` or `SecretBinary` must have a value, but not both.
+     *
+     * If you create a secret by using the Secrets Manager console then Secrets Manager puts the protected secret text in
+     * only the `SecretString` parameter. The Secrets Manager console stores the information as a JSON structure of
+     * key/value pairs that a Lambda rotation function can parse.
+     *
      * @var string|null
      */
     private $secretString;
@@ -65,6 +113,42 @@ final class CreateSecretRequest extends Input
     /**
      * A list of tags to attach to the secret. Each tag is a key and value pair of strings in a JSON text string, for
      * example:.
+     *
+     * `[{"Key":"CostCenter","Value":"12345"},{"Key":"environment","Value":"production"}]`
+     *
+     * Secrets Manager tag key names are case sensitive. A tag with the key "ABC" is a different tag from one with key
+     * "abc".
+     *
+     * If you check tags in permissions policies as part of your security strategy, then adding or removing a tag can change
+     * permissions. If the completion of this operation would result in you losing your permissions for this secret, then
+     * Secrets Manager blocks the operation and returns an `Access Denied` error. For more information, see Control access
+     * to secrets using tags [^1] and Limit access to identities with tags that match secrets' tags [^2].
+     *
+     * For information about how to format a JSON parameter for the various command line tool environments, see Using JSON
+     * for Parameters [^3]. If your command-line tool or SDK requires quotation marks around the parameter, you should use
+     * single quotes to avoid confusion with the double quotes required in the JSON text.
+     *
+     * The following restrictions apply to tags:
+     *
+     * - Maximum number of tags per secret: 50
+     * -
+     * - Maximum key length: 127 Unicode characters in UTF-8
+     * -
+     * - Maximum value length: 255 Unicode characters in UTF-8
+     * -
+     * - Tag keys and values are case sensitive.
+     * -
+     * - Do not use the `aws:` prefix in your tag names or values because Amazon Web Services reserves it for Amazon Web
+     *   Services use. You can't edit or delete tag names or values with this prefix. Tags with this prefix do not count
+     *   against your tags per secret limit.
+     * -
+     * - If you use your tagging schema across multiple services and resources, other services might have restrictions on
+     *   allowed characters. Generally allowed characters: letters, spaces, and numbers representable in UTF-8, plus the
+     *   following special characters: + - = . _ : / @.
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html#tag-secrets-abac
+     * [^2]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html#auth-and-access_tags2
+     * [^3]: https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json
      *
      * @var Tag[]|null
      */

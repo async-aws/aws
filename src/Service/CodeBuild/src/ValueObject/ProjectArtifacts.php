@@ -9,39 +9,109 @@ use AsyncAws\CodeBuild\Enum\BucketOwnerAccess;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Build output artifact settings that override, for this build only, the latest ones already defined in the build
- * project.
+ * Information about the build output artifacts for the build project.
  */
 final class ProjectArtifacts
 {
     /**
      * The type of build output artifact. Valid values include:.
+     *
+     * - `CODEPIPELINE`: The build project has build output generated through CodePipeline.
+     *
+     *   > The `CODEPIPELINE` type is not supported for `secondaryArtifacts`.
+     *
+     * - `NO_ARTIFACTS`: The build project does not produce any build output.
+     * -
+     * - `S3`: The build project stores build output in Amazon S3.
      */
     private $type;
 
     /**
      * Information about the build output artifact location:.
+     *
+     * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
+     *   manages its build output locations instead of CodeBuild.
+     * -
+     * - If `type` is set to `NO_ARTIFACTS`, this value is ignored if specified, because no build output is produced.
+     * -
+     * - If `type` is set to `S3`, this is the name of the output bucket.
      */
     private $location;
 
     /**
      * Along with `namespaceType` and `name`, the pattern that CodeBuild uses to name and store the output artifact:.
+     *
+     * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
+     *   manages its build output names instead of CodeBuild.
+     * -
+     * - If `type` is set to `NO_ARTIFACTS`, this value is ignored if specified, because no build output is produced.
+     * -
+     * - If `type` is set to `S3`, this is the path to the output artifact. If `path` is not specified, `path` is not used.
+     *
+     * For example, if `path` is set to `MyArtifacts`, `namespaceType` is set to `NONE`, and `name` is set to
+     * `MyArtifact.zip`, the output artifact is stored in the output bucket at `MyArtifacts/MyArtifact.zip`.
      */
     private $path;
 
     /**
      * Along with `path` and `name`, the pattern that CodeBuild uses to determine the name and location to store the output
      * artifact:.
+     *
+     * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
+     *   manages its build output names instead of CodeBuild.
+     * -
+     * - If `type` is set to `NO_ARTIFACTS`, this value is ignored if specified, because no build output is produced.
+     * -
+     * - If `type` is set to `S3`, valid values include:
+     *
+     *   - `BUILD_ID`: Include the build ID in the location of the build output artifact.
+     *   -
+     *   - `NONE`: Do not include the build ID. This is the default if `namespaceType` is not specified.
+     *
+     *
+     * For example, if `path` is set to `MyArtifacts`, `namespaceType` is set to `BUILD_ID`, and `name` is set to
+     * `MyArtifact.zip`, the output artifact is stored in `MyArtifacts/<build-ID>/MyArtifact.zip`.
      */
     private $namespaceType;
 
     /**
      * Along with `path` and `namespaceType`, the pattern that CodeBuild uses to name and store the output artifact:.
+     *
+     * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
+     *   manages its build output names instead of CodeBuild.
+     * -
+     * - If `type` is set to `NO_ARTIFACTS`, this value is ignored if specified, because no build output is produced.
+     * -
+     * - If `type` is set to `S3`, this is the name of the output artifact object. If you set the name to be a forward slash
+     *   ("/"), the artifact is stored in the root of the output bucket.
+     *
+     * For example:
+     *
+     * - If `path` is set to `MyArtifacts`, `namespaceType` is set to `BUILD_ID`, and `name` is set to `MyArtifact.zip`,
+     *   then the output artifact is stored in `MyArtifacts/<build-ID>/MyArtifact.zip`.
+     * -
+     * - If `path` is empty, `namespaceType` is set to `NONE`, and `name` is set to "`/`", the output artifact is stored in
+     *   the root of the output bucket.
+     * -
+     * - If `path` is set to `MyArtifacts`, `namespaceType` is set to `BUILD_ID`, and `name` is set to "`/`", the output
+     *   artifact is stored in `MyArtifacts/<build-ID>`.
      */
     private $name;
 
     /**
      * The type of build output artifact to create:.
+     *
+     * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
+     *   manages its build output artifacts instead of CodeBuild.
+     * -
+     * - If `type` is set to `NO_ARTIFACTS`, this value is ignored if specified, because no build output is produced.
+     * -
+     * - If `type` is set to `S3`, valid values include:
+     *
+     *   - `NONE`: CodeBuild creates in the output bucket a folder that contains the build output. This is the default if
+     *     `packaging` is not specified.
+     *   -
+     *   - `ZIP`: CodeBuild creates in the output bucket a ZIP file that contains the build output.
      */
     private $packaging;
 

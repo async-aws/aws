@@ -28,12 +28,16 @@ final class RepositoryTrigger
     /**
      * The branches to be included in the trigger configuration. If you specify an empty array, the trigger applies to all
      * branches.
+     *
+     * > Although no content is required in the array, you must include the array itself.
      */
     private $branches;
 
     /**
      * The repository events that cause the trigger to run actions in another service, such as sending a notification
      * through Amazon SNS.
+     *
+     * > The valid value "all" cannot be used with any other values.
      */
     private $events;
 

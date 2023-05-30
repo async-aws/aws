@@ -3,7 +3,7 @@
 namespace AsyncAws\Rekognition\Enum;
 
 /**
- * A string value of the KnownGender info about the Celebrity.
+ * A list of enum string of possible gender values that Celebrity returns.
  */
 final class KnownGenderType
 {

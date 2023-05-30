@@ -6,10 +6,10 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request was rejected because a quota was exceeded. For more information, see Quotas in the *Key Management
+ * The request was rejected because a quota was exceeded. For more information, see Quotas [^1] in the *Key Management
  * Service Developer Guide*.
  *
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/limits.html
+ * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/limits.html
  */
 final class LimitExceededException extends ClientException
 {

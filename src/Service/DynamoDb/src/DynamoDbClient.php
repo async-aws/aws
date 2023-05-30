@@ -87,6 +87,47 @@ class DynamoDbClient extends AbstractApi
      * The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify
      * requested items by primary key.
      *
+     * A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a
+     * partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal
+     * processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You
+     * can use this value to retry the operation starting with the next item to get.
+     *
+     * ! If you request more than 100 items, `BatchGetItem` returns a `ValidationException` with the message "Too many items
+     * ! requested for the BatchGetItem call."
+     *
+     * For example, if you ask to retrieve 100 items, but each individual item is 300 KB in size, the system returns 52
+     * items (so as not to exceed the 16 MB limit). It also returns an appropriate `UnprocessedKeys` value so you can get
+     * the next page of results. If desired, your application can include its own logic to assemble the pages of results
+     * into one dataset.
+     *
+     * If *none* of the items can be processed due to insufficient provisioned throughput on all of the tables in the
+     * request, then `BatchGetItem` returns a `ProvisionedThroughputExceededException`. If *at least one* of the items is
+     * successfully processed, then `BatchGetItem` completes successfully, while returning the keys of the unread items in
+     * `UnprocessedKeys`.
+     *
+     * ! If DynamoDB returns any unprocessed items, you should retry the batch operation on those items. However, *we
+     * ! strongly recommend that you use an exponential backoff algorithm*. If you retry the batch operation immediately,
+     * ! the underlying read or write requests can still fail due to throttling on the individual tables. If you delay the
+     * ! batch operation using exponential backoff, the individual requests in the batch are much more likely to succeed.
+     * !
+     * ! For more information, see Batch Operations and Error Handling [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * By default, `BatchGetItem` performs eventually consistent reads on every table in the request. If you want strongly
+     * consistent reads instead, you can set `ConsistentRead` to `true` for any or all tables.
+     *
+     * In order to minimize response latency, `BatchGetItem` may retrieve items in parallel.
+     *
+     * When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help
+     * parse the response by item, include the primary key values for the items in your request in the
+     * `ProjectionExpression` parameter.
+     *
+     * If a requested item does not exist, it is not returned in the result. Requests for nonexistent items consume the
+     * minimum read capacity units according to the type of read. For more information, see Working with Tables [^2] in the
+     * *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#BatchOperations
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchgetitem
      *
@@ -120,9 +161,67 @@ class DynamoDbClient extends AbstractApi
      * `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete
      * operations. While individual items can be up to 400 KB once stored, it's important to note that an item's
      * representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more
-     * details on this distinction, see Naming Rules and Data Types.
+     * details on this distinction, see Naming Rules and Data Types [^1].
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
+     * > `BatchWriteItem` cannot update items. If you perform a `BatchWriteItem` operation on an existing item, that item's
+     * > values will be overwritten by the operation and it will appear like it was updated. To update items, we recommend
+     * > you use the `UpdateItem` action.
+     *
+     * The individual `PutItem` and `DeleteItem` operations specified in `BatchWriteItem` are atomic; however
+     * `BatchWriteItem` as a whole is not. If any requested operations fail because the table's provisioned throughput is
+     * exceeded or an internal processing failure occurs, the failed operations are returned in the `UnprocessedItems`
+     * response parameter. You can investigate and optionally resend the requests. Typically, you would call
+     * `BatchWriteItem` in a loop. Each iteration would check for unprocessed items and submit a new `BatchWriteItem`
+     * request with those unprocessed items until all items have been processed.
+     *
+     * If *none* of the items can be processed due to insufficient provisioned throughput on all of the tables in the
+     * request, then `BatchWriteItem` returns a `ProvisionedThroughputExceededException`.
+     *
+     * ! If DynamoDB returns any unprocessed items, you should retry the batch operation on those items. However, *we
+     * ! strongly recommend that you use an exponential backoff algorithm*. If you retry the batch operation immediately,
+     * ! the underlying read or write requests can still fail due to throttling on the individual tables. If you delay the
+     * ! batch operation using exponential backoff, the individual requests in the batch are much more likely to succeed.
+     * !
+     * ! For more information, see Batch Operations and Error Handling [^2] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * With `BatchWriteItem`, you can efficiently write or delete large amounts of data, such as from Amazon EMR, or copy
+     * data from another database into DynamoDB. In order to improve performance with these large-scale operations,
+     * `BatchWriteItem` does not behave in the same way as individual `PutItem` and `DeleteItem` calls would. For example,
+     * you cannot specify conditions on individual put and delete requests, and `BatchWriteItem` does not return deleted
+     * items in the response.
+     *
+     * If you use a programming language that supports concurrency, you can use threads to write items in parallel. Your
+     * application must include the necessary logic to manage the threads. With languages that don't support threading, you
+     * must update or delete the specified items one at a time. In both situations, `BatchWriteItem` performs the specified
+     * put and delete operations in parallel, giving you the power of the thread pool approach without having to introduce
+     * complexity into your application.
+     *
+     * Parallel processing reduces latency, but each specified put and delete request consumes the same number of write
+     * capacity units whether it is processed in parallel or not. Delete operations on nonexistent items consume one write
+     * capacity unit.
+     *
+     * If one or more of the following is true, DynamoDB rejects the entire batch write operation:
+     *
+     * - One or more tables specified in the `BatchWriteItem` request does not exist.
+     * -
+     * - Primary key attributes specified on an item in the request do not match those in the corresponding table's primary
+     *   key schema.
+     * -
+     * - You try to perform multiple operations on the same item in the same `BatchWriteItem` request. For example, you
+     *   cannot put and delete the same item in the same `BatchWriteItem` request.
+     * -
+     * - Your request contains at least two items with identical hash and range keys (which essentially is two put
+     *   operations).
+     * -
+     * - There are more than 25 requests in the batch.
+     * -
+     * - Any individual item in a batch exceeds 400 KB.
+     * -
+     * - The total request size exceeds 16 MB.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#Programming.Errors.BatchOperations
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchwriteitem
      *
@@ -158,6 +257,16 @@ class DynamoDbClient extends AbstractApi
      * The `CreateTable` operation adds a new table to your account. In an Amazon Web Services account, table names must be
      * unique within each Region. That is, you can have two tables with same name if you create the tables in different
      * Regions.
+     *
+     * `CreateTable` is an asynchronous operation. Upon receiving a `CreateTable` request, DynamoDB immediately returns a
+     * response with a `TableStatus` of `CREATING`. After the table is created, DynamoDB sets the `TableStatus` to `ACTIVE`.
+     * You can perform read and write operations only on an `ACTIVE` table.
+     *
+     * You can optionally define secondary indexes on the new table, as part of the `CreateTable` operation. If you want to
+     * create multiple tables with secondary indexes on them, you must create the tables sequentially. Only one table with
+     * secondary indexes can be in the `CREATING` state at any given time.
+     *
+     * You can use the `DescribeTable` action to check the table status.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
@@ -198,6 +307,15 @@ class DynamoDbClient extends AbstractApi
     /**
      * Deletes a single item in a table by primary key. You can perform a conditional delete operation that deletes the item
      * if it exists, or if it has an expected attribute value.
+     *
+     * In addition to deleting an item, you can also return the item's attribute values in the same operation, using the
+     * `ReturnValues` parameter.
+     *
+     * Unless you specify conditions, the `DeleteItem` is an idempotent operation; running it multiple times on the same
+     * item or attribute does *not* result in an error response.
+     *
+     * Conditional deletes are useful for deleting items only if specific conditions are met. If those conditions are met,
+     * DynamoDB performs the delete. Otherwise, the item is not deleted.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deleteitem
@@ -248,6 +366,20 @@ class DynamoDbClient extends AbstractApi
      * specified table does not exist, DynamoDB returns a `ResourceNotFoundException`. If table is already in the `DELETING`
      * state, no error is returned.
      *
+     * ! This operation only applies to Version 2019.11.21 (Current) [^1] of global tables.
+     *
+     * > DynamoDB might continue to accept data read and write operations, such as `GetItem` and `PutItem`, on a table in
+     * > the `DELETING` state until the table deletion is complete.
+     *
+     * When you delete a table, any indexes on that table are also deleted.
+     *
+     * If you have DynamoDB Streams enabled on the table, then the corresponding stream on that table goes into the
+     * `DISABLED` state, and the stream is automatically deleted after 24 hours.
+     *
+     * Use the `DescribeTable` action to check the status of the table.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deletetable
      *
@@ -278,9 +410,10 @@ class DynamoDbClient extends AbstractApi
     /**
      * Returns the regional endpoint information. This action must be included in your VPC endpoint policies, or access to
      * the DescribeEndpoints API will be denied. For more information on policy permissions, please see Internetwork traffic
-     * privacy.
+     * privacy [^1].
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeEndpoints.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describeendpoints
      *
@@ -300,6 +433,15 @@ class DynamoDbClient extends AbstractApi
     /**
      * Returns information about the table, including the current status of the table, when it was created, the primary key
      * schema, and any indexes on the table.
+     *
+     * ! This operation only applies to Version 2019.11.21 (Current) [^1] of global tables.
+     *
+     * > If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a
+     * > `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata
+     * > for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable`
+     * > request again.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
@@ -326,6 +468,16 @@ class DynamoDbClient extends AbstractApi
 
     /**
      * This operation allows you to perform reads and singleton writes on data stored in DynamoDB, using PartiQL.
+     *
+     * For PartiQL reads (`SELECT` statement), if the total number of processed items exceeds the maximum dataset size limit
+     * of 1 MB, the read stops and results are returned to the user as a `LastEvaluatedKey` value to continue the read in a
+     * subsequent operation. If the filter criteria in `WHERE` clause does not match any data, the read will return an empty
+     * result set.
+     *
+     * A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a
+     * maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is
+     * present in the response, you need to paginate the result set. If `NextToken` is present, you need to paginate the
+     * result set and include `NextToken`.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteStatement.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#executestatement
@@ -370,6 +522,10 @@ class DynamoDbClient extends AbstractApi
     /**
      * The `GetItem` operation returns a set of attributes for the item with the given primary key. If there is no matching
      * item, `GetItem` does not return any data and there will be no `Item` element in the response.
+     *
+     * `GetItem` provides an eventually consistent read by default. If your application requires a strongly consistent read,
+     * set `ConsistentRead` to `true`. Although a strongly consistent read might take more time than an eventually
+     * consistent read, it always returns the last updated value.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#getitem
@@ -437,6 +593,23 @@ class DynamoDbClient extends AbstractApi
      * existing item if it has certain attribute values. You can return the item's attribute values in the same operation,
      * using the `ReturnValues` parameter.
      *
+     * When you add an item, the primary key attributes are the only required attributes.
+     *
+     * Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length
+     * greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be
+     * empty.
+     *
+     * Invalid Requests with empty values will be rejected with a `ValidationException` exception.
+     *
+     * > To prevent a new item from replacing an existing item, use a conditional expression that contains the
+     * > `attribute_not_exists` function with the name of the attribute being used as the partition key for the table. Since
+     * > every record must contain that attribute, the `attribute_not_exists` function will only succeed if no matching item
+     * > exists.
+     *
+     * For more information about `PutItem`, see Working with Items [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
      *
@@ -484,6 +657,43 @@ class DynamoDbClient extends AbstractApi
      * items with that partition key value. Optionally, you can provide a sort key attribute and use a comparison operator
      * to refine the search results.
      *
+     * Use the `KeyConditionExpression` parameter to provide a specific value for the partition key. The `Query` operation
+     * will return all of the items from the table or index with that partition key value. You can optionally narrow the
+     * scope of the `Query` operation by specifying a sort key value and a comparison operator in `KeyConditionExpression`.
+     * To further refine the `Query` results, you can optionally provide a `FilterExpression`. A `FilterExpression`
+     * determines which items within the results should be returned to you. All of the other results are discarded.
+     *
+     * A `Query` operation always returns a result set. If no matching items are found, the result set will be empty.
+     * Queries that do not return results consume the minimum number of read capacity units for that type of read operation.
+     *
+     * > DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that
+     * > is returned to an application. The number of capacity units consumed will be the same whether you request all of
+     * > the attributes (the default behavior) or just some of them (using a projection expression). The number will also be
+     * > the same whether or not you use a `FilterExpression`.
+     *
+     * `Query` results are always sorted by the sort key value. If the data type of the sort key is Number, the results are
+     * returned in numeric order; otherwise, the results are returned in order of UTF-8 bytes. By default, the sort order is
+     * ascending. To reverse the order, set the `ScanIndexForward` parameter to false.
+     *
+     * A single `Query` operation will read up to the maximum number of items set (if using the `Limit` parameter) or a
+     * maximum of 1 MB of data and then apply any filtering to the results using `FilterExpression`. If `LastEvaluatedKey`
+     * is present in the response, you will need to paginate the result set. For more information, see Paginating the
+     * Results [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * `FilterExpression` is applied after a `Query` finishes, but before the results are returned. A `FilterExpression`
+     * cannot contain partition key or sort key attributes. You need to specify those attributes in the
+     * `KeyConditionExpression`.
+     *
+     * > A `Query` operation can return an empty result set and a `LastEvaluatedKey` if all the items read for the page of
+     * > results are filtered out.
+     *
+     * You can query a table, a local secondary index, or a global secondary index. For a query on a table or on a local
+     * secondary index, you can set the `ConsistentRead` parameter to `true` and obtain a strongly consistent result. Global
+     * secondary indexes support eventually consistent reads only, so do not specify `ConsistentRead` when querying a global
+     * secondary index.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.Pagination
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
      *
@@ -530,6 +740,26 @@ class DynamoDbClient extends AbstractApi
     /**
      * The `Scan` operation returns one or more items and item attributes by accessing every item in a table or a secondary
      * index. To have DynamoDB return fewer items, you can provide a `FilterExpression` operation.
+     *
+     * If the total number of scanned items exceeds the maximum dataset size limit of 1 MB, the scan stops and results are
+     * returned to the user as a `LastEvaluatedKey` value to continue the scan in a subsequent operation. The results also
+     * include the number of items exceeding the limit. A scan can result in no table data meeting the filter criteria.
+     *
+     * A single `Scan` operation reads up to the maximum number of items set (if using the `Limit` parameter) or a maximum
+     * of 1 MB of data and then apply any filtering to the results using `FilterExpression`. If `LastEvaluatedKey` is
+     * present in the response, you need to paginate the result set. For more information, see Paginating the Results [^1]
+     * in the *Amazon DynamoDB Developer Guide*.
+     *
+     * `Scan` operations proceed sequentially; however, for faster performance on a large table or secondary index,
+     * applications can request a parallel `Scan` operation by providing the `Segment` and `TotalSegments` parameters. For
+     * more information, see Parallel Scan [^2] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * `Scan` uses eventually consistent reads when accessing the data in a table; therefore, the result set might not
+     * include the changes to data in the table immediately before the operation began. If you need a consistent copy of the
+     * data, as of the time that the `Scan` begins, you can set the `ConsistentRead` parameter to `true`.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
@@ -619,6 +849,44 @@ class DynamoDbClient extends AbstractApi
      * target the same item. For example, you cannot both `ConditionCheck` and `Update` the same item. The aggregate size of
      * the items in the transaction cannot exceed 4 MB.
      *
+     * The actions are completed atomically so that either all of them succeed, or all of them fail. They are defined by the
+     * following objects:
+     *
+     * - `Put`  —   Initiates a `PutItem` operation to write a new item. This structure specifies the primary key of the
+     *   item to be written, the name of the table to write it in, an optional condition expression that must be satisfied
+     *   for the write to succeed, a list of the item's attributes, and a field indicating whether to retrieve the item's
+     *   attributes if the condition is not met.
+     * -
+     * - `Update`  —   Initiates an `UpdateItem` operation to update an existing item. This structure specifies the
+     *   primary key of the item to be updated, the name of the table where it resides, an optional condition expression
+     *   that must be satisfied for the update to succeed, an expression that defines one or more attributes to be updated,
+     *   and a field indicating whether to retrieve the item's attributes if the condition is not met.
+     * -
+     * - `Delete`  —   Initiates a `DeleteItem` operation to delete an existing item. This structure specifies the
+     *   primary key of the item to be deleted, the name of the table where it resides, an optional condition expression
+     *   that must be satisfied for the deletion to succeed, and a field indicating whether to retrieve the item's
+     *   attributes if the condition is not met.
+     * -
+     * - `ConditionCheck`  —   Applies a condition to an item that is not being modified by the transaction. This
+     *   structure specifies the primary key of the item to be checked, the name of the table where it resides, a condition
+     *   expression that must be satisfied for the transaction to succeed, and a field indicating whether to retrieve the
+     *   item's attributes if the condition is not met.
+     *
+     * DynamoDB rejects the entire `TransactWriteItems` request if any of the following is true:
+     *
+     * - A condition in one of the condition expressions is not met.
+     * -
+     * - An ongoing operation is in the process of updating the same item.
+     * -
+     * - There is insufficient provisioned capacity for the transaction to be completed.
+     * -
+     * - An item size becomes too large (bigger than 400 KB), a local secondary index (LSI) becomes too large, or a similar
+     *   validation error occurs because of changes made by the transaction.
+     * -
+     * - The aggregate size of the items in the transaction exceeds 4 MB.
+     * -
+     * - There is a user error, such as an invalid data format.
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#transactwriteitems
      *
@@ -660,6 +928,9 @@ class DynamoDbClient extends AbstractApi
      * delete, or add attribute values. You can also perform a conditional update on an existing item (insert a new
      * attribute name-value pair if it doesn't exist, or replace an existing name-value pair if it has certain expected
      * attribute values).
+     *
+     * You can also return the item's attribute values in the same `UpdateItem` operation using the `ReturnValues`
+     * parameter.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updateitem
@@ -709,6 +980,23 @@ class DynamoDbClient extends AbstractApi
      * Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given
      * table.
      *
+     * ! This operation only applies to Version 2019.11.21 (Current) [^1] of global tables.
+     *
+     * You can only perform one of the following operations at once:
+     *
+     * - Modify the provisioned throughput settings of the table.
+     * -
+     * - Remove a global secondary index from the table.
+     * -
+     * - Create a new global secondary index on the table. After the index begins backfilling, you can use `UpdateTable` to
+     *   perform other operations.
+     *
+     * `UpdateTable` is an asynchronous operation; while it is executing, the table status changes from `ACTIVE` to
+     * `UPDATING`. While it is `UPDATING`, you cannot issue another `UpdateTable` request. When the table returns to the
+     * `ACTIVE` state, the `UpdateTable` operation is complete.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
+     *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
      *
@@ -750,6 +1038,25 @@ class DynamoDbClient extends AbstractApi
      * `UpdateTimeToLive` call returns the current `TimeToLiveSpecification`. It can take up to one hour for the change to
      * fully process. Any additional `UpdateTimeToLive` calls for the same table during this one hour duration result in a
      * `ValidationException`.
+     *
+     * TTL compares the current time in epoch time format to the time stored in the TTL attribute of an item. If the epoch
+     * time value stored in the attribute is less than the current time, the item is marked as expired and subsequently
+     * deleted.
+     *
+     * > The epoch time format is the number of seconds elapsed since 12:00:00 AM January 1, 1970 UTC.
+     *
+     * DynamoDB deletes expired items on a best-effort basis to ensure availability of throughput for other data operations.
+     *
+     * ! DynamoDB typically deletes expired items within two days of expiration. The exact duration within which an item
+     * ! gets deleted after expiration is specific to the nature of the workload. Items that have expired and not been
+     * ! deleted will still show up in reads, queries, and scans.
+     *
+     * As items are deleted, they are removed from any local secondary index and global secondary index immediately in the
+     * same eventually consistent way as a standard delete operation.
+     *
+     * For more information, see Time To Live [^1] in the Amazon DynamoDB Developer Guide.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetimetolive

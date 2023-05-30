@@ -3,7 +3,7 @@
 namespace AsyncAws\Scheduler\ValueObject;
 
 /**
- * This structure specifies the network configuration for an ECS task.
+ * Specifies the network configuration for an ECS task.
  */
 final class NetworkConfiguration
 {

@@ -34,11 +34,11 @@ final class GetMetricStatisticsInput extends Input
      * The dimensions. If the metric contains multiple dimensions, you must include a value for each dimension. CloudWatch
      * treats each unique combination of dimensions as a separate metric. If a specific combination of dimensions was not
      * published, you can't retrieve statistics for it. You must specify the same dimensions that were used when the metrics
-     * were created. For an example, see Dimension Combinations in the *Amazon CloudWatch User Guide*. For more information
-     * about specifying dimensions, see Publishing Metrics in the *Amazon CloudWatch User Guide*.
+     * were created. For an example, see Dimension Combinations [^1] in the *Amazon CloudWatch User Guide*. For more
+     * information about specifying dimensions, see Publishing Metrics [^2] in the *Amazon CloudWatch User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#dimension-combinations
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#dimension-combinations
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html
      *
      * @var Dimension[]|null
      */
@@ -48,6 +48,26 @@ final class GetMetricStatisticsInput extends Input
      * The time stamp that determines the first data point to return. Start times are evaluated relative to the time that
      * CloudWatch receives the request.
      *
+     * The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP query, the
+     * time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     *
+     * CloudWatch rounds the specified time stamp as follows:
+     *
+     * - Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down to
+     *   12:32:00.
+     * -
+     * - Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34 is
+     *   rounded down to 12:30:00.
+     * -
+     * - Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
+     *   rounded down to 12:00:00.
+     *
+     * If you set `Period` to 5, 10, or 30, the start time of your request is rounded down to the nearest time that
+     * corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you make a query at (HH:mm:ss)
+     * 01:05:23 for the previous 10-second period, the start time of your request is rounded down and you receive data from
+     * 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the previous 5 minutes of data, using a period of 5
+     * seconds, you receive data timestamped between 15:02:15 and 15:07:15.
+     *
      * @required
      *
      * @var \DateTimeImmutable|null
@@ -56,6 +76,9 @@ final class GetMetricStatisticsInput extends Input
 
     /**
      * The time stamp that determines the last data point to return.
+     *
+     * The value specified is exclusive; results include data points up to the specified time stamp. In a raw HTTP query,
+     * the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      *
      * @required
      *
@@ -68,6 +91,15 @@ final class GetMetricStatisticsInput extends Input
      * short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at
      * intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution metrics
      * are those metrics stored by a `PutMetricData` call that includes a `StorageResolution` of 1 second.
+     *
+     * If the `StartTime` parameter specifies a time stamp that is greater than 3 hours ago, you must specify the period as
+     * follows or no data points in that time range is returned:
+     *
+     * - Start time between 3 hours and 15 days ago - Use a multiple of 60 seconds (1 minute).
+     * -
+     * - Start time between 15 and 63 days ago - Use a multiple of 300 seconds (5 minutes).
+     * -
+     * - Start time greater than 63 days ago - Use a multiple of 3600 seconds (1 hour).
      *
      * @required
      *

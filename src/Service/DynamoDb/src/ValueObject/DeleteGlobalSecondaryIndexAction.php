@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The name of an existing global secondary index to be removed.
+ * Represents a global secondary index to be deleted from an existing table.
  */
 final class DeleteGlobalSecondaryIndexAction
 {

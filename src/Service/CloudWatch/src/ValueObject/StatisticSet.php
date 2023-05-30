@@ -5,7 +5,7 @@ namespace AsyncAws\CloudWatch\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The statistical values for the metric.
+ * Represents a set of statistics that describes a specific metric.
  */
 final class StatisticSet
 {

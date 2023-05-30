@@ -11,10 +11,10 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * ! Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
  * ! CloudTrail logs and other output.
  *
- * For information about the rules that apply to tag keys and tag values, see User-Defined Tag Restrictions in the
+ * For information about the rules that apply to tag keys and tag values, see User-Defined Tag Restrictions [^1] in the
  * *Amazon Web Services Billing and Cost Management User Guide*.
  *
- * @see https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
+ * [^1]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
  */
 final class Tag
 {

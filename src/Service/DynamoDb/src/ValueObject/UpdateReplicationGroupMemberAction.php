@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\TableClass;
 
 /**
- * The parameters required for updating a replica for the table.
+ * Represents a replica to be modified.
  */
 final class UpdateReplicationGroupMemberAction
 {

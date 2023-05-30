@@ -22,6 +22,8 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
 
     /**
      * **Important** As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
+     *
+     * Indicates which log streams have been searched and whether each has been searched completely.
      */
     private $searchedLogStreams;
 

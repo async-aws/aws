@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-/**
- * The reason code for the last update that was performed on the function.
- */
 final class LastUpdateStatusReasonCode
 {
     public const DISABLED_KMSKEY = 'DisabledKMSKey';

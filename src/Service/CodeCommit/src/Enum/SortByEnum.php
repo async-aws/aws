@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeCommit\Enum;
 
-/**
- * The criteria used to sort the results of a list repositories operation.
- */
 final class SortByEnum
 {
     public const LAST_MODIFIED_DATE = 'lastModifiedDate';

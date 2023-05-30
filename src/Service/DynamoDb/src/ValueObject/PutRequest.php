@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * A request to perform a `PutItem` operation.
+ * Represents a request to perform a `PutItem` operation on an item.
  */
 final class PutRequest
 {

@@ -2,10 +2,6 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-/**
- * Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `ConditionCheck` condition fails. For
- * `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
- */
 final class ReturnValuesOnConditionCheckFailure
 {
     public const ALL_OLD = 'ALL_OLD';

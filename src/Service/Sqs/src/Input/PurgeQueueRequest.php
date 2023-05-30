@@ -12,6 +12,8 @@ final class PurgeQueueRequest extends Input
     /**
      * The URL of the queue from which the `PurgeQueue` action deletes messages.
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

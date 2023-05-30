@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The Identity and Access Management (IAM) settings.
+ * The Identity and Access Management (IAM) configuration.
  */
 final class AwsIamConfig
 {

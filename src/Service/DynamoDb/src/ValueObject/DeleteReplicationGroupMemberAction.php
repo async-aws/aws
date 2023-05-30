@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The parameters required for deleting a replica for the table.
+ * Represents a replica to be deleted.
  */
 final class DeleteReplicationGroupMemberAction
 {

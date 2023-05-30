@@ -5,7 +5,8 @@ namespace AsyncAws\Rekognition\ValueObject;
 use AsyncAws\Rekognition\Enum\KnownGenderType;
 
 /**
- * Retrieves the known gender for the celebrity.
+ * The known gender identity for the celebrity that matches the provided ID. The known gender identity can be Male,
+ * Female, Nonbinary, or Unlisted.
  */
 final class KnownGender
 {

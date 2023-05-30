@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Kinesis\Enum;
 
-/**
- * A consumer can't read data while in the `CREATING` or `DELETING` states.
- */
 final class ConsumerStatus
 {
     public const ACTIVE = 'ACTIVE';

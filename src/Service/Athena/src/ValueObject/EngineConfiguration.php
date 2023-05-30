@@ -5,7 +5,7 @@ namespace AsyncAws\Athena\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Contains engine configuration information like DPU usage.
+ * Contains data processing unit (DPU) configuration settings and parameter mappings for a notebook engine.
  */
 final class EngineConfiguration
 {
@@ -27,7 +27,7 @@ final class EngineConfiguration
     private $defaultExecutorDpuSize;
 
     /**
-     * Contains additional notebook engine `MAP&lt;string, string&gt;` parameter mappings in the form of key-value pairs. To
+     * Contains additional notebook engine `MAP<string, string>` parameter mappings in the form of key-value pairs. To
      * specify an Athena notebook that the Jupyter server will download and serve, specify a value for the
      * StartSessionRequest$NotebookVersion field, and then add a key named `NotebookId` to `AdditionalConfigs` that has the
      * value of the Athena notebook ID.

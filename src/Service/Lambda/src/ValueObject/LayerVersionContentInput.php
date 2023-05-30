@@ -3,7 +3,10 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * The function layer archive.
+ * A ZIP archive that contains the contents of an Lambda layer [^1]. You can specify either an Amazon S3 location, or
+ * upload a layer archive directly.
+ *
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
  */
 final class LayerVersionContentInput
 {

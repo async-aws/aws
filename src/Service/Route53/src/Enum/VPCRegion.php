@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Route53\Enum;
 
-/**
- * (Private hosted zones only) The region that an Amazon VPC was created in.
- */
 final class VPCRegion
 {
     public const AF_SOUTH_1 = 'af-south-1';

@@ -5,7 +5,9 @@ namespace AsyncAws\Scheduler\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The schedule's target.
+ * The schedule's target. EventBridge Scheduler supports templated target that invoke common API operations, as well as
+ * universal targets that you can customize to invoke over 6,000 API operations across more than 270 services. You can
+ * only specify one templated or universal target for a schedule.
  */
 final class Target
 {
@@ -22,16 +24,16 @@ final class Target
     private $deadLetterConfig;
 
     /**
-     * The templated target type for the Amazon ECS `RunTask` API operation.
+     * The templated target type for the Amazon ECS `RunTask` [^1] API operation.
      *
-     * @see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
      */
     private $ecsParameters;
 
     /**
-     * The templated target type for the EventBridge `PutEvents` API operation.
+     * The templated target type for the EventBridge `PutEvents` [^1] API operation.
      *
-     * @see https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
+     * [^1]: https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
      */
     private $eventBridgeParameters;
 
@@ -44,9 +46,9 @@ final class Target
     private $input;
 
     /**
-     * The templated target type for the Amazon Kinesis `PutRecord` API operation.
+     * The templated target type for the Amazon Kinesis `PutRecord` [^1] API operation.
      *
-     * @see kinesis/latest/APIReference/API_PutRecord.html
+     * [^1]: kinesis/latest/APIReference/API_PutRecord.html
      */
     private $kinesisParameters;
 
@@ -63,20 +65,20 @@ final class Target
     private $roleArn;
 
     /**
-     * The templated target type for the Amazon SageMaker `StartPipelineExecution` API operation.
+     * The templated target type for the Amazon SageMaker `StartPipelineExecution` [^1] API operation.
      *
-     * @see https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html
+     * [^1]: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html
      */
     private $sageMakerPipelineParameters;
 
     /**
-     * The templated target type for the Amazon SQS `SendMessage` API operation. Contains the message group ID to use when
-     * the target is a FIFO queue. If you specify an Amazon SQS FIFO queue as a target, the queue must have content-based
-     * deduplication enabled. For more information, see Using the Amazon SQS message deduplication ID in the *Amazon SQS
-     * Developer Guide*.
+     * The templated target type for the Amazon SQS `SendMessage` [^1] API operation. Contains the message group ID to use
+     * when the target is a FIFO queue. If you specify an Amazon SQS FIFO queue as a target, the queue must have
+     * content-based deduplication enabled. For more information, see Using the Amazon SQS message deduplication ID [^2] in
+     * the *Amazon SQS Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
+     * [^2]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html
      */
     private $sqsParameters;
 

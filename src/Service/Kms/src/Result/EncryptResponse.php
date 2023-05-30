@@ -15,9 +15,9 @@ class EncryptResponse extends Result
     private $ciphertextBlob;
 
     /**
-     * The Amazon Resource Name (key ARN) of the KMS key that was used to encrypt the plaintext.
+     * The Amazon Resource Name (key ARN [^1]) of the KMS key that was used to encrypt the plaintext.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
      */
     private $keyId;
 

@@ -23,6 +23,29 @@ final class EnableEnhancedMonitoringInput extends Input
     /**
      * List of shard-level metrics to enable.
      *
+     * The following are the valid shard-level metrics. The value "`ALL`" enables every metric.
+     *
+     * - `IncomingBytes`
+     * -
+     * - `IncomingRecords`
+     * -
+     * - `OutgoingBytes`
+     * -
+     * - `OutgoingRecords`
+     * -
+     * - `WriteProvisionedThroughputExceeded`
+     * -
+     * - `ReadProvisionedThroughputExceeded`
+     * -
+     * - `IteratorAgeMilliseconds`
+     * -
+     * - `ALL`
+     *
+     * For more information, see Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch [^1] in the
+     * *Amazon Kinesis Data Streams Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html
+     *
      * @required
      *
      * @var list<MetricsName::*>|null

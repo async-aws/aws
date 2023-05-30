@@ -26,9 +26,12 @@ final class FunctionConfiguration
     private $functionArn;
 
     /**
-     * The identifier of the function's runtime. Runtime is required if the deployment package is a .zip file archive.
+     * The identifier of the function's runtime [^1]. Runtime is required if the deployment package is a .zip file archive.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
      */
     private $runtime;
 
@@ -63,9 +66,9 @@ final class FunctionConfiguration
     private $memorySize;
 
     /**
-     * The date and time that the function was last updated, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+     * The date and time that the function was last updated, in ISO-8601 format [^1] (YYYY-MM-DDThh:mm:ss.sTZD).
      *
-     * @see https://www.w3.org/TR/NOTE-datetime
+     * [^1]: https://www.w3.org/TR/NOTE-datetime
      */
     private $lastModified;
 
@@ -90,19 +93,19 @@ final class FunctionConfiguration
     private $deadLetterConfig;
 
     /**
-     * The function's environment variables. Omitted from CloudTrail logs.
+     * The function's environment variables [^1]. Omitted from CloudTrail logs.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
      */
     private $environment;
 
     /**
-     * The KMS key that's used to encrypt the function's environment variables. When Lambda SnapStart is activated, this key
-     * is also used to encrypt the function's snapshot. This key is returned only if you've configured a customer managed
-     * key.
+     * The KMS key that's used to encrypt the function's environment variables [^1]. When Lambda SnapStart [^2] is
+     * activated, this key is also used to encrypt the function's snapshot. This key is returned only if you've configured a
+     * customer managed key.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html
      */
     private $kmsKeyArn;
 
@@ -122,9 +125,9 @@ final class FunctionConfiguration
     private $revisionId;
 
     /**
-     * The function's layers.
+     * The function's layers [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      */
     private $layers;
 
@@ -161,9 +164,9 @@ final class FunctionConfiguration
     private $lastUpdateStatusReasonCode;
 
     /**
-     * Connection settings for an Amazon EFS file system.
+     * Connection settings for an Amazon EFS file system [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
      */
     private $fileSystemConfigs;
 
@@ -201,9 +204,9 @@ final class FunctionConfiguration
 
     /**
      * Set `ApplyOn` to `PublishedVersions` to create a snapshot of the initialized execution environment when you publish a
-     * function version. For more information, see Improving startup performance with Lambda SnapStart.
+     * function version. For more information, see Improving startup performance with Lambda SnapStart [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
      */
     private $snapStart;
 

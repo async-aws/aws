@@ -2,9 +2,6 @@
 
 namespace AsyncAws\ElastiCache\Enum;
 
-/**
- * The auth token status.
- */
 final class AuthTokenUpdateStatus
 {
     public const ROTATING = 'ROTATING';

@@ -5,14 +5,20 @@ namespace AsyncAws\CodeDeploy\ValueObject;
 use AsyncAws\CodeDeploy\Enum\DeploymentReadyAction;
 
 /**
- * Information about the action to take when newly provisioned instances are ready to receive traffic in a blue/green
- * deployment.
+ * Information about how traffic is rerouted to instances in a replacement environment in a blue/green deployment.
  */
 final class DeploymentReadyOption
 {
     /**
      * Information about when to reroute traffic from an original environment to a replacement environment in a blue/green
      * deployment.
+     *
+     * - CONTINUE_DEPLOYMENT: Register new instances with the load balancer immediately after the new application revision
+     *   is installed on the instances in the replacement environment.
+     * -
+     * - STOP_DEPLOYMENT: Do not register new instances with a load balancer unless traffic rerouting is started using
+     *   ContinueDeployment. If traffic rerouting is not started before the end of the specified wait period, the deployment
+     *   status is changed to Stopped.
      */
     private $actionOnTimeout;
 

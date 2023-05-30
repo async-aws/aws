@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Athena\Enum;
 
-/**
- * The state of the workgroup: ENABLED or DISABLED.
- */
 final class WorkGroupState
 {
     public const DISABLED = 'DISABLED';

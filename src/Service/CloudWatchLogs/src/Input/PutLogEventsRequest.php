@@ -40,6 +40,10 @@ final class PutLogEventsRequest extends Input
     /**
      * The sequence token obtained from the response of the previous `PutLogEvents` call.
      *
+     * ! The `sequenceToken` parameter is now ignored in `PutLogEvents` actions. `PutLogEvents` actions are now accepted and
+     * ! never return `InvalidSequenceTokenException` or `DataAlreadyAcceptedException` even if the sequence token is not
+     * ! valid.
+     *
      * @var string|null
      */
     private $sequenceToken;
