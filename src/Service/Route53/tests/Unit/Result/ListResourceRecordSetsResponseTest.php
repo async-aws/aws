@@ -40,7 +40,7 @@ class ListResourceRecordSetsResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListResourceRecordSetsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new Route53Client(), new ListResourceRecordSetsRequest());
 
-        self::assertCount(1, $result->getResourceRecordSets());
+        self::assertCount(1, iterator_to_array($result->getResourceRecordSets()));
         self::assertFalse($result->getIsTruncated());
         self::assertNull($result->getNextRecordName());
         self::assertNull($result->getNextRecordType());

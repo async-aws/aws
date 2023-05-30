@@ -327,8 +327,9 @@ class KinesisClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertCount(1, $result->getConsumers());
-        self::assertSame('demo', iterator_to_array($result->getConsumers())[0]->getConsumerName());
+        $consumers = iterator_to_array($result->getConsumers());
+        self::assertCount(1, $consumers);
+        self::assertSame('demo', $consumers[0]->getConsumerName());
     }
 
     public function testListStreams(): void
@@ -341,8 +342,9 @@ class KinesisClientTest extends TestCase
         $input = new ListStreamsInput([]);
         $result = $client->listStreams($input);
 
-        self::assertGreaterThanOrEqual(1, iterator_to_array($result->getStreamNames()));
-        self::assertContains(__FUNCTION__, iterator_to_array($result->getStreamNames()));
+        $streamNames = iterator_to_array($result->getStreamNames());
+        self::assertGreaterThanOrEqual(1, \count($streamNames));
+        self::assertContains(__FUNCTION__, $streamNames);
     }
 
     public function testListTagsForStream(): void

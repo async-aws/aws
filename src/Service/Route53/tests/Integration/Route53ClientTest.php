@@ -221,7 +221,7 @@ class Route53ClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertCount(2, $result->getResourceRecordSets());
+        self::assertCount(2, iterator_to_array($result->getResourceRecordSets()));
         self::assertFalse($result->getIsTruncated());
         self::assertNull($result->getNextRecordName());
     }

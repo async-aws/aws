@@ -52,7 +52,7 @@ class ScanOutputTest extends TestCase
             break;
         }
 
-        self::assertCount(2, $items);
+        self::assertCount(2, iterator_to_array($items));
         self::assertSame(2, $result->getCount());
         self::assertSame(3, $result->getScannedCount());
     }

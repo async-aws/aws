@@ -32,7 +32,7 @@ class ListTablesOutputTest extends TestCase
 
             break;
         }
-        self::assertCount(4, $tableNames);
+        self::assertCount(4, iterator_to_array($tableNames));
         self::assertNull($result->getLastEvaluatedTableName());
     }
 }

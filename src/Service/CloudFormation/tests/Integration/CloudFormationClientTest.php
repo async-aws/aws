@@ -45,7 +45,7 @@ class CloudFormationClientTest extends TestCase
         ]);
         $result = $client->DescribeStackEvents($input);
 
-        self::assertCount(0, $result->getStackEvents());
+        self::assertCount(0, iterator_to_array($result->getStackEvents()));
         self::assertNull($result->getNextToken());
     }
 

@@ -47,8 +47,9 @@ class ListUsersResponseTest extends TestCase
         $result = new ListUsersResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new IamClient(), new ListUsersRequest());
 
         self::assertFalse($result->getIsTruncated());
-        self::assertCount(2, $result->getUsers(true));
-        self::assertSame('Juan', iterator_to_array($result->getUsers())[0]->getUserName());
-        self::assertSame('Anika', iterator_to_array($result->getUsers())[1]->getUserName());
+        $users = iterator_to_array($result->getUsers(true));
+        self::assertCount(2, $users);
+        self::assertSame('Juan', $users[0]->getUserName());
+        self::assertSame('Anika', $users[1]->getUserName());
     }
 }
