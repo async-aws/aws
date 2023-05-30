@@ -6,6 +6,10 @@
 
 - Support for Athena
 
+### Fixed
+
+- Fix potential malformed URI in discovered endpoints
+
 ## 1.18.1
 
 ### Changed

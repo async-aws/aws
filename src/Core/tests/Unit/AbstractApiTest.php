@@ -50,7 +50,7 @@ class AbstractApiTest extends TestCase
 
         $httpClient->expects(self::once())
             ->method('request')
-            ->with('GET', 'https://foobar.discovered.amazonaws.com/')
+            ->with('GET', 'https://foobar.discovered.amazonaws.com/foo')
             ->willReturn($response)
         ;
 
