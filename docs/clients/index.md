@@ -136,7 +136,7 @@ operation, it can be automatically generated. See the [contribution guide](/cont
 for more information.
 
 | Api Client                                  | Package name                                                                                              |
-| ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+|---------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | [AppSync](./app-sync.md)                    | [async-aws/app-sync](https://packagist.org/packages/async-aws/app-sync)                                   |
 | [Athena](./athena.md)                       | [async-aws/athena](https://packagist.org/packages/async-aws/athena)                                       |
 | [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)                     |
@@ -159,6 +159,7 @@ for more information.
 | [Kinesis](./kinesis.md)                     | [async-aws/kinesis](https://packagist.org/packages/async-aws/kinesis)                                     |
 | [KMS](./kms.md)                             | [async-aws/kms](https://packagist.org/packages/async-aws/kms)                                             |
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)                                       |
+| [MediaConvert](./media-convert.md)          | [async-aws/media-convert](https://packagist.org/packages/async-aws/media-convert)                         |
 | [RdsDataService](./rds-data-service.md)     | [async-aws/rds-data-service](https://packagist.org/packages/async-aws/rds-data-service)                   |
 | [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)                             |
 | [Route53](./route53.md)                     | [async-aws/route53](https://packagist.org/packages/async-aws/route53)                                     |

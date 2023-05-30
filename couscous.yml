@@ -97,6 +97,9 @@ menu:
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
+            media-convert:
+                text: MediaConvert
+                url: /clients/media-convert.html
             rds-data-service:
                 text: RdsDataService
                 url: /clients/rds-data-service.html
