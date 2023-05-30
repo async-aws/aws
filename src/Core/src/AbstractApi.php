@@ -260,7 +260,7 @@ abstract class AbstractApi
             return $endpoint;
         }
 
-        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . http_build_query($query, '', '&', \PHP_QUERY_RFC1738);
+        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . http_build_query($query, '', '&', \PHP_QUERY_RFC3986);
     }
 
     protected function discoverEndpoints(?string $region): array
