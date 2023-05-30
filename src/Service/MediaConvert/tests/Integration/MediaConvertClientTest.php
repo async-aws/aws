@@ -8,6 +8,7 @@ use AsyncAws\MediaConvert\Input\CancelJobRequest;
 use AsyncAws\MediaConvert\Input\CreateJobRequest;
 use AsyncAws\MediaConvert\Input\DescribeEndpointsRequest;
 use AsyncAws\MediaConvert\Input\GetJobRequest;
+use AsyncAws\MediaConvert\Input\ListJobsRequest;
 use AsyncAws\MediaConvert\MediaConvertClient;
 use AsyncAws\MediaConvert\ValueObject\AacSettings;
 use AsyncAws\MediaConvert\ValueObject\Ac3Settings;
@@ -1513,6 +1514,25 @@ class MediaConvertClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getJob());
+    }
+
+    public function testListJobs(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListJobsRequest([
+            'MaxResults' => 1337,
+            'NextToken' => 'change me',
+            'Order' => 'change me',
+            'Queue' => 'change me',
+            'Status' => 'change me',
+        ]);
+        $result = $client->listJobs($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getJobs());
+        self::assertSame('changeIt', $result->getNextToken());
     }
 
     private function getClient(): MediaConvertClient

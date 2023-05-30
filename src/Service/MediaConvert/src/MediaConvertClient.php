@@ -9,6 +9,8 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\MediaConvert\Enum\BillingTagsSource;
 use AsyncAws\MediaConvert\Enum\DescribeEndpointsMode;
+use AsyncAws\MediaConvert\Enum\JobStatus;
+use AsyncAws\MediaConvert\Enum\Order;
 use AsyncAws\MediaConvert\Enum\SimulateReservedQueue;
 use AsyncAws\MediaConvert\Enum\StatusUpdateInterval;
 use AsyncAws\MediaConvert\Exception\BadRequestException;
@@ -21,10 +23,12 @@ use AsyncAws\MediaConvert\Input\CancelJobRequest;
 use AsyncAws\MediaConvert\Input\CreateJobRequest;
 use AsyncAws\MediaConvert\Input\DescribeEndpointsRequest;
 use AsyncAws\MediaConvert\Input\GetJobRequest;
+use AsyncAws\MediaConvert\Input\ListJobsRequest;
 use AsyncAws\MediaConvert\Result\CancelJobResponse;
 use AsyncAws\MediaConvert\Result\CreateJobResponse;
 use AsyncAws\MediaConvert\Result\DescribeEndpointsResponse;
 use AsyncAws\MediaConvert\Result\GetJobResponse;
+use AsyncAws\MediaConvert\Result\ListJobsResponse;
 use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
@@ -180,6 +184,46 @@ class MediaConvertClient extends AbstractApi
         ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new GetJobResponse($response);
+    }
+
+    /**
+     * Retrieve a JSON array of up to twenty of your most recently created jobs. This array includes in-process, completed,
+     * and errored jobs. This will return the jobs themselves, not just a list of the jobs. To retrieve the twenty next most
+     * recent jobs, use the nextToken string returned with the array.
+     *
+     * @see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_ListJobs.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#listjobs
+     *
+     * @param array{
+     *   MaxResults?: int,
+     *   NextToken?: string,
+     *   Order?: Order::*,
+     *   Queue?: string,
+     *   Status?: JobStatus::*,
+     *
+     *   @region?: string,
+     * }|ListJobsRequest $input
+     *
+     * @throws BadRequestException
+     * @throws InternalServerErrorException
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     * @throws ConflictException
+     */
+    public function listJobs($input = []): ListJobsResponse
+    {
+        $input = ListJobsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListJobs', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'NotFoundException' => NotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'ConflictException' => ConflictException::class,
+        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
+
+        return new ListJobsResponse($response, $this, $input);
     }
 
     protected function discoverEndpoints(?string $region): array

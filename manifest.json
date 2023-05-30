@@ -413,7 +413,8 @@
                 "CancelJob",
                 "CreateJob",
                 "DescribeEndpoints",
-                "GetJob"
+                "GetJob",
+                "ListJobs"
             ],
             "patches": {
                 "source": [
@@ -433,6 +434,13 @@
                     },
                     {
                         "path": "/operations/GetJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    },
+                    {
+                        "path": "/operations/ListJobs/endpointdiscovery",
                         "op": "add",
                         "value": {
                             "required": true
