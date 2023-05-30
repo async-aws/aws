@@ -32,7 +32,8 @@ class ListStreamConsumersOutputTest extends TestCase
         $result = new ListStreamConsumersOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new KinesisClient(), new ListStreamConsumersInput([]));
 
         // self::assertTODO(expected, $result->getConsumers());
-        self::assertCount(1, $result->getConsumers(true));
-        self::assertSame('arn', iterator_to_array($result->getConsumers(true))[0]->getConsumerArn());
+        $consumers = iterator_to_array($result->getConsumers(true));
+        self::assertCount(1, $consumers);
+        self::assertSame('arn', $consumers[0]->getConsumerArn());
     }
 }

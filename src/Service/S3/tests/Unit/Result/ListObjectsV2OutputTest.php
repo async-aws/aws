@@ -60,6 +60,6 @@ class ListObjectsV2OutputTest extends TestCase
         $result = new ListObjectsV2Output(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $content = $result->getContents(true);
-        self::assertCount(0, $content);
+        self::assertCount(0, iterator_to_array($content));
     }
 }

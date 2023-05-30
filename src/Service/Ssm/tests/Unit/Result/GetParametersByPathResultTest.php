@@ -55,9 +55,10 @@ class GetParametersByPathResultTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new GetParametersByPathResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new SsmClient(), new GetParametersByPathRequest());
 
-        self::assertCount(5, $result->getParameters(true));
-        self::assertInstanceOf(Parameter::class, iterator_to_array($result->getParameters())[0]);
-        self::assertSame('/Branch312/Dev/Engineer1', iterator_to_array($result->getParameters())[0]->getName());
+        $parameters = iterator_to_array($result->getParameters(true));
+        self::assertCount(5, $parameters);
+        self::assertInstanceOf(Parameter::class, $parameters[0]);
+        self::assertSame('/Branch312/Dev/Engineer1', $parameters[0]->getName());
         self::assertCount(5, iterator_to_array($result));
         self::assertInstanceOf(Parameter::class, iterator_to_array($result)[0]);
     }

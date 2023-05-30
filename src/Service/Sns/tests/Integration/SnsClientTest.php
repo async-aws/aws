@@ -118,9 +118,9 @@ class SnsClientTest extends TestCase
         ]);
         $result = $client->ListSubscriptionsByTopic($input);
 
-        self::assertCount(1, $result->getSubscriptions());
-        $subscription = iterator_to_array($result->getSubscriptions())[0];
-        self::assertSame('http://async-aws.com', $subscription->getEndpoint());
+        $subscriptions = iterator_to_array($result->getSubscriptions());
+        self::assertCount(1, $subscriptions);
+        self::assertSame('http://async-aws.com', $subscriptions[0]->getEndpoint());
     }
 
     public function testPublish(): void
