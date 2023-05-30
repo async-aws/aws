@@ -97,6 +97,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',
             ],
+            'media_convert' => [
+                'class' => \AsyncAws\MediaConvert\MediaConvertClient::class,
+                'package' => 'async-aws/media-convert',
+            ],
             'rds_data_service' => [
                 'class' => \AsyncAws\RdsDataService\RdsDataServiceClient::class,
                 'package' => 'async-aws/rds-data-service',

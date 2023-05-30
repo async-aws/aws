@@ -5,6 +5,7 @@
 ### Added
 
 - Support for Athena
+- Support for MediaConvert
 
 ## 1.10.0
 
