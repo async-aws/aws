@@ -310,14 +310,14 @@ class SignerV4 implements Signer
         $encodedQuery = [];
         foreach ($query as $key => $values) {
             if (!\is_array($values)) {
-                $encodedQuery[] = urlencode($key) . '=' . urlencode($values);
+                $encodedQuery[] = rawurlencode($key) . '=' . rawurlencode($values);
 
                 continue;
             }
 
             sort($values);
             foreach ($values as $value) {
-                $encodedQuery[] = urlencode($key) . '=' . urlencode($value);
+                $encodedQuery[] = rawurlencode($key) . '=' . rawurlencode($value);
             }
         }
 
