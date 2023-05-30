@@ -15,12 +15,16 @@ use AsyncAws\MediaConvert\Result\DescribeEndpointsResponse;
 use AsyncAws\MediaConvert\Result\GetJobResponse;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 class MediaConvertClientTest extends TestCase
 {
     public function testCancelJob(): void
     {
-        $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient());
+        $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient([
+            new MockResponse('{"endpoints": [{"url":"http://account.localhost"}]}'),
+            new MockResponse(),
+        ]));
 
         $input = new CancelJobRequest([
             'Id' => 'change me',
@@ -33,7 +37,10 @@ class MediaConvertClientTest extends TestCase
 
     public function testCreateJob(): void
     {
-        $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient());
+        $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient([
+            new MockResponse('{"endpoints": [{"url":"http://account.localhost"}]}'),
+            new MockResponse(),
+        ]));
 
         $input = new CreateJobRequest([
 
@@ -64,7 +71,10 @@ class MediaConvertClientTest extends TestCase
 
     public function testGetJob(): void
     {
-        $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient());
+        $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient([
+            new MockResponse('{"endpoints": [{"url":"http://account.localhost"}]}'),
+            new MockResponse(),
+        ]));
 
         $input = new GetJobRequest([
             'Id' => 'ZJ1648461e',

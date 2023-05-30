@@ -414,7 +414,32 @@
                 "CreateJob",
                 "DescribeEndpoints",
                 "GetJob"
-            ]
+            ],
+            "patches": {
+                "source": [
+                    {
+                        "path": "/operations/CancelJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    },
+                    {
+                        "path": "/operations/CreateJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    },
+                    {
+                        "path": "/operations/GetJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    }
+                ]
+            }
         },
         "RdsDataService": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/api-2.json",
