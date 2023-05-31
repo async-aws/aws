@@ -232,4 +232,4 @@ foreach ($services as $service => $hasChange) {
 }
 
 // forward version to .github action
-echo PHP_EOL, '::set-output name=last::'.$lastVersion, PHP_EOL;
+file_put_contents($_SERVER['GITHUB_OUTPUT'], 'last='.$lastVersion.\PHP_EOL, FILE_APPEND);
