@@ -41,6 +41,7 @@ is an example for DynamoDB.
 1. Update the packages overview section of the root `README.md` file
 1. Create a `./docs/clients/dynamodb.md` file documenting the client
 1. Update the `./docs/clients/index.md` and `./couscous.yml` files to point to the new client documentation
+1. Add the new client in `./src/Integration/Symfony/Bundle/src/DependencyInjection/AwsPackagesProvider.php`
 1. Update the `./CHANGELOG.md`
 
 If you started working on a new client, please submit a "Draft PR" to show your
