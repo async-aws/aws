@@ -11,25 +11,18 @@ use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Ssm\SsmClient;
 use AsyncAws\Symfony\Bundle\AsyncAwsBundle;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
-use Nyholm\BundleTest\BaseBundleTestCase;
-use Nyholm\BundleTest\CompilerPass\PublicServicePass;
+use Nyholm\BundleTest\TestKernel;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\HttpKernel\KernelInterface;
 
-class BundleInitializationTest extends BaseBundleTestCase
+class BundleInitializationTest extends KernelTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->addCompilerPass(new PublicServicePass('|async_aws.*|'));
-        $this->addCompilerPass(new PublicServicePass('|AsyncAws\.*|'));
-    }
-
     public function testInitBundle()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/default.yaml');
-        $this->bootKernel();
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/default.yaml');
+        }]);
 
         self::assertServiceExists('async_aws.client.s3', S3Client::class);
         self::assertServiceExists('async_aws.client.sqs', SqsClient::class);
@@ -48,16 +41,16 @@ class BundleInitializationTest extends BaseBundleTestCase
         // Test secret
         self::assertServiceExists(SsmVault::class, SsmVault::class);
 
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         self::assertFalse($container->has(SqsClient::class . ' $notFound'));
         self::assertFalse($container->has(S3Client::class . ' $foobar'));
     }
 
     public function testEmptyConfig()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/empty.yaml');
-        $this->bootKernel();
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/empty.yaml');
+        }]);
 
         self::assertServiceExists('async_aws.client.s3', S3Client::class);
         self::assertServiceExists('async_aws.client.sqs', SqsClient::class);
@@ -71,11 +64,11 @@ class BundleInitializationTest extends BaseBundleTestCase
 
     public function testNotRegisterServices()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/no_services.yaml');
-        $this->bootKernel();
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/no_services.yaml');
+        }]);
 
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         self::assertFalse($container->has('async_aws.client.s3'));
         self::assertFalse($container->has('async_aws.client.sqs'));
         self::assertFalse($container->has(SqsClient::class));
@@ -83,11 +76,11 @@ class BundleInitializationTest extends BaseBundleTestCase
 
     public function testEmptyClientsKey()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/empty_clients_key.yaml');
-        $this->bootKernel();
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/empty_clients_key.yaml');
+        }]);
 
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         self::assertTrue($container->has('async_aws.client.s3'));
         self::assertTrue($container->has('async_aws.client.sqs'));
         self::assertTrue($container->has(SqsClient::class));
@@ -95,11 +88,11 @@ class BundleInitializationTest extends BaseBundleTestCase
 
     public function testNotRegisterSqs()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/no_service_sqs.yaml');
-        $this->bootKernel();
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/no_service_sqs.yaml');
+        }]);
 
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         self::assertTrue($container->has('async_aws.client.s3'));
         self::assertFalse($container->has('async_aws.client.sqs'));
         self::assertFalse($container->has(SqsClient::class));
@@ -107,11 +100,11 @@ class BundleInitializationTest extends BaseBundleTestCase
 
     public function testConfigOverride()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/override.yaml');
-        $this->bootKernel();
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/override.yaml');
+        }]);
 
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         self::assertTrue($container->has('async_aws.client.s3'));
         self::assertTrue($container->has('async_aws.client.ses'));
         self::assertTrue($container->has('async_aws.client.sqs'));
@@ -139,33 +132,46 @@ class BundleInitializationTest extends BaseBundleTestCase
             self::markTestSkipped('SNSClient is installed..');
         }
 
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/not_installed_service.yaml');
-
         $this->expectException(InvalidConfigurationException::class);
-        $this->bootKernel();
+
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/not_installed_service.yaml');
+        }]);
     }
 
     public function testIssue793()
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/issue-793/default.yaml');
-        $kernel->addConfigFile(__DIR__ . '/Resources/config/issue-793/dev.yaml');
+        self::bootKernel(['config' => static function (TestKernel $kernel) {
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/issue-793/default.yaml');
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/issue-793/dev.yaml');
+        }]);
 
-        $this->bootKernel();
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         $x = $container->get(S3Client::class);
         self::assertSame('./docker/dynamodb/credentials', $x->getConfiguration()->get('sharedCredentialsFile'));
     }
 
-    protected function getBundleClass(): string
+    protected static function getKernelClass(): string
     {
-        return AsyncAwsBundle::class;
+        return TestKernel::class;
+    }
+
+    protected static function createKernel(array $options = []): KernelInterface
+    {
+        $kernel = parent::createKernel($options);
+        \assert($kernel instanceof TestKernel);
+
+        $kernel->addTestBundle(AsyncAwsBundle::class);
+        $kernel->addTestCompilerPass(new PublicServicePass('|async_aws.*|'));
+        $kernel->addTestCompilerPass(new PublicServicePass('|AsyncAws\.*|'));
+        $kernel->handleOptions($options);
+
+        return $kernel;
     }
 
     private function assertServiceExists(string $serviceId, string $instance)
     {
-        $container = $this->getContainer();
+        $container = self::$kernel->getContainer();
         self::assertTrue($container->has($serviceId));
         self::assertInstanceOf($instance, $container->get($serviceId));
     }
