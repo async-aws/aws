@@ -206,14 +206,20 @@ class OperationGenerator
         if ($operation->requiresEndpointDiscovery()) {
             $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
             $endpointOperation = $operation->getService()->findEndpointOperationName();
-            $this->generate($endpointOperation);
+
+            if (null !== $endpointOperation) {
+                $this->generate($endpointOperation);
+            }
 
             $extra .= ", 'requiresEndpointDiscovery' => true";
         }
         if ($operation->usesEndpointDiscovery()) {
             $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
             $endpointOperation = $operation->getService()->findEndpointOperationName();
-            $this->generate($endpointOperation);
+
+            if (null !== $endpointOperation) {
+                $this->generate($endpointOperation);
+            }
 
             $extra .= ", 'usesEndpointDiscovery' => true";
         }
