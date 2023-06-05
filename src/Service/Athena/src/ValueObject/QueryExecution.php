@@ -67,7 +67,7 @@ final class QueryExecution
 
     /**
      * A list of values for the parameters in a query. The values are applied sequentially to the parameters in the query in
-     * the order in which the parameters occur.
+     * the order in which the parameters occur. The list of parameters is not returned in the response.
      */
     private $executionParameters;
 
