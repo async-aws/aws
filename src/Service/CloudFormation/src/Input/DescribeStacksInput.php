@@ -12,7 +12,8 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DescribeStacksInput extends Input
 {
     /**
-     * The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:.
+     * > If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the
+     * > account. This requires `ListStacks` and `DescribeStacks` permissions.
      *
      * @var string|null
      */
