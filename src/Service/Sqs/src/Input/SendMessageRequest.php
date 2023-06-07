@@ -22,7 +22,7 @@ final class SendMessageRequest extends Input
     private $queueUrl;
 
     /**
-     * The message to send. The minimum size is one character. The maximum size is 256 KB.
+     * The message to send. The minimum size is one character. The maximum size is 256 KiB.
      *
      * @required
      *

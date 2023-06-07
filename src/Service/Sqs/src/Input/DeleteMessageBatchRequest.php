@@ -20,7 +20,7 @@ final class DeleteMessageBatchRequest extends Input
     private $queueUrl;
 
     /**
-     * A list of receipt handles for the messages to be deleted.
+     * Lists the receipt handles for the messages to be deleted.
      *
      * @required
      *

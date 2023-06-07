@@ -5,14 +5,7 @@ namespace AsyncAws\Sqs\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Encloses a receipt handle and an entry id for each message in `ChangeMessageVisibilityBatch.`.
- *
- * ! All of the following list parameters must be prefixed with `ChangeMessageVisibilityBatchRequestEntry.n`, where `n`
- * ! is an integer value starting with `1`. For example, a parameter list for this action might look like this:
- *
- * `&amp;ChangeMessageVisibilityBatchRequestEntry.1.Id=change_visibility_msg_2`
- * `&amp;ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle=your_receipt_handle`
- * `&amp;ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout=45`
+ * Encloses a receipt handle and an entry ID for each message in `ChangeMessageVisibilityBatch.`.
  */
 final class ChangeMessageVisibilityBatchRequestEntry
 {

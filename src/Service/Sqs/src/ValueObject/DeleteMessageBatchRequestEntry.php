@@ -10,7 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class DeleteMessageBatchRequestEntry
 {
     /**
-     * An identifier for this particular receipt handle. This is used to communicate the result.
+     * The identifier for this particular receipt handle. This is used to communicate the result.
      */
     private $id;
 
