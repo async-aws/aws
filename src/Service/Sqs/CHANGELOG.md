@@ -4,10 +4,7 @@
 
 ### Added
 
-- AWS api-change: Amazon SQS adds three new APIs - StartMessageMoveTask, CancelMessageMoveTask, and ListMessageMoveTasks to automate redriving messages from dead-letter queues to source queues or a custom destination.
-- AWS api-change: Revert previous SQS protocol change.
-- AWS api-change: This release enables customers to call SQS using AWS JSON-1.0 protocol.
-- AWS api-change: Amazon SQS adds a new queue attribute, SqsManagedSseEnabled, which enables server-side queue encryption using SQS owned encryption keys.
+- AWS api-change: Added `DEAD_LETTER_QUEUE_SOURCE_ARN` attribute name
 
 ## 1.7.0
 
