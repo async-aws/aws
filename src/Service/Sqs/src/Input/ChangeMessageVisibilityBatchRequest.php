@@ -20,7 +20,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
     private $queueUrl;
 
     /**
-     * A list of receipt handles of the messages for which the visibility timeout must be changed.
+     * Lists the receipt handles of the messages for which the visibility timeout must be changed.
      *
      * @required
      *

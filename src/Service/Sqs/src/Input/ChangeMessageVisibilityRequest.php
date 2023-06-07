@@ -19,8 +19,8 @@ final class ChangeMessageVisibilityRequest extends Input
     private $queueUrl;
 
     /**
-     * The receipt handle associated with the message whose visibility timeout is changed. This parameter is returned by the
-     * `ReceiveMessage` action.
+     * The receipt handle associated with the message, whose visibility timeout is changed. This parameter is returned by
+     * the `ReceiveMessage` action.
      *
      * @required
      *
