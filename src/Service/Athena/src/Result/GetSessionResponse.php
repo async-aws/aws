@@ -151,6 +151,7 @@ class GetSessionResponse extends Result
             'MaxConcurrentDpus' => (int) $json['MaxConcurrentDpus'],
             'DefaultExecutorDpuSize' => isset($json['DefaultExecutorDpuSize']) ? (int) $json['DefaultExecutorDpuSize'] : null,
             'AdditionalConfigs' => !isset($json['AdditionalConfigs']) ? null : $this->populateResultParametersMap($json['AdditionalConfigs']),
+            'SparkProperties' => !isset($json['SparkProperties']) ? null : $this->populateResultParametersMap($json['SparkProperties']),
         ]);
     }
 

@@ -19,7 +19,9 @@ final class MeasureValue
     private $name;
 
     /**
-     * The value for the MeasureValue.
+     * The value for the MeasureValue. For information, see Data types.
+     *
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
      */
     private $value;
 

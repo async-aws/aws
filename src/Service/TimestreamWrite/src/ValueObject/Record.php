@@ -31,7 +31,10 @@ final class Record
     private $measureValue;
 
     /**
-     * Contains the data type of the measure value for the time-series data point. Default type is `DOUBLE`.
+     * Contains the data type of the measure value for the time-series data point. Default type is `DOUBLE`. For more
+     * information, see Data types.
+     *
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
      */
     private $measureValueType;
 
