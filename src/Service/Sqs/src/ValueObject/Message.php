@@ -35,17 +35,11 @@ final class Message
      * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
      *
      * - `ApproximateReceiveCount`
-     * -
      * - `ApproximateFirstReceiveTimestamp`
-     * -
      * - `MessageDeduplicationId`
-     * -
      * - `MessageGroupId`
-     * -
      * - `SenderId`
-     * -
      * - `SentTimestamp`
-     * -
      * - `SequenceNumber`
      *
      * `ApproximateFirstReceiveTimestamp` and `SentTimestamp` are each returned as an integer representing the epoch time

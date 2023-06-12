@@ -39,10 +39,8 @@ final class PutSecretValueRequest extends Input
      *
      * - If the `ClientRequestToken` value isn't already associated with a version of the secret then a new version of the
      *   secret is created.
-     * -
      * - If a version with this value already exists and that version's `SecretString` or `SecretBinary` values are the same
      *   as those in the request then the request is ignored. The operation is idempotent.
-     * -
      * - If a version with this value already exists and the version of the `SecretString` and `SecretBinary` values are
      *   different from those in the request, then the request fails because you can't modify a secret version. You can only
      *   create new versions to store new secret values.

@@ -14,7 +14,6 @@ use AsyncAws\DynamoDb\Enum\ComparisonOperator;
  *   `EQ | LE | LT | GE | GT | BEGINS_WITH | BETWEEN`
  *
  *   `Condition` is also used in a `QueryFilter`, which evaluates the query results and returns only the desired values.
- * -
  * - For a `Scan` operation, `Condition` is used in a `ScanFilter`, which evaluates the scan results and returns only
  *   the desired values.
  */
@@ -51,42 +50,36 @@ final class Condition
      *   Number Set, or Binary Set. If an item contains an `AttributeValue` element of a different type than the one
      *   provided in the request, the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also,
      *   `{"N":"6"}` does not equal `{"NS":["6", "2", "1"]}`.
-     * -
      * - `NE` : Not equal. `NE` is supported for all data types, including lists and maps.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` of type String, Number, Binary, String Set, Number Set,
      *   or Binary Set. If an item contains an `AttributeValue` of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal
      *   `{"NS":["6", "2", "1"]}`.
-     * -
      * - `LE` : Less than or equal.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
      *   type). If an item contains an `AttributeValue` element of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare
      *   to `{"NS":["6", "2", "1"]}`.
-     * -
      * - `LT` : Less than.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` of type String, Number, or Binary (not a set type). If
      *   an item contains an `AttributeValue` element of a different type than the one provided in the request, the value
      *   does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
      *   `{"NS":["6", "2", "1"]}`.
-     * -
      * - `GE` : Greater than or equal.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
      *   type). If an item contains an `AttributeValue` element of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare
      *   to `{"NS":["6", "2", "1"]}`.
-     * -
      * - `GT` : Greater than.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
      *   type). If an item contains an `AttributeValue` element of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare
      *   to `{"NS":["6", "2", "1"]}`.
-     * -
      * - `NOT_NULL` : The attribute exists. `NOT_NULL` is supported for all data types, including lists and maps.
      *
      *   > This operator tests for the existence of an attribute, not its data type. If the data type of attribute "`a`" is
@@ -109,7 +102,6 @@ final class Condition
      *
      *   CONTAINS is supported for lists: When evaluating "`a CONTAINS b`", "`a`" can be a list; however, "`b`" cannot be a
      *   set, a map, or a list.
-     * -
      * - `NOT_CONTAINS` : Checks for absence of a subsequence, or absence of a value in a set.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
@@ -121,18 +113,15 @@ final class Condition
      *
      *   NOT_CONTAINS is supported for lists: When evaluating "`a NOT CONTAINS b`", "`a`" can be a list; however, "`b`"
      *   cannot be a set, a map, or a list.
-     * -
      * - `BEGINS_WITH` : Checks for a prefix.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` of type String or Binary (not a Number or a set type).
      *   The target attribute of the comparison must be of type String or Binary (not a Number or a set type).
-     * -
      * - `IN` : Checks for matching elements in a list.
      *
      *   `AttributeValueList` can contain one or more `AttributeValue` elements of type String, Number, or Binary. These
      *   attributes are compared against an existing attribute of an item. If any elements of the input are equal to the
      *   item attribute, the expression evaluates to true.
-     * -
      * - `BETWEEN` : Greater than or equal to the first value, and less than or equal to the second value.
      *
      *   `AttributeValueList` must contain two `AttributeValue` elements of the same type, either String, Number, or Binary

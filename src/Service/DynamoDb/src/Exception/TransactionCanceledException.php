@@ -13,16 +13,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * DynamoDB cancels a `TransactWriteItems` request under the following circumstances:
  *
  * - A condition in one of the condition expressions is not met.
- * -
  * - A table in the `TransactWriteItems` request is in a different account or region.
- * -
  * - More than one action in the `TransactWriteItems` operation targets the same item.
- * -
  * - There is insufficient provisioned capacity for the transaction to be completed.
- * -
  * - An item size becomes too large (larger than 400 KB), or a local secondary index (LSI) becomes too large, or a
  *   similar validation error occurs because of changes made by the transaction.
- * -
  * - There is a user error, such as an invalid data format.
  *
  * DynamoDB cancels a `TransactGetItems` request under the following circumstances:
@@ -30,11 +25,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - There is an ongoing `TransactGetItems` operation that conflicts with a concurrent `PutItem`, `UpdateItem`,
  *   `DeleteItem` or `TransactWriteItems` request. In this case the `TransactGetItems` operation fails with a
  *   `TransactionCanceledException`.
- * -
  * - A table in the `TransactGetItems` request is in a different account or region.
- * -
  * - There is insufficient provisioned capacity for the transaction to be completed.
- * -
  * - There is a user error, such as an invalid data format.
  *
  * > If using Java, DynamoDB lists the cancellation reasons on the `CancellationReasons` property. This property is not
@@ -46,31 +38,26 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - No Errors:
  *
  *   - Code: `None`
- *   -
  *   - Message: `null`
  *
  * - Conditional Check Failed:
  *
  *   - Code: `ConditionalCheckFailed`
- *   -
  *   - Message: The conditional request failed.
  *
  * - Item Collection Size Limit Exceeded:
  *
  *   - Code: `ItemCollectionSizeLimitExceeded`
- *   -
  *   - Message: Collection size exceeded.
  *
  * - Transaction Conflict:
  *
  *   - Code: `TransactionConflict`
- *   -
  *   - Message: Transaction is ongoing for the item.
  *
  * - Provisioned Throughput Exceeded:
  *
  *   - Code: `ProvisionedThroughputExceeded`
- *   -
  *   - Messages:
  *
  *     - The level of configured provisioned throughput for the table was exceeded. Consider increasing your
@@ -89,7 +76,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - Throttling Error:
  *
  *   - Code: `ThrottlingError`
- *   -
  *   - Messages:
  *
  *     - Throughput exceeds the current capacity of your table or index. DynamoDB is automatically scaling your table or
@@ -110,27 +96,17 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - Validation Error:
  *
  *   - Code: `ValidationError`
- *   -
  *   - Messages:
  *
  *     - One or more parameter values were invalid.
- *     -
  *     - The update expression attempted to update the secondary index key beyond allowed size limits.
- *     -
  *     - The update expression attempted to update the secondary index key to unsupported type.
- *     -
  *     - An operand in the update expression has an incorrect data type.
- *     -
  *     - Item size to update has exceeded the maximum allowed size.
- *     -
  *     - Number overflow. Attempting to store a number with magnitude larger than supported range.
- *     -
  *     - Type mismatch for attribute to update.
- *     -
  *     - Nesting Levels have exceeded supported limits.
- *     -
  *     - The document path provided in the update expression is invalid for update.
- *     -
  *     - The provided expression refers to an attribute that does not exist in the item.
  */
 final class TransactionCanceledException extends ClientException

@@ -53,7 +53,6 @@ final class AdminCreateUserRequest extends Input
      * - **email**: The email address of the user to whom the message that contains the code and username will be sent.
      *   Required if the `email_verified` attribute is set to `True`, or if `"EMAIL"` is specified in the
      *   `DesiredDeliveryMediums` parameter.
-     * -
      * - **phone_number**: The phone number of the user to whom the message that contains the code and username will be
      *   sent. Required if the `phone_number_verified` attribute is set to `True`, or if `"SMS"` is specified in the
      *   `DesiredDeliveryMediums` parameter.
@@ -145,9 +144,7 @@ final class AdminCreateUserRequest extends Input
      * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
      * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
      * >   parameter serves no purpose.
-     * > -
      * > - Validate the ClientMetadata value.
-     * > -
      * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
      * >
      *

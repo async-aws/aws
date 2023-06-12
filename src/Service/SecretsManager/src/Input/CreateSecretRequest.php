@@ -42,10 +42,8 @@ final class CreateSecretRequest extends Input
      *
      * - If the `ClientRequestToken` value isn't already associated with a version of the secret then a new version of the
      *   secret is created.
-     * -
      * - If a version with this value already exists and the version `SecretString` and `SecretBinary` values are the same
      *   as those in the request, then the request is ignored.
-     * -
      * - If a version with this value already exists and that version's `SecretString` and `SecretBinary` values are
      *   different from those in the request, then the request fails because you cannot modify an existing version. Instead,
      *   use PutSecretValue to create a new version.
@@ -131,17 +129,12 @@ final class CreateSecretRequest extends Input
      * The following restrictions apply to tags:
      *
      * - Maximum number of tags per secret: 50
-     * -
      * - Maximum key length: 127 Unicode characters in UTF-8
-     * -
      * - Maximum value length: 255 Unicode characters in UTF-8
-     * -
      * - Tag keys and values are case sensitive.
-     * -
      * - Do not use the `aws:` prefix in your tag names or values because Amazon Web Services reserves it for Amazon Web
      *   Services use. You can't edit or delete tag names or values with this prefix. Tags with this prefix do not count
      *   against your tags per secret limit.
-     * -
      * - If you use your tagging schema across multiple services and resources, other services might have restrictions on
      *   allowed characters. Generally allowed characters: letters, spaces, and numbers representable in UTF-8, plus the
      *   following special characters: + - = . _ : / @.

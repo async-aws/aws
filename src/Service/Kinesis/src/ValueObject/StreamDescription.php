@@ -25,13 +25,10 @@ final class StreamDescription
      *
      * - `CREATING` - The stream is being created. Kinesis Data Streams immediately returns and sets `StreamStatus` to
      *   `CREATING`.
-     * -
      * - `DELETING` - The stream is being deleted. The specified stream is in the `DELETING` state until Kinesis Data
      *   Streams completes the deletion.
-     * -
      * - `ACTIVE` - The stream exists and is ready for read and write operations or deletion. You should perform read and
      *   write operations only on an `ACTIVE` stream.
-     * -
      * - `UPDATING` - Shards in the stream are being merged or split. Read and write operations continue to work while the
      *   stream is in the `UPDATING` state.
      */
@@ -72,7 +69,6 @@ final class StreamDescription
      * The server-side encryption type used on the stream. This parameter can be one of the following values:.
      *
      * - `NONE`: Do not encrypt the records in the stream.
-     * -
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
      */
@@ -84,13 +80,9 @@ final class StreamDescription
      * also use a master key owned by Kinesis Data Streams by specifying the alias `aws/kinesis`.
      *
      * - Key ARN example: `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
-     * -
      * - Alias ARN example: `arn:aws:kms:us-east-1:123456789012:alias/MyAliasName`
-     * -
      * - Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
-     * -
      * - Alias name example: `alias/MyAliasName`
-     * -
      * - Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
      */
     private $keyId;

@@ -19,7 +19,6 @@ final class GlobalSecondaryIndexDescription
      * types:.
      *
      * - `HASH` - partition key
-     * -
      * - `RANGE` - sort key
      *
      * > The partition key of an item is also known as its *hash attribute*. The term "hash attribute" derives from
@@ -41,11 +40,8 @@ final class GlobalSecondaryIndexDescription
      * The current state of the global secondary index:.
      *
      * - `CREATING` - The index is being created.
-     * -
      * - `UPDATING` - The index is being updated.
-     * -
      * - `DELETING` - The index is being deleted.
-     * -
      * - `ACTIVE` - The index is ready for use.
      */
     private $indexStatus;

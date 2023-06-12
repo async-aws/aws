@@ -15,9 +15,7 @@ final class ProjectCache
      * The type of cache used by the build project. Valid values include:.
      *
      * - `NO_CACHE`: The build project does not use any cache.
-     * -
      * - `S3`: The build project reads and writes from and to S3.
-     * -
      * - `LOCAL`: The build project stores a cache locally on a build host that is only available to that build host.
      */
     private $type;
@@ -26,7 +24,6 @@ final class ProjectCache
      * Information about the cache location:.
      *
      * - `NO_CACHE` or `LOCAL`: This value is ignored.
-     * -
      * - `S3`: This is the S3 bucket name/prefix.
      */
     private $location;
@@ -49,9 +46,7 @@ final class ProjectCache
      *   can prevent the performance issues caused by pulling large Docker images down from the network.
      *
      *   > - You can use a Docker layer cache in the Linux environment only.
-     *   > -
      *   > - The `privileged` flag must be set so that your project has the required Docker permissions.
-     *   > -
      *   > - You should consider the security implications before you use a Docker layer cache.
      *   >
      *
@@ -61,9 +56,7 @@ final class ProjectCache
      *   suited to one of the other three local cache modes. If you use a custom cache:
      *
      *   - Only directories can be specified for caching. You cannot specify individual files.
-     *   -
      *   - Symlinks are used to reference cached directories.
-     *   -
      *   - Cached directories are linked to your build before it downloads its project sources. Cached items are overridden
      *     if a source item has the same name. Directories are specified using cache paths in the buildspec file.
      */

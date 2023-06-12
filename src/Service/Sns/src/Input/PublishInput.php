@@ -52,7 +52,6 @@ final class PublishInput extends Input
      *
      * - With the exception of SMS, messages must be UTF-8 encoded strings and at most 256 KB in size (262,144 bytes, not
      *   262,144 characters).
-     * -
      * - For SMS, each message can contain up to 140 characters. This character limit depends on the encoding schema. For
      *   example, an SMS message can contain 160 GSM characters, 140 ASCII characters, or 70 UCS-2 characters.
      *
@@ -64,22 +63,14 @@ final class PublishInput extends Input
      * JSON-specific constraints:
      *
      * - Keys in the JSON object that correspond to supported transport protocols must have simple JSON string values.
-     * -
      * - The values will be parsed (unescaped) before they are used in outgoing messages.
-     * -
      * - Outbound notifications are JSON encoded (meaning that the characters will be reescaped for sending).
-     * -
      * - Values have a minimum length of 0 (the empty string, "", is allowed).
-     * -
      * - Values have a maximum length bounded by the overall message size (so, including multiple protocols may limit
      *   message sizes).
-     * -
      * - Non-string values will cause the key to be ignored.
-     * -
      * - Keys that do not correspond to supported transport protocols are ignored.
-     * -
      * - Duplicate keys are not allowed.
-     * -
      * - Failure to parse or validate any key or value in the message will cause the `Publish` call to return an error (no
      *   partial delivery).
      *
@@ -106,7 +97,6 @@ final class PublishInput extends Input
      * If you set `MessageStructure` to `json`, the value of the `Message` parameter must:.
      *
      * - be a syntactically valid JSON object; and
-     * -
      * - contain at least a top-level JSON key of "default" with a value that is a string.
      *
      * You can define other top-level keys that define the message you want to send to a specific transport protocol (e.g.,

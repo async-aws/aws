@@ -22,18 +22,13 @@ class InitiateAuthResponse extends Result
      * > All of the following challenges require `USERNAME` and `SECRET_HASH` (if applicable) in the parameters.
      *
      * - `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`, delivered via SMS.
-     * -
      * - `PASSWORD_VERIFIER`: Next challenge is to supply `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and
      *   `TIMESTAMP` after the client-side SRP calculations.
-     * -
      * - `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass
      *   another challenge before tokens are issued.
-     * -
      * - `DEVICE_SRP_AUTH`: If device tracking was activated on your user pool and the previous challenges were passed, this
      *   challenge is returned so that Amazon Cognito can start tracking this device.
-     * -
      * - `DEVICE_PASSWORD_VERIFIER`: Similar to `PASSWORD_VERIFIER`, but for devices only.
-     * -
      * - `NEW_PASSWORD_REQUIRED`: For users who are required to change their passwords after successful first login.
      *
      *   Respond to this challenge with `NEW_PASSWORD` and any required attributes that Amazon Cognito returned in the

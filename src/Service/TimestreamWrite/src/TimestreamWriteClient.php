@@ -30,9 +30,7 @@ class TimestreamWriteClient extends AbstractApi
      * management and mapping of the service endpoints, *we don't recommend that you use this API operation unless*:
      *
      * - You are using VPC endpoints (Amazon Web Services PrivateLink) with Timestream [^1]
-     * -
      * - Your application uses a programming language that does not yet have SDK support
-     * -
      * - You require better control over the client-side implementation
      *
      * For detailed information on how and when to use and implement DescribeEndpoints, see The Endpoint Discovery Pattern

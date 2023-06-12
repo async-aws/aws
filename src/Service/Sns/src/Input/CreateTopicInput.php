@@ -34,18 +34,13 @@ final class CreateTopicInput extends Input
      * action uses:
      *
      * - `DeliveryPolicy` – The policy that defines how Amazon SNS retries failed deliveries to HTTP/S endpoints.
-     * -
      * - `DisplayName` – The display name to use for a topic with SMS subscriptions.
-     * -
      * - `FifoTopic` – Set to true to create a FIFO topic.
-     * -
      * - `Policy` – The policy that defines who can access your topic. By default, only the topic owner can publish or
      *   subscribe to the topic.
-     * -
      * - `SignatureVersion` – The signature version corresponds to the hashing algorithm used while creating the signature
      *   of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by Amazon SNS. By
      *   default, `SignatureVersion` is set to `1`.
-     * -
      * - `TracingConfig` – Tracing mode of an Amazon SNS topic. By default `TracingConfig` is set to `PassThrough`, and
      *   the topic passes through the tracing header it receives from an Amazon SNS publisher to its subscriptions. If set
      *   to `Active`, Amazon SNS will vend X-Ray segment data to topic owner account if the sampled flag in the tracing
@@ -60,12 +55,10 @@ final class CreateTopicInput extends Input
      * The following attributes apply only to FIFO topics [^4]:
      *
      * - `FifoTopic` – When this is set to `true`, a FIFO topic is created.
-     * -
      * - `ContentBasedDeduplication` – Enables content-based deduplication for FIFO topics.
      *
      *   - By default, `ContentBasedDeduplication` is set to `false`. If you create a FIFO topic and this attribute is
      *     `false`, you must specify a value for the `MessageDeduplicationId` parameter for the Publish [^5] action.
-     *   -
      *   - When you set `ContentBasedDeduplication` to `true`, Amazon SNS uses a SHA-256 hash to generate the
      *     `MessageDeduplicationId` using the body of the message (but not the attributes of the message).
      *

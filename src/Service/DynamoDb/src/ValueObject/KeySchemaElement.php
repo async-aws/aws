@@ -27,7 +27,6 @@ final class KeySchemaElement
      * The role that this key attribute will assume:.
      *
      * - `HASH` - partition key
-     * -
      * - `RANGE` - sort key
      *
      * > The partition key of an item is also known as its *hash attribute*. The term "hash attribute" derives from

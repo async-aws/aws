@@ -35,14 +35,12 @@ final class AttributeValueUpdate
      * **If an item with the specified *Key* is found in the table:**
      *
      * - `PUT` - Adds the specified attribute to the item. If the attribute already exists, it is replaced by the new value.
-     * -
      * - `DELETE` - If no value is specified, the attribute and its value are removed from the item. The data type of the
      *   specified value must match the existing value's data type.
      *
      *   If a *set* of values is specified, then those values are subtracted from the old set. For example, if the attribute
      *   value was the set `[a,b,c]` and the `DELETE` action specified `[a,c]`, then the final attribute value would be
      *   `[b]`. Specifying an empty set is an error.
-     * -
      * - `ADD` - If the attribute does not already exist, then the attribute and its values are added to the item. If the
      *   attribute does exist, then the behavior of `ADD` depends on the data type of the attribute:
      *
@@ -74,9 +72,7 @@ final class AttributeValueUpdate
      * **If no item with the specified *Key* is found:**
      *
      * - `PUT` - DynamoDB creates a new item with the specified primary key, and then adds the attribute.
-     * -
      * - `DELETE` - Nothing happens; there is no attribute to delete.
-     * -
      * - `ADD` - DynamoDB creates a new item with the supplied primary key and number (or set) for the attribute value. The
      *   only data types allowed are number, number set, string set or binary set.
      */

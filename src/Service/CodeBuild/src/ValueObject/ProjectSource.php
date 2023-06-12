@@ -14,17 +14,11 @@ final class ProjectSource
      * The type of repository that contains the source code to be built. Valid values include:.
      *
      * - `BITBUCKET`: The source code is in a Bitbucket repository.
-     * -
      * - `CODECOMMIT`: The source code is in an CodeCommit repository.
-     * -
      * - `CODEPIPELINE`: The source code settings are specified in the source action of a pipeline in CodePipeline.
-     * -
      * - `GITHUB`: The source code is in a GitHub or GitHub Enterprise Cloud repository.
-     * -
      * - `GITHUB_ENTERPRISE`: The source code is in a GitHub Enterprise Server repository.
-     * -
      * - `NO_SOURCE`: The project does not have input source code.
-     * -
      * - `S3`: The source code is in an Amazon S3 bucket.
      */
     private $type;
@@ -35,16 +29,13 @@ final class ProjectSource
      * - For source code settings that are specified in the source action of a pipeline in CodePipeline, `location` should
      *   not be specified. If it is specified, CodePipeline ignores it. This is because CodePipeline uses the settings in a
      *   pipeline's source action instead of this value.
-     * -
      * - For source code in an CodeCommit repository, the HTTPS clone URL to the repository that contains the source code
      *   and the buildspec file (for example,
      *   `https://git-codecommit.<region-ID>.amazonaws.com/v1/repos/<repo-name>`).
-     * -
      * - For source code in an Amazon S3 input bucket, one of the following.
      *
      *   - The path to the ZIP file that contains the source code (for example,
      *     `<bucket-name>/<path>/<object-name>.zip`).
-     *   -
      *   - The path to the folder that contains the source code (for example,
      *     `<bucket-name>/<path-to-source-code>/<folder>/`).
      *
@@ -55,7 +46,6 @@ final class ProjectSource
      *   want to allow CodeBuild to have access to, and then choose **Authorize application**. (After you have connected to
      *   your GitHub account, you do not need to finish creating the build project. You can leave the CodeBuild console.) To
      *   instruct CodeBuild to use this connection, in the `source` object, set the `auth` object's `type` value to `OAUTH`.
-     * -
      * - For source code in a Bitbucket repository, the HTTPS clone URL to the repository that contains the source and the
      *   buildspec file. You must connect your Amazon Web Services account to your Bitbucket account. Use the CodeBuild
      *   console to start creating a build project. When you use the console to connect (or reconnect) with Bitbucket, on

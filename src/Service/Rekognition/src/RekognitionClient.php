@@ -412,26 +412,18 @@ class RekognitionClient extends AbstractApi
      * `UnindexedFaces`. Faces aren't indexed for reasons such as:
      *
      * - The number of faces detected exceeds the value of the `MaxFaces` request parameter.
-     * -
      * - The face is too small compared to the image dimensions.
-     * -
      * - The face is too blurry.
-     * -
      * - The image is too dark.
-     * -
      * - The face has an extreme pose.
-     * -
      * - The face doesn’t have enough detail to be suitable for face search.
      *
      * In response, the `IndexFaces` operation returns an array of metadata for all detected faces, `FaceRecords`. This
      * includes:
      *
      * - The bounding box, `BoundingBox`, of the detected face.
-     * -
      * - A confidence value, `Confidence`, which indicates the confidence that the bounding box contains a face.
-     * -
      * - A face ID, `FaceId`, assigned by the service for each face that's detected and stored.
-     * -
      * - An image ID, `ImageId`, assigned by the service for the input image.
      *
      * If you request `ALL` or specific facial attributes (e.g., `FACE_OCCLUDED`) by using the detectionAttributes

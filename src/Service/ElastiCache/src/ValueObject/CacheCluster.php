@@ -57,7 +57,6 @@ final class CacheCluster
      *     **T3 node types:**`cache.t3.micro`, `cache.t3.small`, `cache.t3.medium`
      *
      *     **T2 node types:**`cache.t2.micro`, `cache.t2.small`, `cache.t2.medium`
-     *   -
      *   - Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
      *     supported for these types.)
      *
@@ -91,7 +90,6 @@ final class CacheCluster
      *
      *     **R4 node types:**`cache.r4.large`, `cache.r4.xlarge`, `cache.r4.2xlarge`, `cache.r4.4xlarge`,
      *     `cache.r4.8xlarge`, `cache.r4.16xlarge`
-     *   -
      *   - Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
      *     supported for these types.)
      *
@@ -103,11 +101,8 @@ final class CacheCluster
      * **Additional node type info**
      *
      * - All current generation instance types are created in Amazon VPC by default.
-     * -
      * - Redis append-only files (AOF) are not supported for T1 or T2 instances.
-     * -
      * - Redis Multi-AZ with automatic failover is not supported on T1 instances.
-     * -
      * - Redis configuration variables `appendonly` and `appendfsync` are not supported on Redis version 2.8.22 and later.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
@@ -162,17 +157,11 @@ final class CacheCluster
      * Valid values for `ddd` are:
      *
      * - `sun`
-     * -
      * - `mon`
-     * -
      * - `tue`
-     * -
      * - `wed`
-     * -
      * - `thu`
-     * -
      * - `fri`
-     * -
      * - `sat`
      *
      * Example: `sun:23:00-mon:01:30`

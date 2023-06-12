@@ -46,7 +46,6 @@ class IndexFacesResponse extends Result
      *   - the bounding box coordinates are translated to represent object locations after the orientation information in
      *   the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. The
      *   value of `OrientationCorrection` is null.
-     * -
      * - If the image doesn't contain orientation information in its Exif metadata, Amazon Rekognition returns an estimated
      *   orientation (ROTATE_0, ROTATE_90, ROTATE_180, ROTATE_270). Amazon Rekognition doesn’t perform image correction
      *   for images. The bounding box coordinates aren't translated and represent the object locations before the image is

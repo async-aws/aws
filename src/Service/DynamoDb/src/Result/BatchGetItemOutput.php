@@ -33,10 +33,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
      * Each element consists of:
      *
      * - `Keys` - An array of primary key attribute values that define specific items in the table.
-     * -
      * - `ProjectionExpression` - One or more attributes to be retrieved from the table or index. By default, all attributes
      *   are returned. If a requested attribute is not found, it does not appear in the result.
-     * -
      * - `ConsistentRead` - The consistency of a read operation. If set to `true`, then a strongly consistent read is used;
      *   otherwise, an eventually consistent read is used.
      *
@@ -50,7 +48,6 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
      * Each element consists of:
      *
      * - `TableName` - The table that consumed the provisioned throughput.
-     * -
      * - `CapacityUnits` - The total number of capacity units consumed.
      */
     private $consumedCapacity;

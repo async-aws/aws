@@ -15,9 +15,7 @@ final class DeleteFunctionRequest extends Input
      * **Name formats**
      *
      * - **Function name** – `my-function` (name-only), `my-function:1` (with version).
-     * -
      * - **Function ARN** – `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
-     * -
      * - **Partial ARN** – `123456789012:function:my-function`.
      *
      * You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN.

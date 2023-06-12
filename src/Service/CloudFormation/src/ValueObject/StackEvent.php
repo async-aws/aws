@@ -103,7 +103,6 @@ final class StackEvent
      * Specify the hook failure mode for non-compliant resources in the followings ways.
      *
      * - `FAIL` Stops provisioning resources.
-     * -
      * - `WARN` Allows provisioning to continue with a warning message.
      */
     private $hookFailureMode;

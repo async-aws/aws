@@ -66,7 +66,6 @@ final class DeleteItemInput extends Input
      *
      * - `NONE` - If `ReturnValues` is not specified, or if its value is `NONE`, then nothing is returned. (This setting is
      *   the default for `ReturnValues`.)
-     * -
      * - `ALL_OLD` - The content of the old item is returned.
      *
      * There is no additional cost associated with requesting a return value aside from the small network and processing
@@ -101,9 +100,7 @@ final class DeleteItemInput extends Input
      * - Functions: `attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size`
      *
      *   These function names are case-sensitive.
-     * -
      * - Comparison operators: `= | <> | < | > | <= | >= | BETWEEN | IN `
-     * -
      * - Logical operators: `AND | OR | NOT`
      *
      * For more information about condition expressions, see Condition Expressions [^1] in the *Amazon DynamoDB Developer
@@ -120,9 +117,7 @@ final class DeleteItemInput extends Input
      * `ExpressionAttributeNames`:.
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
-     * -
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.
-     * -
      * - To prevent special characters in an attribute name from being misinterpreted in an expression.
      *
      * Use the **#** character in an expression to dereference an attribute name. For example, consider the following

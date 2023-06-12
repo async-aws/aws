@@ -31,7 +31,6 @@ final class ServerSideEncryptionByDefault
      * qualified KMS key ARN. For more information, see Using encryption for cross-account operations [^1].
      *
      * - Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
-     * -
      * - Key ARN: `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
      *
      * ! Amazon S3 only supports symmetric encryption KMS keys. For more information, see Asymmetric keys in Amazon Web

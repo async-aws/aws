@@ -36,9 +36,7 @@ class CloudWatchLogsClient extends AbstractApi
      * You must use the following guidelines when naming a log group:
      *
      * - Log group names must be unique within a Region for an Amazon Web Services account.
-     * -
      * - Log group names can be between 1 and 512 characters long.
-     * -
      * - Log group names consist of the following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/' (forward
      *   slash), '.' (period), and '#' (number sign)
      *
@@ -99,9 +97,7 @@ class CloudWatchLogsClient extends AbstractApi
      * You must use the following guidelines when naming a log stream:
      *
      * - Log stream names must be unique within the log group.
-     * -
      * - Log stream names can be between 1 and 512 characters long.
-     * -
      * - Don't use ':' (colon) or '*' (asterisk) characters.
      *
      * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateLogStream.html
@@ -245,21 +241,15 @@ class CloudWatchLogsClient extends AbstractApi
      *
      * - The maximum batch size is 1,048,576 bytes. This size is calculated as the sum of all event messages in UTF-8, plus
      *   26 bytes for each log event.
-     * -
      * - None of the log events in the batch can be more than 2 hours in the future.
-     * -
      * - None of the log events in the batch can be more than 14 days in the past. Also, none of the log events can be from
      *   earlier than the retention period of the log group.
-     * -
      * - The log events in the batch must be in chronological order by their timestamp. The timestamp is the time that the
      *   event occurred, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`. (In Amazon Web Services
      *   Tools for PowerShell and the Amazon Web Services SDK for .NET, the timestamp is specified in .NET format:
      *   `yyyy-mm-ddThh:mm:ss`. For example, `2017-09-15T13:45:30`.)
-     * -
      * - A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.
-     * -
      * - Each log event can be no larger than 256 KB.
-     * -
      * - The maximum number of log events in a batch is 10,000.
      * -
      * - ! The quota of five requests per second per log stream has been removed. Instead, `PutLogEvents` actions are

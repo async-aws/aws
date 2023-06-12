@@ -173,10 +173,8 @@ final class KeyMetadata
      * For more information about any listed KMS key, use the DescribeKey operation.
      *
      * - `MultiRegionKeyType` indicates whether the KMS key is a `PRIMARY` or `REPLICA` key.
-     * -
      * - `PrimaryKey` displays the key ARN and Region of the primary key. This field displays the current KMS key if it is
      *   the primary key.
-     * -
      * - `ReplicaKeys` displays the key ARNs and Regions of all replica keys. This field includes the current KMS key if it
      *   is a replica key.
      */

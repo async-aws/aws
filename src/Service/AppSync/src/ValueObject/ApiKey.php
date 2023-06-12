@@ -12,13 +12,9 @@ namespace AsyncAws\AppSync\ValueObject;
  * be used.
  *
  * - `ListApiKeys` returns the expiration time in milliseconds.
- * -
  * - `CreateApiKey` returns the expiration time in milliseconds.
- * -
  * - `UpdateApiKey` is not available for this key version.
- * -
  * - `DeleteApiKey` deletes the item from the table.
- * -
  * - Expiration is stored in DynamoDB as milliseconds. This results in a bug where keys are not automatically deleted
  *   because DynamoDB expects the TTL to be stored in seconds. As a one-time action, we deleted these keys from the
  *   table on February 21, 2018.
@@ -26,19 +22,14 @@ namespace AsyncAws\AppSync\ValueObject;
  * **da2**: We introduced this version in February 2018 when AppSync added support to extend key expiration.
  *
  * - `ListApiKeys` returns the expiration time and deletion time in seconds.
- * -
  * - `CreateApiKey` returns the expiration time and deletion time in seconds and accepts a user-provided expiration time
  *   in seconds.
- * -
  * - `UpdateApiKey` returns the expiration time and and deletion time in seconds and accepts a user-provided expiration
  *   time in seconds. Expired API keys are kept for 60 days after the expiration time. You can update the key expiration
  *   time as long as the key isn't deleted.
- * -
  * - `DeleteApiKey` deletes the item from the table.
- * -
  * - Expiration is stored in DynamoDB as seconds. After the expiration time, using the key to authenticate will fail.
  *   However, you can reinstate the key before deletion.
- * -
  * - Deletion is stored in DynamoDB as seconds. The key is deleted after deletion time.
  */
 final class ApiKey

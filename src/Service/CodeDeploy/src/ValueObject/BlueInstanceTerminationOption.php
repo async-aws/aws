@@ -14,7 +14,6 @@ final class BlueInstanceTerminationOption
      * The action to take on instances in the original environment after a successful blue/green deployment.
      *
      * - `TERMINATE`: Instances are terminated after a specified wait time.
-     * -
      * - `KEEP_ALIVE`: Instances are left running after they are deregistered from the load balancer and removed from the
      *   deployment group.
      */

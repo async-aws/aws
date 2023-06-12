@@ -101,13 +101,9 @@ class S3Client extends AbstractApi
      * The following operations are related to `AbortMultipartUpload`:
      *
      * - CreateMultipartUpload [^3]
-     * -
      * - UploadPart [^4]
-     * -
      * - CompleteMultipartUpload [^5]
-     * -
      * - ListParts [^6]
-     * -
      * - ListMultipartUploads [^7]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
@@ -221,41 +217,33 @@ class S3Client extends AbstractApi
      *
      *   - Description: Your proposed upload is smaller than the minimum allowed object size. Each part must be at least 5
      *     MB in size, except the last part.
-     *   -
      *   - 400 Bad Request
      *
      * - Error code: `InvalidPart`
      *
      *   - Description: One or more of the specified parts could not be found. The part might not have been uploaded, or the
      *     specified entity tag might not have matched the part's entity tag.
-     *   -
      *   - 400 Bad Request
      *
      * - Error code: `InvalidPartOrder`
      *
      *   - Description: The list of parts was not in ascending order. The parts list must be specified in order by part
      *     number.
-     *   -
      *   - 400 Bad Request
      *
      * - Error code: `NoSuchUpload`
      *
      *   - Description: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart
      *     upload might have been aborted or completed.
-     *   -
      *   - 404 Not Found
      *
      *
      * The following operations are related to `CompleteMultipartUpload`:
      *
      * - CreateMultipartUpload [^5]
-     * -
      * - UploadPart [^6]
-     * -
      * - AbortMultipartUpload [^7]
-     * -
      * - ListParts [^8]
-     * -
      * - ListMultipartUploads [^9]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
@@ -352,25 +340,20 @@ class S3Client extends AbstractApi
      *   modified before or after a specified date, use the following request parameters:
      *
      *   - `x-amz-copy-source-if-match`
-     *   -
      *   - `x-amz-copy-source-if-none-match`
-     *   -
      *   - `x-amz-copy-source-if-unmodified-since`
-     *   -
      *   - `x-amz-copy-source-if-modified-since`
      *
      *   If both the `x-amz-copy-source-if-match` and `x-amz-copy-source-if-unmodified-since` headers are present in the
      *   request and evaluate as follows, Amazon S3 returns `200 OK` and copies the data:
      *
      *   - `x-amz-copy-source-if-match` condition evaluates to true
-     *   -
      *   - `x-amz-copy-source-if-unmodified-since` condition evaluates to false
      *
      *   If both the `x-amz-copy-source-if-none-match` and `x-amz-copy-source-if-modified-since` headers are present in the
      *   request and evaluate as follows, Amazon S3 returns the `412 Precondition Failed` response code:
      *
      *   - `x-amz-copy-source-if-none-match` condition evaluates to false
-     *   -
      *   - `x-amz-copy-source-if-modified-since` condition evaluates to true
      *
      *   > All headers with the `x-amz-` prefix, including `x-amz-copy-source`, must be signed.
@@ -443,7 +426,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `CopyObject`:
      *
      * - PutObject [^16]
-     * -
      * - GetObject [^17]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html
@@ -562,7 +544,6 @@ class S3Client extends AbstractApi
      *   - Specify a canned ACL using the `x-amz-acl` request header. Amazon S3 supports a set of predefined ACLs, known as
      *     *canned ACLs*. Each canned ACL has a predefined set of grantees and permissions. For more information, see Canned
      *     ACL [^6].
-     *   -
      *   - Specify access permissions explicitly using the `x-amz-grant-read`, `x-amz-grant-write`, `x-amz-grant-read-acp`,
      *     `x-amz-grant-write-acp`, and `x-amz-grant-full-control` headers. These headers map to the set of permissions
      *     Amazon S3 supports in an ACL. For more information, see Access control list (ACL) overview [^7].
@@ -570,27 +551,18 @@ class S3Client extends AbstractApi
      *     You specify each grantee as a type=value pair, where the type is one of the following:
      *
      *     - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
-     *     -
      *     - `uri` – if you are granting permissions to a predefined group
-     *     -
      *     - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
      *
      *       > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
      *       >
      *       > - US East (N. Virginia)
-     *       > -
      *       > - US West (N. California)
-     *       > -
      *       > - US West (Oregon)
-     *       > -
      *       > - Asia Pacific (Singapore)
-     *       > -
      *       > - Asia Pacific (Sydney)
-     *       > -
      *       > - Asia Pacific (Tokyo)
-     *       > -
      *       > - Europe (Ireland)
-     *       > -
      *       > - South America (São Paulo)
      *       >
      *       > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^8] in the Amazon
@@ -613,10 +585,8 @@ class S3Client extends AbstractApi
      *     public-read-write, authenticated-read, or if you specify access permissions explicitly through any other ACL,
      *     both `s3:CreateBucket` and `s3:PutBucketAcl` permissions are needed. If the ACL the `CreateBucket` request is
      *     private or doesn't specify any ACLs, only `s3:CreateBucket` permission is needed.
-     *   -
      *   - **Object Lock** - If `ObjectLockEnabledForBucket` is set to true in your `CreateBucket` request,
      *     `s3:PutBucketObjectLockConfiguration` and `s3:PutBucketVersioning` permissions are required.
-     *   -
      *   - **S3 Object Ownership** - If your CreateBucket request includes the `x-amz-object-ownership` header,
      *     `s3:PutBucketOwnershipControls` permission is required.
      *
@@ -624,7 +594,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `CreateBucket`:
      *
      * - PutObject [^9]
-     * -
      * - DeleteBucket [^10]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
@@ -731,7 +700,6 @@ class S3Client extends AbstractApi
      *   permissions on the new object. There are two ways to grant the permissions using the request headers:
      *
      *   - Specify a canned ACL with the `x-amz-acl` request header. For more information, see Canned ACL [^11].
-     *   -
      *   - Specify access permissions explicitly with the `x-amz-grant-read`, `x-amz-grant-read-acp`,
      *     `x-amz-grant-write-acp`, and `x-amz-grant-full-control` headers. These parameters map to the set of permissions
      *     that Amazon S3 supports in an ACL. For more information, see Access Control List (ACL) Overview [^12].
@@ -750,9 +718,7 @@ class S3Client extends AbstractApi
      *     data, specify the following headers in the request.
      *
      *     - `x-amz-server-side-encryption`
-     *     -
      *     - `x-amz-server-side-encryption-aws-kms-key-id`
-     *     -
      *     - `x-amz-server-side-encryption-context`
      *
      *     > If you specify `x-amz-server-side-encryption:aws:kms`, but don't provide
@@ -764,14 +730,11 @@ class S3Client extends AbstractApi
      *
      *     For more information about server-side encryption with KMS keys (SSE-KMS), see Protecting Data Using Server-Side
      *     Encryption with KMS keys [^13].
-     *   -
      *   - Use customer-provided encryption keys (SSE-C) – If you want to manage your own encryption keys, provide all the
      *     following headers in the request.
      *
      *     - `x-amz-server-side-encryption-customer-algorithm`
-     *     -
      *     - `x-amz-server-side-encryption-customer-key`
-     *     -
      *     - `x-amz-server-side-encryption-customer-key-MD5`
      *
      *     For more information about server-side encryption with customer-provided encryption keys (SSE-C), see  Protecting
@@ -787,46 +750,32 @@ class S3Client extends AbstractApi
      *
      *   - Specify a canned ACL (`x-amz-acl`) — Amazon S3 supports a set of predefined ACLs, known as *canned ACLs*. Each
      *     canned ACL has a predefined set of grantees and permissions. For more information, see Canned ACL [^16].
-     *   -
      *   - Specify access permissions explicitly — To explicitly grant access permissions to specific Amazon Web Services
      *     accounts or groups, use the following headers. Each header maps to specific permissions that Amazon S3 supports
      *     in an ACL. For more information, see Access Control List (ACL) Overview [^17]. In the header, you specify a list
      *     of grantees who get the specific permission. To grant permissions explicitly, use:
      *
      *     - `x-amz-grant-read`
-     *     -
      *     - `x-amz-grant-write`
-     *     -
      *     - `x-amz-grant-read-acp`
-     *     -
      *     - `x-amz-grant-write-acp`
-     *     -
      *     - `x-amz-grant-full-control`
      *
      *     You specify each grantee as a type=value pair, where the type is one of the following:
      *
      *     - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
-     *     -
      *     - `uri` – if you are granting permissions to a predefined group
-     *     -
      *     - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
      *
      *       > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
      *       >
      *       > - US East (N. Virginia)
-     *       > -
      *       > - US West (N. California)
-     *       > -
      *       > - US West (Oregon)
-     *       > -
      *       > - Asia Pacific (Singapore)
-     *       > -
      *       > - Asia Pacific (Sydney)
-     *       > -
      *       > - Asia Pacific (Tokyo)
-     *       > -
      *       > - Europe (Ireland)
-     *       > -
      *       > - South America (São Paulo)
      *       >
      *       > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^18] in the
@@ -842,13 +791,9 @@ class S3Client extends AbstractApi
      * The following operations are related to `CreateMultipartUpload`:
      *
      * - UploadPart [^19]
-     * -
      * - CompleteMultipartUpload [^20]
-     * -
      * - AbortMultipartUpload [^21]
-     * -
      * - ListParts [^22]
-     * -
      * - ListMultipartUploads [^23]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
@@ -929,7 +874,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `DeleteBucket`:
      *
      * - CreateBucket [^1]
-     * -
      * - DeleteObject [^2]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
@@ -965,7 +909,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `DeleteBucketCors`:
      *
      * - PutBucketCors [^2]
-     * -
      * - RESTOPTIONSobject [^3]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
@@ -1071,13 +1014,9 @@ class S3Client extends AbstractApi
      * The following operations are related to `DeleteObjects`:
      *
      * - CreateMultipartUpload [^2]
-     * -
      * - UploadPart [^3]
-     * -
      * - CompleteMultipartUpload [^4]
-     * -
      * - ListParts [^5]
-     * -
      * - AbortMultipartUpload [^6]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html#MultiFactorAuthenticationDelete
@@ -1129,7 +1068,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `GetBucketCors`:
      *
      * - PutBucketCors [^3]
-     * -
      * - DeleteBucketCors [^4]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList
@@ -1169,7 +1107,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `GetBucketEncryption`:
      *
      * - PutBucketEncryption [^4]
-     * -
      * - DeleteBucketEncryption [^5]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html
@@ -1226,9 +1163,7 @@ class S3Client extends AbstractApi
      * store the object in Amazon S3, then when you GET the object, you must use the following headers:
      *
      * - x-amz-server-side-encryption-customer-algorithm
-     * -
      * - x-amz-server-side-encryption-customer-key
-     * -
      * - x-amz-server-side-encryption-customer-key-MD5
      *
      * For more information about SSE-C, see Server-Side Encryption (Using Customer-Provided Encryption Keys) [^5].
@@ -1245,7 +1180,6 @@ class S3Client extends AbstractApi
      *
      *   - If you have the `s3:ListBucket` permission on the bucket, Amazon S3 will return an HTTP status code 404 ("no such
      *     key") error.
-     *   -
      *   - If you don’t have the `s3:ListBucket` permission, Amazon S3 will return an HTTP status code 403 ("access
      *     denied") error.
      *
@@ -1258,7 +1192,6 @@ class S3Client extends AbstractApi
      *   >   object. If you request a specific version, you do not need to have the `s3:GetObject` permission. If you
      *   >   request the current version without a specific version ID, only `s3:GetObject` permission is required.
      *   >   `s3:GetObjectVersion` permission won't be required.
-     *   > -
      *   > - If the current version of the object is a delete marker, Amazon S3 behaves as if the object was deleted and
      *   >   includes `x-amz-delete-marker: true` in the response.
      *   >
@@ -1280,15 +1213,10 @@ class S3Client extends AbstractApi
      *   > They cannot be used with an unsigned (anonymous) request.
      *
      *   - `response-content-type`
-     *   -
      *   - `response-content-language`
-     *   -
      *   - `response-expires`
-     *   -
      *   - `response-cache-control`
-     *   -
      *   - `response-content-disposition`
-     *   -
      *   - `response-content-encoding`
      *
      * - `Overriding Response Header Values`:
@@ -1306,7 +1234,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `GetObject`:
      *
      * - ListBuckets [^10]
-     * -
      * - GetObjectAcl [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingSpecifyBucket
@@ -1382,11 +1309,8 @@ class S3Client extends AbstractApi
      * The following operations are related to `GetObjectAcl`:
      *
      * - GetObject [^3]
-     * -
      * - GetObjectAttributes [^4]
-     * -
      * - DeleteObject [^5]
-     * -
      * - PutObject [^6]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping
@@ -1436,9 +1360,7 @@ class S3Client extends AbstractApi
      * headers:
      *
      * - x-amz-server-side-encryption-customer-algorithm
-     * -
      * - x-amz-server-side-encryption-customer-key
-     * -
      * - x-amz-server-side-encryption-customer-key-MD5
      *
      * For more information about SSE-C, see Server-Side Encryption (Using Customer-Provided Encryption Keys) [^1].
@@ -1446,7 +1368,6 @@ class S3Client extends AbstractApi
      * > - Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for GET requests if your
      * >   object uses server-side encryption with KMS keys (SSE-KMS) or server-side encryption with Amazon S3–managed
      * >   encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 BadRequest error.
-     * > -
      * > - The last modified property in this case is the creation date of the object.
      * >
      *
@@ -1458,16 +1379,13 @@ class S3Client extends AbstractApi
      *   follows:
      *
      *   - `If-Match` condition evaluates to `true`, and;
-     *   -
      *   - `If-Unmodified-Since` condition evaluates to `false`;
      *
      *   Then Amazon S3 returns `200 OK` and the data requested.
-     * -
      * - Consideration 2 – If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as
      *   follows:
      *
      *   - `If-None-Match` condition evaluates to `false`, and;
-     *   -
      *   - `If-Modified-Since` condition evaluates to `true`;
      *
      *   Then Amazon S3 returns the `304 Not Modified` response code.
@@ -1482,7 +1400,6 @@ class S3Client extends AbstractApi
      *
      *   - If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 ("no such
      *     key") error.
-     *   -
      *   - If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 ("access denied")
      *     error.
      *
@@ -1490,7 +1407,6 @@ class S3Client extends AbstractApi
      * The following actions are related to `HeadObject`:
      *
      * - GetObject [^5]
-     * -
      * - GetObjectAttributes [^6]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
@@ -1582,13 +1498,9 @@ class S3Client extends AbstractApi
      * The following operations are related to `ListMultipartUploads`:
      *
      * - CreateMultipartUpload [^3]
-     * -
      * - UploadPart [^4]
-     * -
      * - CompleteMultipartUpload [^5]
-     * -
      * - ListParts [^6]
-     * -
      * - AbortMultipartUpload [^7]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
@@ -1647,9 +1559,7 @@ class S3Client extends AbstractApi
      * The following operations are related to `ListObjectsV2`:
      *
      * - GetObject [^6]
-     * -
      * - PutObject [^7]
-     * -
      * - CreateBucket [^8]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ListingKeysUsingAPIs.html
@@ -1710,15 +1620,10 @@ class S3Client extends AbstractApi
      * The following operations are related to `ListParts`:
      *
      * - CreateMultipartUpload [^4]
-     * -
      * - UploadPart [^5]
-     * -
      * - CompleteMultipartUpload [^6]
-     * -
      * - AbortMultipartUpload [^7]
-     * -
      * - GetObjectAttributes [^8]
-     * -
      * - ListMultipartUploads [^9]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
@@ -1843,10 +1748,8 @@ class S3Client extends AbstractApi
      * enable a cross-origin request. For a rule to match, the following conditions must be met:
      *
      * - The request's `Origin` header must match `AllowedOrigin` elements.
-     * -
      * - The request method (for example, GET, PUT, HEAD, and so on) or the `Access-Control-Request-Method` header in case
      *   of a pre-flight `OPTIONS` request must be one of the `AllowedMethod` elements.
-     * -
      * - Every header specified in the `Access-Control-Request-Headers` request header of a pre-flight request must match an
      *   `AllowedHeader` element.
      *
@@ -1855,9 +1758,7 @@ class S3Client extends AbstractApi
      * The following operations are related to `PutBucketCors`:
      *
      * - GetBucketCors [^2]
-     * -
      * - DeleteBucketCors [^3]
-     * -
      * - RESTOPTIONSobject [^4]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
@@ -1973,13 +1874,10 @@ class S3Client extends AbstractApi
      * value.
      *
      * > - To successfully complete the `PutObject` request, you must have the `s3:PutObject` in your IAM permissions.
-     * > -
      * > - To successfully change the objects acl of your `PutObject` request, you must have the `s3:PutObjectAcl` in your
      * >   IAM permissions.
-     * > -
      * > - To successfully set the tag-set with your `PutObject` request, you must have the `s3:PutObjectTagging` in your
      * >   IAM permissions.
-     * > -
      * > - The `Content-MD5` header is required for any request to upload an object with a retention period configured using
      * >   Amazon S3 Object Lock. For more information about Amazon S3 Object Lock, see Amazon S3 Object Lock Overview [^2]
      * >   in the *Amazon S3 User Guide*.
@@ -2022,7 +1920,6 @@ class S3Client extends AbstractApi
      * For more information about related Amazon S3 APIs, see the following:
      *
      * - CopyObject [^10]
-     * -
      * - DeleteObject [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html
@@ -2116,7 +2013,6 @@ class S3Client extends AbstractApi
      *     canned ACLs. Each canned ACL has a predefined set of grantees and permissions. Specify the canned ACL name as the
      *     value of `x-amz-ac`l. If you use this header, you cannot use other access control-specific headers in your
      *     request. For more information, see Canned ACL [^4].
-     *   -
      *   - Specify access permissions explicitly with the `x-amz-grant-read`, `x-amz-grant-read-acp`,
      *     `x-amz-grant-write-acp`, and `x-amz-grant-full-control` headers. When using these headers, you specify explicit
      *     access permissions and grantees (Amazon Web Services accounts or Amazon S3 groups) who will receive the
@@ -2127,27 +2023,18 @@ class S3Client extends AbstractApi
      *     You specify each grantee as a type=value pair, where the type is one of the following:
      *
      *     - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
-     *     -
      *     - `uri` – if you are granting permissions to a predefined group
-     *     -
      *     - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
      *
      *       > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
      *       >
      *       > - US East (N. Virginia)
-     *       > -
      *       > - US West (N. California)
-     *       > -
      *       > - US West (Oregon)
-     *       > -
      *       > - Asia Pacific (Singapore)
-     *       > -
      *       > - Asia Pacific (Sydney)
-     *       > -
      *       > - Asia Pacific (Tokyo)
-     *       > -
      *       > - Europe (Ireland)
-     *       > -
      *       > - South America (São Paulo)
      *       >
      *       > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^6] in the Amazon
@@ -2172,12 +2059,10 @@ class S3Client extends AbstractApi
      *     </Grantee>`
      *
      *     DisplayName is optional and ignored in the request.
-     *   -
      *   - By URI:
      *
      *     `<Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      *     xsi:type="Group"><URI><>http://acs.amazonaws.com/groups/global/AuthenticatedUsers<></URI></Grantee>`
-     *   -
      *   - By Email address:
      *
      *     `<Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -2189,19 +2074,12 @@ class S3Client extends AbstractApi
      *     > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
      *     >
      *     > - US East (N. Virginia)
-     *     > -
      *     > - US West (N. California)
-     *     > -
      *     > - US West (Oregon)
-     *     > -
      *     > - Asia Pacific (Singapore)
-     *     > -
      *     > - Asia Pacific (Sydney)
-     *     > -
      *     > - Asia Pacific (Tokyo)
-     *     > -
      *     > - Europe (Ireland)
-     *     > -
      *     > - South America (São Paulo)
      *     >
      *     > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^7] in the Amazon
@@ -2216,7 +2094,6 @@ class S3Client extends AbstractApi
      * The following operations are related to `PutObjectAcl`:
      *
      * - CopyObject [^8]
-     * -
      * - GetObject [^9]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
@@ -2319,33 +2196,24 @@ class S3Client extends AbstractApi
      * upload request, you must provide identical encryption information in each part upload using the following headers.
      *
      * - x-amz-server-side-encryption-customer-algorithm
-     * -
      * - x-amz-server-side-encryption-customer-key
-     * -
      * - x-amz-server-side-encryption-customer-key-MD5
      *
      * `UploadPart` has the following special errors:
      *
      * - - *Code: NoSuchUpload*
-     * - -
      * - - *Cause: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload
      * -   might have been aborted or completed.*
-     * - -
      * - - * HTTP Status Code: 404 Not Found *
-     * - -
      * - - *SOAP Fault Code Prefix: Client*
      * -
      *
      * The following operations are related to `UploadPart`:
      *
      * - CreateMultipartUpload [^10]
-     * -
      * - CompleteMultipartUpload [^11]
-     * -
      * - AbortMultipartUpload [^12]
-     * -
      * - ListParts [^13]
-     * -
      * - ListMultipartUploads [^14]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html

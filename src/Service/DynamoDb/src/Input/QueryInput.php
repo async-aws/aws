@@ -42,14 +42,11 @@ final class QueryInput extends Input
      *   secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table.
      *   If the index is configured to project all item attributes, then all of the data can be obtained from the local
      *   secondary index, and no fetching is required.
-     * -
      * - `ALL_PROJECTED_ATTRIBUTES` - Allowed only when querying an index. Retrieves all attributes that have been projected
      *   into the index. If the index is configured to project all attributes, this return value is equivalent to specifying
      *   `ALL_ATTRIBUTES`.
-     * -
      * - `COUNT` - Returns the number of matching items, rather than the matching items themselves. Note that this uses the
      *   same quantity of read capacity units as getting the items, and is subject to the same item size calculations.
-     * -
      * - `SPECIFIC_ATTRIBUTES` - Returns only the attributes listed in `ProjectionExpression`. This return value is
      *   equivalent to specifying `ProjectionExpression` without specifying any value for `Select`.
      *
@@ -224,18 +221,12 @@ final class QueryInput extends Input
      * Valid comparisons for the sort key condition are as follows:
      *
      * - `sortKeyName``=``:sortkeyval` - true if the sort key value is equal to `:sortkeyval`.
-     * -
      * - `sortKeyName``<``:sortkeyval` - true if the sort key value is less than `:sortkeyval`.
-     * -
      * - `sortKeyName``<=``:sortkeyval` - true if the sort key value is less than or equal to `:sortkeyval`.
-     * -
      * - `sortKeyName``>``:sortkeyval` - true if the sort key value is greater than `:sortkeyval`.
-     * -
      * - `sortKeyName``>= ``:sortkeyval` - true if the sort key value is greater than or equal to `:sortkeyval`.
-     * -
      * - `sortKeyName``BETWEEN``:sortkeyval1``AND``:sortkeyval2` - true if the sort key value is greater than or equal to
      *   `:sortkeyval1`, and less than or equal to `:sortkeyval2`.
-     * -
      * - `begins_with (``sortKeyName`, `:sortkeyval``)` - true if the sort key value begins with a particular operand. (You
      *   cannot use this function with a sort key that is of type Number.) Note that the function name `begins_with` is
      *   case-sensitive.
@@ -272,9 +263,7 @@ final class QueryInput extends Input
      * `ExpressionAttributeNames`:.
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
-     * -
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.
-     * -
      * - To prevent special characters in an attribute name from being misinterpreted in an expression.
      *
      * Use the **#** character in an expression to dereference an attribute name. For example, consider the following

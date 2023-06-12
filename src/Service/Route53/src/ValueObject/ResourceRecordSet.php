@@ -30,9 +30,7 @@ final class ResourceRecordSet
      * Note the following:
      *
      * - The * must replace the entire label. For example, you can't specify `*prod.example.com` or `prod*.example.com`.
-     * -
      * - The * can't replace any of the middle labels, for example, marketing.*.example.com.
-     * -
      * - If you include * in any position other than the leftmost label in a domain name, DNS treats it as an * character
      *   (ASCII 42), not as a wildcard.
      *
@@ -71,20 +69,14 @@ final class ResourceRecordSet
      * Values for alias resource record sets:
      *
      * - **Amazon API Gateway custom regional APIs and edge-optimized APIs:**`A`
-     * -
      * - **CloudFront distributions:**`A`
      *
      *   If IPv6 is enabled for the distribution, create two resource record sets to route traffic to your distribution, one
      *   with a value of `A` and one with a value of `AAAA`.
-     * -
      * - **Amazon API Gateway environment that has a regionalized subdomain**: `A`
-     * -
      * - **ELB load balancers:**`A` | `AAAA`
-     * -
      * - **Amazon S3 buckets:**`A`
-     * -
      * - **Amazon Virtual Private Cloud interface VPC endpoints**`A`
-     * -
      * - **Another resource record set in this hosted zone:** Specify the type of the resource record set that you're
      *   creating the alias for. All values are supported except `NS` and `SOA`.
      *
@@ -118,15 +110,11 @@ final class ResourceRecordSet
      * following:.
      *
      * - You must specify a value for the `Weight` element for every weighted resource record set.
-     * -
      * - You can only specify one `ResourceRecord` per weighted resource record set.
-     * -
      * - You can't create latency, failover, or geolocation resource record sets that have the same values for the `Name`
      *   and `Type` elements as weighted resource record sets.
-     * -
      * - You can create a maximum of 100 weighted resource record sets that have the same values for the `Name` and `Type`
      *   elements.
-     * -
      * - For weighted (but not weighted alias) resource record sets, if you set `Weight` to `0` for a resource record set,
      *   Route 53 never responds to queries with the applicable value for that resource record set. However, if you set
      *   `Weight` to `0` for all resource record sets that have the same combination of DNS name and type, traffic is routed
@@ -153,12 +141,9 @@ final class ResourceRecordSet
      * Note the following:
      *
      * - You can only specify one `ResourceRecord` per latency resource record set.
-     * -
      * - You can only create one latency resource record set for each Amazon EC2 Region.
-     * -
      * - You aren't required to create latency resource record sets for all Amazon EC2 Regions. Route 53 will choose the
      *   region with the best latency from among the regions that you create latency resource record sets for.
-     * -
      * - You can't create non-latency resource record sets that have the same values for the `Name` and `Type` elements as
      *   latency resource record sets.
      */
@@ -207,13 +192,10 @@ final class ResourceRecordSet
      *
      * - When the primary resource record set is healthy, Route 53 responds to DNS queries with the applicable value from
      *   the primary resource record set regardless of the health of the secondary resource record set.
-     * -
      * - When the primary resource record set is unhealthy and the secondary resource record set is healthy, Route 53
      *   responds to DNS queries with the applicable value from the secondary resource record set.
-     * -
      * - When the secondary resource record set is unhealthy, Route 53 responds to DNS queries with the applicable value
      *   from the primary resource record set regardless of the health of the primary resource record set.
-     * -
      * - If you omit the `HealthCheckId` element for the secondary resource record set, and if the primary resource record
      *   set is unhealthy, Route 53 always responds to DNS queries with the applicable value from the secondary resource
      *   record set. This is true regardless of the health of the associated endpoint.
@@ -228,7 +210,6 @@ final class ResourceRecordSet
      * Developer Guide*:
      *
      * - Route 53 Health Checks and DNS Failover [^1]
-     * -
      * - Configuring Failover in a Private Hosted Zone [^2]
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html
@@ -243,18 +224,13 @@ final class ResourceRecordSet
      *
      * - If you associate a health check with a multivalue answer resource record set, Amazon Route 53 responds to DNS
      *   queries with the corresponding IP address only when the health check is healthy.
-     * -
      * - If you don't associate a health check with a multivalue answer record, Route 53 always considers the record to be
      *   healthy.
-     * -
      * - Route 53 responds to DNS queries with up to eight healthy records; if you have eight or fewer healthy records,
      *   Route 53 responds to all DNS queries with all the healthy records.
-     * -
      * - If you have more than eight healthy records, Route 53 responds to different DNS resolvers with different
      *   combinations of healthy records.
-     * -
      * - When all records are unhealthy, Route 53 responds to DNS queries with up to eight unhealthy records.
-     * -
      * - If a resource becomes unavailable after a resolver caches a response, client software typically tries another of
      *   the IP addresses in the response.
      *
@@ -267,12 +243,9 @@ final class ResourceRecordSet
      *
      * - If you're creating or updating an alias resource record set, omit `TTL`. Amazon Route 53 uses the value of `TTL`
      *   for the alias target.
-     * -
      * - If you're associating this resource record set with a health check (if you're adding a `HealthCheckId` element), we
      *   recommend that you specify a `TTL` of 60 seconds or less so clients respond quickly to changes in health status.
-     * -
      * - All of the resource record sets in a group of weighted resource record sets must have the same value for `TTL`.
-     * -
      * - If a group of weighted resource record sets includes one or more weighted alias resource record sets for which the
      *   alias target is an ELB load balancer, we recommend that you specify a `TTL` of 60 seconds for all of the non-alias
      *   weighted resource record sets that have the same name and type. Values other than 60 seconds (the TTL for load
@@ -295,7 +268,6 @@ final class ResourceRecordSet
      *
      * - You can't create an alias resource record set in a private hosted zone to route traffic to a CloudFront
      *   distribution.
-     * -
      * - For information about creating failover resource record sets in a private hosted zone, see Configuring Failover in
      *   a Private Hosted Zone [^1] in the *Amazon Route 53 Developer Guide*.
      *
@@ -310,9 +282,7 @@ final class ResourceRecordSet
      * Route 53 determines whether a resource record set is healthy based on one of the following:
      *
      * - By periodically sending a request to the endpoint that is specified in the health check
-     * -
      * - By aggregating the status of a specified group of health checks (calculated health checks)
-     * -
      * - By determining the current state of a CloudWatch alarm (CloudWatch metric health checks)
      *
      * ! Route 53 doesn't check the health of the endpoint that is specified in the resource record set, for example, the
@@ -322,9 +292,7 @@ final class ResourceRecordSet
      * For more information, see the following topics in the *Amazon Route 53 Developer Guide*:
      *
      * - How Amazon Route 53 Determines Whether an Endpoint Is Healthy [^1]
-     * -
      * - Route 53 Health Checks and DNS Failover [^2]
-     * -
      * - Configuring Failover in a Private Hosted Zone [^3]
      *
      * **When to Specify HealthCheckId**
@@ -345,16 +313,13 @@ final class ResourceRecordSet
      *
      *   If the health check status for all resource record sets in the group is unhealthy, Route 53 considers all resource
      *   record sets in the group healthy and responds to DNS queries accordingly.
-     * -
      * - **Alias resource record sets**: You specify the following settings:
      *
      *   - You set `EvaluateTargetHealth` to true for an alias resource record set in a group of resource record sets that
      *     have the same routing policy, name, and type (such as multiple weighted records named www.example.com with a type
      *     of A).
-     *   -
      *   - You configure the alias resource record set to route traffic to a non-alias resource record set in the same
      *     hosted zone.
-     *   -
      *   - You specify a health check ID for the non-alias resource record set.
      *
      *   If the health check status is healthy, Route 53 considers the alias resource record set to be healthy and includes
@@ -378,9 +343,7 @@ final class ResourceRecordSet
      * is healthy:
      *
      * - The United States
-     * -
      * - North America
-     * -
      * - The default resource record set
      *
      * **Specifying the Health Check Endpoint by Domain Name**
@@ -394,7 +357,6 @@ final class ResourceRecordSet
      * !
      * ! - Create a health check that has the same value for `FullyQualifiedDomainName` as the name of a resource record
      * !   set.
-     * ! -
      * ! - Associate that health check with the resource record set.
      * !
      *

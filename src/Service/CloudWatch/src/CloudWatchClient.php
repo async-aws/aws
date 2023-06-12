@@ -55,11 +55,8 @@ class CloudWatchClient extends AbstractApi
      *
      * - Data points with a period of less than 60 seconds are available for 3 hours. These data points are high-resolution
      *   metrics and are available only for custom metrics that have been defined with a `StorageResolution` of 1.
-     * -
      * - Data points with a period of 60 seconds (1-minute) are available for 15 days.
-     * -
      * - Data points with a period of 300 seconds (5-minute) are available for 63 days.
-     * -
      * - Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
      *
      * Data points that are initially published with a shorter period are aggregated together for long-term storage. For
@@ -128,7 +125,6 @@ class CloudWatchClient extends AbstractApi
      * instead, you can only retrieve percentile statistics for this data if one of the following conditions is true:
      *
      * - The SampleCount value of the statistic set is 1.
-     * -
      * - The Min and the Max values of the statistic set are equal.
      *
      * Percentile statistics are not available for metrics when any of the metric values are negative numbers.
@@ -137,11 +133,8 @@ class CloudWatchClient extends AbstractApi
      *
      * - Data points with a period of less than 60 seconds are available for 3 hours. These data points are high-resolution
      *   metrics and are available only for custom metrics that have been defined with a `StorageResolution` of 1.
-     * -
      * - Data points with a period of 60 seconds (1-minute) are available for 15 days.
-     * -
      * - Data points with a period of 300 seconds (5-minute) are available for 63 days.
-     * -
      * - Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
      *
      * Data points that are initially published with a shorter period are aggregated together for long-term storage. For
@@ -277,7 +270,6 @@ class CloudWatchClient extends AbstractApi
      * instead, you can only retrieve percentile statistics for this data if one of the following conditions is true:
      *
      * - The `SampleCount` value of the statistic set is 1 and `Min`, `Max`, and `Sum` are all equal.
-     * -
      * - The `Min` and `Max` are equal, and `Sum` is equal to `Min` multiplied by `SampleCount`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html

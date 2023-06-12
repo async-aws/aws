@@ -217,11 +217,9 @@ class HeadObjectOutput extends Result
      *   `TaxDocs/document1.pdf`, are eligible for replication. For any object request with this key name prefix, Amazon S3
      *   will return the `x-amz-replication-status` header with value PENDING, COMPLETED or FAILED indicating object
      *   replication status.
-     * -
      * - **If requesting an object from a destination bucket**, Amazon S3 will return the `x-amz-replication-status` header
      *   with value REPLICA if the object in your request is a replica that Amazon S3 created and there is no replica
      *   modification replication in progress.
-     * -
      * - **When replicating objects to multiple destination buckets**, the `x-amz-replication-status` header acts
      *   differently. The header of the source object will only return a value of COMPLETED when replication is successful
      *   to all destinations. The header will remain at value PENDING until replication has completed for all destinations.

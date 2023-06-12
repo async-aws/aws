@@ -13,17 +13,11 @@ final class GeoLocation
      * Amazon Route 53 supports the following continent codes:
      *
      * - **AF**: Africa
-     * -
      * - **AN**: Antarctica
-     * -
      * - **AS**: Asia
-     * -
      * - **EU**: Europe
-     * -
      * - **OC**: Oceania
-     * -
      * - **NA**: North America
-     * -
      * - **SA**: South America
      *
      * Constraint: Specifying `ContinentCode` with either `CountryCode` or `SubdivisionCode` returns an `InvalidInput`

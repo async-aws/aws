@@ -21,12 +21,9 @@ final class UpdateShardCountInput extends Input
      * The new number of shards. This value has the following default limits. By default, you cannot do the following:.
      *
      * - Set this value to more than double your current shard count for a stream.
-     * -
      * - Set this value below half your current shard count for a stream.
-     * -
      * - Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is 10000 per
      *   account per region), unless you request a limit increase.
-     * -
      * - Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
      *
      * @required

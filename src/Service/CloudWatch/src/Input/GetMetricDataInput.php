@@ -33,10 +33,8 @@ final class GetMetricDataInput extends Input
      *
      * - Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down to
      *   12:32:00.
-     * -
      * - Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34 is
      *   rounded down to 12:30:00.
-     * -
      * - Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
      *   rounded down to 12:00:00.
      *

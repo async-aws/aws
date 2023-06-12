@@ -70,9 +70,7 @@ class TimestreamQueryClient extends AbstractApi
      * management and mapping of the service endpoints, *it is not recommended that you use this API unless*:
      *
      * - You are using VPC endpoints (Amazon Web Services PrivateLink) with Timestream  [^1]
-     * -
      * - Your application uses a programming language that does not yet have SDK support
-     * -
      * - You require better control over the client-side implementation
      *
      * For detailed information on how and when to use and implement DescribeEndpoints, see The Endpoint Discovery Pattern
@@ -147,15 +145,12 @@ class TimestreamQueryClient extends AbstractApi
      * Your query request will fail in the following cases:
      *
      * - If you submit a `Query` request with the same client token outside of the 5-minute idempotency window.
-     * -
      * - If you submit a `Query` request with the same client token, but change other parameters, within the 5-minute
      *   idempotency window.
-     * -
      * - If the size of the row (including the query metadata) exceeds 1 MB, then the query will fail with the following
      *   error message:
      *
      *   `Query aborted as max page response size has been exceeded by the output result row`
-     * -
      * - If the IAM principal of the query initiator and the result reader are not the same and/or the query initiator and
      *   the result reader do not have the same query string in the query requests, the query will fail with an `Invalid
      *   pagination token` error.

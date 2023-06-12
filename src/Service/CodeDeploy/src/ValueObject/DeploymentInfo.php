@@ -85,11 +85,8 @@ final class DeploymentInfo
      * The means by which the deployment was created:.
      *
      * - `user`: A user created the deployment.
-     * -
      * - `autoscaling`: Amazon EC2 Auto Scaling created the deployment.
-     * -
      * - `codeDeployRollback`: A rollback process created the deployment.
-     * -
      * - `CodeDeployAutoUpdate`: An auto-update process created the deployment when it detected outdated Amazon EC2
      *   instances.
      */
@@ -170,10 +167,8 @@ final class DeploymentInfo
      * the previous successful deployment.
      *
      * - `DISALLOW`: The deployment fails. This is also the default behavior if no option is specified.
-     * -
      * - `OVERWRITE`: The version of the file from the application revision currently being deployed replaces the version
      *   already on the instance.
-     * -
      * - `RETAIN`: The version of the file already on the instance is kept and used as part of the new deployment.
      */
     private $fileExistsBehavior;

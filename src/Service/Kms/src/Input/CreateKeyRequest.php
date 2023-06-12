@@ -22,7 +22,6 @@ final class CreateKeyRequest extends Input
      * - The key policy must allow the calling principal to make a subsequent `PutKeyPolicy` request on the KMS key. This
      *   reduces the risk that the KMS key becomes unmanageable. For more information, see Default key policy [^1] in the
      *   *Key Management Service Developer Guide*. (To omit this condition, set `BypassPolicyLockoutSafetyCheck` to true.)
-     * -
      * - Each statement in the key policy must contain one or more principals. The principals in the key policy must exist
      *   and be visible to KMS. When you create a new Amazon Web Services principal, you might need to enforce a delay
      *   before including the new principal in a key policy because the new principal might not be immediately visible to
@@ -67,13 +66,9 @@ final class CreateKeyRequest extends Input
      * Select only one valid value.
      *
      * - For symmetric encryption KMS keys, omit the parameter or specify `ENCRYPT_DECRYPT`.
-     * -
      * - For HMAC KMS keys (symmetric), specify `GENERATE_VERIFY_MAC`.
-     * -
      * - For asymmetric KMS keys with RSA key material, specify `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
-     * -
      * - For asymmetric KMS keys with ECC key material, specify `SIGN_VERIFY`.
-     * -
      * - For asymmetric KMS keys with SM2 key material (China Regions only), specify `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
@@ -116,27 +111,20 @@ final class CreateKeyRequest extends Input
      * - HMAC keys (symmetric)
      *
      *   - `HMAC_224`
-     *   -
      *   - `HMAC_256`
-     *   -
      *   - `HMAC_384`
-     *   -
      *   - `HMAC_512`
      *
      * - Asymmetric RSA key pairs
      *
      *   - `RSA_2048`
-     *   -
      *   - `RSA_3072`
-     *   -
      *   - `RSA_4096`
      *
      * - Asymmetric NIST-recommended elliptic curve key pairs
      *
      *   - `ECC_NIST_P256` (secp256r1)
-     *   -
      *   - `ECC_NIST_P384` (secp384r1)
-     *   -
      *   - `ECC_NIST_P521` (secp521r1)
      *
      * - Other asymmetric elliptic curve key pairs

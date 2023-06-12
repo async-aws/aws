@@ -143,7 +143,6 @@ class KinesisClient extends AbstractApi
      * You receive a `LimitExceededException` when making a `CreateStream` request when you try to do one of the following:
      *
      * - Have more than five streams in the `CREATING` state at any point in time.
-     * -
      * - Create more shards than are authorized for your account.
      *
      * For the default shard limit for an Amazon Web Services account, see Amazon Kinesis Data Streams Limits [^1] in the
@@ -1529,15 +1528,10 @@ class KinesisClient extends AbstractApi
      * This operation has the following default limits. By default, you cannot do the following:
      *
      * - Scale more than ten times per rolling 24-hour period per stream
-     * -
      * - Scale up to more than double your current shard count for a stream
-     * -
      * - Scale down below half your current shard count for a stream
-     * -
      * - Scale up to more than 10000 shards in a stream
-     * -
      * - Scale a stream with more than 10000 shards down unless the result is less than 10000 shards
-     * -
      * - Scale up to more than the shard limit for your account
      *
      * For the default limits for an Amazon Web Services account, see Streams Limits [^1] in the *Amazon Kinesis Data

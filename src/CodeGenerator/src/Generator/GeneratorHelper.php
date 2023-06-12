@@ -112,6 +112,8 @@ class GeneratorHelper
             '</a>' => '',
         ]);
 
+        $s = trim($s);
+
         $prefix = [];
         $lines = [];
         $empty = false;
@@ -130,6 +132,11 @@ class GeneratorHelper
             }
 
             if ('<p>' === $line) {
+                if ($spaceNext) {
+                    // This is a <p> inside a <li> Lets ignore it
+                    continue;
+                }
+
                 if (!$empty) {
                     $lines[] = implode('', $prefix);
                 }

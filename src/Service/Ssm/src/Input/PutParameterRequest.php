@@ -20,18 +20,13 @@ final class PutParameterRequest extends Input
      * Naming Constraints:
      *
      * - Parameter names are case sensitive.
-     * -
      * - A parameter name must be unique within an Amazon Web Services Region
-     * -
      * - A parameter name can't be prefixed with "`aws`" or "`ssm`" (case-insensitive).
-     * -
      * - Parameter names can include only the following symbols and letters: `a-zA-Z0-9_.-`
      *
      *   In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
      *   `/Dev/Production/East/Project-ABC/MyParameter`
-     * -
      * - A parameter name can't include spaces.
-     * -
      * - Parameter hierarchies are limited to a maximum depth of fifteen levels.
      *
      * For additional information about valid values for parameter names, see Creating Systems Manager parameters [^1] in
@@ -121,9 +116,7 @@ final class PutParameterRequest extends Input
      * In this case, you could specify the following key-value pairs:.
      *
      * - `Key=Resource,Value=S3bucket`
-     * -
      * - `Key=OS,Value=Windows`
-     * -
      * - `Key=ParameterType,Value=LicenseKey`
      *
      * > To add tags to an existing Systems Manager parameter, use the AddTagsToResource operation.
@@ -162,7 +155,6 @@ final class PutParameterRequest extends Input
      * advanced-parameter tier, you can specify one of the following as the default:
      *
      * - **Advanced**: With this option, Parameter Store evaluates all requests as advanced parameters.
-     * -
      * - **Intelligent-Tiering**: With this option, Parameter Store evaluates each request to determine if the parameter is
      *   standard or advanced.
      *
@@ -176,9 +168,7 @@ final class PutParameterRequest extends Input
      * Options that require an advanced parameter include the following:
      *
      * - The content size of the parameter is more than 4 KB.
-     * -
      * - The parameter uses a parameter policy.
-     * -
      * - More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
      *   Region.
      *
@@ -223,9 +213,7 @@ final class PutParameterRequest extends Input
      * **The following data type values are supported.**
      *
      * - `text`
-     * -
      * - `aws:ec2:image`
-     * -
      * - `aws:ssm:integration`
      *
      * When you create a `String` parameter and specify `aws:ec2:image`, Amazon Web Services Systems Manager validates the

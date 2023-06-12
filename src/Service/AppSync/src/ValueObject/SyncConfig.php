@@ -18,9 +18,7 @@ final class SyncConfig
      *
      * - **OPTIMISTIC_CONCURRENCY**: Resolve conflicts by rejecting mutations when versions don't match the latest version
      *   at the server.
-     * -
      * - **AUTOMERGE**: Resolve conflicts with the Automerge conflict resolution strategy.
-     * -
      * - **LAMBDA**: Resolve conflicts with an Lambda function supplied in the `LambdaConflictHandlerConfig`.
      */
     private $conflictHandler;
@@ -29,7 +27,6 @@ final class SyncConfig
      * The Conflict Detection strategy to use.
      *
      * - **VERSION**: Detect conflicts based on object versions for this resolver.
-     * -
      * - **NONE**: Do not detect conflicts when invoking this resolver.
      */
     private $conflictDetection;

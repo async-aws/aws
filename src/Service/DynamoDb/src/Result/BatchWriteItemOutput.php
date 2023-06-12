@@ -55,7 +55,6 @@ class BatchWriteItemOutput extends Result
      *
      * - `ItemCollectionKey` - The partition key value of the item collection. This is the same as the partition key value
      *   of the item.
-     * -
      * - `SizeEstimateRangeGB` - An estimate of item collection size, expressed in GB. This is a two-element array
      *   containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in
      *   the table, plus the size of all attributes projected into all of the local secondary indexes on the table. Use this
@@ -71,7 +70,6 @@ class BatchWriteItemOutput extends Result
      * Each element consists of:
      *
      * - `TableName` - The table that consumed the provisioned throughput.
-     * -
      * - `CapacityUnits` - The total number of capacity units consumed.
      */
     private $consumedCapacity;

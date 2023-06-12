@@ -79,9 +79,7 @@ final class GetItemInput extends Input
      * `ExpressionAttributeNames`:.
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
-     * -
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.
-     * -
      * - To prevent special characters in an attribute name from being misinterpreted in an expression.
      *
      * Use the **#** character in an expression to dereference an attribute name. For example, consider the following

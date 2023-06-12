@@ -30,13 +30,9 @@ final class ReceiveMessageRequest extends Input
      * The name of the message attribute, where *N* is the index.
      *
      * - The name can contain alphanumeric characters and the underscore (`_`), hyphen (`-`), and period (`.`).
-     * -
      * - The name is case-sensitive and must be unique among all attribute names for the message.
-     * -
      * - The name must not start with AWS-reserved prefixes such as `AWS.` or `Amazon.` (or any casing variants).
-     * -
      * - The name must not start or end with a period (`.`), and it should not have periods in succession (`..`).
-     * -
      * - The name can be up to 256 characters long.
      *
      * When using `ReceiveMessage`, you can send a list of attribute names to receive, or you can return all of the
@@ -88,16 +84,12 @@ final class ReceiveMessageRequest extends Input
      * yet expired.
      *
      * - You can use `ReceiveRequestAttemptId` only for 5 minutes after a `ReceiveMessage` action.
-     * -
      * - When you set `FifoQueue`, a caller of the `ReceiveMessage` action can provide a `ReceiveRequestAttemptId`
      *   explicitly.
-     * -
      * - If a caller of the `ReceiveMessage` action doesn't provide a `ReceiveRequestAttemptId`, Amazon SQS generates a
      *   `ReceiveRequestAttemptId`.
-     * -
      * - It is possible to retry the `ReceiveMessage` action with the same `ReceiveRequestAttemptId` if none of the messages
      *   have been modified (deleted or had their visibility changes).
-     * -
      * - During a visibility timeout, subsequent calls with the same `ReceiveRequestAttemptId` return the same messages and
      *   receipt handles. If a retry occurs within the deduplication interval, it resets the visibility timeout. For more
      *   information, see Visibility Timeout [^1] in the *Amazon SQS Developer Guide*.
@@ -113,7 +105,6 @@ final class ReceiveMessageRequest extends Input
      * - While messages with a particular `MessageGroupId` are invisible, no more messages belonging to the same
      *   `MessageGroupId` are returned until the visibility timeout expires. You can still receive messages with another
      *   `MessageGroupId` as long as it is also visible.
-     * -
      * - If a caller of `ReceiveMessage` can't track the `ReceiveRequestAttemptId`, no retries work until the original
      *   visibility timeout expires. As a result, delays might occur but the messages in the queue remain in a strict order.
      *

@@ -14,9 +14,7 @@ namespace AsyncAws\Rekognition\ValueObject;
  * corresponding Start operations don't have a `FaceAttributes` input parameter:
  *
  * - GetCelebrityRecognition
- * -
  * - GetPersonTracking
- * -
  * - GetFaceSearch
  *
  * The Amazon Rekognition Image DetectFaces and IndexFaces operations can return all facial attributes. To specify which

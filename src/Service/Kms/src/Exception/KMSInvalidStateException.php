@@ -14,7 +14,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  *   To find the key state, use the DescribeKey operation. For more information about which key states are compatible
  *   with each KMS operation, see Key states of KMS keys [^1] in the **Key Management Service Developer Guide**.
- * -
  * - For cryptographic operations on KMS keys in custom key stores, this exception represents a general failure with
  *   many possible causes. To identify the cause, see the error message that accompanies the exception.
  *
