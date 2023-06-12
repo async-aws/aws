@@ -23,5 +23,14 @@ jobs:
           git config --local user.name "AsyncAws Bot"
           git commit -am "Allow unstable dependencies"
 
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer:v2
+
+      - name: Install roave/backward-compatibility-check
+        run: composer require --dev roave/backward-compatibility-check
+
       - name: Roave BC Check
-        uses: docker://nyholm/roave-bc-check-ga
+        run: vendor/bin/roave-backward-compatibility-check
