@@ -13,6 +13,8 @@ final class DescribeLogStreamsRequest extends Input
     /**
      * The name of the log group.
      *
+     * > You must include either `logGroupIdentifier` or `logGroupName`, but not both.
+     *
      * @var string|null
      */
     private $logGroupName;
@@ -21,12 +23,16 @@ final class DescribeLogStreamsRequest extends Input
      * Specify either the name or ARN of the log group to view. If the log group is in a source account and you are using a
      * monitoring account, you must use the log group ARN.
      *
+     * > You must include either `logGroupIdentifier` or `logGroupName`, but not both.
+     *
      * @var string|null
      */
     private $logGroupIdentifier;
 
     /**
      * The prefix to match.
+     *
+     * If `orderBy` is `LastEventTime`, you cannot specify this parameter.
      *
      * @var string|null
      */
@@ -35,6 +41,13 @@ final class DescribeLogStreamsRequest extends Input
     /**
      * If the value is `LogStreamName`, the results are ordered by log stream name. If the value is `LastEventTime`, the
      * results are ordered by the event time. The default value is `LogStreamName`.
+     *
+     * If you order the results by event time, you cannot specify the `logStreamNamePrefix` parameter.
+     *
+     * `lastEventTimestamp` represents the time of the most recent log event in the log stream in CloudWatch Logs. This
+     * number is expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`. `lastEventTimestamp` updates on
+     * an eventual consistency basis. It typically updates in less than an hour from ingestion, but in rare situations might
+     * take longer.
      *
      * @var OrderBy::*|null
      */

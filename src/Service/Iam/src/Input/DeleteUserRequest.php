@@ -12,6 +12,11 @@ final class DeleteUserRequest extends Input
     /**
      * The name of the user to delete.
      *
+     * This parameter allows (through its regex pattern [^1]) a string of characters consisting of upper and lowercase
+     * alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+     *
+     * [^1]: http://wikipedia.org/wiki/regex
+     *
      * @required
      *
      * @var string|null

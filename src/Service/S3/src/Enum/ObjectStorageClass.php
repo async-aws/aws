@@ -2,9 +2,6 @@
 
 namespace AsyncAws\S3\Enum;
 
-/**
- * The class of storage used to store the object.
- */
 final class ObjectStorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';

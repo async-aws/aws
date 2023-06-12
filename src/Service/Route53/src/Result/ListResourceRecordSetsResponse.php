@@ -34,17 +34,25 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
 
     /**
      * If the results were truncated, the name of the next record in the list.
+     *
+     * This element is present only if `IsTruncated` is true.
      */
     private $nextRecordName;
 
     /**
      * If the results were truncated, the type of the next record in the list.
+     *
+     * This element is present only if `IsTruncated` is true.
      */
     private $nextRecordType;
 
     /**
      * *Resource record sets that have a routing policy other than simple:* If results were truncated for a given DNS name
      * and type, the value of `SetIdentifier` for the next resource record set that has the current DNS name and type.
+     *
+     * For information about routing policies, see Choosing a Routing Policy [^1] in the *Amazon Route 53 Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html
      */
     private $nextRecordIdentifier;
 

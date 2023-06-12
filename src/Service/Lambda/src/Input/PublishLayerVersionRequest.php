@@ -38,9 +38,12 @@ final class PublishLayerVersionRequest extends Input
     private $content;
 
     /**
-     * A list of compatible function runtimes. Used for filtering with ListLayers and ListLayerVersions.
+     * A list of compatible function runtimes [^1]. Used for filtering with ListLayers and ListLayerVersions.
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
      *
      * @var list<Runtime::*>|null
      */
@@ -49,14 +52,22 @@ final class PublishLayerVersionRequest extends Input
     /**
      * The layer's software license. It can be any of the following:.
      *
+     * - An SPDX license identifier [^1]. For example, `MIT`.
+     * -
+     * - The URL of a license hosted on the internet. For example, `https://opensource.org/licenses/MIT`.
+     * -
+     * - The full text of the license.
+     *
+     * [^1]: https://spdx.org/licenses/
+     *
      * @var string|null
      */
     private $licenseInfo;
 
     /**
-     * A list of compatible instruction set architectures.
+     * A list of compatible instruction set architectures [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      *
      * @var list<Architecture::*>|null
      */

@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ReturnValuesOnConditionCheckFailure;
 
 /**
- * A request to perform a `DeleteItem` operation.
+ * Represents a request to perform a `DeleteItem` operation.
  */
 final class Delete
 {

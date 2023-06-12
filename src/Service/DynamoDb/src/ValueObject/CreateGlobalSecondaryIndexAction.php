@@ -5,13 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The parameters required for creating a global secondary index on an existing table:.
- *
- * - `IndexName `
- * - `KeySchema `
- * - `AttributeDefinitions `
- * - `Projection `
- * - `ProvisionedThroughput `
+ * Represents a new global secondary index to be added to an existing table.
  */
 final class CreateGlobalSecondaryIndexAction
 {
@@ -33,6 +27,11 @@ final class CreateGlobalSecondaryIndexAction
 
     /**
      * Represents the provisioned throughput settings for the specified global secondary index.
+     *
+     * For current minimum and maximum provisioned throughput values, see Service, Account, and Table Quotas [^1] in the
+     * *Amazon DynamoDB Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
      */
     private $provisionedThroughput;
 

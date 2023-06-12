@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeCommit\Enum;
 
-/**
- * Whether the change type of the difference is an addition (A), deletion (D), or modification (M).
- */
 final class ChangeTypeEnum
 {
     public const A = 'A';

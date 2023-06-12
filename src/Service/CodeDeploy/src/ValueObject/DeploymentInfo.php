@@ -8,7 +8,7 @@ use AsyncAws\CodeDeploy\Enum\DeploymentStatus;
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
 
 /**
- * Information about the deployment.
+ * Information about a deployment.
  */
 final class DeploymentInfo
 {
@@ -60,6 +60,9 @@ final class DeploymentInfo
 
     /**
      * A timestamp that indicates when the deployment was deployed to the deployment group.
+     *
+     * In some cases, the reported value of the start time might be later than the complete time. This is due to differences
+     * in the clock settings of backend servers that participate in the deployment process.
      */
     private $startTime;
 
@@ -80,6 +83,15 @@ final class DeploymentInfo
 
     /**
      * The means by which the deployment was created:.
+     *
+     * - `user`: A user created the deployment.
+     * -
+     * - `autoscaling`: Amazon EC2 Auto Scaling created the deployment.
+     * -
+     * - `codeDeployRollback`: A rollback process created the deployment.
+     * -
+     * - `CodeDeployAutoUpdate`: An auto-update process created the deployment when it detected outdated Amazon EC2
+     *   instances.
      */
     private $creator;
 
@@ -88,6 +100,19 @@ final class DeploymentInfo
      * instance fails, then the deployment continues to the next deployment lifecycle event. For example, if
      * `ApplicationStop` fails, the deployment continues with DownloadBundle. If `BeforeBlockTraffic` fails, the deployment
      * continues with `BlockTraffic`. If `AfterBlockTraffic` fails, the deployment continues with `ApplicationStop`.
+     *
+     * If false or not specified, then if a lifecycle event fails during a deployment to an instance, that deployment fails.
+     * If deployment to that instance is part of an overall deployment and the number of healthy hosts is not less than the
+     * minimum number of healthy hosts, then a deployment to the next instance is attempted.
+     *
+     * During a deployment, the CodeDeploy agent runs the scripts specified for `ApplicationStop`, `BeforeBlockTraffic`, and
+     * `AfterBlockTraffic` in the AppSpec file from the previous successful deployment. (All other scripts are run from the
+     * AppSpec file in the current deployment.) If one of these scripts contains an error and does not run successfully, the
+     * deployment can fail.
+     *
+     * If the cause of the failure is a script from the last successful deployment that will never run successfully, create
+     * a new deployment and use `ignoreApplicationStopFailures` to specify that the `ApplicationStop`, `BeforeBlockTraffic`,
+     * and `AfterBlockTraffic` failures should be ignored.
      */
     private $ignoreApplicationStopFailures;
 
@@ -143,6 +168,13 @@ final class DeploymentInfo
     /**
      * Information about how CodeDeploy handles files that already exist in a deployment target location but weren't part of
      * the previous successful deployment.
+     *
+     * - `DISALLOW`: The deployment fails. This is also the default behavior if no option is specified.
+     * -
+     * - `OVERWRITE`: The version of the file from the application revision currently being deployed replaces the version
+     *   already on the instance.
+     * -
+     * - `RETAIN`: The version of the file already on the instance is kept and used as part of the new deployment.
      */
     private $fileExistsBehavior;
 

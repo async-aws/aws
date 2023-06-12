@@ -7,17 +7,30 @@ use AsyncAws\AppSync\Enum\ConflictHandlerType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The `SyncConfig` for a resolver attached to a versioned data source.
+ * Describes a Sync configuration for a resolver.
+ *
+ * Specifies which Conflict Detection strategy and Resolution strategy to use when the resolver is invoked.
  */
 final class SyncConfig
 {
     /**
      * The Conflict Resolution strategy to perform in the event of a conflict.
+     *
+     * - **OPTIMISTIC_CONCURRENCY**: Resolve conflicts by rejecting mutations when versions don't match the latest version
+     *   at the server.
+     * -
+     * - **AUTOMERGE**: Resolve conflicts with the Automerge conflict resolution strategy.
+     * -
+     * - **LAMBDA**: Resolve conflicts with an Lambda function supplied in the `LambdaConflictHandlerConfig`.
      */
     private $conflictHandler;
 
     /**
      * The Conflict Detection strategy to use.
+     *
+     * - **VERSION**: Detect conflicts based on object versions for this resolver.
+     * -
+     * - **NONE**: Do not detect conflicts when invoking this resolver.
      */
     private $conflictDetection;
 

@@ -2,11 +2,6 @@
 
 namespace AsyncAws\Kms\Enum;
 
-/**
- * Instead, use the `KeySpec` parameter.
- * The `KeySpec` and `CustomerMasterKeySpec` parameters work the same way. Only the names differ. We recommend that you
- * use `KeySpec` parameter in your code. However, to avoid breaking changes, KMS supports both parameters.
- */
 final class CustomerMasterKeySpec
 {
     public const ECC_NIST_P256 = 'ECC_NIST_P256';

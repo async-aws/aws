@@ -5,16 +5,23 @@ namespace AsyncAws\CloudFormation\ValueObject;
 use AsyncAws\CloudFormation\Enum\StackDriftStatus;
 
 /**
- * Information about whether a stack's actual configuration differs, or has *drifted*, from its expected configuration,
- * as defined in the stack template and any values specified as template parameters. For more information, see Detecting
- * Unregulated Configuration Changes to Stacks and Resources.
- *
- * @see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+ * Contains information about whether the stack's actual configuration differs, or has *drifted*, from its expected
+ * configuration, as defined in the stack template and any values specified as template parameters. A stack is
+ * considered to have drifted if one or more of its resources have drifted.
  */
 final class StackDriftInformation
 {
     /**
      * Status of the stack's actual configuration compared to its expected template configuration.
+     *
+     * - `DRIFTED`: The stack differs from its expected template configuration. A stack is considered to have drifted if one
+     *   or more of its resources have drifted.
+     * -
+     * - `NOT_CHECKED`: CloudFormation hasn't checked if the stack differs from its expected template configuration.
+     * -
+     * - `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
+     * -
+     * - `UNKNOWN`: This value is reserved for future use.
      */
     private $stackDriftStatus;
 

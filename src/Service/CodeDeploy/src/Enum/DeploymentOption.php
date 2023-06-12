@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
-/**
- * Indicates whether to route deployment traffic behind a load balancer.
- */
 final class DeploymentOption
 {
     public const WITHOUT_TRAFFIC_CONTROL = 'WITHOUT_TRAFFIC_CONTROL';

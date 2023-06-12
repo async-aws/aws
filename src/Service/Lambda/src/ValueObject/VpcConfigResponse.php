@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * The function's networking configuration.
+ * The VPC security groups and subnets that are attached to a Lambda function.
  */
 final class VpcConfigResponse
 {

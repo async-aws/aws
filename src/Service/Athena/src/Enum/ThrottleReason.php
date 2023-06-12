@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Athena\Enum;
 
+/**
+ * The reason for the query throttling, for example, when it exceeds the concurrent query limit.
+ */
 final class ThrottleReason
 {
     public const CONCURRENT_QUERY_LIMIT_EXCEEDED = 'CONCURRENT_QUERY_LIMIT_EXCEEDED';

@@ -5,7 +5,7 @@ namespace AsyncAws\Ssm\ValueObject;
 use AsyncAws\Ssm\Enum\ParameterType;
 
 /**
- * Information about a parameter.
+ * An Amazon Web Services Systems Manager parameter in Parameter Store.
  */
 final class Parameter
 {
@@ -16,11 +16,17 @@ final class Parameter
 
     /**
      * The type of parameter. Valid values include the following: `String`, `StringList`, and `SecureString`.
+     *
+     * > If type is `StringList`, the system returns a comma-separated string with no spaces between commas in the `Value`
+     * > field.
      */
     private $type;
 
     /**
      * The parameter value.
+     *
+     * > If type is `StringList`, the system returns a comma-separated string with no spaces between commas in the `Value`
+     * > field.
      */
     private $value;
 
@@ -32,6 +38,10 @@ final class Parameter
     /**
      * Either the version number or the label used to retrieve the parameter value. Specify selectors by using one of the
      * following formats:.
+     *
+     * parameter_name:version
+     *
+     * parameter_name:label
      */
     private $selector;
 

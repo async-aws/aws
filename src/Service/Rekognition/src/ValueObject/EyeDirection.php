@@ -3,7 +3,7 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Indicates the direction the eyes are gazing in, as defined by pitch and yaw.
+ * Indicates the direction the eyes are gazing in (independent of the head pose) as determined by its pitch and yaw.
  */
 final class EyeDirection
 {

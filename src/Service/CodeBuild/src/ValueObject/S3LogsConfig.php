@@ -13,6 +13,10 @@ final class S3LogsConfig
 {
     /**
      * The current status of the S3 build logs. Valid values are:.
+     *
+     * - `ENABLED`: S3 build logs are enabled for this build project.
+     * -
+     * - `DISABLED`: S3 build logs are not enabled for this build project.
      */
     private $status;
 

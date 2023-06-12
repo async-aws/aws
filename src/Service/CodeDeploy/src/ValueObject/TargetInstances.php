@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * Information about the instances that belong to the replacement environment in a blue/green deployment.
+ * Information about the instances to be used in the replacement environment in a blue/green deployment.
  */
 final class TargetInstances
 {

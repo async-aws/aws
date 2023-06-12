@@ -29,6 +29,10 @@ final class ExecuteStatementRequest extends Input
      * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
      * credentials in the secret.
      *
+     * For information about creating the secret, see Create a database secret [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html
+     *
      * @required
      *
      * @var string|null
@@ -54,12 +58,16 @@ final class ExecuteStatementRequest extends Input
     /**
      * The name of the database schema.
      *
+     * > Currently, the `schema` parameter isn't supported.
+     *
      * @var string|null
      */
     private $schema;
 
     /**
      * The parameters for the SQL statement.
+     *
+     * > Array parameters are not supported.
      *
      * @var SqlParameter[]|null
      */
@@ -68,6 +76,8 @@ final class ExecuteStatementRequest extends Input
     /**
      * The identifier of a transaction that was started by using the `BeginTransaction` operation. Specify the transaction
      * ID of the transaction that you want to include the SQL statement in.
+     *
+     * If the SQL statement is not part of a transaction, don't set this parameter.
      *
      * @var string|null
      */
@@ -84,6 +94,9 @@ final class ExecuteStatementRequest extends Input
      * A value that indicates whether to continue running the statement after the call times out. By default, the statement
      * stops running when the call times out.
      *
+     * > For DDL statements, we recommend continuing to run the statement after the call times out. When a DDL statement
+     * > terminates before it is finished running, it can result in errors and possibly corrupted data structures.
+     *
      * @var bool|null
      */
     private $continueAfterTimeout;
@@ -99,6 +112,11 @@ final class ExecuteStatementRequest extends Input
      * A value that indicates whether to format the result set as a single JSON string. This parameter only applies to
      * `SELECT` statements and is ignored for other types of statements. Allowed values are `NONE` and `JSON`. The default
      * value is `NONE`. The result is returned in the `formattedRecords` field.
+     *
+     * For usage information about the JSON format for result sets, see Using the Data API [^1] in the *Amazon Aurora User
+     * Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html
      *
      * @var RecordsFormatType::*|null
      */

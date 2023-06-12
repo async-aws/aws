@@ -17,6 +17,10 @@ final class ServerSideEncryptionRule
      * Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new
      * objects in the bucket. Existing objects are not affected. Setting the `BucketKeyEnabled` element to `true` causes
      * Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled.
+     *
+     * For more information, see Amazon S3 Bucket Keys [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html
      */
     private $bucketKeyEnabled;
 

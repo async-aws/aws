@@ -2,9 +2,6 @@
 
 namespace AsyncAws\S3\Enum;
 
-/**
- * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
- */
 final class ServerSideEncryption
 {
     public const AES256 = 'AES256';

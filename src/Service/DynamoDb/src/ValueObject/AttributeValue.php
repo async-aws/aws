@@ -4,60 +4,88 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
  * Represents the data for an attribute.
- * Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
- * For more information, see Data Types in the *Amazon DynamoDB Developer Guide*.
  *
- * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
+ * Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
+ *
+ * For more information, see Data Types [^1] in the *Amazon DynamoDB Developer Guide*.
+ *
+ * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
  */
 final class AttributeValue
 {
     /**
      * An attribute of type String. For example:.
+     *
+     * `"S": "Hello"`
      */
     private $s;
 
     /**
      * An attribute of type Number. For example:.
+     *
+     * `"N": "123.45"`
+     *
+     * Numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries.
+     * However, DynamoDB treats them as number type attributes for mathematical operations.
      */
     private $n;
 
     /**
      * An attribute of type Binary. For example:.
+     *
+     * `"B": "dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk"`
      */
     private $b;
 
     /**
      * An attribute of type String Set. For example:.
+     *
+     * `"SS": ["Giraffe", "Hippo" ,"Zebra"]`
      */
     private $ss;
 
     /**
      * An attribute of type Number Set. For example:.
+     *
+     * `"NS": ["42.2", "-19", "7.5", "3.14"]`
+     *
+     * Numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries.
+     * However, DynamoDB treats them as number type attributes for mathematical operations.
      */
     private $ns;
 
     /**
      * An attribute of type Binary Set. For example:.
+     *
+     * `"BS": ["U3Vubnk=", "UmFpbnk=", "U25vd3k="]`
      */
     private $bs;
 
     /**
      * An attribute of type Map. For example:.
+     *
+     * `"M": {"Name": {"S": "Joe"}, "Age": {"N": "35"}}`
      */
     private $m;
 
     /**
      * An attribute of type List. For example:.
+     *
+     * `"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]`
      */
     private $l;
 
     /**
      * An attribute of type Null. For example:.
+     *
+     * `"NULL": true`
      */
     private $null;
 
     /**
      * An attribute of type Boolean. For example:.
+     *
+     * `"BOOL": true`
      */
     private $bool;
 

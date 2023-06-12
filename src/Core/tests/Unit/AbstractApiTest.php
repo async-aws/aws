@@ -66,7 +66,7 @@ class DummyApi extends AbstractApi
         return parent::getEndpoint($uri, $query, $region);
     }
 
-    public function getResponseExposed(Request $request, ?RequestContext $context = null): Response
+    public function getResponseExposed(Request $request, RequestContext $context = null): Response
     {
         return parent::getResponse($request, $context);
     }

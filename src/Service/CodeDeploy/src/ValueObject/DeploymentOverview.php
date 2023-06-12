@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * A summary of the deployment status of the instances in the deployment.
+ * Information about the deployment status of the instances in the deployment.
  */
 final class DeploymentOverview
 {

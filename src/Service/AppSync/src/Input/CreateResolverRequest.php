@@ -51,6 +51,12 @@ final class CreateResolverRequest extends Input
     /**
      * The mapping template to use for requests.
      *
+     * A resolver uses a request mapping template to convert a GraphQL expression into a format that a data source can
+     * understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     *
+     * VTL request mapping templates are optional when using an Lambda data source. For all other data sources, VTL request
+     * and response mapping templates are required.
+     *
      * @var string|null
      */
     private $requestMappingTemplate;
@@ -64,6 +70,12 @@ final class CreateResolverRequest extends Input
 
     /**
      * The resolver type.
+     *
+     * - **UNIT**: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to run a
+     *   GraphQL query against a single data source.
+     * -
+     * - **PIPELINE**: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of `Function` objects in
+     *   a serial manner. You can use a pipeline resolver to run a GraphQL query against multiple data sources.
      *
      * @var ResolverKind::*|null
      */

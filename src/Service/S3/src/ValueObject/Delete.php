@@ -5,7 +5,7 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Container for the request.
+ * Container for the objects to delete.
  */
 final class Delete
 {

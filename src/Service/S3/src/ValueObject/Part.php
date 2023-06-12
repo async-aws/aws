@@ -30,36 +30,36 @@ final class Part
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
      * originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information,
-     * see Checking object integrity in the *Amazon S3 User Guide*.
+     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      */
     private $checksumCrc32;
 
     /**
      * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
      * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      */
     private $checksumCrc32C;
 
     /**
      * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
      * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
-     * calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      */
     private $checksumSha1;
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
      * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
-     * information, see Checking object integrity in the *Amazon S3 User Guide*.
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      */
     private $checksumSha256;
 

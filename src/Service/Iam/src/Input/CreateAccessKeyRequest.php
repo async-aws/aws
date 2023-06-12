@@ -11,6 +11,11 @@ final class CreateAccessKeyRequest extends Input
     /**
      * The name of the IAM user that the new key will belong to.
      *
+     * This parameter allows (through its regex pattern [^1]) a string of characters consisting of upper and lowercase
+     * alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+     *
+     * [^1]: http://wikipedia.org/wiki/regex
+     *
      * @var string|null
      */
     private $userName;

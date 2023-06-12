@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
-/**
- * Indicates whether to run an in-place deployment or a blue/green deployment.
- */
 final class DeploymentType
 {
     public const BLUE_GREEN = 'BLUE_GREEN';

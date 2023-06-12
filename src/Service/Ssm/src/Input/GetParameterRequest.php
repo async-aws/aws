@@ -12,6 +12,8 @@ final class GetParameterRequest extends Input
     /**
      * The name of the parameter you want to query.
      *
+     * To query by parameter label, use `"Name": "name:label"`. To query by parameter version, use `"Name": "name:version"`.
+     *
      * @required
      *
      * @var string|null

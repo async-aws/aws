@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Kms\Enum;
 
-/**
- * Indicates whether the KMS key is a `PRIMARY` or `REPLICA` key.
- */
 final class MultiRegionKeyType
 {
     public const PRIMARY = 'PRIMARY';

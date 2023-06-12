@@ -3,7 +3,7 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
- * The amount of throughput consumed on the table affected by the operation.
+ * Represents the amount of provisioned throughput capacity consumed on a table or an index.
  */
 final class Capacity
 {

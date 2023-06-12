@@ -5,7 +5,13 @@ namespace AsyncAws\Iam\ValueObject;
 use AsyncAws\Iam\Enum\StatusType;
 
 /**
- * A structure with details about the access key.
+ * Contains information about an Amazon Web Services access key.
+ *
+ * This data type is used as a response element in the CreateAccessKey and ListAccessKeys operations.
+ *
+ * > The `SecretAccessKey` value is returned only in response to CreateAccessKey. You can get a secret access key only
+ * > when you first create an access key; you cannot recover the secret access key later. If you lose a secret access
+ * > key, you must create a new access key.
  */
 final class AccessKey
 {

@@ -5,17 +5,17 @@ namespace AsyncAws\Scheduler\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The templated target type for the Amazon Kinesis `PutRecord` API operation.
+ * The templated target type for the Amazon Kinesis `PutRecord` [^1] API operation.
  *
- * @see kinesis/latest/APIReference/API_PutRecord.html
+ * [^1]: kinesis/latest/APIReference/API_PutRecord.html
  */
 final class KinesisParameters
 {
     /**
      * Specifies the shard to which EventBridge Scheduler sends the event. For more information, see Amazon Kinesis Data
-     * Streams terminology and concepts in the *Amazon Kinesis Streams Developer Guide*.
+     * Streams terminology and concepts [^1] in the *Amazon Kinesis Streams Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html
+     * [^1]: https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html
      */
     private $partitionKey;
 

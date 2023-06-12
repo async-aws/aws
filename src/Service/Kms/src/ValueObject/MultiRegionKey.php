@@ -3,7 +3,7 @@
 namespace AsyncAws\Kms\ValueObject;
 
 /**
- * Displays the key ARN and Region of the primary key. This field includes the current KMS key if it is the primary key.
+ * Describes the primary or replica key in a multi-Region key.
  */
 final class MultiRegionKey
 {

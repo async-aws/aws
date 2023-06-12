@@ -3,8 +3,8 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
- * The provisioned throughput settings for the table, consisting of read and write capacity units, along with data about
- * increases and decreases.
+ * Represents the provisioned throughput settings for the table, consisting of read and write capacity units, along with
+ * data about increases and decreases.
  */
 final class ProvisionedThroughputDescription
 {
@@ -20,9 +20,10 @@ final class ProvisionedThroughputDescription
 
     /**
      * The number of provisioned throughput decreases for this table during this UTC calendar day. For current maximums on
-     * provisioned throughput decreases, see Service, Account, and Table Quotas in the *Amazon DynamoDB Developer Guide*.
+     * provisioned throughput decreases, see Service, Account, and Table Quotas [^1] in the *Amazon DynamoDB Developer
+     * Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
      */
     private $numberOfDecreasesToday;
 

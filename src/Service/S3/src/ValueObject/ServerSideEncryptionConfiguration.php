@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * Specifies the default server-side-encryption configuration.
+ */
 final class ServerSideEncryptionConfiguration
 {
     /**

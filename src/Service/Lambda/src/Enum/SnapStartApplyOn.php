@@ -2,10 +2,6 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-/**
- * When set to `PublishedVersions`, Lambda creates a snapshot of the execution environment when you publish a function
- * version.
- */
 final class SnapStartApplyOn
 {
     public const NONE = 'None';

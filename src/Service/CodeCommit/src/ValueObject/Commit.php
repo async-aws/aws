@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeCommit\ValueObject;
 
 /**
- * A commit data type object that contains information about the specified commit.
+ * Returns information about a specific commit.
  */
 final class Commit
 {
@@ -37,6 +37,11 @@ final class Commit
      * Information about the person who committed the specified commit, also known as the committer. Information includes
      * the date in timestamp format with GMT offset, the name of the committer, and the email address for the committer, as
      * configured in Git.
+     *
+     * For more information about the difference between an author and a committer in Git, see Viewing the Commit History
+     * [^1] in Pro Git by Scott Chacon and Ben Straub.
+     *
+     * [^1]: http://git-scm.com/book/ch2-3.html
      */
     private $committer;
 

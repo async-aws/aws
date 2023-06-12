@@ -12,6 +12,8 @@ final class ChangeMessageVisibilityRequest extends Input
     /**
      * The URL of the Amazon SQS queue whose message's visibility is changed.
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

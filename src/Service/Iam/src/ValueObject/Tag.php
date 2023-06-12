@@ -6,9 +6,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * A structure that represents user-provided metadata that can be associated with an IAM resource. For more information
- * about tagging, see Tagging IAM resources in the *IAM User Guide*.
+ * about tagging, see Tagging IAM resources [^1] in the *IAM User Guide*.
  *
- * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
  */
 final class Tag
 {
@@ -23,6 +23,9 @@ final class Tag
      * `Human Resources`, `Accounting`, and `Support`. Tags with a key name of `Cost Center` might have values that consist
      * of the number associated with the different cost centers in your company. Typically, many resources have tags with
      * the same key name but with different values.
+     *
+     * > Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can
+     * > store comma-separated values in the string. However, you must interpret the value in your code.
      */
     private $value;
 

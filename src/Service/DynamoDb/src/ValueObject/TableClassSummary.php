@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\TableClass;
 
+/**
+ * Contains details of the table class.
+ */
 final class TableClassSummary
 {
     /**

@@ -54,6 +54,17 @@ class RekognitionClient extends AbstractApi
     /**
      * Creates a collection in an AWS Region. You can add faces to the collection using the IndexFaces operation.
      *
+     * For example, you might create collections, one for each of your application users. A user can then index faces using
+     * the `IndexFaces` operation and persist results in a specific collection. Then, a user can search the collection for
+     * faces in the user-specific container.
+     *
+     * When you create a collection, it is associated with the latest version of the face model version.
+     *
+     * > Collection names are case-sensitive.
+     *
+     * This operation requires permissions to perform the `rekognition:CreateCollection` action. If you want to tag your
+     * collection, you also require permission to perform the `rekognition:TagResource` operation.
+     *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateCollection.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#createcollection
      *
@@ -92,6 +103,8 @@ class RekognitionClient extends AbstractApi
      * Creates a new Amazon Rekognition Custom Labels project. A project is a group of resources (datasets, model versions)
      * that you use to create and manage Amazon Rekognition Custom Labels models.
      *
+     * This operation requires permissions to perform the `rekognition:CreateProject` action.
+     *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateProject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#createproject
      *
@@ -127,9 +140,12 @@ class RekognitionClient extends AbstractApi
 
     /**
      * Deletes the specified collection. Note that this operation removes all faces in the collection. For an example, see
-     * Deleting a collection.
+     * Deleting a collection [^1].
      *
-     * @see https://docs.aws.amazon.com/rekognition/latest/dg/delete-collection-procedure.html
+     * This operation requires permissions to perform the `rekognition:DeleteCollection` action.
+     *
+     * [^1]: https://docs.aws.amazon.com/rekognition/latest/dg/delete-collection-procedure.html
+     *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteCollection.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#deletecollection
      *
@@ -164,6 +180,12 @@ class RekognitionClient extends AbstractApi
     /**
      * Deletes an Amazon Rekognition Custom Labels project. To delete a project you must first delete all models associated
      * with the project. To delete a model, see DeleteProjectVersion.
+     *
+     * `DeleteProject` is an asynchronous operation. To check if the project is deleted, call DescribeProjects. The project
+     * is deleted when the project no longer appears in the response. Be aware that deleting a given project will also
+     * delete any `ProjectPolicies` associated with that project.
+     *
+     * This operation requires permissions to perform the `rekognition:DeleteProject` action.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteProject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#deleteproject
@@ -200,6 +222,22 @@ class RekognitionClient extends AbstractApi
 
     /**
      * Detects faces within an image that is provided as input.
+     *
+     * `DetectFaces` detects the 100 largest faces in the image. For each face detected, the operation returns face details.
+     * These details include a bounding box of the face, a confidence value (that the bounding box contains a face), and a
+     * fixed set of attributes such as facial landmarks (for example, coordinates of eye and mouth), pose, presence of
+     * facial occlusion, and so on.
+     *
+     * The face-detection algorithm is most effective on frontal faces. For non-frontal or obscured faces, the algorithm
+     * might not detect the faces or might detect faces with lower confidence.
+     *
+     * You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket.
+     * If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be
+     * either a PNG or JPEG formatted file.
+     *
+     * > This is a stateless API operation. That is, the operation does not persist any data.
+     *
+     * This operation requires permissions to perform the `rekognition:DetectFaces` action.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#detectfaces
@@ -241,6 +279,15 @@ class RekognitionClient extends AbstractApi
      * Detects unsafe content in a specified JPEG or PNG format image. Use `DetectModerationLabels` to moderate images
      * depending on your requirements. For example, you might want to filter images that contain nudity, but not images
      * containing suggestive content.
+     *
+     * To filter images, use the labels returned by `DetectModerationLabels` to determine which types of content are
+     * appropriate.
+     *
+     * For information about moderation labels, see Detecting Unsafe Content in the Amazon Rekognition Developer Guide.
+     *
+     * You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket.
+     * If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be
+     * either a PNG or JPEG formatted file.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectModerationLabels.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#detectmoderationlabels
@@ -286,6 +333,10 @@ class RekognitionClient extends AbstractApi
      * information is returned as an array of URLs. If there is no additional information about the celebrity, this list is
      * empty.
      *
+     * For more information, see Getting information about a celebrity in the Amazon Rekognition Developer Guide.
+     *
+     * This operation requires permissions to perform the `rekognition:GetCelebrityInfo` action.
+     *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_GetCelebrityInfo.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#getcelebrityinfo
      *
@@ -319,6 +370,82 @@ class RekognitionClient extends AbstractApi
 
     /**
      * Detects faces in the input image and adds them to the specified collection.
+     *
+     * Amazon Rekognition doesn't save the actual faces that are detected. Instead, the underlying detection algorithm first
+     * detects the faces in the input image. For each face, the algorithm extracts facial features into a feature vector,
+     * and stores it in the backend database. Amazon Rekognition uses feature vectors when it performs face match and search
+     * operations using the SearchFaces and SearchFacesByImage operations.
+     *
+     * For more information, see Adding faces to a collection in the Amazon Rekognition Developer Guide.
+     *
+     * To get the number of faces in a collection, call DescribeCollection.
+     *
+     * If you're using version 1.0 of the face detection model, `IndexFaces` indexes the 15 largest faces in the input
+     * image. Later versions of the face detection model index the 100 largest faces in the input image.
+     *
+     * If you're using version 4 or later of the face model, image orientation information is not returned in the
+     * `OrientationCorrection` field.
+     *
+     * To determine which version of the model you're using, call DescribeCollection and supply the collection ID. You can
+     * also get the model version from the value of `FaceModelVersion` in the response from `IndexFaces`
+     *
+     * For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     *
+     * If you provide the optional `ExternalImageId` for the input image you provided, Amazon Rekognition associates this ID
+     * with all faces that it detects. When you call the ListFaces operation, the response returns the external ID. You can
+     * use this external image ID to create a client-side index to associate the faces with each image. You can then use the
+     * index to find all faces in an image.
+     *
+     * You can specify the maximum number of faces to index with the `MaxFaces` input parameter. This is useful when you
+     * want to index the largest faces in an image and don't want to index smaller faces, such as those belonging to people
+     * standing in the background.
+     *
+     * The `QualityFilter` input parameter allows you to filter out detected faces that don’t meet a required quality bar.
+     * The quality bar is based on a variety of common use cases. By default, `IndexFaces` chooses the quality bar that's
+     * used to filter faces. You can also explicitly choose the quality bar. Use `QualityFilter`, to set the quality bar by
+     * specifying `LOW`, `MEDIUM`, or `HIGH`. If you do not want to filter detected faces, specify `NONE`.
+     *
+     * > To use quality filtering, you need a collection associated with version 3 of the face model or higher. To get the
+     * > version of the face model associated with a collection, call DescribeCollection.
+     *
+     * Information about faces detected in an image, but not indexed, is returned in an array of UnindexedFace objects,
+     * `UnindexedFaces`. Faces aren't indexed for reasons such as:
+     *
+     * - The number of faces detected exceeds the value of the `MaxFaces` request parameter.
+     * -
+     * - The face is too small compared to the image dimensions.
+     * -
+     * - The face is too blurry.
+     * -
+     * - The image is too dark.
+     * -
+     * - The face has an extreme pose.
+     * -
+     * - The face doesn’t have enough detail to be suitable for face search.
+     *
+     * In response, the `IndexFaces` operation returns an array of metadata for all detected faces, `FaceRecords`. This
+     * includes:
+     *
+     * - The bounding box, `BoundingBox`, of the detected face.
+     * -
+     * - A confidence value, `Confidence`, which indicates the confidence that the bounding box contains a face.
+     * -
+     * - A face ID, `FaceId`, assigned by the service for each face that's detected and stored.
+     * -
+     * - An image ID, `ImageId`, assigned by the service for the input image.
+     *
+     * If you request `ALL` or specific facial attributes (e.g., `FACE_OCCLUDED`) by using the detectionAttributes
+     * parameter, Amazon Rekognition returns detailed facial attributes, such as facial landmarks (for example, location of
+     * eye and mouth), facial occlusion, and other facial attributes.
+     *
+     * If you provide the same image, specify the same collection, and use the same external ID in the `IndexFaces`
+     * operation, Amazon Rekognition doesn't save duplicate face metadata.
+     *
+     * The input image is passed either as base64-encoded image bytes, or as a reference to an image in an Amazon S3 bucket.
+     * If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes isn't supported. The image must be
+     * formatted as a PNG or JPEG file.
+     *
+     * This operation requires permissions to perform the `rekognition:IndexFaces` action.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_IndexFaces.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#indexfaces
@@ -368,6 +495,10 @@ class RekognitionClient extends AbstractApi
      * Returns list of collection IDs in your account. If the result is truncated, the response also provides a `NextToken`
      * that you can use in the subsequent request to fetch the next set of collection IDs.
      *
+     * For an example, see Listing collections in the Amazon Rekognition Developer Guide.
+     *
+     * This operation requires permissions to perform the `rekognition:ListCollections` action.
+     *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_ListCollections.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#listcollections
      *
@@ -405,6 +536,27 @@ class RekognitionClient extends AbstractApi
     /**
      * Returns an array of celebrities recognized in the input image. For more information, see Recognizing celebrities in
      * the Amazon Rekognition Developer Guide.
+     *
+     * `RecognizeCelebrities` returns the 64 largest faces in the image. It lists the recognized celebrities in the
+     * `CelebrityFaces` array and any unrecognized faces in the `UnrecognizedFaces` array. `RecognizeCelebrities` doesn't
+     * return celebrities whose faces aren't among the largest 64 faces in the image.
+     *
+     * For each celebrity recognized, `RecognizeCelebrities` returns a `Celebrity` object. The `Celebrity` object contains
+     * the celebrity name, ID, URL links to additional information, match confidence, and a `ComparedFace` object that you
+     * can use to locate the celebrity's face on the image.
+     *
+     * Amazon Rekognition doesn't retain information about which images a celebrity has been recognized in. Your application
+     * must store this information and use the `Celebrity` ID property as a unique identifier for the celebrity. If you
+     * don't store the celebrity name or additional information URLs returned by `RecognizeCelebrities`, you will need the
+     * ID to identify the celebrity in a call to the GetCelebrityInfo operation.
+     *
+     * You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket.
+     * If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be
+     * either a PNG or JPEG formatted file.
+     *
+     * For an example, see Recognizing celebrities in an image in the Amazon Rekognition Developer Guide.
+     *
+     * This operation requires permissions to perform the `rekognition:RecognizeCelebrities` operation.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_RecognizeCelebrities.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#recognizecelebrities
@@ -444,6 +596,36 @@ class RekognitionClient extends AbstractApi
     /**
      * For a given input image, first detects the largest face in the image, and then searches the specified collection for
      * matching faces. The operation compares the features of the input face with faces in the specified collection.
+     *
+     * > To search for all faces in an input image, you might first call the IndexFaces operation, and then use the face IDs
+     * > returned in subsequent calls to the SearchFaces operation.
+     * >
+     * > You can also call the `DetectFaces` operation and use the bounding boxes in the response to make face crops, which
+     * > then you can pass in to the `SearchFacesByImage` operation.
+     *
+     * You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket.
+     * If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be
+     * either a PNG or JPEG formatted file.
+     *
+     * The response returns an array of faces that match, ordered by similarity score with the highest similarity first.
+     * More specifically, it is an array of metadata for each face match found. Along with the metadata, the response also
+     * includes a `similarity` indicating how similar the face is to the input face. In the response, the operation also
+     * returns the bounding box (and a confidence level that the bounding box contains a face) of the face that Amazon
+     * Rekognition used for the input image.
+     *
+     * If no faces are detected in the input image, `SearchFacesByImage` returns an `InvalidParameterException` error.
+     *
+     * For an example, Searching for a Face Using an Image in the Amazon Rekognition Developer Guide.
+     *
+     * The `QualityFilter` input parameter allows you to filter out detected faces that don’t meet a required quality bar.
+     * The quality bar is based on a variety of common use cases. Use `QualityFilter` to set the quality bar for filtering
+     * by specifying `LOW`, `MEDIUM`, or `HIGH`. If you do not want to filter detected faces, specify `NONE`. The default
+     * value is `NONE`.
+     *
+     * > To use quality filtering, you need a collection associated with version 3 of the face model or higher. To get the
+     * > version of the face model associated with a collection, call DescribeCollection.
+     *
+     * This operation requires permissions to perform the `rekognition:SearchFacesByImage` action.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_SearchFacesByImage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#searchfacesbyimage

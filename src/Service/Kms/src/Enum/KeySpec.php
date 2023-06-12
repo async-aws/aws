@@ -2,59 +2,6 @@
 
 namespace AsyncAws\Kms\Enum;
 
-/**
- * Specifies the type of KMS key to create. The default value, `SYMMETRIC_DEFAULT`, creates a KMS key with a 256-bit
- * AES-GCM key that is used for encryption and decryption, except in China Regions, where it creates a 128-bit symmetric
- * key that uses SM4 encryption. For help choosing a key spec for your KMS key, see Choosing a KMS key type in the **Key
- * Management Service Developer Guide**.
- * The `KeySpec` determines whether the KMS key contains a symmetric key or an asymmetric key pair. It also determines
- * the algorithms that the KMS key supports. You can't change the `KeySpec` after the KMS key is created. To further
- * restrict the algorithms that can be used with the KMS key, use a condition key in its key policy or IAM policy. For
- * more information, see kms:EncryptionAlgorithm, kms:MacAlgorithm or kms:Signing Algorithm in the **Key Management
- * Service Developer Guide**.
- *
- * ! Amazon Web Services services that are integrated with KMS use symmetric encryption KMS keys to protect your data.
- * ! These services do not support asymmetric KMS keys or HMAC KMS keys.
- *
- * KMS supports the following key specs for KMS keys:
- *
- * - Symmetric encryption key (default)
- *
- *   - `SYMMETRIC_DEFAULT`
- *
- * - HMAC keys (symmetric)
- *
- *   - `HMAC_224`
- *   - `HMAC_256`
- *   - `HMAC_384`
- *   - `HMAC_512`
- *
- * - Asymmetric RSA key pairs
- *
- *   - `RSA_2048`
- *   - `RSA_3072`
- *   - `RSA_4096`
- *
- * - Asymmetric NIST-recommended elliptic curve key pairs
- *
- *   - `ECC_NIST_P256` (secp256r1)
- *   - `ECC_NIST_P384` (secp384r1)
- *   - `ECC_NIST_P521` (secp521r1)
- *
- * - Other asymmetric elliptic curve key pairs
- *
- *   - `ECC_SECG_P256K1` (secp256k1), commonly used for cryptocurrencies.
- *
- * - SM2 key pairs (China Regions only)
- *
- *   - `SM2`
- *
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/key-types.html#symm-asymm-choose
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-encryption-algorithm
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-mac-algorithm
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-signing-algorithm
- * @see http://aws.amazon.com/kms/features/#AWS_Service_Integration
- */
 final class KeySpec
 {
     public const ECC_NIST_P256 = 'ECC_NIST_P256';

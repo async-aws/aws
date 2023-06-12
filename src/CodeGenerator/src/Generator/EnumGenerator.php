@@ -53,8 +53,8 @@ class EnumGenerator
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
         $classBuilder->setFinal();
-        if (null !== $documentation = $shape->getDocumentation()) {
-            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        if (null !== $documentation = $shape->getDocumentationMain()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
         $consts = [];

@@ -2,10 +2,6 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-/**
- * The reason code for the function's current state. When the code is `Creating`, you can't invoke or modify the
- * function.
- */
 final class StateReasonCode
 {
     public const CREATING = 'Creating';

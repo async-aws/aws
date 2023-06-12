@@ -13,6 +13,11 @@ class ChangeResourceRecordSetsResponse extends Result
 {
     /**
      * A complex type that contains information about changes made to your hosted zone.
+     *
+     * This element contains an ID that you use when performing a GetChange [^1] action to get detailed information about
+     * the change.
+     *
+     * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html
      */
     private $changeInfo;
 

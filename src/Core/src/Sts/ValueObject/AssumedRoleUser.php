@@ -3,10 +3,7 @@
 namespace AsyncAws\Core\Sts\ValueObject;
 
 /**
- * The Amazon Resource Name (ARN) and the assumed role ID, which are identifiers that you can use to refer to the
- * resulting temporary security credentials. For example, you can reference these credentials as a principal in a
- * resource-based policy by using the ARN or assumed role ID. The ARN and ID include the `RoleSessionName` that you
- * specified when you called `AssumeRole`.
+ * The identifiers for the temporary security credentials that the operation returns.
  */
 final class AssumedRoleUser
 {
@@ -18,9 +15,9 @@ final class AssumedRoleUser
 
     /**
      * The ARN of the temporary security credentials that are returned from the AssumeRole action. For more information
-     * about ARNs and how to use them in policies, see IAM Identifiers in the *IAM User Guide*.
+     * about ARNs and how to use them in policies, see IAM Identifiers [^1] in the *IAM User Guide*.
      *
-     * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html
      */
     private $arn;
 

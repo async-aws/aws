@@ -2,13 +2,6 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-/**
- * The identifier of the function's runtime. Runtime is required if the deployment package is a .zip file archive.
- * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy.
- *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
- * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
- */
 final class Runtime
 {
     public const DOTNETCORE_1_0 = 'dotnetcore1.0';

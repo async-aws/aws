@@ -33,23 +33,42 @@ final class Message
 
     /**
      * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
+     *
+     * - `ApproximateReceiveCount`
+     * -
+     * - `ApproximateFirstReceiveTimestamp`
+     * -
+     * - `MessageDeduplicationId`
+     * -
+     * - `MessageGroupId`
+     * -
+     * - `SenderId`
+     * -
+     * - `SentTimestamp`
+     * -
+     * - `SequenceNumber`
+     *
+     * `ApproximateFirstReceiveTimestamp` and `SentTimestamp` are each returned as an integer representing the epoch time
+     * [^1] in milliseconds.
+     *
+     * [^1]: http://en.wikipedia.org/wiki/Unix_time
      */
     private $attributes;
 
     /**
      * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
      * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
-     * about MD5, see RFC1321.
+     * about MD5, see RFC1321 [^1].
      *
-     * @see https://www.ietf.org/rfc/rfc1321.txt
+     * [^1]: https://www.ietf.org/rfc/rfc1321.txt
      */
     private $md5OfMessageAttributes;
 
     /**
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS message
-     * attributes in the *Amazon SQS Developer Guide*.
+     * attributes [^1] in the *Amazon SQS Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      */
     private $messageAttributes;
 

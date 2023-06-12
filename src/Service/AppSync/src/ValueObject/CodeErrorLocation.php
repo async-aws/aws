@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The line, column, and span location of the error in the code.
+ * Describes the location of the error in a code sample.
  */
 final class CodeErrorLocation
 {

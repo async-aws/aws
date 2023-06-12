@@ -5,7 +5,8 @@ namespace AsyncAws\Rekognition\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Sets up the configuration for human evaluation, including the FlowDefinition the image will be sent to.
+ * Sets up the flow definition the image will be sent to if one of the conditions is met. You can also set certain
+ * attributes of the image before review.
  */
 final class HumanLoopConfig
 {
@@ -16,9 +17,9 @@ final class HumanLoopConfig
 
     /**
      * The Amazon Resource Name (ARN) of the flow definition. You can create a flow definition by using the Amazon Sagemaker
-     * CreateFlowDefinition Operation.
+     * CreateFlowDefinition [^1] Operation.
      *
-     * @see https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateFlowDefinition.html
+     * [^1]: https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateFlowDefinition.html
      */
     private $flowDefinitionArn;
 

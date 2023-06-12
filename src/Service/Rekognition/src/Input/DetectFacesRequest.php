@@ -15,6 +15,9 @@ final class DetectFacesRequest extends Input
      * The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition
      * operations, passing base64-encoded image bytes is not supported.
      *
+     * If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using
+     * the `Bytes` field. For more information, see Images in the Amazon Rekognition developer guide.
+     *
      * @required
      *
      * @var Image|null
@@ -26,6 +29,9 @@ final class DetectFacesRequest extends Input
      * `Confidence`, `Pose`, `Quality`, and `Landmarks` - will always be returned. You can request for specific facial
      * attributes (in addition to the default list) - by using [`"DEFAULT", "FACE_OCCLUDED"`] or just [`"FACE_OCCLUDED"`].
      * You can request for all facial attributes by using [`"ALL"]`. Requesting more attributes may increase response time.
+     *
+     * If you provide both, `["ALL", "DEFAULT"]`, the service uses a logical "AND" operator to determine which attributes to
+     * return (in this case, all attributes).
      *
      * @var list<Attribute::*>|null
      */

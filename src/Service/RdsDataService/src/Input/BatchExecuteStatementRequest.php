@@ -26,6 +26,10 @@ final class BatchExecuteStatementRequest extends Input
      * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
      * credentials in the secret.
      *
+     * For information about creating the secret, see Create a database secret [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html
+     *
      * @required
      *
      * @var string|null
@@ -51,12 +55,23 @@ final class BatchExecuteStatementRequest extends Input
     /**
      * The name of the database schema.
      *
+     * > Currently, the `schema` parameter isn't supported.
+     *
      * @var string|null
      */
     private $schema;
 
     /**
      * The parameter set for the batch operation.
+     *
+     * The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL statement with
+     * no parameters, use one of the following options:
+     *
+     * - Specify one or more empty parameter sets.
+     * -
+     * - Use the `ExecuteStatement` operation instead of the `BatchExecuteStatement` operation.
+     *
+     * > Array parameters are not supported.
      *
      * @var SqlParameter[][]|null
      */
@@ -65,6 +80,8 @@ final class BatchExecuteStatementRequest extends Input
     /**
      * The identifier of a transaction that was started by using the `BeginTransaction` operation. Specify the transaction
      * ID of the transaction that you want to include the SQL statement in.
+     *
+     * If the SQL statement is not part of a transaction, don't set this parameter.
      *
      * @var string|null
      */

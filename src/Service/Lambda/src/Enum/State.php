@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-/**
- * The current state of the function. When the state is `Inactive`, you can reactivate the function by invoking it.
- */
 final class State
 {
     public const ACTIVE = 'Active';

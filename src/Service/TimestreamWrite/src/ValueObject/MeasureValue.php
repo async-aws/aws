@@ -8,20 +8,25 @@ use AsyncAws\TimestreamWrite\Enum\MeasureValueType;
 /**
  * Represents the data attribute of the time series. For example, the CPU utilization of an EC2 instance or the RPM of a
  * wind turbine are measures. MeasureValue has both name and value.
+ *
  * MeasureValue is only allowed for type `MULTI`. Using `MULTI` type, you can pass multiple data attributes associated
- * with the same time series in a single record.
+ * with the same time series in a single record
  */
 final class MeasureValue
 {
     /**
      * The name of the MeasureValue.
+     *
+     * For constraints on MeasureValue names, see  Naming Constraints [^1] in the Amazon Timestream Developer Guide.
+     *
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming
      */
     private $name;
 
     /**
-     * The value for the MeasureValue. For information, see Data types.
+     * The value for the MeasureValue. For information, see Data types [^1].
      *
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
      */
     private $value;
 

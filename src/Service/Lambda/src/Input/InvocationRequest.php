@@ -14,6 +14,17 @@ final class InvocationRequest extends Input
     /**
      * The name of the Lambda function, version, or alias.
      *
+     * **Name formats**
+     *
+     * - **Function name** – `my-function` (name-only), `my-function:v1` (with alias).
+     * -
+     * - **Function ARN** – `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
+     * -
+     * - **Partial ARN** – `123456789012:function:my-function`.
+     *
+     * You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN.
+     * If you specify only the function name, it is limited to 64 characters in length.
+     *
      * @required
      *
      * @var string|null
@@ -22,6 +33,14 @@ final class InvocationRequest extends Input
 
     /**
      * Choose from the following options.
+     *
+     * - `RequestResponse` (default) – Invoke the function synchronously. Keep the connection open until the function
+     *   returns a response or times out. The API response includes the function response and additional data.
+     * -
+     * - `Event` – Invoke the function asynchronously. Send events that fail multiple times to the function's dead-letter
+     *   queue (if one is configured). The API response only includes a status code.
+     * -
+     * - `DryRun` – Validate parameter values and verify that the user or role has permission to invoke the function.
      *
      * @var InvocationType::*|null
      */
@@ -43,6 +62,9 @@ final class InvocationRequest extends Input
 
     /**
      * The JSON that you want to provide to your Lambda function as input.
+     *
+     * You can enter the JSON directly. For example, `--payload '{ "key": "value" }'`. You can also specify a file path. For
+     * example, `--payload file://payload.json`.
      *
      * @var string|null
      */

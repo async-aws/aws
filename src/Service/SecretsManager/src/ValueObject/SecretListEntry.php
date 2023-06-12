@@ -4,9 +4,9 @@ namespace AsyncAws\SecretsManager\ValueObject;
 
 /**
  * A structure that contains the details about a secret. It does not include the encrypted `SecretString` and
- * `SecretBinary` values. To get those values, use GetSecretValue .
+ * `SecretBinary` values. To get those values, use GetSecretValue [^1] .
  *
- * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+ * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
  */
 final class SecretListEntry
 {
@@ -40,9 +40,9 @@ final class SecretListEntry
 
     /**
      * The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the secret either
-     * automatically per the schedule or manually by a call to `RotateSecret`.
+     * automatically per the schedule or manually by a call to `RotateSecret` [^1].
      *
-     * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html
      */
     private $rotationLambdaArn;
 
@@ -71,9 +71,9 @@ final class SecretListEntry
     /**
      * The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be recovered
      * until the number of days in the recovery window has passed, as specified in the `RecoveryWindowInDays` parameter of
-     * the `DeleteSecret` operation.
+     * the `DeleteSecret` [^1] operation.
      *
-     * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html
      */
     private $deletedDate;
 
@@ -84,17 +84,20 @@ final class SecretListEntry
     private $nextRotationDate;
 
     /**
-     * The list of user-defined tags associated with the secret. To add tags to a secret, use `TagResource`. To remove tags,
-     * use `UntagResource`.
+     * The list of user-defined tags associated with the secret. To add tags to a secret, use `TagResource` [^1]. To remove
+     * tags, use `UntagResource` [^2].
      *
-     * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html
-     * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html
+     * [^2]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html
      */
     private $tags;
 
     /**
      * A list of all of the currently assigned `SecretVersionStage` staging labels and the `SecretVersionId` attached to
      * each one. Staging labels are used to keep track of the different versions during the rotation process.
+     *
+     * > A version that does not have any `SecretVersionStage` is considered deprecated and subject to deletion. Such
+     * > versions are not included in this list.
      */
     private $secretVersionsToStages;
 

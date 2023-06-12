@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-/**
- * The tracing mode.
- */
 final class TracingMode
 {
     public const ACTIVE = 'Active';

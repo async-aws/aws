@@ -14,6 +14,10 @@ final class ListLayerVersionsRequest extends Input
     /**
      * A runtime identifier. For example, `go1.x`.
      *
+     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+     *
      * @var Runtime::*|null
      */
     private $compatibleRuntime;
@@ -42,9 +46,9 @@ final class ListLayerVersionsRequest extends Input
     private $maxItems;
 
     /**
-     * The compatible instruction set architecture.
+     * The compatible instruction set architecture [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      *
      * @var Architecture::*|null
      */

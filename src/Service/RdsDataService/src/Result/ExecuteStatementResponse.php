@@ -30,13 +30,21 @@ class ExecuteStatementResponse extends Result
     private $numberOfRecordsUpdated;
 
     /**
-     * Values for fields generated during a DML request.
+     * Values for fields generated during a DML request.```
+     * <note> <p>The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get
+     * the values of generated fields, use the <code>RETURNING</code> clause. For more information, see <a
+     * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a>
+     * in the PostgreSQL documentation.</p> </note>
+     * ```.
      */
     private $generatedFields;
 
     /**
      * A string value that represents the result set of a `SELECT` statement in JSON format. This value is only present when
      * the `formatRecordsAs` parameter is set to `JSON`.
+     *
+     * The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set requires
+     * more than 10 MB, the call returns an error.
      */
     private $formattedRecords;
 

@@ -7,9 +7,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Lambda couldn't create an elastic network interface in the VPC, specified as part of Lambda function configuration,
- * because the limit for network interfaces has been reached. For more information, see Lambda quotas.
+ * because the limit for network interfaces has been reached. For more information, see Lambda quotas [^1].
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
  */
 final class ENILimitReachedException extends ServerException
 {

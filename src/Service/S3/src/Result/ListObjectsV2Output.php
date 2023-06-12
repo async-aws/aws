@@ -31,6 +31,20 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
 
     /**
      * The bucket name.
+     *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      */
     private $name;
 
@@ -55,11 +69,27 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of
      * returns.
+     *
+     * A response can contain `CommonPrefixes` only if you specify a delimiter.
+     *
+     * `CommonPrefixes` contains all (if there are any) keys between `Prefix` and the next occurrence of the string
+     * specified by a delimiter.
+     *
+     * `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`.
+     *
+     * For example, if the prefix is `notes/` and the delimiter is a slash (`/`) as in `notes/summer/july`, the common
+     * prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when
+     * calculating the number of returns.
      */
     private $commonPrefixes;
 
     /**
      * Encoding type used by Amazon S3 to encode object key names in the XML response.
+     *
+     * If you specify the encoding-type request parameter, Amazon S3 includes this element in the response, and returns
+     * encoded key name values in the following response elements:
+     *
+     * `Delimiter, Prefix, Key,` and `StartAfter`.
      */
     private $encodingType;
 

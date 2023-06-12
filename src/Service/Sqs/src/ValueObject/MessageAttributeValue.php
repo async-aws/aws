@@ -6,16 +6,17 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The user-specified message attribute value. For string data types, the `Value` attribute has the same restrictions on
- * the content as the message body. For more information, see `SendMessage.`
+ * the content as the message body. For more information, see `SendMessage.`.
+ *
  * `Name`, `type`, `value` and the message body must not be empty or null. All parts of the message attribute, including
  * `Name`, `Type`, and `Value`, are part of the message size restriction (256 KiB or 262,144 bytes).
  */
 final class MessageAttributeValue
 {
     /**
-     * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters.
+     * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters [^1].
      *
-     * @see http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+     * [^1]: http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
      */
     private $stringValue;
 
@@ -37,6 +38,11 @@ final class MessageAttributeValue
     /**
      * Amazon SQS supports the following logical data types: `String`, `Number`, and `Binary`. For the `Number` data type,
      * you must use `StringValue`.
+     *
+     * You can also append custom labels. For more information, see Amazon SQS Message Attributes [^1] in the *Amazon SQS
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      */
     private $dataType;
 

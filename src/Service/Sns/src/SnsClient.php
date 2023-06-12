@@ -63,9 +63,14 @@ class SnsClient extends AbstractApi
      * from `CreatePlatformApplication`. You can use the returned `EndpointArn` to send a message to a mobile app or by the
      * `Subscribe` action for subscription to a topic. The `CreatePlatformEndpoint` action is idempotent, so if the
      * requester already owns an endpoint with the same device token and attributes, that endpoint's ARN is returned without
-     * creating a new endpoint. For more information, see Using Amazon SNS Mobile Push Notifications.
+     * creating a new endpoint. For more information, see Using Amazon SNS Mobile Push Notifications [^1].
      *
-     * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * When using `CreatePlatformEndpoint` with Baidu, two attributes must be provided: ChannelId and UserId. The token
+     * field must also contain the ChannelId. For more information, see Creating an Amazon SNS Endpoint for Baidu [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * [^2]: https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePushBaiduEndpoint.html
+     *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformEndpoint.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createplatformendpoint
      *
@@ -98,11 +103,12 @@ class SnsClient extends AbstractApi
 
     /**
      * Creates a topic to which notifications can be published. Users can create at most 100,000 standard topics (at most
-     * 1,000 FIFO topics). For more information, see Creating an Amazon SNS topic in the *Amazon SNS Developer Guide*. This
-     * action is idempotent, so if the requester already owns a topic with the specified name, that topic's ARN is returned
-     * without creating a new topic.
+     * 1,000 FIFO topics). For more information, see Creating an Amazon SNS topic [^1] in the *Amazon SNS Developer Guide*.
+     * This action is idempotent, so if the requester already owns a topic with the specified name, that topic's ARN is
+     * returned without creating a new topic.
      *
-     * @see https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html
+     * [^1]: https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html
+     *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createtopic
      *
@@ -145,9 +151,13 @@ class SnsClient extends AbstractApi
 
     /**
      * Deletes the endpoint for a device and mobile app from Amazon SNS. This action is idempotent. For more information,
-     * see Using Amazon SNS Mobile Push Notifications.
+     * see Using Amazon SNS Mobile Push Notifications [^1].
      *
-     * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * When you delete an endpoint that is also subscribed to a topic, then you must also unsubscribe the endpoint from the
+     * topic.
+     *
+     * [^1]: https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_DeleteEndpoint.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#deleteendpoint
      *
@@ -216,6 +226,8 @@ class SnsClient extends AbstractApi
      * 100. If there are more subscriptions, a `NextToken` is also returned. Use the `NextToken` parameter in a new
      * `ListSubscriptionsByTopic` call to get further results.
      *
+     * This action is throttled at 30 transactions per second (TPS).
+     *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_ListSubscriptionsByTopic.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#listsubscriptionsbytopic
      *
@@ -247,6 +259,22 @@ class SnsClient extends AbstractApi
     /**
      * Sends a message to an Amazon SNS topic, a text message (SMS message) directly to a phone number, or a message to a
      * mobile platform endpoint (when you specify the `TargetArn`).
+     *
+     * If you send a message to a topic, Amazon SNS delivers the message to each endpoint that is subscribed to the topic.
+     * The format of the message depends on the notification protocol for each subscribed endpoint.
+     *
+     * When a `messageId` is returned, the message is saved and Amazon SNS immediately delivers it to subscribers.
+     *
+     * To use the `Publish` action for publishing a message to a mobile endpoint, such as an app on a Kindle device or
+     * mobile phone, you must specify the EndpointArn for the TargetArn parameter. The EndpointArn is returned when making a
+     * call with the `CreatePlatformEndpoint` action.
+     *
+     * For more information about formatting messages, see Send Custom Platform-Specific Payloads in Messages to Mobile
+     * Devices [^1].
+     *
+     * ! You can publish messages only to topics and endpoints in the same Amazon Web Services Region.
+     *
+     * [^1]: https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html
      *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_Publish.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#publish
@@ -309,6 +337,26 @@ class SnsClient extends AbstractApi
      * Publishes up to ten messages to the specified topic. This is a batch version of `Publish`. For FIFO topics, multiple
      * messages within a single batch are published in the order they are sent, and messages are deduplicated within the
      * batch and across batches for 5 minutes.
+     *
+     * The result of publishing each message is reported individually in the response. Because the batch request can result
+     * in a combination of successful and unsuccessful actions, you should check for batch errors even when the call returns
+     * an HTTP status code of `200`.
+     *
+     * The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths of
+     * all of the batched messages) are both 256 KB (262,144 bytes).
+     *
+     * Some actions take lists of parameters. These lists are specified using the `param.n` notation. Values of `n` are
+     * integers starting from 1. For example, a parameter list with two elements looks like this:
+     *
+     * &AttributeName.1=first
+     *
+     * &AttributeName.2=second
+     *
+     * If you send a batch message to a topic, Amazon SNS publishes the batch message to each endpoint that is subscribed to
+     * the topic. The format of the batch message depends on the notification protocol for each subscribed endpoint.
+     *
+     * When a `messageId` is returned, the batch message is saved and Amazon SNS immediately delivers the message to
+     * subscribers.
      *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_PublishBatch.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#publishbatch
@@ -375,6 +423,11 @@ class SnsClient extends AbstractApi
      * topic are not in the same Amazon Web Services account, the endpoint owner must run the `ConfirmSubscription` action
      * to confirm the subscription.
      *
+     * You call the `ConfirmSubscription` action with the token from the subscription response. Confirmation tokens are
+     * valid for three days.
+     *
+     * This action is throttled at 100 transactions per second (TPS).
+     *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#subscribe
      *
@@ -418,6 +471,11 @@ class SnsClient extends AbstractApi
      * does not require authentication and the requester is not the subscription owner, a final cancellation message is
      * delivered to the endpoint, so that the endpoint owner can easily resubscribe to the topic if the `Unsubscribe`
      * request was unintended.
+     *
+     * > Amazon SQS queue subscriptions require authentication for deletion. Only the owner of the subscription, or the
+     * > owner of the topic can unsubscribe using the required Amazon Web Services signature.
+     *
+     * This action is throttled at 100 transactions per second (TPS).
      *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_Unsubscribe.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#unsubscribe

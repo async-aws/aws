@@ -3,19 +3,24 @@
 namespace AsyncAws\Iot\ValueObject;
 
 /**
- * The attribute payload, which consists of up to three name/value pairs in a JSON document. For example:
- * `{\"attributes\":{\"string1\":\"string2\"}}`.
+ * The attribute payload.
  */
 final class AttributePayload
 {
     /**
      * A JSON string containing up to three key-value pair in JSON format. For example:.
+     *
+     * `{\"attributes\":{\"string1\":\"string2\"}}`
      */
     private $attributes;
 
     /**
      * Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in
      * the registry, instead of overwriting them.
+     *
+     * To remove an attribute, call `UpdateThing` with an empty attribute value.
+     *
+     * > The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`.
      */
     private $merge;
 

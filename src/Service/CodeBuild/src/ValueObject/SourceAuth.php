@@ -7,12 +7,15 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Information about the authorization settings for CodeBuild to access the source code to be built.
+ *
  * This information is for the CodeBuild console's use only. Your code should not get or set this information directly.
  */
 final class SourceAuth
 {
     /**
      * > This data type is deprecated and is no longer accurate or used.
+     *
+     * The authorization type to use. The only valid value is `OAUTH`, which represents the OAuth authorization type.
      */
     private $type;
 

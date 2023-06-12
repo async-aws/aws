@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Specifies the query result reuse behavior that was used for the query.
+ * Specifies the query result reuse behavior for the query.
  */
 final class ResultReuseConfiguration
 {

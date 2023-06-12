@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Scheduler\Enum;
 
-/**
- * Specifies whether the schedule is enabled or disabled.
- */
 final class ScheduleState
 {
     public const DISABLED = 'DISABLED';

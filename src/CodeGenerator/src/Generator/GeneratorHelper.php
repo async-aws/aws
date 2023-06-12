@@ -67,23 +67,22 @@ class GeneratorHelper
         return $cache[$propertyName] = lcfirst($propertyName);
     }
 
-    public static function parseDocumentation(string $documentation, bool $short = true): string
+    public static function parseDocumentation(string $documentation): string
     {
         $s = preg_replace('/>\s*</', '><', $documentation);
         $s = trim(strtr($s, [
-            '<p>' => '',
+            '<p class="title">' => '<p>',
             '<p/>' => '',
-            '</p>' => "\n",
+            '</p>' => '',
             '<u>' => '',
             '</u>' => '',
             '<dl>' => '<ul>',
             '</dl>' => '</ul>',
         ]));
-        if ($short) {
-            $s = explode("\n", $s)[0];
-        }
 
         $s = strtr($s, [
+            '<pre><code>' => '```' . "\n",
+            '</code></pre>' => "\n" . '```',
             '<code>' => '`',
             '</code>' => '`',
             '<i>' => '*',
@@ -92,105 +91,148 @@ class GeneratorHelper
             '</b>' => '**',
             '<dt>' => '<li>`',
             '</dt><dd>' => '`: ',
+            '<dd>' => '<li>',
             '</dd>' => '</li>',
+            '</dt>' => '`</li>',
         ]);
-        $s = preg_replace('/\n*<(\/?(note|important|ul|li|dd|dt))>\n*/', "\n<\$1>\n", $s);
+        $s = preg_replace('/\n*<(\/?(note|important|ul|ol|li|dd|dt|p))>\n*/', "\n<\$1>\n", $s);
         $s = preg_replace('/\n+/', "\n", $s);
 
         preg_match_all('/<a href="([^"]*)">/', $s, $matches);
-        $s = preg_replace('/<a href="[^"]*">([^<]*)<\/a>/', '$1', $s);
+        $footnotes = [];
+        $s = preg_replace_callback('/<a href="([^"]*)">([^<]*)<\/a>/', static function ($match) use (&$footnotes) {
+            $footnotes[] = $match[1];
+            $counter = \count($footnotes);
+
+            return "$match[2] [^$counter]";
+        }, $s);
 
         $s = strtr($s, [
             '<a>' => '',
             '</a>' => '',
         ]);
 
-        $prefix = '';
+        $prefix = [];
         $lines = [];
         $empty = false;
         $spaceNext = false;
 
-        // converts <li> into `- ` AND handle multi-level list
+        // converts <li>/ol into `- `/`1.` AND handle multi-level list
+        $counters = [];
+        $counter = null;
         foreach (explode("\n", $s) as $line) {
             $line = trim($line);
             if ('' === $line) {
                 $empty = true;
-                $lines[] = $prefix;
+                $lines[] = implode('', $prefix);
+
+                continue;
+            }
+
+            if ('<p>' === $line) {
+                if (!$empty) {
+                    $lines[] = implode('', $prefix);
+                }
+                $empty = true;
 
                 continue;
             }
 
             if ('<li>' === $line) {
-                $prefix .= '- ';
+                if (null === $counter) {
+                    $prefix[] = '- ';
+                } else {
+                    ++$counter;
+                    $prefix[] = $counter . '. ';
+                }
                 $spaceNext = true;
 
                 continue;
             }
             if ('</li>' === $line) {
-                $prefix = substr($prefix, 0, -2);
+                array_pop($prefix);
                 $spaceNext = false;
 
                 continue;
             }
             if ('<ul>' === $line) {
                 if (!$empty) {
-                    $lines[] = $prefix;
+                    $lines[] = implode('', $prefix);
                 }
                 $empty = true;
+                $counters[] = null;
+                $counter = &$counters[\count($counters) - 1];
 
                 continue;
             }
-            if ('</ul>' === $line) {
-                $lines[] = $prefix;
+            if ('</ul>' === $line || '</ol>' === $line) {
+                $lines[] = implode('', $prefix);
                 $empty = true;
+                array_pop($counters);
+                $counter = &$counters[\count($counters) - 1];
+
+                continue;
+            }
+            if ('<ol>' === $line) {
+                if (!$empty) {
+                    $lines[] = implode('', $prefix);
+                }
+                $empty = true;
+                $counters[] = 0;
+                $counter = &$counters[\count($counters) - 1];
 
                 continue;
             }
             if ('<note>' === $line) {
                 if (!$empty) {
-                    $lines[] = $prefix;
+                    $lines[] = implode('', $prefix);
                 }
                 $empty = true;
-                $prefix .= '> ';
+                $prefix[] = '> ';
 
                 continue;
             }
             if ('<important>' === $line) {
                 if (!$empty) {
-                    $lines[] = $prefix;
+                    $lines[] = implode('', $prefix);
                 }
                 $empty = true;
-                $prefix .= '! ';
+                $prefix[] = '! ';
 
                 continue;
             }
             if ('</note>' === $line || '</important>' === $line) {
-                $prefix = substr($prefix, 0, -2);
-                $lines[] = $prefix;
+                array_pop($prefix);
+                $lines[] = implode('', $prefix);
                 $empty = true;
 
                 continue;
             }
 
             $empty = false;
-            foreach (explode("\n", wordwrap(trim($line), 117 - \strlen($prefix))) as $l) {
-                $lines[] = $prefix . $l;
+            foreach (explode("\n", wordwrap(trim($line), 117 - \strlen(implode('', $prefix)))) as $l) {
+                $lines[] = implode('', $prefix) . $l;
                 if ($spaceNext) {
-                    $prefix = substr($prefix, 0, -2) . '  ';
+                    $last = array_pop($prefix);
+                    $prefix[] = str_repeat(' ', \strlen($last));
                     $spaceNext = false;
                 }
             }
         }
         $s = implode("\n", $lines);
 
-        if (false !== strpos($s, '<')) {
+        if (false !== strpos($s, '</') || false !== strpos($s, '/>')) {
             throw new \InvalidArgumentException('remaining HTML code in documentation: ' . $s);
         }
 
         $s = implode("\n", $lines);
+        $s = html_entity_decode($s);
+        $s = trim($s);
         $s .= "\n";
-        foreach ($matches[1] as $link) {
-            $s .= "\n@see $link";
+        $counter = 0;
+        foreach ($footnotes as $footnote) {
+            ++$counter;
+            $s .= "\n[^$counter]: $footnote";
         }
 
         return $s;

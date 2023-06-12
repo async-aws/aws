@@ -22,6 +22,9 @@ final class ListSecretsRequest extends Input
     /**
      * The number of results to include in the response.
      *
+     * If there are more results available, in the response, Secrets Manager includes `NextToken`. To get the next results,
+     * call `ListSecrets` again with the value from `NextToken`.
+     *
      * @var int|null
      */
     private $maxResults;

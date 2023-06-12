@@ -3,8 +3,8 @@
 namespace AsyncAws\Iot\ValueObject;
 
 /**
- * The ThingTypeProperties for the thing type to create. It contains information about the new thing type including a
- * description, and a list of searchable thing attribute names.
+ * The ThingTypeProperties contains information about the thing type including: a thing type description, and a list of
+ * searchable thing attribute names.
  */
 final class ThingTypeProperties
 {

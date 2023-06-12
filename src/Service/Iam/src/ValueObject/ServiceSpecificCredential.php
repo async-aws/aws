@@ -5,17 +5,14 @@ namespace AsyncAws\Iam\ValueObject;
 use AsyncAws\Iam\Enum\StatusType;
 
 /**
- * A structure that contains information about the newly created service-specific credential.
- *
- * ! This is the only time that the password for this credential set is available. It cannot be recovered later.
- * ! Instead, you must reset the password with ResetServiceSpecificCredential.
+ * Contains the details of a service-specific credential.
  */
 final class ServiceSpecificCredential
 {
     /**
-     * The date and time, in ISO 8601 date-time format, when the service-specific credential were created.
+     * The date and time, in ISO 8601 date-time format [^1], when the service-specific credential were created.
      *
-     * @see http://www.iso.org/iso/iso8601
+     * [^1]: http://www.iso.org/iso/iso8601
      */
     private $createDate;
 

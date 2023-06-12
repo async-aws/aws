@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The `PipelineConfig`.
+ * The pipeline configuration for a resolver of kind `PIPELINE`.
  */
 final class PipelineConfig
 {

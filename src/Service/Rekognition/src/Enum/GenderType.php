@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Rekognition\Enum;
 
-/**
- * The predicted gender of the face.
- */
 final class GenderType
 {
     public const FEMALE = 'Female';

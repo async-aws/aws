@@ -5,27 +5,33 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Represents the provisioned throughput settings for the specified global secondary index.
- * For current minimum and maximum provisioned throughput values, see Service, Account, and Table Quotas in the *Amazon
- * DynamoDB Developer Guide*.
+ * Represents the provisioned throughput settings for a specified table or index. The settings can be modified using the
+ * `UpdateTable` operation.
  *
- * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
+ * For current minimum and maximum provisioned throughput values, see Service, Account, and Table Quotas [^1] in the
+ * *Amazon DynamoDB Developer Guide*.
+ *
+ * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
  */
 final class ProvisionedThroughput
 {
     /**
      * The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`.
-     * For more information, see Specifying Read and Write Requirements in the *Amazon DynamoDB Developer Guide*.
+     * For more information, see Specifying Read and Write Requirements [^1] in the *Amazon DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
+     * If read/write capacity mode is `PAY_PER_REQUEST` the value is set to 0.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
      */
     private $readCapacityUnits;
 
     /**
      * The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException`. For more
-     * information, see Specifying Read and Write Requirements in the *Amazon DynamoDB Developer Guide*.
+     * information, see Specifying Read and Write Requirements [^1] in the *Amazon DynamoDB Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
+     * If read/write capacity mode is `PAY_PER_REQUEST` the value is set to 0.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
      */
     private $writeCapacityUnits;
 

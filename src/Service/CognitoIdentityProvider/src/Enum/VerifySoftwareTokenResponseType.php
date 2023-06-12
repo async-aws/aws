@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Enum;
 
-/**
- * The status of the verify software token.
- */
 final class VerifySoftwareTokenResponseType
 {
     public const ERROR = 'ERROR';

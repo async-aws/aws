@@ -82,8 +82,8 @@ class ObjectGenerator
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
         $classBuilder->setFinal();
-        if (null !== $documentation = $shape->getDocumentation()) {
-            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        if (null !== $documentation = $shape->getDocumentationMain()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
         // Named constructor
@@ -214,7 +214,7 @@ class ObjectGenerator
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
             $property = $classBuilder->addProperty($propertyName = GeneratorHelper::normalizeName($member->getName()))->setPrivate();
-            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
+            if (null !== $propertyDocumentation = $memberShape->getDocumentationMember()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 

@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Contains the DPU execution time.
+ * Contains statistics for a session.
  */
 final class SessionStatistics
 {

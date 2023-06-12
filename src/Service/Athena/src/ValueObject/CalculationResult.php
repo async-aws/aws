@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Contains result information. This field is populated only if the calculation is completed.
+ * Contains information about an application-specific calculation result.
  */
 final class CalculationResult
 {

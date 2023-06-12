@@ -4,9 +4,8 @@ namespace AsyncAws\Athena\ValueObject;
 
 /**
  * The location in Amazon S3 where query and calculation results are stored and the encryption option, if any, used for
- * query results. These are known as "client-side settings". If workgroup settings override client-side settings, then
- * the query uses the location for the query results and the encryption configuration that are specified for the
- * workgroup.
+ * query and calculation results. These are known as "client-side settings". If workgroup settings override client-side
+ * settings, then the query uses the workgroup settings.
  */
 final class ResultConfiguration
 {
@@ -15,10 +14,10 @@ final class ResultConfiguration
      * To run the query, you must specify the query results location using one of the ways: either for individual queries
      * using either this setting (client-side), or in the workgroup, using WorkGroupConfiguration. If none of them is set,
      * Athena issues an error that no output location is provided. For more information, see Working with query results,
-     * recent queries, and output files. If workgroup settings override client-side settings, then the query uses the
+     * recent queries, and output files [^1]. If workgroup settings override client-side settings, then the query uses the
      * settings specified for the workgroup. See WorkGroupConfiguration$EnforceWorkGroupConfiguration.
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
      */
     private $outputLocation;
 
@@ -27,9 +26,9 @@ final class ResultConfiguration
      * `SSE_KMS` or `CSE_KMS`) and key information. This is a client-side setting. If workgroup settings override
      * client-side settings, then the query uses the encryption configuration that is specified for the workgroup, and also
      * uses the location for storing query results specified in the workgroup. See
-     * WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings Override Client-Side Settings.
+     * WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings Override Client-Side Settings [^1].
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
      */
     private $encryptionConfiguration;
 
@@ -38,6 +37,13 @@ final class ResultConfiguration
      * ResultConfiguration$OutputLocation. If set, Athena uses the value for `ExpectedBucketOwner` when it makes Amazon S3
      * calls to your specified output location. If the `ExpectedBucketOwner` Amazon Web Services account ID does not match
      * the actual owner of the Amazon S3 bucket, the call fails with a permissions error.
+     *
+     * This is a client-side setting. If workgroup settings override client-side settings, then the query uses the
+     * `ExpectedBucketOwner` setting that is specified for the workgroup, and also uses the location for storing query
+     * results specified in the workgroup. See WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings
+     * Override Client-Side Settings [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
      */
     private $expectedBucketOwner;
 
@@ -46,9 +52,9 @@ final class ResultConfiguration
      * supported canned ACL is `BUCKET_OWNER_FULL_CONTROL`. This is a client-side setting. If workgroup settings override
      * client-side settings, then the query uses the ACL configuration that is specified for the workgroup, and also uses
      * the location for storing query results specified in the workgroup. For more information, see
-     * WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings Override Client-Side Settings.
+     * WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings Override Client-Side Settings [^1].
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
      */
     private $aclConfiguration;
 

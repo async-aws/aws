@@ -3,7 +3,7 @@
 namespace AsyncAws\Scheduler\ValueObject;
 
 /**
- * The schedule's target details.
+ * The details of a target.
  */
 final class TargetSummary
 {

@@ -19,6 +19,10 @@ final class PublishBatchResultEntry
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) topics.
+     *
+     * The large, non-consecutive number that Amazon SNS assigns to each message.
+     *
+     * The length of `SequenceNumber` is 128 bits. `SequenceNumber` continues to increase for a particular `MessageGroupId`.
      */
     private $sequenceNumber;
 

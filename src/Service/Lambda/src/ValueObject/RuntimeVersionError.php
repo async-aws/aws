@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * Error response when Lambda is unable to retrieve the runtime version for a function.
+ * Any error returned when the runtime version information for the function could not be retrieved.
  */
 final class RuntimeVersionError
 {

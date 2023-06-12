@@ -5,15 +5,15 @@ namespace AsyncAws\CloudFront\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The batch information for the invalidation.
+ * An invalidation batch.
  */
 final class InvalidationBatch
 {
     /**
      * A complex type that contains information about the objects that you want to invalidate. For more information, see
-     * Specifying the Objects to Invalidate in the *Amazon CloudFront Developer Guide*.
+     * Specifying the Objects to Invalidate [^1] in the *Amazon CloudFront Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
      */
     private $paths;
 
@@ -22,6 +22,13 @@ final class InvalidationBatch
      * accidentally resubmitting an identical request. Whenever you create a new invalidation request, you must specify a
      * new value for `CallerReference` and change other values in the request as applicable. One way to ensure that the
      * value of `CallerReference` is unique is to use a `timestamp`, for example, `20120301090000`.
+     *
+     * If you make a second invalidation request with the same value for `CallerReference`, and if the rest of the request
+     * is the same, CloudFront doesn't create a new invalidation request. Instead, CloudFront returns information about the
+     * invalidation request that you previously created with the same `CallerReference`.
+     *
+     * If `CallerReference` is a value you already sent in a previous invalidation batch request but the content of any
+     * `Path` is different from the original request, CloudFront returns an `InvalidationBatchAlreadyExists` error.
      */
     private $callerReference;
 

@@ -38,6 +38,10 @@ final class LogStream
 
     /**
      * The sequence token.
+     *
+     * ! The sequence token is now ignored in `PutLogEvents` actions. `PutLogEvents` actions are always accepted regardless
+     * ! of receiving an invalid sequence token. You don't need to obtain `uploadSequenceToken` to use a `PutLogEvents`
+     * ! action.
      */
     private $uploadSequenceToken;
 
@@ -48,6 +52,9 @@ final class LogStream
 
     /**
      * The number of bytes stored.
+     *
+     * **Important:** As of June 17, 2019, this parameter is no longer supported for log streams, and is always reported as
+     * zero. This change applies only to log streams. The `storedBytes` parameter for log groups is not affected.
      */
     private $storedBytes;
 

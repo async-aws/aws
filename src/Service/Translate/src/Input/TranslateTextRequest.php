@@ -26,14 +26,28 @@ final class TranslateTextRequest extends Input
      * translation for each term. A terminology list can contain a maximum of 256 terms. You can use one custom terminology
      * resource in your translation request.
      *
+     * Use the ListTerminologies operation to get the available terminology lists.
+     *
+     * For more information about custom terminology lists, see Custom terminology [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/translate/latest/dg/how-custom-terminology.html
+     *
      * @var string[]|null
      */
     private $terminologyNames;
 
     /**
-     * The language code for the language of the source text. For a list of language codes, see Supported languages.
+     * The language code for the language of the source text. For a list of language codes, see Supported languages [^1].
      *
-     * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
+     * To have Amazon Translate determine the source language of your text, you can specify `auto` in the
+     * `SourceLanguageCode` field. If you specify `auto`, Amazon Translate will call Amazon Comprehend [^2] to determine the
+     * source language.
+     *
+     * > If you specify `auto`, you must send the `TranslateText` request in a region that supports Amazon Comprehend.
+     * > Otherwise, the request returns an error indicating that autodetect is not supported.
+     *
+     * [^1]: https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
+     * [^2]: https://docs.aws.amazon.com/comprehend/latest/dg/comprehend-general.html
      *
      * @required
      *
@@ -43,9 +57,9 @@ final class TranslateTextRequest extends Input
 
     /**
      * The language code requested for the language of the target text. For a list of language codes, see Supported
-     * languages.
+     * languages [^1].
      *
-     * @see https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
+     * [^1]: https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html
      *
      * @required
      *

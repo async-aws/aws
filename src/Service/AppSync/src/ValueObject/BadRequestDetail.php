@@ -2,6 +2,10 @@
 
 namespace AsyncAws\AppSync\ValueObject;
 
+/**
+ * Provides further details for the reason behind the bad request. For reason type `CODE_ERROR`, the detail will contain
+ * a list of code errors.
+ */
 final class BadRequestDetail
 {
     /**

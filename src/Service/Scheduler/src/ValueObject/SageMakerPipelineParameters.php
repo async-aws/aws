@@ -3,9 +3,9 @@
 namespace AsyncAws\Scheduler\ValueObject;
 
 /**
- * The templated target type for the Amazon SageMaker `StartPipelineExecution` API operation.
+ * The templated target type for the Amazon SageMaker `StartPipelineExecution` [^1] API operation.
  *
- * @see https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html
+ * [^1]: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html
  */
 final class SageMakerPipelineParameters
 {

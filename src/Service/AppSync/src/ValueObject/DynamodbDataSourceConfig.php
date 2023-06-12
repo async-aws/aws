@@ -5,7 +5,7 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new Amazon DynamoDB configuration.
+ * Describes an Amazon DynamoDB data source configuration.
  */
 final class DynamodbDataSourceConfig
 {

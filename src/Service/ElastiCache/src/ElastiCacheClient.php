@@ -19,6 +19,22 @@ class ElastiCacheClient extends AbstractApi
      * Returns information about all provisioned clusters if no cluster identifier is specified, or about a specific cache
      * cluster if a cluster identifier is supplied.
      *
+     * By default, abbreviated information about the clusters is returned. You can use the optional *ShowCacheNodeInfo* flag
+     * to retrieve detailed information about the cache nodes associated with the clusters. These details include the DNS
+     * address and port for the cache node endpoint.
+     *
+     * If the cluster is in the *creating* state, only cluster-level information is displayed until all of the nodes are
+     * successfully provisioned.
+     *
+     * If the cluster is in the *deleting* state, only cluster-level information is displayed.
+     *
+     * If cache nodes are currently being added to the cluster, node endpoint information and creation time for the
+     * additional nodes are not displayed until they are completely provisioned. When the cluster state is *available*, the
+     * cluster is ready for use.
+     *
+     * If cache nodes are currently being removed from the cluster, no endpoint information for the removed nodes is
+     * displayed.
+     *
      * @see https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_DescribeCacheClusters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-elasticache-2015-02-02.html#describecacheclusters
      *

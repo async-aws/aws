@@ -158,6 +158,8 @@ class SchedulerClient extends AbstractApi
      * in the process of being deleted might continue to invoke their targets until the schedule group and its associated
      * schedules are deleted.
      *
+     * > This operation is eventually consistent.
+     *
      * @see https://docs.aws.amazon.com/scheduler/latest/APIReference/API_DeleteScheduleGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#deleteschedulegroup
      *
@@ -317,6 +319,9 @@ class SchedulerClient extends AbstractApi
      * Updates the specified schedule. When you call `UpdateSchedule`, EventBridge Scheduler uses all values, including
      * empty values, specified in the request and overrides the existing schedule. This is by design. This means that if you
      * do not set an optional field in your request, that field will be set to its system-default value after the update.
+     *
+     * Before calling this operation, we recommend that you call the `GetSchedule` API operation and make a note of all
+     * optional parameters for your `UpdateSchedule` call.
      *
      * @see https://docs.aws.amazon.com/scheduler/latest/APIReference/API_UpdateSchedule.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#updateschedule

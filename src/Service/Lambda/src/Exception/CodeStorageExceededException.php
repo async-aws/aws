@@ -6,9 +6,10 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Your Amazon Web Services account has exceeded its maximum total code size. For more information, see Lambda quotas.
+ * Your Amazon Web Services account has exceeded its maximum total code size. For more information, see Lambda quotas
+ * [^1].
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
  */
 final class CodeStorageExceededException extends ClientException
 {

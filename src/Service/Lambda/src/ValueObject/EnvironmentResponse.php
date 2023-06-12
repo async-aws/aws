@@ -3,9 +3,8 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * The function's environment variables. Omitted from CloudTrail logs.
- *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
+ * The results of an operation to update or read environment variables. If the operation succeeds, the response contains
+ * the environment variables. If it fails, the response contains details about the error.
  */
 final class EnvironmentResponse
 {

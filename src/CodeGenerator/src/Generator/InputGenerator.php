@@ -103,8 +103,8 @@ class InputGenerator
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
         $classBuilder->setFinal();
-        if (null !== $documentation = $shape->getDocumentation()) {
-            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        if (null !== $documentation = $shape->getDocumentationMain()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
         $constructorBody = '';
@@ -220,7 +220,7 @@ class InputGenerator
             }
 
             $property = $classBuilder->addProperty(GeneratorHelper::normalizeName($member->getName()))->setPrivate();
-            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
+            if (null !== $propertyDocumentation = $memberShape->getDocumentationMember()) {
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 

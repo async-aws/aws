@@ -3,7 +3,7 @@
 namespace AsyncAws\RdsDataService\ValueObject;
 
 /**
- * The value of the parameter.
+ * Contains a value.
  */
 final class Field
 {

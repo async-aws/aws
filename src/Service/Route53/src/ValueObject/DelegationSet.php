@@ -3,7 +3,8 @@
 namespace AsyncAws\Route53\ValueObject;
 
 /**
- * A complex type that describes the name servers for this hosted zone.
+ * A complex type that lists the name servers in a delegation set, as well as the `CallerReference` and the `ID` for the
+ * delegation set.
  */
 final class DelegationSet
 {

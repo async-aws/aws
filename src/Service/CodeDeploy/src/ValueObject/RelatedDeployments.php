@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CodeDeploy\ValueObject;
 
+/**
+ * Information about deployments related to the specified deployment.
+ */
 final class RelatedDeployments
 {
     /**

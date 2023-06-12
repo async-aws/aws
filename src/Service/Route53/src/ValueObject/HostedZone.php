@@ -14,6 +14,11 @@ final class HostedZone
 
     /**
      * The name of the domain. For public hosted zones, this is the name that you have registered with your DNS registrar.
+     *
+     * For information about how to specify characters other than `a-z`, `0-9`, and `-` (hyphen) and how to specify
+     * internationalized domain names, see CreateHostedZone [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html
      */
     private $name;
 

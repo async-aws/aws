@@ -20,6 +20,9 @@ final class SSESpecification
 
     /**
      * Server-side encryption type. The only supported value is:.
+     *
+     * - `KMS` - Server-side encryption that uses Key Management Service. The key is stored in your account and is managed
+     *   by KMS (KMS charges apply).
      */
     private $sseType;
 

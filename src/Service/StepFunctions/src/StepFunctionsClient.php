@@ -34,10 +34,11 @@ use AsyncAws\StepFunctions\Result\StopExecutionOutput;
 class StepFunctionsClient extends AbstractApi
 {
     /**
-     * Used by activity workers and task states using the callback pattern to report that the task identified by the
+     * Used by activity workers and task states using the callback [^1] pattern to report that the task identified by the
      * `taskToken` failed.
      *
-     * @see https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskFailure.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#sendtaskfailure
      *
@@ -66,16 +67,21 @@ class StepFunctionsClient extends AbstractApi
     }
 
     /**
-     * Used by activity workers and task states using the callback pattern to report to Step Functions that the task
+     * Used by activity workers and task states using the callback [^1] pattern to report to Step Functions that the task
      * represented by the specified `taskToken` is still making progress. This action resets the `Heartbeat` clock. The
      * `Heartbeat` threshold is specified in the state machine's Amazon States Language definition (`HeartbeatSeconds`).
      * This action does not in itself create an event in the execution history. However, if the task times out, the
      * execution history contains an `ActivityTimedOut` entry for activities, or a `TaskTimedOut` entry for for tasks using
-     * the job run or callback pattern.
+     * the job run [^2] or callback [^3] pattern.
      *
-     * @see https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
-     * @see https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
-     * @see https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * > The `Timeout` of a task, defined in the state machine's Amazon States Language definition, is its maximum allowed
+     * > duration, regardless of the number of SendTaskHeartbeat requests received. Use `HeartbeatSeconds` to configure the
+     * > timeout interval for heartbeats.
+     *
+     * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * [^2]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
+     * [^3]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskHeartbeat.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#sendtaskheartbeat
      *
@@ -102,10 +108,11 @@ class StepFunctionsClient extends AbstractApi
     }
 
     /**
-     * Used by activity workers and task states using the callback pattern to report that the task identified by the
+     * Used by activity workers and task states using the callback [^1] pattern to report that the task identified by the
      * `taskToken` completed successfully.
      *
-     * @see https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskSuccess.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#sendtasksuccess
      *
@@ -137,6 +144,17 @@ class StepFunctionsClient extends AbstractApi
     /**
      * Starts a state machine execution. If the given state machine Amazon Resource Name (ARN) is a qualified state machine
      * ARN, it will fail with ValidationException.
+     *
+     * A qualified state machine ARN refers to a *Distributed Map state* defined within a state machine. For example, the
+     * qualified state machine ARN `arn:partition:states:region:account-id:stateMachine:stateMachineName/mapStateLabel`
+     * refers to a *Distributed Map state* with a label `mapStateLabel` in the state machine named `stateMachineName`.
+     *
+     * > `StartExecution` is idempotent for `STANDARD` workflows. For a `STANDARD` workflow, if `StartExecution` is called
+     * > with the same name and input as a running execution, the call will succeed and return the same response as the
+     * > original request. If the execution is closed or if the input is different, it will return a `400
+     * > ExecutionAlreadyExists` error. Names can be reused after 90 days.
+     * >
+     * > `StartExecution` is not idempotent for `EXPRESS` workflows.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#startexecution
@@ -178,6 +196,8 @@ class StepFunctionsClient extends AbstractApi
 
     /**
      * Stops an execution.
+     *
+     * This API action is not supported by `EXPRESS` state machines.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_StopExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#stopexecution

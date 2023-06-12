@@ -31,9 +31,9 @@ class PublishLayerVersionResponse extends Result
     private $description;
 
     /**
-     * The date that the layer version was created, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+     * The date that the layer version was created, in ISO-8601 format [^1] (YYYY-MM-DDThh:mm:ss.sTZD).
      *
-     * @see https://www.w3.org/TR/NOTE-datetime
+     * [^1]: https://www.w3.org/TR/NOTE-datetime
      */
     private $createdDate;
 
@@ -44,6 +44,10 @@ class PublishLayerVersionResponse extends Result
 
     /**
      * The layer's compatible runtimes.
+     *
+     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
      */
     private $compatibleRuntimes;
 
@@ -53,9 +57,9 @@ class PublishLayerVersionResponse extends Result
     private $licenseInfo;
 
     /**
-     * A list of compatible instruction set architectures.
+     * A list of compatible instruction set architectures [^1].
      *
-     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      */
     private $compatibleArchitectures;
 

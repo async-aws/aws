@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Comprehend\Enum;
 
-/**
- * Reason code is `INVALID_DOCUMENT`.
- */
 final class InvalidRequestDetailReason
 {
     public const DOCUMENT_SIZE_EXCEEDED = 'DOCUMENT_SIZE_EXCEEDED';

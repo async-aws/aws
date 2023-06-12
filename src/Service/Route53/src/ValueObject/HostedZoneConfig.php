@@ -3,12 +3,8 @@
 namespace AsyncAws\Route53\ValueObject;
 
 /**
- * (Optional) A complex type that contains the following optional values:.
- *
- * - For public and private hosted zones, an optional comment
- * - For private hosted zones, an optional `PrivateZone` element
- *
- * If you don't specify a comment or the `PrivateZone` element, omit `HostedZoneConfig` and the other elements.
+ * A complex type that contains an optional comment about your hosted zone. If you don't want to specify a comment, omit
+ * both the `HostedZoneConfig` and `Comment` elements.
  */
 final class HostedZoneConfig
 {

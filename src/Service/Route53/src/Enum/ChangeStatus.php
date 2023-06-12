@@ -2,10 +2,6 @@
 
 namespace AsyncAws\Route53\Enum;
 
-/**
- * The current state of the request. `PENDING` indicates that this request has not yet been applied to all Amazon Route
- * 53 DNS servers.
- */
 final class ChangeStatus
 {
     public const INSYNC = 'INSYNC';

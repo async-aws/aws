@@ -24,15 +24,21 @@ class GetSecretValueResponse extends Result
 
     /**
      * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte array.
-     * The response parameter represents the binary data as a base64-encoded string.
+     * The response parameter represents the binary data as a base64-encoded [^1] string.
      *
-     * @see https://tools.ietf.org/html/rfc4648#section-4
+     * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as a
+     * string, then this field is omitted. The secret value appears in `SecretString` instead.
+     *
+     * [^1]: https://tools.ietf.org/html/rfc4648#section-4
      */
     private $secretBinary;
 
     /**
      * The decrypted secret value, if the secret value was originally provided as a string or through the Secrets Manager
      * console.
+     *
+     * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure of
+     * key/value pairs.
      */
     private $secretString;
 

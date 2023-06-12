@@ -16,6 +16,9 @@ final class CreateThingRequest extends Input
     /**
      * The name of the thing to create.
      *
+     * You can't change a thing's name after you create it. To change a thing's name, you must create a new thing, give it
+     * the new name, and then delete the old thing.
+     *
      * @required
      *
      * @var string|null
@@ -31,6 +34,8 @@ final class CreateThingRequest extends Input
 
     /**
      * The attribute payload, which consists of up to three name/value pairs in a JSON document. For example:.
+     *
+     * `{\"attributes\":{\"string1\":\"string2\"}}`
      *
      * @var AttributePayload|null
      */

@@ -42,9 +42,9 @@ final class CreatePlatformEndpointInput extends Input
     private $customUserData;
 
     /**
-     * For a list of attributes, see SetEndpointAttributes.
+     * For a list of attributes, see SetEndpointAttributes [^1].
      *
-     * @see https://docs.aws.amazon.com/sns/latest/api/API_SetEndpointAttributes.html
+     * [^1]: https://docs.aws.amazon.com/sns/latest/api/API_SetEndpointAttributes.html
      *
      * @var array<string, string>|null
      */

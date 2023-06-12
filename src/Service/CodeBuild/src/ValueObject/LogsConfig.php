@@ -3,7 +3,8 @@
 namespace AsyncAws\CodeBuild\ValueObject;
 
 /**
- * Log settings for this build that override the log settings defined in the build project.
+ * Information about logs for a build project. These can be logs in CloudWatch Logs, built in a specified S3 bucket, or
+ * both.
  */
 final class LogsConfig
 {

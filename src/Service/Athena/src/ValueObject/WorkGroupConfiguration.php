@@ -4,9 +4,9 @@ namespace AsyncAws\Athena\ValueObject;
 
 /**
  * The configuration of the workgroup, which includes the location in Amazon S3 where query and calculation results are
- * stored, the encryption configuration, if any, used for query and calculation results; whether the Amazon CloudWatch
- * Metrics are enabled for the workgroup; whether workgroup settings override client-side settings; and the data usage
- * limits for the amount of data scanned per query or per workgroup. The workgroup settings override is specified in
+ * stored, the encryption option, if any, used for query and calculation results, whether the Amazon CloudWatch Metrics
+ * are enabled for the workgroup and whether workgroup settings override query settings, and the data usage limits for
+ * the amount of data scanned per query or per workgroup. The workgroup settings override is specified in
  * `EnforceWorkGroupConfiguration` (true/false) in the `WorkGroupConfiguration`. See
  * WorkGroupConfiguration$EnforceWorkGroupConfiguration.
  */
@@ -18,17 +18,17 @@ final class WorkGroupConfiguration
      * the query results location using one of the ways: either in the workgroup using this setting, or for individual
      * queries (client-side), using ResultConfiguration$OutputLocation. If none of them is set, Athena issues an error that
      * no output location is provided. For more information, see Working with query results, recent queries, and output
-     * files.
+     * files [^1].
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
      */
     private $resultConfiguration;
 
     /**
      * If set to "true", the settings for the workgroup override client-side settings. If set to "false", client-side
-     * settings are used. For more information, see Workgroup Settings Override Client-Side Settings.
+     * settings are used. For more information, see Workgroup Settings Override Client-Side Settings [^1].
      *
-     * @see https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
      */
     private $enforceWorkGroupConfiguration;
 
@@ -46,9 +46,9 @@ final class WorkGroupConfiguration
      * If set to `true`, allows members assigned to a workgroup to reference Amazon S3 Requester Pays buckets in queries. If
      * set to `false`, workgroup members cannot query data from Requester Pays buckets, and queries that retrieve data from
      * Requester Pays buckets cause an error. The default is `false`. For more information about Requester Pays buckets, see
-     * Requester Pays Buckets in the *Amazon Simple Storage Service Developer Guide*.
+     * Requester Pays Buckets [^1] in the *Amazon Simple Storage Service Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
      */
     private $requesterPaysEnabled;
 
@@ -78,6 +78,10 @@ final class WorkGroupConfiguration
      * Enforces a minimal level of encryption for the workgroup for query and calculation results that are written to Amazon
      * S3. When enabled, workgroup users can set encryption only to the minimum level set by the administrator or higher
      * when they submit queries.
+     *
+     * The `EnforceWorkGroupConfiguration` setting takes precedence over the `EnableMinimumEncryptionConfiguration` flag.
+     * This means that if `EnforceWorkGroupConfiguration` is true, the `EnableMinimumEncryptionConfiguration` flag is
+     * ignored, and the workgroup configuration for encryption is used.
      */
     private $enableMinimumEncryptionConfiguration;
 

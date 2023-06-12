@@ -20,10 +20,24 @@ final class StartExecutionInput extends Input
 
     /**
      * The name of the execution. This name must be unique for your Amazon Web Services account, region, and state machine
-     * for 90 days. For more information, see  Limits Related to State Machine Executions in the *Step Functions Developer
-     * Guide*.
+     * for 90 days. For more information, see  Limits Related to State Machine Executions [^1] in the *Step Functions
+     * Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions
+     * A name must *not* contain:
+     *
+     * - white space
+     * -
+     * - brackets `< > { } [ ]`
+     * -
+     * - wildcard characters `? *`
+     * -
+     * - special characters `" # % \ ^ | ~ ` $ & , ; : /`
+     * -
+     * - control characters (`U+0000-001F`, `U+007F-009F`)
+     *
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     *
+     * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions
      *
      * @var string|null
      */
@@ -31,6 +45,12 @@ final class StartExecutionInput extends Input
 
     /**
      * The string that contains the JSON input data for the execution, for example:.
+     *
+     * `"input": "{\"first_name\" : \"test\"}"`
+     *
+     * > If you don't include any JSON input data, you still must include the two braces, for example: `"input": "{}"`
+     *
+     * Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      *
      * @var string|null
      */

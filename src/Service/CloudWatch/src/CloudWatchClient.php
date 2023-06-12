@@ -36,6 +36,54 @@ class CloudWatchClient extends AbstractApi
      * You can use the `GetMetricData` API to retrieve CloudWatch metric values. The operation can also include a CloudWatch
      * Metrics Insights query, and one or more metric math functions.
      *
+     * A `GetMetricData` operation that does not include a query can retrieve as many as 500 different metrics in a single
+     * request, with a total of as many as 100,800 data points. You can also optionally perform metric math expressions on
+     * the values of the returned statistics, to create new time series that represent new insights into your data. For
+     * example, using Lambda metrics, you could divide the Errors metric by the Invocations metric to get an error rate time
+     * series. For more information about metric math expressions, see Metric Math Syntax and Functions [^1] in the *Amazon
+     * CloudWatch User Guide*.
+     *
+     * If you include a Metrics Insights query, each `GetMetricData` operation can include only one query. But the same
+     * `GetMetricData` operation can also retrieve other metrics. Metrics Insights queries can query only the most recent
+     * three hours of metric data. For more information about Metrics Insights, see Query your metrics with CloudWatch
+     * Metrics Insights [^2].
+     *
+     * Calls to the `GetMetricData` API have a different pricing structure than calls to `GetMetricStatistics`. For more
+     * information about pricing, see Amazon CloudWatch Pricing [^3].
+     *
+     * Amazon CloudWatch retains metric data as follows:
+     *
+     * - Data points with a period of less than 60 seconds are available for 3 hours. These data points are high-resolution
+     *   metrics and are available only for custom metrics that have been defined with a `StorageResolution` of 1.
+     * -
+     * - Data points with a period of 60 seconds (1-minute) are available for 15 days.
+     * -
+     * - Data points with a period of 300 seconds (5-minute) are available for 63 days.
+     * -
+     * - Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
+     *
+     * Data points that are initially published with a shorter period are aggregated together for long-term storage. For
+     * example, if you collect data using a period of 1 minute, the data remains available for 15 days with 1-minute
+     * resolution. After 15 days, this data is still available, but is aggregated and retrievable only with a resolution of
+     * 5 minutes. After 63 days, the data is further aggregated and is available with a resolution of 1 hour.
+     *
+     * If you omit `Unit` in your request, all data that was collected with any unit is returned, along with the
+     * corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the
+     * operation returns only data that was collected with that unit specified. If you specify a unit that does not match
+     * the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.
+     *
+     * **Using Metrics Insights queries with metric math**
+     *
+     * You can't mix a Metric Insights query and metric math syntax in the same expression, but you can reference results
+     * from a Metrics Insights query within other Metric math expressions. A Metrics Insights query without a **GROUP BY**
+     * clause returns a single time-series (TS), and can be used as input for a metric math expression that expects a single
+     * time series. A Metrics Insights query with a **GROUP BY** clause returns an array of time-series (TS[]), and can be
+     * used as input for a metric math expression that expects an array of time series.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/query_with_cloudwatch-metrics-insights.html
+     * [^3]: https://aws.amazon.com/cloudwatch/pricing/
+     *
      * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#getmetricdata
      *
@@ -65,6 +113,48 @@ class CloudWatchClient extends AbstractApi
 
     /**
      * Gets statistics for the specified metric.
+     *
+     * The maximum number of data points returned from a single call is 1,440. If you request more than 1,440 data points,
+     * CloudWatch returns an error. To reduce the number of data points, you can narrow the specified time range and make
+     * multiple requests across adjacent time ranges, or you can increase the specified period. Data points are not returned
+     * in chronological order.
+     *
+     * CloudWatch aggregates data points based on the length of the period that you specify. For example, if you request
+     * statistics with a one-hour period, CloudWatch aggregates all data points with time stamps that fall within each
+     * one-hour period. Therefore, the number of values aggregated by CloudWatch is larger than the number of data points
+     * returned.
+     *
+     * CloudWatch needs raw data points to calculate percentile statistics. If you publish data using a statistic set
+     * instead, you can only retrieve percentile statistics for this data if one of the following conditions is true:
+     *
+     * - The SampleCount value of the statistic set is 1.
+     * -
+     * - The Min and the Max values of the statistic set are equal.
+     *
+     * Percentile statistics are not available for metrics when any of the metric values are negative numbers.
+     *
+     * Amazon CloudWatch retains metric data as follows:
+     *
+     * - Data points with a period of less than 60 seconds are available for 3 hours. These data points are high-resolution
+     *   metrics and are available only for custom metrics that have been defined with a `StorageResolution` of 1.
+     * -
+     * - Data points with a period of 60 seconds (1-minute) are available for 15 days.
+     * -
+     * - Data points with a period of 300 seconds (5-minute) are available for 63 days.
+     * -
+     * - Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
+     *
+     * Data points that are initially published with a shorter period are aggregated together for long-term storage. For
+     * example, if you collect data using a period of 1 minute, the data remains available for 15 days with 1-minute
+     * resolution. After 15 days, this data is still available, but is aggregated and retrievable only with a resolution of
+     * 5 minutes. After 63 days, the data is further aggregated and is available with a resolution of 1 hour.
+     *
+     * CloudWatch started retaining 5-minute and 1-hour metric data as of July 9, 2016.
+     *
+     * For information about metrics and dimensions supported by Amazon Web Services services, see the Amazon CloudWatch
+     * Metrics and Dimensions Reference [^1] in the *Amazon CloudWatch User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CW_Support_For_AWS.html
      *
      * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#getmetricstatistics
@@ -102,11 +192,29 @@ class CloudWatchClient extends AbstractApi
     }
 
     /**
-     * List the specified metrics. You can use the returned metrics with GetMetricData or GetMetricStatistics to get
-     * statistical data.
+     * List the specified metrics. You can use the returned metrics with GetMetricData [^1] or GetMetricStatistics [^2] to
+     * get statistical data.
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+     * Up to 500 results are returned for any one call. To retrieve additional results, use the returned token with
+     * subsequent calls.
+     *
+     * After you create a metric, allow up to 15 minutes for the metric to appear. To see metric statistics sooner, use
+     * GetMetricData [^3] or GetMetricStatistics [^4].
+     *
+     * If you are using CloudWatch cross-account observability, you can use this operation in a monitoring account and view
+     * metrics from the linked source accounts. For more information, see CloudWatch cross-account observability [^5].
+     *
+     * `ListMetrics` doesn't return information about metrics if those metrics haven't reported data in the past two weeks.
+     * To retrieve those metrics, use GetMetricData [^6] or GetMetricStatistics [^7].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+     * [^3]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
+     * [^4]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+     * [^5]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html
+     * [^6]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
+     * [^7]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+     *
      * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#listmetrics
      *
@@ -139,9 +247,46 @@ class CloudWatchClient extends AbstractApi
     /**
      * Publishes metric data points to Amazon CloudWatch. CloudWatch associates the data points with the specified metric.
      * If the specified metric does not exist, CloudWatch creates the metric. When CloudWatch creates a metric, it can take
-     * up to fifteen minutes for the metric to appear in calls to ListMetrics.
+     * up to fifteen minutes for the metric to appear in calls to ListMetrics [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html
+     * You can publish either individual data points in the `Value` field, or arrays of values and the number of times each
+     * value occurred during the period by using the `Values` and `Counts` fields in the `MetricDatum` structure. Using the
+     * `Values` and `Counts` method enables you to publish up to 150 values per metric with one `PutMetricData` request, and
+     * supports retrieving percentile statistics on this data.
+     *
+     * Each `PutMetricData` request is limited to 1 MB in size for HTTP POST requests. You can send a payload compressed by
+     * gzip. Each request is also limited to no more than 1000 different metrics.
+     *
+     * Although the `Value` parameter accepts numbers of type `Double`, CloudWatch rejects values that are either too small
+     * or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN,
+     * +Infinity, -Infinity) are not supported.
+     *
+     * You can use up to 30 dimensions per metric to further clarify what data the metric collects. Each dimension consists
+     * of a Name and Value pair. For more information about specifying dimensions, see Publishing Metrics [^2] in the
+     * *Amazon CloudWatch User Guide*.
+     *
+     * You specify the time stamp to be associated with each data point. You can specify time stamps that are as much as two
+     * weeks before the current date, and as much as 2 hours after the current day and time.
+     *
+     * Data points with time stamps from 24 hours ago or longer can take at least 48 hours to become available for
+     * GetMetricData [^3] or GetMetricStatistics [^4] from the time they are submitted. Data points with time stamps between
+     * 3 and 24 hours ago can take as much as 2 hours to become available for for GetMetricData [^5] or GetMetricStatistics
+     * [^6].
+     *
+     * CloudWatch needs raw data points to calculate percentile statistics. If you publish data using a statistic set
+     * instead, you can only retrieve percentile statistics for this data if one of the following conditions is true:
+     *
+     * - The `SampleCount` value of the statistic set is 1 and `Min`, `Max`, and `Sum` are all equal.
+     * -
+     * - The `Min` and `Max` are equal, and `Sum` is equal to `Min` multiplied by `SampleCount`.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html
+     * [^3]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
+     * [^4]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+     * [^5]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
+     * [^6]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+     *
      * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#putmetricdata
      *

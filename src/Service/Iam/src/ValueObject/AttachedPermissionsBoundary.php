@@ -5,10 +5,15 @@ namespace AsyncAws\Iam\ValueObject;
 use AsyncAws\Iam\Enum\PermissionsBoundaryAttachmentType;
 
 /**
- * For more information about permissions boundaries, see Permissions boundaries for IAM identities  in the *IAM User
- * Guide*.
+ * Contains information about an attached permissions boundary.
  *
- * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
+ * An attached permissions boundary is a managed policy that has been attached to a user or role to set the permissions
+ * boundary.
+ *
+ * For more information about permissions boundaries, see Permissions boundaries for IAM identities  [^1] in the *IAM
+ * User Guide*.
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
  */
 final class AttachedPermissionsBoundary
 {

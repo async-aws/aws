@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Athena\Enum;
 
-/**
- * Indicates the column's nullable status.
- */
 final class ColumnNullable
 {
     public const NOT_NULL = 'NOT_NULL';

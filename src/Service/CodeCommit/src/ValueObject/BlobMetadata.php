@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeCommit\ValueObject;
 
 /**
- * Information about a `beforeBlob` data type object, including the ID, the file mode permission code, and the path.
+ * Returns information about a specific Git blob object.
  */
 final class BlobMetadata
 {
@@ -19,6 +19,14 @@ final class BlobMetadata
 
     /**
      * The file mode permissions of the blob. File mode permission codes include:.
+     *
+     * - `100644` indicates read/write
+     * -
+     * - `100755` indicates read/write/execute
+     * -
+     * - `160000` indicates a submodule
+     * -
+     * - `120000` indicates a symlink
      */
     private $mode;
 

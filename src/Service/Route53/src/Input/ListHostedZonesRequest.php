@@ -16,6 +16,11 @@ final class ListHostedZonesRequest extends Input
      * If the value of `IsTruncated` in the previous response was `true`, you have more hosted zones. To get more hosted
      * zones, submit another `ListHostedZones` request.
      *
+     * For the value of `marker`, specify the value of `NextMarker` from the previous response, which is the ID of the first
+     * hosted zone that Amazon Route 53 will return if you submit another request.
+     *
+     * If the value of `IsTruncated` in the previous response was `false`, there are no more hosted zones to get.
+     *
      * @var string|null
      */
     private $marker;

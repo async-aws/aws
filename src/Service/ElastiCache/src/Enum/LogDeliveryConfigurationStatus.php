@@ -2,10 +2,6 @@
 
 namespace AsyncAws\ElastiCache\Enum;
 
-/**
- * Returns the log delivery configuration status. Values are one of `enabling` | `disabling` | `modifying` | `active` |
- * `error`.
- */
 final class LogDeliveryConfigurationStatus
 {
     public const ACTIVE = 'active';

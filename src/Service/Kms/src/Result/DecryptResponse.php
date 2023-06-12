@@ -9,15 +9,17 @@ use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 class DecryptResponse extends Result
 {
     /**
-     * The Amazon Resource Name (key ARN) of the KMS key that was used to decrypt the ciphertext.
+     * The Amazon Resource Name (key ARN [^1]) of the KMS key that was used to decrypt the ciphertext.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
      */
     private $keyId;
 
     /**
      * Decrypted plaintext data. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
      * Otherwise, it is not Base64-encoded.
+     *
+     * If the response includes the `CiphertextForRecipient` field, the `Plaintext` field is null or empty.
      */
     private $plaintext;
 
@@ -28,6 +30,13 @@ class DecryptResponse extends Result
 
     /**
      * The plaintext data encrypted with the public key in the attestation document.
+     *
+     * This field is included in the response only when the `Recipient` parameter in the request includes a valid
+     * attestation document from an Amazon Web Services Nitro enclave. For information about the interaction between KMS and
+     * Amazon Web Services Nitro Enclaves, see How Amazon Web Services Nitro Enclaves uses KMS [^1] in the *Key Management
+     * Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
      */
     private $ciphertextForRecipient;
 

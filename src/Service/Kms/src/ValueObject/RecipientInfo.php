@@ -6,20 +6,13 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kms\Enum\KeyEncryptionMechanism;
 
 /**
- * A signed attestation document from an Amazon Web Services Nitro enclave and the encryption algorithm to use with the
- * enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
- * This parameter only supports attestation documents for Amazon Web Services Nitro Enclaves. To include this parameter,
- * use the Amazon Web Services Nitro Enclaves SDK or any Amazon Web Services SDK.
- * When you use this parameter, instead of returning the plaintext data, KMS encrypts the plaintext data with the public
- * key in the attestation document, and returns the resulting ciphertext in the `CiphertextForRecipient` field in the
- * response. This ciphertext can be decrypted only with the private key in the enclave. The `Plaintext` field in the
- * response is null or empty.
- * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services
- * Nitro Enclaves uses KMS in the *Key Management Service Developer Guide*.
+ * Contains information about the party that receives the response from the API operation.
  *
- * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
- * @see https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
- * @see https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+ * This data type is designed to support Amazon Web Services Nitro Enclaves, which lets you create an isolated compute
+ * environment in Amazon EC2. For information about the interaction between KMS and Amazon Web Services Nitro Enclaves,
+ * see How Amazon Web Services Nitro Enclaves uses KMS [^1] in the *Key Management Service Developer Guide*.
+ *
+ * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
  */
 final class RecipientInfo
 {

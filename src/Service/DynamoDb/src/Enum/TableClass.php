@@ -2,9 +2,6 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-/**
- * The table class of the new table. Valid values are `STANDARD` and `STANDARD_INFREQUENT_ACCESS`.
- */
 final class TableClass
 {
     public const STANDARD = 'STANDARD';

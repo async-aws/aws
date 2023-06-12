@@ -3,7 +3,7 @@
 namespace AsyncAws\TimestreamQuery\ValueObject;
 
 /**
- * Indicates if the column is an array.
+ * Contains the metadata for query results such as the column names, data types, and other attributes.
  */
 final class ColumnInfo
 {

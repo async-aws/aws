@@ -26,9 +26,9 @@ final class ServiceSpecificCredentialMetadata
     private $serviceUserName;
 
     /**
-     * The date and time, in ISO 8601 date-time format, when the service-specific credential were created.
+     * The date and time, in ISO 8601 date-time format [^1], when the service-specific credential were created.
      *
-     * @see http://www.iso.org/iso/iso8601
+     * [^1]: http://www.iso.org/iso/iso8601
      */
     private $createDate;
 

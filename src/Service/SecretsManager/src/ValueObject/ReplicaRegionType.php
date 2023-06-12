@@ -8,9 +8,9 @@ namespace AsyncAws\SecretsManager\ValueObject;
 final class ReplicaRegionType
 {
     /**
-     * A Region code. For a list of Region codes, see Name and code of Regions.
+     * A Region code. For a list of Region codes, see Name and code of Regions [^1].
      *
-     * @see https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints
      */
     private $region;
 

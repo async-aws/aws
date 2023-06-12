@@ -18,6 +18,10 @@ final class Consumer
     /**
      * When you register a consumer, Kinesis Data Streams generates an ARN for it. You need this ARN to be able to call
      * SubscribeToShard.
+     *
+     * If you delete a consumer and then create a new one with the same name, it won't have the same ARN. That's because
+     * consumer ARNs contain the creation timestamp. This is important to keep in mind if you have IAM policies that
+     * reference consumer ARNs.
      */
     private $consumerArn;
 

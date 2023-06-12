@@ -13,6 +13,8 @@ final class GetQueueUrlRequest extends Input
      * The name of the queue whose URL must be fetched. Maximum 80 characters. Valid values: alphanumeric characters,
      * hyphens (`-`), and underscores (`_`).
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

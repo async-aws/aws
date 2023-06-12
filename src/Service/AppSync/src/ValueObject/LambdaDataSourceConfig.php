@@ -5,7 +5,7 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new Lambda configuration.
+ * Describes an Lambda data source configuration.
  */
 final class LambdaDataSourceConfig
 {

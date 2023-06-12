@@ -29,6 +29,12 @@ final class DescribeStreamInput extends Input
     /**
      * The shard ID of the shard to start with.
      *
+     * Specify this parameter to indicate that you want to describe the stream starting with the shard whose ID immediately
+     * follows `ExclusiveStartShardId`.
+     *
+     * If you don't specify this parameter, the default behavior for `DescribeStream` is to describe the stream starting
+     * with the first shard in the stream.
+     *
      * @var string|null
      */
     private $exclusiveStartShardId;

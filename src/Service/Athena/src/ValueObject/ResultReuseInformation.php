@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Contains information about whether previous query results were reused for the query.
+ * Contains information about whether the result of a previous query was reused.
  */
 final class ResultReuseInformation
 {

@@ -5,7 +5,7 @@ namespace AsyncAws\Athena\ValueObject;
 use AsyncAws\Athena\Enum\StatementType;
 
 /**
- * Information about the query execution.
+ * Information about a single instance of a query execution.
  */
 final class QueryExecution
 {

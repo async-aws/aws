@@ -51,6 +51,31 @@ final class StartBuildInput extends Input
      * The version of the build input to be built, for this build only. If not specified, the latest version is used. If
      * specified, the contents depends on the source provider:.
      *
+     * - `CodeCommit`:
+     *
+     *   The commit ID, branch, or Git tag to use.
+     * - `GitHub`:
+     *
+     *   The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you
+     *   want to build. If a pull request ID is specified, it must use the format `pr/pull-request-ID` (for example
+     *   `pr/25`). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     *   branch's HEAD commit ID is used.
+     * - `Bitbucket`:
+     *
+     *   The commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a
+     *   branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit
+     *   ID is used.
+     * - `Amazon S3`:
+     *
+     *   The version ID of the object that represents the build input ZIP file to use.
+     *
+     * If `sourceVersion` is specified at the project level, then this `sourceVersion` (at the build level) takes
+     * precedence.
+     *
+     * For more information, see Source Version Sample with CodeBuild [^1] in the *CodeBuild User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html
+     *
      * @var string|null
      */
     private $sourceVersion;
@@ -119,6 +144,15 @@ final class StartBuildInput extends Input
      * A buildspec file declaration that overrides, for this build only, the latest one already defined in the build
      * project.
      *
+     * If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec file
+     * relative to the value of the built-in `CODEBUILD_SRC_DIR` environment variable, or the path to an S3 bucket. The
+     * bucket must be in the same Amazon Web Services Region as the build project. Specify the buildspec file using its ARN
+     * (for example, `arn:aws:s3:::my-codebuild-sample2/buildspec.yml`). If this value is not provided or is set to an empty
+     * string, the source code must contain a buildspec file in its root directory. For more information, see Buildspec File
+     * Name and Storage Location [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage
+     *
      * @var string|null
      */
     private $buildspecOverride;
@@ -135,6 +169,14 @@ final class StartBuildInput extends Input
     /**
      * Set to true to report to your source provider the status of a build's start and completion. If you use this option
      * with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an `invalidInputException` is thrown.
+     *
+     * To be able to report the build status to the source provider, the user associated with the source provider must have
+     * write access to the repo. If the user does not have write access, the build status cannot be updated. For more
+     * information, see Source provider access [^1] in the *CodeBuild User Guide*.
+     *
+     * > The status of a build triggered by a webhook is always reported to your source provider.
+     *
+     * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html
      *
      * @var bool|null
      */
@@ -216,6 +258,12 @@ final class StartBuildInput extends Input
      * The Key Management Service customer master key (CMK) that overrides the one specified in the build project. The CMK
      * key encrypts the build output artifacts.
      *
+     * > You can use a cross-account KMS key to encrypt the build output artifacts if your service role has permission to
+     * > that key.
+     *
+     * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the format
+     * `alias/<alias-name>`).
+     *
      * @var string|null
      */
     private $encryptionKeyOverride;
@@ -246,15 +294,26 @@ final class StartBuildInput extends Input
     /**
      * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:.
      *
+     * - `CODEBUILD`:
+     *
+     *   Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to
+     *   trust CodeBuild's service principal.
+     * - `SERVICE_ROLE`:
+     *
+     *   Specifies that CodeBuild uses your build project's service role.
+     *
+     * When using a cross-account or private registry image, you must use `SERVICE_ROLE` credentials. When using an
+     * CodeBuild curated image, you must use `CODEBUILD` credentials.
+     *
      * @var ImagePullCredentialsType::*|null
      */
     private $imagePullCredentialsTypeOverride;
 
     /**
      * Specifies if session debugging is enabled for this build. For more information, see Viewing a running build in
-     * Session Manager.
+     * Session Manager [^1].
      *
-     * @see https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html
+     * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html
      *
      * @var bool|null
      */

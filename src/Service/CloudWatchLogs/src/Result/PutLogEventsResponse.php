@@ -10,6 +10,12 @@ class PutLogEventsResponse extends Result
 {
     /**
      * The next sequence token.
+     *
+     * ! This field has been deprecated.
+     * !
+     * ! The sequence token is now ignored in `PutLogEvents` actions. `PutLogEvents` actions are always accepted even if the
+     * ! sequence token is not valid. You can use parallel `PutLogEvents` actions on the same log stream and you do not need
+     * ! to wait for the response of a previous `PutLogEvents` action to obtain the `nextSequenceToken` value.
      */
     private $nextSequenceToken;
 

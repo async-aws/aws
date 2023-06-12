@@ -2,14 +2,6 @@
 
 namespace AsyncAws\S3\Enum;
 
-/**
- * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
- * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
- * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
- * *Amazon S3 User Guide*.
- *
- * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
- */
 final class StorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';

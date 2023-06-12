@@ -12,21 +12,26 @@ final class CloudWatchLogsConfig
 {
     /**
      * The current status of the logs in CloudWatch Logs for a build project. Valid values are:.
+     *
+     * - `ENABLED`: CloudWatch Logs are enabled for this build project.
+     * -
+     * - `DISABLED`: CloudWatch Logs are not enabled for this build project.
      */
     private $status;
 
     /**
-     * The group name of the logs in CloudWatch Logs. For more information, see Working with Log Groups and Log Streams.
+     * The group name of the logs in CloudWatch Logs. For more information, see Working with Log Groups and Log Streams
+     * [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
      */
     private $groupName;
 
     /**
      * The prefix of the stream name of the CloudWatch Logs. For more information, see Working with Log Groups and Log
-     * Streams.
+     * Streams [^1].
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
      */
     private $streamName;
 

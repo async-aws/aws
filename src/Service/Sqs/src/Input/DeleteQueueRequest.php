@@ -12,6 +12,8 @@ final class DeleteQueueRequest extends Input
     /**
      * The URL of the Amazon SQS queue to delete.
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

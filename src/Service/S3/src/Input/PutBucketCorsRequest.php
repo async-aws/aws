@@ -22,9 +22,9 @@ final class PutBucketCorsRequest extends Input
 
     /**
      * Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see
-     * Enabling Cross-Origin Resource Sharing in the *Amazon S3 User Guide*.
+     * Enabling Cross-Origin Resource Sharing [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
      *
      * @required
      *
@@ -34,9 +34,12 @@ final class PutBucketCorsRequest extends Input
 
     /**
      * The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify
-     * that the request body was not corrupted in transit. For more information, go to RFC 1864.
+     * that the request body was not corrupted in transit. For more information, go to RFC 1864. [^1].
      *
-     * @see http://www.ietf.org/rfc/rfc1864.txt
+     * For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field
+     * is calculated automatically.
+     *
+     * [^1]: http://www.ietf.org/rfc/rfc1864.txt
      *
      * @var string|null
      */
@@ -46,9 +49,11 @@ final class PutBucketCorsRequest extends Input
      * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
      * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
      * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
-     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     * `400 Bad Request`. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var ChecksumAlgorithm::*|null
      */

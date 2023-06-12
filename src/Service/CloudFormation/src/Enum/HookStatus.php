@@ -2,9 +2,6 @@
 
 namespace AsyncAws\CloudFormation\Enum;
 
-/**
- * Provides the status of the change set hook.
- */
 final class HookStatus
 {
     public const HOOK_COMPLETE_FAILED = 'HOOK_COMPLETE_FAILED';

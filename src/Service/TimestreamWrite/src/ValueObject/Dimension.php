@@ -14,6 +14,10 @@ final class Dimension
     /**
      * Dimension represents the metadata attributes of the time series. For example, the name and Availability Zone of an
      * EC2 instance or the name of the manufacturer of a wind turbine are dimensions.
+     *
+     * For constraints on dimension names, see Naming Constraints [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming
      */
     private $name;
 

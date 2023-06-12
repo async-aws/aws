@@ -5,14 +5,14 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new Amazon EventBridge settings.
+ * Describes an Amazon EventBridge bus data source configuration.
  */
 final class EventBridgeDataSourceConfig
 {
     /**
-     * The ARN of the event bus. For more information about event buses, see Amazon EventBridge event buses.
+     * The ARN of the event bus. For more information about event buses, see Amazon EventBridge event buses [^1].
      *
-     * @see https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-bus.html
+     * [^1]: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-bus.html
      */
     private $eventBusArn;
 

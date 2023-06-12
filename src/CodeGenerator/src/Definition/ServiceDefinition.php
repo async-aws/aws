@@ -158,13 +158,13 @@ class ServiceDefinition
     private function getShape(string $name, ?Member $member, array $extra): ?Shape
     {
         if (isset($this->definition['shapes'][$name])) {
+            $documentationMember = null;
+            $documentationMain = $this->documentation['shapes'][$name]['base'] ?? null;
             if ($member instanceof StructureMember) {
-                $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
-            } else {
-                $documentation = $this->documentation['shapes'][$name]['base'] ?? null;
+                $documentationMember = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
             }
 
-            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());
+            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation_main' => $documentationMain, '_documentation_member' => $documentationMember] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());
         }
 
         return null;

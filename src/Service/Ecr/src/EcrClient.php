@@ -20,6 +20,12 @@ class EcrClient extends AbstractApi
      * used to access any Amazon ECR registry that your IAM principal has access to. The authorization token is valid for 12
      * hours.
      *
+     * The `authorizationToken` returned is a base64 encoded string that can be decoded and used in a `docker login` command
+     * to authenticate to a registry. The CLI offers an `get-login-password` command that simplifies the login process. For
+     * more information, see Registry authentication [^1] in the *Amazon Elastic Container Registry User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth
+     *
      * @see https://docs.aws.amazon.com/AmazonECR/latest/APIReference/API_GetAuthorizationToken.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-api.ecr-2015-09-21.html#getauthorizationtoken
      *

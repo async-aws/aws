@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Scheduler\Enum;
 
-/**
- * Determines whether the schedule is invoked within a flexible time window.
- */
 final class FlexibleTimeWindowMode
 {
     public const FLEXIBLE = 'FLEXIBLE';

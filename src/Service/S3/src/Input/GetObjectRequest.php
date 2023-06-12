@@ -14,6 +14,23 @@ final class GetObjectRequest extends Input
     /**
      * The bucket name containing the object.
      *
+     * When using this action with an access point, you must direct requests to the access point hostname. The access point
+     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
+     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     *
+     * When using an Object Lambda access point the hostname takes the form
+     * *AccessPointName*-*AccountId*.s3-object-lambda.*Region*.amazonaws.com.
+     *
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
+     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
+     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * [^2] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
      * @required
      *
      * @var string|null
@@ -63,9 +80,11 @@ final class GetObjectRequest extends Input
 
     /**
      * Downloads the specified range bytes of an object. For more information about the HTTP Range header, see
-     * https://www.rfc-editor.org/rfc/rfc9110.html#name-range.
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-range [^1].
      *
-     * @see https://www.rfc-editor.org/rfc/rfc9110.html#name-range
+     * > Amazon S3 doesn't support retrieving multiple ranges of data per `GET` request.
+     *
+     * [^1]: https://www.rfc-editor.org/rfc/rfc9110.html#name-range
      *
      * @var string|null
      */

@@ -3,7 +3,10 @@
 namespace AsyncAws\CodeBuild\ValueObject;
 
 /**
- * Contains information about the debug session for this build.
+ * Contains information about the debug session for a build. For more information, see Viewing a running build in
+ * Session Manager [^1].
+ *
+ * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html
  */
 final class DebugSession
 {

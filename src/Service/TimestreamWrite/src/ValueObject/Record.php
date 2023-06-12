@@ -7,10 +7,17 @@ use AsyncAws\TimestreamWrite\Enum\MeasureValueType;
 use AsyncAws\TimestreamWrite\Enum\TimeUnit;
 
 /**
- * A record that contains the common measure, dimension, time, and version attributes shared across all the records in
- * the request. The measure and dimension attributes specified will be merged with the measure and dimension attributes
- * in the records object when the data is written into Timestream. Dimensions may not overlap, or a
- * `ValidationException` will be thrown. In other words, a record must contain dimensions with unique names.
+ * Represents a time-series data point being written into Timestream. Each record contains an array of dimensions.
+ * Dimensions represent the metadata attributes of a time-series data point, such as the instance name or Availability
+ * Zone of an EC2 instance. A record also contains the measure name, which is the name of the measure being collected
+ * (for example, the CPU utilization of an EC2 instance). Additionally, a record contains the measure value and the
+ * value type, which is the data type of the measure value. Also, the record contains the timestamp of when the measure
+ * was collected and the timestamp unit, which represents the granularity of the timestamp.
+ *
+ * Records have a `Version` field, which is a 64-bit `long` that you can use for updating data points. Writes of a
+ * duplicate record with the same dimension, timestamp, and measure name but different measure value will only succeed
+ * if the `Version` attribute of the record in the write request is higher than that of the existing record. Timestream
+ * defaults to a `Version` of `1` for records without the `Version` field.
  */
 final class Record
 {
@@ -32,9 +39,9 @@ final class Record
 
     /**
      * Contains the data type of the measure value for the time-series data point. Default type is `DOUBLE`. For more
-     * information, see Data types.
+     * information, see Data types [^1].
      *
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
      */
     private $measureValueType;
 
@@ -55,11 +62,15 @@ final class Record
      * 64-bit attribute used for record updates. Write requests for duplicate data with a higher version number will update
      * the existing measure value and version. In cases where the measure value is the same, `Version` will still be
      * updated. Default value is `1`.
+     *
+     * > `Version` must be `1` or greater, or you will receive a `ValidationException` error.
      */
     private $version;
 
     /**
      * Contains the list of MeasureValue for time-series data points.
+     *
+     * This is only allowed for type `MULTI`. For scalar values, use `MeasureValue` attribute of the record directly.
      */
     private $measureValues;
 

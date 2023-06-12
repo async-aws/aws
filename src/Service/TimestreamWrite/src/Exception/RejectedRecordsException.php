@@ -13,18 +13,21 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *   names but:
  *
  *   - Measure values are different
+ *   -
  *   - Version is not present in the request *or* the value of version in the new record is equal to or lower than the
  *     existing value
  *
  *   In this case, if Timestream rejects data, the `ExistingVersion` field in the `RejectedRecords` response will
  *   indicate the current record’s version. To force an update, you can resend the request with a version for the
  *   record set to a value greater than the `ExistingVersion`.
+ * -
  * - Records with timestamps that lie outside the retention duration of the memory store.
+ * -
  * - Records with dimensions or measures that exceed the Timestream defined limits.
  *
- * For more information, see Quotas in the Amazon Timestream Developer Guide.
+ * For more information, see Quotas [^1] in the Amazon Timestream Developer Guide.
  *
- * @see https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html
+ * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html
  */
 final class RejectedRecordsException extends ClientException
 {

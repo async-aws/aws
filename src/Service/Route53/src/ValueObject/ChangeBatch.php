@@ -5,7 +5,7 @@ namespace AsyncAws\Route53\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * A complex type that contains an optional comment and the `Changes` element.
+ * The information for a change request.
  */
 final class ChangeBatch
 {

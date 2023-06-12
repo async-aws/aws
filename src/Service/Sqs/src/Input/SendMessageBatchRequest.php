@@ -13,6 +13,8 @@ final class SendMessageBatchRequest extends Input
     /**
      * The URL of the Amazon SQS queue to which batched messages are sent.
      *
+     * Queue URLs and names are case-sensitive.
+     *
      * @required
      *
      * @var string|null

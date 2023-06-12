@@ -12,6 +12,11 @@ final class DeleteSecretRequest extends Input
     /**
      * The ARN or name of the secret to delete.
      *
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See Finding a secret from a
+     * partial ARN [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen
+     *
      * @required
      *
      * @var string|null
@@ -31,6 +36,18 @@ final class DeleteSecretRequest extends Input
      * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
      * `RecoveryWindowInDays` in the same call. If you don't use either, then by default Secrets Manager uses a 30 day
      * recovery window.
+     *
+     * Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a short delay
+     * before the secret is permanently deleted. If you delete a secret and then immediately create a secret with the same
+     * name, use appropriate back off and retry logic.
+     *
+     * If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     * `ResourceNotFoundException`.
+     *
+     * ! Use this parameter with caution. This parameter causes the operation to skip the normal recovery window before the
+     * ! permanent deletion that Secrets Manager would normally impose with the `RecoveryWindowInDays` parameter. If you
+     * ! delete a secret with the `ForceDeleteWithoutRecovery` parameter, then you have no opportunity to recover the
+     * ! secret. You lose the secret permanently.
      *
      * @var bool|null
      */

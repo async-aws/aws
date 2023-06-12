@@ -3,7 +3,13 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Identifies an S3 object as the image source.
+ * Provides the S3 bucket name and object name.
+ *
+ * The region for the S3 bucket containing the S3 object must match the region you use for Amazon Rekognition
+ * operations.
+ *
+ * For Amazon Rekognition to process an S3 object, the user must have permission to access the S3 object. For more
+ * information, see How Amazon Rekognition works with IAM in the Amazon Rekognition Developer Guide.
  */
 final class S3Object
 {

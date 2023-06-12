@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The new HTTP endpoint configuration.
+ * Describes an HTTP data source configuration.
  */
 final class HttpDataSourceConfig
 {

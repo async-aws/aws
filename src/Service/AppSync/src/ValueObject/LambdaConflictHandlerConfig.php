@@ -3,7 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The `LambdaConflictHandlerConfig` when configuring `LAMBDA` as the Conflict Handler.
+ * The `LambdaConflictHandlerConfig` object when configuring `LAMBDA` as the Conflict Handler.
  */
 final class LambdaConflictHandlerConfig
 {

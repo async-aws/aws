@@ -3,7 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Contains the workgroup configuration information used by the session.
+ * Contains session configuration information.
  */
 final class SessionConfiguration
 {

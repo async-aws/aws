@@ -12,11 +12,16 @@ class PublishResponse extends Result
 {
     /**
      * Unique identifier assigned to the published message.
+     *
+     * Length Constraint: Maximum 100 characters
      */
     private $messageId;
 
     /**
      * This response element applies only to FIFO (first-in-first-out) topics.
+     *
+     * The sequence number is a large, non-consecutive number that Amazon SNS assigns to each message. The length of
+     * `SequenceNumber` is 128 bits. `SequenceNumber` continues to increase for each `MessageGroupId`.
      */
     private $sequenceNumber;
 

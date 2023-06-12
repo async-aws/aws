@@ -2,13 +2,6 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
-/**
- * The tag filter type:.
- *
- * - `KEY_ONLY`: Key only.
- * - `VALUE_ONLY`: Value only.
- * - `KEY_AND_VALUE`: Key and value.
- */
 final class EC2TagFilterType
 {
     public const KEY_AND_VALUE = 'KEY_AND_VALUE';

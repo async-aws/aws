@@ -27,6 +27,16 @@ class SesClient extends AbstractApi
     /**
      * Sends an email message. You can use the Amazon SES API v2 to send the following types of messages:.
      *
+     * - **Simple** – A standard email message. When you create this type of message, you specify the sender, the
+     *   recipient, and the message body, and Amazon SES assembles the message for you.
+     * -
+     * - **Raw** – A raw, MIME-formatted email message. When you send this type of email, you have to specify all of the
+     *   message headers, as well as the message body. You can use this message type to send messages that contain
+     *   attachments. The message that you specify has to be a valid MIME message.
+     * -
+     * - **Templated** – A message that contains personalization tags. When you send this type of email, Amazon SES API v2
+     *   automatically replaces the tags with values that you specify.
+     *
      * @see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#sendemail
      *

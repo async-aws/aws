@@ -41,6 +41,25 @@ final class AdminCreateUserRequest extends Input
      * (in your call to `AdminCreateUser`) or the user should supply (when they sign up in response to your welcome
      * message).
      *
+     * For custom attributes, you must prepend the `custom:` prefix to the attribute name.
+     *
+     * To send a message inviting the user to sign up, you must specify the user's email address or phone number. You can do
+     * this in your call to AdminCreateUser or in the **Users** tab of the Amazon Cognito console for managing your user
+     * pools.
+     *
+     * In your call to `AdminCreateUser`, you can set the `email_verified` attribute to `True`, and you can set the
+     * `phone_number_verified` attribute to `True`. You can also do this by calling AdminUpdateUserAttributes [^1].
+     *
+     * - **email**: The email address of the user to whom the message that contains the code and username will be sent.
+     *   Required if the `email_verified` attribute is set to `True`, or if `"EMAIL"` is specified in the
+     *   `DesiredDeliveryMediums` parameter.
+     * -
+     * - **phone_number**: The phone number of the user to whom the message that contains the code and username will be
+     *   sent. Required if the `phone_number_verified` attribute is set to `True`, or if `"SMS"` is specified in the
+     *   `DesiredDeliveryMediums` parameter.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateUserAttributes.html
+     *
      * @var AttributeType[]|null
      */
     private $userAttributes;
@@ -50,6 +69,12 @@ final class AdminCreateUserRequest extends Input
      * that you can use for custom validation, such as restricting the types of user accounts that can be registered. For
      * example, you might choose to allow or disallow user sign-up based on the user's domain.
      *
+     * To configure custom validation, you must create a Pre Sign-up Lambda trigger for the user pool as described in the
+     * Amazon Cognito Developer Guide. The Lambda trigger receives the validation data and uses it in the validation
+     * process.
+     *
+     * The user's validation data isn't persisted.
+     *
      * @var AttributeType[]|null
      */
     private $validationData;
@@ -58,6 +83,15 @@ final class AdminCreateUserRequest extends Input
      * The user's temporary password. This password must conform to the password policy that you specified when you created
      * the user pool.
      *
+     * The temporary password is valid only once. To complete the Admin Create User flow, the user must enter the temporary
+     * password in the sign-in page, along with a new password to be used in all future sign-ins.
+     *
+     * This parameter isn't required. If you don't specify a value, Amazon Cognito generates one for you.
+     *
+     * The temporary password can only be used until the user account expiration limit that you specified when you created
+     * the user pool. To reset the account after that time limit, you must call `AdminCreateUser` again, specifying
+     * `"RESEND"` for the `MessageAction` parameter.
+     *
      * @var string|null
      */
     private $temporaryPassword;
@@ -65,6 +99,13 @@ final class AdminCreateUserRequest extends Input
     /**
      * This parameter is used only if the `phone_number_verified` or `email_verified` attribute is set to `True`. Otherwise,
      * it is ignored.
+     *
+     * If this parameter is set to `True` and the phone number or email address specified in the UserAttributes parameter
+     * already exists as an alias with a different user, the API call will migrate the alias from the previous user to the
+     * newly created user. The previous user will no longer be able to log in using that alias.
+     *
+     * If this parameter is set to `False`, the API throws an `AliasExistsException` error if the alias already exists. The
+     * default value is `False`.
      *
      * @var bool|null
      */
@@ -88,6 +129,29 @@ final class AdminCreateUserRequest extends Input
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     *
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the AdminCreateUser API
+     * action, Amazon Cognito invokes the function that is assigned to the *pre sign-up* trigger. When Amazon Cognito
+     * invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a
+     * `clientMetadata` attribute, which provides the data that you assigned to the ClientMetadata parameter in your
+     * AdminCreateUser request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your
+     * workflow for your specific needs.
+     *
+     * For more information, see  Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
+     * Guide*.
+     *
+     * > When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * >
+     * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * >   parameter serves no purpose.
+     * > -
+     * > - Validate the ClientMetadata value.
+     * > -
+     * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
      *
      * @var array<string, string>|null
      */

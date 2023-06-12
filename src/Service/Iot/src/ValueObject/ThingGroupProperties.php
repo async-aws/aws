@@ -3,7 +3,7 @@
 namespace AsyncAws\Iot\ValueObject;
 
 /**
- * The thing group properties.
+ * Thing group properties.
  */
 final class ThingGroupProperties
 {

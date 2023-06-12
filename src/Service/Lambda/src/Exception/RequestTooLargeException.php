@@ -6,9 +6,10 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request payload exceeded the `Invoke` request body JSON input quota. For more information, see Lambda quotas.
+ * The request payload exceeded the `Invoke` request body JSON input quota. For more information, see Lambda quotas
+ * [^1].
  *
- * @see https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
  */
 final class RequestTooLargeException extends ClientException
 {

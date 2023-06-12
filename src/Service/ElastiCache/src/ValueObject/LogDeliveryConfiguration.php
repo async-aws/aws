@@ -13,9 +13,9 @@ use AsyncAws\ElastiCache\Enum\LogType;
 final class LogDeliveryConfiguration
 {
     /**
-     * Refers to slow-log or engine-log.
+     * Refers to slow-log [^1] or engine-log.
      *
-     * @see https://redis.io/commands/slowlog
+     * [^1]: https://redis.io/commands/slowlog
      */
     private $logType;
 

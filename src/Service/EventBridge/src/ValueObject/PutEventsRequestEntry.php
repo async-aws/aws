@@ -8,10 +8,11 @@ namespace AsyncAws\EventBridge\ValueObject;
 final class PutEventsRequestEntry
 {
     /**
-     * The time stamp of the event, per RFC3339. If no time stamp is provided, the time stamp of the PutEvents call is used.
+     * The time stamp of the event, per RFC3339 [^1]. If no time stamp is provided, the time stamp of the PutEvents [^2]
+     * call is used.
      *
-     * @see https://www.rfc-editor.org/rfc/rfc3339.txt
-     * @see https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
+     * [^1]: https://www.rfc-editor.org/rfc/rfc3339.txt
+     * [^2]: https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
      */
     private $time;
 
@@ -39,12 +40,20 @@ final class PutEventsRequestEntry
     /**
      * The name or ARN of the event bus to receive the event. Only the rules that are associated with this event bus are
      * used to match the event. If you omit this, the default event bus is used.
+     *
+     * > If you're using a global endpoint with a custom bus, you must enter the name, not the ARN, of the event bus in
+     * > either the primary or secondary Region here and the corresponding event bus in the other Region will be determined
+     * > based on the endpoint referenced by the `EndpointId`.
      */
     private $eventBusName;
 
     /**
      * An X-Ray trace header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the
      * event.
+     *
+     * To learn more about X-Ray trace headers, see Tracing header [^1] in the X-Ray Developer Guide.
+     *
+     * [^1]: https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-tracingheader
      */
     private $traceHeader;
 

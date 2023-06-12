@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ReturnValuesOnConditionCheckFailure;
 
 /**
- * A request to perform a `PutItem` operation.
+ * Represents a request to perform a `PutItem` operation.
  */
 final class Put
 {

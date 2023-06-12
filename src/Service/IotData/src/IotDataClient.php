@@ -27,6 +27,13 @@ class IotDataClient extends AbstractApi
     /**
      * Gets the shadow for the specified thing.
      *
+     * Requires permission to access the GetThingShadow [^1] action.
+     *
+     * For more information, see GetThingShadow [^2] in the IoT Developer Guide.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     * [^2]: http://docs.aws.amazon.com/iot/latest/developerguide/API_GetThingShadow.html
+     *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Data_Plane.html/API_GetThingShadow.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-data-ats.iot-2015-05-28.html#getthingshadow
      *
@@ -65,6 +72,13 @@ class IotDataClient extends AbstractApi
 
     /**
      * Updates the shadow for the specified thing.
+     *
+     * Requires permission to access the UpdateThingShadow [^1] action.
+     *
+     * For more information, see UpdateThingShadow [^2] in the IoT Developer Guide.
+     *
+     * [^1]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions
+     * [^2]: http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html
      *
      * @see https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Data_Plane.html/API_UpdateThingShadow.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-data-ats.iot-2015-05-28.html#updatethingshadow

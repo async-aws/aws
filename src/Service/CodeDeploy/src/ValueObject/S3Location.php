@@ -6,7 +6,7 @@ use AsyncAws\CodeDeploy\Enum\BundleType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Information about the location of a revision stored in Amazon S3.
+ * Information about the location of application artifacts stored in Amazon S3.
  */
 final class S3Location
 {
@@ -22,16 +22,26 @@ final class S3Location
 
     /**
      * The file type of the application revision. Must be one of the following:.
+     *
+     * - `tar`: A tar archive file.
+     * -
+     * - `tgz`: A compressed tar archive file.
+     * -
+     * - `zip`: A zip archive file.
      */
     private $bundleType;
 
     /**
      * A specific version of the Amazon S3 object that represents the bundled artifacts for the application revision.
+     *
+     * If the version is not specified, the system uses the most recent version by default.
      */
     private $version;
 
     /**
      * The ETag of the Amazon S3 object that represents the bundled artifacts for the application revision.
+     *
+     * If the ETag is not specified as an input parameter, ETag validation of the object is skipped.
      */
     private $eTag;
 
