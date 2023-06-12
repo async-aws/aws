@@ -5,6 +5,7 @@
 ### Added
 
 - Support for Athena
+- Support for MediaConvert
 - Support for using endpoint discovery with parameters passed in the query string or the path
 
 ### Fixed

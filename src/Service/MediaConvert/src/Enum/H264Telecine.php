@@ -1,0 +1,27 @@
+<?php
+
+namespace AsyncAws\MediaConvert\Enum;
+
+/**
+ * When you do frame rate conversion from 23.976 frames per second (fps) to 29.97 fps, and your output scan type is
+ * interlaced, you can optionally enable hard or soft telecine to create a smoother picture. Hard telecine (HARD)
+ * produces a 29.97i output. Soft telecine (SOFT) produces an output with a 23.976 output that signals to the video
+ * player device to do the conversion during play back. When you keep the default value, None (NONE), MediaConvert does
+ * a standard frame rate conversion to 29.97 without doing anything with the field polarity to create a smoother
+ * picture.
+ */
+final class H264Telecine
+{
+    public const HARD = 'HARD';
+    public const NONE = 'NONE';
+    public const SOFT = 'SOFT';
+
+    public static function exists(string $value): bool
+    {
+        return isset([
+            self::HARD => true,
+            self::NONE => true,
+            self::SOFT => true,
+        ][$value]);
+    }
+}

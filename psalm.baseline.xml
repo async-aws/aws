@@ -311,6 +311,39 @@
       <code>list&lt;Runtime::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/MediaConvert/src/Result/CreateJobResponse.php">
+    <InvalidArgument occurrences="3"/>
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>list&lt;HlsAdMarkers::*&gt;</code>
+      <code>list&lt;TeletextPageType::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/MediaConvert/src/Result/GetJobResponse.php">
+    <InvalidArgument occurrences="3"/>
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>list&lt;HlsAdMarkers::*&gt;</code>
+      <code>list&lt;TeletextPageType::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/MediaConvert/src/Result/ListJobsResponse.php">
+    <InvalidArgument occurrences="3"/>
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>list&lt;HlsAdMarkers::*&gt;</code>
+      <code>list&lt;TeletextPageType::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/RdsDataService/src/Input/ExecuteStatementRequest.php">
     <RedundantCastGivenDocblockType occurrences="2">
       <code>(bool) $v</code>

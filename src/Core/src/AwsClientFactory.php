@@ -32,6 +32,7 @@ use AsyncAws\IotData\IotDataClient;
 use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\MediaConvert\MediaConvertClient;
 use AsyncAws\RdsDataService\RdsDataServiceClient;
 use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Route53\Route53Client;
@@ -356,6 +357,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new LambdaClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function mediaConvert(): MediaConvertClient
+    {
+        if (!class_exists(MediaConvertClient::class)) {
+            throw MissingDependency::create('async-aws/media-convert', 'MediaConvert');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new MediaConvertClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

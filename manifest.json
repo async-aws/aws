@@ -404,6 +404,51 @@
                 "PublishLayerVersion"
             ]
         },
+        "MediaConvert": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/mediaconvert/2017-08-29/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/mediaconvert/2017-08-29/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/mediaconvert/2017-08-29/paginators-1.json",
+            "api-reference": "https://docs.aws.amazon.com/mediaconvert/latest/apireference",
+            "methods": [
+                "CancelJob",
+                "CreateJob",
+                "DescribeEndpoints",
+                "GetJob",
+                "ListJobs"
+            ],
+            "patches": {
+                "source": [
+                    {
+                        "path": "/operations/CancelJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    },
+                    {
+                        "path": "/operations/CreateJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    },
+                    {
+                        "path": "/operations/GetJob/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    },
+                    {
+                        "path": "/operations/ListJobs/endpointdiscovery",
+                        "op": "add",
+                        "value": {
+                            "required": true
+                        }
+                    }
+                ]
+            }
+        },
         "RdsDataService": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/docs-2.json",

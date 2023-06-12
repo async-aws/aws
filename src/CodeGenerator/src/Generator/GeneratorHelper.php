@@ -23,6 +23,7 @@ class GeneratorHelper
 
         // Ordered by search length to avoid collision and wrong substitution
         static $replacements = [
+            'FourCC' => 'Fourcc',
             'SHA256' => 'Sha256',
             'CRC32' => 'Crc32',
             'BOOL' => 'Bool',
@@ -41,8 +42,11 @@ class GeneratorHelper
             'TTL' => 'Ttl',
             'DNS' => 'Dns',
             'MFA' => 'Mfa',
+            'PTS' => 'Pts',
             'SSE' => 'Sse',
             'SMS' => 'Sms',
+            'RGB' => 'Rgb',
+            'YUV' => 'Yuv',
             'URI' => 'Uri',
             'MD5' => 'Md5',
             'BS' => 'Bs',
@@ -52,6 +56,16 @@ class GeneratorHelper
         ];
         static $ignored = [
             'GB' => 'Gb',
+            'BFrame' => 'Bframe',
+            'IFrame' => 'Iframe',
+            'BReference' => 'Breference',
+            'IInterval' => 'Iinterval',
+            'XCoordinate' => 'Xcoordinate',
+            'YCoordinate' => 'Ycoordinate',
+            'XOffset' => 'Xoffset',
+            'YOffset' => 'Yoffset',
+            'XPosition' => 'Xposition',
+            'YPosition' => 'Yposition',
         ];
 
         $originalPropertyName = $propertyName;
@@ -106,6 +120,7 @@ class GeneratorHelper
 
             return "$match[2] [^$counter]";
         }, $s);
+        $s = preg_replace('/<(Role|Accessibility)[^>]*+>/', '`$0`', $s);
 
         $s = strtr($s, [
             '<a>' => '',
@@ -227,6 +242,7 @@ class GeneratorHelper
             }
         }
         $s = implode("\n", $lines);
+        $s = preg_replace('/`[^`]*`/', '', $s); // Remove the code blocks before checking for remaining HTML
 
         if (false !== strpos($s, '</') || false !== strpos($s, '/>')) {
             throw new \InvalidArgumentException('remaining HTML code in documentation: ' . $s);
