@@ -29,9 +29,7 @@ class CreateSecretResponse extends Result
      * A list of the replicas of this secret and their status:.
      *
      * - `Failed`, which indicates that the replica was not created.
-     * -
      * - `InProgress`, which indicates that Secrets Manager is in the process of creating the replica.
-     * -
      * - `InSync`, which indicates that the replica was created.
      */
     private $replicationStatus;

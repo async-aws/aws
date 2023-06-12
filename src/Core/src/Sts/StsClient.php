@@ -62,7 +62,6 @@ class StsClient extends AbstractApi
      *
      * - Attach a policy to the user that allows the user to call `AssumeRole` (as long as the role's trust policy trusts
      *   the account).
-     * -
      * - Add the user as a principal directly in the role's trust policy.
      *
      * You can do either because the role’s trust policy acts as an IAM resource-based policy. When a resource-based
@@ -235,15 +234,12 @@ class StsClient extends AbstractApi
      *
      * - Using Web Identity Federation API Operations for Mobile Apps [^17] and Federation Through a Web-based Identity
      *   Provider [^18].
-     * -
      * - Web Identity Federation Playground [^19]. Walk through the process of authenticating through Login with Amazon,
      *   Facebook, or Google, getting temporary security credentials, and then using those credentials to make a request to
      *   Amazon Web Services.
-     * -
      * - Amazon Web Services SDK for iOS Developer Guide [^20] and Amazon Web Services SDK for Android Developer Guide
      *   [^21]. These toolkits contain sample apps that show how to invoke the identity providers. The toolkits then show
      *   how to use the information from these providers to get and use temporary security credentials.
-     * -
      * - Web Identity Federation with Mobile Applications [^22]. This article discusses web identity federation and shows an
      *   example of how to use web identity federation to get access to content in Amazon S3.
      *

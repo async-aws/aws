@@ -30,9 +30,7 @@ final class EnvironmentVariable
      *
      * - `PARAMETER_STORE`: An environment variable stored in Systems Manager Parameter Store. To learn how to specify a
      *   parameter store environment variable, see env/parameter-store [^1] in the *CodeBuild User Guide*.
-     * -
      * - `PLAINTEXT`: An environment variable in plain text format. This is the default value.
-     * -
      * - `SECRETS_MANAGER`: An environment variable stored in Secrets Manager. To learn how to specify a secrets manager
      *   environment variable, see env/secrets-manager [^2] in the *CodeBuild User Guide*.
      *

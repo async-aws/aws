@@ -68,7 +68,6 @@ final class BatchExecuteStatementRequest extends Input
      * no parameters, use one of the following options:
      *
      * - Specify one or more empty parameter sets.
-     * -
      * - Use the `ExecuteStatement` operation instead of the `BatchExecuteStatement` operation.
      *
      * > Array parameters are not supported.

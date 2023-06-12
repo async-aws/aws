@@ -52,11 +52,9 @@ final class CreateTableInput extends Input
      * Each `KeySchemaElement` in the array is composed of:
      *
      * - `AttributeName` - The name of this key attribute.
-     * -
      * - `KeyType` - The role that the key attribute will assume:
      *
      *   - `HASH` - partition key
-     *   -
      *   - `RANGE` - sort key
      *
      *
@@ -91,10 +89,8 @@ final class CreateTableInput extends Input
      * Each local secondary index in the array includes the following:
      *
      * - `IndexName` - The name of the local secondary index. Must be unique only for this table.
-     * -
      * - `KeySchema` - Specifies the key schema for the local secondary index. The key schema must begin with the same
      *   partition key as the table.
-     * -
      * - `Projection` - Specifies attributes that are copied (projected) from the table into the index. These are in
      *   addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute
      *   specification is composed of:
@@ -102,10 +98,8 @@ final class CreateTableInput extends Input
      *   - `ProjectionType` - One of the following:
      *
      *     - `KEYS_ONLY` - Only the index and primary keys are projected into the index.
-     *     -
      *     - `INCLUDE` - Only the specified table attributes are projected into the index. The list of projected attributes
      *       is in `NonKeyAttributes`.
-     *     -
      *     - `ALL` - All of the table attributes are projected into the index.
      *
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
@@ -122,9 +116,7 @@ final class CreateTableInput extends Input
      * the array includes the following:.
      *
      * - `IndexName` - The name of the global secondary index. Must be unique only for this table.
-     * -
      * - `KeySchema` - Specifies the key schema for the global secondary index.
-     * -
      * - `Projection` - Specifies attributes that are copied (projected) from the table into the index. These are in
      *   addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute
      *   specification is composed of:
@@ -132,10 +124,8 @@ final class CreateTableInput extends Input
      *   - `ProjectionType` - One of the following:
      *
      *     - `KEYS_ONLY` - Only the index and primary keys are projected into the index.
-     *     -
      *     - `INCLUDE` - Only the specified table attributes are projected into the index. The list of projected attributes
      *       is in `NonKeyAttributes`.
-     *     -
      *     - `ALL` - All of the table attributes are projected into the index.
      *
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
@@ -156,7 +146,6 @@ final class CreateTableInput extends Input
      *
      * - `PROVISIONED` - We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to
      *   Provisioned Mode [^1].
-     * -
      * - `PAY_PER_REQUEST` - We recommend using `PAY_PER_REQUEST` for unpredictable workloads. `PAY_PER_REQUEST` sets the
      *   billing mode to On-Demand Mode [^2].
      *
@@ -187,16 +176,12 @@ final class CreateTableInput extends Input
      * The settings for DynamoDB Streams on the table. These settings consist of:.
      *
      * - `StreamEnabled` - Indicates whether DynamoDB Streams is to be enabled (true) or disabled (false).
-     * -
      * - `StreamViewType` - When an item in the table is modified, `StreamViewType` determines what information is written
      *   to the table's stream. Valid values for `StreamViewType` are:
      *
      *   - `KEYS_ONLY` - Only the key attributes of the modified item are written to the stream.
-     *   -
      *   - `NEW_IMAGE` - The entire item, as it appears after it was modified, is written to the stream.
-     *   -
      *   - `OLD_IMAGE` - The entire item, as it appeared before it was modified, is written to the stream.
-     *   -
      *   - `NEW_AND_OLD_IMAGES` - Both the new and the old item images of the item are written to the stream.
      *
      * @var StreamSpecification|null

@@ -19,7 +19,6 @@ final class GlobalSecondaryIndex
      * types:.
      *
      * - `HASH` - partition key
-     * -
      * - `RANGE` - sort key
      *
      * > The partition key of an item is also known as its *hash attribute*. The term "hash attribute" derives from

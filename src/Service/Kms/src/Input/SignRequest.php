@@ -22,11 +22,8 @@ final class SignRequest extends Input
      * For example:
      *
      * - Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
-     * -
      * - Key ARN: `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
-     * -
      * - Alias name: `alias/ExampleAlias`
-     * -
      * - Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
      *
      * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey. To get the alias name and alias ARN, use
@@ -70,11 +67,8 @@ final class SignRequest extends Input
      * The hashing algorithm in that `Sign` uses is based on the `SigningAlgorithm` value.
      *
      * - Signing algorithms that end in SHA_256 use the SHA_256 hashing algorithm.
-     * -
      * - Signing algorithms that end in SHA_384 use the SHA_384 hashing algorithm.
-     * -
      * - Signing algorithms that end in SHA_512 use the SHA_512 hashing algorithm.
-     * -
      * - SM2DSA uses the SM3 hashing algorithm. For details, see Offline verification with SM2 key pairs [^1].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html#key-spec-sm-offline-verification

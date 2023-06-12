@@ -87,7 +87,6 @@ class KmsClient extends AbstractApi
      * **Required permissions**
      *
      * - kms:CreateAlias [^5] on the alias (IAM policy).
-     * -
      * - kms:CreateAlias [^6] on the KMS key (key policy).
      *
      * For details, see Controlling access to aliases [^7] in the *Key Management Service Developer Guide*.
@@ -95,9 +94,7 @@ class KmsClient extends AbstractApi
      * **Related operations:**
      *
      * - DeleteAlias
-     * -
      * - ListAliases
-     * -
      * - UpdateAlias
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/abac.html
@@ -274,9 +271,7 @@ class KmsClient extends AbstractApi
      * **Related operations:**
      *
      * - DescribeKey
-     * -
      * - ListKeys
-     * -
      * - ScheduleKeyDeletion
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms-keys
@@ -354,13 +349,9 @@ class KmsClient extends AbstractApi
      * Decrypts ciphertext that was encrypted by a KMS key using any of the following operations:.
      *
      * - Encrypt
-     * -
      * - GenerateDataKey
-     * -
      * - GenerateDataKeyPair
-     * -
      * - GenerateDataKeyWithoutPlaintext
-     * -
      * - GenerateDataKeyPairWithoutPlaintext
      *
      * You can use this operation to decrypt ciphertext that was encrypted under a symmetric encryption KMS key or an
@@ -406,11 +397,8 @@ class KmsClient extends AbstractApi
      * **Related operations:**
      *
      * - Encrypt
-     * -
      * - GenerateDataKey
-     * -
      * - GenerateDataKeyPair
-     * -
      * - ReEncrypt
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
@@ -504,19 +492,16 @@ class KmsClient extends AbstractApi
      * - `RSA_2048`
      *
      *   - `RSAES_OAEP_SHA_1`: 214 bytes
-     *   -
      *   - `RSAES_OAEP_SHA_256`: 190 bytes
      *
      * - `RSA_3072`
      *
      *   - `RSAES_OAEP_SHA_1`: 342 bytes
-     *   -
      *   - `RSAES_OAEP_SHA_256`: 318 bytes
      *
      * - `RSA_4096`
      *
      *   - `RSAES_OAEP_SHA_1`: 470 bytes
-     *   -
      *   - `RSAES_OAEP_SHA_256`: 446 bytes
      *
      * - `SM2PKE`: 1024 bytes (China Regions only)
@@ -532,9 +517,7 @@ class KmsClient extends AbstractApi
      * **Related operations:**
      *
      * - Decrypt
-     * -
      * - GenerateDataKey
-     * -
      * - GenerateDataKeyPair
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
@@ -626,17 +609,14 @@ class KmsClient extends AbstractApi
      * To encrypt data outside of KMS:
      *
      * 1. Use the `GenerateDataKey` operation to get a data key.
-     * 2.
      * 2. Use the plaintext data key (in the `Plaintext` field of the response) to encrypt your data outside of KMS. Then
      *    erase the plaintext data key from memory.
-     * 3.
      * 3. Store the encrypted data key (in the `CiphertextBlob` field of the response) with the encrypted data.
      *
      * To decrypt data outside of KMS:
      *
      * - Use the Decrypt operation to decrypt the encrypted data key. The operation returns a plaintext copy of the data
      *   key.
-     * -
      * - Use the plaintext data key to decrypt data outside of KMS, then erase the plaintext data key from memory.
      *
      * **Cross-account use**: Yes. To perform this operation with a KMS key in a different Amazon Web Services account,
@@ -647,13 +627,9 @@ class KmsClient extends AbstractApi
      * **Related operations:**
      *
      * - Decrypt
-     * -
      * - Encrypt
-     * -
      * - GenerateDataKeyPair
-     * -
      * - GenerateDataKeyPairWithoutPlaintext
-     * -
      * - GenerateDataKeyWithoutPlaintext
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
@@ -731,9 +707,7 @@ class KmsClient extends AbstractApi
      * **Related operations:**
      *
      * - CreateAlias
-     * -
      * - DeleteAlias
-     * -
      * - UpdateAlias
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#aliases-limit
@@ -787,12 +761,10 @@ class KmsClient extends AbstractApi
      * - Use the `KeyId` parameter to identify an asymmetric KMS key with a `KeyUsage` value of `SIGN_VERIFY`. To get the
      *   `KeyUsage` value of a KMS key, use the DescribeKey operation. The caller must have `kms:Sign` permission on the KMS
      *   key.
-     * -
      * - Use the `Message` parameter to specify the message or message digest to sign. You can submit messages of up to 4096
      *   bytes. To sign a larger message, generate a hash digest of the message, and then provide the hash digest in the
      *   `Message` parameter. To indicate whether the message is a full message or a digest, use the `MessageType`
      *   parameter.
-     * -
      * - Choose a signing algorithm that is compatible with the KMS key.
      *
      * ! When signing a message, be sure to record the KMS key and the signing algorithm. This information is required to

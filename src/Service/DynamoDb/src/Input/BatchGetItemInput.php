@@ -22,14 +22,11 @@ final class BatchGetItemInput extends Input
      *
      * - `ConsistentRead` - If `true`, a strongly consistent read is used; if `false` (the default), an eventually
      *   consistent read is used.
-     * -
      * - `ExpressionAttributeNames` - One or more substitution tokens for attribute names in the `ProjectionExpression`
      *   parameter. The following are some use cases for using `ExpressionAttributeNames`:
      *
      *   - To access an attribute whose name conflicts with a DynamoDB reserved word.
-     *   -
      *   - To create a placeholder for repeating occurrences of an attribute name in an expression.
-     *   -
      *   - To prevent special characters in an attribute name from being misinterpreted in an expression.
      *
      *   Use the **#** character in an expression to dereference an attribute name. For example, consider the following
@@ -52,11 +49,9 @@ final class BatchGetItemInput extends Input
      *
      *   For more information about expression attribute names, see Accessing Item Attributes [^2] in the *Amazon DynamoDB
      *   Developer Guide*.
-     * -
      * - `Keys` - An array of primary key attribute values that define specific items in the table. For each primary key,
      *   you must provide *all* of the key attributes. For example, with a simple primary key, you only need to provide the
      *   partition key value. For a composite key, you must provide *both* the partition key value and the sort key value.
-     * -
      * - `ProjectionExpression` - A string that identifies one or more attributes to retrieve from the table. These
      *   attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be
      *   separated by commas.
@@ -65,7 +60,6 @@ final class BatchGetItemInput extends Input
      *   found, they do not appear in the result.
      *
      *   For more information, see Accessing Item Attributes [^3] in the *Amazon DynamoDB Developer Guide*.
-     * -
      * - `AttributesToGet` - This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see
      *   AttributesToGet [^4] in the *Amazon DynamoDB Developer Guide*.
      *

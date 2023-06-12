@@ -13,7 +13,6 @@ use AsyncAws\DynamoDb\Enum\ComparisonOperator;
  * - Use `AttributeValueList` to specify one or more values to compare against an attribute. Use `ComparisonOperator` to
  *   specify how you want to perform the comparison. If the comparison evaluates to true, then the conditional operation
  *   succeeds.
- * -
  * - Use `Value` to specify a value that DynamoDB will compare against an attribute. If the values match, then
  *   `ExpectedAttributeValue` evaluates to true and the conditional operation succeeds. Optionally, you can also set
  *   `Exists` to false, indicating that you *do not* expect to find the attribute value in the table. In this case, the
@@ -40,7 +39,6 @@ final class ExpectedAttributeValue
      *
      * - If `Exists` is `true`, DynamoDB will check to see if that attribute value already exists in the table. If it is
      *   found, then the operation succeeds. If it is not found, the operation fails with a `ConditionCheckFailedException`.
-     * -
      * - If `Exists` is `false`, DynamoDB assumes that the attribute value does not exist in the table. If in fact the value
      *   does not exist, then the assumption is valid and the operation succeeds. If the value is found, despite the
      *   assumption that it does not exist, the operation fails with a `ConditionCheckFailedException`.
@@ -52,7 +50,6 @@ final class ExpectedAttributeValue
      *
      * - `Exists` is `true` but there is no `Value` to check. (You expect a value to exist, but don't specify what that
      *   value is.)
-     * -
      * - `Exists` is `false` but you also provide a `Value`. (You cannot expect an attribute to have a value, while also
      *   expecting it not to exist.)
      */
@@ -74,42 +71,36 @@ final class ExpectedAttributeValue
      *   Number Set, or Binary Set. If an item contains an `AttributeValue` element of a different type than the one
      *   provided in the request, the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also,
      *   `{"N":"6"}` does not equal `{"NS":["6", "2", "1"]}`.
-     * -
      * - `NE` : Not equal. `NE` is supported for all data types, including lists and maps.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` of type String, Number, Binary, String Set, Number Set,
      *   or Binary Set. If an item contains an `AttributeValue` of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal
      *   `{"NS":["6", "2", "1"]}`.
-     * -
      * - `LE` : Less than or equal.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
      *   type). If an item contains an `AttributeValue` element of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare
      *   to `{"NS":["6", "2", "1"]}`.
-     * -
      * - `LT` : Less than.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` of type String, Number, or Binary (not a set type). If
      *   an item contains an `AttributeValue` element of a different type than the one provided in the request, the value
      *   does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
      *   `{"NS":["6", "2", "1"]}`.
-     * -
      * - `GE` : Greater than or equal.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
      *   type). If an item contains an `AttributeValue` element of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare
      *   to `{"NS":["6", "2", "1"]}`.
-     * -
      * - `GT` : Greater than.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
      *   type). If an item contains an `AttributeValue` element of a different type than the one provided in the request,
      *   the value does not match. For example, `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not compare
      *   to `{"NS":["6", "2", "1"]}`.
-     * -
      * - `NOT_NULL` : The attribute exists. `NOT_NULL` is supported for all data types, including lists and maps.
      *
      *   > This operator tests for the existence of an attribute, not its data type. If the data type of attribute "`a`" is
@@ -132,7 +123,6 @@ final class ExpectedAttributeValue
      *
      *   CONTAINS is supported for lists: When evaluating "`a CONTAINS b`", "`a`" can be a list; however, "`b`" cannot be a
      *   set, a map, or a list.
-     * -
      * - `NOT_CONTAINS` : Checks for absence of a subsequence, or absence of a value in a set.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` element of type String, Number, or Binary (not a set
@@ -144,18 +134,15 @@ final class ExpectedAttributeValue
      *
      *   NOT_CONTAINS is supported for lists: When evaluating "`a NOT CONTAINS b`", "`a`" can be a list; however, "`b`"
      *   cannot be a set, a map, or a list.
-     * -
      * - `BEGINS_WITH` : Checks for a prefix.
      *
      *   `AttributeValueList` can contain only one `AttributeValue` of type String or Binary (not a Number or a set type).
      *   The target attribute of the comparison must be of type String or Binary (not a Number or a set type).
-     * -
      * - `IN` : Checks for matching elements in a list.
      *
      *   `AttributeValueList` can contain one or more `AttributeValue` elements of type String, Number, or Binary. These
      *   attributes are compared against an existing attribute of an item. If any elements of the input are equal to the
      *   item attribute, the expression evaluates to true.
-     * -
      * - `BETWEEN` : Greater than or equal to the first value, and less than or equal to the second value.
      *
      *   `AttributeValueList` must contain two `AttributeValue` elements of the same type, either String, Number, or Binary

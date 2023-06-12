@@ -20,14 +20,12 @@ final class RejectedRecord
      *   names but:
      *
      *   - Measure values are different
-     *   -
      *   - Version is not present in the request, *or* the value of version in the new record is equal to or lower than the
      *     existing value
      *
      *   If Timestream rejects data for this case, the `ExistingVersion` field in the `RejectedRecords` response will
      *   indicate the current record’s version. To force an update, you can resend the request with a version for the
      *   record set to a value greater than the `ExistingVersion`.
-     * -
      * - Records with timestamps that lie outside the retention duration of the memory store.
      *
      *   > When the retention window is updated, you will receive a `RejectedRecords` exception if you immediately try to

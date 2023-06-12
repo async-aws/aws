@@ -24,7 +24,6 @@ namespace AsyncAws\CodeBuild\Enum;
  *
  *   - If the bucket is configured with the **Bucket owner preferred** setting, the bucket owner owns the objects. The
  *     uploading account will have object access as specified by the bucket's policy.
- *   -
  *   - Otherwise, the uploading account retains ownership of the objects.
  *
  *   For more information about Amazon S3 object ownership, see Controlling ownership of uploaded objects using S3

@@ -203,20 +203,14 @@ class DynamoDbClient extends AbstractApi
      * If one or more of the following is true, DynamoDB rejects the entire batch write operation:
      *
      * - One or more tables specified in the `BatchWriteItem` request does not exist.
-     * -
      * - Primary key attributes specified on an item in the request do not match those in the corresponding table's primary
      *   key schema.
-     * -
      * - You try to perform multiple operations on the same item in the same `BatchWriteItem` request. For example, you
      *   cannot put and delete the same item in the same `BatchWriteItem` request.
-     * -
      * - Your request contains at least two items with identical hash and range keys (which essentially is two put
      *   operations).
-     * -
      * - There are more than 25 requests in the batch.
-     * -
      * - Any individual item in a batch exceeds 400 KB.
-     * -
      * - The total request size exceeds 16 MB.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
@@ -856,17 +850,14 @@ class DynamoDbClient extends AbstractApi
      *   item to be written, the name of the table to write it in, an optional condition expression that must be satisfied
      *   for the write to succeed, a list of the item's attributes, and a field indicating whether to retrieve the item's
      *   attributes if the condition is not met.
-     * -
      * - `Update`  —   Initiates an `UpdateItem` operation to update an existing item. This structure specifies the
      *   primary key of the item to be updated, the name of the table where it resides, an optional condition expression
      *   that must be satisfied for the update to succeed, an expression that defines one or more attributes to be updated,
      *   and a field indicating whether to retrieve the item's attributes if the condition is not met.
-     * -
      * - `Delete`  —   Initiates a `DeleteItem` operation to delete an existing item. This structure specifies the
      *   primary key of the item to be deleted, the name of the table where it resides, an optional condition expression
      *   that must be satisfied for the deletion to succeed, and a field indicating whether to retrieve the item's
      *   attributes if the condition is not met.
-     * -
      * - `ConditionCheck`  —   Applies a condition to an item that is not being modified by the transaction. This
      *   structure specifies the primary key of the item to be checked, the name of the table where it resides, a condition
      *   expression that must be satisfied for the transaction to succeed, and a field indicating whether to retrieve the
@@ -875,16 +866,11 @@ class DynamoDbClient extends AbstractApi
      * DynamoDB rejects the entire `TransactWriteItems` request if any of the following is true:
      *
      * - A condition in one of the condition expressions is not met.
-     * -
      * - An ongoing operation is in the process of updating the same item.
-     * -
      * - There is insufficient provisioned capacity for the transaction to be completed.
-     * -
      * - An item size becomes too large (bigger than 400 KB), a local secondary index (LSI) becomes too large, or a similar
      *   validation error occurs because of changes made by the transaction.
-     * -
      * - The aggregate size of the items in the transaction exceeds 4 MB.
-     * -
      * - There is a user error, such as an invalid data format.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html
@@ -985,9 +971,7 @@ class DynamoDbClient extends AbstractApi
      * You can only perform one of the following operations at once:
      *
      * - Modify the provisioned throughput settings of the table.
-     * -
      * - Remove a global secondary index from the table.
-     * -
      * - Create a new global secondary index on the table. After the index begins backfilling, you can use `UpdateTable` to
      *   perform other operations.
      *

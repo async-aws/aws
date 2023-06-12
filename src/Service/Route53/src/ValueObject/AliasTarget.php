@@ -26,7 +26,6 @@ final class AliasTarget
      *   [^1]:
      *
      *   - For regional APIs, specify the value of `regionalHostedZoneId`.
-     *   -
      *   - For edge-optimized APIs, specify the value of `distributionHostedZoneId`.
      *
      * - `Amazon Virtual Private Cloud interface VPC endpoint`:
@@ -51,16 +50,13 @@ final class AliasTarget
      *   - Elastic Load Balancing endpoints and quotas [^4] topic in the *Amazon Web Services General Reference*: Use the
      *     value that corresponds with the region that you created your load balancer in. Note that there are separate
      *     columns for Application and Classic Load Balancers and for Network Load Balancers.
-     *   -
      *   - **Amazon Web Services Management Console**: Go to the Amazon EC2 page, choose **Load Balancers** in the
      *     navigation pane, select the load balancer, and get the value of the **Hosted zone** field on the **Description**
      *     tab.
-     *   -
      *   - **Elastic Load Balancing API**: Use `DescribeLoadBalancers` to get the applicable value. For more information,
      *     see the applicable guide:
      *
      *     - Classic Load Balancers: Use DescribeLoadBalancers [^5] to get the value of `CanonicalHostedZoneNameId`.
-     *     -
      *     - Application and Network Load Balancers: Use DescribeLoadBalancers [^6] to get the value of
      *       `CanonicalHostedZoneId`.
      *
@@ -68,7 +64,6 @@ final class AliasTarget
      *     guide:
      *
      *     - Classic Load Balancers: Use describe-load-balancers [^7] to get the value of `CanonicalHostedZoneNameId`.
-     *     -
      *     - Application and Network Load Balancers: Use describe-load-balancers [^8] to get the value of
      *       `CanonicalHostedZoneId`.
      *
@@ -106,7 +101,6 @@ final class AliasTarget
      *   get-domain-names [^1]:
      *
      *   - For regional APIs, specify the value of `regionalDomainName`.
-     *   -
      *   - For edge-optimized APIs, specify the value of `distributionDomainName`. This is the name of the associated
      *     CloudFront distribution, such as `da1b2c3d4e5.cloudfront.net`.
      *
@@ -152,10 +146,8 @@ final class AliasTarget
      *
      *   - *Amazon Web Services Management Console*: For information about how to get the value by using the console, see
      *     Using Custom Domains with Elastic Beanstalk [^4] in the *Elastic Beanstalk Developer Guide*.
-     *   -
      *   - *Elastic Beanstalk API*: Use the `DescribeEnvironments` action to get the value of the `CNAME` attribute. For
      *     more information, see DescribeEnvironments [^5] in the *Elastic Beanstalk API Reference*.
-     *   -
      *   - *CLI*: Use the `describe-environments` command to get the value of the `CNAME` attribute. For more information,
      *     see describe-environments [^6] in the *CLI Command Reference*.
      *
@@ -169,19 +161,16 @@ final class AliasTarget
      *
      *     If you're routing traffic to a Classic Load Balancer, get the value that begins with **dualstack**. If you're
      *     routing traffic to another type of load balancer, get the value that applies to the record type, A or AAAA.
-     *   -
      *   - **Elastic Load Balancing API**: Use `DescribeLoadBalancers` to get the value of `DNSName`. For more information,
      *     see the applicable guide:
      *
      *     - Classic Load Balancers: DescribeLoadBalancers [^7]
-     *     -
      *     - Application and Network Load Balancers: DescribeLoadBalancers [^8]
      *
      *   - **CLI**: Use `describe-load-balancers` to get the value of `DNSName`. For more information, see the applicable
      *     guide:
      *
      *     - Classic Load Balancers: describe-load-balancers [^9]
-     *     -
      *     - Application and Network Load Balancers: describe-load-balancers [^10]
      *
      *
@@ -190,7 +179,6 @@ final class AliasTarget
      *   Specify the DNS name for your accelerator:
      *
      *   - **Global Accelerator API:** To get the DNS name, use DescribeAccelerator [^11].
-     *   -
      *   - **CLI:** To get the DNS name, use describe-accelerator [^12].
      *
      * - `Amazon S3 bucket that is configured as a static website`:
@@ -252,7 +240,6 @@ final class AliasTarget
      *     routes queries only to the healthy Amazon EC2 instances that are registered with the load balancer. If you set
      *     `EvaluateTargetHealth` to `true` and either no EC2 instances are healthy or the load balancer itself is
      *     unhealthy, Route 53 routes queries to other resources.
-     *   -
      *   - **Application and Network Load Balancers**: If you specify an ELB Application or Network Load Balancer and you
      *     set `EvaluateTargetHealth` to `true`, Route 53 routes queries to the load balancer based on the health of the
      *     target groups that are associated with the load balancer:
@@ -260,7 +247,6 @@ final class AliasTarget
      *     - For an Application or Network Load Balancer to be considered healthy, every target group that contains targets
      *       must contain at least one healthy target. If any target group contains only unhealthy targets, the load
      *       balancer is considered unhealthy, and Route 53 routes queries to other resources.
-     *     -
      *     - A target group that has no registered targets is considered unhealthy.
      *
      *

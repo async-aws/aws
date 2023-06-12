@@ -44,15 +44,10 @@ final class Build
      * The current status of the build. Valid values include:.
      *
      * - `FAILED`: The build failed.
-     * -
      * - `FAULT`: The build faulted.
-     * -
      * - `IN_PROGRESS`: The build is still in progress.
-     * -
      * - `STOPPED`: The build stopped.
-     * -
      * - `SUCCEEDED`: The build succeeded.
-     * -
      * - `TIMED_OUT`: The build timed out.
      */
     private $buildStatus;
@@ -71,9 +66,7 @@ final class Build
      * An identifier for the version of this build's source code.
      *
      * - For CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
-     * -
      * - For CodePipeline, the source revision provided by CodePipeline.
-     * -
      * - For Amazon S3, this does not apply.
      */
     private $resolvedSourceVersion;
@@ -103,16 +96,13 @@ final class Build
      * An array of `ProjectSourceVersion` objects. Each `ProjectSourceVersion` must be one of:.
      *
      * - For CodeCommit: the commit ID, branch, or Git tag to use.
-     * -
      * - For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source
      *   code you want to build. If a pull request ID is specified, it must use the format `pr/pull-request-ID` (for
      *   example, `pr/25`). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the
      *   default branch's HEAD commit ID is used.
-     * -
      * - For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want
      *   to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      *   branch's HEAD commit ID is used.
-     * -
      * - For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      */
     private $secondarySourceVersions;
@@ -166,9 +156,7 @@ final class Build
      * The entity that started the build. Valid values include:.
      *
      * - If CodePipeline started the build, the pipeline's name (for example, `codepipeline/my-demo-pipeline`).
-     * -
      * - If an IAM user started the build, the user's name (for example, `MyUserName`).
-     * -
      * - If the Jenkins plugin for CodeBuild started the build, the string `CodeBuild-Jenkins-Plugin`.
      */
     private $initiator;

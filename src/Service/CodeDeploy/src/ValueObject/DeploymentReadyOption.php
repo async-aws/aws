@@ -15,7 +15,6 @@ final class DeploymentReadyOption
      *
      * - CONTINUE_DEPLOYMENT: Register new instances with the load balancer immediately after the new application revision
      *   is installed on the instances in the replacement environment.
-     * -
      * - STOP_DEPLOYMENT: Do not register new instances with a load balancer unless traffic rerouting is started using
      *   ContinueDeployment. If traffic rerouting is not started before the end of the specified wait period, the deployment
      *   status is changed to Stopped.

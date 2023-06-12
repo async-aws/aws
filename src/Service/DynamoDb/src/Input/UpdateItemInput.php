@@ -77,13 +77,9 @@ final class UpdateItemInput extends Input
      *
      * - `NONE` - If `ReturnValues` is not specified, or if its value is `NONE`, then nothing is returned. (This setting is
      *   the default for `ReturnValues`.)
-     * -
      * - `ALL_OLD` - Returns all of the attributes of the item, as they appeared before the UpdateItem operation.
-     * -
      * - `UPDATED_OLD` - Returns only the updated attributes, as they appeared before the UpdateItem operation.
-     * -
      * - `ALL_NEW` - Returns all of the attributes of the item, as they appear after the UpdateItem operation.
-     * -
      * - `UPDATED_NEW` - Returns only the updated attributes, as they appear after the UpdateItem operation.
      *
      * There is no additional cost associated with requesting a return value aside from the small network and processing
@@ -124,14 +120,11 @@ final class UpdateItemInput extends Input
      *   - `if_not_exists (path, operand)` - if the item does not contain an attribute at the specified path, then
      *     `if_not_exists` evaluates to operand; otherwise, it evaluates to path. You can use this function to avoid
      *     overwriting an attribute that may already be present in the item.
-     *   -
      *   - `list_append (operand, operand)` - evaluates to a list with a new element added to it. You can append the new
      *     element to the start or the end of the list by reversing the order of the operands.
      *
      *   These function names are case-sensitive.
-     * -
      * - `REMOVE` - Removes one or more attributes from an item.
-     * -
      * - `ADD` - Adds the specified value to the item, if the attribute does not already exist. If the attribute does exist,
      *   then the behavior of `ADD` depends on the data type of the attribute:
      *
@@ -188,9 +181,7 @@ final class UpdateItemInput extends Input
      * - Functions: `attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size`
      *
      *   These function names are case-sensitive.
-     * -
      * - Comparison operators: `= | <> | < | > | <= | >= | BETWEEN | IN `
-     * -
      * - Logical operators: `AND | OR | NOT`
      *
      * For more information about condition expressions, see Specifying Conditions [^1] in the *Amazon DynamoDB Developer
@@ -207,9 +198,7 @@ final class UpdateItemInput extends Input
      * `ExpressionAttributeNames`:.
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
-     * -
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.
-     * -
      * - To prevent special characters in an attribute name from being misinterpreted in an expression.
      *
      * Use the **#** character in an expression to dereference an attribute name. For example, consider the following

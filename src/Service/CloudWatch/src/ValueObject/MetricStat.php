@@ -25,9 +25,7 @@ final class MetricStat
      * follows or no data points in that time range is returned:
      *
      * - Start time between 3 hours and 15 days ago - Use a multiple of 60 seconds (1 minute).
-     * -
      * - Start time between 15 and 63 days ago - Use a multiple of 300 seconds (5 minutes).
-     * -
      * - Start time greater than 63 days ago - Use a multiple of 3600 seconds (1 hour).
      */
     private $period;

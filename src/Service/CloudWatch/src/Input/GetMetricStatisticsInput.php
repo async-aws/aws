@@ -55,10 +55,8 @@ final class GetMetricStatisticsInput extends Input
      *
      * - Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down to
      *   12:32:00.
-     * -
      * - Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34 is
      *   rounded down to 12:30:00.
-     * -
      * - Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
      *   rounded down to 12:00:00.
      *
@@ -96,9 +94,7 @@ final class GetMetricStatisticsInput extends Input
      * follows or no data points in that time range is returned:
      *
      * - Start time between 3 hours and 15 days ago - Use a multiple of 60 seconds (1 minute).
-     * -
      * - Start time between 15 and 63 days ago - Use a multiple of 300 seconds (5 minutes).
-     * -
      * - Start time greater than 63 days ago - Use a multiple of 3600 seconds (1 hour).
      *
      * @required

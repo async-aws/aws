@@ -15,13 +15,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  * - Set `clientExecutionTimeout` to a value that allows at least one retry to be processed after 5 seconds have elapsed
  *   since the first attempt for the `TransactWriteItems` operation.
- * -
  * - Set `socketTimeout` to a value a little lower than the `requestTimeout` setting.
- * -
  * - `requestTimeout` should be set based on the time taken for the individual retries of a single HTTP request for your
  *   use case, but setting it to 1 second or higher should work well to reduce chances of retries and
  *   `TransactionInProgressException` errors.
- * -
  * - Use exponential backoff when retrying and tune backoff if needed.
  *
  * Assuming default retry policy [^1], example timeout settings based on the guidelines above are as follows:
@@ -29,17 +26,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * Example timeline:
  *
  * - 0-1000 first attempt
- * -
  * - 1000-1500 first sleep/delay (default retry policy uses 500 ms as base delay for 4xx errors)
- * -
  * - 1500-2500 second attempt
- * -
  * - 2500-3500 second sleep/delay (500 * 2, exponential backoff)
- * -
  * - 3500-4500 third attempt
- * -
  * - 4500-6500 third sleep/delay (500 * 2^2)
- * -
  * - 6500-7500 fourth attempt (this can trigger inline recovery since 5 seconds have elapsed since the first attempt
  *   reached TC)
  *

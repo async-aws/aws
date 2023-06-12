@@ -37,39 +37,27 @@ final class GetQueueAttributesRequest extends Input
      * ! sending messages. This period is required for the queue metadata to reach eventual consistency.
      *
      * - `All` – Returns all values.
-     * -
      * - `ApproximateNumberOfMessages` – Returns the approximate number of messages available for retrieval from the
      *   queue.
-     * -
      * - `ApproximateNumberOfMessagesDelayed` – Returns the approximate number of messages in the queue that are delayed
      *   and not available for reading immediately. This can happen when the queue is configured as a delay queue or when a
      *   message has been sent with a delay parameter.
-     * -
      * - `ApproximateNumberOfMessagesNotVisible` – Returns the approximate number of messages that are in flight. Messages
      *   are considered to be *in flight* if they have been sent to a client but have not yet been deleted or have not yet
      *   reached the end of their visibility window.
-     * -
      * - `CreatedTimestamp` – Returns the time when the queue was created in seconds (epoch time [^1]).
-     * -
      * - `DelaySeconds` – Returns the default delay on the queue in seconds.
-     * -
      * - `LastModifiedTimestamp` – Returns the time when the queue was last changed in seconds (epoch time [^2]).
-     * -
      * - `MaximumMessageSize` – Returns the limit of how many bytes a message can contain before Amazon SQS rejects it.
-     * -
      * - `MessageRetentionPeriod` – Returns the length of time, in seconds, for which Amazon SQS retains a message. When
      *   you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to propagate
      *   throughout the Amazon SQS system. Changes made to the `MessageRetentionPeriod` attribute can take up to 15 minutes
      *   and will impact existing messages in the queue potentially causing them to be expired and deleted if the
      *   `MessageRetentionPeriod` is reduced below the age of existing messages.
-     * -
      * - `Policy` – Returns the policy of the queue.
-     * -
      * - `QueueArn` – Returns the Amazon resource name (ARN) of the queue.
-     * -
      * - `ReceiveMessageWaitTimeSeconds` – Returns the length of time, in seconds, for which the `ReceiveMessage` action
      *   waits for a message to arrive.
-     * -
      * - `VisibilityTimeout` – Returns the visibility timeout for the queue. For more information about the visibility
      *   timeout, see Visibility Timeout [^3] in the *Amazon SQS Developer Guide*.
      *
@@ -80,7 +68,6 @@ final class GetQueueAttributesRequest extends Input
      *
      *   - `deadLetterTargetArn` – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS moves
      *     messages after the value of `maxReceiveCount` is exceeded.
-     *   -
      *   - `maxReceiveCount` – The number of times a message is delivered to the source queue before being moved to the
      *     dead-letter queue. Default: 10. When the `ReceiveCount` for a message exceeds the `maxReceiveCount` for a queue,
      *     Amazon SQS moves the message to the dead-letter-queue.
@@ -94,9 +81,7 @@ final class GetQueueAttributesRequest extends Input
      *
      *     - `allowAll` – (Default) Any source queues in this Amazon Web Services account in the same Region can specify
      *       this queue as the dead-letter queue.
-     *     -
      *     - `denyAll` – No source queues can specify this queue as the dead-letter queue.
-     *     -
      *     - `byQueue` – Only queues specified by the `sourceQueueArns` parameter can specify this queue as the
      *       dead-letter queue.
      *
@@ -113,11 +98,9 @@ final class GetQueueAttributesRequest extends Input
      *
      * - `KmsMasterKeyId` – Returns the ID of an Amazon Web Services managed customer master key (CMK) for Amazon SQS or a
      *   custom CMK. For more information, see Key Terms [^6].
-     * -
      * - `KmsDataKeyReusePeriodSeconds` – Returns the length of time, in seconds, for which Amazon SQS can reuse a data
      *   key to encrypt or decrypt messages before calling KMS again. For more information, see How Does the Data Key Reuse
      *   Period Work? [^7].
-     * -
      * - `SqsManagedSseEnabled` – Returns information about whether the queue is using SSE-SQS encryption using SQS owned
      *   encryption keys. Only one server-side encryption option is supported per queue (for example, SSE-KMS [^8] or
      *   SSE-SQS [^9]).
@@ -136,7 +119,6 @@ final class GetQueueAttributesRequest extends Input
      *
      * - `DeduplicationScope` – Specifies whether message deduplication occurs at the message group or queue level. Valid
      *   values are `messageGroup` and `queue`.
-     * -
      * - `FifoThroughputLimit` – Specifies whether the FIFO queue throughput quota applies to the entire queue or per
      *   message group. Valid values are `perQueue` and `perMessageGroupId`. The `perMessageGroupId` value is allowed only
      *   when the value for `DeduplicationScope` is `messageGroup`.
@@ -144,7 +126,6 @@ final class GetQueueAttributesRequest extends Input
      * To enable high throughput for FIFO queues, do the following:
      *
      * - Set `DeduplicationScope` to `messageGroup`.
-     * -
      * - Set `FifoThroughputLimit` to `perMessageGroupId`.
      *
      * If you set these attributes to anything other than the values shown for enabling high throughput, normal throughput

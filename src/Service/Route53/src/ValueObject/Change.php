@@ -14,7 +14,6 @@ final class Change
      * The action to perform:.
      *
      * - `CREATE`: Creates a resource record set that has the specified values.
-     * -
      * - `DELETE`: Deletes a existing resource record set.
      *
      *   ! To delete the resource record set that is associated with a traffic policy instance, use

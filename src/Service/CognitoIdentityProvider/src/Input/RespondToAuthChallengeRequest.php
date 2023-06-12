@@ -53,7 +53,6 @@ final class RespondToAuthChallengeRequest extends Input
      * > `SOFTWARE_TOKEN_MFA`).
      *
      * - `SMS_MFA`: `SMS_MFA_CODE`, `USERNAME`.
-     * -
      * - `PASSWORD_VERIFIER`: `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`.
      *
      *   > `PASSWORD_VERIFIER` requires `DEVICE_KEY` when you sign in with a remembered device.
@@ -68,11 +67,8 @@ final class RespondToAuthChallengeRequest extends Input
      *   > parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
      *
      * - `SOFTWARE_TOKEN_MFA`: `USERNAME` and `SOFTWARE_TOKEN_MFA_CODE` are required attributes.
-     * -
      * - `DEVICE_SRP_AUTH` requires `USERNAME`, `DEVICE_KEY`, `SRP_A` (and `SECRET_HASH`).
-     * -
      * - `DEVICE_PASSWORD_VERIFIER` requires everything that `PASSWORD_VERIFIER` requires, plus `DEVICE_KEY`.
-     * -
      * - `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the
      *   `Session` parameter.
      *
@@ -115,9 +111,7 @@ final class RespondToAuthChallengeRequest extends Input
      * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
      * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
      * >   parameter serves no purpose.
-     * > -
      * > - Validate the ClientMetadata value.
-     * > -
      * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
      * >
      *

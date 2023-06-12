@@ -19,21 +19,16 @@ final class InitiateAuthRequest extends Input
      * The authentication flow for this call to run. The API action will depend on this value. For example:.
      *
      * - `REFRESH_TOKEN_AUTH` takes in a valid refresh token and returns new tokens.
-     * -
      * - `USER_SRP_AUTH` takes in `USERNAME` and `SRP_A` and returns the SRP variables to be used for next challenge
      *   execution.
-     * -
      * - `USER_PASSWORD_AUTH` takes in `USERNAME` and `PASSWORD` and returns the next challenge or tokens.
      *
      * Valid values include:
      *
      * - `USER_SRP_AUTH`: Authentication flow for the Secure Remote Password (SRP) protocol.
-     * -
      * - `REFRESH_TOKEN_AUTH`/`REFRESH_TOKEN`: Authentication flow for refreshing the access token and ID token by supplying
      *   a valid refresh token.
-     * -
      * - `CUSTOM_AUTH`: Custom authentication flow.
-     * -
      * - `USER_PASSWORD_AUTH`: Non-SRP authentication flow; user name and password are passed directly. If a user migration
      *   Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user name in the user
      *   pool.
@@ -52,10 +47,8 @@ final class InitiateAuthRequest extends Input
      *
      * - For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.
-     * -
      * - For `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.
-     * -
      * - For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret),
      *   `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and
      *   `SRP_A: (The SRP_A Value)`.
@@ -72,9 +65,7 @@ final class InitiateAuthRequest extends Input
      * is passed as input to the functions for only the following triggers:
      *
      * - Pre signup
-     * -
      * - Pre authentication
-     * -
      * - User migration
      *
      * When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function receives
@@ -86,15 +77,10 @@ final class InitiateAuthRequest extends Input
      * it doesn't provide the ClientMetadata value as input:
      *
      * - Post authentication
-     * -
      * - Custom message
-     * -
      * - Pre token generation
-     * -
      * - Create auth challenge
-     * -
      * - Define auth challenge
-     * -
      * - Verify auth challenge
      *
      * For more information, see  Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
@@ -105,9 +91,7 @@ final class InitiateAuthRequest extends Input
      * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
      * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
      * >   parameter serves no purpose.
-     * > -
      * > - Validate the ClientMetadata value.
-     * > -
      * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
      * >
      *

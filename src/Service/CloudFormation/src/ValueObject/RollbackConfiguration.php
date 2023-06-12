@@ -22,11 +22,9 @@ final class RollbackConfiguration
      * parameter, those triggers replace any list of triggers previously specified for the stack. This means:
      *
      * - To use the rollback triggers previously specified for this stack, if any, don't specify this parameter.
-     * -
      * - To specify new or updated rollback triggers, you must specify *all* the triggers that you want used for this stack,
      *   even triggers you've specified before (for example, when creating the stack or during a previous stack update). Any
      *   triggers that you don't include in the updated list of triggers are no longer applied to the stack.
-     * -
      * - To remove all currently specified triggers, specify an empty list for this parameter.
      *
      * If a specified trigger is missing, the entire stack operation fails and is rolled back.

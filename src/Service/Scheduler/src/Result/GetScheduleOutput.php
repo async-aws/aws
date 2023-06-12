@@ -74,9 +74,7 @@ class GetScheduleOutput extends Result
      * The expression that defines when the schedule runs. The following formats are supported.
      *
      * - `at` expression - `at(yyyy-mm-ddThh:mm:ss)`
-     * -
      * - `rate` expression - `rate(unit value)`
-     * -
      * - `cron` expression - `cron(fields)`
      *
      * You can use `at` expressions to create one-time schedules that invoke a target once, at the time and in the time

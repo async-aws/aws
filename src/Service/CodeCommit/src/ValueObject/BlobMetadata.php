@@ -21,11 +21,8 @@ final class BlobMetadata
      * The file mode permissions of the blob. File mode permission codes include:.
      *
      * - `100644` indicates read/write
-     * -
      * - `100755` indicates read/write/execute
-     * -
      * - `160000` indicates a submodule
-     * -
      * - `120000` indicates a symlink
      */
     private $mode;

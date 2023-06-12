@@ -82,9 +82,7 @@ class Route53Client extends AbstractApi
      * Use `ChangeResourceRecordsSetsRequest` to perform the following actions:
      *
      * - `CREATE`: Creates a resource record set that has the specified values.
-     * -
      * - `DELETE`: Deletes an existing resource record set that has the specified values.
-     * -
      * - `UPSERT`: If a resource set exists Route 53 updates it with the values in the request.
      *
      * **Syntaxes for Creating, Updating, and Deleting Resource Record Sets**
@@ -157,14 +155,12 @@ class Route53Client extends AbstractApi
      * Note the following:
      *
      * - You can't create a hosted zone for a top-level domain (TLD) such as .com.
-     * -
      * - For public hosted zones, Route 53 automatically creates a default SOA record and four NS records for the zone. For
      *   more information about SOA and NS records, see NS and SOA Records that Route 53 Creates for a Hosted Zone [^2] in
      *   the *Amazon Route 53 Developer Guide*.
      *
      *   If you want to use the same name servers for multiple public hosted zones, you can optionally associate a reusable
      *   delegation set with the hosted zone. See the `DelegationSetId` element.
-     * -
      * - If your domain is registered with a registrar other than Route 53, you must update the name servers with your
      *   registrar to make Route 53 the DNS service for the domain. For more information, see Migrating DNS Service for an
      *   Existing Domain to Amazon Route 53 [^3] in the *Amazon Route 53 Developer Guide*.
@@ -182,9 +178,7 @@ class Route53Client extends AbstractApi
      * > The following are the supported partitions:
      * >
      * > - `aws` - Amazon Web Services Regions
-     * > -
      * > - `aws-cn` - China Regions
-     * > -
      * > - `aws-us-gov` - Amazon Web Services GovCloud (US) Region
      * >
      * > For more information, see Access Management [^4] in the *Amazon Web Services General Reference*.
@@ -268,7 +262,6 @@ class Route53Client extends AbstractApi
      * To verify that the hosted zone has been deleted, do one of the following:
      *
      * - Use the `GetHostedZone` action to request information about the hosted zone.
-     * -
      * - Use the `ListHostedZones` action to get a list of the hosted zones associated with the current Amazon Web Services
      *   account.
      *
@@ -366,16 +359,13 @@ class Route53Client extends AbstractApi
      *
      * - The `DNSName` and `HostedZoneId` elements in the response contain the values, if any, specified for the `dnsname`
      *   and `hostedzoneid` parameters in the request that produced the current response.
-     * -
      * - The `MaxItems` element in the response contains the value, if any, that you specified for the `maxitems` parameter
      *   in the request that produced the current response.
-     * -
      * - If the value of `IsTruncated` in the response is true, there are more hosted zones associated with the current
      *   Amazon Web Services account.
      *
      *   If `IsTruncated` is false, this response includes the last hosted zone that is associated with the current account.
      *   The `NextDNSName` element and `NextHostedZoneId` elements are omitted from the response.
-     * -
      * - The `NextDNSName` and `NextHostedZoneId` elements in the response contain the domain name and the hosted zone ID of
      *   the next hosted zone that is associated with the current Amazon Web Services account. If you want to list more
      *   hosted zones, make another call to `ListHostedZonesByName`, and specify the value of `NextDNSName` and

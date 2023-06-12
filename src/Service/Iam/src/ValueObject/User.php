@@ -8,9 +8,7 @@ namespace AsyncAws\Iam\ValueObject;
  * This data type is used as a response element in the following operations:
  *
  * - CreateUser
- * -
  * - GetUser
- * -
  * - ListUsers
  */
 final class User
@@ -60,7 +58,6 @@ final class User
      * signed in with a password. This can be because:.
      *
      * - The user never had a password.
-     * -
      * - A password exists but has not been used since IAM started tracking this information on October 20, 2014.
      *
      * A null value does not mean that the user *never* had a password. Also, if the user does not currently have a password

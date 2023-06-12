@@ -11,13 +11,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  * - The CloudHSM cluster must be configured with private subnets in at least two different Availability Zones in the
  *   Region.
- * -
  * - The security group for the cluster [^1] (cloudhsm-cluster-*<cluster-id>*-sg) must include inbound rules and
  *   outbound rules that allow TCP traffic on ports 2223-2225. The **Source** in the inbound rules and the
  *   **Destination** in the outbound rules must match the security group ID. These rules are set by default when you
  *   create the CloudHSM cluster. Do not delete or change them. To get information about a particular security group,
  *   use the DescribeSecurityGroups [^2] operation.
- * -
  * - The CloudHSM cluster must contain at least as many HSMs as the operation requires. To add HSMs, use the CloudHSM
  *   CreateHsm [^3] operation.
  *

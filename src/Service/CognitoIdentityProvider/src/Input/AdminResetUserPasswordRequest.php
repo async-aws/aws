@@ -48,9 +48,7 @@ final class AdminResetUserPasswordRequest extends Input
      * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
      * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
      * >   parameter serves no purpose.
-     * > -
      * > - Validate the ClientMetadata value.
-     * > -
      * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
      * >
      *

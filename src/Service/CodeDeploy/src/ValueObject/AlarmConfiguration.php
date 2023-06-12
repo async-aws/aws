@@ -17,7 +17,6 @@ final class AlarmConfiguration
      * from Amazon CloudWatch. The default value is false.
      *
      * - `true`: The deployment proceeds even if alarm status information can't be retrieved from Amazon CloudWatch.
-     * -
      * - `false`: The deployment stops if alarm status information can't be retrieved from Amazon CloudWatch.
      */
     private $ignorePollAlarmFailure;

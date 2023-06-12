@@ -26,19 +26,12 @@ final class DisableEnhancedMonitoringInput extends Input
      * The following are the valid shard-level metrics. The value "`ALL`" disables every metric.
      *
      * - `IncomingBytes`
-     * -
      * - `IncomingRecords`
-     * -
      * - `OutgoingBytes`
-     * -
      * - `OutgoingRecords`
-     * -
      * - `WriteProvisionedThroughputExceeded`
-     * -
      * - `ReadProvisionedThroughputExceeded`
-     * -
      * - `IteratorAgeMilliseconds`
-     * -
      * - `ALL`
      *
      * For more information, see Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch [^1] in the

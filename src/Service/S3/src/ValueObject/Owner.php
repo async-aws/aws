@@ -12,19 +12,12 @@ final class Owner
      * Regions:.
      *
      * - US East (N. Virginia)
-     * -
      * - US West (N. California)
-     * -
      * - US West (Oregon)
-     * -
      * - Asia Pacific (Singapore)
-     * -
      * - Asia Pacific (Sydney)
-     * -
      * - Asia Pacific (Tokyo)
-     * -
      * - Europe (Ireland)
-     * -
      * - South America (São Paulo)
      */
     private $displayName;

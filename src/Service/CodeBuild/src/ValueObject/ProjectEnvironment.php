@@ -16,12 +16,10 @@ final class ProjectEnvironment
      *
      * - The environment type `ARM_CONTAINER` is available only in regions US East (N. Virginia), US East (Ohio), US West
      *   (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and EU (Frankfurt).
-     * -
      * - The environment type `LINUX_CONTAINER` with compute type `build.general1.2xlarge` is available only in regions US
      *   East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt),
      *   Asia Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and
      *   China (Ningxia).
-     * -
      * - The environment type `LINUX_GPU_CONTAINER` is available only in regions US East (N. Virginia), US East (Ohio), US
      *   West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific
      *   (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
@@ -41,7 +39,6 @@ final class ProjectEnvironment
      *
      * - For an image tag: `<registry>/<repository>:<tag>`. For example, in the Docker repository that
      *   CodeBuild uses to manage its Docker images, this would be `aws/codebuild/standard:4.0`.
-     * -
      * - For an image digest: `<registry>/<repository>@<digest>`. For example, to specify an image with
      *   the digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
      *   `<registry>/<repository>@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf`.
@@ -56,21 +53,16 @@ final class ProjectEnvironment
      * Information about the compute resources the build project uses. Available values include:.
      *
      * - `BUILD_GENERAL1_SMALL`: Use up to 3 GB memory and 2 vCPUs for builds.
-     * -
      * - `BUILD_GENERAL1_MEDIUM`: Use up to 7 GB memory and 4 vCPUs for builds.
-     * -
      * - `BUILD_GENERAL1_LARGE`: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment type.
-     * -
      * - `BUILD_GENERAL1_2XLARGE`: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds. This compute
      *   type supports Docker images up to 100 GB uncompressed.
      *
      * If you use `BUILD_GENERAL1_LARGE`:
      *
      * - For environment type `LINUX_CONTAINER`, you can use up to 15 GB memory and 8 vCPUs for builds.
-     * -
      * - For environment type `LINUX_GPU_CONTAINER`, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA Tesla V100 GPUs
      *   for builds.
-     * -
      * - For environment type `ARM_CONTAINER`, you can use up to 16 GB memory and 8 vCPUs on ARM-based processors for
      *   builds.
      *
@@ -128,7 +120,6 @@ final class ProjectEnvironment
      *
      * - `CODEBUILD` specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository
      *   policy to trust CodeBuild service principal.
-     * -
      * - `SERVICE_ROLE` specifies that CodeBuild uses your build project's service role.
      *
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an

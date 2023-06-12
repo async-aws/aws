@@ -49,10 +49,8 @@ final class ListUsersRequest extends Input
      * string must be escaped using the backslash (\) character. For example, "`family_name` = \"Reddy\"".
      *
      * - *AttributeName*: The name of the attribute to search for. You can only search for one attribute at a time.
-     * -
      * - *Filter-Type*: For an exact match, use =, for example, "`given_name` = \"Jon\"". For a prefix ("starts with")
      *   match, use ^=, for example, "`given_name` ^= \"Jon\"".
-     * -
      * - *AttributeValue*: The attribute value that must be matched for each user.
      *
      * If the filter string is empty, `ListUsers` returns all users in the user pool.
@@ -60,23 +58,14 @@ final class ListUsersRequest extends Input
      * You can only search for the following standard attributes:
      *
      * - `username` (case-sensitive)
-     * -
      * - `email`
-     * -
      * - `phone_number`
-     * -
      * - `name`
-     * -
      * - `given_name`
-     * -
      * - `family_name`
-     * -
      * - `preferred_username`
-     * -
      * - `cognito:user_status` (called **Status** in the Console) (case-insensitive)
-     * -
      * - `status (called **Enabled** in the Console) (case-sensitive)`
-     * -
      * - `sub`
      *
      * Custom attributes aren't searchable.

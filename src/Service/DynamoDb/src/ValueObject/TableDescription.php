@@ -16,7 +16,6 @@ final class TableDescription
      * Each `AttributeDefinition` object in this array is composed of:
      *
      * - `AttributeName` - The name of the attribute.
-     * -
      * - `AttributeType` - The data type for the attribute.
      */
     private $attributeDefinitions;
@@ -30,11 +29,9 @@ final class TableDescription
      * The primary key structure for the table. Each `KeySchemaElement` consists of:.
      *
      * - `AttributeName` - The name of the attribute.
-     * -
      * - `KeyType` - The role of the attribute:
      *
      *   - `HASH` - partition key
-     *   -
      *   - `RANGE` - sort key
      *
      *   > The partition key of an item is also known as its *hash attribute*. The term "hash attribute" derives from
@@ -56,20 +53,14 @@ final class TableDescription
      * The current state of the table:.
      *
      * - `CREATING` - The table is being created.
-     * -
      * - `UPDATING` - The table/index configuration is being updated. The table/index remains available for data operations
      *   when `UPDATING`.
-     * -
      * - `DELETING` - The table is being deleted.
-     * -
      * - `ACTIVE` - The table is ready for use.
-     * -
      * - `INACCESSIBLE_ENCRYPTION_CREDENTIALS` - The KMS key used to encrypt the table in inaccessible. Table operations may
      *   fail due to failure to use the KMS key. DynamoDB will initiate the table archival process when a table's KMS key
      *   remains inaccessible for more than seven days.
-     * -
      * - `ARCHIVING` - The table is being archived. Operations are not allowed until archival is complete.
-     * -
      * - `ARCHIVED` - The table has been archived. See the ArchivalReason for more information.
      */
     private $tableStatus;
@@ -120,10 +111,8 @@ final class TableDescription
      * data within a given item collection cannot exceed 10 GB. Each element is composed of:.
      *
      * - `IndexName` - The name of the local secondary index.
-     * -
      * - `KeySchema` - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and
      *   255 characters (inclusive). The key schema must begin with the same partition key as the table.
-     * -
      * - `Projection` - Specifies attributes that are copied (projected) from the table into the index. These are in
      *   addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute
      *   specification is composed of:
@@ -131,10 +120,8 @@ final class TableDescription
      *   - `ProjectionType` - One of the following:
      *
      *     - `KEYS_ONLY` - Only the index and primary keys are projected into the index.
-     *     -
      *     - `INCLUDE` - Only the specified table attributes are projected into the index. The list of projected attributes
      *       is in `NonKeyAttributes`.
-     *     -
      *     - `ALL` - All of the table attributes are projected into the index.
      *
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
@@ -144,7 +131,6 @@ final class TableDescription
      *
      * - `IndexSizeBytes` - Represents the total size of the index, in bytes. DynamoDB updates this value approximately
      *   every six hours. Recent changes might not be reflected in this value.
-     * -
      * - `ItemCount` - Represents the number of items in the index. DynamoDB updates this value approximately every six
      *   hours. Recent changes might not be reflected in this value.
      *
@@ -164,28 +150,20 @@ final class TableDescription
      *   and `Backfilling` is true. You can't delete the index that is being created when `IndexStatus` is set to CREATING
      *   and `Backfilling` is false. (This attribute does not appear for indexes that were created during a `CreateTable`
      *   operation.)
-     * -
      * - `IndexName` - The name of the global secondary index.
-     * -
      * - `IndexSizeBytes` - The total size of the global secondary index, in bytes. DynamoDB updates this value
      *   approximately every six hours. Recent changes might not be reflected in this value.
-     * -
      * - `IndexStatus` - The current status of the global secondary index:
      *
      *   - `CREATING` - The index is being created.
-     *   -
      *   - `UPDATING` - The index is being updated.
-     *   -
      *   - `DELETING` - The index is being deleted.
-     *   -
      *   - `ACTIVE` - The index is ready for use.
      *
      * - `ItemCount` - The number of items in the global secondary index. DynamoDB updates this value approximately every
      *   six hours. Recent changes might not be reflected in this value.
-     * -
      * - `KeySchema` - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and
      *   255 characters (inclusive). The key schema must begin with the same partition key as the table.
-     * -
      * - `Projection` - Specifies attributes that are copied (projected) from the table into the index. These are in
      *   addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute
      *   specification is composed of:
@@ -193,10 +171,8 @@ final class TableDescription
      *   - `ProjectionType` - One of the following:
      *
      *     - `KEYS_ONLY` - Only the index and primary keys are projected into the index.
-     *     -
      *     - `INCLUDE` - In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other
      *       non-key attributes that you specify.
-     *     -
      *     - `ALL` - All of the table attributes are projected into the index.
      *
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
@@ -224,9 +200,7 @@ final class TableDescription
      * to be unique:
      *
      * - Amazon Web Services customer ID
-     * -
      * - Table name
-     * -
      * - `StreamLabel`
      */
     private $latestStreamLabel;

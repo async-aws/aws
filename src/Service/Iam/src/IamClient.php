@@ -261,21 +261,13 @@ class IamClient extends AbstractApi
      * information, see Deleting an IAM user [^1]. Before attempting to delete a user, remove the following items:.
      *
      * - Password (DeleteLoginProfile)
-     * -
      * - Access keys (DeleteAccessKey)
-     * -
      * - Signing certificate (DeleteSigningCertificate)
-     * -
      * - SSH public key (DeleteSSHPublicKey)
-     * -
      * - Git credentials (DeleteServiceSpecificCredential)
-     * -
      * - Multi-factor authentication (MFA) device (DeactivateMFADevice, DeleteVirtualMFADevice)
-     * -
      * - Inline policies (DeleteUserPolicy)
-     * -
      * - Attached managed policies (DetachUserPolicy)
-     * -
      * - Group memberships (RemoveUserFromGroup)
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli

@@ -9,7 +9,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * Information about credentials that provide access to a private Docker registry. When this is set:.
  *
  * - `imagePullCredentialsType` must be set to `SERVICE_ROLE`.
- * -
  * - images cannot be curated or an Amazon ECR image.
  *
  * For more information, see Private Registry with Secrets Manager Sample for CodeBuild [^1].

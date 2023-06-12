@@ -72,9 +72,7 @@ class SqsClient extends AbstractApi
      * An Amazon SQS message has three basic states:
      *
      * 1. Sent to a queue by a producer.
-     * 2.
      * 2. Received from the queue by a consumer.
-     * 3.
      * 3. Deleted from the queue.
      *
      * A message is considered to be *stored* after it is sent to a queue by a producer, but not yet received from the queue
@@ -176,7 +174,6 @@ class SqsClient extends AbstractApi
      *   > *Amazon SQS Developer Guide*.
      *
      * - If you don't provide a value for an attribute, the queue is created with the default value for the attribute.
-     * -
      * - If you delete a queue, you must wait at least 60 seconds before creating a queue with the same name.
      *
      * To successfully create a new queue, you must provide a queue name that adheres to the limits related to queues [^2]
@@ -189,7 +186,6 @@ class SqsClient extends AbstractApi
      *
      * - If you provide the name of an existing queue along with the exact names and values of all the queue's attributes,
      *   `CreateQueue` returns the queue URL for the existing queue.
-     * -
      * - If the queue name, attribute names, or attribute values don't match an existing queue, `CreateQueue` returns an
      *   error.
      *
@@ -500,15 +496,10 @@ class SqsClient extends AbstractApi
      * For each message returned, the response includes the following:
      *
      * - The message body.
-     * -
      * - An MD5 digest of the message body. For information about MD5, see RFC1321 [^2].
-     * -
      * - The `MessageId` you received when you sent the message to the queue.
-     * -
      * - The receipt handle.
-     * -
      * - The message attributes.
-     * -
      * - An MD5 digest of the message attributes.
      *
      * The receipt handle is the identifier you must provide when deleting the message. For more information, see Queue and
