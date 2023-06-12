@@ -2,10 +2,14 @@
 
 ## NOT RELEASED
 
+## 1.19.0
+
 ### Added
 
+- Support for Symfony 7
 - Support for Athena
 - Support for MediaConvert
+- Support for IMDS v2 authentication
 - Support for using endpoint discovery with parameters passed in the query string or the path
 
 ### Fixed
@@ -23,20 +27,20 @@
 
 ### Added
 
-- Added support for Scheduler
+- Support for Scheduler
 
 ## 1.17.0
 
 ### Added
 
-- Added support for Iot Data
+- Support for Iot Data
 
 ## 1.16.0
 
 ### Added
 
-- Added support for endpoint discovery
-- Added support for Iot Core
+- Support for endpoint discovery
+- Support for Iot Core
 
 ## 1.15.0
 

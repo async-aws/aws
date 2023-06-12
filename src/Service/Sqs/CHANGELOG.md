@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.8.0
+
 ### Added
 
 - AWS api-change: Added `DEAD_LETTER_QUEUE_SOURCE_ARN` attribute name

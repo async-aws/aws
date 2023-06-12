@@ -2,10 +2,15 @@
 
 ## NOT RELEASED
 
+## 2.0.0
+
+### BC-BREAK
+
+- BC BREAK: `listStreams` now yield over stream names AND descriptions
+
 ### Added
 
 - AWS api-change: Added StreamARN parameter for Kinesis Data Streams APIs. Added a new opaque pagination token for ListStreams. SDKs will auto-generate Account Endpoint when accessing Kinesis Data Streams.
-- BC BREAK: `listStreams` now yield over stream names AND descriptions
 - AWS api-change: added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 
 ### Fixed
