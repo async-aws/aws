@@ -38,7 +38,6 @@ class IotClientTest extends TestCase
         $client = new IotClient([], new NullProvider(), new MockHttpClient());
 
         $input = new AddThingToThingGroupRequest([
-
         ]);
         $result = $client->addThingToThingGroup($input);
 
@@ -52,7 +51,6 @@ class IotClientTest extends TestCase
 
         $input = new CreateThingRequest([
             'thingName' => 'change me',
-
         ]);
         $result = $client->createThing($input);
 
@@ -66,7 +64,6 @@ class IotClientTest extends TestCase
 
         $input = new CreateThingGroupRequest([
             'thingGroupName' => 'change me',
-
         ]);
         $result = $client->createThingGroup($input);
 
@@ -80,7 +77,6 @@ class IotClientTest extends TestCase
 
         $input = new CreateThingTypeRequest([
             'thingTypeName' => 'change me',
-
         ]);
         $result = $client->createThingType($input);
 
@@ -94,7 +90,6 @@ class IotClientTest extends TestCase
 
         $input = new DeleteThingRequest([
             'thingName' => 'change me',
-
         ]);
         $result = $client->deleteThing($input);
 
@@ -108,7 +103,6 @@ class IotClientTest extends TestCase
 
         $input = new DeleteThingGroupRequest([
             'thingGroupName' => 'change me',
-
         ]);
         $result = $client->deleteThingGroup($input);
 
@@ -134,7 +128,6 @@ class IotClientTest extends TestCase
         $client = new IotClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListThingGroupsRequest([
-
         ]);
         $result = $client->listThingGroups($input);
 
@@ -148,7 +141,6 @@ class IotClientTest extends TestCase
 
         $input = new ListThingGroupsForThingRequest([
             'thingName' => 'change me',
-
         ]);
         $result = $client->listThingGroupsForThing($input);
 
@@ -161,7 +153,6 @@ class IotClientTest extends TestCase
         $client = new IotClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListThingTypesRequest([
-
         ]);
         $result = $client->listThingTypes($input);
 
@@ -174,7 +165,6 @@ class IotClientTest extends TestCase
         $client = new IotClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListThingsRequest([
-
         ]);
         $result = $client->listThings($input);
 
@@ -188,7 +178,6 @@ class IotClientTest extends TestCase
 
         $input = new ListThingsInThingGroupRequest([
             'thingGroupName' => 'change me',
-
         ]);
         $result = $client->listThingsInThingGroup($input);
 

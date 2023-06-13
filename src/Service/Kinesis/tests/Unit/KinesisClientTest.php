@@ -105,7 +105,6 @@ class KinesisClientTest extends TestCase
 
         $input = new DeleteStreamInput([
             'StreamName' => 'change me',
-
         ]);
         $result = $client->deleteStream($input);
 
@@ -118,7 +117,6 @@ class KinesisClientTest extends TestCase
         $client = new KinesisClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeregisterStreamConsumerInput([
-
         ]);
         $result = $client->deregisterStreamConsumer($input);
 
@@ -131,7 +129,6 @@ class KinesisClientTest extends TestCase
         $client = new KinesisClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeLimitsInput([
-
         ]);
         $result = $client->describeLimits($input);
 
@@ -145,7 +142,6 @@ class KinesisClientTest extends TestCase
 
         $input = new DescribeStreamInput([
             'StreamName' => 'change me',
-
         ]);
         $result = $client->describeStream($input);
 
@@ -158,7 +154,6 @@ class KinesisClientTest extends TestCase
         $client = new KinesisClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeStreamConsumerInput([
-
         ]);
         $result = $client->describeStreamConsumer($input);
 
@@ -213,7 +208,6 @@ class KinesisClientTest extends TestCase
 
         $input = new GetRecordsInput([
             'ShardIterator' => 'change me',
-
         ]);
         $result = $client->getRecords($input);
 
@@ -229,7 +223,6 @@ class KinesisClientTest extends TestCase
             'StreamName' => 'change me',
             'ShardId' => 'change me',
             'ShardIteratorType' => ShardIteratorType::LATEST,
-
         ]);
         $result = $client->getShardIterator($input);
 
@@ -256,7 +249,6 @@ class KinesisClientTest extends TestCase
         $client = new KinesisClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListShardsInput([
-
         ]);
         $result = $client->listShards($input);
 
@@ -270,7 +262,6 @@ class KinesisClientTest extends TestCase
 
         $input = new ListStreamConsumersInput([
             'StreamARN' => 'change me',
-
         ]);
         $result = $client->listStreamConsumers($input);
 
@@ -283,7 +274,6 @@ class KinesisClientTest extends TestCase
         $client = new KinesisClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListStreamsInput([
-
         ]);
         $result = $client->listStreams($input);
 
@@ -297,7 +287,6 @@ class KinesisClientTest extends TestCase
 
         $input = new ListTagsForStreamInput([
             'StreamName' => 'change me',
-
         ]);
         $result = $client->listTagsForStream($input);
 
@@ -328,7 +317,6 @@ class KinesisClientTest extends TestCase
             'StreamName' => 'change me',
             'Data' => 'change me',
             'PartitionKey' => 'change me',
-
         ]);
         $result = $client->putRecord($input);
 

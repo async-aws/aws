@@ -65,7 +65,7 @@ jobs:
           restore-keys: php-cs-fixer-
 
       - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:3.13.0
+        uses: docker://oskarstark/php-cs-fixer-ga:3.17.0
         with:
           args: --dry-run --diff
 

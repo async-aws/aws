@@ -17,7 +17,7 @@ use Symfony\Contracts\Service\ResetInterface;
 final class CacheProvider implements CredentialProvider, ResetInterface
 {
     /**
-     * @var (null|Credentials)[]
+     * @var (Credentials|null)[]
      */
     private $cache = [];
 

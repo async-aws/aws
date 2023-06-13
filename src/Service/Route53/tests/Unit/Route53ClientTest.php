@@ -61,7 +61,6 @@ class Route53ClientTest extends TestCase
         $input = new CreateHostedZoneRequest([
             'Name' => 'example.com',
             'CallerReference' => 'uniqueId',
-
         ]);
         $result = $client->createHostedZone($input);
 
@@ -74,7 +73,6 @@ class Route53ClientTest extends TestCase
         $client = new Route53Client([], new NullProvider(), new MockHttpClient());
 
         $input = new ListHostedZonesRequest([
-
         ]);
         $result = $client->ListHostedZones($input);
 
@@ -100,7 +98,6 @@ class Route53ClientTest extends TestCase
         $client = new Route53Client([], new NullProvider(), new MockHttpClient());
 
         $input = new ListHostedZonesByNameRequest([
-
         ]);
         $result = $client->listHostedZonesByName($input);
 

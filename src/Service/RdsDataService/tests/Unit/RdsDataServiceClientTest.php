@@ -24,12 +24,10 @@ class RdsDataServiceClientTest extends TestCase
         $client = new RdsDataServiceClient([], new NullProvider(), new MockHttpClient());
 
         $input = new BatchExecuteStatementRequest([
-
             'resourceArn' => 'change me',
 
             'secretArn' => 'change me',
             'sql' => 'change me',
-
         ]);
         $result = $client->BatchExecuteStatement($input);
 
@@ -42,7 +40,6 @@ class RdsDataServiceClientTest extends TestCase
         $client = new RdsDataServiceClient([], new NullProvider(), new MockHttpClient());
 
         $input = new BeginTransactionRequest([
-
             'resourceArn' => 'change me',
 
             'secretArn' => 'change me',
@@ -73,12 +70,10 @@ class RdsDataServiceClientTest extends TestCase
         $client = new RdsDataServiceClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ExecuteStatementRequest([
-
             'resourceArn' => 'change me',
 
             'secretArn' => 'change me',
             'sql' => 'change me',
-
         ]);
         $result = $client->ExecuteStatement($input);
 

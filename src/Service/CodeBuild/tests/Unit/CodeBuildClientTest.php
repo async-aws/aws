@@ -34,7 +34,6 @@ class CodeBuildClientTest extends TestCase
 
         $input = new StartBuildInput([
             'projectName' => 'change me',
-
         ]);
         $result = $client->startBuild($input);
 

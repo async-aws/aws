@@ -22,7 +22,6 @@ class CloudFrontClientTest extends TestCase
             'InvalidationBatch' => new InvalidationBatch([
                 'Paths' => new Paths([
                     'Quantity' => 1337,
-
                 ]),
                 'CallerReference' => 'change me',
             ]),

@@ -22,7 +22,6 @@ class StsClientTest extends TestCase
         $input = new AssumeRoleRequest([
             'RoleArn' => 'change me',
             'RoleSessionName' => 'change me',
-
         ]);
         $result = $client->AssumeRole($input);
 
@@ -38,7 +37,6 @@ class StsClientTest extends TestCase
             'RoleArn' => 'change me',
             'RoleSessionName' => 'change me',
             'WebIdentityToken' => 'change me',
-
         ]);
         $result = $client->AssumeRoleWithWebIdentity($input);
 
@@ -51,7 +49,6 @@ class StsClientTest extends TestCase
         $client = new StsClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetCallerIdentityRequest([
-
         ]);
         $result = $client->GetCallerIdentity($input);
 

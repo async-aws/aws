@@ -19,7 +19,7 @@ class ApiGenerator
 
     private $requirementsRegistry;
 
-    public function __construct(ClassRegistry $classRegistry = null, RequirementsRegistry $requirementsRegistry = null)
+    public function __construct(?ClassRegistry $classRegistry = null, ?RequirementsRegistry $requirementsRegistry = null)
     {
         $this->classRegistry = $classRegistry ?? new ClassRegistry();
         $this->requirementsRegistry = $requirementsRegistry ?? new RequirementsRegistry();

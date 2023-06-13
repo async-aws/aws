@@ -10,7 +10,6 @@ class DescribeEndpointsRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new DescribeEndpointsRequest([
-
         ]);
 
         // see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeEndpoints.html

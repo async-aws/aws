@@ -73,9 +73,7 @@ class DynamoDbClientTest extends TestCase
 
         $input = new BatchWriteItemInput([
             'RequestItems' => ['change me' => [new WriteRequest([
-
             ])]],
-
         ]);
         $result = $client->BatchWriteItem($input);
 
@@ -96,7 +94,6 @@ class DynamoDbClientTest extends TestCase
                 new KeySchemaElement(['AttributeName' => 'ForumName', 'KeyType' => KeyType::HASH]),
                 new KeySchemaElement(['AttributeName' => 'Subject', 'KeyType' => KeyType::RANGE]),
             ],
-
         ]);
         $result = $client->CreateTable($input);
 
@@ -150,7 +147,6 @@ class DynamoDbClientTest extends TestCase
 
         $input = new ExecuteStatementInput([
             'Statement' => 'change me',
-
         ]);
         $result = $client->executeStatement($input);
 
@@ -177,7 +173,6 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListTablesInput([
-
         ]);
         $result = $client->ListTables($input);
 
@@ -208,7 +203,6 @@ class DynamoDbClientTest extends TestCase
 
         $input = new QueryInput([
             'TableName' => 'Foobar',
-
         ]);
         $result = $client->Query($input);
 
@@ -222,7 +216,6 @@ class DynamoDbClientTest extends TestCase
 
         $input = new ScanInput([
             'TableName' => 'Foobar',
-
         ]);
         $result = $client->Scan($input);
 
@@ -236,7 +229,6 @@ class DynamoDbClientTest extends TestCase
 
         $input = new DescribeTableInput([
             'TableName' => 'Foobar',
-
         ]);
         $result = $client->tableExists($input);
 
@@ -250,7 +242,6 @@ class DynamoDbClientTest extends TestCase
 
         $input = new DescribeTableInput([
             'TableName' => 'Foobar',
-
         ]);
         $result = $client->tableNotExists($input);
 

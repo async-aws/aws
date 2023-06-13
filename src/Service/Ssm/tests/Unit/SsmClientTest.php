@@ -54,7 +54,6 @@ class SsmClientTest extends TestCase
 
         $input = new GetParameterRequest([
             'Name' => 'change me',
-
         ]);
         $result = $client->GetParameter($input);
 
@@ -68,7 +67,6 @@ class SsmClientTest extends TestCase
 
         $input = new GetParametersRequest([
             'Names' => ['change me'],
-
         ]);
         $result = $client->GetParameters($input);
 
@@ -82,7 +80,6 @@ class SsmClientTest extends TestCase
 
         $input = new GetParametersByPathRequest([
             'Path' => 'change me',
-
         ]);
         $result = $client->GetParametersByPath($input);
 
@@ -99,7 +96,6 @@ class SsmClientTest extends TestCase
 
             'Value' => 'change me',
             'Type' => ParameterType::STRING,
-
         ]);
         $result = $client->PutParameter($input);
 

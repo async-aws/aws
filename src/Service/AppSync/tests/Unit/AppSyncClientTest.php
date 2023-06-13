@@ -77,7 +77,6 @@ class AppSyncClientTest extends TestCase
 
         $input = new ListApiKeysRequest([
             'apiId' => 'api123',
-
         ]);
         $result = $client->listApiKeys($input);
 

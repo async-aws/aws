@@ -33,7 +33,6 @@ class SnsClientTest extends TestCase
         $input = new CreatePlatformEndpointInput([
             'PlatformApplicationArn' => 'change me',
             'Token' => 'change me',
-
         ]);
         $result = $client->CreatePlatformEndpoint($input);
 
@@ -47,7 +46,6 @@ class SnsClientTest extends TestCase
 
         $input = new CreateTopicInput([
             'Name' => 'change me',
-
         ]);
         $result = $client->CreateTopic($input);
 
@@ -87,7 +85,6 @@ class SnsClientTest extends TestCase
 
         $input = new ListSubscriptionsByTopicInput([
             'TopicArn' => 'change me',
-
         ]);
         $result = $client->ListSubscriptionsByTopic($input);
 
@@ -100,9 +97,7 @@ class SnsClientTest extends TestCase
         $client = new SnsClient([], new NullProvider(), new MockHttpClient());
 
         $input = new PublishInput([
-
             'Message' => 'change me',
-
         ]);
         $result = $client->Publish($input);
 
@@ -119,7 +114,6 @@ class SnsClientTest extends TestCase
             'PublishBatchRequestEntries' => [new PublishBatchRequestEntry([
                 'Id' => 'change me',
                 'Message' => 'change me',
-
             ])],
         ]);
         $result = $client->publishBatch($input);
@@ -135,7 +129,6 @@ class SnsClientTest extends TestCase
         $input = new SubscribeInput([
             'TopicArn' => 'change me',
             'Protocol' => 'change me',
-
         ]);
         $result = $client->Subscribe($input);
 

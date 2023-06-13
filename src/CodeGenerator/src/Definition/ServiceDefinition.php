@@ -174,7 +174,7 @@ class ServiceDefinition
     {
         $definition = $this;
 
-        return \Closure::fromCallable(function (string $name, Member $member = null, array $extra = []) use ($definition) {
+        return \Closure::fromCallable(function (string $name, ?Member $member = null, array $extra = []) use ($definition) {
             return $definition->getShape($name, $member, $extra);
         });
     }

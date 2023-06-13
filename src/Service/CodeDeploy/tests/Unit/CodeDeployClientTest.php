@@ -21,7 +21,6 @@ class CodeDeployClientTest extends TestCase
 
         $input = new CreateDeploymentInput([
             'applicationName' => 'change me',
-
         ]);
         $result = $client->createDeployment($input);
 

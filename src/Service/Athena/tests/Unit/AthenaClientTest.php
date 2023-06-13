@@ -137,7 +137,6 @@ class AthenaClientTest extends TestCase
 
         $input = new GetQueryResultsInput([
             'QueryExecutionId' => 'iad-145r55t-11446',
-
         ]);
         $result = $client->getQueryResults($input);
 
@@ -205,7 +204,6 @@ class AthenaClientTest extends TestCase
 
         $input = new ListDatabasesInput([
             'CatalogName' => 'iadCatalog',
-
         ]);
         $result = $client->listDatabases($input);
 
@@ -218,7 +216,6 @@ class AthenaClientTest extends TestCase
         $client = new AthenaClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListNamedQueriesInput([
-
         ]);
         $result = $client->listNamedQueries($input);
 
@@ -231,7 +228,6 @@ class AthenaClientTest extends TestCase
         $client = new AthenaClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListQueryExecutionsInput([
-
         ]);
         $result = $client->listQueryExecutions($input);
 
@@ -246,7 +242,6 @@ class AthenaClientTest extends TestCase
         $input = new ListTableMetadataInput([
             'CatalogName' => 'iadCatalog',
             'DatabaseName' => 'iadDatabase',
-
         ]);
         $result = $client->listTableMetadata($input);
 
@@ -260,7 +255,6 @@ class AthenaClientTest extends TestCase
 
         $input = new StartCalculationExecutionRequest([
             'SessionId' => 'session-iad-2563',
-
         ]);
         $result = $client->startCalculationExecution($input);
 
@@ -274,7 +268,6 @@ class AthenaClientTest extends TestCase
 
         $input = new StartQueryExecutionInput([
             'QueryString' => 'SELECT * FROM iadDatabase.catalog LIMT 10',
-
         ]);
         $result = $client->startQueryExecution($input);
 
@@ -287,14 +280,10 @@ class AthenaClientTest extends TestCase
         $client = new AthenaClient([], new NullProvider(), new MockHttpClient());
 
         $input = new StartSessionRequest([
-
             'WorkGroup' => 'iadinternational',
             'EngineConfiguration' => new EngineConfiguration([
-
                 'MaxConcurrentDpus' => 1337,
-
             ]),
-
         ]);
         $result = $client->startSession($input);
 

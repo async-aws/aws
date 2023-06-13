@@ -25,7 +25,6 @@ class CloudWatchLogsClientTest extends TestCase
 
         $input = new CreateLogGroupRequest([
             'logGroupName' => 'test_logGroupName',
-
         ]);
         $result = $client->CreateLogGroup($input);
 

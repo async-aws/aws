@@ -57,7 +57,7 @@ final class ConfigurationProvider implements CredentialProvider
         return $credentials;
     }
 
-    private function getCredentialsFromRole(Credentials $credentials, string $region, string $roleArn, string $roleSessionName = null): ?Credentials
+    private function getCredentialsFromRole(Credentials $credentials, string $region, string $roleArn, ?string $roleSessionName = null): ?Credentials
     {
         $roleSessionName = $roleSessionName ?? uniqid('async-aws-', true);
         $stsClient = new StsClient(['region' => $region], $credentials, $this->httpClient);

@@ -27,7 +27,7 @@ class Printer extends BasePrinter
      */
     protected $linesBetweenMethods = 1;
 
-    public function printClass(ClassType $class, PhpNamespace $namespace = null): string
+    public function printClass(ClassType $class, ?PhpNamespace $namespace = null): string
     {
         $methods = $class->getMethods();
         ksort($methods);

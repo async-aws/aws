@@ -25,7 +25,6 @@ class StepFunctionsClientTest extends TestCase
 
         $input = new SendTaskFailureInput([
             'taskToken' => 'change me',
-
         ]);
         $result = $client->sendTaskFailure($input);
 
