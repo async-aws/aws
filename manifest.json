@@ -636,6 +636,7 @@
                 "DeleteEndpoint",
                 "DeleteTopic",
                 "ListSubscriptionsByTopic",
+                "ListTopics",
                 "Publish",
                 "PublishBatch",
                 "Subscribe",

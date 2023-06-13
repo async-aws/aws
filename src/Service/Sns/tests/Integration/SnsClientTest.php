@@ -10,6 +10,7 @@ use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\ListTopicsInput;
 use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
@@ -121,6 +122,21 @@ class SnsClientTest extends TestCase
         $subscriptions = iterator_to_array($result->getSubscriptions());
         self::assertCount(1, $subscriptions);
         self::assertSame('http://async-aws.com', $subscriptions[0]->getEndpoint());
+    }
+
+    public function testListTopics(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListTopicsInput([
+            'NextToken' => 'change me',
+        ]);
+        $result = $client->listTopics($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getTopics());
+        self::assertSame('changeIt', $result->getNextToken());
     }
 
     public function testPublish(): void
