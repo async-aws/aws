@@ -17,5 +17,14 @@ jobs:
       - name: fetch tags
         run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer:v2
+
+      - name: Install roave/backward-compatibility-check
+        run: composer require --dev roave/backward-compatibility-check
+
       - name: Roave BC Check
-        uses: docker://nyholm/roave-bc-check-ga
+        run: vendor/bin/roave-backward-compatibility-check
