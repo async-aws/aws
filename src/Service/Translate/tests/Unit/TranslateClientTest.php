@@ -20,7 +20,6 @@ class TranslateClientTest extends TestCase
 
             'SourceLanguageCode' => 'sv',
             'TargetLanguageCode' => 'en',
-
         ]);
         $result = $client->translateText($input);
 

@@ -10,7 +10,6 @@ class DescribeEndpointsRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new DescribeEndpointsRequest([
-
         ]);
 
         // see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Write.html/API_DescribeEndpoints.html

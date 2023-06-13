@@ -90,9 +90,7 @@ class RekognitionClientTest extends TestCase
 
         $input = new DetectFacesRequest([
             'Image' => new Image([
-
             ]),
-
         ]);
         $result = $client->DetectFaces($input);
 
@@ -106,7 +104,6 @@ class RekognitionClientTest extends TestCase
 
         $input = new DetectModerationLabelsRequest([
             'Image' => new Image([
-
             ]),
         ]);
         $result = $client->detectModerationLabels($input);
@@ -135,9 +132,7 @@ class RekognitionClientTest extends TestCase
         $input = new IndexFacesRequest([
             'CollectionId' => 'change me',
             'Image' => new Image([
-
             ]),
-
         ]);
         $result = $client->IndexFaces($input);
 
@@ -150,7 +145,6 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListCollectionsRequest([
-
         ]);
         $result = $client->ListCollections($input);
 
@@ -180,9 +174,7 @@ class RekognitionClientTest extends TestCase
         $input = new SearchFacesByImageRequest([
             'CollectionId' => 'change me',
             'Image' => new Image([
-
             ]),
-
         ]);
         $result = $client->SearchFacesByImage($input);
 

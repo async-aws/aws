@@ -59,7 +59,6 @@ class SqsClientTest extends TestCase
             'Entries' => [new ChangeMessageVisibilityBatchRequestEntry([
                 'Id' => 'change me',
                 'ReceiptHandle' => 'change me',
-
             ])],
         ]);
         $result = $client->changeMessageVisibilityBatch($input);
@@ -74,7 +73,6 @@ class SqsClientTest extends TestCase
 
         $input = new CreateQueueRequest([
             'QueueName' => 'change me',
-
         ]);
         $result = $client->CreateQueue($input);
 
@@ -132,7 +130,6 @@ class SqsClientTest extends TestCase
 
         $input = new GetQueueAttributesRequest([
             'QueueUrl' => 'change me',
-
         ]);
         $result = $client->GetQueueAttributes($input);
 
@@ -146,7 +143,6 @@ class SqsClientTest extends TestCase
 
         $input = new GetQueueUrlRequest([
             'QueueName' => 'change me',
-
         ]);
         $result = $client->GetQueueUrl($input);
 
@@ -159,7 +155,6 @@ class SqsClientTest extends TestCase
         $client = new SqsClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListQueuesRequest([
-
         ]);
         $result = $client->ListQueues($input);
 
@@ -186,7 +181,6 @@ class SqsClientTest extends TestCase
 
         $input = new ReceiveMessageRequest([
             'QueueUrl' => 'change me',
-
         ]);
         $result = $client->ReceiveMessage($input);
 
@@ -201,7 +195,6 @@ class SqsClientTest extends TestCase
         $input = new SendMessageRequest([
             'QueueUrl' => 'change me',
             'MessageBody' => 'change me',
-
         ]);
         $result = $client->SendMessage($input);
 
@@ -218,7 +211,6 @@ class SqsClientTest extends TestCase
             'Entries' => [new SendMessageBatchRequestEntry([
                 'Id' => 'change me',
                 'MessageBody' => 'change me',
-
             ])],
         ]);
         $result = $client->sendMessageBatch($input);

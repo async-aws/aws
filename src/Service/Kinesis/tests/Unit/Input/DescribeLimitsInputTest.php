@@ -10,7 +10,6 @@ class DescribeLimitsInputTest extends TestCase
     public function testRequest(): void
     {
         $input = new DescribeLimitsInput([
-
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeLimits.html

@@ -16,7 +16,6 @@ class ElastiCacheClientTest extends TestCase
         $client = new ElastiCacheClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeCacheClustersMessage([
-
         ]);
         $result = $client->describeCacheClusters($input);
 

@@ -18,7 +18,6 @@ class EventBridgeClientTest extends TestCase
 
         $input = new PutEventsRequest([
             'Entries' => [new PutEventsRequestEntry([
-
             ])],
         ]);
         $result = $client->PutEvents($input);

@@ -32,7 +32,6 @@ class CodeCommitClientTest extends TestCase
 
         $input = new CreateRepositoryInput([
             'repositoryName' => 'change me',
-
         ]);
         $result = $client->createRepository($input);
 
@@ -72,7 +71,6 @@ class CodeCommitClientTest extends TestCase
         $client = new CodeCommitClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetBranchInput([
-
         ]);
         $result = $client->getBranch($input);
 
@@ -102,7 +100,6 @@ class CodeCommitClientTest extends TestCase
             'repositoryName' => 'my-super-code-repository',
 
             'afterCommitSpecifier' => 'change me',
-
         ]);
         $result = $client->getDifferences($input);
 
@@ -115,7 +112,6 @@ class CodeCommitClientTest extends TestCase
         $client = new CodeCommitClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListRepositoriesInput([
-
         ]);
         $result = $client->listRepositories($input);
 

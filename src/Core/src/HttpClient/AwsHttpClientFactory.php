@@ -12,7 +12,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class AwsHttpClientFactory
 {
-    public static function createRetryableClient(HttpClientInterface $httpClient = null, LoggerInterface $logger = null): HttpClientInterface
+    public static function createRetryableClient(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null): HttpClientInterface
     {
         if (null === $httpClient) {
             $httpClient = HttpClient::create();

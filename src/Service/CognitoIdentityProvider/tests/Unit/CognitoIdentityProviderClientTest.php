@@ -100,7 +100,6 @@ class CognitoIdentityProviderClientTest extends TestCase
         $input = new AdminCreateUserRequest([
             'UserPoolId' => 'change me',
             'Username' => 'change me',
-
         ]);
         $result = $client->AdminCreateUser($input);
 
@@ -172,7 +171,6 @@ class CognitoIdentityProviderClientTest extends TestCase
             'UserPoolId' => 'change me',
             'ClientId' => 'change me',
             'AuthFlow' => AuthFlowType::CUSTOM_AUTH,
-
         ]);
         $result = $client->AdminInitiateAuth($input);
 
@@ -187,7 +185,6 @@ class CognitoIdentityProviderClientTest extends TestCase
         $input = new AdminResetUserPasswordRequest([
             'UserPoolId' => 'change me',
             'Username' => 'change me',
-
         ]);
         $result = $client->adminResetUserPassword($input);
 
@@ -221,7 +218,6 @@ class CognitoIdentityProviderClientTest extends TestCase
                 'Name' => 'phone_number',
                 'Value' => '+33600000000',
             ])],
-
         ]);
         $result = $client->AdminUpdateUserAttributes($input);
 
@@ -248,7 +244,6 @@ class CognitoIdentityProviderClientTest extends TestCase
         $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
 
         $input = new AssociateSoftwareTokenRequest([
-
         ]);
         $result = $client->AssociateSoftwareToken($input);
 
@@ -296,7 +291,6 @@ class CognitoIdentityProviderClientTest extends TestCase
 
             'Username' => 'change me',
             'ConfirmationCode' => 'change me',
-
         ]);
         $result = $client->confirmSignUp($input);
 
@@ -311,7 +305,6 @@ class CognitoIdentityProviderClientTest extends TestCase
         $input = new CreateGroupRequest([
             'GroupName' => 'change me',
             'UserPoolId' => 'change me',
-
         ]);
         $result = $client->createGroup($input);
 
@@ -366,7 +359,6 @@ class CognitoIdentityProviderClientTest extends TestCase
 
         $input = new ListGroupsRequest([
             'UserPoolId' => 'change me',
-
         ]);
         $result = $client->listGroups($input);
 
@@ -380,7 +372,6 @@ class CognitoIdentityProviderClientTest extends TestCase
 
         $input = new ListUsersRequest([
             'UserPoolId' => 'change me',
-
         ]);
         $result = $client->ListUsers($input);
 
@@ -421,7 +412,6 @@ class CognitoIdentityProviderClientTest extends TestCase
         $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
 
         $input = new SetUserMFAPreferenceRequest([
-
             'AccessToken' => 'change me',
         ]);
         $result = $client->SetUserMFAPreference($input);
@@ -450,9 +440,7 @@ class CognitoIdentityProviderClientTest extends TestCase
         $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
 
         $input = new VerifySoftwareTokenRequest([
-
             'UserCode' => 'change me',
-
         ]);
         $result = $client->VerifySoftwareToken($input);
 

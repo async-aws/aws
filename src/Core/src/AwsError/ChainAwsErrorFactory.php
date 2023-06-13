@@ -16,7 +16,7 @@ class ChainAwsErrorFactory implements AwsErrorFactoryInterface
     /**
      * @param AwsErrorFactoryInterface[]|null $factories
      */
-    public function __construct(array $factories = null)
+    public function __construct(?array $factories = null)
     {
         $this->factories = $factories ?? [
             new JsonRestAwsErrorFactory(),

@@ -100,7 +100,7 @@ class Response
      */
     private $exceptionMapping;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, EndpointCache $endpointCache = null, Request $request = null, bool $debug = false, array $exceptionMapping = [])
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, ?AwsErrorFactoryInterface $awsErrorFactory = null, ?EndpointCache $endpointCache = null, ?Request $request = null, bool $debug = false, array $exceptionMapping = [])
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
@@ -186,7 +186,7 @@ class Response
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function wait(iterable $responses, float $timeout = null, bool $downloadBody = false): iterable
+    final public static function wait(iterable $responses, ?float $timeout = null, bool $downloadBody = false): iterable
     {
         /** @var self[] $responseMap */
         $responseMap = [];

@@ -471,8 +471,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
     {
         $expiration = $expiration ?: Carbon::now();
 
-        return isset($item[$this->expirationAttribute]) &&
-               $expiration->getTimestamp() >= $item[$this->expirationAttribute]->getN();
+        return isset($item[$this->expirationAttribute])
+               && $expiration->getTimestamp() >= $item[$this->expirationAttribute]->getN();
     }
 
     /**

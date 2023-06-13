@@ -24,7 +24,7 @@ trait HttpExceptionTrait
      */
     private $awsError;
 
-    public function __construct(ResponseInterface $response, AwsError $awsError = null)
+    public function __construct(ResponseInterface $response, ?AwsError $awsError = null)
     {
         $this->response = $response;
         /** @var int $code */

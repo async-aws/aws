@@ -40,7 +40,6 @@ class SecretsManagerClientTest extends TestCase
 
         $input = new DeleteSecretRequest([
             'SecretId' => 'change me',
-
         ]);
         $result = $client->DeleteSecret($input);
 
@@ -54,7 +53,6 @@ class SecretsManagerClientTest extends TestCase
 
         $input = new GetSecretValueRequest([
             'SecretId' => 'change me',
-
         ]);
         $result = $client->GetSecretValue($input);
 
@@ -67,7 +65,6 @@ class SecretsManagerClientTest extends TestCase
         $client = new SecretsManagerClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListSecretsRequest([
-
         ]);
         $result = $client->ListSecrets($input);
 
@@ -81,7 +78,6 @@ class SecretsManagerClientTest extends TestCase
 
         $input = new PutSecretValueRequest([
             'SecretId' => 'change me',
-
         ]);
         $result = $client->PutSecretValue($input);
 
@@ -95,7 +91,6 @@ class SecretsManagerClientTest extends TestCase
 
         $input = new UpdateSecretRequest([
             'SecretId' => 'change me',
-
         ]);
         $result = $client->UpdateSecret($input);
 

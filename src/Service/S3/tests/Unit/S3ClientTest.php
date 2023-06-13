@@ -70,7 +70,6 @@ class S3ClientTest extends TestCase
             'Bucket' => 'example-bucket',
             'Key' => 'file.png',
             'UploadId' => '123',
-
         ]);
         $result = $client->AbortMultipartUpload($input);
 
@@ -201,7 +200,6 @@ class S3ClientTest extends TestCase
 
         $input = new DeleteBucketCorsRequest([
             'Bucket' => 'example-bucket',
-
         ]);
         $result = $client->DeleteBucketCors($input);
 
@@ -216,7 +214,6 @@ class S3ClientTest extends TestCase
         $input = new DeleteObjectRequest([
             'Bucket' => 'example-bucket',
             'Key' => 'file.png',
-
         ]);
         $result = $client->DeleteObject($input);
 
@@ -237,7 +234,6 @@ class S3ClientTest extends TestCase
                 ])],
                 'Quiet' => false,
             ]),
-
         ]);
         $result = $client->DeleteObjects($input);
 
@@ -251,7 +247,6 @@ class S3ClientTest extends TestCase
 
         $input = new GetBucketCorsRequest([
             'Bucket' => 'example-bucket',
-
         ]);
         $result = $client->GetBucketCors($input);
 
@@ -265,7 +260,6 @@ class S3ClientTest extends TestCase
 
         $input = new GetBucketEncryptionRequest([
             'Bucket' => 'example-bucket',
-
         ]);
         $result = $client->getBucketEncryption($input);
 
@@ -380,7 +374,6 @@ class S3ClientTest extends TestCase
                     'AllowedOrigins' => ['test.example.com'],
                 ])],
             ]),
-
         ]);
         $result = $client->PutBucketCors($input);
 
@@ -457,7 +450,6 @@ class S3ClientTest extends TestCase
             'Key' => 'file.png',
             'PartNumber' => 1337,
             'UploadId' => '123',
-
         ]);
         $result = $client->UploadPart($input);
 

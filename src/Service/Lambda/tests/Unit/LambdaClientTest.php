@@ -34,7 +34,6 @@ class LambdaClientTest extends TestCase
             'StatementId' => 'change me',
             'Action' => 'change me',
             'Principal' => 'change me',
-
         ]);
         $result = $client->AddLayerVersionPermission($input);
 
@@ -48,7 +47,6 @@ class LambdaClientTest extends TestCase
 
         $input = new DeleteFunctionRequest([
             'FunctionName' => 'change me',
-
         ]);
         $result = $client->DeleteFunction($input);
 
@@ -62,7 +60,6 @@ class LambdaClientTest extends TestCase
 
         $input = new InvocationRequest([
             'FunctionName' => 'change me',
-
         ]);
         $result = $client->Invoke($input);
 
@@ -75,7 +72,6 @@ class LambdaClientTest extends TestCase
         $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListFunctionsRequest([
-
         ]);
         $result = $client->ListFunctions($input);
 
@@ -88,9 +84,7 @@ class LambdaClientTest extends TestCase
         $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListLayerVersionsRequest([
-
             'LayerName' => 'change me',
-
         ]);
         $result = $client->ListLayerVersions($input);
 
@@ -104,7 +98,6 @@ class LambdaClientTest extends TestCase
 
         $input = new ListVersionsByFunctionRequest([
             'FunctionName' => 'change me',
-
         ]);
         $result = $client->ListVersionsByFunction($input);
 
@@ -125,7 +118,6 @@ class LambdaClientTest extends TestCase
                 'S3ObjectVersion' => 'change me',
                 'ZipFile' => 'change me',
             ]),
-
         ]);
         $result = $client->PublishLayerVersion($input);
 

@@ -18,7 +18,7 @@ class ClassRegistry
 
     private $registered = [];
 
-    public function __construct(ClassFactory $classFactory = null)
+    public function __construct(?ClassFactory $classFactory = null)
     {
         $this->classFactory = $classFactory ?? new ClassFactory();
     }

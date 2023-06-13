@@ -171,7 +171,7 @@ class Waiter
      *
      * @return bool true if a final state was reached
      */
-    final public function wait(float $timeout = null, float $delay = null): bool
+    final public function wait(?float $timeout = null, ?float $delay = null): bool
     {
         if (null !== $this->finalState) {
             return true;

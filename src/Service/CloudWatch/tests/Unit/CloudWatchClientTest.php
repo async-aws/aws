@@ -26,11 +26,9 @@ class CloudWatchClientTest extends TestCase
         $input = new GetMetricDataInput([
             'MetricDataQueries' => [new MetricDataQuery([
                 'Id' => 'id',
-
             ])],
             'StartTime' => new \DateTimeImmutable(),
             'EndTime' => new \DateTimeImmutable(),
-
         ]);
         $result = $client->getMetricData($input);
 
@@ -48,7 +46,6 @@ class CloudWatchClientTest extends TestCase
             'StartTime' => new \DateTimeImmutable(),
             'EndTime' => new \DateTimeImmutable(),
             'Period' => 1337,
-
         ]);
         $result = $client->getMetricStatistics($input);
 
@@ -78,7 +75,6 @@ class CloudWatchClientTest extends TestCase
             'Namespace' => 'foo',
             'MetricData' => [new MetricDatum([
                 'MetricName' => 'bar',
-
             ])],
         ]);
         $result = $client->putMetricData($input);

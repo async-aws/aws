@@ -43,7 +43,6 @@ class KmsClientTest extends TestCase
         $client = new KmsClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateKeyRequest([
-
         ]);
         $result = $client->createKey($input);
 
@@ -57,7 +56,6 @@ class KmsClientTest extends TestCase
 
         $input = new DecryptRequest([
             'CiphertextBlob' => 'change me',
-
         ]);
         $result = $client->decrypt($input);
 
@@ -72,7 +70,6 @@ class KmsClientTest extends TestCase
         $input = new EncryptRequest([
             'KeyId' => 'change me',
             'Plaintext' => 'change me',
-
         ]);
         $result = $client->encrypt($input);
 
@@ -86,7 +83,6 @@ class KmsClientTest extends TestCase
 
         $input = new GenerateDataKeyRequest([
             'KeyId' => 'change me',
-
         ]);
         $result = $client->generateDataKey($input);
 
@@ -99,7 +95,6 @@ class KmsClientTest extends TestCase
         $client = new KmsClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListAliasesRequest([
-
         ]);
         $result = $client->listAliases($input);
 

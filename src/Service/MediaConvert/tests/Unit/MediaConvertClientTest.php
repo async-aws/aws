@@ -45,12 +45,9 @@ class MediaConvertClientTest extends TestCase
         ]));
 
         $input = new CreateJobRequest([
-
             'Role' => 'change me',
             'Settings' => new JobSettings([
-
             ]),
-
         ]);
         $result = $client->createJob($input);
 
@@ -63,7 +60,6 @@ class MediaConvertClientTest extends TestCase
         $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeEndpointsRequest([
-
         ]);
         $result = $client->describeEndpoints($input);
 
@@ -95,7 +91,6 @@ class MediaConvertClientTest extends TestCase
         ]));
 
         $input = new ListJobsRequest([
-
         ]);
         $result = $client->listJobs($input);
 

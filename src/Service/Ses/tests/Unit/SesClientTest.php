@@ -27,7 +27,6 @@ class SesClientTest extends TestCase
         $client = new SesClient([], new NullProvider(), new MockHttpClient());
 
         $input = new SendEmailRequest([
-
             'Destination' => new Destination([
                 'ToAddresses' => ['change me'],
                 'CcAddresses' => ['change me'],
@@ -59,7 +58,6 @@ class SesClientTest extends TestCase
                     'TemplateData' => 'change me',
                 ]),
             ]),
-
         ]);
         $result = $client->SendEmail($input);
 

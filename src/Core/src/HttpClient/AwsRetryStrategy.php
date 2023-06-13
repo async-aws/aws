@@ -19,7 +19,7 @@ class AwsRetryStrategy extends GenericRetryStrategy
     private $awsErrorFactory;
 
     // Override Symfony default options for a better integration of AWS servers.
-    public function __construct(array $statusCodes = self::DEFAULT_RETRY_STATUS_CODES, int $delayMs = 1000, float $multiplier = 2.0, int $maxDelayMs = 0, float $jitter = 0.1, AwsErrorFactoryInterface $awsErrorFactory = null)
+    public function __construct(array $statusCodes = self::DEFAULT_RETRY_STATUS_CODES, int $delayMs = 1000, float $multiplier = 2.0, int $maxDelayMs = 0, float $jitter = 0.1, ?AwsErrorFactoryInterface $awsErrorFactory = null)
     {
         parent::__construct($statusCodes, $delayMs, $multiplier, $maxDelayMs, $jitter);
         $this->awsErrorFactory = $awsErrorFactory ?? new ChainAwsErrorFactory();

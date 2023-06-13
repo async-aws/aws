@@ -16,7 +16,6 @@ class EcrClientTest extends TestCase
         $client = new EcrClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetAuthorizationTokenRequest([
-
         ]);
         $result = $client->GetAuthorizationToken($input);
 

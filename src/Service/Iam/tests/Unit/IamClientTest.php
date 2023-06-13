@@ -48,7 +48,6 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateAccessKeyRequest([
-
         ]);
         $result = $client->CreateAccessKey($input);
 
@@ -75,9 +74,7 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateUserRequest([
-
             'UserName' => 'change me',
-
         ]);
         $result = $client->CreateUser($input);
 
@@ -90,7 +87,6 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteAccessKeyRequest([
-
             'AccessKeyId' => 'change me',
         ]);
         $result = $client->DeleteAccessKey($input);
@@ -104,7 +100,6 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteServiceSpecificCredentialRequest([
-
             'ServiceSpecificCredentialId' => 'change me',
         ]);
         $result = $client->deleteServiceSpecificCredential($input);
@@ -145,7 +140,6 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetUserRequest([
-
         ]);
         $result = $client->GetUser($input);
 
@@ -158,7 +152,6 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListServiceSpecificCredentialsRequest([
-
         ]);
         $result = $client->listServiceSpecificCredentials($input);
 
@@ -171,7 +164,6 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListUsersRequest([
-
         ]);
         $result = $client->ListUsers($input);
 
@@ -200,7 +192,6 @@ class IamClientTest extends TestCase
 
         $input = new UpdateUserRequest([
             'UserName' => 'change me',
-
         ]);
         $result = $client->UpdateUser($input);
 

@@ -46,7 +46,6 @@ class TimestreamQueryClientTest extends TestCase
         $input = new PrepareQueryRequest([
             'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
             'ValidateOnly' => true,
-
         ]);
         $result = $client->prepareQuery($input);
 
@@ -66,7 +65,6 @@ class TimestreamQueryClientTest extends TestCase
         $input = new QueryRequest([
             'ClientToken' => 'qwertyuiop',
             'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
-
         ]);
         $result = $client->query($input);
 

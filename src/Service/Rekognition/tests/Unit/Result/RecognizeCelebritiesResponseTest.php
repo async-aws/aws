@@ -121,7 +121,6 @@ class RecognizeCelebritiesResponseTest extends TestCase
                     'Urls' => ['www.imdb.com/name/nm0000602'],
                 ]
             ),
-
         ];
         self::assertEquals($expectedGetCelebrityFaces, $result->getCelebrityFaces());
 
@@ -153,7 +152,6 @@ class RecognizeCelebritiesResponseTest extends TestCase
                     ],
                 ]
             ),
-
         ];
         self::assertEquals($expectedGetUnrecognizedFaces, $result->getUnrecognizedFaces());
     }
