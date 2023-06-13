@@ -8,6 +8,7 @@
 - AWS api-change: This release adds a new attribute FaceOccluded. Additionally, you can now select attributes individually (e.g. ["DEFAULT", "FACE_OCCLUDED", "AGE_RANGE"] instead of ["ALL"]), which can reduce response time.
 - Added operation `detectModerationLabels`
 - AWS api-change: This release adds a new EyeDirection attribute in Amazon Rekognition DetectFaces and IndexFaces APIs which predicts the yaw and pitch angles of a person's eye gaze direction for each face detected in the image.
+- AWS api-change: Add new `UserId` property in `Face`
 
 ## 0.1.7
 
