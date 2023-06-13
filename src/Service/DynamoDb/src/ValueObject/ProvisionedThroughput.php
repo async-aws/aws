@@ -21,7 +21,7 @@ final class ProvisionedThroughput
      *
      * If read/write capacity mode is `PAY_PER_REQUEST` the value is set to 0.
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html
      */
     private $readCapacityUnits;
 
@@ -31,7 +31,7 @@ final class ProvisionedThroughput
      *
      * If read/write capacity mode is `PAY_PER_REQUEST` the value is set to 0.
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html
      */
     private $writeCapacityUnits;
 

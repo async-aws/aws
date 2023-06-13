@@ -39,6 +39,11 @@ final class Face
     private $indexFacesModelVersion;
 
     /**
+     * Unique identifier assigned to the user.
+     */
+    private $userId;
+
+    /**
      * @param array{
      *   FaceId?: null|string,
      *   BoundingBox?: null|BoundingBox|array,
@@ -46,6 +51,7 @@ final class Face
      *   ExternalImageId?: null|string,
      *   Confidence?: null|float,
      *   IndexFacesModelVersion?: null|string,
+     *   UserId?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -56,6 +62,7 @@ final class Face
         $this->externalImageId = $input['ExternalImageId'] ?? null;
         $this->confidence = $input['Confidence'] ?? null;
         $this->indexFacesModelVersion = $input['IndexFacesModelVersion'] ?? null;
+        $this->userId = $input['UserId'] ?? null;
     }
 
     public static function create($input): self
@@ -91,5 +98,10 @@ final class Face
     public function getIndexFacesModelVersion(): ?string
     {
         return $this->indexFacesModelVersion;
+    }
+
+    public function getUserId(): ?string
+    {
+        return $this->userId;
     }
 }

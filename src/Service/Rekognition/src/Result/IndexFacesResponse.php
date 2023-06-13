@@ -196,6 +196,7 @@ class IndexFacesResponse extends Result
             'ExternalImageId' => isset($json['ExternalImageId']) ? (string) $json['ExternalImageId'] : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
             'IndexFacesModelVersion' => isset($json['IndexFacesModelVersion']) ? (string) $json['IndexFacesModelVersion'] : null,
+            'UserId' => isset($json['UserId']) ? (string) $json['UserId'] : null,
         ]);
     }
 
