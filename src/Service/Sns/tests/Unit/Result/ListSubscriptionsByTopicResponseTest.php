@@ -34,12 +34,12 @@ class ListSubscriptionsByTopicResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListSubscriptionsByTopicResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        $subcsribtion = iterator_to_array($result->getSubscriptions(true))[0];
+        $subscription = iterator_to_array($result->getSubscriptions(true))[0];
 
-        self::assertSame('arn:aws:sns:us-east-2:123456789012:My-Topic', $subcsribtion->getTopicArn());
-        self::assertSame('email', $subcsribtion->getProtocol());
-        self::assertSame('arn:aws:sns:us-east-2:123456789012:My-Topic:80289ba6-0fd4-4079-afb4-ce8c8260f0ca', $subcsribtion->getSubscriptionArn());
-        self::assertSame('123456789012', $subcsribtion->getOwner());
-        self::assertSame('example@amazon.com', $subcsribtion->getEndpoint());
+        self::assertSame('arn:aws:sns:us-east-2:123456789012:My-Topic', $subscription->getTopicArn());
+        self::assertSame('email', $subscription->getProtocol());
+        self::assertSame('arn:aws:sns:us-east-2:123456789012:My-Topic:80289ba6-0fd4-4079-afb4-ce8c8260f0ca', $subscription->getSubscriptionArn());
+        self::assertSame('123456789012', $subscription->getOwner());
+        self::assertSame('example@amazon.com', $subscription->getEndpoint());
     }
 }
