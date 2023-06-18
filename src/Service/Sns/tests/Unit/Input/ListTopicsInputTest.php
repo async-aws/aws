@@ -9,20 +9,19 @@ class ListTopicsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListTopicsInput([
             'NextToken' => 'change me',
         ]);
 
         // see https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html
-        $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+        $expected = <<<TEXT
+POST / HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
 
-            Action=ListTopics
-            &Version=2010-03-31
-                ';
+Action=ListTopics
+NextToken=change+me
+&Version=2010-03-31
+TEXT;
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

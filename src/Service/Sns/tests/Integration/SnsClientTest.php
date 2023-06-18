@@ -136,7 +136,7 @@ class SnsClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getTopics());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertSame('change me', $result->getNextToken());
     }
 
     public function testPublish(): void

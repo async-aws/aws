@@ -8,6 +8,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sns\Input\ListTopicsInput;
 use AsyncAws\Sns\Result\ListTopicsResponse;
 use AsyncAws\Sns\SnsClient;
+use AsyncAws\Sns\ValueObject\Topic;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -15,15 +16,30 @@ class ListTopicsResponseTest extends TestCase
 {
     public function testListTopicsResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html
-        $response = new SimpleMockedResponse('<change>it</change>');
+        $response = new SimpleMockedResponse('<ListTopicsResponse xmlns="http://sns.amazonaws.com/doc/2010-03-31/">
+  <ListTopicsResult>
+    <Topics>
+      <member>
+        <TopicArn>arn:aws:sns:eu-west-1:000000000000:MyTopic1</TopicArn>
+      </member>
+      <member>
+        <TopicArn>arn:aws:sns:eu-west-1:000000000000:MyTopic2</TopicArn>
+      </member>
+    </Topics>
+    <NextToken>NextTokenValue</NextToken>
+  </ListTopicsResult>
+</ListTopicsResponse>');
 
         $client = new MockHttpClient($response);
         $result = new ListTopicsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new SnsClient(), new ListTopicsInput([]));
 
-        // self::assertTODO(expected, $result->getTopics());
-        self::assertSame('changeIt', $result->getNextToken());
+        $expected = [
+            new Topic(['TopicArn' => 'arn:aws:sns:eu-west-1:000000000000:MyTopic1']),
+            new Topic(['TopicArn' => 'arn:aws:sns:eu-west-1:000000000000:MyTopic2']),
+        ];
+
+        self::assertEquals($expected, iterator_to_array($result->getTopics()));
+        self::assertSame('NextTokenValue', $result->getNextToken());
     }
 }
