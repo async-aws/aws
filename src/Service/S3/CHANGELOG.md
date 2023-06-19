@@ -8,6 +8,7 @@
 - AWS enhancement: Documentation updates.
 - AWS api-change: Provides support for "Snow" Storage class.
 - AWS api-change: Integrate double encryption feature to SDKs.
+- AWS api-change: This release adds SDK support for request-payer request header and request-charged response header in the "GetBucketAccelerateConfiguration", "ListMultipartUploads", "ListObjects", "ListObjectsV2" and "ListObjectVersions" S3 APIs.
 
 ## 1.13.0
 
