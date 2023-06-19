@@ -7,6 +7,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\EncodingType;
+use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
@@ -115,6 +116,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * If StartAfter was sent with the request, it is included in the response.
      */
     private $startAfter;
+
+    private $requestCharged;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
@@ -308,6 +311,16 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->prefix;
     }
 
+    /**
+     * @return RequestCharged::*|null
+     */
+    public function getRequestCharged(): ?string
+    {
+        $this->initialize();
+
+        return $this->requestCharged;
+    }
+
     public function getStartAfter(): ?string
     {
         $this->initialize();
@@ -317,6 +330,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
 
     protected function populateResult(Response $response): void
     {
+        $headers = $response->getHeaders();
+
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
+
         $data = new \SimpleXMLElement($response->getContent());
         $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
         $this->contents = !$data->Contents ? [] : $this->populateResultObjectList($data->Contents);

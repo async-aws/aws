@@ -144,7 +144,7 @@ final class CreateMultipartUploadRequest extends Input
     private $metadata;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
      *
      * @var ServerSideEncryption::*|null
      */
@@ -196,9 +196,9 @@ final class CreateMultipartUploadRequest extends Input
 
     /**
      * Specifies the ID of the symmetric encryption customer managed key to use for object encryption. All GET and PUT
-     * requests for an object protected by Amazon Web Services KMS will fail if not made via SSL or using SigV4. For
-     * information about configuring using any of the officially supported Amazon Web Services SDKs and Amazon Web Services
-     * CLI, see Specifying the Signature Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
+     * requests for an object protected by KMS will fail if they're not made via SSL or using SigV4. For information about
+     * configuring any of the officially supported Amazon Web Services SDKs and Amazon Web Services CLI, see Specifying the
+     * Signature Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      *
@@ -215,9 +215,9 @@ final class CreateMultipartUploadRequest extends Input
     private $sseKmsEncryptionContext;
 
     /**
-     * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
-     * KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with
-     * SSE-KMS.
+     * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using Key
+     * Management Service (KMS) keys (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for
+     * object encryption with SSE-KMS.
      *
      * Specifying this header with an object action doesn’t affect bucket-level settings for S3 Bucket Key.
      *

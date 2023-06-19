@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
+use AsyncAws\S3\Enum\RequestPayer;
 
 final class ListMultipartUploadsRequest extends Input
 {
@@ -99,6 +100,11 @@ final class ListMultipartUploadsRequest extends Input
     private $expectedBucketOwner;
 
     /**
+     * @var RequestPayer::*|null
+     */
+    private $requestPayer;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
@@ -108,6 +114,7 @@ final class ListMultipartUploadsRequest extends Input
      *   Prefix?: string,
      *   UploadIdMarker?: string,
      *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: RequestPayer::*,
      *
      *   @region?: string,
      * } $input
@@ -122,6 +129,7 @@ final class ListMultipartUploadsRequest extends Input
         $this->prefix = $input['Prefix'] ?? null;
         $this->uploadIdMarker = $input['UploadIdMarker'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->requestPayer = $input['RequestPayer'] ?? null;
         parent::__construct($input);
     }
 
@@ -168,6 +176,14 @@ final class ListMultipartUploadsRequest extends Input
         return $this->prefix;
     }
 
+    /**
+     * @return RequestPayer::*|null
+     */
+    public function getRequestPayer(): ?string
+    {
+        return $this->requestPayer;
+    }
+
     public function getUploadIdMarker(): ?string
     {
         return $this->uploadIdMarker;
@@ -182,6 +198,12 @@ final class ListMultipartUploadsRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
+        }
+        if (null !== $this->requestPayer) {
+            if (!RequestPayer::exists($this->requestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
+            }
+            $headers['x-amz-request-payer'] = $this->requestPayer;
         }
 
         // Prepare query
@@ -271,6 +293,16 @@ final class ListMultipartUploadsRequest extends Input
     public function setPrefix(?string $value): self
     {
         $this->prefix = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param RequestPayer::*|null $value
+     */
+    public function setRequestPayer(?string $value): self
+    {
+        $this->requestPayer = $value;
 
         return $this;
     }

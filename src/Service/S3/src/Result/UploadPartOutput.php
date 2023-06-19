@@ -10,7 +10,7 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
 class UploadPartOutput extends Result
 {
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
      */
     private $serverSideEncryption;
 
@@ -68,14 +68,14 @@ class UploadPartOutput extends Result
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * encryption customer managed key was used for the object.
+     * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key was used
+     * for the object.
      */
     private $sseKmsKeyId;
 
     /**
-     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS
-     * (SSE-KMS).
+     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service
+     * (KMS) keys (SSE-KMS).
      */
     private $bucketKeyEnabled;
 

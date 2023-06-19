@@ -60,7 +60,8 @@ class PutObjectOutput extends Result
     private $checksumSha256;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`,
+     * `aws:kms:dsse`).
      */
     private $serverSideEncryption;
 
@@ -82,9 +83,8 @@ class PutObjectOutput extends Result
     private $sseCustomerKeyMd5;
 
     /**
-     * If `x-amz-server-side-encryption` is has a valid value of `aws:kms`, this header specifies the ID of the Amazon Web
-     * Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for
-     * the object.
+     * If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header specifies the ID of
+     * the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
      */
     private $sseKmsKeyId;
 
@@ -97,8 +97,8 @@ class PutObjectOutput extends Result
     private $sseKmsEncryptionContext;
 
     /**
-     * Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS
-     * (SSE-KMS).
+     * Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Key Management Service
+     * (KMS) keys (SSE-KMS).
      */
     private $bucketKeyEnabled;
 

@@ -10,7 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class Delete
 {
     /**
-     * The objects to delete.
+     * The object to delete.
      */
     private $objects;
 
