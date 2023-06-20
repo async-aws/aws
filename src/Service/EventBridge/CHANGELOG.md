@@ -2,7 +2,7 @@
 
 ## NOT RELEASED
 
-## 1.4.1
+## 1.5.0
 
 ### Added
 
