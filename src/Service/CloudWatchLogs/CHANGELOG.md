@@ -2,8 +2,11 @@
 
 ## NOT RELEASED
 
+## 1.6.0
+
 ### Added
 
+- Added `createLogStream` operation
 - AWS enhancement: Documentation updates.
 - AWS api-change: Bug fix: logGroupName is now not a required field in GetLogEvents, FilterLogEvents, GetLogGroupFields, and DescribeLogStreams APIs as logGroupIdentifier can be provided instead
 

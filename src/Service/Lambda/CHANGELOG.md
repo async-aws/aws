@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.9.0
+
 ### Added
 
 - AWS enhancement: Documentation updates.
@@ -10,6 +12,7 @@
 - AWS api-change: Add Python 3.10 (python3.10) support to AWS Lambda
 - AWS api-change: Add Ruby 3.2 (ruby3.2) Runtime support to AWS Lambda.
 - AWS api-change: Add Java 17 (java17) support to AWS Lambda
+
 ## 1.8.0
 
 ### Added

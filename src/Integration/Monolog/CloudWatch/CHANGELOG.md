@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.0.1
+
+### Updated
+
+- Remove unnecessary sequenceToken from log events
+
 ## 1.0.0
 
 ### Updated
