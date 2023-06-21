@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds RecursiveInvocationException to the Invoke API and InvokeWithResponseStream API.
+
 ## 1.9.0
 
 ### Added

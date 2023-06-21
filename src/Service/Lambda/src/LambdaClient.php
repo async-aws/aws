@@ -35,6 +35,7 @@ use AsyncAws\Lambda\Exception\KMSInvalidStateException;
 use AsyncAws\Lambda\Exception\KMSNotFoundException;
 use AsyncAws\Lambda\Exception\PolicyLengthExceededException;
 use AsyncAws\Lambda\Exception\PreconditionFailedException;
+use AsyncAws\Lambda\Exception\RecursiveInvocationException;
 use AsyncAws\Lambda\Exception\RequestTooLargeException;
 use AsyncAws\Lambda\Exception\ResourceConflictException;
 use AsyncAws\Lambda\Exception\ResourceNotFoundException;
@@ -232,6 +233,7 @@ class LambdaClient extends AbstractApi
      * @throws InvalidRuntimeException
      * @throws ResourceConflictException
      * @throws ResourceNotReadyException
+     * @throws RecursiveInvocationException
      */
     public function invoke($input): InvocationResponse
     {
@@ -266,6 +268,7 @@ class LambdaClient extends AbstractApi
             'InvalidRuntimeException' => InvalidRuntimeException::class,
             'ResourceConflictException' => ResourceConflictException::class,
             'ResourceNotReadyException' => ResourceNotReadyException::class,
+            'RecursiveInvocationException' => RecursiveInvocationException::class,
         ]]));
 
         return new InvocationResponse($response);
