@@ -49,6 +49,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
+use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -84,6 +85,7 @@ use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\Part;
+use AsyncAws\S3\ValueObject\Tagging;
 
 class S3Client extends AbstractApi
 {
@@ -1828,6 +1830,81 @@ class S3Client extends AbstractApi
     {
         $input = PutBucketNotificationConfigurationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketNotificationConfiguration', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
+    /**
+     * Sets the tags for a bucket.
+     *
+     * Use tags to organize your Amazon Web Services bill to reflect your own cost structure. To do this, sign up to get
+     * your Amazon Web Services account bill with tag key values included. Then, to see the cost of combined resources,
+     * organize your billing information according to resources with the same tag key values. For example, you can tag
+     * several resources with a specific application name, and then organize your billing information to see the total cost
+     * of that application across several services. For more information, see Cost Allocation and Tagging [^1] and Using
+     * Cost Allocation in Amazon S3 Bucket Tags [^2].
+     *
+     * > When this operation sets the tags for a bucket, it will overwrite any current tags the bucket already has. You
+     * > cannot use this operation to add tags to an existing list of tags.
+     *
+     * To use this operation, you must have permissions to perform the `s3:PutBucketTagging` action. The bucket owner has
+     * this permission by default and can grant this permission to others. For more information about permissions, see
+     * Permissions Related to Bucket Subresource Operations [^3] and Managing Access Permissions to Your Amazon S3 Resources
+     * [^4].
+     *
+     * `PutBucketTagging` has the following special errors:
+     *
+     * - Error code: `InvalidTagError`
+     *
+     *   - Description: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.
+     *     For information about tag restrictions, see User-Defined Tag Restrictions [^5] and Amazon Web Services-Generated
+     *     Cost Allocation Tag Restrictions [^6].
+     *
+     * - Error code: `MalformedXMLError`
+     *
+     *   - Description: The XML provided does not match the schema.
+     *
+     * - Error code: `OperationAbortedError `
+     *
+     *   - Description: A conflicting conditional action is currently in progress against this resource. Please try again.
+     *
+     * - Error code: `InternalError`
+     *
+     *   - Description: The service was unable to apply the provided tag to the bucket.
+     *
+     *
+     * The following operations are related to `PutBucketTagging`:
+     *
+     * - GetBucketTagging [^7]
+     * - DeleteBucketTagging [^8]
+     *
+     * [^1]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CostAllocTagging.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
+     * [^5]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
+     * [^6]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/aws-tag-restrictions.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTtagging.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbuckettagging
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   Tagging: Tagging|array,
+     *   ExpectedBucketOwner?: string,
+     *
+     *   @region?: string,
+     * }|PutBucketTaggingRequest $input
+     */
+    public function putBucketTagging($input): Result
+    {
+        $input = PutBucketTaggingRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketTagging', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }

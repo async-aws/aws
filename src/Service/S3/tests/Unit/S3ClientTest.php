@@ -26,6 +26,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
+use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -57,6 +58,8 @@ use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
 use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\Tag;
+use AsyncAws\S3\ValueObject\Tagging;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -408,6 +411,32 @@ class S3ClientTest extends TestCase
             ]),
         ]);
         $result = $client->PutBucketNotificationConfiguration($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketTagging(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketTaggingRequest([
+            'Bucket' => 'my-website-assets-bucket',
+
+            'Tagging' => new Tagging([
+                'TagSet' => [
+                    new Tag([
+                        'Key' => 'environment',
+                        'Value' => 'production',
+                    ]),
+                    new Tag([
+                        'Key' => 'project-name',
+                        'Value' => 'unicorn',
+                    ]),
+                ],
+            ]),
+        ]);
+        $result = $client->putBucketTagging($input);
 
         self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
