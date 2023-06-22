@@ -29,6 +29,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
+use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -51,6 +52,8 @@ use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
 use AsyncAws\S3\ValueObject\QueueConfiguration;
 use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\Tag;
+use AsyncAws\S3\ValueObject\Tagging;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
 
 class S3ClientTest extends TestCase
@@ -77,8 +80,8 @@ class S3ClientTest extends TestCase
         $input = new PutObjectRequest();
         $fileBody = 'foobar';
         $input->setBucket('foo')
-            ->setKey('bar')
-            ->setBody($fileBody);
+        ->setKey('bar')
+        ->setBody($fileBody);
         $result = $s3->putObject($input);
 
         $result->resolve();
@@ -88,7 +91,7 @@ class S3ClientTest extends TestCase
         // Test get object
         $input = new GetObjectRequest();
         $input->setBucket('foo')
-            ->setKey('bar');
+        ->setKey('bar');
         $result = $s3->getObject($input);
         $body = $result->getBody()->getContentAsString();
 
@@ -722,6 +725,36 @@ class S3ClientTest extends TestCase
 
         $info = $result->info();
         self::assertEquals(200, $info['status']);
+    }
+
+    public function testPutBucketTagging(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutBucketTaggingRequest([
+            'Bucket' => 'my-website-assets-bucket',
+            'ContentMD5' => 'NDhmNGNlNzhjZDAzODJlZjY1YTFmNjQzYjMxNmExZDg1YzM0MzZmNzUzNTVhNDBmYzFmOWE2Y2FjNTkyYWYxYQ==',
+            'ChecksumAlgorithm' => 'SHA256',
+            'Tagging' => new Tagging([
+                'TagSet' => [
+                    new Tag([
+                        'Key' => 'environment',
+                        'Value' => 'production',
+                    ]),
+                    new Tag([
+                        'Key' => 'project-name',
+                        'Value' => 'unicorn',
+                    ]),
+                ],
+            ]),
+            'ExpectedBucketOwner' => '0123456789',
+        ]);
+        $result = $client->putBucketTagging($input);
+
+        $result->resolve();
+
+        self::assertSame(200, $result->info()['response']->getStatusCode());
+        self::assertSame('', $result->info()['response']->getContent());
     }
 
     public function testPutObject(): void
