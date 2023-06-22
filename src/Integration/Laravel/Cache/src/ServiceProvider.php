@@ -37,8 +37,8 @@ class ServiceProvider extends AbstractServiceProvider
         return \Closure::fromCallable(function ($app, array $config) {
             $clientConfig = [];
             if (isset($config['key']) && isset($config['secret'])) {
-                $clientConfig['accessKeyId'] = $config['key'] ?? null;
-                $clientConfig['accessKeySecret'] = $config['secret'] ?? null;
+                $clientConfig['accessKeyId'] = $config['key'];
+                $clientConfig['accessKeySecret'] = $config['secret'];
                 $clientConfig['sessionToken'] = $config['token'] ?? null;
             }
 
