@@ -39,8 +39,7 @@ final class DeregisterStreamConsumerInput extends Input
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -21,8 +21,7 @@ final class DeleteCollectionRequest extends Input
     /**
      * @param array{
      *   CollectionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

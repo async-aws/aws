@@ -38,8 +38,7 @@ final class DeleteStreamInput extends Input
      *   StreamName?: string,
      *   EnforceConsumerDeletion?: bool,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

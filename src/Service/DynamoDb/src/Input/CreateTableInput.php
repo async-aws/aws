@@ -232,8 +232,7 @@ final class CreateTableInput extends Input
      *   Tags?: Tag[],
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

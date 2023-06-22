@@ -73,8 +73,7 @@ final class StartSessionRequest extends Input
      *   NotebookVersion?: string,
      *   SessionIdleTimeoutInMinutes?: int,
      *   ClientRequestToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

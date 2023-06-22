@@ -111,8 +111,7 @@ final class SignRequest extends Input
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

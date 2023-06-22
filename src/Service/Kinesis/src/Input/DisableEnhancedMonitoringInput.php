@@ -57,8 +57,7 @@ final class DisableEnhancedMonitoringInput extends Input
      *   StreamName?: string,
      *   ShardLevelMetrics?: list<MetricsName::*>,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

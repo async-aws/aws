@@ -21,8 +21,7 @@ final class PutTraceSegmentsRequest extends Input
     /**
      * @param array{
      *   TraceSegmentDocuments?: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

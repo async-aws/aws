@@ -38,8 +38,7 @@ final class ListApiKeysRequest extends Input
      *   apiId?: string,
      *   nextToken?: string,
      *   maxResults?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

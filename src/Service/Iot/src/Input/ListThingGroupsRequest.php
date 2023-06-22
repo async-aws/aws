@@ -51,8 +51,7 @@ final class ListThingGroupsRequest extends Input
      *   parentGroup?: string,
      *   namePrefixFilter?: string,
      *   recursive?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

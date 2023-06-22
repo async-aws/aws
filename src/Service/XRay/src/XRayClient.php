@@ -55,8 +55,7 @@ class XRayClient extends AbstractApi
      *
      * @param array{
      *   TraceSegmentDocuments: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PutTraceSegmentsRequest $input
      *
      * @throws InvalidRequestException

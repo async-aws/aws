@@ -31,8 +31,7 @@ final class GetDatabaseInput extends Input
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

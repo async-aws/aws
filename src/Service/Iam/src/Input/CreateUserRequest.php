@@ -75,8 +75,7 @@ final class CreateUserRequest extends Input
      *   UserName?: string,
      *   PermissionsBoundary?: string,
      *   Tags?: Tag[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -56,8 +56,7 @@ final class CreatePlatformEndpointInput extends Input
      *   Token?: string,
      *   CustomUserData?: string,
      *   Attributes?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

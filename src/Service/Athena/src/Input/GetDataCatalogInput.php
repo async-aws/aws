@@ -21,8 +21,7 @@ final class GetDataCatalogInput extends Input
     /**
      * @param array{
      *   Name?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

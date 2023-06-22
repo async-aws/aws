@@ -41,8 +41,7 @@ final class AddUserToGroupRequest extends Input
      * @param array{
      *   GroupName?: string,
      *   UserName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -241,8 +241,7 @@ final class AssumeRoleRequest extends Input
      *   SerialNumber?: string,
      *   TokenCode?: string,
      *   SourceIdentity?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

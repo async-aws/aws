@@ -82,8 +82,7 @@ final class TranslateTextRequest extends Input
      *   SourceLanguageCode?: string,
      *   TargetLanguageCode?: string,
      *   Settings?: TranslationSettings|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

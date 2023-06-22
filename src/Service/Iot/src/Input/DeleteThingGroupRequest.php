@@ -29,8 +29,7 @@ final class DeleteThingGroupRequest extends Input
      * @param array{
      *   thingGroupName?: string,
      *   expectedVersion?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

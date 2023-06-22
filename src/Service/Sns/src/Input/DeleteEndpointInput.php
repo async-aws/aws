@@ -24,8 +24,7 @@ final class DeleteEndpointInput extends Input
     /**
      * @param array{
      *   EndpointArn?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

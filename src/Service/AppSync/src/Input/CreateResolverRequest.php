@@ -136,8 +136,7 @@ final class CreateResolverRequest extends Input
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -153,8 +153,7 @@ final class PublishInput extends Input
      *   MessageAttributes?: array<string, MessageAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

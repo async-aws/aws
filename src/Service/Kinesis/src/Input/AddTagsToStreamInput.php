@@ -40,8 +40,7 @@ final class AddTagsToStreamInput extends Input
      *   StreamName?: string,
      *   Tags?: array<string, string>,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

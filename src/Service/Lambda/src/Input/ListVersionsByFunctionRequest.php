@@ -47,8 +47,7 @@ final class ListVersionsByFunctionRequest extends Input
      *   FunctionName?: string,
      *   Marker?: string,
      *   MaxItems?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

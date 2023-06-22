@@ -147,8 +147,7 @@ final class CreateDeploymentInput extends Input
      *   updateOutdatedInstancesOnly?: bool,
      *   fileExistsBehavior?: FileExistsBehavior::*,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

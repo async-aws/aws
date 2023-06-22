@@ -95,8 +95,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   Tags: array<string, string>,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|AddTagsToStreamInput $input
      *
      * @throws ResourceNotFoundException
@@ -162,8 +161,7 @@ class KinesisClient extends AbstractApi
      *   StreamName: string,
      *   ShardCount?: int,
      *   StreamModeDetails?: StreamModeDetails|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateStreamInput $input
      *
      * @throws ResourceInUseException
@@ -199,8 +197,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   RetentionPeriodHours: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DecreaseStreamRetentionPeriodInput $input
      *
      * @throws ResourceInUseException
@@ -251,8 +248,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   EnforceConsumerDeletion?: bool,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteStreamInput $input
      *
      * @throws ResourceNotFoundException
@@ -291,8 +287,7 @@ class KinesisClient extends AbstractApi
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeregisterStreamConsumerInput $input
      *
      * @throws LimitExceededException
@@ -322,8 +317,7 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describelimits
      *
      * @param array{
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeLimitsInput $input
      *
      * @throws LimitExceededException
@@ -372,8 +366,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeStreamInput $input
      *
      * @throws ResourceNotFoundException
@@ -410,8 +403,7 @@ class KinesisClient extends AbstractApi
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeStreamConsumerInput $input
      *
      * @throws LimitExceededException
@@ -447,8 +439,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamName?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeStreamSummaryInput $input
      *
      * @throws ResourceNotFoundException
@@ -482,8 +473,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   ShardLevelMetrics: list<MetricsName::*>,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DisableEnhancedMonitoringInput $input
      *
      * @throws InvalidArgumentException
@@ -519,8 +509,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   ShardLevelMetrics: list<MetricsName::*>,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|EnableEnhancedMonitoringInput $input
      *
      * @throws InvalidArgumentException
@@ -601,8 +590,7 @@ class KinesisClient extends AbstractApi
      *   ShardIterator: string,
      *   Limit?: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetRecordsInput $input
      *
      * @throws ResourceNotFoundException
@@ -683,8 +671,7 @@ class KinesisClient extends AbstractApi
      *   StartingSequenceNumber?: string,
      *   Timestamp?: \DateTimeImmutable|string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetShardIteratorInput $input
      *
      * @throws ResourceNotFoundException
@@ -725,8 +712,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   RetentionPeriodHours: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|IncreaseStreamRetentionPeriodInput $input
      *
      * @throws ResourceInUseException
@@ -777,8 +763,7 @@ class KinesisClient extends AbstractApi
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
      *   ShardFilter?: ShardFilter|array,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListShardsInput $input
      *
      * @throws ResourceNotFoundException
@@ -817,8 +802,7 @@ class KinesisClient extends AbstractApi
      *   NextToken?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListStreamConsumersInput $input
      *
      * @throws ResourceNotFoundException
@@ -863,8 +847,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartStreamName?: string,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListStreamsInput $input
      *
      * @throws LimitExceededException
@@ -898,8 +881,7 @@ class KinesisClient extends AbstractApi
      *   ExclusiveStartTagKey?: string,
      *   Limit?: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListTagsForStreamInput $input
      *
      * @throws ResourceNotFoundException
@@ -965,8 +947,7 @@ class KinesisClient extends AbstractApi
      *   ShardToMerge: string,
      *   AdjacentShardToMerge: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|MergeShardsInput $input
      *
      * @throws ResourceNotFoundException
@@ -1044,8 +1025,7 @@ class KinesisClient extends AbstractApi
      *   ExplicitHashKey?: string,
      *   SequenceNumberForOrdering?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PutRecordInput $input
      *
      * @throws ResourceNotFoundException
@@ -1143,8 +1123,7 @@ class KinesisClient extends AbstractApi
      *   Records: PutRecordsRequestEntry[],
      *   StreamName?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PutRecordsInput $input
      *
      * @throws ResourceNotFoundException
@@ -1199,8 +1178,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamARN: string,
      *   ConsumerName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|RegisterStreamConsumerInput $input
      *
      * @throws InvalidArgumentException
@@ -1239,8 +1217,7 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string,
      *   TagKeys: string[],
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|RemoveTagsFromStreamInput $input
      *
      * @throws ResourceNotFoundException
@@ -1316,8 +1293,7 @@ class KinesisClient extends AbstractApi
      *   ShardToSplit: string,
      *   NewStartingHashKey: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|SplitShardInput $input
      *
      * @throws ResourceNotFoundException
@@ -1369,8 +1345,7 @@ class KinesisClient extends AbstractApi
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|StartStreamEncryptionInput $input
      *
      * @throws InvalidArgumentException
@@ -1431,8 +1406,7 @@ class KinesisClient extends AbstractApi
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|StopStreamEncryptionInput $input
      *
      * @throws InvalidArgumentException
@@ -1463,8 +1437,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeStreamInput $input
      */
     public function streamExists($input = []): StreamExistsWaiter
@@ -1488,8 +1461,7 @@ class KinesisClient extends AbstractApi
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeStreamInput $input
      */
     public function streamNotExists($input = []): StreamNotExistsWaiter
@@ -1549,8 +1521,7 @@ class KinesisClient extends AbstractApi
      *   TargetShardCount: int,
      *   ScalingType: ScalingType::*,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|UpdateShardCountInput $input
      *
      * @throws InvalidArgumentException

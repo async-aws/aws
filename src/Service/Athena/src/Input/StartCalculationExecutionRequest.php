@@ -60,8 +60,7 @@ final class StartCalculationExecutionRequest extends Input
      *   CalculationConfiguration?: CalculationConfiguration|array,
      *   CodeBlock?: string,
      *   ClientRequestToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

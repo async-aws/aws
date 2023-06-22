@@ -71,8 +71,7 @@ final class AbortMultipartUploadRequest extends Input
      *   UploadId?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

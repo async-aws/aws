@@ -134,8 +134,7 @@ final class InitiateAuthRequest extends Input
      *   ClientId?: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

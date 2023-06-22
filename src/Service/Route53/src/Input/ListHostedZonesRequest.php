@@ -47,8 +47,7 @@ final class ListHostedZonesRequest extends Input
      *   Marker?: string,
      *   MaxItems?: string,
      *   DelegationSetId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

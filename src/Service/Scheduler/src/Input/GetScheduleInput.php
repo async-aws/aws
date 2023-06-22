@@ -30,8 +30,7 @@ final class GetScheduleInput extends Input
      * @param array{
      *   GroupName?: string,
      *   Name?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

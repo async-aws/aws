@@ -47,8 +47,7 @@ final class VerifySoftwareTokenRequest extends Input
      *   Session?: string,
      *   UserCode?: string,
      *   FriendlyDeviceName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

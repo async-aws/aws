@@ -24,8 +24,7 @@ final class DeleteThingTypeRequest extends Input
     /**
      * @param array{
      *   thingTypeName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

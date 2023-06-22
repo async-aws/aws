@@ -31,8 +31,7 @@ final class CreateLogStreamRequest extends Input
      * @param array{
      *   logGroupName?: string,
      *   logStreamName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

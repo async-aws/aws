@@ -35,8 +35,7 @@ final class PutRepositoryTriggersInput extends Input
      * @param array{
      *   repositoryName?: string,
      *   triggers?: RepositoryTrigger[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

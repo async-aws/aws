@@ -48,8 +48,7 @@ final class UpdateApiKeyRequest extends Input
      *   id?: string,
      *   description?: string,
      *   expires?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

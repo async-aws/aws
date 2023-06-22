@@ -52,8 +52,7 @@ final class AddThingToThingGroupRequest extends Input
      *   thingName?: string,
      *   thingArn?: string,
      *   overrideDynamicGroups?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

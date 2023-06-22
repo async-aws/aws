@@ -44,8 +44,7 @@ final class ChangePasswordRequest extends Input
      *   PreviousPassword?: string,
      *   ProposedPassword?: string,
      *   AccessToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -24,8 +24,7 @@ final class GetUserRequest extends Input
     /**
      * @param array{
      *   AccessToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

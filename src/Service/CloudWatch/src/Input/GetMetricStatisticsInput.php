@@ -141,8 +141,7 @@ final class GetMetricStatisticsInput extends Input
      *   Statistics?: list<Statistic::*>,
      *   ExtendedStatistics?: string[],
      *   Unit?: StandardUnit::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

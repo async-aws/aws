@@ -28,8 +28,7 @@ class CloudFrontClient extends AbstractApi
      * @param array{
      *   DistributionId: string,
      *   InvalidationBatch: InvalidationBatch|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateInvalidationRequest $input
      *
      * @throws AccessDeniedException

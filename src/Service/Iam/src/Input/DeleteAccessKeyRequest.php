@@ -39,8 +39,7 @@ final class DeleteAccessKeyRequest extends Input
      * @param array{
      *   UserName?: string,
      *   AccessKeyId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

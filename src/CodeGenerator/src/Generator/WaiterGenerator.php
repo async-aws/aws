@@ -99,7 +99,7 @@ class WaiterGenerator
         $resultClass = $this->generateWaiterResult($waiter);
         $classBuilder->addUse($resultClass->getFqdn());
 
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  \'@region\'?: string,']);
 
         $mapping = [];
         foreach ($operation->getErrors() as $error) {

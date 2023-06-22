@@ -21,8 +21,7 @@ final class BatchGetBuildsInput extends Input
     /**
      * @param array{
      *   ids?: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

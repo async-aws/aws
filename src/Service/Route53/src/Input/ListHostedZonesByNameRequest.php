@@ -49,8 +49,7 @@ final class ListHostedZonesByNameRequest extends Input
      *   DNSName?: string,
      *   HostedZoneId?: string,
      *   MaxItems?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

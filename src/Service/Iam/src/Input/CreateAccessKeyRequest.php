@@ -23,8 +23,7 @@ final class CreateAccessKeyRequest extends Input
     /**
      * @param array{
      *   UserName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -135,8 +135,7 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   RequestItems: array<string, KeysAndAttributes>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|BatchGetItemInput $input
      *
      * @throws ProvisionedThroughputExceededException
@@ -224,8 +223,7 @@ class DynamoDbClient extends AbstractApi
      *   RequestItems: array<string, array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|BatchWriteItemInput $input
      *
      * @throws ProvisionedThroughputExceededException
@@ -279,8 +277,7 @@ class DynamoDbClient extends AbstractApi
      *   Tags?: Tag[],
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateTableInput $input
      *
      * @throws ResourceInUseException
@@ -326,8 +323,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteItemInput $input
      *
      * @throws ConditionalCheckFailedException
@@ -380,8 +376,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteTableInput $input
      *
      * @throws ResourceInUseException
@@ -412,8 +407,7 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describeendpoints
      *
      * @param array{
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeEndpointsRequest $input
      */
     public function describeEndpoints($input = []): DescribeEndpointsResponse
@@ -442,8 +436,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeTableInput $input
      *
      * @throws ResourceNotFoundException
@@ -483,8 +476,7 @@ class DynamoDbClient extends AbstractApi
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ExecuteStatementInput $input
      *
      * @throws ConditionalCheckFailedException
@@ -532,8 +524,7 @@ class DynamoDbClient extends AbstractApi
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetItemInput $input
      *
      * @throws ProvisionedThroughputExceededException
@@ -564,8 +555,7 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   ExclusiveStartTableName?: string,
      *   Limit?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListTablesInput $input
      *
      * @throws InternalServerErrorException
@@ -618,8 +608,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PutItemInput $input
      *
      * @throws ConditionalCheckFailedException
@@ -709,8 +698,7 @@ class DynamoDbClient extends AbstractApi
      *   KeyConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|QueryInput $input
      *
      * @throws ProvisionedThroughputExceededException
@@ -775,8 +763,7 @@ class DynamoDbClient extends AbstractApi
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   ConsistentRead?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ScanInput $input
      *
      * @throws ProvisionedThroughputExceededException
@@ -802,8 +789,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeTableInput $input
      */
     public function tableExists($input): TableExistsWaiter
@@ -822,8 +808,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeTableInput $input
      */
     public function tableNotExists($input): TableNotExistsWaiter
@@ -881,8 +866,7 @@ class DynamoDbClient extends AbstractApi
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|TransactWriteItemsInput $input
      *
      * @throws ResourceNotFoundException
@@ -934,8 +918,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|UpdateItemInput $input
      *
      * @throws ConditionalCheckFailedException
@@ -995,8 +978,7 @@ class DynamoDbClient extends AbstractApi
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|UpdateTableInput $input
      *
      * @throws ResourceInUseException
@@ -1048,8 +1030,7 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   TimeToLiveSpecification: TimeToLiveSpecification|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|UpdateTimeToLiveInput $input
      *
      * @throws ResourceInUseException

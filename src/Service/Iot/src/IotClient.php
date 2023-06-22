@@ -62,8 +62,7 @@ class IotClient extends AbstractApi
      *   thingName?: string,
      *   thingArn?: string,
      *   overrideDynamicGroups?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|AddThingToThingGroupRequest $input
      *
      * @throws InvalidRequestException
@@ -104,8 +103,7 @@ class IotClient extends AbstractApi
      *   thingTypeName?: string,
      *   attributePayload?: AttributePayload|array,
      *   billingGroupName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateThingRequest $input
      *
      * @throws InvalidRequestException
@@ -150,8 +148,7 @@ class IotClient extends AbstractApi
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
      *   tags?: Tag[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateThingGroupRequest $input
      *
      * @throws InvalidRequestException
@@ -186,8 +183,7 @@ class IotClient extends AbstractApi
      *   thingTypeName: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
      *   tags?: Tag[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateThingTypeRequest $input
      *
      * @throws InvalidRequestException
@@ -226,8 +222,7 @@ class IotClient extends AbstractApi
      * @param array{
      *   thingName: string,
      *   expectedVersion?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteThingRequest $input
      *
      * @throws ResourceNotFoundException
@@ -267,8 +262,7 @@ class IotClient extends AbstractApi
      * @param array{
      *   thingGroupName: string,
      *   expectedVersion?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteThingGroupRequest $input
      *
      * @throws InvalidRequestException
@@ -304,8 +298,7 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingTypeName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteThingTypeRequest $input
      *
      * @throws ResourceNotFoundException
@@ -346,8 +339,7 @@ class IotClient extends AbstractApi
      *   parentGroup?: string,
      *   namePrefixFilter?: string,
      *   recursive?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListThingGroupsRequest $input
      *
      * @throws InvalidRequestException
@@ -382,8 +374,7 @@ class IotClient extends AbstractApi
      *   thingName: string,
      *   nextToken?: string,
      *   maxResults?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListThingGroupsForThingRequest $input
      *
      * @throws InvalidRequestException
@@ -418,8 +409,7 @@ class IotClient extends AbstractApi
      *   nextToken?: string,
      *   maxResults?: int,
      *   thingTypeName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListThingTypesRequest $input
      *
      * @throws InvalidRequestException
@@ -466,8 +456,7 @@ class IotClient extends AbstractApi
      *   attributeValue?: string,
      *   thingTypeName?: string,
      *   usePrefixAttributeValue?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListThingsRequest $input
      *
      * @throws InvalidRequestException
@@ -505,8 +494,7 @@ class IotClient extends AbstractApi
      *   recursive?: bool,
      *   nextToken?: string,
      *   maxResults?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListThingsInThingGroupRequest $input
      *
      * @throws InvalidRequestException

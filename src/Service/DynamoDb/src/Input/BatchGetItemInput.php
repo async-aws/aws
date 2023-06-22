@@ -83,8 +83,7 @@ final class BatchGetItemInput extends Input
      * @param array{
      *   RequestItems?: array<string, KeysAndAttributes>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -25,8 +25,7 @@ final class GetChangeRequest extends Input
     /**
      * @param array{
      *   Id?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -58,8 +58,7 @@ final class ListSecretsRequest extends Input
      *   NextToken?: string,
      *   Filters?: Filter[],
      *   SortOrder?: SortOrderType::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

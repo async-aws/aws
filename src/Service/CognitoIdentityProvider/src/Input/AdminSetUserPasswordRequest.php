@@ -49,8 +49,7 @@ final class AdminSetUserPasswordRequest extends Input
      *   Username?: string,
      *   Password?: string,
      *   Permanent?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

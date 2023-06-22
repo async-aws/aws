@@ -50,8 +50,7 @@ final class BeginTransactionRequest extends Input
      *   secretArn?: string,
      *   database?: string,
      *   schema?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

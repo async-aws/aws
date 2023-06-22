@@ -35,8 +35,7 @@ final class UpdateTimeToLiveInput extends Input
      * @param array{
      *   TableName?: string,
      *   TimeToLiveSpecification?: TimeToLiveSpecification|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

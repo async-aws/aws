@@ -153,8 +153,7 @@ final class CreateJobRequest extends Input1
      *   StatusUpdateInterval?: StatusUpdateInterval::*,
      *   Tags?: array<string, string>,
      *   UserMetadata?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

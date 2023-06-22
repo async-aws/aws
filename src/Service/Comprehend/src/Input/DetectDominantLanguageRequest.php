@@ -21,8 +21,7 @@ final class DetectDominantLanguageRequest extends Input
     /**
      * @param array{
      *   Text?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

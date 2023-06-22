@@ -24,8 +24,7 @@ final class GetDeploymentInput extends Input
     /**
      * @param array{
      *   deploymentId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

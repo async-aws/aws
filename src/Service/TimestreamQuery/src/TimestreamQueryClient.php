@@ -38,8 +38,7 @@ class TimestreamQueryClient extends AbstractApi
      *
      * @param array{
      *   QueryId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CancelQueryRequest $input
      *
      * @throws AccessDeniedException
@@ -83,8 +82,7 @@ class TimestreamQueryClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#describeendpoints
      *
      * @param array{
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeEndpointsRequest $input
      *
      * @throws InternalServerException
@@ -113,8 +111,7 @@ class TimestreamQueryClient extends AbstractApi
      * @param array{
      *   QueryString: string,
      *   ValidateOnly?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PrepareQueryRequest $input
      *
      * @throws AccessDeniedException
@@ -165,8 +162,7 @@ class TimestreamQueryClient extends AbstractApi
      *   ClientToken?: string,
      *   NextToken?: string,
      *   MaxRows?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|QueryRequest $input
      *
      * @throws AccessDeniedException

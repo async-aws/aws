@@ -32,8 +32,7 @@ final class GetParameterRequest extends Input
      * @param array{
      *   Name?: string,
      *   WithDecryption?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

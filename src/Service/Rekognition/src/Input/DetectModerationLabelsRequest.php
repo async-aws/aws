@@ -47,8 +47,7 @@ final class DetectModerationLabelsRequest extends Input
      *   Image?: Image|array,
      *   MinConfidence?: float,
      *   HumanLoopConfig?: HumanLoopConfig|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

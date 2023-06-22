@@ -21,8 +21,7 @@ final class DeleteTopicInput extends Input
     /**
      * @param array{
      *   TopicArn?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

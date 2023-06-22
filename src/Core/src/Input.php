@@ -18,8 +18,7 @@ abstract class Input
 
     /**
      * @param array{
-     *
-     *   @region?: ?string,
+     *   '@region'?: ?string,
      * } $input
      */
     protected function __construct(array $input)

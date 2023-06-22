@@ -86,8 +86,7 @@ class CodeCommitClient extends AbstractApi
      *   repositoryName: string,
      *   repositoryDescription?: string,
      *   tags?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateRepositoryInput $input
      *
      * @throws RepositoryNameExistsException
@@ -139,8 +138,7 @@ class CodeCommitClient extends AbstractApi
      *
      * @param array{
      *   repositoryName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteRepositoryInput $input
      *
      * @throws RepositoryNameRequiredException
@@ -176,8 +174,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName: string,
      *   blobId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetBlobInput $input
      *
      * @throws RepositoryNameRequiredException
@@ -223,8 +220,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName?: string,
      *   branchName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetBranchInput $input
      *
      * @throws RepositoryNameRequiredException
@@ -268,8 +264,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName: string,
      *   commitId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetCommitInput $input
      *
      * @throws RepositoryNameRequiredException
@@ -319,8 +314,7 @@ class CodeCommitClient extends AbstractApi
      *   afterPath?: string,
      *   MaxResults?: int,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetDifferencesInput $input
      *
      * @throws RepositoryNameRequiredException
@@ -375,8 +369,7 @@ class CodeCommitClient extends AbstractApi
      *   nextToken?: string,
      *   sortBy?: SortByEnum::*,
      *   order?: OrderEnum::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListRepositoriesInput $input
      *
      * @throws InvalidSortByException
@@ -404,8 +397,7 @@ class CodeCommitClient extends AbstractApi
      * @param array{
      *   repositoryName: string,
      *   triggers: RepositoryTrigger[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PutRepositoryTriggersInput $input
      *
      * @throws RepositoryDoesNotExistException

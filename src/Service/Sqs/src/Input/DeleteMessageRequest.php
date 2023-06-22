@@ -33,8 +33,7 @@ final class DeleteMessageRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

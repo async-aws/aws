@@ -34,8 +34,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   Entries?: ChangeMessageVisibilityBatchRequestEntry[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

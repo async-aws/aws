@@ -34,8 +34,7 @@ final class GetBlobInput extends Input
      * @param array{
      *   repositoryName?: string,
      *   blobId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

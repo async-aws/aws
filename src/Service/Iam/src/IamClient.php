@@ -50,8 +50,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   GroupName: string,
      *   UserName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|AddUserToGroupRequest $input
      *
      * @throws NoSuchEntityException
@@ -93,8 +92,7 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateAccessKeyRequest $input
      *
      * @throws NoSuchEntityException
@@ -134,8 +132,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName: string,
      *   ServiceName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateServiceSpecificCredentialRequest $input
      *
      * @throws LimitExceededException
@@ -170,8 +167,7 @@ class IamClient extends AbstractApi
      *   UserName: string,
      *   PermissionsBoundary?: string,
      *   Tags?: Tag[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateUserRequest $input
      *
      * @throws LimitExceededException
@@ -210,8 +206,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: string,
      *   AccessKeyId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteAccessKeyRequest $input
      *
      * @throws NoSuchEntityException
@@ -239,8 +234,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: string,
      *   ServiceSpecificCredentialId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteServiceSpecificCredentialRequest $input
      *
      * @throws NoSuchEntityException
@@ -277,8 +271,7 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteUserRequest $input
      *
      * @throws LimitExceededException
@@ -315,8 +308,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName: string,
      *   PolicyName: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DeleteUserPolicyRequest $input
      *
      * @throws NoSuchEntityException
@@ -346,8 +338,7 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetUserRequest $input
      *
      * @throws NoSuchEntityException
@@ -379,8 +370,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListServiceSpecificCredentialsRequest $input
      *
      * @throws NoSuchEntityException
@@ -418,8 +408,7 @@ class IamClient extends AbstractApi
      *   PathPrefix?: string,
      *   Marker?: string,
      *   MaxItems?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListUsersRequest $input
      *
      * @throws ServiceFailureException
@@ -458,8 +447,7 @@ class IamClient extends AbstractApi
      *   UserName: string,
      *   PolicyName: string,
      *   PolicyDocument: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|PutUserPolicyRequest $input
      *
      * @throws LimitExceededException
@@ -501,8 +489,7 @@ class IamClient extends AbstractApi
      *   UserName: string,
      *   NewPath?: string,
      *   NewUserName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|UpdateUserRequest $input
      *
      * @throws NoSuchEntityException

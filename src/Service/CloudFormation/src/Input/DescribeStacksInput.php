@@ -43,8 +43,7 @@ final class DescribeStacksInput extends Input
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

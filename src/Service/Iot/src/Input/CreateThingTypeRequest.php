@@ -43,8 +43,7 @@ final class CreateThingTypeRequest extends Input
      *   thingTypeName?: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
      *   tags?: Tag[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

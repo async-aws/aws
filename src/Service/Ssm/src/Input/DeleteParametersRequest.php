@@ -22,8 +22,7 @@ final class DeleteParametersRequest extends Input
     /**
      * @param array{
      *   Names?: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

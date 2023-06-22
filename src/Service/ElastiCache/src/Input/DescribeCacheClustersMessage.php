@@ -63,8 +63,7 @@ final class DescribeCacheClustersMessage extends Input
      *   Marker?: string,
      *   ShowCacheNodeInfo?: bool,
      *   ShowCacheClustersNotInReplicationGroups?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

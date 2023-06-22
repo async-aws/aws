@@ -24,8 +24,7 @@ final class DescribeStackDriftDetectionStatusInput extends Input
     /**
      * @param array{
      *   StackDriftDetectionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

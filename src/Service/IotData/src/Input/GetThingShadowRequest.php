@@ -32,8 +32,7 @@ final class GetThingShadowRequest extends Input
      * @param array{
      *   thingName?: string,
      *   shadowName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

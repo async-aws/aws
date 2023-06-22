@@ -42,8 +42,7 @@ final class GetRecordsInput extends Input
      *   ShardIterator?: string,
      *   Limit?: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

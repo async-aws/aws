@@ -35,8 +35,7 @@ final class SendTaskSuccessInput extends Input
      * @param array{
      *   taskToken?: string,
      *   output?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

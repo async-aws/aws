@@ -111,8 +111,7 @@ class KmsClient extends AbstractApi
      * @param array{
      *   AliasName: string,
      *   TargetKeyId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateAliasRequest $input
      *
      * @throws DependencyTimeoutException
@@ -305,8 +304,7 @@ class KmsClient extends AbstractApi
      *   Tags?: Tag[],
      *   MultiRegion?: bool,
      *   XksKeyId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateKeyRequest $input
      *
      * @throws MalformedPolicyDocumentException
@@ -421,8 +419,7 @@ class KmsClient extends AbstractApi
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
      *   Recipient?: RecipientInfo|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DecryptRequest $input
      *
      * @throws NotFoundException
@@ -533,8 +530,7 @@ class KmsClient extends AbstractApi
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|EncryptRequest $input
      *
      * @throws NotFoundException
@@ -652,8 +648,7 @@ class KmsClient extends AbstractApi
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
      *   Recipient?: RecipientInfo|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GenerateDataKeyRequest $input
      *
      * @throws NotFoundException
@@ -721,8 +716,7 @@ class KmsClient extends AbstractApi
      *   KeyId?: string,
      *   Limit?: int,
      *   Marker?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListAliasesRequest $input
      *
      * @throws DependencyTimeoutException
@@ -802,8 +796,7 @@ class KmsClient extends AbstractApi
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm: SigningAlgorithmSpec::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|SignRequest $input
      *
      * @throws NotFoundException

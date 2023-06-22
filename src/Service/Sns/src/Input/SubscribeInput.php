@@ -118,8 +118,7 @@ final class SubscribeInput extends Input
      *   Endpoint?: string,
      *   Attributes?: array<string, string>,
      *   ReturnSubscriptionArn?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

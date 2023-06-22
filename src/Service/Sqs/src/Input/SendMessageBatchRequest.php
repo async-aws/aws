@@ -34,8 +34,7 @@ final class SendMessageBatchRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   Entries?: SendMessageBatchRequestEntry[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

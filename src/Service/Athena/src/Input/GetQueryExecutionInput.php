@@ -21,8 +21,7 @@ final class GetQueryExecutionInput extends Input
     /**
      * @param array{
      *   QueryExecutionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

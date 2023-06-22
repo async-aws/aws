@@ -214,8 +214,7 @@ final class GetObjectRequest extends Input
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

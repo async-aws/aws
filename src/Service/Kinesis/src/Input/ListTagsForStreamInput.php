@@ -47,8 +47,7 @@ final class ListTagsForStreamInput extends Input
      *   ExclusiveStartTagKey?: string,
      *   Limit?: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

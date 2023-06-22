@@ -56,8 +56,7 @@ final class ListTableMetadataInput extends Input
      *   Expression?: string,
      *   NextToken?: string,
      *   MaxResults?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -44,8 +44,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
      *   VisibilityTimeout?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

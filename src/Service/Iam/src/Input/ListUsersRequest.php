@@ -50,8 +50,7 @@ final class ListUsersRequest extends Input
      *   PathPrefix?: string,
      *   Marker?: string,
      *   MaxItems?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

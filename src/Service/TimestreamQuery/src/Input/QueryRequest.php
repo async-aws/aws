@@ -84,8 +84,7 @@ final class QueryRequest extends Input
      *   ClientToken?: string,
      *   NextToken?: string,
      *   MaxRows?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

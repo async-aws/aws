@@ -43,8 +43,7 @@ class MediaConvertClient extends AbstractApi
      *
      * @param array{
      *   Id: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CancelJobRequest $input
      *
      * @throws BadRequestException
@@ -90,8 +89,7 @@ class MediaConvertClient extends AbstractApi
      *   StatusUpdateInterval?: StatusUpdateInterval::*,
      *   Tags?: array<string, string>,
      *   UserMetadata?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|CreateJobRequest $input
      *
      * @throws BadRequestException
@@ -126,8 +124,7 @@ class MediaConvertClient extends AbstractApi
      *   MaxResults?: int,
      *   Mode?: DescribeEndpointsMode::*,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|DescribeEndpointsRequest $input
      *
      * @throws BadRequestException
@@ -160,8 +157,7 @@ class MediaConvertClient extends AbstractApi
      *
      * @param array{
      *   Id: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|GetJobRequest $input
      *
      * @throws BadRequestException
@@ -200,8 +196,7 @@ class MediaConvertClient extends AbstractApi
      *   Order?: Order::*,
      *   Queue?: string,
      *   Status?: JobStatus::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * }|ListJobsRequest $input
      *
      * @throws BadRequestException

@@ -135,8 +135,7 @@ final class ExecuteStatementRequest extends Input
      *   continueAfterTimeout?: bool,
      *   resultSetOptions?: ResultSetOptions|array,
      *   formatRecordsAs?: RecordsFormatType::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

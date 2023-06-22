@@ -95,8 +95,7 @@ final class BatchExecuteStatementRequest extends Input
      *   schema?: string,
      *   parameterSets?: array[],
      *   transactionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

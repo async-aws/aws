@@ -31,8 +31,7 @@ final class PrepareQueryRequest extends Input
      * @param array{
      *   QueryString?: string,
      *   ValidateOnly?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

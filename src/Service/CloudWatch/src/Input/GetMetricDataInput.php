@@ -111,8 +111,7 @@ final class GetMetricDataInput extends Input
      *   ScanBy?: ScanBy::*,
      *   MaxDatapoints?: int,
      *   LabelOptions?: LabelOptions|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

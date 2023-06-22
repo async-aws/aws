@@ -352,8 +352,7 @@ final class StartBuildInput extends Input
      *   registryCredentialOverride?: RegistryCredential|array,
      *   imagePullCredentialsTypeOverride?: ImagePullCredentialsType::*,
      *   debugSessionEnabled?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

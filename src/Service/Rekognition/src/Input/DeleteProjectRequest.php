@@ -21,8 +21,7 @@ final class DeleteProjectRequest extends Input
     /**
      * @param array{
      *   ProjectArn?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

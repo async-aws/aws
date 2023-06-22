@@ -21,8 +21,7 @@ final class StopCalculationExecutionRequest extends Input
     /**
      * @param array{
      *   CalculationExecutionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

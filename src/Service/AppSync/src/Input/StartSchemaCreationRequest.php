@@ -31,8 +31,7 @@ final class StartSchemaCreationRequest extends Input
      * @param array{
      *   apiId?: string,
      *   definition?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

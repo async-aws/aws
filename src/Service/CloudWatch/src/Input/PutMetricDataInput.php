@@ -36,8 +36,7 @@ final class PutMetricDataInput extends Input
      * @param array{
      *   Namespace?: string,
      *   MetricData?: MetricDatum[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

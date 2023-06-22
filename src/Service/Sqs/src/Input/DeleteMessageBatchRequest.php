@@ -34,8 +34,7 @@ final class DeleteMessageBatchRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   Entries?: DeleteMessageBatchRequestEntry[],
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

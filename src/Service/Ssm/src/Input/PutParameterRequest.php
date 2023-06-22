@@ -250,8 +250,7 @@ final class PutParameterRequest extends Input
      *   Tier?: ParameterTier::*,
      *   Policies?: string,
      *   DataType?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

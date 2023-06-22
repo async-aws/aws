@@ -32,8 +32,7 @@ final class GetQueueUrlRequest extends Input
      * @param array{
      *   QueueName?: string,
      *   QueueOwnerAWSAccountId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -135,8 +135,7 @@ final class SendEmailRequest extends Input
      *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
      *   ListManagementOptions?: ListManagementOptions|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

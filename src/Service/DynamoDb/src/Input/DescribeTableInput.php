@@ -24,8 +24,7 @@ final class DescribeTableInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

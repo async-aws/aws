@@ -10,8 +10,7 @@ final class DescribeEndpointsRequest extends Input
 {
     /**
      * @param array{
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])

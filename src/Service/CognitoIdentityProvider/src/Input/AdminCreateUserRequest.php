@@ -165,8 +165,7 @@ final class AdminCreateUserRequest extends Input
      *   MessageAction?: MessageActionType::*,
      *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string,
      * } $input
      */
     public function __construct(array $input = [])
