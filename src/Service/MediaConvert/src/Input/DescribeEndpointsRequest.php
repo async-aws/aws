@@ -52,6 +52,14 @@ final class DescribeEndpointsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   MaxResults?: int,
+     *   Mode?: DescribeEndpointsMode::*,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|DescribeEndpointsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

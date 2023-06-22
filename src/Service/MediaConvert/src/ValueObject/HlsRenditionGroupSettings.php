@@ -43,6 +43,13 @@ final class HlsRenditionGroupSettings
         $this->renditionName = $input['RenditionName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RenditionGroupId?: null|string,
+     *   RenditionLanguageCode?: null|LanguageCode::*,
+     *   RenditionName?: null|string,
+     * }|HlsRenditionGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

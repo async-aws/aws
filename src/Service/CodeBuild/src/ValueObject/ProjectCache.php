@@ -76,6 +76,13 @@ final class ProjectCache
         $this->modes = $input['modes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   type: CacheType::*,
+     *   location?: null|string,
+     *   modes?: null|list<CacheMode::*>,
+     * }|ProjectCache $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

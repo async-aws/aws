@@ -77,6 +77,17 @@ final class AwsObject
         $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
+    /**
+     * @param array{
+     *   Key?: null|string,
+     *   LastModified?: null|\DateTimeImmutable,
+     *   ETag?: null|string,
+     *   ChecksumAlgorithm?: null|list<ChecksumAlgorithm::*>,
+     *   Size?: null|string,
+     *   StorageClass?: null|ObjectStorageClass::*,
+     *   Owner?: null|Owner|array,
+     * }|AwsObject $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

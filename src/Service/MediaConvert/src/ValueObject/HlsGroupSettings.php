@@ -319,6 +319,42 @@ final class HlsGroupSettings
         $this->timestampDeltaMilliseconds = $input['TimestampDeltaMilliseconds'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdMarkers?: null|list<HlsAdMarkers::*>,
+     *   AdditionalManifests?: null|HlsAdditionalManifest[],
+     *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*,
+     *   BaseUrl?: null|string,
+     *   CaptionLanguageMappings?: null|HlsCaptionLanguageMapping[],
+     *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*,
+     *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*,
+     *   ClientCache?: null|HlsClientCache::*,
+     *   CodecSpecification?: null|HlsCodecSpecification::*,
+     *   Destination?: null|string,
+     *   DestinationSettings?: null|DestinationSettings|array,
+     *   DirectoryStructure?: null|HlsDirectoryStructure::*,
+     *   Encryption?: null|HlsEncryptionSettings|array,
+     *   ImageBasedTrickPlay?: null|HlsImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlaySettings?: null|HlsImageBasedTrickPlaySettings|array,
+     *   ManifestCompression?: null|HlsManifestCompression::*,
+     *   ManifestDurationFormat?: null|HlsManifestDurationFormat::*,
+     *   MinFinalSegmentLength?: null|float,
+     *   MinSegmentLength?: null|int,
+     *   OutputSelection?: null|HlsOutputSelection::*,
+     *   ProgramDateTime?: null|HlsProgramDateTime::*,
+     *   ProgramDateTimePeriod?: null|int,
+     *   ProgressiveWriteHlsManifest?: null|HlsProgressiveWriteHlsManifest::*,
+     *   SegmentControl?: null|HlsSegmentControl::*,
+     *   SegmentLength?: null|int,
+     *   SegmentLengthControl?: null|HlsSegmentLengthControl::*,
+     *   SegmentsPerSubdirectory?: null|int,
+     *   StreamInfResolution?: null|HlsStreamInfResolution::*,
+     *   TargetDurationCompatibilityMode?: null|HlsTargetDurationCompatibilityMode::*,
+     *   TimedMetadataId3Frame?: null|HlsTimedMetadataId3Frame::*,
+     *   TimedMetadataId3Period?: null|int,
+     *   TimestampDeltaMilliseconds?: null|int,
+     * }|HlsGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

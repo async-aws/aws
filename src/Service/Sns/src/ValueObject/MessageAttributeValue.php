@@ -53,6 +53,13 @@ final class MessageAttributeValue
         $this->binaryValue = $input['BinaryValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DataType: string,
+     *   StringValue?: null|string,
+     *   BinaryValue?: null|string,
+     * }|MessageAttributeValue $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -40,6 +40,13 @@ final class VorbisSettings
         $this->vbrQuality = $input['VbrQuality'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Channels?: null|int,
+     *   SampleRate?: null|int,
+     *   VbrQuality?: null|int,
+     * }|VorbisSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

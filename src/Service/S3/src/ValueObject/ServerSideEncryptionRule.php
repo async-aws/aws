@@ -36,6 +36,12 @@ final class ServerSideEncryptionRule
         $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ApplyServerSideEncryptionByDefault?: null|ServerSideEncryptionByDefault|array,
+     *   BucketKeyEnabled?: null|bool,
+     * }|ServerSideEncryptionRule $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

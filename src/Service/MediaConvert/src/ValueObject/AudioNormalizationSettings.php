@@ -83,6 +83,17 @@ final class AudioNormalizationSettings
         $this->truePeakLimiterThreshold = $input['TruePeakLimiterThreshold'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Algorithm?: null|AudioNormalizationAlgorithm::*,
+     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*,
+     *   CorrectionGateLevel?: null|int,
+     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*,
+     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*,
+     *   TargetLkfs?: null|float,
+     *   TruePeakLimiterThreshold?: null|float,
+     * }|AudioNormalizationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

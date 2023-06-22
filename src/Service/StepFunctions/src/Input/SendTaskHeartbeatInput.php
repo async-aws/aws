@@ -33,6 +33,12 @@ final class SendTaskHeartbeatInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   taskToken?: string,
+     *   '@region'?: string|null,
+     * }|SendTaskHeartbeatInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class VideoDetail
         $this->widthInPx = $input['WidthInPx'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   HeightInPx?: null|int,
+     *   WidthInPx?: null|int,
+     * }|VideoDetail $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

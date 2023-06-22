@@ -63,6 +63,15 @@ final class MessageSystemAttributeValue
         $this->dataType = $input['DataType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StringValue?: null|string,
+     *   BinaryValue?: null|string,
+     *   StringListValues?: null|string[],
+     *   BinaryListValues?: null|string[],
+     *   DataType: string,
+     * }|MessageSystemAttributeValue $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

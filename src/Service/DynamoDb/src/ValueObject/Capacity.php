@@ -36,6 +36,13 @@ final class Capacity
         $this->capacityUnits = $input['CapacityUnits'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ReadCapacityUnits?: null|float,
+     *   WriteCapacityUnits?: null|float,
+     *   CapacityUnits?: null|float,
+     * }|Capacity $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -67,6 +67,13 @@ final class RotationRulesType
         $this->scheduleExpression = $input['ScheduleExpression'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AutomaticallyAfterDays?: null|string,
+     *   Duration?: null|string,
+     *   ScheduleExpression?: null|string,
+     * }|RotationRulesType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

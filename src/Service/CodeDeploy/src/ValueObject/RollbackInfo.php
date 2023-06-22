@@ -38,6 +38,13 @@ final class RollbackInfo
         $this->rollbackMessage = $input['rollbackMessage'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   rollbackDeploymentId?: null|string,
+     *   rollbackTriggeringDeploymentId?: null|string,
+     *   rollbackMessage?: null|string,
+     * }|RollbackInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

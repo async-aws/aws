@@ -45,6 +45,13 @@ final class UpdateTimeToLiveInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   TimeToLiveSpecification?: TimeToLiveSpecification|array,
+     *   '@region'?: string|null,
+     * }|UpdateTimeToLiveInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

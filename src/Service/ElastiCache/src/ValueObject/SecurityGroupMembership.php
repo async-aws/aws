@@ -30,6 +30,12 @@ final class SecurityGroupMembership
         $this->status = $input['Status'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SecurityGroupId?: null|string,
+     *   Status?: null|string,
+     * }|SecurityGroupMembership $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

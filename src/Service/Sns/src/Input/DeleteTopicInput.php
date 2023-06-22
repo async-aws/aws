@@ -30,6 +30,12 @@ final class DeleteTopicInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TopicArn?: string,
+     *   '@region'?: string|null,
+     * }|DeleteTopicInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

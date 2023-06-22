@@ -35,6 +35,12 @@ final class CaptionSourceFramerate
         $this->framerateNumerator = $input['FramerateNumerator'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     * }|CaptionSourceFramerate $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

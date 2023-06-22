@@ -27,6 +27,11 @@ final class EsamSignalProcessingNotification
         $this->sccXml = $input['SccXml'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SccXml?: null|string,
+     * }|EsamSignalProcessingNotification $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

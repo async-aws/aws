@@ -387,6 +387,28 @@ final class QueryInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   IndexName?: string,
+     *   Select?: Select::*,
+     *   AttributesToGet?: string[],
+     *   Limit?: int,
+     *   ConsistentRead?: bool,
+     *   KeyConditions?: array<string, Condition>,
+     *   QueryFilter?: array<string, Condition>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ScanIndexForward?: bool,
+     *   ExclusiveStartKey?: array<string, AttributeValue>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ProjectionExpression?: string,
+     *   FilterExpression?: string,
+     *   KeyConditionExpression?: string,
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   '@region'?: string|null,
+     * }|QueryInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

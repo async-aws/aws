@@ -29,6 +29,12 @@ final class RelatedDeployments
         $this->autoUpdateOutdatedInstancesDeploymentIds = $input['autoUpdateOutdatedInstancesDeploymentIds'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   autoUpdateOutdatedInstancesRootDeploymentId?: null|string,
+     *   autoUpdateOutdatedInstancesDeploymentIds?: null|string[],
+     * }|RelatedDeployments $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class MultiRegionKey
         $this->region = $input['Region'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Arn?: null|string,
+     *   Region?: null|string,
+     * }|MultiRegionKey $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

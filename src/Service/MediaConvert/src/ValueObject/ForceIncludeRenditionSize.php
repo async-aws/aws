@@ -35,6 +35,12 @@ final class ForceIncludeRenditionSize
         $this->width = $input['Width'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Height?: null|int,
+     *   Width?: null|int,
+     * }|ForceIncludeRenditionSize $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

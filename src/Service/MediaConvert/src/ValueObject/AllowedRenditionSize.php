@@ -44,6 +44,13 @@ final class AllowedRenditionSize
         $this->width = $input['Width'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Height?: null|int,
+     *   Required?: null|RequiredFlag::*,
+     *   Width?: null|int,
+     * }|AllowedRenditionSize $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

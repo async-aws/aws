@@ -48,6 +48,14 @@ final class WavSettings
         $this->sampleRate = $input['SampleRate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BitDepth?: null|int,
+     *   Channels?: null|int,
+     *   Format?: null|WavFormat::*,
+     *   SampleRate?: null|int,
+     * }|WavSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

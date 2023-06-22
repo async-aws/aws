@@ -29,6 +29,11 @@ final class KinesisParameters
         $this->partitionKey = $input['PartitionKey'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   PartitionKey: string,
+     * }|KinesisParameters $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -113,6 +113,22 @@ final class VideoCodecSettings
         $this->xavcSettings = isset($input['XavcSettings']) ? XavcSettings::create($input['XavcSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   Av1Settings?: null|Av1Settings|array,
+     *   AvcIntraSettings?: null|AvcIntraSettings|array,
+     *   Codec?: null|VideoCodec::*,
+     *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
+     *   H264Settings?: null|H264Settings|array,
+     *   H265Settings?: null|H265Settings|array,
+     *   Mpeg2Settings?: null|Mpeg2Settings|array,
+     *   ProresSettings?: null|ProresSettings|array,
+     *   Vc3Settings?: null|Vc3Settings|array,
+     *   Vp8Settings?: null|Vp8Settings|array,
+     *   Vp9Settings?: null|Vp9Settings|array,
+     *   XavcSettings?: null|XavcSettings|array,
+     * }|VideoCodecSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

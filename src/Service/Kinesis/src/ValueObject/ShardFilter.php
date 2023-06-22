@@ -56,6 +56,13 @@ final class ShardFilter
         $this->timestamp = $input['Timestamp'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Type: ShardFilterType::*,
+     *   ShardId?: null|string,
+     *   Timestamp?: null|\DateTimeImmutable,
+     * }|ShardFilter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

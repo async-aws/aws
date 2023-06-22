@@ -318,6 +318,22 @@ final class CreateKeyRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Policy?: string,
+     *   Description?: string,
+     *   KeyUsage?: KeyUsageType::*,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*,
+     *   KeySpec?: KeySpec::*,
+     *   Origin?: OriginType::*,
+     *   CustomKeyStoreId?: string,
+     *   BypassPolicyLockoutSafetyCheck?: bool,
+     *   Tags?: Tag[],
+     *   MultiRegion?: bool,
+     *   XksKeyId?: string,
+     *   '@region'?: string|null,
+     * }|CreateKeyRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

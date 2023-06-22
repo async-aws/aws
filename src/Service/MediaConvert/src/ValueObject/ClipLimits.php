@@ -55,6 +55,14 @@ final class ClipLimits
         $this->minimumYuv = $input['MinimumYUV'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MaximumRGBTolerance?: null|int,
+     *   MaximumYUV?: null|int,
+     *   MinimumRGBTolerance?: null|int,
+     *   MinimumYUV?: null|int,
+     * }|ClipLimits $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

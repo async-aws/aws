@@ -40,6 +40,14 @@ final class SessionConfiguration
         $this->encryptionConfiguration = isset($input['EncryptionConfiguration']) ? EncryptionConfiguration::create($input['EncryptionConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   ExecutionRole?: null|string,
+     *   WorkingDirectory?: null|string,
+     *   IdleTimeoutSeconds?: null|string,
+     *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
+     * }|SessionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

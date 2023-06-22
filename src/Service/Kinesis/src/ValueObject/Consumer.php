@@ -48,6 +48,14 @@ final class Consumer
         $this->consumerCreationTimestamp = $input['ConsumerCreationTimestamp'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ConsumerName: string,
+     *   ConsumerARN: string,
+     *   ConsumerStatus: ConsumerStatus::*,
+     *   ConsumerCreationTimestamp: \DateTimeImmutable,
+     * }|Consumer $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

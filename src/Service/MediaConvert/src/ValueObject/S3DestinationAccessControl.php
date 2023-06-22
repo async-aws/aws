@@ -26,6 +26,11 @@ final class S3DestinationAccessControl
         $this->cannedAcl = $input['CannedAcl'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CannedAcl?: null|S3ObjectCannedAcl::*,
+     * }|S3DestinationAccessControl $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

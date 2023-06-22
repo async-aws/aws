@@ -55,6 +55,14 @@ final class ChangePasswordRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   PreviousPassword?: string,
+     *   ProposedPassword?: string,
+     *   AccessToken?: string,
+     *   '@region'?: string|null,
+     * }|ChangePasswordRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

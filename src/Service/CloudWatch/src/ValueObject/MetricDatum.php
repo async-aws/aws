@@ -107,6 +107,19 @@ final class MetricDatum
         $this->storageResolution = $input['StorageResolution'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MetricName: string,
+     *   Dimensions?: null|Dimension[],
+     *   Timestamp?: null|\DateTimeImmutable,
+     *   Value?: null|float,
+     *   StatisticValues?: null|StatisticSet|array,
+     *   Values?: null|float[],
+     *   Counts?: null|float[],
+     *   Unit?: null|StandardUnit::*,
+     *   StorageResolution?: null|int,
+     * }|MetricDatum $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

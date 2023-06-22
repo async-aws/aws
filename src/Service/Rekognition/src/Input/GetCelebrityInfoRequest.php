@@ -31,6 +31,12 @@ final class GetCelebrityInfoRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Id?: string,
+     *   '@region'?: string|null,
+     * }|GetCelebrityInfoRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

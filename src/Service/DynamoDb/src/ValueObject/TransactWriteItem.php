@@ -44,6 +44,14 @@ final class TransactWriteItem
         $this->update = isset($input['Update']) ? Update::create($input['Update']) : null;
     }
 
+    /**
+     * @param array{
+     *   ConditionCheck?: null|ConditionCheck|array,
+     *   Put?: null|Put|array,
+     *   Delete?: null|Delete|array,
+     *   Update?: null|Update|array,
+     * }|TransactWriteItem $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

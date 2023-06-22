@@ -80,6 +80,15 @@ final class TransactWriteItemsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TransactItems?: TransactWriteItem[],
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ClientRequestToken?: string,
+     *   '@region'?: string|null,
+     * }|TransactWriteItemsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

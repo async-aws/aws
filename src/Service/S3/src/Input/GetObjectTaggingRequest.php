@@ -82,6 +82,16 @@ final class GetObjectTaggingRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Key?: string,
+     *   VersionId?: string,
+     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   '@region'?: string|null,
+     * }|GetObjectTaggingRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

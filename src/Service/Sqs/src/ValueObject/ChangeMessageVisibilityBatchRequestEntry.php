@@ -43,6 +43,13 @@ final class ChangeMessageVisibilityBatchRequestEntry
         $this->visibilityTimeout = $input['VisibilityTimeout'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   ReceiptHandle: string,
+     *   VisibilityTimeout?: null|int,
+     * }|ChangeMessageVisibilityBatchRequestEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -51,6 +51,14 @@ final class RemoveTagsFromStreamInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   TagKeys?: string[],
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|RemoveTagsFromStreamInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

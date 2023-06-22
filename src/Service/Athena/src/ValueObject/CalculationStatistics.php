@@ -29,6 +29,12 @@ final class CalculationStatistics
         $this->progress = $input['Progress'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DpuExecutionInMillis?: null|string,
+     *   Progress?: null|string,
+     * }|CalculationStatistics $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

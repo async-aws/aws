@@ -55,6 +55,15 @@ final class ContextDataType
         $this->encodedData = $input['EncodedData'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IpAddress: string,
+     *   ServerName: string,
+     *   ServerPath: string,
+     *   HttpHeaders: HttpHeader[],
+     *   EncodedData?: null|string,
+     * }|ContextDataType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

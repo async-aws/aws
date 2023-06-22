@@ -416,6 +416,24 @@ final class ResourceRecordSet
         $this->cidrRoutingConfig = isset($input['CidrRoutingConfig']) ? CidrRoutingConfig::create($input['CidrRoutingConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Type: RRType::*,
+     *   SetIdentifier?: null|string,
+     *   Weight?: null|string,
+     *   Region?: null|ResourceRecordSetRegion::*,
+     *   GeoLocation?: null|GeoLocation|array,
+     *   Failover?: null|ResourceRecordSetFailover::*,
+     *   MultiValueAnswer?: null|bool,
+     *   TTL?: null|string,
+     *   ResourceRecords?: null|ResourceRecord[],
+     *   AliasTarget?: null|AliasTarget|array,
+     *   HealthCheckId?: null|string,
+     *   TrafficPolicyInstanceId?: null|string,
+     *   CidrRoutingConfig?: null|CidrRoutingConfig|array,
+     * }|ResourceRecordSet $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

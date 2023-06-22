@@ -153,6 +153,18 @@ final class AssumeRoleWithWebIdentityRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   RoleArn?: string,
+     *   RoleSessionName?: string,
+     *   WebIdentityToken?: string,
+     *   ProviderId?: string,
+     *   PolicyArns?: PolicyDescriptorType[],
+     *   Policy?: string,
+     *   DurationSeconds?: int,
+     *   '@region'?: string|null,
+     * }|AssumeRoleWithWebIdentityRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

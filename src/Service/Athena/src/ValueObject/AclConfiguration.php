@@ -34,6 +34,11 @@ final class AclConfiguration
         $this->s3AclOption = $input['S3AclOption'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   S3AclOption: S3AclOption::*,
+     * }|AclConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

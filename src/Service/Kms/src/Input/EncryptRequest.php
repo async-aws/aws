@@ -112,6 +112,16 @@ final class EncryptRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   KeyId?: string,
+     *   Plaintext?: string,
+     *   EncryptionContext?: array<string, string>,
+     *   GrantTokens?: string[],
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   '@region'?: string|null,
+     * }|EncryptRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

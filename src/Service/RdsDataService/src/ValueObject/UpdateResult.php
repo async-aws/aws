@@ -22,6 +22,11 @@ final class UpdateResult
         $this->generatedFields = isset($input['generatedFields']) ? array_map([Field::class, 'create'], $input['generatedFields']) : null;
     }
 
+    /**
+     * @param array{
+     *   generatedFields?: null|Field[],
+     * }|UpdateResult $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

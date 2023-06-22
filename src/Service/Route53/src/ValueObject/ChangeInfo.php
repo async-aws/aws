@@ -52,6 +52,14 @@ final class ChangeInfo
         $this->comment = $input['Comment'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   Status: ChangeStatus::*,
+     *   SubmittedAt: \DateTimeImmutable,
+     *   Comment?: null|string,
+     * }|ChangeInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

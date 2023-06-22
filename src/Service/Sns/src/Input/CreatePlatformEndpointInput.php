@@ -68,6 +68,15 @@ final class CreatePlatformEndpointInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   PlatformApplicationArn?: string,
+     *   Token?: string,
+     *   CustomUserData?: string,
+     *   Attributes?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|CreatePlatformEndpointInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

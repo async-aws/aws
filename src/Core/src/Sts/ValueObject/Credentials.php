@@ -43,6 +43,14 @@ final class Credentials
         $this->expiration = $input['Expiration'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AccessKeyId: string,
+     *   SecretAccessKey: string,
+     *   SessionToken: string,
+     *   Expiration: \DateTimeImmutable,
+     * }|Credentials $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

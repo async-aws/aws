@@ -40,6 +40,13 @@ final class AlarmConfiguration
         $this->alarms = isset($input['alarms']) ? array_map([Alarm::class, 'create'], $input['alarms']) : null;
     }
 
+    /**
+     * @param array{
+     *   enabled?: null|bool,
+     *   ignorePollAlarmFailure?: null|bool,
+     *   alarms?: null|Alarm[],
+     * }|AlarmConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -31,6 +31,12 @@ final class TimeSeriesDataPoint
         $this->value = isset($input['Value']) ? Datum::create($input['Value']) : null;
     }
 
+    /**
+     * @param array{
+     *   Time: string,
+     *   Value: Datum|array,
+     * }|TimeSeriesDataPoint $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

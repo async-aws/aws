@@ -116,6 +116,21 @@ final class StreamDescriptionSummary
         $this->consumerCount = $input['ConsumerCount'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StreamName: string,
+     *   StreamARN: string,
+     *   StreamStatus: StreamStatus::*,
+     *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   RetentionPeriodHours: int,
+     *   StreamCreationTimestamp: \DateTimeImmutable,
+     *   EnhancedMonitoring: EnhancedMetrics[],
+     *   EncryptionType?: null|EncryptionType::*,
+     *   KeyId?: null|string,
+     *   OpenShardCount: int,
+     *   ConsumerCount?: null|int,
+     * }|StreamDescriptionSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

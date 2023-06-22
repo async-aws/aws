@@ -79,6 +79,14 @@ final class BatchWriteItemInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   RequestItems?: array<string, array>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   '@region'?: string|null,
+     * }|BatchWriteItemInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

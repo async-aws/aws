@@ -166,6 +166,22 @@ final class CreateDeploymentInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   applicationName?: string,
+     *   deploymentGroupName?: string,
+     *   revision?: RevisionLocation|array,
+     *   deploymentConfigName?: string,
+     *   description?: string,
+     *   ignoreApplicationStopFailures?: bool,
+     *   targetInstances?: TargetInstances|array,
+     *   autoRollbackConfiguration?: AutoRollbackConfiguration|array,
+     *   updateOutdatedInstancesOnly?: bool,
+     *   fileExistsBehavior?: FileExistsBehavior::*,
+     *   overrideAlarmConfiguration?: AlarmConfiguration|array,
+     *   '@region'?: string|null,
+     * }|CreateDeploymentInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

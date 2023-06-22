@@ -59,6 +59,12 @@ final class TranslationSettings
         $this->profanity = $input['Profanity'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Formality?: null|Formality::*,
+     *   Profanity?: null|Profanity::*,
+     * }|TranslationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

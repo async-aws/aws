@@ -40,6 +40,13 @@ final class ArchivalSummary
         $this->archivalBackupArn = $input['ArchivalBackupArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ArchivalDateTime?: null|\DateTimeImmutable,
+     *   ArchivalReason?: null|string,
+     *   ArchivalBackupArn?: null|string,
+     * }|ArchivalSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

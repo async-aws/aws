@@ -188,6 +188,14 @@ final class ExpectedAttributeValue
         $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
     }
 
+    /**
+     * @param array{
+     *   Value?: null|AttributeValue|array,
+     *   Exists?: null|bool,
+     *   ComparisonOperator?: null|ComparisonOperator::*,
+     *   AttributeValueList?: null|AttributeValue[],
+     * }|ExpectedAttributeValue $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

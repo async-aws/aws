@@ -38,6 +38,13 @@ final class CancellationReason
         $this->message = $input['Message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Item?: null|array<string, AttributeValue>,
+     *   Code?: null|string,
+     *   Message?: null|string,
+     * }|CancellationReason $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

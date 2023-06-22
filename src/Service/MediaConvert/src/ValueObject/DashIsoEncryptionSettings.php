@@ -36,6 +36,12 @@ final class DashIsoEncryptionSettings
         $this->spekeKeyProvider = isset($input['SpekeKeyProvider']) ? SpekeKeyProvider::create($input['SpekeKeyProvider']) : null;
     }
 
+    /**
+     * @param array{
+     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*,
+     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     * }|DashIsoEncryptionSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -39,6 +39,13 @@ final class TargetGroupPairInfo
         $this->testTrafficRoute = isset($input['testTrafficRoute']) ? TrafficRoute::create($input['testTrafficRoute']) : null;
     }
 
+    /**
+     * @param array{
+     *   targetGroups?: null|TargetGroupInfo[],
+     *   prodTrafficRoute?: null|TrafficRoute|array,
+     *   testTrafficRoute?: null|TrafficRoute|array,
+     * }|TargetGroupPairInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

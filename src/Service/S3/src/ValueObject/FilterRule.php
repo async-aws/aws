@@ -36,6 +36,12 @@ final class FilterRule
         $this->value = $input['Value'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name?: null|FilterRuleName::*,
+     *   Value?: null|string,
+     * }|FilterRule $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

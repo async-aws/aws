@@ -41,6 +41,13 @@ final class HopDestination
         $this->waitMinutes = $input['WaitMinutes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Priority?: null|int,
+     *   Queue?: null|string,
+     *   WaitMinutes?: null|int,
+     * }|HopDestination $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

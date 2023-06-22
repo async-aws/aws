@@ -266,6 +266,34 @@ final class KeyMetadata
         $this->xksKeyConfiguration = isset($input['XksKeyConfiguration']) ? XksKeyConfigurationType::create($input['XksKeyConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   AWSAccountId?: null|string,
+     *   KeyId: string,
+     *   Arn?: null|string,
+     *   CreationDate?: null|\DateTimeImmutable,
+     *   Enabled?: null|bool,
+     *   Description?: null|string,
+     *   KeyUsage?: null|KeyUsageType::*,
+     *   KeyState?: null|KeyState::*,
+     *   DeletionDate?: null|\DateTimeImmutable,
+     *   ValidTo?: null|\DateTimeImmutable,
+     *   Origin?: null|OriginType::*,
+     *   CustomKeyStoreId?: null|string,
+     *   CloudHsmClusterId?: null|string,
+     *   ExpirationModel?: null|ExpirationModelType::*,
+     *   KeyManager?: null|KeyManagerType::*,
+     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
+     *   KeySpec?: null|KeySpec::*,
+     *   EncryptionAlgorithms?: null|list<EncryptionAlgorithmSpec::*>,
+     *   SigningAlgorithms?: null|list<SigningAlgorithmSpec::*>,
+     *   MultiRegion?: null|bool,
+     *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
+     *   PendingDeletionWindowInDays?: null|int,
+     *   MacAlgorithms?: null|list<MacAlgorithmSpec::*>,
+     *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
+     * }|KeyMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

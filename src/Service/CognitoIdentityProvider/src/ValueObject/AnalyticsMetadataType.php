@@ -28,6 +28,11 @@ final class AnalyticsMetadataType
         $this->analyticsEndpointId = $input['AnalyticsEndpointId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AnalyticsEndpointId?: null|string,
+     * }|AnalyticsMetadataType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

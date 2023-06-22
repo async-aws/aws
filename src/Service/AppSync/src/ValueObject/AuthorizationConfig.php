@@ -34,6 +34,12 @@ final class AuthorizationConfig
         $this->awsIamConfig = isset($input['awsIamConfig']) ? AwsIamConfig::create($input['awsIamConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   authorizationType: AuthorizationType::*,
+     *   awsIamConfig?: null|AwsIamConfig|array,
+     * }|AuthorizationConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

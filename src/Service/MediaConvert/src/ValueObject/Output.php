@@ -84,6 +84,18 @@ final class Output
         $this->videoDescription = isset($input['VideoDescription']) ? VideoDescription::create($input['VideoDescription']) : null;
     }
 
+    /**
+     * @param array{
+     *   AudioDescriptions?: null|AudioDescription[],
+     *   CaptionDescriptions?: null|CaptionDescription[],
+     *   ContainerSettings?: null|ContainerSettings|array,
+     *   Extension?: null|string,
+     *   NameModifier?: null|string,
+     *   OutputSettings?: null|OutputSettings|array,
+     *   Preset?: null|string,
+     *   VideoDescription?: null|VideoDescription|array,
+     * }|Output $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -55,6 +55,14 @@ final class CommitTransactionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   resourceArn?: string,
+     *   secretArn?: string,
+     *   transactionId?: string,
+     *   '@region'?: string|null,
+     * }|CommitTransactionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

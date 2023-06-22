@@ -64,6 +64,16 @@ final class ListThingGroupsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   nextToken?: string,
+     *   maxResults?: int,
+     *   parentGroup?: string,
+     *   namePrefixFilter?: string,
+     *   recursive?: bool,
+     *   '@region'?: string|null,
+     * }|ListThingGroupsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

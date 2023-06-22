@@ -44,6 +44,12 @@ final class InvalidationBatch
         $this->callerReference = $input['CallerReference'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Paths: Paths|array,
+     *   CallerReference: string,
+     * }|InvalidationBatch $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

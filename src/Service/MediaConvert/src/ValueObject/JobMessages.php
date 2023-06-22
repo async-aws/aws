@@ -29,6 +29,12 @@ final class JobMessages
         $this->warning = $input['Warning'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Info?: null|string[],
+     *   Warning?: null|string[],
+     * }|JobMessages $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

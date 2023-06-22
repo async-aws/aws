@@ -27,6 +27,11 @@ final class Xavc4kIntraCbgProfileSettings
         $this->xavcClass = $input['XavcClass'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   XavcClass?: null|Xavc4kIntraCbgProfileClass::*,
+     * }|Xavc4kIntraCbgProfileSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -23,6 +23,11 @@ final class TeletextSourceSettings
         $this->pageNumber = $input['PageNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   PageNumber?: null|string,
+     * }|TeletextSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

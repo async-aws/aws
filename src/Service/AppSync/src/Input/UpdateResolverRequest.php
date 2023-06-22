@@ -157,6 +157,24 @@ final class UpdateResolverRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   apiId?: string,
+     *   typeName?: string,
+     *   fieldName?: string,
+     *   dataSourceName?: string,
+     *   requestMappingTemplate?: string,
+     *   responseMappingTemplate?: string,
+     *   kind?: ResolverKind::*,
+     *   pipelineConfig?: PipelineConfig|array,
+     *   syncConfig?: SyncConfig|array,
+     *   cachingConfig?: CachingConfig|array,
+     *   maxBatchSize?: int,
+     *   runtime?: AppSyncRuntime|array,
+     *   code?: string,
+     *   '@region'?: string|null,
+     * }|UpdateResolverRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

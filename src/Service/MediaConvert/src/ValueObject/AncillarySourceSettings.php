@@ -43,6 +43,13 @@ final class AncillarySourceSettings
         $this->terminateCaptions = $input['TerminateCaptions'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Convert608To708?: null|AncillaryConvert608To708::*,
+     *   SourceAncillaryChannelNumber?: null|int,
+     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*,
+     * }|AncillarySourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

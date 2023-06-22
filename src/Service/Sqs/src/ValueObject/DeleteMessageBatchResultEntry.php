@@ -22,6 +22,11 @@ final class DeleteMessageBatchResultEntry
         $this->id = $input['Id'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     * }|DeleteMessageBatchResultEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

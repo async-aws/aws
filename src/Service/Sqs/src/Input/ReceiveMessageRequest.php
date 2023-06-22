@@ -145,6 +145,18 @@ final class ReceiveMessageRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   AttributeNames?: list<MessageSystemAttributeName::*>,
+     *   MessageAttributeNames?: string[],
+     *   MaxNumberOfMessages?: int,
+     *   VisibilityTimeout?: int,
+     *   WaitTimeSeconds?: int,
+     *   ReceiveRequestAttemptId?: string,
+     *   '@region'?: string|null,
+     * }|ReceiveMessageRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

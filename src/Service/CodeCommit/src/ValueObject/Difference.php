@@ -38,6 +38,13 @@ final class Difference
         $this->changeType = $input['changeType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   beforeBlob?: null|BlobMetadata|array,
+     *   afterBlob?: null|BlobMetadata|array,
+     *   changeType?: null|ChangeTypeEnum::*,
+     * }|Difference $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

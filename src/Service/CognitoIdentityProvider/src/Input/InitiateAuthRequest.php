@@ -148,6 +148,17 @@ final class InitiateAuthRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AuthFlow?: AuthFlowType::*,
+     *   AuthParameters?: array<string, string>,
+     *   ClientMetadata?: array<string, string>,
+     *   ClientId?: string,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
+     *   '@region'?: string|null,
+     * }|InitiateAuthRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

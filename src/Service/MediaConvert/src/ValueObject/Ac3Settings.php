@@ -115,6 +115,20 @@ final class Ac3Settings
         $this->sampleRate = $input['SampleRate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   BitstreamMode?: null|Ac3BitstreamMode::*,
+     *   CodingMode?: null|Ac3CodingMode::*,
+     *   Dialnorm?: null|int,
+     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*,
+     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*,
+     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*,
+     *   LfeFilter?: null|Ac3LfeFilter::*,
+     *   MetadataControl?: null|Ac3MetadataControl::*,
+     *   SampleRate?: null|int,
+     * }|Ac3Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

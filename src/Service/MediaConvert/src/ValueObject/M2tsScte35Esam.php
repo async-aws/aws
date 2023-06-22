@@ -24,6 +24,11 @@ final class M2tsScte35Esam
         $this->scte35EsamPid = $input['Scte35EsamPid'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Scte35EsamPid?: null|int,
+     * }|M2tsScte35Esam $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

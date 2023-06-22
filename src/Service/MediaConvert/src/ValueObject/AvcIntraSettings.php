@@ -142,6 +142,20 @@ final class AvcIntraSettings
         $this->telecine = $input['Telecine'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AvcIntraClass?: null|AvcIntraClass::*,
+     *   AvcIntraUhdSettings?: null|AvcIntraUhdSettings|array,
+     *   FramerateControl?: null|AvcIntraFramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   InterlaceMode?: null|AvcIntraInterlaceMode::*,
+     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*,
+     *   SlowPal?: null|AvcIntraSlowPal::*,
+     *   Telecine?: null|AvcIntraTelecine::*,
+     * }|AvcIntraSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

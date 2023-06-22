@@ -37,6 +37,13 @@ final class BlueGreenDeploymentConfiguration
         $this->greenFleetProvisioningOption = isset($input['greenFleetProvisioningOption']) ? GreenFleetProvisioningOption::create($input['greenFleetProvisioningOption']) : null;
     }
 
+    /**
+     * @param array{
+     *   terminateBlueInstancesOnDeploymentSuccess?: null|BlueInstanceTerminationOption|array,
+     *   deploymentReadyOption?: null|DeploymentReadyOption|array,
+     *   greenFleetProvisioningOption?: null|GreenFleetProvisioningOption|array,
+     * }|BlueGreenDeploymentConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

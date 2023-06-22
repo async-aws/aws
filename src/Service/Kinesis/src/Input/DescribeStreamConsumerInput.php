@@ -48,6 +48,14 @@ final class DescribeStreamConsumerInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamARN?: string,
+     *   ConsumerName?: string,
+     *   ConsumerARN?: string,
+     *   '@region'?: string|null,
+     * }|DescribeStreamConsumerInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

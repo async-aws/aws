@@ -33,6 +33,12 @@ final class DeleteRepositoryInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   repositoryName?: string,
+     *   '@region'?: string|null,
+     * }|DeleteRepositoryInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

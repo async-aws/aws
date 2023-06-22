@@ -179,6 +179,29 @@ final class M3u8Settings
         $this->videoPid = $input['VideoPid'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioDuration?: null|M3u8AudioDuration::*,
+     *   AudioFramesPerPes?: null|int,
+     *   AudioPids?: null|int[],
+     *   DataPTSControl?: null|M3u8DataPtsControl::*,
+     *   MaxPcrInterval?: null|int,
+     *   NielsenId3?: null|M3u8NielsenId3::*,
+     *   PatInterval?: null|int,
+     *   PcrControl?: null|M3u8PcrControl::*,
+     *   PcrPid?: null|int,
+     *   PmtInterval?: null|int,
+     *   PmtPid?: null|int,
+     *   PrivateMetadataPid?: null|int,
+     *   ProgramNumber?: null|int,
+     *   Scte35Pid?: null|int,
+     *   Scte35Source?: null|M3u8Scte35Source::*,
+     *   TimedMetadata?: null|TimedMetadata::*,
+     *   TimedMetadataPid?: null|int,
+     *   TransportStreamId?: null|int,
+     *   VideoPid?: null|int,
+     * }|M3u8Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

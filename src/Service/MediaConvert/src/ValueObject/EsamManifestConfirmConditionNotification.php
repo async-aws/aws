@@ -24,6 +24,11 @@ final class EsamManifestConfirmConditionNotification
         $this->mccXml = $input['MccXml'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MccXml?: null|string,
+     * }|EsamManifestConfirmConditionNotification $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

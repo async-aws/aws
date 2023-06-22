@@ -78,6 +78,18 @@ final class PendingModifiedValues
         $this->transitEncryptionMode = $input['TransitEncryptionMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   NumCacheNodes?: null|int,
+     *   CacheNodeIdsToRemove?: null|string[],
+     *   EngineVersion?: null|string,
+     *   CacheNodeType?: null|string,
+     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
+     *   LogDeliveryConfigurations?: null|PendingLogDeliveryConfiguration[],
+     *   TransitEncryptionEnabled?: null|bool,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     * }|PendingModifiedValues $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

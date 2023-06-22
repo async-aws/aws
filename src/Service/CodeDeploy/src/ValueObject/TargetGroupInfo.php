@@ -26,6 +26,11 @@ final class TargetGroupInfo
         $this->name = $input['name'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     * }|TargetGroupInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

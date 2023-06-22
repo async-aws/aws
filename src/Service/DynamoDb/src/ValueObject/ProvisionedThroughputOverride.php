@@ -23,6 +23,11 @@ final class ProvisionedThroughputOverride
         $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ReadCapacityUnits?: null|string,
+     * }|ProvisionedThroughputOverride $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -57,6 +57,14 @@ final class CreateStreamInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   ShardCount?: int,
+     *   StreamModeDetails?: StreamModeDetails|array,
+     *   '@region'?: string|null,
+     * }|CreateStreamInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

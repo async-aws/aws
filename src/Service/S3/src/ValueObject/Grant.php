@@ -32,6 +32,12 @@ final class Grant
         $this->permission = $input['Permission'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Grantee?: null|Grantee|array,
+     *   Permission?: null|Permission::*,
+     * }|Grant $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

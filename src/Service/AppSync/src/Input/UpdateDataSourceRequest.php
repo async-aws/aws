@@ -144,6 +144,23 @@ final class UpdateDataSourceRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   apiId?: string,
+     *   name?: string,
+     *   description?: string,
+     *   type?: DataSourceType::*,
+     *   serviceRoleArn?: string,
+     *   dynamodbConfig?: DynamodbDataSourceConfig|array,
+     *   lambdaConfig?: LambdaDataSourceConfig|array,
+     *   elasticsearchConfig?: ElasticsearchDataSourceConfig|array,
+     *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
+     *   httpConfig?: HttpDataSourceConfig|array,
+     *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
+     *   eventBridgeConfig?: EventBridgeDataSourceConfig|array,
+     *   '@region'?: string|null,
+     * }|UpdateDataSourceRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -31,6 +31,12 @@ final class OpenSearchServiceDataSourceConfig
         $this->awsRegion = $input['awsRegion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   endpoint: string,
+     *   awsRegion: string,
+     * }|OpenSearchServiceDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

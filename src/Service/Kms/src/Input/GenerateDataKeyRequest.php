@@ -136,6 +136,17 @@ final class GenerateDataKeyRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   KeyId?: string,
+     *   EncryptionContext?: array<string, string>,
+     *   NumberOfBytes?: int,
+     *   KeySpec?: DataKeySpec::*,
+     *   GrantTokens?: string[],
+     *   Recipient?: RecipientInfo|array,
+     *   '@region'?: string|null,
+     * }|GenerateDataKeyRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

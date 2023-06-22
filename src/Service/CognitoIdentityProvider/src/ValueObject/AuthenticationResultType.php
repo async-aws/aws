@@ -57,6 +57,16 @@ final class AuthenticationResultType
         $this->newDeviceMetadata = isset($input['NewDeviceMetadata']) ? NewDeviceMetadataType::create($input['NewDeviceMetadata']) : null;
     }
 
+    /**
+     * @param array{
+     *   AccessToken?: null|string,
+     *   ExpiresIn?: null|int,
+     *   TokenType?: null|string,
+     *   RefreshToken?: null|string,
+     *   IdToken?: null|string,
+     *   NewDeviceMetadata?: null|NewDeviceMetadataType|array,
+     * }|AuthenticationResultType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

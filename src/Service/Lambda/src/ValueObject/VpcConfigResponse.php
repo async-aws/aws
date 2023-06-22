@@ -36,6 +36,13 @@ final class VpcConfigResponse
         $this->vpcId = $input['VpcId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SubnetIds?: null|string[],
+     *   SecurityGroupIds?: null|string[],
+     *   VpcId?: null|string,
+     * }|VpcConfigResponse $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -476,6 +476,48 @@ final class PutObjectRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ACL?: ObjectCannedACL::*,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
+     *   Bucket?: string,
+     *   CacheControl?: string,
+     *   ContentDisposition?: string,
+     *   ContentEncoding?: string,
+     *   ContentLanguage?: string,
+     *   ContentLength?: string,
+     *   ContentMD5?: string,
+     *   ContentType?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
+     *   Expires?: \DateTimeImmutable|string,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWriteACP?: string,
+     *   Key?: string,
+     *   Metadata?: array<string, string>,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
+     *   WebsiteRedirectLocation?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   SSEKMSKeyId?: string,
+     *   SSEKMSEncryptionContext?: string,
+     *   BucketKeyEnabled?: bool,
+     *   RequestPayer?: RequestPayer::*,
+     *   Tagging?: string,
+     *   ObjectLockMode?: ObjectLockMode::*,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|PutObjectRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

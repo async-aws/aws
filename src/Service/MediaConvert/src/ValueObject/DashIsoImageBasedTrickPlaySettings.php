@@ -67,6 +67,16 @@ final class DashIsoImageBasedTrickPlaySettings
         $this->tileWidth = $input['TileWidth'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IntervalCadence?: null|DashIsoIntervalCadence::*,
+     *   ThumbnailHeight?: null|int,
+     *   ThumbnailInterval?: null|float,
+     *   ThumbnailWidth?: null|int,
+     *   TileHeight?: null|int,
+     *   TileWidth?: null|int,
+     * }|DashIsoImageBasedTrickPlaySettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

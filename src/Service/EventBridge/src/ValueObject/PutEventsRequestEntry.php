@@ -79,6 +79,17 @@ final class PutEventsRequestEntry
         $this->traceHeader = $input['TraceHeader'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Time?: null|\DateTimeImmutable,
+     *   Source?: null|string,
+     *   Resources?: null|string[],
+     *   DetailType?: null|string,
+     *   Detail?: null|string,
+     *   EventBusName?: null|string,
+     *   TraceHeader?: null|string,
+     * }|PutEventsRequestEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

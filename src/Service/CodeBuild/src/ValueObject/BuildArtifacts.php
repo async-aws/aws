@@ -73,6 +73,17 @@ final class BuildArtifacts
         $this->bucketOwnerAccess = $input['bucketOwnerAccess'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   location?: null|string,
+     *   sha256sum?: null|string,
+     *   md5sum?: null|string,
+     *   overrideArtifactName?: null|bool,
+     *   encryptionDisabled?: null|bool,
+     *   artifactIdentifier?: null|string,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     * }|BuildArtifacts $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

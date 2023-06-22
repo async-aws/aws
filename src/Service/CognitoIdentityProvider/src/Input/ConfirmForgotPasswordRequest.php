@@ -131,6 +131,19 @@ final class ConfirmForgotPasswordRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientId?: string,
+     *   SecretHash?: string,
+     *   Username?: string,
+     *   ConfirmationCode?: string,
+     *   Password?: string,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|ConfirmForgotPasswordRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

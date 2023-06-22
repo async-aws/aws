@@ -153,6 +153,21 @@ final class SendEmailRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
+     *   Destination?: Destination|array,
+     *   ReplyToAddresses?: string[],
+     *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
+     *   Content?: EmailContent|array,
+     *   EmailTags?: MessageTag[],
+     *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
+     *   '@region'?: string|null,
+     * }|SendEmailRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

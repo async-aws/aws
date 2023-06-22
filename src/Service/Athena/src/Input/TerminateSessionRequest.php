@@ -30,6 +30,12 @@ final class TerminateSessionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SessionId?: string,
+     *   '@region'?: string|null,
+     * }|TerminateSessionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

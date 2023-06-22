@@ -31,6 +31,12 @@ final class AttributeType
         $this->value = $input['Value'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Value?: null|string,
+     * }|AttributeType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

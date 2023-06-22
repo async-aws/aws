@@ -60,6 +60,14 @@ final class ListHostedZonesByNameRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   DNSName?: string,
+     *   HostedZoneId?: string,
+     *   MaxItems?: string,
+     *   '@region'?: string|null,
+     * }|ListHostedZonesByNameRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

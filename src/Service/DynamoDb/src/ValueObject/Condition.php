@@ -149,6 +149,12 @@ final class Condition
         $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AttributeValueList?: null|AttributeValue[],
+     *   ComparisonOperator: ComparisonOperator::*,
+     * }|Condition $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

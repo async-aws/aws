@@ -30,6 +30,12 @@ final class GetCalculationExecutionStatusRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CalculationExecutionId?: string,
+     *   '@region'?: string|null,
+     * }|GetCalculationExecutionStatusRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

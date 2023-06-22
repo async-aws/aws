@@ -39,6 +39,13 @@ final class ImageConfig
         $this->workingDirectory = $input['WorkingDirectory'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   EntryPoint?: null|string[],
+     *   Command?: null|string[],
+     *   WorkingDirectory?: null|string,
+     * }|ImageConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -42,6 +42,12 @@ final class Projection
         $this->nonKeyAttributes = $input['NonKeyAttributes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ProjectionType?: null|ProjectionType::*,
+     *   NonKeyAttributes?: null|string[],
+     * }|Projection $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

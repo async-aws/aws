@@ -64,6 +64,17 @@ final class Field
         $this->arrayValue = isset($input['arrayValue']) ? ArrayValue::create($input['arrayValue']) : null;
     }
 
+    /**
+     * @param array{
+     *   isNull?: null|bool,
+     *   booleanValue?: null|bool,
+     *   longValue?: null|string,
+     *   doubleValue?: null|float,
+     *   stringValue?: null|string,
+     *   blobValue?: null|string,
+     *   arrayValue?: null|ArrayValue|array,
+     * }|Field $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

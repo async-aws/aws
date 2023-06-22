@@ -258,6 +258,34 @@ final class Input
         $this->videoSelector = isset($input['VideoSelector']) ? VideoSelector::create($input['VideoSelector']) : null;
     }
 
+    /**
+     * @param array{
+     *   AdvancedInputFilter?: null|AdvancedInputFilter::*,
+     *   AdvancedInputFilterSettings?: null|AdvancedInputFilterSettings|array,
+     *   AudioSelectorGroups?: null|array<string, AudioSelectorGroup>,
+     *   AudioSelectors?: null|array<string, AudioSelector>,
+     *   CaptionSelectors?: null|array<string, CaptionSelector>,
+     *   Crop?: null|Rectangle|array,
+     *   DeblockFilter?: null|InputDeblockFilter::*,
+     *   DecryptionSettings?: null|InputDecryptionSettings|array,
+     *   DenoiseFilter?: null|InputDenoiseFilter::*,
+     *   DolbyVisionMetadataXml?: null|string,
+     *   FileInput?: null|string,
+     *   FilterEnable?: null|InputFilterEnable::*,
+     *   FilterStrength?: null|int,
+     *   ImageInserter?: null|ImageInserter|array,
+     *   InputClippings?: null|InputClipping[],
+     *   InputScanType?: null|InputScanType::*,
+     *   Position?: null|Rectangle|array,
+     *   ProgramNumber?: null|int,
+     *   PsiControl?: null|InputPsiControl::*,
+     *   SupplementalImps?: null|string[],
+     *   TimecodeSource?: null|InputTimecodeSource::*,
+     *   TimecodeStart?: null|string,
+     *   VideoGenerator?: null|InputVideoGenerator|array,
+     *   VideoSelector?: null|VideoSelector|array,
+     * }|Input $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

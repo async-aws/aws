@@ -47,6 +47,12 @@ final class ProvisionedThroughput
         $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ReadCapacityUnits: string,
+     *   WriteCapacityUnits: string,
+     * }|ProvisionedThroughput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

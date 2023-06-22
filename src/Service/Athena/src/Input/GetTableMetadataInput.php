@@ -52,6 +52,14 @@ final class GetTableMetadataInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CatalogName?: string,
+     *   DatabaseName?: string,
+     *   TableName?: string,
+     *   '@region'?: string|null,
+     * }|GetTableMetadataInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

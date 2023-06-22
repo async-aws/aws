@@ -55,6 +55,15 @@ final class UpdateReplicationGroupMemberAction
         $this->tableClassOverride = $input['TableClassOverride'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RegionName: string,
+     *   KMSMasterKeyId?: null|string,
+     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndex[],
+     *   TableClassOverride?: null|TableClass::*,
+     * }|UpdateReplicationGroupMemberAction $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

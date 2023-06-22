@@ -111,6 +111,19 @@ final class AacSettings
         $this->vbrQuality = $input['VbrQuality'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*,
+     *   Bitrate?: null|int,
+     *   CodecProfile?: null|AacCodecProfile::*,
+     *   CodingMode?: null|AacCodingMode::*,
+     *   RateControlMode?: null|AacRateControlMode::*,
+     *   RawFormat?: null|AacRawFormat::*,
+     *   SampleRate?: null|int,
+     *   Specification?: null|AacSpecification::*,
+     *   VbrQuality?: null|AacVbrQuality::*,
+     * }|AacSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

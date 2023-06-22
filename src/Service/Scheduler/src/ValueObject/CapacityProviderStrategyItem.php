@@ -42,6 +42,13 @@ final class CapacityProviderStrategyItem
         $this->weight = $input['weight'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   base?: null|int,
+     *   capacityProvider: string,
+     *   weight?: null|int,
+     * }|CapacityProviderStrategyItem $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

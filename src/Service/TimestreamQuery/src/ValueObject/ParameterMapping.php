@@ -26,6 +26,12 @@ final class ParameterMapping
         $this->type = isset($input['Type']) ? Type::create($input['Type']) : null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Type: Type|array,
+     * }|ParameterMapping $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

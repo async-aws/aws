@@ -37,6 +37,13 @@ final class Mp2Settings
         $this->sampleRate = $input['SampleRate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   Channels?: null|int,
+     *   SampleRate?: null|int,
+     * }|Mp2Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

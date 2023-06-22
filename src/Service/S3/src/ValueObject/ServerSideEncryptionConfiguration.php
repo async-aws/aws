@@ -22,6 +22,11 @@ final class ServerSideEncryptionConfiguration
         $this->rules = isset($input['Rules']) ? array_map([ServerSideEncryptionRule::class, 'create'], $input['Rules']) : null;
     }
 
+    /**
+     * @param array{
+     *   Rules: ServerSideEncryptionRule[],
+     * }|ServerSideEncryptionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

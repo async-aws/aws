@@ -41,6 +41,13 @@ final class BlobMetadata
         $this->mode = $input['mode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   blobId?: null|string,
+     *   path?: null|string,
+     *   mode?: null|string,
+     * }|BlobMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

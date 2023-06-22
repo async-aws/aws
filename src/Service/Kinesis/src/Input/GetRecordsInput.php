@@ -53,6 +53,14 @@ final class GetRecordsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ShardIterator?: string,
+     *   Limit?: int,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|GetRecordsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

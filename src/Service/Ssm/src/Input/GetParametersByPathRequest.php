@@ -90,6 +90,17 @@ final class GetParametersByPathRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Path?: string,
+     *   Recursive?: bool,
+     *   ParameterFilters?: ParameterStringFilter[],
+     *   WithDecryption?: bool,
+     *   MaxResults?: int,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|GetParametersByPathRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

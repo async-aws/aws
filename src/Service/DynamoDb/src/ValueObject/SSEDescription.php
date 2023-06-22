@@ -55,6 +55,14 @@ final class SSEDescription
         $this->inaccessibleEncryptionDateTime = $input['InaccessibleEncryptionDateTime'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Status?: null|SSEStatus::*,
+     *   SSEType?: null|SSEType::*,
+     *   KMSMasterKeyArn?: null|string,
+     *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
+     * }|SSEDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -39,6 +39,13 @@ final class DeleteThingGroupRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingGroupName?: string,
+     *   expectedVersion?: string,
+     *   '@region'?: string|null,
+     * }|DeleteThingGroupRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

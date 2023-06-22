@@ -37,6 +37,12 @@ final class EncryptionConfiguration
         $this->kmsKey = $input['KmsKey'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   EncryptionOption: EncryptionOption::*,
+     *   KmsKey?: null|string,
+     * }|EncryptionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

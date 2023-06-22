@@ -43,6 +43,14 @@ final class Invalidation
         $this->invalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   Status: string,
+     *   CreateTime: \DateTimeImmutable,
+     *   InvalidationBatch: InvalidationBatch|array,
+     * }|Invalidation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

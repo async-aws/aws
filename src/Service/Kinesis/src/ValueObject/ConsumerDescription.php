@@ -55,6 +55,15 @@ final class ConsumerDescription
         $this->streamArn = $input['StreamARN'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ConsumerName: string,
+     *   ConsumerARN: string,
+     *   ConsumerStatus: ConsumerStatus::*,
+     *   ConsumerCreationTimestamp: \DateTimeImmutable,
+     *   StreamARN: string,
+     * }|ConsumerDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

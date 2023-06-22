@@ -49,6 +49,14 @@ final class ListApiKeysRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   apiId?: string,
+     *   nextToken?: string,
+     *   maxResults?: int,
+     *   '@region'?: string|null,
+     * }|ListApiKeysRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

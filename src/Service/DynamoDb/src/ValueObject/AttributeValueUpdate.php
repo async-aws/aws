@@ -90,6 +90,12 @@ final class AttributeValueUpdate
         $this->action = $input['Action'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Value?: null|AttributeValue|array,
+     *   Action?: null|AttributeAction::*,
+     * }|AttributeValueUpdate $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

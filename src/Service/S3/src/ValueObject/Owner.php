@@ -39,6 +39,12 @@ final class Owner
         $this->id = $input['ID'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DisplayName?: null|string,
+     *   ID?: null|string,
+     * }|Owner $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -47,6 +47,14 @@ final class HlsCaptionLanguageMapping
         $this->languageDescription = $input['LanguageDescription'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CaptionChannel?: null|int,
+     *   CustomLanguageCode?: null|string,
+     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageDescription?: null|string,
+     * }|HlsCaptionLanguageMapping $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

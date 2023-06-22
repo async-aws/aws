@@ -22,6 +22,11 @@ final class OutputSettings
         $this->hlsSettings = isset($input['HlsSettings']) ? HlsSettings::create($input['HlsSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   HlsSettings?: null|HlsSettings|array,
+     * }|OutputSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

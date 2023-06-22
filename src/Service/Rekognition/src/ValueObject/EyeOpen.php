@@ -29,6 +29,12 @@ final class EyeOpen
         $this->confidence = $input['Confidence'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Value?: null|bool,
+     *   Confidence?: null|float,
+     * }|EyeOpen $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

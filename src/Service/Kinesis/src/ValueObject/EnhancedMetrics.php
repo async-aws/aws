@@ -40,6 +40,11 @@ final class EnhancedMetrics
         $this->shardLevelMetrics = $input['ShardLevelMetrics'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ShardLevelMetrics?: null|list<MetricsName::*>,
+     * }|EnhancedMetrics $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

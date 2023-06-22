@@ -80,6 +80,17 @@ final class ListThingsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   nextToken?: string,
+     *   maxResults?: int,
+     *   attributeName?: string,
+     *   attributeValue?: string,
+     *   thingTypeName?: string,
+     *   usePrefixAttributeValue?: bool,
+     *   '@region'?: string|null,
+     * }|ListThingsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

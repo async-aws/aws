@@ -46,6 +46,14 @@ final class ListScheduleGroupsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   MaxResults?: int,
+     *   NamePrefix?: string,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|ListScheduleGroupsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

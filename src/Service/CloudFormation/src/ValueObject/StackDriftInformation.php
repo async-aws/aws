@@ -40,6 +40,12 @@ final class StackDriftInformation
         $this->lastCheckTimestamp = $input['LastCheckTimestamp'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StackDriftStatus: StackDriftStatus::*,
+     *   LastCheckTimestamp?: null|\DateTimeImmutable,
+     * }|StackDriftInformation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

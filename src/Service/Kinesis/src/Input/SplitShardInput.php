@@ -66,6 +66,15 @@ final class SplitShardInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   ShardToSplit?: string,
+     *   NewStartingHashKey?: string,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|SplitShardInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -111,6 +111,22 @@ final class Hdr10Metadata
         $this->whitePointY = $input['WhitePointY'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BluePrimaryX?: null|int,
+     *   BluePrimaryY?: null|int,
+     *   GreenPrimaryX?: null|int,
+     *   GreenPrimaryY?: null|int,
+     *   MaxContentLightLevel?: null|int,
+     *   MaxFrameAverageLightLevel?: null|int,
+     *   MaxLuminance?: null|int,
+     *   MinLuminance?: null|int,
+     *   RedPrimaryX?: null|int,
+     *   RedPrimaryY?: null|int,
+     *   WhitePointX?: null|int,
+     *   WhitePointY?: null|int,
+     * }|Hdr10Metadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

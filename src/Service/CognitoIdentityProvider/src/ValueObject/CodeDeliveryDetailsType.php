@@ -38,6 +38,13 @@ final class CodeDeliveryDetailsType
         $this->attributeName = $input['AttributeName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Destination?: null|string,
+     *   DeliveryMedium?: null|DeliveryMediumType::*,
+     *   AttributeName?: null|string,
+     * }|CodeDeliveryDetailsType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

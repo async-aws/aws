@@ -44,6 +44,13 @@ final class AwsVpcConfiguration
         $this->subnets = $input['Subnets'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AssignPublicIp?: null|AssignPublicIp::*,
+     *   SecurityGroups?: null|string[],
+     *   Subnets: string[],
+     * }|AwsVpcConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

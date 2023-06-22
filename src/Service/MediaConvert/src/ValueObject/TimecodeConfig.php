@@ -65,6 +65,14 @@ final class TimecodeConfig
         $this->timestampOffset = $input['TimestampOffset'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Anchor?: null|string,
+     *   Source?: null|TimecodeSource::*,
+     *   Start?: null|string,
+     *   TimestampOffset?: null|string,
+     * }|TimecodeConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

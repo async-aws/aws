@@ -74,6 +74,16 @@ final class OutputGroupSettings
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CmafGroupSettings?: null|CmafGroupSettings|array,
+     *   DashIsoGroupSettings?: null|DashIsoGroupSettings|array,
+     *   FileGroupSettings?: null|FileGroupSettings|array,
+     *   HlsGroupSettings?: null|HlsGroupSettings|array,
+     *   MsSmoothGroupSettings?: null|MsSmoothGroupSettings|array,
+     *   Type?: null|OutputGroupType::*,
+     * }|OutputGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

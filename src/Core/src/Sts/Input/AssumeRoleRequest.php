@@ -260,6 +260,22 @@ final class AssumeRoleRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   RoleArn?: string,
+     *   RoleSessionName?: string,
+     *   PolicyArns?: PolicyDescriptorType[],
+     *   Policy?: string,
+     *   DurationSeconds?: int,
+     *   Tags?: Tag[],
+     *   TransitiveTagKeys?: string[],
+     *   ExternalId?: string,
+     *   SerialNumber?: string,
+     *   TokenCode?: string,
+     *   SourceIdentity?: string,
+     *   '@region'?: string|null,
+     * }|AssumeRoleRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

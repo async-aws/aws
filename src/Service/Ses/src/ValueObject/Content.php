@@ -33,6 +33,12 @@ final class Content
         $this->charset = $input['Charset'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Data: string,
+     *   Charset?: null|string,
+     * }|Content $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

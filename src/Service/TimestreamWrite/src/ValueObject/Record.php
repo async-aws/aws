@@ -98,6 +98,18 @@ final class Record
         $this->measureValues = isset($input['MeasureValues']) ? array_map([MeasureValue::class, 'create'], $input['MeasureValues']) : null;
     }
 
+    /**
+     * @param array{
+     *   Dimensions?: null|Dimension[],
+     *   MeasureName?: null|string,
+     *   MeasureValue?: null|string,
+     *   MeasureValueType?: null|MeasureValueType::*,
+     *   Time?: null|string,
+     *   TimeUnit?: null|TimeUnit::*,
+     *   Version?: null|string,
+     *   MeasureValues?: null|MeasureValue[],
+     * }|Record $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

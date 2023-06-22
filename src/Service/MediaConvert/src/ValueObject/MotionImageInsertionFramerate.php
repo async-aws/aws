@@ -33,6 +33,12 @@ final class MotionImageInsertionFramerate
         $this->framerateNumerator = $input['FramerateNumerator'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     * }|MotionImageInsertionFramerate $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

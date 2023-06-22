@@ -201,6 +201,26 @@ final class XavcSettings
         $this->xavcHdProfileSettings = isset($input['XavcHdProfileSettings']) ? XavcHdProfileSettings::create($input['XavcHdProfileSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   AdaptiveQuantization?: null|XavcAdaptiveQuantization::*,
+     *   EntropyEncoding?: null|XavcEntropyEncoding::*,
+     *   FramerateControl?: null|XavcFramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|XavcFramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   Profile?: null|XavcProfile::*,
+     *   SlowPal?: null|XavcSlowPal::*,
+     *   Softness?: null|int,
+     *   SpatialAdaptiveQuantization?: null|XavcSpatialAdaptiveQuantization::*,
+     *   TemporalAdaptiveQuantization?: null|XavcTemporalAdaptiveQuantization::*,
+     *   Xavc4kIntraCbgProfileSettings?: null|Xavc4kIntraCbgProfileSettings|array,
+     *   Xavc4kIntraVbrProfileSettings?: null|Xavc4kIntraVbrProfileSettings|array,
+     *   Xavc4kProfileSettings?: null|Xavc4kProfileSettings|array,
+     *   XavcHdIntraCbgProfileSettings?: null|XavcHdIntraCbgProfileSettings|array,
+     *   XavcHdProfileSettings?: null|XavcHdProfileSettings|array,
+     * }|XavcSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

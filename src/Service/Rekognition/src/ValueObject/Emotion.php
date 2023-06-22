@@ -34,6 +34,12 @@ final class Emotion
         $this->confidence = $input['Confidence'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Type?: null|EmotionName::*,
+     *   Confidence?: null|float,
+     * }|Emotion $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

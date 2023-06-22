@@ -260,6 +260,40 @@ final class DeploymentInfo
         $this->overrideAlarmConfiguration = isset($input['overrideAlarmConfiguration']) ? AlarmConfiguration::create($input['overrideAlarmConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   applicationName?: null|string,
+     *   deploymentGroupName?: null|string,
+     *   deploymentConfigName?: null|string,
+     *   deploymentId?: null|string,
+     *   previousRevision?: null|RevisionLocation|array,
+     *   revision?: null|RevisionLocation|array,
+     *   status?: null|DeploymentStatus::*,
+     *   errorInformation?: null|ErrorInformation|array,
+     *   createTime?: null|\DateTimeImmutable,
+     *   startTime?: null|\DateTimeImmutable,
+     *   completeTime?: null|\DateTimeImmutable,
+     *   deploymentOverview?: null|DeploymentOverview|array,
+     *   description?: null|string,
+     *   creator?: null|DeploymentCreator::*,
+     *   ignoreApplicationStopFailures?: null|bool,
+     *   autoRollbackConfiguration?: null|AutoRollbackConfiguration|array,
+     *   updateOutdatedInstancesOnly?: null|bool,
+     *   rollbackInfo?: null|RollbackInfo|array,
+     *   deploymentStyle?: null|DeploymentStyle|array,
+     *   targetInstances?: null|TargetInstances|array,
+     *   instanceTerminationWaitTimeStarted?: null|bool,
+     *   blueGreenDeploymentConfiguration?: null|BlueGreenDeploymentConfiguration|array,
+     *   loadBalancerInfo?: null|LoadBalancerInfo|array,
+     *   additionalDeploymentStatusInfo?: null|string,
+     *   fileExistsBehavior?: null|FileExistsBehavior::*,
+     *   deploymentStatusMessages?: null|string[],
+     *   computePlatform?: null|ComputePlatform::*,
+     *   externalId?: null|string,
+     *   relatedDeployments?: null|RelatedDeployments|array,
+     *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
+     * }|DeploymentInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

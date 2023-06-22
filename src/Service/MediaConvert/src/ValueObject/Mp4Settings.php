@@ -79,6 +79,16 @@ final class Mp4Settings
         $this->mp4MajorBrand = $input['Mp4MajorBrand'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioDuration?: null|CmfcAudioDuration::*,
+     *   CslgAtom?: null|Mp4CslgAtom::*,
+     *   CttsVersion?: null|int,
+     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
+     *   MoovPlacement?: null|Mp4MoovPlacement::*,
+     *   Mp4MajorBrand?: null|string,
+     * }|Mp4Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

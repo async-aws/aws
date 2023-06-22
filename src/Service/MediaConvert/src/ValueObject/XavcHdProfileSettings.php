@@ -112,6 +112,19 @@ final class XavcHdProfileSettings
         $this->telecine = $input['Telecine'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BitrateClass?: null|XavcHdProfileBitrateClass::*,
+     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
+     *   GopBReference?: null|XavcGopBReference::*,
+     *   GopClosedCadence?: null|int,
+     *   HrdBufferSize?: null|int,
+     *   InterlaceMode?: null|XavcInterlaceMode::*,
+     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*,
+     *   Slices?: null|int,
+     *   Telecine?: null|XavcHdProfileTelecine::*,
+     * }|XavcHdProfileSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

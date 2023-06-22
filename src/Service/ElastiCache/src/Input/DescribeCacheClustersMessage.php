@@ -76,6 +76,16 @@ final class DescribeCacheClustersMessage extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CacheClusterId?: string,
+     *   MaxRecords?: int,
+     *   Marker?: string,
+     *   ShowCacheNodeInfo?: bool,
+     *   ShowCacheClustersNotInReplicationGroups?: bool,
+     *   '@region'?: string|null,
+     * }|DescribeCacheClustersMessage $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -55,6 +55,12 @@ final class BuildStatusConfig
         $this->targetUrl = $input['targetUrl'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   context?: null|string,
+     *   targetUrl?: null|string,
+     * }|BuildStatusConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

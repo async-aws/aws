@@ -42,6 +42,13 @@ final class HumanLoopConfig
         $this->dataAttributes = isset($input['DataAttributes']) ? HumanLoopDataAttributes::create($input['DataAttributes']) : null;
     }
 
+    /**
+     * @param array{
+     *   HumanLoopName: string,
+     *   FlowDefinitionArn: string,
+     *   DataAttributes?: null|HumanLoopDataAttributes|array,
+     * }|HumanLoopConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

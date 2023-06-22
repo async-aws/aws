@@ -49,6 +49,13 @@ final class MxfSettings
         $this->xavcProfileSettings = isset($input['XavcProfileSettings']) ? MxfXavcProfileSettings::create($input['XavcProfileSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   AfdSignaling?: null|MxfAfdSignaling::*,
+     *   Profile?: null|MxfProfile::*,
+     *   XavcProfileSettings?: null|MxfXavcProfileSettings|array,
+     * }|MxfSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

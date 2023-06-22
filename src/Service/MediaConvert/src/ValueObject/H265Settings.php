@@ -480,6 +480,52 @@ final class H265Settings
         $this->writeMp4PackagingType = $input['WriteMp4PackagingType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdaptiveQuantization?: null|H265AdaptiveQuantization::*,
+     *   AlternateTransferFunctionSei?: null|H265AlternateTransferFunctionSei::*,
+     *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
+     *   Bitrate?: null|int,
+     *   CodecLevel?: null|H265CodecLevel::*,
+     *   CodecProfile?: null|H265CodecProfile::*,
+     *   DynamicSubGop?: null|H265DynamicSubGop::*,
+     *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
+     *   FramerateControl?: null|H265FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   GopBReference?: null|H265GopBReference::*,
+     *   GopClosedCadence?: null|int,
+     *   GopSize?: null|float,
+     *   GopSizeUnits?: null|H265GopSizeUnits::*,
+     *   HrdBufferFinalFillPercentage?: null|int,
+     *   HrdBufferInitialFillPercentage?: null|int,
+     *   HrdBufferSize?: null|int,
+     *   InterlaceMode?: null|H265InterlaceMode::*,
+     *   MaxBitrate?: null|int,
+     *   MinIInterval?: null|int,
+     *   NumberBFramesBetweenReferenceFrames?: null|int,
+     *   NumberReferenceFrames?: null|int,
+     *   ParControl?: null|H265ParControl::*,
+     *   ParDenominator?: null|int,
+     *   ParNumerator?: null|int,
+     *   QualityTuningLevel?: null|H265QualityTuningLevel::*,
+     *   QvbrSettings?: null|H265QvbrSettings|array,
+     *   RateControlMode?: null|H265RateControlMode::*,
+     *   SampleAdaptiveOffsetFilterMode?: null|H265SampleAdaptiveOffsetFilterMode::*,
+     *   ScanTypeConversionMode?: null|H265ScanTypeConversionMode::*,
+     *   SceneChangeDetect?: null|H265SceneChangeDetect::*,
+     *   Slices?: null|int,
+     *   SlowPal?: null|H265SlowPal::*,
+     *   SpatialAdaptiveQuantization?: null|H265SpatialAdaptiveQuantization::*,
+     *   Telecine?: null|H265Telecine::*,
+     *   TemporalAdaptiveQuantization?: null|H265TemporalAdaptiveQuantization::*,
+     *   TemporalIds?: null|H265TemporalIds::*,
+     *   Tiles?: null|H265Tiles::*,
+     *   UnregisteredSeiTimecode?: null|H265UnregisteredSeiTimecode::*,
+     *   WriteMp4PackagingType?: null|H265WriteMp4PackagingType::*,
+     * }|H265Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

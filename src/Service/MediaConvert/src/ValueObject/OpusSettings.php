@@ -38,6 +38,13 @@ final class OpusSettings
         $this->sampleRate = $input['SampleRate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   Channels?: null|int,
+     *   SampleRate?: null|int,
+     * }|OpusSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

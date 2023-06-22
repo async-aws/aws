@@ -24,6 +24,11 @@ final class DvbTdtSettings
         $this->tdtInterval = $input['TdtInterval'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TdtInterval?: null|int,
+     * }|DvbTdtSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

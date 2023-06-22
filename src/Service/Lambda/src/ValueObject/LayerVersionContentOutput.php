@@ -52,6 +52,15 @@ final class LayerVersionContentOutput
         $this->signingJobArn = $input['SigningJobArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Location?: null|string,
+     *   CodeSha256?: null|string,
+     *   CodeSize?: null|string,
+     *   SigningProfileVersionArn?: null|string,
+     *   SigningJobArn?: null|string,
+     * }|LayerVersionContentOutput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

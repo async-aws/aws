@@ -140,6 +140,18 @@ final class GetItemInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   Key?: array<string, AttributeValue>,
+     *   AttributesToGet?: string[],
+     *   ConsistentRead?: bool,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ProjectionExpression?: string,
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|GetItemInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

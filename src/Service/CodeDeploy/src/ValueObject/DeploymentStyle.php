@@ -33,6 +33,12 @@ final class DeploymentStyle
         $this->deploymentOption = $input['deploymentOption'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   deploymentType?: null|DeploymentType::*,
+     *   deploymentOption?: null|DeploymentOption::*,
+     * }|DeploymentStyle $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -51,6 +51,14 @@ final class AddTagsToStreamInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   Tags?: array<string, string>,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|AddTagsToStreamInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

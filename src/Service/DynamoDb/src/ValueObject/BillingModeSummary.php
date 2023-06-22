@@ -42,6 +42,12 @@ final class BillingModeSummary
         $this->lastUpdateToPayPerRequestDateTime = $input['LastUpdateToPayPerRequestDateTime'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BillingMode?: null|BillingMode::*,
+     *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
+     * }|BillingModeSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

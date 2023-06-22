@@ -45,6 +45,13 @@ final class PutRecordsRequestEntry
         $this->partitionKey = $input['PartitionKey'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Data: string,
+     *   ExplicitHashKey?: null|string,
+     *   PartitionKey: string,
+     * }|PutRecordsRequestEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

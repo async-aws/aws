@@ -83,6 +83,16 @@ final class FileSourceSettings
         $this->timeDeltaUnits = $input['TimeDeltaUnits'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Convert608To708?: null|FileSourceConvert608To708::*,
+     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
+     *   Framerate?: null|CaptionSourceFramerate|array,
+     *   SourceFile?: null|string,
+     *   TimeDelta?: null|int,
+     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
+     * }|FileSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

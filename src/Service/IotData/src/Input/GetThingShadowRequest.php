@@ -42,6 +42,13 @@ final class GetThingShadowRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingName?: string,
+     *   shadowName?: string,
+     *   '@region'?: string|null,
+     * }|GetThingShadowRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

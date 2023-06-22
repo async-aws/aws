@@ -98,6 +98,17 @@ final class GetShardIteratorInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   ShardId?: string,
+     *   ShardIteratorType?: ShardIteratorType::*,
+     *   StartingSequenceNumber?: string,
+     *   Timestamp?: \DateTimeImmutable|string,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|GetShardIteratorInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

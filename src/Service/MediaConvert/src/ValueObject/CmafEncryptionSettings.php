@@ -67,6 +67,16 @@ final class CmafEncryptionSettings
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ConstantInitializationVector?: null|string,
+     *   EncryptionMethod?: null|CmafEncryptionType::*,
+     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*,
+     *   SpekeKeyProvider?: null|SpekeKeyProviderCmaf|array,
+     *   StaticKeyProvider?: null|StaticKeyProvider|array,
+     *   Type?: null|CmafKeyProviderType::*,
+     * }|CmafEncryptionSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

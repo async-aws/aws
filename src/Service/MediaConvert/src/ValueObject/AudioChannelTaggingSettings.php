@@ -30,6 +30,11 @@ final class AudioChannelTaggingSettings
         $this->channelTag = $input['ChannelTag'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ChannelTag?: null|AudioChannelTag::*,
+     * }|AudioChannelTaggingSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

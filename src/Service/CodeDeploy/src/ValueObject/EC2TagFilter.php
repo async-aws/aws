@@ -43,6 +43,13 @@ final class EC2TagFilter
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key?: null|string,
+     *   Value?: null|string,
+     *   Type?: null|EC2TagFilterType::*,
+     * }|EC2TagFilter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

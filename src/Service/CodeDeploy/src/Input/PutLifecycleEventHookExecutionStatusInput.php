@@ -50,6 +50,14 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   deploymentId?: string,
+     *   lifecycleEventHookExecutionId?: string,
+     *   status?: LifecycleEventStatus::*,
+     *   '@region'?: string|null,
+     * }|PutLifecycleEventHookExecutionStatusInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

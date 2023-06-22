@@ -36,6 +36,13 @@ final class Pose
         $this->pitch = $input['Pitch'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Roll?: null|float,
+     *   Yaw?: null|float,
+     *   Pitch?: null|float,
+     * }|Pose $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -28,6 +28,11 @@ final class GreenFleetProvisioningOption
         $this->action = $input['action'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   action?: null|GreenFleetProvisioningAction::*,
+     * }|GreenFleetProvisioningOption $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

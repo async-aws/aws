@@ -65,6 +65,17 @@ final class Face
         $this->userId = $input['UserId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FaceId?: null|string,
+     *   BoundingBox?: null|BoundingBox|array,
+     *   ImageId?: null|string,
+     *   ExternalImageId?: null|string,
+     *   Confidence?: null|float,
+     *   IndexFacesModelVersion?: null|string,
+     *   UserId?: null|string,
+     * }|Face $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -126,6 +126,17 @@ final class MetricDataQuery
         $this->accountId = $input['AccountId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   MetricStat?: null|MetricStat|array,
+     *   Expression?: null|string,
+     *   Label?: null|string,
+     *   ReturnData?: null|bool,
+     *   Period?: null|int,
+     *   AccountId?: null|string,
+     * }|MetricDataQuery $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

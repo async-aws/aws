@@ -50,6 +50,15 @@ final class Shard
         $this->sequenceNumberRange = isset($input['SequenceNumberRange']) ? SequenceNumberRange::create($input['SequenceNumberRange']) : null;
     }
 
+    /**
+     * @param array{
+     *   ShardId: string,
+     *   ParentShardId?: null|string,
+     *   AdjacentParentShardId?: null|string,
+     *   HashKeyRange: HashKeyRange|array,
+     *   SequenceNumberRange: SequenceNumberRange|array,
+     * }|Shard $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

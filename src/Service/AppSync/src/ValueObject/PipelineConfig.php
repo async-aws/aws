@@ -22,6 +22,11 @@ final class PipelineConfig
         $this->functions = $input['functions'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   functions?: null|string[],
+     * }|PipelineConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

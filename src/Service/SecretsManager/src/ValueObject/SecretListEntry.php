@@ -158,6 +158,27 @@ final class SecretListEntry
         $this->primaryRegion = $input['PrimaryRegion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ARN?: null|string,
+     *   Name?: null|string,
+     *   Description?: null|string,
+     *   KmsKeyId?: null|string,
+     *   RotationEnabled?: null|bool,
+     *   RotationLambdaARN?: null|string,
+     *   RotationRules?: null|RotationRulesType|array,
+     *   LastRotatedDate?: null|\DateTimeImmutable,
+     *   LastChangedDate?: null|\DateTimeImmutable,
+     *   LastAccessedDate?: null|\DateTimeImmutable,
+     *   DeletedDate?: null|\DateTimeImmutable,
+     *   NextRotationDate?: null|\DateTimeImmutable,
+     *   Tags?: null|Tag[],
+     *   SecretVersionsToStages?: null|array<string, array>,
+     *   OwningService?: null|string,
+     *   CreatedDate?: null|\DateTimeImmutable,
+     *   PrimaryRegion?: null|string,
+     * }|SecretListEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

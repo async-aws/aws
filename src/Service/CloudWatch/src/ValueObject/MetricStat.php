@@ -61,6 +61,14 @@ final class MetricStat
         $this->unit = $input['Unit'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Metric: Metric|array,
+     *   Period: int,
+     *   Stat: string,
+     *   Unit?: null|StandardUnit::*,
+     * }|MetricStat $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

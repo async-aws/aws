@@ -33,6 +33,12 @@ final class MessageData
         $this->value = $input['Value'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Code?: null|string,
+     *   Value?: null|string,
+     * }|MessageData $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

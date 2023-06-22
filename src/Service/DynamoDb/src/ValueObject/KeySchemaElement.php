@@ -50,6 +50,12 @@ final class KeySchemaElement
         $this->keyType = $input['KeyType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AttributeName: string,
+     *   KeyType: KeyType::*,
+     * }|KeySchemaElement $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

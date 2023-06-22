@@ -26,6 +26,11 @@ final class InputVideoGenerator
         $this->duration = $input['Duration'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Duration?: null|int,
+     * }|InputVideoGenerator $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

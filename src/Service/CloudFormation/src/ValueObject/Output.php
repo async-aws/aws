@@ -43,6 +43,14 @@ final class Output
         $this->exportName = $input['ExportName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   OutputKey?: null|string,
+     *   OutputValue?: null|string,
+     *   Description?: null|string,
+     *   ExportName?: null|string,
+     * }|Output $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

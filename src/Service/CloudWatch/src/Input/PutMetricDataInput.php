@@ -46,6 +46,13 @@ final class PutMetricDataInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Namespace?: string,
+     *   MetricData?: MetricDatum[],
+     *   '@region'?: string|null,
+     * }|PutMetricDataInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

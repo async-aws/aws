@@ -78,6 +78,18 @@ final class LogsLocation
         $this->s3Logs = isset($input['s3Logs']) ? S3LogsConfig::create($input['s3Logs']) : null;
     }
 
+    /**
+     * @param array{
+     *   groupName?: null|string,
+     *   streamName?: null|string,
+     *   deepLink?: null|string,
+     *   s3DeepLink?: null|string,
+     *   cloudWatchLogsArn?: null|string,
+     *   s3LogsArn?: null|string,
+     *   cloudWatchLogs?: null|CloudWatchLogsConfig|array,
+     *   s3Logs?: null|S3LogsConfig|array,
+     * }|LogsLocation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

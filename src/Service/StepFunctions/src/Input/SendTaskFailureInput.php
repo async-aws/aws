@@ -51,6 +51,14 @@ final class SendTaskFailureInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   taskToken?: string,
+     *   error?: string,
+     *   cause?: string,
+     *   '@region'?: string|null,
+     * }|SendTaskFailureInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

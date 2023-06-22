@@ -110,6 +110,20 @@ final class Target
         $this->sqsParameters = isset($input['SqsParameters']) ? SqsParameters::create($input['SqsParameters']) : null;
     }
 
+    /**
+     * @param array{
+     *   Arn: string,
+     *   DeadLetterConfig?: null|DeadLetterConfig|array,
+     *   EcsParameters?: null|EcsParameters|array,
+     *   EventBridgeParameters?: null|EventBridgeParameters|array,
+     *   Input?: null|string,
+     *   KinesisParameters?: null|KinesisParameters|array,
+     *   RetryPolicy?: null|RetryPolicy|array,
+     *   RoleArn: string,
+     *   SageMakerPipelineParameters?: null|SageMakerPipelineParameters|array,
+     *   SqsParameters?: null|SqsParameters|array,
+     * }|Target $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

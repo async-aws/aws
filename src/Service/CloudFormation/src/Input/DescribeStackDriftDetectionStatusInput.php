@@ -33,6 +33,12 @@ final class DescribeStackDriftDetectionStatusInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StackDriftDetectionId?: string,
+     *   '@region'?: string|null,
+     * }|DescribeStackDriftDetectionStatusInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

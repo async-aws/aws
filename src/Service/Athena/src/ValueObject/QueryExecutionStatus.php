@@ -58,6 +58,15 @@ final class QueryExecutionStatus
         $this->athenaError = isset($input['AthenaError']) ? AthenaError::create($input['AthenaError']) : null;
     }
 
+    /**
+     * @param array{
+     *   State?: null|QueryExecutionState::*,
+     *   StateChangeReason?: null|string,
+     *   SubmissionDateTime?: null|\DateTimeImmutable,
+     *   CompletionDateTime?: null|\DateTimeImmutable,
+     *   AthenaError?: null|AthenaError|array,
+     * }|QueryExecutionStatus $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

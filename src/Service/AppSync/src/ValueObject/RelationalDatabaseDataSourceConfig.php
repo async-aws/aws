@@ -35,6 +35,12 @@ final class RelationalDatabaseDataSourceConfig
         $this->rdsHttpEndpointConfig = isset($input['rdsHttpEndpointConfig']) ? RdsHttpEndpointConfig::create($input['rdsHttpEndpointConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   relationalDatabaseSourceType?: null|RelationalDatabaseSourceType::*,
+     *   rdsHttpEndpointConfig?: null|RdsHttpEndpointConfig|array,
+     * }|RelationalDatabaseDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

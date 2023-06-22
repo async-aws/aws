@@ -59,6 +59,15 @@ final class PutBucketNotificationConfigurationRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   NotificationConfiguration?: NotificationConfiguration|array,
+     *   ExpectedBucketOwner?: string,
+     *   SkipDestinationValidation?: bool,
+     *   '@region'?: string|null,
+     * }|PutBucketNotificationConfigurationRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

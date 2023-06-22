@@ -197,6 +197,32 @@ final class Stack
         $this->driftInformation = isset($input['DriftInformation']) ? StackDriftInformation::create($input['DriftInformation']) : null;
     }
 
+    /**
+     * @param array{
+     *   StackId?: null|string,
+     *   StackName: string,
+     *   ChangeSetId?: null|string,
+     *   Description?: null|string,
+     *   Parameters?: null|Parameter[],
+     *   CreationTime: \DateTimeImmutable,
+     *   DeletionTime?: null|\DateTimeImmutable,
+     *   LastUpdatedTime?: null|\DateTimeImmutable,
+     *   RollbackConfiguration?: null|RollbackConfiguration|array,
+     *   StackStatus: StackStatus::*,
+     *   StackStatusReason?: null|string,
+     *   DisableRollback?: null|bool,
+     *   NotificationARNs?: null|string[],
+     *   TimeoutInMinutes?: null|int,
+     *   Capabilities?: null|list<Capability::*>,
+     *   Outputs?: null|Output[],
+     *   RoleARN?: null|string,
+     *   Tags?: null|Tag[],
+     *   EnableTerminationProtection?: null|bool,
+     *   ParentId?: null|string,
+     *   RootId?: null|string,
+     *   DriftInformation?: null|StackDriftInformation|array,
+     * }|Stack $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

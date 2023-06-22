@@ -152,6 +152,21 @@ final class UpdateTableInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AttributeDefinitions?: AttributeDefinition[],
+     *   TableName?: string,
+     *   BillingMode?: BillingMode::*,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array,
+     *   GlobalSecondaryIndexUpdates?: GlobalSecondaryIndexUpdate[],
+     *   StreamSpecification?: StreamSpecification|array,
+     *   SSESpecification?: SSESpecification|array,
+     *   ReplicaUpdates?: ReplicationGroupUpdate[],
+     *   TableClass?: TableClass::*,
+     *   DeletionProtectionEnabled?: bool,
+     *   '@region'?: string|null,
+     * }|UpdateTableInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -53,6 +53,14 @@ final class InputDecryptionSettings
         $this->kmsKeyRegion = $input['KmsKeyRegion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DecryptionMode?: null|DecryptionMode::*,
+     *   EncryptedDecryptionKey?: null|string,
+     *   InitializationVector?: null|string,
+     *   KmsKeyRegion?: null|string,
+     * }|InputDecryptionSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

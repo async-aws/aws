@@ -38,6 +38,12 @@ final class AdvancedInputFilterSettings
         $this->sharpening = $input['Sharpening'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AddTexture?: null|AdvancedInputFilterAddTexture::*,
+     *   Sharpening?: null|AdvancedInputFilterSharpen::*,
+     * }|AdvancedInputFilterSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

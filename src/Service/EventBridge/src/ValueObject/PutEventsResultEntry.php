@@ -39,6 +39,13 @@ final class PutEventsResultEntry
         $this->errorMessage = $input['ErrorMessage'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   EventId?: null|string,
+     *   ErrorCode?: null|string,
+     *   ErrorMessage?: null|string,
+     * }|PutEventsResultEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

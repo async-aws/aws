@@ -49,6 +49,13 @@ final class RemixSettings
         $this->channelsOut = $input['ChannelsOut'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ChannelMapping?: null|ChannelMapping|array,
+     *   ChannelsIn?: null|int,
+     *   ChannelsOut?: null|int,
+     * }|RemixSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

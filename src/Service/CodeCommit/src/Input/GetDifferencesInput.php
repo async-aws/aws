@@ -91,6 +91,18 @@ final class GetDifferencesInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   repositoryName?: string,
+     *   beforeCommitSpecifier?: string,
+     *   afterCommitSpecifier?: string,
+     *   beforePath?: string,
+     *   afterPath?: string,
+     *   MaxResults?: int,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|GetDifferencesInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -42,6 +42,14 @@ final class QueueConfiguration
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   QueueArn: string,
+     *   Events: list<Event::*>,
+     *   Filter?: null|NotificationConfigurationFilter|array,
+     * }|QueueConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

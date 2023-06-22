@@ -33,6 +33,13 @@ final class ChildShard
         $this->hashKeyRange = isset($input['HashKeyRange']) ? HashKeyRange::create($input['HashKeyRange']) : null;
     }
 
+    /**
+     * @param array{
+     *   ShardId: string,
+     *   ParentShards: string[],
+     *   HashKeyRange: HashKeyRange|array,
+     * }|ChildShard $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -59,6 +59,15 @@ final class CreateThingGroupRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingGroupName?: string,
+     *   parentGroupName?: string,
+     *   thingGroupProperties?: ThingGroupProperties|array,
+     *   tags?: Tag[],
+     *   '@region'?: string|null,
+     * }|CreateThingGroupRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -30,6 +30,12 @@ final class DeleteCollectionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CollectionId?: string,
+     *   '@region'?: string|null,
+     * }|DeleteCollectionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

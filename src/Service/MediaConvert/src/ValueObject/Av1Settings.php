@@ -152,6 +152,23 @@ final class Av1Settings
         $this->spatialAdaptiveQuantization = $input['SpatialAdaptiveQuantization'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
+     *   BitDepth?: null|Av1BitDepth::*,
+     *   FramerateControl?: null|Av1FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   GopSize?: null|float,
+     *   MaxBitrate?: null|int,
+     *   NumberBFramesBetweenReferenceFrames?: null|int,
+     *   QvbrSettings?: null|Av1QvbrSettings|array,
+     *   RateControlMode?: null|Av1RateControlMode::*,
+     *   Slices?: null|int,
+     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*,
+     * }|Av1Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

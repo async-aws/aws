@@ -112,6 +112,18 @@ final class BatchExecuteStatementRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   resourceArn?: string,
+     *   secretArn?: string,
+     *   sql?: string,
+     *   database?: string,
+     *   schema?: string,
+     *   parameterSets?: array[],
+     *   transactionId?: string,
+     *   '@region'?: string|null,
+     * }|BatchExecuteStatementRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

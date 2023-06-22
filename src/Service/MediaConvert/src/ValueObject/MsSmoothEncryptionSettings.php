@@ -23,6 +23,11 @@ final class MsSmoothEncryptionSettings
         $this->spekeKeyProvider = isset($input['SpekeKeyProvider']) ? SpekeKeyProvider::create($input['SpekeKeyProvider']) : null;
     }
 
+    /**
+     * @param array{
+     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     * }|MsSmoothEncryptionSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -34,6 +34,12 @@ final class SMSMfaSettingsType
         $this->preferredMfa = $input['PreferredMfa'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Enabled?: null|bool,
+     *   PreferredMfa?: null|bool,
+     * }|SMSMfaSettingsType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

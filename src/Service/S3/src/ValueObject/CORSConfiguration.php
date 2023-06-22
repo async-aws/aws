@@ -28,6 +28,11 @@ final class CORSConfiguration
         $this->corsRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : null;
     }
 
+    /**
+     * @param array{
+     *   CORSRules: CORSRule[],
+     * }|CORSConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

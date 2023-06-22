@@ -29,6 +29,12 @@ final class PhaseContext
         $this->message = $input['message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   statusCode?: null|string,
+     *   message?: null|string,
+     * }|PhaseContext $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

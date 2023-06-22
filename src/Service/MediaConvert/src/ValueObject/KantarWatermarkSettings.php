@@ -120,6 +120,23 @@ final class KantarWatermarkSettings
         $this->metadata8 = $input['Metadata8'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ChannelName?: null|string,
+     *   ContentReference?: null|string,
+     *   CredentialsSecretName?: null|string,
+     *   FileOffset?: null|float,
+     *   KantarLicenseId?: null|int,
+     *   KantarServerUrl?: null|string,
+     *   LogDestination?: null|string,
+     *   Metadata3?: null|string,
+     *   Metadata4?: null|string,
+     *   Metadata5?: null|string,
+     *   Metadata6?: null|string,
+     *   Metadata7?: null|string,
+     *   Metadata8?: null|string,
+     * }|KantarWatermarkSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

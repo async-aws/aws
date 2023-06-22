@@ -28,6 +28,12 @@ final class GetAuthorizationTokenRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   registryIds?: string[],
+     *   '@region'?: string|null,
+     * }|GetAuthorizationTokenRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -138,6 +138,20 @@ final class SignUpRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientId?: string,
+     *   SecretHash?: string,
+     *   Username?: string,
+     *   Password?: string,
+     *   UserAttributes?: AttributeType[],
+     *   ValidationData?: AttributeType[],
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|SignUpRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

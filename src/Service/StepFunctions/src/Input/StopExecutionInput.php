@@ -48,6 +48,14 @@ final class StopExecutionInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   executionArn?: string,
+     *   error?: string,
+     *   cause?: string,
+     *   '@region'?: string|null,
+     * }|StopExecutionInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

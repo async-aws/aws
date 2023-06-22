@@ -31,6 +31,12 @@ final class TableClassSummary
         $this->lastUpdateDateTime = $input['LastUpdateDateTime'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TableClass?: null|TableClass::*,
+     *   LastUpdateDateTime?: null|\DateTimeImmutable,
+     * }|TableClassSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

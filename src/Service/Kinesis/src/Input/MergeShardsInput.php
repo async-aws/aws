@@ -62,6 +62,15 @@ final class MergeShardsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   ShardToMerge?: string,
+     *   AdjacentShardToMerge?: string,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|MergeShardsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

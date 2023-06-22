@@ -93,6 +93,18 @@ final class ListMetricsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Namespace?: string,
+     *   MetricName?: string,
+     *   Dimensions?: DimensionFilter[],
+     *   NextToken?: string,
+     *   RecentlyActive?: RecentlyActive::*,
+     *   IncludeLinkedAccounts?: bool,
+     *   OwningAccount?: string,
+     *   '@region'?: string|null,
+     * }|ListMetricsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

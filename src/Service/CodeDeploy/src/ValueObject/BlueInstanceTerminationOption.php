@@ -42,6 +42,12 @@ final class BlueInstanceTerminationOption
         $this->terminationWaitTimeInMinutes = $input['terminationWaitTimeInMinutes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   action?: null|InstanceAction::*,
+     *   terminationWaitTimeInMinutes?: null|int,
+     * }|BlueInstanceTerminationOption $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

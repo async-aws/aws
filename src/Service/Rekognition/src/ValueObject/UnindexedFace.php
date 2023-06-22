@@ -41,6 +41,12 @@ final class UnindexedFace
         $this->faceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
     }
 
+    /**
+     * @param array{
+     *   Reasons?: null|list<Reason::*>,
+     *   FaceDetail?: null|FaceDetail|array,
+     * }|UnindexedFace $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

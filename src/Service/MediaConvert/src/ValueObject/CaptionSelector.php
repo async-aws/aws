@@ -48,6 +48,13 @@ final class CaptionSelector
         $this->sourceSettings = isset($input['SourceSettings']) ? CaptionSourceSettings::create($input['SourceSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   CustomLanguageCode?: null|string,
+     *   LanguageCode?: null|LanguageCode::*,
+     *   SourceSettings?: null|CaptionSourceSettings|array,
+     * }|CaptionSelector $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

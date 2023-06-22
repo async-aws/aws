@@ -110,6 +110,18 @@ final class User
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
     }
 
+    /**
+     * @param array{
+     *   Path: string,
+     *   UserName: string,
+     *   UserId: string,
+     *   Arn: string,
+     *   CreateDate: \DateTimeImmutable,
+     *   PasswordLastUsed?: null|\DateTimeImmutable,
+     *   PermissionsBoundary?: null|AttachedPermissionsBoundary|array,
+     *   Tags?: null|Tag[],
+     * }|User $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

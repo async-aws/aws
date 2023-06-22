@@ -43,6 +43,13 @@ final class TimecodeBurnin
         $this->prefix = $input['Prefix'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FontSize?: null|int,
+     *   Position?: null|TimecodeBurninPosition::*,
+     *   Prefix?: null|string,
+     * }|TimecodeBurnin $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

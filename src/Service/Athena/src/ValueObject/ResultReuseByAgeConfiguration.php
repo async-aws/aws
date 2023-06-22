@@ -32,6 +32,12 @@ final class ResultReuseByAgeConfiguration
         $this->maxAgeInMinutes = $input['MaxAgeInMinutes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Enabled: bool,
+     *   MaxAgeInMinutes?: null|int,
+     * }|ResultReuseByAgeConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

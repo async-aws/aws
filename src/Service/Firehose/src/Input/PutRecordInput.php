@@ -42,6 +42,13 @@ final class PutRecordInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   DeliveryStreamName?: string,
+     *   Record?: Record|array,
+     *   '@region'?: string|null,
+     * }|PutRecordInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

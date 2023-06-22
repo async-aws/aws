@@ -34,6 +34,12 @@ final class Paths
         $this->items = $input['Items'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Quantity: int,
+     *   Items?: null|string[],
+     * }|Paths $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -39,6 +39,12 @@ final class TeletextDestinationSettings
         $this->pageTypes = $input['PageTypes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   PageNumber?: null|string,
+     *   PageTypes?: null|list<TeletextPageType::*>,
+     * }|TeletextDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

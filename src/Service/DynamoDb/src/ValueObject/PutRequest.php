@@ -27,6 +27,11 @@ final class PutRequest
         $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
     }
 
+    /**
+     * @param array{
+     *   Item: array<string, AttributeValue>,
+     * }|PutRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

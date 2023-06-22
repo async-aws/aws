@@ -47,6 +47,14 @@ final class Type
         $this->rowColumnInfo = isset($input['RowColumnInfo']) ? array_map([ColumnInfo::class, 'create'], $input['RowColumnInfo']) : null;
     }
 
+    /**
+     * @param array{
+     *   ScalarType?: null|ScalarType::*,
+     *   ArrayColumnInfo?: null|ColumnInfo|array,
+     *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
+     *   RowColumnInfo?: null|ColumnInfo[],
+     * }|Type $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

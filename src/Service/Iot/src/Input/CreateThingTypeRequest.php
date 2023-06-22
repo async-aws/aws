@@ -54,6 +54,14 @@ final class CreateThingTypeRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingTypeName?: string,
+     *   thingTypeProperties?: ThingTypeProperties|array,
+     *   tags?: Tag[],
+     *   '@region'?: string|null,
+     * }|CreateThingTypeRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

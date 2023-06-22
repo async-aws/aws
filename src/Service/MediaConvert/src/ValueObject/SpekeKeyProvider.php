@@ -48,6 +48,14 @@ final class SpekeKeyProvider
         $this->url = $input['Url'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CertificateArn?: null|string,
+     *   ResourceId?: null|string,
+     *   SystemIds?: null|string[],
+     *   Url?: null|string,
+     * }|SpekeKeyProvider $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class DashAdditionalManifest
         $this->selectedOutputs = $input['SelectedOutputs'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ManifestNameModifier?: null|string,
+     *   SelectedOutputs?: null|string[],
+     * }|DashAdditionalManifest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

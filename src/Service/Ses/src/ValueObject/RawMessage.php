@@ -36,6 +36,11 @@ final class RawMessage
         $this->data = $input['Data'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Data: string,
+     * }|RawMessage $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

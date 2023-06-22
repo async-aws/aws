@@ -34,6 +34,12 @@ final class Message
         $this->body = isset($input['Body']) ? Body::create($input['Body']) : null;
     }
 
+    /**
+     * @param array{
+     *   Subject: Content|array,
+     *   Body: Body|array,
+     * }|Message $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

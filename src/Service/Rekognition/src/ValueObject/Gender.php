@@ -43,6 +43,12 @@ final class Gender
         $this->confidence = $input['Confidence'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Value?: null|GenderType::*,
+     *   Confidence?: null|float,
+     * }|Gender $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

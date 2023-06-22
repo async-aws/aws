@@ -29,6 +29,12 @@ final class OutputDetail
         $this->videoDetails = isset($input['VideoDetails']) ? VideoDetail::create($input['VideoDetails']) : null;
     }
 
+    /**
+     * @param array{
+     *   DurationInMs?: null|int,
+     *   VideoDetails?: null|VideoDetail|array,
+     * }|OutputDetail $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

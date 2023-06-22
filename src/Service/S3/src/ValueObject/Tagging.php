@@ -24,6 +24,11 @@ final class Tagging
         $this->tagSet = isset($input['TagSet']) ? array_map([Tag::class, 'create'], $input['TagSet']) : null;
     }
 
+    /**
+     * @param array{
+     *   TagSet: Tag[],
+     * }|Tagging $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class DestinationDetails
         $this->kinesisFirehoseDetails = isset($input['KinesisFirehoseDetails']) ? KinesisFirehoseDestinationDetails::create($input['KinesisFirehoseDetails']) : null;
     }
 
+    /**
+     * @param array{
+     *   CloudWatchLogsDetails?: null|CloudWatchLogsDestinationDetails|array,
+     *   KinesisFirehoseDetails?: null|KinesisFirehoseDestinationDetails|array,
+     * }|DestinationDetails $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

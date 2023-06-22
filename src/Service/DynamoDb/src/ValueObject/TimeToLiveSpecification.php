@@ -31,6 +31,12 @@ final class TimeToLiveSpecification
         $this->attributeName = $input['AttributeName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Enabled: bool,
+     *   AttributeName: string,
+     * }|TimeToLiveSpecification $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

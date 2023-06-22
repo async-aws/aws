@@ -61,6 +61,15 @@ final class S3Location
         $this->eTag = $input['eTag'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   bucket?: null|string,
+     *   key?: null|string,
+     *   bundleType?: null|BundleType::*,
+     *   version?: null|string,
+     *   eTag?: null|string,
+     * }|S3Location $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -23,6 +23,11 @@ final class NetworkConfiguration
         $this->awsvpcConfiguration = isset($input['awsvpcConfiguration']) ? AwsVpcConfiguration::create($input['awsvpcConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   awsvpcConfiguration?: null|AwsVpcConfiguration|array,
+     * }|NetworkConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

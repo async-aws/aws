@@ -128,6 +128,20 @@ final class CaptionDestinationSettings
         $this->webvttDestinationSettings = isset($input['WebvttDestinationSettings']) ? WebvttDestinationSettings::create($input['WebvttDestinationSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   BurninDestinationSettings?: null|BurninDestinationSettings|array,
+     *   DestinationType?: null|CaptionDestinationType::*,
+     *   DvbSubDestinationSettings?: null|DvbSubDestinationSettings|array,
+     *   EmbeddedDestinationSettings?: null|EmbeddedDestinationSettings|array,
+     *   ImscDestinationSettings?: null|ImscDestinationSettings|array,
+     *   SccDestinationSettings?: null|SccDestinationSettings|array,
+     *   SrtDestinationSettings?: null|SrtDestinationSettings|array,
+     *   TeletextDestinationSettings?: null|TeletextDestinationSettings|array,
+     *   TtmlDestinationSettings?: null|TtmlDestinationSettings|array,
+     *   WebvttDestinationSettings?: null|WebvttDestinationSettings|array,
+     * }|CaptionDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

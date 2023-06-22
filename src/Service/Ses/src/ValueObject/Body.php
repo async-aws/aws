@@ -31,6 +31,12 @@ final class Body
         $this->html = isset($input['Html']) ? Content::create($input['Html']) : null;
     }
 
+    /**
+     * @param array{
+     *   Text?: null|Content|array,
+     *   Html?: null|Content|array,
+     * }|Body $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

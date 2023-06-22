@@ -36,6 +36,12 @@ final class SourceAuth
         $this->resource = $input['resource'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   type: SourceAuthType::*,
+     *   resource?: null|string,
+     * }|SourceAuth $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

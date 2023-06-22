@@ -49,6 +49,14 @@ final class ListQueuesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueNamePrefix?: string,
+     *   NextToken?: string,
+     *   MaxResults?: int,
+     *   '@region'?: string|null,
+     * }|ListQueuesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

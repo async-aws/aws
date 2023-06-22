@@ -50,6 +50,15 @@ final class Subscription
         $this->topicArn = $input['TopicArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SubscriptionArn?: null|string,
+     *   Owner?: null|string,
+     *   Protocol?: null|string,
+     *   Endpoint?: null|string,
+     *   TopicArn?: null|string,
+     * }|Subscription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

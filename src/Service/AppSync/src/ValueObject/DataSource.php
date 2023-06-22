@@ -113,6 +113,22 @@ final class DataSource
         $this->eventBridgeConfig = isset($input['eventBridgeConfig']) ? EventBridgeDataSourceConfig::create($input['eventBridgeConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   dataSourceArn?: null|string,
+     *   name?: null|string,
+     *   description?: null|string,
+     *   type?: null|DataSourceType::*,
+     *   serviceRoleArn?: null|string,
+     *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
+     *   lambdaConfig?: null|LambdaDataSourceConfig|array,
+     *   elasticsearchConfig?: null|ElasticsearchDataSourceConfig|array,
+     *   openSearchServiceConfig?: null|OpenSearchServiceDataSourceConfig|array,
+     *   httpConfig?: null|HttpDataSourceConfig|array,
+     *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
+     *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
+     * }|DataSource $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

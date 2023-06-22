@@ -48,6 +48,14 @@ final class ListQueryExecutionsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   NextToken?: string,
+     *   MaxResults?: int,
+     *   WorkGroup?: string,
+     *   '@region'?: string|null,
+     * }|ListQueryExecutionsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

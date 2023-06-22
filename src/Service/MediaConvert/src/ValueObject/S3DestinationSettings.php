@@ -30,6 +30,12 @@ final class S3DestinationSettings
         $this->encryption = isset($input['Encryption']) ? S3EncryptionSettings::create($input['Encryption']) : null;
     }
 
+    /**
+     * @param array{
+     *   AccessControl?: null|S3DestinationAccessControl|array,
+     *   Encryption?: null|S3EncryptionSettings|array,
+     * }|S3DestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -129,6 +129,22 @@ final class AudioSelector
         $this->tracks = $input['Tracks'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
+     *   CustomLanguageCode?: null|string,
+     *   DefaultSelection?: null|AudioDefaultSelection::*,
+     *   ExternalAudioFileInput?: null|string,
+     *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
+     *   LanguageCode?: null|LanguageCode::*,
+     *   Offset?: null|int,
+     *   Pids?: null|int[],
+     *   ProgramSelection?: null|int,
+     *   RemixSettings?: null|RemixSettings|array,
+     *   SelectorType?: null|AudioSelectorType::*,
+     *   Tracks?: null|int[],
+     * }|AudioSelector $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

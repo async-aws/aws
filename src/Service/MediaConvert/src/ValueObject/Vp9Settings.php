@@ -143,6 +143,23 @@ final class Vp9Settings
         $this->rateControlMode = $input['RateControlMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   FramerateControl?: null|Vp9FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   GopSize?: null|float,
+     *   HrdBufferSize?: null|int,
+     *   MaxBitrate?: null|int,
+     *   ParControl?: null|Vp9ParControl::*,
+     *   ParDenominator?: null|int,
+     *   ParNumerator?: null|int,
+     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*,
+     *   RateControlMode?: null|Vp9RateControlMode::*,
+     * }|Vp9Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

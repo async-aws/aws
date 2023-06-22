@@ -31,6 +31,11 @@ final class SrtDestinationSettings
         $this->stylePassthrough = $input['StylePassthrough'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StylePassthrough?: null|SrtStylePassthrough::*,
+     * }|SrtDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

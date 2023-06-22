@@ -37,6 +37,12 @@ final class RollbackTrigger
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Arn: string,
+     *   Type: string,
+     * }|RollbackTrigger $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

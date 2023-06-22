@@ -285,6 +285,37 @@ final class CmafGroupSettings
         $this->writeSegmentTimelineInRepresentation = $input['WriteSegmentTimelineInRepresentation'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdditionalManifests?: null|CmafAdditionalManifest[],
+     *   BaseUrl?: null|string,
+     *   ClientCache?: null|CmafClientCache::*,
+     *   CodecSpecification?: null|CmafCodecSpecification::*,
+     *   DashManifestStyle?: null|DashManifestStyle::*,
+     *   Destination?: null|string,
+     *   DestinationSettings?: null|DestinationSettings|array,
+     *   Encryption?: null|CmafEncryptionSettings|array,
+     *   FragmentLength?: null|int,
+     *   ImageBasedTrickPlay?: null|CmafImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlaySettings?: null|CmafImageBasedTrickPlaySettings|array,
+     *   ManifestCompression?: null|CmafManifestCompression::*,
+     *   ManifestDurationFormat?: null|CmafManifestDurationFormat::*,
+     *   MinBufferTime?: null|int,
+     *   MinFinalSegmentLength?: null|float,
+     *   MpdManifestBandwidthType?: null|CmafMpdManifestBandwidthType::*,
+     *   MpdProfile?: null|CmafMpdProfile::*,
+     *   PtsOffsetHandlingForBFrames?: null|CmafPtsOffsetHandlingForBFrames::*,
+     *   SegmentControl?: null|CmafSegmentControl::*,
+     *   SegmentLength?: null|int,
+     *   SegmentLengthControl?: null|CmafSegmentLengthControl::*,
+     *   StreamInfResolution?: null|CmafStreamInfResolution::*,
+     *   TargetDurationCompatibilityMode?: null|CmafTargetDurationCompatibilityMode::*,
+     *   VideoCompositionOffsets?: null|CmafVideoCompositionOffsets::*,
+     *   WriteDashManifest?: null|CmafWriteDASHManifest::*,
+     *   WriteHlsManifest?: null|CmafWriteHLSManifest::*,
+     *   WriteSegmentTimelineInRepresentation?: null|CmafWriteSegmentTimelineInRepresentation::*,
+     * }|CmafGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -23,6 +23,11 @@ final class BadRequestDetail
         $this->codeErrors = isset($input['codeErrors']) ? array_map([CodeError::class, 'create'], $input['codeErrors']) : null;
     }
 
+    /**
+     * @param array{
+     *   codeErrors?: null|CodeError[],
+     * }|BadRequestDetail $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

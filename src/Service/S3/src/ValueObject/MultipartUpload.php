@@ -67,6 +67,17 @@ final class MultipartUpload
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   UploadId?: null|string,
+     *   Key?: null|string,
+     *   Initiated?: null|\DateTimeImmutable,
+     *   StorageClass?: null|StorageClass::*,
+     *   Owner?: null|Owner|array,
+     *   Initiator?: null|Initiator|array,
+     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     * }|MultipartUpload $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

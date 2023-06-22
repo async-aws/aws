@@ -158,6 +158,27 @@ final class FaceDetail
         $this->eyeDirection = isset($input['EyeDirection']) ? EyeDirection::create($input['EyeDirection']) : null;
     }
 
+    /**
+     * @param array{
+     *   BoundingBox?: null|BoundingBox|array,
+     *   AgeRange?: null|AgeRange|array,
+     *   Smile?: null|Smile|array,
+     *   Eyeglasses?: null|Eyeglasses|array,
+     *   Sunglasses?: null|Sunglasses|array,
+     *   Gender?: null|Gender|array,
+     *   Beard?: null|Beard|array,
+     *   Mustache?: null|Mustache|array,
+     *   EyesOpen?: null|EyeOpen|array,
+     *   MouthOpen?: null|MouthOpen|array,
+     *   Emotions?: null|Emotion[],
+     *   Landmarks?: null|Landmark[],
+     *   Pose?: null|Pose|array,
+     *   Quality?: null|ImageQuality|array,
+     *   Confidence?: null|float,
+     *   FaceOccluded?: null|FaceOccluded|array,
+     *   EyeDirection?: null|EyeDirection|array,
+     * }|FaceDetail $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

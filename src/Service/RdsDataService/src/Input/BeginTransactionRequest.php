@@ -62,6 +62,15 @@ final class BeginTransactionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   resourceArn?: string,
+     *   secretArn?: string,
+     *   database?: string,
+     *   schema?: string,
+     *   '@region'?: string|null,
+     * }|BeginTransactionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

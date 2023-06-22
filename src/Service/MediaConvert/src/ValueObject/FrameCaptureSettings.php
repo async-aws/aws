@@ -49,6 +49,14 @@ final class FrameCaptureSettings
         $this->quality = $input['Quality'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   MaxCaptures?: null|int,
+     *   Quality?: null|int,
+     * }|FrameCaptureSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

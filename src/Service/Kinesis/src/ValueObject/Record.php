@@ -59,6 +59,15 @@ final class Record
         $this->encryptionType = $input['EncryptionType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SequenceNumber: string,
+     *   ApproximateArrivalTimestamp?: null|\DateTimeImmutable,
+     *   Data: string,
+     *   PartitionKey: string,
+     *   EncryptionType?: null|EncryptionType::*,
+     * }|Record $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

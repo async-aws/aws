@@ -95,6 +95,17 @@ final class InvocationRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   FunctionName?: string,
+     *   InvocationType?: InvocationType::*,
+     *   LogType?: LogType::*,
+     *   ClientContext?: string,
+     *   Payload?: string,
+     *   Qualifier?: string,
+     *   '@region'?: string|null,
+     * }|InvocationRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

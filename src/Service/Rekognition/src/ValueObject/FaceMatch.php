@@ -30,6 +30,12 @@ final class FaceMatch
         $this->face = isset($input['Face']) ? Face::create($input['Face']) : null;
     }
 
+    /**
+     * @param array{
+     *   Similarity?: null|float,
+     *   Face?: null|Face|array,
+     * }|FaceMatch $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

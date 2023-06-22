@@ -45,6 +45,13 @@ final class ReplicationGroupUpdate
         $this->delete = isset($input['Delete']) ? DeleteReplicationGroupMemberAction::create($input['Delete']) : null;
     }
 
+    /**
+     * @param array{
+     *   Create?: null|CreateReplicationGroupMemberAction|array,
+     *   Update?: null|UpdateReplicationGroupMemberAction|array,
+     *   Delete?: null|DeleteReplicationGroupMemberAction|array,
+     * }|ReplicationGroupUpdate $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

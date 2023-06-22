@@ -31,6 +31,12 @@ final class Delete
         $this->quiet = $input['Quiet'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Objects: ObjectIdentifier[],
+     *   Quiet?: null|bool,
+     * }|Delete $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

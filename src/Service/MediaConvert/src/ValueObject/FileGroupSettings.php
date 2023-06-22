@@ -33,6 +33,12 @@ final class FileGroupSettings
         $this->destinationSettings = isset($input['DestinationSettings']) ? DestinationSettings::create($input['DestinationSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   Destination?: null|string,
+     *   DestinationSettings?: null|DestinationSettings|array,
+     * }|FileGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

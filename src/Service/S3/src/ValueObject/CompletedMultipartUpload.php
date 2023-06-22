@@ -24,6 +24,11 @@ final class CompletedMultipartUpload
         $this->parts = isset($input['Parts']) ? array_map([CompletedPart::class, 'create'], $input['Parts']) : null;
     }
 
+    /**
+     * @param array{
+     *   Parts?: null|CompletedPart[],
+     * }|CompletedMultipartUpload $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

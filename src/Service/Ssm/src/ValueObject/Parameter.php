@@ -92,6 +92,19 @@ final class Parameter
         $this->dataType = $input['DataType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name?: null|string,
+     *   Type?: null|ParameterType::*,
+     *   Value?: null|string,
+     *   Version?: null|string,
+     *   Selector?: null|string,
+     *   SourceResult?: null|string,
+     *   LastModifiedDate?: null|\DateTimeImmutable,
+     *   ARN?: null|string,
+     *   DataType?: null|string,
+     * }|Parameter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

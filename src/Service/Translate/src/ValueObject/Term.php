@@ -29,6 +29,12 @@ final class Term
         $this->targetText = $input['TargetText'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SourceText?: null|string,
+     *   TargetText?: null|string,
+     * }|Term $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

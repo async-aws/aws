@@ -29,6 +29,12 @@ final class SequenceNumberRange
         $this->endingSequenceNumber = $input['EndingSequenceNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StartingSequenceNumber: string,
+     *   EndingSequenceNumber?: null|string,
+     * }|SequenceNumberRange $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -114,6 +114,21 @@ final class CreateBucketRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ACL?: BucketCannedACL::*,
+     *   Bucket?: string,
+     *   CreateBucketConfiguration?: CreateBucketConfiguration|array,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWrite?: string,
+     *   GrantWriteACP?: string,
+     *   ObjectLockEnabledForBucket?: bool,
+     *   ObjectOwnership?: ObjectOwnership::*,
+     *   '@region'?: string|null,
+     * }|CreateBucketRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

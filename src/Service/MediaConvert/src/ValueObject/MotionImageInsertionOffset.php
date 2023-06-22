@@ -29,6 +29,12 @@ final class MotionImageInsertionOffset
         $this->imageY = $input['ImageY'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ImageX?: null|int,
+     *   ImageY?: null|int,
+     * }|MotionImageInsertionOffset $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

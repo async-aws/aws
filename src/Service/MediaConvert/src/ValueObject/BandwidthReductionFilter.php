@@ -43,6 +43,12 @@ final class BandwidthReductionFilter
         $this->strength = $input['Strength'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Sharpening?: null|BandwidthReductionFilterSharpening::*,
+     *   Strength?: null|BandwidthReductionFilterStrength::*,
+     * }|BandwidthReductionFilter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

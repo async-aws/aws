@@ -34,6 +34,12 @@ final class ImageInserter
         $this->sdrReferenceWhiteLevel = $input['SdrReferenceWhiteLevel'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   InsertableImages?: null|InsertableImage[],
+     *   SdrReferenceWhiteLevel?: null|int,
+     * }|ImageInserter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

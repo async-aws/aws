@@ -129,6 +129,19 @@ final class ConfirmSignUpRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientId?: string,
+     *   SecretHash?: string,
+     *   Username?: string,
+     *   ConfirmationCode?: string,
+     *   ForceAliasCreation?: bool,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|ConfirmSignUpRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

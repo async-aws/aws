@@ -51,6 +51,15 @@ final class AliasListEntry
         $this->lastUpdatedDate = $input['LastUpdatedDate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AliasName?: null|string,
+     *   AliasArn?: null|string,
+     *   TargetKeyId?: null|string,
+     *   CreationDate?: null|\DateTimeImmutable,
+     *   LastUpdatedDate?: null|\DateTimeImmutable,
+     * }|AliasListEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

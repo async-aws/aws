@@ -270,11 +270,16 @@ class InputGenerator
         }
 
         // Add named constructor
-        $classBuilder->addMethod('create')
+        $createMethod = $classBuilder->addMethod('create')
             ->setStatic(true)
             ->setReturnType('self')
-            ->setBody('return $input instanceof self ? $input : new self($input);')
-            ->addParameter('input');
+            ->setBody('return $input instanceof self ? $input : new self($input);');
+        $createMethod->addParameter('input');
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, true, true, false, ['  \'@region\'?: string|null,']);
+        $createMethod->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $classBuilder->addUse($memberClassName->getFqdn());
+        }
 
         $constructorBody .= 'parent::__construct($input);';
         $constructor = $classBuilder->addMethod('__construct');

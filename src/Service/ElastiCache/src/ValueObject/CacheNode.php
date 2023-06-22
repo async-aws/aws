@@ -151,6 +151,18 @@ final class CacheNode
         $this->customerOutpostArn = $input['CustomerOutpostArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CacheNodeId?: null|string,
+     *   CacheNodeStatus?: null|string,
+     *   CacheNodeCreateTime?: null|\DateTimeImmutable,
+     *   Endpoint?: null|Endpoint|array,
+     *   ParameterGroupStatus?: null|string,
+     *   SourceCacheNodeId?: null|string,
+     *   CustomerAvailabilityZone?: null|string,
+     *   CustomerOutpostArn?: null|string,
+     * }|CacheNode $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

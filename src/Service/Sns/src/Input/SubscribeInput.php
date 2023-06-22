@@ -131,6 +131,16 @@ final class SubscribeInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TopicArn?: string,
+     *   Protocol?: string,
+     *   Endpoint?: string,
+     *   Attributes?: array<string, string>,
+     *   ReturnSubscriptionArn?: bool,
+     *   '@region'?: string|null,
+     * }|SubscribeInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

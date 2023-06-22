@@ -38,6 +38,12 @@ final class StreamSpecification
         $this->streamViewType = $input['StreamViewType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StreamEnabled: bool,
+     *   StreamViewType?: null|StreamViewType::*,
+     * }|StreamSpecification $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

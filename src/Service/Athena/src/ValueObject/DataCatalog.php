@@ -77,6 +77,14 @@ final class DataCatalog
         $this->parameters = $input['Parameters'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Description?: null|string,
+     *   Type: DataCatalogType::*,
+     *   Parameters?: null|array<string, string>,
+     * }|DataCatalog $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

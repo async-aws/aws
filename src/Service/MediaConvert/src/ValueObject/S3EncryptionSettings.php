@@ -53,6 +53,13 @@ final class S3EncryptionSettings
         $this->kmsKeyArn = $input['KmsKeyArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   EncryptionType?: null|S3ServerSideEncryptionType::*,
+     *   KmsEncryptionContext?: null|string,
+     *   KmsKeyArn?: null|string,
+     * }|S3EncryptionSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -58,6 +58,14 @@ final class ListVersionsByFunctionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   FunctionName?: string,
+     *   Marker?: string,
+     *   MaxItems?: int,
+     *   '@region'?: string|null,
+     * }|ListVersionsByFunctionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

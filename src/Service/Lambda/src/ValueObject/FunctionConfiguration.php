@@ -293,6 +293,45 @@ final class FunctionConfiguration
         $this->runtimeVersionConfig = isset($input['RuntimeVersionConfig']) ? RuntimeVersionConfig::create($input['RuntimeVersionConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   FunctionName?: null|string,
+     *   FunctionArn?: null|string,
+     *   Runtime?: null|Runtime::*,
+     *   Role?: null|string,
+     *   Handler?: null|string,
+     *   CodeSize?: null|string,
+     *   Description?: null|string,
+     *   Timeout?: null|int,
+     *   MemorySize?: null|int,
+     *   LastModified?: null|string,
+     *   CodeSha256?: null|string,
+     *   Version?: null|string,
+     *   VpcConfig?: null|VpcConfigResponse|array,
+     *   DeadLetterConfig?: null|DeadLetterConfig|array,
+     *   Environment?: null|EnvironmentResponse|array,
+     *   KMSKeyArn?: null|string,
+     *   TracingConfig?: null|TracingConfigResponse|array,
+     *   MasterArn?: null|string,
+     *   RevisionId?: null|string,
+     *   Layers?: null|Layer[],
+     *   State?: null|State::*,
+     *   StateReason?: null|string,
+     *   StateReasonCode?: null|StateReasonCode::*,
+     *   LastUpdateStatus?: null|LastUpdateStatus::*,
+     *   LastUpdateStatusReason?: null|string,
+     *   LastUpdateStatusReasonCode?: null|LastUpdateStatusReasonCode::*,
+     *   FileSystemConfigs?: null|FileSystemConfig[],
+     *   PackageType?: null|PackageType::*,
+     *   ImageConfigResponse?: null|ImageConfigResponse|array,
+     *   SigningProfileVersionArn?: null|string,
+     *   SigningJobArn?: null|string,
+     *   Architectures?: null|list<Architecture::*>,
+     *   EphemeralStorage?: null|EphemeralStorage|array,
+     *   SnapStart?: null|SnapStartResponse|array,
+     *   RuntimeVersionConfig?: null|RuntimeVersionConfig|array,
+     * }|FunctionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

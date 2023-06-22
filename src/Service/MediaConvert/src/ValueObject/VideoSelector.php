@@ -143,6 +143,20 @@ final class VideoSelector
         $this->sampleRange = $input['SampleRange'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AlphaBehavior?: null|AlphaBehavior::*,
+     *   ColorSpace?: null|ColorSpace::*,
+     *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
+     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
+     *   Hdr10Metadata?: null|Hdr10Metadata|array,
+     *   PadVideo?: null|PadVideo::*,
+     *   Pid?: null|int,
+     *   ProgramNumber?: null|int,
+     *   Rotate?: null|InputRotate::*,
+     *   SampleRange?: null|InputSampleRange::*,
+     * }|VideoSelector $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

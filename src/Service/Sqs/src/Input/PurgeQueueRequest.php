@@ -32,6 +32,12 @@ final class PurgeQueueRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   '@region'?: string|null,
+     * }|PurgeQueueRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

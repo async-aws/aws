@@ -58,6 +58,14 @@ final class DetectModerationLabelsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Image?: Image|array,
+     *   MinConfidence?: float,
+     *   HumanLoopConfig?: HumanLoopConfig|array,
+     *   '@region'?: string|null,
+     * }|DetectModerationLabelsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -37,6 +37,13 @@ final class CacheParameterGroupStatus
         $this->cacheNodeIdsToReboot = $input['CacheNodeIdsToReboot'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CacheParameterGroupName?: null|string,
+     *   ParameterApplyStatus?: null|string,
+     *   CacheNodeIdsToReboot?: null|string[],
+     * }|CacheParameterGroupStatus $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

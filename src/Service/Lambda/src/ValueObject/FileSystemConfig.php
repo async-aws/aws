@@ -31,6 +31,12 @@ final class FileSystemConfig
         $this->localMountPath = $input['LocalMountPath'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Arn: string,
+     *   LocalMountPath: string,
+     * }|FileSystemConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

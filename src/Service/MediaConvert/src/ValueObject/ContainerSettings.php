@@ -91,6 +91,19 @@ final class ContainerSettings
         $this->mxfSettings = isset($input['MxfSettings']) ? MxfSettings::create($input['MxfSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   CmfcSettings?: null|CmfcSettings|array,
+     *   Container?: null|ContainerType::*,
+     *   F4vSettings?: null|F4vSettings|array,
+     *   M2tsSettings?: null|M2tsSettings|array,
+     *   M3u8Settings?: null|M3u8Settings|array,
+     *   MovSettings?: null|MovSettings|array,
+     *   Mp4Settings?: null|Mp4Settings|array,
+     *   MpdSettings?: null|MpdSettings|array,
+     *   MxfSettings?: null|MxfSettings|array,
+     * }|ContainerSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

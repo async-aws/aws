@@ -71,6 +71,17 @@ final class ServiceSpecificCredential
         $this->status = $input['Status'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CreateDate: \DateTimeImmutable,
+     *   ServiceName: string,
+     *   ServiceUserName: string,
+     *   ServicePassword: string,
+     *   ServiceSpecificCredentialId: string,
+     *   UserName: string,
+     *   Status: StatusType::*,
+     * }|ServiceSpecificCredential $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -124,6 +124,19 @@ final class PutObjectTaggingRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Key?: string,
+     *   VersionId?: string,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   Tagging?: Tagging|array,
+     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   '@region'?: string|null,
+     * }|PutObjectTaggingRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

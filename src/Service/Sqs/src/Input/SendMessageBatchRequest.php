@@ -44,6 +44,13 @@ final class SendMessageBatchRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   Entries?: SendMessageBatchRequestEntry[],
+     *   '@region'?: string|null,
+     * }|SendMessageBatchRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

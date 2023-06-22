@@ -66,6 +66,16 @@ final class ListSchedulesInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   GroupName?: string,
+     *   MaxResults?: int,
+     *   NamePrefix?: string,
+     *   NextToken?: string,
+     *   State?: ScheduleState::*,
+     *   '@region'?: string|null,
+     * }|ListSchedulesInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

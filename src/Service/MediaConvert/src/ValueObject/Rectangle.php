@@ -43,6 +43,14 @@ final class Rectangle
         $this->y = $input['Y'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Height?: null|int,
+     *   Width?: null|int,
+     *   X?: null|int,
+     *   Y?: null|int,
+     * }|Rectangle $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -38,6 +38,12 @@ final class SnapStartResponse
         $this->optimizationStatus = $input['OptimizationStatus'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ApplyOn?: null|SnapStartApplyOn::*,
+     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*,
+     * }|SnapStartResponse $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

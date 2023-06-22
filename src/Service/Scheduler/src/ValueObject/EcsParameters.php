@@ -137,6 +137,24 @@ final class EcsParameters
         $this->taskDefinitionArn = $input['TaskDefinitionArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CapacityProviderStrategy?: null|CapacityProviderStrategyItem[],
+     *   EnableECSManagedTags?: null|bool,
+     *   EnableExecuteCommand?: null|bool,
+     *   Group?: null|string,
+     *   LaunchType?: null|LaunchType::*,
+     *   NetworkConfiguration?: null|NetworkConfiguration|array,
+     *   PlacementConstraints?: null|PlacementConstraint[],
+     *   PlacementStrategy?: null|PlacementStrategy[],
+     *   PlatformVersion?: null|string,
+     *   PropagateTags?: null|PropagateTags::*,
+     *   ReferenceId?: null|string,
+     *   Tags?: null|array[],
+     *   TaskCount?: null|int,
+     *   TaskDefinitionArn: string,
+     * }|EcsParameters $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

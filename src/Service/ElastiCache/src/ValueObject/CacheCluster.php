@@ -373,6 +373,43 @@ final class CacheCluster
         $this->transitEncryptionMode = $input['TransitEncryptionMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CacheClusterId?: null|string,
+     *   ConfigurationEndpoint?: null|Endpoint|array,
+     *   ClientDownloadLandingPage?: null|string,
+     *   CacheNodeType?: null|string,
+     *   Engine?: null|string,
+     *   EngineVersion?: null|string,
+     *   CacheClusterStatus?: null|string,
+     *   NumCacheNodes?: null|int,
+     *   PreferredAvailabilityZone?: null|string,
+     *   PreferredOutpostArn?: null|string,
+     *   CacheClusterCreateTime?: null|\DateTimeImmutable,
+     *   PreferredMaintenanceWindow?: null|string,
+     *   PendingModifiedValues?: null|PendingModifiedValues|array,
+     *   NotificationConfiguration?: null|NotificationConfiguration|array,
+     *   CacheSecurityGroups?: null|CacheSecurityGroupMembership[],
+     *   CacheParameterGroup?: null|CacheParameterGroupStatus|array,
+     *   CacheSubnetGroupName?: null|string,
+     *   CacheNodes?: null|CacheNode[],
+     *   AutoMinorVersionUpgrade?: null|bool,
+     *   SecurityGroups?: null|SecurityGroupMembership[],
+     *   ReplicationGroupId?: null|string,
+     *   SnapshotRetentionLimit?: null|int,
+     *   SnapshotWindow?: null|string,
+     *   AuthTokenEnabled?: null|bool,
+     *   AuthTokenLastModifiedDate?: null|\DateTimeImmutable,
+     *   TransitEncryptionEnabled?: null|bool,
+     *   AtRestEncryptionEnabled?: null|bool,
+     *   ARN?: null|string,
+     *   ReplicationGroupLogDeliveryEnabled?: null|bool,
+     *   LogDeliveryConfigurations?: null|LogDeliveryConfiguration[],
+     *   NetworkType?: null|NetworkType::*,
+     *   IpDiscovery?: null|IpDiscovery::*,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     * }|CacheCluster $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

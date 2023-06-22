@@ -79,6 +79,18 @@ final class VideoPreprocessor
         $this->timecodeBurnin = isset($input['TimecodeBurnin']) ? TimecodeBurnin::create($input['TimecodeBurnin']) : null;
     }
 
+    /**
+     * @param array{
+     *   ColorCorrector?: null|ColorCorrector|array,
+     *   Deinterlacer?: null|Deinterlacer|array,
+     *   DolbyVision?: null|DolbyVision|array,
+     *   Hdr10Plus?: null|Hdr10Plus|array,
+     *   ImageInserter?: null|ImageInserter|array,
+     *   NoiseReducer?: null|NoiseReducer|array,
+     *   PartnerWatermarking?: null|PartnerWatermarking|array,
+     *   TimecodeBurnin?: null|TimecodeBurnin|array,
+     * }|VideoPreprocessor $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

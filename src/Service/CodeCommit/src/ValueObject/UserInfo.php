@@ -36,6 +36,13 @@ final class UserInfo
         $this->date = $input['date'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     *   email?: null|string,
+     *   date?: null|string,
+     * }|UserInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

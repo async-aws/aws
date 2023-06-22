@@ -28,6 +28,11 @@ final class SqsParameters
         $this->messageGroupId = $input['MessageGroupId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MessageGroupId?: null|string,
+     * }|SqsParameters $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

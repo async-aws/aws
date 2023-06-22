@@ -30,6 +30,12 @@ final class BatchGetBuildsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ids?: string[],
+     *   '@region'?: string|null,
+     * }|BatchGetBuildsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

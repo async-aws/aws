@@ -42,6 +42,13 @@ final class GetQueueUrlRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueName?: string,
+     *   QueueOwnerAWSAccountId?: string,
+     *   '@region'?: string|null,
+     * }|GetQueueUrlRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

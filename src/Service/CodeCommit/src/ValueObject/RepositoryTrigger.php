@@ -59,6 +59,15 @@ final class RepositoryTrigger
         $this->events = $input['events'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name: string,
+     *   destinationArn: string,
+     *   customData?: null|string,
+     *   branches?: null|string[],
+     *   events: list<RepositoryTriggerEventEnum::*>,
+     * }|RepositoryTrigger $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

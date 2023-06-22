@@ -22,6 +22,11 @@ final class KinesisFirehoseDestinationDetails
         $this->deliveryStream = $input['DeliveryStream'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DeliveryStream?: null|string,
+     * }|KinesisFirehoseDestinationDetails $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -37,6 +37,13 @@ final class HumanLoopActivationOutput
         $this->humanLoopActivationConditionsEvaluationResults = $input['HumanLoopActivationConditionsEvaluationResults'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   HumanLoopArn?: null|string,
+     *   HumanLoopActivationReasons?: null|string[],
+     *   HumanLoopActivationConditionsEvaluationResults?: null|string,
+     * }|HumanLoopActivationOutput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

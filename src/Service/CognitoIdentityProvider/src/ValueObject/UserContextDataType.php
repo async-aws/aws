@@ -33,6 +33,12 @@ final class UserContextDataType
         $this->encodedData = $input['EncodedData'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IpAddress?: null|string,
+     *   EncodedData?: null|string,
+     * }|UserContextDataType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

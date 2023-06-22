@@ -87,6 +87,17 @@ final class StartSessionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Description?: string,
+     *   WorkGroup?: string,
+     *   EngineConfiguration?: EngineConfiguration|array,
+     *   NotebookVersion?: string,
+     *   SessionIdleTimeoutInMinutes?: int,
+     *   ClientRequestToken?: string,
+     *   '@region'?: string|null,
+     * }|StartSessionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

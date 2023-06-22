@@ -113,6 +113,24 @@ final class ColumnMetadata
         $this->arrayBaseColumnType = $input['arrayBaseColumnType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     *   type?: null|int,
+     *   typeName?: null|string,
+     *   label?: null|string,
+     *   schemaName?: null|string,
+     *   tableName?: null|string,
+     *   isAutoIncrement?: null|bool,
+     *   isSigned?: null|bool,
+     *   isCurrency?: null|bool,
+     *   isCaseSensitive?: null|bool,
+     *   nullable?: null|int,
+     *   precision?: null|int,
+     *   scale?: null|int,
+     *   arrayBaseColumnType?: null|int,
+     * }|ColumnMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

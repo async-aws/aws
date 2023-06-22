@@ -62,6 +62,16 @@ final class ServiceSpecificCredentialMetadata
         $this->serviceName = $input['ServiceName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   UserName: string,
+     *   Status: StatusType::*,
+     *   ServiceUserName: string,
+     *   CreateDate: \DateTimeImmutable,
+     *   ServiceSpecificCredentialId: string,
+     *   ServiceName: string,
+     * }|ServiceSpecificCredentialMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

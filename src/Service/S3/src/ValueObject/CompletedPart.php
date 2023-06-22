@@ -73,6 +73,16 @@ final class CompletedPart
         $this->partNumber = $input['PartNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ETag?: null|string,
+     *   ChecksumCRC32?: null|string,
+     *   ChecksumCRC32C?: null|string,
+     *   ChecksumSHA1?: null|string,
+     *   ChecksumSHA256?: null|string,
+     *   PartNumber?: null|int,
+     * }|CompletedPart $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class NewDeviceMetadataType
         $this->deviceGroupKey = $input['DeviceGroupKey'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DeviceKey?: null|string,
+     *   DeviceGroupKey?: null|string,
+     * }|NewDeviceMetadataType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

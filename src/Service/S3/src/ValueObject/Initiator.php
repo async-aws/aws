@@ -30,6 +30,12 @@ final class Initiator
         $this->displayName = $input['DisplayName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ID?: null|string,
+     *   DisplayName?: null|string,
+     * }|Initiator $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

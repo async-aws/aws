@@ -176,6 +176,20 @@ final class PublishInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TopicArn?: string,
+     *   TargetArn?: string,
+     *   PhoneNumber?: string,
+     *   Message?: string,
+     *   Subject?: string,
+     *   MessageStructure?: string,
+     *   MessageAttributes?: array<string, MessageAttributeValue>,
+     *   MessageDeduplicationId?: string,
+     *   MessageGroupId?: string,
+     *   '@region'?: string|null,
+     * }|PublishInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

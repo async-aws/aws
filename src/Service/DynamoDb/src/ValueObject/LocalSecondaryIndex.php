@@ -50,6 +50,13 @@ final class LocalSecondaryIndex
         $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
     }
 
+    /**
+     * @param array{
+     *   IndexName: string,
+     *   KeySchema: KeySchemaElement[],
+     *   Projection: Projection|array,
+     * }|LocalSecondaryIndex $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

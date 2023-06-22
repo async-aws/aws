@@ -30,6 +30,12 @@ final class ThingTypeProperties
         $this->searchableAttributes = $input['searchableAttributes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   thingTypeDescription?: null|string,
+     *   searchableAttributes?: null|string[],
+     * }|ThingTypeProperties $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -31,6 +31,12 @@ final class WriteRequest
         $this->deleteRequest = isset($input['DeleteRequest']) ? DeleteRequest::create($input['DeleteRequest']) : null;
     }
 
+    /**
+     * @param array{
+     *   PutRequest?: null|PutRequest|array,
+     *   DeleteRequest?: null|DeleteRequest|array,
+     * }|WriteRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

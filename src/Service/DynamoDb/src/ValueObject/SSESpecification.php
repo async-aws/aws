@@ -47,6 +47,13 @@ final class SSESpecification
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Enabled?: null|bool,
+     *   SSEType?: null|SSEType::*,
+     *   KMSMasterKeyId?: null|string,
+     * }|SSESpecification $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

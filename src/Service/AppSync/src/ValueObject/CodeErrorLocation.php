@@ -36,6 +36,13 @@ final class CodeErrorLocation
         $this->span = $input['span'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   line?: null|int,
+     *   column?: null|int,
+     *   span?: null|int,
+     * }|CodeErrorLocation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

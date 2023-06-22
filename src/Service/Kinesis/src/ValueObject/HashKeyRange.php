@@ -29,6 +29,12 @@ final class HashKeyRange
         $this->endingHashKey = $input['EndingHashKey'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StartingHashKey: string,
+     *   EndingHashKey: string,
+     * }|HashKeyRange $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

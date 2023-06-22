@@ -44,6 +44,13 @@ final class AdminEnableUserRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   Username?: string,
+     *   '@region'?: string|null,
+     * }|AdminEnableUserRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

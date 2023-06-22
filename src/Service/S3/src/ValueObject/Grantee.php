@@ -69,6 +69,15 @@ final class Grantee
         $this->uri = $input['URI'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DisplayName?: null|string,
+     *   EmailAddress?: null|string,
+     *   ID?: null|string,
+     *   Type: Type::*,
+     *   URI?: null|string,
+     * }|Grantee $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

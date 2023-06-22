@@ -62,6 +62,14 @@ final class CalculationStatus
         $this->stateChangeReason = $input['StateChangeReason'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SubmissionDateTime?: null|\DateTimeImmutable,
+     *   CompletionDateTime?: null|\DateTimeImmutable,
+     *   State?: null|CalculationExecutionState::*,
+     *   StateChangeReason?: null|string,
+     * }|CalculationStatus $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

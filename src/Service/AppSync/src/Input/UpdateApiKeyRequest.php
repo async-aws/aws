@@ -60,6 +60,15 @@ final class UpdateApiKeyRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   apiId?: string,
+     *   id?: string,
+     *   description?: string,
+     *   expires?: string,
+     *   '@region'?: string|null,
+     * }|UpdateApiKeyRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

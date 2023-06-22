@@ -23,6 +23,11 @@ final class ResultSetMetadata
         $this->columnInfo = isset($input['ColumnInfo']) ? array_map([ColumnInfo::class, 'create'], $input['ColumnInfo']) : null;
     }
 
+    /**
+     * @param array{
+     *   ColumnInfo?: null|ColumnInfo[],
+     * }|ResultSetMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

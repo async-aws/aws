@@ -73,6 +73,16 @@ final class CopyObjectResult
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ETag?: null|string,
+     *   LastModified?: null|\DateTimeImmutable,
+     *   ChecksumCRC32?: null|string,
+     *   ChecksumCRC32C?: null|string,
+     *   ChecksumSHA1?: null|string,
+     *   ChecksumSHA256?: null|string,
+     * }|CopyObjectResult $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

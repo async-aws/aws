@@ -124,6 +124,16 @@ final class SignRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   KeyId?: string,
+     *   Message?: string,
+     *   MessageType?: MessageType::*,
+     *   GrantTokens?: string[],
+     *   SigningAlgorithm?: SigningAlgorithmSpec::*,
+     *   '@region'?: string|null,
+     * }|SignRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -27,6 +27,11 @@ final class TrackSourceSettings
         $this->trackNumber = $input['TrackNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TrackNumber?: null|int,
+     * }|TrackSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

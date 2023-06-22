@@ -55,6 +55,15 @@ final class Mp3Settings
         $this->vbrQuality = $input['VbrQuality'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   Channels?: null|int,
+     *   RateControlMode?: null|Mp3RateControlMode::*,
+     *   SampleRate?: null|int,
+     *   VbrQuality?: null|int,
+     * }|Mp3Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

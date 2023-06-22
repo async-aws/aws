@@ -30,6 +30,12 @@ final class ResultSet
         $this->resultSetMetadata = isset($input['ResultSetMetadata']) ? ResultSetMetadata::create($input['ResultSetMetadata']) : null;
     }
 
+    /**
+     * @param array{
+     *   Rows?: null|Row[],
+     *   ResultSetMetadata?: null|ResultSetMetadata|array,
+     * }|ResultSet $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -88,6 +88,17 @@ final class Message
         $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
     }
 
+    /**
+     * @param array{
+     *   MessageId?: null|string,
+     *   ReceiptHandle?: null|string,
+     *   MD5OfBody?: null|string,
+     *   Body?: null|string,
+     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
+     *   MD5OfMessageAttributes?: null|string,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     * }|Message $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -117,6 +117,21 @@ final class StreamDescription
         $this->keyId = $input['KeyId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StreamName: string,
+     *   StreamARN: string,
+     *   StreamStatus: StreamStatus::*,
+     *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   Shards: Shard[],
+     *   HasMoreShards: bool,
+     *   RetentionPeriodHours: int,
+     *   StreamCreationTimestamp: \DateTimeImmutable,
+     *   EnhancedMonitoring: EnhancedMetrics[],
+     *   EncryptionType?: null|EncryptionType::*,
+     *   KeyId?: null|string,
+     * }|StreamDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

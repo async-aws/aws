@@ -30,6 +30,12 @@ final class GetNamedQueryInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   NamedQueryId?: string,
+     *   '@region'?: string|null,
+     * }|GetNamedQueryInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

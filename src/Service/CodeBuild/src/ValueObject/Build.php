@@ -289,6 +289,42 @@ final class Build
         $this->buildBatchArn = $input['buildBatchArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   id?: null|string,
+     *   arn?: null|string,
+     *   buildNumber?: null|string,
+     *   startTime?: null|\DateTimeImmutable,
+     *   endTime?: null|\DateTimeImmutable,
+     *   currentPhase?: null|string,
+     *   buildStatus?: null|StatusType::*,
+     *   sourceVersion?: null|string,
+     *   resolvedSourceVersion?: null|string,
+     *   projectName?: null|string,
+     *   phases?: null|BuildPhase[],
+     *   source?: null|ProjectSource|array,
+     *   secondarySources?: null|ProjectSource[],
+     *   secondarySourceVersions?: null|ProjectSourceVersion[],
+     *   artifacts?: null|BuildArtifacts|array,
+     *   secondaryArtifacts?: null|BuildArtifacts[],
+     *   cache?: null|ProjectCache|array,
+     *   environment?: null|ProjectEnvironment|array,
+     *   serviceRole?: null|string,
+     *   logs?: null|LogsLocation|array,
+     *   timeoutInMinutes?: null|int,
+     *   queuedTimeoutInMinutes?: null|int,
+     *   buildComplete?: null|bool,
+     *   initiator?: null|string,
+     *   vpcConfig?: null|VpcConfig|array,
+     *   networkInterface?: null|NetworkInterface|array,
+     *   encryptionKey?: null|string,
+     *   exportedEnvironmentVariables?: null|ExportedEnvironmentVariable[],
+     *   reportArns?: null|string[],
+     *   fileSystemLocations?: null|ProjectFileSystemLocation[],
+     *   debugSession?: null|DebugSession|array,
+     *   buildBatchArn?: null|string,
+     * }|Build $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

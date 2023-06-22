@@ -59,6 +59,13 @@ final class GeoLocation
         $this->subdivisionCode = $input['SubdivisionCode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ContinentCode?: null|string,
+     *   CountryCode?: null|string,
+     *   SubdivisionCode?: null|string,
+     * }|GeoLocation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

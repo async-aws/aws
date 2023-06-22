@@ -42,6 +42,13 @@ final class Landmark
         $this->y = $input['Y'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Type?: null|LandmarkType::*,
+     *   X?: null|float,
+     *   Y?: null|float,
+     * }|Landmark $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

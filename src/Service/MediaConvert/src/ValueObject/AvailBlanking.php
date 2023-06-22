@@ -24,6 +24,11 @@ final class AvailBlanking
         $this->availBlankingImage = $input['AvailBlankingImage'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AvailBlankingImage?: null|string,
+     * }|AvailBlanking $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

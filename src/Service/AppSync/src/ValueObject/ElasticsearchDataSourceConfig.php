@@ -34,6 +34,12 @@ final class ElasticsearchDataSourceConfig
         $this->awsRegion = $input['awsRegion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   endpoint: string,
+     *   awsRegion: string,
+     * }|ElasticsearchDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

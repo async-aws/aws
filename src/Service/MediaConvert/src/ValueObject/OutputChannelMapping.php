@@ -30,6 +30,12 @@ final class OutputChannelMapping
         $this->inputChannelsFineTune = $input['InputChannelsFineTune'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   InputChannels?: null|int[],
+     *   InputChannelsFineTune?: null|float[],
+     * }|OutputChannelMapping $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

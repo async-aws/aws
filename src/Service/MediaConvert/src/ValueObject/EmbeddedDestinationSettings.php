@@ -41,6 +41,12 @@ final class EmbeddedDestinationSettings
         $this->destination708ServiceNumber = $input['Destination708ServiceNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Destination608ChannelNumber?: null|int,
+     *   Destination708ServiceNumber?: null|int,
+     * }|EmbeddedDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -49,6 +49,13 @@ final class DeleteAccessKeyRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserName?: string,
+     *   AccessKeyId?: string,
+     *   '@region'?: string|null,
+     * }|DeleteAccessKeyRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

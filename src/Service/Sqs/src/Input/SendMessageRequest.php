@@ -184,6 +184,18 @@ final class SendMessageRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   MessageBody?: string,
+     *   DelaySeconds?: int,
+     *   MessageAttributes?: array<string, MessageAttributeValue>,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
+     *   MessageDeduplicationId?: string,
+     *   MessageGroupId?: string,
+     *   '@region'?: string|null,
+     * }|SendMessageRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

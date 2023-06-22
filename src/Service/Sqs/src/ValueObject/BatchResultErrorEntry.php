@@ -43,6 +43,14 @@ final class BatchResultErrorEntry
         $this->message = $input['Message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   SenderFault: bool,
+     *   Code: string,
+     *   Message?: null|string,
+     * }|BatchResultErrorEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -45,6 +45,14 @@ final class StaticKeyProvider
         $this->url = $input['Url'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   KeyFormat?: null|string,
+     *   KeyFormatVersions?: null|string,
+     *   StaticKeyValue?: null|string,
+     *   Url?: null|string,
+     * }|StaticKeyProvider $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

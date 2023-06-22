@@ -127,6 +127,18 @@ final class ListShardsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   NextToken?: string,
+     *   ExclusiveStartShardId?: string,
+     *   MaxResults?: int,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|string,
+     *   ShardFilter?: ShardFilter|array,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|ListShardsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

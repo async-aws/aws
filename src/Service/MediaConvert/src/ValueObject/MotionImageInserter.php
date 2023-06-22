@@ -84,6 +84,16 @@ final class MotionImageInserter
         $this->startTime = $input['StartTime'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Framerate?: null|MotionImageInsertionFramerate|array,
+     *   Input?: null|string,
+     *   InsertionMode?: null|MotionImageInsertionMode::*,
+     *   Offset?: null|MotionImageInsertionOffset|array,
+     *   Playback?: null|MotionImagePlayback::*,
+     *   StartTime?: null|string,
+     * }|MotionImageInserter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

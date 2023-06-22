@@ -51,6 +51,13 @@ final class AddUserToGroupRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   GroupName?: string,
+     *   UserName?: string,
+     *   '@region'?: string|null,
+     * }|AddUserToGroupRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

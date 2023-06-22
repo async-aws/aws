@@ -31,6 +31,12 @@ final class ChangeBatch
         $this->changes = isset($input['Changes']) ? array_map([Change::class, 'create'], $input['Changes']) : null;
     }
 
+    /**
+     * @param array{
+     *   Comment?: null|string,
+     *   Changes: Change[],
+     * }|ChangeBatch $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

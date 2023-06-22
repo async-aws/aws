@@ -30,6 +30,12 @@ final class NotificationConfiguration
         $this->topicStatus = $input['TopicStatus'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TopicArn?: null|string,
+     *   TopicStatus?: null|string,
+     * }|NotificationConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

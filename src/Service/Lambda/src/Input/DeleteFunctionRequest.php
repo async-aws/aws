@@ -48,6 +48,13 @@ final class DeleteFunctionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   FunctionName?: string,
+     *   Qualifier?: string,
+     *   '@region'?: string|null,
+     * }|DeleteFunctionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

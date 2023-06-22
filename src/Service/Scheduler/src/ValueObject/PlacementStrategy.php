@@ -39,6 +39,12 @@ final class PlacementStrategy
         $this->type = $input['type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   field?: null|string,
+     *   type?: null|PlacementStrategyType::*,
+     * }|PlacementStrategy $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -96,6 +96,15 @@ final class QueryRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueryString?: string,
+     *   ClientToken?: string,
+     *   NextToken?: string,
+     *   MaxRows?: int,
+     *   '@region'?: string|null,
+     * }|QueryRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

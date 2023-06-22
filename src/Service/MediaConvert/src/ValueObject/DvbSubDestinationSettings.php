@@ -298,6 +298,37 @@ final class DvbSubDestinationSettings
         $this->yposition = $input['YPosition'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Alignment?: null|DvbSubtitleAlignment::*,
+     *   ApplyFontColor?: null|DvbSubtitleApplyFontColor::*,
+     *   BackgroundColor?: null|DvbSubtitleBackgroundColor::*,
+     *   BackgroundOpacity?: null|int,
+     *   DdsHandling?: null|DvbddsHandling::*,
+     *   DdsXCoordinate?: null|int,
+     *   DdsYCoordinate?: null|int,
+     *   FallbackFont?: null|DvbSubSubtitleFallbackFont::*,
+     *   FontColor?: null|DvbSubtitleFontColor::*,
+     *   FontOpacity?: null|int,
+     *   FontResolution?: null|int,
+     *   FontScript?: null|FontScript::*,
+     *   FontSize?: null|int,
+     *   Height?: null|int,
+     *   HexFontColor?: null|string,
+     *   OutlineColor?: null|DvbSubtitleOutlineColor::*,
+     *   OutlineSize?: null|int,
+     *   ShadowColor?: null|DvbSubtitleShadowColor::*,
+     *   ShadowOpacity?: null|int,
+     *   ShadowXOffset?: null|int,
+     *   ShadowYOffset?: null|int,
+     *   StylePassthrough?: null|DvbSubtitleStylePassthrough::*,
+     *   SubtitlingType?: null|DvbSubtitlingType::*,
+     *   TeletextSpacing?: null|DvbSubtitleTeletextSpacing::*,
+     *   Width?: null|int,
+     *   XPosition?: null|int,
+     *   YPosition?: null|int,
+     * }|DvbSubDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

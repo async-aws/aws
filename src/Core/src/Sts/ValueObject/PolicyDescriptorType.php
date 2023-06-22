@@ -27,6 +27,11 @@ final class PolicyDescriptorType
         $this->arn = $input['arn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   arn?: null|string,
+     * }|PolicyDescriptorType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

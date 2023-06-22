@@ -72,6 +72,16 @@ final class ListJobsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   MaxResults?: int,
+     *   NextToken?: string,
+     *   Order?: Order::*,
+     *   Queue?: string,
+     *   Status?: JobStatus::*,
+     *   '@region'?: string|null,
+     * }|ListJobsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

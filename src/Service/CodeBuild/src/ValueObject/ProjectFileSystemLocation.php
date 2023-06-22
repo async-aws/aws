@@ -70,6 +70,15 @@ final class ProjectFileSystemLocation
         $this->mountOptions = $input['mountOptions'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   type?: null|FileSystemType::*,
+     *   location?: null|string,
+     *   mountPoint?: null|string,
+     *   identifier?: null|string,
+     *   mountOptions?: null|string,
+     * }|ProjectFileSystemLocation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

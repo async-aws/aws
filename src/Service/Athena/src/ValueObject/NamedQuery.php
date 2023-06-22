@@ -57,6 +57,16 @@ final class NamedQuery
         $this->workGroup = $input['WorkGroup'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Description?: null|string,
+     *   Database: string,
+     *   QueryString: string,
+     *   NamedQueryId?: null|string,
+     *   WorkGroup?: null|string,
+     * }|NamedQuery $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

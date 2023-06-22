@@ -31,6 +31,12 @@ final class HttpDataSourceConfig
         $this->authorizationConfig = isset($input['authorizationConfig']) ? AuthorizationConfig::create($input['authorizationConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   endpoint?: null|string,
+     *   authorizationConfig?: null|AuthorizationConfig|array,
+     * }|HttpDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

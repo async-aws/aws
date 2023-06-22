@@ -24,6 +24,11 @@ final class PartnerWatermarking
         $this->nexguardFileMarkerSettings = isset($input['NexguardFileMarkerSettings']) ? NexGuardFileMarkerSettings::create($input['NexguardFileMarkerSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   NexguardFileMarkerSettings?: null|NexGuardFileMarkerSettings|array,
+     * }|PartnerWatermarking $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

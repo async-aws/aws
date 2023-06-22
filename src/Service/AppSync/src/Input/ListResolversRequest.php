@@ -60,6 +60,15 @@ final class ListResolversRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   apiId?: string,
+     *   typeName?: string,
+     *   nextToken?: string,
+     *   maxResults?: int,
+     *   '@region'?: string|null,
+     * }|ListResolversRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

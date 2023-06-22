@@ -75,6 +75,16 @@ final class SessionStatus
         $this->stateChangeReason = $input['StateChangeReason'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StartDateTime?: null|\DateTimeImmutable,
+     *   LastModifiedDateTime?: null|\DateTimeImmutable,
+     *   EndDateTime?: null|\DateTimeImmutable,
+     *   IdleSinceDateTime?: null|\DateTimeImmutable,
+     *   State?: null|SessionState::*,
+     *   StateChangeReason?: null|string,
+     * }|SessionStatus $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -19,6 +19,11 @@ final class S3KeyFilter
         $this->filterRules = isset($input['FilterRules']) ? array_map([FilterRule::class, 'create'], $input['FilterRules']) : null;
     }
 
+    /**
+     * @param array{
+     *   FilterRules?: null|FilterRule[],
+     * }|S3KeyFilter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

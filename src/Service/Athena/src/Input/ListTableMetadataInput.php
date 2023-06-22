@@ -69,6 +69,16 @@ final class ListTableMetadataInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CatalogName?: string,
+     *   DatabaseName?: string,
+     *   Expression?: string,
+     *   NextToken?: string,
+     *   MaxResults?: int,
+     *   '@region'?: string|null,
+     * }|ListTableMetadataInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

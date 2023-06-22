@@ -58,6 +58,15 @@ final class EngineConfiguration
         $this->sparkProperties = $input['SparkProperties'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CoordinatorDpuSize?: null|int,
+     *   MaxConcurrentDpus: int,
+     *   DefaultExecutorDpuSize?: null|int,
+     *   AdditionalConfigs?: null|array<string, string>,
+     *   SparkProperties?: null|array<string, string>,
+     * }|EngineConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -48,6 +48,13 @@ final class CloudWatchLogsConfig
         $this->streamName = $input['streamName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   status: LogsConfigStatusType::*,
+     *   groupName?: null|string,
+     *   streamName?: null|string,
+     * }|CloudWatchLogsConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

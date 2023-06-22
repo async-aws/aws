@@ -51,6 +51,13 @@ final class EmailContent
         $this->template = isset($input['Template']) ? Template::create($input['Template']) : null;
     }
 
+    /**
+     * @param array{
+     *   Simple?: null|Message|array,
+     *   Raw?: null|RawMessage|array,
+     *   Template?: null|Template|array,
+     * }|EmailContent $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

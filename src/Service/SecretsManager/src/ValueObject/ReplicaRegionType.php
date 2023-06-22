@@ -32,6 +32,12 @@ final class ReplicaRegionType
         $this->kmsKeyId = $input['KmsKeyId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Region?: null|string,
+     *   KmsKeyId?: null|string,
+     * }|ReplicaRegionType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

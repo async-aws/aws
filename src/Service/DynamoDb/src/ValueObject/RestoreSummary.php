@@ -43,6 +43,14 @@ final class RestoreSummary
         $this->restoreInProgress = $input['RestoreInProgress'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SourceBackupArn?: null|string,
+     *   SourceTableArn?: null|string,
+     *   RestoreDateTime: \DateTimeImmutable,
+     *   RestoreInProgress: bool,
+     * }|RestoreSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

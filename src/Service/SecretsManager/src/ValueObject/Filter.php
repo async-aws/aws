@@ -46,6 +46,12 @@ final class Filter
         $this->values = $input['Values'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key?: null|FilterNameStringType::*,
+     *   Values?: null|string[],
+     * }|Filter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

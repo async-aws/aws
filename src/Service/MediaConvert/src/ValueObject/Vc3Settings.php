@@ -126,6 +126,19 @@ final class Vc3Settings
         $this->vc3Class = $input['Vc3Class'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FramerateControl?: null|Vc3FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   InterlaceMode?: null|Vc3InterlaceMode::*,
+     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*,
+     *   SlowPal?: null|Vc3SlowPal::*,
+     *   Telecine?: null|Vc3Telecine::*,
+     *   Vc3Class?: null|Vc3Class::*,
+     * }|Vc3Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

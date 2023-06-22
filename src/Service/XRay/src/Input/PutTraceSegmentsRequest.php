@@ -30,6 +30,12 @@ final class PutTraceSegmentsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TraceSegmentDocuments?: string[],
+     *   '@region'?: string|null,
+     * }|PutTraceSegmentsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

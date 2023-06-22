@@ -39,6 +39,12 @@ final class ExportedEnvironmentVariable
         $this->value = $input['value'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     *   value?: null|string,
+     * }|ExportedEnvironmentVariable $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

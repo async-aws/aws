@@ -29,6 +29,12 @@ final class Endpoint
         $this->port = $input['Port'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Address?: null|string,
+     *   Port?: null|int,
+     * }|Endpoint $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

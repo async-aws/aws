@@ -22,6 +22,11 @@ final class NotificationConfigurationFilter
         $this->key = isset($input['Key']) ? S3KeyFilter::create($input['Key']) : null;
     }
 
+    /**
+     * @param array{
+     *   Key?: null|S3KeyFilter|array,
+     * }|NotificationConfigurationFilter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

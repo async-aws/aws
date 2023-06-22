@@ -50,6 +50,14 @@ final class SetUserMFAPreferenceRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SMSMfaSettings?: SMSMfaSettingsType|array,
+     *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
+     *   AccessToken?: string,
+     *   '@region'?: string|null,
+     * }|SetUserMFAPreferenceRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

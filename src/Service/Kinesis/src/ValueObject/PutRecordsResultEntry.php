@@ -48,6 +48,14 @@ final class PutRecordsResultEntry
         $this->errorMessage = $input['ErrorMessage'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SequenceNumber?: null|string,
+     *   ShardId?: null|string,
+     *   ErrorCode?: null|string,
+     *   ErrorMessage?: null|string,
+     * }|PutRecordsResultEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

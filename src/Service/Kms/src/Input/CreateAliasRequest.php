@@ -68,6 +68,13 @@ final class CreateAliasRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AliasName?: string,
+     *   TargetKeyId?: string,
+     *   '@region'?: string|null,
+     * }|CreateAliasRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

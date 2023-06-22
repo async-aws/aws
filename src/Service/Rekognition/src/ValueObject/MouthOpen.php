@@ -29,6 +29,12 @@ final class MouthOpen
         $this->confidence = $input['Confidence'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Value?: null|bool,
+     *   Confidence?: null|float,
+     * }|MouthOpen $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

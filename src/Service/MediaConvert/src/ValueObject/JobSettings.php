@@ -122,6 +122,22 @@ final class JobSettings
         $this->timedMetadataInsertion = isset($input['TimedMetadataInsertion']) ? TimedMetadataInsertion::create($input['TimedMetadataInsertion']) : null;
     }
 
+    /**
+     * @param array{
+     *   AdAvailOffset?: null|int,
+     *   AvailBlanking?: null|AvailBlanking|array,
+     *   Esam?: null|EsamSettings|array,
+     *   ExtendedDataServices?: null|ExtendedDataServices|array,
+     *   Inputs?: null|Input[],
+     *   KantarWatermark?: null|KantarWatermarkSettings|array,
+     *   MotionImageInserter?: null|MotionImageInserter|array,
+     *   NielsenConfiguration?: null|NielsenConfiguration|array,
+     *   NielsenNonLinearWatermark?: null|NielsenNonLinearWatermarkSettings|array,
+     *   OutputGroups?: null|OutputGroup[],
+     *   TimecodeConfig?: null|TimecodeConfig|array,
+     *   TimedMetadataInsertion?: null|TimedMetadataInsertion|array,
+     * }|JobSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

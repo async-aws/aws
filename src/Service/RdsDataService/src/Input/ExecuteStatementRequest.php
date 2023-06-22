@@ -154,6 +154,22 @@ final class ExecuteStatementRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   resourceArn?: string,
+     *   secretArn?: string,
+     *   sql?: string,
+     *   database?: string,
+     *   schema?: string,
+     *   parameters?: SqlParameter[],
+     *   transactionId?: string,
+     *   includeResultMetadata?: bool,
+     *   continueAfterTimeout?: bool,
+     *   resultSetOptions?: ResultSetOptions|array,
+     *   formatRecordsAs?: RecordsFormatType::*,
+     *   '@region'?: string|null,
+     * }|ExecuteStatementRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class RepositoryNameIdPair
         $this->repositoryId = $input['repositoryId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   repositoryName?: null|string,
+     *   repositoryId?: null|string,
+     * }|RepositoryNameIdPair $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

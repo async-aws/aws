@@ -60,6 +60,15 @@ final class RevisionLocation
         $this->appSpecContent = isset($input['appSpecContent']) ? AppSpecContent::create($input['appSpecContent']) : null;
     }
 
+    /**
+     * @param array{
+     *   revisionType?: null|RevisionLocationType::*,
+     *   s3Location?: null|S3Location|array,
+     *   gitHubLocation?: null|GitHubLocation|array,
+     *   string?: null|RawString|array,
+     *   appSpecContent?: null|AppSpecContent|array,
+     * }|RevisionLocation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

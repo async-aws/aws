@@ -84,6 +84,18 @@ final class CaptionSourceSettings
         $this->webvttHlsSourceSettings = isset($input['WebvttHlsSourceSettings']) ? WebvttHlsSourceSettings::create($input['WebvttHlsSourceSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   AncillarySourceSettings?: null|AncillarySourceSettings|array,
+     *   DvbSubSourceSettings?: null|DvbSubSourceSettings|array,
+     *   EmbeddedSourceSettings?: null|EmbeddedSourceSettings|array,
+     *   FileSourceSettings?: null|FileSourceSettings|array,
+     *   SourceType?: null|CaptionSourceType::*,
+     *   TeletextSourceSettings?: null|TeletextSourceSettings|array,
+     *   TrackSourceSettings?: null|TrackSourceSettings|array,
+     *   WebvttHlsSourceSettings?: null|WebvttHlsSourceSettings|array,
+     * }|CaptionSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class BranchInfo
         $this->commitId = $input['commitId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   branchName?: null|string,
+     *   commitId?: null|string,
+     * }|BranchInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

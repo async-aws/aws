@@ -45,6 +45,13 @@ final class Dimension
         $this->dimensionValueType = $input['DimensionValueType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Value: string,
+     *   DimensionValueType?: null|DimensionValueType::*,
+     * }|Dimension $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

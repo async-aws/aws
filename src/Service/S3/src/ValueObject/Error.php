@@ -520,6 +520,14 @@ final class Error
         $this->message = $input['Message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key?: null|string,
+     *   VersionId?: null|string,
+     *   Code?: null|string,
+     *   Message?: null|string,
+     * }|Error $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

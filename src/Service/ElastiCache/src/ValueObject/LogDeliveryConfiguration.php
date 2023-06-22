@@ -65,6 +65,16 @@ final class LogDeliveryConfiguration
         $this->message = $input['Message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   LogType?: null|LogType::*,
+     *   DestinationType?: null|DestinationType::*,
+     *   DestinationDetails?: null|DestinationDetails|array,
+     *   LogFormat?: null|LogFormat::*,
+     *   Status?: null|LogDeliveryConfigurationStatus::*,
+     *   Message?: null|string,
+     * }|LogDeliveryConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

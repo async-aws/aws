@@ -226,6 +226,28 @@ final class UploadPartRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
+     *   Bucket?: string,
+     *   ContentLength?: string,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
+     *   Key?: string,
+     *   PartNumber?: int,
+     *   UploadId?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|UploadPartRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

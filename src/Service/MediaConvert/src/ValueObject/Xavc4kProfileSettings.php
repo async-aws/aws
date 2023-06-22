@@ -96,6 +96,18 @@ final class Xavc4kProfileSettings
         $this->slices = $input['Slices'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*,
+     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*,
+     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
+     *   GopBReference?: null|XavcGopBReference::*,
+     *   GopClosedCadence?: null|int,
+     *   HrdBufferSize?: null|int,
+     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*,
+     *   Slices?: null|int,
+     * }|Xavc4kProfileSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

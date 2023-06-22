@@ -38,6 +38,13 @@ final class DelegationSet
         $this->nameServers = $input['NameServers'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   CallerReference?: null|string,
+     *   NameServers: string[],
+     * }|DelegationSet $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

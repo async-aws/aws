@@ -161,6 +161,18 @@ final class AdminInitiateAuthRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   ClientId?: string,
+     *   AuthFlow?: AuthFlowType::*,
+     *   AuthParameters?: array<string, string>,
+     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   ContextData?: ContextDataType|array,
+     *   '@region'?: string|null,
+     * }|AdminInitiateAuthRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
