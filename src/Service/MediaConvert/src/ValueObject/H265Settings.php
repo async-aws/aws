@@ -52,6 +52,15 @@ final class H265Settings
     private $alternateTransferFunctionSei;
 
     /**
+     * The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to lower the
+     * bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality. Or, use to increase
+     * the video quality of outputs with other rate control modes relative to the bitrate that you specify. Bandwidth
+     * reduction increases further when your input is low quality or noisy. Outputs that use this feature incur pro-tier
+     * pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     */
+    private $bandwidthReductionFilter;
+
+    /**
      * Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be
      * unique when rounded down to the nearest multiple of 1000.
      */
@@ -383,6 +392,7 @@ final class H265Settings
      * @param array{
      *   AdaptiveQuantization?: null|H265AdaptiveQuantization::*,
      *   AlternateTransferFunctionSei?: null|H265AlternateTransferFunctionSei::*,
+     *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
      *   Bitrate?: null|int,
      *   CodecLevel?: null|H265CodecLevel::*,
      *   CodecProfile?: null|H265CodecProfile::*,
@@ -428,6 +438,7 @@ final class H265Settings
     {
         $this->adaptiveQuantization = $input['AdaptiveQuantization'] ?? null;
         $this->alternateTransferFunctionSei = $input['AlternateTransferFunctionSei'] ?? null;
+        $this->bandwidthReductionFilter = isset($input['BandwidthReductionFilter']) ? BandwidthReductionFilter::create($input['BandwidthReductionFilter']) : null;
         $this->bitrate = $input['Bitrate'] ?? null;
         $this->codecLevel = $input['CodecLevel'] ?? null;
         $this->codecProfile = $input['CodecProfile'] ?? null;
@@ -488,6 +499,11 @@ final class H265Settings
     public function getAlternateTransferFunctionSei(): ?string
     {
         return $this->alternateTransferFunctionSei;
+    }
+
+    public function getBandwidthReductionFilter(): ?BandwidthReductionFilter
+    {
+        return $this->bandwidthReductionFilter;
     }
 
     public function getBitrate(): ?int
@@ -771,6 +787,9 @@ final class H265Settings
                 throw new InvalidArgument(sprintf('Invalid parameter "alternateTransferFunctionSei" for "%s". The value "%s" is not a valid "H265AlternateTransferFunctionSei".', __CLASS__, $v));
             }
             $payload['alternateTransferFunctionSei'] = $v;
+        }
+        if (null !== $v = $this->bandwidthReductionFilter) {
+            $payload['bandwidthReductionFilter'] = $v->requestBody();
         }
         if (null !== $v = $this->bitrate) {
             $payload['bitrate'] = $v;

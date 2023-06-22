@@ -989,6 +989,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         return new H265Settings([
             'AdaptiveQuantization' => isset($json['adaptiveQuantization']) ? (string) $json['adaptiveQuantization'] : null,
             'AlternateTransferFunctionSei' => isset($json['alternateTransferFunctionSei']) ? (string) $json['alternateTransferFunctionSei'] : null,
+            'BandwidthReductionFilter' => empty($json['bandwidthReductionFilter']) ? null : $this->populateResultBandwidthReductionFilter($json['bandwidthReductionFilter']),
             'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
             'CodecLevel' => isset($json['codecLevel']) ? (string) $json['codecLevel'] : null,
             'CodecProfile' => isset($json['codecProfile']) ? (string) $json['codecProfile'] : null,
@@ -1113,6 +1114,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'OutputSelection' => isset($json['outputSelection']) ? (string) $json['outputSelection'] : null,
             'ProgramDateTime' => isset($json['programDateTime']) ? (string) $json['programDateTime'] : null,
             'ProgramDateTimePeriod' => isset($json['programDateTimePeriod']) ? (int) $json['programDateTimePeriod'] : null,
+            'ProgressiveWriteHlsManifest' => isset($json['progressiveWriteHlsManifest']) ? (string) $json['progressiveWriteHlsManifest'] : null,
             'SegmentControl' => isset($json['segmentControl']) ? (string) $json['segmentControl'] : null,
             'SegmentLength' => isset($json['segmentLength']) ? (int) $json['segmentLength'] : null,
             'SegmentLengthControl' => isset($json['segmentLengthControl']) ? (string) $json['segmentLengthControl'] : null,

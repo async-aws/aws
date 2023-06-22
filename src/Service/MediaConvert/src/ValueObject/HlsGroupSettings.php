@@ -15,6 +15,7 @@ use AsyncAws\MediaConvert\Enum\HlsManifestCompression;
 use AsyncAws\MediaConvert\Enum\HlsManifestDurationFormat;
 use AsyncAws\MediaConvert\Enum\HlsOutputSelection;
 use AsyncAws\MediaConvert\Enum\HlsProgramDateTime;
+use AsyncAws\MediaConvert\Enum\HlsProgressiveWriteHlsManifest;
 use AsyncAws\MediaConvert\Enum\HlsSegmentControl;
 use AsyncAws\MediaConvert\Enum\HlsSegmentLengthControl;
 use AsyncAws\MediaConvert\Enum\HlsStreamInfResolution;
@@ -173,6 +174,17 @@ final class HlsGroupSettings
     private $programDateTimePeriod;
 
     /**
+     * Specify whether MediaConvert generates HLS manifests while your job is running or when your job is complete. To
+     * generate HLS manifests while your job is running: Choose Enabled. Use if you want to play back your content as soon
+     * as it's available. MediaConvert writes the parent and child manifests after the first three media segments are
+     * written to your destination S3 bucket. It then writes new updated manifests after each additional segment is written.
+     * The parent manifest includes the latest BANDWIDTH and AVERAGE-BANDWIDTH attributes, and child manifests include the
+     * latest available media segment. When your job completes, the final child playlists include an EXT-X-ENDLIST tag. To
+     * generate HLS manifests only when your job completes: Choose Disabled.
+     */
+    private $progressiveWriteHlsManifest;
+
+    /**
      * When set to SINGLE_FILE, emits program as a single media resource (.ts) file, uses #EXT-X-BYTERANGE tags to index
      * segment for playback.
      */
@@ -259,6 +271,7 @@ final class HlsGroupSettings
      *   OutputSelection?: null|HlsOutputSelection::*,
      *   ProgramDateTime?: null|HlsProgramDateTime::*,
      *   ProgramDateTimePeriod?: null|int,
+     *   ProgressiveWriteHlsManifest?: null|HlsProgressiveWriteHlsManifest::*,
      *   SegmentControl?: null|HlsSegmentControl::*,
      *   SegmentLength?: null|int,
      *   SegmentLengthControl?: null|HlsSegmentLengthControl::*,
@@ -294,6 +307,7 @@ final class HlsGroupSettings
         $this->outputSelection = $input['OutputSelection'] ?? null;
         $this->programDateTime = $input['ProgramDateTime'] ?? null;
         $this->programDateTimePeriod = $input['ProgramDateTimePeriod'] ?? null;
+        $this->progressiveWriteHlsManifest = $input['ProgressiveWriteHlsManifest'] ?? null;
         $this->segmentControl = $input['SegmentControl'] ?? null;
         $this->segmentLength = $input['SegmentLength'] ?? null;
         $this->segmentLengthControl = $input['SegmentLengthControl'] ?? null;
@@ -460,6 +474,14 @@ final class HlsGroupSettings
     public function getProgramDateTimePeriod(): ?int
     {
         return $this->programDateTimePeriod;
+    }
+
+    /**
+     * @return HlsProgressiveWriteHlsManifest::*|null
+     */
+    public function getProgressiveWriteHlsManifest(): ?string
+    {
+        return $this->progressiveWriteHlsManifest;
     }
 
     /**
@@ -644,6 +666,12 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->programDateTimePeriod) {
             $payload['programDateTimePeriod'] = $v;
+        }
+        if (null !== $v = $this->progressiveWriteHlsManifest) {
+            if (!HlsProgressiveWriteHlsManifest::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "progressiveWriteHlsManifest" for "%s". The value "%s" is not a valid "HlsProgressiveWriteHlsManifest".', __CLASS__, $v));
+            }
+            $payload['progressiveWriteHlsManifest'] = $v;
         }
         if (null !== $v = $this->segmentControl) {
             if (!HlsSegmentControl::exists($v)) {
