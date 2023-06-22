@@ -51,7 +51,7 @@ final class Input
 
     /**
      * Use captions selectors to specify the captions data from your input that you use in your outputs. You can use up to
-     * 20 captions selectors per input.
+     * 100 captions selectors per input.
      */
     private $captionSelectors;
 
