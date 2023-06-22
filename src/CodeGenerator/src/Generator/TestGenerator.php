@@ -364,16 +364,18 @@ class TestGenerator
     private function getResultAssert(StructureShape $shape): string
     {
         return implode("\n", array_map(function (StructureMember $member) {
+            $getterMethodName = 'get' . ucfirst(GeneratorHelper::normalizeName($member->getName()));
+
             switch ($member->getShape()->getType()) {
                 case 'string':
-                    return sprintf('self::assertSame("changeIt", $result->get%s());', $member->getName());
+                    return sprintf('self::assertSame("changeIt", $result->%s());', $getterMethodName);
                 case 'boolean':
-                    return sprintf('self::assertFalse($result->get%s());', $member->getName());
+                    return sprintf('self::assertFalse($result->%s());', $getterMethodName);
                 case 'integer':
                 case 'long':
-                    return sprintf('self::assertSame(1337, $result->get%s());', $member->getName());
+                    return sprintf('self::assertSame(1337, $result->%s());', $getterMethodName);
                 default:
-                    return sprintf('// self::assertTODO(expected, $result->get%s());', $member->getName());
+                    return sprintf('// self::assertTODO(expected, $result->%s());', $getterMethodName);
             }
         }, $shape->getMembers()));
     }
