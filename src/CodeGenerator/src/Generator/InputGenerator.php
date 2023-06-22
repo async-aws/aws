@@ -193,7 +193,7 @@ class InputGenerator
                     $constructorBody .= strtr('
                         if (isset($input["NAME"])) {
                             $this->PROPERTY = [];
-                            foreach ($input["NAME"] ?? [] as $key => $item) {
+                            foreach ($input["NAME"] as $key => $item) {
                                 $this->PROPERTY[$key] = array_map([CLASS::class, "create"], $item);
                             }
                         }
