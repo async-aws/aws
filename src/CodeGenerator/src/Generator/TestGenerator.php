@@ -341,6 +341,7 @@ class TestGenerator
         $classBuilder->addUse(MockHttpClient::class);
         $classBuilder->addUse(NullProvider::class);
         $classBuilder->addUse($output->getFqdn());
+        $classBuilder->addUse($clientName->getFqdn());
 
         $classBuilder->addMethod($methodName)
             ->setReturnType('void')
