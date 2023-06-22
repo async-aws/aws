@@ -26,11 +26,11 @@ class ResultMockFactory
      * ResultMockFactory::createFailing(SendEmailResponse::class, 400, 'invalid value');
      * </code>
      *
-     * @template T
+     * @template T of Result
      *
      * @psalm-param class-string<T> $class
      *
-     * @return Result|T
+     * @return T
      */
     public static function createFailing(
         string $class,
@@ -61,11 +61,11 @@ class ResultMockFactory
      * ResultMockFactory::create(SendEmailResponse::class, ['MessageId'=>'foo123']);
      * </code>
      *
-     * @template T
+     * @template T of Result
      *
      * @psalm-param class-string<T> $class
      *
-     * @return Result|T
+     * @return T
      */
     public static function create(string $class, array $data = [])
     {
@@ -124,11 +124,11 @@ class ResultMockFactory
     /**
      * Instantiate a Waiter class with a final state.
      *
-     * @template T
+     * @template T of Waiter
      *
      * @psalm-param class-string<T> $class
      *
-     * @return Result|T
+     * @return T
      */
     public static function waiter(string $class, string $finalState)
     {
