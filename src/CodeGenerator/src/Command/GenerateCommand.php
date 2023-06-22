@@ -442,7 +442,7 @@ class GenerateCommand extends Command
 
     private function loadFile(string $path, string $cacheKey, array $patch = []): array
     {
-        $path = strtr($path, $this->loadManifest()['variables'] ?? [[]]);
+        $path = strtr($path, $this->loadManifest()['variables'] ?? []);
 
         $data = $this->cache->get(__CLASS__ . ':' . $cacheKey);
         if (null === $data || $path !== ($data['path'] ?? null)) {

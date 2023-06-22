@@ -90,17 +90,17 @@ class TestGenerator
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
                 $stub = substr(var_export($this->arrayToXml($exampleInput ?? ['change' => 'it']), true), 1, -1);
-                $contenType = 'application/xml';
+                $contentType = 'application/xml';
 
                 break;
             case 'rest-json':
                 $stub = substr(var_export(json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
-                $contenType = 'application/json';
+                $contentType = 'application/json';
 
                 break;
             case 'json':
                 $stub = substr(var_export(json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
-                $contenType = 'application/x-amz-json-' . number_format($operation->getService()->getJsonVersion(), 1);
+                $contentType = 'application/x-amz-json-' . number_format($operation->getService()->getJsonVersion(), 1);
 
                 break;
             case 'query':
@@ -108,7 +108,7 @@ class TestGenerator
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
 ", true), 1, -1);
-                $contenType = 'application/x-www-form-urlencoded';
+                $contentType = 'application/x-www-form-urlencoded';
 
                 break;
             default:
@@ -137,7 +137,7 @@ class TestGenerator
                 'SERVICE' => strtolower($operation->getService()->getName()),
                 'METHOD' => $operation->getHttpMethod(),
                 'OPERATION' => $operation->getName(),
-                'CONTENT_TYPE' => $contenType,
+                'CONTENT_TYPE' => $contentType,
                 'STUB' => trim($stub),
             ]));
     }
@@ -341,6 +341,7 @@ class TestGenerator
         $classBuilder->addUse(MockHttpClient::class);
         $classBuilder->addUse(NullProvider::class);
         $classBuilder->addUse($output->getFqdn());
+        $classBuilder->addUse($clientName->getFqdn());
 
         $classBuilder->addMethod($methodName)
             ->setReturnType('void')
@@ -364,16 +365,18 @@ class TestGenerator
     private function getResultAssert(StructureShape $shape): string
     {
         return implode("\n", array_map(function (StructureMember $member) {
+            $getterMethodName = 'get' . ucfirst(GeneratorHelper::normalizeName($member->getName()));
+
             switch ($member->getShape()->getType()) {
                 case 'string':
-                    return sprintf('self::assertSame("changeIt", $result->get%s());', $member->getName());
+                    return sprintf('self::assertSame("changeIt", $result->%s());', $getterMethodName);
                 case 'boolean':
-                    return sprintf('self::assertFalse($result->get%s());', $member->getName());
+                    return sprintf('self::assertFalse($result->%s());', $getterMethodName);
                 case 'integer':
                 case 'long':
-                    return sprintf('self::assertSame(1337, $result->get%s());', $member->getName());
+                    return sprintf('self::assertSame(1337, $result->%s());', $getterMethodName);
                 default:
-                    return sprintf('// self::assertTODO(expected, $result->get%s());', $member->getName());
+                    return sprintf('// self::assertTODO(expected, $result->%s());', $getterMethodName);
             }
         }, $shape->getMembers()));
     }
