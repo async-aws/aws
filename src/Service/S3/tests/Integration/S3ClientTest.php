@@ -17,10 +17,12 @@ use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
+use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\GetObjectTaggingRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
@@ -32,6 +34,7 @@ use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\PutObjectTaggingRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
@@ -293,6 +296,23 @@ class S3ClientTest extends TestCase
         ]) - resolve();
     }
 
+    public function testDeleteObjectTagging(): void
+    {
+        $client = $this->getClient();
+        $bucket = 'examplebucket';
+        $key = 'baz/HappyFace.txt';
+
+        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key, 'Tagging' => 'expire-after-30-days=1'])->resolve();
+        $input = new DeleteObjectTaggingRequest(['Bucket' => $bucket, 'Key' => $key]);
+        $result = $client->deleteObjectTagging($input);
+        $result->resolve();
+
+        self::assertEquals(204, $result->info()['status']);
+        $result = $client->getObjectTagging(GetObjectTaggingRequest::create(['Bucket' => $bucket, 'Key' => $key]));
+        $result->resolve();
+        self::assertEquals([], $result->getTagSet());
+    }
+
     public function testDeleteObjects()
     {
         self::markTestSkipped('The S3 Docker image does not implement DeleteObjects. https://github.com/jubos/fake-s3/issues/97');
@@ -421,6 +441,21 @@ class S3ClientTest extends TestCase
         self::assertEquals('content', implode('', iterator_to_array($result->getBody()->getChunks())));
         // test it twice to check both getChunk and fallback
         self::assertEquals('content', implode('', iterator_to_array($result->getBody()->getChunks())));
+    }
+
+    public function testGetObjectTagging(): void
+    {
+        $client = $this->getClient();
+        $bucket = 'examplebucket';
+        $key = 'baz/HappyFace.txt';
+        $tag = 'expire-after-30-days';
+
+        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key, 'Tagging' => "{$tag}=1"])->resolve();
+        $input = new GetObjectTaggingRequest(['Bucket' => $bucket, 'Key' => $key]);
+        $result = $client->getObjectTagging($input);
+        $result->resolve();
+
+        self::assertEquals([Tag::create(['Key' => $tag, 'Value' => '1'])], $result->getTagSet());
     }
 
     public function testHeadObject(): void
@@ -803,6 +838,30 @@ class S3ClientTest extends TestCase
 
         // Not flly Implemented by fakeS3
         self::assertNull($result->getRequestCharged());
+    }
+
+    public function testPutObjectTagging(): void
+    {
+        $client = $this->getClient();
+        $bucket = 'examplebucket';
+        $key = 'baz/HappyFace.txt';
+
+        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key])->resolve();
+        $input = new PutObjectTaggingRequest([
+            'Bucket' => $bucket,
+            'Key' => $key,
+            'Tagging' => new Tagging([
+                'TagSet' => [new Tag([
+                    'Key' => 'expire-after-30-days',
+                    'Value' => '1',
+                ])],
+            ]),
+        ]);
+        $result = $client->putObjectTagging($input);
+        $result->resolve();
+
+        self::assertNull($result->getVersionId());
+        self::assertSame(200, $result->info()['status']);
     }
 
     public function testUploadFromClosure()

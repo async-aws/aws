@@ -15,10 +15,12 @@ use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
+use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\GetObjectTaggingRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
@@ -29,6 +31,7 @@ use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\PutObjectTaggingRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
 use AsyncAws\S3\Result\CompleteMultipartUploadOutput;
@@ -37,10 +40,12 @@ use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
+use AsyncAws\S3\Result\DeleteObjectTaggingOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
+use AsyncAws\S3\Result\GetObjectTaggingOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
@@ -48,6 +53,7 @@ use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Result\PutObjectTaggingOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CORSConfiguration;
@@ -224,6 +230,20 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDeleteObjectTagging(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+        $input = new DeleteObjectTaggingRequest([
+            'Bucket' => 'examplebucket',
+            'Key' => 'baz/HappyFace.jpg',
+        ]);
+
+        $result = $client->deleteObjectTagging($input);
+
+        self::assertInstanceOf(DeleteObjectTaggingOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testDeleteObjects(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -295,6 +315,20 @@ class S3ClientTest extends TestCase
         $result = $client->GetObjectAcl($input);
 
         self::assertInstanceOf(GetObjectAclOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetObjectTagging(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+        $input = new GetObjectTaggingRequest([
+            'Bucket' => 'examplebucket',
+            'Key' => 'baz/HappyFace.jpg',
+        ]);
+
+        $result = $client->getObjectTagging($input);
+
+        self::assertInstanceOf(GetObjectTaggingOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -467,6 +501,27 @@ class S3ClientTest extends TestCase
         $result = $client->PutObjectAcl($input);
 
         self::assertInstanceOf(PutObjectAclOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutObjectTagging(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+        $input = new PutObjectTaggingRequest([
+            'Bucket' => 'examplebucket',
+            'Key' => 'baz/HappyFace.jpg',
+
+            'Tagging' => new Tagging([
+                'TagSet' => [new Tag([
+                    'Key' => 'expire-after-30-days',
+                    'Value' => '1',
+                ])],
+            ]),
+        ]);
+
+        $result = $client->putObjectTagging($input);
+
+        self::assertInstanceOf(PutObjectTaggingOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
