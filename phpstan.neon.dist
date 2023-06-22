@@ -2,6 +2,7 @@ parameters:
     level: 5
     treatPhpDocTypesAsCertain: false
     checkMissingCallableSignature: true
+    checkMissingIterableValueType: false
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
