@@ -24,7 +24,7 @@ final class DeleteRepositoryInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

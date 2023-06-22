@@ -59,7 +59,7 @@ final class ListJobsRequest extends Input
      *   Order?: Order::*,
      *   Queue?: string,
      *   Status?: JobStatus::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -21,7 +21,7 @@ final class GetSessionStatusRequest extends Input
     /**
      * @param array{
      *   SessionId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

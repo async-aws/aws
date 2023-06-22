@@ -30,7 +30,7 @@ final class ListTablesInput extends Input
      * @param array{
      *   ExclusiveStartTableName?: string,
      *   Limit?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

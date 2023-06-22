@@ -41,7 +41,7 @@ final class DeleteUserPolicyRequest extends Input
      * @param array{
      *   UserName?: string,
      *   PolicyName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

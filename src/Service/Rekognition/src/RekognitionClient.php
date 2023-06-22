@@ -71,7 +71,7 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   CollectionId: string,
      *   Tags?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateCollectionRequest $input
      *
      * @throws InvalidParameterException
@@ -109,7 +109,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   ProjectName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      *
      * @throws ResourceInUseException
@@ -149,7 +149,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   CollectionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteCollectionRequest $input
      *
      * @throws InvalidParameterException
@@ -189,7 +189,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   ProjectArn: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteProjectRequest $input
      *
      * @throws ResourceInUseException
@@ -241,7 +241,7 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   Image: Image|array,
      *   Attributes?: list<Attribute::*>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DetectFacesRequest $input
      *
      * @throws InvalidS3ObjectException
@@ -291,7 +291,7 @@ class RekognitionClient extends AbstractApi
      *   Image: Image|array,
      *   MinConfidence?: float,
      *   HumanLoopConfig?: HumanLoopConfig|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      *
      * @throws InvalidS3ObjectException
@@ -336,7 +336,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Id: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetCelebrityInfoRequest $input
      *
      * @throws InvalidParameterException
@@ -442,7 +442,7 @@ class RekognitionClient extends AbstractApi
      *   DetectionAttributes?: list<Attribute::*>,
      *   MaxFaces?: int,
      *   QualityFilter?: QualityFilter::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|IndexFacesRequest $input
      *
      * @throws InvalidS3ObjectException
@@ -489,7 +489,7 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   NextToken?: string,
      *   MaxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListCollectionsRequest $input
      *
      * @throws InvalidParameterException
@@ -546,7 +546,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|RecognizeCelebritiesRequest $input
      *
      * @throws InvalidS3ObjectException
@@ -618,7 +618,7 @@ class RekognitionClient extends AbstractApi
      *   MaxFaces?: int,
      *   FaceMatchThreshold?: float,
      *   QualityFilter?: QualityFilter::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SearchFacesByImageRequest $input
      *
      * @throws InvalidS3ObjectException

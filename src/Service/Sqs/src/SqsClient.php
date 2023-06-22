@@ -109,7 +109,7 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   ReceiptHandle: string,
      *   VisibilityTimeout: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ChangeMessageVisibilityRequest $input
      *
      * @throws MessageNotInflightException
@@ -140,7 +140,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   Entries: ChangeMessageVisibilityBatchRequestEntry[],
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ChangeMessageVisibilityBatchRequest $input
      *
      * @throws TooManyEntriesInBatchRequestException
@@ -201,7 +201,7 @@ class SqsClient extends AbstractApi
      *   QueueName: string,
      *   Attributes?: array<QueueAttributeName::*, string>,
      *   tags?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateQueueRequest $input
      *
      * @throws QueueDeletedRecentlyException
@@ -241,7 +241,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   ReceiptHandle: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteMessageRequest $input
      *
      * @throws InvalidIdFormatException
@@ -271,7 +271,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   Entries: DeleteMessageBatchRequestEntry[],
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteMessageBatchRequest $input
      *
      * @throws TooManyEntriesInBatchRequestException
@@ -316,7 +316,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteQueueRequest $input
      */
     public function deleteQueue($input): Result
@@ -340,7 +340,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   AttributeNames?: list<QueueAttributeName::*>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetQueueAttributesRequest $input
      *
      * @throws InvalidAttributeNameException
@@ -371,7 +371,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   QueueOwnerAWSAccountId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      *
      * @throws QueueDoesNotExistException
@@ -408,7 +408,7 @@ class SqsClient extends AbstractApi
      *   QueueNamePrefix?: string,
      *   NextToken?: string,
      *   MaxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListQueuesRequest $input
      */
     public function listQueues($input = []): ListQueuesResult
@@ -436,7 +436,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|PurgeQueueRequest $input
      *
      * @throws QueueDoesNotExistException
@@ -459,7 +459,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   QueueOwnerAWSAccountId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      */
     public function queueExists($input): QueueExistsWaiter
@@ -522,7 +522,7 @@ class SqsClient extends AbstractApi
      *   VisibilityTimeout?: int,
      *   WaitTimeSeconds?: int,
      *   ReceiveRequestAttemptId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ReceiveMessageRequest $input
      *
      * @throws OverLimitException
@@ -560,7 +560,7 @@ class SqsClient extends AbstractApi
      *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SendMessageRequest $input
      *
      * @throws InvalidMessageContentsException
@@ -606,7 +606,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   Entries: SendMessageBatchRequestEntry[],
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SendMessageBatchRequest $input
      *
      * @throws TooManyEntriesInBatchRequestException

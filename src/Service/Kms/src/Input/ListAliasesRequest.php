@@ -51,7 +51,7 @@ final class ListAliasesRequest extends Input
      *   KeyId?: string,
      *   Limit?: int,
      *   Marker?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

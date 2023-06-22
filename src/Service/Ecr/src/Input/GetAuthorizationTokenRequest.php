@@ -19,7 +19,7 @@ final class GetAuthorizationTokenRequest extends Input
     /**
      * @param array{
      *   registryIds?: string[],
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

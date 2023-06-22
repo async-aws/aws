@@ -57,7 +57,7 @@ class SchedulerClient extends AbstractApi
      *   StartDate?: \DateTimeImmutable|string,
      *   State?: ScheduleState::*,
      *   Target: Target|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateScheduleInput $input
      *
      * @throws ServiceQuotaExceededException
@@ -92,7 +92,7 @@ class SchedulerClient extends AbstractApi
      *   ClientToken?: string,
      *   Name: string,
      *   Tags?: Tag[],
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateScheduleGroupInput $input
      *
      * @throws ServiceQuotaExceededException
@@ -125,7 +125,7 @@ class SchedulerClient extends AbstractApi
      *   ClientToken?: string,
      *   GroupName?: string,
      *   Name: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteScheduleInput $input
      *
      * @throws ValidationException
@@ -163,7 +163,7 @@ class SchedulerClient extends AbstractApi
      * @param array{
      *   ClientToken?: string,
      *   Name: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteScheduleGroupInput $input
      *
      * @throws ValidationException
@@ -195,7 +195,7 @@ class SchedulerClient extends AbstractApi
      * @param array{
      *   GroupName?: string,
      *   Name: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetScheduleInput $input
      *
      * @throws ValidationException
@@ -224,7 +224,7 @@ class SchedulerClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetScheduleGroupInput $input
      *
      * @throws ValidationException
@@ -255,7 +255,7 @@ class SchedulerClient extends AbstractApi
      *   MaxResults?: int,
      *   NamePrefix?: string,
      *   NextToken?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListScheduleGroupsInput $input
      *
      * @throws ValidationException
@@ -286,7 +286,7 @@ class SchedulerClient extends AbstractApi
      *   NamePrefix?: string,
      *   NextToken?: string,
      *   State?: ScheduleState::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListSchedulesInput $input
      *
      * @throws ValidationException
@@ -331,7 +331,7 @@ class SchedulerClient extends AbstractApi
      *   StartDate?: \DateTimeImmutable|string,
      *   State?: ScheduleState::*,
      *   Target: Target|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|UpdateScheduleInput $input
      *
      * @throws ValidationException

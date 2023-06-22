@@ -98,7 +98,7 @@ final class ListUsersRequest extends Input
      *   Limit?: int,
      *   PaginationToken?: string,
      *   Filter?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

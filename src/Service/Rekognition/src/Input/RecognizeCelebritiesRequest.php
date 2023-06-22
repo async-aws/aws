@@ -26,7 +26,7 @@ final class RecognizeCelebritiesRequest extends Input
     /**
      * @param array{
      *   Image?: Image|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -23,7 +23,7 @@ final class PurgeQueueRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

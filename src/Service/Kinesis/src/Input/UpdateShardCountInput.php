@@ -54,7 +54,7 @@ final class UpdateShardCountInput extends Input
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
      *   StreamARN?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

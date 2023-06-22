@@ -42,7 +42,7 @@ final class UpdateThingShadowRequest extends Input
      *   thingName?: string,
      *   shadowName?: string,
      *   payload?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -46,7 +46,7 @@ class StepFunctionsClient extends AbstractApi
      *   taskToken: string,
      *   error?: string,
      *   cause?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SendTaskFailureInput $input
      *
      * @throws TaskDoesNotExistException
@@ -86,7 +86,7 @@ class StepFunctionsClient extends AbstractApi
      *
      * @param array{
      *   taskToken: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SendTaskHeartbeatInput $input
      *
      * @throws TaskDoesNotExistException
@@ -117,7 +117,7 @@ class StepFunctionsClient extends AbstractApi
      * @param array{
      *   taskToken: string,
      *   output: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SendTaskSuccessInput $input
      *
      * @throws TaskDoesNotExistException
@@ -189,7 +189,7 @@ class StepFunctionsClient extends AbstractApi
      *   name?: string,
      *   input?: string,
      *   traceHeader?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StartExecutionInput $input
      *
      * @throws ExecutionLimitExceededException
@@ -230,7 +230,7 @@ class StepFunctionsClient extends AbstractApi
      *   executionArn: string,
      *   error?: string,
      *   cause?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StopExecutionInput $input
      *
      * @throws ExecutionDoesNotExistException

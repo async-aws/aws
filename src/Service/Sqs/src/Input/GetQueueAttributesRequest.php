@@ -157,7 +157,7 @@ final class GetQueueAttributesRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   AttributeNames?: list<QueueAttributeName::*>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

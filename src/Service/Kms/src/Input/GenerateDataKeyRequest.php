@@ -122,7 +122,7 @@ final class GenerateDataKeyRequest extends Input
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
      *   Recipient?: RecipientInfo|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

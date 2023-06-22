@@ -70,7 +70,7 @@ final class SearchFacesByImageRequest extends Input
      *   MaxFaces?: int,
      *   FaceMatchThreshold?: float,
      *   QualityFilter?: QualityFilter::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

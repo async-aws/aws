@@ -38,7 +38,7 @@ final class CreateServiceSpecificCredentialRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

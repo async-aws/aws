@@ -24,7 +24,7 @@ final class DeleteTableInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

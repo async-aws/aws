@@ -72,7 +72,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   CalculationExecutionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetCalculationExecutionRequest $input
      *
      * @throws InternalServerException
@@ -99,7 +99,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   CalculationExecutionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetCalculationExecutionStatusRequest $input
      *
      * @throws InternalServerException
@@ -126,7 +126,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetDataCatalogInput $input
      *
      * @throws InternalServerException
@@ -152,7 +152,7 @@ class AthenaClient extends AbstractApi
      * @param array{
      *   CatalogName: string,
      *   DatabaseName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetDatabaseInput $input
      *
      * @throws InternalServerException
@@ -180,7 +180,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   NamedQueryId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetNamedQueryInput $input
      *
      * @throws InternalServerException
@@ -206,7 +206,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   QueryExecutionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetQueryExecutionInput $input
      *
      * @throws InternalServerException
@@ -245,7 +245,7 @@ class AthenaClient extends AbstractApi
      *   QueryExecutionId: string,
      *   NextToken?: string,
      *   MaxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetQueryResultsInput $input
      *
      * @throws InternalServerException
@@ -272,7 +272,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   SessionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetSessionRequest $input
      *
      * @throws InternalServerException
@@ -299,7 +299,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   SessionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetSessionStatusRequest $input
      *
      * @throws InternalServerException
@@ -328,7 +328,7 @@ class AthenaClient extends AbstractApi
      *   CatalogName: string,
      *   DatabaseName: string,
      *   TableName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetTableMetadataInput $input
      *
      * @throws InternalServerException
@@ -355,7 +355,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   WorkGroup: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetWorkGroupInput $input
      *
      * @throws InternalServerException
@@ -382,7 +382,7 @@ class AthenaClient extends AbstractApi
      *   CatalogName: string,
      *   NextToken?: string,
      *   MaxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      *
      * @throws InternalServerException
@@ -418,7 +418,7 @@ class AthenaClient extends AbstractApi
      *   NextToken?: string,
      *   MaxResults?: int,
      *   WorkGroup?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListNamedQueriesInput $input
      *
      * @throws InternalServerException
@@ -452,7 +452,7 @@ class AthenaClient extends AbstractApi
      *   NextToken?: string,
      *   MaxResults?: int,
      *   WorkGroup?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListQueryExecutionsInput $input
      *
      * @throws InternalServerException
@@ -481,7 +481,7 @@ class AthenaClient extends AbstractApi
      *   Expression?: string,
      *   NextToken?: string,
      *   MaxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      *
      * @throws InternalServerException
@@ -513,7 +513,7 @@ class AthenaClient extends AbstractApi
      *   CalculationConfiguration?: CalculationConfiguration|array,
      *   CodeBlock?: string,
      *   ClientRequestToken?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StartCalculationExecutionRequest $input
      *
      * @throws InternalServerException
@@ -551,7 +551,7 @@ class AthenaClient extends AbstractApi
      *   WorkGroup?: string,
      *   ExecutionParameters?: string[],
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StartQueryExecutionInput $input
      *
      * @throws InternalServerException
@@ -583,7 +583,7 @@ class AthenaClient extends AbstractApi
      *   NotebookVersion?: string,
      *   SessionIdleTimeoutInMinutes?: int,
      *   ClientRequestToken?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StartSessionRequest $input
      *
      * @throws InternalServerException
@@ -619,7 +619,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   CalculationExecutionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StopCalculationExecutionRequest $input
      *
      * @throws InternalServerException
@@ -651,7 +651,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   QueryExecutionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StopQueryExecutionInput $input
      *
      * @throws InternalServerException
@@ -678,7 +678,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   SessionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|TerminateSessionRequest $input
      *
      * @throws InternalServerException

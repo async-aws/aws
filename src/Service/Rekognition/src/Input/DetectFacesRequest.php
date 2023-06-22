@@ -41,7 +41,7 @@ final class DetectFacesRequest extends Input
      * @param array{
      *   Image?: Image|array,
      *   Attributes?: list<Attribute::*>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

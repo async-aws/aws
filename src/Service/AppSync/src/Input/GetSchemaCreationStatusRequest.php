@@ -21,7 +21,7 @@ final class GetSchemaCreationStatusRequest extends Input
     /**
      * @param array{
      *   apiId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

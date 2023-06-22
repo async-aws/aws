@@ -51,7 +51,7 @@ final class CreateRepositoryInput extends Input
      *   repositoryName?: string,
      *   repositoryDescription?: string,
      *   tags?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

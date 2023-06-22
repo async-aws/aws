@@ -76,7 +76,7 @@ final class GetDifferencesInput extends Input
      *   afterPath?: string,
      *   MaxResults?: int,
      *   NextToken?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

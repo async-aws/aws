@@ -29,7 +29,7 @@ final class GetBranchInput extends Input
      * @param array{
      *   repositoryName?: string,
      *   branchName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

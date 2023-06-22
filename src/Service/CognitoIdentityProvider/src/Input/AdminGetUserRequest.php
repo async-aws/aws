@@ -34,7 +34,7 @@ final class AdminGetUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

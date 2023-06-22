@@ -48,7 +48,7 @@ final class ListResolversRequest extends Input
      *   typeName?: string,
      *   nextToken?: string,
      *   maxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -24,7 +24,7 @@ final class UnsubscribeInput extends Input
     /**
      * @param array{
      *   SubscriptionArn?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

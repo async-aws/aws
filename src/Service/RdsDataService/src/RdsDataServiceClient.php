@@ -58,7 +58,7 @@ class RdsDataServiceClient extends AbstractApi
      *   schema?: string,
      *   parameterSets?: array[],
      *   transactionId?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|BatchExecuteStatementRequest $input
      *
      * @throws AccessDeniedException
@@ -103,7 +103,7 @@ class RdsDataServiceClient extends AbstractApi
      *   secretArn: string,
      *   database?: string,
      *   schema?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|BeginTransactionRequest $input
      *
      * @throws AccessDeniedException
@@ -138,7 +138,7 @@ class RdsDataServiceClient extends AbstractApi
      *   resourceArn: string,
      *   secretArn: string,
      *   transactionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CommitTransactionRequest $input
      *
      * @throws AccessDeniedException
@@ -188,7 +188,7 @@ class RdsDataServiceClient extends AbstractApi
      *   continueAfterTimeout?: bool,
      *   resultSetOptions?: ResultSetOptions|array,
      *   formatRecordsAs?: RecordsFormatType::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ExecuteStatementRequest $input
      *
      * @throws AccessDeniedException
@@ -223,7 +223,7 @@ class RdsDataServiceClient extends AbstractApi
      *   resourceArn: string,
      *   secretArn: string,
      *   transactionId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|RollbackTransactionRequest $input
      *
      * @throws AccessDeniedException

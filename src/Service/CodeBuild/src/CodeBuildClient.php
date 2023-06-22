@@ -41,7 +41,7 @@ class CodeBuildClient extends AbstractApi
      *
      * @param array{
      *   ids: string[],
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|BatchGetBuildsInput $input
      *
      * @throws InvalidInputException
@@ -94,7 +94,7 @@ class CodeBuildClient extends AbstractApi
      *   registryCredentialOverride?: RegistryCredential|array,
      *   imagePullCredentialsTypeOverride?: ImagePullCredentialsType::*,
      *   debugSessionEnabled?: bool,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StartBuildInput $input
      *
      * @throws InvalidInputException
@@ -121,7 +121,7 @@ class CodeBuildClient extends AbstractApi
      *
      * @param array{
      *   id: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StopBuildInput $input
      *
      * @throws InvalidInputException

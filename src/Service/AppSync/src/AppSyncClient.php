@@ -71,7 +71,7 @@ class AppSyncClient extends AbstractApi
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateResolverRequest $input
      *
      * @throws ConcurrentModificationException
@@ -104,7 +104,7 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   typeName: string,
      *   fieldName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DeleteResolverRequest $input
      *
      * @throws ConcurrentModificationException
@@ -135,7 +135,7 @@ class AppSyncClient extends AbstractApi
      *
      * @param array{
      *   apiId: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetSchemaCreationStatusRequest $input
      *
      * @throws BadRequestException
@@ -170,7 +170,7 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   nextToken?: string,
      *   maxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListApiKeysRequest $input
      *
      * @throws BadRequestException
@@ -202,7 +202,7 @@ class AppSyncClient extends AbstractApi
      *   typeName: string,
      *   nextToken?: string,
      *   maxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListResolversRequest $input
      *
      * @throws BadRequestException
@@ -234,7 +234,7 @@ class AppSyncClient extends AbstractApi
      * @param array{
      *   apiId: string,
      *   definition: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|StartSchemaCreationRequest $input
      *
      * @throws BadRequestException
@@ -268,7 +268,7 @@ class AppSyncClient extends AbstractApi
      *   id: string,
      *   description?: string,
      *   expires?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|UpdateApiKeyRequest $input
      *
      * @throws BadRequestException
@@ -312,7 +312,7 @@ class AppSyncClient extends AbstractApi
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: EventBridgeDataSourceConfig|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|UpdateDataSourceRequest $input
      *
      * @throws BadRequestException
@@ -355,7 +355,7 @@ class AppSyncClient extends AbstractApi
      *   maxBatchSize?: int,
      *   runtime?: AppSyncRuntime|array,
      *   code?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|UpdateResolverRequest $input
      *
      * @throws ConcurrentModificationException

@@ -40,7 +40,7 @@ class IotDataClient extends AbstractApi
      * @param array{
      *   thingName: string,
      *   shadowName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetThingShadowRequest $input
      *
      * @throws InvalidRequestException
@@ -86,7 +86,7 @@ class IotDataClient extends AbstractApi
      *   thingName: string,
      *   shadowName?: string,
      *   payload: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|UpdateThingShadowRequest $input
      *
      * @throws ConflictException

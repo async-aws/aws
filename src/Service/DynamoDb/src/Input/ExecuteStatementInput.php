@@ -67,7 +67,7 @@ final class ExecuteStatementInput extends Input
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

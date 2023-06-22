@@ -94,7 +94,7 @@ final class IndexFacesRequest extends Input
      *   DetectionAttributes?: list<Attribute::*>,
      *   MaxFaces?: int,
      *   QualityFilter?: QualityFilter::*,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

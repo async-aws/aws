@@ -122,7 +122,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   GroupName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminAddUserToGroupRequest $input
      *
      * @throws InvalidParameterException
@@ -159,7 +159,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminConfirmSignUpRequest $input
      *
      * @throws ResourceNotFoundException
@@ -238,7 +238,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   MessageAction?: MessageActionType::*,
      *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminCreateUserRequest $input
      *
      * @throws ResourceNotFoundException
@@ -294,7 +294,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminDeleteUserRequest $input
      *
      * @throws ResourceNotFoundException
@@ -332,7 +332,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminDisableUserRequest $input
      *
      * @throws ResourceNotFoundException
@@ -368,7 +368,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminEnableUserRequest $input
      *
      * @throws ResourceNotFoundException
@@ -404,7 +404,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminGetUserRequest $input
      *
      * @throws ResourceNotFoundException
@@ -461,7 +461,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ContextData?: ContextDataType|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminInitiateAuthRequest $input
      *
      * @throws ResourceNotFoundException
@@ -516,7 +516,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   GroupName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminRemoveUserFromGroupRequest $input
      *
      * @throws InvalidParameterException
@@ -576,7 +576,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminResetUserPasswordRequest $input
      *
      * @throws ResourceNotFoundException
@@ -633,7 +633,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   Password: string,
      *   Permanent?: bool,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminSetUserPasswordRequest $input
      *
      * @throws ResourceNotFoundException
@@ -693,7 +693,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   UserAttributes: AttributeType[],
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminUpdateUserAttributesRequest $input
      *
      * @throws ResourceNotFoundException
@@ -747,7 +747,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AdminUserGlobalSignOutRequest $input
      *
      * @throws ResourceNotFoundException
@@ -795,7 +795,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   AccessToken?: string,
      *   Session?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|AssociateSoftwareTokenRequest $input
      *
      * @throws ConcurrentModificationException
@@ -832,7 +832,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   PreviousPassword: string,
      *   ProposedPassword: string,
      *   AccessToken: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ChangePasswordRequest $input
      *
      * @throws ResourceNotFoundException
@@ -882,7 +882,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ConfirmForgotPasswordRequest $input
      *
      * @throws ResourceNotFoundException
@@ -942,7 +942,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ConfirmSignUpRequest $input
      *
      * @throws ResourceNotFoundException
@@ -999,7 +999,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Description?: string,
      *   RoleArn?: string,
      *   Precedence?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateGroupRequest $input
      *
      * @throws InvalidParameterException
@@ -1062,7 +1062,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ForgotPasswordRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1113,7 +1113,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   AccessToken: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|GetUserRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1175,7 +1175,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientId: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|InitiateAuthRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1230,7 +1230,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Limit?: int,
      *   NextToken?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListGroupsRequest $input
      *
      * @throws InvalidParameterException
@@ -1265,7 +1265,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Limit?: int,
      *   PaginationToken?: string,
      *   Filter?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ListUsersRequest $input
      *
      * @throws InvalidParameterException
@@ -1317,7 +1317,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|ResendConfirmationCodeRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1390,7 +1390,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|RespondToAuthChallengeRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1457,7 +1457,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Token: string,
      *   ClientId: string,
      *   ClientSecret?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|RevokeTokenRequest $input
      *
      * @throws TooManyRequestsException
@@ -1500,7 +1500,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   SMSMfaSettings?: SMSMfaSettingsType|array,
      *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
      *   AccessToken: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SetUserMFAPreferenceRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1561,7 +1561,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|SignUpRequest $input
      *
      * @throws ResourceNotFoundException
@@ -1616,7 +1616,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Session?: string,
      *   UserCode: string,
      *   FriendlyDeviceName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|VerifySoftwareTokenRequest $input
      *
      * @throws InvalidParameterException

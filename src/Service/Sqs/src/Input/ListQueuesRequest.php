@@ -38,7 +38,7 @@ final class ListQueuesRequest extends Input
      *   QueueNamePrefix?: string,
      *   NextToken?: string,
      *   MaxResults?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -63,7 +63,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   logGroupName: string,
      *   kmsKeyId?: string,
      *   tags?: array<string, string>,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      *
      * @throws InvalidParameterException
@@ -105,7 +105,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @param array{
      *   logGroupName: string,
      *   logStreamName: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|CreateLogStreamRequest $input
      *
      * @throws InvalidParameterException
@@ -151,7 +151,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   descending?: bool,
      *   nextToken?: string,
      *   limit?: int,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|DescribeLogStreamsRequest $input
      *
      * @throws InvalidParameterException
@@ -207,7 +207,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   limit?: int,
      *   interleaved?: bool,
      *   unmask?: bool,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|FilterLogEventsRequest $input
      *
      * @throws InvalidParameterException
@@ -264,7 +264,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   logStreamName: string,
      *   logEvents: InputLogEvent[],
      *   sequenceToken?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * }|PutLogEventsRequest $input
      *
      * @throws InvalidParameterException

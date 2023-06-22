@@ -41,7 +41,7 @@ final class GetTableMetadataInput extends Input
      *   CatalogName?: string,
      *   DatabaseName?: string,
      *   TableName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

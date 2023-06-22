@@ -103,7 +103,7 @@ final class CreateTopicInput extends Input
      *   Attributes?: array<string, string>,
      *   Tags?: Tag[],
      *   DataProtectionPolicy?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

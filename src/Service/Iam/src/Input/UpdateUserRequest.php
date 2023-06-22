@@ -52,7 +52,7 @@ final class UpdateUserRequest extends Input
      *   UserName?: string,
      *   NewPath?: string,
      *   NewUserName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

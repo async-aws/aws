@@ -124,7 +124,7 @@ final class UpdateDataSourceRequest extends Input
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: EventBridgeDataSourceConfig|array,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

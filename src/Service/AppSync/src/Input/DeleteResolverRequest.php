@@ -41,7 +41,7 @@ final class DeleteResolverRequest extends Input
      *   apiId?: string,
      *   typeName?: string,
      *   fieldName?: string,
-     *   '@region'?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
