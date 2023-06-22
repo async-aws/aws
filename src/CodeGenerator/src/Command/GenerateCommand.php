@@ -295,7 +295,7 @@ class GenerateCommand extends Command
         $this->composerWriter->setRequirements($namespace, $this->generator->getUpdatedRequirements(), $input->getOption('all') && 'Sts' !== $serviceName);
 
         if (!$input->getOption('raw')) {
-            $this->fixCS($clientClass, $io);
+            $this->fixCs($clientClass, $io);
         }
 
         return $manifest;
