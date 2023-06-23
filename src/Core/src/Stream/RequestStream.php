@@ -8,6 +8,8 @@ namespace AsyncAws\Core\Stream;
  * @author Jérémy Derussé <jeremy@derusse.com>
  *
  * @internal
+ *
+ * @extends \IteratorAggregate<string>
  */
 interface RequestStream extends \IteratorAggregate
 {

@@ -13,13 +13,22 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 final class IterableStream implements ReadOnceResultStream, RequestStream
 {
+    /**
+     * @var iterable<string>
+     */
     private $content;
 
+    /**
+     * @param iterable<string> $content
+     */
     private function __construct(iterable $content)
     {
         $this->content = $content;
     }
 
+    /**
+     * @param self|iterable<string> $content
+     */
     public static function create($content): IterableStream
     {
         if ($content instanceof self) {
