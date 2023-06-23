@@ -540,11 +540,13 @@
                 "DeleteBucket",
                 "DeleteBucketCors",
                 "DeleteObject",
+                "DeleteObjectTagging",
                 "DeleteObjects",
                 "GetBucketCors",
                 "GetBucketEncryption",
                 "GetObject",
                 "GetObjectAcl",
+                "GetObjectTagging",
                 "HeadObject",
                 "ListBuckets",
                 "ListMultipartUploads",
@@ -557,6 +559,7 @@
                 "PutBucketTagging",
                 "PutObject",
                 "PutObjectAcl",
+                "PutObjectTagging",
                 "UploadPart"
             ]
         },

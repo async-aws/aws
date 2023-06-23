@@ -37,10 +37,12 @@ use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
+use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\GetObjectTaggingRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
@@ -52,6 +54,7 @@ use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\PutObjectTaggingRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
 use AsyncAws\S3\Result\BucketExistsWaiter;
@@ -62,10 +65,12 @@ use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
+use AsyncAws\S3\Result\DeleteObjectTaggingOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
+use AsyncAws\S3\Result\GetObjectTaggingOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
@@ -75,6 +80,7 @@ use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\ObjectNotExistsWaiter;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Result\PutObjectTaggingOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
@@ -953,6 +959,43 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Removes the entire tag set from the specified object. For more information about managing object tags, see  Object
+     * Tagging [^1].
+     *
+     * To use this operation, you must have permission to perform the `s3:DeleteObjectTagging` action.
+     *
+     * To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need
+     * permission for the `s3:DeleteObjectVersionTagging` action.
+     *
+     * The following operations are related to `DeleteObjectTagging`:
+     *
+     * - PutObjectTagging [^2]
+     * - GetObjectTagging [^3]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deleteobjecttagging
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   VersionId?: string,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|DeleteObjectTaggingRequest $input
+     */
+    public function deleteObjectTagging($input): DeleteObjectTaggingOutput
+    {
+        $input = DeleteObjectTaggingRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteObjectTagging', 'region' => $input->getRegion()]));
+
+        return new DeleteObjectTaggingOutput($response);
+    }
+
+    /**
      * This action enables you to delete multiple objects from a bucket using a single HTTP request. If you know the object
      * keys that you want to delete, then this action provides a suitable alternative to sending individual delete requests,
      * reducing per-request overhead.
@@ -1304,6 +1347,50 @@ class S3Client extends AbstractApi
         ]]));
 
         return new GetObjectAclOutput($response);
+    }
+
+    /**
+     * Returns the tag-set of an object. You send the GET request against the tagging subresource associated with the
+     * object.
+     *
+     * To use this operation, you must have permission to perform the `s3:GetObjectTagging` action. By default, the GET
+     * action returns information about current version of an object. For a versioned bucket, you can have multiple versions
+     * of an object in your bucket. To retrieve tags of any other version, use the versionId query parameter. You also need
+     * permission for the `s3:GetObjectVersionTagging` action.
+     *
+     * By default, the bucket owner has this permission and can grant this permission to others.
+     *
+     * For information about the Amazon S3 object tagging feature, see Object Tagging [^1].
+     *
+     * The following actions are related to `GetObjectTagging`:
+     *
+     * - DeleteObjectTagging [^2]
+     * - GetObjectAttributes [^3]
+     * - PutObjectTagging [^4]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getobjecttagging
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   VersionId?: string,
+     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   '@region'?: string|null,
+     * }|GetObjectTaggingRequest $input
+     */
+    public function getObjectTagging($input): GetObjectTaggingOutput
+    {
+        $input = GetObjectTaggingRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObjectTagging', 'region' => $input->getRegion()]));
+
+        return new GetObjectTaggingOutput($response);
     }
 
     /**
@@ -2164,6 +2251,75 @@ class S3Client extends AbstractApi
         ]]));
 
         return new PutObjectAclOutput($response);
+    }
+
+    /**
+     * Sets the supplied tag-set to an object that already exists in a bucket.
+     *
+     * A tag is a key-value pair. You can associate tags with an object by sending a PUT request against the tagging
+     * subresource that is associated with the object. You can retrieve tags by sending a GET request. For more information,
+     * see GetObjectTagging [^1].
+     *
+     * For tagging-related restrictions related to characters and encodings, see Tag Restrictions [^2]. Note that Amazon S3
+     * limits the maximum number of tags to 10 tags per object.
+     *
+     * To use this operation, you must have permission to perform the `s3:PutObjectTagging` action. By default, the bucket
+     * owner has this permission and can grant this permission to others.
+     *
+     * To put tags of any other version, use the `versionId` query parameter. You also need permission for the
+     * `s3:PutObjectVersionTagging` action.
+     *
+     * For information about the Amazon S3 object tagging feature, see Object Tagging [^3].
+     *
+     * `PutObjectTagging` has the following special errors:
+     *
+     * - - *Code: InvalidTagError *
+     * - - *Cause: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation. For
+     * -   more information, see Object Tagging [^4].*
+     * -
+     * - - *Code: MalformedXMLError *
+     * - - *Cause: The XML provided does not match the schema.*
+     * -
+     * - - *Code: OperationAbortedError *
+     * - - *Cause: A conflicting conditional action is currently in progress against this resource. Please try again.*
+     * -
+     * - - *Code: InternalError*
+     * - - *Cause: The service was unable to apply the provided tag to the object.*
+     * -
+     *
+     * The following operations are related to `PutObjectTagging`:
+     *
+     * - GetObjectTagging [^5]
+     * - DeleteObjectTagging [^6]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     * [^2]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobjecttagging
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   VersionId?: string,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   Tagging: Tagging|array,
+     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   '@region'?: string|null,
+     * }|PutObjectTaggingRequest $input
+     */
+    public function putObjectTagging($input): PutObjectTaggingOutput
+    {
+        $input = PutObjectTaggingRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObjectTagging', 'region' => $input->getRegion()]));
+
+        return new PutObjectTaggingOutput($response);
     }
 
     /**
