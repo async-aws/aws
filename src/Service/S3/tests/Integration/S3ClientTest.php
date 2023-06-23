@@ -307,9 +307,9 @@ class S3ClientTest extends TestCase
             'Key' => $key,
             'Tagging' => [
                 'TagSet' => [
-                    ['Key' => 'expire-after-30-days', 'Value' => '1']
-                ]
-            ]
+                    ['Key' => 'expire-after-30-days', 'Value' => '1'],
+                ],
+            ],
         ]))->resolve();
 
         $input = new DeleteObjectTaggingRequest(['Bucket' => $bucket, 'Key' => $key]);
@@ -461,9 +461,9 @@ class S3ClientTest extends TestCase
             'Key' => $key,
             'Tagging' => [
                 'TagSet' => [
-                    ['Key' => $tag, 'Value' => '1']
-                ]
-            ]
+                    ['Key' => $tag, 'Value' => '1'],
+                ],
+            ],
         ]))->resolve();
 
         $input = new GetObjectTaggingRequest(['Bucket' => $bucket, 'Key' => $key]);

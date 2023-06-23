@@ -984,8 +984,7 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteObjectTaggingRequest $input
      */
     public function deleteObjectTagging($input): DeleteObjectTaggingOutput
@@ -1383,8 +1382,7 @@ class S3Client extends AbstractApi
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
      *   RequestPayer?: RequestPayer::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetObjectTaggingRequest $input
      */
     public function getObjectTagging($input): GetObjectTaggingOutput
@@ -2313,8 +2311,7 @@ class S3Client extends AbstractApi
      *   Tagging: Tagging|array,
      *   ExpectedBucketOwner?: string,
      *   RequestPayer?: RequestPayer::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutObjectTaggingRequest $input
      */
     public function putObjectTagging($input): PutObjectTaggingOutput

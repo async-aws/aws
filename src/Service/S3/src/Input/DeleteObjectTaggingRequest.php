@@ -62,8 +62,7 @@ final class DeleteObjectTaggingRequest extends Input
      *   Key?: string,
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

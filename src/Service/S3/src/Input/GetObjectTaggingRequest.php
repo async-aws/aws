@@ -69,8 +69,7 @@ final class GetObjectTaggingRequest extends Input
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
      *   RequestPayer?: RequestPayer::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
