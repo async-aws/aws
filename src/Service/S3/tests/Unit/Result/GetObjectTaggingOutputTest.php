@@ -14,16 +14,22 @@ class GetObjectTaggingOutputTest extends TestCase
 {
     public function testGetObjectTaggingOutput(): void
     {
-        $response = new SimpleMockedResponse('<TagSet>
-          <member>
+        $response = new SimpleMockedResponse(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<Tagging>
+    <TagSet>
+        <Tag>
             <Key>Key4</Key>
             <Value>Value4</Value>
-          </member>
-          <member>
+        </Tag>
+        <Tag>
             <Key>Key3</Key>
             <Value>Value3</Value>
-          </member>
-        </TagSet>', ['x-amz-version-id' => 'ydlaNkwWm0SfKJR.T1b1fIdPRbldTYRI']);
+        </Tag>
+    </TagSet>
+</Tagging>',
+            ['x-amz-version-id' => 'ydlaNkwWm0SfKJR.T1b1fIdPRbldTYRI']
+        );
 
         $client = new MockHttpClient($response);
         $result = new GetObjectTaggingOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
@@ -40,19 +46,24 @@ class GetObjectTaggingOutputTest extends TestCase
 
     public function testGetObjectTaggingOutputWithoutVersion(): void
     {
-        $response = new SimpleMockedResponse('<TagSet>
-          <member>
+        $response = new SimpleMockedResponse(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<Tagging>
+    <TagSet>
+        <Tag>
             <Key>Key4</Key>
             <Value>Value4</Value>
-          </member>
-          <member>
+        </Tag>
+        <Tag>
             <Key>Key3</Key>
             <Value>Value3</Value>
-          </member>
-        </TagSet>');
+        </Tag>
+    </TagSet>
+</Tagging>');
 
         $client = new MockHttpClient($response);
         $result = new GetObjectTaggingOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        $result->resolve();
 
         self::assertNull($result->getVersionId());
         self::assertEquals(

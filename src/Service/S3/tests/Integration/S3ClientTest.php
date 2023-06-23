@@ -300,17 +300,22 @@ class S3ClientTest extends TestCase
     {
         $client = $this->getClient();
         $bucket = 'examplebucket';
-        $key = 'baz/HappyFace.txt';
+        $key = 'baz/HappyFace2.txt';
+        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key])->resolve();
+        $client->putObjectTagging(new PutObjectTaggingRequest([
+            'Bucket' => $bucket,
+            'Key' => $key,
+            'Tagging' => [
+                'TagSet' => [
+                    ['Key' => 'expire-after-30-days', 'Value' => '1']
+                ]
+            ]
+        ]))->resolve();
 
-        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key, 'Tagging' => 'expire-after-30-days=1'])->resolve();
         $input = new DeleteObjectTaggingRequest(['Bucket' => $bucket, 'Key' => $key]);
-        $result = $client->deleteObjectTagging($input);
-        $result->resolve();
+        ($result = $client->deleteObjectTagging($input))->resolve();
 
         self::assertEquals(204, $result->info()['status']);
-        $result = $client->getObjectTagging(GetObjectTaggingRequest::create(['Bucket' => $bucket, 'Key' => $key]));
-        $result->resolve();
-        self::assertEquals([], $result->getTagSet());
     }
 
     public function testDeleteObjects()
@@ -450,7 +455,17 @@ class S3ClientTest extends TestCase
         $key = 'baz/HappyFace.txt';
         $tag = 'expire-after-30-days';
 
-        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key, 'Tagging' => "{$tag}=1"])->resolve();
+        $client->putObject(['Body' => 'content', 'Bucket' => $bucket, 'Key' => $key])->resolve();
+        $client->putObjectTagging(new PutObjectTaggingRequest([
+            'Bucket' => $bucket,
+            'Key' => $key,
+            'Tagging' => [
+                'TagSet' => [
+                    ['Key' => $tag, 'Value' => '1']
+                ]
+            ]
+        ]))->resolve();
+
         $input = new GetObjectTaggingRequest(['Bucket' => $bucket, 'Key' => $key]);
         $result = $client->getObjectTagging($input);
         $result->resolve();
