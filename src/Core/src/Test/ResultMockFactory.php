@@ -26,11 +26,11 @@ class ResultMockFactory
      * ResultMockFactory::createFailing(SendEmailResponse::class, 400, 'invalid value');
      * </code>
      *
-     * @template T
+     * @template T of Result
      *
      * @psalm-param class-string<T> $class
      *
-     * @return Result|T
+     * @return T
      */
     public static function createFailing(
         string $class,
@@ -49,6 +49,7 @@ class ResultMockFactory
         $client = new MockHttpClient($httpResponse);
         $response = new Response($client->request('POST', 'http://localhost'), $client, new NullLogger());
 
+        /** @psalm-var \ReflectionClass<T> $reflectionClass */
         $reflectionClass = new \ReflectionClass($class);
 
         return $reflectionClass->newInstance($response);
@@ -61,11 +62,11 @@ class ResultMockFactory
      * ResultMockFactory::create(SendEmailResponse::class, ['MessageId'=>'foo123']);
      * </code>
      *
-     * @template T
+     * @template T of Result
      *
      * @psalm-param class-string<T> $class
      *
-     * @return Result|T
+     * @return T
      */
     public static function create(string $class, array $data = [])
     {
@@ -83,6 +84,7 @@ class ResultMockFactory
         $initializedProperty = $reflectionClass->getProperty('initialized');
         $initializedProperty->setAccessible(true);
 
+        /** @psalm-var \ReflectionClass<T> $reflectionClass */
         $reflectionClass = new \ReflectionClass($class);
         $object = $reflectionClass->newInstance($response);
         if (Result::class !== $class) {
@@ -124,11 +126,11 @@ class ResultMockFactory
     /**
      * Instantiate a Waiter class with a final state.
      *
-     * @template T
+     * @template T of Waiter
      *
      * @psalm-param class-string<T> $class
      *
-     * @return Result|T
+     * @return T
      */
     public static function waiter(string $class, string $finalState)
     {
@@ -152,6 +154,7 @@ class ResultMockFactory
         $propertyState = $reflectionClass->getProperty('finalState');
         $propertyState->setAccessible(true);
 
+        /** @psalm-var \ReflectionClass<T> $reflectionClass */
         $reflectionClass = new \ReflectionClass($class);
         $result = $reflectionClass->newInstanceWithoutConstructor();
         $propertyResponse->setValue($result, $response);
