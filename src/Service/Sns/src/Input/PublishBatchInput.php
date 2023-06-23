@@ -32,8 +32,7 @@ final class PublishBatchInput extends Input
      * @param array{
      *   TopicArn?: string,
      *   PublishBatchRequestEntries?: PublishBatchRequestEntry[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

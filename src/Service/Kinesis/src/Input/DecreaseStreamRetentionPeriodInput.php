@@ -40,8 +40,7 @@ final class DecreaseStreamRetentionPeriodInput extends Input
      *   StreamName?: string,
      *   RetentionPeriodHours?: int,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

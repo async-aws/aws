@@ -40,8 +40,7 @@ final class SendTaskFailureInput extends Input
      *   taskToken?: string,
      *   error?: string,
      *   cause?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

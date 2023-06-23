@@ -41,8 +41,7 @@ final class DeleteServiceSpecificCredentialRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceSpecificCredentialId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

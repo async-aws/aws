@@ -64,8 +64,7 @@ final class PutUserPolicyRequest extends Input
      *   UserName?: string,
      *   PolicyName?: string,
      *   PolicyDocument?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

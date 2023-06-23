@@ -58,8 +58,7 @@ final class DeleteSecretRequest extends Input
      *   SecretId?: string,
      *   RecoveryWindowInDays?: string,
      *   ForceDeleteWithoutRecovery?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

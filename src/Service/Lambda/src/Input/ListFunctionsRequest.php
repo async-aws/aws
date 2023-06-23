@@ -47,8 +47,7 @@ final class ListFunctionsRequest extends Input
      *   FunctionVersion?: FunctionVersion::*,
      *   Marker?: string,
      *   MaxItems?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -41,8 +41,7 @@ final class DescribeEndpointsRequest extends Input
      *   MaxResults?: int,
      *   Mode?: DescribeEndpointsMode::*,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

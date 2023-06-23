@@ -46,8 +46,7 @@ final class CreateStreamInput extends Input
      *   StreamName?: string,
      *   ShardCount?: int,
      *   StreamModeDetails?: StreamModeDetails|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

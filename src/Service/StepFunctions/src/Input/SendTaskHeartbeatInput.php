@@ -24,8 +24,7 @@ final class SendTaskHeartbeatInput extends Input
     /**
      * @param array{
      *   taskToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

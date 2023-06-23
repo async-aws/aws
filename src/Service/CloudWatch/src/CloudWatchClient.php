@@ -92,8 +92,7 @@ class CloudWatchClient extends AbstractApi
      *   ScanBy?: ScanBy::*,
      *   MaxDatapoints?: int,
      *   LabelOptions?: LabelOptions|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetMetricDataInput $input
      *
      * @throws InvalidNextTokenException
@@ -162,8 +161,7 @@ class CloudWatchClient extends AbstractApi
      *   Statistics?: list<Statistic::*>,
      *   ExtendedStatistics?: string[],
      *   Unit?: StandardUnit::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetMetricStatisticsInput $input
      *
      * @throws InvalidParameterValueException
@@ -219,8 +217,7 @@ class CloudWatchClient extends AbstractApi
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,
      *   OwningAccount?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListMetricsInput $input
      *
      * @throws InternalServiceFaultException
@@ -285,8 +282,7 @@ class CloudWatchClient extends AbstractApi
      * @param array{
      *   Namespace: string,
      *   MetricData: MetricDatum[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      *
      * @throws InvalidParameterValueException

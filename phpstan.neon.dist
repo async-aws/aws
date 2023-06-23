@@ -17,8 +17,8 @@ parameters:
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php
 
     ignoreErrors:
-        - '#^PHPDoc tag @param has invalid value#'
         - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
+        - '#^Parameter \#1 \$input of method AsyncAws\\DynamoDb\\DynamoDbClient::\w+\(\) expects array\{[^\)]+\}\|AsyncAws\\DynamoDb\\Input\\\w+Input, array\{[^\)]+\} given\.#'
         - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
         - '#^Dead catch - JsonException is never thrown in the try block\.$#'

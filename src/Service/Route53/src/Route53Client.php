@@ -117,8 +117,7 @@ class Route53Client extends AbstractApi
      * @param array{
      *   HostedZoneId: string,
      *   ChangeBatch: ChangeBatch|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ChangeResourceRecordSetsRequest $input
      *
      * @throws NoSuchHostedZoneException
@@ -197,8 +196,7 @@ class Route53Client extends AbstractApi
      *   CallerReference: string,
      *   HostedZoneConfig?: HostedZoneConfig|array,
      *   DelegationSetId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreateHostedZoneRequest $input
      *
      * @throws InvalidDomainNameException
@@ -274,8 +272,7 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   Id: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteHostedZoneRequest $input
      *
      * @throws NoSuchHostedZoneException
@@ -312,8 +309,7 @@ class Route53Client extends AbstractApi
      *   Marker?: string,
      *   MaxItems?: string,
      *   DelegationSetId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      *
      * @throws InvalidInputException
@@ -380,8 +376,7 @@ class Route53Client extends AbstractApi
      *   DNSName?: string,
      *   HostedZoneId?: string,
      *   MaxItems?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListHostedZonesByNameRequest $input
      *
      * @throws InvalidInputException
@@ -461,8 +456,7 @@ class Route53Client extends AbstractApi
      *   StartRecordType?: RRType::*,
      *   StartRecordIdentifier?: string,
      *   MaxItems?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListResourceRecordSetsRequest $input
      *
      * @throws NoSuchHostedZoneException
@@ -484,8 +478,7 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   Id: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetChangeRequest $input
      */
     public function resourceRecordSetsChanged($input): ResourceRecordSetsChangedWaiter

@@ -39,8 +39,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      *   deploymentId?: string,
      *   lifecycleEventHookExecutionId?: string,
      *   status?: LifecycleEventStatus::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

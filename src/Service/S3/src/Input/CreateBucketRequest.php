@@ -96,8 +96,7 @@ final class CreateBucketRequest extends Input
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
      *   ObjectOwnership?: ObjectOwnership::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -89,8 +89,7 @@ final class StartExecutionInput extends Input
      *   name?: string,
      *   input?: string,
      *   traceHeader?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

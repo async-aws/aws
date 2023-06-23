@@ -201,8 +201,7 @@ final class UploadPartRequest extends Input
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

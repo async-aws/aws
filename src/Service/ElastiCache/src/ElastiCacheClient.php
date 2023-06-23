@@ -44,8 +44,7 @@ class ElastiCacheClient extends AbstractApi
      *   Marker?: string,
      *   ShowCacheNodeInfo?: bool,
      *   ShowCacheClustersNotInReplicationGroups?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DescribeCacheClustersMessage $input
      *
      * @throws CacheClusterNotFoundFaultException

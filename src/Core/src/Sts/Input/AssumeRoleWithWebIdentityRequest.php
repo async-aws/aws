@@ -138,8 +138,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   PolicyArns?: PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

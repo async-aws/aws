@@ -34,8 +34,7 @@ final class PutEventsRequest extends Input
      * @param array{
      *   Entries?: PutEventsRequestEntry[],
      *   EndpointId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

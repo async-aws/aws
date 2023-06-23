@@ -100,8 +100,7 @@ final class DeleteObjectsRequest extends Input
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -84,8 +84,7 @@ final class GetShardIteratorInput extends Input
      *   StartingSequenceNumber?: string,
      *   Timestamp?: \DateTimeImmutable|string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

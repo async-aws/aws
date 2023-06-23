@@ -32,8 +32,7 @@ final class PutRecordBatchInput extends Input
      * @param array{
      *   DeliveryStreamName?: string,
      *   Records?: Record[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

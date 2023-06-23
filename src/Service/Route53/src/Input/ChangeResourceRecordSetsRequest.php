@@ -36,8 +36,7 @@ final class ChangeResourceRecordSetsRequest extends Input
      * @param array{
      *   HostedZoneId?: string,
      *   ChangeBatch?: ChangeBatch|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

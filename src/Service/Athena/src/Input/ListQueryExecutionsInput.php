@@ -37,8 +37,7 @@ final class ListQueryExecutionsInput extends Input
      *   NextToken?: string,
      *   MaxResults?: int,
      *   WorkGroup?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -84,8 +84,7 @@ class LambdaClient extends AbstractApi
      *   Principal: string,
      *   OrganizationId?: string,
      *   RevisionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|AddLayerVersionPermissionRequest $input
      *
      * @throws ServiceException
@@ -126,8 +125,7 @@ class LambdaClient extends AbstractApi
      * @param array{
      *   FunctionName: string,
      *   Qualifier?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteFunctionRequest $input
      *
      * @throws ServiceException
@@ -200,8 +198,7 @@ class LambdaClient extends AbstractApi
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|InvocationRequest $input
      *
      * @throws ServiceException
@@ -293,8 +290,7 @@ class LambdaClient extends AbstractApi
      *   FunctionVersion?: FunctionVersion::*,
      *   Marker?: string,
      *   MaxItems?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListFunctionsRequest $input
      *
      * @throws ServiceException
@@ -330,8 +326,7 @@ class LambdaClient extends AbstractApi
      *   Marker?: string,
      *   MaxItems?: int,
      *   CompatibleArchitecture?: Architecture::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      *
      * @throws ServiceException
@@ -365,8 +360,7 @@ class LambdaClient extends AbstractApi
      *   FunctionName: string,
      *   Marker?: string,
      *   MaxItems?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListVersionsByFunctionRequest $input
      *
      * @throws ServiceException
@@ -405,8 +399,7 @@ class LambdaClient extends AbstractApi
      *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
      *   CompatibleArchitectures?: list<Architecture::*>,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      *
      * @throws ServiceException

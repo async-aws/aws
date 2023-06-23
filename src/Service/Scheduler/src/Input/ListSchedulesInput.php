@@ -53,8 +53,7 @@ final class ListSchedulesInput extends Input
      *   NamePrefix?: string,
      *   NextToken?: string,
      *   State?: ScheduleState::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

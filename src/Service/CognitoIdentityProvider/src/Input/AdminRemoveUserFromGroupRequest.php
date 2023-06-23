@@ -41,8 +41,7 @@ final class AdminRemoveUserFromGroupRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   GroupName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

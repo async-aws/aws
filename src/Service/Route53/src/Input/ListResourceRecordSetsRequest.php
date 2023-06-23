@@ -82,8 +82,7 @@ final class ListResourceRecordSetsRequest extends Input
      *   StartRecordType?: RRType::*,
      *   StartRecordIdentifier?: string,
      *   MaxItems?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

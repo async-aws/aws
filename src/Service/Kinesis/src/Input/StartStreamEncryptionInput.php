@@ -57,8 +57,7 @@ final class StartStreamEncryptionInput extends Input
      *   EncryptionType?: EncryptionType::*,
      *   KeyId?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

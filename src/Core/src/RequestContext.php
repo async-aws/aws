@@ -60,14 +60,14 @@ class RequestContext
 
     /**
      * @param array{
-     *  operation?: null|string
-     *  region?: null|string
-     *  expirationDate?: null|\DateTimeImmutable
-     *  currentDate?: null|\DateTimeImmutable
-     *  exceptionMapping?: string[]
-     *  usesEndpointDiscovery?: bool
-     *  requiresEndpointDiscovery?: bool
-     * }
+     *  operation?: null|string,
+     *  region?: null|string,
+     *  expirationDate?: null|\DateTimeImmutable,
+     *  currentDate?: null|\DateTimeImmutable,
+     *  exceptionMapping?: string[],
+     *  usesEndpointDiscovery?: bool,
+     *  requiresEndpointDiscovery?: bool,
+     * } $options
      */
     public function __construct(array $options = [])
     {

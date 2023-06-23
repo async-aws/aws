@@ -47,8 +47,7 @@ final class CreateThingGroupRequest extends Input
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
      *   tags?: Tag[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

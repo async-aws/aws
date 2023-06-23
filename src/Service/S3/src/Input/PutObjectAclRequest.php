@@ -178,8 +178,7 @@ final class PutObjectAclRequest extends Input
      *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

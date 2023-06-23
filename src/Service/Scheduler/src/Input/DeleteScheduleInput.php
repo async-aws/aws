@@ -38,8 +38,7 @@ final class DeleteScheduleInput extends Input
      *   ClientToken?: string,
      *   GroupName?: string,
      *   Name?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

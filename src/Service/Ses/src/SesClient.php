@@ -49,8 +49,7 @@ class SesClient extends AbstractApi
      *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
      *   ListManagementOptions?: ListManagementOptions|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|SendEmailRequest $input
      *
      * @throws TooManyRequestsException

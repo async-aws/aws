@@ -54,8 +54,7 @@ final class CreateThingRequest extends Input
      *   thingTypeName?: string,
      *   attributePayload?: AttributePayload|array,
      *   billingGroupName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

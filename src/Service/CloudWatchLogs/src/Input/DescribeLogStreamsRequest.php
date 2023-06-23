@@ -84,8 +84,7 @@ final class DescribeLogStreamsRequest extends Input
      *   descending?: bool,
      *   nextToken?: string,
      *   limit?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

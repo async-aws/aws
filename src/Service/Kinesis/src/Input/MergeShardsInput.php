@@ -50,8 +50,7 @@ final class MergeShardsInput extends Input
      *   ShardToMerge?: string,
      *   AdjacentShardToMerge?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

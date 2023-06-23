@@ -38,8 +38,7 @@ final class ListGroupsRequest extends Input
      *   UserPoolId?: string,
      *   Limit?: int,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

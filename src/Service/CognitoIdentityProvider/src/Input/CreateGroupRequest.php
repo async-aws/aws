@@ -66,8 +66,7 @@ final class CreateGroupRequest extends Input
      *   Description?: string,
      *   RoleArn?: string,
      *   Precedence?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

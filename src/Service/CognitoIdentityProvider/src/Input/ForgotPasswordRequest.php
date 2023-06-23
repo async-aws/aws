@@ -92,8 +92,7 @@ final class ForgotPasswordRequest extends Input
      *   Username?: string,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

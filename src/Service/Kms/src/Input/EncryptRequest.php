@@ -99,8 +99,7 @@ final class EncryptRequest extends Input
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

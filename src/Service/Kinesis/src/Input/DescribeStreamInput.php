@@ -52,8 +52,7 @@ final class DescribeStreamInput extends Input
      *   Limit?: int,
      *   ExclusiveStartShardId?: string,
      *   StreamARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

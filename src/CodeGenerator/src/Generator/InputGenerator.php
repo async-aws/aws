@@ -278,7 +278,7 @@ class InputGenerator
 
         $constructorBody .= 'parent::__construct($input);';
         $constructor = $classBuilder->addMethod('__construct');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']);
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  \'@region\'?: string|null,']);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());

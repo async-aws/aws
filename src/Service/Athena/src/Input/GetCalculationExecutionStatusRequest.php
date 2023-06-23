@@ -21,8 +21,7 @@ final class GetCalculationExecutionStatusRequest extends Input
     /**
      * @param array{
      *   CalculationExecutionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

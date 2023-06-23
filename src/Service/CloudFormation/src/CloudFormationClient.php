@@ -36,8 +36,7 @@ class CloudFormationClient extends AbstractApi
      *
      * @param array{
      *   StackDriftDetectionId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DescribeStackDriftDetectionStatusInput $input
      */
     public function describeStackDriftDetectionStatus($input): DescribeStackDriftDetectionStatusOutput
@@ -63,8 +62,7 @@ class CloudFormationClient extends AbstractApi
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DescribeStackEventsInput $input
      */
     public function describeStackEvents($input = []): DescribeStackEventsOutput
@@ -87,8 +85,7 @@ class CloudFormationClient extends AbstractApi
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DescribeStacksInput $input
      */
     public function describeStacks($input = []): DescribeStacksOutput

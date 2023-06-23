@@ -293,8 +293,7 @@ final class ScanInput extends Input
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   ConsistentRead?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

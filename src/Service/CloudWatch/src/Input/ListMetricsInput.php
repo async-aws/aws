@@ -78,8 +78,7 @@ final class ListMetricsInput extends Input
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,
      *   OwningAccount?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
