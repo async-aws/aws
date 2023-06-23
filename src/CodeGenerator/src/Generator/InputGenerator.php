@@ -210,7 +210,7 @@ class InputGenerator
                     $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
-                $parameterType = 'string|resource|callable|iterable';
+                $parameterType = 'string|resource|(callable(int): string)|iterable<string>';
                 $returnType = null;
                 $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             } elseif ('timestamp' === $memberShape->getType()) {
