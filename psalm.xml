@@ -57,5 +57,7 @@
         <RawObjectIteration errorLevel="info" />
 
         <InvalidStringClass errorLevel="info" />
+
+        <ArgumentTypeCoercion errorLevel="info" />
     </issueHandlers>
 </psalm>
