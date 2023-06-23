@@ -1,147 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.1.0@4defa177c89397c5e14737a80fe4896584130674">
+<files psalm-version="5.11.0@c9b192ab8400fdaf04b2b13d110575adc879aa90">
   <file src="src/Core/src/AbstractApi.php">
-    <UndefinedFunction occurrences="2">
-      <code>trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__)</code>
-      <code>trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.')</code>
+    <UndefinedFunction>
+      <code><![CDATA[trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__)]]></code>
+      <code><![CDATA[trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.')]]></code>
     </UndefinedFunction>
   </file>
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
-    <InvalidCatch occurrences="1"/>
-    <InvalidThrow occurrences="1">
+    <InvalidCatch>
+      <code><![CDATA[try {
+            return $this->getFromCache($configuration);
+        } catch (CacheException $e) {
+            if (null !== $this->logger) {
+                $this->logger->error('Failed to get AWS credentials from cache.', ['exception' => $e]);
+            }
+
+            return $this->decorated->getCredentials($configuration);
+        }]]></code>
+    </InvalidCatch>
+    <InvalidThrow>
       <code>CacheException</code>
     </InvalidThrow>
   </file>
   <file src="src/Core/src/Credentials/SymfonyCacheProvider.php">
-    <InvalidCatch occurrences="1"/>
+    <InvalidCatch>
+      <code><![CDATA[try {
+            return $this->cache->get('AsyncAws.Credentials.' . sha1(serialize([$configuration, \get_class($this->decorated)])), $closure);
+        } catch (CacheException $e) {
+            if (null !== $this->logger) {
+                $this->logger->error('Failed to get AWS credentials from cache.', ['exception' => $e]);
+            }
+
+            return $provider->getCredentials($configuration);
+        }]]></code>
+    </InvalidCatch>
   </file>
   <file src="src/Core/src/Request.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(string) $value</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Core/src/Stream/RequestStream.php">
-    <MissingTemplateParam occurrences="1">
+    <MissingTemplateParam>
       <code>\IteratorAggregate</code>
     </MissingTemplateParam>
   </file>
   <file src="src/Core/src/Waiter.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>(int) ceil($delay * 1000000)</code>
-    </ArgumentTypeCoercion>
-    <PossiblyUndefinedVariable occurrences="1">
+    <PossiblyUndefinedVariable>
       <code>$exception</code>
     </PossiblyUndefinedVariable>
   </file>
   <file src="src/Integration/Aws/DynamoDbSession/src/SessionHandler.php">
-    <ArgumentTypeCoercion occurrences="6">
-      <code>['TableName' =&gt; $this-&gt;options['table_name']]</code>
-    </ArgumentTypeCoercion>
+    <InvalidArgument>
+      <code><![CDATA[[
+            'TableName' => $this->options['table_name'],
+            'BillingMode' => BillingMode::PAY_PER_REQUEST,
+            'AttributeDefinitions' => [
+                [
+                    'AttributeName' => $this->options['hash_key'],
+                    'AttributeType' => ScalarAttributeType::S,
+                ],
+            ],
+            'KeySchema' => [
+                [
+                    'AttributeName' => $this->options['hash_key'],
+                    'KeyType' => KeyType::HASH,
+                ],
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'TableName' => $this->options['table_name'],
+            'Key' => $this->formatKey($this->formatId($id)),
+            'AttributeUpdates' => $attributes,
+        ]]]></code>
+    </InvalidArgument>
   </file>
   <file src="src/Integration/Aws/SimpleS3/src/SimpleS3Client.php">
-    <ArgumentTypeCoercion occurrences="1"/>
-    <InvalidArgument occurrences="2">
-      <code>array_merge($options, ['Bucket' =&gt; $bucket, 'Key' =&gt; $key])</code>
+    <InvalidArgument>
+      <code><![CDATA[array_merge($options, [
+            'Bucket' => $bucket,
+            'Key' => $key,
+            'Body' => $object,
+        ])]]></code>
+      <code><![CDATA[array_merge($options, ['Bucket' => $bucket, 'Key' => $key])]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Integration/Flysystem/S3/src/AsyncAwsS3Adapter.php">
-    <InvalidArgument occurrences="2"/>
+    <InvalidArgument>
+      <code><![CDATA[array_merge($options, [
+            'Bucket' => $this->bucket,
+            'Key' => $key,
+            'Body' => $body,
+            'ACL' => $acl,
+        ])]]></code>
+      <code><![CDATA[array_merge($this->options, [
+            'Bucket' => $this->bucket,
+            'Key' => $location,
+        ])]]></code>
+    </InvalidArgument>
   </file>
   <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
-    <InvalidArgument occurrences="7"/>
-    <RedundantCast occurrences="1">
-      <code>(int) $e-&gt;getCode()</code>
+    <InvalidArgument>
+      <code><![CDATA[[
+                'TableName' => $this->table,
+                'Item' => [
+                    $this->keyAttribute => [
+                        'S' => $this->prefix . $key,
+                    ],
+                    $this->valueAttribute => [
+                        $this->type($value) => $this->serialize($value),
+                    ],
+                    $this->expirationAttribute => [
+                        'N' => (string) $this->toTimestamp($seconds),
+                    ],
+                ],
+                'ConditionExpression' => 'attribute_not_exists(#key) OR #expires_at < :now',
+                'ExpressionAttributeNames' => [
+                    '#key' => $this->keyAttribute,
+                    '#expires_at' => $this->expirationAttribute,
+                ],
+                'ExpressionAttributeValues' => [
+                    ':now' => [
+                        'N' => (string) Carbon::now()->getTimestamp(),
+                    ],
+                ],
+            ]]]></code>
+      <code><![CDATA[[
+                'TableName' => $this->table,
+                'Key' => [
+                    $this->keyAttribute => [
+                        'S' => $this->prefix . $key,
+                    ],
+                ],
+                'ConditionExpression' => 'attribute_exists(#key) AND #expires_at > :now',
+                'UpdateExpression' => 'SET #value = #value + :amount',
+                'ExpressionAttributeNames' => [
+                    '#key' => $this->keyAttribute,
+                    '#value' => $this->valueAttribute,
+                    '#expires_at' => $this->expirationAttribute,
+                ],
+                'ExpressionAttributeValues' => [
+                    ':now' => [
+                        'N' => (string) Carbon::now()->getTimestamp(),
+                    ],
+                    ':amount' => [
+                        'N' => (string) $value,
+                    ],
+                ],
+                'ReturnValues' => 'UPDATED_NEW',
+            ]]]></code>
+      <code><![CDATA[[
+                'TableName' => $this->table,
+                'Key' => [
+                    $this->keyAttribute => [
+                        'S' => $this->prefix . $key,
+                    ],
+                ],
+                'ConditionExpression' => 'attribute_exists(#key) AND #expires_at > :now',
+                'UpdateExpression' => 'SET #value = #value - :amount',
+                'ExpressionAttributeNames' => [
+                    '#key' => $this->keyAttribute,
+                    '#value' => $this->valueAttribute,
+                    '#expires_at' => $this->expirationAttribute,
+                ],
+                'ExpressionAttributeValues' => [
+                    ':now' => [
+                        'N' => (string) Carbon::now()->getTimestamp(),
+                    ],
+                    ':amount' => [
+                        'N' => (string) $value,
+                    ],
+                ],
+                'ReturnValues' => 'UPDATED_NEW',
+            ]]]></code>
+      <code><![CDATA[[
+            'TableName' => $this->table,
+            'ConsistentRead' => $consistent,
+            'Key' => [
+                $this->keyAttribute => [
+                    'S' => $this->prefix . $key,
+                ],
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'TableName' => $this->table,
+            'Item' => [
+                $this->keyAttribute => [
+                    'S' => $this->prefix . $key,
+                ],
+                $this->valueAttribute => [
+                    $this->type($value) => $this->serialize($value),
+                ],
+                $this->expirationAttribute => [
+                    'N' => (string) $this->toTimestamp($seconds),
+                ],
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'TableName' => $this->table,
+            'Key' => [
+                $this->keyAttribute => [
+                    'S' => $this->prefix . $key,
+                ],
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'TableName' => $this->table,
+            'KeySchema' => [
+                new KeySchemaElement(['AttributeName' => 'key', 'KeyType' => KeyType::HASH]),
+            ],
+        ]]]></code>
+    </InvalidArgument>
+    <RedundantCast>
+      <code><![CDATA[(int) $e->getCode()]]></code>
     </RedundantCast>
   </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$this-&gt;app</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
-    <UndefinedMethod occurrences="2">
+    <UndefinedMethod>
       <code>getPrefix</code>
       <code>repository</code>
     </UndefinedMethod>
   </file>
   <file src="src/Integration/Laravel/Filesystem/src/ServiceProvider.php">
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$this-&gt;app</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Integration/Laravel/Mail/src/ServiceProvider.php">
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$this-&gt;app</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Integration/Laravel/Mail/src/Transport/AsyncAwsSesTransport.php">
-    <InvalidArgument occurrences="2">
-      <code>array_merge($this-&gt;options, $input)</code>
+    <InvalidArgument>
+      <code><![CDATA[array_merge($this->options, $input)]]></code>
     </InvalidArgument>
   </file>
-  <file src="src/Integration/Laravel/Queue/src/Job/AsyncAwsSqsJob.php">
-    <ArgumentTypeCoercion occurrences="2"/>
-  </file>
   <file src="src/Integration/Laravel/Queue/src/ServiceProvider.php">
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$this-&gt;app</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$data</code>
-    </ArgumentTypeCoercion>
-  </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference>
       <code>scalarNode</code>
     </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="1">
+    <UndefinedInterfaceMethod>
       <code>scalarNode</code>
-    </PossiblyUndefinedMethod>
+    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Service/Athena/src/Result/GetQueryResultsOutput.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;Row&gt;</code>
-    </InvalidReturnType>
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference>
       <code>getRows</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Service/CloudFormation/src/Result/DescribeStacksOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;Capability::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Capability::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/CloudWatch/src/Result/GetMetricDataOutput.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;MetricDataResult|MessageData&gt;</code>
-    </InvalidReturnType>
-  </file>
-  <file src="src/Service/CloudWatch/src/Result/ListMetricsOutput.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;Metric|string&gt;</code>
-    </InvalidReturnType>
-  </file>
   <file src="src/Service/CloudWatchLogs/src/Input/DescribeLogStreamsRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/CloudWatchLogs/src/Input/FilterLogEventsRequest.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Service/CloudWatchLogs/src/Result/FilterLogEventsResponse.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;FilteredLogEvent|SearchedLogStream&gt;</code>
-    </InvalidReturnType>
-  </file>
   <file src="src/Service/CodeBuild/src/Input/StartBuildInput.php">
-    <RedundantCastGivenDocblockType occurrences="4">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
@@ -149,317 +285,445 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/CodeBuild/src/Result/BatchGetBuildsOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;CacheMode::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<CacheMode::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/CodeBuild/src/Result/StartBuildOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;CacheMode::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<CacheMode::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/CodeBuild/src/Result/StopBuildOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;CacheMode::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<CacheMode::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/CodeDeploy/src/Input/CreateDeploymentInput.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/CodeDeploy/src/Result/GetDeploymentOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;AutoRollbackEvent::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<AutoRollbackEvent::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/CognitoIdentityProvider/src/Input/AdminCreateUserRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/CognitoIdentityProvider/src/Input/AdminSetUserPasswordRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/CognitoIdentityProvider/src/Input/ConfirmSignUpRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/Input/CreateTableInput.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/Input/ExecuteStatementInput.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/Input/GetItemInput.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/Input/QueryInput.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/Input/ScanInput.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/Input/UpdateTableInput.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/ValueObject/AttributeValue.php">
-    <InvalidArrayOffset occurrences="2">
-      <code>$input['BOOL']</code>
-      <code>$input['NULL']</code>
+    <InvalidArrayOffset>
+      <code><![CDATA[$input['BOOL']]]></code>
+      <code><![CDATA[$input['NULL']]]></code>
     </InvalidArrayOffset>
   </file>
   <file src="src/Service/Firehose/src/Exception/InvalidKMSResourceException.php">
-    <InvalidPropertyAssignmentValue occurrences="1">
+    <InvalidPropertyAssignmentValue>
       <code>$v</code>
     </InvalidPropertyAssignmentValue>
   </file>
   <file src="src/Service/Iot/src/Input/AddThingToThingGroupRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Iot/src/Result/ListThingTypesResponse.php">
-    <InvalidArgument occurrences="1"/>
+    <InvalidArgument>
+      <code><![CDATA[[
+            'deprecated' => isset($json['deprecated']) ? filter_var($json['deprecated'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'deprecationDate' => isset($json['deprecationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['deprecationDate'])) : null,
+            'creationDate' => isset($json['creationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['creationDate'])) : null,
+        ]]]></code>
+    </InvalidArgument>
   </file>
   <file src="src/Service/Kinesis/src/Input/DeleteStreamInput.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;Shard&gt;</code>
-    </InvalidReturnType>
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;MetricsName::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<MetricsName::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamSummaryOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;MetricsName::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<MetricsName::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Kinesis/src/Result/EnhancedMonitoringOutput.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;MetricsName::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<MetricsName::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/Kinesis/src/Result/ListStreamsOutput.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;string|StreamSummary&gt;</code>
-    </InvalidReturnType>
-  </file>
   <file src="src/Service/Kms/src/Input/CreateKeyRequest.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Kms/src/Result/CreateKeyResponse.php">
-    <LessSpecificReturnStatement occurrences="3">
+    <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="3">
-      <code>list&lt;EncryptionAlgorithmSpec::*&gt;</code>
-      <code>list&lt;MacAlgorithmSpec::*&gt;</code>
-      <code>list&lt;SigningAlgorithmSpec::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<EncryptionAlgorithmSpec::*>]]></code>
+      <code><![CDATA[list<MacAlgorithmSpec::*>]]></code>
+      <code><![CDATA[list<SigningAlgorithmSpec::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/ListFunctionsResponse.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;Architecture::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Architecture::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
-    <LessSpecificReturnStatement occurrences="2">
+    <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>list&lt;Architecture::*&gt;</code>
-      <code>list&lt;Runtime::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Architecture::*>]]></code>
+      <code><![CDATA[list<Runtime::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/ListVersionsByFunctionResponse.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;Architecture::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Architecture::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/PublishLayerVersionResponse.php">
-    <LessSpecificReturnStatement occurrences="2">
+    <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>list&lt;Architecture::*&gt;</code>
-      <code>list&lt;Runtime::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Architecture::*>]]></code>
+      <code><![CDATA[list<Runtime::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/CreateJobResponse.php">
-    <InvalidArgument occurrences="3"/>
-    <LessSpecificReturnStatement occurrences="2">
+    <InvalidArgument>
+      <code><![CDATA[[
+            'AccelerationSettings' => empty($json['accelerationSettings']) ? null : $this->populateResultAccelerationSettings($json['accelerationSettings']),
+            'AccelerationStatus' => isset($json['accelerationStatus']) ? (string) $json['accelerationStatus'] : null,
+            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
+            'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
+            'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
+            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
+            'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
+            'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
+            'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
+            'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
+            'Id' => isset($json['id']) ? (string) $json['id'] : null,
+            'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
+            'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
+            'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
+            'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
+            'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
+            'Queue' => isset($json['queue']) ? (string) $json['queue'] : null,
+            'QueueTransitions' => !isset($json['queueTransitions']) ? null : $this->populateResult__listOfQueueTransition($json['queueTransitions']),
+            'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
+            'Role' => (string) $json['role'],
+            'Settings' => $this->populateResultJobSettings($json['settings']),
+            'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
+            'Status' => isset($json['status']) ? (string) $json['status'] : null,
+            'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
+            'Timing' => empty($json['timing']) ? null : $this->populateResultTiming($json['timing']),
+            'UserMetadata' => !isset($json['userMetadata']) ? null : $this->populateResult__mapOf__string($json['userMetadata']),
+            'Warnings' => !isset($json['warnings']) ? null : $this->populateResult__listOfWarningGroup($json['warnings']),
+        ]]]></code>
+      <code><![CDATA[[
+            'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
+            'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
+            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
+        ]]]></code>
+      <code><![CDATA[[
+            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
+            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
+            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
+        ]]]></code>
+    </InvalidArgument>
+    <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>list&lt;HlsAdMarkers::*&gt;</code>
-      <code>list&lt;TeletextPageType::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<HlsAdMarkers::*>]]></code>
+      <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/GetJobResponse.php">
-    <InvalidArgument occurrences="3"/>
-    <LessSpecificReturnStatement occurrences="2">
+    <InvalidArgument>
+      <code><![CDATA[[
+            'AccelerationSettings' => empty($json['accelerationSettings']) ? null : $this->populateResultAccelerationSettings($json['accelerationSettings']),
+            'AccelerationStatus' => isset($json['accelerationStatus']) ? (string) $json['accelerationStatus'] : null,
+            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
+            'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
+            'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
+            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
+            'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
+            'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
+            'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
+            'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
+            'Id' => isset($json['id']) ? (string) $json['id'] : null,
+            'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
+            'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
+            'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
+            'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
+            'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
+            'Queue' => isset($json['queue']) ? (string) $json['queue'] : null,
+            'QueueTransitions' => !isset($json['queueTransitions']) ? null : $this->populateResult__listOfQueueTransition($json['queueTransitions']),
+            'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
+            'Role' => (string) $json['role'],
+            'Settings' => $this->populateResultJobSettings($json['settings']),
+            'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
+            'Status' => isset($json['status']) ? (string) $json['status'] : null,
+            'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
+            'Timing' => empty($json['timing']) ? null : $this->populateResultTiming($json['timing']),
+            'UserMetadata' => !isset($json['userMetadata']) ? null : $this->populateResult__mapOf__string($json['userMetadata']),
+            'Warnings' => !isset($json['warnings']) ? null : $this->populateResult__listOfWarningGroup($json['warnings']),
+        ]]]></code>
+      <code><![CDATA[[
+            'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
+            'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
+            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
+        ]]]></code>
+      <code><![CDATA[[
+            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
+            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
+            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
+        ]]]></code>
+    </InvalidArgument>
+    <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>list&lt;HlsAdMarkers::*&gt;</code>
-      <code>list&lt;TeletextPageType::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<HlsAdMarkers::*>]]></code>
+      <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/ListJobsResponse.php">
-    <InvalidArgument occurrences="3"/>
-    <LessSpecificReturnStatement occurrences="2">
+    <InvalidArgument>
+      <code><![CDATA[[
+            'AccelerationSettings' => empty($json['accelerationSettings']) ? null : $this->populateResultAccelerationSettings($json['accelerationSettings']),
+            'AccelerationStatus' => isset($json['accelerationStatus']) ? (string) $json['accelerationStatus'] : null,
+            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
+            'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
+            'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
+            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
+            'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
+            'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
+            'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
+            'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
+            'Id' => isset($json['id']) ? (string) $json['id'] : null,
+            'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
+            'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
+            'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
+            'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
+            'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
+            'Queue' => isset($json['queue']) ? (string) $json['queue'] : null,
+            'QueueTransitions' => !isset($json['queueTransitions']) ? null : $this->populateResult__listOfQueueTransition($json['queueTransitions']),
+            'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
+            'Role' => (string) $json['role'],
+            'Settings' => $this->populateResultJobSettings($json['settings']),
+            'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
+            'Status' => isset($json['status']) ? (string) $json['status'] : null,
+            'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
+            'Timing' => empty($json['timing']) ? null : $this->populateResultTiming($json['timing']),
+            'UserMetadata' => !isset($json['userMetadata']) ? null : $this->populateResult__mapOf__string($json['userMetadata']),
+            'Warnings' => !isset($json['warnings']) ? null : $this->populateResult__listOfWarningGroup($json['warnings']),
+        ]]]></code>
+      <code><![CDATA[[
+            'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
+            'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
+            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
+        ]]]></code>
+      <code><![CDATA[[
+            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
+            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
+            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
+        ]]]></code>
+    </InvalidArgument>
+    <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>list&lt;HlsAdMarkers::*&gt;</code>
-      <code>list&lt;TeletextPageType::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<HlsAdMarkers::*>]]></code>
+      <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/RdsDataService/src/Input/ExecuteStatementRequest.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Rekognition/src/Result/IndexFacesResponse.php">
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;Reason::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Reason::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/S3/src/Result/ListMultipartUploadsOutput.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;MultipartUpload|CommonPrefix&gt;</code>
-    </InvalidReturnType>
-  </file>
   <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
-    <InvalidReturnType occurrences="1">
-      <code>\Traversable&lt;AwsObject|CommonPrefix&gt;</code>
-    </InvalidReturnType>
-    <LessSpecificReturnStatement occurrences="1">
+    <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;ChecksumAlgorithm::*&gt;</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<ChecksumAlgorithm::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/S3/src/Signer/SignerV4ForS3.php">
-    <InvalidArgument occurrences="1">
+    <InvalidArgument>
       <code>array_keys($s3SignerOptions)</code>
     </InvalidArgument>
-    <NoValue occurrences="1">
+    <NoValue>
       <code>$s3SignerOptions</code>
     </NoValue>
-    <TypeDoesNotContainType occurrences="1">
+    <TypeDoesNotContainType>
       <code>empty($s3SignerOptions)</code>
     </TypeDoesNotContainType>
   </file>
   <file src="src/Service/Scheduler/src/Result/ListScheduleGroupsOutput.php">
-    <InvalidArgument occurrences="1"/>
+    <InvalidArgument>
+      <code><![CDATA[[
+            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
+            'CreationDate' => isset($json['CreationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])) : null,
+            'LastModificationDate' => isset($json['LastModificationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModificationDate'])) : null,
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'State' => isset($json['State']) ? (string) $json['State'] : null,
+        ]]]></code>
+    </InvalidArgument>
   </file>
   <file src="src/Service/Scheduler/src/Result/ListSchedulesOutput.php">
-    <InvalidArgument occurrences="1"/>
+    <InvalidArgument>
+      <code><![CDATA[[
+            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
+            'CreationDate' => isset($json['CreationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])) : null,
+            'GroupName' => isset($json['GroupName']) ? (string) $json['GroupName'] : null,
+            'LastModificationDate' => isset($json['LastModificationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModificationDate'])) : null,
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'Target' => empty($json['Target']) ? null : $this->populateResultTargetSummary($json['Target']),
+        ]]]></code>
+    </InvalidArgument>
   </file>
   <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/SecretsManager/src/Input/DeleteSecretRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/SecretsManager/src/Input/ListSecretsRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Ssm/src/Input/GetParameterRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Ssm/src/Input/GetParametersByPathRequest.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Ssm/src/Input/GetParametersRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Ssm/src/Input/PutParameterRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/TimestreamQuery/src/Input/PrepareQueryRequest.php">
-    <RedundantCastGivenDocblockType occurrences="1">
+    <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
