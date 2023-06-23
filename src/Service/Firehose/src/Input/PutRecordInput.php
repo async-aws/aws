@@ -32,8 +32,7 @@ final class PutRecordInput extends Input
      * @param array{
      *   DeliveryStreamName?: string,
      *   Record?: Record|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

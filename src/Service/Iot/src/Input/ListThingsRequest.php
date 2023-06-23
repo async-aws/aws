@@ -66,8 +66,7 @@ final class ListThingsRequest extends Input
      *   attributeValue?: string,
      *   thingTypeName?: string,
      *   usePrefixAttributeValue?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

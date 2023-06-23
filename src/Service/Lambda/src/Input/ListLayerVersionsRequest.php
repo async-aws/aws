@@ -61,8 +61,7 @@ final class ListLayerVersionsRequest extends Input
      *   Marker?: string,
      *   MaxItems?: int,
      *   CompatibleArchitecture?: Architecture::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

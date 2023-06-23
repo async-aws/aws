@@ -73,8 +73,7 @@ class CodeDeployClient extends AbstractApi
      *   updateOutdatedInstancesOnly?: bool,
      *   fileExistsBehavior?: FileExistsBehavior::*,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
      *
      * @throws ApplicationNameRequiredException
@@ -151,8 +150,7 @@ class CodeDeployClient extends AbstractApi
      *
      * @param array{
      *   deploymentId: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetDeploymentInput $input
      *
      * @throws DeploymentIdRequiredException
@@ -189,8 +187,7 @@ class CodeDeployClient extends AbstractApi
      *   deploymentId?: string,
      *   lifecycleEventHookExecutionId?: string,
      *   status?: LifecycleEventStatus::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      *
      * @throws InvalidLifecycleEventHookExecutionStatusException

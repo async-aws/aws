@@ -39,8 +39,7 @@ final class RevokeTokenRequest extends Input
      *   Token?: string,
      *   ClientId?: string,
      *   ClientSecret?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

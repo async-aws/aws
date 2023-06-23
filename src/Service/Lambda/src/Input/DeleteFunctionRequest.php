@@ -38,8 +38,7 @@ final class DeleteFunctionRequest extends Input
      * @param array{
      *   FunctionName?: string,
      *   Qualifier?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

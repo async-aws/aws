@@ -115,8 +115,7 @@ final class ListMultipartUploadsRequest extends Input
      *   UploadIdMarker?: string,
      *   ExpectedBucketOwner?: string,
      *   RequestPayer?: RequestPayer::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

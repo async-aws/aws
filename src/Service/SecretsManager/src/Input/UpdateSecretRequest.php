@@ -101,8 +101,7 @@ final class UpdateSecretRequest extends Input
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

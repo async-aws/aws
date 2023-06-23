@@ -11,6 +11,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 class StreamFactory
 {
+    /**
+     * @param string|resource|(callable(int): string)|iterable<string>|null $content
+     */
     public static function create($content, int $preferredChunkSize = 64 * 1024): RequestStream
     {
         if (null === $content || \is_string($content)) {

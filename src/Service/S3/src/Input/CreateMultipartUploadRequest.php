@@ -308,8 +308,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

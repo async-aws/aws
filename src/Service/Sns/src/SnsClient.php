@@ -79,8 +79,7 @@ class SnsClient extends AbstractApi
      *   Token: string,
      *   CustomUserData?: string,
      *   Attributes?: array<string, string>,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreatePlatformEndpointInput $input
      *
      * @throws InvalidParameterException
@@ -117,8 +116,7 @@ class SnsClient extends AbstractApi
      *   Attributes?: array<string, string>,
      *   Tags?: Tag[],
      *   DataProtectionPolicy?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreateTopicInput $input
      *
      * @throws InvalidParameterException
@@ -163,8 +161,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   EndpointArn: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteEndpointInput $input
      *
      * @throws InvalidParameterException
@@ -193,8 +190,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   TopicArn: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteTopicInput $input
      *
      * @throws InvalidParameterException
@@ -234,8 +230,7 @@ class SnsClient extends AbstractApi
      * @param array{
      *   TopicArn: string,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListSubscriptionsByTopicInput $input
      *
      * @throws InvalidParameterException
@@ -289,8 +284,7 @@ class SnsClient extends AbstractApi
      *   MessageAttributes?: array<string, MessageAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PublishInput $input
      *
      * @throws InvalidParameterException
@@ -364,8 +358,7 @@ class SnsClient extends AbstractApi
      * @param array{
      *   TopicArn: string,
      *   PublishBatchRequestEntries: PublishBatchRequestEntry[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PublishBatchInput $input
      *
      * @throws InvalidParameterException
@@ -437,8 +430,7 @@ class SnsClient extends AbstractApi
      *   Endpoint?: string,
      *   Attributes?: array<string, string>,
      *   ReturnSubscriptionArn?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|SubscribeInput $input
      *
      * @throws SubscriptionLimitExceededException
@@ -482,8 +474,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   SubscriptionArn: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|UnsubscribeInput $input
      *
      * @throws InvalidParameterException

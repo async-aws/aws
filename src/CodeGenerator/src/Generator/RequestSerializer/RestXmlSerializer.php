@@ -143,6 +143,8 @@ class RestXmlSerializer implements Serializer
             case 'string':
             case 'integer':
             case 'long':
+            case 'float':
+            case 'double':
                 return $this->dumpXmlShapeString($member, $shape, $output, $input);
             case 'boolean':
                 return $this->dumpXmlShapeBoolean($member, $output, $input);

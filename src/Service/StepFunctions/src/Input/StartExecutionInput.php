@@ -12,6 +12,30 @@ final class StartExecutionInput extends Input
     /**
      * The Amazon Resource Name (ARN) of the state machine to execute.
      *
+     * The `stateMachineArn` parameter accepts one of the following inputs:
+     *
+     * - **An unqualified state machine ARN** – Refers to a state machine ARN that isn't qualified with a version or alias
+     *   ARN. The following is an example of an unqualified state machine ARN.
+     *
+     *   `arn:<partition>:states:<region>:<account-id>:stateMachine:<myStateMachine>`
+     *
+     *   Step Functions doesn't associate state machine executions that you start with an unqualified ARN with a version.
+     *   This is true even if that version uses the same revision that the execution used.
+     * - **A state machine version ARN** – Refers to a version ARN, which is a combination of state machine ARN and the
+     *   version number separated by a colon (:). The following is an example of the ARN for version 10.
+     *
+     *   `arn:<partition>:states:<region>:<account-id>:stateMachine:<myStateMachine>:10`
+     *
+     *   Step Functions doesn't associate executions that you start with a version ARN with any aliases that point to that
+     *   version.
+     * - **A state machine alias ARN** – Refers to an alias ARN, which is a combination of state machine ARN and the alias
+     *   name separated by a colon (:). The following is an example of the ARN for an alias named `PROD`.
+     *
+     *   `arn:<partition>:states:<region>:<account-id>:stateMachine:<myStateMachine:PROD>`
+     *
+     *   Step Functions associates executions that you start with an alias ARN with that alias and the state machine version
+     *   used for that execution.
+     *
      * @required
      *
      * @var string|null
@@ -19,9 +43,9 @@ final class StartExecutionInput extends Input
     private $stateMachineArn;
 
     /**
-     * The name of the execution. This name must be unique for your Amazon Web Services account, region, and state machine
-     * for 90 days. For more information, see  Limits Related to State Machine Executions [^1] in the *Step Functions
-     * Developer Guide*.
+     * Optional name of the execution. This name must be unique for your Amazon Web Services account, Region, and state
+     * machine for 90 days. For more information, see  Limits Related to State Machine Executions [^1] in the *Step
+     * Functions Developer Guide*.
      *
      * A name must *not* contain:
      *
@@ -65,8 +89,7 @@ final class StartExecutionInput extends Input
      *   name?: string,
      *   input?: string,
      *   traceHeader?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

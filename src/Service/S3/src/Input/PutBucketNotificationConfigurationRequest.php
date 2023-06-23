@@ -47,8 +47,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
      *   NotificationConfiguration?: NotificationConfiguration|array,
      *   ExpectedBucketOwner?: string,
      *   SkipDestinationValidation?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

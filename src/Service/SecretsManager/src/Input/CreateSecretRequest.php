@@ -173,8 +173,7 @@ final class CreateSecretRequest extends Input
      *   Tags?: Tag[],
      *   AddReplicaRegions?: ReplicaRegionType[],
      *   ForceOverwriteReplicaSecret?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

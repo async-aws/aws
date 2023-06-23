@@ -123,8 +123,7 @@ final class FilterLogEventsRequest extends Input
      *   limit?: int,
      *   interleaved?: bool,
      *   unmask?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

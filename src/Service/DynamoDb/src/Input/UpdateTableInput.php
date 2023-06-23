@@ -134,8 +134,7 @@ final class UpdateTableInput extends Input
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -35,8 +35,7 @@ final class CreateInvalidationRequest extends Input
      * @param array{
      *   DistributionId?: string,
      *   InvalidationBatch?: InvalidationBatch|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

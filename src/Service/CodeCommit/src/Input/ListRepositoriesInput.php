@@ -42,8 +42,7 @@ final class ListRepositoriesInput extends Input
      *   nextToken?: string,
      *   sortBy?: SortByEnum::*,
      *   order?: OrderEnum::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

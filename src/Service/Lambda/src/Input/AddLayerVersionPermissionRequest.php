@@ -80,8 +80,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *   Principal?: string,
      *   OrganizationId?: string,
      *   RevisionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

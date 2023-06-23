@@ -57,8 +57,7 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteParameterRequest $input
      *
      * @throws InternalServerErrorException
@@ -84,8 +83,7 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Names: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteParametersRequest $input
      *
      * @throws InternalServerErrorException
@@ -111,8 +109,7 @@ class SsmClient extends AbstractApi
      * @param array{
      *   Name: string,
      *   WithDecryption?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetParameterRequest $input
      *
      * @throws InternalServerErrorException
@@ -144,8 +141,7 @@ class SsmClient extends AbstractApi
      * @param array{
      *   Names: string[],
      *   WithDecryption?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetParametersRequest $input
      *
      * @throws InvalidKeyIdException
@@ -181,8 +177,7 @@ class SsmClient extends AbstractApi
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetParametersByPathRequest $input
      *
      * @throws InternalServerErrorException
@@ -225,8 +220,7 @@ class SsmClient extends AbstractApi
      *   Tier?: ParameterTier::*,
      *   Policies?: string,
      *   DataType?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutParameterRequest $input
      *
      * @throws InternalServerErrorException

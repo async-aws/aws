@@ -21,8 +21,7 @@ final class CreateProjectRequest extends Input
     /**
      * @param array{
      *   ProjectName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

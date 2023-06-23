@@ -82,8 +82,7 @@ final class StartQueryExecutionInput extends Input
      *   WorkGroup?: string,
      *   ExecutionParameters?: string[],
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

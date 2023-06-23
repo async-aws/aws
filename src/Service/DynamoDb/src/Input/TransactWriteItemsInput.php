@@ -68,8 +68,7 @@ final class TransactWriteItemsInput extends Input
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

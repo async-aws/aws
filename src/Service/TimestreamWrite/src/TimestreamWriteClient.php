@@ -43,8 +43,7 @@ class TimestreamWriteClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ingest.timestream-2018-11-01.html#describeendpoints
      *
      * @param array{
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DescribeEndpointsRequest $input
      *
      * @throws InternalServerException
@@ -108,8 +107,7 @@ class TimestreamWriteClient extends AbstractApi
      *   TableName: string,
      *   CommonAttributes?: Record|array,
      *   Records: Record[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|WriteRecordsRequest $input
      *
      * @throws InternalServerException

@@ -21,8 +21,7 @@ final class CancelQueryRequest extends Input
     /**
      * @param array{
      *   QueryId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

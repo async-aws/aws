@@ -58,8 +58,7 @@ final class CreateAliasRequest extends Input
      * @param array{
      *   AliasName?: string,
      *   TargetKeyId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

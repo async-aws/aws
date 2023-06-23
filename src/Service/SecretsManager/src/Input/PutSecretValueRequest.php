@@ -99,8 +99,7 @@ final class PutSecretValueRequest extends Input
      *   SecretBinary?: string,
      *   SecretString?: string,
      *   VersionStages?: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

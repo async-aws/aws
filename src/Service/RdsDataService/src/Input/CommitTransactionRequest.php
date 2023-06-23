@@ -44,8 +44,7 @@ final class CommitTransactionRequest extends Input
      *   resourceArn?: string,
      *   secretArn?: string,
      *   transactionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

@@ -17,10 +17,7 @@ abstract class Input
     public $region;
 
     /**
-     * @param array{
-     *
-     *   @region?: ?string,
-     * } $input
+     * @param array{'@region'?: ?string,...} $input
      */
     protected function __construct(array $input)
     {

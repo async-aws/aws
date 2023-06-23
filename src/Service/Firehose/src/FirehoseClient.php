@@ -58,8 +58,7 @@ class FirehoseClient extends AbstractApi
      * @param array{
      *   DeliveryStreamName: string,
      *   Record: Record|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutRecordInput $input
      *
      * @throws ResourceNotFoundException
@@ -136,8 +135,7 @@ class FirehoseClient extends AbstractApi
      * @param array{
      *   DeliveryStreamName: string,
      *   Records: Record[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutRecordBatchInput $input
      *
      * @throws ResourceNotFoundException

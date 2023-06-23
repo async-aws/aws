@@ -299,8 +299,7 @@ final class CreateKeyRequest extends Input
      *   Tags?: Tag[],
      *   MultiRegion?: bool,
      *   XksKeyId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

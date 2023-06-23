@@ -132,8 +132,7 @@ class S3Client extends AbstractApi
      *   UploadId: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|AbortMultipartUploadRequest $input
      *
      * @throws NoSuchUploadException
@@ -154,8 +153,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|HeadBucketRequest $input
      */
     public function bucketExists($input): BucketExistsWaiter
@@ -174,8 +172,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|HeadBucketRequest $input
      */
     public function bucketNotExists($input): BucketNotExistsWaiter
@@ -282,8 +279,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CompleteMultipartUploadRequest $input
      */
     public function completeMultipartUpload($input): CompleteMultipartUploadOutput
@@ -501,8 +497,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
      *   ExpectedSourceBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CopyObjectRequest $input
      *
      * @throws ObjectNotInActiveTierErrorException
@@ -602,8 +597,7 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
      *   ObjectOwnership?: ObjectOwnership::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreateBucketRequest $input
      *
      * @throws BucketAlreadyExistsException
@@ -835,8 +829,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreateMultipartUploadRequest $input
      */
     public function createMultipartUpload($input): CreateMultipartUploadOutput
@@ -866,8 +859,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteBucketRequest $input
      */
     public function deleteBucket($input): Result
@@ -902,8 +894,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteBucketCorsRequest $input
      */
     public function deleteBucketCors($input): Result
@@ -956,8 +947,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteObjectRequest $input
      */
     public function deleteObject($input): DeleteObjectOutput
@@ -1056,8 +1046,7 @@ class S3Client extends AbstractApi
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteObjectsRequest $input
      */
     public function deleteObjects($input): DeleteObjectsOutput
@@ -1100,8 +1089,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetBucketCorsRequest $input
      */
     public function getBucketCors($input): GetBucketCorsOutput
@@ -1139,8 +1127,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetBucketEncryptionRequest $input
      */
     public function getBucketEncryption($input): GetBucketEncryptionOutput
@@ -1293,8 +1280,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetObjectRequest $input
      *
      * @throws NoSuchKeyException
@@ -1349,8 +1335,7 @@ class S3Client extends AbstractApi
      *   VersionId?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetObjectAclRequest $input
      *
      * @throws NoSuchKeyException
@@ -1500,8 +1485,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|HeadObjectRequest $input
      *
      * @throws NoSuchKeyException
@@ -1529,8 +1513,7 @@ class S3Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listbuckets
      *
      * @param array{
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListBucketsRequest $input
      */
     public function listBuckets($input = []): ListBucketsOutput
@@ -1589,8 +1572,7 @@ class S3Client extends AbstractApi
      *   UploadIdMarker?: string,
      *   ExpectedBucketOwner?: string,
      *   RequestPayer?: RequestPayer::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListMultipartUploadsRequest $input
      */
     public function listMultipartUploads($input): ListMultipartUploadsOutput
@@ -1650,8 +1632,7 @@ class S3Client extends AbstractApi
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListObjectsV2Request $input
      *
      * @throws NoSuchBucketException
@@ -1716,8 +1697,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListPartsRequest $input
      */
     public function listParts($input): ListPartsOutput
@@ -1747,8 +1727,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|HeadObjectRequest $input
      */
     public function objectExists($input): ObjectExistsWaiter
@@ -1780,8 +1759,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
      *   ChecksumMode?: ChecksumMode::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|HeadObjectRequest $input
      */
     public function objectNotExists($input): ObjectNotExistsWaiter
@@ -1841,8 +1819,7 @@ class S3Client extends AbstractApi
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutBucketCorsRequest $input
      */
     public function putBucketCors($input): Result
@@ -1911,8 +1888,7 @@ class S3Client extends AbstractApi
      *   NotificationConfiguration: NotificationConfiguration|array,
      *   ExpectedBucketOwner?: string,
      *   SkipDestinationValidation?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutBucketNotificationConfigurationRequest $input
      */
     public function putBucketNotificationConfiguration($input): Result
@@ -1986,8 +1962,7 @@ class S3Client extends AbstractApi
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   Tagging: Tagging|array,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutBucketTaggingRequest $input
      */
     public function putBucketTagging($input): Result
@@ -2081,7 +2056,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   ACL?: ObjectCannedACL::*,
-     *   Body?: string|resource|callable|iterable,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -2117,8 +2092,7 @@ class S3Client extends AbstractApi
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutObjectRequest $input
      */
     public function putObject($input): PutObjectOutput
@@ -2266,8 +2240,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutObjectAclRequest $input
      *
      * @throws NoSuchKeyException
@@ -2447,7 +2420,7 @@ class S3Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpart
      *
      * @param array{
-     *   Body?: string|resource|callable|iterable,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket: string,
      *   ContentLength?: string,
      *   ContentMD5?: string,
@@ -2464,8 +2437,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|UploadPartRequest $input
      */
     public function uploadPart($input): UploadPartOutput

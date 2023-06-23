@@ -193,7 +193,7 @@ class InputGenerator
                     $constructorBody .= strtr('
                         if (isset($input["NAME"])) {
                             $this->PROPERTY = [];
-                            foreach ($input["NAME"] ?? [] as $key => $item) {
+                            foreach ($input["NAME"] as $key => $item) {
                                 $this->PROPERTY[$key] = array_map([CLASS::class, "create"], $item);
                             }
                         }
@@ -210,7 +210,7 @@ class InputGenerator
                     $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
-                $parameterType = 'string|resource|callable|iterable';
+                $parameterType = 'string|resource|(callable(int): string)|iterable<string>';
                 $returnType = null;
                 $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             } elseif ('timestamp' === $memberShape->getType()) {
@@ -278,7 +278,7 @@ class InputGenerator
 
         $constructorBody .= 'parent::__construct($input);';
         $constructor = $classBuilder->addMethod('__construct');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']);
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  \'@region\'?: string|null,']);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());

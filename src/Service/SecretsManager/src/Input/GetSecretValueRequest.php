@@ -52,8 +52,7 @@ final class GetSecretValueRequest extends Input
      *   SecretId?: string,
      *   VersionId?: string,
      *   VersionStage?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

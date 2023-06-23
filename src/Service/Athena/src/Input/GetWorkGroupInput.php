@@ -21,8 +21,7 @@ final class GetWorkGroupInput extends Input
     /**
      * @param array{
      *   WorkGroup?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

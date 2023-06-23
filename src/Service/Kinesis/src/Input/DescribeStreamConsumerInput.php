@@ -37,8 +37,7 @@ final class DescribeStreamConsumerInput extends Input
      *   StreamARN?: string,
      *   ConsumerName?: string,
      *   ConsumerARN?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

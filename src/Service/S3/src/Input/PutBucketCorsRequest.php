@@ -74,8 +74,7 @@ final class PutBucketCorsRequest extends Input
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

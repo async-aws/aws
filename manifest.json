@@ -1,6 +1,6 @@
 {
     "variables": {
-        "${LATEST}": "3.273.5"
+        "${LATEST}": "3.273.6"
     },
     "endpoints": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/endpoints.json",
     "services": {

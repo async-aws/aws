@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.1.0@4defa177c89397c5e14737a80fe4896584130674">
+  <file src="src/Core/src/AbstractApi.php">
+    <UndefinedFunction occurrences="2">
+      <code>trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__)</code>
+      <code>trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.')</code>
+    </UndefinedFunction>
+  </file>
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
     <InvalidCatch occurrences="1"/>
     <InvalidThrow occurrences="1">
@@ -27,7 +33,22 @@
       <code>$exception</code>
     </PossiblyUndefinedVariable>
   </file>
+  <file src="src/Integration/Aws/DynamoDbSession/src/SessionHandler.php">
+    <ArgumentTypeCoercion occurrences="6">
+      <code>['TableName' =&gt; $this-&gt;options['table_name']]</code>
+    </ArgumentTypeCoercion>
+  </file>
+  <file src="src/Integration/Aws/SimpleS3/src/SimpleS3Client.php">
+    <ArgumentTypeCoercion occurrences="1"/>
+    <InvalidArgument occurrences="2">
+      <code>array_merge($options, ['Bucket' =&gt; $bucket, 'Key' =&gt; $key])</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Integration/Flysystem/S3/src/AsyncAwsS3Adapter.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
   <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
+    <InvalidArgument occurrences="7"/>
     <RedundantCast occurrences="1">
       <code>(int) $e-&gt;getCode()</code>
     </RedundantCast>
@@ -52,12 +73,22 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Integration/Laravel/Mail/src/Transport/AsyncAwsSesTransport.php">
-    <InvalidArgument occurrences="1"/>
+    <InvalidArgument occurrences="2">
+      <code>array_merge($this-&gt;options, $input)</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Integration/Laravel/Queue/src/Job/AsyncAwsSqsJob.php">
+    <ArgumentTypeCoercion occurrences="2"/>
   </file>
   <file src="src/Integration/Laravel/Queue/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$data</code>
+    </ArgumentTypeCoercion>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">

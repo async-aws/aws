@@ -35,8 +35,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

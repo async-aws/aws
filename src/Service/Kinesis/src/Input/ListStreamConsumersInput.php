@@ -69,8 +69,7 @@ final class ListStreamConsumersInput extends Input
      *   NextToken?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

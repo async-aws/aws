@@ -20,8 +20,7 @@ final class StopQueryExecutionInput extends Input
     /**
      * @param array{
      *   QueryExecutionId?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

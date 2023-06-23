@@ -79,8 +79,7 @@ final class PublishLayerVersionRequest extends Input
      *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
      *   CompatibleArchitectures?: list<Architecture::*>,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

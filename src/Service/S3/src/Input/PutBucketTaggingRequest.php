@@ -72,8 +72,7 @@ final class PutBucketTaggingRequest extends Input
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   Tagging?: Tagging|array,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

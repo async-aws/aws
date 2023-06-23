@@ -146,8 +146,7 @@ final class AdminInitiateAuthRequest extends Input
      *   ClientMetadata?: array<string, string>,
      *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ContextData?: ContextDataType|array,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

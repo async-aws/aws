@@ -115,8 +115,7 @@ final class ListObjectsV2Request extends Input
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

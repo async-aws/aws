@@ -38,8 +38,7 @@ final class ListThingGroupsForThingRequest extends Input
      *   thingName?: string,
      *   nextToken?: string,
      *   maxResults?: int,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])

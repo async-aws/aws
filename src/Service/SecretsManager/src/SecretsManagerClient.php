@@ -95,8 +95,7 @@ class SecretsManagerClient extends AbstractApi
      *   Tags?: Tag[],
      *   AddReplicaRegions?: ReplicaRegionType[],
      *   ForceOverwriteReplicaSecret?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      *
      * @throws InvalidParameterException
@@ -175,8 +174,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretId: string,
      *   RecoveryWindowInDays?: string,
      *   ForceDeleteWithoutRecovery?: bool,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|DeleteSecretRequest $input
      *
      * @throws ResourceNotFoundException
@@ -229,8 +227,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretId: string,
      *   VersionId?: string,
      *   VersionStage?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|GetSecretValueRequest $input
      *
      * @throws ResourceNotFoundException
@@ -287,8 +284,7 @@ class SecretsManagerClient extends AbstractApi
      *   NextToken?: string,
      *   Filters?: Filter[],
      *   SortOrder?: SortOrderType::*,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|ListSecretsRequest $input
      *
      * @throws InvalidParameterException
@@ -349,8 +345,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretBinary?: string,
      *   SecretString?: string,
      *   VersionStages?: string[],
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      *
      * @throws InvalidParameterException
@@ -427,8 +422,7 @@ class SecretsManagerClient extends AbstractApi
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * }|UpdateSecretRequest $input
      *
      * @throws InvalidParameterException

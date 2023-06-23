@@ -21,8 +21,7 @@ final class StopBuildInput extends Input
     /**
      * @param array{
      *   id?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
