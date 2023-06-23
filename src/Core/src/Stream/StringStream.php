@@ -22,6 +22,9 @@ final class StringStream implements RequestStream
         $this->content = $content;
     }
 
+    /**
+     * @param RequestStream|string $content
+     */
     public static function create($content): StringStream
     {
         if ($content instanceof self) {

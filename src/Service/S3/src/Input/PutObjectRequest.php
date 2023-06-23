@@ -30,7 +30,7 @@ final class PutObjectRequest extends Input
     /**
      * Object data.
      *
-     * @var string|resource|callable|iterable|null
+     * @var string|resource|(callable(int): string)|iterable<string>|null
      */
     private $body;
 
@@ -395,7 +395,7 @@ final class PutObjectRequest extends Input
     /**
      * @param array{
      *   ACL?: ObjectCannedACL::*,
-     *   Body?: string|resource|callable|iterable,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket?: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -490,7 +490,7 @@ final class PutObjectRequest extends Input
     }
 
     /**
-     * @return string|resource|callable|iterable|null
+     * @return string|resource|(callable(int): string)|iterable<string>|null
      */
     public function getBody()
     {
@@ -859,7 +859,7 @@ final class PutObjectRequest extends Input
     }
 
     /**
-     * @param string|resource|callable|iterable|null $value
+     * @param string|resource|(callable(int): string)|iterable<string>|null $value
      */
     public function setBody($value): self
     {

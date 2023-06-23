@@ -14,7 +14,7 @@ final class UploadPartRequest extends Input
     /**
      * Object data.
      *
-     * @var string|resource|callable|iterable|null
+     * @var string|resource|(callable(int): string)|iterable<string>|null
      */
     private $body;
 
@@ -184,7 +184,7 @@ final class UploadPartRequest extends Input
 
     /**
      * @param array{
-     *   Body?: string|resource|callable|iterable,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket?: string,
      *   ContentLength?: string,
      *   ContentMD5?: string,
@@ -232,7 +232,7 @@ final class UploadPartRequest extends Input
     }
 
     /**
-     * @return string|resource|callable|iterable|null
+     * @return string|resource|(callable(int): string)|iterable<string>|null
      */
     public function getBody()
     {
@@ -406,7 +406,7 @@ final class UploadPartRequest extends Input
     }
 
     /**
-     * @param string|resource|callable|iterable|null $value
+     * @param string|resource|(callable(int): string)|iterable<string>|null $value
      */
     public function setBody($value): self
     {

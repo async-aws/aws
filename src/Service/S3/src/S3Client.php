@@ -1967,7 +1967,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   ACL?: ObjectCannedACL::*,
-     *   Body?: string|resource|callable|iterable,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -2261,7 +2261,7 @@ class S3Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpart
      *
      * @param array{
-     *   Body?: string|resource|callable|iterable,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket: string,
      *   ContentLength?: string,
      *   ContentMD5?: string,

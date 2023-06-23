@@ -17,10 +17,13 @@ namespace AsyncAws\Core\Stream;
  */
 final class RewindableStream implements RequestStream
 {
+    /**
+     * @var RequestStream
+     */
     private $content;
 
     /**
-     * @var RequestStream
+     * @var RequestStream|null
      */
     private $fallback;
 

@@ -89,7 +89,7 @@ class TypeGenerator
                     $param = 'array<string, ' . $param . '>';
                 }
             } elseif ($member->isStreaming()) {
-                $param = 'string|resource|callable|iterable';
+                $param = 'string|resource|(callable(int): string)|iterable<string>';
             } elseif ('timestamp' === $param = $memberShape->getType()) {
                 $param = $isObject ? '\DateTimeImmutable' : '\DateTimeImmutable|string';
             } else {

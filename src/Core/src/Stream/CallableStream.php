@@ -14,16 +14,28 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 final class CallableStream implements ReadOnceResultStream, RequestStream
 {
+    /**
+     * @var callable(int): string
+     */
     private $content;
 
+    /**
+     * @var int
+     */
     private $chunkSize;
 
+    /**
+     * @param callable(int): string $content
+     */
     private function __construct(callable $content, int $chunkSize = 64 * 1024)
     {
         $this->content = $content;
         $this->chunkSize = $chunkSize;
     }
 
+    /**
+     * @param self|callable(int): string $content
+     */
     public static function create($content, int $chunkSize = 64 * 1024): CallableStream
     {
         if ($content instanceof self) {
