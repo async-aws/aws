@@ -34,7 +34,7 @@ final class PutRepositoryTriggersInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   triggers?: RepositoryTrigger[],
+     *   triggers?: array<RepositoryTrigger|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -48,7 +48,7 @@ final class PutRepositoryTriggersInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   triggers?: RepositoryTrigger[],
+     *   triggers?: array<RepositoryTrigger|array>,
      *   '@region'?: string|null,
      * }|PutRepositoryTriggersInput $input
      */

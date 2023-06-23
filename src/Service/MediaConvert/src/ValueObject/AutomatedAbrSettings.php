@@ -43,7 +43,7 @@ final class AutomatedAbrSettings
      *   MaxAbrBitrate?: null|int,
      *   MaxRenditions?: null|int,
      *   MinAbrBitrate?: null|int,
-     *   Rules?: null|AutomatedAbrRule[],
+     *   Rules?: null|array<AutomatedAbrRule|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -59,7 +59,7 @@ final class AutomatedAbrSettings
      *   MaxAbrBitrate?: null|int,
      *   MaxRenditions?: null|int,
      *   MinAbrBitrate?: null|int,
-     *   Rules?: null|AutomatedAbrRule[],
+     *   Rules?: null|array<AutomatedAbrRule|array>,
      * }|AutomatedAbrSettings $input
      */
     public static function create($input): self

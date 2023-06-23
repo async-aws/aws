@@ -57,12 +57,12 @@ final class UserType
     /**
      * @param array{
      *   Username?: null|string,
-     *   Attributes?: null|AttributeType[],
+     *   Attributes?: null|array<AttributeType|array>,
      *   UserCreateDate?: null|\DateTimeImmutable,
      *   UserLastModifiedDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
      *   UserStatus?: null|UserStatusType::*,
-     *   MFAOptions?: null|MFAOptionType[],
+     *   MFAOptions?: null|array<MFAOptionType|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -79,12 +79,12 @@ final class UserType
     /**
      * @param array{
      *   Username?: null|string,
-     *   Attributes?: null|AttributeType[],
+     *   Attributes?: null|array<AttributeType|array>,
      *   UserCreateDate?: null|\DateTimeImmutable,
      *   UserLastModifiedDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
      *   UserStatus?: null|UserStatusType::*,
-     *   MFAOptions?: null|MFAOptionType[],
+     *   MFAOptions?: null|array<MFAOptionType|array>,
      * }|UserType $input
      */
     public static function create($input): self

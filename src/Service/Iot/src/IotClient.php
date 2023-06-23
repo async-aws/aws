@@ -147,7 +147,7 @@ class IotClient extends AbstractApi
      *   thingGroupName: string,
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
-     *   tags?: Tag[],
+     *   tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateThingGroupRequest $input
      *
@@ -182,7 +182,7 @@ class IotClient extends AbstractApi
      * @param array{
      *   thingTypeName: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
-     *   tags?: Tag[],
+     *   tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateThingTypeRequest $input
      *

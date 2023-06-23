@@ -15,7 +15,7 @@ final class ResultSetMetadata
 
     /**
      * @param array{
-     *   ColumnInfo?: null|ColumnInfo[],
+     *   ColumnInfo?: null|array<ColumnInfo|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -25,7 +25,7 @@ final class ResultSetMetadata
 
     /**
      * @param array{
-     *   ColumnInfo?: null|ColumnInfo[],
+     *   ColumnInfo?: null|array<ColumnInfo|array>,
      * }|ResultSetMetadata $input
      */
     public static function create($input): self

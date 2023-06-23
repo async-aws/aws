@@ -15,7 +15,7 @@ final class BadRequestDetail
 
     /**
      * @param array{
-     *   codeErrors?: null|CodeError[],
+     *   codeErrors?: null|array<CodeError|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -25,7 +25,7 @@ final class BadRequestDetail
 
     /**
      * @param array{
-     *   codeErrors?: null|CodeError[],
+     *   codeErrors?: null|array<CodeError|array>,
      * }|BadRequestDetail $input
      */
     public static function create($input): self

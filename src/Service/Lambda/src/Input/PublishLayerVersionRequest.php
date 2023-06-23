@@ -76,9 +76,9 @@ final class PublishLayerVersionRequest extends Input
      *   LayerName?: string,
      *   Description?: string,
      *   Content?: LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: list<Runtime::*>,
+     *   CompatibleRuntimes?: array<Runtime::*>,
      *   LicenseInfo?: string,
-     *   CompatibleArchitectures?: list<Architecture::*>,
+     *   CompatibleArchitectures?: array<Architecture::*>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -98,9 +98,9 @@ final class PublishLayerVersionRequest extends Input
      *   LayerName?: string,
      *   Description?: string,
      *   Content?: LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: list<Runtime::*>,
+     *   CompatibleRuntimes?: array<Runtime::*>,
      *   LicenseInfo?: string,
-     *   CompatibleArchitectures?: list<Architecture::*>,
+     *   CompatibleArchitectures?: array<Architecture::*>,
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      */

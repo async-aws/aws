@@ -43,11 +43,11 @@ final class Delete
 
     /**
      * @param array{
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      *   TableName: string,
      *   ConditionExpression?: null|string,
      *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      * } $input
      */
@@ -63,11 +63,11 @@ final class Delete
 
     /**
      * @param array{
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      *   TableName: string,
      *   ConditionExpression?: null|string,
      *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      * }|Delete $input
      */

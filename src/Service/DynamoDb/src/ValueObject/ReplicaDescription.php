@@ -74,7 +74,7 @@ final class ReplicaDescription
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndexDescription[],
+     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      *   ReplicaTableClassSummary?: null|TableClassSummary|array,
      * } $input
@@ -100,7 +100,7 @@ final class ReplicaDescription
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndexDescription[],
+     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      *   ReplicaTableClassSummary?: null|TableClassSummary|array,
      * }|ReplicaDescription $input

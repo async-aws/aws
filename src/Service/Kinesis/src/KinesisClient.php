@@ -471,7 +471,7 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   StreamName?: string,
-     *   ShardLevelMetrics: list<MetricsName::*>,
+     *   ShardLevelMetrics: array<MetricsName::*>,
      *   StreamARN?: string,
      *   '@region'?: string|null,
      * }|DisableEnhancedMonitoringInput $input
@@ -507,7 +507,7 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   StreamName?: string,
-     *   ShardLevelMetrics: list<MetricsName::*>,
+     *   ShardLevelMetrics: array<MetricsName::*>,
      *   StreamARN?: string,
      *   '@region'?: string|null,
      * }|EnableEnhancedMonitoringInput $input
@@ -1120,7 +1120,7 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#putrecords
      *
      * @param array{
-     *   Records: PutRecordsRequestEntry[],
+     *   Records: array<PutRecordsRequestEntry|array>,
      *   StreamName?: string,
      *   StreamARN?: string,
      *   '@region'?: string|null,

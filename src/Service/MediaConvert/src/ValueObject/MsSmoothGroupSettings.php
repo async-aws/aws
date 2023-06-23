@@ -69,7 +69,7 @@ final class MsSmoothGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|MsSmoothAdditionalManifest[],
+     *   AdditionalManifests?: null|array<MsSmoothAdditionalManifest|array>,
      *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
@@ -93,7 +93,7 @@ final class MsSmoothGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|MsSmoothAdditionalManifest[],
+     *   AdditionalManifests?: null|array<MsSmoothAdditionalManifest|array>,
      *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,

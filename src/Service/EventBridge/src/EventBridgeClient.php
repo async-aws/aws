@@ -23,7 +23,7 @@ class EventBridgeClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-events-2015-10-07.html#putevents
      *
      * @param array{
-     *   Entries: PutEventsRequestEntry[],
+     *   Entries: array<PutEventsRequestEntry|array>,
      *   EndpointId?: string,
      *   '@region'?: string|null,
      * }|PutEventsRequest $input

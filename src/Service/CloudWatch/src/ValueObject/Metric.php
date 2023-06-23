@@ -26,7 +26,7 @@ final class Metric
      * @param array{
      *   Namespace?: null|string,
      *   MetricName?: null|string,
-     *   Dimensions?: null|Dimension[],
+     *   Dimensions?: null|array<Dimension|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -40,7 +40,7 @@ final class Metric
      * @param array{
      *   Namespace?: null|string,
      *   MetricName?: null|string,
-     *   Dimensions?: null|Dimension[],
+     *   Dimensions?: null|array<Dimension|array>,
      * }|Metric $input
      */
     public static function create($input): self

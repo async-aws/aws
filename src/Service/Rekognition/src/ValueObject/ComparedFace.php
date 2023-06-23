@@ -47,10 +47,10 @@ final class ComparedFace
      * @param array{
      *   BoundingBox?: null|BoundingBox|array,
      *   Confidence?: null|float,
-     *   Landmarks?: null|Landmark[],
+     *   Landmarks?: null|array<Landmark|array>,
      *   Pose?: null|Pose|array,
      *   Quality?: null|ImageQuality|array,
-     *   Emotions?: null|Emotion[],
+     *   Emotions?: null|array<Emotion|array>,
      *   Smile?: null|Smile|array,
      * } $input
      */
@@ -69,10 +69,10 @@ final class ComparedFace
      * @param array{
      *   BoundingBox?: null|BoundingBox|array,
      *   Confidence?: null|float,
-     *   Landmarks?: null|Landmark[],
+     *   Landmarks?: null|array<Landmark|array>,
      *   Pose?: null|Pose|array,
      *   Quality?: null|ImageQuality|array,
-     *   Emotions?: null|Emotion[],
+     *   Emotions?: null|array<Emotion|array>,
      *   Smile?: null|Smile|array,
      * }|ComparedFace $input
      */

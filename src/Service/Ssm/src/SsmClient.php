@@ -173,7 +173,7 @@ class SsmClient extends AbstractApi
      * @param array{
      *   Path: string,
      *   Recursive?: bool,
-     *   ParameterFilters?: ParameterStringFilter[],
+     *   ParameterFilters?: array<ParameterStringFilter|array>,
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
@@ -216,7 +216,7 @@ class SsmClient extends AbstractApi
      *   KeyId?: string,
      *   Overwrite?: bool,
      *   AllowedPattern?: string,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   Tier?: ParameterTier::*,
      *   Policies?: string,
      *   DataType?: string,

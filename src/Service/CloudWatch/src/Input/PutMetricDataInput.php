@@ -35,7 +35,7 @@ final class PutMetricDataInput extends Input
     /**
      * @param array{
      *   Namespace?: string,
-     *   MetricData?: MetricDatum[],
+     *   MetricData?: array<MetricDatum|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -49,7 +49,7 @@ final class PutMetricDataInput extends Input
     /**
      * @param array{
      *   Namespace?: string,
-     *   MetricData?: MetricDatum[],
+     *   MetricData?: array<MetricDatum|array>,
      *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      */

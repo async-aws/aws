@@ -30,9 +30,9 @@ final class NotificationConfiguration
 
     /**
      * @param array{
-     *   TopicConfigurations?: null|TopicConfiguration[],
-     *   QueueConfigurations?: null|QueueConfiguration[],
-     *   LambdaFunctionConfigurations?: null|LambdaFunctionConfiguration[],
+     *   TopicConfigurations?: null|array<TopicConfiguration|array>,
+     *   QueueConfigurations?: null|array<QueueConfiguration|array>,
+     *   LambdaFunctionConfigurations?: null|array<LambdaFunctionConfiguration|array>,
      *   EventBridgeConfiguration?: null|EventBridgeConfiguration|array,
      * } $input
      */
@@ -46,9 +46,9 @@ final class NotificationConfiguration
 
     /**
      * @param array{
-     *   TopicConfigurations?: null|TopicConfiguration[],
-     *   QueueConfigurations?: null|QueueConfiguration[],
-     *   LambdaFunctionConfigurations?: null|LambdaFunctionConfiguration[],
+     *   TopicConfigurations?: null|array<TopicConfiguration|array>,
+     *   QueueConfigurations?: null|array<QueueConfiguration|array>,
+     *   LambdaFunctionConfigurations?: null|array<LambdaFunctionConfiguration|array>,
      *   EventBridgeConfiguration?: null|EventBridgeConfiguration|array,
      * }|NotificationConfiguration $input
      */

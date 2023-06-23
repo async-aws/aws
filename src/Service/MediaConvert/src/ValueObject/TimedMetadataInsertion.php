@@ -15,7 +15,7 @@ final class TimedMetadataInsertion
 
     /**
      * @param array{
-     *   Id3Insertions?: null|Id3Insertion[],
+     *   Id3Insertions?: null|array<Id3Insertion|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -25,7 +25,7 @@ final class TimedMetadataInsertion
 
     /**
      * @param array{
-     *   Id3Insertions?: null|Id3Insertion[],
+     *   Id3Insertions?: null|array<Id3Insertion|array>,
      * }|TimedMetadataInsertion $input
      */
     public static function create($input): self

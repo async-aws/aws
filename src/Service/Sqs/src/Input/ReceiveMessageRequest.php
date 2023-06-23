@@ -124,7 +124,7 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<MessageSystemAttributeName::*>,
+     *   AttributeNames?: array<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,
@@ -148,7 +148,7 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<MessageSystemAttributeName::*>,
+     *   AttributeNames?: array<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,

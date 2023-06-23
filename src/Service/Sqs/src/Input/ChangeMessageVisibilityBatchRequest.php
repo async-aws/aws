@@ -33,7 +33,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   Entries?: ChangeMessageVisibilityBatchRequestEntry[],
+     *   Entries?: array<ChangeMessageVisibilityBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,7 +47,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   Entries?: ChangeMessageVisibilityBatchRequestEntry[],
+     *   Entries?: array<ChangeMessageVisibilityBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|ChangeMessageVisibilityBatchRequest $input
      */

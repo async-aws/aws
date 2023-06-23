@@ -127,8 +127,8 @@ final class SendMessageBatchRequestEntry
      *   Id: string,
      *   MessageBody: string,
      *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
      *   MessageDeduplicationId?: null|string,
      *   MessageGroupId?: null|string,
      * } $input
@@ -149,8 +149,8 @@ final class SendMessageBatchRequestEntry
      *   Id: string,
      *   MessageBody: string,
      *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
      *   MessageDeduplicationId?: null|string,
      *   MessageGroupId?: null|string,
      * }|SendMessageBatchRequestEntry $input

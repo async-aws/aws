@@ -100,7 +100,7 @@ final class BuildPhase
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   durationInSeconds?: null|string,
-     *   contexts?: null|PhaseContext[],
+     *   contexts?: null|array<PhaseContext|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -120,7 +120,7 @@ final class BuildPhase
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   durationInSeconds?: null|string,
-     *   contexts?: null|PhaseContext[],
+     *   contexts?: null|array<PhaseContext|array>,
      * }|BuildPhase $input
      */
     public static function create($input): self

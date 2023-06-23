@@ -84,7 +84,7 @@ final class MetricDatum
     /**
      * @param array{
      *   MetricName: string,
-     *   Dimensions?: null|Dimension[],
+     *   Dimensions?: null|array<Dimension|array>,
      *   Timestamp?: null|\DateTimeImmutable,
      *   Value?: null|float,
      *   StatisticValues?: null|StatisticSet|array,
@@ -110,7 +110,7 @@ final class MetricDatum
     /**
      * @param array{
      *   MetricName: string,
-     *   Dimensions?: null|Dimension[],
+     *   Dimensions?: null|array<Dimension|array>,
      *   Timestamp?: null|\DateTimeImmutable,
      *   Value?: null|float,
      *   StatisticValues?: null|StatisticSet|array,

@@ -33,7 +33,7 @@ final class TopicConfiguration
      * @param array{
      *   Id?: null|string,
      *   TopicArn: string,
-     *   Events: list<Event::*>,
+     *   Events: array<Event::*>,
      *   Filter?: null|NotificationConfigurationFilter|array,
      * } $input
      */
@@ -49,7 +49,7 @@ final class TopicConfiguration
      * @param array{
      *   Id?: null|string,
      *   TopicArn: string,
-     *   Events: list<Event::*>,
+     *   Events: array<Event::*>,
      *   Filter?: null|NotificationConfigurationFilter|array,
      * }|TopicConfiguration $input
      */

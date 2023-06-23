@@ -74,7 +74,7 @@ final class Message
      *   Body?: null|string,
      *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
      *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -96,7 +96,7 @@ final class Message
      *   Body?: null|string,
      *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
      *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
      * }|Message $input
      */
     public static function create($input): self

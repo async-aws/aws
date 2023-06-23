@@ -191,15 +191,15 @@ final class PutItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Item?: array<string, AttributeValue>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Item?: array<string, AttributeValue|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -239,15 +239,15 @@ final class PutItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Item?: array<string, AttributeValue>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Item?: array<string, AttributeValue|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|PutItemInput $input
      */

@@ -396,9 +396,9 @@ class LambdaClient extends AbstractApi
      *   LayerName: string,
      *   Description?: string,
      *   Content: LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: list<Runtime::*>,
+     *   CompatibleRuntimes?: array<Runtime::*>,
      *   LicenseInfo?: string,
-     *   CompatibleArchitectures?: list<Architecture::*>,
+     *   CompatibleArchitectures?: array<Architecture::*>,
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      *

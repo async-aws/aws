@@ -54,7 +54,7 @@ final class LocalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   KeySchema?: null|KeySchemaElement[],
+     *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
      *   IndexSizeBytes?: null|string,
      *   ItemCount?: null|string,
@@ -74,7 +74,7 @@ final class LocalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   KeySchema?: null|KeySchemaElement[],
+     *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
      *   IndexSizeBytes?: null|string,
      *   ItemCount?: null|string,

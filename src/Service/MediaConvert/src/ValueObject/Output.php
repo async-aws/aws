@@ -62,8 +62,8 @@ final class Output
 
     /**
      * @param array{
-     *   AudioDescriptions?: null|AudioDescription[],
-     *   CaptionDescriptions?: null|CaptionDescription[],
+     *   AudioDescriptions?: null|array<AudioDescription|array>,
+     *   CaptionDescriptions?: null|array<CaptionDescription|array>,
      *   ContainerSettings?: null|ContainerSettings|array,
      *   Extension?: null|string,
      *   NameModifier?: null|string,
@@ -86,8 +86,8 @@ final class Output
 
     /**
      * @param array{
-     *   AudioDescriptions?: null|AudioDescription[],
-     *   CaptionDescriptions?: null|CaptionDescription[],
+     *   AudioDescriptions?: null|array<AudioDescription|array>,
+     *   CaptionDescriptions?: null|array<CaptionDescription|array>,
      *   ContainerSettings?: null|ContainerSettings|array,
      *   Extension?: null|string,
      *   NameModifier?: null|string,

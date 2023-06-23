@@ -85,7 +85,7 @@ class CloudWatchClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#getmetricdata
      *
      * @param array{
-     *   MetricDataQueries: MetricDataQuery[],
+     *   MetricDataQueries: array<MetricDataQuery|array>,
      *   StartTime: \DateTimeImmutable|string,
      *   EndTime: \DateTimeImmutable|string,
      *   NextToken?: string,
@@ -154,11 +154,11 @@ class CloudWatchClient extends AbstractApi
      * @param array{
      *   Namespace: string,
      *   MetricName: string,
-     *   Dimensions?: Dimension[],
+     *   Dimensions?: array<Dimension|array>,
      *   StartTime: \DateTimeImmutable|string,
      *   EndTime: \DateTimeImmutable|string,
      *   Period: int,
-     *   Statistics?: list<Statistic::*>,
+     *   Statistics?: array<Statistic::*>,
      *   ExtendedStatistics?: string[],
      *   Unit?: StandardUnit::*,
      *   '@region'?: string|null,
@@ -212,7 +212,7 @@ class CloudWatchClient extends AbstractApi
      * @param array{
      *   Namespace?: string,
      *   MetricName?: string,
-     *   Dimensions?: DimensionFilter[],
+     *   Dimensions?: array<DimensionFilter|array>,
      *   NextToken?: string,
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,
@@ -281,7 +281,7 @@ class CloudWatchClient extends AbstractApi
      *
      * @param array{
      *   Namespace: string,
-     *   MetricData: MetricDatum[],
+     *   MetricData: array<MetricDatum|array>,
      *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      *

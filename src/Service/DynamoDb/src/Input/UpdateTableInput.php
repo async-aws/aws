@@ -124,14 +124,14 @@ final class UpdateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: AttributeDefinition[],
+     *   AttributeDefinitions?: array<AttributeDefinition|array>,
      *   TableName?: string,
      *   BillingMode?: BillingMode::*,
      *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: GlobalSecondaryIndexUpdate[],
+     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>,
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
-     *   ReplicaUpdates?: ReplicationGroupUpdate[],
+     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>,
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
      *   '@region'?: string|null,
@@ -154,14 +154,14 @@ final class UpdateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: AttributeDefinition[],
+     *   AttributeDefinitions?: array<AttributeDefinition|array>,
      *   TableName?: string,
      *   BillingMode?: BillingMode::*,
      *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: GlobalSecondaryIndexUpdate[],
+     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>,
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
-     *   ReplicaUpdates?: ReplicationGroupUpdate[],
+     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>,
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
      *   '@region'?: string|null,

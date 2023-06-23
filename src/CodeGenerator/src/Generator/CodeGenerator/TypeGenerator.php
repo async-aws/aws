@@ -61,10 +61,10 @@ class TypeGenerator
                 // is the list item an object?
                 if ($listMemberShape instanceof StructureShape) {
                     $classNames[] = $className = $this->namespaceRegistry->getObject($listMemberShape);
-                    $param = $className->getName() . '[]';
+                    $param = 'array<' . $className->getName() . '|array>';
                 } elseif (!empty($listMemberShape->getEnum())) {
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($listMemberShape);
-                    $param = 'list<' . $className->getName() . '::*>';
+                    $param = 'array<' . $className->getName() . '::*>';
                 } else {
                     $param = $this->getNativePhpType($listMemberShape->getType()) . '[]';
                 }
@@ -74,7 +74,7 @@ class TypeGenerator
                 // is the map item an object?
                 if ($mapValueShape instanceof StructureShape) {
                     $classNames[] = $className = $this->namespaceRegistry->getObject($mapValueShape);
-                    $param = $className->getName();
+                    $param = $className->getName() . '|array';
                 } elseif (!empty($mapValueShape->getEnum())) {
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($mapValueShape);
                     $param = $className->getName() . '::*';

@@ -158,12 +158,12 @@ final class AdminCreateUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   UserAttributes?: AttributeType[],
-     *   ValidationData?: AttributeType[],
+     *   UserAttributes?: array<AttributeType|array>,
+     *   ValidationData?: array<AttributeType|array>,
      *   TemporaryPassword?: string,
      *   ForceAliasCreation?: bool,
      *   MessageAction?: MessageActionType::*,
-     *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
+     *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
      *   '@region'?: string|null,
      * } $input
@@ -186,12 +186,12 @@ final class AdminCreateUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   UserAttributes?: AttributeType[],
-     *   ValidationData?: AttributeType[],
+     *   UserAttributes?: array<AttributeType|array>,
+     *   ValidationData?: array<AttributeType|array>,
      *   TemporaryPassword?: string,
      *   ForceAliasCreation?: bool,
      *   MessageAction?: MessageActionType::*,
-     *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
+     *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
      *   '@region'?: string|null,
      * }|AdminCreateUserRequest $input

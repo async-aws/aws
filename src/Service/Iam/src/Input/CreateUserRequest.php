@@ -74,7 +74,7 @@ final class CreateUserRequest extends Input
      *   Path?: string,
      *   UserName?: string,
      *   PermissionsBoundary?: string,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -92,7 +92,7 @@ final class CreateUserRequest extends Input
      *   Path?: string,
      *   UserName?: string,
      *   PermissionsBoundary?: string,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateUserRequest $input
      */

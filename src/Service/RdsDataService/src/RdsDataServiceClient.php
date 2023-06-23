@@ -182,7 +182,7 @@ class RdsDataServiceClient extends AbstractApi
      *   sql: string,
      *   database?: string,
      *   schema?: string,
-     *   parameters?: SqlParameter[],
+     *   parameters?: array<SqlParameter|array>,
      *   transactionId?: string,
      *   includeResultMetadata?: bool,
      *   continueAfterTimeout?: bool,

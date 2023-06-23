@@ -33,7 +33,7 @@ final class SendMessageBatchRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   Entries?: SendMessageBatchRequestEntry[],
+     *   Entries?: array<SendMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,7 +47,7 @@ final class SendMessageBatchRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   Entries?: SendMessageBatchRequestEntry[],
+     *   Entries?: array<SendMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|SendMessageBatchRequest $input
      */

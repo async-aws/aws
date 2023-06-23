@@ -103,14 +103,14 @@ final class EcsParameters
 
     /**
      * @param array{
-     *   CapacityProviderStrategy?: null|CapacityProviderStrategyItem[],
+     *   CapacityProviderStrategy?: null|array<CapacityProviderStrategyItem|array>,
      *   EnableECSManagedTags?: null|bool,
      *   EnableExecuteCommand?: null|bool,
      *   Group?: null|string,
      *   LaunchType?: null|LaunchType::*,
      *   NetworkConfiguration?: null|NetworkConfiguration|array,
-     *   PlacementConstraints?: null|PlacementConstraint[],
-     *   PlacementStrategy?: null|PlacementStrategy[],
+     *   PlacementConstraints?: null|array<PlacementConstraint|array>,
+     *   PlacementStrategy?: null|array<PlacementStrategy|array>,
      *   PlatformVersion?: null|string,
      *   PropagateTags?: null|PropagateTags::*,
      *   ReferenceId?: null|string,
@@ -139,14 +139,14 @@ final class EcsParameters
 
     /**
      * @param array{
-     *   CapacityProviderStrategy?: null|CapacityProviderStrategyItem[],
+     *   CapacityProviderStrategy?: null|array<CapacityProviderStrategyItem|array>,
      *   EnableECSManagedTags?: null|bool,
      *   EnableExecuteCommand?: null|bool,
      *   Group?: null|string,
      *   LaunchType?: null|LaunchType::*,
      *   NetworkConfiguration?: null|NetworkConfiguration|array,
-     *   PlacementConstraints?: null|PlacementConstraint[],
-     *   PlacementStrategy?: null|PlacementStrategy[],
+     *   PlacementConstraints?: null|array<PlacementConstraint|array>,
+     *   PlacementStrategy?: null|array<PlacementStrategy|array>,
      *   PlatformVersion?: null|string,
      *   PropagateTags?: null|PropagateTags::*,
      *   ReferenceId?: null|string,

@@ -170,8 +170,8 @@ final class CreateSecretRequest extends Input
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
-     *   Tags?: Tag[],
-     *   AddReplicaRegions?: ReplicaRegionType[],
+     *   Tags?: array<Tag|array>,
+     *   AddReplicaRegions?: array<ReplicaRegionType|array>,
      *   ForceOverwriteReplicaSecret?: bool,
      *   '@region'?: string|null,
      * } $input
@@ -198,8 +198,8 @@ final class CreateSecretRequest extends Input
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
-     *   Tags?: Tag[],
-     *   AddReplicaRegions?: ReplicaRegionType[],
+     *   Tags?: array<Tag|array>,
+     *   AddReplicaRegions?: array<ReplicaRegionType|array>,
      *   ForceOverwriteReplicaSecret?: bool,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input

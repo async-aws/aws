@@ -48,8 +48,8 @@ final class TableMetadata
      *   CreateTime?: null|\DateTimeImmutable,
      *   LastAccessTime?: null|\DateTimeImmutable,
      *   TableType?: null|string,
-     *   Columns?: null|Column[],
-     *   PartitionKeys?: null|Column[],
+     *   Columns?: null|array<Column|array>,
+     *   PartitionKeys?: null|array<Column|array>,
      *   Parameters?: null|array<string, string>,
      * } $input
      */
@@ -70,8 +70,8 @@ final class TableMetadata
      *   CreateTime?: null|\DateTimeImmutable,
      *   LastAccessTime?: null|\DateTimeImmutable,
      *   TableType?: null|string,
-     *   Columns?: null|Column[],
-     *   PartitionKeys?: null|Column[],
+     *   Columns?: null|array<Column|array>,
+     *   PartitionKeys?: null|array<Column|array>,
      *   Parameters?: null|array<string, string>,
      * }|TableMetadata $input
      */

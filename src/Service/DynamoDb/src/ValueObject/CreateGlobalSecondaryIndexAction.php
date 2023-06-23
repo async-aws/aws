@@ -38,7 +38,7 @@ final class CreateGlobalSecondaryIndexAction
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: KeySchemaElement[],
+     *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      * } $input
@@ -54,7 +54,7 @@ final class CreateGlobalSecondaryIndexAction
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: KeySchemaElement[],
+     *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      * }|CreateGlobalSecondaryIndexAction $input

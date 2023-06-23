@@ -21,7 +21,7 @@ final class Delete
 
     /**
      * @param array{
-     *   Objects: ObjectIdentifier[],
+     *   Objects: array<ObjectIdentifier|array>,
      *   Quiet?: null|bool,
      * } $input
      */
@@ -33,7 +33,7 @@ final class Delete
 
     /**
      * @param array{
-     *   Objects: ObjectIdentifier[],
+     *   Objects: array<ObjectIdentifier|array>,
      *   Quiet?: null|bool,
      * }|Delete $input
      */

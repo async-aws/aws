@@ -101,7 +101,7 @@ final class CreateTopicInput extends Input
      * @param array{
      *   Name?: string,
      *   Attributes?: array<string, string>,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   DataProtectionPolicy?: string,
      *   '@region'?: string|null,
      * } $input
@@ -119,7 +119,7 @@ final class CreateTopicInput extends Input
      * @param array{
      *   Name?: string,
      *   Attributes?: array<string, string>,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   DataProtectionPolicy?: string,
      *   '@region'?: string|null,
      * }|CreateTopicInput $input

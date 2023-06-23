@@ -54,8 +54,8 @@ final class ConsumedCapacity
      *   ReadCapacityUnits?: null|float,
      *   WriteCapacityUnits?: null|float,
      *   Table?: null|Capacity|array,
-     *   LocalSecondaryIndexes?: null|array<string, Capacity>,
-     *   GlobalSecondaryIndexes?: null|array<string, Capacity>,
+     *   LocalSecondaryIndexes?: null|array<string, Capacity|array>,
+     *   GlobalSecondaryIndexes?: null|array<string, Capacity|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -76,8 +76,8 @@ final class ConsumedCapacity
      *   ReadCapacityUnits?: null|float,
      *   WriteCapacityUnits?: null|float,
      *   Table?: null|Capacity|array,
-     *   LocalSecondaryIndexes?: null|array<string, Capacity>,
-     *   GlobalSecondaryIndexes?: null|array<string, Capacity>,
+     *   LocalSecondaryIndexes?: null|array<string, Capacity|array>,
+     *   GlobalSecondaryIndexes?: null|array<string, Capacity|array>,
      * }|ConsumedCapacity $input
      */
     public static function create($input): self

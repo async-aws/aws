@@ -33,7 +33,7 @@ final class DeleteMessageBatchRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   Entries?: DeleteMessageBatchRequestEntry[],
+     *   Entries?: array<DeleteMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,7 +47,7 @@ final class DeleteMessageBatchRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   Entries?: DeleteMessageBatchRequestEntry[],
+     *   Entries?: array<DeleteMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|DeleteMessageBatchRequest $input
      */

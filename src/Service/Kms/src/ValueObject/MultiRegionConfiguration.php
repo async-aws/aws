@@ -32,7 +32,7 @@ final class MultiRegionConfiguration
      * @param array{
      *   MultiRegionKeyType?: null|MultiRegionKeyType::*,
      *   PrimaryKey?: null|MultiRegionKey|array,
-     *   ReplicaKeys?: null|MultiRegionKey[],
+     *   ReplicaKeys?: null|array<MultiRegionKey|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -46,7 +46,7 @@ final class MultiRegionConfiguration
      * @param array{
      *   MultiRegionKeyType?: null|MultiRegionKeyType::*,
      *   PrimaryKey?: null|MultiRegionKey|array,
-     *   ReplicaKeys?: null|MultiRegionKey[],
+     *   ReplicaKeys?: null|array<MultiRegionKey|array>,
      * }|MultiRegionConfiguration $input
      */
     public static function create($input): self

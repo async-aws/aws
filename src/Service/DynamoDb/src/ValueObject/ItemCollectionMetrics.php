@@ -26,7 +26,7 @@ final class ItemCollectionMetrics
 
     /**
      * @param array{
-     *   ItemCollectionKey?: null|array<string, AttributeValue>,
+     *   ItemCollectionKey?: null|array<string, AttributeValue|array>,
      *   SizeEstimateRangeGB?: null|float[],
      * } $input
      */
@@ -38,7 +38,7 @@ final class ItemCollectionMetrics
 
     /**
      * @param array{
-     *   ItemCollectionKey?: null|array<string, AttributeValue>,
+     *   ItemCollectionKey?: null|array<string, AttributeValue|array>,
      *   SizeEstimateRangeGB?: null|float[],
      * }|ItemCollectionMetrics $input
      */

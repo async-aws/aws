@@ -97,8 +97,8 @@ final class AttributeValue
      *   SS?: null|string[],
      *   NS?: null|string[],
      *   BS?: null|string[],
-     *   M?: null|array<string, AttributeValue>,
-     *   L?: null|AttributeValue[],
+     *   M?: null|array<string, AttributeValue|array>,
+     *   L?: null|array<AttributeValue|array>,
      *   NULL?: null|bool,
      *   BOOL?: null|bool,
      * } $input
@@ -125,8 +125,8 @@ final class AttributeValue
      *   SS?: null|string[],
      *   NS?: null|string[],
      *   BS?: null|string[],
-     *   M?: null|array<string, AttributeValue>,
-     *   L?: null|AttributeValue[],
+     *   M?: null|array<string, AttributeValue|array>,
+     *   L?: null|array<AttributeValue|array>,
      *   NULL?: null|bool,
      *   BOOL?: null|bool,
      * }|AttributeValue $input

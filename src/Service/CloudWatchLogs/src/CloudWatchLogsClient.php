@@ -262,7 +262,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @param array{
      *   logGroupName: string,
      *   logStreamName: string,
-     *   logEvents: InputLogEvent[],
+     *   logEvents: array<InputLogEvent|array>,
      *   sequenceToken?: string,
      *   '@region'?: string|null,
      * }|PutLogEventsRequest $input

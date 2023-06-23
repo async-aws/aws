@@ -19,7 +19,7 @@ final class AccessControlPolicy
 
     /**
      * @param array{
-     *   Grants?: null|Grant[],
+     *   Grants?: null|array<Grant|array>,
      *   Owner?: null|Owner|array,
      * } $input
      */
@@ -31,7 +31,7 @@ final class AccessControlPolicy
 
     /**
      * @param array{
-     *   Grants?: null|Grant[],
+     *   Grants?: null|array<Grant|array>,
      *   Owner?: null|Owner|array,
      * }|AccessControlPolicy $input
      */

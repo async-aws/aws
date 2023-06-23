@@ -36,7 +36,7 @@ final class Type
      *   ScalarType?: null|ScalarType::*,
      *   ArrayColumnInfo?: null|ColumnInfo|array,
      *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
-     *   RowColumnInfo?: null|ColumnInfo[],
+     *   RowColumnInfo?: null|array<ColumnInfo|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -52,7 +52,7 @@ final class Type
      *   ScalarType?: null|ScalarType::*,
      *   ArrayColumnInfo?: null|ColumnInfo|array,
      *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
-     *   RowColumnInfo?: null|ColumnInfo[],
+     *   RowColumnInfo?: null|array<ColumnInfo|array>,
      * }|Type $input
      */
     public static function create($input): self

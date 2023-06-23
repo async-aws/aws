@@ -14,7 +14,7 @@ final class UpdateResult
 
     /**
      * @param array{
-     *   generatedFields?: null|Field[],
+     *   generatedFields?: null|array<Field|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -24,7 +24,7 @@ final class UpdateResult
 
     /**
      * @param array{
-     *   generatedFields?: null|Field[],
+     *   generatedFields?: null|array<Field|array>,
      * }|UpdateResult $input
      */
     public static function create($input): self

@@ -56,7 +56,7 @@ final class ListSecretsRequest extends Input
      *   IncludePlannedDeletion?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
-     *   Filters?: Filter[],
+     *   Filters?: array<Filter|array>,
      *   SortOrder?: SortOrderType::*,
      *   '@region'?: string|null,
      * } $input
@@ -76,7 +76,7 @@ final class ListSecretsRequest extends Input
      *   IncludePlannedDeletion?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
-     *   Filters?: Filter[],
+     *   Filters?: array<Filter|array>,
      *   SortOrder?: SortOrderType::*,
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input

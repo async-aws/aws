@@ -16,7 +16,7 @@ final class CompletedMultipartUpload
 
     /**
      * @param array{
-     *   Parts?: null|CompletedPart[],
+     *   Parts?: null|array<CompletedPart|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class CompletedMultipartUpload
 
     /**
      * @param array{
-     *   Parts?: null|CompletedPart[],
+     *   Parts?: null|array<CompletedPart|array>,
      * }|CompletedMultipartUpload $input
      */
     public static function create($input): self

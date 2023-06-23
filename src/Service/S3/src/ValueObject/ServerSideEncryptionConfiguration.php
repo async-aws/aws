@@ -14,7 +14,7 @@ final class ServerSideEncryptionConfiguration
 
     /**
      * @param array{
-     *   Rules: ServerSideEncryptionRule[],
+     *   Rules: array<ServerSideEncryptionRule|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -24,7 +24,7 @@ final class ServerSideEncryptionConfiguration
 
     /**
      * @param array{
-     *   Rules: ServerSideEncryptionRule[],
+     *   Rules: array<ServerSideEncryptionRule|array>,
      * }|ServerSideEncryptionConfiguration $input
      */
     public static function create($input): self

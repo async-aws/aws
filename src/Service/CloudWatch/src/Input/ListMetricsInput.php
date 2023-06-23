@@ -73,7 +73,7 @@ final class ListMetricsInput extends Input
      * @param array{
      *   Namespace?: string,
      *   MetricName?: string,
-     *   Dimensions?: DimensionFilter[],
+     *   Dimensions?: array<DimensionFilter|array>,
      *   NextToken?: string,
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,
@@ -97,7 +97,7 @@ final class ListMetricsInput extends Input
      * @param array{
      *   Namespace?: string,
      *   MetricName?: string,
-     *   Dimensions?: DimensionFilter[],
+     *   Dimensions?: array<DimensionFilter|array>,
      *   NextToken?: string,
      *   RecentlyActive?: RecentlyActive::*,
      *   IncludeLinkedAccounts?: bool,

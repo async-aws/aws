@@ -47,7 +47,7 @@ final class RepositoryTrigger
      *   destinationArn: string,
      *   customData?: null|string,
      *   branches?: null|string[],
-     *   events: list<RepositoryTriggerEventEnum::*>,
+     *   events: array<RepositoryTriggerEventEnum::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -65,7 +65,7 @@ final class RepositoryTrigger
      *   destinationArn: string,
      *   customData?: null|string,
      *   branches?: null|string[],
-     *   events: list<RepositoryTriggerEventEnum::*>,
+     *   events: array<RepositoryTriggerEventEnum::*>,
      * }|RepositoryTrigger $input
      */
     public static function create($input): self

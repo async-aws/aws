@@ -225,7 +225,7 @@ final class CmafGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|CmafAdditionalManifest[],
+     *   AdditionalManifests?: null|array<CmafAdditionalManifest|array>,
      *   BaseUrl?: null|string,
      *   ClientCache?: null|CmafClientCache::*,
      *   CodecSpecification?: null|CmafCodecSpecification::*,
@@ -287,7 +287,7 @@ final class CmafGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|CmafAdditionalManifest[],
+     *   AdditionalManifests?: null|array<CmafAdditionalManifest|array>,
      *   BaseUrl?: null|string,
      *   ClientCache?: null|CmafClientCache::*,
      *   CodecSpecification?: null|CmafCodecSpecification::*,

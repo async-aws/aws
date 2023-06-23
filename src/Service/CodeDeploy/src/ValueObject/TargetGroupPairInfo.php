@@ -27,7 +27,7 @@ final class TargetGroupPairInfo
 
     /**
      * @param array{
-     *   targetGroups?: null|TargetGroupInfo[],
+     *   targetGroups?: null|array<TargetGroupInfo|array>,
      *   prodTrafficRoute?: null|TrafficRoute|array,
      *   testTrafficRoute?: null|TrafficRoute|array,
      * } $input
@@ -41,7 +41,7 @@ final class TargetGroupPairInfo
 
     /**
      * @param array{
-     *   targetGroups?: null|TargetGroupInfo[],
+     *   targetGroups?: null|array<TargetGroupInfo|array>,
      *   prodTrafficRoute?: null|TrafficRoute|array,
      *   testTrafficRoute?: null|TrafficRoute|array,
      * }|TargetGroupPairInfo $input

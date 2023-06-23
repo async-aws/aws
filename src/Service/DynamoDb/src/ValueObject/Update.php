@@ -49,12 +49,12 @@ final class Update
 
     /**
      * @param array{
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      *   UpdateExpression: string,
      *   TableName: string,
      *   ConditionExpression?: null|string,
      *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      * } $input
      */
@@ -71,12 +71,12 @@ final class Update
 
     /**
      * @param array{
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      *   UpdateExpression: string,
      *   TableName: string,
      *   ConditionExpression?: null|string,
      *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      * }|Update $input
      */

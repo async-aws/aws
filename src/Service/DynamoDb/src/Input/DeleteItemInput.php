@@ -176,15 +176,15 @@ final class DeleteItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, AttributeValue>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Key?: array<string, AttributeValue|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -224,15 +224,15 @@ final class DeleteItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, AttributeValue>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Key?: array<string, AttributeValue|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|DeleteItemInput $input
      */

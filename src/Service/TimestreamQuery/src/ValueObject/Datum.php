@@ -35,8 +35,8 @@ final class Datum
     /**
      * @param array{
      *   ScalarValue?: null|string,
-     *   TimeSeriesValue?: null|TimeSeriesDataPoint[],
-     *   ArrayValue?: null|Datum[],
+     *   TimeSeriesValue?: null|array<TimeSeriesDataPoint|array>,
+     *   ArrayValue?: null|array<Datum|array>,
      *   RowValue?: null|Row|array,
      *   NullValue?: null|bool,
      * } $input
@@ -53,8 +53,8 @@ final class Datum
     /**
      * @param array{
      *   ScalarValue?: null|string,
-     *   TimeSeriesValue?: null|TimeSeriesDataPoint[],
-     *   ArrayValue?: null|Datum[],
+     *   TimeSeriesValue?: null|array<TimeSeriesDataPoint|array>,
+     *   ArrayValue?: null|array<Datum|array>,
      *   RowValue?: null|Row|array,
      *   NullValue?: null|bool,
      * }|Datum $input

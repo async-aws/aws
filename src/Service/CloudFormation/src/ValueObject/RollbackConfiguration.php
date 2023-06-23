@@ -52,7 +52,7 @@ final class RollbackConfiguration
 
     /**
      * @param array{
-     *   RollbackTriggers?: null|RollbackTrigger[],
+     *   RollbackTriggers?: null|array<RollbackTrigger|array>,
      *   MonitoringTimeInMinutes?: null|int,
      * } $input
      */
@@ -64,7 +64,7 @@ final class RollbackConfiguration
 
     /**
      * @param array{
-     *   RollbackTriggers?: null|RollbackTrigger[],
+     *   RollbackTriggers?: null|array<RollbackTrigger|array>,
      *   MonitoringTimeInMinutes?: null|int,
      * }|RollbackConfiguration $input
      */

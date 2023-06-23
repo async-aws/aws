@@ -104,7 +104,7 @@ final class GetMetricDataInput extends Input
 
     /**
      * @param array{
-     *   MetricDataQueries?: MetricDataQuery[],
+     *   MetricDataQueries?: array<MetricDataQuery|array>,
      *   StartTime?: \DateTimeImmutable|string,
      *   EndTime?: \DateTimeImmutable|string,
      *   NextToken?: string,
@@ -128,7 +128,7 @@ final class GetMetricDataInput extends Input
 
     /**
      * @param array{
-     *   MetricDataQueries?: MetricDataQuery[],
+     *   MetricDataQueries?: array<MetricDataQuery|array>,
      *   StartTime?: \DateTimeImmutable|string,
      *   EndTime?: \DateTimeImmutable|string,
      *   NextToken?: string,

@@ -76,14 +76,14 @@ final class Record
 
     /**
      * @param array{
-     *   Dimensions?: null|Dimension[],
+     *   Dimensions?: null|array<Dimension|array>,
      *   MeasureName?: null|string,
      *   MeasureValue?: null|string,
      *   MeasureValueType?: null|MeasureValueType::*,
      *   Time?: null|string,
      *   TimeUnit?: null|TimeUnit::*,
      *   Version?: null|string,
-     *   MeasureValues?: null|MeasureValue[],
+     *   MeasureValues?: null|array<MeasureValue|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -100,14 +100,14 @@ final class Record
 
     /**
      * @param array{
-     *   Dimensions?: null|Dimension[],
+     *   Dimensions?: null|array<Dimension|array>,
      *   MeasureName?: null|string,
      *   MeasureValue?: null|string,
      *   MeasureValueType?: null|MeasureValueType::*,
      *   Time?: null|string,
      *   TimeUnit?: null|TimeUnit::*,
      *   Version?: null|string,
-     *   MeasureValues?: null|MeasureValue[],
+     *   MeasureValues?: null|array<MeasureValue|array>,
      * }|Record $input
      */
     public static function create($input): self

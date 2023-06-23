@@ -115,7 +115,7 @@ final class PublishBatchRequestEntry
      *   Message: string,
      *   Subject?: null|string,
      *   MessageStructure?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
      *   MessageDeduplicationId?: null|string,
      *   MessageGroupId?: null|string,
      * } $input
@@ -137,7 +137,7 @@ final class PublishBatchRequestEntry
      *   Message: string,
      *   Subject?: null|string,
      *   MessageStructure?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
      *   MessageDeduplicationId?: null|string,
      *   MessageGroupId?: null|string,
      * }|PublishBatchRequestEntry $input

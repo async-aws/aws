@@ -30,9 +30,9 @@ final class LoadBalancerInfo
 
     /**
      * @param array{
-     *   elbInfoList?: null|ELBInfo[],
-     *   targetGroupInfoList?: null|TargetGroupInfo[],
-     *   targetGroupPairInfoList?: null|TargetGroupPairInfo[],
+     *   elbInfoList?: null|array<ELBInfo|array>,
+     *   targetGroupInfoList?: null|array<TargetGroupInfo|array>,
+     *   targetGroupPairInfoList?: null|array<TargetGroupPairInfo|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class LoadBalancerInfo
 
     /**
      * @param array{
-     *   elbInfoList?: null|ELBInfo[],
-     *   targetGroupInfoList?: null|TargetGroupInfo[],
-     *   targetGroupPairInfoList?: null|TargetGroupPairInfo[],
+     *   elbInfoList?: null|array<ELBInfo|array>,
+     *   targetGroupInfoList?: null|array<TargetGroupInfo|array>,
+     *   targetGroupPairInfoList?: null|array<TargetGroupPairInfo|array>,
      * }|LoadBalancerInfo $input
      */
     public static function create($input): self

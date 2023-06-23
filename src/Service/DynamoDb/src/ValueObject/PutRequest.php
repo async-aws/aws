@@ -19,7 +19,7 @@ final class PutRequest
 
     /**
      * @param array{
-     *   Item: array<string, AttributeValue>,
+     *   Item: array<string, AttributeValue|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -29,7 +29,7 @@ final class PutRequest
 
     /**
      * @param array{
-     *   Item: array<string, AttributeValue>,
+     *   Item: array<string, AttributeValue|array>,
      * }|PutRequest $input
      */
     public static function create($input): self

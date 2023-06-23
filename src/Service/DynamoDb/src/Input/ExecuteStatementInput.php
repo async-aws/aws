@@ -62,7 +62,7 @@ final class ExecuteStatementInput extends Input
     /**
      * @param array{
      *   Statement?: string,
-     *   Parameters?: AttributeValue[],
+     *   Parameters?: array<AttributeValue|array>,
      *   ConsistentRead?: bool,
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -84,7 +84,7 @@ final class ExecuteStatementInput extends Input
     /**
      * @param array{
      *   Statement?: string,
-     *   Parameters?: AttributeValue[],
+     *   Parameters?: array<AttributeValue|array>,
      *   ConsistentRead?: bool,
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
