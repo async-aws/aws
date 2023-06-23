@@ -321,7 +321,9 @@ class InputGenerator
                 }
 
                 if ('querystring' === $requestPart && $usesEndpointDiscovery) {
-                    $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
+                    if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
+                        $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
+                    }
                 }
 
                 $memberShape = $member->getShape();
@@ -452,7 +454,9 @@ class InputGenerator
         $uriStringCode = preg_replace('/(^""\.|\.""$|\.""\.)/', '', $uriStringCode);
 
         if ($usesEndpointDiscovery && '"/"' !== $uriStringCode) {
-            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
+            if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
+                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
+            }
         }
 
         $body['uri'] .= '$uriString = ' . $uriStringCode . ';';

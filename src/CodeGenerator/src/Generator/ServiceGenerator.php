@@ -119,7 +119,7 @@ class ServiceGenerator
 
     public function client(): ClientGenerator
     {
-        return $this->client ?? $this->client = new ClientGenerator($this->classRegistry, $this->namespaceRegistry);
+        return $this->client ?? $this->client = new ClientGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry);
     }
 
     public function operation(): OperationGenerator

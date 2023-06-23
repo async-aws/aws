@@ -204,7 +204,9 @@ class OperationGenerator
         }
 
         if ($operation->requiresEndpointDiscovery()) {
-            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+            if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
+                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+            }
             $endpointOperation = $operation->getService()->findEndpointOperationName();
 
             if (null !== $endpointOperation) {
@@ -214,7 +216,9 @@ class OperationGenerator
             $extra .= ", 'requiresEndpointDiscovery' => true";
         }
         if ($operation->usesEndpointDiscovery()) {
-            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+            if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
+                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+            }
             $endpointOperation = $operation->getService()->findEndpointOperationName();
 
             if (null !== $endpointOperation) {
