@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Adding `INVALID_ROUTING_CONFIGURATION` reason to ValidationExceptionReason enum
 
 ## 1.1.0
 
