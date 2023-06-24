@@ -28,6 +28,8 @@ class ComposerWriter
                 $content['require']['ext-dom'],
                 $content['require']['ext-SimpleXML'],
                 $content['require']['ext-filter'],
+                $content['require']['async-aws/core'],
+                $content['require']['symfony/polyfill-uuid'],
             );
         }
         $content['require'] = $requirements + $content['require'];

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
@@ -35,10 +36,16 @@ class ClientGenerator
      */
     private $namespaceRegistry;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry)
+    /**
+     * @var RequirementsRegistry
+     */
+    private $requirementsRegistry;
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
     }
 
     /**
@@ -47,6 +54,9 @@ class ClientGenerator
     public function generate(ServiceDefinition $definition): ClassName
     {
         $className = $this->namespaceRegistry->getClient($definition);
+        if (0 !== strpos($className->getFqdn(), 'AsyncAws\Core\\')) {
+            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.9');
+        }
         $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
 
         $supportedVersions = eval(sprintf('class A%s extends %s {
