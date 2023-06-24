@@ -18,6 +18,11 @@ final class DescribeLimitsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   '@region'?: string|null,
+     * }|DescribeLimitsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -236,6 +236,21 @@ final class PutItemInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   Item?: array<string, AttributeValue>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ConditionExpression?: string,
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   '@region'?: string|null,
+     * }|PutItemInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

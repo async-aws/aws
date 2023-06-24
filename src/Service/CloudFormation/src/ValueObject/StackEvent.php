@@ -147,6 +147,26 @@ final class StackEvent
         $this->hookFailureMode = $input['HookFailureMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StackId: string,
+     *   EventId: string,
+     *   StackName: string,
+     *   LogicalResourceId?: null|string,
+     *   PhysicalResourceId?: null|string,
+     *   ResourceType?: null|string,
+     *   Timestamp: \DateTimeImmutable,
+     *   ResourceStatus?: null|ResourceStatus::*,
+     *   ResourceStatusReason?: null|string,
+     *   ResourceProperties?: null|string,
+     *   ClientRequestToken?: null|string,
+     *   HookType?: null|string,
+     *   HookStatus?: null|HookStatus::*,
+     *   HookStatusReason?: null|string,
+     *   HookInvocationPoint?: null|HookInvocationPoint::*,
+     *   HookFailureMode?: null|HookFailureMode::*,
+     * }|StackEvent $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

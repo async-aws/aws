@@ -69,6 +69,17 @@ final class ConsumedCapacity
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
     }
 
+    /**
+     * @param array{
+     *   TableName?: null|string,
+     *   CapacityUnits?: null|float,
+     *   ReadCapacityUnits?: null|float,
+     *   WriteCapacityUnits?: null|float,
+     *   Table?: null|Capacity|array,
+     *   LocalSecondaryIndexes?: null|array<string, Capacity>,
+     *   GlobalSecondaryIndexes?: null|array<string, Capacity>,
+     * }|ConsumedCapacity $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

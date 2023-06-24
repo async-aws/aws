@@ -56,6 +56,13 @@ final class ParameterStringFilter
         $this->values = $input['Values'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key: string,
+     *   Option?: null|string,
+     *   Values?: null|string[],
+     * }|ParameterStringFilter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

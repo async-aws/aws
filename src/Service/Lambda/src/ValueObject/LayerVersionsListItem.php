@@ -75,6 +75,17 @@ final class LayerVersionsListItem
         $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   LayerVersionArn?: null|string,
+     *   Version?: null|string,
+     *   Description?: null|string,
+     *   CreatedDate?: null|string,
+     *   CompatibleRuntimes?: null|list<Runtime::*>,
+     *   LicenseInfo?: null|string,
+     *   CompatibleArchitectures?: null|list<Architecture::*>,
+     * }|LayerVersionsListItem $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

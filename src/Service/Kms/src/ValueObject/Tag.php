@@ -40,6 +40,12 @@ final class Tag
         $this->tagValue = $input['TagValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TagKey: string,
+     *   TagValue: string,
+     * }|Tag $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class DeleteEndpointInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   EndpointArn?: string,
+     *   '@region'?: string|null,
+     * }|DeleteEndpointInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -36,6 +36,13 @@ final class Timing
         $this->submitTime = $input['SubmitTime'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   FinishTime?: null|\DateTimeImmutable,
+     *   StartTime?: null|\DateTimeImmutable,
+     *   SubmitTime?: null|\DateTimeImmutable,
+     * }|Timing $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

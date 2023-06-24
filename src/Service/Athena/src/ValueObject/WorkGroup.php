@@ -63,6 +63,15 @@ final class WorkGroup
         $this->creationTime = $input['CreationTime'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   State?: null|WorkGroupState::*,
+     *   Configuration?: null|WorkGroupConfiguration|array,
+     *   Description?: null|string,
+     *   CreationTime?: null|\DateTimeImmutable,
+     * }|WorkGroup $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

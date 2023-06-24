@@ -35,6 +35,12 @@ final class CachingConfig
         $this->cachingKeys = $input['cachingKeys'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ttl: string,
+     *   cachingKeys?: null|string[],
+     * }|CachingConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -36,6 +36,12 @@ final class AttributeDefinition
         $this->attributeType = $input['AttributeType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AttributeName: string,
+     *   AttributeType: ScalarAttributeType::*,
+     * }|AttributeDefinition $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

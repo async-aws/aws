@@ -43,6 +43,13 @@ final class DeleteMessageRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   ReceiptHandle?: string,
+     *   '@region'?: string|null,
+     * }|DeleteMessageRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

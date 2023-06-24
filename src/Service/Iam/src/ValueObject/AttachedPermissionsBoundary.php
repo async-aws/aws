@@ -40,6 +40,12 @@ final class AttachedPermissionsBoundary
         $this->permissionsBoundaryArn = $input['PermissionsBoundaryArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*,
+     *   PermissionsBoundaryArn?: null|string,
+     * }|AttachedPermissionsBoundary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

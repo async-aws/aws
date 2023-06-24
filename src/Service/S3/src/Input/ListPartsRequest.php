@@ -141,6 +141,21 @@ final class ListPartsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Key?: string,
+     *   MaxParts?: int,
+     *   PartNumberMarker?: int,
+     *   UploadId?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   '@region'?: string|null,
+     * }|ListPartsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

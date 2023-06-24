@@ -24,6 +24,11 @@ final class DeleteReplicationGroupMemberAction
         $this->regionName = $input['RegionName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RegionName: string,
+     * }|DeleteReplicationGroupMemberAction $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -35,6 +35,12 @@ final class RecognizeCelebritiesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Image?: Image|array,
+     *   '@region'?: string|null,
+     * }|RecognizeCelebritiesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

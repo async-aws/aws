@@ -63,6 +63,14 @@ final class GetSecretValueRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SecretId?: string,
+     *   VersionId?: string,
+     *   VersionStage?: string,
+     *   '@region'?: string|null,
+     * }|GetSecretValueRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

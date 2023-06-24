@@ -61,6 +61,16 @@ final class Delete
         $this->returnValuesOnConditionCheckFailure = $input['ReturnValuesOnConditionCheckFailure'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key: array<string, AttributeValue>,
+     *   TableName: string,
+     *   ConditionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     * }|Delete $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

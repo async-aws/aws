@@ -33,6 +33,12 @@ final class NielsenConfiguration
         $this->distributorId = $input['DistributorId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BreakoutCode?: null|int,
+     *   DistributorId?: null|string,
+     * }|NielsenConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

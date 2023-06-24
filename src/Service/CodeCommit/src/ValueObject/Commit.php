@@ -72,6 +72,17 @@ final class Commit
         $this->additionalData = $input['additionalData'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   commitId?: null|string,
+     *   treeId?: null|string,
+     *   parents?: null|string[],
+     *   message?: null|string,
+     *   author?: null|UserInfo|array,
+     *   committer?: null|UserInfo|array,
+     *   additionalData?: null|string,
+     * }|Commit $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

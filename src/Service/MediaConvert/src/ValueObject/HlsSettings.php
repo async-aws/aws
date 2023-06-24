@@ -90,6 +90,17 @@ final class HlsSettings
         $this->segmentModifier = $input['SegmentModifier'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioGroupId?: null|string,
+     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*,
+     *   AudioRenditionSets?: null|string,
+     *   AudioTrackType?: null|HlsAudioTrackType::*,
+     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*,
+     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*,
+     *   SegmentModifier?: null|string,
+     * }|HlsSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

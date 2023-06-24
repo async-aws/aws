@@ -25,6 +25,11 @@ final class DeleteRequest
         $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
     }
 
+    /**
+     * @param array{
+     *   Key: array<string, AttributeValue>,
+     * }|DeleteRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

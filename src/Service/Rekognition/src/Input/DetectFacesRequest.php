@@ -51,6 +51,13 @@ final class DetectFacesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Image?: Image|array,
+     *   Attributes?: list<Attribute::*>,
+     *   '@region'?: string|null,
+     * }|DetectFacesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class AccessControlPolicy
         $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
+    /**
+     * @param array{
+     *   Grants?: null|Grant[],
+     *   Owner?: null|Owner|array,
+     * }|AccessControlPolicy $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

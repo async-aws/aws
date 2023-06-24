@@ -31,6 +31,12 @@ final class Hdr10Plus
         $this->targetMonitorNits = $input['TargetMonitorNits'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MasteringMonitorNits?: null|int,
+     *   TargetMonitorNits?: null|int,
+     * }|Hdr10Plus $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

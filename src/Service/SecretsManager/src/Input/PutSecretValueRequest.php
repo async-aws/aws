@@ -112,6 +112,16 @@ final class PutSecretValueRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SecretId?: string,
+     *   ClientRequestToken?: string,
+     *   SecretBinary?: string,
+     *   SecretString?: string,
+     *   VersionStages?: string[],
+     *   '@region'?: string|null,
+     * }|PutSecretValueRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

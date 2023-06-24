@@ -37,6 +37,13 @@ final class NoiseReducerSpatialFilterSettings
         $this->strength = $input['Strength'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   PostFilterSharpenStrength?: null|int,
+     *   Speed?: null|int,
+     *   Strength?: null|int,
+     * }|NoiseReducerSpatialFilterSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

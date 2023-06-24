@@ -22,6 +22,11 @@ final class DestinationSettings
         $this->s3Settings = isset($input['S3Settings']) ? S3DestinationSettings::create($input['S3Settings']) : null;
     }
 
+    /**
+     * @param array{
+     *   S3Settings?: null|S3DestinationSettings|array,
+     * }|DestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

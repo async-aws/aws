@@ -126,6 +126,18 @@ final class GetMetricDataInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   MetricDataQueries?: MetricDataQuery[],
+     *   StartTime?: \DateTimeImmutable|string,
+     *   EndTime?: \DateTimeImmutable|string,
+     *   NextToken?: string,
+     *   ScanBy?: ScanBy::*,
+     *   MaxDatapoints?: int,
+     *   LabelOptions?: LabelOptions|array,
+     *   '@region'?: string|null,
+     * }|GetMetricDataInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

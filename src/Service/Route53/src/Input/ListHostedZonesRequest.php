@@ -58,6 +58,14 @@ final class ListHostedZonesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Marker?: string,
+     *   MaxItems?: string,
+     *   DelegationSetId?: string,
+     *   '@region'?: string|null,
+     * }|ListHostedZonesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

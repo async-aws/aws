@@ -76,6 +76,17 @@ final class HlsEncryptionSettings
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ConstantInitializationVector?: null|string,
+     *   EncryptionMethod?: null|HlsEncryptionType::*,
+     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*,
+     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*,
+     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     *   StaticKeyProvider?: null|StaticKeyProvider|array,
+     *   Type?: null|HlsKeyProviderType::*,
+     * }|HlsEncryptionSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

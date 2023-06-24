@@ -57,6 +57,16 @@ final class DeploymentOverview
         $this->ready = $input['Ready'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Pending?: null|string,
+     *   InProgress?: null|string,
+     *   Succeeded?: null|string,
+     *   Failed?: null|string,
+     *   Skipped?: null|string,
+     *   Ready?: null|string,
+     * }|DeploymentOverview $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

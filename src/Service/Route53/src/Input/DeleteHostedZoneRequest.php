@@ -33,6 +33,12 @@ final class DeleteHostedZoneRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Id?: string,
+     *   '@region'?: string|null,
+     * }|DeleteHostedZoneRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

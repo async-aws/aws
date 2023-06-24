@@ -31,6 +31,12 @@ final class ColumnInfo
         $this->type = isset($input['Type']) ? Type::create($input['Type']) : null;
     }
 
+    /**
+     * @param array{
+     *   Name?: null|string,
+     *   Type: Type|array,
+     * }|ColumnInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

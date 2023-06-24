@@ -45,6 +45,13 @@ final class CreateInvalidationRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   DistributionId?: string,
+     *   InvalidationBatch?: InvalidationBatch|array,
+     *   '@region'?: string|null,
+     * }|CreateInvalidationRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

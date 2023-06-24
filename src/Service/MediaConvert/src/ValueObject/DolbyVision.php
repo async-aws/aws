@@ -57,6 +57,14 @@ final class DolbyVision
         $this->profile = $input['Profile'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   L6Metadata?: null|DolbyVisionLevel6Metadata|array,
+     *   L6Mode?: null|DolbyVisionLevel6Mode::*,
+     *   Mapping?: null|DolbyVisionMapping::*,
+     *   Profile?: null|DolbyVisionProfile::*,
+     * }|DolbyVision $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

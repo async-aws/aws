@@ -22,6 +22,11 @@ final class CloudWatchLogsDestinationDetails
         $this->logGroup = $input['LogGroup'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   LogGroup?: null|string,
+     * }|CloudWatchLogsDestinationDetails $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

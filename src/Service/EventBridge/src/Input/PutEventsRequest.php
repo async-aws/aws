@@ -44,6 +44,13 @@ final class PutEventsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Entries?: PutEventsRequestEntry[],
+     *   EndpointId?: string,
+     *   '@region'?: string|null,
+     * }|PutEventsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

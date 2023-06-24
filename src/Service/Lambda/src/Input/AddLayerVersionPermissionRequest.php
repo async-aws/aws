@@ -95,6 +95,18 @@ final class AddLayerVersionPermissionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   LayerName?: string,
+     *   VersionNumber?: string,
+     *   StatementId?: string,
+     *   Action?: string,
+     *   Principal?: string,
+     *   OrganizationId?: string,
+     *   RevisionId?: string,
+     *   '@region'?: string|null,
+     * }|AddLayerVersionPermissionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

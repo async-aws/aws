@@ -39,6 +39,12 @@ final class MxfXavcProfileSettings
         $this->maxAncDataSize = $input['MaxAncDataSize'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DurationMode?: null|MxfXavcDurationMode::*,
+     *   MaxAncDataSize?: null|int,
+     * }|MxfXavcProfileSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

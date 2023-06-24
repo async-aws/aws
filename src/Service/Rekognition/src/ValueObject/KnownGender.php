@@ -25,6 +25,11 @@ final class KnownGender
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Type?: null|KnownGenderType::*,
+     * }|KnownGender $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

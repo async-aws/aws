@@ -53,6 +53,15 @@ final class OutputGroup
         $this->outputs = isset($input['Outputs']) ? array_map([Output::class, 'create'], $input['Outputs']) : null;
     }
 
+    /**
+     * @param array{
+     *   AutomatedEncodingSettings?: null|AutomatedEncodingSettings|array,
+     *   CustomName?: null|string,
+     *   Name?: null|string,
+     *   OutputGroupSettings?: null|OutputGroupSettings|array,
+     *   Outputs?: null|Output[],
+     * }|OutputGroup $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

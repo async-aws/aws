@@ -40,6 +40,13 @@ final class EsamSettings
         $this->signalProcessingNotification = isset($input['SignalProcessingNotification']) ? EsamSignalProcessingNotification::create($input['SignalProcessingNotification']) : null;
     }
 
+    /**
+     * @param array{
+     *   ManifestConfirmConditionNotification?: null|EsamManifestConfirmConditionNotification|array,
+     *   ResponseSignalPreroll?: null|int,
+     *   SignalProcessingNotification?: null|EsamSignalProcessingNotification|array,
+     * }|EsamSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

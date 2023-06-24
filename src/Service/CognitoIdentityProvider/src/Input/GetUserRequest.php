@@ -33,6 +33,12 @@ final class GetUserRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AccessToken?: string,
+     *   '@region'?: string|null,
+     * }|GetUserRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -63,6 +63,15 @@ final class MovSettings
         $this->reference = $input['Reference'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ClapAtom?: null|MovClapAtom::*,
+     *   CslgAtom?: null|MovCslgAtom::*,
+     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*,
+     *   PaddingControl?: null|MovPaddingControl::*,
+     *   Reference?: null|MovReference::*,
+     * }|MovSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

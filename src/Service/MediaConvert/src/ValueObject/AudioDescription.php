@@ -130,6 +130,21 @@ final class AudioDescription
         $this->streamName = $input['StreamName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioChannelTaggingSettings?: null|AudioChannelTaggingSettings|array,
+     *   AudioNormalizationSettings?: null|AudioNormalizationSettings|array,
+     *   AudioSourceName?: null|string,
+     *   AudioType?: null|int,
+     *   AudioTypeControl?: null|AudioTypeControl::*,
+     *   CodecSettings?: null|AudioCodecSettings|array,
+     *   CustomLanguageCode?: null|string,
+     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*,
+     *   RemixSettings?: null|RemixSettings|array,
+     *   StreamName?: null|string,
+     * }|AudioDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

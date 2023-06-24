@@ -40,6 +40,13 @@ final class AuthorizationData
         $this->proxyEndpoint = $input['proxyEndpoint'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   authorizationToken?: null|string,
+     *   expiresAt?: null|\DateTimeImmutable,
+     *   proxyEndpoint?: null|string,
+     * }|AuthorizationData $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

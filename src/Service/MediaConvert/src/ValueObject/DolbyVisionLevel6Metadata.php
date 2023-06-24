@@ -32,6 +32,12 @@ final class DolbyVisionLevel6Metadata
         $this->maxFall = $input['MaxFall'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MaxCll?: null|int,
+     *   MaxFall?: null|int,
+     * }|DolbyVisionLevel6Metadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

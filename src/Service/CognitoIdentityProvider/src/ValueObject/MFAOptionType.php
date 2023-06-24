@@ -32,6 +32,12 @@ final class MFAOptionType
         $this->attributeName = $input['AttributeName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DeliveryMedium?: null|DeliveryMediumType::*,
+     *   AttributeName?: null|string,
+     * }|MFAOptionType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

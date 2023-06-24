@@ -33,6 +33,12 @@ final class GetDeploymentInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   deploymentId?: string,
+     *   '@region'?: string|null,
+     * }|GetDeploymentInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -50,6 +50,12 @@ final class Image
         $this->s3Object = isset($input['S3Object']) ? S3Object::create($input['S3Object']) : null;
     }
 
+    /**
+     * @param array{
+     *   Bytes?: null|string,
+     *   S3Object?: null|S3Object|array,
+     * }|Image $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

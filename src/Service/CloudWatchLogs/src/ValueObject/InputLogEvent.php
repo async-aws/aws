@@ -32,6 +32,12 @@ final class InputLogEvent
         $this->message = $input['message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   timestamp: string,
+     *   message: string,
+     * }|InputLogEvent $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

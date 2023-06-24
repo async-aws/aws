@@ -35,6 +35,12 @@ final class DeleteUserRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserName?: string,
+     *   '@region'?: string|null,
+     * }|DeleteUserRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

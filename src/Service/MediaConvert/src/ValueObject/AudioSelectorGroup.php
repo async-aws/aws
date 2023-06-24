@@ -26,6 +26,11 @@ final class AudioSelectorGroup
         $this->audioSelectorNames = $input['AudioSelectorNames'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioSelectorNames?: null|string[],
+     * }|AudioSelectorGroup $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

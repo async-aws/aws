@@ -45,6 +45,13 @@ final class SendTaskSuccessInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   taskToken?: string,
+     *   output?: string,
+     *   '@region'?: string|null,
+     * }|SendTaskSuccessInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

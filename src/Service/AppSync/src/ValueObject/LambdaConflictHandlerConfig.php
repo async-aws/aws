@@ -22,6 +22,11 @@ final class LambdaConflictHandlerConfig
         $this->lambdaConflictHandlerArn = $input['lambdaConflictHandlerArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   lambdaConflictHandlerArn?: null|string,
+     * }|LambdaConflictHandlerConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

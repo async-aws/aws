@@ -22,6 +22,11 @@ final class TargetSummary
         $this->arn = $input['Arn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Arn: string,
+     * }|TargetSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

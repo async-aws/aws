@@ -44,6 +44,13 @@ final class GetCommitInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   repositoryName?: string,
+     *   commitId?: string,
+     *   '@region'?: string|null,
+     * }|GetCommitInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

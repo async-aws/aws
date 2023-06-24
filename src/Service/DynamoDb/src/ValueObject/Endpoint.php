@@ -31,6 +31,12 @@ final class Endpoint implements EndpointInterface
         $this->cachePeriodInMinutes = $input['CachePeriodInMinutes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Address: string,
+     *   CachePeriodInMinutes: string,
+     * }|Endpoint $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

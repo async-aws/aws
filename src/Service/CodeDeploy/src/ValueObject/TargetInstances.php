@@ -38,6 +38,13 @@ final class TargetInstances
         $this->ec2TagSet = isset($input['ec2TagSet']) ? EC2TagSet::create($input['ec2TagSet']) : null;
     }
 
+    /**
+     * @param array{
+     *   tagFilters?: null|EC2TagFilter[],
+     *   autoScalingGroups?: null|string[],
+     *   ec2TagSet?: null|EC2TagSet|array,
+     * }|TargetInstances $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

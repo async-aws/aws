@@ -391,6 +391,42 @@ final class StartBuildInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   projectName?: string,
+     *   secondarySourcesOverride?: ProjectSource[],
+     *   secondarySourcesVersionOverride?: ProjectSourceVersion[],
+     *   sourceVersion?: string,
+     *   artifactsOverride?: ProjectArtifacts|array,
+     *   secondaryArtifactsOverride?: ProjectArtifacts[],
+     *   environmentVariablesOverride?: EnvironmentVariable[],
+     *   sourceTypeOverride?: SourceType::*,
+     *   sourceLocationOverride?: string,
+     *   sourceAuthOverride?: SourceAuth|array,
+     *   gitCloneDepthOverride?: int,
+     *   gitSubmodulesConfigOverride?: GitSubmodulesConfig|array,
+     *   buildspecOverride?: string,
+     *   insecureSslOverride?: bool,
+     *   reportBuildStatusOverride?: bool,
+     *   buildStatusConfigOverride?: BuildStatusConfig|array,
+     *   environmentTypeOverride?: EnvironmentType::*,
+     *   imageOverride?: string,
+     *   computeTypeOverride?: ComputeType::*,
+     *   certificateOverride?: string,
+     *   cacheOverride?: ProjectCache|array,
+     *   serviceRoleOverride?: string,
+     *   privilegedModeOverride?: bool,
+     *   timeoutInMinutesOverride?: int,
+     *   queuedTimeoutInMinutesOverride?: int,
+     *   encryptionKeyOverride?: string,
+     *   idempotencyToken?: string,
+     *   logsConfigOverride?: LogsConfig|array,
+     *   registryCredentialOverride?: RegistryCredential|array,
+     *   imagePullCredentialsTypeOverride?: ImagePullCredentialsType::*,
+     *   debugSessionEnabled?: bool,
+     *   '@region'?: string|null,
+     * }|StartBuildInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

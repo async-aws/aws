@@ -287,6 +287,13 @@ final class AliasTarget
         $this->evaluateTargetHealth = $input['EvaluateTargetHealth'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   HostedZoneId: string,
+     *   DNSName: string,
+     *   EvaluateTargetHealth: bool,
+     * }|AliasTarget $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

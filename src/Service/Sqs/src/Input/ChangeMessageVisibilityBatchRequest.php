@@ -44,6 +44,13 @@ final class ChangeMessageVisibilityBatchRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   Entries?: ChangeMessageVisibilityBatchRequestEntry[],
+     *   '@region'?: string|null,
+     * }|ChangeMessageVisibilityBatchRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -57,6 +57,15 @@ final class ProvisionedThroughputDescription
         $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   LastIncreaseDateTime?: null|\DateTimeImmutable,
+     *   LastDecreaseDateTime?: null|\DateTimeImmutable,
+     *   NumberOfDecreasesToday?: null|string,
+     *   ReadCapacityUnits?: null|string,
+     *   WriteCapacityUnits?: null|string,
+     * }|ProvisionedThroughputDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

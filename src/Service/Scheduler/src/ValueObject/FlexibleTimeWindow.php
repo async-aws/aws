@@ -32,6 +32,12 @@ final class FlexibleTimeWindow
         $this->mode = $input['Mode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MaximumWindowInMinutes?: null|int,
+     *   Mode: FlexibleTimeWindowMode::*,
+     * }|FlexibleTimeWindow $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

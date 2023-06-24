@@ -200,6 +200,25 @@ final class PutObjectAclRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ACL?: ObjectCannedACL::*,
+     *   AccessControlPolicy?: AccessControlPolicy|array,
+     *   Bucket?: string,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWrite?: string,
+     *   GrantWriteACP?: string,
+     *   Key?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   VersionId?: string,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|PutObjectAclRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -66,6 +66,15 @@ final class UpdateShardCountInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   TargetShardCount?: int,
+     *   ScalingType?: ScalingType::*,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|UpdateShardCountInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

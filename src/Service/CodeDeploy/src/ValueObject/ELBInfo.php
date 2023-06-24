@@ -26,6 +26,11 @@ final class ELBInfo
         $this->name = $input['name'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     * }|ELBInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

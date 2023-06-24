@@ -44,6 +44,14 @@ final class ThingTypeDefinition
         $this->thingTypeMetadata = isset($input['thingTypeMetadata']) ? ThingTypeMetadata::create($input['thingTypeMetadata']) : null;
     }
 
+    /**
+     * @param array{
+     *   thingTypeName?: null|string,
+     *   thingTypeArn?: null|string,
+     *   thingTypeProperties?: null|ThingTypeProperties|array,
+     *   thingTypeMetadata?: null|ThingTypeMetadata|array,
+     * }|ThingTypeDefinition $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

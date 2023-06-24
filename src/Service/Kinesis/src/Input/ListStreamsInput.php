@@ -47,6 +47,14 @@ final class ListStreamsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Limit?: int,
+     *   ExclusiveStartStreamName?: string,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|ListStreamsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

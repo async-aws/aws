@@ -29,6 +29,12 @@ final class EnvironmentError
         $this->message = $input['Message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ErrorCode?: null|string,
+     *   Message?: null|string,
+     * }|EnvironmentError $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

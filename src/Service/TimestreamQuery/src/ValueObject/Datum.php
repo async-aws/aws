@@ -50,6 +50,15 @@ final class Datum
         $this->nullValue = $input['NullValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ScalarValue?: null|string,
+     *   TimeSeriesValue?: null|TimeSeriesDataPoint[],
+     *   ArrayValue?: null|Datum[],
+     *   RowValue?: null|Row|array,
+     *   NullValue?: null|bool,
+     * }|Datum $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

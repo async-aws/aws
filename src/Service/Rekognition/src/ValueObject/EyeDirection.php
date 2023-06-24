@@ -36,6 +36,13 @@ final class EyeDirection
         $this->confidence = $input['Confidence'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Yaw?: null|float,
+     *   Pitch?: null|float,
+     *   Confidence?: null|float,
+     * }|EyeDirection $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

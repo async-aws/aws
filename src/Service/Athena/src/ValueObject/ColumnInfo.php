@@ -88,6 +88,20 @@ final class ColumnInfo
         $this->caseSensitive = $input['CaseSensitive'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CatalogName?: null|string,
+     *   SchemaName?: null|string,
+     *   TableName?: null|string,
+     *   Name: string,
+     *   Label?: null|string,
+     *   Type: string,
+     *   Precision?: null|int,
+     *   Scale?: null|int,
+     *   Nullable?: null|ColumnNullable::*,
+     *   CaseSensitive?: null|bool,
+     * }|ColumnInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

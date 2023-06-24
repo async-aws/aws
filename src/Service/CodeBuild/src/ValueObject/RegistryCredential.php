@@ -42,6 +42,12 @@ final class RegistryCredential
         $this->credentialProvider = $input['credentialProvider'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   credential: string,
+     *   credentialProvider: CredentialProviderType::*,
+     * }|RegistryCredential $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

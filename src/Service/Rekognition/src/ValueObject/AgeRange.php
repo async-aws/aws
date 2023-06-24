@@ -33,6 +33,12 @@ final class AgeRange
         $this->high = $input['High'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Low?: null|int,
+     *   High?: null|int,
+     * }|AgeRange $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

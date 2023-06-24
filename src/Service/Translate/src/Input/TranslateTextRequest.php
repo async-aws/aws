@@ -95,6 +95,16 @@ final class TranslateTextRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Text?: string,
+     *   TerminologyNames?: string[],
+     *   SourceLanguageCode?: string,
+     *   TargetLanguageCode?: string,
+     *   Settings?: TranslationSettings|array,
+     *   '@region'?: string|null,
+     * }|TranslateTextRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

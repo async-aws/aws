@@ -30,6 +30,12 @@ final class CancelQueryRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueryId?: string,
+     *   '@region'?: string|null,
+     * }|CancelQueryRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

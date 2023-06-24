@@ -43,6 +43,13 @@ final class ListServiceSpecificCredentialsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserName?: string,
+     *   ServiceName?: string,
+     *   '@region'?: string|null,
+     * }|ListServiceSpecificCredentialsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

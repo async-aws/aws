@@ -47,6 +47,13 @@ final class GlobalSecondaryIndexUpdate
         $this->delete = isset($input['Delete']) ? DeleteGlobalSecondaryIndexAction::create($input['Delete']) : null;
     }
 
+    /**
+     * @param array{
+     *   Update?: null|UpdateGlobalSecondaryIndexAction|array,
+     *   Create?: null|CreateGlobalSecondaryIndexAction|array,
+     *   Delete?: null|DeleteGlobalSecondaryIndexAction|array,
+     * }|GlobalSecondaryIndexUpdate $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

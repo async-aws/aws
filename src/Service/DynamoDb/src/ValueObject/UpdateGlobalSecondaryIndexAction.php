@@ -36,6 +36,12 @@ final class UpdateGlobalSecondaryIndexAction
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
     }
 
+    /**
+     * @param array{
+     *   IndexName: string,
+     *   ProvisionedThroughput: ProvisionedThroughput|array,
+     * }|UpdateGlobalSecondaryIndexAction $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

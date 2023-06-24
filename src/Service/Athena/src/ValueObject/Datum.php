@@ -22,6 +22,11 @@ final class Datum
         $this->varCharValue = $input['VarCharValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   VarCharValue?: null|string,
+     * }|Datum $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

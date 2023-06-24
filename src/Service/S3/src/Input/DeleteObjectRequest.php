@@ -103,6 +103,18 @@ final class DeleteObjectRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Key?: string,
+     *   MFA?: string,
+     *   VersionId?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   BypassGovernanceRetention?: bool,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|DeleteObjectRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

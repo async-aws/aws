@@ -30,6 +30,12 @@ final class EnvironmentResponse
         $this->error = isset($input['Error']) ? EnvironmentError::create($input['Error']) : null;
     }
 
+    /**
+     * @param array{
+     *   Variables?: null|array<string, string>,
+     *   Error?: null|EnvironmentError|array,
+     * }|EnvironmentResponse $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

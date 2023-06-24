@@ -23,6 +23,11 @@ final class CustomerContentEncryptionConfiguration
         $this->kmsKey = $input['KmsKey'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   KmsKey: string,
+     * }|CustomerContentEncryptionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

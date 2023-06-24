@@ -108,6 +108,17 @@ final class IndexFacesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CollectionId?: string,
+     *   Image?: Image|array,
+     *   ExternalImageId?: string,
+     *   DetectionAttributes?: list<Attribute::*>,
+     *   MaxFaces?: int,
+     *   QualityFilter?: QualityFilter::*,
+     *   '@region'?: string|null,
+     * }|IndexFacesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

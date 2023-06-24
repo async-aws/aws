@@ -30,6 +30,12 @@ final class StopCalculationExecutionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CalculationExecutionId?: string,
+     *   '@region'?: string|null,
+     * }|StopCalculationExecutionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

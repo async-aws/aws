@@ -132,6 +132,20 @@ final class ListMultipartUploadsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Delimiter?: string,
+     *   EncodingType?: EncodingType::*,
+     *   KeyMarker?: string,
+     *   MaxUploads?: int,
+     *   Prefix?: string,
+     *   UploadIdMarker?: string,
+     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   '@region'?: string|null,
+     * }|ListMultipartUploadsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

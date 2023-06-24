@@ -52,6 +52,14 @@ final class AdminRemoveUserFromGroupRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   Username?: string,
+     *   GroupName?: string,
+     *   '@region'?: string|null,
+     * }|AdminRemoveUserFromGroupRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

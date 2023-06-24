@@ -50,6 +50,15 @@ final class ThingAttribute
         $this->version = $input['version'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   thingName?: null|string,
+     *   thingTypeName?: null|string,
+     *   thingArn?: null|string,
+     *   attributes?: null|array<string, string>,
+     *   version?: null|string,
+     * }|ThingAttribute $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

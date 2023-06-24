@@ -73,6 +73,18 @@ final class Datapoint
         $this->extendedStatistics = $input['ExtendedStatistics'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Timestamp?: null|\DateTimeImmutable,
+     *   SampleCount?: null|float,
+     *   Average?: null|float,
+     *   Sum?: null|float,
+     *   Minimum?: null|float,
+     *   Maximum?: null|float,
+     *   Unit?: null|StandardUnit::*,
+     *   ExtendedStatistics?: null|array<string, float>,
+     * }|Datapoint $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

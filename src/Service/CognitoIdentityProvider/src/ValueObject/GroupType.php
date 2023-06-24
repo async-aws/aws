@@ -75,6 +75,17 @@ final class GroupType
         $this->creationDate = $input['CreationDate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   GroupName?: null|string,
+     *   UserPoolId?: null|string,
+     *   Description?: null|string,
+     *   RoleArn?: null|string,
+     *   Precedence?: null|int,
+     *   LastModifiedDate?: null|\DateTimeImmutable,
+     *   CreationDate?: null|\DateTimeImmutable,
+     * }|GroupType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

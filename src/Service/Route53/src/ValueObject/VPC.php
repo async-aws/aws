@@ -34,6 +34,12 @@ final class VPC
         $this->vpcId = $input['VPCId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   VPCRegion?: null|VPCRegion::*,
+     *   VPCId?: null|string,
+     * }|VPC $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

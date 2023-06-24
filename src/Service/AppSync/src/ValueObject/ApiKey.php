@@ -72,6 +72,14 @@ final class ApiKey
         $this->deletes = $input['deletes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   id?: null|string,
+     *   description?: null|string,
+     *   expires?: null|string,
+     *   deletes?: null|string,
+     * }|ApiKey $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

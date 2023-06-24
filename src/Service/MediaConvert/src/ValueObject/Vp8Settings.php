@@ -146,6 +146,23 @@ final class Vp8Settings
         $this->rateControlMode = $input['RateControlMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   FramerateControl?: null|Vp8FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   GopSize?: null|float,
+     *   HrdBufferSize?: null|int,
+     *   MaxBitrate?: null|int,
+     *   ParControl?: null|Vp8ParControl::*,
+     *   ParDenominator?: null|int,
+     *   ParNumerator?: null|int,
+     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*,
+     *   RateControlMode?: null|Vp8RateControlMode::*,
+     * }|Vp8Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

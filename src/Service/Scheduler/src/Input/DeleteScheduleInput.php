@@ -49,6 +49,14 @@ final class DeleteScheduleInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientToken?: string,
+     *   GroupName?: string,
+     *   Name?: string,
+     *   '@region'?: string|null,
+     * }|DeleteScheduleInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

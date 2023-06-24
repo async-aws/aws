@@ -53,6 +53,14 @@ final class NoiseReducer
         $this->temporalFilterSettings = isset($input['TemporalFilterSettings']) ? NoiseReducerTemporalFilterSettings::create($input['TemporalFilterSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   Filter?: null|NoiseReducerFilter::*,
+     *   FilterSettings?: null|NoiseReducerFilterSettings|array,
+     *   SpatialFilterSettings?: null|NoiseReducerSpatialFilterSettings|array,
+     *   TemporalFilterSettings?: null|NoiseReducerTemporalFilterSettings|array,
+     * }|NoiseReducer $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

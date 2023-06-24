@@ -41,6 +41,13 @@ final class StartSchemaCreationRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   apiId?: string,
+     *   definition?: string,
+     *   '@region'?: string|null,
+     * }|StartSchemaCreationRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

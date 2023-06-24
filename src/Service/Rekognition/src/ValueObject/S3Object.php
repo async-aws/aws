@@ -42,6 +42,13 @@ final class S3Object
         $this->version = $input['Version'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bucket?: null|string,
+     *   Name?: null|string,
+     *   Version?: null|string,
+     * }|S3Object $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

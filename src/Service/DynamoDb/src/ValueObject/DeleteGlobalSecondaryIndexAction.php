@@ -24,6 +24,11 @@ final class DeleteGlobalSecondaryIndexAction
         $this->indexName = $input['IndexName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IndexName: string,
+     * }|DeleteGlobalSecondaryIndexAction $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

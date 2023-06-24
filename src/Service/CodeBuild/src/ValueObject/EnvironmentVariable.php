@@ -53,6 +53,13 @@ final class EnvironmentVariable
         $this->type = $input['type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name: string,
+     *   value: string,
+     *   type?: null|EnvironmentVariableType::*,
+     * }|EnvironmentVariable $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

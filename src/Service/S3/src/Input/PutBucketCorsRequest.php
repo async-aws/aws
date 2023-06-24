@@ -87,6 +87,16 @@ final class PutBucketCorsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   CORSConfiguration?: CORSConfiguration|array,
+     *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|PutBucketCorsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

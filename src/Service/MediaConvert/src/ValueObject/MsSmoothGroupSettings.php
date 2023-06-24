@@ -91,6 +91,18 @@ final class MsSmoothGroupSettings
         $this->manifestEncoding = $input['ManifestEncoding'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdditionalManifests?: null|MsSmoothAdditionalManifest[],
+     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
+     *   Destination?: null|string,
+     *   DestinationSettings?: null|DestinationSettings|array,
+     *   Encryption?: null|MsSmoothEncryptionSettings|array,
+     *   FragmentLength?: null|int,
+     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*,
+     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*,
+     * }|MsSmoothGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

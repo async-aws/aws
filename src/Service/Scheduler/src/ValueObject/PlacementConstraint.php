@@ -37,6 +37,12 @@ final class PlacementConstraint
         $this->type = $input['type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   expression?: null|string,
+     *   type?: null|PlacementConstraintType::*,
+     * }|PlacementConstraint $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

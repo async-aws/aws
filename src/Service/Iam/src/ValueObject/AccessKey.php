@@ -58,6 +58,15 @@ final class AccessKey
         $this->createDate = $input['CreateDate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   UserName: string,
+     *   AccessKeyId: string,
+     *   Status: StatusType::*,
+     *   SecretAccessKey: string,
+     *   CreateDate?: null|\DateTimeImmutable,
+     * }|AccessKey $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

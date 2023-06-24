@@ -31,6 +31,12 @@ final class DeleteParametersRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Names?: string[],
+     *   '@region'?: string|null,
+     * }|DeleteParametersRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -93,6 +93,17 @@ final class PublishLayerVersionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   LayerName?: string,
+     *   Description?: string,
+     *   Content?: LayerVersionContentInput|array,
+     *   CompatibleRuntimes?: list<Runtime::*>,
+     *   LicenseInfo?: string,
+     *   CompatibleArchitectures?: list<Architecture::*>,
+     *   '@region'?: string|null,
+     * }|PublishLayerVersionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

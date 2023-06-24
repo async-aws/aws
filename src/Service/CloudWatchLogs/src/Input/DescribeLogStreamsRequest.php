@@ -99,6 +99,18 @@ final class DescribeLogStreamsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   logGroupName?: string,
+     *   logGroupIdentifier?: string,
+     *   logStreamNamePrefix?: string,
+     *   orderBy?: OrderBy::*,
+     *   descending?: bool,
+     *   nextToken?: string,
+     *   limit?: int,
+     *   '@region'?: string|null,
+     * }|DescribeLogStreamsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

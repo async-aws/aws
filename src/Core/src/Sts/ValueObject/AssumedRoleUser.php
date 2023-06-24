@@ -33,6 +33,12 @@ final class AssumedRoleUser
         $this->arn = $input['Arn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AssumedRoleId: string,
+     *   Arn: string,
+     * }|AssumedRoleUser $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

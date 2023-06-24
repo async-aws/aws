@@ -50,6 +50,14 @@ final class RevokeTokenRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Token?: string,
+     *   ClientId?: string,
+     *   ClientSecret?: string,
+     *   '@region'?: string|null,
+     * }|RevokeTokenRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

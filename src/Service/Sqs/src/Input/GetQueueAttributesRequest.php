@@ -167,6 +167,13 @@ final class GetQueueAttributesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   AttributeNames?: list<QueueAttributeName::*>,
+     *   '@region'?: string|null,
+     * }|GetQueueAttributesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

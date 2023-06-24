@@ -32,6 +32,12 @@ final class RetryPolicy
         $this->maximumRetryAttempts = $input['MaximumRetryAttempts'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MaximumEventAgeInSeconds?: null|int,
+     *   MaximumRetryAttempts?: null|int,
+     * }|RetryPolicy $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

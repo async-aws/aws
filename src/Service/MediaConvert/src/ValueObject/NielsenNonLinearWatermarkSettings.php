@@ -123,6 +123,21 @@ final class NielsenNonLinearWatermarkSettings
         $this->uniqueTicPerAudioTrack = $input['UniqueTicPerAudioTrack'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*,
+     *   AdiFilename?: null|string,
+     *   AssetId?: null|string,
+     *   AssetName?: null|string,
+     *   CbetSourceId?: null|string,
+     *   EpisodeId?: null|string,
+     *   MetadataDestination?: null|string,
+     *   SourceId?: null|int,
+     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*,
+     *   TicServerUrl?: null|string,
+     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*,
+     * }|NielsenNonLinearWatermarkSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

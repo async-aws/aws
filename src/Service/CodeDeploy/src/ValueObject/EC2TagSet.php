@@ -23,6 +23,11 @@ final class EC2TagSet
         $this->ec2TagSetList = $input['ec2TagSetList'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ec2TagSetList?: null|array[],
+     * }|EC2TagSet $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

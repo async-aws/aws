@@ -236,6 +236,37 @@ final class Job
         $this->warnings = isset($input['Warnings']) ? array_map([WarningGroup::class, 'create'], $input['Warnings']) : null;
     }
 
+    /**
+     * @param array{
+     *   AccelerationSettings?: null|AccelerationSettings|array,
+     *   AccelerationStatus?: null|AccelerationStatus::*,
+     *   Arn?: null|string,
+     *   BillingTagsSource?: null|BillingTagsSource::*,
+     *   ClientRequestToken?: null|string,
+     *   CreatedAt?: null|\DateTimeImmutable,
+     *   CurrentPhase?: null|JobPhase::*,
+     *   ErrorCode?: null|int,
+     *   ErrorMessage?: null|string,
+     *   HopDestinations?: null|HopDestination[],
+     *   Id?: null|string,
+     *   JobPercentComplete?: null|int,
+     *   JobTemplate?: null|string,
+     *   Messages?: null|JobMessages|array,
+     *   OutputGroupDetails?: null|OutputGroupDetail[],
+     *   Priority?: null|int,
+     *   Queue?: null|string,
+     *   QueueTransitions?: null|QueueTransition[],
+     *   RetryCount?: null|int,
+     *   Role: string,
+     *   Settings: JobSettings|array,
+     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
+     *   Status?: null|JobStatus::*,
+     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
+     *   Timing?: null|Timing|array,
+     *   UserMetadata?: null|array<string, string>,
+     *   Warnings?: null|WarningGroup[],
+     * }|Job $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

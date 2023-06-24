@@ -22,6 +22,11 @@ final class SessionStatistics
         $this->dpuExecutionInMillis = $input['DpuExecutionInMillis'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DpuExecutionInMillis?: null|string,
+     * }|SessionStatistics $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

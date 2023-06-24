@@ -98,6 +98,15 @@ final class AdminUpdateUserAttributesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   Username?: string,
+     *   UserAttributes?: AttributeType[],
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|AdminUpdateUserAttributesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

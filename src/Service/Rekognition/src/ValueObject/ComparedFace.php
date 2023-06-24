@@ -65,6 +65,17 @@ final class ComparedFace
         $this->smile = isset($input['Smile']) ? Smile::create($input['Smile']) : null;
     }
 
+    /**
+     * @param array{
+     *   BoundingBox?: null|BoundingBox|array,
+     *   Confidence?: null|float,
+     *   Landmarks?: null|Landmark[],
+     *   Pose?: null|Pose|array,
+     *   Quality?: null|ImageQuality|array,
+     *   Emotions?: null|Emotion[],
+     *   Smile?: null|Smile|array,
+     * }|ComparedFace $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -25,6 +25,11 @@ final class AutomatedEncodingSettings
         $this->abrSettings = isset($input['AbrSettings']) ? AutomatedAbrSettings::create($input['AbrSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   AbrSettings?: null|AutomatedAbrSettings|array,
+     * }|AutomatedEncodingSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

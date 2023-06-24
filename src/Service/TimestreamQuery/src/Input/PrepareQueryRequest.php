@@ -41,6 +41,13 @@ final class PrepareQueryRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueryString?: string,
+     *   ValidateOnly?: bool,
+     *   '@region'?: string|null,
+     * }|PrepareQueryRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -36,6 +36,13 @@ final class UnprocessedTraceSegment
         $this->message = $input['Message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   ErrorCode?: null|string,
+     *   Message?: null|string,
+     * }|UnprocessedTraceSegment $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

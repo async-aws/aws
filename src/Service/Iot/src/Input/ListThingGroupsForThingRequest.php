@@ -49,6 +49,14 @@ final class ListThingGroupsForThingRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingName?: string,
+     *   nextToken?: string,
+     *   maxResults?: int,
+     *   '@region'?: string|null,
+     * }|ListThingGroupsForThingRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

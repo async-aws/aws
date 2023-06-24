@@ -31,6 +31,12 @@ final class ImageQuality
         $this->sharpness = $input['Sharpness'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Brightness?: null|float,
+     *   Sharpness?: null|float,
+     * }|ImageQuality $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

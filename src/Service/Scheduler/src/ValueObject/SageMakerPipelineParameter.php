@@ -31,6 +31,12 @@ final class SageMakerPipelineParameter
         $this->value = $input['Value'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Value: string,
+     * }|SageMakerPipelineParameter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

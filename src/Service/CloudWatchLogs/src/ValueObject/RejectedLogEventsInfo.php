@@ -36,6 +36,13 @@ final class RejectedLogEventsInfo
         $this->expiredLogEventEndIndex = $input['expiredLogEventEndIndex'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   tooNewLogEventStartIndex?: null|int,
+     *   tooOldLogEventEndIndex?: null|int,
+     *   expiredLogEventEndIndex?: null|int,
+     * }|RejectedLogEventsInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

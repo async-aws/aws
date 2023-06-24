@@ -32,6 +32,12 @@ final class ReplicaGlobalSecondaryIndex
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
     }
 
+    /**
+     * @param array{
+     *   IndexName: string,
+     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     * }|ReplicaGlobalSecondaryIndex $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -42,6 +42,13 @@ final class GetParameterRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Name?: string,
+     *   WithDecryption?: bool,
+     *   '@region'?: string|null,
+     * }|GetParameterRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

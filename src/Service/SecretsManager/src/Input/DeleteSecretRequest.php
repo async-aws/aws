@@ -69,6 +69,14 @@ final class DeleteSecretRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SecretId?: string,
+     *   RecoveryWindowInDays?: string,
+     *   ForceDeleteWithoutRecovery?: bool,
+     *   '@region'?: string|null,
+     * }|DeleteSecretRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

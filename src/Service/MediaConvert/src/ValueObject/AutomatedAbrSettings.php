@@ -54,6 +54,14 @@ final class AutomatedAbrSettings
         $this->rules = isset($input['Rules']) ? array_map([AutomatedAbrRule::class, 'create'], $input['Rules']) : null;
     }
 
+    /**
+     * @param array{
+     *   MaxAbrBitrate?: null|int,
+     *   MaxRenditions?: null|int,
+     *   MinAbrBitrate?: null|int,
+     *   Rules?: null|AutomatedAbrRule[],
+     * }|AutomatedAbrSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

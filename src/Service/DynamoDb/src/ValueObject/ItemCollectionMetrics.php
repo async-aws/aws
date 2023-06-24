@@ -36,6 +36,12 @@ final class ItemCollectionMetrics
         $this->sizeEstimateRangeGb = $input['SizeEstimateRangeGB'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ItemCollectionKey?: null|array<string, AttributeValue>,
+     *   SizeEstimateRangeGB?: null|float[],
+     * }|ItemCollectionMetrics $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

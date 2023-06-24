@@ -49,6 +49,13 @@ final class MeasureValue
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Value: string,
+     *   Type: MeasureValueType::*,
+     * }|MeasureValue $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

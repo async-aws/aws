@@ -67,6 +67,15 @@ final class WriteRecordsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   DatabaseName?: string,
+     *   TableName?: string,
+     *   CommonAttributes?: Record|array,
+     *   Records?: Record[],
+     *   '@region'?: string|null,
+     * }|WriteRecordsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

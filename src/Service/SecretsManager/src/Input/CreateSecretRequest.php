@@ -190,6 +190,20 @@ final class CreateSecretRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Name?: string,
+     *   ClientRequestToken?: string,
+     *   Description?: string,
+     *   KmsKeyId?: string,
+     *   SecretBinary?: string,
+     *   SecretString?: string,
+     *   Tags?: Tag[],
+     *   AddReplicaRegions?: ReplicaRegionType[],
+     *   ForceOverwriteReplicaSecret?: bool,
+     *   '@region'?: string|null,
+     * }|CreateSecretRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

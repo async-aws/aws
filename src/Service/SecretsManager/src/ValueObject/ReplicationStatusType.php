@@ -54,6 +54,15 @@ final class ReplicationStatusType
         $this->lastAccessedDate = $input['LastAccessedDate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Region?: null|string,
+     *   KmsKeyId?: null|string,
+     *   Status?: null|StatusType::*,
+     *   StatusMessage?: null|string,
+     *   LastAccessedDate?: null|\DateTimeImmutable,
+     * }|ReplicationStatusType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -32,6 +32,12 @@ final class DeleteQueueRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   '@region'?: string|null,
+     * }|DeleteQueueRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

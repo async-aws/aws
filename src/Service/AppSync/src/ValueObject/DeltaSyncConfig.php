@@ -36,6 +36,13 @@ final class DeltaSyncConfig
         $this->deltaSyncTableTtl = $input['deltaSyncTableTTL'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   baseTableTTL?: null|string,
+     *   deltaSyncTableName?: null|string,
+     *   deltaSyncTableTTL?: null|string,
+     * }|DeltaSyncConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

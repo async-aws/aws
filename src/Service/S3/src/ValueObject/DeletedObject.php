@@ -45,6 +45,14 @@ final class DeletedObject
         $this->deleteMarkerVersionId = $input['DeleteMarkerVersionId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key?: null|string,
+     *   VersionId?: null|string,
+     *   DeleteMarker?: null|bool,
+     *   DeleteMarkerVersionId?: null|string,
+     * }|DeletedObject $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -41,6 +41,12 @@ final class AppSpecContent
         $this->sha256 = $input['sha256'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   content?: null|string,
+     *   sha256?: null|string,
+     * }|AppSpecContent $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

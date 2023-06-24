@@ -24,6 +24,11 @@ final class LambdaDataSourceConfig
         $this->lambdaFunctionArn = $input['lambdaFunctionArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   lambdaFunctionArn: string,
+     * }|LambdaDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

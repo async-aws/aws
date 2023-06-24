@@ -233,6 +233,31 @@ final class DashIsoGroupSettings
         $this->writeSegmentTimelineInRepresentation = $input['WriteSegmentTimelineInRepresentation'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdditionalManifests?: null|DashAdditionalManifest[],
+     *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*,
+     *   BaseUrl?: null|string,
+     *   DashManifestStyle?: null|DashManifestStyle::*,
+     *   Destination?: null|string,
+     *   DestinationSettings?: null|DestinationSettings|array,
+     *   Encryption?: null|DashIsoEncryptionSettings|array,
+     *   FragmentLength?: null|int,
+     *   HbbtvCompliance?: null|DashIsoHbbtvCompliance::*,
+     *   ImageBasedTrickPlay?: null|DashIsoImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlaySettings?: null|DashIsoImageBasedTrickPlaySettings|array,
+     *   MinBufferTime?: null|int,
+     *   MinFinalSegmentLength?: null|float,
+     *   MpdManifestBandwidthType?: null|DashIsoMpdManifestBandwidthType::*,
+     *   MpdProfile?: null|DashIsoMpdProfile::*,
+     *   PtsOffsetHandlingForBFrames?: null|DashIsoPtsOffsetHandlingForBFrames::*,
+     *   SegmentControl?: null|DashIsoSegmentControl::*,
+     *   SegmentLength?: null|int,
+     *   SegmentLengthControl?: null|DashIsoSegmentLengthControl::*,
+     *   VideoCompositionOffsets?: null|DashIsoVideoCompositionOffsets::*,
+     *   WriteSegmentTimelineInRepresentation?: null|DashIsoWriteSegmentTimelineInRepresentation::*,
+     * }|DashIsoGroupSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

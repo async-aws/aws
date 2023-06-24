@@ -106,6 +106,17 @@ final class ResendConfirmationCodeRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientId?: string,
+     *   SecretHash?: string,
+     *   UserContextData?: UserContextDataType|array,
+     *   Username?: string,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|ResendConfirmationCodeRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

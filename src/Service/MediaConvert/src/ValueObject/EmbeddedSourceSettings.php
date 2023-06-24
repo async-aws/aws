@@ -51,6 +51,14 @@ final class EmbeddedSourceSettings
         $this->terminateCaptions = $input['TerminateCaptions'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Convert608To708?: null|EmbeddedConvert608To708::*,
+     *   Source608ChannelNumber?: null|int,
+     *   Source608TrackNumber?: null|int,
+     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*,
+     * }|EmbeddedSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

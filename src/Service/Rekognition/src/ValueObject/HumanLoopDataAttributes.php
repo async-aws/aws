@@ -26,6 +26,11 @@ final class HumanLoopDataAttributes
         $this->contentClassifiers = $input['ContentClassifiers'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ContentClassifiers?: null|list<ContentClassifier::*>,
+     * }|HumanLoopDataAttributes $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

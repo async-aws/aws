@@ -22,6 +22,11 @@ final class Endpoint
         $this->url = $input['Url'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Url?: null|string,
+     * }|Endpoint $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

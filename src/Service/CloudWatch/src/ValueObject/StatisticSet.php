@@ -45,6 +45,14 @@ final class StatisticSet
         $this->maximum = $input['Maximum'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SampleCount: float,
+     *   Sum: float,
+     *   Minimum: float,
+     *   Maximum: float,
+     * }|StatisticSet $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

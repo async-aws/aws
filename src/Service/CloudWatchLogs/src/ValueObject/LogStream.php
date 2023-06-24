@@ -82,6 +82,18 @@ final class LogStream
         $this->storedBytes = $input['storedBytes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   logStreamName?: null|string,
+     *   creationTime?: null|string,
+     *   firstEventTimestamp?: null|string,
+     *   lastEventTimestamp?: null|string,
+     *   lastIngestionTime?: null|string,
+     *   uploadSequenceToken?: null|string,
+     *   arn?: null|string,
+     *   storedBytes?: null|string,
+     * }|LogStream $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

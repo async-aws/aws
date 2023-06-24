@@ -66,6 +66,15 @@ final class CreateThingRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingName?: string,
+     *   thingTypeName?: string,
+     *   attributePayload?: AttributePayload|array,
+     *   billingGroupName?: string,
+     *   '@region'?: string|null,
+     * }|CreateThingRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

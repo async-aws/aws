@@ -165,6 +165,23 @@ final class CreateScheduleInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientToken?: string,
+     *   Description?: string,
+     *   EndDate?: \DateTimeImmutable|string,
+     *   FlexibleTimeWindow?: FlexibleTimeWindow|array,
+     *   GroupName?: string,
+     *   KmsKeyArn?: string,
+     *   Name?: string,
+     *   ScheduleExpression?: string,
+     *   ScheduleExpressionTimezone?: string,
+     *   StartDate?: \DateTimeImmutable|string,
+     *   State?: ScheduleState::*,
+     *   Target?: Target|array,
+     *   '@region'?: string|null,
+     * }|CreateScheduleInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

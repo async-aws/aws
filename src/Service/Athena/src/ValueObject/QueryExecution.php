@@ -108,6 +108,22 @@ final class QueryExecution
         $this->substatementType = $input['SubstatementType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   QueryExecutionId?: null|string,
+     *   Query?: null|string,
+     *   StatementType?: null|StatementType::*,
+     *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
+     *   QueryExecutionContext?: null|QueryExecutionContext|array,
+     *   Status?: null|QueryExecutionStatus|array,
+     *   Statistics?: null|QueryExecutionStatistics|array,
+     *   WorkGroup?: null|string,
+     *   EngineVersion?: null|EngineVersion|array,
+     *   ExecutionParameters?: null|string[],
+     *   SubstatementType?: null|string,
+     * }|QueryExecution $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

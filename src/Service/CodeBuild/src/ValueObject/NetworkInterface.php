@@ -29,6 +29,12 @@ final class NetworkInterface
         $this->networkInterfaceId = $input['networkInterfaceId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   subnetId?: null|string,
+     *   networkInterfaceId?: null|string,
+     * }|NetworkInterface $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

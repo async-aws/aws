@@ -36,6 +36,13 @@ final class VpcConfig
         $this->securityGroupIds = $input['securityGroupIds'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   vpcId?: null|string,
+     *   subnets?: null|string[],
+     *   securityGroupIds?: null|string[],
+     * }|VpcConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

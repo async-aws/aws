@@ -301,6 +301,33 @@ final class TableDescription
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AttributeDefinitions?: null|AttributeDefinition[],
+     *   TableName?: null|string,
+     *   KeySchema?: null|KeySchemaElement[],
+     *   TableStatus?: null|TableStatus::*,
+     *   CreationDateTime?: null|\DateTimeImmutable,
+     *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
+     *   TableSizeBytes?: null|string,
+     *   ItemCount?: null|string,
+     *   TableArn?: null|string,
+     *   TableId?: null|string,
+     *   BillingModeSummary?: null|BillingModeSummary|array,
+     *   LocalSecondaryIndexes?: null|LocalSecondaryIndexDescription[],
+     *   GlobalSecondaryIndexes?: null|GlobalSecondaryIndexDescription[],
+     *   StreamSpecification?: null|StreamSpecification|array,
+     *   LatestStreamLabel?: null|string,
+     *   LatestStreamArn?: null|string,
+     *   GlobalTableVersion?: null|string,
+     *   Replicas?: null|ReplicaDescription[],
+     *   RestoreSummary?: null|RestoreSummary|array,
+     *   SSEDescription?: null|SSEDescription|array,
+     *   ArchivalSummary?: null|ArchivalSummary|array,
+     *   TableClassSummary?: null|TableClassSummary|array,
+     *   DeletionProtectionEnabled?: null|bool,
+     * }|TableDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class AutoRollbackConfiguration
         $this->events = $input['events'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   enabled?: null|bool,
+     *   events?: null|list<AutoRollbackEvent::*>,
+     * }|AutoRollbackConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -43,6 +43,14 @@ final class LambdaFunctionConfiguration
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   LambdaFunctionArn: string,
+     *   Events: list<Event::*>,
+     *   Filter?: null|NotificationConfigurationFilter|array,
+     * }|LambdaFunctionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -30,6 +30,11 @@ final class ChannelMapping
         $this->outputChannels = isset($input['OutputChannels']) ? array_map([OutputChannelMapping::class, 'create'], $input['OutputChannels']) : null;
     }
 
+    /**
+     * @param array{
+     *   OutputChannels?: null|OutputChannelMapping[],
+     * }|ChannelMapping $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

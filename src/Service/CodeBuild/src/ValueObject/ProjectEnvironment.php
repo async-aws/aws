@@ -151,6 +151,18 @@ final class ProjectEnvironment
         $this->imagePullCredentialsType = $input['imagePullCredentialsType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   type: EnvironmentType::*,
+     *   image: string,
+     *   computeType: ComputeType::*,
+     *   environmentVariables?: null|EnvironmentVariable[],
+     *   privilegedMode?: null|bool,
+     *   certificate?: null|string,
+     *   registryCredential?: null|RegistryCredential|array,
+     *   imagePullCredentialsType?: null|ImagePullCredentialsType::*,
+     * }|ProjectEnvironment $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -30,6 +30,12 @@ final class GetWorkGroupInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   WorkGroup?: string,
+     *   '@region'?: string|null,
+     * }|GetWorkGroupInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

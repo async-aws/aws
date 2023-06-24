@@ -56,6 +56,12 @@ final class ErrorInformation
         $this->message = $input['message'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   code?: null|ErrorCode::*,
+     *   message?: null|string,
+     * }|ErrorInformation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -51,6 +51,13 @@ final class Deinterlacer
         $this->mode = $input['Mode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Algorithm?: null|DeinterlaceAlgorithm::*,
+     *   Control?: null|DeinterlacerControl::*,
+     *   Mode?: null|DeinterlacerMode::*,
+     * }|Deinterlacer $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -79,6 +79,16 @@ final class CreateGroupRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   GroupName?: string,
+     *   UserPoolId?: string,
+     *   Description?: string,
+     *   RoleArn?: string,
+     *   Precedence?: int,
+     *   '@region'?: string|null,
+     * }|CreateGroupRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -37,6 +37,13 @@ final class ThingTypeMetadata
         $this->creationDate = $input['creationDate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   deprecated?: null|bool,
+     *   deprecationDate?: null|\DateTimeImmutable,
+     *   creationDate?: null|\DateTimeImmutable,
+     * }|ThingTypeMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

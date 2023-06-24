@@ -81,6 +81,17 @@ final class ExecuteStatementInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Statement?: string,
+     *   Parameters?: AttributeValue[],
+     *   ConsistentRead?: bool,
+     *   NextToken?: string,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   Limit?: int,
+     *   '@region'?: string|null,
+     * }|ExecuteStatementInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -40,6 +40,13 @@ final class CodeError
         $this->location = isset($input['location']) ? CodeErrorLocation::create($input['location']) : null;
     }
 
+    /**
+     * @param array{
+     *   errorType?: null|string,
+     *   value?: null|string,
+     *   location?: null|CodeErrorLocation|array,
+     * }|CodeError $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

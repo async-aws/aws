@@ -30,6 +30,11 @@ final class InvalidRequestDetail
         $this->reason = $input['Reason'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Reason?: null|InvalidRequestDetailReason::*,
+     * }|InvalidRequestDetail $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -50,6 +50,14 @@ final class CreateScheduleGroupInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientToken?: string,
+     *   Name?: string,
+     *   Tags?: Tag[],
+     *   '@region'?: string|null,
+     * }|CreateScheduleGroupInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -37,6 +37,13 @@ final class QueueTransition
         $this->timestamp = $input['Timestamp'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DestinationQueue?: null|string,
+     *   SourceQueue?: null|string,
+     *   Timestamp?: null|\DateTimeImmutable,
+     * }|QueueTransition $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

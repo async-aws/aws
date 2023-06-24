@@ -25,6 +25,11 @@ final class Record
         $this->data = $input['Data'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Data: string,
+     * }|Record $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

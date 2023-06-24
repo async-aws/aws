@@ -36,6 +36,12 @@ final class DeleteMessageBatchRequestEntry
         $this->receiptHandle = $input['ReceiptHandle'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   ReceiptHandle: string,
+     * }|DeleteMessageBatchRequestEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

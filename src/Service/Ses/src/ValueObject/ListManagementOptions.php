@@ -32,6 +32,12 @@ final class ListManagementOptions
         $this->topicName = $input['TopicName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ContactListName: string,
+     *   TopicName?: null|string,
+     * }|ListManagementOptions $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

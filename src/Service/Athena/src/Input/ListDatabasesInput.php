@@ -50,6 +50,14 @@ final class ListDatabasesInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CatalogName?: string,
+     *   NextToken?: string,
+     *   MaxResults?: int,
+     *   '@region'?: string|null,
+     * }|ListDatabasesInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

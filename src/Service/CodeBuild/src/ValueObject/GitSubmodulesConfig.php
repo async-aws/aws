@@ -24,6 +24,11 @@ final class GitSubmodulesConfig
         $this->fetchSubmodules = $input['fetchSubmodules'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   fetchSubmodules: bool,
+     * }|GitSubmodulesConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

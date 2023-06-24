@@ -182,6 +182,20 @@ final class AdminCreateUserRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   Username?: string,
+     *   UserAttributes?: AttributeType[],
+     *   ValidationData?: AttributeType[],
+     *   TemporaryPassword?: string,
+     *   ForceAliasCreation?: bool,
+     *   MessageAction?: MessageActionType::*,
+     *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|AdminCreateUserRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

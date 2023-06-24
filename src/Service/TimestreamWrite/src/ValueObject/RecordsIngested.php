@@ -36,6 +36,13 @@ final class RecordsIngested
         $this->magneticStore = $input['MagneticStore'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Total?: null|int,
+     *   MemoryStore?: null|int,
+     *   MagneticStore?: null|int,
+     * }|RecordsIngested $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

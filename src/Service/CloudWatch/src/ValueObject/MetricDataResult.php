@@ -65,6 +65,16 @@ final class MetricDataResult
         $this->messages = isset($input['Messages']) ? array_map([MessageData::class, 'create'], $input['Messages']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   Label?: null|string,
+     *   Timestamps?: null|\DateTimeImmutable[],
+     *   Values?: null|float[],
+     *   StatusCode?: null|StatusCode::*,
+     *   Messages?: null|MessageData[],
+     * }|MetricDataResult $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

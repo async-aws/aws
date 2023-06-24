@@ -30,6 +30,12 @@ final class HostedZoneConfig
         $this->privateZone = $input['PrivateZone'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Comment?: null|string,
+     *   PrivateZone?: null|bool,
+     * }|HostedZoneConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

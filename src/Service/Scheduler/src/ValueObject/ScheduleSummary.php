@@ -66,6 +66,17 @@ final class ScheduleSummary
         $this->target = isset($input['Target']) ? TargetSummary::create($input['Target']) : null;
     }
 
+    /**
+     * @param array{
+     *   Arn?: null|string,
+     *   CreationDate?: null|\DateTimeImmutable,
+     *   GroupName?: null|string,
+     *   LastModificationDate?: null|\DateTimeImmutable,
+     *   Name?: null|string,
+     *   State?: null|ScheduleState::*,
+     *   Target?: null|TargetSummary|array,
+     * }|ScheduleSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

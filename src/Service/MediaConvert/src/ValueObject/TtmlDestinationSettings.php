@@ -29,6 +29,11 @@ final class TtmlDestinationSettings
         $this->stylePassthrough = $input['StylePassthrough'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StylePassthrough?: null|TtmlStylePassthrough::*,
+     * }|TtmlDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

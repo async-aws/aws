@@ -57,6 +57,15 @@ final class SpekeKeyProviderCmaf
         $this->url = $input['Url'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CertificateArn?: null|string,
+     *   DashSignaledSystemIds?: null|string[],
+     *   HlsSignaledSystemIds?: null|string[],
+     *   ResourceId?: null|string,
+     *   Url?: null|string,
+     * }|SpekeKeyProviderCmaf $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class EventBridgeParameters
         $this->source = $input['Source'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   DetailType: string,
+     *   Source: string,
+     * }|EventBridgeParameters $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

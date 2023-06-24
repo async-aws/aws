@@ -29,6 +29,12 @@ final class QueryExecutionContext
         $this->catalog = $input['Catalog'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Database?: null|string,
+     *   Catalog?: null|string,
+     * }|QueryExecutionContext $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

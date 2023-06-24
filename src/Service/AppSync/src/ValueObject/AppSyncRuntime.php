@@ -34,6 +34,12 @@ final class AppSyncRuntime
         $this->runtimeVersion = $input['runtimeVersion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name: RuntimeName::*,
+     *   runtimeVersion: string,
+     * }|AppSyncRuntime $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

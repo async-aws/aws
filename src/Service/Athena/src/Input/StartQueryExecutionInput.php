@@ -97,6 +97,18 @@ final class StartQueryExecutionInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueryString?: string,
+     *   ClientRequestToken?: string,
+     *   QueryExecutionContext?: QueryExecutionContext|array,
+     *   ResultConfiguration?: ResultConfiguration|array,
+     *   WorkGroup?: string,
+     *   ExecutionParameters?: string[],
+     *   ResultReuseConfiguration?: ResultReuseConfiguration|array,
+     *   '@region'?: string|null,
+     * }|StartQueryExecutionInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

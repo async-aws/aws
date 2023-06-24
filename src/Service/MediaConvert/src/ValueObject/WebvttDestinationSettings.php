@@ -50,6 +50,12 @@ final class WebvttDestinationSettings
         $this->stylePassthrough = $input['StylePassthrough'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Accessibility?: null|WebvttAccessibilitySubs::*,
+     *   StylePassthrough?: null|WebvttStylePassthrough::*,
+     * }|WebvttDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

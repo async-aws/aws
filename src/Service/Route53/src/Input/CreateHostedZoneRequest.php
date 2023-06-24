@@ -100,6 +100,16 @@ final class CreateHostedZoneRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Name?: string,
+     *   VPC?: VPC|array,
+     *   CallerReference?: string,
+     *   HostedZoneConfig?: HostedZoneConfig|array,
+     *   DelegationSetId?: string,
+     *   '@region'?: string|null,
+     * }|CreateHostedZoneRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

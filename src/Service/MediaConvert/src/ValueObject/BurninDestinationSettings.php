@@ -221,6 +221,31 @@ final class BurninDestinationSettings
         $this->yposition = $input['YPosition'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Alignment?: null|BurninSubtitleAlignment::*,
+     *   ApplyFontColor?: null|BurninSubtitleApplyFontColor::*,
+     *   BackgroundColor?: null|BurninSubtitleBackgroundColor::*,
+     *   BackgroundOpacity?: null|int,
+     *   FallbackFont?: null|BurninSubtitleFallbackFont::*,
+     *   FontColor?: null|BurninSubtitleFontColor::*,
+     *   FontOpacity?: null|int,
+     *   FontResolution?: null|int,
+     *   FontScript?: null|FontScript::*,
+     *   FontSize?: null|int,
+     *   HexFontColor?: null|string,
+     *   OutlineColor?: null|BurninSubtitleOutlineColor::*,
+     *   OutlineSize?: null|int,
+     *   ShadowColor?: null|BurninSubtitleShadowColor::*,
+     *   ShadowOpacity?: null|int,
+     *   ShadowXOffset?: null|int,
+     *   ShadowYOffset?: null|int,
+     *   StylePassthrough?: null|BurnInSubtitleStylePassthrough::*,
+     *   TeletextSpacing?: null|BurninSubtitleTeletextSpacing::*,
+     *   XPosition?: null|int,
+     *   YPosition?: null|int,
+     * }|BurninDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

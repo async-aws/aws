@@ -38,6 +38,13 @@ final class PutRecordBatchResponseEntry
         $this->errorMessage = $input['ErrorMessage'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RecordId?: null|string,
+     *   ErrorCode?: null|string,
+     *   ErrorMessage?: null|string,
+     * }|PutRecordBatchResponseEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

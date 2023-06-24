@@ -252,6 +252,23 @@ final class CreateTableInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AttributeDefinitions?: AttributeDefinition[],
+     *   TableName?: string,
+     *   KeySchema?: KeySchemaElement[],
+     *   LocalSecondaryIndexes?: LocalSecondaryIndex[],
+     *   GlobalSecondaryIndexes?: GlobalSecondaryIndex[],
+     *   BillingMode?: BillingMode::*,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array,
+     *   StreamSpecification?: StreamSpecification|array,
+     *   SSESpecification?: SSESpecification|array,
+     *   Tags?: Tag[],
+     *   TableClass?: TableClass::*,
+     *   DeletionProtectionEnabled?: bool,
+     *   '@region'?: string|null,
+     * }|CreateTableInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

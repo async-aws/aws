@@ -33,6 +33,12 @@ final class DeleteThingTypeRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   thingTypeName?: string,
+     *   '@region'?: string|null,
+     * }|DeleteThingTypeRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

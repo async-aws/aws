@@ -37,6 +37,12 @@ final class ExtendedDataServices
         $this->vchipAction = $input['VchipAction'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CopyProtectionAction?: null|CopyProtectionAction::*,
+     *   VchipAction?: null|VchipAction::*,
+     * }|ExtendedDataServices $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

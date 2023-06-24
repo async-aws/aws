@@ -197,6 +197,27 @@ final class Eac3AtmosSettings
         $this->surroundExMode = $input['SurroundExMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Bitrate?: null|int,
+     *   BitstreamMode?: null|Eac3AtmosBitstreamMode::*,
+     *   CodingMode?: null|Eac3AtmosCodingMode::*,
+     *   DialogueIntelligence?: null|Eac3AtmosDialogueIntelligence::*,
+     *   DownmixControl?: null|Eac3AtmosDownmixControl::*,
+     *   DynamicRangeCompressionLine?: null|Eac3AtmosDynamicRangeCompressionLine::*,
+     *   DynamicRangeCompressionRf?: null|Eac3AtmosDynamicRangeCompressionRf::*,
+     *   DynamicRangeControl?: null|Eac3AtmosDynamicRangeControl::*,
+     *   LoRoCenterMixLevel?: null|float,
+     *   LoRoSurroundMixLevel?: null|float,
+     *   LtRtCenterMixLevel?: null|float,
+     *   LtRtSurroundMixLevel?: null|float,
+     *   MeteringMode?: null|Eac3AtmosMeteringMode::*,
+     *   SampleRate?: null|int,
+     *   SpeechThreshold?: null|int,
+     *   StereoDownmix?: null|Eac3AtmosStereoDownmix::*,
+     *   SurroundExMode?: null|Eac3AtmosSurroundExMode::*,
+     * }|Eac3AtmosSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

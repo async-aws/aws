@@ -56,6 +56,14 @@ final class AthenaError
         $this->errorMessage = $input['ErrorMessage'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ErrorCategory?: null|int,
+     *   ErrorType?: null|int,
+     *   Retryable?: null|bool,
+     *   ErrorMessage?: null|string,
+     * }|AthenaError $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

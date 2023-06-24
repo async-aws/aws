@@ -39,6 +39,13 @@ final class DvbNitSettings
         $this->nitInterval = $input['NitInterval'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   NetworkId?: null|int,
+     *   NetworkName?: null|string,
+     *   NitInterval?: null|int,
+     * }|DvbNitSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

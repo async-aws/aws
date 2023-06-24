@@ -36,6 +36,13 @@ final class Metric
         $this->dimensions = isset($input['Dimensions']) ? array_map([Dimension::class, 'create'], $input['Dimensions']) : null;
     }
 
+    /**
+     * @param array{
+     *   Namespace?: null|string,
+     *   MetricName?: null|string,
+     *   Dimensions?: null|Dimension[],
+     * }|Metric $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

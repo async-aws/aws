@@ -33,6 +33,11 @@ final class XksKeyConfigurationType
         $this->id = $input['Id'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     * }|XksKeyConfigurationType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

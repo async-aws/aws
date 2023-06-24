@@ -221,6 +221,21 @@ final class DeleteItemInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   Key?: array<string, AttributeValue>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ConditionExpression?: string,
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   '@region'?: string|null,
+     * }|DeleteItemInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -23,6 +23,11 @@ final class EphemeralStorage
         $this->size = $input['Size'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Size: int,
+     * }|EphemeralStorage $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

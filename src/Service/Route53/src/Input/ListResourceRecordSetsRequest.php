@@ -95,6 +95,16 @@ final class ListResourceRecordSetsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   HostedZoneId?: string,
+     *   StartRecordName?: string,
+     *   StartRecordType?: RRType::*,
+     *   StartRecordIdentifier?: string,
+     *   MaxItems?: string,
+     *   '@region'?: string|null,
+     * }|ListResourceRecordSetsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

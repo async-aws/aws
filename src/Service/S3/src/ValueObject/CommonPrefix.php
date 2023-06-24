@@ -24,6 +24,11 @@ final class CommonPrefix
         $this->prefix = $input['Prefix'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Prefix?: null|string,
+     * }|CommonPrefix $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

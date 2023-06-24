@@ -142,6 +142,22 @@ final class FilterLogEventsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   logGroupName?: string,
+     *   logGroupIdentifier?: string,
+     *   logStreamNames?: string[],
+     *   logStreamNamePrefix?: string,
+     *   startTime?: string,
+     *   endTime?: string,
+     *   filterPattern?: string,
+     *   nextToken?: string,
+     *   limit?: int,
+     *   interleaved?: bool,
+     *   unmask?: bool,
+     *   '@region'?: string|null,
+     * }|FilterLogEventsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

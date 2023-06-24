@@ -82,6 +82,18 @@ final class QueryExecutionStatistics
         $this->resultReuseInformation = isset($input['ResultReuseInformation']) ? ResultReuseInformation::create($input['ResultReuseInformation']) : null;
     }
 
+    /**
+     * @param array{
+     *   EngineExecutionTimeInMillis?: null|string,
+     *   DataScannedInBytes?: null|string,
+     *   DataManifestLocation?: null|string,
+     *   TotalExecutionTimeInMillis?: null|string,
+     *   QueryQueueTimeInMillis?: null|string,
+     *   QueryPlanningTimeInMillis?: null|string,
+     *   ServiceProcessingTimeInMillis?: null|string,
+     *   ResultReuseInformation?: null|ResultReuseInformation|array,
+     * }|QueryExecutionStatistics $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

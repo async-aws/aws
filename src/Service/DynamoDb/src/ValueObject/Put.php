@@ -64,6 +64,16 @@ final class Put
         $this->returnValuesOnConditionCheckFailure = $input['ReturnValuesOnConditionCheckFailure'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Item: array<string, AttributeValue>,
+     *   TableName: string,
+     *   ConditionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     * }|Put $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

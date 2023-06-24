@@ -137,6 +137,17 @@ final class DecryptRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CiphertextBlob?: string,
+     *   EncryptionContext?: array<string, string>,
+     *   GrantTokens?: string[],
+     *   KeyId?: string,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   Recipient?: RecipientInfo|array,
+     *   '@region'?: string|null,
+     * }|DecryptRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

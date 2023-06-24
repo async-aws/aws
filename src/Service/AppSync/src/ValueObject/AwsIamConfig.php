@@ -29,6 +29,12 @@ final class AwsIamConfig
         $this->signingServiceName = $input['signingServiceName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   signingRegion?: null|string,
+     *   signingServiceName?: null|string,
+     * }|AwsIamConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

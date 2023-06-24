@@ -30,6 +30,12 @@ final class CreateProjectRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ProjectName?: string,
+     *   '@region'?: string|null,
+     * }|CreateProjectRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

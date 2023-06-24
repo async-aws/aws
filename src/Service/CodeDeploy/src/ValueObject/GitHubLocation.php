@@ -32,6 +32,12 @@ final class GitHubLocation
         $this->commitId = $input['commitId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   repository?: null|string,
+     *   commitId?: null|string,
+     * }|GitHubLocation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

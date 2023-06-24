@@ -369,6 +369,43 @@ final class Mpeg2Settings
         $this->temporalAdaptiveQuantization = $input['TemporalAdaptiveQuantization'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdaptiveQuantization?: null|Mpeg2AdaptiveQuantization::*,
+     *   Bitrate?: null|int,
+     *   CodecLevel?: null|Mpeg2CodecLevel::*,
+     *   CodecProfile?: null|Mpeg2CodecProfile::*,
+     *   DynamicSubGop?: null|Mpeg2DynamicSubGop::*,
+     *   FramerateControl?: null|Mpeg2FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|Mpeg2FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   GopClosedCadence?: null|int,
+     *   GopSize?: null|float,
+     *   GopSizeUnits?: null|Mpeg2GopSizeUnits::*,
+     *   HrdBufferFinalFillPercentage?: null|int,
+     *   HrdBufferInitialFillPercentage?: null|int,
+     *   HrdBufferSize?: null|int,
+     *   InterlaceMode?: null|Mpeg2InterlaceMode::*,
+     *   IntraDcPrecision?: null|Mpeg2IntraDcPrecision::*,
+     *   MaxBitrate?: null|int,
+     *   MinIInterval?: null|int,
+     *   NumberBFramesBetweenReferenceFrames?: null|int,
+     *   ParControl?: null|Mpeg2ParControl::*,
+     *   ParDenominator?: null|int,
+     *   ParNumerator?: null|int,
+     *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*,
+     *   RateControlMode?: null|Mpeg2RateControlMode::*,
+     *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*,
+     *   SceneChangeDetect?: null|Mpeg2SceneChangeDetect::*,
+     *   SlowPal?: null|Mpeg2SlowPal::*,
+     *   Softness?: null|int,
+     *   SpatialAdaptiveQuantization?: null|Mpeg2SpatialAdaptiveQuantization::*,
+     *   Syntax?: null|Mpeg2Syntax::*,
+     *   Telecine?: null|Mpeg2Telecine::*,
+     *   TemporalAdaptiveQuantization?: null|Mpeg2TemporalAdaptiveQuantization::*,
+     * }|Mpeg2Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

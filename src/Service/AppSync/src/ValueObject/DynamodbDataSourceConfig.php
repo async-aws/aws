@@ -52,6 +52,15 @@ final class DynamodbDataSourceConfig
         $this->versioned = $input['versioned'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   tableName: string,
+     *   awsRegion: string,
+     *   useCallerCredentials?: null|bool,
+     *   deltaSyncConfig?: null|DeltaSyncConfig|array,
+     *   versioned?: null|bool,
+     * }|DynamodbDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

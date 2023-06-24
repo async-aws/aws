@@ -22,6 +22,11 @@ final class CalculationConfiguration
         $this->codeBlock = $input['CodeBlock'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CodeBlock?: null|string,
+     * }|CalculationConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

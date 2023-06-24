@@ -44,6 +44,13 @@ final class DescribeStackEventsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StackName?: string,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|DescribeStackEventsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

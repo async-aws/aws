@@ -35,6 +35,12 @@ final class CidrRoutingConfig
         $this->locationName = $input['LocationName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CollectionId: string,
+     *   LocationName: string,
+     * }|CidrRoutingConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

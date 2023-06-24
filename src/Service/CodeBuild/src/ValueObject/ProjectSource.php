@@ -152,6 +152,20 @@ final class ProjectSource
         $this->sourceIdentifier = $input['sourceIdentifier'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   type: SourceType::*,
+     *   location?: null|string,
+     *   gitCloneDepth?: null|int,
+     *   gitSubmodulesConfig?: null|GitSubmodulesConfig|array,
+     *   buildspec?: null|string,
+     *   auth?: null|SourceAuth|array,
+     *   reportBuildStatus?: null|bool,
+     *   buildStatusConfig?: null|BuildStatusConfig|array,
+     *   insecureSsl?: null|bool,
+     *   sourceIdentifier?: null|string,
+     * }|ProjectSource $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

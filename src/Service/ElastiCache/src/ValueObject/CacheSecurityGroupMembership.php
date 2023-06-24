@@ -30,6 +30,12 @@ final class CacheSecurityGroupMembership
         $this->status = $input['Status'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CacheSecurityGroupName?: null|string,
+     *   Status?: null|string,
+     * }|CacheSecurityGroupMembership $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

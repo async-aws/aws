@@ -36,6 +36,12 @@ final class AttributePayload
         $this->merge = $input['merge'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   attributes?: null|array<string, string>,
+     *   merge?: null|bool,
+     * }|AttributePayload $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

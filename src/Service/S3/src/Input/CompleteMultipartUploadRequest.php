@@ -185,6 +185,24 @@ final class CompleteMultipartUploadRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Key?: string,
+     *   MultipartUpload?: CompletedMultipartUpload|array,
+     *   UploadId?: string,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   '@region'?: string|null,
+     * }|CompleteMultipartUploadRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

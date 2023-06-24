@@ -83,6 +83,16 @@ final class SearchFacesByImageRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CollectionId?: string,
+     *   Image?: Image|array,
+     *   MaxFaces?: int,
+     *   FaceMatchThreshold?: float,
+     *   QualityFilter?: QualityFilter::*,
+     *   '@region'?: string|null,
+     * }|SearchFacesByImageRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -107,6 +107,21 @@ final class AudioCodecSettings
         $this->wavSettings = isset($input['WavSettings']) ? WavSettings::create($input['WavSettings']) : null;
     }
 
+    /**
+     * @param array{
+     *   AacSettings?: null|AacSettings|array,
+     *   Ac3Settings?: null|Ac3Settings|array,
+     *   AiffSettings?: null|AiffSettings|array,
+     *   Codec?: null|AudioCodec::*,
+     *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
+     *   Eac3Settings?: null|Eac3Settings|array,
+     *   Mp2Settings?: null|Mp2Settings|array,
+     *   Mp3Settings?: null|Mp3Settings|array,
+     *   OpusSettings?: null|OpusSettings|array,
+     *   VorbisSettings?: null|VorbisSettings|array,
+     *   WavSettings?: null|WavSettings|array,
+     * }|AudioCodecSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -29,6 +29,12 @@ final class ImageConfigResponse
         $this->error = isset($input['Error']) ? ImageConfigError::create($input['Error']) : null;
     }
 
+    /**
+     * @param array{
+     *   ImageConfig?: null|ImageConfig|array,
+     *   Error?: null|ImageConfigError|array,
+     * }|ImageConfigResponse $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -71,6 +71,16 @@ final class ListSecretsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   IncludePlannedDeletion?: bool,
+     *   MaxResults?: int,
+     *   NextToken?: string,
+     *   Filters?: Filter[],
+     *   SortOrder?: SortOrderType::*,
+     *   '@region'?: string|null,
+     * }|ListSecretsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

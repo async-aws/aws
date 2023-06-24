@@ -41,6 +41,13 @@ final class ModerationLabel
         $this->parentName = $input['ParentName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Confidence?: null|float,
+     *   Name?: null|string,
+     *   ParentName?: null|string,
+     * }|ModerationLabel $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -42,6 +42,13 @@ final class LoadBalancerInfo
         $this->targetGroupPairInfoList = isset($input['targetGroupPairInfoList']) ? array_map([TargetGroupPairInfo::class, 'create'], $input['targetGroupPairInfoList']) : null;
     }
 
+    /**
+     * @param array{
+     *   elbInfoList?: null|ELBInfo[],
+     *   targetGroupInfoList?: null|TargetGroupInfo[],
+     *   targetGroupPairInfoList?: null|TargetGroupPairInfo[],
+     * }|LoadBalancerInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

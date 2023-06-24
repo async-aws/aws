@@ -29,6 +29,12 @@ final class HttpHeader
         $this->headerValue = $input['headerValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   headerName?: null|string,
+     *   headerValue?: null|string,
+     * }|HttpHeader $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

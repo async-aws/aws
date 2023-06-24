@@ -67,6 +67,16 @@ final class CmafImageBasedTrickPlaySettings
         $this->tileWidth = $input['TileWidth'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IntervalCadence?: null|CmafIntervalCadence::*,
+     *   ThumbnailHeight?: null|int,
+     *   ThumbnailInterval?: null|float,
+     *   ThumbnailWidth?: null|int,
+     *   TileHeight?: null|int,
+     *   TileWidth?: null|int,
+     * }|CmafImageBasedTrickPlaySettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

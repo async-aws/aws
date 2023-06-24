@@ -145,6 +145,18 @@ final class RespondToAuthChallengeRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ClientId?: string,
+     *   ChallengeName?: ChallengeNameType::*,
+     *   Session?: string,
+     *   ChallengeResponses?: array<string, string>,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|RespondToAuthChallengeRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

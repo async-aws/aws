@@ -92,6 +92,19 @@ final class ReplicaDescription
         $this->replicaTableClassSummary = isset($input['ReplicaTableClassSummary']) ? TableClassSummary::create($input['ReplicaTableClassSummary']) : null;
     }
 
+    /**
+     * @param array{
+     *   RegionName?: null|string,
+     *   ReplicaStatus?: null|ReplicaStatus::*,
+     *   ReplicaStatusDescription?: null|string,
+     *   ReplicaStatusPercentProgress?: null|string,
+     *   KMSMasterKeyId?: null|string,
+     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndexDescription[],
+     *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
+     *   ReplicaTableClassSummary?: null|TableClassSummary|array,
+     * }|ReplicaDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

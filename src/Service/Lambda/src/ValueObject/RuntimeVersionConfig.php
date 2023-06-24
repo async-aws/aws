@@ -29,6 +29,12 @@ final class RuntimeVersionConfig
         $this->error = isset($input['Error']) ? RuntimeVersionError::create($input['Error']) : null;
     }
 
+    /**
+     * @param array{
+     *   RuntimeVersionArn?: null|string,
+     *   Error?: null|RuntimeVersionError|array,
+     * }|RuntimeVersionConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

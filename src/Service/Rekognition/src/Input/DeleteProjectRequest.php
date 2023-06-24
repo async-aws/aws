@@ -30,6 +30,12 @@ final class DeleteProjectRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ProjectArn?: string,
+     *   '@region'?: string|null,
+     * }|DeleteProjectRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

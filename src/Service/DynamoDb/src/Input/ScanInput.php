@@ -335,6 +335,27 @@ final class ScanInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   IndexName?: string,
+     *   AttributesToGet?: string[],
+     *   Limit?: int,
+     *   Select?: Select::*,
+     *   ScanFilter?: array<string, Condition>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ExclusiveStartKey?: array<string, AttributeValue>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   TotalSegments?: int,
+     *   Segment?: int,
+     *   ProjectionExpression?: string,
+     *   FilterExpression?: string,
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ConsistentRead?: bool,
+     *   '@region'?: string|null,
+     * }|ScanInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

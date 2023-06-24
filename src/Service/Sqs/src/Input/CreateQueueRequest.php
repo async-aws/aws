@@ -204,6 +204,14 @@ final class CreateQueueRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueName?: string,
+     *   Attributes?: array<QueueAttributeName::*, string>,
+     *   tags?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|CreateQueueRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

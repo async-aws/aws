@@ -33,6 +33,12 @@ final class LinkedService
         $this->description = $input['Description'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ServicePrincipal?: null|string,
+     *   Description?: null|string,
+     * }|LinkedService $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

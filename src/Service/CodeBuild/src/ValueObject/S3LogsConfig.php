@@ -48,6 +48,14 @@ final class S3LogsConfig
         $this->bucketOwnerAccess = $input['bucketOwnerAccess'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   status: LogsConfigStatusType::*,
+     *   location?: null|string,
+     *   encryptionDisabled?: null|bool,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     * }|S3LogsConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

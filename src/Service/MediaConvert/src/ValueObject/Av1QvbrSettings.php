@@ -40,6 +40,12 @@ final class Av1QvbrSettings
         $this->qvbrQualityLevelFineTune = $input['QvbrQualityLevelFineTune'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   QvbrQualityLevel?: null|int,
+     *   QvbrQualityLevelFineTune?: null|float,
+     * }|Av1QvbrSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

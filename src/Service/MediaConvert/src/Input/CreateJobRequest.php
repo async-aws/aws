@@ -174,6 +174,24 @@ final class CreateJobRequest extends Input1
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AccelerationSettings?: AccelerationSettings|array,
+     *   BillingTagsSource?: BillingTagsSource::*,
+     *   ClientRequestToken?: string,
+     *   HopDestinations?: HopDestination[],
+     *   JobTemplate?: string,
+     *   Priority?: int,
+     *   Queue?: string,
+     *   Role?: string,
+     *   Settings?: JobSettings|array,
+     *   SimulateReservedQueue?: SimulateReservedQueue::*,
+     *   StatusUpdateInterval?: StatusUpdateInterval::*,
+     *   Tags?: array<string, string>,
+     *   UserMetadata?: array<string, string>,
+     *   '@region'?: string|null,
+     * }|CreateJobRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -44,6 +44,13 @@ final class DeleteMessageBatchRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueueUrl?: string,
+     *   Entries?: DeleteMessageBatchRequestEntry[],
+     *   '@region'?: string|null,
+     * }|DeleteMessageBatchRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

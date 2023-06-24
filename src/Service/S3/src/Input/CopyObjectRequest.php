@@ -485,6 +485,52 @@ final class CopyObjectRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   ACL?: ObjectCannedACL::*,
+     *   Bucket?: string,
+     *   CacheControl?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ContentDisposition?: string,
+     *   ContentEncoding?: string,
+     *   ContentLanguage?: string,
+     *   ContentType?: string,
+     *   CopySource?: string,
+     *   CopySourceIfMatch?: string,
+     *   CopySourceIfModifiedSince?: \DateTimeImmutable|string,
+     *   CopySourceIfNoneMatch?: string,
+     *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string,
+     *   Expires?: \DateTimeImmutable|string,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWriteACP?: string,
+     *   Key?: string,
+     *   Metadata?: array<string, string>,
+     *   MetadataDirective?: MetadataDirective::*,
+     *   TaggingDirective?: TaggingDirective::*,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
+     *   WebsiteRedirectLocation?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   SSEKMSKeyId?: string,
+     *   SSEKMSEncryptionContext?: string,
+     *   BucketKeyEnabled?: bool,
+     *   CopySourceSSECustomerAlgorithm?: string,
+     *   CopySourceSSECustomerKey?: string,
+     *   CopySourceSSECustomerKeyMD5?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   Tagging?: string,
+     *   ObjectLockMode?: ObjectLockMode::*,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
+     *   ExpectedSourceBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|CopyObjectRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

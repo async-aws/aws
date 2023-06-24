@@ -113,6 +113,16 @@ final class BuildPhase
         $this->contexts = isset($input['contexts']) ? array_map([PhaseContext::class, 'create'], $input['contexts']) : null;
     }
 
+    /**
+     * @param array{
+     *   phaseType?: null|BuildPhaseType::*,
+     *   phaseStatus?: null|StatusType::*,
+     *   startTime?: null|\DateTimeImmutable,
+     *   endTime?: null|\DateTimeImmutable,
+     *   durationInSeconds?: null|string,
+     *   contexts?: null|PhaseContext[],
+     * }|BuildPhase $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

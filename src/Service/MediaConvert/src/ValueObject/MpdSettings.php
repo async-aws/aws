@@ -140,6 +140,21 @@ final class MpdSettings
         $this->timedMetadataValue = $input['TimedMetadataValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*,
+     *   AudioDuration?: null|MpdAudioDuration::*,
+     *   CaptionContainerType?: null|MpdCaptionContainerType::*,
+     *   KlvMetadata?: null|MpdKlvMetadata::*,
+     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*,
+     *   Scte35Esam?: null|MpdScte35Esam::*,
+     *   Scte35Source?: null|MpdScte35Source::*,
+     *   TimedMetadata?: null|MpdTimedMetadata::*,
+     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*,
+     *   TimedMetadataSchemeIdUri?: null|string,
+     *   TimedMetadataValue?: null|string,
+     * }|MpdSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -74,6 +74,16 @@ final class ListLayerVersionsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   CompatibleRuntime?: Runtime::*,
+     *   LayerName?: string,
+     *   Marker?: string,
+     *   MaxItems?: int,
+     *   CompatibleArchitecture?: Architecture::*,
+     *   '@region'?: string|null,
+     * }|ListLayerVersionsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

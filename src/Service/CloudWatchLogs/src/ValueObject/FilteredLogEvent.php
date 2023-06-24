@@ -50,6 +50,15 @@ final class FilteredLogEvent
         $this->eventId = $input['eventId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   logStreamName?: null|string,
+     *   timestamp?: null|string,
+     *   message?: null|string,
+     *   ingestionTime?: null|string,
+     *   eventId?: null|string,
+     * }|FilteredLogEvent $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

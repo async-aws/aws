@@ -25,6 +25,11 @@ final class AccelerationSettings
         $this->mode = $input['Mode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Mode: AccelerationMode::*,
+     * }|AccelerationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

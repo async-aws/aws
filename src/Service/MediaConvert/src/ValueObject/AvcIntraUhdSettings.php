@@ -30,6 +30,11 @@ final class AvcIntraUhdSettings
         $this->qualityTuningLevel = $input['QualityTuningLevel'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*,
+     * }|AvcIntraUhdSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

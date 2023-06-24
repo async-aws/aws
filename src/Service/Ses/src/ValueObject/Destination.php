@@ -45,6 +45,13 @@ final class Destination
         $this->bccAddresses = $input['BccAddresses'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ToAddresses?: null|string[],
+     *   CcAddresses?: null|string[],
+     *   BccAddresses?: null|string[],
+     * }|Destination $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

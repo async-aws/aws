@@ -23,6 +23,11 @@ final class DvbSubSourceSettings
         $this->pid = $input['Pid'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Pid?: null|int,
+     * }|DvbSubSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -48,6 +48,14 @@ final class Parameter
         $this->resolvedValue = $input['ResolvedValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ParameterKey?: null|string,
+     *   ParameterValue?: null|string,
+     *   UsePreviousValue?: null|bool,
+     *   ResolvedValue?: null|string,
+     * }|Parameter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

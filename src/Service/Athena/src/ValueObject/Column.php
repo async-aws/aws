@@ -36,6 +36,13 @@ final class Column
         $this->comment = $input['Comment'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Type?: null|string,
+     *   Comment?: null|string,
+     * }|Column $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

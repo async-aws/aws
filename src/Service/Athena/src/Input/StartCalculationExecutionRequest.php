@@ -73,6 +73,16 @@ final class StartCalculationExecutionRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SessionId?: string,
+     *   Description?: string,
+     *   CalculationConfiguration?: CalculationConfiguration|array,
+     *   CodeBlock?: string,
+     *   ClientRequestToken?: string,
+     *   '@region'?: string|null,
+     * }|StartCalculationExecutionRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

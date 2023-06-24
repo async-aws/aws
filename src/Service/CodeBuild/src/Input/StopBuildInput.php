@@ -30,6 +30,12 @@ final class StopBuildInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   id?: string,
+     *   '@region'?: string|null,
+     * }|StopBuildInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

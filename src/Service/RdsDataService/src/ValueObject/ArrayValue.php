@@ -50,6 +50,15 @@ final class ArrayValue
         $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue::class, 'create'], $input['arrayValues']) : null;
     }
 
+    /**
+     * @param array{
+     *   booleanValues?: null|bool[],
+     *   longValues?: null|string[],
+     *   doubleValues?: null|float[],
+     *   stringValues?: null|string[],
+     *   arrayValues?: null|ArrayValue[],
+     * }|ArrayValue $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

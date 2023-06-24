@@ -71,6 +71,16 @@ final class LocalSecondaryIndexDescription
         $this->indexArn = $input['IndexArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IndexName?: null|string,
+     *   KeySchema?: null|KeySchemaElement[],
+     *   Projection?: null|Projection|array,
+     *   IndexSizeBytes?: null|string,
+     *   ItemCount?: null|string,
+     *   IndexArn?: null|string,
+     * }|LocalSecondaryIndexDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

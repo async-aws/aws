@@ -45,6 +45,12 @@ final class Change
         $this->resourceRecordSet = isset($input['ResourceRecordSet']) ? ResourceRecordSet::create($input['ResourceRecordSet']) : null;
     }
 
+    /**
+     * @param array{
+     *   Action: ChangeAction::*,
+     *   ResourceRecordSet: ResourceRecordSet|array,
+     * }|Change $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

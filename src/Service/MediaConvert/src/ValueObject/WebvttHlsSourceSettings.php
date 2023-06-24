@@ -44,6 +44,13 @@ final class WebvttHlsSourceSettings
         $this->renditionName = $input['RenditionName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RenditionGroupId?: null|string,
+     *   RenditionLanguageCode?: null|LanguageCode::*,
+     *   RenditionName?: null|string,
+     * }|WebvttHlsSourceSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

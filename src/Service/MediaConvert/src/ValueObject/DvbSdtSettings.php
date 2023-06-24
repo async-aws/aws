@@ -52,6 +52,14 @@ final class DvbSdtSettings
         $this->serviceProviderName = $input['ServiceProviderName'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   OutputSdt?: null|OutputSdt::*,
+     *   SdtInterval?: null|int,
+     *   ServiceName?: null|string,
+     *   ServiceProviderName?: null|string,
+     * }|DvbSdtSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

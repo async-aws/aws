@@ -97,6 +97,15 @@ final class KeysAndAttributes
         $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Keys: array[],
+     *   AttributesToGet?: null|string[],
+     *   ConsistentRead?: null|bool,
+     *   ProjectionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     * }|KeysAndAttributes $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

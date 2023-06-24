@@ -33,6 +33,12 @@ final class AppliedTerminology
         $this->terms = isset($input['Terms']) ? array_map([Term::class, 'create'], $input['Terms']) : null;
     }
 
+    /**
+     * @param array{
+     *   Name?: null|string,
+     *   Terms?: null|Term[],
+     * }|AppliedTerminology $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

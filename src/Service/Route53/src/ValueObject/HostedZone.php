@@ -64,6 +64,16 @@ final class HostedZone
         $this->linkedService = isset($input['LinkedService']) ? LinkedService::create($input['LinkedService']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   Name: string,
+     *   CallerReference: string,
+     *   Config?: null|HostedZoneConfig|array,
+     *   ResourceRecordSetCount?: null|string,
+     *   LinkedService?: null|LinkedService|array,
+     * }|HostedZone $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

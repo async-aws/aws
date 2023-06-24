@@ -31,6 +31,12 @@ final class Bucket
         $this->creationDate = $input['CreationDate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name?: null|string,
+     *   CreationDate?: null|\DateTimeImmutable,
+     * }|Bucket $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

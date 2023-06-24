@@ -32,6 +32,12 @@ final class CreateAccessKeyRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserName?: string,
+     *   '@region'?: string|null,
+     * }|CreateAccessKeyRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

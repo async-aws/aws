@@ -30,6 +30,11 @@ final class LabelOptions
         $this->timezone = $input['Timezone'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Timezone?: null|string,
+     * }|LabelOptions $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

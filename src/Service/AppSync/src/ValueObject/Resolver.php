@@ -111,6 +111,23 @@ final class Resolver
         $this->code = $input['code'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   typeName?: null|string,
+     *   fieldName?: null|string,
+     *   dataSourceName?: null|string,
+     *   resolverArn?: null|string,
+     *   requestMappingTemplate?: null|string,
+     *   responseMappingTemplate?: null|string,
+     *   kind?: null|ResolverKind::*,
+     *   pipelineConfig?: null|PipelineConfig|array,
+     *   syncConfig?: null|SyncConfig|array,
+     *   cachingConfig?: null|CachingConfig|array,
+     *   maxBatchSize?: null|int,
+     *   runtime?: null|AppSyncRuntime|array,
+     *   code?: null|string,
+     * }|Resolver $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

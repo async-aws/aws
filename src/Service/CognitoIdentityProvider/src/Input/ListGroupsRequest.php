@@ -49,6 +49,14 @@ final class ListGroupsRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   Limit?: int,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|ListGroupsRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

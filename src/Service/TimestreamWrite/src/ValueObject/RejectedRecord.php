@@ -63,6 +63,13 @@ final class RejectedRecord
         $this->existingVersion = $input['ExistingVersion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RecordIndex?: null|int,
+     *   Reason?: null|string,
+     *   ExistingVersion?: null|string,
+     * }|RejectedRecord $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

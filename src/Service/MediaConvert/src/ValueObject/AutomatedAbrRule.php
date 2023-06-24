@@ -84,6 +84,15 @@ final class AutomatedAbrRule
         $this->type = $input['Type'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AllowedRenditions?: null|AllowedRenditionSize[],
+     *   ForceIncludeRenditions?: null|ForceIncludeRenditionSize[],
+     *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
+     *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
+     *   Type?: null|RuleType::*,
+     * }|AutomatedAbrRule $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

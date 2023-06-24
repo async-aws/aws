@@ -107,6 +107,21 @@ final class InsertableImage
         $this->width = $input['Width'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Duration?: null|int,
+     *   FadeIn?: null|int,
+     *   FadeOut?: null|int,
+     *   Height?: null|int,
+     *   ImageInserterInput?: null|string,
+     *   ImageX?: null|int,
+     *   ImageY?: null|int,
+     *   Layer?: null|int,
+     *   Opacity?: null|int,
+     *   StartTime?: null|string,
+     *   Width?: null|int,
+     * }|InsertableImage $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

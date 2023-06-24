@@ -158,6 +158,20 @@ final class GetMetricStatisticsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Namespace?: string,
+     *   MetricName?: string,
+     *   Dimensions?: Dimension[],
+     *   StartTime?: \DateTimeImmutable|string,
+     *   EndTime?: \DateTimeImmutable|string,
+     *   Period?: int,
+     *   Statistics?: list<Statistic::*>,
+     *   ExtendedStatistics?: string[],
+     *   Unit?: StandardUnit::*,
+     *   '@region'?: string|null,
+     * }|GetMetricStatisticsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -74,6 +74,16 @@ final class SendMessageBatchResultEntry
         $this->sequenceNumber = $input['SequenceNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   MessageId: string,
+     *   MD5OfMessageBody: string,
+     *   MD5OfMessageAttributes?: null|string,
+     *   MD5OfMessageSystemAttributes?: null|string,
+     *   SequenceNumber?: null|string,
+     * }|SendMessageBatchResultEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

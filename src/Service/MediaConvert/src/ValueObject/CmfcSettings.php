@@ -188,6 +188,24 @@ final class CmfcSettings
         $this->timedMetadataValue = $input['TimedMetadataValue'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioDuration?: null|CmfcAudioDuration::*,
+     *   AudioGroupId?: null|string,
+     *   AudioRenditionSets?: null|string,
+     *   AudioTrackType?: null|CmfcAudioTrackType::*,
+     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*,
+     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*,
+     *   KlvMetadata?: null|CmfcKlvMetadata::*,
+     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*,
+     *   Scte35Esam?: null|CmfcScte35Esam::*,
+     *   Scte35Source?: null|CmfcScte35Source::*,
+     *   TimedMetadata?: null|CmfcTimedMetadata::*,
+     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*,
+     *   TimedMetadataSchemeIdUri?: null|string,
+     *   TimedMetadataValue?: null|string,
+     * }|CmfcSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

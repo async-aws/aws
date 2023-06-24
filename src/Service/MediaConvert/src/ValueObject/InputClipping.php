@@ -41,6 +41,12 @@ final class InputClipping
         $this->startTimecode = $input['StartTimecode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   EndTimecode?: null|string,
+     *   StartTimecode?: null|string,
+     * }|InputClipping $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

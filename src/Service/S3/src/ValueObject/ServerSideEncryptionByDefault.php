@@ -53,6 +53,12 @@ final class ServerSideEncryptionByDefault
         $this->kmsMasterKeyId = $input['KMSMasterKeyID'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SSEAlgorithm: ServerSideEncryption::*,
+     *   KMSMasterKeyID?: null|string,
+     * }|ServerSideEncryptionByDefault $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

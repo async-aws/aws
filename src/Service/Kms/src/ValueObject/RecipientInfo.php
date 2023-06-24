@@ -39,6 +39,12 @@ final class RecipientInfo
         $this->attestationDocument = $input['AttestationDocument'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   KeyEncryptionAlgorithm?: null|KeyEncryptionMechanism::*,
+     *   AttestationDocument?: null|string,
+     * }|RecipientInfo $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class DescribeTableInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   '@region'?: string|null,
+     * }|DescribeTableInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

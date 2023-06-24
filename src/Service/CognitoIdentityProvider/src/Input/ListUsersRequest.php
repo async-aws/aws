@@ -111,6 +111,16 @@ final class ListUsersRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   AttributesToGet?: string[],
+     *   Limit?: int,
+     *   PaginationToken?: string,
+     *   Filter?: string,
+     *   '@region'?: string|null,
+     * }|ListUsersRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

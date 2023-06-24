@@ -22,6 +22,11 @@ final class ResultReuseInformation
         $this->reusedPreviousResult = $input['ReusedPreviousResult'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ReusedPreviousResult: bool,
+     * }|ResultReuseInformation $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

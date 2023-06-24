@@ -85,6 +85,20 @@ final class RepositoryMetadata
         $this->arn = $input['Arn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   accountId?: null|string,
+     *   repositoryId?: null|string,
+     *   repositoryName?: null|string,
+     *   repositoryDescription?: null|string,
+     *   defaultBranch?: null|string,
+     *   lastModifiedDate?: null|\DateTimeImmutable,
+     *   creationDate?: null|\DateTimeImmutable,
+     *   cloneUrlHttp?: null|string,
+     *   cloneUrlSsh?: null|string,
+     *   Arn?: null|string,
+     * }|RepositoryMetadata $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

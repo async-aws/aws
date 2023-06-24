@@ -47,6 +47,12 @@ final class ImscDestinationSettings
         $this->stylePassthrough = $input['StylePassthrough'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Accessibility?: null|ImscAccessibilitySubs::*,
+     *   StylePassthrough?: null|ImscStylePassthrough::*,
+     * }|ImscDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

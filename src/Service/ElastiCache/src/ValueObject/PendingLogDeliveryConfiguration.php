@@ -49,6 +49,14 @@ final class PendingLogDeliveryConfiguration
         $this->logFormat = $input['LogFormat'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   LogType?: null|LogType::*,
+     *   DestinationType?: null|DestinationType::*,
+     *   DestinationDetails?: null|DestinationDetails|array,
+     *   LogFormat?: null|LogFormat::*,
+     * }|PendingLogDeliveryConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

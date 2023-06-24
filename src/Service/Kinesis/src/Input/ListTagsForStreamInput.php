@@ -59,6 +59,15 @@ final class ListTagsForStreamInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   ExclusiveStartTagKey?: string,
+     *   Limit?: int,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|ListTagsForStreamInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

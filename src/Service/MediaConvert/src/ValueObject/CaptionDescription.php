@@ -68,6 +68,15 @@ final class CaptionDescription
         $this->languageDescription = $input['LanguageDescription'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   CaptionSelectorName?: null|string,
+     *   CustomLanguageCode?: null|string,
+     *   DestinationSettings?: null|CaptionDestinationSettings|array,
+     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageDescription?: null|string,
+     * }|CaptionDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

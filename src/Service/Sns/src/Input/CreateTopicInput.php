@@ -115,6 +115,15 @@ final class CreateTopicInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Name?: string,
+     *   Attributes?: array<string, string>,
+     *   Tags?: Tag[],
+     *   DataProtectionPolicy?: string,
+     *   '@region'?: string|null,
+     * }|CreateTopicInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

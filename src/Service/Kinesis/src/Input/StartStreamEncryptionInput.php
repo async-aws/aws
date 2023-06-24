@@ -69,6 +69,15 @@ final class StartStreamEncryptionInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   EncryptionType?: EncryptionType::*,
+     *   KeyId?: string,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|StartStreamEncryptionInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

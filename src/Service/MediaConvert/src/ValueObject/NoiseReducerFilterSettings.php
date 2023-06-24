@@ -22,6 +22,11 @@ final class NoiseReducerFilterSettings
         $this->strength = $input['Strength'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Strength?: null|int,
+     * }|NoiseReducerFilterSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class UnsubscribeInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   SubscriptionArn?: string,
+     *   '@region'?: string|null,
+     * }|UnsubscribeInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

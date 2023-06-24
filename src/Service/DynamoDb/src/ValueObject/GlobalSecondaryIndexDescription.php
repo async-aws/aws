@@ -114,6 +114,19 @@ final class GlobalSecondaryIndexDescription
         $this->indexArn = $input['IndexArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   IndexName?: null|string,
+     *   KeySchema?: null|KeySchemaElement[],
+     *   Projection?: null|Projection|array,
+     *   IndexStatus?: null|IndexStatus::*,
+     *   Backfilling?: null|bool,
+     *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
+     *   IndexSizeBytes?: null|string,
+     *   ItemCount?: null|string,
+     *   IndexArn?: null|string,
+     * }|GlobalSecondaryIndexDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

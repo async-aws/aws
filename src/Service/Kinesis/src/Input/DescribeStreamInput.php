@@ -64,6 +64,15 @@ final class DescribeStreamInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   Limit?: int,
+     *   ExclusiveStartShardId?: string,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|DescribeStreamInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

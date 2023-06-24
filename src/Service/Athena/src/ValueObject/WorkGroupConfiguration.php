@@ -113,6 +113,20 @@ final class WorkGroupConfiguration
         $this->enableMinimumEncryptionConfiguration = $input['EnableMinimumEncryptionConfiguration'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   EnforceWorkGroupConfiguration?: null|bool,
+     *   PublishCloudWatchMetricsEnabled?: null|bool,
+     *   BytesScannedCutoffPerQuery?: null|string,
+     *   RequesterPaysEnabled?: null|bool,
+     *   EngineVersion?: null|EngineVersion|array,
+     *   AdditionalConfiguration?: null|string,
+     *   ExecutionRole?: null|string,
+     *   CustomerContentEncryptionConfiguration?: null|CustomerContentEncryptionConfiguration|array,
+     *   EnableMinimumEncryptionConfiguration?: null|bool,
+     * }|WorkGroupConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

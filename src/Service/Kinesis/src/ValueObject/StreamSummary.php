@@ -49,6 +49,15 @@ final class StreamSummary
         $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StreamName: string,
+     *   StreamARN: string,
+     *   StreamStatus: StreamStatus::*,
+     *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   StreamCreationTimestamp?: null|\DateTimeImmutable,
+     * }|StreamSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

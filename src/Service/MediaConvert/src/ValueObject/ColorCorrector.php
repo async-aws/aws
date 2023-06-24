@@ -128,6 +128,20 @@ final class ColorCorrector
         $this->sdrReferenceWhiteLevel = $input['SdrReferenceWhiteLevel'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Brightness?: null|int,
+     *   ClipLimits?: null|ClipLimits|array,
+     *   ColorSpaceConversion?: null|ColorSpaceConversion::*,
+     *   Contrast?: null|int,
+     *   Hdr10Metadata?: null|Hdr10Metadata|array,
+     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
+     *   Hue?: null|int,
+     *   SampleRangeConversion?: null|SampleRangeConversion::*,
+     *   Saturation?: null|int,
+     *   SdrReferenceWhiteLevel?: null|int,
+     * }|ColorCorrector $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

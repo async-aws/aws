@@ -58,6 +58,14 @@ final class BoundingBox
         $this->top = $input['Top'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Width?: null|float,
+     *   Height?: null|float,
+     *   Left?: null|float,
+     *   Top?: null|float,
+     * }|BoundingBox $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

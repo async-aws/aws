@@ -31,6 +31,12 @@ final class FaceRecord
         $this->faceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
     }
 
+    /**
+     * @param array{
+     *   Face?: null|Face|array,
+     *   FaceDetail?: null|FaceDetail|array,
+     * }|FaceRecord $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

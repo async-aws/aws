@@ -29,6 +29,12 @@ final class ThingGroupProperties
         $this->attributePayload = isset($input['attributePayload']) ? AttributePayload::create($input['attributePayload']) : null;
     }
 
+    /**
+     * @param array{
+     *   thingGroupDescription?: null|string,
+     *   attributePayload?: null|AttributePayload|array,
+     * }|ThingGroupProperties $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

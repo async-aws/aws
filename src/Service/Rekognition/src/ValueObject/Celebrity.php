@@ -55,6 +55,16 @@ final class Celebrity
         $this->knownGender = isset($input['KnownGender']) ? KnownGender::create($input['KnownGender']) : null;
     }
 
+    /**
+     * @param array{
+     *   Urls?: null|string[],
+     *   Name?: null|string,
+     *   Id?: null|string,
+     *   Face?: null|ComparedFace|array,
+     *   MatchConfidence?: null|float,
+     *   KnownGender?: null|KnownGender|array,
+     * }|Celebrity $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

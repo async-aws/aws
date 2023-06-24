@@ -30,6 +30,12 @@ final class WarningGroup
         $this->count = $input['Count'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Code: int,
+     *   Count: int,
+     * }|WarningGroup $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

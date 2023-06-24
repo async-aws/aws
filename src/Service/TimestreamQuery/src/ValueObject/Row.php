@@ -22,6 +22,11 @@ final class Row
         $this->data = isset($input['Data']) ? array_map([Datum::class, 'create'], $input['Data']) : null;
     }
 
+    /**
+     * @param array{
+     *   Data: Datum[],
+     * }|Row $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -49,6 +49,13 @@ final class SqlParameter
         $this->typeHint = $input['typeHint'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     *   value?: null|Field|array,
+     *   typeHint?: null|TypeHint::*,
+     * }|SqlParameter $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

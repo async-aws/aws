@@ -45,6 +45,14 @@ final class TopicConfiguration
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   TopicArn: string,
+     *   Events: list<Event::*>,
+     *   Filter?: null|NotificationConfigurationFilter|array,
+     * }|TopicConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

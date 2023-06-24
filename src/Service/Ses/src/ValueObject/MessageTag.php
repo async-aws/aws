@@ -38,6 +38,12 @@ final class MessageTag
         $this->value = $input['Value'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name: string,
+     *   Value: string,
+     * }|MessageTag $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

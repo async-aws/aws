@@ -41,6 +41,13 @@ final class Template
         $this->templateData = $input['TemplateData'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TemplateName?: null|string,
+     *   TemplateArn?: null|string,
+     *   TemplateData?: null|string,
+     * }|Template $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

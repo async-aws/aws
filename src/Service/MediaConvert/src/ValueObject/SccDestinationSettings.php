@@ -32,6 +32,11 @@ final class SccDestinationSettings
         $this->framerate = $input['Framerate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Framerate?: null|SccDestinationFramerate::*,
+     * }|SccDestinationSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

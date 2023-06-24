@@ -43,6 +43,14 @@ final class CalculationResult
         $this->resultType = $input['ResultType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StdOutS3Uri?: null|string,
+     *   StdErrorS3Uri?: null|string,
+     *   ResultS3Uri?: null|string,
+     *   ResultType?: null|string,
+     * }|CalculationResult $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

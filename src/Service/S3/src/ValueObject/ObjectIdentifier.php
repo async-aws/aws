@@ -36,6 +36,12 @@ final class ObjectIdentifier
         $this->versionId = $input['VersionId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Key: string,
+     *   VersionId?: null|string,
+     * }|ObjectIdentifier $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

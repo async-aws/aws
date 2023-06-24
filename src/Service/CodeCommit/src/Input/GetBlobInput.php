@@ -44,6 +44,13 @@ final class GetBlobInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   repositoryName?: string,
+     *   blobId?: string,
+     *   '@region'?: string|null,
+     * }|GetBlobInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

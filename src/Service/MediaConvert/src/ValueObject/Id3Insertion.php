@@ -31,6 +31,12 @@ final class Id3Insertion
         $this->timecode = $input['Timecode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id3?: null|string,
+     *   Timecode?: null|string,
+     * }|Id3Insertion $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -33,6 +33,12 @@ final class DominantLanguage
         $this->score = $input['Score'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   LanguageCode?: null|string,
+     *   Score?: null|float,
+     * }|DominantLanguage $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

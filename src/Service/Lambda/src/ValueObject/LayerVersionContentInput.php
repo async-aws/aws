@@ -47,6 +47,14 @@ final class LayerVersionContentInput
         $this->zipFile = $input['ZipFile'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   S3Bucket?: null|string,
+     *   S3Key?: null|string,
+     *   S3ObjectVersion?: null|string,
+     *   ZipFile?: null|string,
+     * }|LayerVersionContentInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

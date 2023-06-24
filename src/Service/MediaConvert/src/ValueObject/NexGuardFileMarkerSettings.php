@@ -58,6 +58,14 @@ final class NexGuardFileMarkerSettings
         $this->strength = $input['Strength'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   License?: null|string,
+     *   Payload?: null|int,
+     *   Preset?: null|string,
+     *   Strength?: null|WatermarkingStrength::*,
+     * }|NexGuardFileMarkerSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

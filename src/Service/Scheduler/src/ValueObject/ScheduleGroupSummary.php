@@ -52,6 +52,15 @@ final class ScheduleGroupSummary
         $this->state = $input['State'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Arn?: null|string,
+     *   CreationDate?: null|\DateTimeImmutable,
+     *   LastModificationDate?: null|\DateTimeImmutable,
+     *   Name?: null|string,
+     *   State?: null|ScheduleGroupState::*,
+     * }|ScheduleGroupSummary $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

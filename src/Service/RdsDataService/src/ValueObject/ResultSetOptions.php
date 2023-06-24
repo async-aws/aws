@@ -39,6 +39,12 @@ final class ResultSetOptions
         $this->longReturnType = $input['longReturnType'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   decimalReturnType?: null|DecimalReturnType::*,
+     *   longReturnType?: null|LongReturnType::*,
+     * }|ResultSetOptions $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

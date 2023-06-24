@@ -167,6 +167,25 @@ final class VideoDescription
         $this->width = $input['Width'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AfdSignaling?: null|AfdSignaling::*,
+     *   AntiAlias?: null|AntiAlias::*,
+     *   CodecSettings?: null|VideoCodecSettings|array,
+     *   ColorMetadata?: null|ColorMetadata::*,
+     *   Crop?: null|Rectangle|array,
+     *   DropFrameTimecode?: null|DropFrameTimecode::*,
+     *   FixedAfd?: null|int,
+     *   Height?: null|int,
+     *   Position?: null|Rectangle|array,
+     *   RespondToAfd?: null|RespondToAfd::*,
+     *   ScalingBehavior?: null|ScalingBehavior::*,
+     *   Sharpness?: null|int,
+     *   TimecodeInsertion?: null|VideoTimecodeInsertion::*,
+     *   VideoPreprocessors?: null|VideoPreprocessor|array,
+     *   Width?: null|int,
+     * }|VideoDescription $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

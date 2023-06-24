@@ -27,6 +27,11 @@ final class StreamModeDetails
         $this->streamMode = $input['StreamMode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   StreamMode: StreamMode::*,
+     * }|StreamModeDetails $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

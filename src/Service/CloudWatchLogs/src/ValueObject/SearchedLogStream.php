@@ -29,6 +29,12 @@ final class SearchedLogStream
         $this->searchedCompletely = $input['searchedCompletely'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   logStreamName?: null|string,
+     *   searchedCompletely?: null|bool,
+     * }|SearchedLogStream $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -494,6 +494,52 @@ final class H264Settings
         $this->unregisteredSeiTimecode = $input['UnregisteredSeiTimecode'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AdaptiveQuantization?: null|H264AdaptiveQuantization::*,
+     *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
+     *   Bitrate?: null|int,
+     *   CodecLevel?: null|H264CodecLevel::*,
+     *   CodecProfile?: null|H264CodecProfile::*,
+     *   DynamicSubGop?: null|H264DynamicSubGop::*,
+     *   EntropyEncoding?: null|H264EntropyEncoding::*,
+     *   FieldEncoding?: null|H264FieldEncoding::*,
+     *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*,
+     *   FramerateControl?: null|H264FramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|H264FramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   GopBReference?: null|H264GopBReference::*,
+     *   GopClosedCadence?: null|int,
+     *   GopSize?: null|float,
+     *   GopSizeUnits?: null|H264GopSizeUnits::*,
+     *   HrdBufferFinalFillPercentage?: null|int,
+     *   HrdBufferInitialFillPercentage?: null|int,
+     *   HrdBufferSize?: null|int,
+     *   InterlaceMode?: null|H264InterlaceMode::*,
+     *   MaxBitrate?: null|int,
+     *   MinIInterval?: null|int,
+     *   NumberBFramesBetweenReferenceFrames?: null|int,
+     *   NumberReferenceFrames?: null|int,
+     *   ParControl?: null|H264ParControl::*,
+     *   ParDenominator?: null|int,
+     *   ParNumerator?: null|int,
+     *   QualityTuningLevel?: null|H264QualityTuningLevel::*,
+     *   QvbrSettings?: null|H264QvbrSettings|array,
+     *   RateControlMode?: null|H264RateControlMode::*,
+     *   RepeatPps?: null|H264RepeatPps::*,
+     *   ScanTypeConversionMode?: null|H264ScanTypeConversionMode::*,
+     *   SceneChangeDetect?: null|H264SceneChangeDetect::*,
+     *   Slices?: null|int,
+     *   SlowPal?: null|H264SlowPal::*,
+     *   Softness?: null|int,
+     *   SpatialAdaptiveQuantization?: null|H264SpatialAdaptiveQuantization::*,
+     *   Syntax?: null|H264Syntax::*,
+     *   Telecine?: null|H264Telecine::*,
+     *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*,
+     *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*,
+     * }|H264Settings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

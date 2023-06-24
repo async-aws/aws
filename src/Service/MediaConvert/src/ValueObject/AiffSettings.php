@@ -37,6 +37,13 @@ final class AiffSettings
         $this->sampleRate = $input['SampleRate'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   BitDepth?: null|int,
+     *   Channels?: null|int,
+     *   SampleRate?: null|int,
+     * }|AiffSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -26,6 +26,11 @@ final class EventBridgeDataSourceConfig
         $this->eventBusArn = $input['eventBusArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   eventBusArn: string,
+     * }|EventBridgeDataSourceConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

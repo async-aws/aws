@@ -59,6 +59,15 @@ final class VerifySoftwareTokenRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   AccessToken?: string,
+     *   Session?: string,
+     *   UserCode?: string,
+     *   FriendlyDeviceName?: string,
+     *   '@region'?: string|null,
+     * }|VerifySoftwareTokenRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

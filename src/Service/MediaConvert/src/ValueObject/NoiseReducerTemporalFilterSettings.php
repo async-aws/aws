@@ -67,6 +67,15 @@ final class NoiseReducerTemporalFilterSettings
         $this->strength = $input['Strength'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AggressiveMode?: null|int,
+     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*,
+     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*,
+     *   Speed?: null|int,
+     *   Strength?: null|int,
+     * }|NoiseReducerTemporalFilterSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

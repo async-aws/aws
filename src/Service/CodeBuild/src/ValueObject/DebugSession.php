@@ -33,6 +33,12 @@ final class DebugSession
         $this->sessionTarget = $input['sessionTarget'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   sessionEnabled?: null|bool,
+     *   sessionTarget?: null|string,
+     * }|DebugSession $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -42,6 +42,13 @@ final class ListSubscriptionsByTopicInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TopicArn?: string,
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|ListSubscriptionsByTopicInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

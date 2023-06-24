@@ -117,6 +117,20 @@ final class AttributeValue
         $this->bool = $input['BOOL'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   S?: null|string,
+     *   N?: null|string,
+     *   B?: null|string,
+     *   SS?: null|string[],
+     *   NS?: null|string[],
+     *   BS?: null|string[],
+     *   M?: null|array<string, AttributeValue>,
+     *   L?: null|AttributeValue[],
+     *   NULL?: null|bool,
+     *   BOOL?: null|bool,
+     * }|AttributeValue $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

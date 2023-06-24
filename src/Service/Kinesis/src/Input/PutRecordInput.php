@@ -89,6 +89,17 @@ final class PutRecordInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   StreamName?: string,
+     *   Data?: string,
+     *   PartitionKey?: string,
+     *   ExplicitHashKey?: string,
+     *   SequenceNumberForOrdering?: string,
+     *   StreamARN?: string,
+     *   '@region'?: string|null,
+     * }|PutRecordInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

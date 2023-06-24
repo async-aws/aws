@@ -61,6 +61,15 @@ final class AdminSetUserPasswordRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserPoolId?: string,
+     *   Username?: string,
+     *   Password?: string,
+     *   Permanent?: bool,
+     *   '@region'?: string|null,
+     * }|AdminSetUserPasswordRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

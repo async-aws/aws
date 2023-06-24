@@ -133,6 +133,21 @@ final class ListObjectsV2Request extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   Delimiter?: string,
+     *   EncodingType?: EncodingType::*,
+     *   MaxKeys?: int,
+     *   Prefix?: string,
+     *   ContinuationToken?: string,
+     *   FetchOwner?: bool,
+     *   StartAfter?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|ListObjectsV2Request $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

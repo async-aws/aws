@@ -24,6 +24,11 @@ final class TrafficRoute
         $this->listenerArns = $input['listenerArns'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   listenerArns?: null|string[],
+     * }|TrafficRoute $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

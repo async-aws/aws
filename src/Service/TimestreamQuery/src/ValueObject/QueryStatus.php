@@ -39,6 +39,13 @@ final class QueryStatus
         $this->cumulativeBytesMetered = $input['CumulativeBytesMetered'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ProgressPercentage?: null|float,
+     *   CumulativeBytesScanned?: null|string,
+     *   CumulativeBytesMetered?: null|string,
+     * }|QueryStatus $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -75,6 +75,14 @@ final class PutUserPolicyRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   UserName?: string,
+     *   PolicyName?: string,
+     *   PolicyDocument?: string,
+     *   '@region'?: string|null,
+     * }|PutUserPolicyRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

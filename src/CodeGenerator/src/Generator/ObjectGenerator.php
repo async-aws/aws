@@ -147,20 +147,30 @@ class ObjectGenerator
     private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         if (empty($shape->getMembers())) {
-            $classBuilder->addMethod('create')
+            $createMethod = $classBuilder->addMethod('create')
                 ->setStatic(true)
                 ->setReturnType('self')
-                ->setBody('return $input instanceof self ? $input : new self();')
-                ->addParameter('input');
+                ->setBody('return $input instanceof self ? $input : new self();');
+            $createMethod->addParameter('input');
+            [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true);
+            $createMethod->addComment($doc);
+            foreach ($memberClassNames as $memberClassName) {
+                $classBuilder->addUse($memberClassName->getFqdn());
+            }
 
             return;
         }
 
-        $classBuilder->addMethod('create')
+        $createMethod = $classBuilder->addMethod('create')
             ->setStatic(true)
             ->setReturnType('self')
-            ->setBody('return $input instanceof self ? $input : new self($input);')
-            ->addParameter('input');
+            ->setBody('return $input instanceof self ? $input : new self($input);');
+        $createMethod->addParameter('input');
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true);
+        $createMethod->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $classBuilder->addUse($memberClassName->getFqdn());
+        }
 
         // We need a constructor
         $constructor = $classBuilder->addMethod('__construct');

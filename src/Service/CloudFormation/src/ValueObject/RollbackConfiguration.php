@@ -62,6 +62,12 @@ final class RollbackConfiguration
         $this->monitoringTimeInMinutes = $input['MonitoringTimeInMinutes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   RollbackTriggers?: null|RollbackTrigger[],
+     *   MonitoringTimeInMinutes?: null|int,
+     * }|RollbackConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

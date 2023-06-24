@@ -367,6 +367,49 @@ final class M2tsSettings
         $this->videoPid = $input['VideoPid'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   AudioBufferModel?: null|M2tsAudioBufferModel::*,
+     *   AudioDuration?: null|M2tsAudioDuration::*,
+     *   AudioFramesPerPes?: null|int,
+     *   AudioPids?: null|int[],
+     *   Bitrate?: null|int,
+     *   BufferModel?: null|M2tsBufferModel::*,
+     *   DataPTSControl?: null|M2tsDataPtsControl::*,
+     *   DvbNitSettings?: null|DvbNitSettings|array,
+     *   DvbSdtSettings?: null|DvbSdtSettings|array,
+     *   DvbSubPids?: null|int[],
+     *   DvbTdtSettings?: null|DvbTdtSettings|array,
+     *   DvbTeletextPid?: null|int,
+     *   EbpAudioInterval?: null|M2tsEbpAudioInterval::*,
+     *   EbpPlacement?: null|M2tsEbpPlacement::*,
+     *   EsRateInPes?: null|M2tsEsRateInPes::*,
+     *   ForceTsVideoEbpOrder?: null|M2tsForceTsVideoEbpOrder::*,
+     *   FragmentTime?: null|float,
+     *   KlvMetadata?: null|M2tsKlvMetadata::*,
+     *   MaxPcrInterval?: null|int,
+     *   MinEbpInterval?: null|int,
+     *   NielsenId3?: null|M2tsNielsenId3::*,
+     *   NullPacketBitrate?: null|float,
+     *   PatInterval?: null|int,
+     *   PcrControl?: null|M2tsPcrControl::*,
+     *   PcrPid?: null|int,
+     *   PmtInterval?: null|int,
+     *   PmtPid?: null|int,
+     *   PrivateMetadataPid?: null|int,
+     *   ProgramNumber?: null|int,
+     *   RateMode?: null|M2tsRateMode::*,
+     *   Scte35Esam?: null|M2tsScte35Esam|array,
+     *   Scte35Pid?: null|int,
+     *   Scte35Source?: null|M2tsScte35Source::*,
+     *   SegmentationMarkers?: null|M2tsSegmentationMarkers::*,
+     *   SegmentationStyle?: null|M2tsSegmentationStyle::*,
+     *   SegmentationTime?: null|float,
+     *   TimedMetadataPid?: null|int,
+     *   TransportStreamId?: null|int,
+     *   VideoPid?: null|int,
+     * }|M2tsSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

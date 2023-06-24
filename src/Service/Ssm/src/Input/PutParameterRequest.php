@@ -269,6 +269,22 @@ final class PutParameterRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Name?: string,
+     *   Description?: string,
+     *   Value?: string,
+     *   Type?: ParameterType::*,
+     *   KeyId?: string,
+     *   Overwrite?: bool,
+     *   AllowedPattern?: string,
+     *   Tags?: Tag[],
+     *   Tier?: ParameterTier::*,
+     *   Policies?: string,
+     *   DataType?: string,
+     *   '@region'?: string|null,
+     * }|PutParameterRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

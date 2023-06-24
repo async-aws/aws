@@ -26,6 +26,11 @@ final class F4vSettings
         $this->moovPlacement = $input['MoovPlacement'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MoovPlacement?: null|F4vMoovPlacement::*,
+     * }|F4vSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

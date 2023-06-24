@@ -24,6 +24,11 @@ final class DeadLetterConfig
         $this->arn = $input['Arn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Arn?: null|string,
+     * }|DeadLetterConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

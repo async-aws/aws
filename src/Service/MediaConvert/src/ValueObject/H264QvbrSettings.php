@@ -50,6 +50,13 @@ final class H264QvbrSettings
         $this->qvbrQualityLevelFineTune = $input['QvbrQualityLevelFineTune'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   MaxAverageBitrate?: null|int,
+     *   QvbrQualityLevel?: null|int,
+     *   QvbrQualityLevelFineTune?: null|float,
+     * }|H264QvbrSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

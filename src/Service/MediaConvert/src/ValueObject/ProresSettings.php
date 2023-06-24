@@ -177,6 +177,23 @@ final class ProresSettings
         $this->telecine = $input['Telecine'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ChromaSampling?: null|ProresChromaSampling::*,
+     *   CodecProfile?: null|ProresCodecProfile::*,
+     *   FramerateControl?: null|ProresFramerateControl::*,
+     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*,
+     *   FramerateDenominator?: null|int,
+     *   FramerateNumerator?: null|int,
+     *   InterlaceMode?: null|ProresInterlaceMode::*,
+     *   ParControl?: null|ProresParControl::*,
+     *   ParDenominator?: null|int,
+     *   ParNumerator?: null|int,
+     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*,
+     *   SlowPal?: null|ProresSlowPal::*,
+     *   Telecine?: null|ProresTelecine::*,
+     * }|ProresSettings $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

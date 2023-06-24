@@ -62,6 +62,14 @@ final class ListAliasesRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   KeyId?: string,
+     *   Limit?: int,
+     *   Marker?: string,
+     *   '@region'?: string|null,
+     * }|ListAliasesRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

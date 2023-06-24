@@ -33,6 +33,12 @@ final class EngineVersion
         $this->effectiveEngineVersion = $input['EffectiveEngineVersion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   SelectedEngineVersion?: null|string,
+     *   EffectiveEngineVersion?: null|string,
+     * }|EngineVersion $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

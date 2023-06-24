@@ -144,6 +144,17 @@ final class SendMessageBatchRequestEntry
         $this->messageGroupId = $input['MessageGroupId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   MessageBody: string,
+     *   DelaySeconds?: null|int,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
+     * }|SendMessageBatchRequestEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -47,6 +47,15 @@ final class SelectColumn
         $this->aliased = $input['Aliased'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Name?: null|string,
+     *   Type?: null|Type|array,
+     *   DatabaseName?: null|string,
+     *   TableName?: null|string,
+     *   Aliased?: null|bool,
+     * }|SelectColumn $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

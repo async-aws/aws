@@ -50,6 +50,15 @@ final class RdsHttpEndpointConfig
         $this->awsSecretStoreArn = $input['awsSecretStoreArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   awsRegion?: null|string,
+     *   dbClusterIdentifier?: null|string,
+     *   databaseName?: null|string,
+     *   schema?: null|string,
+     *   awsSecretStoreArn?: null|string,
+     * }|RdsHttpEndpointConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

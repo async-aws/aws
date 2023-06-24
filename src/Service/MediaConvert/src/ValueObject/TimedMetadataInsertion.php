@@ -23,6 +23,11 @@ final class TimedMetadataInsertion
         $this->id3Insertions = isset($input['Id3Insertions']) ? array_map([Id3Insertion::class, 'create'], $input['Id3Insertions']) : null;
     }
 
+    /**
+     * @param array{
+     *   Id3Insertions?: null|Id3Insertion[],
+     * }|TimedMetadataInsertion $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -148,6 +148,20 @@ final class ProjectArtifacts
         $this->bucketOwnerAccess = $input['bucketOwnerAccess'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   type: ArtifactsType::*,
+     *   location?: null|string,
+     *   path?: null|string,
+     *   namespaceType?: null|ArtifactNamespace::*,
+     *   name?: null|string,
+     *   packaging?: null|ArtifactPackaging::*,
+     *   overrideArtifactName?: null|bool,
+     *   encryptionDisabled?: null|bool,
+     *   artifactIdentifier?: null|string,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     * }|ProjectArtifacts $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

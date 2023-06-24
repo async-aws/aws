@@ -39,6 +39,12 @@ final class DeploymentReadyOption
         $this->waitTimeInMinutes = $input['waitTimeInMinutes'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   actionOnTimeout?: null|DeploymentReadyAction::*,
+     *   waitTimeInMinutes?: null|int,
+     * }|DeploymentReadyOption $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

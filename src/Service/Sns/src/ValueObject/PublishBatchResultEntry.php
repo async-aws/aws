@@ -40,6 +40,13 @@ final class PublishBatchResultEntry
         $this->sequenceNumber = $input['SequenceNumber'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id?: null|string,
+     *   MessageId?: null|string,
+     *   SequenceNumber?: null|string,
+     * }|PublishBatchResultEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

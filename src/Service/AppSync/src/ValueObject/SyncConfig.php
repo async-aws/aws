@@ -50,6 +50,13 @@ final class SyncConfig
         $this->lambdaConflictHandlerConfig = isset($input['lambdaConflictHandlerConfig']) ? LambdaConflictHandlerConfig::create($input['lambdaConflictHandlerConfig']) : null;
     }
 
+    /**
+     * @param array{
+     *   conflictHandler?: null|ConflictHandlerType::*,
+     *   conflictDetection?: null|ConflictDetectionType::*,
+     *   lambdaConflictHandlerConfig?: null|LambdaConflictHandlerConfig|array,
+     * }|SyncConfig $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

@@ -46,6 +46,12 @@ final class ProjectSourceVersion
         $this->sourceVersion = $input['sourceVersion'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   sourceIdentifier: string,
+     *   sourceVersion: string,
+     * }|ProjectSourceVersion $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

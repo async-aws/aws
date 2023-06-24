@@ -22,6 +22,11 @@ final class ResultReuseConfiguration
         $this->resultReuseByAgeConfiguration = isset($input['ResultReuseByAgeConfiguration']) ? ResultReuseByAgeConfiguration::create($input['ResultReuseByAgeConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   ResultReuseByAgeConfiguration?: null|ResultReuseByAgeConfiguration|array,
+     * }|ResultReuseConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

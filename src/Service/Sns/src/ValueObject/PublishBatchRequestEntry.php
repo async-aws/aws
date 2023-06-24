@@ -131,6 +131,17 @@ final class PublishBatchRequestEntry
         $this->messageGroupId = $input['MessageGroupId'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   Id: string,
+     *   Message: string,
+     *   Subject?: null|string,
+     *   MessageStructure?: null|string,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
+     * }|PublishBatchRequestEntry $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

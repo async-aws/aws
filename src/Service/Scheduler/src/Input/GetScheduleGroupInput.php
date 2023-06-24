@@ -30,6 +30,12 @@ final class GetScheduleGroupInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Name?: string,
+     *   '@region'?: string|null,
+     * }|GetScheduleGroupInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

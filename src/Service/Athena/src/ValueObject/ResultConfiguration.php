@@ -74,6 +74,14 @@ final class ResultConfiguration
         $this->aclConfiguration = isset($input['AclConfiguration']) ? AclConfiguration::create($input['AclConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   OutputLocation?: null|string,
+     *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
+     *   ExpectedBucketOwner?: null|string,
+     *   AclConfiguration?: null|AclConfiguration|array,
+     * }|ResultConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

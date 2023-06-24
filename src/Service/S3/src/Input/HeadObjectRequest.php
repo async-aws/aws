@@ -186,6 +186,26 @@ final class HeadObjectRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   IfMatch?: string,
+     *   IfModifiedSince?: \DateTimeImmutable|string,
+     *   IfNoneMatch?: string,
+     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
+     *   Key?: string,
+     *   Range?: string,
+     *   VersionId?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: RequestPayer::*,
+     *   PartNumber?: int,
+     *   ExpectedBucketOwner?: string,
+     *   ChecksumMode?: ChecksumMode::*,
+     *   '@region'?: string|null,
+     * }|HeadObjectRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

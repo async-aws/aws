@@ -22,6 +22,11 @@ final class Alarm
         $this->name = $input['name'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   name?: null|string,
+     * }|Alarm $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

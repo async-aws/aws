@@ -30,6 +30,12 @@ final class GetQueryExecutionInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   QueryExecutionId?: string,
+     *   '@region'?: string|null,
+     * }|GetQueryExecutionInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

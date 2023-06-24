@@ -44,6 +44,14 @@ final class NotificationConfiguration
         $this->eventBridgeConfiguration = isset($input['EventBridgeConfiguration']) ? EventBridgeConfiguration::create($input['EventBridgeConfiguration']) : null;
     }
 
+    /**
+     * @param array{
+     *   TopicConfigurations?: null|TopicConfiguration[],
+     *   QueueConfigurations?: null|QueueConfiguration[],
+     *   LambdaFunctionConfigurations?: null|LambdaFunctionConfiguration[],
+     *   EventBridgeConfiguration?: null|EventBridgeConfiguration|array,
+     * }|NotificationConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

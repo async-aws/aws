@@ -87,6 +87,18 @@ final class Part
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   PartNumber?: null|int,
+     *   LastModified?: null|\DateTimeImmutable,
+     *   ETag?: null|string,
+     *   Size?: null|string,
+     *   ChecksumCRC32?: null|string,
+     *   ChecksumCRC32C?: null|string,
+     *   ChecksumSHA1?: null|string,
+     *   ChecksumSHA256?: null|string,
+     * }|Part $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

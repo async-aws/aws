@@ -42,6 +42,13 @@ final class MultiRegionConfiguration
         $this->replicaKeys = isset($input['ReplicaKeys']) ? array_map([MultiRegionKey::class, 'create'], $input['ReplicaKeys']) : null;
     }
 
+    /**
+     * @param array{
+     *   MultiRegionKeyType?: null|MultiRegionKeyType::*,
+     *   PrimaryKey?: null|MultiRegionKey|array,
+     *   ReplicaKeys?: null|MultiRegionKey[],
+     * }|MultiRegionConfiguration $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

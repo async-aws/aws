@@ -62,6 +62,16 @@ final class CORSRule
         $this->maxAgeSeconds = $input['MaxAgeSeconds'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   ID?: null|string,
+     *   AllowedHeaders?: null|string[],
+     *   AllowedMethods: string[],
+     *   AllowedOrigins: string[],
+     *   ExposeHeaders?: null|string[],
+     *   MaxAgeSeconds?: null|int,
+     * }|CORSRule $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

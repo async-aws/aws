@@ -312,6 +312,23 @@ final class UpdateItemInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   TableName?: string,
+     *   Key?: array<string, AttributeValue>,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   UpdateExpression?: string,
+     *   ConditionExpression?: string,
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   '@region'?: string|null,
+     * }|UpdateItemInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

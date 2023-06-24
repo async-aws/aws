@@ -30,6 +30,12 @@ final class DetectDominantLanguageRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Text?: string,
+     *   '@region'?: string|null,
+     * }|DetectDominantLanguageRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

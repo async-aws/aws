@@ -76,6 +76,17 @@ final class UserType
         $this->mfaOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : null;
     }
 
+    /**
+     * @param array{
+     *   Username?: null|string,
+     *   Attributes?: null|AttributeType[],
+     *   UserCreateDate?: null|\DateTimeImmutable,
+     *   UserLastModifiedDate?: null|\DateTimeImmutable,
+     *   Enabled?: null|bool,
+     *   UserStatus?: null|UserStatusType::*,
+     *   MFAOptions?: null|MFAOptionType[],
+     * }|UserType $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

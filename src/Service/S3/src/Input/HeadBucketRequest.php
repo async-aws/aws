@@ -60,6 +60,13 @@ final class HeadBucketRequest extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   Bucket?: string,
+     *   ExpectedBucketOwner?: string,
+     *   '@region'?: string|null,
+     * }|HeadBucketRequest $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

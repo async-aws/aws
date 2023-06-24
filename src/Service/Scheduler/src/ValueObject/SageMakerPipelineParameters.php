@@ -24,6 +24,11 @@ final class SageMakerPipelineParameters
         $this->pipelineParameterList = isset($input['PipelineParameterList']) ? array_map([SageMakerPipelineParameter::class, 'create'], $input['PipelineParameterList']) : null;
     }
 
+    /**
+     * @param array{
+     *   PipelineParameterList?: null|SageMakerPipelineParameter[],
+     * }|SageMakerPipelineParameters $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
