@@ -64,7 +64,7 @@ final class TransactWriteItemsInput extends Input
 
     /**
      * @param array{
-     *   TransactItems?: TransactWriteItem[],
+     *   TransactItems?: array<TransactWriteItem|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,
@@ -82,7 +82,7 @@ final class TransactWriteItemsInput extends Input
 
     /**
      * @param array{
-     *   TransactItems?: TransactWriteItem[],
+     *   TransactItems?: array<TransactWriteItem|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,

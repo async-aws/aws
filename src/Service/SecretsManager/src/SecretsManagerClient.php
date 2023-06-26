@@ -92,8 +92,8 @@ class SecretsManagerClient extends AbstractApi
      *   KmsKeyId?: string,
      *   SecretBinary?: string,
      *   SecretString?: string,
-     *   Tags?: Tag[],
-     *   AddReplicaRegions?: ReplicaRegionType[],
+     *   Tags?: array<Tag|array>,
+     *   AddReplicaRegions?: array<ReplicaRegionType|array>,
      *   ForceOverwriteReplicaSecret?: bool,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
@@ -282,7 +282,7 @@ class SecretsManagerClient extends AbstractApi
      *   IncludePlannedDeletion?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
-     *   Filters?: Filter[],
+     *   Filters?: array<Filter|array>,
      *   SortOrder?: SortOrderType::*,
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input

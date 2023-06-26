@@ -42,7 +42,7 @@ final class CreateThingTypeRequest extends Input
      * @param array{
      *   thingTypeName?: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
-     *   tags?: Tag[],
+     *   tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -58,7 +58,7 @@ final class CreateThingTypeRequest extends Input
      * @param array{
      *   thingTypeName?: string,
      *   thingTypeProperties?: ThingTypeProperties|array,
-     *   tags?: Tag[],
+     *   tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateThingTypeRequest $input
      */

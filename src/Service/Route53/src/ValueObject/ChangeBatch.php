@@ -22,7 +22,7 @@ final class ChangeBatch
     /**
      * @param array{
      *   Comment?: null|string,
-     *   Changes: Change[],
+     *   Changes: array<Change|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -34,7 +34,7 @@ final class ChangeBatch
     /**
      * @param array{
      *   Comment?: null|string,
-     *   Changes: Change[],
+     *   Changes: array<Change|array>,
      * }|ChangeBatch $input
      */
     public static function create($input): self

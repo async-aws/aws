@@ -26,7 +26,7 @@ final class TargetInstances
 
     /**
      * @param array{
-     *   tagFilters?: null|EC2TagFilter[],
+     *   tagFilters?: null|array<EC2TagFilter|array>,
      *   autoScalingGroups?: null|string[],
      *   ec2TagSet?: null|EC2TagSet|array,
      * } $input
@@ -40,7 +40,7 @@ final class TargetInstances
 
     /**
      * @param array{
-     *   tagFilters?: null|EC2TagFilter[],
+     *   tagFilters?: null|array<EC2TagFilter|array>,
      *   autoScalingGroups?: null|string[],
      *   ec2TagSet?: null|EC2TagSet|array,
      * }|TargetInstances $input

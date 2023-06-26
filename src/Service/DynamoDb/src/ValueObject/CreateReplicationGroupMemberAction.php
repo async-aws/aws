@@ -42,7 +42,7 @@ final class CreateReplicationGroupMemberAction
      *   RegionName: string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndex[],
+     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndex|array>,
      *   TableClassOverride?: null|TableClass::*,
      * } $input
      */
@@ -60,7 +60,7 @@ final class CreateReplicationGroupMemberAction
      *   RegionName: string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndex[],
+     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndex|array>,
      *   TableClassOverride?: null|TableClass::*,
      * }|CreateReplicationGroupMemberAction $input
      */

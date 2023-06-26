@@ -185,7 +185,7 @@ final class DashIsoGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|DashAdditionalManifest[],
+     *   AdditionalManifests?: null|array<DashAdditionalManifest|array>,
      *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*,
      *   BaseUrl?: null|string,
      *   DashManifestStyle?: null|DashManifestStyle::*,
@@ -235,7 +235,7 @@ final class DashIsoGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|DashAdditionalManifest[],
+     *   AdditionalManifests?: null|array<DashAdditionalManifest|array>,
      *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*,
      *   BaseUrl?: null|string,
      *   DashManifestStyle?: null|DashManifestStyle::*,

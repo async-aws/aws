@@ -66,7 +66,7 @@ final class ProjectCache
      * @param array{
      *   type: CacheType::*,
      *   location?: null|string,
-     *   modes?: null|list<CacheMode::*>,
+     *   modes?: null|array<CacheMode::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -80,7 +80,7 @@ final class ProjectCache
      * @param array{
      *   type: CacheType::*,
      *   location?: null|string,
-     *   modes?: null|list<CacheMode::*>,
+     *   modes?: null|array<CacheMode::*>,
      * }|ProjectCache $input
      */
     public static function create($input): self

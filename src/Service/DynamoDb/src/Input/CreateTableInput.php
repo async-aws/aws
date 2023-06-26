@@ -220,16 +220,16 @@ final class CreateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: AttributeDefinition[],
+     *   AttributeDefinitions?: array<AttributeDefinition|array>,
      *   TableName?: string,
-     *   KeySchema?: KeySchemaElement[],
-     *   LocalSecondaryIndexes?: LocalSecondaryIndex[],
-     *   GlobalSecondaryIndexes?: GlobalSecondaryIndex[],
+     *   KeySchema?: array<KeySchemaElement|array>,
+     *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>,
+     *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>,
      *   BillingMode?: BillingMode::*,
      *   ProvisionedThroughput?: ProvisionedThroughput|array,
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
      *   '@region'?: string|null,
@@ -254,16 +254,16 @@ final class CreateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: AttributeDefinition[],
+     *   AttributeDefinitions?: array<AttributeDefinition|array>,
      *   TableName?: string,
-     *   KeySchema?: KeySchemaElement[],
-     *   LocalSecondaryIndexes?: LocalSecondaryIndex[],
-     *   GlobalSecondaryIndexes?: GlobalSecondaryIndex[],
+     *   KeySchema?: array<KeySchemaElement|array>,
+     *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>,
+     *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>,
      *   BillingMode?: BillingMode::*,
      *   ProvisionedThroughput?: ProvisionedThroughput|array,
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
      *   '@region'?: string|null,

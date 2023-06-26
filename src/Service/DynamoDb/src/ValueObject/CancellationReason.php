@@ -26,7 +26,7 @@ final class CancellationReason
 
     /**
      * @param array{
-     *   Item?: null|array<string, AttributeValue>,
+     *   Item?: null|array<string, AttributeValue|array>,
      *   Code?: null|string,
      *   Message?: null|string,
      * } $input
@@ -40,7 +40,7 @@ final class CancellationReason
 
     /**
      * @param array{
-     *   Item?: null|array<string, AttributeValue>,
+     *   Item?: null|array<string, AttributeValue|array>,
      *   Code?: null|string,
      *   Message?: null|string,
      * }|CancellationReason $input

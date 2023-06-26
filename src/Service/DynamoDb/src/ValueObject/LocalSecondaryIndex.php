@@ -39,7 +39,7 @@ final class LocalSecondaryIndex
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: KeySchemaElement[],
+     *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      * } $input
      */
@@ -53,7 +53,7 @@ final class LocalSecondaryIndex
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: KeySchemaElement[],
+     *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      * }|LocalSecondaryIndex $input
      */

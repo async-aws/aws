@@ -31,7 +31,7 @@ final class LambdaFunctionConfiguration
      * @param array{
      *   Id?: null|string,
      *   LambdaFunctionArn: string,
-     *   Events: list<Event::*>,
+     *   Events: array<Event::*>,
      *   Filter?: null|NotificationConfigurationFilter|array,
      * } $input
      */
@@ -47,7 +47,7 @@ final class LambdaFunctionConfiguration
      * @param array{
      *   Id?: null|string,
      *   LambdaFunctionArn: string,
-     *   Events: list<Event::*>,
+     *   Events: array<Event::*>,
      *   Filter?: null|NotificationConfigurationFilter|array,
      * }|LambdaFunctionConfiguration $input
      */

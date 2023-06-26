@@ -46,11 +46,11 @@ final class Put
 
     /**
      * @param array{
-     *   Item: array<string, AttributeValue>,
+     *   Item: array<string, AttributeValue|array>,
      *   TableName: string,
      *   ConditionExpression?: null|string,
      *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      * } $input
      */
@@ -66,11 +66,11 @@ final class Put
 
     /**
      * @param array{
-     *   Item: array<string, AttributeValue>,
+     *   Item: array<string, AttributeValue|array>,
      *   TableName: string,
      *   ConditionExpression?: null|string,
      *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      * }|Put $input
      */

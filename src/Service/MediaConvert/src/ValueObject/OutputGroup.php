@@ -41,7 +41,7 @@ final class OutputGroup
      *   CustomName?: null|string,
      *   Name?: null|string,
      *   OutputGroupSettings?: null|OutputGroupSettings|array,
-     *   Outputs?: null|Output[],
+     *   Outputs?: null|array<Output|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -59,7 +59,7 @@ final class OutputGroup
      *   CustomName?: null|string,
      *   Name?: null|string,
      *   OutputGroupSettings?: null|OutputGroupSettings|array,
-     *   Outputs?: null|Output[],
+     *   Outputs?: null|array<Output|array>,
      * }|OutputGroup $input
      */
     public static function create($input): self

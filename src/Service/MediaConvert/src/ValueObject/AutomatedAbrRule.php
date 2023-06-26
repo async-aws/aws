@@ -68,8 +68,8 @@ final class AutomatedAbrRule
 
     /**
      * @param array{
-     *   AllowedRenditions?: null|AllowedRenditionSize[],
-     *   ForceIncludeRenditions?: null|ForceIncludeRenditionSize[],
+     *   AllowedRenditions?: null|array<AllowedRenditionSize|array>,
+     *   ForceIncludeRenditions?: null|array<ForceIncludeRenditionSize|array>,
      *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
      *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
      *   Type?: null|RuleType::*,
@@ -86,8 +86,8 @@ final class AutomatedAbrRule
 
     /**
      * @param array{
-     *   AllowedRenditions?: null|AllowedRenditionSize[],
-     *   ForceIncludeRenditions?: null|ForceIncludeRenditionSize[],
+     *   AllowedRenditions?: null|array<AllowedRenditionSize|array>,
+     *   ForceIncludeRenditions?: null|array<ForceIncludeRenditionSize|array>,
      *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
      *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
      *   Type?: null|RuleType::*,

@@ -177,7 +177,7 @@ final class ExpectedAttributeValue
      *   Value?: null|AttributeValue|array,
      *   Exists?: null|bool,
      *   ComparisonOperator?: null|ComparisonOperator::*,
-     *   AttributeValueList?: null|AttributeValue[],
+     *   AttributeValueList?: null|array<AttributeValue|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -193,7 +193,7 @@ final class ExpectedAttributeValue
      *   Value?: null|AttributeValue|array,
      *   Exists?: null|bool,
      *   ComparisonOperator?: null|ComparisonOperator::*,
-     *   AttributeValueList?: null|AttributeValue[],
+     *   AttributeValueList?: null|array<AttributeValue|array>,
      * }|ExpectedAttributeValue $input
      */
     public static function create($input): self

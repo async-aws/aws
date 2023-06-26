@@ -32,7 +32,7 @@ final class EnhancedMetrics
 
     /**
      * @param array{
-     *   ShardLevelMetrics?: null|list<MetricsName::*>,
+     *   ShardLevelMetrics?: null|array<MetricsName::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -42,7 +42,7 @@ final class EnhancedMetrics
 
     /**
      * @param array{
-     *   ShardLevelMetrics?: null|list<MetricsName::*>,
+     *   ShardLevelMetrics?: null|array<MetricsName::*>,
      * }|EnhancedMetrics $input
      */
     public static function create($input): self

@@ -113,7 +113,7 @@ final class GetItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, AttributeValue>,
+     *   Key?: array<string, AttributeValue|array>,
      *   AttributesToGet?: string[],
      *   ConsistentRead?: bool,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -143,7 +143,7 @@ final class GetItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, AttributeValue>,
+     *   Key?: array<string, AttributeValue|array>,
      *   AttributesToGet?: string[],
      *   ConsistentRead?: bool,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,

@@ -249,11 +249,11 @@ final class HlsGroupSettings
 
     /**
      * @param array{
-     *   AdMarkers?: null|list<HlsAdMarkers::*>,
-     *   AdditionalManifests?: null|HlsAdditionalManifest[],
+     *   AdMarkers?: null|array<HlsAdMarkers::*>,
+     *   AdditionalManifests?: null|array<HlsAdditionalManifest|array>,
      *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*,
      *   BaseUrl?: null|string,
-     *   CaptionLanguageMappings?: null|HlsCaptionLanguageMapping[],
+     *   CaptionLanguageMappings?: null|array<HlsCaptionLanguageMapping|array>,
      *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*,
      *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*,
      *   ClientCache?: null|HlsClientCache::*,
@@ -321,11 +321,11 @@ final class HlsGroupSettings
 
     /**
      * @param array{
-     *   AdMarkers?: null|list<HlsAdMarkers::*>,
-     *   AdditionalManifests?: null|HlsAdditionalManifest[],
+     *   AdMarkers?: null|array<HlsAdMarkers::*>,
+     *   AdditionalManifests?: null|array<HlsAdditionalManifest|array>,
      *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*,
      *   BaseUrl?: null|string,
-     *   CaptionLanguageMappings?: null|HlsCaptionLanguageMapping[],
+     *   CaptionLanguageMappings?: null|array<HlsCaptionLanguageMapping|array>,
      *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*,
      *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*,
      *   ClientCache?: null|HlsClientCache::*,

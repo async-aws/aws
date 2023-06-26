@@ -166,7 +166,7 @@ class IamClient extends AbstractApi
      *   Path?: string,
      *   UserName: string,
      *   PermissionsBoundary?: string,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateUserRequest $input
      *

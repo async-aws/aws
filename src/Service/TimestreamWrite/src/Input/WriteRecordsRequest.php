@@ -54,7 +54,7 @@ final class WriteRecordsRequest extends Input
      *   DatabaseName?: string,
      *   TableName?: string,
      *   CommonAttributes?: Record|array,
-     *   Records?: Record[],
+     *   Records?: array<Record|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -72,7 +72,7 @@ final class WriteRecordsRequest extends Input
      *   DatabaseName?: string,
      *   TableName?: string,
      *   CommonAttributes?: Record|array,
-     *   Records?: Record[],
+     *   Records?: array<Record|array>,
      *   '@region'?: string|null,
      * }|WriteRecordsRequest $input
      */

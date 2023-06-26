@@ -30,7 +30,7 @@ final class QueueConfiguration
      * @param array{
      *   Id?: null|string,
      *   QueueArn: string,
-     *   Events: list<Event::*>,
+     *   Events: array<Event::*>,
      *   Filter?: null|NotificationConfigurationFilter|array,
      * } $input
      */
@@ -46,7 +46,7 @@ final class QueueConfiguration
      * @param array{
      *   Id?: null|string,
      *   QueueArn: string,
-     *   Events: list<Event::*>,
+     *   Events: array<Event::*>,
      *   Filter?: null|NotificationConfigurationFilter|array,
      * }|QueueConfiguration $input
      */

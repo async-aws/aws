@@ -31,7 +31,7 @@ final class PublishBatchInput extends Input
     /**
      * @param array{
      *   TopicArn?: string,
-     *   PublishBatchRequestEntries?: PublishBatchRequestEntry[],
+     *   PublishBatchRequestEntries?: array<PublishBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,7 +45,7 @@ final class PublishBatchInput extends Input
     /**
      * @param array{
      *   TopicArn?: string,
-     *   PublishBatchRequestEntries?: PublishBatchRequestEntry[],
+     *   PublishBatchRequestEntries?: array<PublishBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|PublishBatchInput $input
      */

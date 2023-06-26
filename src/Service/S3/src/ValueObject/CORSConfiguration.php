@@ -20,7 +20,7 @@ final class CORSConfiguration
 
     /**
      * @param array{
-     *   CORSRules: CORSRule[],
+     *   CORSRules: array<CORSRule|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class CORSConfiguration
 
     /**
      * @param array{
-     *   CORSRules: CORSRule[],
+     *   CORSRules: array<CORSRule|array>,
      * }|CORSConfiguration $input
      */
     public static function create($input): self

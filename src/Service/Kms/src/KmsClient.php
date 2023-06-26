@@ -301,7 +301,7 @@ class KmsClient extends AbstractApi
      *   Origin?: OriginType::*,
      *   CustomKeyStoreId?: string,
      *   BypassPolicyLockoutSafetyCheck?: bool,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   MultiRegion?: bool,
      *   XksKeyId?: string,
      *   '@region'?: string|null,

@@ -133,7 +133,7 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchgetitem
      *
      * @param array{
-     *   RequestItems: array<string, KeysAndAttributes>,
+     *   RequestItems: array<string, KeysAndAttributes|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   '@region'?: string|null,
      * }|BatchGetItemInput $input
@@ -265,16 +265,16 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
      *
      * @param array{
-     *   AttributeDefinitions: AttributeDefinition[],
+     *   AttributeDefinitions: array<AttributeDefinition|array>,
      *   TableName: string,
-     *   KeySchema: KeySchemaElement[],
-     *   LocalSecondaryIndexes?: LocalSecondaryIndex[],
-     *   GlobalSecondaryIndexes?: GlobalSecondaryIndex[],
+     *   KeySchema: array<KeySchemaElement|array>,
+     *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>,
+     *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>,
      *   BillingMode?: BillingMode::*,
      *   ProvisionedThroughput?: ProvisionedThroughput|array,
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
      *   '@region'?: string|null,
@@ -314,15 +314,15 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Key: array<string, AttributeValue>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|DeleteItemInput $input
      *
@@ -471,7 +471,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   Statement: string,
-     *   Parameters?: AttributeValue[],
+     *   Parameters?: array<AttributeValue|array>,
      *   ConsistentRead?: bool,
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -518,7 +518,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      *   AttributesToGet?: string[],
      *   ConsistentRead?: bool,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -599,15 +599,15 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Item: array<string, AttributeValue>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Item: array<string, AttributeValue|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|PutItemInput $input
      *
@@ -687,17 +687,17 @@ class DynamoDbClient extends AbstractApi
      *   AttributesToGet?: string[],
      *   Limit?: int,
      *   ConsistentRead?: bool,
-     *   KeyConditions?: array<string, Condition>,
-     *   QueryFilter?: array<string, Condition>,
+     *   KeyConditions?: array<string, Condition|array>,
+     *   QueryFilter?: array<string, Condition|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ScanIndexForward?: bool,
-     *   ExclusiveStartKey?: array<string, AttributeValue>,
+     *   ExclusiveStartKey?: array<string, AttributeValue|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   FilterExpression?: string,
      *   KeyConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|QueryInput $input
      *
@@ -752,16 +752,16 @@ class DynamoDbClient extends AbstractApi
      *   AttributesToGet?: string[],
      *   Limit?: int,
      *   Select?: Select::*,
-     *   ScanFilter?: array<string, Condition>,
+     *   ScanFilter?: array<string, Condition|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
-     *   ExclusiveStartKey?: array<string, AttributeValue>,
+     *   ExclusiveStartKey?: array<string, AttributeValue|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   TotalSegments?: int,
      *   Segment?: int,
      *   ProjectionExpression?: string,
      *   FilterExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   ConsistentRead?: bool,
      *   '@region'?: string|null,
      * }|ScanInput $input
@@ -862,7 +862,7 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#transactwriteitems
      *
      * @param array{
-     *   TransactItems: TransactWriteItem[],
+     *   TransactItems: array<TransactWriteItem|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ClientRequestToken?: string,
@@ -907,9 +907,9 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Key: array<string, AttributeValue>,
-     *   AttributeUpdates?: array<string, AttributeValueUpdate>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -917,7 +917,7 @@ class DynamoDbClient extends AbstractApi
      *   UpdateExpression?: string,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|UpdateItemInput $input
      *
@@ -968,14 +968,14 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
      *
      * @param array{
-     *   AttributeDefinitions?: AttributeDefinition[],
+     *   AttributeDefinitions?: array<AttributeDefinition|array>,
      *   TableName: string,
      *   BillingMode?: BillingMode::*,
      *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: GlobalSecondaryIndexUpdate[],
+     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>,
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
-     *   ReplicaUpdates?: ReplicationGroupUpdate[],
+     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>,
      *   TableClass?: TableClass::*,
      *   DeletionProtectionEnabled?: bool,
      *   '@region'?: string|null,

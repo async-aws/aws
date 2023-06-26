@@ -134,7 +134,7 @@ class FirehoseClient extends AbstractApi
      *
      * @param array{
      *   DeliveryStreamName: string,
-     *   Records: Record[],
+     *   Records: array<Record|array>,
      *   '@region'?: string|null,
      * }|PutRecordBatchInput $input
      *

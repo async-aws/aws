@@ -114,7 +114,7 @@ class SnsClient extends AbstractApi
      * @param array{
      *   Name: string,
      *   Attributes?: array<string, string>,
-     *   Tags?: Tag[],
+     *   Tags?: array<Tag|array>,
      *   DataProtectionPolicy?: string,
      *   '@region'?: string|null,
      * }|CreateTopicInput $input
@@ -281,7 +281,7 @@ class SnsClient extends AbstractApi
      *   Message: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: array<string, MessageAttributeValue>,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      *   '@region'?: string|null,
@@ -357,7 +357,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   TopicArn: string,
-     *   PublishBatchRequestEntries: PublishBatchRequestEntry[],
+     *   PublishBatchRequestEntries: array<PublishBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|PublishBatchInput $input
      *

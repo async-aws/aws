@@ -46,7 +46,7 @@ final class CreateThingGroupRequest extends Input
      *   thingGroupName?: string,
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
-     *   tags?: Tag[],
+     *   tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -64,7 +64,7 @@ final class CreateThingGroupRequest extends Input
      *   thingGroupName?: string,
      *   parentGroupName?: string,
      *   thingGroupProperties?: ThingGroupProperties|array,
-     *   tags?: Tag[],
+     *   tags?: array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateThingGroupRequest $input
      */

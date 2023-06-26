@@ -59,9 +59,9 @@ final class LayerVersionsListItem
      *   Version?: null|string,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|list<Runtime::*>,
+     *   CompatibleRuntimes?: null|array<Runtime::*>,
      *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|list<Architecture::*>,
+     *   CompatibleArchitectures?: null|array<Architecture::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -81,9 +81,9 @@ final class LayerVersionsListItem
      *   Version?: null|string,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|list<Runtime::*>,
+     *   CompatibleRuntimes?: null|array<Runtime::*>,
      *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|list<Architecture::*>,
+     *   CompatibleArchitectures?: null|array<Architecture::*>,
      * }|LayerVersionsListItem $input
      */
     public static function create($input): self

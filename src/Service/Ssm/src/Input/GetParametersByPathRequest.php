@@ -72,7 +72,7 @@ final class GetParametersByPathRequest extends Input
      * @param array{
      *   Path?: string,
      *   Recursive?: bool,
-     *   ParameterFilters?: ParameterStringFilter[],
+     *   ParameterFilters?: array<ParameterStringFilter|array>,
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
@@ -94,7 +94,7 @@ final class GetParametersByPathRequest extends Input
      * @param array{
      *   Path?: string,
      *   Recursive?: bool,
-     *   ParameterFilters?: ParameterStringFilter[],
+     *   ParameterFilters?: array<ParameterStringFilter|array>,
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,

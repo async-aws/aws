@@ -139,7 +139,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   Entries: ChangeMessageVisibilityBatchRequestEntry[],
+     *   Entries: array<ChangeMessageVisibilityBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|ChangeMessageVisibilityBatchRequest $input
      *
@@ -270,7 +270,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   Entries: DeleteMessageBatchRequestEntry[],
+     *   Entries: array<DeleteMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|DeleteMessageBatchRequest $input
      *
@@ -339,7 +339,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: list<QueueAttributeName::*>,
+     *   AttributeNames?: array<QueueAttributeName::*>,
      *   '@region'?: string|null,
      * }|GetQueueAttributesRequest $input
      *
@@ -516,7 +516,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: list<MessageSystemAttributeName::*>,
+     *   AttributeNames?: array<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,
@@ -556,8 +556,8 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   MessageBody: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: array<string, MessageAttributeValue>,
-     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      *   '@region'?: string|null,
@@ -605,7 +605,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   Entries: SendMessageBatchRequestEntry[],
+     *   Entries: array<SendMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
      * }|SendMessageBatchRequest $input
      *

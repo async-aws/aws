@@ -49,7 +49,7 @@ final class GlobalSecondaryIndex
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: KeySchemaElement[],
+     *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      * } $input
@@ -65,7 +65,7 @@ final class GlobalSecondaryIndex
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: KeySchemaElement[],
+     *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      * }|GlobalSecondaryIndex $input

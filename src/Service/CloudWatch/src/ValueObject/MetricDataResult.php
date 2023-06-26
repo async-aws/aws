@@ -52,7 +52,7 @@ final class MetricDataResult
      *   Timestamps?: null|\DateTimeImmutable[],
      *   Values?: null|float[],
      *   StatusCode?: null|StatusCode::*,
-     *   Messages?: null|MessageData[],
+     *   Messages?: null|array<MessageData|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -72,7 +72,7 @@ final class MetricDataResult
      *   Timestamps?: null|\DateTimeImmutable[],
      *   Values?: null|float[],
      *   StatusCode?: null|StatusCode::*,
-     *   Messages?: null|MessageData[],
+     *   Messages?: null|array<MessageData|array>,
      * }|MetricDataResult $input
      */
     public static function create($input): self

@@ -16,7 +16,7 @@ final class Tagging
 
     /**
      * @param array{
-     *   TagSet: Tag[],
+     *   TagSet: array<Tag|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class Tagging
 
     /**
      * @param array{
-     *   TagSet: Tag[],
+     *   TagSet: array<Tag|array>,
      * }|Tagging $input
      */
     public static function create($input): self

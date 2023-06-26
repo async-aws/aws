@@ -229,12 +229,12 @@ final class KeyMetadata
      *   KeyManager?: null|KeyManagerType::*,
      *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
      *   KeySpec?: null|KeySpec::*,
-     *   EncryptionAlgorithms?: null|list<EncryptionAlgorithmSpec::*>,
-     *   SigningAlgorithms?: null|list<SigningAlgorithmSpec::*>,
+     *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*>,
+     *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*>,
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
-     *   MacAlgorithms?: null|list<MacAlgorithmSpec::*>,
+     *   MacAlgorithms?: null|array<MacAlgorithmSpec::*>,
      *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
      * } $input
      */
@@ -285,12 +285,12 @@ final class KeyMetadata
      *   KeyManager?: null|KeyManagerType::*,
      *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
      *   KeySpec?: null|KeySpec::*,
-     *   EncryptionAlgorithms?: null|list<EncryptionAlgorithmSpec::*>,
-     *   SigningAlgorithms?: null|list<SigningAlgorithmSpec::*>,
+     *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*>,
+     *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*>,
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
-     *   MacAlgorithms?: null|list<MacAlgorithmSpec::*>,
+     *   MacAlgorithms?: null|array<MacAlgorithmSpec::*>,
      *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
      * }|KeyMetadata $input
      */

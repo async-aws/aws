@@ -257,9 +257,9 @@ final class UpdateItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, AttributeValue>,
-     *   AttributeUpdates?: array<string, AttributeValueUpdate>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Key?: array<string, AttributeValue|array>,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -267,7 +267,7 @@ final class UpdateItemInput extends Input
      *   UpdateExpression?: string,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -315,9 +315,9 @@ final class UpdateItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, AttributeValue>,
-     *   AttributeUpdates?: array<string, AttributeValueUpdate>,
-     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   Key?: array<string, AttributeValue|array>,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate|array>,
+     *   Expected?: array<string, ExpectedAttributeValue|array>,
      *   ConditionalOperator?: ConditionalOperator::*,
      *   ReturnValues?: ReturnValue::*,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
@@ -325,7 +325,7 @@ final class UpdateItemInput extends Input
      *   UpdateExpression?: string,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|UpdateItemInput $input
      */

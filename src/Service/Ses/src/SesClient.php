@@ -46,7 +46,7 @@ class SesClient extends AbstractApi
      *   FeedbackForwardingEmailAddress?: string,
      *   FeedbackForwardingEmailAddressIdentityArn?: string,
      *   Content: EmailContent|array,
-     *   EmailTags?: MessageTag[],
+     *   EmailTags?: array<MessageTag|array>,
      *   ConfigurationSetName?: string,
      *   ListManagementOptions?: ListManagementOptions|array,
      *   '@region'?: string|null,

@@ -240,7 +240,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
-     *   Attributes?: list<Attribute::*>,
+     *   Attributes?: array<Attribute::*>,
      *   '@region'?: string|null,
      * }|DetectFacesRequest $input
      *
@@ -439,7 +439,7 @@ class RekognitionClient extends AbstractApi
      *   CollectionId: string,
      *   Image: Image|array,
      *   ExternalImageId?: string,
-     *   DetectionAttributes?: list<Attribute::*>,
+     *   DetectionAttributes?: array<Attribute::*>,
      *   MaxFaces?: int,
      *   QualityFilter?: QualityFilter::*,
      *   '@region'?: string|null,

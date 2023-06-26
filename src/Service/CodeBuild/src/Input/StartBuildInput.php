@@ -322,12 +322,12 @@ final class StartBuildInput extends Input
     /**
      * @param array{
      *   projectName?: string,
-     *   secondarySourcesOverride?: ProjectSource[],
-     *   secondarySourcesVersionOverride?: ProjectSourceVersion[],
+     *   secondarySourcesOverride?: array<ProjectSource|array>,
+     *   secondarySourcesVersionOverride?: array<ProjectSourceVersion|array>,
      *   sourceVersion?: string,
      *   artifactsOverride?: ProjectArtifacts|array,
-     *   secondaryArtifactsOverride?: ProjectArtifacts[],
-     *   environmentVariablesOverride?: EnvironmentVariable[],
+     *   secondaryArtifactsOverride?: array<ProjectArtifacts|array>,
+     *   environmentVariablesOverride?: array<EnvironmentVariable|array>,
      *   sourceTypeOverride?: SourceType::*,
      *   sourceLocationOverride?: string,
      *   sourceAuthOverride?: SourceAuth|array,
@@ -394,12 +394,12 @@ final class StartBuildInput extends Input
     /**
      * @param array{
      *   projectName?: string,
-     *   secondarySourcesOverride?: ProjectSource[],
-     *   secondarySourcesVersionOverride?: ProjectSourceVersion[],
+     *   secondarySourcesOverride?: array<ProjectSource|array>,
+     *   secondarySourcesVersionOverride?: array<ProjectSourceVersion|array>,
      *   sourceVersion?: string,
      *   artifactsOverride?: ProjectArtifacts|array,
-     *   secondaryArtifactsOverride?: ProjectArtifacts[],
-     *   environmentVariablesOverride?: EnvironmentVariable[],
+     *   secondaryArtifactsOverride?: array<ProjectArtifacts|array>,
+     *   environmentVariablesOverride?: array<EnvironmentVariable|array>,
      *   sourceTypeOverride?: SourceType::*,
      *   sourceLocationOverride?: string,
      *   sourceAuthOverride?: SourceAuth|array,

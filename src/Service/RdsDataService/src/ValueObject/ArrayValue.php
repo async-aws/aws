@@ -38,7 +38,7 @@ final class ArrayValue
      *   longValues?: null|string[],
      *   doubleValues?: null|float[],
      *   stringValues?: null|string[],
-     *   arrayValues?: null|ArrayValue[],
+     *   arrayValues?: null|array<ArrayValue|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -56,7 +56,7 @@ final class ArrayValue
      *   longValues?: null|string[],
      *   doubleValues?: null|float[],
      *   stringValues?: null|string[],
-     *   arrayValues?: null|ArrayValue[],
+     *   arrayValues?: null|array<ArrayValue|array>,
      * }|ArrayValue $input
      */
     public static function create($input): self

@@ -17,7 +17,7 @@ final class DeleteRequest
 
     /**
      * @param array{
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class DeleteRequest
 
     /**
      * @param array{
-     *   Key: array<string, AttributeValue>,
+     *   Key: array<string, AttributeValue|array>,
      * }|DeleteRequest $input
      */
     public static function create($input): self

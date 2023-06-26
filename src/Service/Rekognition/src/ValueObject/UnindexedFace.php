@@ -31,7 +31,7 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|list<Reason::*>,
+     *   Reasons?: null|array<Reason::*>,
      *   FaceDetail?: null|FaceDetail|array,
      * } $input
      */
@@ -43,7 +43,7 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|list<Reason::*>,
+     *   Reasons?: null|array<Reason::*>,
      *   FaceDetail?: null|FaceDetail|array,
      * }|UnindexedFace $input
      */

@@ -30,7 +30,7 @@ final class AlarmConfiguration
      * @param array{
      *   enabled?: null|bool,
      *   ignorePollAlarmFailure?: null|bool,
-     *   alarms?: null|Alarm[],
+     *   alarms?: null|array<Alarm|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -44,7 +44,7 @@ final class AlarmConfiguration
      * @param array{
      *   enabled?: null|bool,
      *   ignorePollAlarmFailure?: null|bool,
-     *   alarms?: null|Alarm[],
+     *   alarms?: null|array<Alarm|array>,
      * }|AlarmConfiguration $input
      */
     public static function create($input): self

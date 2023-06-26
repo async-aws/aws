@@ -42,7 +42,7 @@ final class ContextDataType
      *   IpAddress: string,
      *   ServerName: string,
      *   ServerPath: string,
-     *   HttpHeaders: HttpHeader[],
+     *   HttpHeaders: array<HttpHeader|array>,
      *   EncodedData?: null|string,
      * } $input
      */
@@ -60,7 +60,7 @@ final class ContextDataType
      *   IpAddress: string,
      *   ServerName: string,
      *   ServerPath: string,
-     *   HttpHeaders: HttpHeader[],
+     *   HttpHeaders: array<HttpHeader|array>,
      *   EncodedData?: null|string,
      * }|ContextDataType $input
      */

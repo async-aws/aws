@@ -61,7 +61,7 @@ final class PendingModifiedValues
      *   EngineVersion?: null|string,
      *   CacheNodeType?: null|string,
      *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
-     *   LogDeliveryConfigurations?: null|PendingLogDeliveryConfiguration[],
+     *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
      *   TransitEncryptionEnabled?: null|bool,
      *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
      * } $input
@@ -85,7 +85,7 @@ final class PendingModifiedValues
      *   EngineVersion?: null|string,
      *   CacheNodeType?: null|string,
      *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
-     *   LogDeliveryConfigurations?: null|PendingLogDeliveryConfiguration[],
+     *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
      *   TransitEncryptionEnabled?: null|bool,
      *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
      * }|PendingModifiedValues $input

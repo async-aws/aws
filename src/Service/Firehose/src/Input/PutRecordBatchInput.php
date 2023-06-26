@@ -31,7 +31,7 @@ final class PutRecordBatchInput extends Input
     /**
      * @param array{
      *   DeliveryStreamName?: string,
-     *   Records?: Record[],
+     *   Records?: array<Record|array>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,7 +45,7 @@ final class PutRecordBatchInput extends Input
     /**
      * @param array{
      *   DeliveryStreamName?: string,
-     *   Records?: Record[],
+     *   Records?: array<Record|array>,
      *   '@region'?: string|null,
      * }|PutRecordBatchInput $input
      */

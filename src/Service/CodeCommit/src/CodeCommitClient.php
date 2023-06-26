@@ -396,7 +396,7 @@ class CodeCommitClient extends AbstractApi
      *
      * @param array{
      *   repositoryName: string,
-     *   triggers: RepositoryTrigger[],
+     *   triggers: array<RepositoryTrigger|array>,
      *   '@region'?: string|null,
      * }|PutRepositoryTriggersInput $input
      *

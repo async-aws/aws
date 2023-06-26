@@ -139,7 +139,7 @@ final class Condition
 
     /**
      * @param array{
-     *   AttributeValueList?: null|AttributeValue[],
+     *   AttributeValueList?: null|array<AttributeValue|array>,
      *   ComparisonOperator: ComparisonOperator::*,
      * } $input
      */
@@ -151,7 +151,7 @@ final class Condition
 
     /**
      * @param array{
-     *   AttributeValueList?: null|AttributeValue[],
+     *   AttributeValueList?: null|array<AttributeValue|array>,
      *   ComparisonOperator: ComparisonOperator::*,
      * }|Condition $input
      */

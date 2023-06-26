@@ -20,7 +20,7 @@ final class ResultSet
 
     /**
      * @param array{
-     *   Rows?: null|Row[],
+     *   Rows?: null|array<Row|array>,
      *   ResultSetMetadata?: null|ResultSetMetadata|array,
      * } $input
      */
@@ -32,7 +32,7 @@ final class ResultSet
 
     /**
      * @param array{
-     *   Rows?: null|Row[],
+     *   Rows?: null|array<Row|array>,
      *   ResultSetMetadata?: null|ResultSetMetadata|array,
      * }|ResultSet $input
      */

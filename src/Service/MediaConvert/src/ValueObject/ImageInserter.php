@@ -24,7 +24,7 @@ final class ImageInserter
 
     /**
      * @param array{
-     *   InsertableImages?: null|InsertableImage[],
+     *   InsertableImages?: null|array<InsertableImage|array>,
      *   SdrReferenceWhiteLevel?: null|int,
      * } $input
      */
@@ -36,7 +36,7 @@ final class ImageInserter
 
     /**
      * @param array{
-     *   InsertableImages?: null|InsertableImage[],
+     *   InsertableImages?: null|array<InsertableImage|array>,
      *   SdrReferenceWhiteLevel?: null|int,
      * }|ImageInserter $input
      */

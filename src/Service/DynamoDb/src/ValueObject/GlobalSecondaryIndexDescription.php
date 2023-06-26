@@ -91,7 +91,7 @@ final class GlobalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   KeySchema?: null|KeySchemaElement[],
+     *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
      *   IndexStatus?: null|IndexStatus::*,
      *   Backfilling?: null|bool,
@@ -117,7 +117,7 @@ final class GlobalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   KeySchema?: null|KeySchemaElement[],
+     *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
      *   IndexStatus?: null|IndexStatus::*,
      *   Backfilling?: null|bool,
