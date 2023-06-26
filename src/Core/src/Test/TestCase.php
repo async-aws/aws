@@ -65,7 +65,9 @@ class TestCase extends PHPUnitTestCase
 
         $expectedHeaders = [];
         foreach ($headers as $header) {
-            [$key, $value] = explode(':', trim($header), 2);
+            $parts = explode(':', trim($header), 2);
+            $key = $parts[0];
+            $value = $parts[1] ?? '';
             $expectedHeaders[strtolower($key)] = trim($value);
         }
         self::assertEqualsIgnoringCase($expectedHeaders, $actual->getHeaders(), $message);
