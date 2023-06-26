@@ -7,6 +7,7 @@ namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\EnumGenerator;
@@ -117,16 +118,12 @@ class PopulatorGenerator
 
                 $nullable = false;
             } elseif ($memberShape instanceof ListShape) {
-                $memberShape->getMember()->getShape();
+                $memberShape = $memberShape->getMember()->getShape();
 
-                if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
-                    $this->objectGenerator->generate($memberShape, $forEndpoint);
-                    if ($forEndpoint && 'endpoints' === $propertyName) {
-                        $forEndpoint = false;
-                    }
-                }
-                if (!empty($memberShape->getEnum())) {
-                    $this->enumGenerator->generate($memberShape);
+                $this->generateListShapeMemberShape($memberShape, $forEndpoint);
+
+                if ($memberShape instanceof StructureShape && $forEndpoint && 'endpoints' === $propertyName) {
+                    $forEndpoint = false;
                 }
 
                 $nullable = false;
@@ -293,6 +290,18 @@ class PopulatorGenerator
         } else {
             $method->addParameter('response')->setType(Response::class);
             $classBuilder->addUse(Response::class);
+        }
+    }
+
+    private function generateListShapeMemberShape(Shape $memberShape, bool $forEndpoint): void
+    {
+        if ($memberShape instanceof StructureShape) {
+            $this->objectGenerator->generate($memberShape, $forEndpoint);
+        } elseif ($memberShape instanceof ListShape) {
+            $this->generateListShapeMemberShape($memberShape->getMember()->getShape(), $forEndpoint);
+        }
+        if (!empty($memberShape->getEnum())) {
+            $this->enumGenerator->generate($memberShape);
         }
     }
 }

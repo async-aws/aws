@@ -133,6 +133,10 @@ class RestJsonParser implements Parser
                 $body = '\DateTimeImmutable::createFromFormat("U.u", sprintf("%.6F", INPUT))';
 
                 break;
+            case 'iso8601':
+                $body = '\DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, INPUT)';
+
+                break;
             default:
                 throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
         }
