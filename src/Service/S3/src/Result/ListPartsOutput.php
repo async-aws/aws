@@ -308,7 +308,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
                 'PartNumber' => ($v = $item->PartNumber) ? (int) (string) $v : null,
                 'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
                 'ETag' => ($v = $item->ETag) ? (string) $v : null,
-                'Size' => ($v = $item->Size) ? (string) $v : null,
+                'Size' => ($v = $item->Size) ? (int) (string) $v : null,
                 'ChecksumCRC32' => ($v = $item->ChecksumCRC32) ? (string) $v : null,
                 'ChecksumCRC32C' => ($v = $item->ChecksumCRC32C) ? (string) $v : null,
                 'ChecksumSHA1' => ($v = $item->ChecksumSHA1) ? (string) $v : null,

@@ -144,7 +144,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     {
         return new LayerVersionsListItem([
             'LayerVersionArn' => isset($json['LayerVersionArn']) ? (string) $json['LayerVersionArn'] : null,
-            'Version' => isset($json['Version']) ? (string) $json['Version'] : null,
+            'Version' => isset($json['Version']) ? (int) $json['Version'] : null,
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'CreatedDate' => isset($json['CreatedDate']) ? (string) $json['CreatedDate'] : null,
             'CompatibleRuntimes' => !isset($json['CompatibleRuntimes']) ? null : $this->populateResultCompatibleRuntimes($json['CompatibleRuntimes']),

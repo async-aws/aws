@@ -56,7 +56,7 @@ final class LayerVersionsListItem
     /**
      * @param array{
      *   LayerVersionArn?: null|string,
-     *   Version?: null|string,
+     *   Version?: null|int,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
      *   CompatibleRuntimes?: null|array<Runtime::*>,
@@ -78,7 +78,7 @@ final class LayerVersionsListItem
     /**
      * @param array{
      *   LayerVersionArn?: null|string,
-     *   Version?: null|string,
+     *   Version?: null|int,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
      *   CompatibleRuntimes?: null|array<Runtime::*>,
@@ -127,7 +127,7 @@ final class LayerVersionsListItem
         return $this->licenseInfo;
     }
 
-    public function getVersion(): ?string
+    public function getVersion(): ?int
     {
         return $this->version;
     }

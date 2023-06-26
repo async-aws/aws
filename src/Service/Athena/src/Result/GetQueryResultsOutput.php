@@ -86,7 +86,7 @@ class GetQueryResultsOutput extends Result implements \IteratorAggregate
         return $this->resultSet;
     }
 
-    public function getUpdateCount(): ?string
+    public function getUpdateCount(): ?int
     {
         $this->initialize();
 
@@ -97,7 +97,7 @@ class GetQueryResultsOutput extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->updateCount = isset($data['UpdateCount']) ? (string) $data['UpdateCount'] : null;
+        $this->updateCount = isset($data['UpdateCount']) ? (int) $data['UpdateCount'] : null;
         $this->resultSet = empty($data['ResultSet']) ? null : $this->populateResultResultSet($data['ResultSet']);
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }

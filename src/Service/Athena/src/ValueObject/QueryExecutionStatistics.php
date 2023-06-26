@@ -60,13 +60,13 @@ final class QueryExecutionStatistics
 
     /**
      * @param array{
-     *   EngineExecutionTimeInMillis?: null|string,
-     *   DataScannedInBytes?: null|string,
+     *   EngineExecutionTimeInMillis?: null|int,
+     *   DataScannedInBytes?: null|int,
      *   DataManifestLocation?: null|string,
-     *   TotalExecutionTimeInMillis?: null|string,
-     *   QueryQueueTimeInMillis?: null|string,
-     *   QueryPlanningTimeInMillis?: null|string,
-     *   ServiceProcessingTimeInMillis?: null|string,
+     *   TotalExecutionTimeInMillis?: null|int,
+     *   QueryQueueTimeInMillis?: null|int,
+     *   QueryPlanningTimeInMillis?: null|int,
+     *   ServiceProcessingTimeInMillis?: null|int,
      *   ResultReuseInformation?: null|ResultReuseInformation|array,
      * } $input
      */
@@ -84,13 +84,13 @@ final class QueryExecutionStatistics
 
     /**
      * @param array{
-     *   EngineExecutionTimeInMillis?: null|string,
-     *   DataScannedInBytes?: null|string,
+     *   EngineExecutionTimeInMillis?: null|int,
+     *   DataScannedInBytes?: null|int,
      *   DataManifestLocation?: null|string,
-     *   TotalExecutionTimeInMillis?: null|string,
-     *   QueryQueueTimeInMillis?: null|string,
-     *   QueryPlanningTimeInMillis?: null|string,
-     *   ServiceProcessingTimeInMillis?: null|string,
+     *   TotalExecutionTimeInMillis?: null|int,
+     *   QueryQueueTimeInMillis?: null|int,
+     *   QueryPlanningTimeInMillis?: null|int,
+     *   ServiceProcessingTimeInMillis?: null|int,
      *   ResultReuseInformation?: null|ResultReuseInformation|array,
      * }|QueryExecutionStatistics $input
      */
@@ -104,22 +104,22 @@ final class QueryExecutionStatistics
         return $this->dataManifestLocation;
     }
 
-    public function getDataScannedInBytes(): ?string
+    public function getDataScannedInBytes(): ?int
     {
         return $this->dataScannedInBytes;
     }
 
-    public function getEngineExecutionTimeInMillis(): ?string
+    public function getEngineExecutionTimeInMillis(): ?int
     {
         return $this->engineExecutionTimeInMillis;
     }
 
-    public function getQueryPlanningTimeInMillis(): ?string
+    public function getQueryPlanningTimeInMillis(): ?int
     {
         return $this->queryPlanningTimeInMillis;
     }
 
-    public function getQueryQueueTimeInMillis(): ?string
+    public function getQueryQueueTimeInMillis(): ?int
     {
         return $this->queryQueueTimeInMillis;
     }
@@ -129,12 +129,12 @@ final class QueryExecutionStatistics
         return $this->resultReuseInformation;
     }
 
-    public function getServiceProcessingTimeInMillis(): ?string
+    public function getServiceProcessingTimeInMillis(): ?int
     {
         return $this->serviceProcessingTimeInMillis;
     }
 
-    public function getTotalExecutionTimeInMillis(): ?string
+    public function getTotalExecutionTimeInMillis(): ?int
     {
         return $this->totalExecutionTimeInMillis;
     }

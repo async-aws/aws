@@ -99,7 +99,7 @@ final class BuildPhase
      *   phaseStatus?: null|StatusType::*,
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
-     *   durationInSeconds?: null|string,
+     *   durationInSeconds?: null|int,
      *   contexts?: null|array<PhaseContext|array>,
      * } $input
      */
@@ -119,7 +119,7 @@ final class BuildPhase
      *   phaseStatus?: null|StatusType::*,
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
-     *   durationInSeconds?: null|string,
+     *   durationInSeconds?: null|int,
      *   contexts?: null|array<PhaseContext|array>,
      * }|BuildPhase $input
      */
@@ -136,7 +136,7 @@ final class BuildPhase
         return $this->contexts ?? [];
     }
 
-    public function getDurationInSeconds(): ?string
+    public function getDurationInSeconds(): ?int
     {
         return $this->durationInSeconds;
     }

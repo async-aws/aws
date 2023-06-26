@@ -14,7 +14,7 @@ final class SessionStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|string,
+     *   DpuExecutionInMillis?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -24,7 +24,7 @@ final class SessionStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|string,
+     *   DpuExecutionInMillis?: null|int,
      * }|SessionStatistics $input
      */
     public static function create($input): self
@@ -32,7 +32,7 @@ final class SessionStatistics
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getDpuExecutionInMillis(): ?string
+    public function getDpuExecutionInMillis(): ?int
     {
         return $this->dpuExecutionInMillis;
     }

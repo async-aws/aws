@@ -3,8 +3,8 @@
 namespace AsyncAws\Core\Test;
 
 /**
- * Because AsyncAws use symfony/phpunit-bridge and don't requires phpunit/phpunit,
- * this class may not exits but is required by the generator and static analyzer tools.
+ * Because AsyncAws use symfony/phpunit-bridge and doesn't require phpunit/phpunit,
+ * this class may not exist but is required by the generator and static analyzer tools.
  *
  * @internal use AsyncAws\Core\Test\TestCase instead
  */

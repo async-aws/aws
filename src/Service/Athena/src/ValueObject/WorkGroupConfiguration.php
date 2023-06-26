@@ -90,7 +90,7 @@ final class WorkGroupConfiguration
      *   ResultConfiguration?: null|ResultConfiguration|array,
      *   EnforceWorkGroupConfiguration?: null|bool,
      *   PublishCloudWatchMetricsEnabled?: null|bool,
-     *   BytesScannedCutoffPerQuery?: null|string,
+     *   BytesScannedCutoffPerQuery?: null|int,
      *   RequesterPaysEnabled?: null|bool,
      *   EngineVersion?: null|EngineVersion|array,
      *   AdditionalConfiguration?: null|string,
@@ -118,7 +118,7 @@ final class WorkGroupConfiguration
      *   ResultConfiguration?: null|ResultConfiguration|array,
      *   EnforceWorkGroupConfiguration?: null|bool,
      *   PublishCloudWatchMetricsEnabled?: null|bool,
-     *   BytesScannedCutoffPerQuery?: null|string,
+     *   BytesScannedCutoffPerQuery?: null|int,
      *   RequesterPaysEnabled?: null|bool,
      *   EngineVersion?: null|EngineVersion|array,
      *   AdditionalConfiguration?: null|string,
@@ -137,7 +137,7 @@ final class WorkGroupConfiguration
         return $this->additionalConfiguration;
     }
 
-    public function getBytesScannedCutoffPerQuery(): ?string
+    public function getBytesScannedCutoffPerQuery(): ?int
     {
         return $this->bytesScannedCutoffPerQuery;
     }

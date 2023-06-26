@@ -35,9 +35,9 @@ final class FilteredLogEvent
     /**
      * @param array{
      *   logStreamName?: null|string,
-     *   timestamp?: null|string,
+     *   timestamp?: null|int,
      *   message?: null|string,
-     *   ingestionTime?: null|string,
+     *   ingestionTime?: null|int,
      *   eventId?: null|string,
      * } $input
      */
@@ -53,9 +53,9 @@ final class FilteredLogEvent
     /**
      * @param array{
      *   logStreamName?: null|string,
-     *   timestamp?: null|string,
+     *   timestamp?: null|int,
      *   message?: null|string,
-     *   ingestionTime?: null|string,
+     *   ingestionTime?: null|int,
      *   eventId?: null|string,
      * }|FilteredLogEvent $input
      */
@@ -69,7 +69,7 @@ final class FilteredLogEvent
         return $this->eventId;
     }
 
-    public function getIngestionTime(): ?string
+    public function getIngestionTime(): ?int
     {
         return $this->ingestionTime;
     }
@@ -84,7 +84,7 @@ final class FilteredLogEvent
         return $this->message;
     }
 
-    public function getTimestamp(): ?string
+    public function getTimestamp(): ?int
     {
         return $this->timestamp;
     }

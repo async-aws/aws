@@ -514,8 +514,8 @@ PHP
             case 'boolean':
                 return $variable . ' ? "true" : "false"';
             case 'string':
-            case 'long':
                 return $variable;
+            case 'long':
             case 'integer':
                 return '(string) ' . $variable;
         }

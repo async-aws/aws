@@ -392,7 +392,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                 'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
                 'ETag' => ($v = $item->ETag) ? (string) $v : null,
                 'ChecksumAlgorithm' => !$item->ChecksumAlgorithm ? null : $this->populateResultChecksumAlgorithmList($item->ChecksumAlgorithm),
-                'Size' => ($v = $item->Size) ? (string) $v : null,
+                'Size' => ($v = $item->Size) ? (int) (string) $v : null,
                 'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
                 'Owner' => !$item->Owner ? null : new Owner([
                     'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,

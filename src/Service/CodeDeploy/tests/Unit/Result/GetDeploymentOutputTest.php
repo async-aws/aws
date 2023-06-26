@@ -216,12 +216,12 @@ class GetDeploymentOutputTest extends TestCase
         self::assertSame(InstanceAction::TERMINATE, $info->getBlueGreenDeploymentConfiguration()->getTerminateBlueInstancesOnDeploymentSuccess()->getAction());
         self::assertSame(2, $info->getBlueGreenDeploymentConfiguration()->getTerminateBlueInstancesOnDeploymentSuccess()->getTerminationWaitTimeInMinutes());
 
-        self::assertSame('1', $info->getDeploymentOverview()->getFailed());
-        self::assertSame('2', $info->getDeploymentOverview()->getInProgress());
-        self::assertSame('3', $info->getDeploymentOverview()->getPending());
-        self::assertSame('4', $info->getDeploymentOverview()->getReady());
-        self::assertSame('5', $info->getDeploymentOverview()->getSkipped());
-        self::assertSame('6', $info->getDeploymentOverview()->getSucceeded());
+        self::assertSame(1, $info->getDeploymentOverview()->getFailed());
+        self::assertSame(2, $info->getDeploymentOverview()->getInProgress());
+        self::assertSame(3, $info->getDeploymentOverview()->getPending());
+        self::assertSame(4, $info->getDeploymentOverview()->getReady());
+        self::assertSame(5, $info->getDeploymentOverview()->getSkipped());
+        self::assertSame(6, $info->getDeploymentOverview()->getSucceeded());
 
         self::assertSame(DeploymentOption::WITH_TRAFFIC_CONTROL, $info->getDeploymentStyle()->getDeploymentOption());
         self::assertSame(DeploymentType::IN_PLACE, $info->getDeploymentStyle()->getDeploymentType());

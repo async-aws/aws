@@ -61,13 +61,13 @@ final class LogStream
     /**
      * @param array{
      *   logStreamName?: null|string,
-     *   creationTime?: null|string,
-     *   firstEventTimestamp?: null|string,
-     *   lastEventTimestamp?: null|string,
-     *   lastIngestionTime?: null|string,
+     *   creationTime?: null|int,
+     *   firstEventTimestamp?: null|int,
+     *   lastEventTimestamp?: null|int,
+     *   lastIngestionTime?: null|int,
      *   uploadSequenceToken?: null|string,
      *   arn?: null|string,
-     *   storedBytes?: null|string,
+     *   storedBytes?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -85,13 +85,13 @@ final class LogStream
     /**
      * @param array{
      *   logStreamName?: null|string,
-     *   creationTime?: null|string,
-     *   firstEventTimestamp?: null|string,
-     *   lastEventTimestamp?: null|string,
-     *   lastIngestionTime?: null|string,
+     *   creationTime?: null|int,
+     *   firstEventTimestamp?: null|int,
+     *   lastEventTimestamp?: null|int,
+     *   lastIngestionTime?: null|int,
      *   uploadSequenceToken?: null|string,
      *   arn?: null|string,
-     *   storedBytes?: null|string,
+     *   storedBytes?: null|int,
      * }|LogStream $input
      */
     public static function create($input): self
@@ -104,22 +104,22 @@ final class LogStream
         return $this->arn;
     }
 
-    public function getCreationTime(): ?string
+    public function getCreationTime(): ?int
     {
         return $this->creationTime;
     }
 
-    public function getFirstEventTimestamp(): ?string
+    public function getFirstEventTimestamp(): ?int
     {
         return $this->firstEventTimestamp;
     }
 
-    public function getLastEventTimestamp(): ?string
+    public function getLastEventTimestamp(): ?int
     {
         return $this->lastEventTimestamp;
     }
 
-    public function getLastIngestionTime(): ?string
+    public function getLastIngestionTime(): ?int
     {
         return $this->lastIngestionTime;
     }
@@ -132,7 +132,7 @@ final class LogStream
     /**
      * @deprecated
      */
-    public function getStoredBytes(): ?string
+    public function getStoredBytes(): ?int
     {
         @trigger_error(sprintf('The property "storedBytes" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 

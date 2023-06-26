@@ -170,7 +170,7 @@ class SsmClientTest extends TestCase
         ]);
         $result = $client->PutParameter($input);
 
-        self::assertSame('1', $result->getVersion());
+        self::assertSame(1, $result->getVersion());
 
         $input = new PutParameterRequest([
             'Name' => '/app/smtp/user',
@@ -179,7 +179,7 @@ class SsmClientTest extends TestCase
         ]);
         $result = $client->PutParameter($input);
         $result->resolve();
-        self::assertSame('2', $result->getVersion());
+        self::assertSame(2, $result->getVersion());
         $parameter = $client->getParameter(['Name' => '/app/smtp/user'])->getParameter();
         self::assertSame('admin', $parameter->getValue());
     }

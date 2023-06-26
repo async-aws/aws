@@ -222,7 +222,7 @@ final class FunctionConfiguration
      *   Runtime?: null|Runtime::*,
      *   Role?: null|string,
      *   Handler?: null|string,
-     *   CodeSize?: null|string,
+     *   CodeSize?: null|int,
      *   Description?: null|string,
      *   Timeout?: null|int,
      *   MemorySize?: null|int,
@@ -300,7 +300,7 @@ final class FunctionConfiguration
      *   Runtime?: null|Runtime::*,
      *   Role?: null|string,
      *   Handler?: null|string,
-     *   CodeSize?: null|string,
+     *   CodeSize?: null|int,
      *   Description?: null|string,
      *   Timeout?: null|int,
      *   MemorySize?: null|int,
@@ -350,7 +350,7 @@ final class FunctionConfiguration
         return $this->codeSha256;
     }
 
-    public function getCodeSize(): ?string
+    public function getCodeSize(): ?int
     {
         return $this->codeSize;
     }

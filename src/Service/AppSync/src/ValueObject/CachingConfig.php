@@ -25,7 +25,7 @@ final class CachingConfig
 
     /**
      * @param array{
-     *   ttl: string,
+     *   ttl: int,
      *   cachingKeys?: null|string[],
      * } $input
      */
@@ -37,7 +37,7 @@ final class CachingConfig
 
     /**
      * @param array{
-     *   ttl: string,
+     *   ttl: int,
      *   cachingKeys?: null|string[],
      * }|CachingConfig $input
      */
@@ -54,7 +54,7 @@ final class CachingConfig
         return $this->cachingKeys ?? [];
     }
 
-    public function getTtl(): string
+    public function getTtl(): int
     {
         return $this->ttl;
     }

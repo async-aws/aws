@@ -32,7 +32,7 @@ final class Layer
     /**
      * @param array{
      *   Arn?: null|string,
-     *   CodeSize?: null|string,
+     *   CodeSize?: null|int,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
      * } $input
@@ -48,7 +48,7 @@ final class Layer
     /**
      * @param array{
      *   Arn?: null|string,
-     *   CodeSize?: null|string,
+     *   CodeSize?: null|int,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
      * }|Layer $input
@@ -63,7 +63,7 @@ final class Layer
         return $this->arn;
     }
 
-    public function getCodeSize(): ?string
+    public function getCodeSize(): ?int
     {
         return $this->codeSize;
     }

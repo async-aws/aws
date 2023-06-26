@@ -72,7 +72,7 @@ class ListFunctionsResponseTest extends TestCase
             self::assertSame('helloworld', $function->getFunctionName());
             self::assertSame('arn:aws:lambda:us-west-2:123456789012:function:helloworld', $function->getFunctionArn());
             self::assertSame('$LATEST', $function->getVersion());
-            self::assertSame('294', $function->getCodeSize());
+            self::assertSame(294, $function->getCodeSize());
 
             break;
         }

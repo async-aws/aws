@@ -164,8 +164,8 @@ class RestJsonParser implements Parser
 
         switch ($shape->getType()) {
             case 'string':
-            case 'long':
                 return $this->parseResponseString($input, $required);
+            case 'long':
             case 'integer':
                 return $this->parseResponseInteger($input, $required);
             case 'float':

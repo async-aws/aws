@@ -68,7 +68,7 @@ final class Part
      *   PartNumber?: null|int,
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
-     *   Size?: null|string,
+     *   Size?: null|int,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
      *   ChecksumSHA1?: null|string,
@@ -92,7 +92,7 @@ final class Part
      *   PartNumber?: null|int,
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
-     *   Size?: null|string,
+     *   Size?: null|int,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
      *   ChecksumSHA1?: null|string,
@@ -139,7 +139,7 @@ final class Part
         return $this->partNumber;
     }
 
-    public function getSize(): ?string
+    public function getSize(): ?int
     {
         return $this->size;
     }

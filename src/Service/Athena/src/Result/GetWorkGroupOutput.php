@@ -90,7 +90,7 @@ class GetWorkGroupOutput extends Result
             'ResultConfiguration' => empty($json['ResultConfiguration']) ? null : $this->populateResultResultConfiguration($json['ResultConfiguration']),
             'EnforceWorkGroupConfiguration' => isset($json['EnforceWorkGroupConfiguration']) ? filter_var($json['EnforceWorkGroupConfiguration'], \FILTER_VALIDATE_BOOLEAN) : null,
             'PublishCloudWatchMetricsEnabled' => isset($json['PublishCloudWatchMetricsEnabled']) ? filter_var($json['PublishCloudWatchMetricsEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'BytesScannedCutoffPerQuery' => isset($json['BytesScannedCutoffPerQuery']) ? (string) $json['BytesScannedCutoffPerQuery'] : null,
+            'BytesScannedCutoffPerQuery' => isset($json['BytesScannedCutoffPerQuery']) ? (int) $json['BytesScannedCutoffPerQuery'] : null,
             'RequesterPaysEnabled' => isset($json['RequesterPaysEnabled']) ? filter_var($json['RequesterPaysEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'EngineVersion' => empty($json['EngineVersion']) ? null : $this->populateResultEngineVersion($json['EngineVersion']),
             'AdditionalConfiguration' => isset($json['AdditionalConfiguration']) ? (string) $json['AdditionalConfiguration'] : null,

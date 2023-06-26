@@ -37,8 +37,8 @@ final class ProvisionedThroughput
 
     /**
      * @param array{
-     *   ReadCapacityUnits: string,
-     *   WriteCapacityUnits: string,
+     *   ReadCapacityUnits: int,
+     *   WriteCapacityUnits: int,
      * } $input
      */
     public function __construct(array $input)
@@ -49,8 +49,8 @@ final class ProvisionedThroughput
 
     /**
      * @param array{
-     *   ReadCapacityUnits: string,
-     *   WriteCapacityUnits: string,
+     *   ReadCapacityUnits: int,
+     *   WriteCapacityUnits: int,
      * }|ProvisionedThroughput $input
      */
     public static function create($input): self
@@ -58,12 +58,12 @@ final class ProvisionedThroughput
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getReadCapacityUnits(): string
+    public function getReadCapacityUnits(): int
     {
         return $this->readCapacityUnits;
     }
 
-    public function getWriteCapacityUnits(): string
+    public function getWriteCapacityUnits(): int
     {
         return $this->writeCapacityUnits;
     }

@@ -189,12 +189,12 @@ class GetDeploymentOutput extends Result
     private function populateResultDeploymentOverview(array $json): DeploymentOverview
     {
         return new DeploymentOverview([
-            'Pending' => isset($json['Pending']) ? (string) $json['Pending'] : null,
-            'InProgress' => isset($json['InProgress']) ? (string) $json['InProgress'] : null,
-            'Succeeded' => isset($json['Succeeded']) ? (string) $json['Succeeded'] : null,
-            'Failed' => isset($json['Failed']) ? (string) $json['Failed'] : null,
-            'Skipped' => isset($json['Skipped']) ? (string) $json['Skipped'] : null,
-            'Ready' => isset($json['Ready']) ? (string) $json['Ready'] : null,
+            'Pending' => isset($json['Pending']) ? (int) $json['Pending'] : null,
+            'InProgress' => isset($json['InProgress']) ? (int) $json['InProgress'] : null,
+            'Succeeded' => isset($json['Succeeded']) ? (int) $json['Succeeded'] : null,
+            'Failed' => isset($json['Failed']) ? (int) $json['Failed'] : null,
+            'Skipped' => isset($json['Skipped']) ? (int) $json['Skipped'] : null,
+            'Ready' => isset($json['Ready']) ? (int) $json['Ready'] : null,
         ]);
     }
 

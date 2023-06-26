@@ -156,7 +156,7 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
                     'Comment' => ($v = $item->Config->Comment) ? (string) $v : null,
                     'PrivateZone' => ($v = $item->Config->PrivateZone) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                 ]),
-                'ResourceRecordSetCount' => ($v = $item->ResourceRecordSetCount) ? (string) $v : null,
+                'ResourceRecordSetCount' => ($v = $item->ResourceRecordSetCount) ? (int) (string) $v : null,
                 'LinkedService' => !$item->LinkedService ? null : new LinkedService([
                     'ServicePrincipal' => ($v = $item->LinkedService->ServicePrincipal) ? (string) $v : null,
                     'Description' => ($v = $item->LinkedService->Description) ? (string) $v : null,

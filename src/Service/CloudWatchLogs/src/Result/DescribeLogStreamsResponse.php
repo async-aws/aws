@@ -94,13 +94,13 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     {
         return new LogStream([
             'logStreamName' => isset($json['logStreamName']) ? (string) $json['logStreamName'] : null,
-            'creationTime' => isset($json['creationTime']) ? (string) $json['creationTime'] : null,
-            'firstEventTimestamp' => isset($json['firstEventTimestamp']) ? (string) $json['firstEventTimestamp'] : null,
-            'lastEventTimestamp' => isset($json['lastEventTimestamp']) ? (string) $json['lastEventTimestamp'] : null,
-            'lastIngestionTime' => isset($json['lastIngestionTime']) ? (string) $json['lastIngestionTime'] : null,
+            'creationTime' => isset($json['creationTime']) ? (int) $json['creationTime'] : null,
+            'firstEventTimestamp' => isset($json['firstEventTimestamp']) ? (int) $json['firstEventTimestamp'] : null,
+            'lastEventTimestamp' => isset($json['lastEventTimestamp']) ? (int) $json['lastEventTimestamp'] : null,
+            'lastIngestionTime' => isset($json['lastIngestionTime']) ? (int) $json['lastIngestionTime'] : null,
             'uploadSequenceToken' => isset($json['uploadSequenceToken']) ? (string) $json['uploadSequenceToken'] : null,
             'arn' => isset($json['arn']) ? (string) $json['arn'] : null,
-            'storedBytes' => isset($json['storedBytes']) ? (string) $json['storedBytes'] : null,
+            'storedBytes' => isset($json['storedBytes']) ? (int) $json['storedBytes'] : null,
         ]);
     }
 

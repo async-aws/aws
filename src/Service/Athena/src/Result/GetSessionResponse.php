@@ -173,7 +173,7 @@ class GetSessionResponse extends Result
         return new SessionConfiguration([
             'ExecutionRole' => isset($json['ExecutionRole']) ? (string) $json['ExecutionRole'] : null,
             'WorkingDirectory' => isset($json['WorkingDirectory']) ? (string) $json['WorkingDirectory'] : null,
-            'IdleTimeoutSeconds' => isset($json['IdleTimeoutSeconds']) ? (string) $json['IdleTimeoutSeconds'] : null,
+            'IdleTimeoutSeconds' => isset($json['IdleTimeoutSeconds']) ? (int) $json['IdleTimeoutSeconds'] : null,
             'EncryptionConfiguration' => empty($json['EncryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['EncryptionConfiguration']),
         ]);
     }
@@ -181,7 +181,7 @@ class GetSessionResponse extends Result
     private function populateResultSessionStatistics(array $json): SessionStatistics
     {
         return new SessionStatistics([
-            'DpuExecutionInMillis' => isset($json['DpuExecutionInMillis']) ? (string) $json['DpuExecutionInMillis'] : null,
+            'DpuExecutionInMillis' => isset($json['DpuExecutionInMillis']) ? (int) $json['DpuExecutionInMillis'] : null,
         ]);
     }
 

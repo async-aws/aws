@@ -217,7 +217,7 @@ class DynamoDbClientTest extends TestCase
 
         try {
             self::assertSame('arn:aws:dynamodb:us-east-1:000000000000:table/demo', $result->getTableDescription()->getTableArn());
-            self::assertSame('0', $result->getTableDescription()->getItemCount());
+            self::assertSame(0, $result->getTableDescription()->getItemCount());
             self::assertTrue($client->tableExists(['TableName' => 'demo'])->isSuccess());
         } finally {
             $this->getClient()->deleteTable(['TableName' => 'demo']);

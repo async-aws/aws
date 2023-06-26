@@ -71,7 +71,7 @@ final class Parameter
      *   Name?: null|string,
      *   Type?: null|ParameterType::*,
      *   Value?: null|string,
-     *   Version?: null|string,
+     *   Version?: null|int,
      *   Selector?: null|string,
      *   SourceResult?: null|string,
      *   LastModifiedDate?: null|\DateTimeImmutable,
@@ -97,7 +97,7 @@ final class Parameter
      *   Name?: null|string,
      *   Type?: null|ParameterType::*,
      *   Value?: null|string,
-     *   Version?: null|string,
+     *   Version?: null|int,
      *   Selector?: null|string,
      *   SourceResult?: null|string,
      *   LastModifiedDate?: null|\DateTimeImmutable,
@@ -153,7 +153,7 @@ final class Parameter
         return $this->value;
     }
 
-    public function getVersion(): ?string
+    public function getVersion(): ?int
     {
         return $this->version;
     }

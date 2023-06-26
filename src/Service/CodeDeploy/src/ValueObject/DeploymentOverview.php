@@ -39,12 +39,12 @@ final class DeploymentOverview
 
     /**
      * @param array{
-     *   Pending?: null|string,
-     *   InProgress?: null|string,
-     *   Succeeded?: null|string,
-     *   Failed?: null|string,
-     *   Skipped?: null|string,
-     *   Ready?: null|string,
+     *   Pending?: null|int,
+     *   InProgress?: null|int,
+     *   Succeeded?: null|int,
+     *   Failed?: null|int,
+     *   Skipped?: null|int,
+     *   Ready?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -59,12 +59,12 @@ final class DeploymentOverview
 
     /**
      * @param array{
-     *   Pending?: null|string,
-     *   InProgress?: null|string,
-     *   Succeeded?: null|string,
-     *   Failed?: null|string,
-     *   Skipped?: null|string,
-     *   Ready?: null|string,
+     *   Pending?: null|int,
+     *   InProgress?: null|int,
+     *   Succeeded?: null|int,
+     *   Failed?: null|int,
+     *   Skipped?: null|int,
+     *   Ready?: null|int,
      * }|DeploymentOverview $input
      */
     public static function create($input): self
@@ -72,32 +72,32 @@ final class DeploymentOverview
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getFailed(): ?string
+    public function getFailed(): ?int
     {
         return $this->failed;
     }
 
-    public function getInProgress(): ?string
+    public function getInProgress(): ?int
     {
         return $this->inProgress;
     }
 
-    public function getPending(): ?string
+    public function getPending(): ?int
     {
         return $this->pending;
     }
 
-    public function getReady(): ?string
+    public function getReady(): ?int
     {
         return $this->ready;
     }
 
-    public function getSkipped(): ?string
+    public function getSkipped(): ?int
     {
         return $this->skipped;
     }
 
-    public function getSucceeded(): ?string
+    public function getSucceeded(): ?int
     {
         return $this->succeeded;
     }

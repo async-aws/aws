@@ -255,8 +255,8 @@ final class TableDescription
      *   TableStatus?: null|TableStatus::*,
      *   CreationDateTime?: null|\DateTimeImmutable,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
-     *   TableSizeBytes?: null|string,
-     *   ItemCount?: null|string,
+     *   TableSizeBytes?: null|int,
+     *   ItemCount?: null|int,
      *   TableArn?: null|string,
      *   TableId?: null|string,
      *   BillingModeSummary?: null|BillingModeSummary|array,
@@ -309,8 +309,8 @@ final class TableDescription
      *   TableStatus?: null|TableStatus::*,
      *   CreationDateTime?: null|\DateTimeImmutable,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
-     *   TableSizeBytes?: null|string,
-     *   ItemCount?: null|string,
+     *   TableSizeBytes?: null|int,
+     *   ItemCount?: null|int,
      *   TableArn?: null|string,
      *   TableId?: null|string,
      *   BillingModeSummary?: null|BillingModeSummary|array,
@@ -374,7 +374,7 @@ final class TableDescription
         return $this->globalTableVersion;
     }
 
-    public function getItemCount(): ?string
+    public function getItemCount(): ?int
     {
         return $this->itemCount;
     }
@@ -453,7 +453,7 @@ final class TableDescription
         return $this->tableName;
     }
 
-    public function getTableSizeBytes(): ?string
+    public function getTableSizeBytes(): ?int
     {
         return $this->tableSizeBytes;
     }

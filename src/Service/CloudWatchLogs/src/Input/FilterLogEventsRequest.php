@@ -52,7 +52,7 @@ final class FilterLogEventsRequest extends Input
      * The start of the time range, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`. Events with a
      * timestamp before this time are not returned.
      *
-     * @var string|null
+     * @var int|null
      */
     private $startTime;
 
@@ -60,7 +60,7 @@ final class FilterLogEventsRequest extends Input
      * The end of the time range, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`. Events with a
      * timestamp later than this time are not returned.
      *
-     * @var string|null
+     * @var int|null
      */
     private $endTime;
 
@@ -116,8 +116,8 @@ final class FilterLogEventsRequest extends Input
      *   logGroupIdentifier?: string,
      *   logStreamNames?: string[],
      *   logStreamNamePrefix?: string,
-     *   startTime?: string,
-     *   endTime?: string,
+     *   startTime?: int,
+     *   endTime?: int,
      *   filterPattern?: string,
      *   nextToken?: string,
      *   limit?: int,
@@ -148,8 +148,8 @@ final class FilterLogEventsRequest extends Input
      *   logGroupIdentifier?: string,
      *   logStreamNames?: string[],
      *   logStreamNamePrefix?: string,
-     *   startTime?: string,
-     *   endTime?: string,
+     *   startTime?: int,
+     *   endTime?: int,
      *   filterPattern?: string,
      *   nextToken?: string,
      *   limit?: int,
@@ -163,7 +163,7 @@ final class FilterLogEventsRequest extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getEndTime(): ?string
+    public function getEndTime(): ?int
     {
         return $this->endTime;
     }
@@ -216,7 +216,7 @@ final class FilterLogEventsRequest extends Input
         return $this->nextToken;
     }
 
-    public function getStartTime(): ?string
+    public function getStartTime(): ?int
     {
         return $this->startTime;
     }
@@ -251,7 +251,7 @@ final class FilterLogEventsRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    public function setEndTime(?string $value): self
+    public function setEndTime(?int $value): self
     {
         $this->endTime = $value;
 
@@ -321,7 +321,7 @@ final class FilterLogEventsRequest extends Input
         return $this;
     }
 
-    public function setStartTime(?string $value): self
+    public function setStartTime(?int $value): self
     {
         $this->startTime = $value;
 

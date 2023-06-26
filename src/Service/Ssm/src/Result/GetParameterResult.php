@@ -33,7 +33,7 @@ class GetParameterResult extends Result
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
             'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
             'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
-            'Version' => isset($json['Version']) ? (string) $json['Version'] : null,
+            'Version' => isset($json['Version']) ? (int) $json['Version'] : null,
             'Selector' => isset($json['Selector']) ? (string) $json['Selector'] : null,
             'SourceResult' => isset($json['SourceResult']) ? (string) $json['SourceResult'] : null,
             'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,

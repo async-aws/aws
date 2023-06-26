@@ -31,7 +31,7 @@ class PutParameterResult extends Result
         return $this->tier;
     }
 
-    public function getVersion(): ?string
+    public function getVersion(): ?int
     {
         $this->initialize();
 
@@ -42,7 +42,7 @@ class PutParameterResult extends Result
     {
         $data = $response->toArray();
 
-        $this->version = isset($data['Version']) ? (string) $data['Version'] : null;
+        $this->version = isset($data['Version']) ? (int) $data['Version'] : null;
         $this->tier = isset($data['Tier']) ? (string) $data['Tier'] : null;
     }
 }

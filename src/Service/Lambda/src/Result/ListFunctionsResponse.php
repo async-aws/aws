@@ -198,7 +198,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             'Runtime' => isset($json['Runtime']) ? (string) $json['Runtime'] : null,
             'Role' => isset($json['Role']) ? (string) $json['Role'] : null,
             'Handler' => isset($json['Handler']) ? (string) $json['Handler'] : null,
-            'CodeSize' => isset($json['CodeSize']) ? (string) $json['CodeSize'] : null,
+            'CodeSize' => isset($json['CodeSize']) ? (int) $json['CodeSize'] : null,
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'Timeout' => isset($json['Timeout']) ? (int) $json['Timeout'] : null,
             'MemorySize' => isset($json['MemorySize']) ? (int) $json['MemorySize'] : null,
@@ -273,7 +273,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     {
         return new Layer([
             'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
-            'CodeSize' => isset($json['CodeSize']) ? (string) $json['CodeSize'] : null,
+            'CodeSize' => isset($json['CodeSize']) ? (int) $json['CodeSize'] : null,
             'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
             'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
         ]);

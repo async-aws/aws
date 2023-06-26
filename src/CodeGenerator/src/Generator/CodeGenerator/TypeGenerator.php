@@ -187,10 +187,10 @@ class TypeGenerator
             case 'structure':
             case 'map':
                 return 'array';
-            case 'long':
             case 'string':
             case 'blob':
                 return 'string';
+            case 'long':
             case 'integer':
                 return 'int';
             case 'float':

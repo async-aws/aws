@@ -35,6 +35,6 @@ class GetParameterResultTest extends TestCase
         self::assertSame('MyGitHubPassword', $result->getParameter()->getName());
         self::assertSame(ParameterType::SECURE_STRING, $result->getParameter()->getType());
         self::assertSame('AYA39c3b3042cd2aEXAMPLE/AKIAIOSFODNN7EXAMPLE/fh983hg9awEXAMPLE==', $result->getParameter()->getValue());
-        self::assertSame('3', $result->getParameter()->getVersion());
+        self::assertSame(3, $result->getParameter()->getVersion());
     }
 }

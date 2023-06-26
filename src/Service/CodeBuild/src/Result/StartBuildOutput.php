@@ -53,7 +53,7 @@ class StartBuildOutput extends Result
         return new Build([
             'id' => isset($json['id']) ? (string) $json['id'] : null,
             'arn' => isset($json['arn']) ? (string) $json['arn'] : null,
-            'buildNumber' => isset($json['buildNumber']) ? (string) $json['buildNumber'] : null,
+            'buildNumber' => isset($json['buildNumber']) ? (int) $json['buildNumber'] : null,
             'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])))) ? $d : null,
             'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['endTime'])))) ? $d : null,
             'currentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
@@ -119,7 +119,7 @@ class StartBuildOutput extends Result
             'phaseStatus' => isset($json['phaseStatus']) ? (string) $json['phaseStatus'] : null,
             'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])))) ? $d : null,
             'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['endTime'])))) ? $d : null,
-            'durationInSeconds' => isset($json['durationInSeconds']) ? (string) $json['durationInSeconds'] : null,
+            'durationInSeconds' => isset($json['durationInSeconds']) ? (int) $json['durationInSeconds'] : null,
             'contexts' => !isset($json['contexts']) ? null : $this->populateResultPhaseContexts($json['contexts']),
         ]);
     }

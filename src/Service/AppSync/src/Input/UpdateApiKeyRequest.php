@@ -38,7 +38,7 @@ final class UpdateApiKeyRequest extends Input
      * From the update time, the time after which the API key expires. The date is represented as seconds since the epoch.
      * For more information, see .
      *
-     * @var string|null
+     * @var int|null
      */
     private $expires;
 
@@ -47,7 +47,7 @@ final class UpdateApiKeyRequest extends Input
      *   apiId?: string,
      *   id?: string,
      *   description?: string,
-     *   expires?: string,
+     *   expires?: int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -65,7 +65,7 @@ final class UpdateApiKeyRequest extends Input
      *   apiId?: string,
      *   id?: string,
      *   description?: string,
-     *   expires?: string,
+     *   expires?: int,
      *   '@region'?: string|null,
      * }|UpdateApiKeyRequest $input
      */
@@ -84,7 +84,7 @@ final class UpdateApiKeyRequest extends Input
         return $this->description;
     }
 
-    public function getExpires(): ?string
+    public function getExpires(): ?int
     {
         return $this->expires;
     }
@@ -139,7 +139,7 @@ final class UpdateApiKeyRequest extends Input
         return $this;
     }
 
-    public function setExpires(?string $value): self
+    public function setExpires(?int $value): self
     {
         $this->expires = $value;
 

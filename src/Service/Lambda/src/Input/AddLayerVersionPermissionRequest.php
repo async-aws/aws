@@ -23,7 +23,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @required
      *
-     * @var string|null
+     * @var int|null
      */
     private $versionNumber;
 
@@ -74,7 +74,7 @@ final class AddLayerVersionPermissionRequest extends Input
     /**
      * @param array{
      *   LayerName?: string,
-     *   VersionNumber?: string,
+     *   VersionNumber?: int,
      *   StatementId?: string,
      *   Action?: string,
      *   Principal?: string,
@@ -98,7 +98,7 @@ final class AddLayerVersionPermissionRequest extends Input
     /**
      * @param array{
      *   LayerName?: string,
-     *   VersionNumber?: string,
+     *   VersionNumber?: int,
      *   StatementId?: string,
      *   Action?: string,
      *   Principal?: string,
@@ -142,7 +142,7 @@ final class AddLayerVersionPermissionRequest extends Input
         return $this->statementId;
     }
 
-    public function getVersionNumber(): ?string
+    public function getVersionNumber(): ?int
     {
         return $this->versionNumber;
     }
@@ -170,7 +170,7 @@ final class AddLayerVersionPermissionRequest extends Input
         if (null === $v = $this->versionNumber) {
             throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" for "%s". The value cannot be null.', __CLASS__));
         }
-        $uri['VersionNumber'] = $v;
+        $uri['VersionNumber'] = (string) $v;
         $uriString = '/2018-10-31/layers/' . rawurlencode($uri['LayerName']) . '/versions/' . rawurlencode($uri['VersionNumber']) . '/policy';
 
         // Prepare Body
@@ -223,7 +223,7 @@ final class AddLayerVersionPermissionRequest extends Input
         return $this;
     }
 
-    public function setVersionNumber(?string $value): self
+    public function setVersionNumber(?int $value): self
     {
         $this->versionNumber = $value;
 

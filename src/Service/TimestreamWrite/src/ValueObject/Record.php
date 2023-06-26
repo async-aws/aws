@@ -82,7 +82,7 @@ final class Record
      *   MeasureValueType?: null|MeasureValueType::*,
      *   Time?: null|string,
      *   TimeUnit?: null|TimeUnit::*,
-     *   Version?: null|string,
+     *   Version?: null|int,
      *   MeasureValues?: null|array<MeasureValue|array>,
      * } $input
      */
@@ -106,7 +106,7 @@ final class Record
      *   MeasureValueType?: null|MeasureValueType::*,
      *   Time?: null|string,
      *   TimeUnit?: null|TimeUnit::*,
-     *   Version?: null|string,
+     *   Version?: null|int,
      *   MeasureValues?: null|array<MeasureValue|array>,
      * }|Record $input
      */
@@ -162,7 +162,7 @@ final class Record
         return $this->timeUnit;
     }
 
-    public function getVersion(): ?string
+    public function getVersion(): ?int
     {
         return $this->version;
     }

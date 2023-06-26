@@ -53,7 +53,7 @@ final class RejectedRecord
      * @param array{
      *   RecordIndex?: null|int,
      *   Reason?: null|string,
-     *   ExistingVersion?: null|string,
+     *   ExistingVersion?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -67,7 +67,7 @@ final class RejectedRecord
      * @param array{
      *   RecordIndex?: null|int,
      *   Reason?: null|string,
-     *   ExistingVersion?: null|string,
+     *   ExistingVersion?: null|int,
      * }|RejectedRecord $input
      */
     public static function create($input): self
@@ -75,7 +75,7 @@ final class RejectedRecord
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getExistingVersion(): ?string
+    public function getExistingVersion(): ?int
     {
         return $this->existingVersion;
     }

@@ -35,7 +35,7 @@ final class ArrayValue
     /**
      * @param array{
      *   booleanValues?: null|bool[],
-     *   longValues?: null|string[],
+     *   longValues?: null|int[],
      *   doubleValues?: null|float[],
      *   stringValues?: null|string[],
      *   arrayValues?: null|array<ArrayValue|array>,
@@ -53,7 +53,7 @@ final class ArrayValue
     /**
      * @param array{
      *   booleanValues?: null|bool[],
-     *   longValues?: null|string[],
+     *   longValues?: null|int[],
      *   doubleValues?: null|float[],
      *   stringValues?: null|string[],
      *   arrayValues?: null|array<ArrayValue|array>,
@@ -89,7 +89,7 @@ final class ArrayValue
     }
 
     /**
-     * @return string[]
+     * @return int[]
      */
     public function getLongValues(): array
     {

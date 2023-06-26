@@ -385,12 +385,12 @@ final class ResourceRecordSet
      *   Name: string,
      *   Type: RRType::*,
      *   SetIdentifier?: null|string,
-     *   Weight?: null|string,
+     *   Weight?: null|int,
      *   Region?: null|ResourceRecordSetRegion::*,
      *   GeoLocation?: null|GeoLocation|array,
      *   Failover?: null|ResourceRecordSetFailover::*,
      *   MultiValueAnswer?: null|bool,
-     *   TTL?: null|string,
+     *   TTL?: null|int,
      *   ResourceRecords?: null|array<ResourceRecord|array>,
      *   AliasTarget?: null|AliasTarget|array,
      *   HealthCheckId?: null|string,
@@ -421,12 +421,12 @@ final class ResourceRecordSet
      *   Name: string,
      *   Type: RRType::*,
      *   SetIdentifier?: null|string,
-     *   Weight?: null|string,
+     *   Weight?: null|int,
      *   Region?: null|ResourceRecordSetRegion::*,
      *   GeoLocation?: null|GeoLocation|array,
      *   Failover?: null|ResourceRecordSetFailover::*,
      *   MultiValueAnswer?: null|bool,
-     *   TTL?: null|string,
+     *   TTL?: null|int,
      *   ResourceRecords?: null|array<ResourceRecord|array>,
      *   AliasTarget?: null|AliasTarget|array,
      *   HealthCheckId?: null|string,
@@ -503,7 +503,7 @@ final class ResourceRecordSet
         return $this->trafficPolicyInstanceId;
     }
 
-    public function getTtl(): ?string
+    public function getTtl(): ?int
     {
         return $this->ttl;
     }
@@ -516,7 +516,7 @@ final class ResourceRecordSet
         return $this->type;
     }
 
-    public function getWeight(): ?string
+    public function getWeight(): ?int
     {
         return $this->weight;
     }

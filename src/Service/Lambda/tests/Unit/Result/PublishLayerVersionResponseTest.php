@@ -37,7 +37,7 @@ class PublishLayerVersionResponseTest extends TestCase
         self::assertSame('arn:::version:arn', $result->getLayerVersionArn());
         self::assertSame('demo', $result->getDescription());
         self::assertSame('1997-07-16T19:20:30+01:00', $result->getCreatedDate());
-        self::assertSame('4', $result->getVersion());
+        self::assertSame(4, $result->getVersion());
         self::assertSame(['nodejs10.x', 'nodejs12.x'], $result->getCompatibleRuntimes());
         self::assertSame('MIT', $result->getLicenseInfo());
     }

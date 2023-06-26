@@ -101,7 +101,7 @@ final class PutObjectRequest extends Input
      *
      * [^1]: https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length
      *
-     * @var string|null
+     * @var int|null
      */
     private $contentLength;
 
@@ -401,7 +401,7 @@ final class PutObjectRequest extends Input
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
      *   ContentLanguage?: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentMD5?: string,
      *   ContentType?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
@@ -485,7 +485,7 @@ final class PutObjectRequest extends Input
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
      *   ContentLanguage?: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentMD5?: string,
      *   ContentType?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
@@ -597,7 +597,7 @@ final class PutObjectRequest extends Input
         return $this->contentLanguage;
     }
 
-    public function getContentLength(): ?string
+    public function getContentLength(): ?int
     {
         return $this->contentLength;
     }
@@ -761,7 +761,7 @@ final class PutObjectRequest extends Input
             $headers['Content-Language'] = $this->contentLanguage;
         }
         if (null !== $this->contentLength) {
-            $headers['Content-Length'] = $this->contentLength;
+            $headers['Content-Length'] = (string) $this->contentLength;
         }
         if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
@@ -990,7 +990,7 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
-    public function setContentLength(?string $value): self
+    public function setContentLength(?int $value): self
     {
         $this->contentLength = $value;
 

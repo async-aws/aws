@@ -21,6 +21,6 @@ class PutParameterResultTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new PutParameterResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('2', $result->getVersion());
+        self::assertSame(2, $result->getVersion());
     }
 }

@@ -60,8 +60,8 @@ final class ApiKey
      * @param array{
      *   id?: null|string,
      *   description?: null|string,
-     *   expires?: null|string,
-     *   deletes?: null|string,
+     *   expires?: null|int,
+     *   deletes?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -76,8 +76,8 @@ final class ApiKey
      * @param array{
      *   id?: null|string,
      *   description?: null|string,
-     *   expires?: null|string,
-     *   deletes?: null|string,
+     *   expires?: null|int,
+     *   deletes?: null|int,
      * }|ApiKey $input
      */
     public static function create($input): self
@@ -85,7 +85,7 @@ final class ApiKey
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getDeletes(): ?string
+    public function getDeletes(): ?int
     {
         return $this->deletes;
     }
@@ -95,7 +95,7 @@ final class ApiKey
         return $this->description;
     }
 
-    public function getExpires(): ?string
+    public function getExpires(): ?int
     {
         return $this->expires;
     }
