@@ -141,11 +141,12 @@ class RestXmlSerializer implements Serializer
         switch ($shape->getType()) {
             case 'blob':
             case 'string':
+                return $this->dumpXmlShapeString($member, $shape, $output, $input);
             case 'integer':
             case 'long':
             case 'float':
             case 'double':
-                return $this->dumpXmlShapeString($member, $shape, $output, $input);
+                return $this->dumpXmlShapeNumeric($member, $output, $input);
             case 'boolean':
                 return $this->dumpXmlShapeBoolean($member, $output, $input);
         }
@@ -226,6 +227,23 @@ class RestXmlSerializer implements Serializer
                 'PROPERTY' => $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'),
             ];
         }
+
+        return strtr($body, $replacements);
+    }
+
+    private function dumpXmlShapeNumeric(Member $member, string $output, string $input): string
+    {
+        if ($member instanceof StructureMember && $member->isXmlAttribute()) {
+            $body = 'OUTPUT->setAttribute(NODE_NAME, (string) INPUT);';
+        } else {
+            $body = 'OUTPUT->appendChild($document->createElement(NODE_NAME, (string) INPUT));';
+        }
+
+        $replacements = [
+            'INPUT' => $input,
+            'OUTPUT' => $output,
+            'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+        ];
 
         return strtr($body, $replacements);
     }

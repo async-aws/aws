@@ -66,7 +66,7 @@ final class Paths
         if (null === $v = $this->quantity) {
             throw new InvalidArgument(sprintf('Missing parameter "Quantity" for "%s". The value cannot be null.', __CLASS__));
         }
-        $node->appendChild($document->createElement('Quantity', $v));
+        $node->appendChild($document->createElement('Quantity', (string) $v));
         if (null !== $v = $this->items) {
             $node->appendChild($nodeList = $document->createElement('Items'));
             foreach ($v as $item) {

@@ -139,7 +139,7 @@ final class CompletedPart
             $node->appendChild($document->createElement('ChecksumSHA256', $v));
         }
         if (null !== $v = $this->partNumber) {
-            $node->appendChild($document->createElement('PartNumber', $v));
+            $node->appendChild($document->createElement('PartNumber', (string) $v));
         }
     }
 }

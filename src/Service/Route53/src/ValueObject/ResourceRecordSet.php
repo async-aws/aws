@@ -541,7 +541,7 @@ final class ResourceRecordSet
             $node->appendChild($document->createElement('SetIdentifier', $v));
         }
         if (null !== $v = $this->weight) {
-            $node->appendChild($document->createElement('Weight', $v));
+            $node->appendChild($document->createElement('Weight', (string) $v));
         }
         if (null !== $v = $this->region) {
             if (!ResourceRecordSetRegion::exists($v)) {
@@ -564,7 +564,7 @@ final class ResourceRecordSet
             $node->appendChild($document->createElement('MultiValueAnswer', $v ? 'true' : 'false'));
         }
         if (null !== $v = $this->ttl) {
-            $node->appendChild($document->createElement('TTL', $v));
+            $node->appendChild($document->createElement('TTL', (string) $v));
         }
         if (null !== $v = $this->resourceRecords) {
             $node->appendChild($nodeList = $document->createElement('ResourceRecords'));
