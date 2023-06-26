@@ -25,6 +25,8 @@ final class AttributeValueUpdate
      * For more information, see Data Types [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
+     *
+     * @var AttributeValue|null
      */
     private $value;
 
@@ -75,6 +77,8 @@ final class AttributeValueUpdate
      * - `DELETE` - Nothing happens; there is no attribute to delete.
      * - `ADD` - DynamoDB creates a new item with the supplied primary key and number (or set) for the attribute value. The
      *   only data types allowed are number, number set, string set or binary set.
+     *
+     * @var AttributeAction::*|null
      */
     private $action;
 

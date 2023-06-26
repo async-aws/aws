@@ -31,6 +31,8 @@ class StopBuildOutput extends Result
 {
     /**
      * Information about the build.
+     *
+     * @var Build|null
      */
     private $build;
 

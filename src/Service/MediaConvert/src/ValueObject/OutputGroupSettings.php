@@ -15,6 +15,8 @@ final class OutputGroupSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html. When you work directly in your JSON job
      * specification, include this object and any required children when you set Type, under OutputGroupSettings, to
      * CMAF_GROUP_SETTINGS.
+     *
+     * @var CmafGroupSettings|null
      */
     private $cmafGroupSettings;
 
@@ -23,6 +25,8 @@ final class OutputGroupSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html. When you work directly in your JSON job
      * specification, include this object and any required children when you set Type, under OutputGroupSettings, to
      * DASH_ISO_GROUP_SETTINGS.
+     *
+     * @var DashIsoGroupSettings|null
      */
     private $dashIsoGroupSettings;
 
@@ -30,6 +34,8 @@ final class OutputGroupSettings
      * Settings related to your File output group. MediaConvert uses this group of settings to generate a single standalone
      * file, rather than a streaming package. When you work directly in your JSON job specification, include this object and
      * any required children when you set Type, under OutputGroupSettings, to FILE_GROUP_SETTINGS.
+     *
+     * @var FileGroupSettings|null
      */
     private $fileGroupSettings;
 
@@ -38,6 +44,8 @@ final class OutputGroupSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html. When you work directly in your JSON job
      * specification, include this object and any required children when you set Type, under OutputGroupSettings, to
      * HLS_GROUP_SETTINGS.
+     *
+     * @var HlsGroupSettings|null
      */
     private $hlsGroupSettings;
 
@@ -46,11 +54,15 @@ final class OutputGroupSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html. When you work directly in your JSON job
      * specification, include this object and any required children when you set Type, under OutputGroupSettings, to
      * MS_SMOOTH_GROUP_SETTINGS.
+     *
+     * @var MsSmoothGroupSettings|null
      */
     private $msSmoothGroupSettings;
 
     /**
      * Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth Streaming, CMAF).
+     *
+     * @var OutputGroupType::*|null
      */
     private $type;
 

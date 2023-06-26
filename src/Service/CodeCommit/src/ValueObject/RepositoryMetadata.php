@@ -9,51 +9,71 @@ final class RepositoryMetadata
 {
     /**
      * The ID of the AWS account associated with the repository.
+     *
+     * @var string|null
      */
     private $accountId;
 
     /**
      * The ID of the repository.
+     *
+     * @var string|null
      */
     private $repositoryId;
 
     /**
      * The repository's name.
+     *
+     * @var string|null
      */
     private $repositoryName;
 
     /**
      * A comment or description about the repository.
+     *
+     * @var string|null
      */
     private $repositoryDescription;
 
     /**
      * The repository's default branch name.
+     *
+     * @var string|null
      */
     private $defaultBranch;
 
     /**
      * The date and time the repository was last modified, in timestamp format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModifiedDate;
 
     /**
      * The date and time the repository was created, in timestamp format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 
     /**
      * The URL to use for cloning the repository over HTTPS.
+     *
+     * @var string|null
      */
     private $cloneUrlHttp;
 
     /**
      * The URL to use for cloning the repository over SSH.
+     *
+     * @var string|null
      */
     private $cloneUrlSsh;
 
     /**
      * The Amazon Resource Name (ARN) of the repository.
+     *
+     * @var string|null
      */
     private $arn;
 

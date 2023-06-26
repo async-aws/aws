@@ -11,6 +11,8 @@ final class GlobalSecondaryIndexDescription
 {
     /**
      * The name of the global secondary index.
+     *
+     * @var string|null
      */
     private $indexName;
 
@@ -27,12 +29,16 @@ final class GlobalSecondaryIndexDescription
      * >
      * > The sort key of an item is also known as its *range attribute*. The term "range attribute" derives from the way
      * > DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
+     *
+     * @var KeySchemaElement[]|null
      */
     private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into the global secondary index. These are in
      * addition to the primary key attributes and index key attributes, which are automatically projected.
+     *
+     * @var Projection|null
      */
     private $projection;
 
@@ -43,6 +49,8 @@ final class GlobalSecondaryIndexDescription
      * - `UPDATING` - The index is being updated.
      * - `DELETING` - The index is being deleted.
      * - `ACTIVE` - The index is ready for use.
+     *
+     * @var IndexStatus::*|null
      */
     private $indexStatus;
 
@@ -58,6 +66,8 @@ final class GlobalSecondaryIndexDescription
      *
      * > For indexes that were created during a `CreateTable` operation, the `Backfilling` attribute does not appear in the
      * > `DescribeTable` output.
+     *
+     * @var bool|null
      */
     private $backfilling;
 
@@ -68,23 +78,31 @@ final class GlobalSecondaryIndexDescription
      * *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
+     *
+     * @var ProvisionedThroughputDescription|null
      */
     private $provisionedThroughput;
 
     /**
      * The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent
      * changes might not be reflected in this value.
+     *
+     * @var int|null
      */
     private $indexSizeBytes;
 
     /**
      * The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes
      * might not be reflected in this value.
+     *
+     * @var int|null
      */
     private $itemCount;
 
     /**
      * The Amazon Resource Name (ARN) that uniquely identifies the index.
+     *
+     * @var string|null
      */
     private $indexArn;
 

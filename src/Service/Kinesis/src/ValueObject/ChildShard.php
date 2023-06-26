@@ -11,14 +11,21 @@ final class ChildShard
 {
     /**
      * The shard ID of the existing child shard of the current shard.
+     *
+     * @var string
      */
     private $shardId;
 
     /**
      * The current shard that is the parent of the existing child shard.
+     *
+     * @var string[]
      */
     private $parentShards;
 
+    /**
+     * @var HashKeyRange
+     */
     private $hashKeyRange;
 
     /**

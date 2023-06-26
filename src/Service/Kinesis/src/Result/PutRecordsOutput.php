@@ -14,6 +14,8 @@ class PutRecordsOutput extends Result
 {
     /**
      * The number of unsuccessfully processed records in a `PutRecords` request.
+     *
+     * @var int|null
      */
     private $failedRecordCount;
 
@@ -21,6 +23,8 @@ class PutRecordsOutput extends Result
      * An array of successfully and unsuccessfully processed record results. A record that is successfully added to a stream
      * includes `SequenceNumber` and `ShardId` in the result. A record that fails to be added to a stream includes
      * `ErrorCode` and `ErrorMessage` in the result.
+     *
+     * @var PutRecordsResultEntry[]
      */
     private $records;
 
@@ -29,6 +33,8 @@ class PutRecordsOutput extends Result
      *
      * - `NONE`: Do not encrypt the records.
      * - `KMS`: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
+     *
+     * @var EncryptionType::*|null
      */
     private $encryptionType;
 

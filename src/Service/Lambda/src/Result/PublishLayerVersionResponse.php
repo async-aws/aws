@@ -12,21 +12,29 @@ class PublishLayerVersionResponse extends Result
 {
     /**
      * Details about the layer version.
+     *
+     * @var LayerVersionContentOutput|null
      */
     private $content;
 
     /**
      * The ARN of the layer.
+     *
+     * @var string|null
      */
     private $layerArn;
 
     /**
      * The ARN of the layer version.
+     *
+     * @var string|null
      */
     private $layerVersionArn;
 
     /**
      * The description of the version.
+     *
+     * @var string|null
      */
     private $description;
 
@@ -34,11 +42,15 @@ class PublishLayerVersionResponse extends Result
      * The date that the layer version was created, in ISO-8601 format [^1] (YYYY-MM-DDThh:mm:ss.sTZD).
      *
      * [^1]: https://www.w3.org/TR/NOTE-datetime
+     *
+     * @var string|null
      */
     private $createdDate;
 
     /**
      * The version number.
+     *
+     * @var int|null
      */
     private $version;
 
@@ -48,11 +60,15 @@ class PublishLayerVersionResponse extends Result
      * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+     *
+     * @var list<Runtime::*>
      */
     private $compatibleRuntimes;
 
     /**
      * The layer's software license.
+     *
+     * @var string|null
      */
     private $licenseInfo;
 
@@ -60,6 +76,8 @@ class PublishLayerVersionResponse extends Result
      * A list of compatible instruction set architectures [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var list<Architecture::*>
      */
     private $compatibleArchitectures;
 

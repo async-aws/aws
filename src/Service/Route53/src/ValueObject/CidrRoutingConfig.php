@@ -15,11 +15,15 @@ final class CidrRoutingConfig
 {
     /**
      * The CIDR collection ID.
+     *
+     * @var string
      */
     private $collectionId;
 
     /**
      * The CIDR collection location name.
+     *
+     * @var string
      */
     private $locationName;
 

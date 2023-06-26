@@ -11,6 +11,8 @@ final class Tagging
 {
     /**
      * A collection for a set of tags.
+     *
+     * @var Tag[]
      */
     private $tagSet;
 

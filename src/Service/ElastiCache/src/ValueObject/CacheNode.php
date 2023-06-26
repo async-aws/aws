@@ -87,43 +87,59 @@ final class CacheNode
     /**
      * The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of cluster ID and
      * node ID uniquely identifies every cache node used in a customer's Amazon account.
+     *
+     * @var string|null
      */
     private $cacheNodeId;
 
     /**
      * The current state of this cache node, one of the following values: `available`, `creating`, `rebooting`, or
      * `deleting`.
+     *
+     * @var string|null
      */
     private $cacheNodeStatus;
 
     /**
      * The date and time when the cache node was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $cacheNodeCreateTime;
 
     /**
      * The hostname for connecting to this cache node.
+     *
+     * @var Endpoint|null
      */
     private $endpoint;
 
     /**
      * The status of the parameter group applied to this cache node.
+     *
+     * @var string|null
      */
     private $parameterGroupStatus;
 
     /**
      * The ID of the primary node to which this read replica node is synchronized. If this field is empty, this node is not
      * associated with a primary cluster.
+     *
+     * @var string|null
      */
     private $sourceCacheNodeId;
 
     /**
      * The Availability Zone where this node was created and now resides.
+     *
+     * @var string|null
      */
     private $customerAvailabilityZone;
 
     /**
      * The customer outpost ARN of the cache node.
+     *
+     * @var string|null
      */
     private $customerOutpostArn;
 

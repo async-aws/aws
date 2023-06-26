@@ -10,6 +10,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class ServiceException extends ServerException
 {
+    /**
+     * @var string|null
+     */
     private $type;
 
     public function getType(): ?string

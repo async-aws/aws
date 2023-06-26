@@ -15,6 +15,8 @@ final class CodeStorageExceededException extends ClientException
 {
     /**
      * The exception type.
+     *
+     * @var string|null
      */
     private $type;
 

@@ -42,6 +42,8 @@ final class ResourceRecordSet
      * label; for example, you can't specify `prod*.example.com`.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html
+     *
+     * @var string
      */
     private $name;
 
@@ -87,6 +89,8 @@ final class ResourceRecordSet
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html
      * [^2]: http://tools.ietf.org/html/rfc7208#section-14.1
+     *
+     * @var RRType::*
      */
     private $type;
 
@@ -99,6 +103,8 @@ final class ResourceRecordSet
      * For information about routing policies, see Choosing a Routing Policy [^1] in the *Amazon Route 53 Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html
+     *
+     * @var string|null
      */
     private $setIdentifier;
 
@@ -125,6 +131,8 @@ final class ResourceRecordSet
      *   the *Amazon Route 53 Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring-options.html
+     *
+     * @var int|null
      */
     private $weight;
 
@@ -146,6 +154,8 @@ final class ResourceRecordSet
      *   region with the best latency from among the regions that you create latency resource record sets for.
      * - You can't create non-latency resource record sets that have the same values for the `Name` and `Type` elements as
      *   latency resource record sets.
+     *
+     * @var ResourceRecordSetRegion::*|null
      */
     private $region;
 
@@ -178,6 +188,8 @@ final class ResourceRecordSet
      *
      * You can't create non-geolocation resource record sets that have the same values for the `Name` and `Type` elements as
      * geolocation resource record sets.
+     *
+     * @var GeoLocation|null
      */
     private $geoLocation;
 
@@ -214,6 +226,8 @@ final class ResourceRecordSet
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html
      * [^2]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html
+     *
+     * @var ResourceRecordSetFailover::*|null
      */
     private $failover;
 
@@ -235,6 +249,8 @@ final class ResourceRecordSet
      *   the IP addresses in the response.
      *
      * You can't create multivalue answer alias records.
+     *
+     * @var bool|null
      */
     private $multiValueAnswer;
 
@@ -250,6 +266,8 @@ final class ResourceRecordSet
      *   alias target is an ELB load balancer, we recommend that you specify a `TTL` of 60 seconds for all of the non-alias
      *   weighted resource record sets that have the same name and type. Values other than 60 seconds (the TTL for load
      *   balancers) will change the effect of the values that you specify for `Weight`.
+     *
+     * @var int|null
      */
     private $ttl;
 
@@ -257,6 +275,8 @@ final class ResourceRecordSet
      * Information about the resource records to act upon.
      *
      * > If you're creating an alias resource record set, omit `ResourceRecords`.
+     *
+     * @var ResourceRecord[]|null
      */
     private $resourceRecords;
 
@@ -272,6 +292,8 @@ final class ResourceRecordSet
      *   a Private Hosted Zone [^1] in the *Amazon Route 53 Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html
+     *
+     * @var AliasTarget|null
      */
     private $aliasTarget;
 
@@ -363,6 +385,8 @@ final class ResourceRecordSet
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html
      * [^2]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html
      * [^3]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html
+     *
+     * @var string|null
      */
     private $healthCheckId;
 
@@ -375,9 +399,14 @@ final class ResourceRecordSet
      * ! `DeleteTrafficPolicyInstance`. Route 53 will delete the resource record set automatically. If you delete the
      * ! resource record set by using `ChangeResourceRecordSets`, Route 53 doesn't automatically delete the traffic policy
      * ! instance, and you'll continue to be charged for it even though it's no longer in use.
+     *
+     * @var string|null
      */
     private $trafficPolicyInstanceId;
 
+    /**
+     * @var CidrRoutingConfig|null
+     */
     private $cidrRoutingConfig;
 
     /**

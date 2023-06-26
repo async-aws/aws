@@ -21,6 +21,8 @@ class GetQueryExecutionOutput extends Result
 {
     /**
      * Information about the query execution.
+     *
+     * @var QueryExecution|null
      */
     private $queryExecution;
 

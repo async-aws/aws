@@ -11,6 +11,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class TooManyRequestsException extends ClientException
 {
+    /**
+     * @var ThrottleReason::*|null
+     */
     private $reason;
 
     /**

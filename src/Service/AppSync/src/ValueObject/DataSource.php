@@ -11,16 +11,22 @@ final class DataSource
 {
     /**
      * The data source Amazon Resource Name (ARN).
+     *
+     * @var string|null
      */
     private $dataSourceArn;
 
     /**
      * The name of the data source.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The description of the data source.
+     *
+     * @var string|null
      */
     private $description;
 
@@ -37,47 +43,65 @@ final class DataSource
      *   mutation.
      * - **HTTP**: The data source is an HTTP endpoint.
      * - **RELATIONAL_DATABASE**: The data source is a relational database.
+     *
+     * @var DataSourceType::*|null
      */
     private $type;
 
     /**
      * The Identity and Access Management (IAM) service role Amazon Resource Name (ARN) for the data source. The system
      * assumes this role when accessing the data source.
+     *
+     * @var string|null
      */
     private $serviceRoleArn;
 
     /**
      * DynamoDB settings.
+     *
+     * @var DynamodbDataSourceConfig|null
      */
     private $dynamodbConfig;
 
     /**
      * Lambda settings.
+     *
+     * @var LambdaDataSourceConfig|null
      */
     private $lambdaConfig;
 
     /**
      * Amazon OpenSearch Service settings.
+     *
+     * @var ElasticsearchDataSourceConfig|null
      */
     private $elasticsearchConfig;
 
     /**
      * Amazon OpenSearch Service settings.
+     *
+     * @var OpenSearchServiceDataSourceConfig|null
      */
     private $openSearchServiceConfig;
 
     /**
      * HTTP endpoint settings.
+     *
+     * @var HttpDataSourceConfig|null
      */
     private $httpConfig;
 
     /**
      * Relational database settings.
+     *
+     * @var RelationalDatabaseDataSourceConfig|null
      */
     private $relationalDatabaseConfig;
 
     /**
      * Amazon EventBridge settings.
+     *
+     * @var EventBridgeDataSourceConfig|null
      */
     private $eventBridgeConfig;
 

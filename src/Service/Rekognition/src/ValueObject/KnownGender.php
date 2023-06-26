@@ -12,6 +12,8 @@ final class KnownGender
 {
     /**
      * A string value of the KnownGender info about the Celebrity.
+     *
+     * @var KnownGenderType::*|null
      */
     private $type;
 

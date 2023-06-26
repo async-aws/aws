@@ -9,6 +9,8 @@ final class Alarm
 {
     /**
      * The name of the alarm. Maximum length is 255 characters. Each alarm name can be used only once in a list of alarms.
+     *
+     * @var string|null
      */
     private $name;
 

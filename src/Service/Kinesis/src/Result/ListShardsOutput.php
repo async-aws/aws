@@ -14,6 +14,8 @@ class ListShardsOutput extends Result
      * An array of JSON objects. Each object represents one shard and specifies the IDs of the shard, the shard's parent,
      * and the shard that's adjacent to the shard's parent. Each object also contains the starting and ending hash keys and
      * the starting and ending sequence numbers for the shard.
+     *
+     * @var Shard[]
      */
     private $shards;
 
@@ -27,6 +29,8 @@ class ListShardsOutput extends Result
      * ! Tokens expire after 300 seconds. When you obtain a value for `NextToken` in the response to a call to `ListShards`,
      * ! you have 300 seconds to use that value. If you specify an expired token in a call to `ListShards`, you get
      * ! `ExpiredNextTokenException`.
+     *
+     * @var string|null
      */
     private $nextToken;
 

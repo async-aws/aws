@@ -32,6 +32,8 @@ final class M2tsSettings
 {
     /**
      * Selects between the DVB and ATSC buffer models for Dolby Digital audio.
+     *
+     * @var M2tsAudioBufferModel::*|null
      */
     private $audioBufferModel;
 
@@ -45,23 +47,31 @@ final class M2tsSettings
      * applies audio padding or trimming only to the end of the last segment of the output. For unsegmented outputs,
      * MediaConvert adds padding only to the end of the file. When you keep the default value, any minor discrepancies
      * between audio and video duration will depend on your output audio codec.
+     *
+     * @var M2tsAudioDuration::*|null
      */
     private $audioDuration;
 
     /**
      * The number of audio frames to insert for each PES packet.
+     *
+     * @var int|null
      */
     private $audioFramesPerPes;
 
     /**
      * Specify the packet identifiers (PIDs) for any elementary audio streams you include in this output. Specify multiple
      * PIDs as a JSON array. Default is the range 482-492.
+     *
+     * @var int[]|null
      */
     private $audioPids;
 
     /**
      * Specify the output bitrate of the transport stream in bits per second. Setting to 0 lets the muxer automatically
      * determine the appropriate bitrate. Other common values are 3750000, 7500000, and 15000000.
+     *
+     * @var int|null
      */
     private $bitrate;
 
@@ -69,6 +79,8 @@ final class M2tsSettings
      * Controls what buffer model to use for accurate interleaving. If set to MULTIPLEX, use multiplex buffer model. If set
      * to NONE, this can lead to lower latency, but low-memory devices may not be able to play back the stream without
      * interruptions.
+     *
+     * @var M2tsBufferModel::*|null
      */
     private $bufferModel;
 
@@ -76,6 +88,8 @@ final class M2tsSettings
      * If you select ALIGN_TO_VIDEO, MediaConvert writes captions and data packets with Presentation Timestamp (PTS) values
      * greater than or equal to the first video packet PTS (MediaConvert drops captions and data packets with lesser PTS
      * values). Keep the default value (AUTO) to allow all PTS values.
+     *
+     * @var M2tsDataPtsControl::*|null
      */
     private $dataPtsControl;
 
@@ -83,6 +97,8 @@ final class M2tsSettings
      * Use these settings to insert a DVB Network Information Table (NIT) in the transport stream of this output. When you
      * work directly in your JSON job specification, include this object only when your job has a transport stream output
      * and the container settings contain the object M2tsSettings.
+     *
+     * @var DvbNitSettings|null
      */
     private $dvbNitSettings;
 
@@ -90,12 +106,16 @@ final class M2tsSettings
      * Use these settings to insert a DVB Service Description Table (SDT) in the transport stream of this output. When you
      * work directly in your JSON job specification, include this object only when your job has a transport stream output
      * and the container settings contain the object M2tsSettings.
+     *
+     * @var DvbSdtSettings|null
      */
     private $dvbSdtSettings;
 
     /**
      * Specify the packet identifiers (PIDs) for DVB subtitle data included in this output. Specify multiple PIDs as a JSON
      * array. Default is the range 460-479.
+     *
+     * @var int[]|null
      */
     private $dvbSubPids;
 
@@ -103,11 +123,15 @@ final class M2tsSettings
      * Use these settings to insert a DVB Time and Date Table (TDT) in the transport stream of this output. When you work
      * directly in your JSON job specification, include this object only when your job has a transport stream output and the
      * container settings contain the object M2tsSettings.
+     *
+     * @var DvbTdtSettings|null
      */
     private $dvbTdtSettings;
 
     /**
      * Specify the packet identifier (PID) for DVB teletext data you include in this output. Default is 499.
+     *
+     * @var int|null
      */
     private $dvbTeletextPid;
 
@@ -116,6 +140,8 @@ final class M2tsSettings
      * these additional markers will be fixed, and will be slightly shorter than the video EBP marker interval. When set to
      * VIDEO_INTERVAL, these additional markers will not be inserted. Only applicable when EBP segmentation markers are is
      * selected (segmentationMarkers is EBP or EBP_LEGACY).
+     *
+     * @var M2tsEbpAudioInterval::*|null
      */
     private $ebpAudioInterval;
 
@@ -123,22 +149,30 @@ final class M2tsSettings
      * Selects which PIDs to place EBP markers on. They can either be placed only on the video PID, or on both the video PID
      * and all audio PIDs. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or
      * EBP_LEGACY).
+     *
+     * @var M2tsEbpPlacement::*|null
      */
     private $ebpPlacement;
 
     /**
      * Controls whether to include the ES Rate field in the PES header.
+     *
+     * @var M2tsEsRateInPes::*|null
      */
     private $esRateInPes;
 
     /**
      * Keep the default value (DEFAULT) unless you know that your audio EBP markers are incorrectly appearing before your
      * video EBP markers. To correct this problem, set this value to Force (FORCE).
+     *
+     * @var M2tsForceTsVideoEbpOrder::*|null
      */
     private $forceTsVideoEbpOrder;
 
     /**
      * The length, in seconds, of each fragment. Only used with EBP markers.
+     *
+     * @var float|null
      */
     private $fragmentTime;
 
@@ -146,12 +180,16 @@ final class M2tsSettings
      * To include key-length-value metadata in this output: Set KLV metadata insertion to Passthrough. MediaConvert reads
      * KLV metadata present in your input and passes it through to the output transport stream. To exclude this KLV
      * metadata: Set KLV metadata insertion to None or leave blank.
+     *
+     * @var M2tsKlvMetadata::*|null
      */
     private $klvMetadata;
 
     /**
      * Specify the maximum time, in milliseconds, between Program Clock References (PCRs) inserted into the transport
      * stream.
+     *
+     * @var int|null
      */
     private $maxPcrInterval;
 
@@ -160,50 +198,68 @@ final class M2tsSettings
      * looking ahead at input video. If another EBP is going to come in within the specified time interval, the current EBP
      * is not emitted, and the segment is "stretched" to the next marker. The lookahead value does not add latency to the
      * system. The Live Event must be configured elsewhere to create sufficient latency to make the lookahead accurate.
+     *
+     * @var int|null
      */
     private $minEbpInterval;
 
     /**
      * If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag
      * will be inserted in the output.
+     *
+     * @var M2tsNielsenId3::*|null
      */
     private $nielsenId3;
 
     /**
      * Value in bits per second of extra null packets to insert into the transport stream. This can be used if a downstream
      * encryption system requires periodic null packets.
+     *
+     * @var float|null
      */
     private $nullPacketBitrate;
 
     /**
      * The number of milliseconds between instances of this table in the output transport stream.
+     *
+     * @var int|null
      */
     private $patInterval;
 
     /**
      * When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is inserted for every Packetized Elementary Stream
      * (PES) header. This is effective only when the PCR PID is the same as the video or audio elementary stream.
+     *
+     * @var M2tsPcrControl::*|null
      */
     private $pcrControl;
 
     /**
      * Specify the packet identifier (PID) for the program clock reference (PCR) in this output. If you do not specify a
      * value, the service will use the value for Video PID (VideoPid).
+     *
+     * @var int|null
      */
     private $pcrPid;
 
     /**
      * Specify the number of milliseconds between instances of the program map table (PMT) in the output transport stream.
+     *
+     * @var int|null
      */
     private $pmtInterval;
 
     /**
      * Specify the packet identifier (PID) for the program map table (PMT) itself. Default is 480.
+     *
+     * @var int|null
      */
     private $pmtPid;
 
     /**
      * Specify the packet identifier (PID) of the private metadata stream. Default is 503.
+     *
+     * @var int|null
      */
     private $privateMetadataPid;
 
@@ -211,23 +267,31 @@ final class M2tsSettings
      * Use Program number (programNumber) to specify the program number used in the program map table (PMT) for this output.
      * Default is 1. Program numbers and program map tables are parts of MPEG-2 transport stream containers, used for
      * organizing data.
+     *
+     * @var int|null
      */
     private $programNumber;
 
     /**
      * When set to CBR, inserts null packets into transport stream to fill specified bitrate. When set to VBR, the bitrate
      * setting acts as the maximum bitrate, but the output will not be padded up to that bitrate.
+     *
+     * @var M2tsRateMode::*|null
      */
     private $rateMode;
 
     /**
      * Include this in your job settings to put SCTE-35 markers in your HLS and transport stream outputs at the insertion
      * points that you specify in an ESAM XML document. Provide the document in the setting SCC XML (sccXml).
+     *
+     * @var M2tsScte35Esam|null
      */
     private $scte35Esam;
 
     /**
      * Specify the packet identifier (PID) of the SCTE-35 stream in the transport stream.
+     *
+     * @var int|null
      */
     private $scte35Pid;
 
@@ -236,6 +300,8 @@ final class M2tsSettings
      * your input to also appear in this output. Choose None (NONE) if you don't want SCTE-35 markers in this output. For
      * SCTE-35 markers from an ESAM XML document-- Choose None (NONE). Also provide the ESAM XML as a string in the setting
      * Signal processing notification XML (sccXml). Also enable ESAM SCTE-35 (include the property scte35Esam).
+     *
+     * @var M2tsScte35Source::*|null
      */
     private $scte35Source;
 
@@ -245,6 +311,8 @@ final class M2tsSettings
      * psi_segstart inserts PAT and PMT tables at the start of segments. ebp adds Encoder Boundary Point information to the
      * adaptation field as per OpenCable specification OC-SP-EBP-I01-130118. ebp_legacy adds Encoder Boundary Point
      * information to the adaptation field using a legacy proprietary format.
+     *
+     * @var M2tsSegmentationMarkers::*|null
      */
     private $segmentationMarkers;
 
@@ -257,27 +325,37 @@ final class M2tsSettings
      * will not reset the segmentation cadence. This means the subsequent segment will likely be truncated as well. However,
      * all segments after that will have a duration of $segmentation_time seconds. Note that EBP lookahead is a slight
      * exception to this rule.
+     *
+     * @var M2tsSegmentationStyle::*|null
      */
     private $segmentationStyle;
 
     /**
      * Specify the length, in seconds, of each segment. Required unless markers is set to _none_.
+     *
+     * @var float|null
      */
     private $segmentationTime;
 
     /**
      * Packet Identifier (PID) of the ID3 metadata stream in the transport stream.
+     *
+     * @var int|null
      */
     private $timedMetadataPid;
 
     /**
      * Specify the ID for the transport stream itself in the program map table for this output. Transport stream IDs and
      * program map tables are parts of MPEG-2 transport stream containers, used for organizing data.
+     *
+     * @var int|null
      */
     private $transportStreamId;
 
     /**
      * Specify the packet identifier (PID) of the elementary video stream in the transport stream.
+     *
+     * @var int|null
      */
     private $videoPid;
 

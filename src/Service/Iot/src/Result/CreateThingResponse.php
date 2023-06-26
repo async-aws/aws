@@ -12,16 +12,22 @@ class CreateThingResponse extends Result
 {
     /**
      * The name of the new thing.
+     *
+     * @var string|null
      */
     private $thingName;
 
     /**
      * The ARN of the new thing.
+     *
+     * @var string|null
      */
     private $thingArn;
 
     /**
      * The thing ID.
+     *
+     * @var string|null
      */
     private $thingId;
 

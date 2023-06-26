@@ -11,6 +11,8 @@ final class ReplicaDescription
 {
     /**
      * The name of the Region.
+     *
+     * @var string|null
      */
     private $regionName;
 
@@ -30,40 +32,57 @@ final class ReplicaDescription
      *
      *   > If the KMS key remains inaccessible for more than 20 hours, DynamoDB will remove this replica from the
      *   > replication group. The replica will not be deleted and replication will stop from and to this region.
+     *
+     * @var ReplicaStatus::*|null
      */
     private $replicaStatus;
 
     /**
      * Detailed information about the replica status.
+     *
+     * @var string|null
      */
     private $replicaStatusDescription;
 
     /**
      * Specifies the progress of a Create, Update, or Delete action on the replica as a percentage.
+     *
+     * @var string|null
      */
     private $replicaStatusPercentProgress;
 
     /**
      * The KMS key of the replica that will be used for KMS encryption.
+     *
+     * @var string|null
      */
     private $kmsMasterKeyId;
 
     /**
      * Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
+     *
+     * @var ProvisionedThroughputOverride|null
      */
     private $provisionedThroughputOverride;
 
     /**
      * Replica-specific global secondary index settings.
+     *
+     * @var ReplicaGlobalSecondaryIndexDescription[]|null
      */
     private $globalSecondaryIndexes;
 
     /**
      * The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the
      * `ReplicaStatus` property.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $replicaInaccessibleDateTime;
 
+    /**
+     * @var TableClassSummary|null
+     */
     private $replicaTableClassSummary;
 
     /**

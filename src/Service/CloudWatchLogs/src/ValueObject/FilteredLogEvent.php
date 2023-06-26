@@ -9,26 +9,36 @@ final class FilteredLogEvent
 {
     /**
      * The name of the log stream to which this event belongs.
+     *
+     * @var string|null
      */
     private $logStreamName;
 
     /**
      * The time the event occurred, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
+     *
+     * @var int|null
      */
     private $timestamp;
 
     /**
      * The data contained in the log event.
+     *
+     * @var string|null
      */
     private $message;
 
     /**
      * The time the event was ingested, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
+     *
+     * @var int|null
      */
     private $ingestionTime;
 
     /**
      * The ID of the event.
+     *
+     * @var string|null
      */
     private $eventId;
 

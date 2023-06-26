@@ -9,11 +9,15 @@ final class ImageConfigError
 {
     /**
      * Error code.
+     *
+     * @var string|null
      */
     private $errorCode;
 
     /**
      * Error message.
+     *
+     * @var string|null
      */
     private $message;
 

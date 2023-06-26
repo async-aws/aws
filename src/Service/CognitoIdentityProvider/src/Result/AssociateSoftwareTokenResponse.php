@@ -9,12 +9,16 @@ class AssociateSoftwareTokenResponse extends Result
 {
     /**
      * A unique generated shared secret code that is used in the TOTP algorithm to generate a one-time code.
+     *
+     * @var string|null
      */
     private $secretCode;
 
     /**
      * The session that should be passed both ways in challenge-response calls to the service. This allows authentication of
      * the user as part of the MFA setup process.
+     *
+     * @var string|null
      */
     private $session;
 

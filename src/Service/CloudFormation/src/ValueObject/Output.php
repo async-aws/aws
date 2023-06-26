@@ -9,21 +9,29 @@ final class Output
 {
     /**
      * The key associated with the output.
+     *
+     * @var string|null
      */
     private $outputKey;
 
     /**
      * The value associated with the output.
+     *
+     * @var string|null
      */
     private $outputValue;
 
     /**
      * User defined description associated with the output.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The name of the export associated with the output.
+     *
+     * @var string|null
      */
     private $exportName;
 

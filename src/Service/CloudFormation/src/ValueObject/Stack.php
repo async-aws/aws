@@ -13,57 +13,79 @@ final class Stack
 {
     /**
      * Unique identifier of the stack.
+     *
+     * @var string|null
      */
     private $stackId;
 
     /**
      * The name associated with the stack.
+     *
+     * @var string
      */
     private $stackName;
 
     /**
      * The unique ID of the change set.
+     *
+     * @var string|null
      */
     private $changeSetId;
 
     /**
      * A user-defined description associated with the stack.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * A list of `Parameter` structures.
+     *
+     * @var Parameter[]|null
      */
     private $parameters;
 
     /**
      * The time at which the stack was created.
+     *
+     * @var \DateTimeImmutable
      */
     private $creationTime;
 
     /**
      * The time the stack was deleted.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $deletionTime;
 
     /**
      * The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastUpdatedTime;
 
     /**
      * The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the
      * specified monitoring period afterwards.
+     *
+     * @var RollbackConfiguration|null
      */
     private $rollbackConfiguration;
 
     /**
      * Current status of the stack.
+     *
+     * @var StackStatus::*
      */
     private $stackStatus;
 
     /**
      * Success/failure message associated with the stack status.
+     *
+     * @var string|null
      */
     private $stackStatusReason;
 
@@ -72,37 +94,51 @@ final class Stack
      *
      * - `true`: disable rollback.
      * - `false`: enable rollback.
+     *
+     * @var bool|null
      */
     private $disableRollback;
 
     /**
      * Amazon SNS topic Amazon Resource Names (ARNs) to which stack related events are published.
+     *
+     * @var string[]|null
      */
     private $notificationArns;
 
     /**
      * The amount of time within which stack creation should complete.
+     *
+     * @var int|null
      */
     private $timeoutInMinutes;
 
     /**
      * The capabilities allowed in the stack.
+     *
+     * @var list<Capability::*>|null
      */
     private $capabilities;
 
     /**
      * A list of output structures.
+     *
+     * @var Output[]|null
      */
     private $outputs;
 
     /**
      * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that's associated with the stack.
      * During a stack operation, CloudFormation uses this role's credentials to make calls on your behalf.
+     *
+     * @var string|null
      */
     private $roleArn;
 
     /**
      * A list of `Tag`s that specify information about the stack.
+     *
+     * @var Tag[]|null
      */
     private $tags;
 
@@ -114,6 +150,8 @@ final class Stack
      *
      * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      * [^2]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html
+     *
+     * @var bool|null
      */
     private $enableTerminationProtection;
 
@@ -124,6 +162,8 @@ final class Stack
      * For more information, see Working with Nested Stacks [^1] in the *CloudFormation User Guide*.
      *
      * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
+     *
+     * @var string|null
      */
     private $parentId;
 
@@ -134,6 +174,8 @@ final class Stack
      * For more information, see Working with Nested Stacks [^1] in the *CloudFormation User Guide*.
      *
      * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
+     *
+     * @var string|null
      */
     private $rootId;
 
@@ -143,6 +185,8 @@ final class Stack
      * Unregulated Configuration Changes to Stacks and Resources [^1].
      *
      * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+     *
+     * @var StackDriftInformation|null
      */
     private $driftInformation;
 

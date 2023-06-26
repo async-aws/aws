@@ -9,6 +9,8 @@ final class NoiseReducerFilterSettings
 {
     /**
      * Relative strength of noise reducing filter. Higher values produce stronger filtering.
+     *
+     * @var int|null
      */
     private $strength;
 

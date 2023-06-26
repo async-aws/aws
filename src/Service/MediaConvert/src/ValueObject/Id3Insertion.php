@@ -11,11 +11,15 @@ final class Id3Insertion
 {
     /**
      * Use ID3 tag (Id3) to provide a fully formed ID3 tag in base64-encode format.
+     *
+     * @var string|null
      */
     private $id3;
 
     /**
      * Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.
+     *
+     * @var string|null
      */
     private $timecode;
 

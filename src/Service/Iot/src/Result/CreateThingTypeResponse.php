@@ -12,16 +12,22 @@ class CreateThingTypeResponse extends Result
 {
     /**
      * The name of the thing type.
+     *
+     * @var string|null
      */
     private $thingTypeName;
 
     /**
      * The Amazon Resource Name (ARN) of the thing type.
+     *
+     * @var string|null
      */
     private $thingTypeArn;
 
     /**
      * The thing type ID.
+     *
+     * @var string|null
      */
     private $thingTypeId;
 

@@ -7,6 +7,9 @@ namespace AsyncAws\S3\ValueObject;
  */
 final class S3KeyFilter
 {
+    /**
+     * @var FilterRule[]|null
+     */
     private $filterRules;
 
     /**

@@ -9,16 +9,22 @@ final class LogStream
 {
     /**
      * The name of the log stream.
+     *
+     * @var string|null
      */
     private $logStreamName;
 
     /**
      * The creation time of the stream, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
+     *
+     * @var int|null
      */
     private $creationTime;
 
     /**
      * The time of the first event, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
+     *
+     * @var int|null
      */
     private $firstEventTimestamp;
 
@@ -26,6 +32,8 @@ final class LogStream
      * The time of the most recent log event in the log stream in CloudWatch Logs. This number is expressed as the number of
      * milliseconds after `Jan 1, 1970 00:00:00 UTC`. The `lastEventTime` value updates on an eventual consistency basis. It
      * typically updates in less than an hour from ingestion, but in rare situations might take longer.
+     *
+     * @var int|null
      */
     private $lastEventTimestamp;
 
@@ -33,6 +41,8 @@ final class LogStream
      * The ingestion time, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC` The `lastIngestionTime`
      * value updates on an eventual consistency basis. It typically updates in less than an hour after ingestion, but in
      * rare situations might take longer.
+     *
+     * @var int|null
      */
     private $lastIngestionTime;
 
@@ -42,11 +52,15 @@ final class LogStream
      * ! The sequence token is now ignored in `PutLogEvents` actions. `PutLogEvents` actions are always accepted regardless
      * ! of receiving an invalid sequence token. You don't need to obtain `uploadSequenceToken` to use a `PutLogEvents`
      * ! action.
+     *
+     * @var string|null
      */
     private $uploadSequenceToken;
 
     /**
      * The Amazon Resource Name (ARN) of the log stream.
+     *
+     * @var string|null
      */
     private $arn;
 
@@ -55,6 +69,8 @@ final class LogStream
      *
      * **Important:** As of June 17, 2019, this parameter is no longer supported for log streams, and is always reported as
      * zero. This change applies only to log streams. The `storedBytes` parameter for log groups is not affected.
+     *
+     * @var int|null
      */
     private $storedBytes;
 

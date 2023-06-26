@@ -14,6 +14,8 @@ final class PutRequest
      * All of the table's primary key attributes must be specified, and their data types must match those of the table's key
      * schema. If any attributes are present in the item that are part of an index key schema for the table, their types
      * must match the index key schema.
+     *
+     * @var array<string, AttributeValue>
      */
     private $item;
 

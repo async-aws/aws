@@ -11,6 +11,8 @@ final class UpdateGlobalSecondaryIndexAction
 {
     /**
      * The name of the global secondary index to be updated.
+     *
+     * @var string
      */
     private $indexName;
 
@@ -21,6 +23,8 @@ final class UpdateGlobalSecondaryIndexAction
      * *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
+     *
+     * @var ProvisionedThroughput
      */
     private $provisionedThroughput;
 

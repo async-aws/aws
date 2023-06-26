@@ -16,32 +16,44 @@ final class LogDeliveryConfiguration
      * Refers to slow-log [^1] or engine-log.
      *
      * [^1]: https://redis.io/commands/slowlog
+     *
+     * @var LogType::*|null
      */
     private $logType;
 
     /**
      * Returns the destination type, either `cloudwatch-logs` or `kinesis-firehose`.
+     *
+     * @var DestinationType::*|null
      */
     private $destinationType;
 
     /**
      * Configuration details of either a CloudWatch Logs destination or Kinesis Data Firehose destination.
+     *
+     * @var DestinationDetails|null
      */
     private $destinationDetails;
 
     /**
      * Returns the log format, either JSON or TEXT.
+     *
+     * @var LogFormat::*|null
      */
     private $logFormat;
 
     /**
      * Returns the log delivery configuration status. Values are one of `enabling` | `disabling` | `modifying` | `active` |
      * `error`.
+     *
+     * @var LogDeliveryConfigurationStatus::*|null
      */
     private $status;
 
     /**
      * Returns an error message for the log delivery configuration.
+     *
+     * @var string|null
      */
     private $message;
 

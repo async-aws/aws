@@ -12,6 +12,8 @@ final class LoadBalancerInfo
      * Balancing, load balancers are used with Classic Load Balancers.
      *
      * > Adding more than one load balancer to the array is not supported.
+     *
+     * @var ELBInfo[]|null
      */
     private $elbInfoList;
 
@@ -20,11 +22,15 @@ final class LoadBalancerInfo
      * Balancing, target groups are used with Application Load Balancers.
      *
      * > Adding more than one target group to the array is not supported.
+     *
+     * @var TargetGroupInfo[]|null
      */
     private $targetGroupInfoList;
 
     /**
      * The target group pair information. This is an array of `TargeGroupPairInfo` objects with a maximum size of one.
+     *
+     * @var TargetGroupPairInfo[]|null
      */
     private $targetGroupPairInfoList;
 

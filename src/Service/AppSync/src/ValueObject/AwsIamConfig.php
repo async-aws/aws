@@ -9,11 +9,15 @@ final class AwsIamConfig
 {
     /**
      * The signing Amazon Web Services Region for IAM authorization.
+     *
+     * @var string|null
      */
     private $signingRegion;
 
     /**
      * The signing service name for IAM authorization.
+     *
+     * @var string|null
      */
     private $signingServiceName;
 

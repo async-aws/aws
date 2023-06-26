@@ -9,11 +9,15 @@ final class RelatedDeployments
 {
     /**
      * The deployment ID of the root deployment that triggered this deployment.
+     *
+     * @var string|null
      */
     private $autoUpdateOutdatedInstancesRootDeploymentId;
 
     /**
      * The deployment IDs of 'auto-update outdated instances' deployments triggered by this deployment.
+     *
+     * @var string[]|null
      */
     private $autoUpdateOutdatedInstancesDeploymentIds;
 

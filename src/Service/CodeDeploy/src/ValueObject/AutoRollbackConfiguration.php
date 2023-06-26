@@ -13,11 +13,15 @@ final class AutoRollbackConfiguration
 {
     /**
      * Indicates whether a defined automatic rollback configuration is currently enabled.
+     *
+     * @var bool|null
      */
     private $enabled;
 
     /**
      * The event type or types that trigger a rollback.
+     *
+     * @var list<AutoRollbackEvent::*>|null
      */
     private $events;
 

@@ -173,11 +173,15 @@ class ListJobsResponse extends Result implements \IteratorAggregate
 {
     /**
      * List of jobs.
+     *
+     * @var Job[]
      */
     private $jobs;
 
     /**
      * Use this string to request the next batch of jobs.
+     *
+     * @var string|null
      */
     private $nextToken;
 

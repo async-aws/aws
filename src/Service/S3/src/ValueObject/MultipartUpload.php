@@ -12,36 +12,50 @@ final class MultipartUpload
 {
     /**
      * Upload ID that identifies the multipart upload.
+     *
+     * @var string|null
      */
     private $uploadId;
 
     /**
      * Key of the object for which the multipart upload was initiated.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * Date and time at which the multipart upload was initiated.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $initiated;
 
     /**
      * The class of storage used to store the object.
+     *
+     * @var StorageClass::*|null
      */
     private $storageClass;
 
     /**
      * Specifies the owner of the object that is part of the multipart upload.
+     *
+     * @var Owner|null
      */
     private $owner;
 
     /**
      * Identifies who initiated the multipart upload.
+     *
+     * @var Initiator|null
      */
     private $initiator;
 
     /**
      * The algorithm that was used to create a checksum of the object.
+     *
+     * @var ChecksumAlgorithm::*|null
      */
     private $checksumAlgorithm;
 

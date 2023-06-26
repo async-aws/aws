@@ -11,11 +11,15 @@ final class WriteRequest
 {
     /**
      * A request to perform a `PutItem` operation.
+     *
+     * @var PutRequest|null
      */
     private $putRequest;
 
     /**
      * A request to perform a `DeleteItem` operation.
+     *
+     * @var DeleteRequest|null
      */
     private $deleteRequest;
 

@@ -9,6 +9,8 @@ class StartQueryExecutionOutput extends Result
 {
     /**
      * The unique ID of the query that ran as a result of this request.
+     *
+     * @var string|null
      */
     private $queryExecutionId;
 

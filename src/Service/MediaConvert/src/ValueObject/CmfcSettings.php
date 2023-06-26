@@ -29,6 +29,8 @@ final class CmfcSettings
      * applies audio padding or trimming only to the end of the last segment of the output. For unsegmented outputs,
      * MediaConvert adds padding only to the end of the file. When you keep the default value, any minor discrepancies
      * between audio and video duration will depend on your output audio codec.
+     *
+     * @var CmfcAudioDuration::*|null
      */
     private $audioDuration;
 
@@ -39,6 +41,8 @@ final class CmfcSettings
      * like this: #EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio_aac_1". Related setting: To associate the rendition group that
      * this audio track belongs to with a video rendition, include the same value that you provide here for that video
      * output's setting Audio rendition sets (audioRenditionSets).
+     *
+     * @var string|null
      */
     private $audioGroupId;
 
@@ -54,6 +58,8 @@ final class CmfcSettings
      * for the child manifest for your video rendition is "amazing_video_1.m3u8". Then, in your parent manifest, each value
      * will appear on separate lines, like this: #EXT-X-STREAM-INF:AUDIO="audio_aac_1"... amazing_video_1.m3u8
      * #EXT-X-STREAM-INF:AUDIO="audio_dolby"... amazing_video_1.m3u8.
+     *
+     * @var string|null
      */
     private $audioRenditionSets;
 
@@ -69,6 +75,8 @@ final class CmfcSettings
      * to set DEFAULT=NO and AUTOSELECT=NO. When you don't specify a value for this setting, MediaConvert defaults to
      * Alternate audio, auto select, default. When there is more than one variant in your output group, you must explicitly
      * choose a value for this setting.
+     *
+     * @var CmfcAudioTrackType::*|null
      */
     private $audioTrackType;
 
@@ -78,6 +86,8 @@ final class CmfcSettings
      * EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag (DONT_FLAG), MediaConvert leaves this
      * parameter out. The DVS flag can help with accessibility on Apple devices. For more information, see the Apple
      * documentation.
+     *
+     * @var CmfcDescriptiveVideoServiceFlag::*|null
      */
     private $descriptiveVideoServiceFlag;
 
@@ -87,6 +97,8 @@ final class CmfcSettings
      * that creates preview functions for your video. MediaConvert adds both the I-frame only child manifest and the regular
      * child manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value
      * Exclude (EXCLUDE).
+     *
+     * @var CmfcIFrameOnlyManifest::*|null
      */
     private $iframeOnlyManifest;
 
@@ -94,6 +106,8 @@ final class CmfcSettings
      * To include key-length-value metadata in this output: Set KLV metadata insertion to Passthrough. MediaConvert reads
      * KLV metadata present in your input and writes each instance to a separate event message box in the output, according
      * to MISB ST1910.1. To exclude this KLV metadata: Set KLV metadata insertion to None or leave blank.
+     *
+     * @var CmfcKlvMetadata::*|null
      */
     private $klvMetadata;
 
@@ -104,6 +118,8 @@ final class CmfcSettings
      * "urn:scte:scte35:2013:bin". To leave these elements out of your output MPD manifest, set Manifest metadata signaling
      * to Disabled. To enable Manifest metadata signaling, you must also set SCTE-35 source to Passthrough, ESAM SCTE-35 to
      * insert, or ID3 metadata (TimedMetadata) to Passthrough.
+     *
+     * @var CmfcManifestMetadataSignaling::*|null
      */
     private $manifestMetadataSignaling;
 
@@ -111,6 +127,8 @@ final class CmfcSettings
      * Use this setting only when you specify SCTE-35 markers from ESAM. Choose INSERT to put SCTE-35 markers in this output
      * at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML
      * (sccXml).
+     *
+     * @var CmfcScte35Esam::*|null
      */
     private $scte35Esam;
 
@@ -118,6 +136,8 @@ final class CmfcSettings
      * Ignore this setting unless you have SCTE-35 markers in your input video file. Choose Passthrough (PASSTHROUGH) if you
      * want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want
      * those SCTE-35 markers in this output.
+     *
+     * @var CmfcScte35Source::*|null
      */
     private $scte35Source;
 
@@ -126,6 +146,8 @@ final class CmfcSettings
      * ID3 metadata in Custom ID3 metadata inserter (timedMetadataInsertion). MediaConvert writes each instance of ID3
      * metadata in a separate Event Message (eMSG) box. To exclude this ID3 metadata: Set ID3 metadata to None (NONE) or
      * leave blank.
+     *
+     * @var CmfcTimedMetadata::*|null
      */
     private $timedMetadata;
 
@@ -134,6 +156,8 @@ final class CmfcSettings
      * For more information, see ISO/IEC 23009-1:2022 section 5.10.3.3.3 Syntax.
      * Leave blank to use the default value Version 0.
      * When you specify Version 1, you must also set ID3 metadata (timedMetadata) to Passthrough.
+     *
+     * @var CmfcTimedMetadataBoxVersion::*|null
      */
     private $timedMetadataBoxVersion;
 
@@ -142,6 +166,8 @@ final class CmfcSettings
      * information, see ISO/IEC 23009-1:2022 section 5.10.3.3.4 Semantics. Leave blank to use the default value:
      * https://aomedia.org/emsg/ID3 When you specify a value for ID3 metadata scheme ID URI, you must also set ID3 metadata
      * (timedMetadata) to Passthrough.
+     *
+     * @var string|null
      */
     private $timedMetadataSchemeIdUri;
 
@@ -149,6 +175,8 @@ final class CmfcSettings
      * Specify the event message box (eMSG) value for ID3 timed metadata in your output. For more information, see ISO/IEC
      * 23009-1:2022 section 5.10.3.3.4 Semantics. When you specify a value for ID3 Metadata Value, you must also set ID3
      * metadata (timedMetadata) to Passthrough.
+     *
+     * @var string|null
      */
     private $timedMetadataValue;
 

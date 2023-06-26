@@ -9,16 +9,22 @@ final class EyeDirection
 {
     /**
      * Value representing eye direction on the yaw axis.
+     *
+     * @var float|null
      */
     private $yaw;
 
     /**
      * Value representing eye direction on the pitch axis.
+     *
+     * @var float|null
      */
     private $pitch;
 
     /**
      * The confidence that the service has in its predicted eye direction.
+     *
+     * @var float|null
      */
     private $confidence;
 

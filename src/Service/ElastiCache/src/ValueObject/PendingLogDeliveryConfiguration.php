@@ -15,21 +15,29 @@ final class PendingLogDeliveryConfiguration
      * Refers to slow-log [^1] or engine-log..
      *
      * [^1]: https://redis.io/commands/slowlog
+     *
+     * @var LogType::*|null
      */
     private $logType;
 
     /**
      * Returns the destination type, either CloudWatch Logs or Kinesis Data Firehose.
+     *
+     * @var DestinationType::*|null
      */
     private $destinationType;
 
     /**
      * Configuration details of either a CloudWatch Logs destination or Kinesis Data Firehose destination.
+     *
+     * @var DestinationDetails|null
      */
     private $destinationDetails;
 
     /**
      * Returns the log format, either JSON or TEXT.
+     *
+     * @var LogFormat::*|null
      */
     private $logFormat;
 

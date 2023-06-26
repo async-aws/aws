@@ -9,11 +9,15 @@ final class AccessControlPolicy
 {
     /**
      * A list of grants.
+     *
+     * @var Grant[]|null
      */
     private $grants;
 
     /**
      * Container for the bucket owner's display name and ID.
+     *
+     * @var Owner|null
      */
     private $owner;
 

@@ -13,6 +13,8 @@ class ForgotPasswordResponse extends Result
 {
     /**
      * The code delivery details returned by the server in response to the request to reset a password.
+     *
+     * @var CodeDeliveryDetailsType|null
      */
     private $codeDeliveryDetails;
 

@@ -9,31 +9,43 @@ final class AuthenticationResultType
 {
     /**
      * A valid access token that Amazon Cognito issued to the user who you want to authenticate.
+     *
+     * @var string|null
      */
     private $accessToken;
 
     /**
      * The expiration period of the authentication result in seconds.
+     *
+     * @var int|null
      */
     private $expiresIn;
 
     /**
      * The token type.
+     *
+     * @var string|null
      */
     private $tokenType;
 
     /**
      * The refresh token.
+     *
+     * @var string|null
      */
     private $refreshToken;
 
     /**
      * The ID token.
+     *
+     * @var string|null
      */
     private $idToken;
 
     /**
      * The new device metadata from an authentication result.
+     *
+     * @var NewDeviceMetadataType|null
      */
     private $newDeviceMetadata;
 

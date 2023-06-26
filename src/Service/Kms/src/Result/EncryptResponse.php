@@ -11,6 +11,8 @@ class EncryptResponse extends Result
     /**
      * The encrypted plaintext. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
      * Otherwise, it is not Base64-encoded.
+     *
+     * @var string|null
      */
     private $ciphertextBlob;
 
@@ -18,11 +20,15 @@ class EncryptResponse extends Result
      * The Amazon Resource Name (key ARN [^1]) of the KMS key that was used to encrypt the plaintext.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
+     *
+     * @var string|null
      */
     private $keyId;
 
     /**
      * The encryption algorithm that was used to encrypt the plaintext.
+     *
+     * @var EncryptionAlgorithmSpec::*|null
      */
     private $encryptionAlgorithm;
 

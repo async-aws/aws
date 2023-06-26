@@ -18,11 +18,15 @@ final class Av1Settings
     /**
      * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
      * Spatial adaptive quantization (spatialAdaptiveQuantization).
+     *
+     * @var Av1AdaptiveQuantization::*|null
      */
     private $adaptiveQuantization;
 
     /**
      * Specify the Bit depth (Av1BitDepth). You can choose 8-bit (BIT_8) or 10-bit (BIT_10).
+     *
+     * @var Av1BitDepth::*|null
      */
     private $bitDepth;
 
@@ -35,6 +39,8 @@ final class Av1Settings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var Av1FramerateControl::*|null
      */
     private $framerateControl;
 
@@ -47,6 +53,8 @@ final class Av1Settings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var Av1FramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -55,6 +63,8 @@ final class Av1Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -63,6 +73,8 @@ final class Av1Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -70,30 +82,40 @@ final class Av1Settings
      * Specify the GOP length (keyframe interval) in frames. With AV1, MediaConvert doesn't support GOP length in seconds.
      * This value must be greater than zero and preferably equal to 1 + ((numberBFrames + 1) * x), where x is an integer
      * value.
+     *
+     * @var float|null
      */
     private $gopSize;
 
     /**
      * Maximum bitrate in bits/second. For example, enter five megabits per second as 5000000. Required when Rate control
      * mode is QVBR.
+     *
+     * @var int|null
      */
     private $maxBitrate;
 
     /**
      * Specify from the number of B-frames, in the range of 0-15. For AV1 encoding, we recommend using 7 or 15. Choose a
      * larger number for a lower bitrate and smaller file size; choose a smaller number for better video quality.
+     *
+     * @var int|null
      */
     private $numberBframesBetweenReferenceFrames;
 
     /**
      * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
      * QVBR for Rate control mode (RateControlMode).
+     *
+     * @var Av1QvbrSettings|null
      */
     private $qvbrSettings;
 
     /**
      * 'With AV1 outputs, for rate control mode, MediaConvert supports only quality-defined variable bitrate (QVBR). You
      * can''t use CBR or VBR.'.
+     *
+     * @var Av1RateControlMode::*|null
      */
     private $rateControlMode;
 
@@ -101,6 +123,8 @@ final class Av1Settings
      * Specify the number of slices per picture. This value must be 1, 2, 4, 8, 16, or 32. For progressive pictures, this
      * value must be less than or equal to the number of macroblock rows. For interlaced pictures, this value must be less
      * than or equal to half the number of macroblock rows.
+     *
+     * @var int|null
      */
     private $slices;
 
@@ -115,6 +139,8 @@ final class Av1Settings
      * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization
      * (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it
      * to Low. For content with a wider variety of textures, set it to High or Higher.
+     *
+     * @var Av1SpatialAdaptiveQuantization::*|null
      */
     private $spatialAdaptiveQuantization;
 

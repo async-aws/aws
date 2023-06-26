@@ -11,16 +11,22 @@ final class Difference
 {
     /**
      * Information about a `beforeBlob` data type object, including the ID, the file mode permission code, and the path.
+     *
+     * @var BlobMetadata|null
      */
     private $beforeBlob;
 
     /**
      * Information about an `afterBlob` data type object, including the ID, the file mode permission code, and the path.
+     *
+     * @var BlobMetadata|null
      */
     private $afterBlob;
 
     /**
      * Whether the change type of the difference is an addition (A), deletion (D), or modification (M).
+     *
+     * @var ChangeTypeEnum::*|null
      */
     private $changeType;
 

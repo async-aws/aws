@@ -10,6 +10,8 @@ final class EngineVersion
     /**
      * The engine version requested by the user. Possible values are determined by the output of `ListEngineVersions`,
      * including AUTO. The default is AUTO.
+     *
+     * @var string|null
      */
     private $selectedEngineVersion;
 
@@ -18,6 +20,8 @@ final class EngineVersion
      * the effective engine version is the same as the engine version that the user requested. If the user requests Auto,
      * the effective engine version is chosen by Athena. When a request to update the engine version is made by a
      * `CreateWorkGroup` or `UpdateWorkGroup` operation, the `EffectiveEngineVersion` field is ignored.
+     *
+     * @var string|null
      */
     private $effectiveEngineVersion;
 

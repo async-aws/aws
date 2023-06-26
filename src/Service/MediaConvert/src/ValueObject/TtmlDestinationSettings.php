@@ -16,6 +16,8 @@ final class TtmlDestinationSettings
 {
     /**
      * Pass through style and position information from a TTML-like input source (TTML, IMSC, SMPTE-TT) to the TTML output.
+     *
+     * @var TtmlStylePassthrough::*|null
      */
     private $stylePassthrough;
 

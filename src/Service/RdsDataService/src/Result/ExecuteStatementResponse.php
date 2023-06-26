@@ -15,17 +15,23 @@ class ExecuteStatementResponse extends Result
 {
     /**
      * The records returned by the SQL statement. This field is blank if the `formatRecordsAs` parameter is set to `JSON`.
+     *
+     * @var Field[][]
      */
     private $records;
 
     /**
      * Metadata for the columns included in the results. This field is blank if the `formatRecordsAs` parameter is set to
      * `JSON`.
+     *
+     * @var ColumnMetadata[]
      */
     private $columnMetadata;
 
     /**
      * The number of records updated by the request.
+     *
+     * @var int|null
      */
     private $numberOfRecordsUpdated;
 
@@ -36,6 +42,8 @@ class ExecuteStatementResponse extends Result
      * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a>
      * in the PostgreSQL documentation.</p> </note>
      * ```.
+     *
+     * @var Field[]
      */
     private $generatedFields;
 
@@ -45,6 +53,8 @@ class ExecuteStatementResponse extends Result
      *
      * The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set requires
      * more than 10 MB, the call returns an error.
+     *
+     * @var string|null
      */
     private $formattedRecords;
 

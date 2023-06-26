@@ -10,6 +10,8 @@ class GetParameterResult extends Result
 {
     /**
      * Information about a parameter.
+     *
+     * @var Parameter|null
      */
     private $parameter;
 

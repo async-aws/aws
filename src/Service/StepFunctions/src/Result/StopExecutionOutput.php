@@ -9,6 +9,8 @@ class StopExecutionOutput extends Result
 {
     /**
      * The date the execution is stopped.
+     *
+     * @var \DateTimeImmutable
      */
     private $stopDate;
 

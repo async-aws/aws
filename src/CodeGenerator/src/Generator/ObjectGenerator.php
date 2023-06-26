@@ -342,6 +342,9 @@ class ObjectGenerator
                 $method->addComment('@return ' . $parameterType . ($getterSetterNullable ? '|null' : ''));
             }
             $method->setReturnNullable($getterSetterNullable);
+            if ($parameterType) {
+                $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
+            }
         }
 
         foreach ($forEndpointProps as $key => $ok) {

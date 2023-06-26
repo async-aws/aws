@@ -15,11 +15,19 @@ final class TooManyRequestsException extends ClientException
 {
     /**
      * The number of seconds the caller should wait before retrying.
+     *
+     * @var string|null
      */
     private $retryAfterSeconds;
 
+    /**
+     * @var string|null
+     */
     private $type;
 
+    /**
+     * @var ThrottleReason::*|null
+     */
     private $reason;
 
     /**

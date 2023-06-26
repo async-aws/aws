@@ -11,16 +11,22 @@ final class Database
 {
     /**
      * The name of the database.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * An optional description of the database.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * A set of custom key/value pairs.
+     *
+     * @var array<string, string>|null
      */
     private $parameters;
 

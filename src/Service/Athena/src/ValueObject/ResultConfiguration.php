@@ -18,6 +18,8 @@ final class ResultConfiguration
      * settings specified for the workgroup. See WorkGroupConfiguration$EnforceWorkGroupConfiguration.
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     *
+     * @var string|null
      */
     private $outputLocation;
 
@@ -29,6 +31,8 @@ final class ResultConfiguration
      * WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings Override Client-Side Settings [^1].
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     *
+     * @var EncryptionConfiguration|null
      */
     private $encryptionConfiguration;
 
@@ -44,6 +48,8 @@ final class ResultConfiguration
      * Override Client-Side Settings [^1].
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     *
+     * @var string|null
      */
     private $expectedBucketOwner;
 
@@ -55,6 +61,8 @@ final class ResultConfiguration
      * WorkGroupConfiguration$EnforceWorkGroupConfiguration and Workgroup Settings Override Client-Side Settings [^1].
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     *
+     * @var AclConfiguration|null
      */
     private $aclConfiguration;
 

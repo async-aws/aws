@@ -9,27 +9,37 @@ final class Commit
 {
     /**
      * The full SHA ID of the specified commit.
+     *
+     * @var string|null
      */
     private $commitId;
 
     /**
      * Tree information for the specified commit.
+     *
+     * @var string|null
      */
     private $treeId;
 
     /**
      * A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
+     *
+     * @var string[]|null
      */
     private $parents;
 
     /**
      * The commit message associated with the specified commit.
+     *
+     * @var string|null
      */
     private $message;
 
     /**
      * Information about the author of the specified commit. Information includes the date in timestamp format with GMT
      * offset, the name of the author, and the email address for the author, as configured in Git.
+     *
+     * @var UserInfo|null
      */
     private $author;
 
@@ -42,11 +52,15 @@ final class Commit
      * [^1] in Pro Git by Scott Chacon and Ben Straub.
      *
      * [^1]: http://git-scm.com/book/ch2-3.html
+     *
+     * @var UserInfo|null
      */
     private $committer;
 
     /**
      * Any other data associated with the specified commit.
+     *
+     * @var string|null
      */
     private $additionalData;
 

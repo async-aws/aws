@@ -10,11 +10,15 @@ final class LogsConfig
 {
     /**
      * Information about CloudWatch Logs for a build project. CloudWatch Logs are enabled by default.
+     *
+     * @var CloudWatchLogsConfig|null
      */
     private $cloudWatchLogs;
 
     /**
      * Information about logs built to an S3 bucket for a build project. S3 logs are not enabled by default.
+     *
+     * @var S3LogsConfig|null
      */
     private $s3Logs;
 

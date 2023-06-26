@@ -9,19 +9,28 @@ final class SessionConfiguration
 {
     /**
      * The ARN of the execution role used for the session.
+     *
+     * @var string|null
      */
     private $executionRole;
 
     /**
      * The Amazon S3 location that stores information for the notebook.
+     *
+     * @var string|null
      */
     private $workingDirectory;
 
     /**
      * The idle timeout in seconds for the session.
+     *
+     * @var int|null
      */
     private $idleTimeoutSeconds;
 
+    /**
+     * @var EncryptionConfiguration|null
+     */
     private $encryptionConfiguration;
 
     /**

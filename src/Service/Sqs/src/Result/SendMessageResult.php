@@ -16,6 +16,8 @@ class SendMessageResult extends Result
      * about MD5, see RFC1321 [^1].
      *
      * [^1]: https://www.ietf.org/rfc/rfc1321.txt
+     *
+     * @var string|null
      */
     private $md5OfMessageBody;
 
@@ -25,12 +27,16 @@ class SendMessageResult extends Result
      * about MD5, see RFC1321 [^1].
      *
      * [^1]: https://www.ietf.org/rfc/rfc1321.txt
+     *
+     * @var string|null
      */
     private $md5OfMessageAttributes;
 
     /**
      * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
      * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
+     *
+     * @var string|null
      */
     private $md5OfMessageSystemAttributes;
 
@@ -39,6 +45,8 @@ class SendMessageResult extends Result
      * Identifiers [^1] in the *Amazon SQS Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html
+     *
+     * @var string|null
      */
     private $messageId;
 
@@ -48,6 +56,8 @@ class SendMessageResult extends Result
      * The large, non-consecutive number that Amazon SQS assigns to each message.
      *
      * The length of `SequenceNumber` is 128 bits. `SequenceNumber` continues to increase for a particular `MessageGroupId`.
+     *
+     * @var string|null
      */
     private $sequenceNumber;
 

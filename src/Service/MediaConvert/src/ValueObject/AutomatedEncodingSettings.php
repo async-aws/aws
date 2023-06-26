@@ -12,6 +12,8 @@ final class AutomatedEncodingSettings
      * Use automated ABR to have MediaConvert set up the renditions in your ABR package for you automatically, based on
      * characteristics of your input video. This feature optimizes video quality while minimizing the overall size of your
      * ABR package.
+     *
+     * @var AutomatedAbrSettings|null
      */
     private $abrSettings;
 

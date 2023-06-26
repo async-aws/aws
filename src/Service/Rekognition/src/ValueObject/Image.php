@@ -30,11 +30,15 @@ final class Image
 {
     /**
      * Blob of image bytes up to 5 MBs. Note that the maximum image size you can pass to `DetectCustomLabels` is 4MB.
+     *
+     * @var string|null
      */
     private $bytes;
 
     /**
      * Identifies an S3 object as the image source.
+     *
+     * @var S3Object|null
      */
     private $s3Object;
 

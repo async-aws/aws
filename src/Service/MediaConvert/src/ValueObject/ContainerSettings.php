@@ -12,17 +12,23 @@ final class ContainerSettings
 {
     /**
      * These settings relate to the fragmented MP4 container for the segments in your CMAF outputs.
+     *
+     * @var CmfcSettings|null
      */
     private $cmfcSettings;
 
     /**
      * Container for this output. Some containers require a container settings object. If not specified, the default object
      * will be created.
+     *
+     * @var ContainerType::*|null
      */
     private $container;
 
     /**
      * Settings for F4v container.
+     *
+     * @var F4vSettings|null
      */
     private $f4vSettings;
 
@@ -34,17 +40,23 @@ final class ContainerSettings
      * MediaConvert output. The PMT lists the types of data in a program along with their PID. Downstream systems and
      * players use the program map table to look up the PID for each type of data it accesses and then uses the PIDs to
      * locate specific data within the asset.
+     *
+     * @var M2tsSettings|null
      */
     private $m2tsSettings;
 
     /**
      * These settings relate to the MPEG-2 transport stream (MPEG2-TS) container for the MPEG2-TS segments in your HLS
      * outputs.
+     *
+     * @var M3u8Settings|null
      */
     private $m3u8Settings;
 
     /**
      * These settings relate to your QuickTime MOV output container.
+     *
+     * @var MovSettings|null
      */
     private $movSettings;
 
@@ -52,16 +64,22 @@ final class ContainerSettings
      * These settings relate to your MP4 output container. You can create audio only outputs with this container. For more
      * information, see
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/supported-codecs-containers-audio-only.html#output-codecs-and-containers-supported-for-audio-only.
+     *
+     * @var Mp4Settings|null
      */
     private $mp4Settings;
 
     /**
      * These settings relate to the fragmented MP4 container for the segments in your DASH outputs.
+     *
+     * @var MpdSettings|null
      */
     private $mpdSettings;
 
     /**
      * These settings relate to your MXF output container.
+     *
+     * @var MxfSettings|null
      */
     private $mxfSettings;
 

@@ -41,6 +41,8 @@ final class H264Settings
      * transcode, set Adaptive quantization (H264AdaptiveQuantization) to Off (OFF). Related settings: The value that you
      * choose here applies to the following settings: H264FlickerAdaptiveQuantization, H264SpatialAdaptiveQuantization, and
      * H264TemporalAdaptiveQuantization.
+     *
+     * @var H264AdaptiveQuantization::*|null
      */
     private $adaptiveQuantization;
 
@@ -50,23 +52,31 @@ final class H264Settings
      * the video quality of outputs with other rate control modes relative to the bitrate that you specify. Bandwidth
      * reduction increases further when your input is low quality or noisy. Outputs that use this feature incur pro-tier
      * pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     *
+     * @var BandwidthReductionFilter|null
      */
     private $bandwidthReductionFilter;
 
     /**
      * Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be
      * unique when rounded down to the nearest multiple of 1000.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * Specify an H.264 level that is consistent with your output video settings. If you aren't sure what level to specify,
      * choose Auto (AUTO).
+     *
+     * @var H264CodecLevel::*|null
      */
     private $codecLevel;
 
     /**
      * H.264 Profile. High 4:2:2 and 10-bit profiles are only available with the AVC-I License.
+     *
+     * @var H264CodecProfile::*|null
      */
     private $codecProfile;
 
@@ -76,11 +86,15 @@ final class H264Settings
      * keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than low-motion
      * content. The maximum number of B- frames is limited by the value that you choose for B-frames between reference
      * frames. To use the same number B-frames for all types of content: Choose Static.
+     *
+     * @var H264DynamicSubGop::*|null
      */
     private $dynamicSubGop;
 
     /**
      * Entropy encoding mode. Use CABAC (must be in Main or High profile) or CAVLC.
+     *
+     * @var H264EntropyEncoding::*|null
      */
     private $entropyEncoding;
 
@@ -88,6 +102,8 @@ final class H264Settings
      * The video encoding method for your MPEG-4 AVC output. Keep the default value, PAFF, to have MediaConvert use PAFF
      * encoding for interlaced outputs. Choose Force field (FORCE_FIELD) to disable PAFF encoding and create separate
      * interlaced fields. Choose MBAFF to disable PAFF and have MediaConvert use MBAFF encoding for interlaced outputs.
+     *
+     * @var H264FieldEncoding::*|null
      */
     private $fieldEncoding;
 
@@ -101,6 +117,8 @@ final class H264Settings
      * then refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more
      * often to smooth out the flicker. To manually enable or disable H264FlickerAdaptiveQuantization, you must set Adaptive
      * quantization (H264AdaptiveQuantization) to a value other than AUTO.
+     *
+     * @var H264FlickerAdaptiveQuantization::*|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -113,6 +131,8 @@ final class H264Settings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var H264FramerateControl::*|null
      */
     private $framerateControl;
 
@@ -125,6 +145,8 @@ final class H264Settings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var H264FramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -133,6 +155,8 @@ final class H264Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -141,6 +165,8 @@ final class H264Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -149,6 +175,8 @@ final class H264Settings
      * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose Enabled
      * to help improve the video quality of your output relative to its bitrate. To not use reference B-frames: Choose
      * Disabled.
+     *
+     * @var H264GopBReference::*|null
      */
     private $gopBreference;
 
@@ -158,6 +186,8 @@ final class H264Settings
      * choose this value for you based on characteristics of your input video. To enable this automatic behavior, keep the
      * default value by leaving this setting out of your JSON job specification. In the console, do this by keeping the
      * default empty value. If you do explicitly specify a value, for segmented outputs, don't set this value to 0.
+     *
+     * @var int|null
      */
     private $gopClosedCadence;
 
@@ -168,6 +198,8 @@ final class H264Settings
      * If you want to allow MediaConvert to automatically determine GOP size, leave GOP size blank and set GOP mode control
      * to Auto (AUTO). If your output group specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to
      * Auto in each output in your output group.
+     *
+     * @var float|null
      */
     private $gopSize;
 
@@ -179,6 +211,8 @@ final class H264Settings
      * set GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly specify the
      * GOP length, choose Specified, frames (FRAMES) or Specified, seconds (SECONDS) and then provide the GOP length in the
      * related setting GOP size (GopSize).
+     *
+     * @var H264GopSizeUnits::*|null
      */
     private $gopSizeUnits;
 
@@ -186,16 +220,22 @@ final class H264Settings
      * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer that's
      * available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
      * automatically determine the final buffer fill percentage.
+     *
+     * @var int|null
      */
     private $hrdBufferFinalFillPercentage;
 
     /**
      * Percentage of the buffer that should initially be filled (HRD buffer model).
+     *
+     * @var int|null
      */
     private $hrdBufferInitialFillPercentage;
 
     /**
      * Size of buffer (HRD buffer model) in bits. For example, enter five megabits as 5000000.
+     *
+     * @var int|null
      */
     private $hrdBufferSize;
 
@@ -208,12 +248,16 @@ final class H264Settings
      * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
      * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
      * first, depending on which of the Follow options you choose.
+     *
+     * @var H264InterlaceMode::*|null
      */
     private $interlaceMode;
 
     /**
      * Maximum bitrate in bits/second. For example, enter five megabits per second as 5000000. Required when Rate control
      * mode is QVBR.
+     *
+     * @var int|null
      */
     private $maxBitrate;
 
@@ -229,6 +273,8 @@ final class H264Settings
      * GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are farther from the
      * scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and the GOPs surrounding
      * the scene change are smaller than the usual cadence GOPs.
+     *
+     * @var int|null
      */
     private $minIinterval;
 
@@ -236,12 +282,16 @@ final class H264Settings
      * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
      * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input video.
      * To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
+     *
+     * @var int|null
      */
     private $numberBframesBetweenReferenceFrames;
 
     /**
      * Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced
      * encoding.
+     *
+     * @var int|null
      */
     private $numberReferenceFrames;
 
@@ -251,6 +301,8 @@ final class H264Settings
      * PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job
      * specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
+     *
+     * @var H264ParControl::*|null
      */
     private $parControl;
 
@@ -259,6 +311,8 @@ final class H264Settings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parDenominator is 33.
+     *
+     * @var int|null
      */
     private $parDenominator;
 
@@ -267,6 +321,8 @@ final class H264Settings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parNumerator is 40.
+     *
+     * @var int|null
      */
     private $parNumerator;
 
@@ -276,23 +332,31 @@ final class H264Settings
      * between encoding speed and video quality: Leave blank or keep the default value Single pass HQ. For the best video
      * quality, at the cost of encoding speed: Choose Multi pass HQ. MediaConvert performs an analysis pass on your input
      * followed by an encoding pass. Outputs that use this feature incur pro-tier pricing.
+     *
+     * @var H264QualityTuningLevel::*|null
      */
     private $qualityTuningLevel;
 
     /**
      * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
      * QVBR for Rate control mode (RateControlMode).
+     *
+     * @var H264QvbrSettings|null
      */
     private $qvbrSettings;
 
     /**
      * Use this setting to specify whether this output has a variable bitrate (VBR), constant bitrate (CBR) or
      * quality-defined variable bitrate (QVBR).
+     *
+     * @var H264RateControlMode::*|null
      */
     private $rateControlMode;
 
     /**
      * Places a PPS header on each encoded picture, even if repeated.
+     *
+     * @var H264RepeatPps::*|null
      */
     private $repeatPps;
 
@@ -306,6 +370,8 @@ final class H264Settings
      * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
      * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
      * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     *
+     * @var H264ScanTypeConversionMode::*|null
      */
     private $scanTypeConversionMode;
 
@@ -314,12 +380,16 @@ final class H264Settings
      * quality and is enabled by default. If this output uses QVBR, choose Transition detection (TRANSITION_DETECTION) for
      * further video quality improvement. For more information about QVBR, see
      * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
+     *
+     * @var H264SceneChangeDetect::*|null
      */
     private $sceneChangeDetect;
 
     /**
      * Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive pictures,
      * and less than or equal to half the number of macroblock rows for interlaced pictures.
+     *
+     * @var int|null
      */
     private $slices;
 
@@ -329,6 +399,8 @@ final class H264Settings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
      * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var H264SlowPal::*|null
      */
     private $slowPal;
 
@@ -340,6 +412,8 @@ final class H264Settings
      * Choose the value 1 or 16 to use the default JVT softening quantization matricies from the H.264 specification. Choose
      * a value from 17 to 128 to use planar interpolation. Increasing values from 17 to 128 result in increasing reduction
      * of high-frequency data. The value 128 results in the softest video.
+     *
+     * @var int|null
      */
     private $softness;
 
@@ -360,11 +434,15 @@ final class H264Settings
      * it to Low. For content with a wider variety of textures, set it to High or Higher. To manually enable or disable
      * H264SpatialAdaptiveQuantization, you must set Adaptive quantization (H264AdaptiveQuantization) to a value other than
      * AUTO.
+     *
+     * @var H264SpatialAdaptiveQuantization::*|null
      */
     private $spatialAdaptiveQuantization;
 
     /**
      * Produces a bitstream compliant with SMPTE RP-2027.
+     *
+     * @var H264Syntax::*|null
      */
     private $syntax;
 
@@ -375,6 +453,8 @@ final class H264Settings
      * player device to do the conversion during play back. When you keep the default value, None (NONE), MediaConvert does
      * a standard frame rate conversion to 29.97 without doing anything with the field polarity to create a smoother
      * picture.
+     *
+     * @var H264Telecine::*|null
      */
     private $telecine;
 
@@ -394,11 +474,15 @@ final class H264Settings
      * the setting Adaptive quantization (adaptiveQuantization). To manually enable or disable
      * H264TemporalAdaptiveQuantization, you must set Adaptive quantization (H264AdaptiveQuantization) to a value other than
      * AUTO.
+     *
+     * @var H264TemporalAdaptiveQuantization::*|null
      */
     private $temporalAdaptiveQuantization;
 
     /**
      * Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
+     *
+     * @var H264UnregisteredSeiTimecode::*|null
      */
     private $unregisteredSeiTimecode;
 

@@ -11,6 +11,8 @@ class DescribeStackDriftDetectionStatusOutput extends Result
 {
     /**
      * The ID of the stack.
+     *
+     * @var string
      */
     private $stackId;
 
@@ -19,6 +21,8 @@ class DescribeStackDriftDetectionStatusOutput extends Result
      *
      * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However, the
      * number of reports CloudFormation retains for any given stack, and for how long, may vary.
+     *
+     * @var string
      */
     private $stackDriftDetectionId;
 
@@ -30,6 +34,8 @@ class DescribeStackDriftDetectionStatusOutput extends Result
      * - `NOT_CHECKED`: CloudFormation hasn't checked if the stack differs from its expected template configuration.
      * - `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
      * - `UNKNOWN`: This value is reserved for future use.
+     *
+     * @var StackDriftStatus::*|null
      */
     private $stackDriftStatus;
 
@@ -44,22 +50,30 @@ class DescribeStackDriftDetectionStatusOutput extends Result
      * - `DETECTION_FAILED`: The stack drift detection operation has failed for at least one resource in the stack. Results
      *   will be available for resources on which CloudFormation successfully completed drift detection.
      * - `DETECTION_IN_PROGRESS`: The stack drift detection operation is currently in progress.
+     *
+     * @var StackDriftDetectionStatus::*
      */
     private $detectionStatus;
 
     /**
      * The reason the stack drift detection operation has its current status.
+     *
+     * @var string|null
      */
     private $detectionStatusReason;
 
     /**
      * Total number of stack resources that have drifted. This is NULL until the drift detection operation reaches a status
      * of `DETECTION_COMPLETE`. This value will be 0 for stacks whose drift status is `IN_SYNC`.
+     *
+     * @var int|null
      */
     private $driftedStackResourceCount;
 
     /**
      * Time at which the stack drift detection operation was initiated.
+     *
+     * @var \DateTimeImmutable
      */
     private $timestamp;
 

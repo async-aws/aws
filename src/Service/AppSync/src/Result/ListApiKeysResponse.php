@@ -10,11 +10,15 @@ class ListApiKeysResponse extends Result
 {
     /**
      * The `ApiKey` objects.
+     *
+     * @var ApiKey[]
      */
     private $apiKeys;
 
     /**
      * An identifier to pass in the next request to this operation to return the next set of items in the list.
+     *
+     * @var string|null
      */
     private $nextToken;
 

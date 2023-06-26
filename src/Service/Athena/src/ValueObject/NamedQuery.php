@@ -11,31 +11,43 @@ final class NamedQuery
 {
     /**
      * The query name.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The query description.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The database to which the query belongs.
+     *
+     * @var string
      */
     private $database;
 
     /**
      * The SQL statements that make up the query.
+     *
+     * @var string
      */
     private $queryString;
 
     /**
      * The unique identifier of the query.
+     *
+     * @var string|null
      */
     private $namedQueryId;
 
     /**
      * The name of the workgroup that contains the named query.
+     *
+     * @var string|null
      */
     private $workGroup;
 

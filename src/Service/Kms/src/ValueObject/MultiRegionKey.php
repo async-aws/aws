@@ -9,11 +9,15 @@ final class MultiRegionKey
 {
     /**
      * Displays the key ARN of a primary or replica key of a multi-Region key.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * Displays the Amazon Web Services Region of a primary or replica key in a multi-Region key.
+     *
+     * @var string|null
      */
     private $region;
 

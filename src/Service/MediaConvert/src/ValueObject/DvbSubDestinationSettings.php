@@ -29,6 +29,8 @@ final class DvbSubDestinationSettings
      * bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will
      * be justified (either left or centered) relative to those coordinates. Within your job settings, all of your DVB-Sub
      * settings must be identical.
+     *
+     * @var DvbSubtitleAlignment::*|null
      */
     private $alignment;
 
@@ -39,12 +41,16 @@ final class DvbSubDestinationSettings
      * in your input captions. For example, if your font color setting is Yellow, and your input captions have red and white
      * text, your output captions will have red and yellow text. When you choose ALL_TEXT, your font color setting applies
      * to all of your output captions text.
+     *
+     * @var DvbSubtitleApplyFontColor::*|null
      */
     private $applyFontColor;
 
     /**
      * Specify the color of the rectangle behind the captions. Leave background color (BackgroundColor) blank and set Style
      * passthrough (StylePassthrough) to enabled to use the background color data from your input captions, if present.
+     *
+     * @var DvbSubtitleBackgroundColor::*|null
      */
     private $backgroundColor;
 
@@ -54,6 +60,8 @@ final class DvbSubDestinationSettings
      * information in your input captions to your output captions. If Style passthrough is set to disabled, leave blank to
      * use a value of 0 and remove all backgrounds from your output captions. Within your job settings, all of your DVB-Sub
      * settings must be identical.
+     *
+     * @var int|null
      */
     private $backgroundOpacity;
 
@@ -65,6 +73,8 @@ final class DvbSubDestinationSettings
      * x-coordinate and DDS y-coordinate. For video resolutions with a height of 576 pixels or less, MediaConvert doesn't
      * include the DDS, regardless of the value you choose for DDS handling. All burn-in and DVB-Sub font settings must
      * match.
+     *
+     * @var DvbddsHandling::*|null
      */
     private $ddsHandling;
 
@@ -75,6 +85,8 @@ final class DvbSubDestinationSettings
      * choose this offset. Related setting: When you use this setting, you must set DDS handling (ddsHandling) to a value
      * other than None (NONE). MediaConvert uses these values to determine whether to write page position data to the DDS or
      * to the page composition segment (PCS). All burn-in and DVB-Sub font settings must match.
+     *
+     * @var int|null
      */
     private $ddsXcoordinate;
 
@@ -85,6 +97,8 @@ final class DvbSubDestinationSettings
      * this offset. Related setting: When you use this setting, you must set DDS handling (ddsHandling) to a value other
      * than None (NONE). MediaConvert uses these values to determine whether to write page position data to the DDS or to
      * the page composition segment (PCS). All burn-in and DVB-Sub font settings must match.
+     *
+     * @var int|null
      */
     private $ddsYcoordinate;
 
@@ -95,6 +109,8 @@ final class DvbSubDestinationSettings
      * there are multiple unsupported fonts in your input captions, MediaConvert matches each font with the supported font
      * that matches best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all
      * unsupported fonts from your input.
+     *
+     * @var DvbSubSubtitleFallbackFont::*|null
      */
     private $fallbackFont;
 
@@ -102,18 +118,24 @@ final class DvbSubDestinationSettings
      * Specify the color of the captions text. Leave Font color (FontColor) blank and set Style passthrough
      * (StylePassthrough) to enabled to use the font color data from your input captions, if present. Within your job
      * settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var DvbSubtitleFontColor::*|null
      */
     private $fontColor;
 
     /**
      * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent.
      * Within your job settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $fontOpacity;
 
     /**
      * Specify the Font resolution (FontResolution) in DPI (dots per inch).
      * Within your job settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $fontResolution;
 
@@ -122,12 +144,16 @@ final class DvbSubDestinationSettings
      * font script in your input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your
      * input font script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must
      * be identical.
+     *
+     * @var FontScript::*|null
      */
     private $fontScript;
 
     /**
      * Specify the Font size (FontSize) in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font
      * size. Within your job settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $fontSize;
 
@@ -135,6 +161,8 @@ final class DvbSubDestinationSettings
      * Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related setting:
      * When you use this setting, you must set DDS handling (ddsHandling) to a value other than None (NONE). All burn-in and
      * DVB-Sub font settings must match.
+     *
+     * @var int|null
      */
     private $height;
 
@@ -142,6 +170,8 @@ final class DvbSubDestinationSettings
      * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits, representing
      * red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a red value of
      * 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     *
+     * @var string|null
      */
     private $hexFontColor;
 
@@ -149,6 +179,8 @@ final class DvbSubDestinationSettings
      * Specify font outline color. Leave Outline color (OutlineColor) blank and set Style passthrough (StylePassthrough) to
      * enabled to use the font outline color data from your input captions, if present. Within your job settings, all of
      * your DVB-Sub settings must be identical.
+     *
+     * @var DvbSubtitleOutlineColor::*|null
      */
     private $outlineColor;
 
@@ -156,6 +188,8 @@ final class DvbSubDestinationSettings
      * Specify the Outline size (OutlineSize) of the caption text, in pixels. Leave Outline size blank and set Style
      * passthrough (StylePassthrough) to enabled to use the outline size data from your input captions, if present. Within
      * your job settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $outlineSize;
 
@@ -163,6 +197,8 @@ final class DvbSubDestinationSettings
      * Specify the color of the shadow cast by the captions. Leave Shadow color (ShadowColor) blank and set Style
      * passthrough (StylePassthrough) to enabled to use the shadow color data from your input captions, if present. Within
      * your job settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var DvbSubtitleShadowColor::*|null
      */
     private $shadowColor;
 
@@ -172,12 +208,16 @@ final class DvbSubDestinationSettings
      * shadow style information in your input captions to your output captions. If Style passthrough is set to disabled,
      * leave blank to use a value of 0 and remove all shadows from your output captions. Within your job settings, all of
      * your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $shadowOpacity;
 
     /**
      * Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would result in a
      * shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $shadowXoffset;
 
@@ -186,6 +226,8 @@ final class DvbSubDestinationSettings
      * offset 2 pixels above the text. Leave Shadow y-offset (ShadowYOffset) blank and set Style passthrough
      * (StylePassthrough) to enabled to use the shadow y-offset data from your input captions, if present. Within your job
      * settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $shadowYoffset;
 
@@ -196,12 +238,16 @@ final class DvbSubDestinationSettings
      * input captions and use default settings: white text with black outlining, bottom-center positioning, and automatic
      * sizing. Whether you set Style passthrough to enabled or not, you can also choose to manually override any of the
      * individual style and position settings.
+     *
+     * @var DvbSubtitleStylePassthrough::*|null
      */
     private $stylePassthrough;
 
     /**
      * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your subtitles
      * include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
+     *
+     * @var DvbSubtitlingType::*|null
      */
     private $subtitlingType;
 
@@ -210,6 +256,8 @@ final class DvbSubDestinationSettings
      * on letter width. Choose fixed grid (FIXED_GRID) to conform to the spacing specified in the captions file more
      * accurately. Choose proportional (PROPORTIONAL) to make the text easier to read for closed captions. Within your job
      * settings, all of your DVB-Sub settings must be identical.
+     *
+     * @var DvbSubtitleTeletextSpacing::*|null
      */
     private $teletextSpacing;
 
@@ -217,6 +265,8 @@ final class DvbSubDestinationSettings
      * Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related setting: When
      * you use this setting, you must set DDS handling (ddsHandling) to a value other than None (NONE). All burn-in and
      * DVB-Sub font settings must match.
+     *
+     * @var int|null
      */
     private $width;
 
@@ -225,6 +275,8 @@ final class DvbSubDestinationSettings
      * value of 10 would result in the captions starting 10 pixels from the left ofthe output. If no explicit x_position is
      * provided, the horizontal caption position will bedetermined by the alignment parameter. Within your job settings, all
      * of your DVB-Sub settings must be identical.
+     *
+     * @var int|null
      */
     private $xposition;
 
@@ -233,6 +285,8 @@ final class DvbSubDestinationSettings
      * would result in the captions starting 10 pixels from the top of the output. If no explicit y_position is provided,
      * the caption will be positioned towards the bottom of the output. Within your job settings, all of your DVB-Sub
      * settings must be identical.
+     *
+     * @var int|null
      */
     private $yposition;
 

@@ -12,6 +12,8 @@ final class EmailContent
 {
     /**
      * The simple email message. The message consists of a subject and a message body.
+     *
+     * @var Message|null
      */
     private $simple;
 
@@ -29,11 +31,15 @@ final class EmailContent
      *   RFC 5321 [^1].
      *
      * [^1]: https://tools.ietf.org/html/rfc5321
+     *
+     * @var RawMessage|null
      */
     private $raw;
 
     /**
      * The template to use for the email message.
+     *
+     * @var Template|null
      */
     private $template;
 

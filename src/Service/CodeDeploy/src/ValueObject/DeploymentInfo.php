@@ -14,47 +14,65 @@ final class DeploymentInfo
 {
     /**
      * The application name.
+     *
+     * @var string|null
      */
     private $applicationName;
 
     /**
      * The deployment group name.
+     *
+     * @var string|null
      */
     private $deploymentGroupName;
 
     /**
      * The deployment configuration name.
+     *
+     * @var string|null
      */
     private $deploymentConfigName;
 
     /**
      * The unique ID of a deployment.
+     *
+     * @var string|null
      */
     private $deploymentId;
 
     /**
      * Information about the application revision that was deployed to the deployment group before the most recent
      * successful deployment.
+     *
+     * @var RevisionLocation|null
      */
     private $previousRevision;
 
     /**
      * Information about the location of stored application artifacts and the service from which to retrieve them.
+     *
+     * @var RevisionLocation|null
      */
     private $revision;
 
     /**
      * The current state of the deployment as a whole.
+     *
+     * @var DeploymentStatus::*|null
      */
     private $status;
 
     /**
      * Information about any error associated with this deployment.
+     *
+     * @var ErrorInformation|null
      */
     private $errorInformation;
 
     /**
      * A timestamp that indicates when the deployment was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $createTime;
 
@@ -63,21 +81,29 @@ final class DeploymentInfo
      *
      * In some cases, the reported value of the start time might be later than the complete time. This is due to differences
      * in the clock settings of backend servers that participate in the deployment process.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $startTime;
 
     /**
      * A timestamp that indicates when the deployment was complete.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $completeTime;
 
     /**
      * A summary of the deployment status of the instances in the deployment.
+     *
+     * @var DeploymentOverview|null
      */
     private $deploymentOverview;
 
     /**
      * A comment about the deployment.
+     *
+     * @var string|null
      */
     private $description;
 
@@ -89,6 +115,8 @@ final class DeploymentInfo
      * - `codeDeployRollback`: A rollback process created the deployment.
      * - `CodeDeployAutoUpdate`: An auto-update process created the deployment when it detected outdated Amazon EC2
      *   instances.
+     *
+     * @var DeploymentCreator::*|null
      */
     private $creator;
 
@@ -110,32 +138,44 @@ final class DeploymentInfo
      * If the cause of the failure is a script from the last successful deployment that will never run successfully, create
      * a new deployment and use `ignoreApplicationStopFailures` to specify that the `ApplicationStop`, `BeforeBlockTraffic`,
      * and `AfterBlockTraffic` failures should be ignored.
+     *
+     * @var bool|null
      */
     private $ignoreApplicationStopFailures;
 
     /**
      * Information about the automatic rollback configuration associated with the deployment.
+     *
+     * @var AutoRollbackConfiguration|null
      */
     private $autoRollbackConfiguration;
 
     /**
      * Indicates whether only instances that are not running the latest application revision are to be deployed to.
+     *
+     * @var bool|null
      */
     private $updateOutdatedInstancesOnly;
 
     /**
      * Information about a deployment rollback.
+     *
+     * @var RollbackInfo|null
      */
     private $rollbackInfo;
 
     /**
      * Information about the type of deployment, either in-place or blue/green, you want to run and whether to route
      * deployment traffic behind a load balancer.
+     *
+     * @var DeploymentStyle|null
      */
     private $deploymentStyle;
 
     /**
      * Information about the instances that belong to the replacement environment in a blue/green deployment.
+     *
+     * @var TargetInstances|null
      */
     private $targetInstances;
 
@@ -143,22 +183,30 @@ final class DeploymentInfo
      * Indicates whether the wait period set for the termination of instances in the original environment has started.
      * Status is 'false' if the KEEP_ALIVE option is specified. Otherwise, 'true' as soon as the termination wait period
      * starts.
+     *
+     * @var bool|null
      */
     private $instanceTerminationWaitTimeStarted;
 
     /**
      * Information about blue/green deployment options for this deployment.
+     *
+     * @var BlueGreenDeploymentConfiguration|null
      */
     private $blueGreenDeploymentConfiguration;
 
     /**
      * Information about the load balancer used in the deployment.
+     *
+     * @var LoadBalancerInfo|null
      */
     private $loadBalancerInfo;
 
     /**
      * Provides information about the results of a deployment, such as whether instances in the original environment in a
      * blue/green deployment were not terminated.
+     *
+     * @var string|null
      */
     private $additionalDeploymentStatusInfo;
 
@@ -170,26 +218,40 @@ final class DeploymentInfo
      * - `OVERWRITE`: The version of the file from the application revision currently being deployed replaces the version
      *   already on the instance.
      * - `RETAIN`: The version of the file already on the instance is kept and used as part of the new deployment.
+     *
+     * @var FileExistsBehavior::*|null
      */
     private $fileExistsBehavior;
 
     /**
      * Messages that contain information about the status of a deployment.
+     *
+     * @var string[]|null
      */
     private $deploymentStatusMessages;
 
     /**
      * The destination platform type for the deployment (`Lambda`, `Server`, or `ECS`).
+     *
+     * @var ComputePlatform::*|null
      */
     private $computePlatform;
 
     /**
      * The unique ID for an external resource (for example, a CloudFormation stack ID) that is linked to this deployment.
+     *
+     * @var string|null
      */
     private $externalId;
 
+    /**
+     * @var RelatedDeployments|null
+     */
     private $relatedDeployments;
 
+    /**
+     * @var AlarmConfiguration|null
+     */
     private $overrideAlarmConfiguration;
 
     /**

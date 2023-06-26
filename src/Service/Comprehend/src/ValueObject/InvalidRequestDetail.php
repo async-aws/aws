@@ -17,6 +17,8 @@ final class InvalidRequestDetail
 {
     /**
      * Reason code is `INVALID_DOCUMENT`.
+     *
+     * @var InvalidRequestDetailReason::*|null
      */
     private $reason;
 

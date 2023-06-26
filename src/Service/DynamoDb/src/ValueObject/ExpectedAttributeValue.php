@@ -31,6 +31,8 @@ final class ExpectedAttributeValue
      * For more information, see Data Types [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
+     *
+     * @var AttributeValue|null
      */
     private $value;
 
@@ -52,6 +54,8 @@ final class ExpectedAttributeValue
      *   value is.)
      * - `Exists` is `false` but you also provide a `Value`. (You cannot expect an attribute to have a value, while also
      *   expecting it not to exist.)
+     *
+     * @var bool|null
      */
     private $exists;
 
@@ -150,6 +154,8 @@ final class ExpectedAttributeValue
      *   and less than, or equal to, the second element. If an item contains an `AttributeValue` element of a different type
      *   than the one provided in the request, the value does not match. For example, `{"S":"6"}` does not compare to
      *   `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":["6", "2", "1"]}`
+     *
+     * @var ComparisonOperator::*|null
      */
     private $comparisonOperator;
 
@@ -169,6 +175,8 @@ final class ExpectedAttributeValue
      *
      * [^1]: http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
      * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html
+     *
+     * @var AttributeValue[]|null
      */
     private $attributeValueList;
 

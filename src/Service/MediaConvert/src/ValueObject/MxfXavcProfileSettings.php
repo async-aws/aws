@@ -15,6 +15,8 @@ final class MxfXavcProfileSettings
      * Drop frames for compliance (DROP_FRAMES_FOR_COMPLIANCE). To include all frames from your input in this output, keep
      * the default setting, Allow any duration (ALLOW_ANY_DURATION). The number of frames that MediaConvert excludes when
      * you set this to Drop frames for compliance depends on the output frame rate and duration.
+     *
+     * @var MxfXavcDurationMode::*|null
      */
     private $durationMode;
 
@@ -24,6 +26,8 @@ final class MxfXavcProfileSettings
      * service reserves for ancillary data, such as teletext captions. The default value for this setting is 1492 bytes per
      * frame. This should be sufficient to prevent overflow unless you have multiple pages of teletext captions data. If you
      * have a large amount of teletext data, specify a larger number.
+     *
+     * @var int|null
      */
     private $maxAncDataSize;
 

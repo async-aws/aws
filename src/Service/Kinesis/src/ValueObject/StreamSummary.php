@@ -12,23 +12,34 @@ final class StreamSummary
 {
     /**
      * The name of a stream.
+     *
+     * @var string
      */
     private $streamName;
 
     /**
      * The ARN of the stream.
+     *
+     * @var string
      */
     private $streamArn;
 
     /**
      * The status of the stream.
+     *
+     * @var StreamStatus::*
      */
     private $streamStatus;
 
+    /**
+     * @var StreamModeDetails|null
+     */
     private $streamModeDetails;
 
     /**
      * The timestamp at which the stream was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $streamCreationTimestamp;
 

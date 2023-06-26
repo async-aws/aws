@@ -15,8 +15,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class BadRequestException extends ClientException
 {
+    /**
+     * @var BadRequestReason::*|null
+     */
     private $reason;
 
+    /**
+     * @var BadRequestDetail|null
+     */
     private $detail;
 
     public function getDetail(): ?BadRequestDetail

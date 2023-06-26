@@ -10,11 +10,15 @@ final class EnvironmentResponse
 {
     /**
      * Environment variable key-value pairs. Omitted from CloudTrail logs.
+     *
+     * @var array<string, string>|null
      */
     private $variables;
 
     /**
      * Error messages for environment variables that couldn't be applied.
+     *
+     * @var EnvironmentError|null
      */
     private $error;
 

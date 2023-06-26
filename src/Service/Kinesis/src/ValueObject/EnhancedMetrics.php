@@ -27,6 +27,8 @@ final class EnhancedMetrics
      * *Amazon Kinesis Data Streams Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html
+     *
+     * @var list<MetricsName::*>|null
      */
     private $shardLevelMetrics;
 

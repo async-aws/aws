@@ -11,11 +11,15 @@ final class Delete
 {
     /**
      * The object to delete.
+     *
+     * @var ObjectIdentifier[]
      */
     private $objects;
 
     /**
      * Element to enable quiet mode for the request. When you add this element, you must set its value to true.
+     *
+     * @var bool|null
      */
     private $quiet;
 

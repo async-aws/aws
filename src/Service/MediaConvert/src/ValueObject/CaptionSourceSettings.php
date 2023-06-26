@@ -13,16 +13,22 @@ final class CaptionSourceSettings
 {
     /**
      * Settings for ancillary captions source.
+     *
+     * @var AncillarySourceSettings|null
      */
     private $ancillarySourceSettings;
 
     /**
      * DVB Sub Source Settings.
+     *
+     * @var DvbSubSourceSettings|null
      */
     private $dvbSubSourceSettings;
 
     /**
      * Settings for embedded captions Source.
+     *
+     * @var EmbeddedSourceSettings|null
      */
     private $embeddedSourceSettings;
 
@@ -30,16 +36,22 @@ final class CaptionSourceSettings
      * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the input
      * caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
      * FileSoureSettings.
+     *
+     * @var FileSourceSettings|null
      */
     private $fileSourceSettings;
 
     /**
      * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption format.
+     *
+     * @var CaptionSourceType::*|null
      */
     private $sourceType;
 
     /**
      * Settings specific to Teletext caption sources, including Page number.
+     *
+     * @var TeletextSourceSettings|null
      */
     private $teletextSourceSettings;
 
@@ -47,6 +59,8 @@ final class CaptionSourceSettings
      * Settings specific to caption sources that are specified by track number. Currently, this is only IMSC captions in an
      * IMF package. If your caption source is IMSC 1.1 in a separate xml file, use FileSourceSettings instead of
      * TrackSourceSettings.
+     *
+     * @var TrackSourceSettings|null
      */
     private $trackSourceSettings;
 
@@ -57,6 +71,8 @@ final class CaptionSourceSettings
      * fails. If there is only one subtitle track in the rendition group, the settings can be left empty and the default
      * subtitle track will be chosen. If your caption source is a sidecar file, use FileSourceSettings instead of
      * WebvttHlsSourceSettings.
+     *
+     * @var WebvttHlsSourceSettings|null
      */
     private $webvttHlsSourceSettings;
 

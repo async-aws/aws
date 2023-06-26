@@ -14,36 +14,50 @@ final class ConsumedCapacity
 {
     /**
      * The name of the table that was affected by the operation.
+     *
+     * @var string|null
      */
     private $tableName;
 
     /**
      * The total number of capacity units consumed by the operation.
+     *
+     * @var float|null
      */
     private $capacityUnits;
 
     /**
      * The total number of read capacity units consumed by the operation.
+     *
+     * @var float|null
      */
     private $readCapacityUnits;
 
     /**
      * The total number of write capacity units consumed by the operation.
+     *
+     * @var float|null
      */
     private $writeCapacityUnits;
 
     /**
      * The amount of throughput consumed on the table affected by the operation.
+     *
+     * @var Capacity|null
      */
     private $table;
 
     /**
      * The amount of throughput consumed on each local index affected by the operation.
+     *
+     * @var array<string, Capacity>|null
      */
     private $localSecondaryIndexes;
 
     /**
      * The amount of throughput consumed on each global index affected by the operation.
+     *
+     * @var array<string, Capacity>|null
      */
     private $globalSecondaryIndexes;
 

@@ -9,11 +9,15 @@ final class NewDeviceMetadataType
 {
     /**
      * The device key.
+     *
+     * @var string|null
      */
     private $deviceKey;
 
     /**
      * The device group key.
+     *
+     * @var string|null
      */
     private $deviceGroupKey;
 

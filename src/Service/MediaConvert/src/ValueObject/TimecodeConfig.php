@@ -20,6 +20,8 @@ final class TimecodeConfig
      * (Start) are used calculate output timecode. * If Source (TimecodeSource) is set to Start at 0 (ZEROBASED) the first
      * frame is 00:00:00:00. * If Source (TimecodeSource) is set to Embedded (EMBEDDED), the first frame is the timecode
      * value on the first input frame of the input.
+     *
+     * @var string|null
      */
     private $anchor;
 
@@ -31,12 +33,16 @@ final class TimecodeConfig
      * source, the service will use Start at 0 (ZEROBASED) instead. * Start at 0 (ZEROBASED) - Set the timecode of the
      * initial frame to 00:00:00:00. * Specified Start (SPECIFIEDSTART) - Set the timecode of the initial frame to a value
      * other than zero. You use Start timecode (Start) to provide this value.
+     *
+     * @var TimecodeSource::*|null
      */
     private $source;
 
     /**
      * Only use when you set Source (TimecodeSource) to Specified start (SPECIFIEDSTART). Use Start timecode (Start) to
      * specify the timecode for the initial frame. Use 24-hour format with frame number, (HH:MM:SS:FF) or (HH:MM:SS;FF).
+     *
+     * @var string|null
      */
     private $start;
 
@@ -46,6 +52,8 @@ final class TimecodeConfig
      * "yyyy-mm-dd". To use Time stamp offset, you must also enable Insert program-date-time (InsertProgramDateTime) in the
      * output settings. For example, if the date part of your timecodes is 2002-1-25 and you want to change it to one year
      * later, set Timestamp offset (TimestampOffset) to 2003-1-25.
+     *
+     * @var string|null
      */
     private $timestampOffset;
 

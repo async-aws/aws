@@ -15,6 +15,8 @@ final class EcsParameters
 {
     /**
      * The capacity provider strategy to use for the task.
+     *
+     * @var CapacityProviderStrategyItem[]|null
      */
     private $capacityProviderStrategy;
 
@@ -23,17 +25,23 @@ final class EcsParameters
      * Resources [^1] in the *Amazon ECS Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html
+     *
+     * @var bool|null
      */
     private $enableEcsManagedTags;
 
     /**
      * Whether or not to enable the execute command functionality for the containers in this task. If true, this enables
      * execute command functionality on all containers in the task.
+     *
+     * @var bool|null
      */
     private $enableExecuteCommand;
 
     /**
      * Specifies an ECS task group for the task. The maximum length is 255 characters.
+     *
+     * @var string|null
      */
     private $group;
 
@@ -44,28 +52,38 @@ final class EcsParameters
      * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html
+     *
+     * @var LaunchType::*|null
      */
     private $launchType;
 
     /**
      * This structure specifies the network configuration for an ECS task.
+     *
+     * @var NetworkConfiguration|null
      */
     private $networkConfiguration;
 
     /**
      * An array of placement constraint objects to use for the task. You can specify up to 10 constraints per task
      * (including constraints in the task definition and those specified at runtime).
+     *
+     * @var PlacementConstraint[]|null
      */
     private $placementConstraints;
 
     /**
      * The task placement strategy for a task or service.
+     *
+     * @var PlacementStrategy[]|null
      */
     private $placementStrategy;
 
     /**
      * Specifies the platform version for the task. Specify only the numeric portion of the platform version, such as
      * `1.1.0`.
+     *
+     * @var string|null
      */
     private $platformVersion;
 
@@ -75,11 +93,15 @@ final class EcsParameters
      * creation, use Amazon ECS's `TagResource` [^1] API action.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html
+     *
+     * @var PropagateTags::*|null
      */
     private $propagateTags;
 
     /**
      * The reference ID to use for the task.
+     *
+     * @var string|null
      */
     private $referenceId;
 
@@ -88,16 +110,22 @@ final class EcsParameters
      * optional value, both of which you define. For more information, see `RunTask` [^1] in the *Amazon ECS API Reference*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
+     *
+     * @var array<string, string>[]|null
      */
     private $tags;
 
     /**
      * The number of tasks to create based on `TaskDefinition`. The default is `1`.
+     *
+     * @var int|null
      */
     private $taskCount;
 
     /**
      * The Amazon Resource Name (ARN) of the task definition to use if the event target is an Amazon ECS task.
+     *
+     * @var string
      */
     private $taskDefinitionArn;
 

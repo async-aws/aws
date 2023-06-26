@@ -11,16 +11,22 @@ final class Column
 {
     /**
      * The name of the column.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The data type of the column.
+     *
+     * @var string|null
      */
     private $type;
 
     /**
      * Optional information about the column.
+     *
+     * @var string|null
      */
     private $comment;
 

@@ -14,6 +14,8 @@ class GetCommitOutput extends Result
 {
     /**
      * A commit data type object that contains information about the specified commit.
+     *
+     * @var Commit
      */
     private $commit;
 

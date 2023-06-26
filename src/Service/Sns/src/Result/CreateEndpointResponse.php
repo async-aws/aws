@@ -12,6 +12,8 @@ class CreateEndpointResponse extends Result
 {
     /**
      * EndpointArn returned from CreateEndpoint action.
+     *
+     * @var string|null
      */
     private $endpointArn;
 

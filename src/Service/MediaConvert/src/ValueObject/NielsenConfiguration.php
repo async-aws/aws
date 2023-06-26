@@ -13,11 +13,15 @@ final class NielsenConfiguration
     /**
      * Nielsen has discontinued the use of breakout code functionality. If you must include this property, set the value to
      * zero.
+     *
+     * @var int|null
      */
     private $breakoutCode;
 
     /**
      * Use Distributor ID (DistributorID) to specify the distributor ID that is assigned to your organization by Neilsen.
+     *
+     * @var string|null
      */
     private $distributorId;
 

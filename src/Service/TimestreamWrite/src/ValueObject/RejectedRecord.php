@@ -10,6 +10,8 @@ final class RejectedRecord
 {
     /**
      * The index of the record in the input request for WriteRecords. Indexes begin with 0.
+     *
+     * @var int|null
      */
     private $recordIndex;
 
@@ -40,12 +42,16 @@ final class RejectedRecord
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/best-practices.html#configuration
      * [^2]: https://docs.aws.amazon.com/timestream/latest/developerguide/storage.html
      * [^3]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html
+     *
+     * @var string|null
      */
     private $reason;
 
     /**
      * The existing version of the record. This value is populated in scenarios where an identical record exists with a
      * higher version than the version in the write request.
+     *
+     * @var int|null
      */
     private $existingVersion;
 

@@ -12,6 +12,8 @@ class GetThingShadowResponse extends Result
 {
     /**
      * The state information, in JSON format.
+     *
+     * @var string|null
      */
     private $payload;
 

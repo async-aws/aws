@@ -14,11 +14,15 @@ final class Paths
 {
     /**
      * The number of invalidation paths specified for the objects that you want to invalidate.
+     *
+     * @var int
      */
     private $quantity;
 
     /**
      * A complex type that contains a list of the paths that you want to invalidate.
+     *
+     * @var string[]|null
      */
     private $items;
 

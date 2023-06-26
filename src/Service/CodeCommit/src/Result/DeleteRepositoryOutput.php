@@ -12,6 +12,8 @@ class DeleteRepositoryOutput extends Result
 {
     /**
      * The ID of the repository that was deleted.
+     *
+     * @var string|null
      */
     private $repositoryId;
 

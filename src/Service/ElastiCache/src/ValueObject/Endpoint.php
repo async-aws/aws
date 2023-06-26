@@ -9,11 +9,15 @@ final class Endpoint
 {
     /**
      * The DNS hostname of the cache node.
+     *
+     * @var string|null
      */
     private $address;
 
     /**
      * The port number that the cache engine is listening on.
+     *
+     * @var int|null
      */
     private $port;
 

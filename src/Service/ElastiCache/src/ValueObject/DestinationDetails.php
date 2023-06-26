@@ -9,11 +9,15 @@ final class DestinationDetails
 {
     /**
      * The configuration details of the CloudWatch Logs destination.
+     *
+     * @var CloudWatchLogsDestinationDetails|null
      */
     private $cloudWatchLogsDetails;
 
     /**
      * The configuration details of the Kinesis Data Firehose destination.
+     *
+     * @var KinesisFirehoseDestinationDetails|null
      */
     private $kinesisFirehoseDetails;
 

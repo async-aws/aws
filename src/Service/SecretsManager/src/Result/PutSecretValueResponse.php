@@ -9,22 +9,30 @@ class PutSecretValueResponse extends Result
 {
     /**
      * The ARN of the secret.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The name of the secret.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The unique identifier of the version of the secret.
+     *
+     * @var string|null
      */
     private $versionId;
 
     /**
      * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses staging
      * labels to track a version as it progresses through the secret rotation process.
+     *
+     * @var string[]
      */
     private $versionStages;
 

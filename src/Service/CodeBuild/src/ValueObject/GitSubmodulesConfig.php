@@ -11,6 +11,8 @@ final class GitSubmodulesConfig
 {
     /**
      * Set to true to fetch Git submodules for your CodeBuild build project.
+     *
+     * @var bool
      */
     private $fetchSubmodules;
 

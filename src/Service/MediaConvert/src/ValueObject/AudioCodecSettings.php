@@ -17,16 +17,22 @@ final class AudioCodecSettings
      * control mode (rateControlMode) to "VBR" or "CBR". In VBR mode, you control the audio quality with the setting VBR
      * quality (vbrQuality). In CBR mode, you use the setting Bitrate (bitrate). Defaults and valid values depend on the
      * rate control mode.
+     *
+     * @var AacSettings|null
      */
     private $aacSettings;
 
     /**
      * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AC3.
+     *
+     * @var Ac3Settings|null
      */
     private $ac3Settings;
 
     /**
      * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AIFF.
+     *
+     * @var AiffSettings|null
      */
     private $aiffSettings;
 
@@ -39,41 +45,57 @@ final class AudioCodecSettings
      * audio-only workflows. For more information, see:
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/reference-codecs-containers-input.html#reference-codecs-containers-input-audio-only
      * and https://docs.aws.amazon.com/mediaconvert/latest/ug/reference-codecs-containers.html#audio-only-output.
+     *
+     * @var AudioCodec::*|null
      */
     private $codec;
 
     /**
      * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3_ATMOS.
+     *
+     * @var Eac3AtmosSettings|null
      */
     private $eac3AtmosSettings;
 
     /**
      * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3.
+     *
+     * @var Eac3Settings|null
      */
     private $eac3Settings;
 
     /**
      * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value MP2.
+     *
+     * @var Mp2Settings|null
      */
     private $mp2Settings;
 
     /**
      * Required when you set Codec, under AudioDescriptions>CodecSettings, to the value MP3.
+     *
+     * @var Mp3Settings|null
      */
     private $mp3Settings;
 
     /**
      * Required when you set Codec, under AudioDescriptions>CodecSettings, to the value OPUS.
+     *
+     * @var OpusSettings|null
      */
     private $opusSettings;
 
     /**
      * Required when you set Codec, under AudioDescriptions>CodecSettings, to the value Vorbis.
+     *
+     * @var VorbisSettings|null
      */
     private $vorbisSettings;
 
     /**
      * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value WAV.
+     *
+     * @var WavSettings|null
      */
     private $wavSettings;
 

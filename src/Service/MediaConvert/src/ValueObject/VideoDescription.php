@@ -23,12 +23,16 @@ final class VideoDescription
      * whether the service includes AFD values in the output video data and what those values are. * Choose None to remove
      * all AFD values from this output. * Choose Fixed to ignore input AFD values and instead encode the value specified in
      * the job. * Choose Auto to calculate output AFD values based on the input AFD scaler data.
+     *
+     * @var AfdSignaling::*|null
      */
     private $afdSignaling;
 
     /**
      * The anti-alias filter is automatically applied to all outputs. The service no longer accepts the value DISABLED for
      * AntiAlias. If you specify that in your job, the service will ignore the setting.
+     *
+     * @var AntiAlias::*|null
      */
     private $antiAlias;
 
@@ -39,17 +43,23 @@ final class VideoDescription
      * object pairs. * AV1, Av1Settings * AVC_INTRA, AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * H_264,
      * H264Settings * H_265, H265Settings * MPEG2, Mpeg2Settings * PRORES, ProresSettings * VC3, Vc3Settings * VP8,
      * Vp8Settings * VP9, Vp9Settings * XAVC, XavcSettings.
+     *
+     * @var VideoCodecSettings|null
      */
     private $codecSettings;
 
     /**
      * Choose Insert (INSERT) for this setting to include color metadata in this output. Choose Ignore (IGNORE) to exclude
      * color metadata from this output. If you don't specify a value, the service sets this to Insert by default.
+     *
+     * @var ColorMetadata::*|null
      */
     private $colorMetadata;
 
     /**
      * Use Cropping selection (crop) to specify the video area that the service will include in the output video frame.
+     *
+     * @var Rectangle|null
      */
     private $crop;
 
@@ -57,12 +67,16 @@ final class VideoDescription
      * Applies only to 29.97 fps outputs. When this feature is enabled, the service will use drop-frame timecode on outputs.
      * If it is not possible to use drop-frame timecode, the system will fall back to non-drop-frame. This setting is
      * enabled by default when Timecode insertion (TimecodeInsertion) is enabled.
+     *
+     * @var DropFrameTimecode::*|null
      */
     private $dropFrameTimecode;
 
     /**
      * Applies only if you set AFD Signaling(AfdSignaling) to Fixed (FIXED). Use Fixed (FixedAfd) to specify a four-bit AFD
      * value which the service will write on all frames of this video output.
+     *
+     * @var int|null
      */
     private $fixedAfd;
 
@@ -70,12 +84,16 @@ final class VideoDescription
      * Use Height to define the video resolution height, in pixels, for this output. To use the same resolution as your
      * input: Leave both Width and Height blank. To evenly scale from your input resolution: Leave Height blank and enter a
      * value for Width. For example, if your input is 1920x1080 and you set Width to 1280, your output will be 1280x720.
+     *
+     * @var int|null
      */
     private $height;
 
     /**
      * Use Selection placement (position) to define the video area in your output frame. The area outside of the rectangle
      * that you specify here is black.
+     *
+     * @var Rectangle|null
      */
     private $position;
 
@@ -85,6 +103,8 @@ final class VideoDescription
      * output display aspect ratio. * Choose Passthrough to include the input AFD values. Do not choose this when
      * AfdSignaling is set to (NONE). A preferred implementation of this workflow is to set RespondToAfd to (NONE) and set
      * AfdSignaling to (AUTO). * Choose None to remove all input AFD values from this output.
+     *
+     * @var RespondToAfd::*|null
      */
     private $respondToAfd;
 
@@ -93,6 +113,8 @@ final class VideoDescription
      * Stretch to output (STRETCH_TO_OUTPUT) to have the service stretch your video image to fit. Keep the setting Default
      * (DEFAULT) to have the service letterbox your video instead. This setting overrides any value that you specify for the
      * setting Selection placement (position) in this output.
+     *
+     * @var ScalingBehavior::*|null
      */
     private $scalingBehavior;
 
@@ -100,6 +122,8 @@ final class VideoDescription
      * Use Sharpness (Sharpness) setting to specify the strength of anti-aliasing. This setting changes the width of the
      * anti-alias filter kernel used for scaling. Sharpness only applies if your output resolution is different from your
      * input resolution. 0 is the softest setting, 100 the sharpest, and 50 recommended for most content.
+     *
+     * @var int|null
      */
     private $sharpness;
 
@@ -113,12 +137,16 @@ final class VideoDescription
      * Job > Job settings > Timecode configuration. Note - Timecode source under input settings (InputTimecodeSource) does
      * not affect the timecodes that are inserted in the output. Source under Job settings > Timecode configuration
      * (TimecodeSource) does.
+     *
+     * @var VideoTimecodeInsertion::*|null
      */
     private $timecodeInsertion;
 
     /**
      * Find additional transcoding features under Preprocessors (VideoPreprocessors). Enable the features at each output
      * individually. These features are disabled by default.
+     *
+     * @var VideoPreprocessor|null
      */
     private $videoPreprocessors;
 
@@ -126,6 +154,8 @@ final class VideoDescription
      * Use Width to define the video resolution width, in pixels, for this output. To use the same resolution as your input:
      * Leave both Width and Height blank. To evenly scale from your input resolution: Leave Width blank and enter a value
      * for Height. For example, if your input is 1920x1080 and you set Height to 720, your output will be 1280x720.
+     *
+     * @var int|null
      */
     private $width;
 

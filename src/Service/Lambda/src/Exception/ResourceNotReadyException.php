@@ -13,6 +13,8 @@ final class ResourceNotReadyException extends ServerException
 {
     /**
      * The exception type.
+     *
+     * @var string|null
      */
     private $type;
 

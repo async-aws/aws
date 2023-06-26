@@ -21,6 +21,8 @@ class UpdateDataSourceResponse extends Result
 {
     /**
      * The updated `DataSource` object.
+     *
+     * @var DataSource|null
      */
     private $dataSource;
 

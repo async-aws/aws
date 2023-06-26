@@ -14,16 +14,22 @@ final class ModerationLabel
      *
      * If you don't specify the `MinConfidence` parameter in the call to `DetectModerationLabels`, the operation returns
      * labels with a confidence value greater than or equal to 50 percent.
+     *
+     * @var float|null
      */
     private $confidence;
 
     /**
      * The label name for the type of unsafe content detected in the image.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The name for the parent label. Labels at the top level of the hierarchy have the parent label `""`.
+     *
+     * @var string|null
      */
     private $parentName;
 

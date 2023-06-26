@@ -17,21 +17,29 @@ final class MessageAttributeValue
      * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters [^1].
      *
      * [^1]: http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+     *
+     * @var string|null
      */
     private $stringValue;
 
     /**
      * Binary type attributes can store any binary data, such as compressed data, encrypted data, or images.
+     *
+     * @var string|null
      */
     private $binaryValue;
 
     /**
      * Not implemented. Reserved for future use.
+     *
+     * @var string[]|null
      */
     private $stringListValues;
 
     /**
      * Not implemented. Reserved for future use.
+     *
+     * @var string[]|null
      */
     private $binaryListValues;
 
@@ -43,6 +51,8 @@ final class MessageAttributeValue
      * Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
+     *
+     * @var string
      */
     private $dataType;
 

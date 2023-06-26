@@ -14,11 +14,15 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
 {
     /**
      * The list of buckets owned by the requester.
+     *
+     * @var Bucket[]
      */
     private $buckets;
 
     /**
      * The owner of the buckets listed.
+     *
+     * @var Owner|null
      */
     private $owner;
 

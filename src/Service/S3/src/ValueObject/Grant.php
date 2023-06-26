@@ -12,11 +12,15 @@ final class Grant
 {
     /**
      * The person being granted permissions.
+     *
+     * @var Grantee|null
      */
     private $grantee;
 
     /**
      * Specifies the permission given to the grantee.
+     *
+     * @var Permission::*|null
      */
     private $permission;
 

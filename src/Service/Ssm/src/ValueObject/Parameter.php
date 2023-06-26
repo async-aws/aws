@@ -11,6 +11,8 @@ final class Parameter
 {
     /**
      * The name of the parameter.
+     *
+     * @var string|null
      */
     private $name;
 
@@ -19,6 +21,8 @@ final class Parameter
      *
      * > If type is `StringList`, the system returns a comma-separated string with no spaces between commas in the `Value`
      * > field.
+     *
+     * @var ParameterType::*|null
      */
     private $type;
 
@@ -27,11 +31,15 @@ final class Parameter
      *
      * > If type is `StringList`, the system returns a comma-separated string with no spaces between commas in the `Value`
      * > field.
+     *
+     * @var string|null
      */
     private $value;
 
     /**
      * The parameter version.
+     *
+     * @var int|null
      */
     private $version;
 
@@ -42,27 +50,37 @@ final class Parameter
      * parameter_name:version
      *
      * parameter_name:label
+     *
+     * @var string|null
      */
     private $selector;
 
     /**
      * Applies to parameters that reference information in other Amazon Web Services services. `SourceResult` is the raw
      * result or response from the source.
+     *
+     * @var string|null
      */
     private $sourceResult;
 
     /**
      * Date the parameter was last changed or updated and the parameter version was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModifiedDate;
 
     /**
      * The Amazon Resource Name (ARN) of the parameter.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The data type of the parameter, such as `text` or `aws:ec2:image`. The default is `text`.
+     *
+     * @var string|null
      */
     private $dataType;
 

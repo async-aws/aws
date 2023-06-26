@@ -31,11 +31,15 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
 {
     /**
      * The pagination token that's included if more results are available.
+     *
+     * @var string|null
      */
     private $nextMarker;
 
     /**
      * A list of Lambda function versions.
+     *
+     * @var FunctionConfiguration[]
      */
     private $versions;
 

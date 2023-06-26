@@ -10,36 +10,50 @@ final class Face
 {
     /**
      * Unique identifier that Amazon Rekognition assigns to the face.
+     *
+     * @var string|null
      */
     private $faceId;
 
     /**
      * Bounding box of the face.
+     *
+     * @var BoundingBox|null
      */
     private $boundingBox;
 
     /**
      * Unique identifier that Amazon Rekognition assigns to the input image.
+     *
+     * @var string|null
      */
     private $imageId;
 
     /**
      * Identifier that you assign to all the faces in the input image.
+     *
+     * @var string|null
      */
     private $externalImageId;
 
     /**
      * Confidence level that the bounding box contains a face (and not a different object such as a tree).
+     *
+     * @var float|null
      */
     private $confidence;
 
     /**
      * The version of the face detect and storage model that was used when indexing the face vector.
+     *
+     * @var string|null
      */
     private $indexFacesModelVersion;
 
     /**
      * Unique identifier assigned to the user.
+     *
+     * @var string|null
      */
     private $userId;
 

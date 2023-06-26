@@ -21,6 +21,8 @@ class QueryOutput extends Result implements \IteratorAggregate
     /**
      * An array of item attributes that match the query criteria. Each element in this array consists of an attribute name
      * and the value for that attribute.
+     *
+     * @var array<string, AttributeValue>[]
      */
     private $items;
 
@@ -31,6 +33,8 @@ class QueryOutput extends Result implements \IteratorAggregate
      * applied, and `ScannedCount` is the number of matching items before the filter was applied.
      *
      * If you did not use a filter in the request, then `Count` and `ScannedCount` are the same.
+     *
+     * @var int|null
      */
     private $count;
 
@@ -42,6 +46,8 @@ class QueryOutput extends Result implements \IteratorAggregate
      * If you did not use a filter in the request, then `ScannedCount` is the same as `Count`.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count
+     *
+     * @var int|null
      */
     private $scannedCount;
 
@@ -54,6 +60,8 @@ class QueryOutput extends Result implements \IteratorAggregate
      *
      * If `LastEvaluatedKey` is not empty, it does not necessarily mean that there is more data in the result set. The only
      * way to know when you have reached the end of the result set is when `LastEvaluatedKey` is empty.
+     *
+     * @var array<string, AttributeValue>
      */
     private $lastEvaluatedKey;
 
@@ -64,6 +72,8 @@ class QueryOutput extends Result implements \IteratorAggregate
      * [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
+     *
+     * @var ConsumedCapacity|null
      */
     private $consumedCapacity;
 

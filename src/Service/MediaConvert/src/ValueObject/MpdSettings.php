@@ -24,6 +24,8 @@ final class MpdSettings
      * play embedded 608 captions. Keep the default value, Exclude (EXCLUDE), to leave these elements out. When you enable
      * this setting, this is the markup that MediaConvert includes in your manifest: `<Accessibility
      * schemeIdUri="urn:scte:dash:cc:cea-608:2015" value="CC1=eng"/>`.
+     *
+     * @var MpdAccessibilityCaptionHints::*|null
      */
     private $accessibilityCaptionHints;
 
@@ -37,6 +39,8 @@ final class MpdSettings
      * applies audio padding or trimming only to the end of the last segment of the output. For unsegmented outputs,
      * MediaConvert adds padding only to the end of the file. When you keep the default value, any minor discrepancies
      * between audio and video duration will depend on your output audio codec.
+     *
+     * @var MpdAudioDuration::*|null
      */
     private $audioDuration;
 
@@ -45,6 +49,8 @@ final class MpdSettings
      * in a separate output from your audio and video. Choose Raw (RAW) for captions in a single XML file in a raw
      * container. Choose Fragmented MPEG-4 (FRAGMENTED_MP4) for captions in XML format contained within fragmented MP4
      * files. This set of fragmented MP4 files is separate from your video and audio fragmented MP4 files.
+     *
+     * @var MpdCaptionContainerType::*|null
      */
     private $captionContainerType;
 
@@ -52,6 +58,8 @@ final class MpdSettings
      * To include key-length-value metadata in this output: Set KLV metadata insertion to Passthrough. MediaConvert reads
      * KLV metadata present in your input and writes each instance to a separate event message box in the output, according
      * to MISB ST1910.1. To exclude this KLV metadata: Set KLV metadata insertion to None or leave blank.
+     *
+     * @var MpdKlvMetadata::*|null
      */
     private $klvMetadata;
 
@@ -62,6 +70,8 @@ final class MpdSettings
      * "urn:scte:scte35:2013:bin". To leave these elements out of your output MPD manifest, set Manifest metadata signaling
      * to Disabled. To enable Manifest metadata signaling, you must also set SCTE-35 source to Passthrough, ESAM SCTE-35 to
      * insert, or ID3 metadata (TimedMetadata) to Passthrough.
+     *
+     * @var MpdManifestMetadataSignaling::*|null
      */
     private $manifestMetadataSignaling;
 
@@ -69,6 +79,8 @@ final class MpdSettings
      * Use this setting only when you specify SCTE-35 markers from ESAM. Choose INSERT to put SCTE-35 markers in this output
      * at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML
      * (sccXml).
+     *
+     * @var MpdScte35Esam::*|null
      */
     private $scte35Esam;
 
@@ -76,6 +88,8 @@ final class MpdSettings
      * Ignore this setting unless you have SCTE-35 markers in your input video file. Choose Passthrough (PASSTHROUGH) if you
      * want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want
      * those SCTE-35 markers in this output.
+     *
+     * @var MpdScte35Source::*|null
      */
     private $scte35Source;
 
@@ -84,6 +98,8 @@ final class MpdSettings
      * ID3 metadata in Custom ID3 metadata inserter (timedMetadataInsertion). MediaConvert writes each instance of ID3
      * metadata in a separate Event Message (eMSG) box. To exclude this ID3 metadata: Set ID3 metadata to None (NONE) or
      * leave blank.
+     *
+     * @var MpdTimedMetadata::*|null
      */
     private $timedMetadata;
 
@@ -92,6 +108,8 @@ final class MpdSettings
      * For more information, see ISO/IEC 23009-1:2022 section 5.10.3.3.3 Syntax.
      * Leave blank to use the default value Version 0.
      * When you specify Version 1, you must also set ID3 metadata (timedMetadata) to Passthrough.
+     *
+     * @var MpdTimedMetadataBoxVersion::*|null
      */
     private $timedMetadataBoxVersion;
 
@@ -100,6 +118,8 @@ final class MpdSettings
      * information, see ISO/IEC 23009-1:2022 section 5.10.3.3.4 Semantics. Leave blank to use the default value:
      * https://aomedia.org/emsg/ID3 When you specify a value for ID3 metadata scheme ID URI, you must also set ID3 metadata
      * (timedMetadata) to Passthrough.
+     *
+     * @var string|null
      */
     private $timedMetadataSchemeIdUri;
 
@@ -107,6 +127,8 @@ final class MpdSettings
      * Specify the event message box (eMSG) value for ID3 timed metadata in your output. For more information, see ISO/IEC
      * 23009-1:2022 section 5.10.3.3.4 Semantics. When you specify a value for ID3 Metadata Value, you must also set ID3
      * metadata (timedMetadata) to Passthrough.
+     *
+     * @var string|null
      */
     private $timedMetadataValue;
 

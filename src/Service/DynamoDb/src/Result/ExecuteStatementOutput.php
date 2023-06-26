@@ -13,15 +13,22 @@ class ExecuteStatementOutput extends Result
     /**
      * If a read operation was used, this property will contain the result of the read operation; a map of attribute names
      * and their values. For the write operations this value will be empty.
+     *
+     * @var array<string, AttributeValue>[]
      */
     private $items;
 
     /**
      * If the response of a read request exceeds the response payload limit DynamoDB will set this value in the response. If
      * set, you can use that this value in the subsequent request to get the remaining results.
+     *
+     * @var string|null
      */
     private $nextToken;
 
+    /**
+     * @var ConsumedCapacity|null
+     */
     private $consumedCapacity;
 
     /**
@@ -30,6 +37,8 @@ class ExecuteStatementOutput extends Result
      * of results has been processed and there is no more data to be retrieved. If `LastEvaluatedKey` is not empty, it does
      * not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of
      * the result set is when `LastEvaluatedKey` is empty.
+     *
+     * @var array<string, AttributeValue>
      */
     private $lastEvaluatedKey;
 

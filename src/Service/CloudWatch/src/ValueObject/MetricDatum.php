@@ -13,16 +13,22 @@ final class MetricDatum
 {
     /**
      * The name of the metric.
+     *
+     * @var string
      */
     private $metricName;
 
     /**
      * The dimensions associated with the metric.
+     *
+     * @var Dimension[]|null
      */
     private $dimensions;
 
     /**
      * The time the metric data was received, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $timestamp;
 
@@ -32,11 +38,15 @@ final class MetricDatum
      * Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too
      * large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity,
      * -Infinity) are not supported.
+     *
+     * @var float|null
      */
     private $value;
 
     /**
      * The statistical values for the metric.
+     *
+     * @var StatisticSet|null
      */
     private $statisticValues;
 
@@ -49,6 +59,8 @@ final class MetricDatum
      * Although the `Values` array accepts numbers of type `Double`, CloudWatch rejects values that are either too small or
      * too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity,
      * -Infinity) are not supported.
+     *
+     * @var float[]|null
      */
     private $values;
 
@@ -58,6 +70,8 @@ final class MetricDatum
      *
      * If you omit the `Counts` array, the default of 1 is used as the value for each count. If you include a `Counts`
      * array, it must include the same amount of values as the `Values` array.
+     *
+     * @var float[]|null
      */
     private $counts;
 
@@ -65,6 +79,8 @@ final class MetricDatum
      * When you are using a `Put` operation, this defines what unit you want to use when storing the metric.
      *
      * In a `Get` operation, this displays the unit that is used for the metric.
+     *
+     * @var StandardUnit::*|null
      */
     private $unit;
 
@@ -78,6 +94,8 @@ final class MetricDatum
      * This field is optional, if you do not specify it the default of 60 is used.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics
+     *
+     * @var int|null
      */
     private $storageResolution;
 

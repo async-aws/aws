@@ -11,17 +11,23 @@ final class DvbNitSettings
 {
     /**
      * The numeric value placed in the Network Information Table (NIT).
+     *
+     * @var int|null
      */
     private $networkId;
 
     /**
      * The network name text placed in the network_name_descriptor inside the Network Information Table. Maximum length is
      * 256 characters.
+     *
+     * @var string|null
      */
     private $networkName;
 
     /**
      * The number of milliseconds between instances of this table in the output transport stream.
+     *
+     * @var int|null
      */
     private $nitInterval;
 

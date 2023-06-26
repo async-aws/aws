@@ -9,11 +9,15 @@ final class MouthOpen
 {
     /**
      * Boolean value that indicates whether the mouth on the face is open or not.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

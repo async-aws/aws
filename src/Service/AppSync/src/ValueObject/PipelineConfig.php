@@ -9,6 +9,8 @@ final class PipelineConfig
 {
     /**
      * A list of `Function` objects.
+     *
+     * @var string[]|null
      */
     private $functions;
 

@@ -10,11 +10,15 @@ class VerifySoftwareTokenResponse extends Result
 {
     /**
      * The status of the verify software token.
+     *
+     * @var VerifySoftwareTokenResponseType::*|null
      */
     private $status;
 
     /**
      * The session that should be passed both ways in challenge-response calls to the service.
+     *
+     * @var string|null
      */
     private $session;
 

@@ -21,26 +21,36 @@ class QueryResponse extends Result implements \IteratorAggregate
 {
     /**
      * A unique ID for the given query.
+     *
+     * @var string
      */
     private $queryId;
 
     /**
      * A pagination token that can be used again on a `Query` call to get the next set of results.
+     *
+     * @var string|null
      */
     private $nextToken;
 
     /**
      * The result set rows returned by the query.
+     *
+     * @var Row[]
      */
     private $rows;
 
     /**
      * The column data types of the returned result set.
+     *
+     * @var ColumnInfo[]
      */
     private $columnInfo;
 
     /**
      * Information about the status of the query, including progress and bytes scanned.
+     *
+     * @var QueryStatus|null
      */
     private $queryStatus;
 

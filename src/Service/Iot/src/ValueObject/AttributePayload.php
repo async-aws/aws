@@ -11,6 +11,8 @@ final class AttributePayload
      * A JSON string containing up to three key-value pair in JSON format. For example:.
      *
      * `{\"attributes\":{\"string1\":\"string2\"}}`
+     *
+     * @var array<string, string>|null
      */
     private $attributes;
 
@@ -21,6 +23,8 @@ final class AttributePayload
      * To remove an attribute, call `UpdateThing` with an empty attribute value.
      *
      * > The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`.
+     *
+     * @var bool|null
      */
     private $merge;
 

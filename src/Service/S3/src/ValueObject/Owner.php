@@ -19,11 +19,15 @@ final class Owner
      * - Asia Pacific (Tokyo)
      * - Europe (Ireland)
      * - South America (São Paulo)
+     *
+     * @var string|null
      */
     private $displayName;
 
     /**
      * Container for the ID of the owner.
+     *
+     * @var string|null
      */
     private $id;
 

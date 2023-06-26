@@ -12,6 +12,8 @@ final class EphemeralStorage
 {
     /**
      * The size of the function's `/tmp` directory.
+     *
+     * @var int
      */
     private $size;
 

@@ -9,6 +9,8 @@ final class LocalSecondaryIndexDescription
 {
     /**
      * Represents the name of the local secondary index.
+     *
+     * @var string|null
      */
     private $indexName;
 
@@ -25,29 +27,39 @@ final class LocalSecondaryIndexDescription
      * >
      * > The sort key of an item is also known as its *range attribute*. The term "range attribute" derives from the way
      * > DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
+     *
+     * @var KeySchemaElement[]|null
      */
     private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into the global secondary index. These are in
      * addition to the primary key attributes and index key attributes, which are automatically projected.
+     *
+     * @var Projection|null
      */
     private $projection;
 
     /**
      * The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent
      * changes might not be reflected in this value.
+     *
+     * @var int|null
      */
     private $indexSizeBytes;
 
     /**
      * The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes
      * might not be reflected in this value.
+     *
+     * @var int|null
      */
     private $itemCount;
 
     /**
      * The Amazon Resource Name (ARN) that uniquely identifies the index.
+     *
+     * @var string|null
      */
     private $indexArn;
 

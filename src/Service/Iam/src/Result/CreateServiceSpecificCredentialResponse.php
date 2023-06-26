@@ -13,6 +13,8 @@ class CreateServiceSpecificCredentialResponse extends Result
      *
      * ! This is the only time that the password for this credential set is available. It cannot be recovered later.
      * ! Instead, you must reset the password with ResetServiceSpecificCredential.
+     *
+     * @var ServiceSpecificCredential|null
      */
     private $serviceSpecificCredential;
 

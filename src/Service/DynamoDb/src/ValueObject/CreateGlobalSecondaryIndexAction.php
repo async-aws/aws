@@ -11,17 +11,23 @@ final class CreateGlobalSecondaryIndexAction
 {
     /**
      * The name of the global secondary index to be created.
+     *
+     * @var string
      */
     private $indexName;
 
     /**
      * The key schema for the global secondary index.
+     *
+     * @var KeySchemaElement[]
      */
     private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary
      * key attributes and index key attributes, which are automatically projected.
+     *
+     * @var Projection
      */
     private $projection;
 
@@ -32,6 +38,8 @@ final class CreateGlobalSecondaryIndexAction
      * *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
+     *
+     * @var ProvisionedThroughput|null
      */
     private $provisionedThroughput;
 

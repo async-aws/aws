@@ -12,6 +12,8 @@ class PutRepositoryTriggersOutput extends Result
 {
     /**
      * The system-generated unique ID for the create or update operation.
+     *
+     * @var string|null
      */
     private $configurationId;
 

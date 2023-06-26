@@ -11,6 +11,8 @@ final class DeadLetterConfig
 {
     /**
      * The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic.
+     *
+     * @var string|null
      */
     private $targetArn;
 

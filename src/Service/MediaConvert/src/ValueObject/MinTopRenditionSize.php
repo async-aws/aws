@@ -13,11 +13,15 @@ final class MinTopRenditionSize
 {
     /**
      * Use Height to define the video resolution height, in pixels, for this rule.
+     *
+     * @var int|null
      */
     private $height;
 
     /**
      * Use Width to define the video resolution width, in pixels, for this rule.
+     *
+     * @var int|null
      */
     private $width;
 

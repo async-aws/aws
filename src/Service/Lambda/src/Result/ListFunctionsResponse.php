@@ -33,11 +33,15 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
 {
     /**
      * The pagination token that's included if more results are available.
+     *
+     * @var string|null
      */
     private $nextMarker;
 
     /**
      * A list of Lambda functions.
+     *
+     * @var FunctionConfiguration[]
      */
     private $functions;
 

@@ -13,11 +13,15 @@ final class CapacityProviderStrategyItem
      * The base value designates how many tasks, at a minimum, to run on the specified capacity provider. Only one capacity
      * provider in a capacity provider strategy can have a base defined. If no value is specified, the default value of `0`
      * is used.
+     *
+     * @var int|null
      */
     private $base;
 
     /**
      * The short name of the capacity provider.
+     *
+     * @var string
      */
     private $capacityProvider;
 
@@ -25,6 +29,8 @@ final class CapacityProviderStrategyItem
      * The weight value designates the relative percentage of the total number of tasks launched that should use the
      * specified capacity provider. The weight value is taken into consideration after the base value, if defined, is
      * satisfied.
+     *
+     * @var int|null
      */
     private $weight;
 

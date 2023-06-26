@@ -18,11 +18,15 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 {
     /**
      * A pagination token returned when the response doesn't contain all versions.
+     *
+     * @var string|null
      */
     private $nextMarker;
 
     /**
      * A list of versions.
+     *
+     * @var LayerVersionsListItem[]
      */
     private $layerVersions;
 

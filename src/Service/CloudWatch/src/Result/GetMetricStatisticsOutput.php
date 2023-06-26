@@ -10,11 +10,15 @@ class GetMetricStatisticsOutput extends Result
 {
     /**
      * A label for the specified metric.
+     *
+     * @var string|null
      */
     private $label;
 
     /**
      * The data points for the specified metric.
+     *
+     * @var Datapoint[]
      */
     private $datapoints;
 

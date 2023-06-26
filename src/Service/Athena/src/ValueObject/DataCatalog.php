@@ -17,17 +17,23 @@ final class DataCatalog
      * The name of the data catalog. The catalog name must be unique for the Amazon Web Services account and can use a
      * maximum of 127 alphanumeric, underscore, at sign, or hyphen characters. The remainder of the length constraint of 256
      * is reserved for use by Athena.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * An optional description of the data catalog.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The type of data catalog to create: `LAMBDA` for a federated catalog, `HIVE` for an external hive metastore, or
      * `GLUE` for an Glue Data Catalog.
+     *
+     * @var DataCatalogType::*
      */
     private $type;
 
@@ -59,6 +65,8 @@ final class DataCatalog
      *     which you can have only one and cannot modify.
      *   - Queries that specify a Glue Data Catalog other than the default `AwsDataCatalog` must be run on Athena engine
      *     version 2.
+     *
+     * @var array<string, string>|null
      */
     private $parameters;
 

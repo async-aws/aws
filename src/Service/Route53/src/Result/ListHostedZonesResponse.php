@@ -18,12 +18,16 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
 {
     /**
      * A complex type that contains general information about the hosted zone.
+     *
+     * @var HostedZone[]
      */
     private $hostedZones;
 
     /**
      * For the second and subsequent calls to `ListHostedZones`, `Marker` is the value that you specified for the `marker`
      * parameter in the request that produced the current response.
+     *
+     * @var string
      */
     private $marker;
 
@@ -31,6 +35,8 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
      * A flag indicating whether there are more hosted zones to be listed. If the response was truncated, you can get more
      * hosted zones by submitting another `ListHostedZones` request and specifying the value of `NextMarker` in the `marker`
      * parameter.
+     *
+     * @var bool
      */
     private $isTruncated;
 
@@ -40,12 +46,16 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
      * `marker` parameter.
      *
      * This element is present only if `IsTruncated` is `true`.
+     *
+     * @var string|null
      */
     private $nextMarker;
 
     /**
      * The value that you specified for the `maxitems` parameter in the call to `ListHostedZones` that produced the current
      * response.
+     *
+     * @var string
      */
     private $maxItems;
 

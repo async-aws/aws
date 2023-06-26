@@ -11,26 +11,36 @@ final class UserType
 {
     /**
      * The user name of the user you want to describe.
+     *
+     * @var string|null
      */
     private $username;
 
     /**
      * A container with information about the user type attributes.
+     *
+     * @var AttributeType[]|null
      */
     private $attributes;
 
     /**
      * The creation date of the user.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $userCreateDate;
 
     /**
      * The last modified date of the user.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $userLastModifiedDate;
 
     /**
      * Specifies whether the user is enabled.
+     *
+     * @var bool|null
      */
     private $enabled;
 
@@ -46,11 +56,15 @@ final class UserType
      *   in.
      * - FORCE_CHANGE_PASSWORD - The user is confirmed and the user can sign in using a temporary password, but on first
      *   sign-in, the user must change their password to a new value before doing anything else.
+     *
+     * @var UserStatusType::*|null
      */
     private $userStatus;
 
     /**
      * The MFA options for the user.
+     *
+     * @var MFAOptionType[]|null
      */
     private $mfaOptions;
 

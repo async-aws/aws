@@ -25,6 +25,8 @@ final class Vc3Settings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var Vc3FramerateControl::*|null
      */
     private $framerateControl;
 
@@ -37,6 +39,8 @@ final class Vc3Settings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var Vc3FramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -45,6 +49,8 @@ final class Vc3Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -53,12 +59,16 @@ final class Vc3Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
     /**
      * Optional. Choose the scan line type for this output. If you don't specify a value, MediaConvert will create a
      * progressive output.
+     *
+     * @var Vc3InterlaceMode::*|null
      */
     private $interlaceMode;
 
@@ -72,6 +82,8 @@ final class Vc3Settings
      * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
      * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
      * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     *
+     * @var Vc3ScanTypeConversionMode::*|null
      */
     private $scanTypeConversionMode;
 
@@ -80,6 +92,8 @@ final class Vc3Settings
      * 25 fps output by relabeling the video frames and resampling your audio. Note that enabling this setting will slightly
      * reduce the duration of your video. Related settings: You must also set Framerate to 25. In your JSON job
      * specification, set (framerateControl) to (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var Vc3SlowPal::*|null
      */
     private $slowPal;
 
@@ -88,6 +102,8 @@ final class Vc3Settings
      * interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default
      * value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field
      * polarity to create a smoother picture.
+     *
+     * @var Vc3Telecine::*|null
      */
     private $telecine;
 
@@ -97,6 +113,8 @@ final class Vc3Settings
      * bitrate. For example, say that your video resolution is 1920x1080 and your framerate is 29.97. Then Class 145
      * (CLASS_145) gives you an output with a bitrate of approximately 145 Mbps and Class 220 (CLASS_220) gives you and
      * output with a bitrate of approximately 220 Mbps. VC3 class also specifies the color bit depth of your output.
+     *
+     * @var Vc3Class::*|null
      */
     private $vc3Class;
 

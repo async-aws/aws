@@ -9,11 +9,15 @@ final class VideoDetail
 {
     /**
      * Height in pixels for the output.
+     *
+     * @var int|null
      */
     private $heightInPx;
 
     /**
      * Width in pixels for the output.
+     *
+     * @var int|null
      */
     private $widthInPx;
 

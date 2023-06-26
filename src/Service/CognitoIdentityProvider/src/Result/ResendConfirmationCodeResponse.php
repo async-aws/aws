@@ -13,6 +13,8 @@ class ResendConfirmationCodeResponse extends Result
 {
     /**
      * The code delivery details returned by the server in response to the request to resend the confirmation code.
+     *
+     * @var CodeDeliveryDetailsType|null
      */
     private $codeDeliveryDetails;
 

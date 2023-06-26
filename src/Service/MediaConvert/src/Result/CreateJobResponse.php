@@ -168,6 +168,8 @@ class CreateJobResponse extends Result
     /**
      * Each job converts an input file into an output file or files. For more information, see the User Guide at
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html.
+     *
+     * @var Job|null
      */
     private $job;
 

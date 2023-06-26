@@ -288,6 +288,11 @@
       <code><![CDATA[list<Reason::*>]]></code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/Route53/src/Result/CreateHostedZoneResponse.php">
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[$headers['location'][0] ?? null]]></code>
+    </PossiblyNullPropertyAssignmentValue>
+  </file>
   <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -306,5 +311,15 @@
     <TypeDoesNotContainType>
       <code>empty($s3SignerOptions)</code>
     </TypeDoesNotContainType>
+  </file>
+  <file src="src/Service/StepFunctions/src/Result/StartExecutionOutput.php">
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['startDate']))]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
+  </file>
+  <file src="src/Service/StepFunctions/src/Result/StopExecutionOutput.php">
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['stopDate']))]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
   </file>
 </files>

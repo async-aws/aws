@@ -9,27 +9,37 @@ final class AliasListEntry
 {
     /**
      * String that contains the alias. This value begins with `alias/`.
+     *
+     * @var string|null
      */
     private $aliasName;
 
     /**
      * String that contains the key ARN.
+     *
+     * @var string|null
      */
     private $aliasArn;
 
     /**
      * String that contains the key identifier of the KMS key associated with the alias.
+     *
+     * @var string|null
      */
     private $targetKeyId;
 
     /**
      * Date and time that the alias was most recently created in the account and Region. Formatted as Unix time.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 
     /**
      * Date and time that the alias was most recently associated with a KMS key in the account and Region. Formatted as Unix
      * time.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastUpdatedDate;
 

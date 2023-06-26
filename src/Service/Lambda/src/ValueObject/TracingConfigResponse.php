@@ -11,6 +11,8 @@ final class TracingConfigResponse
 {
     /**
      * The tracing mode.
+     *
+     * @var TracingMode::*|null
      */
     private $mode;
 

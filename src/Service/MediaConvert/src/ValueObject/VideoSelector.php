@@ -22,6 +22,8 @@ final class VideoSelector
      * separate Key and Fill outputs. In each output, specify which part of the input MediaConvert uses. Leave this setting
      * at the default value DISCARD to delete the alpha channel and preserve the video. Set it to REMAP_TO_LUMA to delete
      * the video and map the alpha channel to the luma channel of your outputs.
+     *
+     * @var AlphaBehavior::*|null
      */
     private $alphaBehavior;
 
@@ -39,6 +41,8 @@ final class VideoSelector
      * * P3DCI (Theater): DCIP3, SMPTE 428M, BT.709
      * * P3D65 (SDR): Display P3, sRGB, BT.709
      * * P3D65 (HDR): Display P3, PQ, BT.709.
+     *
+     * @var ColorSpace::*|null
      */
     private $colorSpace;
 
@@ -49,6 +53,8 @@ final class VideoSelector
      * settings, the service defaults to using metadata from your input. FALLBACK - Choose Fallback (FALLBACK) to use color
      * metadata from the source when it is present. If there's no color metadata in your input file, the service defaults to
      * using values you specify in the input settings.
+     *
+     * @var ColorSpaceUsage::*|null
      */
     private $colorSpaceUsage;
 
@@ -57,6 +63,8 @@ final class VideoSelector
      * timecode tag data in the Modified Digital Video Pack Metadata (MDPM). When you do, we recommend you also set Timecode
      * source (inputTimecodeSource) to Embedded (EMBEDDED). Leave Embedded timecode override blank, or set to None (NONE),
      * when your input does not contain MDPM timecode.
+     *
+     * @var EmbeddedTimecodeOverride::*|null
      */
     private $embeddedTimecodeOverride;
 
@@ -69,6 +77,8 @@ final class VideoSelector
      * the values in the metadata of your input file, set Color space usage (ColorSpaceUsage). To specify whether color
      * metadata is included in an output, set Color metadata (ColorMetadata). For more information about MediaConvert HDR
      * jobs, see https://docs.aws.amazon.com/console/mediaconvert/hdr.
+     *
+     * @var Hdr10Metadata|null
      */
     private $hdr10Metadata;
 
@@ -78,6 +88,8 @@ final class VideoSelector
      * When you set Pad video (padVideo) to Black (BLACK), MediaConvert generates black video frames so that output video
      * and audio durations match. Black video frames are added at the beginning or end, depending on your input. To keep the
      * default behavior and not generate black video, set Pad video to Disabled (DISABLED) or leave blank.
+     *
+     * @var PadVideo::*|null
      */
     private $padVideo;
 
@@ -85,12 +97,16 @@ final class VideoSelector
      * Use PID (Pid) to select specific video data from an input file. Specify this value as an integer; the system
      * automatically converts it to the hexidecimal value. For example, 257 selects PID 0x101. A PID, or packet identifier,
      * is an identifier for a set of data in an MPEG-2 transport stream container.
+     *
+     * @var int|null
      */
     private $pid;
 
     /**
      * Selects a specific program from within a multi-program transport stream. Note that Quad 4K is not currently
      * supported.
+     *
+     * @var int|null
      */
     private $programNumber;
 
@@ -102,6 +118,8 @@ final class VideoSelector
      * degrees. If the rotation metadata specifies any other rotation, the service will default to no rotation. By default,
      * the service does no rotation, even if your input video has rotation metadata. The service doesn't pass through
      * rotation metadata.
+     *
+     * @var InputRotate::*|null
      */
     private $rotate;
 
@@ -112,6 +130,8 @@ final class VideoSelector
      * When you do, MediaConvert ignores any sample range information in the input metadata. Regardless of whether
      * MediaConvert uses the input sample range or the sample range that you specify, MediaConvert uses the sample range for
      * transcoding and also writes it to the output metadata.
+     *
+     * @var InputSampleRange::*|null
      */
     private $sampleRange;
 

@@ -18,6 +18,8 @@ final class MxfSettings
      * Regardless of which option you choose, the AFD values remain in the video stream. Related settings: To set up your
      * output to include or exclude AFD values, see AfdSignaling, under VideoDescription. On the console, find AFD signaling
      * under the output's video encoding settings.
+     *
+     * @var MxfAfdSignaling::*|null
      */
     private $afdSignaling;
 
@@ -27,11 +29,15 @@ final class MxfSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/codecs-supported-with-each-mxf-profile.html. For more information
      * about the automatic selection behavior, see
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/default-automatic-selection-of-mxf-profiles.html.
+     *
+     * @var MxfProfile::*|null
      */
     private $profile;
 
     /**
      * Specify the XAVC profile settings for MXF outputs when you set your MXF profile to XAVC.
+     *
+     * @var MxfXavcProfileSettings|null
      */
     private $xavcProfileSettings;
 

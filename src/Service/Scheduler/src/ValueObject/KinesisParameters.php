@@ -16,6 +16,8 @@ final class KinesisParameters
      * Streams terminology and concepts [^1] in the *Amazon Kinesis Streams Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html
+     *
+     * @var string
      */
     private $partitionKey;
 

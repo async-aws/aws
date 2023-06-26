@@ -25,12 +25,16 @@ final class XavcSettings
      * quantization in this transcode, set Adaptive quantization to Off (OFF). Related settings: The value that you choose
      * here applies to the following settings: Flicker adaptive quantization (flickerAdaptiveQuantization), Spatial adaptive
      * quantization (spatialAdaptiveQuantization), and Temporal adaptive quantization (temporalAdaptiveQuantization).
+     *
+     * @var XavcAdaptiveQuantization::*|null
      */
     private $adaptiveQuantization;
 
     /**
      * Optional. Choose a specific entropy encoding mode only when you want to override XAVC recommendations. If you choose
      * the value auto, MediaConvert uses the mode that the XAVC file format specifies given this output's operating point.
+     *
+     * @var XavcEntropyEncoding::*|null
      */
     private $entropyEncoding;
 
@@ -42,6 +46,8 @@ final class XavcSettings
      * specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want
      * the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate that
      * you specify in the settings FramerateNumerator and FramerateDenominator.
+     *
+     * @var XavcFramerateControl::*|null
      */
     private $framerateControl;
 
@@ -54,6 +60,8 @@ final class XavcSettings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var XavcFramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -62,6 +70,8 @@ final class XavcSettings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Frame rate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -70,6 +80,8 @@ final class XavcSettings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -77,6 +89,8 @@ final class XavcSettings
      * Specify the XAVC profile for this output. For more information, see the Sony documentation at
      * https://www.xavc-info.org/. Note that MediaConvert doesn't support the interlaced video XAVC operating points for
      * XAVC_HD_INTRA_CBG. To create an interlaced XAVC output, choose the profile XAVC_HD.
+     *
+     * @var XavcProfile::*|null
      */
     private $profile;
 
@@ -85,6 +99,8 @@ final class XavcSettings
      * 25 fps output by relabeling the video frames and resampling your audio. Note that enabling this setting will slightly
      * reduce the duration of your video. Related settings: You must also set Frame rate to 25. In your JSON job
      * specification, set (framerateControl) to (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var XavcSlowPal::*|null
      */
     private $slowPal;
 
@@ -96,6 +112,8 @@ final class XavcSettings
      * default JVT softening quantization matricies from the H.264 specification. Choose a value from 17 to 128 to use
      * planar interpolation. Increasing values from 17 to 128 result in increasing reduction of high-frequency data. The
      * value 128 results in the softest video.
+     *
+     * @var int|null
      */
     private $softness;
 
@@ -114,6 +132,8 @@ final class XavcSettings
      * set the value for Adaptive quantization (adaptiveQuantization) depending on your content. For homogeneous content,
      * such as cartoons and video games, set it to Low. For content with a wider variety of textures, set it to High or
      * Higher.
+     *
+     * @var XavcSpatialAdaptiveQuantization::*|null
      */
     private $spatialAdaptiveQuantization;
 
@@ -130,34 +150,46 @@ final class XavcSettings
      * focusing their attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports
      * athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal adaptive
      * quantization, adjust the strength of the filter with the setting Adaptive quantization (adaptiveQuantization).
+     *
+     * @var XavcTemporalAdaptiveQuantization::*|null
      */
     private $temporalAdaptiveQuantization;
 
     /**
      * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value
      * XAVC_4K_INTRA_CBG.
+     *
+     * @var Xavc4kIntraCbgProfileSettings|null
      */
     private $xavc4kIntraCbgProfileSettings;
 
     /**
      * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value
      * XAVC_4K_INTRA_VBR.
+     *
+     * @var Xavc4kIntraVbrProfileSettings|null
      */
     private $xavc4kIntraVbrProfileSettings;
 
     /**
      * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value XAVC_4K.
+     *
+     * @var Xavc4kProfileSettings|null
      */
     private $xavc4kProfileSettings;
 
     /**
      * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value
      * XAVC_HD_INTRA_CBG.
+     *
+     * @var XavcHdIntraCbgProfileSettings|null
      */
     private $xavcHdIntraCbgProfileSettings;
 
     /**
      * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value XAVC_HD.
+     *
+     * @var XavcHdProfileSettings|null
      */
     private $xavcHdProfileSettings;
 

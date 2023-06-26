@@ -10,11 +10,15 @@ class GetObjectTaggingOutput extends Result
 {
     /**
      * The versionId of the object for which you got the tagging information.
+     *
+     * @var string|null
      */
     private $versionId;
 
     /**
      * Contains the tag set.
+     *
+     * @var Tag[]
      */
     private $tagSet;
 

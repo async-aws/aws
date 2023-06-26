@@ -15,6 +15,8 @@ final class KeysAndAttributes
 {
     /**
      * The primary key attribute values that define the items and the attributes associated with the items.
+     *
+     * @var array<string, AttributeValue>[]
      */
     private $keys;
 
@@ -23,12 +25,16 @@ final class KeysAndAttributes
      * Parameters [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html
+     *
+     * @var string[]|null
      */
     private $attributesToGet;
 
     /**
      * The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an
      * eventually consistent read is used.
+     *
+     * @var bool|null
      */
     private $consistentRead;
 
@@ -42,6 +48,8 @@ final class KeysAndAttributes
      * For more information, see Accessing Item Attributes [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html
+     *
+     * @var string|null
      */
     private $projectionExpression;
 
@@ -76,6 +84,8 @@ final class KeysAndAttributes
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
      * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html
+     *
+     * @var array<string, string>|null
      */
     private $expressionAttributeNames;
 

@@ -8,6 +8,9 @@ use AsyncAws\S3\Enum\RequestCharged;
 
 class PutObjectAclOutput extends Result
 {
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     /**

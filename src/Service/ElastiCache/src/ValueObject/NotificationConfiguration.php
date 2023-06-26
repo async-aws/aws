@@ -10,11 +10,15 @@ final class NotificationConfiguration
 {
     /**
      * The Amazon Resource Name (ARN) that identifies the topic.
+     *
+     * @var string|null
      */
     private $topicArn;
 
     /**
      * The current state of the topic.
+     *
+     * @var string|null
      */
     private $topicStatus;
 

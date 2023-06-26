@@ -12,6 +12,8 @@ final class HumanLoopConfig
 {
     /**
      * The name of the human review used for this image. This should be kept unique within a region.
+     *
+     * @var string
      */
     private $humanLoopName;
 
@@ -20,11 +22,15 @@ final class HumanLoopConfig
      * CreateFlowDefinition [^1] Operation.
      *
      * [^1]: https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateFlowDefinition.html
+     *
+     * @var string
      */
     private $flowDefinitionArn;
 
     /**
      * Sets attributes of the input data.
+     *
+     * @var HumanLoopDataAttributes|null
      */
     private $dataAttributes;
 

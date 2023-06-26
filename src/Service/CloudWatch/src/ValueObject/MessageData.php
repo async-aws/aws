@@ -13,11 +13,15 @@ final class MessageData
 {
     /**
      * The error code or status code associated with the message.
+     *
+     * @var string|null
      */
     private $code;
 
     /**
      * The message text.
+     *
+     * @var string|null
      */
     private $value;
 

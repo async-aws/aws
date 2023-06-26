@@ -15,6 +15,8 @@ class GetItemOutput extends Result
 {
     /**
      * A map of attribute names to `AttributeValue` objects, as specified by `ProjectionExpression`.
+     *
+     * @var array<string, AttributeValue>
      */
     private $item;
 
@@ -25,6 +27,8 @@ class GetItemOutput extends Result
      * [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads
+     *
+     * @var ConsumedCapacity|null
      */
     private $consumedCapacity;
 

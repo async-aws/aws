@@ -9,12 +9,16 @@ final class SecurityGroupMembership
 {
     /**
      * The identifier of the cache security group.
+     *
+     * @var string|null
      */
     private $securityGroupId;
 
     /**
      * The status of the cache security group membership. The status changes whenever a cache security group is modified, or
      * when the cache security groups assigned to a cluster are modified.
+     *
+     * @var string|null
      */
     private $status;
 

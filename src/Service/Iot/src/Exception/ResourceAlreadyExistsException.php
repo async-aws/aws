@@ -12,11 +12,15 @@ final class ResourceAlreadyExistsException extends ClientException
 {
     /**
      * The ID of the resource that caused the exception.
+     *
+     * @var string|null
      */
     private $resourceId;
 
     /**
      * The ARN of the resource that caused the exception.
+     *
+     * @var string|null
      */
     private $resourceArn;
 

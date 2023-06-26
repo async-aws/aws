@@ -33,6 +33,8 @@ final class HlsGroupSettings
     /**
      * Choose one or more ad marker types to decorate your Apple HLS manifest. This setting does not determine whether
      * SCTE-35 markers appear in the outputs themselves.
+     *
+     * @var list<HlsAdMarkers::*>|null
      */
     private $adMarkers;
 
@@ -40,6 +42,8 @@ final class HlsGroupSettings
      * By default, the service creates one top-level .m3u8 HLS manifest for each HLS output group in your job. This default
      * manifest references every output in the output group. To create additional top-level manifests that reference a
      * subset of the outputs in the output group, specify a list of them here.
+     *
+     * @var HlsAdditionalManifest[]|null
      */
     private $additionalManifests;
 
@@ -47,17 +51,23 @@ final class HlsGroupSettings
      * Ignore this setting unless you are using FairPlay DRM with Verimatrix and you encounter playback issues. Keep the
      * default value, Include (INCLUDE), to output audio-only headers. Choose Exclude (EXCLUDE) to remove the audio-only
      * headers from your audio segments.
+     *
+     * @var HlsAudioOnlyHeader::*|null
      */
     private $audioOnlyHeader;
 
     /**
      * A partial URI prefix that will be prepended to each output in the media .m3u8 file. Can be used if base manifest is
      * delivered from a different URL than the main .m3u8 file.
+     *
+     * @var string|null
      */
     private $baseUrl;
 
     /**
      * Language to be used on Caption outputs.
+     *
+     * @var HlsCaptionLanguageMapping[]|null
      */
     private $captionLanguageMappings;
 
@@ -68,6 +78,8 @@ final class HlsGroupSettings
      * embedded format) or the order of the caption selectors (if the source is other than embedded). Otherwise, languages
      * in the manifest will not match up properly with the output captions. None: Include CLOSED-CAPTIONS=NONE line in the
      * manifest. Omit: Omit any CLOSED-CAPTIONS line from the manifest.
+     *
+     * @var HlsCaptionLanguageSetting::*|null
      */
     private $captionLanguageSetting;
 
@@ -76,6 +88,8 @@ final class HlsGroupSettings
      * segments that align with the video segments from the first video output in this output group. For example, if the
      * video segments are 2 seconds long, your WebVTT segments will also be 2 seconds long. Keep the default setting, Large
      * segments (LARGE_SEGMENTS) to create caption segments that are 300 seconds long.
+     *
+     * @var HlsCaptionSegmentLengthControl::*|null
      */
     private $captionSegmentLengthControl;
 
@@ -83,11 +97,15 @@ final class HlsGroupSettings
      * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
      * value Enabled (ENABLED) and control caching in your video distribution set up. For example, use the Cache-Control
      * http header.
+     *
+     * @var HlsClientCache::*|null
      */
     private $clientCache;
 
     /**
      * Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation.
+     *
+     * @var HlsCodecSpecification::*|null
      */
     private $codecSpecification;
 
@@ -95,21 +113,29 @@ final class HlsGroupSettings
      * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
      * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
      * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     *
+     * @var string|null
      */
     private $destination;
 
     /**
      * Settings associated with the destination. Will vary based on the type of destination.
+     *
+     * @var DestinationSettings|null
      */
     private $destinationSettings;
 
     /**
      * Indicates whether segments should be placed in subdirectories.
+     *
+     * @var HlsDirectoryStructure::*|null
      */
     private $directoryStructure;
 
     /**
      * DRM settings.
+     *
+     * @var HlsEncryptionSettings|null
      */
     private $encryption;
 
@@ -121,21 +147,29 @@ final class HlsGroupSettings
      * manifest. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
      * MediaConvert creates with this feature are compatible with this Roku specification:
      * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
+     *
+     * @var HlsImageBasedTrickPlay::*|null
      */
     private $imageBasedTrickPlay;
 
     /**
      * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED.
+     *
+     * @var HlsImageBasedTrickPlaySettings|null
      */
     private $imageBasedTrickPlaySettings;
 
     /**
      * When set to GZIP, compresses HLS playlist.
+     *
+     * @var HlsManifestCompression::*|null
      */
     private $manifestCompression;
 
     /**
      * Indicates whether the output manifest should use floating point values for segment duration.
+     *
+     * @var HlsManifestDurationFormat::*|null
      */
     private $manifestDurationFormat;
 
@@ -147,17 +181,23 @@ final class HlsGroupSettings
      * this setting, the encoder will combine any final segment that is shorter than the length that you specify with the
      * previous segment. For example, your segment length is 3 seconds and your final segment is .5 seconds without a
      * minimum final segment length; when you set the minimum final segment length to 1, your final segment is 3.5 seconds.
+     *
+     * @var float|null
      */
     private $minFinalSegmentLength;
 
     /**
      * When set, Minimum Segment Size is enforced by looking ahead and back within the specified range for a nearby avail
      * and extending the segment size if needed.
+     *
+     * @var int|null
      */
     private $minSegmentLength;
 
     /**
      * Indicates whether the .m3u8 manifest file should be generated for this HLS output group.
+     *
+     * @var HlsOutputSelection::*|null
      */
     private $outputSelection;
 
@@ -165,11 +205,15 @@ final class HlsGroupSettings
      * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as follows: either
      * the program date and time are initialized using the input timecode source, or the time is initialized using the input
      * timecode source and the date is initialized using the timestamp_offset.
+     *
+     * @var HlsProgramDateTime::*|null
      */
     private $programDateTime;
 
     /**
      * Period of insertion of EXT-X-PROGRAM-DATE-TIME entry, in seconds.
+     *
+     * @var int|null
      */
     private $programDateTimePeriod;
 
@@ -181,12 +225,16 @@ final class HlsGroupSettings
      * The parent manifest includes the latest BANDWIDTH and AVERAGE-BANDWIDTH attributes, and child manifests include the
      * latest available media segment. When your job completes, the final child playlists include an EXT-X-ENDLIST tag. To
      * generate HLS manifests only when your job completes: Choose Disabled.
+     *
+     * @var HlsProgressiveWriteHlsManifest::*|null
      */
     private $progressiveWriteHlsManifest;
 
     /**
      * When set to SINGLE_FILE, emits program as a single media resource (.ts) file, uses #EXT-X-BYTERANGE tags to index
      * segment for playback.
+     *
+     * @var HlsSegmentControl::*|null
      */
     private $segmentControl;
 
@@ -195,6 +243,8 @@ final class HlsGroupSettings
      * Related settings: Use Segment length control (SegmentLengthControl) to specify whether the encoder enforces this
      * value strictly. Use Segment control (HlsSegmentControl) to specify whether MediaConvert creates separate segment
      * files or one content file that has metadata to mark the segment boundaries.
+     *
+     * @var int|null
      */
     private $segmentLength;
 
@@ -203,17 +253,23 @@ final class HlsGroupSettings
      * exact length that you specify with the setting Segment length (SegmentLength). This might result in extra I-frames.
      * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
      * boundary.
+     *
+     * @var HlsSegmentLengthControl::*|null
      */
     private $segmentLengthControl;
 
     /**
      * Specify the number of segments to write to a subdirectory before starting a new one. You  must also set Directory
      * structure to Subdirectory per stream for this setting to have an effect.
+     *
+     * @var int|null
      */
     private $segmentsPerSubdirectory;
 
     /**
      * Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF tag of variant manifest.
+     *
+     * @var HlsStreamInfResolution::*|null
      */
     private $streamInfResolution;
 
@@ -224,6 +280,8 @@ final class HlsGroupSettings
      * may need to use LEGACY if your client needs to ensure that the target duration is always longer than the actual
      * duration of the segment. Some older players may experience interrupted playback when the actual duration of a track
      * in a segment is longer than the target duration.
+     *
+     * @var HlsTargetDurationCompatibilityMode::*|null
      */
     private $targetDurationCompatibilityMode;
 
@@ -231,6 +289,8 @@ final class HlsGroupSettings
      * Specify the type of the ID3 frame (timedMetadataId3Frame) to use for ID3 timestamps (timedMetadataId3Period) in your
      * output. To include ID3 timestamps: Specify PRIV (PRIV) or TDRL (TDRL) and set ID3 metadata (timedMetadata) to
      * Passthrough (PASSTHROUGH). To exclude ID3 timestamps: Set ID3 timestamp frame type to None (NONE).
+     *
+     * @var HlsTimedMetadataId3Frame::*|null
      */
     private $timedMetadataId3Frame;
 
@@ -239,11 +299,15 @@ final class HlsGroupSettings
      * timecode and date, and increases incrementally with each ID3 timestamp. To use the default interval of 10 seconds:
      * Leave blank. To include this metadata in your output: Set ID3 timestamp frame type (timedMetadataId3Frame) to PRIV
      * (PRIV) or TDRL (TDRL), and set ID3 metadata (timedMetadata) to Passthrough (PASSTHROUGH).
+     *
+     * @var int|null
      */
     private $timedMetadataId3Period;
 
     /**
      * Provides an extra millisecond delta offset to fine tune the timestamps.
+     *
+     * @var int|null
      */
     private $timestampDeltaMilliseconds;
 

@@ -10,8 +10,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class EC2UnexpectedException extends ServerException
 {
+    /**
+     * @var string|null
+     */
     private $type;
 
+    /**
+     * @var string|null
+     */
     private $ec2ErrorCode;
 
     public function getEc2ErrorCode(): ?string

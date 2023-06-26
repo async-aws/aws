@@ -14,6 +14,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidSequenceTokenException extends ClientException
 {
+    /**
+     * @var string|null
+     */
     private $expectedSequenceToken;
 
     public function getExpectedSequenceToken(): ?string

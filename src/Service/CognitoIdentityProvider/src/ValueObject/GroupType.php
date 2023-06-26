@@ -9,21 +9,29 @@ final class GroupType
 {
     /**
      * The name of the group.
+     *
+     * @var string|null
      */
     private $groupName;
 
     /**
      * The user pool ID for the user pool.
+     *
+     * @var string|null
      */
     private $userPoolId;
 
     /**
      * A string containing the description of the group.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The role Amazon Resource Name (ARN) for the group.
+     *
+     * @var string|null
      */
     private $roleArn;
 
@@ -40,16 +48,22 @@ final class GroupType
      * isn't set in users' tokens.
      *
      * The default `Precedence` value is null.
+     *
+     * @var int|null
      */
     private $precedence;
 
     /**
      * The date the group was last modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModifiedDate;
 
     /**
      * The date the group was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 

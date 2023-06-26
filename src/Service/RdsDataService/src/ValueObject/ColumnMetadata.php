@@ -9,71 +9,99 @@ final class ColumnMetadata
 {
     /**
      * The name of the column.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The type of the column.
+     *
+     * @var int|null
      */
     private $type;
 
     /**
      * The database-specific data type of the column.
+     *
+     * @var string|null
      */
     private $typeName;
 
     /**
      * The label for the column.
+     *
+     * @var string|null
      */
     private $label;
 
     /**
      * The name of the schema that owns the table that includes the column.
+     *
+     * @var string|null
      */
     private $schemaName;
 
     /**
      * The name of the table that includes the column.
+     *
+     * @var string|null
      */
     private $tableName;
 
     /**
      * A value that indicates whether the column increments automatically.
+     *
+     * @var bool|null
      */
     private $isAutoIncrement;
 
     /**
      * A value that indicates whether an integer column is signed.
+     *
+     * @var bool|null
      */
     private $isSigned;
 
     /**
      * A value that indicates whether the column contains currency values.
+     *
+     * @var bool|null
      */
     private $isCurrency;
 
     /**
      * A value that indicates whether the column is case-sensitive.
+     *
+     * @var bool|null
      */
     private $isCaseSensitive;
 
     /**
      * A value that indicates whether the column is nullable.
+     *
+     * @var int|null
      */
     private $nullable;
 
     /**
      * The precision value of a decimal number column.
+     *
+     * @var int|null
      */
     private $precision;
 
     /**
      * The scale value of a decimal number column.
+     *
+     * @var int|null
      */
     private $scale;
 
     /**
      * The type of the column.
+     *
+     * @var int|null
      */
     private $arrayBaseColumnType;
 

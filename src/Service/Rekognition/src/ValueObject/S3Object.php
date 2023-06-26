@@ -15,16 +15,22 @@ final class S3Object
 {
     /**
      * Name of the S3 bucket.
+     *
+     * @var string|null
      */
     private $bucket;
 
     /**
      * S3 object key name.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * If the bucket is versioning enabled, you can specify the object version.
+     *
+     * @var string|null
      */
     private $version;
 

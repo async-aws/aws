@@ -15,42 +15,58 @@ final class PendingModifiedValues
      *
      * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1 and
      * 40.
+     *
+     * @var int|null
      */
     private $numCacheNodes;
 
     /**
      * A list of cache node IDs that are being removed (or will be removed) from the cluster. A node ID is a 4-digit numeric
      * identifier (0001, 0002, etc.).
+     *
+     * @var string[]|null
      */
     private $cacheNodeIdsToRemove;
 
     /**
      * The new cache engine version that the cluster runs.
+     *
+     * @var string|null
      */
     private $engineVersion;
 
     /**
      * The cache node type that this cluster or replication group is scaled to.
+     *
+     * @var string|null
      */
     private $cacheNodeType;
 
     /**
      * The auth token status.
+     *
+     * @var AuthTokenUpdateStatus::*|null
      */
     private $authTokenStatus;
 
     /**
      * The log delivery configurations being modified.
+     *
+     * @var PendingLogDeliveryConfiguration[]|null
      */
     private $logDeliveryConfigurations;
 
     /**
      * A flag that enables in-transit encryption when set to true.
+     *
+     * @var bool|null
      */
     private $transitEncryptionEnabled;
 
     /**
      * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     *
+     * @var TransitEncryptionMode::*|null
      */
     private $transitEncryptionMode;
 

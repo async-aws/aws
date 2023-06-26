@@ -13,16 +13,22 @@ class SignUpResponse extends Result
 {
     /**
      * A response from the server indicating that a user registration has been confirmed.
+     *
+     * @var bool
      */
     private $userConfirmed;
 
     /**
      * The code delivery details returned by the server response to the user registration request.
+     *
+     * @var CodeDeliveryDetailsType|null
      */
     private $codeDeliveryDetails;
 
     /**
      * The UUID of the authenticated user. This isn't the same as `username`.
+     *
+     * @var string
      */
     private $userSub;
 

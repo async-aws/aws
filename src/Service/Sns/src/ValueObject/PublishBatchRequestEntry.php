@@ -16,16 +16,22 @@ final class PublishBatchRequestEntry
      * >
      * > This identifier can have up to 80 characters. The following characters are accepted: alphanumeric characters,
      * > hyphens(-), and underscores (_).
+     *
+     * @var string
      */
     private $id;
 
     /**
      * The body of the message.
+     *
+     * @var string
      */
     private $message;
 
     /**
      * The subject of the batch message.
+     *
+     * @var string|null
      */
     private $subject;
 
@@ -39,6 +45,8 @@ final class PublishBatchRequestEntry
      *
      * You can define other top-level keys that define the message you want to send to a specific transport protocol (e.g.
      * http).
+     *
+     * @var string|null
      */
     private $messageStructure;
 
@@ -47,6 +55,8 @@ final class PublishBatchRequestEntry
      * attributes [^1] in the Amazon SNS Developer Guide.
      *
      * [^1]: https://docs.aws.amazon.com/sns/latest/dg/sns-message-attributes.html
+     *
+     * @var array<string, MessageAttributeValue>|null
      */
     private $messageAttributes;
 
@@ -85,6 +95,8 @@ final class PublishBatchRequestEntry
      *
      * `MessageDeduplicationId` can contain alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation
      * `(!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~)`.
+     *
+     * @var string|null
      */
     private $messageDeduplicationId;
 
@@ -106,6 +118,8 @@ final class PublishBatchRequestEntry
      * `(!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~)`.
      *
      * ! `MessageGroupId` is required for FIFO topics. You can't use it for standard topics.
+     *
+     * @var string|null
      */
     private $messageGroupId;
 

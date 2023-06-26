@@ -10,22 +10,30 @@ final class StaticKeyProvider
     /**
      * Relates to DRM implementation. Sets the value of the KEYFORMAT attribute. Must be 'identity' or a reverse DNS string.
      * May be omitted to indicate an implicit value of 'identity'.
+     *
+     * @var string|null
      */
     private $keyFormat;
 
     /**
      * Relates to DRM implementation. Either a single positive integer version value or a slash delimited list of version
      * values (1/2/3).
+     *
+     * @var string|null
      */
     private $keyFormatVersions;
 
     /**
      * Relates to DRM implementation. Use a 32-character hexidecimal string to specify Key Value (StaticKeyValue).
+     *
+     * @var string|null
      */
     private $staticKeyValue;
 
     /**
      * Relates to DRM implementation. The location of the license server used for protecting content.
+     *
+     * @var string|null
      */
     private $url;
 

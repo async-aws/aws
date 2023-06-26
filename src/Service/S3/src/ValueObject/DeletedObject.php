@@ -9,23 +9,31 @@ final class DeletedObject
 {
     /**
      * The name of the deleted object.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * The version ID of the deleted object.
+     *
+     * @var string|null
      */
     private $versionId;
 
     /**
      * Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In
      * a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
+     *
+     * @var bool|null
      */
     private $deleteMarker;
 
     /**
      * The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object
      * version, the value returned by this header is the version ID of the object version deleted.
+     *
+     * @var string|null
      */
     private $deleteMarkerVersionId;
 

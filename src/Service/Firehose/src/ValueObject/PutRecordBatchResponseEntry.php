@@ -11,16 +11,22 @@ final class PutRecordBatchResponseEntry
 {
     /**
      * The ID of the record.
+     *
+     * @var string|null
      */
     private $recordId;
 
     /**
      * The error code for an individual record result.
+     *
+     * @var string|null
      */
     private $errorCode;
 
     /**
      * The error message for an individual record result.
+     *
+     * @var string|null
      */
     private $errorMessage;
 

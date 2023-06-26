@@ -25,6 +25,8 @@ final class ImscDestinationSettings
      * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert instead
      * adds the following in the adaptation set for this track: `<Role schemeIDUri="urn:mpeg:dash:role:2011"
      * value="subtitle"/>`.
+     *
+     * @var ImscAccessibilitySubs::*|null
      */
     private $accessibility;
 
@@ -32,6 +34,8 @@ final class ImscDestinationSettings
      * Keep this setting enabled to have MediaConvert use the font style and position information from the captions source
      * in the output. This option is available only when your input captions are IMSC, SMPTE-TT, or TTML. Disable this
      * setting for simplified output captions.
+     *
+     * @var ImscStylePassthrough::*|null
      */
     private $stylePassthrough;
 

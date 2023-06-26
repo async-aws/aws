@@ -20,6 +20,8 @@ final class ProjectSource
      * - `GITHUB_ENTERPRISE`: The source code is in a GitHub Enterprise Server repository.
      * - `NO_SOURCE`: The project does not have input source code.
      * - `S3`: The source code is in an Amazon S3 bucket.
+     *
+     * @var SourceType::*
      */
     private $type;
 
@@ -55,16 +57,22 @@ final class ProjectSource
      *
      * If you specify `CODEPIPELINE` for the `Type` property, don't specify this property. For all of the other types, you
      * must specify `Location`.
+     *
+     * @var string|null
      */
     private $location;
 
     /**
      * Information about the Git clone depth for the build project.
+     *
+     * @var int|null
      */
     private $gitCloneDepth;
 
     /**
      * Information about the Git submodules configuration for the build project.
+     *
+     * @var GitSubmodulesConfig|null
      */
     private $gitSubmodulesConfig;
 
@@ -79,6 +87,8 @@ final class ProjectSource
      * Name and Storage Location [^1].
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage
+     *
+     * @var string|null
      */
     private $buildspec;
 
@@ -86,6 +96,8 @@ final class ProjectSource
      * Information about the authorization settings for CodeBuild to access the source code to be built.
      *
      * This information is for the CodeBuild console's use only. Your code should not get or set this information directly.
+     *
+     * @var SourceAuth|null
      */
     private $auth;
 
@@ -104,23 +116,31 @@ final class ProjectSource
      * property to take effect.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html
+     *
+     * @var bool|null
      */
     private $reportBuildStatus;
 
     /**
      * Contains information that defines how the build project reports the build status to the source provider. This option
      * is only used when the source provider is `GITHUB`, `GITHUB_ENTERPRISE`, or `BITBUCKET`.
+     *
+     * @var BuildStatusConfig|null
      */
     private $buildStatusConfig;
 
     /**
      * Enable this flag to ignore SSL warnings while connecting to the project source code.
+     *
+     * @var bool|null
      */
     private $insecureSsl;
 
     /**
      * An identifier for this project source. The identifier can only contain alphanumeric characters and underscores, and
      * must be less than 128 characters in length.
+     *
+     * @var string|null
      */
     private $sourceIdentifier;
 

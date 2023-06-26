@@ -11,6 +11,8 @@ final class DeadLetterConfig
 {
     /**
      * The Amazon Resource Name (ARN) of the SQS queue specified as the destination for the dead-letter queue.
+     *
+     * @var string|null
      */
     private $arn;
 

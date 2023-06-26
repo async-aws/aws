@@ -12,28 +12,38 @@ final class Mp3Settings
 {
     /**
      * Specify the average bitrate in bits per second.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * Specify the number of channels in this output audio track. Choosing Mono on the console gives you 1 output channel;
      * choosing Stereo gives you 2. In the API, valid values are 1 and 2.
+     *
+     * @var int|null
      */
     private $channels;
 
     /**
      * Specify whether the service encodes this MP3 audio output with a constant bitrate (CBR) or a variable bitrate (VBR).
+     *
+     * @var Mp3RateControlMode::*|null
      */
     private $rateControlMode;
 
     /**
      * Sample rate in hz.
+     *
+     * @var int|null
      */
     private $sampleRate;
 
     /**
      * Required when you set Bitrate control mode (rateControlMode) to VBR. Specify the audio quality of this MP3 output
      * from 0 (highest quality) to 9 (lowest quality).
+     *
+     * @var int|null
      */
     private $vbrQuality;
 

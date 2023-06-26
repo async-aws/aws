@@ -17,26 +17,36 @@ final class QueryExecutionStatus
      *
      * > Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the query
      * > state transition from `RUNNING` or `FAILED` to `QUEUED`.
+     *
+     * @var QueryExecutionState::*|null
      */
     private $state;
 
     /**
      * Further detail about the status of the query.
+     *
+     * @var string|null
      */
     private $stateChangeReason;
 
     /**
      * The date and time that the query was submitted.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $submissionDateTime;
 
     /**
      * The date and time that the query completed.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $completionDateTime;
 
     /**
      * Provides information about an Athena query error.
+     *
+     * @var AthenaError|null
      */
     private $athenaError;
 

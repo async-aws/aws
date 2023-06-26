@@ -11,6 +11,8 @@ final class DeleteReplicationGroupMemberAction
 {
     /**
      * The Region where the replica exists.
+     *
+     * @var string
      */
     private $regionName;
 

@@ -17,6 +17,8 @@ final class Av1QvbrSettings
      * broadcast-quality transcodes is between 6 and 9. Optionally, to specify a value between whole numbers, also provide a
      * value for the setting qvbrQualityLevelFineTune. For example, if you want your QVBR quality level to be 7.33, set
      * qvbrQualityLevel to 7 and set qvbrQualityLevelFineTune to .33.
+     *
+     * @var int|null
      */
     private $qvbrQualityLevel;
 
@@ -25,6 +27,8 @@ final class Av1QvbrSettings
      * want your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set qvbrQualityLevelFineTune to .33.
      * MediaConvert rounds your QVBR quality level to the nearest third of a whole number. For example, if you set
      * qvbrQualityLevel to 7 and you set qvbrQualityLevelFineTune to .25, your actual QVBR quality level is 7.33.
+     *
+     * @var float|null
      */
     private $qvbrQualityLevelFineTune;
 

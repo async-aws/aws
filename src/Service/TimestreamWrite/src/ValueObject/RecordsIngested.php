@@ -9,16 +9,22 @@ final class RecordsIngested
 {
     /**
      * Total count of successfully ingested records.
+     *
+     * @var int|null
      */
     private $total;
 
     /**
      * Count of records ingested into the memory store.
+     *
+     * @var int|null
      */
     private $memoryStore;
 
     /**
      * Count of records ingested into the magnetic store.
+     *
+     * @var int|null
      */
     private $magneticStore;
 

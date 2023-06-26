@@ -21,28 +21,38 @@ final class AudioNormalizationSettings
      * Modified peak. The same loudness measurement algorithm as 1770-2, with an updated true peak measurement. ITU-R
      * BS.1770-4: Higher channel count. Allows for more audio channels than the other algorithms, including configurations
      * such as 7.1.
+     *
+     * @var AudioNormalizationAlgorithm::*|null
      */
     private $algorithm;
 
     /**
      * When enabled the output audio is corrected using the chosen algorithm. If disabled, the audio will be measured but
      * not adjusted.
+     *
+     * @var AudioNormalizationAlgorithmControl::*|null
      */
     private $algorithmControl;
 
     /**
      * Content measuring above this level will be corrected to the target level. Content measuring below this level will not
      * be corrected.
+     *
+     * @var int|null
      */
     private $correctionGateLevel;
 
     /**
      * If set to LOG, log each output's audio track loudness to a CSV file.
+     *
+     * @var AudioNormalizationLoudnessLogging::*|null
      */
     private $loudnessLogging;
 
     /**
      * If set to TRUE_PEAK, calculate and log the TruePeak for each output's audio track loudness.
+     *
+     * @var AudioNormalizationPeakCalculation::*|null
      */
     private $peakCalculation;
 
@@ -51,6 +61,8 @@ final class AudioNormalizationSettings
      * loudness. If you don't specify a value here, the encoder chooses a value for you, based on the algorithm that you
      * choose for Algorithm (algorithm). If you choose algorithm 1770-1, the encoder will choose -24 LKFS; otherwise, the
      * encoder will choose -23 LKFS.
+     *
+     * @var float|null
      */
     private $targetLkfs;
 
@@ -58,6 +70,8 @@ final class AudioNormalizationSettings
      * Specify the True-peak limiter threshold in decibels relative to full scale (dBFS). The peak inter-audio sample
      * loudness in your output will be limited to the value that you specify, without affecting the overall target LKFS.
      * Enter a value from 0 to -8. Leave blank to use the default value 0.
+     *
+     * @var float|null
      */
     private $truePeakLimiterThreshold;
 

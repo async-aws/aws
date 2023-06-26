@@ -17,6 +17,8 @@ final class ProjectCache
      * - `NO_CACHE`: The build project does not use any cache.
      * - `S3`: The build project reads and writes from and to S3.
      * - `LOCAL`: The build project stores a cache locally on a build host that is only available to that build host.
+     *
+     * @var CacheType::*
      */
     private $type;
 
@@ -25,6 +27,8 @@ final class ProjectCache
      *
      * - `NO_CACHE` or `LOCAL`: This value is ignored.
      * - `S3`: This is the S3 bucket name/prefix.
+     *
+     * @var string|null
      */
     private $location;
 
@@ -59,6 +63,8 @@ final class ProjectCache
      *   - Symlinks are used to reference cached directories.
      *   - Cached directories are linked to your build before it downloads its project sources. Cached items are overridden
      *     if a source item has the same name. Directories are specified using cache paths in the buildspec file.
+     *
+     * @var list<CacheMode::*>|null
      */
     private $modes;
 

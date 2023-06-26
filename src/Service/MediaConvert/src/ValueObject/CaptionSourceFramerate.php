@@ -14,12 +14,16 @@ final class CaptionSourceFramerate
     /**
      * Specify the denominator of the fraction that represents the frame rate for the setting Caption source frame rate
      * (CaptionSourceFramerate). Use this setting along with the setting Framerate numerator (framerateNumerator).
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
     /**
      * Specify the numerator of the fraction that represents the frame rate for the setting Caption source frame rate
      * (CaptionSourceFramerate). Use this setting along with the setting Framerate denominator (framerateDenominator).
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 

@@ -12,6 +12,8 @@ class SignResponse extends Result
      * The Amazon Resource Name (key ARN [^1]) of the asymmetric KMS key that was used to sign the message.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
+     *
+     * @var string|null
      */
     private $keyId;
 
@@ -29,11 +31,15 @@ class SignResponse extends Result
      *
      * [^1]: https://tools.ietf.org/html/rfc8017
      * [^2]: https://tools.ietf.org/html/rfc3279#section-2.2.3
+     *
+     * @var string|null
      */
     private $signature;
 
     /**
      * The signing algorithm that was used to sign the message.
+     *
+     * @var SigningAlgorithmSpec::*|null
      */
     private $signingAlgorithm;
 

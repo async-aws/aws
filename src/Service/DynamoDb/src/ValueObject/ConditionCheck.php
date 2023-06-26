@@ -13,11 +13,15 @@ final class ConditionCheck
 {
     /**
      * The primary key of the item to be checked. Each element consists of an attribute name and a value for that attribute.
+     *
+     * @var array<string, AttributeValue>
      */
     private $key;
 
     /**
      * Name of the table for the check item request.
+     *
+     * @var string
      */
     private $tableName;
 
@@ -26,6 +30,8 @@ final class ConditionCheck
      * expressions [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html
+     *
+     * @var string
      */
     private $conditionExpression;
 
@@ -34,6 +40,8 @@ final class ConditionCheck
      * names [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
+     *
+     * @var array<string, string>|null
      */
     private $expressionAttributeNames;
 
@@ -42,12 +50,16 @@ final class ConditionCheck
      * the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html
+     *
+     * @var array<string, AttributeValue>|null
      */
     private $expressionAttributeValues;
 
     /**
      * Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `ConditionCheck` condition fails. For
      * `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
+     *
+     * @var ReturnValuesOnConditionCheckFailure::*|null
      */
     private $returnValuesOnConditionCheckFailure;
 

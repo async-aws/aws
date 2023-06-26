@@ -21,11 +21,15 @@ final class AppSpecContent
      *
      * For both types of deployments, the content can specify Lambda functions that run at specified hooks, such as
      * `BeforeInstall`, during a deployment.
+     *
+     * @var string|null
      */
     private $content;
 
     /**
      * The SHA256 hash value of the revision content.
+     *
+     * @var string|null
      */
     private $sha256;
 

@@ -12,22 +12,30 @@ final class Message
     /**
      * A unique identifier for the message. A `MessageId`is considered unique across all Amazon Web Services accounts for an
      * extended period of time.
+     *
+     * @var string|null
      */
     private $messageId;
 
     /**
      * An identifier associated with the act of receiving the message. A new receipt handle is returned every time you
      * receive a message. When deleting a message, you provide the last received receipt handle to delete the message.
+     *
+     * @var string|null
      */
     private $receiptHandle;
 
     /**
      * An MD5 digest of the non-URL-encoded message body string.
+     *
+     * @var string|null
      */
     private $md5OfBody;
 
     /**
      * The message's contents (not URL-encoded).
+     *
+     * @var string|null
      */
     private $body;
 
@@ -46,6 +54,8 @@ final class Message
      * [^1] in milliseconds.
      *
      * [^1]: http://en.wikipedia.org/wiki/Unix_time
+     *
+     * @var array<MessageSystemAttributeName::*, string>|null
      */
     private $attributes;
 
@@ -55,6 +65,8 @@ final class Message
      * about MD5, see RFC1321 [^1].
      *
      * [^1]: https://www.ietf.org/rfc/rfc1321.txt
+     *
+     * @var string|null
      */
     private $md5OfMessageAttributes;
 
@@ -63,6 +75,8 @@ final class Message
      * attributes [^1] in the *Amazon SQS Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
+     *
+     * @var array<string, MessageAttributeValue>|null
      */
     private $messageAttributes;
 

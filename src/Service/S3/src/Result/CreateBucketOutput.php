@@ -9,6 +9,8 @@ class CreateBucketOutput extends Result
 {
     /**
      * A forward slash followed by the name of the bucket.
+     *
+     * @var string|null
      */
     private $location;
 

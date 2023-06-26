@@ -19,6 +19,8 @@ final class S3EncryptionSettings
      * key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to specify a different,
      * customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN
      * (kmsKeyArn).
+     *
+     * @var S3ServerSideEncryptionType::*|null
      */
     private $encryptionType;
 
@@ -28,6 +30,8 @@ final class S3EncryptionSettings
      * base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this setting, you must also set
      * Server-side encryption (S3ServerSideEncryptionType) to AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). For more information
      * about encryption context, see: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     *
+     * @var string|null
      */
     private $kmsEncryptionContext;
 
@@ -36,6 +40,8 @@ final class S3EncryptionSettings
      * encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting, you must also set
      * Server-side encryption (S3ServerSideEncryptionType) to AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). If you set Server-side
      * encryption to AWS KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated with Amazon S3.
+     *
+     * @var string|null
      */
     private $kmsKeyArn;
 

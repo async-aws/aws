@@ -18,26 +18,36 @@ class CreateHostedZoneResponse extends Result
 {
     /**
      * A complex type that contains general information about the hosted zone.
+     *
+     * @var HostedZone
      */
     private $hostedZone;
 
     /**
      * A complex type that contains information about the `CreateHostedZone` request.
+     *
+     * @var ChangeInfo
      */
     private $changeInfo;
 
     /**
      * A complex type that describes the name servers for this hosted zone.
+     *
+     * @var DelegationSet
      */
     private $delegationSet;
 
     /**
      * A complex type that contains information about an Amazon VPC that you associated with this hosted zone.
+     *
+     * @var VPC|null
      */
     private $vpc;
 
     /**
      * The unique URL representing the new hosted zone.
+     *
+     * @var string
      */
     private $location;
 

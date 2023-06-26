@@ -10,6 +10,8 @@ final class TimedMetadataInsertion
 {
     /**
      * Id3Insertions contains the array of Id3Insertion instances.
+     *
+     * @var Id3Insertion[]|null
      */
     private $id3Insertions;
 

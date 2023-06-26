@@ -15,12 +15,16 @@ final class ChangeInfo
      * the change.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html
+     *
+     * @var string
      */
     private $id;
 
     /**
      * The current state of the request. `PENDING` indicates that this request has not yet been applied to all Amazon Route
      * 53 DNS servers.
+     *
+     * @var ChangeStatus::*
      */
     private $status;
 
@@ -29,11 +33,15 @@ final class ChangeInfo
      * For example, the value `2017-03-27T17:48:16.751Z` represents March 27, 2017 at 17:48:16.751 UTC.
      *
      * [^1]: https://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @var \DateTimeImmutable
      */
     private $submittedAt;
 
     /**
      * A comment you can provide.
+     *
+     * @var string|null
      */
     private $comment;
 

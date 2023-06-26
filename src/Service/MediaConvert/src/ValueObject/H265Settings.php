@@ -42,12 +42,16 @@ final class H265Settings
      * (H265SpatialAdaptiveQuantization), Temporal Adaptive Quantization (H265TemporalAdaptiveQuantization), and Flicker
      * Adaptive Quantization (H265FlickerAdaptiveQuantization), to further control the quantization filter. Set Adaptive
      * Quantization to Off (OFF) to apply no quantization to your output.
+     *
+     * @var H265AdaptiveQuantization::*|null
      */
     private $adaptiveQuantization;
 
     /**
      * Enables Alternate Transfer Function SEI message for outputs using Hybrid Log Gamma (HLG) Electro-Optical Transfer
      * Function (EOTF).
+     *
+     * @var H265AlternateTransferFunctionSei::*|null
      */
     private $alternateTransferFunctionSei;
 
@@ -57,23 +61,31 @@ final class H265Settings
      * the video quality of outputs with other rate control modes relative to the bitrate that you specify. Bandwidth
      * reduction increases further when your input is low quality or noisy. Outputs that use this feature incur pro-tier
      * pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     *
+     * @var BandwidthReductionFilter|null
      */
     private $bandwidthReductionFilter;
 
     /**
      * Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be
      * unique when rounded down to the nearest multiple of 1000.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * H.265 Level.
+     *
+     * @var H265CodecLevel::*|null
      */
     private $codecLevel;
 
     /**
      * Represents the Profile and Tier, per the HEVC (H.265) specification. Selections are grouped as [Profile] / [Tier], so
      * "Main/High" represents Main Profile with High Tier. 4:2:2 profiles are only available with the HEVC 4:2:2 License.
+     *
+     * @var H265CodecProfile::*|null
      */
     private $codecProfile;
 
@@ -83,6 +95,8 @@ final class H265Settings
      * keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than low-motion
      * content. The maximum number of B- frames is limited by the value that you choose for B-frames between reference
      * frames. To use the same number B-frames for all types of content: Choose Static.
+     *
+     * @var H265DynamicSubGop::*|null
      */
     private $dynamicSubGop;
 
@@ -92,6 +106,8 @@ final class H265Settings
      * the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to smooth out
      * the flicker. This setting is disabled by default. Related setting: In addition to enabling this setting, you must
      * also set adaptiveQuantization to a value other than Off (OFF).
+     *
+     * @var H265FlickerAdaptiveQuantization::*|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -104,6 +120,8 @@ final class H265Settings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var H265FramerateControl::*|null
      */
     private $framerateControl;
 
@@ -116,6 +134,8 @@ final class H265Settings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var H265FramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -124,6 +144,8 @@ final class H265Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -132,6 +154,8 @@ final class H265Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -140,6 +164,8 @@ final class H265Settings
      * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose Enabled
      * to help improve the video quality of your output relative to its bitrate. To not use reference B-frames: Choose
      * Disabled.
+     *
+     * @var H265GopBReference::*|null
      */
     private $gopBreference;
 
@@ -149,6 +175,8 @@ final class H265Settings
      * choose this value for you based on characteristics of your input video. To enable this automatic behavior, keep the
      * default value by leaving this setting out of your JSON job specification. In the console, do this by keeping the
      * default empty value. If you do explicitly specify a value, for segmented outputs, don't set this value to 0.
+     *
+     * @var int|null
      */
     private $gopClosedCadence;
 
@@ -159,6 +187,8 @@ final class H265Settings
      * If you want to allow MediaConvert to automatically determine GOP size, leave GOP size blank and set GOP mode control
      * to Auto (AUTO). If your output group specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to
      * Auto in each output in your output group.
+     *
+     * @var float|null
      */
     private $gopSize;
 
@@ -170,6 +200,8 @@ final class H265Settings
      * set GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly specify the
      * GOP length, choose Specified, frames (FRAMES) or Specified, seconds (SECONDS) and then provide the GOP length in the
      * related setting GOP size (GopSize).
+     *
+     * @var H265GopSizeUnits::*|null
      */
     private $gopSizeUnits;
 
@@ -177,16 +209,22 @@ final class H265Settings
      * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer that's
      * available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
      * automatically determine the final buffer fill percentage.
+     *
+     * @var int|null
      */
     private $hrdBufferFinalFillPercentage;
 
     /**
      * Percentage of the buffer that should initially be filled (HRD buffer model).
+     *
+     * @var int|null
      */
     private $hrdBufferInitialFillPercentage;
 
     /**
      * Size of buffer (HRD buffer model) in bits. For example, enter five megabits as 5000000.
+     *
+     * @var int|null
      */
     private $hrdBufferSize;
 
@@ -199,12 +237,16 @@ final class H265Settings
      * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
      * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
      * first, depending on which of the Follow options you choose.
+     *
+     * @var H265InterlaceMode::*|null
      */
     private $interlaceMode;
 
     /**
      * Maximum bitrate in bits/second. For example, enter five megabits per second as 5000000. Required when Rate control
      * mode is QVBR.
+     *
+     * @var int|null
      */
     private $maxBitrate;
 
@@ -220,6 +262,8 @@ final class H265Settings
      * GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are farther from the
      * scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and the GOPs surrounding
      * the scene change are smaller than the usual cadence GOPs.
+     *
+     * @var int|null
      */
     private $minIinterval;
 
@@ -227,12 +271,16 @@ final class H265Settings
      * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
      * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input video.
      * To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
+     *
+     * @var int|null
      */
     private $numberBframesBetweenReferenceFrames;
 
     /**
      * Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced
      * encoding.
+     *
+     * @var int|null
      */
     private $numberReferenceFrames;
 
@@ -242,6 +290,8 @@ final class H265Settings
      * PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job
      * specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
+     *
+     * @var H265ParControl::*|null
      */
     private $parControl;
 
@@ -250,6 +300,8 @@ final class H265Settings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parDenominator is 33.
+     *
+     * @var int|null
      */
     private $parDenominator;
 
@@ -258,30 +310,40 @@ final class H265Settings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parNumerator is 40.
+     *
+     * @var int|null
      */
     private $parNumerator;
 
     /**
      * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
      * video quality. The default behavior is faster, lower quality, single-pass encoding.
+     *
+     * @var H265QualityTuningLevel::*|null
      */
     private $qualityTuningLevel;
 
     /**
      * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
      * QVBR for Rate control mode (RateControlMode).
+     *
+     * @var H265QvbrSettings|null
      */
     private $qvbrSettings;
 
     /**
      * Use this setting to specify whether this output has a variable bitrate (VBR), constant bitrate (CBR) or
      * quality-defined variable bitrate (QVBR).
+     *
+     * @var H265RateControlMode::*|null
      */
     private $rateControlMode;
 
     /**
      * Specify Sample Adaptive Offset (SAO) filter strength. Adaptive mode dynamically selects best strength based on
      * content.
+     *
+     * @var H265SampleAdaptiveOffsetFilterMode::*|null
      */
     private $sampleAdaptiveOffsetFilterMode;
 
@@ -295,6 +357,8 @@ final class H265Settings
      * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
      * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
      * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     *
+     * @var H265ScanTypeConversionMode::*|null
      */
     private $scanTypeConversionMode;
 
@@ -303,12 +367,16 @@ final class H265Settings
      * quality and is enabled by default. If this output uses QVBR, choose Transition detection (TRANSITION_DETECTION) for
      * further video quality improvement. For more information about QVBR, see
      * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
+     *
+     * @var H265SceneChangeDetect::*|null
      */
     private $sceneChangeDetect;
 
     /**
      * Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive pictures,
      * and less than or equal to half the number of macroblock rows for interlaced pictures.
+     *
+     * @var int|null
      */
     private $slices;
 
@@ -318,6 +386,8 @@ final class H265Settings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
      * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var H265SlowPal::*|null
      */
     private $slowPal;
 
@@ -332,6 +402,8 @@ final class H265Settings
      * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization
      * (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it
      * to Low. For content with a wider variety of textures, set it to High or Higher.
+     *
+     * @var H265SpatialAdaptiveQuantization::*|null
      */
     private $spatialAdaptiveQuantization;
 
@@ -341,6 +413,8 @@ final class H265Settings
      * Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive, Interlaced, Hard
      * Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player
      * converts this output to 29.97i.
+     *
+     * @var H265Telecine::*|null
      */
     private $telecine;
 
@@ -354,6 +428,8 @@ final class H265Settings
      * objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting:
      * When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization
      * (adaptiveQuantization).
+     *
+     * @var H265TemporalAdaptiveQuantization::*|null
      */
     private $temporalAdaptiveQuantization;
 
@@ -364,16 +440,22 @@ final class H265Settings
      * example, given a bitstream with temporal IDs and with b-frames = 1 (i.e. IbPbPb display order), a decoder could
      * decode all the frames for full frame rate output or only the I and P frames (lowest temporal layer) for a half frame
      * rate output.
+     *
+     * @var H265TemporalIds::*|null
      */
     private $temporalIds;
 
     /**
      * Enable use of tiles, allowing horizontal as well as vertical subdivision of the encoded pictures.
+     *
+     * @var H265Tiles::*|null
      */
     private $tiles;
 
     /**
      * Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
+     *
+     * @var H265UnregisteredSeiTimecode::*|null
      */
     private $unregisteredSeiTimecode;
 
@@ -385,6 +467,8 @@ final class H265Settings
      * headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might not work
      * properly with some downstream systems and video players. The service defaults to marking your output as HEV1. For
      * these outputs, the service writes parameter set NAL units directly into the samples.
+     *
+     * @var H265WriteMp4PackagingType::*|null
      */
     private $writeMp4PackagingType;
 

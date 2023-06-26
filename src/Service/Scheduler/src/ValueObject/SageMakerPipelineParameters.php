@@ -11,6 +11,8 @@ final class SageMakerPipelineParameters
 {
     /**
      * List of parameter names and values to use when executing the SageMaker Model Building Pipeline.
+     *
+     * @var SageMakerPipelineParameter[]|null
      */
     private $pipelineParameterList;
 

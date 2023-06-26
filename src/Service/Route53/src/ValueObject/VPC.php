@@ -17,9 +17,14 @@ final class VPC
 {
     /**
      * (Private hosted zones only) The region that an Amazon VPC was created in.
+     *
+     * @var VPCRegion::*|null
      */
     private $vpcRegion;
 
+    /**
+     * @var string|null
+     */
     private $vpcId;
 
     /**

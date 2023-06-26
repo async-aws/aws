@@ -16,6 +16,8 @@ final class EmbeddedDestinationSettings
      * stream. Specify a CC number for each captions channel in this output. If you have two channels, choose CC numbers
      * that aren't in the same field. For example, choose 1 and 3. For more information, see
      * https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
+     *
+     * @var int|null
      */
     private $destination608ChannelNumber;
 
@@ -26,6 +28,8 @@ final class EmbeddedDestinationSettings
      * in your input captions selector settings. If you choose to upconvert but don't specify a 708 service number,
      * MediaConvert uses the number that you specify for CC channel number (destination608ChannelNumber) for the 708 service
      * number. For more information, see https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
+     *
+     * @var int|null
      */
     private $destination708ServiceNumber;
 

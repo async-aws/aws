@@ -21,6 +21,8 @@ final class WorkGroupConfiguration
      * files [^1].
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     *
+     * @var ResultConfiguration|null
      */
     private $resultConfiguration;
 
@@ -29,16 +31,22 @@ final class WorkGroupConfiguration
      * settings are used. For more information, see Workgroup Settings Override Client-Side Settings [^1].
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
+     *
+     * @var bool|null
      */
     private $enforceWorkGroupConfiguration;
 
     /**
      * Indicates that the Amazon CloudWatch metrics are enabled for the workgroup.
+     *
+     * @var bool|null
      */
     private $publishCloudWatchMetricsEnabled;
 
     /**
      * The upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan.
+     *
+     * @var int|null
      */
     private $bytesScannedCutoffPerQuery;
 
@@ -49,28 +57,38 @@ final class WorkGroupConfiguration
      * Requester Pays Buckets [^1] in the *Amazon Simple Storage Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
+     *
+     * @var bool|null
      */
     private $requesterPaysEnabled;
 
     /**
      * The engine version that all queries running on the workgroup use. Queries on the `AmazonAthenaPreviewFunctionality`
      * workgroup run on the preview engine regardless of this setting.
+     *
+     * @var EngineVersion|null
      */
     private $engineVersion;
 
     /**
      * Specifies a user defined JSON string that is passed to the notebook engine.
+     *
+     * @var string|null
      */
     private $additionalConfiguration;
 
     /**
      * Role used in a session for accessing the user's resources.
+     *
+     * @var string|null
      */
     private $executionRole;
 
     /**
      * Specifies the KMS key that is used to encrypt the user's data stores in Athena. This setting does not apply to Athena
      * SQL workgroups.
+     *
+     * @var CustomerContentEncryptionConfiguration|null
      */
     private $customerContentEncryptionConfiguration;
 
@@ -82,6 +100,8 @@ final class WorkGroupConfiguration
      * The `EnforceWorkGroupConfiguration` setting takes precedence over the `EnableMinimumEncryptionConfiguration` flag.
      * This means that if `EnforceWorkGroupConfiguration` is true, the `EnableMinimumEncryptionConfiguration` flag is
      * ignored, and the workgroup configuration for encryption is used.
+     *
+     * @var bool|null
      */
     private $enableMinimumEncryptionConfiguration;
 

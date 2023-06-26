@@ -12,6 +12,8 @@ class GetBlobOutput extends Result
 {
     /**
      * The content of the blob, usually a file.
+     *
+     * @var string
      */
     private $content;
 

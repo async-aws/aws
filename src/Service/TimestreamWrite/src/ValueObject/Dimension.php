@@ -18,16 +18,22 @@ final class Dimension
      * For constraints on dimension names, see Naming Constraints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The value of the dimension.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * The data type of the dimension for the time-series data point.
+     *
+     * @var DimensionValueType::*|null
      */
     private $dimensionValueType;
 

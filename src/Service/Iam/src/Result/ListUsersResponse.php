@@ -20,6 +20,8 @@ class ListUsersResponse extends Result implements \IteratorAggregate
 {
     /**
      * A list of users.
+     *
+     * @var User[]
      */
     private $users;
 
@@ -28,12 +30,16 @@ class ListUsersResponse extends Result implements \IteratorAggregate
      * subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return
      * fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check
      * `IsTruncated` after every call to ensure that you receive all your results.
+     *
+     * @var bool|null
      */
     private $isTruncated;
 
     /**
      * When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a
      * subsequent pagination request.
+     *
+     * @var string|null
      */
     private $marker;
 

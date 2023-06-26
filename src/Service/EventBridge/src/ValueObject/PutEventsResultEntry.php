@@ -12,16 +12,22 @@ final class PutEventsResultEntry
 {
     /**
      * The ID of the event.
+     *
+     * @var string|null
      */
     private $eventId;
 
     /**
      * The error code that indicates why the event submission failed.
+     *
+     * @var string|null
      */
     private $errorCode;
 
     /**
      * The error message that explains why the event submission failed.
+     *
+     * @var string|null
      */
     private $errorMessage;
 

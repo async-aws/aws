@@ -15,26 +15,36 @@ final class StackEvent
 {
     /**
      * The unique ID name of the instance of the stack.
+     *
+     * @var string
      */
     private $stackId;
 
     /**
      * The unique ID of this event.
+     *
+     * @var string
      */
     private $eventId;
 
     /**
      * The name associated with a stack.
+     *
+     * @var string
      */
     private $stackName;
 
     /**
      * The logical name of the resource specified in the template.
+     *
+     * @var string|null
      */
     private $logicalResourceId;
 
     /**
      * The name or unique identifier associated with the physical instance of the resource.
+     *
+     * @var string|null
      */
     private $physicalResourceId;
 
@@ -43,26 +53,36 @@ final class StackEvent
      * CloudFormation User Guide.).
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
+     *
+     * @var string|null
      */
     private $resourceType;
 
     /**
      * Time the status was updated.
+     *
+     * @var \DateTimeImmutable
      */
     private $timestamp;
 
     /**
      * Current status of the resource.
+     *
+     * @var ResourceStatus::*|null
      */
     private $resourceStatus;
 
     /**
      * Success/failure message associated with the resource.
+     *
+     * @var string|null
      */
     private $resourceStatusReason;
 
     /**
      * BLOB of the properties used to create the resource.
+     *
+     * @var string|null
      */
     private $resourceProperties;
 
@@ -77,26 +97,36 @@ final class StackEvent
      * initiated from the console use the token format *Console-StackOperation-ID*, which helps you easily identify the
      * stack operation . For example, if you create a stack using the console, each stack event would be assigned the same
      * token in the following format: `Console-CreateStack-7f59c3cf-00d2-40c7-b2ff-e75db0987002`.
+     *
+     * @var string|null
      */
     private $clientRequestToken;
 
     /**
      * The name of the hook.
+     *
+     * @var string|null
      */
     private $hookType;
 
     /**
      * Provides the status of the change set hook.
+     *
+     * @var HookStatus::*|null
      */
     private $hookStatus;
 
     /**
      * Provides the reason for the hook status.
+     *
+     * @var string|null
      */
     private $hookStatusReason;
 
     /**
      * Invocation points are points in provisioning logic where hooks are initiated.
+     *
+     * @var HookInvocationPoint::*|null
      */
     private $hookInvocationPoint;
 
@@ -105,6 +135,8 @@ final class StackEvent
      *
      * - `FAIL` Stops provisioning resources.
      * - `WARN` Allows provisioning to continue with a warning message.
+     *
+     * @var HookFailureMode::*|null
      */
     private $hookFailureMode;
 

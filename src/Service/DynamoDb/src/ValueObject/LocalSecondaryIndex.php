@@ -11,6 +11,8 @@ final class LocalSecondaryIndex
 {
     /**
      * The name of the local secondary index. The name must be unique among all other indexes on this table.
+     *
+     * @var string
      */
     private $indexName;
 
@@ -27,12 +29,16 @@ final class LocalSecondaryIndex
      * >
      * > The sort key of an item is also known as its *range attribute*. The term "range attribute" derives from the way
      * > DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
+     *
+     * @var KeySchemaElement[]
      */
     private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into the local secondary index. These are in
      * addition to the primary key attributes and index key attributes, which are automatically projected.
+     *
+     * @var Projection
      */
     private $projection;
 

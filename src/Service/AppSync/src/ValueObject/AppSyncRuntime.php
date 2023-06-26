@@ -14,11 +14,15 @@ final class AppSyncRuntime
 {
     /**
      * The `name` of the runtime to use. Currently, the only allowed value is `APPSYNC_JS`.
+     *
+     * @var RuntimeName::*
      */
     private $name;
 
     /**
      * The `version` of the runtime to use. Currently, the only allowed version is `1.0.0`.
+     *
+     * @var string
      */
     private $runtimeVersion;
 

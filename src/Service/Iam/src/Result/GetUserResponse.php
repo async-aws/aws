@@ -30,6 +30,8 @@ class GetUserResponse extends Result
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html
+     *
+     * @var User
      */
     private $user;
 

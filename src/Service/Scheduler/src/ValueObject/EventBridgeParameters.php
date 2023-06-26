@@ -13,11 +13,15 @@ final class EventBridgeParameters
 {
     /**
      * A free-form string, with a maximum of 128 characters, used to decide what fields to expect in the event detail.
+     *
+     * @var string
      */
     private $detailType;
 
     /**
      * The source of the event.
+     *
+     * @var string
      */
     private $source;
 

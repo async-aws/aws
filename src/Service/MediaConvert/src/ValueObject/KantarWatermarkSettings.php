@@ -12,11 +12,15 @@ final class KantarWatermarkSettings
 {
     /**
      * Provide an audio channel name from your Kantar audio license.
+     *
+     * @var string|null
      */
     private $channelName;
 
     /**
      * Specify a unique identifier for Kantar to use for this piece of content.
+     *
+     * @var string|null
      */
     private $contentReference;
 
@@ -27,22 +31,30 @@ final class KantarWatermarkSettings
      * For instructions on creating a secret, see
      * https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html, in the AWS Secrets Manager User
      * Guide.
+     *
+     * @var string|null
      */
     private $credentialsSecretName;
 
     /**
      * Optional. Specify an offset, in whole seconds, from the start of your output and the beginning of the watermarking.
      * When you don't specify an offset, Kantar defaults to zero.
+     *
+     * @var float|null
      */
     private $fileOffset;
 
     /**
      * Provide your Kantar license ID number. You should get this number from Kantar.
+     *
+     * @var int|null
      */
     private $kantarLicenseId;
 
     /**
      * Provide the HTTPS endpoint to the Kantar server. You should get this endpoint from Kantar.
+     *
+     * @var string|null
      */
     private $kantarServerUrl;
 
@@ -50,6 +62,8 @@ final class KantarWatermarkSettings
      * Optional. Specify the Amazon S3 bucket where you want MediaConvert to store your Kantar watermark XML logs. When you
      * don't specify a bucket, MediaConvert doesn't save these logs. Note that your MediaConvert service role must provide
      * access to this location. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/iam-role.html.
+     *
+     * @var string|null
      */
     private $logDestination;
 
@@ -58,31 +72,43 @@ final class KantarWatermarkSettings
      * suggests that you be very cautious when using this Kantar feature, and that you use it only on channels that are
      * managed specifically for use with this feature by your Audience Measurement Operator. For more information about this
      * feature, contact Kantar technical support.
+     *
+     * @var string|null
      */
     private $metadata3;
 
     /**
      * Additional metadata that MediaConvert sends to Kantar. Maximum length is 50 characters.
+     *
+     * @var string|null
      */
     private $metadata4;
 
     /**
      * Additional metadata that MediaConvert sends to Kantar. Maximum length is 50 characters.
+     *
+     * @var string|null
      */
     private $metadata5;
 
     /**
      * Additional metadata that MediaConvert sends to Kantar. Maximum length is 50 characters.
+     *
+     * @var string|null
      */
     private $metadata6;
 
     /**
      * Additional metadata that MediaConvert sends to Kantar. Maximum length is 50 characters.
+     *
+     * @var string|null
      */
     private $metadata7;
 
     /**
      * Additional metadata that MediaConvert sends to Kantar. Maximum length is 50 characters.
+     *
+     * @var string|null
      */
     private $metadata8;
 

@@ -10,6 +10,8 @@ final class ResultSetMetadata
 {
     /**
      * Information about the columns returned in a query result metadata.
+     *
+     * @var ColumnInfo[]|null
      */
     private $columnInfo;
 

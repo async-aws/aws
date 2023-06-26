@@ -9,11 +9,15 @@ final class Smile
 {
     /**
      * Boolean value that indicates whether the face is smiling or not.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

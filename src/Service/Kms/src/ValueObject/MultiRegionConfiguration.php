@@ -14,17 +14,23 @@ final class MultiRegionConfiguration
 {
     /**
      * Indicates whether the KMS key is a `PRIMARY` or `REPLICA` key.
+     *
+     * @var MultiRegionKeyType::*|null
      */
     private $multiRegionKeyType;
 
     /**
      * Displays the key ARN and Region of the primary key. This field includes the current KMS key if it is the primary key.
+     *
+     * @var MultiRegionKey|null
      */
     private $primaryKey;
 
     /**
      * displays the key ARNs and Regions of all replica keys. This field includes the current KMS key if it is a replica
      * key.
+     *
+     * @var MultiRegionKey[]|null
      */
     private $replicaKeys;
 

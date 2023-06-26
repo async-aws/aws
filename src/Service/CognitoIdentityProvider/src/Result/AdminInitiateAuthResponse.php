@@ -51,6 +51,8 @@ class AdminInitiateAuthResponse extends Result
      *   sign-in.
      *
      * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html
+     *
+     * @var ChallengeNameType::*|null
      */
     private $challengeName;
 
@@ -59,6 +61,8 @@ class AdminInitiateAuthResponse extends Result
      * `AdminRespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session
      * with other challenge parameters. This session should be passed as it is to the next `AdminRespondToAuthChallenge` API
      * call.
+     *
+     * @var string|null
      */
     private $session;
 
@@ -72,6 +76,8 @@ class AdminInitiateAuthResponse extends Result
      * The value of the `USER_ID_FOR_SRP` attribute is the user's actual username, not an alias (such as email address or
      * phone number), even if you specified an alias in your call to `AdminInitiateAuth`. This happens because, in the
      * `AdminRespondToAuthChallenge` API `ChallengeResponses`, the `USERNAME` attribute can't be an alias.
+     *
+     * @var array<string, string>
      */
     private $challengeParameters;
 
@@ -79,6 +85,8 @@ class AdminInitiateAuthResponse extends Result
      * The result of the authentication response. This is only returned if the caller doesn't need to pass another
      * challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`,
      * `ChallengeParameters`, and `Session` are returned.
+     *
+     * @var AuthenticationResultType|null
      */
     private $authenticationResult;
 

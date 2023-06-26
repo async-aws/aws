@@ -9,6 +9,8 @@ final class AlarmConfiguration
 {
     /**
      * Indicates whether the alarm configuration is enabled.
+     *
+     * @var bool|null
      */
     private $enabled;
 
@@ -18,11 +20,15 @@ final class AlarmConfiguration
      *
      * - `true`: The deployment proceeds even if alarm status information can't be retrieved from Amazon CloudWatch.
      * - `false`: The deployment stops if alarm status information can't be retrieved from Amazon CloudWatch.
+     *
+     * @var bool|null
      */
     private $ignorePollAlarmFailure;
 
     /**
      * A list of alarms configured for the deployment or deployment group. A maximum of 10 alarms can be added.
+     *
+     * @var Alarm[]|null
      */
     private $alarms;
 

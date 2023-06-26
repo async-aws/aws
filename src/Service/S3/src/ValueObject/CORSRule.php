@@ -11,6 +11,8 @@ final class CORSRule
 {
     /**
      * Unique identifier for the rule. The value cannot be longer than 255 characters.
+     *
+     * @var string|null
      */
     private $id;
 
@@ -18,27 +20,37 @@ final class CORSRule
      * Headers that are specified in the `Access-Control-Request-Headers` header. These headers are allowed in a preflight
      * OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are
      * allowed.
+     *
+     * @var string[]|null
      */
     private $allowedHeaders;
 
     /**
      * An HTTP method that you allow the origin to execute. Valid values are `GET`, `PUT`, `HEAD`, `POST`, and `DELETE`.
+     *
+     * @var string[]
      */
     private $allowedMethods;
 
     /**
      * One or more origins you want customers to be able to access the bucket from.
+     *
+     * @var string[]
      */
     private $allowedOrigins;
 
     /**
      * One or more headers in the response that you want customers to be able to access from their applications (for
      * example, from a JavaScript `XMLHttpRequest` object).
+     *
+     * @var string[]|null
      */
     private $exposeHeaders;
 
     /**
      * The time in seconds that your browser is to cache the preflight response for the specified resource.
+     *
+     * @var int|null
      */
     private $maxAgeSeconds;
 

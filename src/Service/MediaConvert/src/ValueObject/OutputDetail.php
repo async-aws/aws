@@ -9,11 +9,15 @@ final class OutputDetail
 {
     /**
      * Duration in milliseconds.
+     *
+     * @var int|null
      */
     private $durationInMs;
 
     /**
      * Contains details about the output's video stream.
+     *
+     * @var VideoDetail|null
      */
     private $videoDetails;
 

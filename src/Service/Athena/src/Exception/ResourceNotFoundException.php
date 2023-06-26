@@ -12,6 +12,8 @@ final class ResourceNotFoundException extends ClientException
 {
     /**
      * The name of the Amazon resource.
+     *
+     * @var string|null
      */
     private $resourceName;
 

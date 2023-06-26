@@ -20,6 +20,8 @@ final class Tag
      * additional limits, see IAM and STS Character Limits [^1] in the *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length
+     *
+     * @var string
      */
     private $key;
 
@@ -30,6 +32,8 @@ final class Tag
      * additional limits, see IAM and STS Character Limits [^1] in the *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length
+     *
+     * @var string
      */
     private $value;
 

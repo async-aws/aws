@@ -15,11 +15,15 @@ final class DolbyVision
     /**
      * Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to override the MaxCLL and MaxFALL values in your
      * input with new values.
+     *
+     * @var DolbyVisionLevel6Metadata|null
      */
     private $l6Metadata;
 
     /**
      * Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
+     *
+     * @var DolbyVisionLevel6Mode::*|null
      */
     private $l6Mode;
 
@@ -30,6 +34,8 @@ final class DolbyVision
      * HDR10-compatible signal by applying static content mapping to the source. This mode is speed-optimized for PQ10
      * sources with metadata that is created from analysis. For graded Dolby Vision content, be aware that creative intent
      * might not be guaranteed with extreme 1,000 nits trims.
+     *
+     * @var DolbyVisionMapping::*|null
      */
     private $mapping;
 
@@ -38,6 +44,8 @@ final class DolbyVision
      * output. Your input must include Dolby Vision metadata or an HDR10 YUV color space. Use Profile 8.1 to include
      * frame-interleaved Dolby Vision metadata and HDR10 metadata in your output. Your input must include Dolby Vision
      * metadata.
+     *
+     * @var DolbyVisionProfile::*|null
      */
     private $profile;
 

@@ -11,11 +11,15 @@ final class ChangeBatch
 {
     /**
      * *Optional:* Any comments you want to include about a change batch request.
+     *
+     * @var string|null
      */
     private $comment;
 
     /**
      * Information about the changes to make to the record sets.
+     *
+     * @var Change[]
      */
     private $changes;
 

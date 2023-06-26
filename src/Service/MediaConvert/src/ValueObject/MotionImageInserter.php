@@ -19,6 +19,8 @@ final class MotionImageInserter
      * as 24/1. Make sure that the number of images in your series matches the frame rate and your intended overlay
      * duration. For example, if you want a 30-second overlay at 30 fps, you should have 900 .png images. This overlay frame
      * rate doesn't need to match the frame rate of the underlying video.
+     *
+     * @var MotionImageInsertionFramerate|null
      */
     private $framerate;
 
@@ -30,12 +32,16 @@ final class MotionImageInserter
      * initial file names with enough zeros to complete the sequence. For example, if the first image is overlay_0.png,
      * there can be only 10 images in the sequence, with the last image being overlay_9.png. But if the first image is
      * overlay_00.png, there can be 100 images in the sequence.
+     *
+     * @var string|null
      */
     private $input;
 
     /**
      * Choose the type of motion graphic asset that you are providing for your overlay. You can choose either a .mov file or
      * a series of .png files.
+     *
+     * @var MotionImageInsertionMode::*|null
      */
     private $insertionMode;
 
@@ -44,11 +50,15 @@ final class MotionImageInserter
      * upper-left corner of the frame. If you don't specify an offset, the service scales your overlay to the full size of
      * the frame. Otherwise, the service inserts the overlay at its native resolution and scales the size up or down with
      * any video scaling.
+     *
+     * @var MotionImageInsertionOffset|null
      */
     private $offset;
 
     /**
      * Specify whether your motion graphic overlay repeats on a loop or plays only once.
+     *
+     * @var MotionImagePlayback::*|null
      */
     private $playback;
 
@@ -61,6 +71,8 @@ final class MotionImageInserter
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode
      * configuration settings in your JSON job settings specification at settings>timecodeConfig>source and
      * settings>inputs>timecodeSource.
+     *
+     * @var string|null
      */
     private $startTime;
 

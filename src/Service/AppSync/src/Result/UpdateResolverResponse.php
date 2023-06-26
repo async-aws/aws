@@ -15,6 +15,8 @@ class UpdateResolverResponse extends Result
 {
     /**
      * The updated `Resolver` object.
+     *
+     * @var Resolver|null
      */
     private $resolver;
 

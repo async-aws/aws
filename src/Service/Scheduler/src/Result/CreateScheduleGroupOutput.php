@@ -9,6 +9,8 @@ class CreateScheduleGroupOutput extends Result
 {
     /**
      * The Amazon Resource Name (ARN) of the schedule group.
+     *
+     * @var string
      */
     private $scheduleGroupArn;
 

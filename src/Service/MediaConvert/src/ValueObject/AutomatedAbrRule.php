@@ -13,12 +13,16 @@ final class AutomatedAbrRule
     /**
      * When customer adds the allowed renditions rule for auto ABR ladder, they are required to add at leat one rendition to
      * allowedRenditions list.
+     *
+     * @var AllowedRenditionSize[]|null
      */
     private $allowedRenditions;
 
     /**
      * When customer adds the force include renditions rule for auto ABR ladder, they are required to add at leat one
      * rendition to forceIncludeRenditions list.
+     *
+     * @var ForceIncludeRenditionSize[]|null
      */
     private $forceIncludeRenditions;
 
@@ -28,6 +32,8 @@ final class AutomatedAbrRule
      * 640x360 the lowest resolution in your ABR stack will be equal to or greater than to 640x360. * If you specify a Min
      * top rendition size rule, the value that you specify for Min bottom rendition size must be less than, or equal to, Min
      * top rendition size.
+     *
+     * @var MinBottomRenditionSize|null
      */
     private $minBottomRenditionSize;
 
@@ -37,6 +43,8 @@ final class AutomatedAbrRule
      * 1280x720 the highest resolution in your ABR stack will be equal to or greater than 1280x720. * If you specify a value
      * for Max resolution, the value that you specify for Min top rendition size must be less than, or equal to, Max
      * resolution.
+     *
+     * @var MinTopRenditionSize|null
      */
     private $minTopRenditionSize;
 
@@ -63,6 +71,8 @@ final class AutomatedAbrRule
      * Required to ENABLED. * You must specify at least one resolution that is greater than or equal to any resolutions that
      * you specify in Min top rendition size or Min bottom rendition size. * If you specify Allowed renditions, you must not
      * specify a separate rule for Force include renditions.
+     *
+     * @var RuleType::*|null
      */
     private $type;
 

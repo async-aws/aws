@@ -18,11 +18,15 @@ class ListThingsResponse extends Result implements \IteratorAggregate
 {
     /**
      * The things.
+     *
+     * @var ThingAttribute[]
      */
     private $things;
 
     /**
      * The token to use to get the next set of results. Will not be returned if operation has returned all results.
+     *
+     * @var string|null
      */
     private $nextToken;
 

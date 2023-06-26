@@ -9,11 +9,15 @@ final class NetworkInterface
 {
     /**
      * The ID of the subnet.
+     *
+     * @var string|null
      */
     private $subnetId;
 
     /**
      * The ID of the network interface.
+     *
+     * @var string|null
      */
     private $networkInterfaceId;
 

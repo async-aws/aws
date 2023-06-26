@@ -18,12 +18,16 @@ final class ResultSetOptions
      *
      * > Conversion to Double or Long can result in roundoff errors due to precision loss. We recommend converting to
      * > String, especially when working with currency values.
+     *
+     * @var DecimalReturnType::*|null
      */
     private $decimalReturnType;
 
     /**
      * A value that indicates how a field of `LONG` type is represented. Allowed values are `LONG` and `STRING`. The default
      * is `LONG`. Specify `STRING` if the length or precision of numeric values might cause truncation or rounding errors.
+     *
+     * @var LongReturnType::*|null
      */
     private $longReturnType;
 

@@ -12,17 +12,23 @@ final class DelegationSet
 {
     /**
      * The ID that Amazon Route 53 assigns to a reusable delegation set.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * The value that you specified for `CallerReference` when you created the reusable delegation set.
+     *
+     * @var string|null
      */
     private $callerReference;
 
     /**
      * A complex type that contains a list of the authoritative name servers for a hosted zone or for a reusable delegation
      * set.
+     *
+     * @var string[]
      */
     private $nameServers;
 

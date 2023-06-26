@@ -18,11 +18,15 @@ class DescribeEndpointsResponse extends Result implements \IteratorAggregate
 {
     /**
      * List of endpoints.
+     *
+     * @var Endpoint[]
      */
     private $endpoints;
 
     /**
      * Use this string to request the next batch of endpoints.
+     *
+     * @var string|null
      */
     private $nextToken;
 

@@ -11,6 +11,8 @@ final class ResultReuseInformation
 {
     /**
      * True if a previous query result was reused; false if the result was generated from a new run of the query.
+     *
+     * @var bool
      */
     private $reusedPreviousResult;
 

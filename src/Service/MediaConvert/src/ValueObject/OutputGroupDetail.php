@@ -9,6 +9,8 @@ final class OutputGroupDetail
 {
     /**
      * Details about the output.
+     *
+     * @var OutputDetail[]|null
      */
     private $outputDetails;
 

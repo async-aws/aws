@@ -10,11 +10,15 @@ final class QueryExecutionStatistics
 {
     /**
      * The number of milliseconds that the query took to execute.
+     *
+     * @var int|null
      */
     private $engineExecutionTimeInMillis;
 
     /**
      * The number of bytes in the data that was queried.
+     *
+     * @var int|null
      */
     private $dataScannedInBytes;
 
@@ -26,17 +30,23 @@ final class QueryExecutionStatistics
      * the *Amazon Athena User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     *
+     * @var string|null
      */
     private $dataManifestLocation;
 
     /**
      * The number of milliseconds that Athena took to run the query.
+     *
+     * @var int|null
      */
     private $totalExecutionTimeInMillis;
 
     /**
      * The number of milliseconds that the query was in your query queue waiting for resources. Note that if transient
      * errors occur, Athena might automatically add the query back to the queue.
+     *
+     * @var int|null
      */
     private $queryQueueTimeInMillis;
 
@@ -44,17 +54,23 @@ final class QueryExecutionStatistics
      * The number of milliseconds that Athena took to plan the query processing flow. This includes the time spent
      * retrieving table partitions from the data source. Note that because the query engine performs the query planning,
      * query planning time is a subset of engine processing time.
+     *
+     * @var int|null
      */
     private $queryPlanningTimeInMillis;
 
     /**
      * The number of milliseconds that Athena took to finalize and publish the query results after the query engine finished
      * running the query.
+     *
+     * @var int|null
      */
     private $serviceProcessingTimeInMillis;
 
     /**
      * Contains information about whether previous query results were reused for the query.
+     *
+     * @var ResultReuseInformation|null
      */
     private $resultReuseInformation;
 

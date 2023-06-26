@@ -9,16 +9,22 @@ final class VpcConfigResponse
 {
     /**
      * A list of VPC subnet IDs.
+     *
+     * @var string[]|null
      */
     private $subnetIds;
 
     /**
      * A list of VPC security group IDs.
+     *
+     * @var string[]|null
      */
     private $securityGroupIds;
 
     /**
      * The ID of the VPC.
+     *
+     * @var string|null
      */
     private $vpcId;
 

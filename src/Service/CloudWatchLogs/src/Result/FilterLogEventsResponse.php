@@ -17,6 +17,8 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
 {
     /**
      * The matched events.
+     *
+     * @var FilteredLogEvent[]
      */
     private $events;
 
@@ -24,11 +26,15 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
      * **Important** As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
      *
      * Indicates which log streams have been searched and whether each has been searched completely.
+     *
+     * @var SearchedLogStream[]
      */
     private $searchedLogStreams;
 
     /**
      * The token to use when requesting the next set of items. The token expires after 24 hours.
+     *
+     * @var string|null
      */
     private $nextToken;
 

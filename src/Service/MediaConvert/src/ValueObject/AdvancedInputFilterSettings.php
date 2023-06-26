@@ -16,6 +16,8 @@ final class AdvancedInputFilterSettings
      * To adaptively add texture and reduce softness: Choose Enabled. To not add any texture: Keep the default value,
      * Disabled. We recommend that you choose Disabled for input video content that doesn't have texture, including screen
      * recordings, computer graphics, or cartoons.
+     *
+     * @var AdvancedInputFilterAddTexture::*|null
      */
     private $addTexture;
 
@@ -23,6 +25,8 @@ final class AdvancedInputFilterSettings
      * Optionally specify the amount of sharpening to apply when you use the Advanced input filter. Sharpening adds contrast
      * to the edges of your video content and can reduce softness. To apply no sharpening: Keep the default value, Off. To
      * apply a minimal amount of sharpening choose Low, or for the maximum choose High.
+     *
+     * @var AdvancedInputFilterSharpen::*|null
      */
     private $sharpening;
 

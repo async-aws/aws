@@ -19,11 +19,15 @@ final class RecipientInfo
     /**
      * The encryption algorithm that KMS should use with the public key for an Amazon Web Services Nitro Enclave to encrypt
      * plaintext values for the response. The only valid value is `RSAES_OAEP_SHA_256`.
+     *
+     * @var KeyEncryptionMechanism::*|null
      */
     private $keyEncryptionAlgorithm;
 
     /**
      * The attestation document for an Amazon Web Services Nitro Enclave. This document includes the enclave's public key.
+     *
+     * @var string|null
      */
     private $attestationDocument;
 

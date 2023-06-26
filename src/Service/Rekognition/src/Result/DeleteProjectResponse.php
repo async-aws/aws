@@ -10,6 +10,8 @@ class DeleteProjectResponse extends Result
 {
     /**
      * The current status of the delete project operation.
+     *
+     * @var ProjectStatus::*|null
      */
     private $status;
 

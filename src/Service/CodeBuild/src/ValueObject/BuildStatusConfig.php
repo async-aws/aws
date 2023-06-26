@@ -22,6 +22,8 @@ final class BuildStatusConfig
      *
      * [^1]: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/commit/%7Bnode%7D/statuses/build
      * [^2]: https://developer.github.com/v3/repos/statuses/#create-a-commit-status
+     *
+     * @var string|null
      */
     private $context;
 
@@ -40,6 +42,8 @@ final class BuildStatusConfig
      *
      * [^1]: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/commit/%7Bnode%7D/statuses/build
      * [^2]: https://developer.github.com/v3/repos/statuses/#create-a-commit-status
+     *
+     * @var string|null
      */
     private $targetUrl;
 

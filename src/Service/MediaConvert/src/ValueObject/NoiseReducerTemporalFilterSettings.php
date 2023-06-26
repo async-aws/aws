@@ -14,6 +14,8 @@ final class NoiseReducerTemporalFilterSettings
     /**
      * Use Aggressive mode for content that has complex motion. Higher values produce stronger temporal filtering. This
      * filters highly complex scenes more aggressively and creates better VQ for low bitrate outputs.
+     *
+     * @var int|null
      */
     private $aggressiveMode;
 
@@ -25,6 +27,8 @@ final class NoiseReducerTemporalFilterSettings
      * on your input type and quality. When you set Post temporal sharpening to Enabled (ENABLED), specify how much
      * sharpening is applied using Post temporal sharpening strength (postTemporalSharpeningStrength). Set Post temporal
      * sharpening to Disabled (DISABLED) to not apply sharpening.
+     *
+     * @var NoiseFilterPostTemporalSharpening::*|null
      */
     private $postTemporalSharpening;
 
@@ -32,12 +36,16 @@ final class NoiseReducerTemporalFilterSettings
      * Use Post temporal sharpening strength (postTemporalSharpeningStrength) to define the amount of sharpening the
      * transcoder applies to your output. Set Post temporal sharpening strength to Low (LOW), Medium (MEDIUM), or High
      * (HIGH) to indicate the amount of sharpening.
+     *
+     * @var NoiseFilterPostTemporalSharpeningStrength::*|null
      */
     private $postTemporalSharpeningStrength;
 
     /**
      * The speed of the filter (higher number is faster). Low setting reduces bit rate at the cost of transcode time, high
      * setting improves transcode time at the cost of bit rate.
+     *
+     * @var int|null
      */
     private $speed;
 
@@ -46,6 +54,8 @@ final class NoiseReducerTemporalFilterSettings
      * recommend the following value ranges, depending on the result that you want: * 0-2 for complexity reduction with
      * minimal sharpness loss * 2-8 for complexity reduction with image preservation * 8-16 for a high level of complexity
      * reduction.
+     *
+     * @var int|null
      */
     private $strength;
 

@@ -10,6 +10,8 @@ class WriteRecordsResponse extends Result
 {
     /**
      * Information on the records ingested by this request.
+     *
+     * @var RecordsIngested|null
      */
     private $recordsIngested;
 

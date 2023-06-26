@@ -9,16 +9,22 @@ final class UserInfo
 {
     /**
      * The name of the user who made the specified commit.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The email address associated with the user who made the commit, if any.
+     *
+     * @var string|null
      */
     private $email;
 
     /**
      * The date when the specified commit was commited, in timestamp format with GMT offset.
+     *
+     * @var string|null
      */
     private $date;
 

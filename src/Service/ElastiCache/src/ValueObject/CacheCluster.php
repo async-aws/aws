@@ -13,6 +13,8 @@ final class CacheCluster
 {
     /**
      * The user-supplied identifier of the cluster. This identifier is a unique key that identifies a cluster.
+     *
+     * @var string|null
      */
     private $cacheClusterId;
 
@@ -21,11 +23,15 @@ final class CacheCluster
      * The configuration endpoint will always have `.cfg` in it.
      *
      * Example: `mem-3.9dvc4r.cfg.usw2.cache.amazonaws.com:11211`
+     *
+     * @var Endpoint|null
      */
     private $configurationEndpoint;
 
     /**
      * The URL of the web page where you can download the latest ElastiCache client library.
+     *
+     * @var string|null
      */
     private $clientDownloadLandingPage;
 
@@ -107,22 +113,30 @@ final class CacheCluster
      *
      * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
      * [^2]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
+     *
+     * @var string|null
      */
     private $cacheNodeType;
 
     /**
      * The name of the cache engine (`memcached` or `redis`) to be used for this cluster.
+     *
+     * @var string|null
      */
     private $engine;
 
     /**
      * The version of the cache engine that is used in this cluster.
+     *
+     * @var string|null
      */
     private $engineVersion;
 
     /**
      * The current state of this cluster, one of the following values: `available`, `creating`, `deleted`, `deleting`,
      * `incompatible-network`, `modifying`, `rebooting cluster nodes`, `restore-failed`, or `snapshotting`.
+     *
+     * @var string|null
      */
     private $cacheClusterStatus;
 
@@ -131,22 +145,30 @@ final class CacheCluster
      *
      * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1 and
      * 40.
+     *
+     * @var int|null
      */
     private $numCacheNodes;
 
     /**
      * The name of the Availability Zone in which the cluster is located or "Multiple" if the cache nodes are located in
      * different Availability Zones.
+     *
+     * @var string|null
      */
     private $preferredAvailabilityZone;
 
     /**
      * The outpost ARN in which the cache cluster is created.
+     *
+     * @var string|null
      */
     private $preferredOutpostArn;
 
     /**
      * The date and time when the cluster was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $cacheClusterCreateTime;
 
@@ -165,51 +187,72 @@ final class CacheCluster
      * - `sat`
      *
      * Example: `sun:23:00-mon:01:30`
+     *
+     * @var string|null
      */
     private $preferredMaintenanceWindow;
 
+    /**
+     * @var PendingModifiedValues|null
+     */
     private $pendingModifiedValues;
 
     /**
      * Describes a notification topic and its status. Notification topics are used for publishing ElastiCache events to
      * subscribers using Amazon Simple Notification Service (SNS).
+     *
+     * @var NotificationConfiguration|null
      */
     private $notificationConfiguration;
 
     /**
      * A list of cache security group elements, composed of name and status sub-elements.
+     *
+     * @var CacheSecurityGroupMembership[]|null
      */
     private $cacheSecurityGroups;
 
     /**
      * Status of the cache parameter group.
+     *
+     * @var CacheParameterGroupStatus|null
      */
     private $cacheParameterGroup;
 
     /**
      * The name of the cache subnet group associated with the cluster.
+     *
+     * @var string|null
      */
     private $cacheSubnetGroupName;
 
     /**
      * A list of cache nodes that are members of the cluster.
+     *
+     * @var CacheNode[]|null
      */
     private $cacheNodes;
 
     /**
      *  If you are running Redis engine version 6.0 or later, set this parameter to yes if you want to opt-in to the next
      * auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     *
+     * @var bool|null
      */
     private $autoMinorVersionUpgrade;
 
     /**
      * A list of VPC Security Groups associated with the cluster.
+     *
+     * @var SecurityGroupMembership[]|null
      */
     private $securityGroups;
 
     /**
      * The replication group to which this cluster belongs. If this field is empty, the cluster is not associated with any
      * replication group.
+     *
+     * @var string|null
      */
     private $replicationGroupId;
 
@@ -218,6 +261,8 @@ final class CacheCluster
      * you set `SnapshotRetentionLimit` to 5, a snapshot that was taken today is retained for 5 days before being deleted.
      *
      * ! If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
+     *
+     * @var int|null
      */
     private $snapshotRetentionLimit;
 
@@ -225,6 +270,8 @@ final class CacheCluster
      * The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your cluster.
      *
      * Example: `05:00-09:00`
+     *
+     * @var string|null
      */
     private $snapshotWindow;
 
@@ -232,11 +279,15 @@ final class CacheCluster
      * A flag that enables using an `AuthToken` (password) when issuing Redis commands.
      *
      * Default: `false`
+     *
+     * @var bool|null
      */
     private $authTokenEnabled;
 
     /**
      * The date the auth token was last modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $authTokenLastModifiedDate;
 
@@ -247,6 +298,8 @@ final class CacheCluster
      * later.
      *
      * Default: `false`
+     *
+     * @var bool|null
      */
     private $transitEncryptionEnabled;
 
@@ -260,21 +313,29 @@ final class CacheCluster
      * later.
      *
      * Default: `false`
+     *
+     * @var bool|null
      */
     private $atRestEncryptionEnabled;
 
     /**
      * The ARN (Amazon Resource Name) of the cache cluster.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * A boolean value indicating whether log delivery is enabled for the replication group.
+     *
+     * @var bool|null
      */
     private $replicationGroupLogDeliveryEnabled;
 
     /**
      * Returns the destination, format and type of the logs.
+     *
+     * @var LogDeliveryConfiguration[]|null
      */
     private $logDeliveryConfigurations;
 
@@ -283,6 +344,8 @@ final class CacheCluster
      * or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
+     *
+     * @var NetworkType::*|null
      */
     private $networkType;
 
@@ -291,11 +354,15 @@ final class CacheCluster
      * engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
+     *
+     * @var IpDiscovery::*|null
      */
     private $ipDiscovery;
 
     /**
      * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     *
+     * @var TransitEncryptionMode::*|null
      */
     private $transitEncryptionMode;
 

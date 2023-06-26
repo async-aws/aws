@@ -9,11 +9,15 @@ final class CalculationStatistics
 {
     /**
      * The data processing unit execution time in milliseconds for the calculation.
+     *
+     * @var int|null
      */
     private $dpuExecutionInMillis;
 
     /**
      * The progress of the calculation.
+     *
+     * @var string|null
      */
     private $progress;
 

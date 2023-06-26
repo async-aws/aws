@@ -26,12 +26,16 @@ final class ShardFilter
      * - `FROM_TIMESTAMP` - the response incldues all closed shards whose end timestamp is greater than or equal to the
      *   given timestamp and also all open shards. Corrected to `TRIM_HORIZON` of the data stream if `FROM_TIMESTAMP` is
      *   less than the `TRIM_HORIZON` value.
+     *
+     * @var ShardFilterType::*
      */
     private $type;
 
     /**
      * The exclusive start `shardID` speified in the `ShardFilter` parameter. This property can only be used if the
      * `AFTER_SHARD_ID` shard type is specified.
+     *
+     * @var string|null
      */
     private $shardId;
 
@@ -39,6 +43,8 @@ final class ShardFilter
      * The timestamps specified in the `ShardFilter` parameter. A timestamp is a Unix epoch date with precision in
      * milliseconds. For example, 2016-04-04T19:58:46.480-00:00 or 1459799926.480. This property can only be used if
      * `FROM_TIMESTAMP` or `AT_TIMESTAMP` shard types are specified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $timestamp;
 

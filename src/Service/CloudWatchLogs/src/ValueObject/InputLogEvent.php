@@ -12,11 +12,15 @@ final class InputLogEvent
 {
     /**
      * The time the event occurred, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
+     *
+     * @var int
      */
     private $timestamp;
 
     /**
      * The raw event message. Each log event can be no larger than 256 KB.
+     *
+     * @var string
      */
     private $message;
 

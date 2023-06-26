@@ -15,6 +15,8 @@ final class SqsParameters
 {
     /**
      * The FIFO message group ID to use as the target.
+     *
+     * @var string|null
      */
     private $messageGroupId;
 

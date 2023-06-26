@@ -13,6 +13,8 @@ class PutRecordOutput extends Result
 {
     /**
      * The shard ID of the shard where the data record was placed.
+     *
+     * @var string
      */
     private $shardId;
 
@@ -20,6 +22,8 @@ class PutRecordOutput extends Result
      * The sequence number identifier that was assigned to the put data record. The sequence number for the record is unique
      * across all records in the stream. A sequence number is the identifier associated with every record put into the
      * stream.
+     *
+     * @var string
      */
     private $sequenceNumber;
 
@@ -29,6 +33,8 @@ class PutRecordOutput extends Result
      * - `NONE`: Do not encrypt the records in the stream.
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
+     *
+     * @var EncryptionType::*|null
      */
     private $encryptionType;
 

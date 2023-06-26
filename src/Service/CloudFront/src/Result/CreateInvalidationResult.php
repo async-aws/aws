@@ -15,11 +15,15 @@ class CreateInvalidationResult extends Result
 {
     /**
      * The fully qualified URI of the distribution and invalidation batch request, including the `Invalidation ID`.
+     *
+     * @var string|null
      */
     private $location;
 
     /**
      * The invalidation's information.
+     *
+     * @var Invalidation|null
      */
     private $invalidation;
 

@@ -10,14 +10,21 @@ class DeleteObjectOutput extends Result
 {
     /**
      * Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
+     *
+     * @var bool|null
      */
     private $deleteMarker;
 
     /**
      * Returns the version ID of the delete marker created as a result of the DELETE operation.
+     *
+     * @var string|null
      */
     private $versionId;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     public function getDeleteMarker(): ?bool

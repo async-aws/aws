@@ -15,11 +15,15 @@ class DeleteMessageBatchResult extends Result
 {
     /**
      * A list of `DeleteMessageBatchResultEntry` items.
+     *
+     * @var DeleteMessageBatchResultEntry[]
      */
     private $successful;
 
     /**
      * A list of `BatchResultErrorEntry` items.
+     *
+     * @var BatchResultErrorEntry[]
      */
     private $failed;
 

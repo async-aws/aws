@@ -10,6 +10,8 @@ class UpdateTimeToLiveOutput extends Result
 {
     /**
      * Represents the output of an `UpdateTimeToLive` operation.
+     *
+     * @var TimeToLiveSpecification|null
      */
     private $timeToLiveSpecification;
 

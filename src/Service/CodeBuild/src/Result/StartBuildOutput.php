@@ -31,6 +31,8 @@ class StartBuildOutput extends Result
 {
     /**
      * Information about the build to be run.
+     *
+     * @var Build|null
      */
     private $build;
 

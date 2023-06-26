@@ -11,21 +11,29 @@ final class ContextDataType
 {
     /**
      * The source IP address of your user's device.
+     *
+     * @var string
      */
     private $ipAddress;
 
     /**
      * Your server endpoint where this API is invoked.
+     *
+     * @var string
      */
     private $serverName;
 
     /**
      * Your server path where this API is invoked.
+     *
+     * @var string
      */
     private $serverPath;
 
     /**
      * HttpHeaders received on your server in same order.
+     *
+     * @var HttpHeader[]
      */
     private $httpHeaders;
 
@@ -34,6 +42,8 @@ final class ContextDataType
      * For more information, see Adding user device and session data to API requests [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint
+     *
+     * @var string|null
      */
     private $encodedData;
 

@@ -19,11 +19,15 @@ final class ExportedEnvironmentVariable
 {
     /**
      * The name of the exported environment variable.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The value assigned to the exported environment variable.
+     *
+     * @var string|null
      */
     private $value;
 

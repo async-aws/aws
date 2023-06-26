@@ -10,6 +10,8 @@ class DescribeStreamConsumerOutput extends Result
 {
     /**
      * An object that represents the details of the consumer.
+     *
+     * @var ConsumerDescription
      */
     private $consumerDescription;
 

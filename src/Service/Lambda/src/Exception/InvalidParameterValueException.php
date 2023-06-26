@@ -12,6 +12,8 @@ final class InvalidParameterValueException extends ClientException
 {
     /**
      * The exception type.
+     *
+     * @var string|null
      */
     private $type;
 

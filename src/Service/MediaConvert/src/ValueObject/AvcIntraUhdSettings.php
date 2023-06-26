@@ -17,6 +17,8 @@ final class AvcIntraUhdSettings
      * accurate. That is, the actual bitrate of your output is closer to the target bitrate defined in the specification.
      * When you choose Single-pass (SINGLE_PASS), your encoding time is faster. The default behavior is Single-pass
      * (SINGLE_PASS).
+     *
+     * @var AvcIntraUhdQualityTuningLevel::*|null
      */
     private $qualityTuningLevel;
 

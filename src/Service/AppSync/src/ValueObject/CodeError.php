@@ -11,6 +11,8 @@ final class CodeError
      * The type of code error.
      *
      * Examples include, but aren't limited to: `LINT_ERROR`, `PARSER_ERROR`.
+     *
+     * @var string|null
      */
     private $errorType;
 
@@ -18,11 +20,15 @@ final class CodeError
      * A user presentable error.
      *
      * Examples include, but aren't limited to: `Parsing error: Unterminated string literal`.
+     *
+     * @var string|null
      */
     private $value;
 
     /**
      * The line, column, and span location of the error in the code.
+     *
+     * @var CodeErrorLocation|null
      */
     private $location;
 

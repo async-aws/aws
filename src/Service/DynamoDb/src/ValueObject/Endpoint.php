@@ -12,11 +12,15 @@ final class Endpoint implements EndpointInterface
 {
     /**
      * IP address of the endpoint.
+     *
+     * @var string
      */
     private $address;
 
     /**
      * Endpoint cache time to live (TTL) value.
+     *
+     * @var int
      */
     private $cachePeriodInMinutes;
 

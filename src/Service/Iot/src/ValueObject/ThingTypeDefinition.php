@@ -9,22 +9,30 @@ final class ThingTypeDefinition
 {
     /**
      * The name of the thing type.
+     *
+     * @var string|null
      */
     private $thingTypeName;
 
     /**
      * The thing type ARN.
+     *
+     * @var string|null
      */
     private $thingTypeArn;
 
     /**
      * The ThingTypeProperties for the thing type.
+     *
+     * @var ThingTypeProperties|null
      */
     private $thingTypeProperties;
 
     /**
      * The ThingTypeMetadata contains additional information about the thing type including: creation date and time, a value
      * indicating whether the thing type is deprecated, and a date and time when it was deprecated.
+     *
+     * @var ThingTypeMetadata|null
      */
     private $thingTypeMetadata;
 

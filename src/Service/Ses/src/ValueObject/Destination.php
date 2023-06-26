@@ -18,16 +18,22 @@ final class Destination
 {
     /**
      * An array that contains the email addresses of the "To" recipients for the email.
+     *
+     * @var string[]|null
      */
     private $toAddresses;
 
     /**
      * An array that contains the email addresses of the "CC" (carbon copy) recipients for the email.
+     *
+     * @var string[]|null
      */
     private $ccAddresses;
 
     /**
      * An array that contains the email addresses of the "BCC" (blind carbon copy) recipients for the email.
+     *
+     * @var string[]|null
      */
     private $bccAddresses;
 

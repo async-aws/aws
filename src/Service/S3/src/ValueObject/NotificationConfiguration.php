@@ -10,21 +10,29 @@ final class NotificationConfiguration
 {
     /**
      * The topic to which notifications are sent and the events for which notifications are generated.
+     *
+     * @var TopicConfiguration[]|null
      */
     private $topicConfigurations;
 
     /**
      * The Amazon Simple Queue Service queues to publish messages to and the events for which to publish messages.
+     *
+     * @var QueueConfiguration[]|null
      */
     private $queueConfigurations;
 
     /**
      * Describes the Lambda functions to invoke and the events for which to invoke them.
+     *
+     * @var LambdaFunctionConfiguration[]|null
      */
     private $lambdaFunctionConfigurations;
 
     /**
      * Enables delivery of events to Amazon EventBridge.
+     *
+     * @var EventBridgeConfiguration|null
      */
     private $eventBridgeConfiguration;
 

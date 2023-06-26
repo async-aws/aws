@@ -15,11 +15,15 @@ class ListResolversResponse extends Result
 {
     /**
      * The `Resolver` objects.
+     *
+     * @var Resolver[]
      */
     private $resolvers;
 
     /**
      * An identifier to pass in the next request to this operation to return the next set of items in the list.
+     *
+     * @var string|null
      */
     private $nextToken;
 

@@ -23,11 +23,15 @@ final class Gender
 {
     /**
      * The predicted gender of the face.
+     *
+     * @var GenderType::*|null
      */
     private $value;
 
     /**
      * Level of confidence in the prediction.
+     *
+     * @var float|null
      */
     private $confidence;
 

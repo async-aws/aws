@@ -9,17 +9,23 @@ final class Mp2Settings
 {
     /**
      * Specify the average bitrate in bits per second.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * Set Channels to specify the number of channels in this output audio track. Choosing Mono in the console will give you
      * 1 output channel; choosing Stereo will give you 2. In the API, valid values are 1 and 2.
+     *
+     * @var int|null
      */
     private $channels;
 
     /**
      * Sample rate in hz.
+     *
+     * @var int|null
      */
     private $sampleRate;
 

@@ -9,21 +9,29 @@ final class Rectangle
 {
     /**
      * Height of rectangle in pixels. Specify only even numbers.
+     *
+     * @var int|null
      */
     private $height;
 
     /**
      * Width of rectangle in pixels. Specify only even numbers.
+     *
+     * @var int|null
      */
     private $width;
 
     /**
      * The distance, in pixels, between the rectangle and the left edge of the video frame. Specify only even numbers.
+     *
+     * @var int|null
      */
     private $x;
 
     /**
      * The distance, in pixels, between the rectangle and the top edge of the video frame. Specify only even numbers.
+     *
+     * @var int|null
      */
     private $y;
 

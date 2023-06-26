@@ -11,11 +11,15 @@ class UploadPartOutput extends Result
 {
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     *
+     * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
 
     /**
      * Entity tag for the uploaded object.
+     *
+     * @var string|null
      */
     private $etag;
 
@@ -25,6 +29,8 @@ class UploadPartOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32;
 
@@ -34,6 +40,8 @@ class UploadPartOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32C;
 
@@ -43,6 +51,8 @@ class UploadPartOutput extends Result
      * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha1;
 
@@ -52,33 +62,46 @@ class UploadPartOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha256;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
+     *
+     * @var string|null
      */
     private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
      * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key was used
      * for the object.
+     *
+     * @var string|null
      */
     private $sseKmsKeyId;
 
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * @var bool|null
      */
     private $bucketKeyEnabled;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     public function getBucketKeyEnabled(): ?bool

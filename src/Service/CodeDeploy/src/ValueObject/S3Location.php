@@ -12,11 +12,15 @@ final class S3Location
 {
     /**
      * The name of the Amazon S3 bucket where the application revision is stored.
+     *
+     * @var string|null
      */
     private $bucket;
 
     /**
      * The name of the Amazon S3 object that represents the bundled artifacts for the application revision.
+     *
+     * @var string|null
      */
     private $key;
 
@@ -26,6 +30,8 @@ final class S3Location
      * - `tar`: A tar archive file.
      * - `tgz`: A compressed tar archive file.
      * - `zip`: A zip archive file.
+     *
+     * @var BundleType::*|null
      */
     private $bundleType;
 
@@ -33,6 +39,8 @@ final class S3Location
      * A specific version of the Amazon S3 object that represents the bundled artifacts for the application revision.
      *
      * If the version is not specified, the system uses the most recent version by default.
+     *
+     * @var string|null
      */
     private $version;
 
@@ -40,6 +48,8 @@ final class S3Location
      * The ETag of the Amazon S3 object that represents the bundled artifacts for the application revision.
      *
      * If the ETag is not specified as an input parameter, ETag validation of the object is skipped.
+     *
+     * @var string|null
      */
     private $eTag;
 

@@ -9,6 +9,8 @@ final class Row
 {
     /**
      * The data that populates a row in a query result table.
+     *
+     * @var Datum[]|null
      */
     private $data;
 

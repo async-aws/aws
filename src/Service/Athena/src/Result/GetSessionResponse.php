@@ -14,47 +14,65 @@ class GetSessionResponse extends Result
 {
     /**
      * The session ID.
+     *
+     * @var string|null
      */
     private $sessionId;
 
     /**
      * The session description.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The workgroup to which the session belongs.
+     *
+     * @var string|null
      */
     private $workGroup;
 
     /**
      * The engine version used by the session (for example, `PySpark engine version 3`). You can get a list of engine
      * versions by calling ListEngineVersions.
+     *
+     * @var string|null
      */
     private $engineVersion;
 
     /**
      * Contains engine configuration information like DPU usage.
+     *
+     * @var EngineConfiguration|null
      */
     private $engineConfiguration;
 
     /**
      * The notebook version.
+     *
+     * @var string|null
      */
     private $notebookVersion;
 
     /**
      * Contains the workgroup configuration information used by the session.
+     *
+     * @var SessionConfiguration|null
      */
     private $sessionConfiguration;
 
     /**
      * Contains information about the status of the session.
+     *
+     * @var SessionStatus|null
      */
     private $status;
 
     /**
      * Contains the DPU execution time.
+     *
+     * @var SessionStatistics|null
      */
     private $statistics;
 

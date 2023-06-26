@@ -10,16 +10,22 @@ final class ThingTypeMetadata
 {
     /**
      * Whether the thing type is deprecated. If **true**, no new things could be associated with this type.
+     *
+     * @var bool|null
      */
     private $deprecated;
 
     /**
      * The date and time when the thing type was deprecated.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $deprecationDate;
 
     /**
      * The date and time when the thing type was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 

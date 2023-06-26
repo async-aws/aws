@@ -16,9 +16,14 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
 {
     /**
      * The log streams.
+     *
+     * @var LogStream[]
      */
     private $logStreams;
 
+    /**
+     * @var string|null
+     */
     private $nextToken;
 
     /**

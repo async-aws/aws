@@ -16,6 +16,8 @@ final class InputClipping
      * number. When choosing this value, take into account your setting for timecode source under input settings
      * (InputTimecodeSource). For example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip
      * to end six minutes into the video, use 01:06:00:00.
+     *
+     * @var string|null
      */
     private $endTimecode;
 
@@ -26,6 +28,8 @@ final class InputClipping
      * and FF is the frame number. When choosing this value, take into account your setting for Input timecode source. For
      * example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five minutes into
      * the video, use 01:05:00:00.
+     *
+     * @var string|null
      */
     private $startTimecode;
 

@@ -13,21 +13,29 @@ class EnhancedMonitoringOutput extends Result
 {
     /**
      * The name of the Kinesis data stream.
+     *
+     * @var string|null
      */
     private $streamName;
 
     /**
      * Represents the current state of the metrics that are in the enhanced state before the operation.
+     *
+     * @var list<MetricsName::*>
      */
     private $currentShardLevelMetrics;
 
     /**
      * Represents the list of all the metrics that would be in the enhanced state after the operation.
+     *
+     * @var list<MetricsName::*>
      */
     private $desiredShardLevelMetrics;
 
     /**
      * The ARN of the stream.
+     *
+     * @var string|null
      */
     private $streamArn;
 

@@ -9,26 +9,36 @@ final class ArrayValue
 {
     /**
      * An array of Boolean values.
+     *
+     * @var bool[]|null
      */
     private $booleanValues;
 
     /**
      * An array of integers.
+     *
+     * @var int[]|null
      */
     private $longValues;
 
     /**
      * An array of floating-point numbers.
+     *
+     * @var float[]|null
      */
     private $doubleValues;
 
     /**
      * An array of strings.
+     *
+     * @var string[]|null
      */
     private $stringValues;
 
     /**
      * An array of arrays.
+     *
+     * @var ArrayValue[]|null
      */
     private $arrayValues;
 

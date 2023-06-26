@@ -12,37 +12,51 @@ class GetCalculationExecutionResponse extends Result
 {
     /**
      * The calculation execution UUID.
+     *
+     * @var string|null
      */
     private $calculationExecutionId;
 
     /**
      * The session ID that the calculation ran in.
+     *
+     * @var string|null
      */
     private $sessionId;
 
     /**
      * The description of the calculation execution.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The Amazon S3 location in which calculation results are stored.
+     *
+     * @var string|null
      */
     private $workingDirectory;
 
     /**
      * Contains information about the status of the calculation.
+     *
+     * @var CalculationStatus|null
      */
     private $status;
 
     /**
      * Contains information about the data processing unit (DPU) execution time and progress. This field is populated only
      * when statistics are available.
+     *
+     * @var CalculationStatistics|null
      */
     private $statistics;
 
     /**
      * Contains result information. This field is populated only if the calculation is completed.
+     *
+     * @var CalculationResult|null
      */
     private $result;
 

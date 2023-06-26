@@ -11,12 +11,16 @@ final class DolbyVisionLevel6Metadata
     /**
      * Maximum Content Light Level. Static HDR metadata that corresponds to the brightest pixel in the entire stream.
      * Measured in nits.
+     *
+     * @var int|null
      */
     private $maxCll;
 
     /**
      * Maximum Frame-Average Light Level. Static HDR metadata that corresponds to the highest frame-average brightness in
      * the entire stream. Measured in nits.
+     *
+     * @var int|null
      */
     private $maxFall;
 

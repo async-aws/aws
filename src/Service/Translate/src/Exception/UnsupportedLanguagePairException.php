@@ -15,11 +15,15 @@ final class UnsupportedLanguagePairException extends ClientException
 {
     /**
      * The language code for the language of the input text.
+     *
+     * @var string|null
      */
     private $sourceLanguageCode;
 
     /**
      * The language code for the language of the translated text.
+     *
+     * @var string|null
      */
     private $targetLanguageCode;
 

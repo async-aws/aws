@@ -13,6 +13,8 @@ class DescribeStreamSummaryOutput extends Result
 {
     /**
      * A StreamDescriptionSummary containing information about the stream.
+     *
+     * @var StreamDescriptionSummary
      */
     private $streamDescriptionSummary;
 

@@ -19,16 +19,26 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
 {
     /**
      * The names of the streams that are associated with the Amazon Web Services account making the `ListStreams` request.
+     *
+     * @var string[]
      */
     private $streamNames;
 
     /**
      * If set to `true`, there are more streams available to list.
+     *
+     * @var bool
      */
     private $hasMoreStreams;
 
+    /**
+     * @var string|null
+     */
     private $nextToken;
 
+    /**
+     * @var StreamSummary[]
+     */
     private $streamSummaries;
 
     public function getHasMoreStreams(): bool

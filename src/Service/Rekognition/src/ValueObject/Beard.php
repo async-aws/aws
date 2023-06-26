@@ -9,11 +9,15 @@ final class Beard
 {
     /**
      * Boolean value that indicates whether the face has beard or not.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

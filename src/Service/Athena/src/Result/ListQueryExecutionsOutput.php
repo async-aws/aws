@@ -15,11 +15,15 @@ class ListQueryExecutionsOutput extends Result implements \IteratorAggregate
 {
     /**
      * The unique IDs of each query execution as an array of strings.
+     *
+     * @var string[]
      */
     private $queryExecutionIds;
 
     /**
      * A token to be used by the next request if this request is truncated.
+     *
+     * @var string|null
      */
     private $nextToken;
 

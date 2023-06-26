@@ -19,6 +19,8 @@ final class AthenaError
      * **2** - User
      *
      * **3** - Other
+     *
+     * @var int|null
      */
     private $errorCategory;
 
@@ -27,16 +29,22 @@ final class AthenaError
      * see the Error Type Reference [^1] in the *Amazon Athena User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/error-reference.html#error-reference-error-type-reference
+     *
+     * @var int|null
      */
     private $errorType;
 
     /**
      * True if the query might succeed if resubmitted.
+     *
+     * @var bool|null
      */
     private $retryable;
 
     /**
      * Contains a short description of the error that occurred.
+     *
+     * @var string|null
      */
     private $errorMessage;
 

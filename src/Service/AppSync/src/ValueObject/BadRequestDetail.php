@@ -10,6 +10,8 @@ final class BadRequestDetail
 {
     /**
      * Contains the list of errors in the request.
+     *
+     * @var CodeError[]|null
      */
     private $codeErrors;
 

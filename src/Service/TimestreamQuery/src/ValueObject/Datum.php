@@ -9,26 +9,36 @@ final class Datum
 {
     /**
      * Indicates if the data point is a scalar value such as integer, string, double, or Boolean.
+     *
+     * @var string|null
      */
     private $scalarValue;
 
     /**
      * Indicates if the data point is a timeseries data type.
+     *
+     * @var TimeSeriesDataPoint[]|null
      */
     private $timeSeriesValue;
 
     /**
      * Indicates if the data point is an array.
+     *
+     * @var Datum[]|null
      */
     private $arrayValue;
 
     /**
      * Indicates if the data point is a row.
+     *
+     * @var Row|null
      */
     private $rowValue;
 
     /**
      * Indicates if the data point is null.
+     *
+     * @var bool|null
      */
     private $nullValue;
 

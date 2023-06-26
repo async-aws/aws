@@ -27,6 +27,8 @@ final class DashIsoGroupSettings
      * By default, the service creates one .mpd DASH manifest for each DASH ISO output group in your job. This default
      * manifest references every output in the output group. To create additional DASH manifests that reference a subset of
      * the outputs in the output group, specify a list of them here.
+     *
+     * @var DashAdditionalManifest[]|null
      */
     private $additionalManifests;
 
@@ -38,12 +40,16 @@ final class DashIsoGroupSettings
      * (MPEG_CHANNEL_CONFIGURATION), to have MediaConvert write this: urn:mpeg:mpegB:cicp:ChannelConfiguration. Choose Dolby
      * channel configuration (DOLBY_CHANNEL_CONFIGURATION) to have MediaConvert write this instead:
      * tag:dolby.com,2014:dash:audio_channel_configuration:2011.
+     *
+     * @var DashIsoGroupAudioChannelConfigSchemeIdUri::*|null
      */
     private $audioChannelConfigSchemeIdUri;
 
     /**
      * A partial URI prefix that will be put in the manifest (.mpd) file at the top level BaseURL element. Can be used if
      * streams are delivered from a different URL than the manifest file.
+     *
+     * @var string|null
      */
     private $baseUrl;
 
@@ -53,6 +59,8 @@ final class DashIsoGroupSettings
      * Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation that does not share a
      * common timeline. To write a video AdaptationSet for each different output framerate, and a common SegmentTimeline in
      * each AdaptationSet: Choose Distinct.
+     *
+     * @var DashManifestStyle::*|null
      */
     private $dashManifestStyle;
 
@@ -60,16 +68,22 @@ final class DashIsoGroupSettings
      * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
      * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
      * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     *
+     * @var string|null
      */
     private $destination;
 
     /**
      * Settings associated with the destination. Will vary based on the type of destination.
+     *
+     * @var DestinationSettings|null
      */
     private $destinationSettings;
 
     /**
      * DRM settings.
+     *
+     * @var DashIsoEncryptionSettings|null
      */
     private $encryption;
 
@@ -78,11 +92,15 @@ final class DashIsoGroupSettings
      * that fragments will end on the next keyframe after this number of seconds, so actual fragment length may be longer.
      * When Emit Single File is checked, the fragmentation is internal to a single output file and it does not cause the
      * creation of many output files as in other output types.
+     *
+     * @var int|null
      */
     private $fragmentLength;
 
     /**
      * Supports HbbTV specification as indicated.
+     *
+     * @var DashIsoHbbtvCompliance::*|null
      */
     private $hbbtvCompliance;
 
@@ -93,16 +111,22 @@ final class DashIsoGroupSettings
      * an entry in the .mpd manifest for each set of images that you generate. A common application for these images is Roku
      * trick mode. The thumbnails and full-frame images that MediaConvert creates with this feature are compatible with this
      * Roku specification: https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
+     *
+     * @var DashIsoImageBasedTrickPlay::*|null
      */
     private $imageBasedTrickPlay;
 
     /**
      * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED.
+     *
+     * @var DashIsoImageBasedTrickPlaySettings|null
      */
     private $imageBasedTrickPlaySettings;
 
     /**
      * Minimum time of initially buffered media that is needed to ensure smooth playout.
+     *
+     * @var int|null
      */
     private $minBufferTime;
 
@@ -114,6 +138,8 @@ final class DashIsoGroupSettings
      * this setting, the encoder will combine any final segment that is shorter than the length that you specify with the
      * previous segment. For example, your segment length is 3 seconds and your final segment is .5 seconds without a
      * minimum final segment length; when you set the minimum final segment length to 1, your final segment is 3.5 seconds.
+     *
+     * @var float|null
      */
     private $minFinalSegmentLength;
 
@@ -122,6 +148,8 @@ final class DashIsoGroupSettings
      * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player configuration.
      * Max: Use the same value that you specify for Max bitrate in the video output, in bits per second. Average: Use the
      * calculated average bitrate of the encoded video output, in bits per second.
+     *
+     * @var DashIsoMpdManifestBandwidthType::*|null
      */
     private $mpdManifestBandwidthType;
 
@@ -130,6 +158,8 @@ final class DashIsoGroupSettings
      * signals urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand
      * (ON_DEMAND_PROFILE), the service signals urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose
      * On-demand, you must also set the output group setting Segment control (SegmentControl) to Single file (SINGLE_FILE).
+     *
+     * @var DashIsoMpdProfile::*|null
      */
     private $mpdProfile;
 
@@ -140,12 +170,16 @@ final class DashIsoGroupSettings
      * initial PTS as the first time stamp in the manifest. Choose Zero-based (ZERO_BASED) to have MediaConvert ignore the
      * initial PTS in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that
      * don't have B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     *
+     * @var DashIsoPtsOffsetHandlingForBFrames::*|null
      */
     private $ptsOffsetHandlingForBframes;
 
     /**
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length
      * and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
+     *
+     * @var DashIsoSegmentControl::*|null
      */
     private $segmentControl;
 
@@ -154,6 +188,8 @@ final class DashIsoGroupSettings
      * Related settings: Use Segment length control (SegmentLengthControl) to specify whether the encoder enforces this
      * value strictly. Use Segment control (DashIsoSegmentControl) to specify whether MediaConvert creates separate segment
      * files or one content file that has metadata to mark the segment boundaries.
+     *
+     * @var int|null
      */
     private $segmentLength;
 
@@ -162,6 +198,8 @@ final class DashIsoGroupSettings
      * exact length that you specify with the setting Segment length (SegmentLength). This might result in extra I-frames.
      * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
      * boundary.
+     *
+     * @var DashIsoSegmentLengthControl::*|null
      */
     private $segmentLengthControl;
 
@@ -171,6 +209,8 @@ final class DashIsoGroupSettings
      * and sample composition time offsets will increment using unsigned integers. For strict fMP4 video and audio timing,
      * set Video composition offsets to Signed. The earliest presentation time will be equal to zero, and sample composition
      * time offsets will increment using signed integers.
+     *
+     * @var DashIsoVideoCompositionOffsets::*|null
      */
     private $videoCompositionOffsets;
 
@@ -180,6 +220,8 @@ final class DashIsoGroupSettings
      * manifest. The segment duration information appears inside the SegmentTimeline element, inside SegmentTemplate at the
      * Representation level. When you don't enable this setting, the service writes approximate segment durations in your
      * DASH manifest.
+     *
+     * @var DashIsoWriteSegmentTimelineInRepresentation::*|null
      */
     private $writeSegmentTimelineInRepresentation;
 

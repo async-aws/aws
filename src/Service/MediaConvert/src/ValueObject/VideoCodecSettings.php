@@ -17,6 +17,8 @@ final class VideoCodecSettings
 {
     /**
      * Required when you set Codec, under VideoDescription>CodecSettings to the value AV1.
+     *
+     * @var Av1Settings|null
      */
     private $av1Settings;
 
@@ -25,6 +27,8 @@ final class VideoCodecSettings
      * see the relevant specification. For detailed information about SD and HD in AVC-Intra, see
      * https://ieeexplore.ieee.org/document/7290936. For information about 4K/2K in AVC-Intra, see
      * https://pro-av.panasonic.net/en/avc-ultra/AVC-ULTRAoverview.pdf.
+     *
+     * @var AvcIntraSettings|null
      */
     private $avcIntraSettings;
 
@@ -33,51 +37,71 @@ final class VideoCodecSettings
      * passthrough the video stream of your input JPEG2000, VC-3, AVC-INTRA or Apple ProRes  video without any video
      * encoding: Choose Passthrough. If you have multiple input videos, note that they must have identical encoding
      * attributes. When you choose Passthrough, your output container must be MXF or QuickTime MOV.
+     *
+     * @var VideoCodec::*|null
      */
     private $codec;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value FRAME_CAPTURE.
+     *
+     * @var FrameCaptureSettings|null
      */
     private $frameCaptureSettings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value H_264.
+     *
+     * @var H264Settings|null
      */
     private $h264Settings;
 
     /**
      * Settings for H265 codec.
+     *
+     * @var H265Settings|null
      */
     private $h265Settings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value MPEG2.
+     *
+     * @var Mpeg2Settings|null
      */
     private $mpeg2Settings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value PRORES.
+     *
+     * @var ProresSettings|null
      */
     private $proresSettings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VC3.
+     *
+     * @var Vc3Settings|null
      */
     private $vc3Settings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VP8.
+     *
+     * @var Vp8Settings|null
      */
     private $vp8Settings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VP9.
+     *
+     * @var Vp9Settings|null
      */
     private $vp9Settings;
 
     /**
      * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value XAVC.
+     *
+     * @var XavcSettings|null
      */
     private $xavcSettings;
 

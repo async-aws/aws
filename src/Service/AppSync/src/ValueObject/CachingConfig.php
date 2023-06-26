@@ -13,6 +13,8 @@ final class CachingConfig
      * The TTL in seconds for a resolver that has caching activated.
      *
      * Valid values are 1–3,600 seconds.
+     *
+     * @var int
      */
     private $ttl;
 
@@ -20,6 +22,8 @@ final class CachingConfig
      * The caching keys for a resolver that has caching activated.
      *
      * Valid values are entries from the `$context.arguments`, `$context.source`, and `$context.identity` maps.
+     *
+     * @var string[]|null
      */
     private $cachingKeys;
 

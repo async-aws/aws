@@ -9,18 +9,24 @@ final class RollbackInfo
 {
     /**
      * The ID of the deployment rollback.
+     *
+     * @var string|null
      */
     private $rollbackDeploymentId;
 
     /**
      * The deployment ID of the deployment that was underway and triggered a rollback deployment because it failed or was
      * stopped.
+     *
+     * @var string|null
      */
     private $rollbackTriggeringDeploymentId;
 
     /**
      * Information that describes the status of a deployment rollback (for example, whether the deployment can't be rolled
      * back, is in progress, failed, or succeeded).
+     *
+     * @var string|null
      */
     private $rollbackMessage;
 

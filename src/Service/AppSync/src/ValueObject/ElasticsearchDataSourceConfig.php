@@ -14,11 +14,15 @@ final class ElasticsearchDataSourceConfig
 {
     /**
      * The endpoint.
+     *
+     * @var string
      */
     private $endpoint;
 
     /**
      * The Amazon Web Services Region.
+     *
+     * @var string
      */
     private $awsRegion;
 

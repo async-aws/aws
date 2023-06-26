@@ -9,26 +9,36 @@ final class RdsHttpEndpointConfig
 {
     /**
      * Amazon Web Services Region for Amazon RDS HTTP endpoint.
+     *
+     * @var string|null
      */
     private $awsRegion;
 
     /**
      * Amazon RDS cluster Amazon Resource Name (ARN).
+     *
+     * @var string|null
      */
     private $dbClusterIdentifier;
 
     /**
      * Logical database name.
+     *
+     * @var string|null
      */
     private $databaseName;
 
     /**
      * Logical schema name.
+     *
+     * @var string|null
      */
     private $schema;
 
     /**
      * Amazon Web Services secret store Amazon Resource Name (ARN) for database credentials.
+     *
+     * @var string|null
      */
     private $awsSecretStoreArn;
 

@@ -14,6 +14,8 @@ final class InvalidationBatch
      * Specifying the Objects to Invalidate [^1] in the *Amazon CloudFront Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
+     *
+     * @var Paths
      */
     private $paths;
 
@@ -29,6 +31,8 @@ final class InvalidationBatch
      *
      * If `CallerReference` is a value you already sent in a previous invalidation batch request but the content of any
      * `Path` is different from the original request, CloudFront returns an `InvalidationBatchAlreadyExists` error.
+     *
+     * @var string
      */
     private $callerReference;
 

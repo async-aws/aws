@@ -12,6 +12,8 @@ final class Grantee
 {
     /**
      * Screen name of the grantee.
+     *
+     * @var string|null
      */
     private $displayName;
 
@@ -33,21 +35,29 @@ final class Grantee
      * > Services General Reference.
      *
      * [^1]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+     *
+     * @var string|null
      */
     private $emailAddress;
 
     /**
      * The canonical user ID of the grantee.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * Type of grantee.
+     *
+     * @var Type::*
      */
     private $type;
 
     /**
      * URI of the grantee group.
+     *
+     * @var string|null
      */
     private $uri;
 

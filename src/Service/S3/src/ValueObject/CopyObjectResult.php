@@ -9,11 +9,15 @@ final class CopyObjectResult
 {
     /**
      * Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
+     *
+     * @var string|null
      */
     private $etag;
 
     /**
      * Creation date of the object.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModified;
 
@@ -23,6 +27,8 @@ final class CopyObjectResult
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32;
 
@@ -32,6 +38,8 @@ final class CopyObjectResult
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32C;
 
@@ -41,6 +49,8 @@ final class CopyObjectResult
      * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha1;
 
@@ -50,6 +60,8 @@ final class CopyObjectResult
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha256;
 

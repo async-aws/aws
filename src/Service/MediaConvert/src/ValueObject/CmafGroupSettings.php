@@ -34,12 +34,16 @@ final class CmafGroupSettings
      * output group in your job. These default manifests reference every output in the output group. To create additional
      * top-level manifests that reference a subset of the outputs in the output group, specify a list of them here. For each
      * additional manifest that you specify, the service creates one HLS manifest and one DASH manifest.
+     *
+     * @var CmafAdditionalManifest[]|null
      */
     private $additionalManifests;
 
     /**
      * A partial URI prefix that will be put in the manifest file at the top level BaseURL element. Can be used if streams
      * are delivered from a different URL than the manifest file.
+     *
+     * @var string|null
      */
     private $baseUrl;
 
@@ -47,11 +51,15 @@ final class CmafGroupSettings
      * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
      * value Enabled (ENABLED) and control caching in your video distribution set up. For example, use the Cache-Control
      * http header.
+     *
+     * @var CmafClientCache::*|null
      */
     private $clientCache;
 
     /**
      * Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation.
+     *
+     * @var CmafCodecSpecification::*|null
      */
     private $codecSpecification;
 
@@ -61,6 +69,8 @@ final class CmafGroupSettings
      * Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation that does not share a
      * common timeline. To write a video AdaptationSet for each different output framerate, and a common SegmentTimeline in
      * each AdaptationSet: Choose Distinct.
+     *
+     * @var DashManifestStyle::*|null
      */
     private $dashManifestStyle;
 
@@ -68,16 +78,22 @@ final class CmafGroupSettings
      * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
      * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
      * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     *
+     * @var string|null
      */
     private $destination;
 
     /**
      * Settings associated with the destination. Will vary based on the type of destination.
+     *
+     * @var DestinationSettings|null
      */
     private $destinationSettings;
 
     /**
      * DRM settings.
+     *
+     * @var CmafEncryptionSettings|null
      */
     private $encryption;
 
@@ -85,6 +101,8 @@ final class CmafGroupSettings
      * Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert defaults to
      * 2. Related setting: Use Fragment length control (FragmentLengthControl) to specify whether the encoder enforces this
      * value strictly.
+     *
+     * @var int|null
      */
     private $fragmentLength;
 
@@ -98,26 +116,36 @@ final class CmafGroupSettings
      * these images is Roku trick mode. The thumbnails and full-frame images that MediaConvert creates with this feature are
      * compatible with this Roku specification:
      * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
+     *
+     * @var CmafImageBasedTrickPlay::*|null
      */
     private $imageBasedTrickPlay;
 
     /**
      * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED.
+     *
+     * @var CmafImageBasedTrickPlaySettings|null
      */
     private $imageBasedTrickPlaySettings;
 
     /**
      * When set to GZIP, compresses HLS playlist.
+     *
+     * @var CmafManifestCompression::*|null
      */
     private $manifestCompression;
 
     /**
      * Indicates whether the output manifest should use floating point values for segment duration.
+     *
+     * @var CmafManifestDurationFormat::*|null
      */
     private $manifestDurationFormat;
 
     /**
      * Minimum time of initially buffered media that is needed to ensure smooth playout.
+     *
+     * @var int|null
      */
     private $minBufferTime;
 
@@ -129,6 +157,8 @@ final class CmafGroupSettings
      * this setting, the encoder will combine any final segment that is shorter than the length that you specify with the
      * previous segment. For example, your segment length is 3 seconds and your final segment is .5 seconds without a
      * minimum final segment length; when you set the minimum final segment length to 1, your final segment is 3.5 seconds.
+     *
+     * @var float|null
      */
     private $minFinalSegmentLength;
 
@@ -137,6 +167,8 @@ final class CmafGroupSettings
      * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player configuration.
      * Max: Use the same value that you specify for Max bitrate in the video output, in bits per second. Average: Use the
      * calculated average bitrate of the encoded video output, in bits per second.
+     *
+     * @var CmafMpdManifestBandwidthType::*|null
      */
     private $mpdManifestBandwidthType;
 
@@ -145,6 +177,8 @@ final class CmafGroupSettings
      * signals urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand
      * (ON_DEMAND_PROFILE), the service signals urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose
      * On-demand, you must also set the output group setting Segment control (SegmentControl) to Single file (SINGLE_FILE).
+     *
+     * @var CmafMpdProfile::*|null
      */
     private $mpdProfile;
 
@@ -155,12 +189,16 @@ final class CmafGroupSettings
      * initial PTS as the first time stamp in the manifest. Choose Zero-based (ZERO_BASED) to have MediaConvert ignore the
      * initial PTS in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that
      * don't have B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     *
+     * @var CmafPtsOffsetHandlingForBFrames::*|null
      */
     private $ptsOffsetHandlingForBframes;
 
     /**
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length
      * and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
+     *
+     * @var CmafSegmentControl::*|null
      */
     private $segmentControl;
 
@@ -169,6 +207,8 @@ final class CmafGroupSettings
      * Related settings: Use Segment length control (SegmentLengthControl) to specify whether the encoder enforces this
      * value strictly. Use Segment control (CmafSegmentControl) to specify whether MediaConvert creates separate segment
      * files or one content file that has metadata to mark the segment boundaries.
+     *
+     * @var int|null
      */
     private $segmentLength;
 
@@ -177,11 +217,15 @@ final class CmafGroupSettings
      * exact length that you specify with the setting Segment length (SegmentLength). This might result in extra I-frames.
      * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
      * boundary.
+     *
+     * @var CmafSegmentLengthControl::*|null
      */
     private $segmentLengthControl;
 
     /**
      * Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF tag of variant manifest.
+     *
+     * @var CmafStreamInfResolution::*|null
      */
     private $streamInfResolution;
 
@@ -192,6 +236,8 @@ final class CmafGroupSettings
      * may need to use LEGACY if your client needs to ensure that the target duration is always longer than the actual
      * duration of the segment. Some older players may experience interrupted playback when the actual duration of a track
      * in a segment is longer than the target duration.
+     *
+     * @var CmafTargetDurationCompatibilityMode::*|null
      */
     private $targetDurationCompatibilityMode;
 
@@ -201,16 +247,22 @@ final class CmafGroupSettings
      * and sample composition time offsets will increment using unsigned integers. For strict fMP4 video and audio timing,
      * set Video composition offsets to Signed. The earliest presentation time will be equal to zero, and sample composition
      * time offsets will increment using signed integers.
+     *
+     * @var CmafVideoCompositionOffsets::*|null
      */
     private $videoCompositionOffsets;
 
     /**
      * When set to ENABLED, a DASH MPD manifest will be generated for this output.
+     *
+     * @var CmafWriteDASHManifest::*|null
      */
     private $writeDashManifest;
 
     /**
      * When set to ENABLED, an Apple HLS manifest will be generated for this output.
+     *
+     * @var CmafWriteHLSManifest::*|null
      */
     private $writeHlsManifest;
 
@@ -220,6 +272,8 @@ final class CmafGroupSettings
      * SegmentTemplate at the Representation level. When this feature isn't enabled, the segment durations in your DASH
      * manifest are approximate. The segment duration information appears in the duration attribute of the SegmentTemplate
      * element.
+     *
+     * @var CmafWriteSegmentTimelineInRepresentation::*|null
      */
     private $writeSegmentTimelineInRepresentation;
 

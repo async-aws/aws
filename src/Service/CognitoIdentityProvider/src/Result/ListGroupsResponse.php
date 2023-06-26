@@ -16,12 +16,16 @@ class ListGroupsResponse extends Result implements \IteratorAggregate
 {
     /**
      * The group objects for the groups.
+     *
+     * @var GroupType[]
      */
     private $groups;
 
     /**
      * An identifier that was returned from the previous call to this operation, which can be used to return the next set of
      * items in the list.
+     *
+     * @var string|null
      */
     private $nextToken;
 

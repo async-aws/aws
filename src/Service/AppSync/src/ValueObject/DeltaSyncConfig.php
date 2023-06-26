@@ -9,16 +9,22 @@ final class DeltaSyncConfig
 {
     /**
      * The number of minutes that an Item is stored in the data source.
+     *
+     * @var int|null
      */
     private $baseTableTtl;
 
     /**
      * The Delta Sync table name.
+     *
+     * @var string|null
      */
     private $deltaSyncTableName;
 
     /**
      * The number of minutes that a Delta Sync log entry is stored in the Delta Sync table.
+     *
+     * @var int|null
      */
     private $deltaSyncTableTtl;
 

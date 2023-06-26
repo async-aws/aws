@@ -14,11 +14,15 @@ final class Emotion
 {
     /**
      * Type of emotion detected.
+     *
+     * @var EmotionName::*|null
      */
     private $type;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

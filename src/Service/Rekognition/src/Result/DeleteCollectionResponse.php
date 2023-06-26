@@ -9,6 +9,8 @@ class DeleteCollectionResponse extends Result
 {
     /**
      * HTTP status code that indicates the result of the operation.
+     *
+     * @var int|null
      */
     private $statusCode;
 

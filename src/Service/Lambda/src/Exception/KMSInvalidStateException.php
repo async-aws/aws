@@ -11,6 +11,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class KMSInvalidStateException extends ServerException
 {
+    /**
+     * @var string|null
+     */
     private $type;
 
     public function getType(): ?string

@@ -9,11 +9,15 @@ class PutRecordOutput extends Result
 {
     /**
      * The ID of the record.
+     *
+     * @var string
      */
     private $recordId;
 
     /**
      * Indicates whether server-side encryption (SSE) was enabled during this operation.
+     *
+     * @var bool|null
      */
     private $encrypted;
 

@@ -13,6 +13,8 @@ final class HumanLoopDataAttributes
 {
     /**
      * Sets whether the input image is free of personally identifiable information.
+     *
+     * @var list<ContentClassifier::*>|null
      */
     private $contentClassifiers;
 

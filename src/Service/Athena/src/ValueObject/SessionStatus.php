@@ -11,21 +11,29 @@ final class SessionStatus
 {
     /**
      * The date and time that the session started.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $startDateTime;
 
     /**
      * The most recent date and time that the session was modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModifiedDateTime;
 
     /**
      * The date and time that the session ended.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $endDateTime;
 
     /**
      * The date and time starting at which the session became idle. Can be empty if the session is not currently idle.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $idleSinceDateTime;
 
@@ -47,11 +55,15 @@ final class SessionStatus
      * `DEGRADED` - The session has no healthy coordinators.
      *
      * `FAILED` - Due to a failure, the session and its resources are no longer running.
+     *
+     * @var SessionState::*|null
      */
     private $state;
 
     /**
      * The reason for the session state change (for example, canceled because the session was terminated).
+     *
+     * @var string|null
      */
     private $stateChangeReason;
 

@@ -18,6 +18,8 @@ class ChangeResourceRecordSetsResponse extends Result
      * the change.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html
+     *
+     * @var ChangeInfo
      */
     private $changeInfo;
 

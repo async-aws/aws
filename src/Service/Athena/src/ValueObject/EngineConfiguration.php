@@ -12,17 +12,23 @@ final class EngineConfiguration
     /**
      * The number of DPUs to use for the coordinator. A coordinator is a special executor that orchestrates processing work
      * and manages other executors in a notebook session. The default is 1.
+     *
+     * @var int|null
      */
     private $coordinatorDpuSize;
 
     /**
      * The maximum number of DPUs that can run concurrently.
+     *
+     * @var int
      */
     private $maxConcurrentDpus;
 
     /**
      * The default number of DPUs to use for executors. An executor is the smallest unit of compute that a notebook session
      * can request from Athena. The default is 1.
+     *
+     * @var int|null
      */
     private $defaultExecutorDpuSize;
 
@@ -31,12 +37,16 @@ final class EngineConfiguration
      * specify an Athena notebook that the Jupyter server will download and serve, specify a value for the
      * StartSessionRequest$NotebookVersion field, and then add a key named `NotebookId` to `AdditionalConfigs` that has the
      * value of the Athena notebook ID.
+     *
+     * @var array<string, string>|null
      */
     private $additionalConfigs;
 
     /**
      * Specifies custom jar files and Spark properties for use cases like cluster encryption, table formats, and general
      * Spark tuning.
+     *
+     * @var array<string, string>|null
      */
     private $sparkProperties;
 

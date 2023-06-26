@@ -9,21 +9,29 @@ class UpdateShardCountOutput extends Result
 {
     /**
      * The name of the stream.
+     *
+     * @var string|null
      */
     private $streamName;
 
     /**
      * The current number of shards.
+     *
+     * @var int|null
      */
     private $currentShardCount;
 
     /**
      * The updated number of shards.
+     *
+     * @var int|null
      */
     private $targetShardCount;
 
     /**
      * The ARN of the stream.
+     *
+     * @var string|null
      */
     private $streamArn;
 

@@ -18,6 +18,8 @@ class AssumeRoleWithWebIdentityResponse extends Result
      *
      * > The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no
      * > assumptions about the maximum size.
+     *
+     * @var Credentials|null
      */
     private $credentials;
 
@@ -26,6 +28,8 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * `WebIdentityToken` that was submitted with the `AssumeRoleWithWebIdentity` call. The identifier is typically unique
      * to the user and the application that acquired the `WebIdentityToken` (pairwise identifier). For OpenID Connect ID
      * tokens, this field contains the value returned by the identity provider as the token's `sub` (Subject) claim.
+     *
+     * @var string|null
      */
     private $subjectFromWebIdentityToken;
 
@@ -34,6 +38,8 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * resulting temporary security credentials. For example, you can reference these credentials as a principal in a
      * resource-based policy by using the ARN or assumed role ID. The ARN and ID include the `RoleSessionName` that you
      * specified when you called `AssumeRole`.
+     *
+     * @var AssumedRoleUser|null
      */
     private $assumedRoleUser;
 
@@ -41,6 +47,8 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * A percentage value that indicates the packed size of the session policies and session tags combined passed in the
      * request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded
      * the allowed space.
+     *
+     * @var int|null
      */
     private $packedPolicySize;
 
@@ -48,12 +56,16 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * The issuing authority of the web identity token presented. For OpenID Connect ID tokens, this contains the value of
      * the `iss` field. For OAuth 2.0 access tokens, this contains the value of the `ProviderId` parameter that was passed
      * in the `AssumeRoleWithWebIdentity` request.
+     *
+     * @var string|null
      */
     private $provider;
 
     /**
      * The intended audience (also known as client ID) of the web identity token. This is traditionally the client
      * identifier issued to the application that requested the web identity token.
+     *
+     * @var string|null
      */
     private $audience;
 
@@ -76,6 +88,8 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts#iam-term-role-chaining
      * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html
      * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html
+     *
+     * @var string|null
      */
     private $sourceIdentity;
 

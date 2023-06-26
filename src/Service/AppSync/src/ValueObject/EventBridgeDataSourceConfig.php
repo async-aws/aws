@@ -13,6 +13,8 @@ final class EventBridgeDataSourceConfig
      * The ARN of the event bus. For more information about event buses, see Amazon EventBridge event buses [^1].
      *
      * [^1]: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-bus.html
+     *
+     * @var string
      */
     private $eventBusArn;
 

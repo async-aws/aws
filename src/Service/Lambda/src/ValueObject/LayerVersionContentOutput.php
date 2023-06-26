@@ -11,26 +11,36 @@ final class LayerVersionContentOutput
 {
     /**
      * A link to the layer archive in Amazon S3 that is valid for 10 minutes.
+     *
+     * @var string|null
      */
     private $location;
 
     /**
      * The SHA-256 hash of the layer archive.
+     *
+     * @var string|null
      */
     private $codeSha256;
 
     /**
      * The size of the layer archive in bytes.
+     *
+     * @var int|null
      */
     private $codeSize;
 
     /**
      * The Amazon Resource Name (ARN) for a signing profile version.
+     *
+     * @var string|null
      */
     private $signingProfileVersionArn;
 
     /**
      * The Amazon Resource Name (ARN) of a signing job.
+     *
+     * @var string|null
      */
     private $signingJobArn;
 

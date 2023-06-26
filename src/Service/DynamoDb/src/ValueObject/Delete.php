@@ -12,32 +12,44 @@ final class Delete
 {
     /**
      * The primary key of the item to be deleted. Each element consists of an attribute name and a value for that attribute.
+     *
+     * @var array<string, AttributeValue>
      */
     private $key;
 
     /**
      * Name of the table in which the item to be deleted resides.
+     *
+     * @var string
      */
     private $tableName;
 
     /**
      * A condition that must be satisfied in order for a conditional delete to succeed.
+     *
+     * @var string|null
      */
     private $conditionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression.
+     *
+     * @var array<string, string>|null
      */
     private $expressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
+     *
+     * @var array<string, AttributeValue>|null
      */
     private $expressionAttributeValues;
 
     /**
      * Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Delete` condition fails. For
      * `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
+     *
+     * @var ReturnValuesOnConditionCheckFailure::*|null
      */
     private $returnValuesOnConditionCheckFailure;
 

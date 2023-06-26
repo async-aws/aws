@@ -12,8 +12,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidRequestException extends ClientException
 {
+    /**
+     * @var InvalidRequestReason::*|null
+     */
     private $reason;
 
+    /**
+     * @var InvalidRequestDetail|null
+     */
     private $detail;
 
     public function getDetail(): ?InvalidRequestDetail

@@ -17,11 +17,15 @@ class HeadObjectOutput extends Result
     /**
      * Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header
      * does not appear in the response.
+     *
+     * @var bool|null
      */
     private $deleteMarker;
 
     /**
      * Indicates that a range of bytes was specified.
+     *
+     * @var string|null
      */
     private $acceptRanges;
 
@@ -29,6 +33,8 @@ class HeadObjectOutput extends Result
      * If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the
      * `expiry-date` and `rule-id` key-value pairs providing object expiration information. The value of the `rule-id` is
      * URL-encoded.
+     *
+     * @var string|null
      */
     private $expiration;
 
@@ -47,21 +53,29 @@ class HeadObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-transition-general-considerations
+     *
+     * @var string|null
      */
     private $restore;
 
     /**
      * The archive state of the head object.
+     *
+     * @var ArchiveStatus::*|null
      */
     private $archiveStatus;
 
     /**
      * Creation date of the object.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModified;
 
     /**
      * Size of the body in bytes.
+     *
+     * @var int|null
      */
     private $contentLength;
 
@@ -71,6 +85,8 @@ class HeadObjectOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32;
 
@@ -80,6 +96,8 @@ class HeadObjectOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32C;
 
@@ -89,6 +107,8 @@ class HeadObjectOutput extends Result
      * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha1;
 
@@ -98,12 +118,16 @@ class HeadObjectOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha256;
 
     /**
      * An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a
      * URL.
+     *
+     * @var string|null
      */
     private $etag;
 
@@ -111,83 +135,113 @@ class HeadObjectOutput extends Result
      * This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create
      * metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you
      * can create metadata whose values are not legal HTTP headers.
+     *
+     * @var int|null
      */
     private $missingMeta;
 
     /**
      * Version of the object.
+     *
+     * @var string|null
      */
     private $versionId;
 
     /**
      * Specifies caching behavior along the request/reply chain.
+     *
+     * @var string|null
      */
     private $cacheControl;
 
     /**
      * Specifies presentational information for the object.
+     *
+     * @var string|null
      */
     private $contentDisposition;
 
     /**
      * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
      * obtain the media-type referenced by the Content-Type header field.
+     *
+     * @var string|null
      */
     private $contentEncoding;
 
     /**
      * The language the content is in.
+     *
+     * @var string|null
      */
     private $contentLanguage;
 
     /**
      * A standard MIME type describing the format of the object data.
+     *
+     * @var string|null
      */
     private $contentType;
 
     /**
      * The date and time at which the object is no longer cacheable.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $expires;
 
     /**
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
      * to an external URL. Amazon S3 stores the value of this header in the object metadata.
+     *
+     * @var string|null
      */
     private $websiteRedirectLocation;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`,
      * `aws:kms:dsse`).
+     *
+     * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
 
     /**
      * A map of metadata to store with the object in S3.
+     *
+     * @var array<string, string>
      */
     private $metadata;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
+     *
+     * @var string|null
      */
     private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
      * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
      * used for the object.
+     *
+     * @var string|null
      */
     private $sseKmsKeyId;
 
     /**
      * Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys
      * (SSE-KMS).
+     *
+     * @var bool|null
      */
     private $bucketKeyEnabled;
 
@@ -198,9 +252,14 @@ class HeadObjectOutput extends Result
      * For more information, see Storage Classes [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
+     *
+     * @var StorageClass::*|null
      */
     private $storageClass;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     /**
@@ -230,12 +289,16 @@ class HeadObjectOutput extends Result
      * For more information, see Replication [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+     *
+     * @var ReplicationStatus::*|null
      */
     private $replicationStatus;
 
     /**
      * The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the
      * object was uploaded as a multipart upload.
+     *
+     * @var int|null
      */
     private $partsCount;
 
@@ -244,12 +307,16 @@ class HeadObjectOutput extends Result
      * `s3:GetObjectRetention` permission. For more information about S3 Object Lock, see Object Lock [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
+     *
+     * @var ObjectLockMode::*|null
      */
     private $objectLockMode;
 
     /**
      * The date and time when the Object Lock retention period expires. This header is only returned if the requester has
      * the `s3:GetObjectRetention` permission.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $objectLockRetainUntilDate;
 
@@ -259,6 +326,8 @@ class HeadObjectOutput extends Result
      * a legal hold applied. For more information about S3 Object Lock, see Object Lock [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
+     *
+     * @var ObjectLockLegalHoldStatus::*|null
      */
     private $objectLockLegalHoldStatus;
 

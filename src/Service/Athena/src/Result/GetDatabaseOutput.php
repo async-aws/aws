@@ -10,6 +10,8 @@ class GetDatabaseOutput extends Result
 {
     /**
      * The database returned.
+     *
+     * @var Database|null
      */
     private $database;
 

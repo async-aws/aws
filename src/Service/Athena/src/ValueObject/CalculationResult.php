@@ -9,21 +9,29 @@ final class CalculationResult
 {
     /**
      * The Amazon S3 location of the `stdout` file for the calculation.
+     *
+     * @var string|null
      */
     private $stdOutS3Uri;
 
     /**
      * The Amazon S3 location of the `stderr` error messages file for the calculation.
+     *
+     * @var string|null
      */
     private $stdErrorS3Uri;
 
     /**
      * The Amazon S3 location of the folder for the calculation results.
+     *
+     * @var string|null
      */
     private $resultS3Uri;
 
     /**
      * The data format of the calculation result.
+     *
+     * @var string|null
      */
     private $resultType;
 

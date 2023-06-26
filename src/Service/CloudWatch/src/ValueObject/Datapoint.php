@@ -11,41 +11,57 @@ final class Datapoint
 {
     /**
      * The time stamp used for the data point.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $timestamp;
 
     /**
      * The number of metric values that contributed to the aggregate value of this data point.
+     *
+     * @var float|null
      */
     private $sampleCount;
 
     /**
      * The average of the metric values that correspond to the data point.
+     *
+     * @var float|null
      */
     private $average;
 
     /**
      * The sum of the metric values for the data point.
+     *
+     * @var float|null
      */
     private $sum;
 
     /**
      * The minimum metric value for the data point.
+     *
+     * @var float|null
      */
     private $minimum;
 
     /**
      * The maximum metric value for the data point.
+     *
+     * @var float|null
      */
     private $maximum;
 
     /**
      * The standard unit for the data point.
+     *
+     * @var StandardUnit::*|null
      */
     private $unit;
 
     /**
      * The percentile statistic for the data point.
+     *
+     * @var array<string, float>|null
      */
     private $extendedStatistics;
 

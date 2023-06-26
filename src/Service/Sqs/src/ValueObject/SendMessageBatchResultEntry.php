@@ -11,11 +11,15 @@ final class SendMessageBatchResultEntry
 {
     /**
      * An identifier for the message in this batch.
+     *
+     * @var string
      */
     private $id;
 
     /**
      * An identifier for the message.
+     *
+     * @var string
      */
     private $messageId;
 
@@ -25,6 +29,8 @@ final class SendMessageBatchResultEntry
      * about MD5, see RFC1321 [^1].
      *
      * [^1]: https://www.ietf.org/rfc/rfc1321.txt
+     *
+     * @var string
      */
     private $md5OfMessageBody;
 
@@ -34,6 +40,8 @@ final class SendMessageBatchResultEntry
      * about MD5, see RFC1321 [^1].
      *
      * [^1]: https://www.ietf.org/rfc/rfc1321.txt
+     *
+     * @var string|null
      */
     private $md5OfMessageAttributes;
 
@@ -43,6 +51,8 @@ final class SendMessageBatchResultEntry
      * information about MD5, see RFC1321 [^1].
      *
      * [^1]: https://www.ietf.org/rfc/rfc1321.txt
+     *
+     * @var string|null
      */
     private $md5OfMessageSystemAttributes;
 
@@ -53,6 +63,8 @@ final class SendMessageBatchResultEntry
      *
      * The length of `SequenceNumber` is 128 bits. As `SequenceNumber` continues to increase for a particular
      * `MessageGroupId`.
+     *
+     * @var string|null
      */
     private $sequenceNumber;
 

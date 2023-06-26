@@ -17,16 +17,22 @@ final class AllowedRenditionSize
 {
     /**
      * Use Height to define the video resolution height, in pixels, for this rule.
+     *
+     * @var int|null
      */
     private $height;
 
     /**
      * Set to ENABLED to force a rendition to be included.
+     *
+     * @var RequiredFlag::*|null
      */
     private $required;
 
     /**
      * Use Width to define the video resolution width, in pixels, for this rule.
+     *
+     * @var int|null
      */
     private $width;
 

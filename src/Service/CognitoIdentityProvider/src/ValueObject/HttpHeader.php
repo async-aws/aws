@@ -9,11 +9,15 @@ final class HttpHeader
 {
     /**
      * The header name.
+     *
+     * @var string|null
      */
     private $headerName;
 
     /**
      * The header value.
+     *
+     * @var string|null
      */
     private $headerValue;
 
