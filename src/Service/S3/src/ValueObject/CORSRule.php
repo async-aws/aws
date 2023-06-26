@@ -152,7 +152,7 @@ final class CORSRule
             }
         }
         if (null !== $v = $this->maxAgeSeconds) {
-            $node->appendChild($document->createElement('MaxAgeSeconds', $v));
+            $node->appendChild($document->createElement('MaxAgeSeconds', (string) $v));
         }
     }
 }
