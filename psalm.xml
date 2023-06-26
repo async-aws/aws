@@ -61,5 +61,6 @@
         <InvalidStringClass errorLevel="info" />
 
         <ArgumentTypeCoercion errorLevel="info" />
+        <PropertyTypeCoercion errorLevel="info" />
     </issueHandlers>
 </psalm>
