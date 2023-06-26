@@ -31,6 +31,7 @@
         "nette/utils": "^3.0",
         "nyholm/symfony-bundle-test": "^2.0",
         "phpstan/phpstan": "1.10.21",
+        "psalm/phar": "5.11.0",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",
         "swaggest/json-diff": "^3.7",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0",
