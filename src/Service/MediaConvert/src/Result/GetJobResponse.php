@@ -1200,7 +1200,7 @@ class GetJobResponse extends Result
             'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
             'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
             'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
-            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
+            'CreatedAt' => isset($json['createdAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt']))) ? $d : null,
             'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
             'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
             'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
@@ -1715,7 +1715,7 @@ class GetJobResponse extends Result
         return new QueueTransition([
             'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
             'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
-            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
+            'Timestamp' => isset($json['timestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp']))) ? $d : null,
         ]);
     }
 
@@ -1844,9 +1844,9 @@ class GetJobResponse extends Result
     private function populateResultTiming(array $json): Timing
     {
         return new Timing([
-            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
-            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
-            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
+            'FinishTime' => isset($json['finishTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime']))) ? $d : null,
+            'StartTime' => isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime']))) ? $d : null,
+            'SubmitTime' => isset($json['submitTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime']))) ? $d : null,
         ]);
     }
 

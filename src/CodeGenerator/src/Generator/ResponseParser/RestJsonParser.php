@@ -121,8 +121,10 @@ class RestJsonParser implements Parser
                 throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
         }
 
-        if (!$required) {
-            $body = 'isset(INPUT) ? ' . $body . ' : null';
+        if ($required) {
+            $body = '/** @var \DateTimeImmutable $d */ $d = ' . $body;
+        } else {
+            $body = 'isset(INPUT) && ($d = ' . $body . ') ? $d : null';
         }
 
         return strtr($body, ['INPUT' => $input]);
