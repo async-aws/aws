@@ -88,11 +88,20 @@ final class Configuration
         self::OPTION_ENDPOINT_DISCOVERY_ENABLED => 'false',
     ];
 
+    /**
+     * @var array<self::OPTION_*, string|null>
+     */
     private $data = [];
 
+    /**
+     * @var array<self::OPTION_*, bool>
+     */
     private $userData = [];
 
-    public static function create(array $options)
+    /**
+     * @param array<self::OPTION_*, string|null> $options
+     */
+    public static function create(array $options): self
     {
         if (0 < \count($invalidOptions = array_diff_key($options, self::AVAILABLE_OPTIONS))) {
             throw new InvalidArgument(sprintf('Invalid option(s) "%s" passed to "%s::%s". ', implode('", "', array_keys($invalidOptions)), __CLASS__, __METHOD__));
@@ -118,6 +127,8 @@ final class Configuration
     }
 
     /**
+     * @param self::OPTION_* $name
+     *
      * @psalm-return (
      *     $name is
      *       self::OPTION_REGION
@@ -141,6 +152,9 @@ final class Configuration
         return $this->data[$name] ?? null;
     }
 
+    /**
+     * @param self::OPTION_* $name
+     */
     public function has(string $name): bool
     {
         if (!isset(self::AVAILABLE_OPTIONS[$name])) {
@@ -150,6 +164,9 @@ final class Configuration
         return isset($this->data[$name]);
     }
 
+    /**
+     * @param self::OPTION_* $name
+     */
     public function isDefault(string $name): bool
     {
         if (!isset(self::AVAILABLE_OPTIONS[$name])) {
@@ -159,6 +176,11 @@ final class Configuration
         return empty($this->userData[$name]);
     }
 
+    /**
+     * @param array<self::OPTION_*, string|null> $options
+     *
+     * @return array<self::OPTION_*, string|null>
+     */
     private static function parseEnvironmentVariables(array $options): array
     {
         foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
@@ -187,6 +209,8 @@ final class Configuration
 
     /**
      * Look for "region" in the configured ini files.
+     *
+     * @return array<self::OPTION_*, string|null>
      */
     private static function parseIniFiles(Configuration $configuration): array
     {
@@ -215,6 +239,8 @@ final class Configuration
 
     /**
      * Add array options to the configuration object.
+     *
+     * @param array<self::OPTION_*, string|null> $options
      */
     private static function populateConfiguration(Configuration $configuration, array $options): void
     {

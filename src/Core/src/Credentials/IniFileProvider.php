@@ -22,10 +22,19 @@ final class IniFileProvider implements CredentialProvider
 {
     use DateFromResult;
 
+    /**
+     * @var IniFileLoader
+     */
     private $iniFileLoader;
 
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
+    /**
+     * @var HttpClientInterface|null
+     */
     private $httpClient;
 
     public function __construct(?LoggerInterface $logger = null, ?IniFileLoader $iniFileLoader = null, ?HttpClientInterface $httpClient = null)
@@ -51,6 +60,10 @@ final class IniFileProvider implements CredentialProvider
         return $this->getCredentialsFromProfile($profilesData, $profile);
     }
 
+    /**
+     * @param array<string, array<string, string>> $profilesData
+     * @param array<string, bool>                  $circularCollector
+     */
     private function getCredentialsFromProfile(array $profilesData, string $profile, array $circularCollector = []): ?Credentials
     {
         if (isset($circularCollector[$profile])) {
@@ -84,6 +97,11 @@ final class IniFileProvider implements CredentialProvider
         return null;
     }
 
+    /**
+     * @param array<string, array<string, string>> $profilesData
+     * @param array<string, string>                $profileData
+     * @param array<string, bool>                  $circularCollector
+     */
     private function getCredentialsFromRole(array $profilesData, array $profileData, string $profile, array $circularCollector = []): ?Credentials
     {
         $roleArn = (string) ($profileData[IniFileLoader::KEY_ROLE_ARN] ?? '');
@@ -94,7 +112,6 @@ final class IniFileProvider implements CredentialProvider
             return null;
         }
 
-        /** @var string $sourceProfileName */
         $sourceCredentials = $this->getCredentialsFromProfile($profilesData, $sourceProfileName, $circularCollector);
         if (null === $sourceCredentials) {
             $this->logger->warning('The source profile "{profile}" does not contains valid credentials.', ['profile' => $profile]);
@@ -114,7 +131,7 @@ final class IniFileProvider implements CredentialProvider
 
         try {
             if (null === $credentials = $result->getCredentials()) {
-                throw new RuntimeException('The AsumeRole response does not contains credentials');
+                throw new RuntimeException('The AssumeRole response does not contains credentials');
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get credentials from assumed role in profile "{profile}: {exception}".', ['profile' => $profile, 'exception' => $e]);

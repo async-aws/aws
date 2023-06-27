@@ -11,8 +11,6 @@ parameters:
         - src/*/tests/*
         - src/**/tests/*
         - src/CodeGenerator/src/Generator/TestGenerator.php
-        - src/Core/src/AbstractApi.php # requires symfony/http-client: 5.2
-        - src/Core/src/HttpClient/AwsRetryStrategy.php # requires symfony/http-client: 5.2
         - src/Core/src/Test/TestCase.php
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php

@@ -51,7 +51,7 @@ class SignerV4Test extends TestCase
             'X-Amz-Algorithm' => 'AWS4-HMAC-SHA256',
             'X-Amz-Security-Token' => 'token',
             'X-Amz-Date' => '20200101T000000Z',
-            'X-Amz-Expires' => 3600,
+            'X-Amz-Expires' => '3600',
             'X-Amz-Credential' => 'key/20200101/eu-west-1/sqs/aws4_request',
             'X-Amz-SignedHeaders' => 'header;host',
             'X-Amz-Signature' => '27d875a8ba472ef2c315e2120e7718c4187b4b07f6b787264858227586c0445a',

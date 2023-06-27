@@ -18,6 +18,9 @@ final class ResourceStream implements RequestStream
      */
     private $content;
 
+    /**
+     * @var int
+     */
     private $chunkSize;
 
     /**

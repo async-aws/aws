@@ -11,6 +11,9 @@ class ChainAwsErrorFactory implements AwsErrorFactoryInterface
 {
     use AwsErrorFactoryFromResponseTrait;
 
+    /**
+     * @var AwsErrorFactoryInterface[]
+     */
     private $factories;
 
     /**

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
@@ -54,7 +55,7 @@ class RequestContext
     private $currentDate;
 
     /**
-     * @var array<string, string>
+     * @var array<string, class-string<HttpException>>
      */
     private $exceptionMapping = [];
 
@@ -64,7 +65,7 @@ class RequestContext
      *  region?: null|string,
      *  expirationDate?: null|\DateTimeImmutable,
      *  currentDate?: null|\DateTimeImmutable,
-     *  exceptionMapping?: string[],
+     *  exceptionMapping?: array<string, class-string<HttpException>>,
      *  usesEndpointDiscovery?: bool,
      *  requiresEndpointDiscovery?: bool,
      * } $options
@@ -100,6 +101,9 @@ class RequestContext
         return $this->currentDate;
     }
 
+    /**
+     * @return array<string, class-string<HttpException>>
+     */
     public function getExceptionMapping(): array
     {
         return $this->exceptionMapping;
