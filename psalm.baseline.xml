@@ -35,11 +35,6 @@
         }]]></code>
     </InvalidCatch>
   </file>
-  <file src="src/Core/src/Request.php">
-    <RedundantCastGivenDocblockType>
-      <code>(string) $value</code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="src/Core/src/Waiter.php">
     <PossiblyUndefinedVariable>
       <code>$exception</code>
@@ -132,25 +127,6 @@
       <code><![CDATA[list<Capability::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/CloudWatchLogs/src/Input/DescribeLogStreamsRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/CloudWatchLogs/src/Input/FilterLogEventsRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/CodeBuild/src/Input/StartBuildInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="src/Service/CodeBuild/src/Result/BatchGetBuildsOutput.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -175,12 +151,6 @@
       <code><![CDATA[list<CacheMode::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/CodeDeploy/src/Input/CreateDeploymentInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="src/Service/CodeDeploy/src/Result/GetDeploymentOutput.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -188,52 +158,6 @@
     <MoreSpecificReturnType>
       <code><![CDATA[list<AutoRollbackEvent::*>]]></code>
     </MoreSpecificReturnType>
-  </file>
-  <file src="src/Service/CognitoIdentityProvider/src/Input/AdminCreateUserRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/CognitoIdentityProvider/src/Input/AdminSetUserPasswordRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/CognitoIdentityProvider/src/Input/ConfirmSignUpRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/DynamoDb/src/Input/CreateTableInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/DynamoDb/src/Input/ExecuteStatementInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/DynamoDb/src/Input/GetItemInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/DynamoDb/src/Input/QueryInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/DynamoDb/src/Input/ScanInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/DynamoDb/src/Input/UpdateTableInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/DynamoDb/src/ValueObject/AttributeValue.php">
     <InvalidArrayOffset>
@@ -245,16 +169,6 @@
     <InvalidPropertyAssignmentValue>
       <code>$v</code>
     </InvalidPropertyAssignmentValue>
-  </file>
-  <file src="src/Service/Iot/src/Input/AddThingToThingGroupRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/Kinesis/src/Input/DeleteStreamInput.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
     <LessSpecificReturnStatement>
@@ -279,12 +193,6 @@
     <MoreSpecificReturnType>
       <code><![CDATA[list<MetricsName::*>]]></code>
     </MoreSpecificReturnType>
-  </file>
-  <file src="src/Service/Kms/src/Input/CreateKeyRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Kms/src/Result/CreateKeyResponse.php">
     <LessSpecificReturnStatement>
@@ -364,12 +272,6 @@
       <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/RdsDataService/src/Input/ExecuteStatementRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="src/Service/Rekognition/src/Result/IndexFacesResponse.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -396,46 +298,5 @@
     <TypeDoesNotContainType>
       <code>empty($s3SignerOptions)</code>
     </TypeDoesNotContainType>
-  </file>
-  <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/SecretsManager/src/Input/DeleteSecretRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/SecretsManager/src/Input/ListSecretsRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/Ssm/src/Input/GetParameterRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/Ssm/src/Input/GetParametersByPathRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/Ssm/src/Input/GetParametersRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/Ssm/src/Input/PutParameterRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Service/TimestreamQuery/src/Input/PrepareQueryRequest.php">
-    <RedundantCastGivenDocblockType>
-      <code>(bool) $v</code>
-    </RedundantCastGivenDocblockType>
   </file>
 </files>
