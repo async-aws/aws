@@ -26,6 +26,9 @@
     <issueHandlers>
         <LessSpecificReturnType errorLevel="info" />
 
+        <!-- types defined only in docblock are not considered as 100% trusted -->
+        <RedundantCastGivenDocblockType errorLevel="info" />
+
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
 
         <DeprecatedMethod errorLevel="info" />
