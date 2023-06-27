@@ -40,40 +40,10 @@
       <code>(string) $value</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Core/src/Stream/RequestStream.php">
-    <MissingTemplateParam>
-      <code>\IteratorAggregate</code>
-    </MissingTemplateParam>
-  </file>
   <file src="src/Core/src/Waiter.php">
     <PossiblyUndefinedVariable>
       <code>$exception</code>
     </PossiblyUndefinedVariable>
-  </file>
-  <file src="src/Integration/Aws/DynamoDbSession/src/SessionHandler.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'TableName' => $this->options['table_name'],
-            'BillingMode' => BillingMode::PAY_PER_REQUEST,
-            'AttributeDefinitions' => [
-                [
-                    'AttributeName' => $this->options['hash_key'],
-                    'AttributeType' => ScalarAttributeType::S,
-                ],
-            ],
-            'KeySchema' => [
-                [
-                    'AttributeName' => $this->options['hash_key'],
-                    'KeyType' => KeyType::HASH,
-                ],
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'TableName' => $this->options['table_name'],
-            'Key' => $this->formatKey($this->formatId($id)),
-            'AttributeUpdates' => $attributes,
-        ]]]></code>
-    </InvalidArgument>
   </file>
   <file src="src/Integration/Aws/SimpleS3/src/SimpleS3Client.php">
     <InvalidArgument>
@@ -101,109 +71,6 @@
   </file>
   <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
     <InvalidArgument>
-      <code><![CDATA[[
-                'TableName' => $this->table,
-                'Item' => [
-                    $this->keyAttribute => [
-                        'S' => $this->prefix . $key,
-                    ],
-                    $this->valueAttribute => [
-                        $this->type($value) => $this->serialize($value),
-                    ],
-                    $this->expirationAttribute => [
-                        'N' => (string) $this->toTimestamp($seconds),
-                    ],
-                ],
-                'ConditionExpression' => 'attribute_not_exists(#key) OR #expires_at < :now',
-                'ExpressionAttributeNames' => [
-                    '#key' => $this->keyAttribute,
-                    '#expires_at' => $this->expirationAttribute,
-                ],
-                'ExpressionAttributeValues' => [
-                    ':now' => [
-                        'N' => (string) Carbon::now()->getTimestamp(),
-                    ],
-                ],
-            ]]]></code>
-      <code><![CDATA[[
-                'TableName' => $this->table,
-                'Key' => [
-                    $this->keyAttribute => [
-                        'S' => $this->prefix . $key,
-                    ],
-                ],
-                'ConditionExpression' => 'attribute_exists(#key) AND #expires_at > :now',
-                'UpdateExpression' => 'SET #value = #value + :amount',
-                'ExpressionAttributeNames' => [
-                    '#key' => $this->keyAttribute,
-                    '#value' => $this->valueAttribute,
-                    '#expires_at' => $this->expirationAttribute,
-                ],
-                'ExpressionAttributeValues' => [
-                    ':now' => [
-                        'N' => (string) Carbon::now()->getTimestamp(),
-                    ],
-                    ':amount' => [
-                        'N' => (string) $value,
-                    ],
-                ],
-                'ReturnValues' => 'UPDATED_NEW',
-            ]]]></code>
-      <code><![CDATA[[
-                'TableName' => $this->table,
-                'Key' => [
-                    $this->keyAttribute => [
-                        'S' => $this->prefix . $key,
-                    ],
-                ],
-                'ConditionExpression' => 'attribute_exists(#key) AND #expires_at > :now',
-                'UpdateExpression' => 'SET #value = #value - :amount',
-                'ExpressionAttributeNames' => [
-                    '#key' => $this->keyAttribute,
-                    '#value' => $this->valueAttribute,
-                    '#expires_at' => $this->expirationAttribute,
-                ],
-                'ExpressionAttributeValues' => [
-                    ':now' => [
-                        'N' => (string) Carbon::now()->getTimestamp(),
-                    ],
-                    ':amount' => [
-                        'N' => (string) $value,
-                    ],
-                ],
-                'ReturnValues' => 'UPDATED_NEW',
-            ]]]></code>
-      <code><![CDATA[[
-            'TableName' => $this->table,
-            'ConsistentRead' => $consistent,
-            'Key' => [
-                $this->keyAttribute => [
-                    'S' => $this->prefix . $key,
-                ],
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'TableName' => $this->table,
-            'Item' => [
-                $this->keyAttribute => [
-                    'S' => $this->prefix . $key,
-                ],
-                $this->valueAttribute => [
-                    $this->type($value) => $this->serialize($value),
-                ],
-                $this->expirationAttribute => [
-                    'N' => (string) $this->toTimestamp($seconds),
-                ],
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'TableName' => $this->table,
-            'Key' => [
-                $this->keyAttribute => [
-                    'S' => $this->prefix . $key,
-                ],
-            ],
-        ]]]></code>
       <code><![CDATA[[
             'TableName' => $this->table,
             'KeySchema' => [
@@ -384,15 +251,6 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Service/Iot/src/Result/ListThingTypesResponse.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'deprecated' => isset($json['deprecated']) ? filter_var($json['deprecated'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'deprecationDate' => isset($json['deprecationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['deprecationDate'])) : null,
-            'creationDate' => isset($json['creationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['creationDate'])) : null,
-        ]]]></code>
-    </InvalidArgument>
-  </file>
   <file src="src/Service/Kinesis/src/Input/DeleteStreamInput.php">
     <RedundantCastGivenDocblockType>
       <code>(bool) $v</code>
@@ -477,47 +335,6 @@
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/CreateJobResponse.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'AccelerationSettings' => empty($json['accelerationSettings']) ? null : $this->populateResultAccelerationSettings($json['accelerationSettings']),
-            'AccelerationStatus' => isset($json['accelerationStatus']) ? (string) $json['accelerationStatus'] : null,
-            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
-            'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
-            'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
-            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
-            'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
-            'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
-            'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
-            'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
-            'Id' => isset($json['id']) ? (string) $json['id'] : null,
-            'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
-            'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
-            'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
-            'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
-            'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
-            'Queue' => isset($json['queue']) ? (string) $json['queue'] : null,
-            'QueueTransitions' => !isset($json['queueTransitions']) ? null : $this->populateResult__listOfQueueTransition($json['queueTransitions']),
-            'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
-            'Role' => (string) $json['role'],
-            'Settings' => $this->populateResultJobSettings($json['settings']),
-            'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
-            'Status' => isset($json['status']) ? (string) $json['status'] : null,
-            'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
-            'Timing' => empty($json['timing']) ? null : $this->populateResultTiming($json['timing']),
-            'UserMetadata' => !isset($json['userMetadata']) ? null : $this->populateResult__mapOf__string($json['userMetadata']),
-            'Warnings' => !isset($json['warnings']) ? null : $this->populateResult__listOfWarningGroup($json['warnings']),
-        ]]]></code>
-      <code><![CDATA[[
-            'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
-            'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
-            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
-        ]]]></code>
-      <code><![CDATA[[
-            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
-            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
-            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
-        ]]]></code>
-    </InvalidArgument>
     <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
@@ -528,47 +345,6 @@
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/GetJobResponse.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'AccelerationSettings' => empty($json['accelerationSettings']) ? null : $this->populateResultAccelerationSettings($json['accelerationSettings']),
-            'AccelerationStatus' => isset($json['accelerationStatus']) ? (string) $json['accelerationStatus'] : null,
-            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
-            'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
-            'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
-            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
-            'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
-            'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
-            'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
-            'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
-            'Id' => isset($json['id']) ? (string) $json['id'] : null,
-            'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
-            'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
-            'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
-            'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
-            'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
-            'Queue' => isset($json['queue']) ? (string) $json['queue'] : null,
-            'QueueTransitions' => !isset($json['queueTransitions']) ? null : $this->populateResult__listOfQueueTransition($json['queueTransitions']),
-            'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
-            'Role' => (string) $json['role'],
-            'Settings' => $this->populateResultJobSettings($json['settings']),
-            'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
-            'Status' => isset($json['status']) ? (string) $json['status'] : null,
-            'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
-            'Timing' => empty($json['timing']) ? null : $this->populateResultTiming($json['timing']),
-            'UserMetadata' => !isset($json['userMetadata']) ? null : $this->populateResult__mapOf__string($json['userMetadata']),
-            'Warnings' => !isset($json['warnings']) ? null : $this->populateResult__listOfWarningGroup($json['warnings']),
-        ]]]></code>
-      <code><![CDATA[[
-            'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
-            'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
-            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
-        ]]]></code>
-      <code><![CDATA[[
-            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
-            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
-            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
-        ]]]></code>
-    </InvalidArgument>
     <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
@@ -579,47 +355,6 @@
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/ListJobsResponse.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'AccelerationSettings' => empty($json['accelerationSettings']) ? null : $this->populateResultAccelerationSettings($json['accelerationSettings']),
-            'AccelerationStatus' => isset($json['accelerationStatus']) ? (string) $json['accelerationStatus'] : null,
-            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
-            'BillingTagsSource' => isset($json['billingTagsSource']) ? (string) $json['billingTagsSource'] : null,
-            'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
-            'CreatedAt' => isset($json['createdAt']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['createdAt'])) : null,
-            'CurrentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
-            'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
-            'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
-            'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
-            'Id' => isset($json['id']) ? (string) $json['id'] : null,
-            'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
-            'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
-            'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
-            'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
-            'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
-            'Queue' => isset($json['queue']) ? (string) $json['queue'] : null,
-            'QueueTransitions' => !isset($json['queueTransitions']) ? null : $this->populateResult__listOfQueueTransition($json['queueTransitions']),
-            'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
-            'Role' => (string) $json['role'],
-            'Settings' => $this->populateResultJobSettings($json['settings']),
-            'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
-            'Status' => isset($json['status']) ? (string) $json['status'] : null,
-            'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
-            'Timing' => empty($json['timing']) ? null : $this->populateResultTiming($json['timing']),
-            'UserMetadata' => !isset($json['userMetadata']) ? null : $this->populateResult__mapOf__string($json['userMetadata']),
-            'Warnings' => !isset($json['warnings']) ? null : $this->populateResult__listOfWarningGroup($json['warnings']),
-        ]]]></code>
-      <code><![CDATA[[
-            'DestinationQueue' => isset($json['destinationQueue']) ? (string) $json['destinationQueue'] : null,
-            'SourceQueue' => isset($json['sourceQueue']) ? (string) $json['sourceQueue'] : null,
-            'Timestamp' => isset($json['timestamp']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['timestamp'])) : null,
-        ]]]></code>
-      <code><![CDATA[[
-            'FinishTime' => isset($json['finishTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime'])) : null,
-            'StartTime' => isset($json['startTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])) : null,
-            'SubmitTime' => isset($json['submitTime']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime'])) : null,
-        ]]]></code>
-    </InvalidArgument>
     <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
@@ -661,30 +396,6 @@
     <TypeDoesNotContainType>
       <code>empty($s3SignerOptions)</code>
     </TypeDoesNotContainType>
-  </file>
-  <file src="src/Service/Scheduler/src/Result/ListScheduleGroupsOutput.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
-            'CreationDate' => isset($json['CreationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])) : null,
-            'LastModificationDate' => isset($json['LastModificationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModificationDate'])) : null,
-            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
-        ]]]></code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Service/Scheduler/src/Result/ListSchedulesOutput.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
-            'CreationDate' => isset($json['CreationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])) : null,
-            'GroupName' => isset($json['GroupName']) ? (string) $json['GroupName'] : null,
-            'LastModificationDate' => isset($json['LastModificationDate']) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModificationDate'])) : null,
-            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
-            'Target' => empty($json['Target']) ? null : $this->populateResultTargetSummary($json['Target']),
-        ]]]></code>
-    </InvalidArgument>
   </file>
   <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
     <RedundantCastGivenDocblockType>
