@@ -427,18 +427,20 @@ class IamClient extends AbstractApi
      * Adds or updates an inline policy document that is embedded in the specified IAM user.
      *
      * An IAM user can also have a managed policy attached to it. To attach a managed policy to a user, use
-     * AttachUserPolicy. To create a new managed policy, use CreatePolicy. For information about policies, see Managed
-     * policies and inline policies [^1] in the *IAM User Guide*.
+     * `AttachUserPolicy` [^1]. To create a new managed policy, use `CreatePolicy` [^2]. For information about policies, see
+     * Managed policies and inline policies [^3] in the *IAM User Guide*.
      *
-     * For information about the maximum number of inline policies that you can embed in a user, see IAM and STS quotas [^2]
+     * For information about the maximum number of inline policies that you can embed in a user, see IAM and STS quotas [^4]
      * in the *IAM User Guide*.
      *
      * > Because policy documents can be large, you should use POST rather than GET when calling `PutUserPolicy`. For
-     * > general information about using the Query API with IAM, see Making query requests [^3] in the *IAM User Guide*.
+     * > general information about using the Query API with IAM, see Making query requests [^5] in the *IAM User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html
-     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html
-     * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachUserPolicy.html
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html
+     * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html
+     * [^4]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html
+     * [^5]: https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutUserPolicy.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#putuserpolicy
