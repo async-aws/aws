@@ -123,7 +123,6 @@ class PopulatorGenerator
                     $this->objectGenerator->generate($memberShape, $forEndpoint);
                     if ($forEndpoint && 'endpoints' === $propertyName) {
                         $forEndpoint = false;
-                        $returnType = 'array';
                     }
                 }
                 if (!empty($memberShape->getEnum())) {
