@@ -75,7 +75,7 @@ class ExecuteStatementResponse extends Result
         return $this->generatedFields;
     }
 
-    public function getNumberOfRecordsUpdated(): ?string
+    public function getNumberOfRecordsUpdated(): ?int
     {
         $this->initialize();
 
@@ -98,7 +98,7 @@ class ExecuteStatementResponse extends Result
 
         $this->records = empty($data['records']) ? [] : $this->populateResultSqlRecords($data['records']);
         $this->columnMetadata = empty($data['columnMetadata']) ? [] : $this->populateResultMetadata($data['columnMetadata']);
-        $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (string) $data['numberOfRecordsUpdated'] : null;
+        $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (int) $data['numberOfRecordsUpdated'] : null;
         $this->generatedFields = empty($data['generatedFields']) ? [] : $this->populateResultFieldList($data['generatedFields']);
         $this->formattedRecords = isset($data['formattedRecords']) ? (string) $data['formattedRecords'] : null;
     }
@@ -184,7 +184,7 @@ class ExecuteStatementResponse extends Result
         return new Field([
             'isNull' => isset($json['isNull']) ? filter_var($json['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
             'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'longValue' => isset($json['longValue']) ? (string) $json['longValue'] : null,
+            'longValue' => isset($json['longValue']) ? (int) $json['longValue'] : null,
             'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
             'stringValue' => isset($json['stringValue']) ? (string) $json['stringValue'] : null,
             'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
@@ -206,13 +206,13 @@ class ExecuteStatementResponse extends Result
     }
 
     /**
-     * @return string[]
+     * @return int[]
      */
     private function populateResultLongArray(array $json): array
     {
         $items = [];
         foreach ($json as $item) {
-            $a = isset($item) ? (string) $item : null;
+            $a = isset($item) ? (int) $item : null;
             if (null !== $a) {
                 $items[] = $a;
             }

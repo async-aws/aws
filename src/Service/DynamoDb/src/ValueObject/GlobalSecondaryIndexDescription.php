@@ -96,8 +96,8 @@ final class GlobalSecondaryIndexDescription
      *   IndexStatus?: null|IndexStatus::*,
      *   Backfilling?: null|bool,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
-     *   IndexSizeBytes?: null|string,
-     *   ItemCount?: null|string,
+     *   IndexSizeBytes?: null|int,
+     *   ItemCount?: null|int,
      *   IndexArn?: null|string,
      * } $input
      */
@@ -122,8 +122,8 @@ final class GlobalSecondaryIndexDescription
      *   IndexStatus?: null|IndexStatus::*,
      *   Backfilling?: null|bool,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
-     *   IndexSizeBytes?: null|string,
-     *   ItemCount?: null|string,
+     *   IndexSizeBytes?: null|int,
+     *   ItemCount?: null|int,
      *   IndexArn?: null|string,
      * }|GlobalSecondaryIndexDescription $input
      */
@@ -147,7 +147,7 @@ final class GlobalSecondaryIndexDescription
         return $this->indexName;
     }
 
-    public function getIndexSizeBytes(): ?string
+    public function getIndexSizeBytes(): ?int
     {
         return $this->indexSizeBytes;
     }
@@ -160,7 +160,7 @@ final class GlobalSecondaryIndexDescription
         return $this->indexStatus;
     }
 
-    public function getItemCount(): ?string
+    public function getItemCount(): ?int
     {
         return $this->itemCount;
     }

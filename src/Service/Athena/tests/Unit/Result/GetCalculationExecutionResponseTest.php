@@ -50,7 +50,7 @@ class GetCalculationExecutionResponseTest extends TestCase
         self::assertSame('iad-directory', $result->getWorkingDirectory());
         self::assertSame('RUNNING', $result->getStatus()->getState());
         self::assertInstanceOf(CalculationStatistics::class, $result->getStatistics());
-        self::assertSame('1337', $result->getStatistics()->getDpuExecutionInMillis());
+        self::assertSame(1337, $result->getStatistics()->getDpuExecutionInMillis());
         self::assertInstanceOf(CalculationResult::class, $result->getResult());
     }
 }

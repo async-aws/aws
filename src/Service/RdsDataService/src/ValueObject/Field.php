@@ -46,7 +46,7 @@ final class Field
      * @param array{
      *   isNull?: null|bool,
      *   booleanValue?: null|bool,
-     *   longValue?: null|string,
+     *   longValue?: null|int,
      *   doubleValue?: null|float,
      *   stringValue?: null|string,
      *   blobValue?: null|string,
@@ -68,7 +68,7 @@ final class Field
      * @param array{
      *   isNull?: null|bool,
      *   booleanValue?: null|bool,
-     *   longValue?: null|string,
+     *   longValue?: null|int,
      *   doubleValue?: null|float,
      *   stringValue?: null|string,
      *   blobValue?: null|string,
@@ -105,7 +105,7 @@ final class Field
         return $this->isNull;
     }
 
-    public function getLongValue(): ?string
+    public function getLongValue(): ?int
     {
         return $this->longValue;
     }

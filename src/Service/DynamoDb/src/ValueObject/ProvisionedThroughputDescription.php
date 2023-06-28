@@ -43,9 +43,9 @@ final class ProvisionedThroughputDescription
      * @param array{
      *   LastIncreaseDateTime?: null|\DateTimeImmutable,
      *   LastDecreaseDateTime?: null|\DateTimeImmutable,
-     *   NumberOfDecreasesToday?: null|string,
-     *   ReadCapacityUnits?: null|string,
-     *   WriteCapacityUnits?: null|string,
+     *   NumberOfDecreasesToday?: null|int,
+     *   ReadCapacityUnits?: null|int,
+     *   WriteCapacityUnits?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -61,9 +61,9 @@ final class ProvisionedThroughputDescription
      * @param array{
      *   LastIncreaseDateTime?: null|\DateTimeImmutable,
      *   LastDecreaseDateTime?: null|\DateTimeImmutable,
-     *   NumberOfDecreasesToday?: null|string,
-     *   ReadCapacityUnits?: null|string,
-     *   WriteCapacityUnits?: null|string,
+     *   NumberOfDecreasesToday?: null|int,
+     *   ReadCapacityUnits?: null|int,
+     *   WriteCapacityUnits?: null|int,
      * }|ProvisionedThroughputDescription $input
      */
     public static function create($input): self
@@ -81,17 +81,17 @@ final class ProvisionedThroughputDescription
         return $this->lastIncreaseDateTime;
     }
 
-    public function getNumberOfDecreasesToday(): ?string
+    public function getNumberOfDecreasesToday(): ?int
     {
         return $this->numberOfDecreasesToday;
     }
 
-    public function getReadCapacityUnits(): ?string
+    public function getReadCapacityUnits(): ?int
     {
         return $this->readCapacityUnits;
     }
 
-    public function getWriteCapacityUnits(): ?string
+    public function getWriteCapacityUnits(): ?int
     {
         return $this->writeCapacityUnits;
     }

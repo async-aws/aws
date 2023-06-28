@@ -22,7 +22,7 @@ final class InputLogEvent
 
     /**
      * @param array{
-     *   timestamp: string,
+     *   timestamp: int,
      *   message: string,
      * } $input
      */
@@ -34,7 +34,7 @@ final class InputLogEvent
 
     /**
      * @param array{
-     *   timestamp: string,
+     *   timestamp: int,
      *   message: string,
      * }|InputLogEvent $input
      */
@@ -48,7 +48,7 @@ final class InputLogEvent
         return $this->message;
     }
 
-    public function getTimestamp(): string
+    public function getTimestamp(): int
     {
         return $this->timestamp;
     }

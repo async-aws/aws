@@ -78,7 +78,7 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   LayerName: string,
-     *   VersionNumber: string,
+     *   VersionNumber: int,
      *   StatementId: string,
      *   Action: string,
      *   Principal: string,

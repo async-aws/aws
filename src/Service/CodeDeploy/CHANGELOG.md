@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for the methods `getFailed`, `getInProgress`, `getPending`, `getReady`, `getSkipped` and `getSucceeded` of `\AsyncAws\CodeDeploy\ValueObject\DeploymentOverview` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.4.0
 
 ### Added

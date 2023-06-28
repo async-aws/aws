@@ -68,9 +68,9 @@ class ExecuteStatementResponseTest extends TestCase
         self::assertSame('string', $result->getColumnMetadata()[0]->getTypeName());
 
         self::assertCount(1, $result->getgeneratedFields());
-        self::assertSame('123456789', $result->getgeneratedFields()[0]->getLongValue());
+        self::assertSame(123456789, $result->getgeneratedFields()[0]->getLongValue());
 
-        self::assertSame('1337', $result->getNumberOfRecordsUpdated()); // TODO this should be a number
+        self::assertSame(1337, $result->getNumberOfRecordsUpdated());
 
         self::assertCount(1, $result->getRecords());
         self::assertCount(1, $result->getRecords()[0]);

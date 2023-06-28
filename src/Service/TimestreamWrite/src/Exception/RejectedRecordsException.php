@@ -53,7 +53,7 @@ final class RejectedRecordsException extends ClientException
         return new RejectedRecord([
             'RecordIndex' => isset($json['RecordIndex']) ? (int) $json['RecordIndex'] : null,
             'Reason' => isset($json['Reason']) ? (string) $json['Reason'] : null,
-            'ExistingVersion' => isset($json['ExistingVersion']) ? (string) $json['ExistingVersion'] : null,
+            'ExistingVersion' => isset($json['ExistingVersion']) ? (int) $json['ExistingVersion'] : null,
         ]);
     }
 

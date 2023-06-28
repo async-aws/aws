@@ -162,8 +162,8 @@ class RestXmlParser implements Parser
 
         switch ($shape->getType()) {
             case 'string':
-            case 'long':
                 return $this->parseXmlResponseString($input, $required);
+            case 'long':
             case 'integer':
                 return $this->parseXmlResponseInteger($input, $required);
             case 'float':

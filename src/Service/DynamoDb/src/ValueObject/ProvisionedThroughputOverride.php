@@ -15,7 +15,7 @@ final class ProvisionedThroughputOverride
 
     /**
      * @param array{
-     *   ReadCapacityUnits?: null|string,
+     *   ReadCapacityUnits?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -25,7 +25,7 @@ final class ProvisionedThroughputOverride
 
     /**
      * @param array{
-     *   ReadCapacityUnits?: null|string,
+     *   ReadCapacityUnits?: null|int,
      * }|ProvisionedThroughputOverride $input
      */
     public static function create($input): self
@@ -33,7 +33,7 @@ final class ProvisionedThroughputOverride
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getReadCapacityUnits(): ?string
+    public function getReadCapacityUnits(): ?int
     {
         return $this->readCapacityUnits;
     }

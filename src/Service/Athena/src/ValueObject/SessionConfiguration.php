@@ -28,7 +28,7 @@ final class SessionConfiguration
      * @param array{
      *   ExecutionRole?: null|string,
      *   WorkingDirectory?: null|string,
-     *   IdleTimeoutSeconds?: null|string,
+     *   IdleTimeoutSeconds?: null|int,
      *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
      * } $input
      */
@@ -44,7 +44,7 @@ final class SessionConfiguration
      * @param array{
      *   ExecutionRole?: null|string,
      *   WorkingDirectory?: null|string,
-     *   IdleTimeoutSeconds?: null|string,
+     *   IdleTimeoutSeconds?: null|int,
      *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
      * }|SessionConfiguration $input
      */
@@ -63,7 +63,7 @@ final class SessionConfiguration
         return $this->executionRole;
     }
 
-    public function getIdleTimeoutSeconds(): ?string
+    public function getIdleTimeoutSeconds(): ?int
     {
         return $this->idleTimeoutSeconds;
     }

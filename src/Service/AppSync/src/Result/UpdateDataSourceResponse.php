@@ -75,9 +75,9 @@ class UpdateDataSourceResponse extends Result
     private function populateResultDeltaSyncConfig(array $json): DeltaSyncConfig
     {
         return new DeltaSyncConfig([
-            'baseTableTTL' => isset($json['baseTableTTL']) ? (string) $json['baseTableTTL'] : null,
+            'baseTableTTL' => isset($json['baseTableTTL']) ? (int) $json['baseTableTTL'] : null,
             'deltaSyncTableName' => isset($json['deltaSyncTableName']) ? (string) $json['deltaSyncTableName'] : null,
-            'deltaSyncTableTTL' => isset($json['deltaSyncTableTTL']) ? (string) $json['deltaSyncTableTTL'] : null,
+            'deltaSyncTableTTL' => isset($json['deltaSyncTableTTL']) ? (int) $json['deltaSyncTableTTL'] : null,
         ]);
     }
 

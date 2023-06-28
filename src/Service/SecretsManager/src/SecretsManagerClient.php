@@ -172,7 +172,7 @@ class SecretsManagerClient extends AbstractApi
      *
      * @param array{
      *   SecretId: string,
-     *   RecoveryWindowInDays?: string,
+     *   RecoveryWindowInDays?: int,
      *   ForceDeleteWithoutRecovery?: bool,
      *   '@region'?: string|null,
      * }|DeleteSecretRequest $input

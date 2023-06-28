@@ -38,7 +38,7 @@ final class LayerVersionContentOutput
      * @param array{
      *   Location?: null|string,
      *   CodeSha256?: null|string,
-     *   CodeSize?: null|string,
+     *   CodeSize?: null|int,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
      * } $input
@@ -56,7 +56,7 @@ final class LayerVersionContentOutput
      * @param array{
      *   Location?: null|string,
      *   CodeSha256?: null|string,
-     *   CodeSize?: null|string,
+     *   CodeSize?: null|int,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
      * }|LayerVersionContentOutput $input
@@ -71,7 +71,7 @@ final class LayerVersionContentOutput
         return $this->codeSha256;
     }
 
-    public function getCodeSize(): ?string
+    public function getCodeSize(): ?int
     {
         return $this->codeSize;
     }

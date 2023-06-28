@@ -116,13 +116,13 @@ class GetQueryExecutionOutput extends Result
     private function populateResultQueryExecutionStatistics(array $json): QueryExecutionStatistics
     {
         return new QueryExecutionStatistics([
-            'EngineExecutionTimeInMillis' => isset($json['EngineExecutionTimeInMillis']) ? (string) $json['EngineExecutionTimeInMillis'] : null,
-            'DataScannedInBytes' => isset($json['DataScannedInBytes']) ? (string) $json['DataScannedInBytes'] : null,
+            'EngineExecutionTimeInMillis' => isset($json['EngineExecutionTimeInMillis']) ? (int) $json['EngineExecutionTimeInMillis'] : null,
+            'DataScannedInBytes' => isset($json['DataScannedInBytes']) ? (int) $json['DataScannedInBytes'] : null,
             'DataManifestLocation' => isset($json['DataManifestLocation']) ? (string) $json['DataManifestLocation'] : null,
-            'TotalExecutionTimeInMillis' => isset($json['TotalExecutionTimeInMillis']) ? (string) $json['TotalExecutionTimeInMillis'] : null,
-            'QueryQueueTimeInMillis' => isset($json['QueryQueueTimeInMillis']) ? (string) $json['QueryQueueTimeInMillis'] : null,
-            'QueryPlanningTimeInMillis' => isset($json['QueryPlanningTimeInMillis']) ? (string) $json['QueryPlanningTimeInMillis'] : null,
-            'ServiceProcessingTimeInMillis' => isset($json['ServiceProcessingTimeInMillis']) ? (string) $json['ServiceProcessingTimeInMillis'] : null,
+            'TotalExecutionTimeInMillis' => isset($json['TotalExecutionTimeInMillis']) ? (int) $json['TotalExecutionTimeInMillis'] : null,
+            'QueryQueueTimeInMillis' => isset($json['QueryQueueTimeInMillis']) ? (int) $json['QueryQueueTimeInMillis'] : null,
+            'QueryPlanningTimeInMillis' => isset($json['QueryPlanningTimeInMillis']) ? (int) $json['QueryPlanningTimeInMillis'] : null,
+            'ServiceProcessingTimeInMillis' => isset($json['ServiceProcessingTimeInMillis']) ? (int) $json['ServiceProcessingTimeInMillis'] : null,
             'ResultReuseInformation' => empty($json['ResultReuseInformation']) ? null : $this->populateResultResultReuseInformation($json['ResultReuseInformation']),
         ]);
     }

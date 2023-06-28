@@ -61,7 +61,7 @@ final class AwsObject
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
      *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   Size?: null|string,
+     *   Size?: null|int,
      *   StorageClass?: null|ObjectStorageClass::*,
      *   Owner?: null|Owner|array,
      * } $input
@@ -83,7 +83,7 @@ final class AwsObject
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
      *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   Size?: null|string,
+     *   Size?: null|int,
      *   StorageClass?: null|ObjectStorageClass::*,
      *   Owner?: null|Owner|array,
      * }|AwsObject $input
@@ -121,7 +121,7 @@ final class AwsObject
         return $this->owner;
     }
 
-    public function getSize(): ?string
+    public function getSize(): ?int
     {
         return $this->size;
     }

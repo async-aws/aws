@@ -221,7 +221,7 @@ final class Build
      * @param array{
      *   id?: null|string,
      *   arn?: null|string,
-     *   buildNumber?: null|string,
+     *   buildNumber?: null|int,
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   currentPhase?: null|string,
@@ -293,7 +293,7 @@ final class Build
      * @param array{
      *   id?: null|string,
      *   arn?: null|string,
-     *   buildNumber?: null|string,
+     *   buildNumber?: null|int,
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   currentPhase?: null|string,
@@ -350,7 +350,7 @@ final class Build
         return $this->buildComplete;
     }
 
-    public function getBuildNumber(): ?string
+    public function getBuildNumber(): ?int
     {
         return $this->buildNumber;
     }

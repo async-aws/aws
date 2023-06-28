@@ -78,7 +78,7 @@ class ListVersionsByFunctionResponseTest extends TestCase
             self::assertSame('my-function', $version->getFunctionName());
             self::assertSame('arn:aws:lambda:us-west-2:123456789012:function:my-function', $version->getFunctionArn());
             self::assertSame('$LATEST', $version->getVersion());
-            self::assertSame('5797206', $version->getCodeSize());
+            self::assertSame(5797206, $version->getCodeSize());
 
             break;
         }

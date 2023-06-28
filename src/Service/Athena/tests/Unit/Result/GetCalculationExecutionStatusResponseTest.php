@@ -35,6 +35,6 @@ class GetCalculationExecutionStatusResponseTest extends TestCase
 
         self::assertInstanceOf(CalculationStatus::class, $result->getStatus());
         self::assertSame('CREATED', $result->getStatus()->getState());
-        self::assertIsString($result->getStatistics()->getDpuExecutionInMillis());
+        self::assertIsInt($result->getStatistics()->getDpuExecutionInMillis());
     }
 }

@@ -44,7 +44,7 @@ final class UploadPartRequest extends Input
     /**
      * Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically.
      *
-     * @var string|null
+     * @var int|null
      */
     private $contentLength;
 
@@ -186,7 +186,7 @@ final class UploadPartRequest extends Input
      * @param array{
      *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket?: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ChecksumCRC32?: string,
@@ -230,7 +230,7 @@ final class UploadPartRequest extends Input
      * @param array{
      *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket?: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ChecksumCRC32?: string,
@@ -294,7 +294,7 @@ final class UploadPartRequest extends Input
         return $this->checksumSha256;
     }
 
-    public function getContentLength(): ?string
+    public function getContentLength(): ?int
     {
         return $this->contentLength;
     }
@@ -355,7 +355,7 @@ final class UploadPartRequest extends Input
         // Prepare headers
         $headers = [];
         if (null !== $this->contentLength) {
-            $headers['Content-Length'] = $this->contentLength;
+            $headers['Content-Length'] = (string) $this->contentLength;
         }
         if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
@@ -482,7 +482,7 @@ final class UploadPartRequest extends Input
         return $this;
     }
 
-    public function setContentLength(?string $value): self
+    public function setContentLength(?int $value): self
     {
         $this->contentLength = $value;
 

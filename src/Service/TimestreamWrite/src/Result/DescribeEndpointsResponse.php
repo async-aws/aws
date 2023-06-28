@@ -34,7 +34,7 @@ class DescribeEndpointsResponse extends Result
     {
         return new Endpoint([
             'Address' => (string) $json['Address'],
-            'CachePeriodInMinutes' => (string) $json['CachePeriodInMinutes'],
+            'CachePeriodInMinutes' => (int) $json['CachePeriodInMinutes'],
         ]);
     }
 

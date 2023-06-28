@@ -22,7 +22,7 @@ final class Endpoint implements EndpointInterface
     /**
      * @param array{
      *   Address: string,
-     *   CachePeriodInMinutes: string,
+     *   CachePeriodInMinutes: int,
      * } $input
      */
     public function __construct(array $input)
@@ -34,7 +34,7 @@ final class Endpoint implements EndpointInterface
     /**
      * @param array{
      *   Address: string,
-     *   CachePeriodInMinutes: string,
+     *   CachePeriodInMinutes: int,
      * }|Endpoint $input
      */
     public static function create($input): self

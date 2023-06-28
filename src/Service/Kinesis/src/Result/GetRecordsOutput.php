@@ -47,7 +47,7 @@ class GetRecordsOutput extends Result
         return $this->childShards;
     }
 
-    public function getMillisBehindLatest(): ?string
+    public function getMillisBehindLatest(): ?int
     {
         $this->initialize();
 
@@ -77,7 +77,7 @@ class GetRecordsOutput extends Result
 
         $this->records = $this->populateResultRecordList($data['Records']);
         $this->nextShardIterator = isset($data['NextShardIterator']) ? (string) $data['NextShardIterator'] : null;
-        $this->millisBehindLatest = isset($data['MillisBehindLatest']) ? (string) $data['MillisBehindLatest'] : null;
+        $this->millisBehindLatest = isset($data['MillisBehindLatest']) ? (int) $data['MillisBehindLatest'] : null;
         $this->childShards = empty($data['ChildShards']) ? [] : $this->populateResultChildShardList($data['ChildShards']);
     }
 

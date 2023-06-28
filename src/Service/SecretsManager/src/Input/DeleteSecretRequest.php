@@ -28,7 +28,7 @@ final class DeleteSecretRequest extends Input
      * this parameter and `ForceDeleteWithoutRecovery` in the same call. If you don't use either, then by default Secrets
      * Manager uses a 30 day recovery window.
      *
-     * @var string|null
+     * @var int|null
      */
     private $recoveryWindowInDays;
 
@@ -56,7 +56,7 @@ final class DeleteSecretRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   RecoveryWindowInDays?: string,
+     *   RecoveryWindowInDays?: int,
      *   ForceDeleteWithoutRecovery?: bool,
      *   '@region'?: string|null,
      * } $input
@@ -72,7 +72,7 @@ final class DeleteSecretRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   RecoveryWindowInDays?: string,
+     *   RecoveryWindowInDays?: int,
      *   ForceDeleteWithoutRecovery?: bool,
      *   '@region'?: string|null,
      * }|DeleteSecretRequest $input
@@ -87,7 +87,7 @@ final class DeleteSecretRequest extends Input
         return $this->forceDeleteWithoutRecovery;
     }
 
-    public function getRecoveryWindowInDays(): ?string
+    public function getRecoveryWindowInDays(): ?int
     {
         return $this->recoveryWindowInDays;
     }
@@ -129,7 +129,7 @@ final class DeleteSecretRequest extends Input
         return $this;
     }
 
-    public function setRecoveryWindowInDays(?string $value): self
+    public function setRecoveryWindowInDays(?int $value): self
     {
         $this->recoveryWindowInDays = $value;
 

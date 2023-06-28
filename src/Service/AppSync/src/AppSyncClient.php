@@ -267,7 +267,7 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   id: string,
      *   description?: string,
-     *   expires?: string,
+     *   expires?: int,
      *   '@region'?: string|null,
      * }|UpdateApiKeyRequest $input
      *

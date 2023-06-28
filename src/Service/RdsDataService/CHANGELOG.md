@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for `\AsyncAws\RdsDataService\Exception\StatementTimeoutException::getDbConnectionId` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\RdsDataService\Result\ExecuteStatementResponse::getNumberOfRecordsUpdated` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\RdsDataService\ValueObject\ArrayValue::getLongValues` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\RdsDataService\ValueObject\Field::getLongValue` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.0.0
 
 ### Added

@@ -55,7 +55,7 @@ final class RotationRulesType
 
     /**
      * @param array{
-     *   AutomaticallyAfterDays?: null|string,
+     *   AutomaticallyAfterDays?: null|int,
      *   Duration?: null|string,
      *   ScheduleExpression?: null|string,
      * } $input
@@ -69,7 +69,7 @@ final class RotationRulesType
 
     /**
      * @param array{
-     *   AutomaticallyAfterDays?: null|string,
+     *   AutomaticallyAfterDays?: null|int,
      *   Duration?: null|string,
      *   ScheduleExpression?: null|string,
      * }|RotationRulesType $input
@@ -79,7 +79,7 @@ final class RotationRulesType
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getAutomaticallyAfterDays(): ?string
+    public function getAutomaticallyAfterDays(): ?int
     {
         return $this->automaticallyAfterDays;
     }

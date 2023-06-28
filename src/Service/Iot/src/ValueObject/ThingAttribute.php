@@ -38,7 +38,7 @@ final class ThingAttribute
      *   thingTypeName?: null|string,
      *   thingArn?: null|string,
      *   attributes?: null|array<string, string>,
-     *   version?: null|string,
+     *   version?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -56,7 +56,7 @@ final class ThingAttribute
      *   thingTypeName?: null|string,
      *   thingArn?: null|string,
      *   attributes?: null|array<string, string>,
-     *   version?: null|string,
+     *   version?: null|int,
      * }|ThingAttribute $input
      */
     public static function create($input): self
@@ -87,7 +87,7 @@ final class ThingAttribute
         return $this->thingTypeName;
     }
 
-    public function getVersion(): ?string
+    public function getVersion(): ?int
     {
         return $this->version;
     }

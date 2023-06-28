@@ -125,7 +125,7 @@ class PublishLayerVersionResponse extends Result
         return $this->licenseInfo;
     }
 
-    public function getVersion(): ?string
+    public function getVersion(): ?int
     {
         $this->initialize();
 
@@ -141,7 +141,7 @@ class PublishLayerVersionResponse extends Result
         $this->layerVersionArn = isset($data['LayerVersionArn']) ? (string) $data['LayerVersionArn'] : null;
         $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
         $this->createdDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
-        $this->version = isset($data['Version']) ? (string) $data['Version'] : null;
+        $this->version = isset($data['Version']) ? (int) $data['Version'] : null;
         $this->compatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($data['CompatibleRuntimes']);
         $this->licenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
         $this->compatibleArchitectures = empty($data['CompatibleArchitectures']) ? [] : $this->populateResultCompatibleArchitectures($data['CompatibleArchitectures']);
@@ -184,7 +184,7 @@ class PublishLayerVersionResponse extends Result
         return new LayerVersionContentOutput([
             'Location' => isset($json['Location']) ? (string) $json['Location'] : null,
             'CodeSha256' => isset($json['CodeSha256']) ? (string) $json['CodeSha256'] : null,
-            'CodeSize' => isset($json['CodeSize']) ? (string) $json['CodeSize'] : null,
+            'CodeSize' => isset($json['CodeSize']) ? (int) $json['CodeSize'] : null,
             'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
             'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
         ]);

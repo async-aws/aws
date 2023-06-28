@@ -56,8 +56,8 @@ final class LocalSecondaryIndexDescription
      *   IndexName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
-     *   IndexSizeBytes?: null|string,
-     *   ItemCount?: null|string,
+     *   IndexSizeBytes?: null|int,
+     *   ItemCount?: null|int,
      *   IndexArn?: null|string,
      * } $input
      */
@@ -76,8 +76,8 @@ final class LocalSecondaryIndexDescription
      *   IndexName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
-     *   IndexSizeBytes?: null|string,
-     *   ItemCount?: null|string,
+     *   IndexSizeBytes?: null|int,
+     *   ItemCount?: null|int,
      *   IndexArn?: null|string,
      * }|LocalSecondaryIndexDescription $input
      */
@@ -96,12 +96,12 @@ final class LocalSecondaryIndexDescription
         return $this->indexName;
     }
 
-    public function getIndexSizeBytes(): ?string
+    public function getIndexSizeBytes(): ?int
     {
         return $this->indexSizeBytes;
     }
 
-    public function getItemCount(): ?string
+    public function getItemCount(): ?int
     {
         return $this->itemCount;
     }

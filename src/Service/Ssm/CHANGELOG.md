@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for `\AsyncAws\Ssm\Result\PutParameterResult::getVersion` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Ssm\ValueObject\Parameter::getVersion` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.4.0
 
 ### Added

@@ -96,7 +96,7 @@ class BatchExecuteStatementResponse extends Result
         return new Field([
             'isNull' => isset($json['isNull']) ? filter_var($json['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
             'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'longValue' => isset($json['longValue']) ? (string) $json['longValue'] : null,
+            'longValue' => isset($json['longValue']) ? (int) $json['longValue'] : null,
             'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
             'stringValue' => isset($json['stringValue']) ? (string) $json['stringValue'] : null,
             'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
@@ -118,13 +118,13 @@ class BatchExecuteStatementResponse extends Result
     }
 
     /**
-     * @return string[]
+     * @return int[]
      */
     private function populateResultLongArray(array $json): array
     {
         $items = [];
         foreach ($json as $item) {
-            $a = isset($item) ? (string) $item : null;
+            $a = isset($item) ? (int) $item : null;
             if (null !== $a) {
                 $items[] = $a;
             }

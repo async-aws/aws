@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The type for `\AsyncAws\Iot\Input\DeleteThingGroupRequest::getExpectedVersion` and `\AsyncAws\Iot\Input\DeleteThingGroupRequest::setExpectedVersion` uses `int` instead of `string` to reflect the AWS type.
+- The type for `\AsyncAws\Iot\Input\DeleteThingRequest::getExpectedVersion` and `\AsyncAws\Iot\Input\DeleteThingGroupRequest::setExpectedVersion` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Iot\ValueObject\ThingAttribute::getVersion` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.0.0
 
 ### Added

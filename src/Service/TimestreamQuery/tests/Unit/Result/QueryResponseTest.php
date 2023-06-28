@@ -58,8 +58,8 @@ class QueryResponseTest extends TestCase
         self::assertSame(ScalarType::VARCHAR, $result->getColumnInfo()[0]->getType()->getScalarType());
         self::assertSame('qwertyuiop', $result->getQueryId());
         self::assertInstanceOf(QueryStatus::class, $result->getQueryStatus());
-        self::assertSame('1024', $result->getQueryStatus()->getCumulativeBytesMetered());
-        self::assertSame('800', $result->getQueryStatus()->getCumulativeBytesScanned());
+        self::assertSame(1024, $result->getQueryStatus()->getCumulativeBytesMetered());
+        self::assertSame(800, $result->getQueryStatus()->getCumulativeBytesScanned());
         self::assertSame(1.0, $result->getQueryStatus()->getProgressPercentage());
 
         $rows = iterator_to_array($result->getRows(true));

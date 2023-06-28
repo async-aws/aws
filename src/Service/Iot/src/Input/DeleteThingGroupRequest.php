@@ -21,14 +21,14 @@ final class DeleteThingGroupRequest extends Input
     /**
      * The expected version of the thing group to delete.
      *
-     * @var string|null
+     * @var int|null
      */
     private $expectedVersion;
 
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   expectedVersion?: string,
+     *   expectedVersion?: int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -42,7 +42,7 @@ final class DeleteThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   expectedVersion?: string,
+     *   expectedVersion?: int,
      *   '@region'?: string|null,
      * }|DeleteThingGroupRequest $input
      */
@@ -51,7 +51,7 @@ final class DeleteThingGroupRequest extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getExpectedVersion(): ?string
+    public function getExpectedVersion(): ?int
     {
         return $this->expectedVersion;
     }
@@ -72,7 +72,7 @@ final class DeleteThingGroupRequest extends Input
         // Prepare query
         $query = [];
         if (null !== $this->expectedVersion) {
-            $query['expectedVersion'] = $this->expectedVersion;
+            $query['expectedVersion'] = (string) $this->expectedVersion;
         }
 
         // Prepare URI
@@ -90,7 +90,7 @@ final class DeleteThingGroupRequest extends Input
         return new Request('DELETE', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    public function setExpectedVersion(?string $value): self
+    public function setExpectedVersion(?int $value): self
     {
         $this->expectedVersion = $value;
 

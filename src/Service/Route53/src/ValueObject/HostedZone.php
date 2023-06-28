@@ -50,7 +50,7 @@ final class HostedZone
      *   Name: string,
      *   CallerReference: string,
      *   Config?: null|HostedZoneConfig|array,
-     *   ResourceRecordSetCount?: null|string,
+     *   ResourceRecordSetCount?: null|int,
      *   LinkedService?: null|LinkedService|array,
      * } $input
      */
@@ -70,7 +70,7 @@ final class HostedZone
      *   Name: string,
      *   CallerReference: string,
      *   Config?: null|HostedZoneConfig|array,
-     *   ResourceRecordSetCount?: null|string,
+     *   ResourceRecordSetCount?: null|int,
      *   LinkedService?: null|LinkedService|array,
      * }|HostedZone $input
      */
@@ -104,7 +104,7 @@ final class HostedZone
         return $this->name;
     }
 
-    public function getResourceRecordSetCount(): ?string
+    public function getResourceRecordSetCount(): ?int
     {
         return $this->resourceRecordSetCount;
     }

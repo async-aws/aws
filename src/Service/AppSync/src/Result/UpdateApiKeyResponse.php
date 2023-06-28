@@ -32,8 +32,8 @@ class UpdateApiKeyResponse extends Result
         return new ApiKey([
             'id' => isset($json['id']) ? (string) $json['id'] : null,
             'description' => isset($json['description']) ? (string) $json['description'] : null,
-            'expires' => isset($json['expires']) ? (string) $json['expires'] : null,
-            'deletes' => isset($json['deletes']) ? (string) $json['deletes'] : null,
+            'expires' => isset($json['expires']) ? (int) $json['expires'] : null,
+            'deletes' => isset($json['deletes']) ? (int) $json['deletes'] : null,
         ]);
     }
 }

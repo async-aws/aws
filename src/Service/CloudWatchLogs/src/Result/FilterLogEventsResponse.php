@@ -178,9 +178,9 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
     {
         return new FilteredLogEvent([
             'logStreamName' => isset($json['logStreamName']) ? (string) $json['logStreamName'] : null,
-            'timestamp' => isset($json['timestamp']) ? (string) $json['timestamp'] : null,
+            'timestamp' => isset($json['timestamp']) ? (int) $json['timestamp'] : null,
             'message' => isset($json['message']) ? (string) $json['message'] : null,
-            'ingestionTime' => isset($json['ingestionTime']) ? (string) $json['ingestionTime'] : null,
+            'ingestionTime' => isset($json['ingestionTime']) ? (int) $json['ingestionTime'] : null,
             'eventId' => isset($json['eventId']) ? (string) $json['eventId'] : null,
         ]);
     }

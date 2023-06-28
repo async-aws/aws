@@ -80,7 +80,7 @@ class GetQueryResultsOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new GetQueryResultsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new AthenaClient(), new GetQueryResultsInput([]));
 
-        self::assertSame('1337', $result->getUpdateCount());
+        self::assertSame(1337, $result->getUpdateCount());
         self::assertInstanceOf(ResultSet::class, $result->getResultSet());
         self::assertCount(2, $result->getResultSet()->getRows());
         self::assertInstanceOf(Row::class, $result->getResultSet()->getRows()[0]);

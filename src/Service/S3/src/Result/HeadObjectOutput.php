@@ -342,7 +342,7 @@ class HeadObjectOutput extends Result
         return $this->contentLanguage;
     }
 
-    public function getContentLength(): ?string
+    public function getContentLength(): ?int
     {
         $this->initialize();
 

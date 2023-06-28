@@ -34,6 +34,6 @@ class GetRecordsOutputTest extends TestCase
         self::assertCount(1, $result->getRecords());
         self::assertSame('_<data>_0', $result->getRecords()[0]->getData());
         self::assertSame('AAAAAAAAAAHsW8zCWf9164uy8Epue6WS3w6wmj4a4USt+CNvMd6uXQ+HL5vAJMznqqC0DLKsIjuoiTi1BpT6nW0LN2M2D56zM5H8anHm30Gbri9ua+qaGgj+3XTyvbhpERfrezgLHbPB/rIcVpykJbaSj5tmcXYRmFnqZBEyHwtZYFmh6hvWVFkIwLuMZLMrpWhG5r5hzkE=', $result->getNextShardIterator());
-        self::assertSame('2100', $result->getMillisBehindLatest());
+        self::assertSame(2100, $result->getMillisBehindLatest());
     }
 }

@@ -26,14 +26,14 @@ final class DeleteThingRequest extends Input
      * the expected version specified in the request, the `DeleteThing` request is rejected with a
      * `VersionConflictException`.
      *
-     * @var string|null
+     * @var int|null
      */
     private $expectedVersion;
 
     /**
      * @param array{
      *   thingName?: string,
-     *   expectedVersion?: string,
+     *   expectedVersion?: int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,7 +47,7 @@ final class DeleteThingRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   expectedVersion?: string,
+     *   expectedVersion?: int,
      *   '@region'?: string|null,
      * }|DeleteThingRequest $input
      */
@@ -56,7 +56,7 @@ final class DeleteThingRequest extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getExpectedVersion(): ?string
+    public function getExpectedVersion(): ?int
     {
         return $this->expectedVersion;
     }
@@ -77,7 +77,7 @@ final class DeleteThingRequest extends Input
         // Prepare query
         $query = [];
         if (null !== $this->expectedVersion) {
-            $query['expectedVersion'] = $this->expectedVersion;
+            $query['expectedVersion'] = (string) $this->expectedVersion;
         }
 
         // Prepare URI
@@ -95,7 +95,7 @@ final class DeleteThingRequest extends Input
         return new Request('DELETE', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    public function setExpectedVersion(?string $value): self
+    public function setExpectedVersion(?int $value): self
     {
         $this->expectedVersion = $value;
 

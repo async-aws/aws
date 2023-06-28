@@ -2,6 +2,15 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The type for `\AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest::getVersionNumber` and `\AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest::setVersionNumber` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Lambda\Result\PublishLayerVersionResponse::getVersion` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Lambda\ValueObject\FunctionConfiguration::getCodeSize` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Lambda\ValueObject\Layer::getCodeSize` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Lambda\ValueObject\LayerVersionContentOutput::getCodeSize` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\Lambda\ValueObject\LayerVersionsListItem::getVersion` uses `int` instead of `string` to reflect the AWS type.
+
 ### Added
 
 - AWS api-change: This release adds RecursiveInvocationException to the Invoke API and InvokeWithResponseStream API.

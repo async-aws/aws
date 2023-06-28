@@ -91,7 +91,7 @@ class CreateHostedZoneResponse extends Result
                 'Comment' => ($v = $data->HostedZone->Config->Comment) ? (string) $v : null,
                 'PrivateZone' => ($v = $data->HostedZone->Config->PrivateZone) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             ]),
-            'ResourceRecordSetCount' => ($v = $data->HostedZone->ResourceRecordSetCount) ? (string) $v : null,
+            'ResourceRecordSetCount' => ($v = $data->HostedZone->ResourceRecordSetCount) ? (int) (string) $v : null,
             'LinkedService' => !$data->HostedZone->LinkedService ? null : new LinkedService([
                 'ServicePrincipal' => ($v = $data->HostedZone->LinkedService->ServicePrincipal) ? (string) $v : null,
                 'Description' => ($v = $data->HostedZone->LinkedService->Description) ? (string) $v : null,

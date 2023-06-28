@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for `\AsyncAws\Kinesis\Result\GetRecordsOutput::getMillisBehindLatest` uses `int` instead of `string` to reflect the AWS type.
+
 ## 2.0.0
 
 ### BC-BREAK

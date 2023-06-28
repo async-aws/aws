@@ -179,7 +179,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
                 'Name' => (string) $item->Name,
                 'Type' => (string) $item->Type,
                 'SetIdentifier' => ($v = $item->SetIdentifier) ? (string) $v : null,
-                'Weight' => ($v = $item->Weight) ? (string) $v : null,
+                'Weight' => ($v = $item->Weight) ? (int) (string) $v : null,
                 'Region' => ($v = $item->Region) ? (string) $v : null,
                 'GeoLocation' => !$item->GeoLocation ? null : new GeoLocation([
                     'ContinentCode' => ($v = $item->GeoLocation->ContinentCode) ? (string) $v : null,
@@ -188,7 +188,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
                 ]),
                 'Failover' => ($v = $item->Failover) ? (string) $v : null,
                 'MultiValueAnswer' => ($v = $item->MultiValueAnswer) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'TTL' => ($v = $item->TTL) ? (string) $v : null,
+                'TTL' => ($v = $item->TTL) ? (int) (string) $v : null,
                 'ResourceRecords' => !$item->ResourceRecords ? null : $this->populateResultResourceRecords($item->ResourceRecords),
                 'AliasTarget' => !$item->AliasTarget ? null : new AliasTarget([
                     'HostedZoneId' => (string) $item->AliasTarget->HostedZoneId,

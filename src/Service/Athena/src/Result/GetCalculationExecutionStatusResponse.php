@@ -44,7 +44,7 @@ class GetCalculationExecutionStatusResponse extends Result
     private function populateResultCalculationStatistics(array $json): CalculationStatistics
     {
         return new CalculationStatistics([
-            'DpuExecutionInMillis' => isset($json['DpuExecutionInMillis']) ? (string) $json['DpuExecutionInMillis'] : null,
+            'DpuExecutionInMillis' => isset($json['DpuExecutionInMillis']) ? (int) $json['DpuExecutionInMillis'] : null,
             'Progress' => isset($json['Progress']) ? (string) $json['Progress'] : null,
         ]);
     }

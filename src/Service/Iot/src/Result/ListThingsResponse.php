@@ -115,7 +115,7 @@ class ListThingsResponse extends Result implements \IteratorAggregate
             'thingTypeName' => isset($json['thingTypeName']) ? (string) $json['thingTypeName'] : null,
             'thingArn' => isset($json['thingArn']) ? (string) $json['thingArn'] : null,
             'attributes' => !isset($json['attributes']) ? null : $this->populateResultAttributes($json['attributes']),
-            'version' => isset($json['version']) ? (string) $json['version'] : null,
+            'version' => isset($json['version']) ? (int) $json['version'] : null,
         ]);
     }
 

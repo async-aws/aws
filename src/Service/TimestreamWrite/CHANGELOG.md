@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for `\AsyncAws\TimestreamWrite\ValueObject\Record::getVersion` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\TimestreamWrite\ValueObject\RejectedRecord::getExistingVersion` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.1.0
 
 ### Added

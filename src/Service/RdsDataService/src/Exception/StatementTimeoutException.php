@@ -15,7 +15,7 @@ final class StatementTimeoutException extends ClientException
      */
     private $dbConnectionId;
 
-    public function getDbConnectionId(): ?string
+    public function getDbConnectionId(): ?int
     {
         return $this->dbConnectionId;
     }
@@ -27,6 +27,6 @@ final class StatementTimeoutException extends ClientException
         if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
             $this->message = $v;
         }
-        $this->dbConnectionId = isset($data['dbConnectionId']) ? (string) $data['dbConnectionId'] : null;
+        $this->dbConnectionId = isset($data['dbConnectionId']) ? (int) $data['dbConnectionId'] : null;
     }
 }

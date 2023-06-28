@@ -221,7 +221,7 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingName: string,
-     *   expectedVersion?: string,
+     *   expectedVersion?: int,
      *   '@region'?: string|null,
      * }|DeleteThingRequest $input
      *
@@ -261,7 +261,7 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingGroupName: string,
-     *   expectedVersion?: string,
+     *   expectedVersion?: int,
      *   '@region'?: string|null,
      * }|DeleteThingGroupRequest $input
      *

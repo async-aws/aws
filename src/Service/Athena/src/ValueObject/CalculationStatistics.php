@@ -19,7 +19,7 @@ final class CalculationStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|string,
+     *   DpuExecutionInMillis?: null|int,
      *   Progress?: null|string,
      * } $input
      */
@@ -31,7 +31,7 @@ final class CalculationStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|string,
+     *   DpuExecutionInMillis?: null|int,
      *   Progress?: null|string,
      * }|CalculationStatistics $input
      */
@@ -40,7 +40,7 @@ final class CalculationStatistics
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getDpuExecutionInMillis(): ?string
+    public function getDpuExecutionInMillis(): ?int
     {
         return $this->dpuExecutionInMillis;
     }

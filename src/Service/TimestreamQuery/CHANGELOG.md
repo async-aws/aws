@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for the methods `getCumulativeBytesMetered` and `getCumulativeBytesScanned` of `\AsyncAws\TimestreamQuery\ValueObject\QueryStatus` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.0.0
 
 ### Added

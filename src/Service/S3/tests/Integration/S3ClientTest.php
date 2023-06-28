@@ -396,7 +396,7 @@ class S3ClientTest extends TestCase
         ]);
         self::assertEquals('content', $result->getBody()->getContentAsString());
         self::assertEquals('bytes', $result->getAcceptRanges());
-        self::assertSame('7', $result->getContentLength());
+        self::assertSame(7, $result->getContentLength());
         self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
         self::assertEquals('image/jpg', $result->getContentType());
     }
@@ -490,7 +490,7 @@ class S3ClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertSame('7', $result->getContentLength());
+        self::assertSame(7, $result->getContentLength());
         self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
     }
 

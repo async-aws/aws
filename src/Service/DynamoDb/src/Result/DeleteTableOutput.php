@@ -92,8 +92,8 @@ class DeleteTableOutput extends Result
             'IndexStatus' => isset($json['IndexStatus']) ? (string) $json['IndexStatus'] : null,
             'Backfilling' => isset($json['Backfilling']) ? filter_var($json['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
             'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
-            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (string) $json['IndexSizeBytes'] : null,
-            'ItemCount' => isset($json['ItemCount']) ? (string) $json['ItemCount'] : null,
+            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (int) $json['IndexSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,
             'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
         ]);
     }
@@ -138,8 +138,8 @@ class DeleteTableOutput extends Result
             'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
             'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
             'Projection' => empty($json['Projection']) ? null : $this->populateResultProjection($json['Projection']),
-            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (string) $json['IndexSizeBytes'] : null,
-            'ItemCount' => isset($json['ItemCount']) ? (string) $json['ItemCount'] : null,
+            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (int) $json['IndexSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,
             'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
         ]);
     }
@@ -186,16 +186,16 @@ class DeleteTableOutput extends Result
         return new ProvisionedThroughputDescription([
             'LastIncreaseDateTime' => (isset($json['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastIncreaseDateTime'])))) ? $d : null,
             'LastDecreaseDateTime' => (isset($json['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastDecreaseDateTime'])))) ? $d : null,
-            'NumberOfDecreasesToday' => isset($json['NumberOfDecreasesToday']) ? (string) $json['NumberOfDecreasesToday'] : null,
-            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (string) $json['ReadCapacityUnits'] : null,
-            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (string) $json['WriteCapacityUnits'] : null,
+            'NumberOfDecreasesToday' => isset($json['NumberOfDecreasesToday']) ? (int) $json['NumberOfDecreasesToday'] : null,
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (int) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (int) $json['WriteCapacityUnits'] : null,
         ]);
     }
 
     private function populateResultProvisionedThroughputOverride(array $json): ProvisionedThroughputOverride
     {
         return new ProvisionedThroughputOverride([
-            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (string) $json['ReadCapacityUnits'] : null,
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (int) $json['ReadCapacityUnits'] : null,
         ]);
     }
 
@@ -293,8 +293,8 @@ class DeleteTableOutput extends Result
             'TableStatus' => isset($json['TableStatus']) ? (string) $json['TableStatus'] : null,
             'CreationDateTime' => (isset($json['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDateTime'])))) ? $d : null,
             'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
-            'TableSizeBytes' => isset($json['TableSizeBytes']) ? (string) $json['TableSizeBytes'] : null,
-            'ItemCount' => isset($json['ItemCount']) ? (string) $json['ItemCount'] : null,
+            'TableSizeBytes' => isset($json['TableSizeBytes']) ? (int) $json['TableSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,
             'TableArn' => isset($json['TableArn']) ? (string) $json['TableArn'] : null,
             'TableId' => isset($json['TableId']) ? (string) $json['TableId'] : null,
             'BillingModeSummary' => empty($json['BillingModeSummary']) ? null : $this->populateResultBillingModeSummary($json['BillingModeSummary']),

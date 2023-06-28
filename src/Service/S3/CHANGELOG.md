@@ -2,6 +2,15 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The type for `\AsyncAws\S3\Input\PutObjectRequest::getContentLength` and `\AsyncAws\S3\Input\PutObjectRequest::setContentLength` uses `int` instead of `string` to reflect the AWS type.
+- The type for `\AsyncAws\S3\Input\UploadPartRequest::getContentLength` and `\AsyncAws\S3\Input\UploadPartRequest::setContentLength` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\S3\Result\GetObjectOutput::getContentLength` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\S3\Result\HeadObjectOutput::getContentLength` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\S3\ValueObject\AwsObject::getSize` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\S3\ValueObject\Part::getSize` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.14.0
 
 ### Added

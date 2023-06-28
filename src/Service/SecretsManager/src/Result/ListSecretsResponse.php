@@ -100,7 +100,7 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
     private function populateResultRotationRulesType(array $json): RotationRulesType
     {
         return new RotationRulesType([
-            'AutomaticallyAfterDays' => isset($json['AutomaticallyAfterDays']) ? (string) $json['AutomaticallyAfterDays'] : null,
+            'AutomaticallyAfterDays' => isset($json['AutomaticallyAfterDays']) ? (int) $json['AutomaticallyAfterDays'] : null,
             'Duration' => isset($json['Duration']) ? (string) $json['Duration'] : null,
             'ScheduleExpression' => isset($json['ScheduleExpression']) ? (string) $json['ScheduleExpression'] : null,
         ]);

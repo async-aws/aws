@@ -2060,7 +2060,7 @@ class S3Client extends AbstractApi
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
      *   ContentLanguage?: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentMD5?: string,
      *   ContentType?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
@@ -2419,7 +2419,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Body?: string|resource|(callable(int): string)|iterable<string>,
      *   Bucket: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentMD5?: string,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ChecksumCRC32?: string,

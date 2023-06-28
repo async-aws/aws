@@ -219,7 +219,7 @@ class ObjectGenerator
      */
     private function addProperties(StructureShape $shape, ClassBuilder $classBuilder, bool $forEndpoint): void
     {
-        $forEndpointProps = $forEndpoint ? ['address' => false, 'cachePeriodInMinutes' => false] : ['address' => true, 'cachePeriodInMinutes' => true];
+        $forEndpointProps = $forEndpoint ? ['address' => false, 'cachePeriodInMinutes' => false] : [];
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
@@ -231,9 +231,6 @@ class ObjectGenerator
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
             if ($forEndpoint && isset($forEndpointProps[$propertyName])) {
                 $forEndpointProps[$propertyName] = true;
-                if ('cachePeriodInMinutes' === $propertyName) {
-                    $returnType = $parameterType = 'int';
-                }
             }
             foreach ($memberClassNames as $memberClassName) {
                 $classBuilder->addUse($memberClassName->getFqdn());

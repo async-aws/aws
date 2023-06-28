@@ -189,8 +189,8 @@ class QueryResponse extends Result implements \IteratorAggregate
     {
         return new QueryStatus([
             'ProgressPercentage' => isset($json['ProgressPercentage']) ? (float) $json['ProgressPercentage'] : null,
-            'CumulativeBytesScanned' => isset($json['CumulativeBytesScanned']) ? (string) $json['CumulativeBytesScanned'] : null,
-            'CumulativeBytesMetered' => isset($json['CumulativeBytesMetered']) ? (string) $json['CumulativeBytesMetered'] : null,
+            'CumulativeBytesScanned' => isset($json['CumulativeBytesScanned']) ? (int) $json['CumulativeBytesScanned'] : null,
+            'CumulativeBytesMetered' => isset($json['CumulativeBytesMetered']) ? (int) $json['CumulativeBytesMetered'] : null,
         ]);
     }
 
