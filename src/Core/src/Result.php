@@ -43,8 +43,8 @@ class Result
 
     public function __destruct()
     {
-        while (!empty($this->prefetchResponses)) {
-            array_shift($this->prefetchResponses)->cancel();
+        while (!empty($this->prefetchResults)) {
+            array_shift($this->prefetchResults)->cancel();
         }
     }
 
