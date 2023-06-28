@@ -171,6 +171,7 @@ class TypeGenerator
     {
         switch ($shape->getType()) {
             case 'integer':
+            case 'long':
                 return 'FILTER_VALIDATE_INT';
             case 'boolean':
                 return 'FILTER_VALIDATE_BOOLEAN';
