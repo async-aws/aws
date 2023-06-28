@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The type for `\AsyncAws\AppSync\Input\UpdateApiKeyRequest::setExpires` and `\AsyncAws\AppSync\Input\UpdateApiKeyRequest::getExpires` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getDeletes` and `getExpires` of `\AsyncAws\AppSync\ValueObject\ApiKey` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\AppSync\ValueObject\CachingConfig::getTtl` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getBaseTableTtl` and `getDeltaSyncTableTtl` of `\AsyncAws\AppSync\ValueObject\DeltaSyncConfig` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.1.0
 
 ### Added

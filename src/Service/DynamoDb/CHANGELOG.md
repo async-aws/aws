@@ -2,6 +2,15 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for the methods `getIndexSizeBytes` and `getItemCount` of `\AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexDescription` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getIndexSizeBytes` and `getItemCount` of `\AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndexDescription` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getReadCapacityUnits` and `getWriteCapacityUnits` of `\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getNumberOfDecreasesToday`, `getReadCapacityUnits` and `getWriteCapacityUnits` of `\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputDescription` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputOverride::getReadCapacityUnits` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getItemCount` and `getTableSizeBytes` of `\AsyncAws\DynamoDb\ValueObject\TableDescription` uses `int` instead of `string` to reflect the AWS type.
+
 ### Added
 
 - AWS enhancement: Documentation updates.

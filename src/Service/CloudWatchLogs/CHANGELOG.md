@@ -2,6 +2,14 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+
+- The type for `\AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest::getEndTime`, `\AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest::getStartTime`, `\AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest::setEndTime` and `\AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest::setStartTime` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getIngestionTime` and `getTimestamp` of `\AsyncAws\CloudWatchLogs\ValueObject\FilteredLogEvent` uses `int` instead of `string` to reflect the AWS type.
+- The return type for `\AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent::getTimestamp` uses `int` instead of `string` to reflect the AWS type.
+- The return type for the methods `getCreationTime`, `getFirstEventTimestamp`, `getLastEventTimestamp`, `getLastIngestionTime` and `getStoredBytes` of `\AsyncAws\CloudWatchLogs\ValueObject\LogStream` uses `int` instead of `string` to reflect the AWS type.
+
 ## 1.6.0
 
 ### Added
