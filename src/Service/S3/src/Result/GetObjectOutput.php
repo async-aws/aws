@@ -506,7 +506,7 @@ class GetObjectOutput extends Result
         $this->expiration = $headers['x-amz-expiration'][0] ?? null;
         $this->restore = $headers['x-amz-restore'][0] ?? null;
         $this->lastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
-        $this->contentLength = $headers['content-length'][0] ?? null;
+        $this->contentLength = isset($headers['content-length'][0]) ? filter_var($headers['content-length'][0], \FILTER_VALIDATE_INT) : null;
         $this->etag = $headers['etag'][0] ?? null;
         $this->checksumCrc32 = $headers['x-amz-checksum-crc32'][0] ?? null;
         $this->checksumCrc32C = $headers['x-amz-checksum-crc32c'][0] ?? null;
