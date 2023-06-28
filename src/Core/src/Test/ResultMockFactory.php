@@ -28,7 +28,8 @@ class ResultMockFactory
      *
      * @template T of Result
      *
-     * @psalm-param class-string<T> $class
+     * @param class-string<T>      $class
+     * @param array<string, mixed> $additionalContent
      *
      * @return T
      */
@@ -64,7 +65,8 @@ class ResultMockFactory
      *
      * @template T of Result
      *
-     * @psalm-param class-string<T> $class
+     * @param class-string<T>      $class
+     * @param array<string, mixed> $data
      *
      * @return T
      */
@@ -166,9 +168,12 @@ class ResultMockFactory
     /**
      * Try to add some values to the properties not defined in $data.
      *
+     * @param \ReflectionClass<object> $reflectionClass
+     * @param array<string, mixed>     $data
+     *
      * @throws \ReflectionException
      */
-    private static function addUndefinedProperties(\ReflectionClass $reflectionClass, $object, array $data): void
+    private static function addUndefinedProperties(\ReflectionClass $reflectionClass, object $object, array $data): void
     {
         foreach ($reflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE) as $property) {
             if (\array_key_exists($property->getName(), $data) || \array_key_exists(ucfirst($property->getName()), $data)) {
@@ -220,6 +225,8 @@ class ResultMockFactory
 
     /**
      * Set input and aws client to handle pagination.
+     *
+     * @param \ReflectionClass<object> $reflectionClass
      */
     private static function addPropertiesOnResult(\ReflectionClass $reflectionClass, object $object, string $class): void
     {

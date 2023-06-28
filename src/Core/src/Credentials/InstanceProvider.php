@@ -28,12 +28,24 @@ final class InstanceProvider implements CredentialProvider
     private const TOKEN_ENDPOINT = 'http://169.254.169.254/latest/api/token';
     private const METADATA_ENDPOINT = 'http://169.254.169.254/latest/meta-data/iam/security-credentials';
 
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
+    /**
+     * @var HttpClientInterface
+     */
     private $httpClient;
 
+    /**
+     * @var float
+     */
     private $timeout;
 
+    /**
+     * @var int
+     */
     private $tokenTtl;
 
     public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0, int $tokenTtl = 21600)
@@ -97,6 +109,8 @@ final class InstanceProvider implements CredentialProvider
 
     /**
      * Copy of Symfony\Component\HttpClient\Response::toArray without assertion on Content-Type header.
+     *
+     * @return array<string, mixed>
      */
     private function toArray(ResponseInterface $response): array
     {

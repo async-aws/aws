@@ -11,14 +11,29 @@ use AsyncAws\Core\Request;
  */
 class SigningContext
 {
+    /**
+     * @var Request
+     */
     private $request;
 
+    /**
+     * @var \DateTimeImmutable
+     */
     private $now;
 
+    /**
+     * @var string
+     */
     private $credentialString;
 
+    /**
+     * @var string
+     */
     private $signingKey;
 
+    /**
+     * @var string
+     */
     private $signature = '';
 
     public function __construct(

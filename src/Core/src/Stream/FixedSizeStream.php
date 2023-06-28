@@ -13,8 +13,14 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 final class FixedSizeStream implements RequestStream
 {
+    /**
+     * @var RequestStream
+     */
     private $content;
 
+    /**
+     * @var int
+     */
     private $chunkSize;
 
     private function __construct(RequestStream $content, int $chunkSize = 64 * 1024)

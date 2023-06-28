@@ -25,8 +25,14 @@ class Result
      */
     protected $input;
 
+    /**
+     * @var bool
+     */
     private $initialized = false;
 
+    /**
+     * @var Response
+     */
     private $response;
 
     /**
@@ -34,7 +40,7 @@ class Result
      */
     private $prefetchResults = [];
 
-    public function __construct(Response $response, ?AbstractApi $awsClient = null, $request = null)
+    public function __construct(Response $response, ?AbstractApi $awsClient = null, ?object $request = null)
     {
         $this->response = $response;
         $this->awsClient = $awsClient;

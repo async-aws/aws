@@ -2628,9 +2628,6 @@ class S3Client extends AbstractApi
         return 's3v4';
     }
 
-    /**
-     * @return callable[]
-     */
     protected function getSignerFactories(): array
     {
         return [

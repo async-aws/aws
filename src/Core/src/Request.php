@@ -14,23 +14,41 @@ use AsyncAws\Core\Stream\RequestStream;
  */
 class Request
 {
+    /**
+     * @var string
+     */
     private $method;
 
+    /**
+     * @var string
+     */
     private $uri;
 
+    /**
+     * @var array<string, string>
+     */
     private $headers;
 
+    /**
+     * @var RequestStream
+     */
     private $body;
 
+    /**
+     * @var array<string, string>
+     */
     private $query;
 
+    /**
+     * @var string
+     */
     private $endpoint;
 
     private $parsed;
 
     /**
-     * @param string[] $query
-     * @param string[] $headers
+     * @param array<string, string> $query
+     * @param array<string, string> $headers
      */
     public function __construct(string $method, string $uri, array $query, array $headers, RequestStream $body)
     {
@@ -60,16 +78,19 @@ class Request
         return $this->uri;
     }
 
-    public function hasHeader($name): bool
+    public function hasHeader(string $name): bool
     {
         return \array_key_exists(strtolower($name), $this->headers);
     }
 
-    public function setHeader($name, ?string $value): void
+    public function setHeader(string $name, string $value): void
     {
         $this->headers[strtolower($name)] = $value;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getHeaders(): array
     {
         return $this->headers;
@@ -90,23 +111,23 @@ class Request
         return $this->body;
     }
 
-    public function setBody(RequestStream $body)
+    public function setBody(RequestStream $body): void
     {
         $this->body = $body;
     }
 
-    public function hasQueryAttribute($name): bool
+    public function hasQueryAttribute(string $name): bool
     {
         return \array_key_exists($name, $this->query);
     }
 
-    public function removeQueryAttribute($name): void
+    public function removeQueryAttribute(string $name): void
     {
         unset($this->query[$name]);
         $this->endpoint = '';
     }
 
-    public function setQueryAttribute($name, $value): void
+    public function setQueryAttribute(string $name, string $value): void
     {
         $this->query[$name] = $value;
         $this->endpoint = '';
@@ -117,6 +138,9 @@ class Request
         return $this->query[$name] ?? null;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getQuery(): array
     {
         return $this->query;

@@ -44,8 +44,14 @@ class SignerV4 implements Signer
         'aws-sdk-retry' => true,
     ];
 
+    /**
+     * @var string
+     */
     private $scopeName;
 
+    /**
+     * @var string
+     */
     private $region;
 
     public function __construct(string $scopeName, string $region)
@@ -213,12 +219,15 @@ class SignerV4 implements Signer
             }
 
             $request->setQueryAttribute('X-Amz-Date', $now->format('Ymd\THis\Z'));
-            $request->setQueryAttribute('X-Amz-Expires', $duration);
+            $request->setQueryAttribute('X-Amz-Expires', (string) $duration);
         } else {
             $request->setHeader('X-Amz-Date', $now->format('Ymd\THis\Z'));
         }
     }
 
+    /**
+     * @return string[]
+     */
     private function buildCredentialString(Request $request, Credentials $credentials, \DateTimeImmutable $now, bool $isPresign): array
     {
         $credentialScope = [$now->format('Ymd'), $this->region, $this->scopeName, 'aws4_request'];
@@ -263,6 +272,9 @@ class SignerV4 implements Signer
         $request->setBody(StringStream::create(''));
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function buildCanonicalHeaders(Request $request, bool $isPresign): array
     {
         // Case-insensitively aggregate all of the headers.
@@ -284,6 +296,9 @@ class SignerV4 implements Signer
         return $canonicalHeaders;
     }
 
+    /**
+     * @param array<string, string> $canonicalHeaders
+     */
     private function buildCanonicalRequest(Request $request, array $canonicalHeaders, string $bodyDigest): string
     {
         return implode("\n", [
@@ -334,6 +349,9 @@ class SignerV4 implements Signer
         ]);
     }
 
+    /**
+     * @param string[] $credentialScope
+     */
     private function buildSigningKey(Credentials $credentials, array $credentialScope): string
     {
         $signingKey = 'AWS4' . $credentials->getSecretKey();

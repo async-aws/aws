@@ -61,7 +61,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class AwsClientFactory
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $serviceCache;
 
@@ -86,7 +86,7 @@ class AwsClientFactory
     private $logger;
 
     /**
-     * @param Configuration|array $configuration
+     * @param Configuration|array<Configuration::OPTION_*, string|null> $configuration
      */
     public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
     {

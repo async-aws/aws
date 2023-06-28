@@ -13,8 +13,14 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 final class StringStream implements RequestStream
 {
+    /**
+     * @var string
+     */
     private $content;
 
+    /**
+     * @var int|null
+     */
     private $lengthCache;
 
     private function __construct(string $content)

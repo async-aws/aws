@@ -24,6 +24,9 @@ final class IniFileLoader
     public const KEY_SOURCE_PROFILE = 'source_profile';
     public const KEY_WEB_IDENTITY_TOKEN_FILE = 'web_identity_token_file';
 
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     public function __construct(?LoggerInterface $logger = null)
@@ -34,7 +37,7 @@ final class IniFileLoader
     /**
      * @param string[] $filepaths
      *
-     * @return string[][]
+     * @return array<string, array<string, string>>
      */
     public function loadProfiles(array $filepaths): array
     {
@@ -83,6 +86,9 @@ final class IniFileLoader
         return ($homeDrive && $homePath) ? $homeDrive . $homePath : '/';
     }
 
+    /**
+     * @return array<string, string[]>
+     */
     private function parseIniFile(string $filepath): array
     {
         if (false === $data = parse_ini_string(

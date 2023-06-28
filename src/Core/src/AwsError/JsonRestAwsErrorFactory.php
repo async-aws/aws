@@ -23,6 +23,10 @@ class JsonRestAwsErrorFactory implements AwsErrorFactoryInterface
         }
     }
 
+    /**
+     * @param array<string, mixed>        $body
+     * @param array<string, list<string>> $headers
+     */
     private static function parseJson(array $body, array $headers): AwsError
     {
         $code = null;
