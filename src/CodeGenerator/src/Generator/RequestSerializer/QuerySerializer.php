@@ -24,8 +24,14 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class QuerySerializer implements Serializer
 {
+    /**
+     * @var NamespaceRegistry
+     */
     private $namespaceRegistry;
 
+    /**
+     * @var RequirementsRegistry
+     */
     private $requirementsRegistry;
 
     public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)
@@ -152,7 +158,7 @@ class QuerySerializer implements Serializer
         return $name;
     }
 
-    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape)
+    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape): string
     {
         switch (true) {
             case $shape instanceof StructureShape:

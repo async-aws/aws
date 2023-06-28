@@ -12,10 +12,19 @@ namespace AsyncAws\CodeGenerator\File;
  */
 class CachedFileDumper extends FileDumper
 {
+    /**
+     * @var Cache
+     */
     private $cache;
 
+    /**
+     * @var array<string, array{0?: string, 1?: string}>
+     */
     private $status = [];
 
+    /**
+     * @var array<string, string>
+     */
     private $added = [];
 
     public function __construct(Cache $cache)

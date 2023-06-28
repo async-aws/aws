@@ -194,6 +194,9 @@ class PaginationGenerator
         $classBuilder->addComment("@implements \IteratorAggregate<$iteratorType>");
     }
 
+    /**
+     * @param string[] $outputToken
+     */
     private function generateOutputPaginationLoader(string $iterator, string $common, string $moreResult, array $outputToken, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation): string
     {
         if (empty($outputToken)) {
@@ -291,6 +294,9 @@ class PaginationGenerator
         return $getter;
     }
 
+    /**
+     * @return array{string, string, string[], string[]}
+     */
     private function extractPageProperties(Operation $operation, Pagination $pagination): array
     {
         $more = $pagination->getMoreResults() ?? '';

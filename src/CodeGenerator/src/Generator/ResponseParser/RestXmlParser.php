@@ -13,6 +13,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
@@ -24,14 +25,29 @@ use Nette\PhpGenerator\Method;
  */
 class RestXmlParser implements Parser
 {
+    /**
+     * @var NamespaceRegistry
+     */
     private $namespaceRegistry;
 
+    /**
+     * @var RequirementsRegistry
+     */
     private $requirementsRegistry;
 
+    /**
+     * @var TypeGenerator
+     */
     private $typeGenerator;
 
+    /**
+     * @var array<string, Method>
+     */
     private $functions = [];
 
+    /**
+     * @var list<ClassName>
+     */
     private $imports = [];
 
     public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, TypeGenerator $typeGenerator)
@@ -115,7 +131,7 @@ class RestXmlParser implements Parser
         ]);
     }
 
-    private function getInputAccessor(string $currentInput, Member $member)
+    private function getInputAccessor(string $currentInput, Member $member): string
     {
         if ($member instanceof StructureMember) {
             if ($member->isXmlAttribute()) {
@@ -149,7 +165,7 @@ class RestXmlParser implements Parser
     /**
      * @param bool $inObject whether the element is building an ObjectValue
      */
-    private function parseXmlElement(string $input, Shape $shape, bool $required, bool $inObject)
+    private function parseXmlElement(string $input, Shape $shape, bool $required, bool $inObject): string
     {
         switch (true) {
             case $shape instanceof ListShape:

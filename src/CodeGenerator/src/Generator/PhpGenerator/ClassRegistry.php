@@ -14,8 +14,14 @@ use Nette\PhpGenerator\PhpNamespace;
  */
 class ClassRegistry
 {
+    /**
+     * @var ClassFactory
+     */
     private $classFactory;
 
+    /**
+     * @var array<string, ClassBuilder>
+     */
     private $registered = [];
 
     public function __construct(?ClassFactory $classFactory = null)
@@ -23,6 +29,9 @@ class ClassRegistry
         $this->classFactory = $classFactory ?? new ClassFactory();
     }
 
+    /**
+     * @return iterable<ClassBuilder>
+     */
     public function getRegisteredClasses(): iterable
     {
         return $this->registered;

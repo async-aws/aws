@@ -27,7 +27,7 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Update a existing response class or API client method.
+ * Update an existing response class or API client method.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -38,14 +38,29 @@ class GenerateCommand extends Command
 
     private $manifest;
 
+    /**
+     * @var string
+     */
     private $manifestFile;
 
+    /**
+     * @var Cache
+     */
     private $cache;
 
+    /**
+     * @var ApiGenerator
+     */
     private $generator;
 
+    /**
+     * @var ClassWriter
+     */
     private $classWriter;
 
+    /**
+     * @var ComposerWriter
+     */
     private $composerWriter;
 
     public function __construct(string $manifestFile, Cache $cache, ClassWriter $classWriter, ComposerWriter $composerWriter, ApiGenerator $generator)
@@ -59,7 +74,7 @@ class GenerateCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setAliases(['update']);
         $this->setDescription('Create or update API client methods.');
@@ -140,6 +155,11 @@ class GenerateCommand extends Command
         return $manifest;
     }
 
+    /**
+     * @param string[] $serviceNames
+     *
+     * @return array|int
+     */
     private function generateServicesSequential(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $endpoints, array $serviceNames)
     {
         if (\count($serviceNames) > 1) {
@@ -302,7 +322,9 @@ class GenerateCommand extends Command
     }
 
     /**
-     * @return array|int
+     * @param array<string, mixed> $manifest
+     *
+     * @return list<string>|int
      */
     private function getServiceNames(?string $inputServiceName, bool $returnAll, SymfonyStyle $io, array $manifest)
     {
@@ -331,7 +353,11 @@ class GenerateCommand extends Command
     }
 
     /**
-     * @return array|int
+     * @param array{operations: array<string, mixed>,...} $definition
+     * @param array{waiters: array<string, mixed>} $waiter
+     * @param array{methods: list<string>,...} $manifest
+     *
+     * @return string[]|int
      */
     private function getOperationNames(?string $inputOperationName, bool $returnAll, SymfonyStyle $io, array $definition, array $waiter, array $manifest)
     {

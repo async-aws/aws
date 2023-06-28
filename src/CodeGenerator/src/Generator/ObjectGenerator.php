@@ -59,10 +59,19 @@ class ObjectGenerator
      */
     private $serializer;
 
+    /**
+     * @var list<string>
+     */
     private $managedMethods;
 
+    /**
+     * @var array<string, bool>|null
+     */
     private $usedShapedInput;
 
+    /**
+     * @param list<string> $managedMethods
+     */
     public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->classRegistry = $classRegistry;

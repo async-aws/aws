@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\PhpGenerator;
 
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Constant;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
@@ -17,10 +18,19 @@ use Nette\PhpGenerator\Property;
  */
 class ClassBuilder
 {
+    /**
+     * @var PhpNamespace
+     */
     private $namespace;
 
+    /**
+     * @var ClassType
+     */
     private $class;
 
+    /**
+     * @var ClassName
+     */
     private $className;
 
     public function __construct(PhpNamespace $namespace)
@@ -43,6 +53,9 @@ class ClassBuilder
         return $this;
     }
 
+    /**
+     * @param string|string[] $names
+     */
     public function setExtends($names): self
     {
         $this->class->setExtends($names);
@@ -53,13 +66,6 @@ class ClassBuilder
     public function addExtend(string $name): self
     {
         $this->class->addExtend($name);
-
-        return $this;
-    }
-
-    public function setImplement($names): self
-    {
-        $this->class->setImplement($names);
 
         return $this;
     }
@@ -78,6 +84,9 @@ class ClassBuilder
         return $this;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function addConstant(string $name, $value): Constant
     {
         return $this->class->addConstant($name, $value);
@@ -98,6 +107,9 @@ class ClassBuilder
         return $this->class->hasMethod($name);
     }
 
+    /**
+     * @param Method[] $methods
+     */
     public function setMethods(array $methods): self
     {
         $this->class->setMethods($methods);

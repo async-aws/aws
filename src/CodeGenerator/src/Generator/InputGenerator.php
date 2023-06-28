@@ -523,7 +523,10 @@ PHP
         throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
     }
 
-    private function addUse(StructureShape $shape, ClassBuilder $classBuilder, array $addedFqdn = [])
+    /**
+     * @param string[] $addedFqdn
+     */
+    private function addUse(StructureShape $shape, ClassBuilder $classBuilder, array $addedFqdn = []): void
     {
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();

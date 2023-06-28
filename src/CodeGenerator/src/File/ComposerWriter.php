@@ -11,6 +11,9 @@ namespace AsyncAws\CodeGenerator\File;
  */
 class ComposerWriter
 {
+    /**
+     * @var string
+     */
     private $srcDirectory;
 
     public function __construct(string $srcDirectory)
@@ -18,6 +21,9 @@ class ComposerWriter
         $this->srcDirectory = $srcDirectory;
     }
 
+    /**
+     * @param array<string, string> $requirements
+     */
     public function setRequirements(string $namespace, array $requirements, bool $clean): void
     {
         $filename = $this->findFile($namespace);

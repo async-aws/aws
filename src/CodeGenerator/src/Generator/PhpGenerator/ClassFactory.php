@@ -23,6 +23,9 @@ use Nette\PhpGenerator\Property;
  */
 class ClassFactory
 {
+    /**
+     * @param \ReflectionClass<object> $from
+     */
     public function fromClassReflection(\ReflectionClass $from): PhpNamespace
     {
         $namespace = new PhpNamespace($from->getNamespaceName());

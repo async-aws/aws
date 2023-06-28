@@ -15,6 +15,9 @@ use Symfony\Component\Process\Process;
  */
 class FileDumper
 {
+    /**
+     * @var string[]|null
+     */
     private $phpBin;
 
     public function dump(string $filename, string $content): void
@@ -28,8 +31,8 @@ class FileDumper
     {
         if (null === $this->phpBin) {
             $executableFinder = new PhpExecutableFinder();
-            $this->phpBin = $executableFinder->find(false);
-            $this->phpBin = false === $this->phpBin ? null : array_merge([$this->phpBin], $executableFinder->findArguments());
+            $phpBin = $executableFinder->find(false);
+            $this->phpBin = false === $phpBin ? null : array_merge([$phpBin], $executableFinder->findArguments());
         }
 
         $process = new Process(array_merge($this->phpBin, ['-l', $filename]));
