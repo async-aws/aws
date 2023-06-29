@@ -98,8 +98,8 @@ class ClientGenerator
                 return false;
             }
 
-            $configRegion = isset($config['signRegion']) ? $config['signRegion'] : $region;
-            $defaultConfigRegion = isset($defaultConfig['signRegion']) ? $defaultConfig['signRegion'] : $region;
+            $configRegion = $config['signRegion'] ?? $region;
+            $defaultConfigRegion = $defaultConfig['signRegion'] ?? $region;
             if ($configRegion !== $defaultConfigRegion) {
                 return false;
             }

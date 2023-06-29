@@ -100,8 +100,8 @@ class AsyncAwsS3AdapterTest extends TestCase
 
     protected function createFilesystemAdapter(): AdapterInterface
     {
-        $bucket = isset($_SERVER['FLYSYSTEM_AWS_S3_BUCKET']) ? $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] : 'flysystem-bucket-v1';
-        $prefix = isset($_SERVER['FLYSYSTEM_AWS_S3_PREFIX']) ? $_SERVER['FLYSYSTEM_AWS_S3_PREFIX'] : static::$adapterPrefix;
+        $bucket = $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] ?? 'flysystem-bucket-v1';
+        $prefix = $_SERVER['FLYSYSTEM_AWS_S3_PREFIX'] ?? static::$adapterPrefix;
 
         return new AsyncAwsS3Adapter($this->s3Client(), $bucket, $prefix);
     }
@@ -115,7 +115,7 @@ class AsyncAwsS3AdapterTest extends TestCase
         $key = $_SERVER['FLYSYSTEM_AWS_S3_KEY'] ?? null;
         $secret = $_SERVER['FLYSYSTEM_AWS_S3_SECRET'] ?? null;
         $bucket = $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] ?? null;
-        $region = isset($_SERVER['FLYSYSTEM_AWS_S3_REGION']) ? $_SERVER['FLYSYSTEM_AWS_S3_REGION'] : 'eu-central-1';
+        $region = $_SERVER['FLYSYSTEM_AWS_S3_REGION'] ?? 'eu-central-1';
 
         if (!$key || !$secret || !$bucket) {
             self::$docker = true;
