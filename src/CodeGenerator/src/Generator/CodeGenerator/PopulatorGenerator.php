@@ -182,26 +182,40 @@ class PopulatorGenerator
             $locationName = strtolower($member->getLocationName() ?? $member->getName());
             $propertyName = GeneratorHelper::normalizeName($member->getName());
             $memberShape = $member->getShape();
-            if ('timestamp' === $memberShape->getType()) {
-                $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? new \DateTimeImmutable($headers["LOCATION_NAME"][0]) : null;' . "\n", [
-                    'PROPERTY_NAME' => $propertyName,
-                    'LOCATION_NAME' => $locationName,
-                ]);
-            } else {
-                if (null !== $constant = $this->typeGenerator->getFilterConstant($memberShape)) {
-                    $this->requirementsRegistry->addRequirement('ext-filter');
-
-                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER) : null;' . "\n", [
+            switch ($memberShape->getType()) {
+                case 'timestamp':
+                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? new \DateTimeImmutable($headers["LOCATION_NAME"][0]) : null;' . "\n", [
                         'PROPERTY_NAME' => $propertyName,
                         'LOCATION_NAME' => $locationName,
-                        'FILTER' => $constant,
                     ]);
-                } else {
+
+                    break;
+                case 'integer':
+                case 'long':
+                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? (int) $headers["LOCATION_NAME"][0] : null;' . "\n", [
+                        'PROPERTY_NAME' => $propertyName,
+                        'LOCATION_NAME' => $locationName,
+                    ]);
+
+                    break;
+                case 'boolean':
+                    $this->requirementsRegistry->addRequirement('ext-filter');
+
+                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER_VALIDATE_BOOLEAN) : null;' . "\n", [
+                        'PROPERTY_NAME' => $propertyName,
+                        'LOCATION_NAME' => $locationName,
+                    ]);
+
+                    break;
+                case 'string':
                     $body .= strtr('$this->PROPERTY_NAME = $headers["LOCATION_NAME"][0] ?? null;' . "\n", [
                         'PROPERTY_NAME' => $propertyName,
                         'LOCATION_NAME' => $locationName,
                     ]);
-                }
+
+                    break;
+                default:
+                    throw new \RuntimeException(sprintf('Type %s is not yet implemented', $memberShape->getType()));
             }
         }
 
