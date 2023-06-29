@@ -25,7 +25,7 @@ class ServiceGenerator
     private $namespaceRegistry;
 
     /**
-     * @var array
+     * @var list<string>
      */
     private $managedOperations;
 
@@ -109,6 +109,9 @@ class ServiceGenerator
      */
     private $populator;
 
+    /**
+     * @param list<string> $managedOperations
+     */
     public function __construct(ClassRegistry $classRegistry, RequirementsRegistry $requirementsRegistry, string $baseNamespace, array $managedOperations)
     {
         $this->classRegistry = $classRegistry;

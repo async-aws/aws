@@ -13,6 +13,9 @@ use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
  */
 class ServiceDefinition
 {
+    /**
+     * @var string
+     */
     private $name;
 
     private $endpoints;
@@ -29,8 +32,14 @@ class ServiceDefinition
 
     private $hooks;
 
+    /**
+     * @var array<string, list<Hook>>|null
+     */
     private $hooksByTarget;
 
+    /**
+     * @var string
+     */
     private $apiReferenceUrl;
 
     public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, array $hooks, string $apiReferenceUrl)
@@ -155,6 +164,9 @@ class ServiceDefinition
         return Example::create($this->example['examples'][$name][0] ?? []);
     }
 
+    /**
+     * @param array<string, mixed> $extra
+     */
     private function getShape(string $name, ?Member $member, array $extra): ?Shape
     {
         if (isset($this->definition['shapes'][$name])) {
@@ -170,6 +182,9 @@ class ServiceDefinition
         return null;
     }
 
+    /**
+     * @return \Closure(string, ?Member=, array<string, mixed>=): ?Shape
+     */
     private function createClosureToFindShape(): \Closure
     {
         $definition = $this;
@@ -179,6 +194,9 @@ class ServiceDefinition
         });
     }
 
+    /**
+     * @return \Closure(): self
+     */
     private function createClosureToService(): \Closure
     {
         $definition = $this;
@@ -188,6 +206,9 @@ class ServiceDefinition
         });
     }
 
+    /**
+     * @return \Closure(string): ?Operation
+     */
     private function createClosureToFindOperation(): \Closure
     {
         $definition = $this;

@@ -11,10 +11,19 @@ namespace AsyncAws\CodeGenerator\File;
  */
 class Cache
 {
+    /**
+     * @var string
+     */
     private $cacheFile;
 
+    /**
+     * @var bool
+     */
     private $splitFile;
 
+    /**
+     * @var resource
+     */
     private $handle;
 
     public function __construct(string $cacheFile)
@@ -23,6 +32,9 @@ class Cache
         $this->splitFile = is_dir($cacheFile);
     }
 
+    /**
+     * @return mixed
+     */
     public function get(string $key)
     {
         $this->lock($key);
@@ -37,6 +49,11 @@ class Cache
         }
     }
 
+    /**
+     * @param callable(mixed): mixed $callable
+     *
+     * @return mixed
+     */
     public function update(string $key, callable $callable)
     {
         $this->lock($key);
@@ -61,6 +78,9 @@ class Cache
         }
     }
 
+    /**
+     * @param mixed $content
+     */
     public function set(string $key, $content): void
     {
         $this->update($key, static function () use ($content) {
@@ -68,17 +88,18 @@ class Cache
         });
     }
 
-    private function unlock()
+    private function unlock(): void
     {
         flock($this->handle, \LOCK_UN);
         fclose($this->handle);
     }
 
-    private function lock(string $key)
+    private function lock(string $key): void
     {
-        /** @phpstan-ignore-next-line */
         set_error_handler(function ($type, $msg) use (&$error) {
             $error = $msg;
+
+            return true;
         });
         $filename = $this->cacheFile;
         if ($this->splitFile) {

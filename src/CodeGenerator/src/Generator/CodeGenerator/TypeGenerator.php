@@ -34,6 +34,8 @@ class TypeGenerator
     /**
      * Return docblock information for the given shape.
      *
+     * @param string[] $extra
+     *
      * @return array{string, ClassName[]} [docblock representation, ClassName related]
      */
     public function generateDocblock(StructureShape $shape, ClassName $shapeClassName, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): array

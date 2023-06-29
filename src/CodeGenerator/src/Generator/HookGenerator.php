@@ -28,7 +28,10 @@ class HookGenerator
         throw new \RuntimeException('Hook ' . $hook->getAction() . ' is not yet implemented');
     }
 
-    private function removeLeft(array $values, $input): string
+    /**
+     * @param string[] $values
+     */
+    private function removeLeft(array $values, string $input): string
     {
         return strtr('VALUE = preg_replace("#^(VALUES)#", "", VALUE);', [
             'VALUES' => implode('|', array_map(function ($value) {

@@ -17,8 +17,14 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class SerializerProvider
 {
+    /**
+     * @var NamespaceRegistry
+     */
     private $namespaceRegistry;
 
+    /**
+     * @var RequirementsRegistry
+     */
     private $requirementsRegistry;
 
     public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)

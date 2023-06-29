@@ -13,10 +13,19 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
  */
 class ClassWriter
 {
+    /**
+     * @var string
+     */
     private $srcDirectory;
 
+    /**
+     * @var FileDumper
+     */
     private $fileDumper;
 
+    /**
+     * @var Printer
+     */
     private $printer;
 
     public function __construct(string $srcDirectory, FileDumper $fileDumper)
@@ -26,7 +35,7 @@ class ClassWriter
         $this->printer = new Printer();
     }
 
-    public function write(ClassBuilder $classBuilder)
+    public function write(ClassBuilder $classBuilder): void
     {
         $content = $this->printer->printNamespace($classBuilder->build());
 

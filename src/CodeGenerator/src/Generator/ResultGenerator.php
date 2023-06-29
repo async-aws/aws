@@ -91,7 +91,10 @@ class ResultGenerator
         return $className;
     }
 
-    private function addUse(StructureShape $shape, ClassBuilder $classBuilder, array $addedFqdn = [])
+    /**
+     * @param list<string> $addedFqdn
+     */
+    private function addUse(StructureShape $shape, ClassBuilder $classBuilder, array $addedFqdn = []): void
     {
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();

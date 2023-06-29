@@ -24,8 +24,14 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class RestJsonSerializer implements Serializer
 {
+    /**
+     * @var NamespaceRegistry
+     */
     private $namespaceRegistry;
 
+    /**
+     * @var RequirementsRegistry
+     */
     private $requirementsRegistry;
 
     public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)
@@ -146,7 +152,7 @@ class RestJsonSerializer implements Serializer
         return $name;
     }
 
-    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false)
+    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false): string
     {
         switch (true) {
             case $shape instanceof StructureShape:
@@ -211,7 +217,7 @@ class RestJsonSerializer implements Serializer
         }
     }
 
-    private function dumpArrayMap(string $output, string $input, $contextProperty, MapShape $shape): string
+    private function dumpArrayMap(string $output, string $input, string $contextProperty, MapShape $shape): string
     {
         $mapKeyShape = $shape->getKey()->getShape();
         if (!empty($mapKeyShape->getEnum())) {

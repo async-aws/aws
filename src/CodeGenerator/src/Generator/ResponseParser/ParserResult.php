@@ -12,20 +12,27 @@ use Nette\PhpGenerator\Method;
  */
 class ParserResult
 {
+    /**
+     * @var string
+     */
     private $body;
 
     /**
      * Classes to import.
      *
-     * @var ClassName[]
+     * @var list<ClassName>
      */
     private $usedClasses;
 
     /**
-     * @var Method[]
+     * @var array<string, Method>
      */
     private $extraMethods;
 
+    /**
+     * @param list<ClassName>       $usedClasses
+     * @param array<string, Method> $extraMethods
+     */
     public function __construct(string $body, array $usedClasses = [], array $extraMethods = [])
     {
         $this->body = $body;
@@ -38,11 +45,17 @@ class ParserResult
         return $this->body;
     }
 
+    /**
+     * @return list<ClassName>
+     */
     public function getUsedClasses(): array
     {
         return $this->usedClasses;
     }
 
+    /**
+     * @return array<string, Method>
+     */
     public function getExtraMethods(): array
     {
         return $this->extraMethods;

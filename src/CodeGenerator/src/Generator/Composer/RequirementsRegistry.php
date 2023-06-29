@@ -4,6 +4,9 @@ namespace AsyncAws\CodeGenerator\Generator\Composer;
 
 class RequirementsRegistry
 {
+    /**
+     * @var array<string, string>
+     */
     private $requirements = [];
 
     public function addRequirement(string $package, string $version = '*'): void
@@ -21,6 +24,9 @@ class RequirementsRegistry
         $this->requirements[$package] = $version;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getRequirements(): array
     {
         return $this->requirements;

@@ -54,7 +54,7 @@ final class ClassName
     }
 
     /**
-     * Make sure we dont use a class name like Trait or Object.
+     * Make sure we don't use a class name like Trait or Object.
      */
     private static function safeClassName(string $name): string
     {
