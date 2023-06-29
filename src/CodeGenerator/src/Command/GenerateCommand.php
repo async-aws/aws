@@ -470,7 +470,10 @@ class GenerateCommand extends Command
     {
         $path = strtr($path, $this->loadManifest()['variables'] ?? []);
 
-        $data = $this->cache->get(__CLASS__ . ':' . $cacheKey);
+        // For files loaded from a URL, we want to cache them until the URL changes.
+        $needsCaching = false !== strpos($path, '://');
+
+        $data = $needsCaching ? $this->cache->get(__CLASS__ . ':' . $cacheKey) : null;
         if (null === $data || $path !== ($data['path'] ?? null)) {
             if (empty($patch)) {
                 $content = json_decode(file_get_contents($path), true);
@@ -487,7 +490,10 @@ class GenerateCommand extends Command
                 'path' => $path,
                 'content' => $content,
             ];
-            $this->cache->set(__CLASS__ . ':' . $cacheKey, $data);
+
+            if ($needsCaching) {
+                $this->cache->set(__CLASS__ . ':' . $cacheKey, $data);
+            }
         }
 
         return $data['content'];
