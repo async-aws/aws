@@ -51,7 +51,7 @@ class ClientGenerator
     /**
      * Update the API client with a constants function call.
      */
-    public function generate(ServiceDefinition $definition): ClassName
+    public function generate(ServiceDefinition $definition, ?string $customErrorFactory): ClassName
     {
         $className = $this->namespaceRegistry->getClient($definition);
         if (0 !== strpos($className->getFqdn(), 'AsyncAws\Core\\')) {
@@ -259,22 +259,26 @@ class ClientGenerator
                 ->setNullable(true)
         ;
 
-        switch ($definition->getProtocol()) {
-            case 'query':
-            case 'rest-xml':
-                $errorFactory = XmlAwsErrorFactory::class;
+        if (null !== $customErrorFactory) {
+            $errorFactory = $customErrorFactory;
+        } else {
+            switch ($definition->getProtocol()) {
+                case 'query':
+                case 'rest-xml':
+                    $errorFactory = XmlAwsErrorFactory::class;
 
-                break;
-            case 'rest-json':
-                $errorFactory = JsonRestAwsErrorFactory::class;
+                    break;
+                case 'rest-json':
+                    $errorFactory = JsonRestAwsErrorFactory::class;
 
-                break;
-            case 'json':
-                $errorFactory = JsonRpcAwsErrorFactory::class;
+                    break;
+                case 'json':
+                    $errorFactory = JsonRpcAwsErrorFactory::class;
 
-                break;
-            default:
-                throw new \LogicException(sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
+                    break;
+                default:
+                    throw new \LogicException(sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
+            }
         }
 
         $classBuilder->addUse(AwsErrorFactoryInterface::class);
