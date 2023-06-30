@@ -278,6 +278,7 @@ class GenerateCommand extends Command
         $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination", $manifest['services'][$serviceName]['patches']['pagination'] ?? []);
         $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter", $manifest['services'][$serviceName]['patches']['waiter'] ?? []) : ['waiters' => []];
         $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example'], "$serviceName-example", $manifest['services'][$serviceName]['patches']['example'] ?? []) : ['examples' => []];
+        $customErrorFactory = $manifest['services'][$serviceName]['error-factory'] ?? null;
 
         $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
         if (\is_int($operationNames)) {
@@ -288,7 +289,7 @@ class GenerateCommand extends Command
         $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray, $manifest['services'][$serviceName]['hooks'] ?? [], $manifest['services'][$serviceName]['api-reference'] ?? null);
         $serviceGenerator = $this->generator->service($namespace = $manifest['services'][$serviceName]['namespace'] ?? sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
-        $clientClass = $serviceGenerator->client()->generate($definition);
+        $clientClass = $serviceGenerator->client()->generate($definition, $customErrorFactory);
 
         foreach ($operationNames as $operationName) {
             if (null !== $operation = $definition->getOperation($operationName)) {
