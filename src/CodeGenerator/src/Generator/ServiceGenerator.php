@@ -191,4 +191,9 @@ class ServiceGenerator
     {
         return $this->object ?? $this->object = new ObjectGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->managedOperations, $this->type(), $this->enum());
     }
+
+    public function getNamespaceRegistry(): NamespaceRegistry
+    {
+        return $this->namespaceRegistry;
+    }
 }
