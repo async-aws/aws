@@ -31,10 +31,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * The response provides a facade to manipulate HttpResponses.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- *
- * @internal
  */
-class Response
+final class Response
 {
     /**
      * @var ResponseInterface

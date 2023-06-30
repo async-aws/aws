@@ -9,10 +9,8 @@ use AsyncAws\Core\Stream\RequestStream;
  * Representation of an HTTP Request.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- *
- * @internal
  */
-class Request
+final class Request
 {
     /**
      * @var string

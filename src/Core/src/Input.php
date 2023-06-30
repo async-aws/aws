@@ -6,8 +6,6 @@ namespace AsyncAws\Core;
  * Representation of a AWS Request.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- *
- * @internal
  */
 abstract class Input
 {

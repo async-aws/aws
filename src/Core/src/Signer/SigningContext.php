@@ -5,11 +5,9 @@ namespace AsyncAws\Core\Signer;
 use AsyncAws\Core\Request;
 
 /**
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class SigningContext
+final class SigningContext
 {
     /**
      * @var Request

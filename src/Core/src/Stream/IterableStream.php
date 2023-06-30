@@ -8,8 +8,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * Convert an iterator into a Stream.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- *
- * @internal
  */
 final class IterableStream implements ReadOnceResultStream, RequestStream
 {

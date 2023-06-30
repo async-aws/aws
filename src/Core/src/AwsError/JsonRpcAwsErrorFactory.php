@@ -5,10 +5,7 @@ namespace AsyncAws\Core\AwsError;
 use AsyncAws\Core\Exception\UnexpectedValue;
 use AsyncAws\Core\Exception\UnparsableResponse;
 
-/**
- * @internal
- */
-class JsonRpcAwsErrorFactory implements AwsErrorFactoryInterface
+final class JsonRpcAwsErrorFactory implements AwsErrorFactoryInterface
 {
     use AwsErrorFactoryFromResponseTrait;
 
