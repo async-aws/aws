@@ -23,7 +23,7 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 {
     public const PUBLIC_GRANT_URI = 'http://acs.amazonaws.com/groups/global/AllUsers';
 
-    private static $resultMap = [
+    private const RESULT_MAP = [
         'Body' => 'contents',
         'ContentLength' => 'size',
         'ContentType' => 'mimetype',
@@ -34,7 +34,7 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
         'VersionId' => 'versionid',
     ];
 
-    private static $metaOptions = [
+    private const META_OPTIONS = [
         'ACL',
         'CacheControl',
         'ContentDisposition',
@@ -496,7 +496,7 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
             $options['ContentType'] = $mimetype;
         }
 
-        foreach (static::$metaOptions as $option) {
+        foreach (self::META_OPTIONS as $option) {
             if (!$config->has($option)) {
                 continue;
             }
@@ -537,9 +537,9 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
             }
         }
 
-        if ($this->isOnlyDir($result['path'])) {
+        if ($this->isOnlyDir($path)) {
             $result['type'] = 'dir';
-            $result['path'] = rtrim($result['path'], '/');
+            $result['path'] = rtrim($path, '/');
 
             return $result;
         }
@@ -571,7 +571,7 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
     private function resultMap(object $object): array
     {
         $result = [];
-        foreach (static::$resultMap as $from => $to) {
+        foreach (self::RESULT_MAP as $from => $to) {
             $methodName = 'get' . $from;
             if (method_exists($object, $methodName)) {
                 $result[$to] = \call_user_func([$object, $methodName]);
