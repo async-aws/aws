@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Definition;
 
+/**
+ * @internal
+ */
 class StructureMember extends Member
 {
     public function getName(): string

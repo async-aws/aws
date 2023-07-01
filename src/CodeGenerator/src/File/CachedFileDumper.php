@@ -6,9 +6,11 @@ namespace AsyncAws\CodeGenerator\File;
 
 /**
  * DumpFile only when it has not been modified.
- * This class takes into account that a post-process can alter the content of the file (php-cs-fier).
+ * This class takes into account that a post-process can alter the content of the file (php-cs-fixer).
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class CachedFileDumper extends FileDumper
 {

@@ -30,6 +30,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * Update an existing response class or API client method.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 #[AsCommand(name: 'generate', description: 'Create or update API client methods.', aliases: ['update'])]
 class GenerateCommand extends Command

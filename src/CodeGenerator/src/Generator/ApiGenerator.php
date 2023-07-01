@@ -13,6 +13,8 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class ApiGenerator
 {

@@ -15,6 +15,8 @@ use Nette\PhpGenerator\Property;
  * Wrapper for Nette PhpNamespace and ClassType.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class ClassBuilder
 {

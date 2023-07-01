@@ -10,6 +10,8 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
  * Takes a namespace definition and create a file form it.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 class ClassWriter
 {
