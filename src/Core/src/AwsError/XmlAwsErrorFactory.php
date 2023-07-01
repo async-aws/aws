@@ -6,10 +6,7 @@ use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Exception\UnexpectedValue;
 use AsyncAws\Core\Exception\UnparsableResponse;
 
-/**
- * @internal
- */
-class XmlAwsErrorFactory implements AwsErrorFactoryInterface
+final class XmlAwsErrorFactory implements AwsErrorFactoryInterface
 {
     use AwsErrorFactoryFromResponseTrait;
 

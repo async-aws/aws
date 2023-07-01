@@ -8,8 +8,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * A Stream decorator that return Chunk with the same exact size.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- *
- * @internal
  */
 final class FixedSizeStream implements RequestStream
 {

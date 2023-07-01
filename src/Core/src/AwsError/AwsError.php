@@ -2,9 +2,6 @@
 
 namespace AsyncAws\Core\AwsError;
 
-/**
- * @internal
- */
 final class AwsError
 {
     /**
