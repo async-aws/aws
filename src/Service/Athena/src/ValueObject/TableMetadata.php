@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains metadata for a table.
  */
@@ -55,7 +57,7 @@ final class TableMetadata
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->createTime = $input['CreateTime'] ?? null;
         $this->lastAccessTime = $input['LastAccessTime'] ?? null;
         $this->tableType = $input['TableType'] ?? null;
@@ -122,5 +124,13 @@ final class TableMetadata
     public function getTableType(): ?string
     {
         return $this->tableType;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -27,8 +27,8 @@ final class OpenSearchServiceDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->endpoint = $input['endpoint'] ?? null;
-        $this->awsRegion = $input['awsRegion'] ?? null;
+        $this->endpoint = $input['endpoint'] ?? $this->throwException(new InvalidArgument('Missing required field "endpoint".'));
+        $this->awsRegion = $input['awsRegion'] ?? $this->throwException(new InvalidArgument('Missing required field "awsRegion".'));
     }
 
     /**
@@ -68,5 +68,13 @@ final class OpenSearchServiceDataSourceConfig
         $payload['awsRegion'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

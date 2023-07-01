@@ -38,8 +38,8 @@ final class LambdaFunctionConfiguration
     public function __construct(array $input)
     {
         $this->id = $input['Id'] ?? null;
-        $this->lambdaFunctionArn = $input['LambdaFunctionArn'] ?? null;
-        $this->events = $input['Events'] ?? null;
+        $this->lambdaFunctionArn = $input['LambdaFunctionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "LambdaFunctionArn".'));
+        $this->events = $input['Events'] ?? $this->throwException(new InvalidArgument('Missing required field "Events".'));
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
@@ -61,7 +61,7 @@ final class LambdaFunctionConfiguration
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
@@ -106,5 +106,13 @@ final class LambdaFunctionConfiguration
 
             $v->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

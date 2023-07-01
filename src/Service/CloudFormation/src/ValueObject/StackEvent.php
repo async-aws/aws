@@ -6,6 +6,7 @@ use AsyncAws\CloudFormation\Enum\HookFailureMode;
 use AsyncAws\CloudFormation\Enum\HookInvocationPoint;
 use AsyncAws\CloudFormation\Enum\HookStatus;
 use AsyncAws\CloudFormation\Enum\ResourceStatus;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The StackEvent data type.
@@ -129,13 +130,13 @@ final class StackEvent
      */
     public function __construct(array $input)
     {
-        $this->stackId = $input['StackId'] ?? null;
-        $this->eventId = $input['EventId'] ?? null;
-        $this->stackName = $input['StackName'] ?? null;
+        $this->stackId = $input['StackId'] ?? $this->throwException(new InvalidArgument('Missing required field "StackId".'));
+        $this->eventId = $input['EventId'] ?? $this->throwException(new InvalidArgument('Missing required field "EventId".'));
+        $this->stackName = $input['StackName'] ?? $this->throwException(new InvalidArgument('Missing required field "StackName".'));
         $this->logicalResourceId = $input['LogicalResourceId'] ?? null;
         $this->physicalResourceId = $input['PhysicalResourceId'] ?? null;
         $this->resourceType = $input['ResourceType'] ?? null;
-        $this->timestamp = $input['Timestamp'] ?? null;
+        $this->timestamp = $input['Timestamp'] ?? $this->throwException(new InvalidArgument('Missing required field "Timestamp".'));
         $this->resourceStatus = $input['ResourceStatus'] ?? null;
         $this->resourceStatusReason = $input['ResourceStatusReason'] ?? null;
         $this->resourceProperties = $input['ResourceProperties'] ?? null;
@@ -262,5 +263,13 @@ final class StackEvent
     public function getTimestamp(): \DateTimeImmutable
     {
         return $this->timestamp;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

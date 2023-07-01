@@ -28,7 +28,7 @@ final class ListManagementOptions
      */
     public function __construct(array $input)
     {
-        $this->contactListName = $input['ContactListName'] ?? null;
+        $this->contactListName = $input['ContactListName'] ?? $this->throwException(new InvalidArgument('Missing required field "ContactListName".'));
         $this->topicName = $input['TopicName'] ?? null;
     }
 
@@ -68,5 +68,13 @@ final class ListManagementOptions
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

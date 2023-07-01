@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Sqs\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Encloses the `Id` of an entry in `DeleteMessageBatch.`.
  */
@@ -19,7 +21,7 @@ final class DeleteMessageBatchResultEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
     }
 
     /**
@@ -35,5 +37,13 @@ final class DeleteMessageBatchResultEntry
     public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains details for the restore.
  */
@@ -39,8 +41,8 @@ final class RestoreSummary
     {
         $this->sourceBackupArn = $input['SourceBackupArn'] ?? null;
         $this->sourceTableArn = $input['SourceTableArn'] ?? null;
-        $this->restoreDateTime = $input['RestoreDateTime'] ?? null;
-        $this->restoreInProgress = $input['RestoreInProgress'] ?? null;
+        $this->restoreDateTime = $input['RestoreDateTime'] ?? $this->throwException(new InvalidArgument('Missing required field "RestoreDateTime".'));
+        $this->restoreInProgress = $input['RestoreInProgress'] ?? $this->throwException(new InvalidArgument('Missing required field "RestoreInProgress".'));
     }
 
     /**
@@ -74,5 +76,13 @@ final class RestoreSummary
     public function getSourceTableArn(): ?string
     {
         return $this->sourceTableArn;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

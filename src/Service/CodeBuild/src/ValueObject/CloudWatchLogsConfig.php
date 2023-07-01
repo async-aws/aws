@@ -43,7 +43,7 @@ final class CloudWatchLogsConfig
      */
     public function __construct(array $input)
     {
-        $this->status = $input['status'] ?? null;
+        $this->status = $input['status'] ?? $this->throwException(new InvalidArgument('Missing required field "status".'));
         $this->groupName = $input['groupName'] ?? null;
         $this->streamName = $input['streamName'] ?? null;
     }
@@ -99,5 +99,13 @@ final class CloudWatchLogsConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

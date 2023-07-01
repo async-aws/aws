@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Kms\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\ExpirationModelType;
@@ -241,7 +242,7 @@ final class KeyMetadata
     public function __construct(array $input)
     {
         $this->awsAccountId = $input['AWSAccountId'] ?? null;
-        $this->keyId = $input['KeyId'] ?? null;
+        $this->keyId = $input['KeyId'] ?? $this->throwException(new InvalidArgument('Missing required field "KeyId".'));
         $this->arn = $input['Arn'] ?? null;
         $this->creationDate = $input['CreationDate'] ?? null;
         $this->enabled = $input['Enabled'] ?? null;
@@ -451,5 +452,13 @@ final class KeyMetadata
     public function getXksKeyConfiguration(): ?XksKeyConfigurationType
     {
         return $this->xksKeyConfiguration;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

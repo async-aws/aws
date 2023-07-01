@@ -37,8 +37,8 @@ final class QueueConfiguration
     public function __construct(array $input)
     {
         $this->id = $input['Id'] ?? null;
-        $this->queueArn = $input['QueueArn'] ?? null;
-        $this->events = $input['Events'] ?? null;
+        $this->queueArn = $input['QueueArn'] ?? $this->throwException(new InvalidArgument('Missing required field "QueueArn".'));
+        $this->events = $input['Events'] ?? $this->throwException(new InvalidArgument('Missing required field "Events".'));
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
@@ -60,7 +60,7 @@ final class QueueConfiguration
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
@@ -105,5 +105,13 @@ final class QueueConfiguration
 
             $v->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

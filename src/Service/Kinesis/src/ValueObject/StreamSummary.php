@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kinesis\Enum\StreamStatus;
 
 /**
@@ -42,9 +43,9 @@ final class StreamSummary
      */
     public function __construct(array $input)
     {
-        $this->streamName = $input['StreamName'] ?? null;
-        $this->streamArn = $input['StreamARN'] ?? null;
-        $this->streamStatus = $input['StreamStatus'] ?? null;
+        $this->streamName = $input['StreamName'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamName".'));
+        $this->streamArn = $input['StreamARN'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamARN".'));
+        $this->streamStatus = $input['StreamStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamStatus".'));
         $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
         $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? null;
     }
@@ -89,5 +90,13 @@ final class StreamSummary
     public function getStreamStatus(): string
     {
         return $this->streamStatus;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

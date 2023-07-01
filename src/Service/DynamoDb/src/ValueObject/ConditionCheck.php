@@ -63,9 +63,9 @@ final class ConditionCheck
      */
     public function __construct(array $input)
     {
-        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
-        $this->tableName = $input['TableName'] ?? null;
-        $this->conditionExpression = $input['ConditionExpression'] ?? null;
+        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : $this->throwException(new InvalidArgument('Missing required field "Key".'));
+        $this->tableName = $input['TableName'] ?? $this->throwException(new InvalidArgument('Missing required field "TableName".'));
+        $this->conditionExpression = $input['ConditionExpression'] ?? $this->throwException(new InvalidArgument('Missing required field "ConditionExpression".'));
         $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
         $this->expressionAttributeValues = isset($input['ExpressionAttributeValues']) ? array_map([AttributeValue::class, 'create'], $input['ExpressionAttributeValues']) : null;
         $this->returnValuesOnConditionCheckFailure = $input['ReturnValuesOnConditionCheckFailure'] ?? null;
@@ -112,7 +112,7 @@ final class ConditionCheck
      */
     public function getKey(): array
     {
-        return $this->key ?? [];
+        return $this->key;
     }
 
     /**
@@ -182,5 +182,13 @@ final class ConditionCheck
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

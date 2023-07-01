@@ -48,7 +48,7 @@ final class CreateReplicationGroupMemberAction
      */
     public function __construct(array $input)
     {
-        $this->regionName = $input['RegionName'] ?? null;
+        $this->regionName = $input['RegionName'] ?? $this->throwException(new InvalidArgument('Missing required field "RegionName".'));
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
@@ -132,5 +132,13 @@ final class CreateReplicationGroupMemberAction
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

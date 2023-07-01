@@ -122,8 +122,8 @@ final class PublishBatchRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->message = $input['Message'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->message = $input['Message'] ?? $this->throwException(new InvalidArgument('Missing required field "Message".'));
         $this->subject = $input['Subject'] ?? null;
         $this->messageStructure = $input['MessageStructure'] ?? null;
         $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
@@ -223,5 +223,13 @@ final class PublishBatchRequestEntry
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

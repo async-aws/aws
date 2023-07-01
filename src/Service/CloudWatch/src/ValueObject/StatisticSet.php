@@ -39,10 +39,10 @@ final class StatisticSet
      */
     public function __construct(array $input)
     {
-        $this->sampleCount = $input['SampleCount'] ?? null;
-        $this->sum = $input['Sum'] ?? null;
-        $this->minimum = $input['Minimum'] ?? null;
-        $this->maximum = $input['Maximum'] ?? null;
+        $this->sampleCount = $input['SampleCount'] ?? $this->throwException(new InvalidArgument('Missing required field "SampleCount".'));
+        $this->sum = $input['Sum'] ?? $this->throwException(new InvalidArgument('Missing required field "Sum".'));
+        $this->minimum = $input['Minimum'] ?? $this->throwException(new InvalidArgument('Missing required field "Minimum".'));
+        $this->maximum = $input['Maximum'] ?? $this->throwException(new InvalidArgument('Missing required field "Maximum".'));
     }
 
     /**
@@ -102,5 +102,13 @@ final class StatisticSet
         $payload['Maximum'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

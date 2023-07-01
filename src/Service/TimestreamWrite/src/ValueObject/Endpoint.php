@@ -3,6 +3,7 @@
 namespace AsyncAws\TimestreamWrite\ValueObject;
 
 use AsyncAws\Core\EndpointDiscovery\EndpointInterface;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Represents an available endpoint against which to make API calls against, as well as the TTL for that endpoint.
@@ -27,8 +28,8 @@ final class Endpoint implements EndpointInterface
      */
     public function __construct(array $input)
     {
-        $this->address = $input['Address'] ?? null;
-        $this->cachePeriodInMinutes = $input['CachePeriodInMinutes'] ?? null;
+        $this->address = $input['Address'] ?? $this->throwException(new InvalidArgument('Missing required field "Address".'));
+        $this->cachePeriodInMinutes = $input['CachePeriodInMinutes'] ?? $this->throwException(new InvalidArgument('Missing required field "CachePeriodInMinutes".'));
     }
 
     /**
@@ -50,5 +51,13 @@ final class Endpoint implements EndpointInterface
     public function getCachePeriodInMinutes(): int
     {
         return $this->cachePeriodInMinutes;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

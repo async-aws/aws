@@ -21,7 +21,7 @@ final class GitSubmodulesConfig
      */
     public function __construct(array $input)
     {
-        $this->fetchSubmodules = $input['fetchSubmodules'] ?? null;
+        $this->fetchSubmodules = $input['fetchSubmodules'] ?? $this->throwException(new InvalidArgument('Missing required field "fetchSubmodules".'));
     }
 
     /**
@@ -51,5 +51,13 @@ final class GitSubmodulesConfig
         $payload['fetchSubmodules'] = (bool) $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

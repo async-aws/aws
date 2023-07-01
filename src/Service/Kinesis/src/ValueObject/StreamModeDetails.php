@@ -24,7 +24,7 @@ final class StreamModeDetails
      */
     public function __construct(array $input)
     {
-        $this->streamMode = $input['StreamMode'] ?? null;
+        $this->streamMode = $input['StreamMode'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamMode".'));
     }
 
     /**
@@ -60,5 +60,13 @@ final class StreamModeDetails
         $payload['StreamMode'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -29,7 +29,7 @@ final class Content
      */
     public function __construct(array $input)
     {
-        $this->data = $input['Data'] ?? null;
+        $this->data = $input['Data'] ?? $this->throwException(new InvalidArgument('Missing required field "Data".'));
         $this->charset = $input['Charset'] ?? null;
     }
 
@@ -69,5 +69,13 @@ final class Content
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

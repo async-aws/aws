@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Output parameter of the GetRecords API. The existing child shard of the current shard.
  */
@@ -28,9 +30,9 @@ final class ChildShard
      */
     public function __construct(array $input)
     {
-        $this->shardId = $input['ShardId'] ?? null;
-        $this->parentShards = $input['ParentShards'] ?? null;
-        $this->hashKeyRange = isset($input['HashKeyRange']) ? HashKeyRange::create($input['HashKeyRange']) : null;
+        $this->shardId = $input['ShardId'] ?? $this->throwException(new InvalidArgument('Missing required field "ShardId".'));
+        $this->parentShards = $input['ParentShards'] ?? $this->throwException(new InvalidArgument('Missing required field "ParentShards".'));
+        $this->hashKeyRange = isset($input['HashKeyRange']) ? HashKeyRange::create($input['HashKeyRange']) : $this->throwException(new InvalidArgument('Missing required field "HashKeyRange".'));
     }
 
     /**
@@ -55,11 +57,19 @@ final class ChildShard
      */
     public function getParentShards(): array
     {
-        return $this->parentShards ?? [];
+        return $this->parentShards;
     }
 
     public function getShardId(): string
     {
         return $this->shardId;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

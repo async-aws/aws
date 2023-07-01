@@ -40,8 +40,8 @@ final class InvalidationBatch
      */
     public function __construct(array $input)
     {
-        $this->paths = isset($input['Paths']) ? Paths::create($input['Paths']) : null;
-        $this->callerReference = $input['CallerReference'] ?? null;
+        $this->paths = isset($input['Paths']) ? Paths::create($input['Paths']) : $this->throwException(new InvalidArgument('Missing required field "Paths".'));
+        $this->callerReference = $input['CallerReference'] ?? $this->throwException(new InvalidArgument('Missing required field "CallerReference".'));
     }
 
     /**
@@ -82,5 +82,13 @@ final class InvalidationBatch
             throw new InvalidArgument(sprintf('Missing parameter "CallerReference" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('CallerReference', $v));
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

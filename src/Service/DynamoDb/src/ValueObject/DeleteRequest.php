@@ -22,7 +22,7 @@ final class DeleteRequest
      */
     public function __construct(array $input)
     {
-        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
+        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : $this->throwException(new InvalidArgument('Missing required field "Key".'));
     }
 
     /**
@@ -40,7 +40,7 @@ final class DeleteRequest
      */
     public function getKey(): array
     {
-        return $this->key ?? [];
+        return $this->key;
     }
 
     /**
@@ -63,5 +63,13 @@ final class DeleteRequest
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

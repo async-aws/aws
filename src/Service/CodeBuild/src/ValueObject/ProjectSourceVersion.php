@@ -42,8 +42,8 @@ final class ProjectSourceVersion
      */
     public function __construct(array $input)
     {
-        $this->sourceIdentifier = $input['sourceIdentifier'] ?? null;
-        $this->sourceVersion = $input['sourceVersion'] ?? null;
+        $this->sourceIdentifier = $input['sourceIdentifier'] ?? $this->throwException(new InvalidArgument('Missing required field "sourceIdentifier".'));
+        $this->sourceVersion = $input['sourceVersion'] ?? $this->throwException(new InvalidArgument('Missing required field "sourceVersion".'));
     }
 
     /**
@@ -83,5 +83,13 @@ final class ProjectSourceVersion
         $payload['sourceVersion'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

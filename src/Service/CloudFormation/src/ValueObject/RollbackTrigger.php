@@ -2,6 +2,8 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * A rollback trigger CloudFormation monitors during creation and updating of stacks. If any of the alarms you specify
  * goes to ALARM state during the stack operation or within the specified monitoring period afterwards, CloudFormation
@@ -33,8 +35,8 @@ final class RollbackTrigger
      */
     public function __construct(array $input)
     {
-        $this->arn = $input['Arn'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
     }
 
     /**
@@ -56,5 +58,13 @@ final class RollbackTrigger
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

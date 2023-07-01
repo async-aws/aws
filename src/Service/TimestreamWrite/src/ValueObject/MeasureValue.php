@@ -44,9 +44,9 @@ final class MeasureValue
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
-        $this->value = $input['Value'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->value = $input['Value'] ?? $this->throwException(new InvalidArgument('Missing required field "Value".'));
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
     }
 
     /**
@@ -102,5 +102,13 @@ final class MeasureValue
         $payload['Type'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains information about whether the result of a previous query was reused.
  */
@@ -19,7 +21,7 @@ final class ResultReuseInformation
      */
     public function __construct(array $input)
     {
-        $this->reusedPreviousResult = $input['ReusedPreviousResult'] ?? null;
+        $this->reusedPreviousResult = $input['ReusedPreviousResult'] ?? $this->throwException(new InvalidArgument('Missing required field "ReusedPreviousResult".'));
     }
 
     /**
@@ -35,5 +37,13 @@ final class ResultReuseInformation
     public function getReusedPreviousResult(): bool
     {
         return $this->reusedPreviousResult;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

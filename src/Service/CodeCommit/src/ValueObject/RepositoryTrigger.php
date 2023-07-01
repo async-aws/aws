@@ -52,11 +52,11 @@ final class RepositoryTrigger
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'] ?? null;
-        $this->destinationArn = $input['destinationArn'] ?? null;
+        $this->name = $input['name'] ?? $this->throwException(new InvalidArgument('Missing required field "name".'));
+        $this->destinationArn = $input['destinationArn'] ?? $this->throwException(new InvalidArgument('Missing required field "destinationArn".'));
         $this->customData = $input['customData'] ?? null;
         $this->branches = $input['branches'] ?? null;
-        $this->events = $input['events'] ?? null;
+        $this->events = $input['events'] ?? $this->throwException(new InvalidArgument('Missing required field "events".'));
     }
 
     /**
@@ -96,7 +96,7 @@ final class RepositoryTrigger
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getName(): string
@@ -144,5 +144,13 @@ final class RepositoryTrigger
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

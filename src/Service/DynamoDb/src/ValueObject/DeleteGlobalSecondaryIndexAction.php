@@ -21,7 +21,7 @@ final class DeleteGlobalSecondaryIndexAction
      */
     public function __construct(array $input)
     {
-        $this->indexName = $input['IndexName'] ?? null;
+        $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
     }
 
     /**
@@ -51,5 +51,13 @@ final class DeleteGlobalSecondaryIndexAction
         $payload['IndexName'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

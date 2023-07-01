@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Specifies the default server-side-encryption configuration.
  */
@@ -19,7 +21,7 @@ final class ServerSideEncryptionConfiguration
      */
     public function __construct(array $input)
     {
-        $this->rules = isset($input['Rules']) ? array_map([ServerSideEncryptionRule::class, 'create'], $input['Rules']) : null;
+        $this->rules = isset($input['Rules']) ? array_map([ServerSideEncryptionRule::class, 'create'], $input['Rules']) : $this->throwException(new InvalidArgument('Missing required field "Rules".'));
     }
 
     /**
@@ -37,6 +39,14 @@ final class ServerSideEncryptionConfiguration
      */
     public function getRules(): array
     {
-        return $this->rules ?? [];
+        return $this->rules;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

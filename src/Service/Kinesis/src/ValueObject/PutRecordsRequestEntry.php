@@ -40,9 +40,9 @@ final class PutRecordsRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->data = $input['Data'] ?? null;
+        $this->data = $input['Data'] ?? $this->throwException(new InvalidArgument('Missing required field "Data".'));
         $this->explicitHashKey = $input['ExplicitHashKey'] ?? null;
-        $this->partitionKey = $input['PartitionKey'] ?? null;
+        $this->partitionKey = $input['PartitionKey'] ?? $this->throwException(new InvalidArgument('Missing required field "PartitionKey".'));
     }
 
     /**
@@ -91,5 +91,13 @@ final class PutRecordsRequestEntry
         $payload['PartitionKey'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -30,8 +30,8 @@ final class Message
      */
     public function __construct(array $input)
     {
-        $this->subject = isset($input['Subject']) ? Content::create($input['Subject']) : null;
-        $this->body = isset($input['Body']) ? Body::create($input['Body']) : null;
+        $this->subject = isset($input['Subject']) ? Content::create($input['Subject']) : $this->throwException(new InvalidArgument('Missing required field "Subject".'));
+        $this->body = isset($input['Body']) ? Body::create($input['Body']) : $this->throwException(new InvalidArgument('Missing required field "Body".'));
     }
 
     /**
@@ -71,5 +71,13 @@ final class Message
         $payload['Body'] = $v->requestBody();
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

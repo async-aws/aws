@@ -45,8 +45,8 @@ final class DynamodbDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->tableName = $input['tableName'] ?? null;
-        $this->awsRegion = $input['awsRegion'] ?? null;
+        $this->tableName = $input['tableName'] ?? $this->throwException(new InvalidArgument('Missing required field "tableName".'));
+        $this->awsRegion = $input['awsRegion'] ?? $this->throwException(new InvalidArgument('Missing required field "awsRegion".'));
         $this->useCallerCredentials = $input['useCallerCredentials'] ?? null;
         $this->deltaSyncConfig = isset($input['deltaSyncConfig']) ? DeltaSyncConfig::create($input['deltaSyncConfig']) : null;
         $this->versioned = $input['versioned'] ?? null;
@@ -116,5 +116,13 @@ final class DynamodbDataSourceConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

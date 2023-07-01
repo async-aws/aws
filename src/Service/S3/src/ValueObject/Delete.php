@@ -27,7 +27,7 @@ final class Delete
      */
     public function __construct(array $input)
     {
-        $this->objects = isset($input['Objects']) ? array_map([ObjectIdentifier::class, 'create'], $input['Objects']) : null;
+        $this->objects = isset($input['Objects']) ? array_map([ObjectIdentifier::class, 'create'], $input['Objects']) : $this->throwException(new InvalidArgument('Missing required field "Objects".'));
         $this->quiet = $input['Quiet'] ?? null;
     }
 
@@ -47,7 +47,7 @@ final class Delete
      */
     public function getObjects(): array
     {
-        return $this->objects ?? [];
+        return $this->objects;
     }
 
     public function getQuiet(): ?bool
@@ -72,5 +72,13 @@ final class Delete
         if (null !== $v = $this->quiet) {
             $node->appendChild($document->createElement('Quiet', $v ? 'true' : 'false'));
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

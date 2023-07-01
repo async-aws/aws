@@ -27,8 +27,8 @@ final class SageMakerPipelineParameter
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
-        $this->value = $input['Value'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->value = $input['Value'] ?? $this->throwException(new InvalidArgument('Missing required field "Value".'));
     }
 
     /**
@@ -68,5 +68,13 @@ final class SageMakerPipelineParameter
         $payload['Value'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

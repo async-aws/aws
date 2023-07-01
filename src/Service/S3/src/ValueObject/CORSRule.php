@@ -56,8 +56,8 @@ final class CORSRule
     {
         $this->id = $input['ID'] ?? null;
         $this->allowedHeaders = $input['AllowedHeaders'] ?? null;
-        $this->allowedMethods = $input['AllowedMethods'] ?? null;
-        $this->allowedOrigins = $input['AllowedOrigins'] ?? null;
+        $this->allowedMethods = $input['AllowedMethods'] ?? $this->throwException(new InvalidArgument('Missing required field "AllowedMethods".'));
+        $this->allowedOrigins = $input['AllowedOrigins'] ?? $this->throwException(new InvalidArgument('Missing required field "AllowedOrigins".'));
         $this->exposeHeaders = $input['ExposeHeaders'] ?? null;
         $this->maxAgeSeconds = $input['MaxAgeSeconds'] ?? null;
     }
@@ -90,7 +90,7 @@ final class CORSRule
      */
     public function getAllowedMethods(): array
     {
-        return $this->allowedMethods ?? [];
+        return $this->allowedMethods;
     }
 
     /**
@@ -98,7 +98,7 @@ final class CORSRule
      */
     public function getAllowedOrigins(): array
     {
-        return $this->allowedOrigins ?? [];
+        return $this->allowedOrigins;
     }
 
     /**
@@ -154,5 +154,13 @@ final class CORSRule
         if (null !== $v = $this->maxAgeSeconds) {
             $node->appendChild($document->createElement('MaxAgeSeconds', (string) $v));
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

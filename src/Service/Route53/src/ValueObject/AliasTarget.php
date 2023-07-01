@@ -282,9 +282,9 @@ final class AliasTarget
      */
     public function __construct(array $input)
     {
-        $this->hostedZoneId = $input['HostedZoneId'] ?? null;
-        $this->dnsName = $input['DNSName'] ?? null;
-        $this->evaluateTargetHealth = $input['EvaluateTargetHealth'] ?? null;
+        $this->hostedZoneId = $input['HostedZoneId'] ?? $this->throwException(new InvalidArgument('Missing required field "HostedZoneId".'));
+        $this->dnsName = $input['DNSName'] ?? $this->throwException(new InvalidArgument('Missing required field "DNSName".'));
+        $this->evaluateTargetHealth = $input['EvaluateTargetHealth'] ?? $this->throwException(new InvalidArgument('Missing required field "EvaluateTargetHealth".'));
     }
 
     /**
@@ -331,5 +331,13 @@ final class AliasTarget
             throw new InvalidArgument(sprintf('Missing parameter "EvaluateTargetHealth" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('EvaluateTargetHealth', $v ? 'true' : 'false'));
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

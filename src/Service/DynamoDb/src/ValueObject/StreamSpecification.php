@@ -34,7 +34,7 @@ final class StreamSpecification
      */
     public function __construct(array $input)
     {
-        $this->streamEnabled = $input['StreamEnabled'] ?? null;
+        $this->streamEnabled = $input['StreamEnabled'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamEnabled".'));
         $this->streamViewType = $input['StreamViewType'] ?? null;
     }
 
@@ -80,5 +80,13 @@ final class StreamSpecification
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

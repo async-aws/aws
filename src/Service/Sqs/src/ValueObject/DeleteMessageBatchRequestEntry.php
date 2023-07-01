@@ -32,8 +32,8 @@ final class DeleteMessageBatchRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->receiptHandle = $input['ReceiptHandle'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->receiptHandle = $input['ReceiptHandle'] ?? $this->throwException(new InvalidArgument('Missing required field "ReceiptHandle".'));
     }
 
     /**
@@ -73,5 +73,13 @@ final class DeleteMessageBatchRequestEntry
         $payload['ReceiptHandle'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

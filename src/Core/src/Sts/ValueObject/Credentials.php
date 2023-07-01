@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Amazon Web Services credentials for API authentication.
  */
@@ -37,10 +39,10 @@ final class Credentials
      */
     public function __construct(array $input)
     {
-        $this->accessKeyId = $input['AccessKeyId'] ?? null;
-        $this->secretAccessKey = $input['SecretAccessKey'] ?? null;
-        $this->sessionToken = $input['SessionToken'] ?? null;
-        $this->expiration = $input['Expiration'] ?? null;
+        $this->accessKeyId = $input['AccessKeyId'] ?? $this->throwException(new InvalidArgument('Missing required field "AccessKeyId".'));
+        $this->secretAccessKey = $input['SecretAccessKey'] ?? $this->throwException(new InvalidArgument('Missing required field "SecretAccessKey".'));
+        $this->sessionToken = $input['SessionToken'] ?? $this->throwException(new InvalidArgument('Missing required field "SessionToken".'));
+        $this->expiration = $input['Expiration'] ?? $this->throwException(new InvalidArgument('Missing required field "Expiration".'));
     }
 
     /**
@@ -74,5 +76,13 @@ final class Credentials
     public function getSessionToken(): string
     {
         return $this->sessionToken;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

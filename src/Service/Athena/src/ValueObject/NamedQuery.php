@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * A query, where `QueryString` contains the SQL statements that make up the query.
  */
@@ -49,10 +51,10 @@ final class NamedQuery
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->description = $input['Description'] ?? null;
-        $this->database = $input['Database'] ?? null;
-        $this->queryString = $input['QueryString'] ?? null;
+        $this->database = $input['Database'] ?? $this->throwException(new InvalidArgument('Missing required field "Database".'));
+        $this->queryString = $input['QueryString'] ?? $this->throwException(new InvalidArgument('Missing required field "QueryString".'));
         $this->namedQueryId = $input['NamedQueryId'] ?? null;
         $this->workGroup = $input['WorkGroup'] ?? null;
     }
@@ -100,5 +102,13 @@ final class NamedQuery
     public function getWorkGroup(): ?string
     {
         return $this->workGroup;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

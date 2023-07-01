@@ -29,8 +29,8 @@ final class EventBridgeParameters
      */
     public function __construct(array $input)
     {
-        $this->detailType = $input['DetailType'] ?? null;
-        $this->source = $input['Source'] ?? null;
+        $this->detailType = $input['DetailType'] ?? $this->throwException(new InvalidArgument('Missing required field "DetailType".'));
+        $this->source = $input['Source'] ?? $this->throwException(new InvalidArgument('Missing required field "Source".'));
     }
 
     /**
@@ -70,5 +70,13 @@ final class EventBridgeParameters
         $payload['Source'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

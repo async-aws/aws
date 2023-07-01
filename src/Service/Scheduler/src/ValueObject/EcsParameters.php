@@ -134,7 +134,7 @@ final class EcsParameters
         $this->referenceId = $input['ReferenceId'] ?? null;
         $this->tags = $input['Tags'] ?? null;
         $this->taskCount = $input['TaskCount'] ?? null;
-        $this->taskDefinitionArn = $input['TaskDefinitionArn'] ?? null;
+        $this->taskDefinitionArn = $input['TaskDefinitionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "TaskDefinitionArn".'));
     }
 
     /**
@@ -333,5 +333,13 @@ final class EcsParameters
         $payload['TaskDefinitionArn'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

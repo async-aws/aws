@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Sns\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Gives a detailed description of failed messages in the batch.
  */
@@ -37,10 +39,10 @@ final class BatchResultErrorEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->code = $input['Code'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->code = $input['Code'] ?? $this->throwException(new InvalidArgument('Missing required field "Code".'));
         $this->message = $input['Message'] ?? null;
-        $this->senderFault = $input['SenderFault'] ?? null;
+        $this->senderFault = $input['SenderFault'] ?? $this->throwException(new InvalidArgument('Missing required field "SenderFault".'));
     }
 
     /**
@@ -74,5 +76,13 @@ final class BatchResultErrorEntry
     public function getSenderFault(): bool
     {
         return $this->senderFault;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

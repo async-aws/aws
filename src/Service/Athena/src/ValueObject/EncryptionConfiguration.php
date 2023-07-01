@@ -33,7 +33,7 @@ final class EncryptionConfiguration
      */
     public function __construct(array $input)
     {
-        $this->encryptionOption = $input['EncryptionOption'] ?? null;
+        $this->encryptionOption = $input['EncryptionOption'] ?? $this->throwException(new InvalidArgument('Missing required field "EncryptionOption".'));
         $this->kmsKey = $input['KmsKey'] ?? null;
     }
 
@@ -79,5 +79,13 @@ final class EncryptionConfiguration
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

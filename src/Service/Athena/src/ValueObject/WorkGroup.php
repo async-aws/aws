@@ -3,6 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 use AsyncAws\Athena\Enum\WorkGroupState;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * A workgroup, which contains a name, description, creation time, state, and other configuration, listed under
@@ -56,7 +57,7 @@ final class WorkGroup
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->state = $input['State'] ?? null;
         $this->configuration = isset($input['Configuration']) ? WorkGroupConfiguration::create($input['Configuration']) : null;
         $this->description = $input['Description'] ?? null;
@@ -103,5 +104,13 @@ final class WorkGroup
     public function getState(): ?string
     {
         return $this->state;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

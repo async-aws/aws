@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Scheduler\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The details of a target.
  */
@@ -19,7 +21,7 @@ final class TargetSummary
      */
     public function __construct(array $input)
     {
-        $this->arn = $input['Arn'] ?? null;
+        $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
     }
 
     /**
@@ -35,5 +37,13 @@ final class TargetSummary
     public function getArn(): string
     {
         return $this->arn;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

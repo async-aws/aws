@@ -51,7 +51,7 @@ final class ParameterStringFilter
      */
     public function __construct(array $input)
     {
-        $this->key = $input['Key'] ?? null;
+        $this->key = $input['Key'] ?? $this->throwException(new InvalidArgument('Missing required field "Key".'));
         $this->option = $input['Option'] ?? null;
         $this->values = $input['Values'] ?? null;
     }
@@ -109,5 +109,13 @@ final class ParameterStringFilter
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

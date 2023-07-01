@@ -55,9 +55,9 @@ final class MetricStat
      */
     public function __construct(array $input)
     {
-        $this->metric = isset($input['Metric']) ? Metric::create($input['Metric']) : null;
-        $this->period = $input['Period'] ?? null;
-        $this->stat = $input['Stat'] ?? null;
+        $this->metric = isset($input['Metric']) ? Metric::create($input['Metric']) : $this->throwException(new InvalidArgument('Missing required field "Metric".'));
+        $this->period = $input['Period'] ?? $this->throwException(new InvalidArgument('Missing required field "Period".'));
+        $this->stat = $input['Stat'] ?? $this->throwException(new InvalidArgument('Missing required field "Stat".'));
         $this->unit = $input['Unit'] ?? null;
     }
 
@@ -126,5 +126,13 @@ final class MetricStat
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

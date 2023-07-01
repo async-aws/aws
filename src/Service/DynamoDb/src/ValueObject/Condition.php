@@ -146,7 +146,7 @@ final class Condition
     public function __construct(array $input)
     {
         $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
-        $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
+        $this->comparisonOperator = $input['ComparisonOperator'] ?? $this->throwException(new InvalidArgument('Missing required field "ComparisonOperator".'));
     }
 
     /**
@@ -199,5 +199,13 @@ final class Condition
         $payload['ComparisonOperator'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

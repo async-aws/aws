@@ -31,8 +31,8 @@ final class CidrRoutingConfig
      */
     public function __construct(array $input)
     {
-        $this->collectionId = $input['CollectionId'] ?? null;
-        $this->locationName = $input['LocationName'] ?? null;
+        $this->collectionId = $input['CollectionId'] ?? $this->throwException(new InvalidArgument('Missing required field "CollectionId".'));
+        $this->locationName = $input['LocationName'] ?? $this->throwException(new InvalidArgument('Missing required field "LocationName".'));
     }
 
     /**
@@ -69,5 +69,13 @@ final class CidrRoutingConfig
             throw new InvalidArgument(sprintf('Missing parameter "LocationName" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('LocationName', $v));
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

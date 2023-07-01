@@ -38,8 +38,8 @@ final class ChangeMessageVisibilityBatchRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->receiptHandle = $input['ReceiptHandle'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->receiptHandle = $input['ReceiptHandle'] ?? $this->throwException(new InvalidArgument('Missing required field "ReceiptHandle".'));
         $this->visibilityTimeout = $input['VisibilityTimeout'] ?? null;
     }
 
@@ -89,5 +89,13 @@ final class ChangeMessageVisibilityBatchRequestEntry
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

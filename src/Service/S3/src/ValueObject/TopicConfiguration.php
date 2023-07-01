@@ -40,8 +40,8 @@ final class TopicConfiguration
     public function __construct(array $input)
     {
         $this->id = $input['Id'] ?? null;
-        $this->topicArn = $input['TopicArn'] ?? null;
-        $this->events = $input['Events'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? $this->throwException(new InvalidArgument('Missing required field "TopicArn".'));
+        $this->events = $input['Events'] ?? $this->throwException(new InvalidArgument('Missing required field "Events".'));
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
@@ -63,7 +63,7 @@ final class TopicConfiguration
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
@@ -108,5 +108,13 @@ final class TopicConfiguration
 
             $v->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

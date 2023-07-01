@@ -21,7 +21,7 @@ final class LambdaDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->lambdaFunctionArn = $input['lambdaFunctionArn'] ?? null;
+        $this->lambdaFunctionArn = $input['lambdaFunctionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "lambdaFunctionArn".'));
     }
 
     /**
@@ -51,5 +51,13 @@ final class LambdaDataSourceConfig
         $payload['lambdaFunctionArn'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

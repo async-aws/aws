@@ -41,8 +41,8 @@ final class Change
      */
     public function __construct(array $input)
     {
-        $this->action = $input['Action'] ?? null;
-        $this->resourceRecordSet = isset($input['ResourceRecordSet']) ? ResourceRecordSet::create($input['ResourceRecordSet']) : null;
+        $this->action = $input['Action'] ?? $this->throwException(new InvalidArgument('Missing required field "Action".'));
+        $this->resourceRecordSet = isset($input['ResourceRecordSet']) ? ResourceRecordSet::create($input['ResourceRecordSet']) : $this->throwException(new InvalidArgument('Missing required field "ResourceRecordSet".'));
     }
 
     /**
@@ -88,5 +88,13 @@ final class Change
         $node->appendChild($child = $document->createElement('ResourceRecordSet'));
 
         $v->requestBody($child, $document);
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

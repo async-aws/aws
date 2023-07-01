@@ -32,7 +32,7 @@ final class ObjectIdentifier
      */
     public function __construct(array $input)
     {
-        $this->key = $input['Key'] ?? null;
+        $this->key = $input['Key'] ?? $this->throwException(new InvalidArgument('Missing required field "Key".'));
         $this->versionId = $input['VersionId'] ?? null;
     }
 
@@ -69,5 +69,13 @@ final class ObjectIdentifier
         if (null !== $v = $this->versionId) {
             $node->appendChild($document->createElement('VersionId', $v));
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

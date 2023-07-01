@@ -2,6 +2,8 @@
 
 namespace AsyncAws\TimestreamQuery\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Represents a single row in the query results.
  */
@@ -19,7 +21,7 @@ final class Row
      */
     public function __construct(array $input)
     {
-        $this->data = isset($input['Data']) ? array_map([Datum::class, 'create'], $input['Data']) : null;
+        $this->data = isset($input['Data']) ? array_map([Datum::class, 'create'], $input['Data']) : $this->throwException(new InvalidArgument('Missing required field "Data".'));
     }
 
     /**
@@ -37,6 +39,14 @@ final class Row
      */
     public function getData(): array
     {
-        return $this->data ?? [];
+        return $this->data;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

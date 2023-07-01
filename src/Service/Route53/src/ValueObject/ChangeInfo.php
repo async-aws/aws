@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Route53\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Route53\Enum\ChangeStatus;
 
 /**
@@ -46,9 +47,9 @@ final class ChangeInfo
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->status = $input['Status'] ?? null;
-        $this->submittedAt = $input['SubmittedAt'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
+        $this->submittedAt = $input['SubmittedAt'] ?? $this->throwException(new InvalidArgument('Missing required field "SubmittedAt".'));
         $this->comment = $input['Comment'] ?? null;
     }
 
@@ -86,5 +87,13 @@ final class ChangeInfo
     public function getSubmittedAt(): \DateTimeImmutable
     {
         return $this->submittedAt;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

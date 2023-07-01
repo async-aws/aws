@@ -5,6 +5,7 @@ namespace AsyncAws\CodeBuild\ValueObject;
 use AsyncAws\CodeBuild\Enum\ComputeType;
 use AsyncAws\CodeBuild\Enum\EnvironmentType;
 use AsyncAws\CodeBuild\Enum\ImagePullCredentialsType;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Information about the build environment of the build project.
@@ -141,9 +142,9 @@ final class ProjectEnvironment
      */
     public function __construct(array $input)
     {
-        $this->type = $input['type'] ?? null;
-        $this->image = $input['image'] ?? null;
-        $this->computeType = $input['computeType'] ?? null;
+        $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
+        $this->image = $input['image'] ?? $this->throwException(new InvalidArgument('Missing required field "image".'));
+        $this->computeType = $input['computeType'] ?? $this->throwException(new InvalidArgument('Missing required field "computeType".'));
         $this->environmentVariables = isset($input['environmentVariables']) ? array_map([EnvironmentVariable::class, 'create'], $input['environmentVariables']) : null;
         $this->privilegedMode = $input['privilegedMode'] ?? null;
         $this->certificate = $input['certificate'] ?? null;
@@ -218,5 +219,13 @@ final class ProjectEnvironment
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

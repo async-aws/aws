@@ -30,8 +30,8 @@ final class AppSyncRuntime
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'] ?? null;
-        $this->runtimeVersion = $input['runtimeVersion'] ?? null;
+        $this->name = $input['name'] ?? $this->throwException(new InvalidArgument('Missing required field "name".'));
+        $this->runtimeVersion = $input['runtimeVersion'] ?? $this->throwException(new InvalidArgument('Missing required field "runtimeVersion".'));
     }
 
     /**
@@ -77,5 +77,13 @@ final class AppSyncRuntime
         $payload['runtimeVersion'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

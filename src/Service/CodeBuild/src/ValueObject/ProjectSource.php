@@ -140,7 +140,7 @@ final class ProjectSource
      */
     public function __construct(array $input)
     {
-        $this->type = $input['type'] ?? null;
+        $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->location = $input['location'] ?? null;
         $this->gitCloneDepth = $input['gitCloneDepth'] ?? null;
         $this->gitSubmodulesConfig = isset($input['gitSubmodulesConfig']) ? GitSubmodulesConfig::create($input['gitSubmodulesConfig']) : null;
@@ -266,5 +266,13 @@ final class ProjectSource
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

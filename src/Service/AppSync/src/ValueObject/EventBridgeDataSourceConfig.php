@@ -23,7 +23,7 @@ final class EventBridgeDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->eventBusArn = $input['eventBusArn'] ?? null;
+        $this->eventBusArn = $input['eventBusArn'] ?? $this->throwException(new InvalidArgument('Missing required field "eventBusArn".'));
     }
 
     /**
@@ -53,5 +53,13 @@ final class EventBridgeDataSourceConfig
         $payload['eventBusArn'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

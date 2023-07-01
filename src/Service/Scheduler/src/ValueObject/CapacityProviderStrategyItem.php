@@ -38,7 +38,7 @@ final class CapacityProviderStrategyItem
     public function __construct(array $input)
     {
         $this->base = $input['base'] ?? null;
-        $this->capacityProvider = $input['capacityProvider'] ?? null;
+        $this->capacityProvider = $input['capacityProvider'] ?? $this->throwException(new InvalidArgument('Missing required field "capacityProvider".'));
         $this->weight = $input['weight'] ?? null;
     }
 
@@ -87,5 +87,13 @@ final class CapacityProviderStrategyItem
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

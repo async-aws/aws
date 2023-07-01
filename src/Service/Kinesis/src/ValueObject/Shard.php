@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * A uniquely identified group of data records in a Kinesis data stream.
  */
@@ -43,11 +45,11 @@ final class Shard
      */
     public function __construct(array $input)
     {
-        $this->shardId = $input['ShardId'] ?? null;
+        $this->shardId = $input['ShardId'] ?? $this->throwException(new InvalidArgument('Missing required field "ShardId".'));
         $this->parentShardId = $input['ParentShardId'] ?? null;
         $this->adjacentParentShardId = $input['AdjacentParentShardId'] ?? null;
-        $this->hashKeyRange = isset($input['HashKeyRange']) ? HashKeyRange::create($input['HashKeyRange']) : null;
-        $this->sequenceNumberRange = isset($input['SequenceNumberRange']) ? SequenceNumberRange::create($input['SequenceNumberRange']) : null;
+        $this->hashKeyRange = isset($input['HashKeyRange']) ? HashKeyRange::create($input['HashKeyRange']) : $this->throwException(new InvalidArgument('Missing required field "HashKeyRange".'));
+        $this->sequenceNumberRange = isset($input['SequenceNumberRange']) ? SequenceNumberRange::create($input['SequenceNumberRange']) : $this->throwException(new InvalidArgument('Missing required field "SequenceNumberRange".'));
     }
 
     /**
@@ -87,5 +89,13 @@ final class Shard
     public function getShardId(): string
     {
         return $this->shardId;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

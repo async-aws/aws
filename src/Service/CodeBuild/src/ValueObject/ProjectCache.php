@@ -71,7 +71,7 @@ final class ProjectCache
      */
     public function __construct(array $input)
     {
-        $this->type = $input['type'] ?? null;
+        $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->location = $input['location'] ?? null;
         $this->modes = $input['modes'] ?? null;
     }
@@ -138,5 +138,13 @@ final class ProjectCache
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

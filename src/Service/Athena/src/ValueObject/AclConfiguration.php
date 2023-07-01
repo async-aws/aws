@@ -31,7 +31,7 @@ final class AclConfiguration
      */
     public function __construct(array $input)
     {
-        $this->s3AclOption = $input['S3AclOption'] ?? null;
+        $this->s3AclOption = $input['S3AclOption'] ?? $this->throwException(new InvalidArgument('Missing required field "S3AclOption".'));
     }
 
     /**
@@ -67,5 +67,13 @@ final class AclConfiguration
         $payload['S3AclOption'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

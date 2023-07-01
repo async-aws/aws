@@ -28,8 +28,8 @@ final class InputLogEvent
      */
     public function __construct(array $input)
     {
-        $this->timestamp = $input['timestamp'] ?? null;
-        $this->message = $input['message'] ?? null;
+        $this->timestamp = $input['timestamp'] ?? $this->throwException(new InvalidArgument('Missing required field "timestamp".'));
+        $this->message = $input['message'] ?? $this->throwException(new InvalidArgument('Missing required field "message".'));
     }
 
     /**
@@ -69,5 +69,13 @@ final class InputLogEvent
         $payload['message'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -3,6 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 use AsyncAws\Athena\Enum\DataCatalogType;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Contains information about a data catalog in an Amazon Web Services account.
@@ -71,9 +72,9 @@ final class DataCatalog
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->description = $input['Description'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
         $this->parameters = $input['Parameters'] ?? null;
     }
 
@@ -114,5 +115,13 @@ final class DataCatalog
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

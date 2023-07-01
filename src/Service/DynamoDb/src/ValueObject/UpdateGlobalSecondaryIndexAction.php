@@ -32,8 +32,8 @@ final class UpdateGlobalSecondaryIndexAction
      */
     public function __construct(array $input)
     {
-        $this->indexName = $input['IndexName'] ?? null;
-        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : $this->throwException(new InvalidArgument('Missing required field "ProvisionedThroughput".'));
     }
 
     /**
@@ -73,5 +73,13 @@ final class UpdateGlobalSecondaryIndexAction
         $payload['ProvisionedThroughput'] = $v->requestBody();
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

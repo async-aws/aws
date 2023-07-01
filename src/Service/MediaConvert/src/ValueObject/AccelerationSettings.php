@@ -22,7 +22,7 @@ final class AccelerationSettings
      */
     public function __construct(array $input)
     {
-        $this->mode = $input['Mode'] ?? null;
+        $this->mode = $input['Mode'] ?? $this->throwException(new InvalidArgument('Missing required field "Mode".'));
     }
 
     /**
@@ -58,5 +58,13 @@ final class AccelerationSettings
         $payload['mode'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -41,7 +41,7 @@ final class AwsVpcConfiguration
     {
         $this->assignPublicIp = $input['AssignPublicIp'] ?? null;
         $this->securityGroups = $input['SecurityGroups'] ?? null;
-        $this->subnets = $input['Subnets'] ?? null;
+        $this->subnets = $input['Subnets'] ?? $this->throwException(new InvalidArgument('Missing required field "Subnets".'));
     }
 
     /**
@@ -77,7 +77,7 @@ final class AwsVpcConfiguration
      */
     public function getSubnets(): array
     {
-        return $this->subnets ?? [];
+        return $this->subnets;
     }
 
     /**
@@ -112,5 +112,13 @@ final class AwsVpcConfiguration
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

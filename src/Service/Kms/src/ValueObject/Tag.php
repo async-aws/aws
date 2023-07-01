@@ -36,8 +36,8 @@ final class Tag
      */
     public function __construct(array $input)
     {
-        $this->tagKey = $input['TagKey'] ?? null;
-        $this->tagValue = $input['TagValue'] ?? null;
+        $this->tagKey = $input['TagKey'] ?? $this->throwException(new InvalidArgument('Missing required field "TagKey".'));
+        $this->tagValue = $input['TagValue'] ?? $this->throwException(new InvalidArgument('Missing required field "TagValue".'));
     }
 
     /**
@@ -77,5 +77,13 @@ final class Tag
         $payload['TagValue'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

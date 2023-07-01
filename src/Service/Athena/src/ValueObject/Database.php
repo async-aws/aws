@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains metadata information for a database in a data catalog.
  */
@@ -31,7 +33,7 @@ final class Database
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->description = $input['Description'] ?? null;
         $this->parameters = $input['Parameters'] ?? null;
     }
@@ -64,5 +66,13 @@ final class Database
     public function getParameters(): array
     {
         return $this->parameters ?? [];
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

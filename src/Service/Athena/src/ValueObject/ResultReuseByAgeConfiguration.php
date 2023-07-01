@@ -28,7 +28,7 @@ final class ResultReuseByAgeConfiguration
      */
     public function __construct(array $input)
     {
-        $this->enabled = $input['Enabled'] ?? null;
+        $this->enabled = $input['Enabled'] ?? $this->throwException(new InvalidArgument('Missing required field "Enabled".'));
         $this->maxAgeInMinutes = $input['MaxAgeInMinutes'] ?? null;
     }
 
@@ -68,5 +68,13 @@ final class ResultReuseByAgeConfiguration
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

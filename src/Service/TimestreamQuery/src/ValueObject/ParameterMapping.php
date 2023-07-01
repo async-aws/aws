@@ -2,6 +2,8 @@
 
 namespace AsyncAws\TimestreamQuery\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Mapping for named parameters.
  */
@@ -22,8 +24,8 @@ final class ParameterMapping
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
-        $this->type = isset($input['Type']) ? Type::create($input['Type']) : null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->type = isset($input['Type']) ? Type::create($input['Type']) : $this->throwException(new InvalidArgument('Missing required field "Type".'));
     }
 
     /**
@@ -45,5 +47,13 @@ final class ParameterMapping
     public function getType(): Type
     {
         return $this->type;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

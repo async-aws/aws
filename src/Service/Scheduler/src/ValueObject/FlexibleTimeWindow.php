@@ -29,7 +29,7 @@ final class FlexibleTimeWindow
     public function __construct(array $input)
     {
         $this->maximumWindowInMinutes = $input['MaximumWindowInMinutes'] ?? null;
-        $this->mode = $input['Mode'] ?? null;
+        $this->mode = $input['Mode'] ?? $this->throwException(new InvalidArgument('Missing required field "Mode".'));
     }
 
     /**
@@ -74,5 +74,13 @@ final class FlexibleTimeWindow
         $payload['Mode'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

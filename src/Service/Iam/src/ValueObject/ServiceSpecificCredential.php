@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Iam\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Iam\Enum\StatusType;
 
 /**
@@ -62,13 +63,13 @@ final class ServiceSpecificCredential
      */
     public function __construct(array $input)
     {
-        $this->createDate = $input['CreateDate'] ?? null;
-        $this->serviceName = $input['ServiceName'] ?? null;
-        $this->serviceUserName = $input['ServiceUserName'] ?? null;
-        $this->servicePassword = $input['ServicePassword'] ?? null;
-        $this->serviceSpecificCredentialId = $input['ServiceSpecificCredentialId'] ?? null;
-        $this->userName = $input['UserName'] ?? null;
-        $this->status = $input['Status'] ?? null;
+        $this->createDate = $input['CreateDate'] ?? $this->throwException(new InvalidArgument('Missing required field "CreateDate".'));
+        $this->serviceName = $input['ServiceName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceName".'));
+        $this->serviceUserName = $input['ServiceUserName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceUserName".'));
+        $this->servicePassword = $input['ServicePassword'] ?? $this->throwException(new InvalidArgument('Missing required field "ServicePassword".'));
+        $this->serviceSpecificCredentialId = $input['ServiceSpecificCredentialId'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceSpecificCredentialId".'));
+        $this->userName = $input['UserName'] ?? $this->throwException(new InvalidArgument('Missing required field "UserName".'));
+        $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
     }
 
     /**
@@ -123,5 +124,13 @@ final class ServiceSpecificCredential
     public function getUserName(): string
     {
         return $this->userName;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

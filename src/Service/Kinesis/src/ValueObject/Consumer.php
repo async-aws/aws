@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kinesis\Enum\ConsumerStatus;
 
 /**
@@ -42,10 +43,10 @@ final class Consumer
      */
     public function __construct(array $input)
     {
-        $this->consumerName = $input['ConsumerName'] ?? null;
-        $this->consumerArn = $input['ConsumerARN'] ?? null;
-        $this->consumerStatus = $input['ConsumerStatus'] ?? null;
-        $this->consumerCreationTimestamp = $input['ConsumerCreationTimestamp'] ?? null;
+        $this->consumerName = $input['ConsumerName'] ?? $this->throwException(new InvalidArgument('Missing required field "ConsumerName".'));
+        $this->consumerArn = $input['ConsumerARN'] ?? $this->throwException(new InvalidArgument('Missing required field "ConsumerARN".'));
+        $this->consumerStatus = $input['ConsumerStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "ConsumerStatus".'));
+        $this->consumerCreationTimestamp = $input['ConsumerCreationTimestamp'] ?? $this->throwException(new InvalidArgument('Missing required field "ConsumerCreationTimestamp".'));
     }
 
     /**
@@ -82,5 +83,13 @@ final class Consumer
     public function getConsumerStatus(): string
     {
         return $this->consumerStatus;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

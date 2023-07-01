@@ -61,7 +61,7 @@ final class MessageAttributeValue
         $this->binaryValue = $input['BinaryValue'] ?? null;
         $this->stringListValues = $input['StringListValues'] ?? null;
         $this->binaryListValues = $input['BinaryListValues'] ?? null;
-        $this->dataType = $input['DataType'] ?? null;
+        $this->dataType = $input['DataType'] ?? $this->throwException(new InvalidArgument('Missing required field "DataType".'));
     }
 
     /**
@@ -141,5 +141,13 @@ final class MessageAttributeValue
         $payload['DataType'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

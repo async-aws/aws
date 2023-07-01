@@ -46,8 +46,8 @@ final class KeySchemaElement
      */
     public function __construct(array $input)
     {
-        $this->attributeName = $input['AttributeName'] ?? null;
-        $this->keyType = $input['KeyType'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeName".'));
+        $this->keyType = $input['KeyType'] ?? $this->throwException(new InvalidArgument('Missing required field "KeyType".'));
     }
 
     /**
@@ -93,5 +93,13 @@ final class KeySchemaElement
         $payload['KeyType'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

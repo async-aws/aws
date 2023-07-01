@@ -32,8 +32,8 @@ final class AttributeDefinition
      */
     public function __construct(array $input)
     {
-        $this->attributeName = $input['AttributeName'] ?? null;
-        $this->attributeType = $input['AttributeType'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeName".'));
+        $this->attributeType = $input['AttributeType'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeType".'));
     }
 
     /**
@@ -79,5 +79,13 @@ final class AttributeDefinition
         $payload['AttributeType'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

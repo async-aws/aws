@@ -21,7 +21,7 @@ final class DeleteReplicationGroupMemberAction
      */
     public function __construct(array $input)
     {
-        $this->regionName = $input['RegionName'] ?? null;
+        $this->regionName = $input['RegionName'] ?? $this->throwException(new InvalidArgument('Missing required field "RegionName".'));
     }
 
     /**
@@ -51,5 +51,13 @@ final class DeleteReplicationGroupMemberAction
         $payload['RegionName'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

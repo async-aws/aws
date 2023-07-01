@@ -21,7 +21,7 @@ final class Tagging
      */
     public function __construct(array $input)
     {
-        $this->tagSet = isset($input['TagSet']) ? array_map([Tag::class, 'create'], $input['TagSet']) : null;
+        $this->tagSet = isset($input['TagSet']) ? array_map([Tag::class, 'create'], $input['TagSet']) : $this->throwException(new InvalidArgument('Missing required field "TagSet".'));
     }
 
     /**
@@ -39,7 +39,7 @@ final class Tagging
      */
     public function getTagSet(): array
     {
-        return $this->tagSet ?? [];
+        return $this->tagSet;
     }
 
     /**
@@ -57,5 +57,13 @@ final class Tagging
 
             $item->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

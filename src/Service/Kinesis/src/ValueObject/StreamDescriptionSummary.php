@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kinesis\Enum\EncryptionType;
 use AsyncAws\Kinesis\Enum\StreamStatus;
 
@@ -103,16 +104,16 @@ final class StreamDescriptionSummary
      */
     public function __construct(array $input)
     {
-        $this->streamName = $input['StreamName'] ?? null;
-        $this->streamArn = $input['StreamARN'] ?? null;
-        $this->streamStatus = $input['StreamStatus'] ?? null;
+        $this->streamName = $input['StreamName'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamName".'));
+        $this->streamArn = $input['StreamARN'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamARN".'));
+        $this->streamStatus = $input['StreamStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamStatus".'));
         $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
-        $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? null;
-        $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? null;
-        $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : null;
+        $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? $this->throwException(new InvalidArgument('Missing required field "RetentionPeriodHours".'));
+        $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamCreationTimestamp".'));
+        $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : $this->throwException(new InvalidArgument('Missing required field "EnhancedMonitoring".'));
         $this->encryptionType = $input['EncryptionType'] ?? null;
         $this->keyId = $input['KeyId'] ?? null;
-        $this->openShardCount = $input['OpenShardCount'] ?? null;
+        $this->openShardCount = $input['OpenShardCount'] ?? $this->throwException(new InvalidArgument('Missing required field "OpenShardCount".'));
         $this->consumerCount = $input['ConsumerCount'] ?? null;
     }
 
@@ -154,7 +155,7 @@ final class StreamDescriptionSummary
      */
     public function getEnhancedMonitoring(): array
     {
-        return $this->enhancedMonitoring ?? [];
+        return $this->enhancedMonitoring;
     }
 
     public function getKeyId(): ?string
@@ -198,5 +199,13 @@ final class StreamDescriptionSummary
     public function getStreamStatus(): string
     {
         return $this->streamStatus;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

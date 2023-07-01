@@ -27,8 +27,8 @@ final class TimeToLiveSpecification
      */
     public function __construct(array $input)
     {
-        $this->enabled = $input['Enabled'] ?? null;
-        $this->attributeName = $input['AttributeName'] ?? null;
+        $this->enabled = $input['Enabled'] ?? $this->throwException(new InvalidArgument('Missing required field "Enabled".'));
+        $this->attributeName = $input['AttributeName'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeName".'));
     }
 
     /**
@@ -68,5 +68,13 @@ final class TimeToLiveSpecification
         $payload['AttributeName'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

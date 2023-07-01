@@ -31,7 +31,7 @@ final class CachingConfig
      */
     public function __construct(array $input)
     {
-        $this->ttl = $input['ttl'] ?? null;
+        $this->ttl = $input['ttl'] ?? $this->throwException(new InvalidArgument('Missing required field "ttl".'));
         $this->cachingKeys = $input['cachingKeys'] ?? null;
     }
 
@@ -79,5 +79,13 @@ final class CachingConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

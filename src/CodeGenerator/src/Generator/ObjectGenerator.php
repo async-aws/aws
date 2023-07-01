@@ -191,6 +191,9 @@ class ObjectGenerator
 
         $constructor->addParameter('input')->setType('array');
 
+        // To throw an exception in an expression, we need to use a method to support PHP 7.x
+        $needsThrowMethod = false;
+
         $constructorBody = '';
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
@@ -219,7 +222,13 @@ class ObjectGenerator
             } else {
                 $memberCode = strtr('$input["NAME"]', ['NAME' => $member->getName()]);
             }
-            $fallback = 'null';
+            if ($member->isRequired()) {
+                $fallback = strtr('$this->throwException(new InvalidArgument(\'Missing required field "NAME".\'))', ['NAME' => $member->getName()]);
+                $classBuilder->addUse(InvalidArgument::class);
+                $needsThrowMethod = true;
+            } else {
+                $fallback = 'null';
+            }
             $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? MEMBER_CODE : FALLBACK;' . "\n", [
                 'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                 'NAME' => $member->getName(),
@@ -228,6 +237,14 @@ class ObjectGenerator
             ]);
         }
         $constructor->setBody($constructorBody);
+
+        if ($needsThrowMethod) {
+            $throwMethod = $classBuilder->addMethod('throwException');
+            $throwMethod->setPrivate();
+            $throwMethod->addComment('@return never');
+            $throwMethod->addParameter('exception')->setType(\Throwable::class);
+            $throwMethod->setBody('throw $exception;');
+        }
     }
 
     /**

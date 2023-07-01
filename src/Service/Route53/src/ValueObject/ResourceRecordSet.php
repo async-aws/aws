@@ -400,8 +400,8 @@ final class ResourceRecordSet
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
         $this->setIdentifier = $input['SetIdentifier'] ?? null;
         $this->weight = $input['Weight'] ?? null;
         $this->region = $input['Region'] ?? null;
@@ -590,5 +590,13 @@ final class ResourceRecordSet
 
             $v->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

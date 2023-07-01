@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 
 /**
@@ -49,7 +50,7 @@ final class ServerSideEncryptionByDefault
      */
     public function __construct(array $input)
     {
-        $this->sseAlgorithm = $input['SSEAlgorithm'] ?? null;
+        $this->sseAlgorithm = $input['SSEAlgorithm'] ?? $this->throwException(new InvalidArgument('Missing required field "SSEAlgorithm".'));
         $this->kmsMasterKeyId = $input['KMSMasterKeyID'] ?? null;
     }
 
@@ -75,5 +76,13 @@ final class ServerSideEncryptionByDefault
     public function getSseAlgorithm(): string
     {
         return $this->sseAlgorithm;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

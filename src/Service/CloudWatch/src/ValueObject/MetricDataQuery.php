@@ -117,7 +117,7 @@ final class MetricDataQuery
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
         $this->metricStat = isset($input['MetricStat']) ? MetricStat::create($input['MetricStat']) : null;
         $this->expression = $input['Expression'] ?? null;
         $this->label = $input['Label'] ?? null;
@@ -209,5 +209,13 @@ final class MetricDataQuery
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

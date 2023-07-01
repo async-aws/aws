@@ -43,8 +43,8 @@ final class ProvisionedThroughput
      */
     public function __construct(array $input)
     {
-        $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
-        $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
+        $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? $this->throwException(new InvalidArgument('Missing required field "ReadCapacityUnits".'));
+        $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? $this->throwException(new InvalidArgument('Missing required field "WriteCapacityUnits".'));
     }
 
     /**
@@ -84,5 +84,13 @@ final class ProvisionedThroughput
         $payload['WriteCapacityUnits'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

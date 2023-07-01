@@ -38,8 +38,8 @@ final class RegistryCredential
      */
     public function __construct(array $input)
     {
-        $this->credential = $input['credential'] ?? null;
-        $this->credentialProvider = $input['credentialProvider'] ?? null;
+        $this->credential = $input['credential'] ?? $this->throwException(new InvalidArgument('Missing required field "credential".'));
+        $this->credentialProvider = $input['credentialProvider'] ?? $this->throwException(new InvalidArgument('Missing required field "credentialProvider".'));
     }
 
     /**
@@ -85,5 +85,13 @@ final class RegistryCredential
         $payload['credentialProvider'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

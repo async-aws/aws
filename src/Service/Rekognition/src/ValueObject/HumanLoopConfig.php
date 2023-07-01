@@ -37,8 +37,8 @@ final class HumanLoopConfig
      */
     public function __construct(array $input)
     {
-        $this->humanLoopName = $input['HumanLoopName'] ?? null;
-        $this->flowDefinitionArn = $input['FlowDefinitionArn'] ?? null;
+        $this->humanLoopName = $input['HumanLoopName'] ?? $this->throwException(new InvalidArgument('Missing required field "HumanLoopName".'));
+        $this->flowDefinitionArn = $input['FlowDefinitionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "FlowDefinitionArn".'));
         $this->dataAttributes = isset($input['DataAttributes']) ? HumanLoopDataAttributes::create($input['DataAttributes']) : null;
     }
 
@@ -88,5 +88,13 @@ final class HumanLoopConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

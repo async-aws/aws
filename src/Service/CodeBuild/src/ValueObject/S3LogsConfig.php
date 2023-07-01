@@ -42,7 +42,7 @@ final class S3LogsConfig
      */
     public function __construct(array $input)
     {
-        $this->status = $input['status'] ?? null;
+        $this->status = $input['status'] ?? $this->throwException(new InvalidArgument('Missing required field "status".'));
         $this->location = $input['location'] ?? null;
         $this->encryptionDisabled = $input['encryptionDisabled'] ?? null;
         $this->bucketOwnerAccess = $input['bucketOwnerAccess'] ?? null;
@@ -114,5 +114,13 @@ final class S3LogsConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

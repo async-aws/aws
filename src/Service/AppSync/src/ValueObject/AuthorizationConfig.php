@@ -30,7 +30,7 @@ final class AuthorizationConfig
      */
     public function __construct(array $input)
     {
-        $this->authorizationType = $input['authorizationType'] ?? null;
+        $this->authorizationType = $input['authorizationType'] ?? $this->throwException(new InvalidArgument('Missing required field "authorizationType".'));
         $this->awsIamConfig = isset($input['awsIamConfig']) ? AwsIamConfig::create($input['awsIamConfig']) : null;
     }
 
@@ -76,5 +76,13 @@ final class AuthorizationConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

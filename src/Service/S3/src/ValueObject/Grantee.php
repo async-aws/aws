@@ -65,7 +65,7 @@ final class Grantee
         $this->displayName = $input['DisplayName'] ?? null;
         $this->emailAddress = $input['EmailAddress'] ?? null;
         $this->id = $input['ID'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
         $this->uri = $input['URI'] ?? null;
     }
 
@@ -135,5 +135,13 @@ final class Grantee
         if (null !== $v = $this->uri) {
             $node->appendChild($document->createElement('URI', $v));
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

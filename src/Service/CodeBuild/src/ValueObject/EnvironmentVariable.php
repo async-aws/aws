@@ -48,8 +48,8 @@ final class EnvironmentVariable
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'] ?? null;
-        $this->value = $input['value'] ?? null;
+        $this->name = $input['name'] ?? $this->throwException(new InvalidArgument('Missing required field "name".'));
+        $this->value = $input['value'] ?? $this->throwException(new InvalidArgument('Missing required field "value".'));
         $this->type = $input['type'] ?? null;
     }
 
@@ -105,5 +105,13 @@ final class EnvironmentVariable
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

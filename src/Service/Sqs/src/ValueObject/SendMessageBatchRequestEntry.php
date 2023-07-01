@@ -135,8 +135,8 @@ final class SendMessageBatchRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->messageBody = $input['MessageBody'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->messageBody = $input['MessageBody'] ?? $this->throwException(new InvalidArgument('Missing required field "MessageBody".'));
         $this->delaySeconds = $input['DelaySeconds'] ?? null;
         $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
         $this->messageSystemAttributes = isset($input['MessageSystemAttributes']) ? array_map([MessageSystemAttributeValue::class, 'create'], $input['MessageSystemAttributes']) : null;
@@ -249,5 +249,13 @@ final class SendMessageBatchRequestEntry
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

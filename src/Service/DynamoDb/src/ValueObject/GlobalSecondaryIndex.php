@@ -56,9 +56,9 @@ final class GlobalSecondaryIndex
      */
     public function __construct(array $input)
     {
-        $this->indexName = $input['IndexName'] ?? null;
-        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
-        $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
+        $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
+        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : $this->throwException(new InvalidArgument('Missing required field "KeySchema".'));
+        $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : $this->throwException(new InvalidArgument('Missing required field "Projection".'));
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
     }
 
@@ -85,7 +85,7 @@ final class GlobalSecondaryIndex
      */
     public function getKeySchema(): array
     {
-        return $this->keySchema ?? [];
+        return $this->keySchema;
     }
 
     public function getProjection(): Projection
@@ -128,5 +128,13 @@ final class GlobalSecondaryIndex
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }
