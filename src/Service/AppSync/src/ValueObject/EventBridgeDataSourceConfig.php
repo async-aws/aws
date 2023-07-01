@@ -47,9 +47,7 @@ final class EventBridgeDataSourceConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->eventBusArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "eventBusArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->eventBusArn;
         $payload['eventBusArn'] = $v;
 
         return $payload;

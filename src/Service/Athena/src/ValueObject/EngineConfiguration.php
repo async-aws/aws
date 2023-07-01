@@ -112,9 +112,7 @@ final class EngineConfiguration
         if (null !== $v = $this->coordinatorDpuSize) {
             $payload['CoordinatorDpuSize'] = $v;
         }
-        if (null === $v = $this->maxConcurrentDpus) {
-            throw new InvalidArgument(sprintf('Missing parameter "MaxConcurrentDpus" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->maxConcurrentDpus;
         $payload['MaxConcurrentDpus'] = $v;
         if (null !== $v = $this->defaultExecutorDpuSize) {
             $payload['DefaultExecutorDpuSize'] = $v;

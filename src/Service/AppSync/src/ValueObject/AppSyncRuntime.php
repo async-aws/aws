@@ -64,16 +64,12 @@ final class AppSyncRuntime
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         if (!RuntimeName::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "name" for "%s". The value "%s" is not a valid "RuntimeName".', __CLASS__, $v));
         }
         $payload['name'] = $v;
-        if (null === $v = $this->runtimeVersion) {
-            throw new InvalidArgument(sprintf('Missing parameter "runtimeVersion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->runtimeVersion;
         $payload['runtimeVersion'] = $v;
 
         return $payload;

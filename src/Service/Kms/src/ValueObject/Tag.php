@@ -67,13 +67,9 @@ final class Tag
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->tagKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagKey" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tagKey;
         $payload['TagKey'] = $v;
-        if (null === $v = $this->tagValue) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagValue" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tagValue;
         $payload['TagValue'] = $v;
 
         return $payload;

@@ -70,17 +70,13 @@ final class InvalidationBatch
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->paths) {
-            throw new InvalidArgument(sprintf('Missing parameter "Paths" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->paths;
 
         $node->appendChild($child = $document->createElement('Paths'));
 
         $v->requestBody($child, $document);
 
-        if (null === $v = $this->callerReference) {
-            throw new InvalidArgument(sprintf('Missing parameter "CallerReference" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->callerReference;
         $node->appendChild($document->createElement('CallerReference', $v));
     }
 

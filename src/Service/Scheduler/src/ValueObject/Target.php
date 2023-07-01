@@ -185,9 +185,7 @@ final class Target
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->arn) {
-            throw new InvalidArgument(sprintf('Missing parameter "Arn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->arn;
         $payload['Arn'] = $v;
         if (null !== $v = $this->deadLetterConfig) {
             $payload['DeadLetterConfig'] = $v->requestBody();
@@ -207,9 +205,7 @@ final class Target
         if (null !== $v = $this->retryPolicy) {
             $payload['RetryPolicy'] = $v->requestBody();
         }
-        if (null === $v = $this->roleArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->roleArn;
         $payload['RoleArn'] = $v;
         if (null !== $v = $this->sageMakerPipelineParameters) {
             $payload['SageMakerPipelineParameters'] = $v->requestBody();

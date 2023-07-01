@@ -319,17 +319,11 @@ final class AliasTarget
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->hostedZoneId) {
-            throw new InvalidArgument(sprintf('Missing parameter "HostedZoneId" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->hostedZoneId;
         $node->appendChild($document->createElement('HostedZoneId', $v));
-        if (null === $v = $this->dnsName) {
-            throw new InvalidArgument(sprintf('Missing parameter "DNSName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->dnsName;
         $node->appendChild($document->createElement('DNSName', $v));
-        if (null === $v = $this->evaluateTargetHealth) {
-            throw new InvalidArgument(sprintf('Missing parameter "EvaluateTargetHealth" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->evaluateTargetHealth;
         $node->appendChild($document->createElement('EvaluateTargetHealth', $v ? 'true' : 'false'));
     }
 

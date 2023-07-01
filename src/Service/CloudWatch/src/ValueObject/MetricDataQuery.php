@@ -183,9 +183,7 @@ final class MetricDataQuery
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->id;
         $payload['Id'] = $v;
         if (null !== $v = $this->metricStat) {
             foreach ($v->requestBody() as $bodyKey => $bodyValue) {

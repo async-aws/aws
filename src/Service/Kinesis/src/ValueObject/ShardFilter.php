@@ -92,9 +92,7 @@ final class ShardFilter
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!ShardFilterType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ShardFilterType".', __CLASS__, $v));
         }

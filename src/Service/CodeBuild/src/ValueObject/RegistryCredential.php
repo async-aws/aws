@@ -72,13 +72,9 @@ final class RegistryCredential
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->credential) {
-            throw new InvalidArgument(sprintf('Missing parameter "credential" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->credential;
         $payload['credential'] = $v;
-        if (null === $v = $this->credentialProvider) {
-            throw new InvalidArgument(sprintf('Missing parameter "credentialProvider" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->credentialProvider;
         if (!CredentialProviderType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "credentialProvider" for "%s". The value "%s" is not a valid "CredentialProviderType".', __CLASS__, $v));
         }

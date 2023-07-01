@@ -73,13 +73,9 @@ final class ProjectSourceVersion
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->sourceIdentifier) {
-            throw new InvalidArgument(sprintf('Missing parameter "sourceIdentifier" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->sourceIdentifier;
         $payload['sourceIdentifier'] = $v;
-        if (null === $v = $this->sourceVersion) {
-            throw new InvalidArgument(sprintf('Missing parameter "sourceVersion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->sourceVersion;
         $payload['sourceVersion'] = $v;
 
         return $payload;

@@ -106,9 +106,7 @@ final class UpdateReplicationGroupMemberAction
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->regionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "RegionName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->regionName;
         $payload['RegionName'] = $v;
         if (null !== $v = $this->kmsMasterKeyId) {
             $payload['KMSMasterKeyId'] = $v;

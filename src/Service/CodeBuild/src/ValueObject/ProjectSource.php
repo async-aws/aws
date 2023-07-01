@@ -230,9 +230,7 @@ final class ProjectSource
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!SourceType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
         }

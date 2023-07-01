@@ -46,9 +46,7 @@ final class Record
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->data) {
-            throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->data;
         $payload['Data'] = base64_encode($v);
 
         return $payload;

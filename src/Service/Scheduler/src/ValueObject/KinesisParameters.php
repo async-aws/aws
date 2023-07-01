@@ -50,9 +50,7 @@ final class KinesisParameters
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->partitionKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "PartitionKey" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->partitionKey;
         $payload['PartitionKey'] = $v;
 
         return $payload;

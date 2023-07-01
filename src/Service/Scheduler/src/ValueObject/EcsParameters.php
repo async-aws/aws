@@ -327,9 +327,7 @@ final class EcsParameters
         if (null !== $v = $this->taskCount) {
             $payload['TaskCount'] = $v;
         }
-        if (null === $v = $this->taskDefinitionArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "TaskDefinitionArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->taskDefinitionArn;
         $payload['TaskDefinitionArn'] = $v;
 
         return $payload;

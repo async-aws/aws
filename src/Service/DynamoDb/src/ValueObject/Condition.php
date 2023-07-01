@@ -190,9 +190,7 @@ final class Condition
                 $payload['AttributeValueList'][$index] = $listValue->requestBody();
             }
         }
-        if (null === $v = $this->comparisonOperator) {
-            throw new InvalidArgument(sprintf('Missing parameter "ComparisonOperator" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->comparisonOperator;
         if (!ComparisonOperator::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "ComparisonOperator" for "%s". The value "%s" is not a valid "ComparisonOperator".', __CLASS__, $v));
         }

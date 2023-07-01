@@ -526,13 +526,9 @@ final class ResourceRecordSet
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $node->appendChild($document->createElement('Name', $v));
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!RRType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $v));
         }

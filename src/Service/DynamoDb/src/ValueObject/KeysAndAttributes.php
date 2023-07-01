@@ -151,9 +151,7 @@ final class KeysAndAttributes
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->keys) {
-            throw new InvalidArgument(sprintf('Missing parameter "Keys" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->keys;
 
         $index = -1;
         $payload['Keys'] = [];

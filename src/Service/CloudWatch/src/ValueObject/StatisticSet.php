@@ -84,21 +84,13 @@ final class StatisticSet
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->sampleCount) {
-            throw new InvalidArgument(sprintf('Missing parameter "SampleCount" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->sampleCount;
         $payload['SampleCount'] = $v;
-        if (null === $v = $this->sum) {
-            throw new InvalidArgument(sprintf('Missing parameter "Sum" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->sum;
         $payload['Sum'] = $v;
-        if (null === $v = $this->minimum) {
-            throw new InvalidArgument(sprintf('Missing parameter "Minimum" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->minimum;
         $payload['Minimum'] = $v;
-        if (null === $v = $this->maximum) {
-            throw new InvalidArgument(sprintf('Missing parameter "Maximum" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->maximum;
         $payload['Maximum'] = $v;
 
         return $payload;

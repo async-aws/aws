@@ -60,9 +60,7 @@ final class Delete
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->objects) {
-            throw new InvalidArgument(sprintf('Missing parameter "Objects" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->objects;
         foreach ($v as $item) {
             $node->appendChild($child = $document->createElement('Object'));
 

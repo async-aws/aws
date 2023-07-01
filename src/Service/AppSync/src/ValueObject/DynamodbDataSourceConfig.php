@@ -97,13 +97,9 @@ final class DynamodbDataSourceConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "tableName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tableName;
         $payload['tableName'] = $v;
-        if (null === $v = $this->awsRegion) {
-            throw new InvalidArgument(sprintf('Missing parameter "awsRegion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->awsRegion;
         $payload['awsRegion'] = $v;
         if (null !== $v = $this->useCallerCredentials) {
             $payload['useCallerCredentials'] = (bool) $v;

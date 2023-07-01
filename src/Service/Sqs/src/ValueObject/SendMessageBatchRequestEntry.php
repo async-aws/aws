@@ -207,13 +207,9 @@ final class SendMessageBatchRequestEntry
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->id;
         $payload['Id'] = $v;
-        if (null === $v = $this->messageBody) {
-            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->messageBody;
         $payload['MessageBody'] = $v;
         if (null !== $v = $this->delaySeconds) {
             $payload['DelaySeconds'] = $v;

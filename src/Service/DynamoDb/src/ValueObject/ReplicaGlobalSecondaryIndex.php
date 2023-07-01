@@ -59,9 +59,7 @@ final class ReplicaGlobalSecondaryIndex
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->indexName;
         $payload['IndexName'] = $v;
         if (null !== $v = $this->provisionedThroughputOverride) {
             $payload['ProvisionedThroughputOverride'] = $v->requestBody();

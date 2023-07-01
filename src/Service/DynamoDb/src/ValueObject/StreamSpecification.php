@@ -68,9 +68,7 @@ final class StreamSpecification
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamEnabled) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamEnabled" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->streamEnabled;
         $payload['StreamEnabled'] = (bool) $v;
         if (null !== $v = $this->streamViewType) {
             if (!StreamViewType::exists($v)) {

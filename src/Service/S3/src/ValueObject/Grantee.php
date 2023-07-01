@@ -125,9 +125,7 @@ final class Grantee
         if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('ID', $v));
         }
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!Type::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
         }

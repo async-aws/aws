@@ -76,13 +76,9 @@ final class ChangeMessageVisibilityBatchRequestEntry
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->id;
         $payload['Id'] = $v;
-        if (null === $v = $this->receiptHandle) {
-            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->receiptHandle;
         $payload['ReceiptHandle'] = $v;
         if (null !== $v = $this->visibilityTimeout) {
             $payload['VisibilityTimeout'] = $v;

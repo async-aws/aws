@@ -49,9 +49,7 @@ final class DeleteRequest
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->key;
 
         if (empty($v)) {
             $payload['Key'] = new \stdClass();

@@ -29,7 +29,7 @@ interface Serializer
      *
      * @return array{0: string, 1: string, 2?: array<string, string>}
      */
-    public function generateRequestBuilder(StructureShape $shape): array;
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): array;
 
     public function getHeaders(Operation $operation): string;
 }

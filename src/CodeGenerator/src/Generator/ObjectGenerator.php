@@ -106,7 +106,7 @@ class ObjectGenerator
 
         $serializer = $this->serializer->get($shape->getService());
         if ($this->isShapeUsedInput($shape)) {
-            [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($shape) + [null, null, []];
+            [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($shape, false) + [null, null, []];
             $method = $classBuilder->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPublic()->setComment('@internal');
             foreach ($args as $arg => $type) {
                 $method->addParameter($arg)->setType($type);

@@ -58,9 +58,7 @@ final class AclConfiguration
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->s3AclOption) {
-            throw new InvalidArgument(sprintf('Missing parameter "S3AclOption" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->s3AclOption;
         if (!S3AclOption::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "S3AclOption" for "%s". The value "%s" is not a valid "S3AclOption".', __CLASS__, $v));
         }

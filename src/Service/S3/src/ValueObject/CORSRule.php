@@ -132,16 +132,12 @@ final class CORSRule
                 $node->appendChild($document->createElement('AllowedHeader', $item));
             }
         }
-        if (null === $v = $this->allowedMethods) {
-            throw new InvalidArgument(sprintf('Missing parameter "AllowedMethods" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->allowedMethods;
         foreach ($v as $item) {
             $node->appendChild($document->createElement('AllowedMethod', $item));
         }
 
-        if (null === $v = $this->allowedOrigins) {
-            throw new InvalidArgument(sprintf('Missing parameter "AllowedOrigins" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->allowedOrigins;
         foreach ($v as $item) {
             $node->appendChild($document->createElement('AllowedOrigin', $item));
         }

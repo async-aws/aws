@@ -47,9 +47,7 @@ final class Tagging
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->tagSet) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagSet" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tagSet;
 
         $node->appendChild($nodeList = $document->createElement('TagSet'));
         foreach ($v as $item) {

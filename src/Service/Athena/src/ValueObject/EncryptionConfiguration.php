@@ -67,9 +67,7 @@ final class EncryptionConfiguration
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->encryptionOption) {
-            throw new InvalidArgument(sprintf('Missing parameter "EncryptionOption" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->encryptionOption;
         if (!EncryptionOption::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "EncryptionOption" for "%s". The value "%s" is not a valid "EncryptionOption".', __CLASS__, $v));
         }

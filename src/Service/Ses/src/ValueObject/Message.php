@@ -61,13 +61,9 @@ final class Message
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->subject) {
-            throw new InvalidArgument(sprintf('Missing parameter "Subject" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->subject;
         $payload['Subject'] = $v->requestBody();
-        if (null === $v = $this->body) {
-            throw new InvalidArgument(sprintf('Missing parameter "Body" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->body;
         $payload['Body'] = $v->requestBody();
 
         return $payload;

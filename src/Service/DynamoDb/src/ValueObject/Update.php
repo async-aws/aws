@@ -138,9 +138,7 @@ final class Update
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->key;
 
         if (empty($v)) {
             $payload['Key'] = new \stdClass();
@@ -150,13 +148,9 @@ final class Update
                 $payload['Key'][$name] = $mv->requestBody();
             }
         }
-        if (null === $v = $this->updateExpression) {
-            throw new InvalidArgument(sprintf('Missing parameter "UpdateExpression" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->updateExpression;
         $payload['UpdateExpression'] = $v;
-        if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tableName;
         $payload['TableName'] = $v;
         if (null !== $v = $this->conditionExpression) {
             $payload['ConditionExpression'] = $v;

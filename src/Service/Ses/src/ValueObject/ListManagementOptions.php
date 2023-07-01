@@ -59,9 +59,7 @@ final class ListManagementOptions
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->contactListName) {
-            throw new InvalidArgument(sprintf('Missing parameter "ContactListName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->contactListName;
         $payload['ContactListName'] = $v;
         if (null !== $v = $this->topicName) {
             $payload['TopicName'] = $v;

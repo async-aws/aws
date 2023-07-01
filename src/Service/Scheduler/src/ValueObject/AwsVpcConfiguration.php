@@ -100,9 +100,7 @@ final class AwsVpcConfiguration
                 $payload['SecurityGroups'][$index] = $listValue;
             }
         }
-        if (null === $v = $this->subnets) {
-            throw new InvalidArgument(sprintf('Missing parameter "Subnets" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->subnets;
 
         $index = -1;
         $payload['Subnets'] = [];

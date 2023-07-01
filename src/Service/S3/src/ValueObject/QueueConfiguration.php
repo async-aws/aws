@@ -86,13 +86,9 @@ final class QueueConfiguration
         if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('Id', $v));
         }
-        if (null === $v = $this->queueArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->queueArn;
         $node->appendChild($document->createElement('Queue', $v));
-        if (null === $v = $this->events) {
-            throw new InvalidArgument(sprintf('Missing parameter "Events" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->events;
         foreach ($v as $item) {
             if (!Event::exists($item)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Event" for "%s". The value "%s" is not a valid "Event".', __CLASS__, $item));

@@ -429,7 +429,7 @@ class InputGenerator
         if ($operation->hasBody()) {
             [$body['body'], $hasRequestBody, $overrideArgs] = $serializer->generateRequestBody($operation, $inputShape) + [null, null, []];
             if ($hasRequestBody) {
-                [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($inputShape) + [null, null, []];
+                [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($inputShape, true) + [null, null, []];
                 if ('' === trim($requestBody)) {
                     $body['body'] = '$body = "";';
                 } else {

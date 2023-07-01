@@ -63,13 +63,9 @@ final class UpdateGlobalSecondaryIndexAction
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->indexName;
         $payload['IndexName'] = $v;
-        if (null === $v = $this->provisionedThroughput) {
-            throw new InvalidArgument(sprintf('Missing parameter "ProvisionedThroughput" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->provisionedThroughput;
         $payload['ProvisionedThroughput'] = $v->requestBody();
 
         return $payload;

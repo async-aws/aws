@@ -93,9 +93,7 @@ final class S3LogsConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->status) {
-            throw new InvalidArgument(sprintf('Missing parameter "status" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->status;
         if (!LogsConfigStatusType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LogsConfigStatusType".', __CLASS__, $v));
         }

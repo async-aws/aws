@@ -78,9 +78,7 @@ final class CapacityProviderStrategyItem
         if (null !== $v = $this->base) {
             $payload['base'] = $v;
         }
-        if (null === $v = $this->capacityProvider) {
-            throw new InvalidArgument(sprintf('Missing parameter "capacityProvider" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->capacityProvider;
         $payload['capacityProvider'] = $v;
         if (null !== $v = $this->weight) {
             $payload['weight'] = $v;

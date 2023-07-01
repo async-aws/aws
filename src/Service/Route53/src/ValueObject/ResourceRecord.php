@@ -54,9 +54,7 @@ final class ResourceRecord
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->value;
         $node->appendChild($document->createElement('Value', $v));
     }
 

@@ -45,9 +45,7 @@ final class GitSubmodulesConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->fetchSubmodules) {
-            throw new InvalidArgument(sprintf('Missing parameter "fetchSubmodules" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->fetchSubmodules;
         $payload['fetchSubmodules'] = (bool) $v;
 
         return $payload;

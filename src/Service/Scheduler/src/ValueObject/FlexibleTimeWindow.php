@@ -65,9 +65,7 @@ final class FlexibleTimeWindow
         if (null !== $v = $this->maximumWindowInMinutes) {
             $payload['MaximumWindowInMinutes'] = $v;
         }
-        if (null === $v = $this->mode) {
-            throw new InvalidArgument(sprintf('Missing parameter "Mode" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->mode;
         if (!FlexibleTimeWindowMode::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "FlexibleTimeWindowMode".', __CLASS__, $v));
         }

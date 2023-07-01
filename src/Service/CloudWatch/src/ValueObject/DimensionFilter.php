@@ -58,9 +58,7 @@ final class DimensionFilter
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['Name'] = $v;
         if (null !== $v = $this->value) {
             $payload['Value'] = $v;

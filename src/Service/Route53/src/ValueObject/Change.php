@@ -74,16 +74,12 @@ final class Change
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->action) {
-            throw new InvalidArgument(sprintf('Missing parameter "Action" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->action;
         if (!ChangeAction::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Action" for "%s". The value "%s" is not a valid "ChangeAction".', __CLASS__, $v));
         }
         $node->appendChild($document->createElement('Action', $v));
-        if (null === $v = $this->resourceRecordSet) {
-            throw new InvalidArgument(sprintf('Missing parameter "ResourceRecordSet" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->resourceRecordSet;
 
         $node->appendChild($child = $document->createElement('ResourceRecordSet'));
 

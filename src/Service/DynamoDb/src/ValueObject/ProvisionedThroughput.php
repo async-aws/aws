@@ -74,13 +74,9 @@ final class ProvisionedThroughput
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->readCapacityUnits) {
-            throw new InvalidArgument(sprintf('Missing parameter "ReadCapacityUnits" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->readCapacityUnits;
         $payload['ReadCapacityUnits'] = $v;
-        if (null === $v = $this->writeCapacityUnits) {
-            throw new InvalidArgument(sprintf('Missing parameter "WriteCapacityUnits" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->writeCapacityUnits;
         $payload['WriteCapacityUnits'] = $v;
 
         return $payload;

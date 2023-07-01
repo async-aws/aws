@@ -235,9 +235,7 @@ final class ProjectArtifacts
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!ArtifactsType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "ArtifactsType".', __CLASS__, $v));
         }

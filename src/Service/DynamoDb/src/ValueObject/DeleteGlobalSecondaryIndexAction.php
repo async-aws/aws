@@ -45,9 +45,7 @@ final class DeleteGlobalSecondaryIndexAction
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->indexName;
         $payload['IndexName'] = $v;
 
         return $payload;

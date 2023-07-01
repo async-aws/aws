@@ -188,9 +188,7 @@ final class MetricDatum
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->metricName) {
-            throw new InvalidArgument(sprintf('Missing parameter "MetricName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->metricName;
         $payload['MetricName'] = $v;
         if (null !== $v = $this->dimensions) {
             $index = 0;

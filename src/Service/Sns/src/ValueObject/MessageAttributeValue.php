@@ -86,9 +86,7 @@ final class MessageAttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->dataType) {
-            throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->dataType;
         $payload['DataType'] = $v;
         if (null !== $v = $this->stringValue) {
             $payload['StringValue'] = $v;

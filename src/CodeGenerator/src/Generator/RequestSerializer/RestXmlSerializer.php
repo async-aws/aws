@@ -93,9 +93,9 @@ class RestXmlSerializer implements Serializer
         ',  true, ['node' => \DOMNode::class]];
     }
 
-    public function generateRequestBuilder(StructureShape $shape): array
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): array
     {
-        $body = implode("\n", array_map(function (StructureMember $member) {
+        $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
             if (null !== $member->getLocation()) {
                 return '';
             }
@@ -108,10 +108,15 @@ class RestXmlSerializer implements Serializer
                 MEMBER_CODE';
                 $inputElement = '$v';
             } elseif ($member->isRequired()) {
-                $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
+                if ($needsChecks) {
+                    $body = 'if (null === $v = $this->PROPERTY) {
+                        throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
+                    }
+                    MEMBER_CODE';
+                } else {
+                    $body = '$v = $this->PROPERTY;
+                    MEMBER_CODE';
                 }
-                MEMBER_CODE';
                 $inputElement = '$v';
             } else {
                 $body = 'if (null !== $v = $this->PROPERTY) {

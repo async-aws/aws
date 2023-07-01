@@ -103,20 +103,14 @@ final class MetricStat
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->metric) {
-            throw new InvalidArgument(sprintf('Missing parameter "Metric" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->metric;
         foreach ($v->requestBody() as $bodyKey => $bodyValue) {
             $payload["Metric.$bodyKey"] = $bodyValue;
         }
 
-        if (null === $v = $this->period) {
-            throw new InvalidArgument(sprintf('Missing parameter "Period" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->period;
         $payload['Period'] = $v;
-        if (null === $v = $this->stat) {
-            throw new InvalidArgument(sprintf('Missing parameter "Stat" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->stat;
         $payload['Stat'] = $v;
         if (null !== $v = $this->unit) {
             if (!StandardUnit::exists($v)) {

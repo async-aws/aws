@@ -104,13 +104,9 @@ final class GlobalSecondaryIndex
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->indexName;
         $payload['IndexName'] = $v;
-        if (null === $v = $this->keySchema) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->keySchema;
 
         $index = -1;
         $payload['KeySchema'] = [];
@@ -119,9 +115,7 @@ final class GlobalSecondaryIndex
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }
 
-        if (null === $v = $this->projection) {
-            throw new InvalidArgument(sprintf('Missing parameter "Projection" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->projection;
         $payload['Projection'] = $v->requestBody();
         if (null !== $v = $this->provisionedThroughput) {
             $payload['ProvisionedThroughput'] = $v->requestBody();

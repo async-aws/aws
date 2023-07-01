@@ -61,13 +61,9 @@ final class CidrRoutingConfig
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->collectionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->collectionId;
         $node->appendChild($document->createElement('CollectionId', $v));
-        if (null === $v = $this->locationName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LocationName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->locationName;
         $node->appendChild($document->createElement('LocationName', $v));
     }
 

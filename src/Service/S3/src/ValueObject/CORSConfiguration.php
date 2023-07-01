@@ -51,9 +51,7 @@ final class CORSConfiguration
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->corsRules) {
-            throw new InvalidArgument(sprintf('Missing parameter "CORSRules" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->corsRules;
         foreach ($v as $item) {
             $node->appendChild($child = $document->createElement('CORSRule'));
 

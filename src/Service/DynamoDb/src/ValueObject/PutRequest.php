@@ -51,9 +51,7 @@ final class PutRequest
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->item) {
-            throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->item;
 
         if (empty($v)) {
             $payload['Item'] = new \stdClass();

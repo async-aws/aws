@@ -65,9 +65,7 @@ final class CachingConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ttl) {
-            throw new InvalidArgument(sprintf('Missing parameter "ttl" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->ttl;
         $payload['ttl'] = $v;
         if (null !== $v = $this->cachingKeys) {
             $index = -1;

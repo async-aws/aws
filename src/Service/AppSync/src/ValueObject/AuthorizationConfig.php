@@ -64,9 +64,7 @@ final class AuthorizationConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->authorizationType) {
-            throw new InvalidArgument(sprintf('Missing parameter "authorizationType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->authorizationType;
         if (!AuthorizationType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "authorizationType" for "%s". The value "%s" is not a valid "AuthorizationType".', __CLASS__, $v));
         }

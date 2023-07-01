@@ -75,13 +75,9 @@ final class HumanLoopConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->humanLoopName) {
-            throw new InvalidArgument(sprintf('Missing parameter "HumanLoopName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->humanLoopName;
         $payload['HumanLoopName'] = $v;
-        if (null === $v = $this->flowDefinitionArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "FlowDefinitionArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->flowDefinitionArn;
         $payload['FlowDefinitionArn'] = $v;
         if (null !== $v = $this->dataAttributes) {
             $payload['DataAttributes'] = $v->requestBody();

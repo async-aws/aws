@@ -51,9 +51,7 @@ final class StreamModeDetails
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamMode) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamMode" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->streamMode;
         if (!StreamMode::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "StreamMode" for "%s". The value "%s" is not a valid "StreamMode".', __CLASS__, $v));
         }

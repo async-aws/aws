@@ -89,13 +89,9 @@ final class EnvironmentVariable
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['name'] = $v;
-        if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "value" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->value;
         $payload['value'] = $v;
         if (null !== $v = $this->type) {
             if (!EnvironmentVariableType::exists($v)) {

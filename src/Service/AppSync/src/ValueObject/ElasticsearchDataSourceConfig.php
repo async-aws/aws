@@ -61,13 +61,9 @@ final class ElasticsearchDataSourceConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->endpoint) {
-            throw new InvalidArgument(sprintf('Missing parameter "endpoint" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->endpoint;
         $payload['endpoint'] = $v;
-        if (null === $v = $this->awsRegion) {
-            throw new InvalidArgument(sprintf('Missing parameter "awsRegion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->awsRegion;
         $payload['awsRegion'] = $v;
 
         return $payload;

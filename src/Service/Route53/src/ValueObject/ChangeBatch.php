@@ -63,9 +63,7 @@ final class ChangeBatch
         if (null !== $v = $this->comment) {
             $node->appendChild($document->createElement('Comment', $v));
         }
-        if (null === $v = $this->changes) {
-            throw new InvalidArgument(sprintf('Missing parameter "Changes" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->changes;
 
         $node->appendChild($nodeList = $document->createElement('Changes'));
         foreach ($v as $item) {

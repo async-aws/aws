@@ -110,13 +110,9 @@ final class RepositoryTrigger
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['name'] = $v;
-        if (null === $v = $this->destinationArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "destinationArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->destinationArn;
         $payload['destinationArn'] = $v;
         if (null !== $v = $this->customData) {
             $payload['customData'] = $v;
@@ -129,9 +125,7 @@ final class RepositoryTrigger
                 $payload['branches'][$index] = $listValue;
             }
         }
-        if (null === $v = $this->events) {
-            throw new InvalidArgument(sprintf('Missing parameter "events" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->events;
 
         $index = -1;
         $payload['events'] = [];

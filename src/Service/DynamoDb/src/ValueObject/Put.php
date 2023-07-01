@@ -127,9 +127,7 @@ final class Put
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->item) {
-            throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->item;
 
         if (empty($v)) {
             $payload['Item'] = new \stdClass();
@@ -139,9 +137,7 @@ final class Put
                 $payload['Item'][$name] = $mv->requestBody();
             }
         }
-        if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tableName;
         $payload['TableName'] = $v;
         if (null !== $v = $this->conditionExpression) {
             $payload['ConditionExpression'] = $v;

@@ -59,9 +59,7 @@ final class ResultReuseByAgeConfiguration
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->enabled) {
-            throw new InvalidArgument(sprintf('Missing parameter "Enabled" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->enabled;
         $payload['Enabled'] = (bool) $v;
         if (null !== $v = $this->maxAgeInMinutes) {
             $payload['MaxAgeInMinutes'] = $v;

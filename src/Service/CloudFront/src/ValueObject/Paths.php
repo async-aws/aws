@@ -63,9 +63,7 @@ final class Paths
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->quantity) {
-            throw new InvalidArgument(sprintf('Missing parameter "Quantity" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->quantity;
         $node->appendChild($document->createElement('Quantity', (string) $v));
         if (null !== $v = $this->items) {
             $node->appendChild($nodeList = $document->createElement('Items'));

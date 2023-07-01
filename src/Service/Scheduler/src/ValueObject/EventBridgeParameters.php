@@ -60,13 +60,9 @@ final class EventBridgeParameters
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->detailType) {
-            throw new InvalidArgument(sprintf('Missing parameter "DetailType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->detailType;
         $payload['DetailType'] = $v;
-        if (null === $v = $this->source) {
-            throw new InvalidArgument(sprintf('Missing parameter "Source" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->source;
         $payload['Source'] = $v;
 
         return $payload;

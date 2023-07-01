@@ -103,21 +103,13 @@ final class ContextDataType
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ipAddress) {
-            throw new InvalidArgument(sprintf('Missing parameter "IpAddress" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->ipAddress;
         $payload['IpAddress'] = $v;
-        if (null === $v = $this->serverName) {
-            throw new InvalidArgument(sprintf('Missing parameter "ServerName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->serverName;
         $payload['ServerName'] = $v;
-        if (null === $v = $this->serverPath) {
-            throw new InvalidArgument(sprintf('Missing parameter "ServerPath" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->serverPath;
         $payload['ServerPath'] = $v;
-        if (null === $v = $this->httpHeaders) {
-            throw new InvalidArgument(sprintf('Missing parameter "HttpHeaders" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->httpHeaders;
 
         $index = -1;
         $payload['HttpHeaders'] = [];

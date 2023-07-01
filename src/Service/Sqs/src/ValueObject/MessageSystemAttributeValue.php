@@ -134,9 +134,7 @@ final class MessageSystemAttributeValue
                 $payload["BinaryListValue.$index"] = base64_encode($mapValue);
             }
         }
-        if (null === $v = $this->dataType) {
-            throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->dataType;
         $payload['DataType'] = $v;
 
         return $payload;

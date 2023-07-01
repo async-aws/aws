@@ -78,16 +78,12 @@ final class PutRecordsRequestEntry
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->data) {
-            throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->data;
         $payload['Data'] = base64_encode($v);
         if (null !== $v = $this->explicitHashKey) {
             $payload['ExplicitHashKey'] = $v;
         }
-        if (null === $v = $this->partitionKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "PartitionKey" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->partitionKey;
         $payload['PartitionKey'] = $v;
 
         return $payload;

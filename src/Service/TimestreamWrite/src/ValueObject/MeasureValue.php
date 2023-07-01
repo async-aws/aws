@@ -85,17 +85,11 @@ final class MeasureValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['Name'] = $v;
-        if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->value;
         $payload['Value'] = $v;
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!MeasureValueType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "MeasureValueType".', __CLASS__, $v));
         }
