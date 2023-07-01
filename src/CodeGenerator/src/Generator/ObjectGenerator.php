@@ -256,12 +256,12 @@ class ObjectGenerator
                 $enumClassName = $this->enumGenerator->generate($memberShape);
                 $classBuilder->addUse($enumClassName->getFqdn());
             }
-            $getterSetterNullable = true;
+            $getterSetterNullable = null;
 
             if ($memberShape instanceof StructureShape) {
                 $this->generate($memberShape);
             } elseif ($memberShape instanceof MapShape) {
-                $nullable = $getterSetterNullable = false;
+                $getterSetterNullable = false;
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
                     throw new \RuntimeException('Complex maps are not supported');
@@ -278,7 +278,7 @@ class ObjectGenerator
                     $classBuilder->addUse($enumClassName->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
-                $nullable = $getterSetterNullable = false;
+                $getterSetterNullable = false;
                 $memberShape->getMember()->getShape();
 
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
@@ -304,7 +304,10 @@ class ObjectGenerator
                 $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
             }
 
-            if ($getterSetterNullable) {
+            $nullable = $nullable ?? !$member->isRequired();
+            $getterSetterNullable = $getterSetterNullable ?? $nullable;
+
+            if ($getterSetterNullable || !$nullable) {
                 $method->setBody($deprecation . strtr('
                         return $this->PROPERTY;
                     ', [
@@ -318,11 +321,10 @@ class ObjectGenerator
                 ]));
             }
 
-            $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {
-                $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
+                $method->addComment('@return ' . $parameterType . ($getterSetterNullable ? '|null' : ''));
             }
-            $method->setReturnNullable($nullable);
+            $method->setReturnNullable($getterSetterNullable);
         }
 
         foreach ($forEndpointProps as $key => $ok) {
