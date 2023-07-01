@@ -86,6 +86,9 @@
     </RedundantCast>
   </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
+    <InvalidArgument>
+      <code>$config</code>
+    </InvalidArgument>
     <UndefinedInterfaceMethod>
       <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
@@ -103,11 +106,6 @@
     <UndefinedInterfaceMethod>
       <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Integration/Laravel/Mail/src/Transport/AsyncAwsSesTransport.php">
-    <InvalidArgument>
-      <code><![CDATA[array_merge($this->options, $input)]]></code>
-    </InvalidArgument>
   </file>
   <file src="src/Integration/Laravel/Queue/src/ServiceProvider.php">
     <UndefinedInterfaceMethod>

@@ -45,14 +45,8 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
 
     /**
      * Create a new Amazon SQS queue instance.
-     *
-     * @param string $default
-     * @param string $prefix
-     * @param string $suffix
-     *
-     * @return void
      */
-    public function __construct(SqsClient $sqs, $default, $prefix = '', $suffix = '')
+    public function __construct(SqsClient $sqs, string $default, string $prefix = '', string $suffix = '')
     {
         $this->sqs = $sqs;
         $this->prefix = $prefix;
