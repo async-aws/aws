@@ -534,13 +534,13 @@ class HeadObjectOutput extends Result
         $this->restore = $headers['x-amz-restore'][0] ?? null;
         $this->archiveStatus = $headers['x-amz-archive-status'][0] ?? null;
         $this->lastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
-        $this->contentLength = isset($headers['content-length'][0]) ? filter_var($headers['content-length'][0], \FILTER_VALIDATE_INT) : null;
+        $this->contentLength = isset($headers['content-length'][0]) ? (int) $headers['content-length'][0] : null;
         $this->checksumCrc32 = $headers['x-amz-checksum-crc32'][0] ?? null;
         $this->checksumCrc32C = $headers['x-amz-checksum-crc32c'][0] ?? null;
         $this->checksumSha1 = $headers['x-amz-checksum-sha1'][0] ?? null;
         $this->checksumSha256 = $headers['x-amz-checksum-sha256'][0] ?? null;
         $this->etag = $headers['etag'][0] ?? null;
-        $this->missingMeta = isset($headers['x-amz-missing-meta'][0]) ? filter_var($headers['x-amz-missing-meta'][0], \FILTER_VALIDATE_INT) : null;
+        $this->missingMeta = isset($headers['x-amz-missing-meta'][0]) ? (int) $headers['x-amz-missing-meta'][0] : null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;
         $this->cacheControl = $headers['cache-control'][0] ?? null;
         $this->contentDisposition = $headers['content-disposition'][0] ?? null;
@@ -557,7 +557,7 @@ class HeadObjectOutput extends Result
         $this->storageClass = $headers['x-amz-storage-class'][0] ?? null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
         $this->replicationStatus = $headers['x-amz-replication-status'][0] ?? null;
-        $this->partsCount = isset($headers['x-amz-mp-parts-count'][0]) ? filter_var($headers['x-amz-mp-parts-count'][0], \FILTER_VALIDATE_INT) : null;
+        $this->partsCount = isset($headers['x-amz-mp-parts-count'][0]) ? (int) $headers['x-amz-mp-parts-count'][0] : null;
         $this->objectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
         $this->objectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
         $this->objectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;

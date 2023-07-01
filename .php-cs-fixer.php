@@ -83,6 +83,7 @@ return (new PhpCsFixer\Config())
         'ordered_class_elements' => ['sort_algorithm' => 'none'],
         'class_attributes_separation' => ['elements' => ['property' => 'one', 'method' => 'one']],
         'array_indentation' => true,
+        'ternary_to_null_coalescing' => true,
     ])
     ->setFinder($finder)
 ;

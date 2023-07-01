@@ -169,20 +169,6 @@ class TypeGenerator
         return [$type, $doc, $memberClassNames];
     }
 
-    public function getFilterConstant(Shape $shape): ?string
-    {
-        switch ($shape->getType()) {
-            case 'integer':
-            case 'long':
-                return 'FILTER_VALIDATE_INT';
-            case 'boolean':
-                return 'FILTER_VALIDATE_BOOLEAN';
-            case 'string':
-            default:
-                return null;
-        }
-    }
-
     private function getNativePhpType(string $parameterType): string
     {
         switch ($parameterType) {
