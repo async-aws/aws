@@ -8,6 +8,7 @@
 - The return type for the methods `getDeletes` and `getExpires` of `\AsyncAws\AppSync\ValueObject\ApiKey` uses `int` instead of `string` to reflect the AWS type.
 - The return type for `\AsyncAws\AppSync\ValueObject\CachingConfig::getTtl` uses `int` instead of `string` to reflect the AWS type.
 - The return type for the methods `getBaseTableTtl` and `getDeltaSyncTableTtl` of `\AsyncAws\AppSync\ValueObject\DeltaSyncConfig` uses `int` instead of `string` to reflect the AWS type.
+- The class `AsyncAws\AppSync\ValueObject\FunctionConfiguration` (not used by any supported operations) has been removed.
 
 ## 1.1.0
 
