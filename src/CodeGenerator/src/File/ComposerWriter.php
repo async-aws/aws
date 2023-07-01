@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\File;
 
+use AsyncAws\CodeGenerator\File\Location\DirectoryResolver;
+
 /**
  * Update composer.json requirements.
  *
@@ -14,13 +16,13 @@ namespace AsyncAws\CodeGenerator\File;
 class ComposerWriter
 {
     /**
-     * @var string
+     * @var DirectoryResolver
      */
-    private $srcDirectory;
+    private $directoryResolver;
 
-    public function __construct(string $srcDirectory)
+    public function __construct(DirectoryResolver $directoryResolver)
     {
-        $this->srcDirectory = $srcDirectory;
+        $this->directoryResolver = $directoryResolver;
     }
 
     /**
@@ -55,31 +57,11 @@ class ComposerWriter
 
     private function findFile(string $namespace): string
     {
-        $dir = $this->resolveDirectory($namespace);
+        $dir = $this->directoryResolver->resolveDirectory($namespace);
         while (!file_exists($dir . '/composer.json')) {
             $dir = \dirname($dir);
         }
 
         return $dir . '/composer.json';
-    }
-
-    private function resolveDirectory(string $fqcn): string
-    {
-        $parts = explode('\\', $fqcn);
-        array_shift($parts); // AsyncAws
-        $service = array_shift($parts); // Lambda, S3, Sqs etc
-        array_unshift($parts, $service, 'src');
-        if ('Core' !== $service) {
-            array_unshift($parts, 'Service');
-        }
-
-        $directory = sprintf('%s/%s', $this->srcDirectory, implode('/', $parts));
-        if (!is_dir($directory)) {
-            if (false === mkdir($directory, 0777, true)) {
-                throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
-            }
-        }
-
-        return $directory;
     }
 }

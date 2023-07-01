@@ -1,13 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+use AsyncAws\CodeGenerator\File\Location\AsyncAwsMonoRepoResolver;
+use AsyncAws\CodeGenerator\Runner;
 use AsyncAws\Core\EnvVar;
-
-$generatorDir = __DIR__ . '/src/CodeGenerator';
-if (!file_exists($generatorDir . '/generate.php')) {
-    echo "Unable to find the `generate.php` script in `/src/CodeGenerator/`.\n";
-    exit(1);
-}
 
 if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     echo "Run `composer install` before you run the `generate` script.\n";
@@ -16,17 +12,12 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-if (null === EnvVar::get('ASYNC_AWS_GENERATE_MANIFEST')) {
-    $_SERVER['ASYNC_AWS_GENERATE_MANIFEST'] = __DIR__ . '/manifest.json';
-}
-if (null === EnvVar::get('ASYNC_AWS_GENERATE_CACHE')) {
-    $_SERVER['ASYNC_AWS_GENERATE_CACHE'] = __DIR__ . '/.cache/generate';
-}
-if (null === EnvVar::get('ASYNC_AWS_GENERATE_SRC')) {
-    $_SERVER['ASYNC_AWS_GENERATE_SRC'] = __DIR__ . '/src';
-}
 if (null === EnvVar::get('SYMFONY_PATCH_TYPE_DECLARATIONS')) {
     $_SERVER['SYMFONY_PATCH_TYPE_DECLARATIONS'] = 'deprecations=1';
 }
 
-require $generatorDir . '/generate.php';
+Runner::create(
+    __DIR__ . '/manifest.json',
+    new AsyncAwsMonoRepoResolver(__DIR__ . '/src'),
+    __DIR__ . '/.cache/generate'
+)->run();

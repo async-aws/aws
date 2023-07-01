@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\File;
 
+use AsyncAws\CodeGenerator\File\Location\DirectoryResolver;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 
 /**
@@ -16,9 +17,9 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 class ClassWriter
 {
     /**
-     * @var string
+     * @var DirectoryResolver
      */
-    private $srcDirectory;
+    private $directoryResolver;
 
     /**
      * @var FileDumper
@@ -30,11 +31,11 @@ class ClassWriter
      */
     private $printer;
 
-    public function __construct(string $srcDirectory, FileDumper $fileDumper)
+    public function __construct(DirectoryResolver $directoryResolver, FileDumper $fileDumper)
     {
-        $this->srcDirectory = $srcDirectory;
         $this->fileDumper = $fileDumper;
         $this->printer = new Printer();
+        $this->directoryResolver = $directoryResolver;
     }
 
     public function write(ClassBuilder $classBuilder): void
@@ -42,32 +43,19 @@ class ClassWriter
         $content = $this->printer->printNamespace($classBuilder->build());
 
         $className = $classBuilder->getClassName();
-        // Remove AsyncAws\
-        $fqcn = substr($className->getNamespace(), 9);
 
+        $namespace = $className->getNamespace();
         $className = $className->getName();
-        $directory = $this->resolveDirectory($fqcn);
+        $directory = $this->resolveDirectory($namespace);
 
         $filename = sprintf('%s/%s.php', $directory, $className);
 
         $this->fileDumper->dump($filename, $content);
     }
 
-    private function resolveDirectory(string $fqcn): string
+    private function resolveDirectory(string $namespace): string
     {
-        $parts = explode('\\', $fqcn);
-        $service = array_shift($parts); // Lambda, S3, Sqs etc
-        if (isset($parts[0]) && 'Tests' === $parts[0]) {
-            array_shift($parts); // Tests
-            array_unshift($parts, $service, 'tests');
-        } else {
-            array_unshift($parts, $service, 'src');
-        }
-        if ('Core' !== $service) {
-            array_unshift($parts, 'Service');
-        }
-
-        $directory = sprintf('%s/%s', $this->srcDirectory, implode('/', $parts));
+        $directory = $this->directoryResolver->resolveDirectory($namespace);
         if (!is_dir($directory)) {
             if (false === mkdir($directory, 0777, true)) {
                 throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
