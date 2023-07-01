@@ -10,6 +10,8 @@ use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
  * A wrapper for the service definition array.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 class ServiceDefinition
 {

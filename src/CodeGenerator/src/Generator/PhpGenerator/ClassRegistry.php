@@ -11,6 +11,8 @@ use Nette\PhpGenerator\PhpNamespace;
  * Generate a ClassBuilder and maintains the list of generated classes.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class ClassRegistry
 {

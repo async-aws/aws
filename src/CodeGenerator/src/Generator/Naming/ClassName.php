@@ -6,6 +6,8 @@ namespace AsyncAws\CodeGenerator\Generator\Naming;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 final class ClassName
 {

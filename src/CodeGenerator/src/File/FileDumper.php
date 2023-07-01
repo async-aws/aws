@@ -12,6 +12,8 @@ use Symfony\Component\Process\Process;
  * Dump and validate a php file.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 class FileDumper
 {

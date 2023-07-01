@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CodeGenerator\Generator\Composer;
 
+/**
+ * @internal
+ */
 class RequirementsRegistry
 {
     /**

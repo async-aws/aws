@@ -11,6 +11,8 @@ use AsyncAws\CodeGenerator\Definition\Waiter;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 final class NamespaceRegistry
 {

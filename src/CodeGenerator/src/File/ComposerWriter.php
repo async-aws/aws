@@ -8,6 +8,8 @@ namespace AsyncAws\CodeGenerator\File;
  * Update composer.json requirements.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class ComposerWriter
 {

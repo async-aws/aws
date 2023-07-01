@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\File;
 
 /**
- * Provides methods to store and load cached data in a multi-concurent system.
+ * Provides methods to store and load cached data in a multi-concurrent system.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class Cache
 {

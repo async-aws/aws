@@ -10,6 +10,8 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  * This will generate code to parse a HTTP response body into a Result.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 interface Parser
 {

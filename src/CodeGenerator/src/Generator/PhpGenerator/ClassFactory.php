@@ -20,6 +20,8 @@ use Nette\PhpGenerator\Property;
  * This is a slightly modified version of \Nette\PhpGenerator\Factory
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 class ClassFactory
 {

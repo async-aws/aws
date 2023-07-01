@@ -16,6 +16,8 @@ use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 class ServiceGenerator
 {

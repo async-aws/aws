@@ -11,6 +11,8 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  * This will generate code to serialize request Input to a string. Ie to create request body.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 interface Serializer
 {
