@@ -48,11 +48,11 @@ class SimpleS3Client extends S3Client
     }
 
     /**
-     * @param string|resource|callable|iterable $object
+     * @param string|resource|(callable(int): string)|iterable<string> $object
      * @param array{
      *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   CacheControl?: string,
-     *   ContentLength?: string,
+     *   ContentLength?: int,
      *   ContentType?: string,
      *   Metadata?: array<string, string>,
      *   PartSize?: int,
@@ -144,6 +144,9 @@ class SimpleS3Client extends S3Client
         ]);
     }
 
+    /**
+     * @param string|resource|(callable(int): string)|iterable<string> $object
+     */
     private function getStream($object, int $chunkSize): FixedSizeStream
     {
         return FixedSizeStream::create(
@@ -152,6 +155,9 @@ class SimpleS3Client extends S3Client
         );
     }
 
+    /**
+     * @param resource $buffer
+     */
     private function doMultipartUpload(string $bucket, string $key, string $uploadId, int $partNumber, $buffer): CompletedPart
     {
         try {
@@ -171,7 +177,17 @@ class SimpleS3Client extends S3Client
         }
     }
 
-    private function doSmallFileUpload(array $options, string $bucket, string $key, $object)
+    /**
+     * @param array{
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   CacheControl?: string,
+     *   ContentLength?: int,
+     *   ContentType?: string,
+     *   Metadata?: array<string, string>,
+     * } $options
+     * @param string|resource|(callable(int): string)|iterable<string> $object
+     */
+    private function doSmallFileUpload(array $options, string $bucket, string $key, $object): void
     {
         $this->putObject(array_merge($options, [
             'Bucket' => $bucket,
