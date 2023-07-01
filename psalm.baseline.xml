@@ -114,6 +114,11 @@
       <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
+    <InvalidOperand>
+      <code><![CDATA[$entry['datetime']->format('U.u')]]></code>
+    </InvalidOperand>
+  </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference>
       <code>scalarNode</code>

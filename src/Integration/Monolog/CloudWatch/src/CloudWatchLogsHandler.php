@@ -11,6 +11,9 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
+/**
+ * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
+ */
 class CloudWatchLogsHandler extends AbstractProcessingHandler
 {
     /**
@@ -38,12 +41,16 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private $client;
 
     /**
-     * @var array
+     * @var array{
+     *   batchSize: int,
+     *   group: string,
+     *   stream: string,
+     * }
      */
     private $options;
 
     /**
-     * @var array
+     * @var array<array{message: string, timestamp: int|float}>
      */
     private $buffer = [];
 
@@ -78,15 +85,14 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *   stream: string,
      * } $options
      * @param int|string $level
-     * @param bool       $bubble
      *
      * @throws \InvalidArgumentException
      */
     public function __construct(
         CloudWatchLogsClient $client,
-        $options,
+        array $options,
         $level = Logger::DEBUG,
-        $bubble = true
+        bool $bubble = true
     ) {
         $options['batchSize'] = $options['batchSize'] ?? 10000;
 
@@ -123,8 +129,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
     /**
      * {@inheritdoc}
-     *
-     * @phpstan-ignore-next-line
      */
     protected function write(array $record): void
     {
@@ -183,6 +187,10 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * Event size in the batch can not be bigger than 256 KB
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/cloudwatch_limits_cwl.html.
+     *
+     * @phpstan-param FormattedRecord $entry
+     *
+     * @return list<array{message: string, timestamp: int|float}>
      */
     private function formatRecords(array $entry): array
     {
@@ -203,9 +211,9 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * http://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html.
      *
-     * @param array $record
+     * @param array{message: string, timestamp: int|float} $record
      */
-    private function getMessageSize($record): int
+    private function getMessageSize(array $record): int
     {
         return \strlen($record['message']) + 26;
     }
@@ -220,6 +228,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC).
      *  - The maximum number of log events in a batch is 10,000.
      *  - A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.
+     *
+     * @param array<array{message: string, timestamp: int|float}> $entries
      */
     private function send(array $entries): void
     {
