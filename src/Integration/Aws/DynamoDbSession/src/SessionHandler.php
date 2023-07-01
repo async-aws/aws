@@ -16,7 +16,15 @@ class SessionHandler implements \SessionHandlerInterface
     private $client;
 
     /**
-     * @var array
+     * @var array{
+     *   consistent_read?: bool,
+     *   data_attribute: string,
+     *   hash_key: string,
+     *   session_lifetime?: int,
+     *   session_lifetime_attribute: string,
+     *   table_name: string,
+     *   id_separator: string
+     * }
      */
     private $options;
 
@@ -54,11 +62,11 @@ class SessionHandler implements \SessionHandlerInterface
     public function __construct(DynamoDbClient $client, array $options)
     {
         $this->client = $client;
+        $options['data_attribute'] = $options['data_attribute'] ?? 'data';
+        $options['hash_key'] = $options['hash_key'] ?? 'id';
+        $options['session_lifetime_attribute'] = $options['session_lifetime_attribute'] ?? 'expires';
+        $options['id_separator'] = $options['id_separator'] ?? '_';
         $this->options = $options;
-        $this->options['data_attribute'] = $this->options['data_attribute'] ?? 'data';
-        $this->options['hash_key'] = $this->options['hash_key'] ?? 'id';
-        $this->options['session_lifetime_attribute'] = $this->options['session_lifetime_attribute'] ?? 'expires';
-        $this->options['id_separator'] = $this->options['id_separator'] ?? '_';
     }
 
     public function setUp(): void
@@ -104,7 +112,7 @@ class SessionHandler implements \SessionHandlerInterface
         $id = session_id();
 
         // Make sure the expiration time is updated, even if the write did not occur
-        if ($this->sessionId !== $id || !$this->sessionWritten) {
+        if (false !== $id && ($this->sessionId !== $id || !$this->sessionWritten)) {
             $this->sessionWritten = $this->doWrite($id, false);
         }
 
@@ -223,6 +231,9 @@ class SessionHandler implements \SessionHandlerInterface
         return trim($this->sessionName . $this->options['id_separator'] . $id, $this->options['id_separator']);
     }
 
+    /**
+     * @return array<string, array{S: string}>
+     */
     private function formatKey(string $key): array
     {
         return [$this->options['hash_key'] => ['S' => $key]];
