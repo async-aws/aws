@@ -22,6 +22,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AsyncAwsExtension extends Extension
 {
+    /**
+     * @param mixed[] $configs
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
@@ -33,6 +36,33 @@ class AsyncAwsExtension extends Extension
         $this->autowireServices($container, $usedServices);
     }
 
+    /**
+     * @param array{
+     *     register_service: bool,
+     *     logger?: string|null,
+     *     http_client?: string|null,
+     *     credential_provider: string|null,
+     *     credential_provider_cache: string|null,
+     *     config: array<string, mixed>,
+     *     secrets: array{
+     *          enabled: bool,
+     *          client: string|null,
+     *          path: string|null,
+     *          recursive: bool,
+     *          cache: array{enabled: bool, pool: string, ttl: int},
+     *     },
+     *     clients: array<string, array{
+     *          type: string,
+     *          register_service: bool,
+     *          logger?: string|null,
+     *          http_client?: string|null,
+     *          credential_provider: string|null,
+     *          config: array<string, mixed>,
+     *     }>,
+     * } $config
+     *
+     * @return array<string, string|null>
+     */
     private function registerConfiguredServices(ContainerBuilder $container, array $config): array
     {
         $availableServices = AwsPackagesProvider::getAllServices();
@@ -59,6 +89,20 @@ class AsyncAwsExtension extends Extension
         return $usedServices;
     }
 
+    /**
+     * @param array{
+     *     register_service: bool,
+     *     clients: array<string, mixed>,
+     *     logger?: string|null,
+     *     http_client?: string|null,
+     *     credential_provider: string|null,
+     *     credential_provider_cache: string|null,
+     *     config: array<string, mixed>,
+     * } $config
+     * @param array<string, string|null> $usedServices
+     *
+     * @return array<string, string|null>
+     */
     private function registerInstalledServices(ContainerBuilder $container, array $config, array $usedServices): array
     {
         if (!$config['register_service']) {
@@ -84,6 +128,17 @@ class AsyncAwsExtension extends Extension
         return $usedServices;
     }
 
+    /**
+     * @param array{
+     *     register_service: bool,
+     *     logger?: string|null,
+     *     http_client?: string|null,
+     *     credential_provider: string|null,
+     *     credential_provider_cache: string|null,
+     *     config: array<string, mixed>,
+     *     ...
+     * } $config
+     */
     private function addServiceDefinition(ContainerBuilder $container, string $name, array $config, string $clientClass): void
     {
         if (\array_key_exists('logger', $config)) {
@@ -147,6 +202,24 @@ class AsyncAwsExtension extends Extension
         $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
     }
 
+    /**
+     * @param array{
+     *     register_service: bool,
+     *     logger?: string|null,
+     *     http_client?: string|null,
+     *     credential_provider: string|null,
+     *     credential_provider_cache: string|null,
+     *     config: array<string, mixed>,
+     *     secrets: array{
+     *          enabled: bool,
+     *          client: string|null,
+     *          path: string|null,
+     *          recursive: bool,
+     *          cache: array{enabled: bool, pool: string, ttl: int},
+     *     },
+     *     clients: array<string, array{type: string, ...}>,
+     * } $config
+     */
     private function registerEnvLoader(ContainerBuilder $container, array $config): void
     {
         if (!$config['secrets']['enabled']) {
@@ -201,6 +274,9 @@ class AsyncAwsExtension extends Extension
         }
     }
 
+    /**
+     * @param array<string, string|null> $usedServices
+     */
     private function autowireServices(ContainerBuilder $container, array $usedServices): void
     {
         $awsServices = AwsPackagesProvider::getAllServices();

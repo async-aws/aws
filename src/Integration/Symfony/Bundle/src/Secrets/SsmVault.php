@@ -8,10 +8,19 @@ use Symfony\Component\DependencyInjection\EnvVarLoaderInterface;
 
 class SsmVault implements EnvVarLoaderInterface
 {
+    /**
+     * @var SsmClient
+     */
     private $client;
 
+    /**
+     * @var string
+     */
     private $path;
 
+    /**
+     * @var bool
+     */
     private $recursive;
 
     public function __construct(SsmClient $client, ?string $path, bool $recursive)

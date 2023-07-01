@@ -9,7 +9,12 @@ use Symfony\Component\VarDumper\Cloner\Stub;
 
 class ResultCaster
 {
-    public static function castResult(Result $result, array $a, Stub $stub, bool $isNested)
+    /**
+     * @param array<string, mixed> $a
+     *
+     * @return array<string, mixed>
+     */
+    public static function castResult(Result $result, array $a, Stub $stub, bool $isNested): array
     {
         foreach (["\0AsyncAws\\Core\\Result\0httpClient", "\0AsyncAws\\Core\\Result\0response", "\0AsyncAws\\Core\\Result\0prefetchResults", Caster::PREFIX_PROTECTED . 'awsClient', Caster::PREFIX_PROTECTED . 'input'] as $k) {
             if (\array_key_exists($k, $a)) {
@@ -21,7 +26,12 @@ class ResultCaster
         return $a;
     }
 
-    public static function castWaiter(Waiter $waiter, array $a, Stub $stub, bool $isNested)
+    /**
+     * @param array<string, mixed> $a
+     *
+     * @return array<string, mixed>
+     */
+    public static function castWaiter(Waiter $waiter, array $a, Stub $stub, bool $isNested): array
     {
         foreach (["\0AsyncAws\\Core\\Waiter\0httpClient", "\0AsyncAws\\Core\\Waiter\0response", Caster::PREFIX_PROTECTED . 'awsClient', Caster::PREFIX_PROTECTED . 'input'] as $k) {
             if (\array_key_exists($k, $a)) {
