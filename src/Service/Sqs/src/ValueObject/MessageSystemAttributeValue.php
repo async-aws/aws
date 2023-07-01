@@ -60,7 +60,7 @@ final class MessageSystemAttributeValue
         $this->binaryValue = $input['BinaryValue'] ?? null;
         $this->stringListValues = $input['StringListValues'] ?? null;
         $this->binaryListValues = $input['BinaryListValues'] ?? null;
-        $this->dataType = $input['DataType'] ?? null;
+        $this->dataType = $input['DataType'] ?? $this->throwException(new InvalidArgument('Missing required field "DataType".'));
     }
 
     /**
@@ -134,11 +134,17 @@ final class MessageSystemAttributeValue
                 $payload["BinaryListValue.$index"] = base64_encode($mapValue);
             }
         }
-        if (null === $v = $this->dataType) {
-            throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->dataType;
         $payload['DataType'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

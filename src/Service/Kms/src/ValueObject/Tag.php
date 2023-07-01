@@ -36,8 +36,8 @@ final class Tag
      */
     public function __construct(array $input)
     {
-        $this->tagKey = $input['TagKey'] ?? null;
-        $this->tagValue = $input['TagValue'] ?? null;
+        $this->tagKey = $input['TagKey'] ?? $this->throwException(new InvalidArgument('Missing required field "TagKey".'));
+        $this->tagValue = $input['TagValue'] ?? $this->throwException(new InvalidArgument('Missing required field "TagValue".'));
     }
 
     /**
@@ -67,15 +67,19 @@ final class Tag
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->tagKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagKey" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tagKey;
         $payload['TagKey'] = $v;
-        if (null === $v = $this->tagValue) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagValue" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tagValue;
         $payload['TagValue'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

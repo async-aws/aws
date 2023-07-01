@@ -2,6 +2,8 @@
 
 namespace AsyncAws\CloudFront\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * An invalidation.
  */
@@ -37,10 +39,10 @@ final class Invalidation
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->status = $input['Status'] ?? null;
-        $this->createTime = $input['CreateTime'] ?? null;
-        $this->invalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
+        $this->createTime = $input['CreateTime'] ?? $this->throwException(new InvalidArgument('Missing required field "CreateTime".'));
+        $this->invalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : $this->throwException(new InvalidArgument('Missing required field "InvalidationBatch".'));
     }
 
     /**
@@ -74,5 +76,13 @@ final class Invalidation
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

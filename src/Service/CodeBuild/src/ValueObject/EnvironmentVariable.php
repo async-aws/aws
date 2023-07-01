@@ -48,8 +48,8 @@ final class EnvironmentVariable
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'] ?? null;
-        $this->value = $input['value'] ?? null;
+        $this->name = $input['name'] ?? $this->throwException(new InvalidArgument('Missing required field "name".'));
+        $this->value = $input['value'] ?? $this->throwException(new InvalidArgument('Missing required field "value".'));
         $this->type = $input['type'] ?? null;
     }
 
@@ -89,13 +89,9 @@ final class EnvironmentVariable
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['name'] = $v;
-        if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "value" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->value;
         $payload['value'] = $v;
         if (null !== $v = $this->type) {
             if (!EnvironmentVariableType::exists($v)) {
@@ -105,5 +101,13 @@ final class EnvironmentVariable
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

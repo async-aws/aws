@@ -37,8 +37,8 @@ final class HumanLoopConfig
      */
     public function __construct(array $input)
     {
-        $this->humanLoopName = $input['HumanLoopName'] ?? null;
-        $this->flowDefinitionArn = $input['FlowDefinitionArn'] ?? null;
+        $this->humanLoopName = $input['HumanLoopName'] ?? $this->throwException(new InvalidArgument('Missing required field "HumanLoopName".'));
+        $this->flowDefinitionArn = $input['FlowDefinitionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "FlowDefinitionArn".'));
         $this->dataAttributes = isset($input['DataAttributes']) ? HumanLoopDataAttributes::create($input['DataAttributes']) : null;
     }
 
@@ -75,18 +75,22 @@ final class HumanLoopConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->humanLoopName) {
-            throw new InvalidArgument(sprintf('Missing parameter "HumanLoopName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->humanLoopName;
         $payload['HumanLoopName'] = $v;
-        if (null === $v = $this->flowDefinitionArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "FlowDefinitionArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->flowDefinitionArn;
         $payload['FlowDefinitionArn'] = $v;
         if (null !== $v = $this->dataAttributes) {
             $payload['DataAttributes'] = $v->requestBody();
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

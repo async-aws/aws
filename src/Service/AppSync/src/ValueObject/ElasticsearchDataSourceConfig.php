@@ -30,8 +30,8 @@ final class ElasticsearchDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->endpoint = $input['endpoint'] ?? null;
-        $this->awsRegion = $input['awsRegion'] ?? null;
+        $this->endpoint = $input['endpoint'] ?? $this->throwException(new InvalidArgument('Missing required field "endpoint".'));
+        $this->awsRegion = $input['awsRegion'] ?? $this->throwException(new InvalidArgument('Missing required field "awsRegion".'));
     }
 
     /**
@@ -61,15 +61,19 @@ final class ElasticsearchDataSourceConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->endpoint) {
-            throw new InvalidArgument(sprintf('Missing parameter "endpoint" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->endpoint;
         $payload['endpoint'] = $v;
-        if (null === $v = $this->awsRegion) {
-            throw new InvalidArgument(sprintf('Missing parameter "awsRegion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->awsRegion;
         $payload['awsRegion'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -52,11 +52,11 @@ final class RepositoryTrigger
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'] ?? null;
-        $this->destinationArn = $input['destinationArn'] ?? null;
+        $this->name = $input['name'] ?? $this->throwException(new InvalidArgument('Missing required field "name".'));
+        $this->destinationArn = $input['destinationArn'] ?? $this->throwException(new InvalidArgument('Missing required field "destinationArn".'));
         $this->customData = $input['customData'] ?? null;
         $this->branches = $input['branches'] ?? null;
-        $this->events = $input['events'] ?? null;
+        $this->events = $input['events'] ?? $this->throwException(new InvalidArgument('Missing required field "events".'));
     }
 
     /**
@@ -96,7 +96,7 @@ final class RepositoryTrigger
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getName(): string
@@ -110,13 +110,9 @@ final class RepositoryTrigger
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['name'] = $v;
-        if (null === $v = $this->destinationArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "destinationArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->destinationArn;
         $payload['destinationArn'] = $v;
         if (null !== $v = $this->customData) {
             $payload['customData'] = $v;
@@ -129,9 +125,7 @@ final class RepositoryTrigger
                 $payload['branches'][$index] = $listValue;
             }
         }
-        if (null === $v = $this->events) {
-            throw new InvalidArgument(sprintf('Missing parameter "events" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->events;
 
         $index = -1;
         $payload['events'] = [];
@@ -144,5 +138,13 @@ final class RepositoryTrigger
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -146,7 +146,7 @@ final class Condition
     public function __construct(array $input)
     {
         $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
-        $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
+        $this->comparisonOperator = $input['ComparisonOperator'] ?? $this->throwException(new InvalidArgument('Missing required field "ComparisonOperator".'));
     }
 
     /**
@@ -190,14 +190,20 @@ final class Condition
                 $payload['AttributeValueList'][$index] = $listValue->requestBody();
             }
         }
-        if (null === $v = $this->comparisonOperator) {
-            throw new InvalidArgument(sprintf('Missing parameter "ComparisonOperator" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->comparisonOperator;
         if (!ComparisonOperator::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "ComparisonOperator" for "%s". The value "%s" is not a valid "ComparisonOperator".', __CLASS__, $v));
         }
         $payload['ComparisonOperator'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

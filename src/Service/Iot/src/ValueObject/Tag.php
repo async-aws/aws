@@ -27,7 +27,7 @@ final class Tag
      */
     public function __construct(array $input)
     {
-        $this->key = $input['Key'] ?? null;
+        $this->key = $input['Key'] ?? $this->throwException(new InvalidArgument('Missing required field "Key".'));
         $this->value = $input['Value'] ?? null;
     }
 
@@ -58,14 +58,20 @@ final class Tag
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->key;
         $payload['Key'] = $v;
         if (null !== $v = $this->value) {
             $payload['Value'] = $v;
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

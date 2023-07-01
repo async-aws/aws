@@ -48,7 +48,7 @@ final class MessageAttributeValue
      */
     public function __construct(array $input)
     {
-        $this->dataType = $input['DataType'] ?? null;
+        $this->dataType = $input['DataType'] ?? $this->throwException(new InvalidArgument('Missing required field "DataType".'));
         $this->stringValue = $input['StringValue'] ?? null;
         $this->binaryValue = $input['BinaryValue'] ?? null;
     }
@@ -86,9 +86,7 @@ final class MessageAttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->dataType) {
-            throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->dataType;
         $payload['DataType'] = $v;
         if (null !== $v = $this->stringValue) {
             $payload['StringValue'] = $v;
@@ -98,5 +96,13 @@ final class MessageAttributeValue
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

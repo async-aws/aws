@@ -24,7 +24,7 @@ final class StreamModeDetails
      */
     public function __construct(array $input)
     {
-        $this->streamMode = $input['StreamMode'] ?? null;
+        $this->streamMode = $input['StreamMode'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamMode".'));
     }
 
     /**
@@ -51,14 +51,20 @@ final class StreamModeDetails
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->streamMode) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamMode" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->streamMode;
         if (!StreamMode::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "StreamMode" for "%s". The value "%s" is not a valid "StreamMode".', __CLASS__, $v));
         }
         $payload['StreamMode'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

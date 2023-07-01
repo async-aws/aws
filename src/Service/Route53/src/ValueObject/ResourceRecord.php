@@ -31,7 +31,7 @@ final class ResourceRecord
      */
     public function __construct(array $input)
     {
-        $this->value = $input['Value'] ?? null;
+        $this->value = $input['Value'] ?? $this->throwException(new InvalidArgument('Missing required field "Value".'));
     }
 
     /**
@@ -54,9 +54,15 @@ final class ResourceRecord
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->value;
         $node->appendChild($document->createElement('Value', $v));
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

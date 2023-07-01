@@ -44,9 +44,9 @@ final class MeasureValue
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
-        $this->value = $input['Value'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->value = $input['Value'] ?? $this->throwException(new InvalidArgument('Missing required field "Value".'));
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
     }
 
     /**
@@ -85,22 +85,24 @@ final class MeasureValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         $payload['Name'] = $v;
-        if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->value;
         $payload['Value'] = $v;
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!MeasureValueType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "MeasureValueType".', __CLASS__, $v));
         }
         $payload['Type'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -28,7 +28,7 @@ final class ReplicaGlobalSecondaryIndex
      */
     public function __construct(array $input)
     {
-        $this->indexName = $input['IndexName'] ?? null;
+        $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
     }
 
@@ -59,14 +59,20 @@ final class ReplicaGlobalSecondaryIndex
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->indexName;
         $payload['IndexName'] = $v;
         if (null !== $v = $this->provisionedThroughputOverride) {
             $payload['ProvisionedThroughputOverride'] = $v->requestBody();
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

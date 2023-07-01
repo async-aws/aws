@@ -136,7 +136,7 @@ final class ProjectArtifacts
      */
     public function __construct(array $input)
     {
-        $this->type = $input['type'] ?? null;
+        $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->location = $input['location'] ?? null;
         $this->path = $input['path'] ?? null;
         $this->namespaceType = $input['namespaceType'] ?? null;
@@ -235,9 +235,7 @@ final class ProjectArtifacts
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!ArtifactsType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "ArtifactsType".', __CLASS__, $v));
         }
@@ -280,5 +278,13 @@ final class ProjectArtifacts
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

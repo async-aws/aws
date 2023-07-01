@@ -42,8 +42,8 @@ final class ProjectSourceVersion
      */
     public function __construct(array $input)
     {
-        $this->sourceIdentifier = $input['sourceIdentifier'] ?? null;
-        $this->sourceVersion = $input['sourceVersion'] ?? null;
+        $this->sourceIdentifier = $input['sourceIdentifier'] ?? $this->throwException(new InvalidArgument('Missing required field "sourceIdentifier".'));
+        $this->sourceVersion = $input['sourceVersion'] ?? $this->throwException(new InvalidArgument('Missing required field "sourceVersion".'));
     }
 
     /**
@@ -73,15 +73,19 @@ final class ProjectSourceVersion
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->sourceIdentifier) {
-            throw new InvalidArgument(sprintf('Missing parameter "sourceIdentifier" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->sourceIdentifier;
         $payload['sourceIdentifier'] = $v;
-        if (null === $v = $this->sourceVersion) {
-            throw new InvalidArgument(sprintf('Missing parameter "sourceVersion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->sourceVersion;
         $payload['sourceVersion'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

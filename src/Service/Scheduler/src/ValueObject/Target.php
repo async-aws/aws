@@ -98,14 +98,14 @@ final class Target
      */
     public function __construct(array $input)
     {
-        $this->arn = $input['Arn'] ?? null;
+        $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
         $this->deadLetterConfig = isset($input['DeadLetterConfig']) ? DeadLetterConfig::create($input['DeadLetterConfig']) : null;
         $this->ecsParameters = isset($input['EcsParameters']) ? EcsParameters::create($input['EcsParameters']) : null;
         $this->eventBridgeParameters = isset($input['EventBridgeParameters']) ? EventBridgeParameters::create($input['EventBridgeParameters']) : null;
         $this->input = $input['Input'] ?? null;
         $this->kinesisParameters = isset($input['KinesisParameters']) ? KinesisParameters::create($input['KinesisParameters']) : null;
         $this->retryPolicy = isset($input['RetryPolicy']) ? RetryPolicy::create($input['RetryPolicy']) : null;
-        $this->roleArn = $input['RoleArn'] ?? null;
+        $this->roleArn = $input['RoleArn'] ?? $this->throwException(new InvalidArgument('Missing required field "RoleArn".'));
         $this->sageMakerPipelineParameters = isset($input['SageMakerPipelineParameters']) ? SageMakerPipelineParameters::create($input['SageMakerPipelineParameters']) : null;
         $this->sqsParameters = isset($input['SqsParameters']) ? SqsParameters::create($input['SqsParameters']) : null;
     }
@@ -185,9 +185,7 @@ final class Target
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->arn) {
-            throw new InvalidArgument(sprintf('Missing parameter "Arn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->arn;
         $payload['Arn'] = $v;
         if (null !== $v = $this->deadLetterConfig) {
             $payload['DeadLetterConfig'] = $v->requestBody();
@@ -207,9 +205,7 @@ final class Target
         if (null !== $v = $this->retryPolicy) {
             $payload['RetryPolicy'] = $v->requestBody();
         }
-        if (null === $v = $this->roleArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->roleArn;
         $payload['RoleArn'] = $v;
         if (null !== $v = $this->sageMakerPipelineParameters) {
             $payload['SageMakerPipelineParameters'] = $v->requestBody();
@@ -219,5 +215,13 @@ final class Target
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

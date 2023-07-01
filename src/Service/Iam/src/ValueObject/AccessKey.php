@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Iam\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Iam\Enum\StatusType;
 
 /**
@@ -51,10 +52,10 @@ final class AccessKey
      */
     public function __construct(array $input)
     {
-        $this->userName = $input['UserName'] ?? null;
-        $this->accessKeyId = $input['AccessKeyId'] ?? null;
-        $this->status = $input['Status'] ?? null;
-        $this->secretAccessKey = $input['SecretAccessKey'] ?? null;
+        $this->userName = $input['UserName'] ?? $this->throwException(new InvalidArgument('Missing required field "UserName".'));
+        $this->accessKeyId = $input['AccessKeyId'] ?? $this->throwException(new InvalidArgument('Missing required field "AccessKeyId".'));
+        $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
+        $this->secretAccessKey = $input['SecretAccessKey'] ?? $this->throwException(new InvalidArgument('Missing required field "SecretAccessKey".'));
         $this->createDate = $input['CreateDate'] ?? null;
     }
 
@@ -98,5 +99,13 @@ final class AccessKey
     public function getUserName(): string
     {
         return $this->userName;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -21,7 +21,7 @@ final class LambdaDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->lambdaFunctionArn = $input['lambdaFunctionArn'] ?? null;
+        $this->lambdaFunctionArn = $input['lambdaFunctionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "lambdaFunctionArn".'));
     }
 
     /**
@@ -45,11 +45,17 @@ final class LambdaDataSourceConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->lambdaFunctionArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "lambdaFunctionArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->lambdaFunctionArn;
         $payload['lambdaFunctionArn'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

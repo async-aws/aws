@@ -122,8 +122,8 @@ final class PublishBatchRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->message = $input['Message'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->message = $input['Message'] ?? $this->throwException(new InvalidArgument('Missing required field "Message".'));
         $this->subject = $input['Subject'] ?? null;
         $this->messageStructure = $input['MessageStructure'] ?? null;
         $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
@@ -191,13 +191,9 @@ final class PublishBatchRequestEntry
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->id;
         $payload['Id'] = $v;
-        if (null === $v = $this->message) {
-            throw new InvalidArgument(sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->message;
         $payload['Message'] = $v;
         if (null !== $v = $this->subject) {
             $payload['Subject'] = $v;
@@ -223,5 +219,13 @@ final class PublishBatchRequestEntry
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

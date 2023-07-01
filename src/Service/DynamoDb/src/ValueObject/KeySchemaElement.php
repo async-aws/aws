@@ -46,8 +46,8 @@ final class KeySchemaElement
      */
     public function __construct(array $input)
     {
-        $this->attributeName = $input['AttributeName'] ?? null;
-        $this->keyType = $input['KeyType'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeName".'));
+        $this->keyType = $input['KeyType'] ?? $this->throwException(new InvalidArgument('Missing required field "KeyType".'));
     }
 
     /**
@@ -80,18 +80,22 @@ final class KeySchemaElement
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->attributeName) {
-            throw new InvalidArgument(sprintf('Missing parameter "AttributeName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->attributeName;
         $payload['AttributeName'] = $v;
-        if (null === $v = $this->keyType) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeyType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->keyType;
         if (!KeyType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "KeyType" for "%s". The value "%s" is not a valid "KeyType".', __CLASS__, $v));
         }
         $payload['KeyType'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

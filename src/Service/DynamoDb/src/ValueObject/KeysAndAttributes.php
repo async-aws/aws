@@ -90,7 +90,7 @@ final class KeysAndAttributes
      */
     public function __construct(array $input)
     {
-        $this->keys = $input['Keys'] ?? null;
+        $this->keys = $input['Keys'] ?? $this->throwException(new InvalidArgument('Missing required field "Keys".'));
         $this->attributesToGet = $input['AttributesToGet'] ?? null;
         $this->consistentRead = $input['ConsistentRead'] ?? null;
         $this->projectionExpression = $input['ProjectionExpression'] ?? null;
@@ -137,7 +137,7 @@ final class KeysAndAttributes
      */
     public function getKeys(): array
     {
-        return $this->keys ?? [];
+        return $this->keys;
     }
 
     public function getProjectionExpression(): ?string
@@ -151,9 +151,7 @@ final class KeysAndAttributes
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->keys) {
-            throw new InvalidArgument(sprintf('Missing parameter "Keys" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->keys;
 
         $index = -1;
         $payload['Keys'] = [];
@@ -196,5 +194,13 @@ final class KeysAndAttributes
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -51,7 +51,7 @@ final class ShardFilter
      */
     public function __construct(array $input)
     {
-        $this->type = $input['Type'] ?? null;
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
         $this->shardId = $input['ShardId'] ?? null;
         $this->timestamp = $input['Timestamp'] ?? null;
     }
@@ -92,9 +92,7 @@ final class ShardFilter
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!ShardFilterType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ShardFilterType".', __CLASS__, $v));
         }
@@ -107,5 +105,13 @@ final class ShardFilter
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

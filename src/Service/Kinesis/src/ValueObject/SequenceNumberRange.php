@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The range of possible sequence numbers for the shard.
  */
@@ -25,7 +27,7 @@ final class SequenceNumberRange
      */
     public function __construct(array $input)
     {
-        $this->startingSequenceNumber = $input['StartingSequenceNumber'] ?? null;
+        $this->startingSequenceNumber = $input['StartingSequenceNumber'] ?? $this->throwException(new InvalidArgument('Missing required field "StartingSequenceNumber".'));
         $this->endingSequenceNumber = $input['EndingSequenceNumber'] ?? null;
     }
 
@@ -48,5 +50,13 @@ final class SequenceNumberRange
     public function getStartingSequenceNumber(): string
     {
         return $this->startingSequenceNumber;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

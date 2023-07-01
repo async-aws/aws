@@ -2,6 +2,8 @@
 
 namespace AsyncAws\TimestreamQuery\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The timeseries data type represents the values of a measure over time. A time series is an array of rows of
  * timestamps and measure values, with rows sorted in ascending order of time. A TimeSeriesDataPoint is a single data
@@ -27,8 +29,8 @@ final class TimeSeriesDataPoint
      */
     public function __construct(array $input)
     {
-        $this->time = $input['Time'] ?? null;
-        $this->value = isset($input['Value']) ? Datum::create($input['Value']) : null;
+        $this->time = $input['Time'] ?? $this->throwException(new InvalidArgument('Missing required field "Time".'));
+        $this->value = isset($input['Value']) ? Datum::create($input['Value']) : $this->throwException(new InvalidArgument('Missing required field "Value".'));
     }
 
     /**
@@ -50,5 +52,13 @@ final class TimeSeriesDataPoint
     public function getValue(): Datum
     {
         return $this->value;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

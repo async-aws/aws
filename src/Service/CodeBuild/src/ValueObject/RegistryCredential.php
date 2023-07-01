@@ -38,8 +38,8 @@ final class RegistryCredential
      */
     public function __construct(array $input)
     {
-        $this->credential = $input['credential'] ?? null;
-        $this->credentialProvider = $input['credentialProvider'] ?? null;
+        $this->credential = $input['credential'] ?? $this->throwException(new InvalidArgument('Missing required field "credential".'));
+        $this->credentialProvider = $input['credentialProvider'] ?? $this->throwException(new InvalidArgument('Missing required field "credentialProvider".'));
     }
 
     /**
@@ -72,18 +72,22 @@ final class RegistryCredential
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->credential) {
-            throw new InvalidArgument(sprintf('Missing parameter "credential" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->credential;
         $payload['credential'] = $v;
-        if (null === $v = $this->credentialProvider) {
-            throw new InvalidArgument(sprintf('Missing parameter "credentialProvider" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->credentialProvider;
         if (!CredentialProviderType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "credentialProvider" for "%s". The value "%s" is not a valid "CredentialProviderType".', __CLASS__, $v));
         }
         $payload['credentialProvider'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

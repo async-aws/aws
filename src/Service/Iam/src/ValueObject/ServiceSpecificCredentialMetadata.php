@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Iam\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Iam\Enum\StatusType;
 
 /**
@@ -54,12 +55,12 @@ final class ServiceSpecificCredentialMetadata
      */
     public function __construct(array $input)
     {
-        $this->userName = $input['UserName'] ?? null;
-        $this->status = $input['Status'] ?? null;
-        $this->serviceUserName = $input['ServiceUserName'] ?? null;
-        $this->createDate = $input['CreateDate'] ?? null;
-        $this->serviceSpecificCredentialId = $input['ServiceSpecificCredentialId'] ?? null;
-        $this->serviceName = $input['ServiceName'] ?? null;
+        $this->userName = $input['UserName'] ?? $this->throwException(new InvalidArgument('Missing required field "UserName".'));
+        $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
+        $this->serviceUserName = $input['ServiceUserName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceUserName".'));
+        $this->createDate = $input['CreateDate'] ?? $this->throwException(new InvalidArgument('Missing required field "CreateDate".'));
+        $this->serviceSpecificCredentialId = $input['ServiceSpecificCredentialId'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceSpecificCredentialId".'));
+        $this->serviceName = $input['ServiceName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceName".'));
     }
 
     /**
@@ -108,5 +109,13 @@ final class ServiceSpecificCredentialMetadata
     public function getUserName(): string
     {
         return $this->userName;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

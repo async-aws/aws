@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Iam\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains information about an IAM user entity.
  *
@@ -100,11 +102,11 @@ final class User
      */
     public function __construct(array $input)
     {
-        $this->path = $input['Path'] ?? null;
-        $this->userName = $input['UserName'] ?? null;
-        $this->userId = $input['UserId'] ?? null;
-        $this->arn = $input['Arn'] ?? null;
-        $this->createDate = $input['CreateDate'] ?? null;
+        $this->path = $input['Path'] ?? $this->throwException(new InvalidArgument('Missing required field "Path".'));
+        $this->userName = $input['UserName'] ?? $this->throwException(new InvalidArgument('Missing required field "UserName".'));
+        $this->userId = $input['UserId'] ?? $this->throwException(new InvalidArgument('Missing required field "UserId".'));
+        $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
+        $this->createDate = $input['CreateDate'] ?? $this->throwException(new InvalidArgument('Missing required field "CreateDate".'));
         $this->passwordLastUsed = $input['PasswordLastUsed'] ?? null;
         $this->permissionsBoundary = isset($input['PermissionsBoundary']) ? AttachedPermissionsBoundary::create($input['PermissionsBoundary']) : null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
@@ -168,5 +170,13 @@ final class User
     public function getUserName(): string
     {
         return $this->userName;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

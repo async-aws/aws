@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Enum\StackStatus;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The Stack data type.
@@ -174,15 +175,15 @@ final class Stack
     public function __construct(array $input)
     {
         $this->stackId = $input['StackId'] ?? null;
-        $this->stackName = $input['StackName'] ?? null;
+        $this->stackName = $input['StackName'] ?? $this->throwException(new InvalidArgument('Missing required field "StackName".'));
         $this->changeSetId = $input['ChangeSetId'] ?? null;
         $this->description = $input['Description'] ?? null;
         $this->parameters = isset($input['Parameters']) ? array_map([Parameter::class, 'create'], $input['Parameters']) : null;
-        $this->creationTime = $input['CreationTime'] ?? null;
+        $this->creationTime = $input['CreationTime'] ?? $this->throwException(new InvalidArgument('Missing required field "CreationTime".'));
         $this->deletionTime = $input['DeletionTime'] ?? null;
         $this->lastUpdatedTime = $input['LastUpdatedTime'] ?? null;
         $this->rollbackConfiguration = isset($input['RollbackConfiguration']) ? RollbackConfiguration::create($input['RollbackConfiguration']) : null;
-        $this->stackStatus = $input['StackStatus'] ?? null;
+        $this->stackStatus = $input['StackStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "StackStatus".'));
         $this->stackStatusReason = $input['StackStatusReason'] ?? null;
         $this->disableRollback = $input['DisableRollback'] ?? null;
         $this->notificationArns = $input['NotificationARNs'] ?? null;
@@ -354,5 +355,13 @@ final class Stack
     public function getTimeoutInMinutes(): ?int
     {
         return $this->timeoutInMinutes;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -96,7 +96,7 @@ final class MetricDatum
      */
     public function __construct(array $input)
     {
-        $this->metricName = $input['MetricName'] ?? null;
+        $this->metricName = $input['MetricName'] ?? $this->throwException(new InvalidArgument('Missing required field "MetricName".'));
         $this->dimensions = isset($input['Dimensions']) ? array_map([Dimension::class, 'create'], $input['Dimensions']) : null;
         $this->timestamp = $input['Timestamp'] ?? null;
         $this->value = $input['Value'] ?? null;
@@ -188,9 +188,7 @@ final class MetricDatum
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->metricName) {
-            throw new InvalidArgument(sprintf('Missing parameter "MetricName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->metricName;
         $payload['MetricName'] = $v;
         if (null !== $v = $this->dimensions) {
             $index = 0;
@@ -237,5 +235,13 @@ final class MetricDatum
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

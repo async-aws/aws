@@ -51,7 +51,7 @@ final class ParameterStringFilter
      */
     public function __construct(array $input)
     {
-        $this->key = $input['Key'] ?? null;
+        $this->key = $input['Key'] ?? $this->throwException(new InvalidArgument('Missing required field "Key".'));
         $this->option = $input['Option'] ?? null;
         $this->values = $input['Values'] ?? null;
     }
@@ -92,9 +92,7 @@ final class ParameterStringFilter
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->key;
         $payload['Key'] = $v;
         if (null !== $v = $this->option) {
             $payload['Option'] = $v;
@@ -109,5 +107,13 @@ final class ParameterStringFilter
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

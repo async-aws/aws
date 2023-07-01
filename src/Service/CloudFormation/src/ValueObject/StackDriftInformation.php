@@ -3,6 +3,7 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\StackDriftStatus;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Contains information about whether the stack's actual configuration differs, or has *drifted*, from its expected
@@ -36,7 +37,7 @@ final class StackDriftInformation
      */
     public function __construct(array $input)
     {
-        $this->stackDriftStatus = $input['StackDriftStatus'] ?? null;
+        $this->stackDriftStatus = $input['StackDriftStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "StackDriftStatus".'));
         $this->lastCheckTimestamp = $input['LastCheckTimestamp'] ?? null;
     }
 
@@ -62,5 +63,13 @@ final class StackDriftInformation
     public function getStackDriftStatus(): string
     {
         return $this->stackDriftStatus;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

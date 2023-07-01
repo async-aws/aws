@@ -30,8 +30,8 @@ final class AppSyncRuntime
      */
     public function __construct(array $input)
     {
-        $this->name = $input['name'] ?? null;
-        $this->runtimeVersion = $input['runtimeVersion'] ?? null;
+        $this->name = $input['name'] ?? $this->throwException(new InvalidArgument('Missing required field "name".'));
+        $this->runtimeVersion = $input['runtimeVersion'] ?? $this->throwException(new InvalidArgument('Missing required field "runtimeVersion".'));
     }
 
     /**
@@ -64,18 +64,22 @@ final class AppSyncRuntime
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->name;
         if (!RuntimeName::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "name" for "%s". The value "%s" is not a valid "RuntimeName".', __CLASS__, $v));
         }
         $payload['name'] = $v;
-        if (null === $v = $this->runtimeVersion) {
-            throw new InvalidArgument(sprintf('Missing parameter "runtimeVersion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->runtimeVersion;
         $payload['runtimeVersion'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -140,7 +140,7 @@ final class ProjectSource
      */
     public function __construct(array $input)
     {
-        $this->type = $input['type'] ?? null;
+        $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->location = $input['location'] ?? null;
         $this->gitCloneDepth = $input['gitCloneDepth'] ?? null;
         $this->gitSubmodulesConfig = isset($input['gitSubmodulesConfig']) ? GitSubmodulesConfig::create($input['gitSubmodulesConfig']) : null;
@@ -230,9 +230,7 @@ final class ProjectSource
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!SourceType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
         }
@@ -266,5 +264,13 @@ final class ProjectSource
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

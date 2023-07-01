@@ -21,7 +21,7 @@ final class Tagging
      */
     public function __construct(array $input)
     {
-        $this->tagSet = isset($input['TagSet']) ? array_map([Tag::class, 'create'], $input['TagSet']) : null;
+        $this->tagSet = isset($input['TagSet']) ? array_map([Tag::class, 'create'], $input['TagSet']) : $this->throwException(new InvalidArgument('Missing required field "TagSet".'));
     }
 
     /**
@@ -39,7 +39,7 @@ final class Tagging
      */
     public function getTagSet(): array
     {
-        return $this->tagSet ?? [];
+        return $this->tagSet;
     }
 
     /**
@@ -47,9 +47,7 @@ final class Tagging
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->tagSet) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagSet" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tagSet;
 
         $node->appendChild($nodeList = $document->createElement('TagSet'));
         foreach ($v as $item) {
@@ -57,5 +55,13 @@ final class Tagging
 
             $item->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

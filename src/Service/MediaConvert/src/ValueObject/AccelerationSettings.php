@@ -22,7 +22,7 @@ final class AccelerationSettings
      */
     public function __construct(array $input)
     {
-        $this->mode = $input['Mode'] ?? null;
+        $this->mode = $input['Mode'] ?? $this->throwException(new InvalidArgument('Missing required field "Mode".'));
     }
 
     /**
@@ -49,14 +49,20 @@ final class AccelerationSettings
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->mode) {
-            throw new InvalidArgument(sprintf('Missing parameter "Mode" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->mode;
         if (!AccelerationMode::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "mode" for "%s". The value "%s" is not a valid "AccelerationMode".', __CLASS__, $v));
         }
         $payload['mode'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

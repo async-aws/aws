@@ -45,8 +45,8 @@ final class DynamodbDataSourceConfig
      */
     public function __construct(array $input)
     {
-        $this->tableName = $input['tableName'] ?? null;
-        $this->awsRegion = $input['awsRegion'] ?? null;
+        $this->tableName = $input['tableName'] ?? $this->throwException(new InvalidArgument('Missing required field "tableName".'));
+        $this->awsRegion = $input['awsRegion'] ?? $this->throwException(new InvalidArgument('Missing required field "awsRegion".'));
         $this->useCallerCredentials = $input['useCallerCredentials'] ?? null;
         $this->deltaSyncConfig = isset($input['deltaSyncConfig']) ? DeltaSyncConfig::create($input['deltaSyncConfig']) : null;
         $this->versioned = $input['versioned'] ?? null;
@@ -97,13 +97,9 @@ final class DynamodbDataSourceConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "tableName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tableName;
         $payload['tableName'] = $v;
-        if (null === $v = $this->awsRegion) {
-            throw new InvalidArgument(sprintf('Missing parameter "awsRegion" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->awsRegion;
         $payload['awsRegion'] = $v;
         if (null !== $v = $this->useCallerCredentials) {
             $payload['useCallerCredentials'] = (bool) $v;
@@ -116,5 +112,13 @@ final class DynamodbDataSourceConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

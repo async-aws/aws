@@ -38,7 +38,7 @@ final class CapacityProviderStrategyItem
     public function __construct(array $input)
     {
         $this->base = $input['base'] ?? null;
-        $this->capacityProvider = $input['capacityProvider'] ?? null;
+        $this->capacityProvider = $input['capacityProvider'] ?? $this->throwException(new InvalidArgument('Missing required field "capacityProvider".'));
         $this->weight = $input['weight'] ?? null;
     }
 
@@ -78,14 +78,20 @@ final class CapacityProviderStrategyItem
         if (null !== $v = $this->base) {
             $payload['base'] = $v;
         }
-        if (null === $v = $this->capacityProvider) {
-            throw new InvalidArgument(sprintf('Missing parameter "capacityProvider" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->capacityProvider;
         $payload['capacityProvider'] = $v;
         if (null !== $v = $this->weight) {
             $payload['weight'] = $v;
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

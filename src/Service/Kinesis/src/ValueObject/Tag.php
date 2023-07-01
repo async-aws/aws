@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Metadata assigned to the stream, consisting of a key-value pair.
  */
@@ -27,7 +29,7 @@ final class Tag
      */
     public function __construct(array $input)
     {
-        $this->key = $input['Key'] ?? null;
+        $this->key = $input['Key'] ?? $this->throwException(new InvalidArgument('Missing required field "Key".'));
         $this->value = $input['Value'] ?? null;
     }
 
@@ -50,5 +52,13 @@ final class Tag
     public function getValue(): ?string
     {
         return $this->value;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

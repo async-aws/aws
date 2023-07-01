@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The size of the function's `/tmp` directory in MB. The default value is 512, but it can be any whole number between
  * 512 and 10,240 MB.
@@ -20,7 +22,7 @@ final class EphemeralStorage
      */
     public function __construct(array $input)
     {
-        $this->size = $input['Size'] ?? null;
+        $this->size = $input['Size'] ?? $this->throwException(new InvalidArgument('Missing required field "Size".'));
     }
 
     /**
@@ -36,5 +38,13 @@ final class EphemeralStorage
     public function getSize(): int
     {
         return $this->size;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

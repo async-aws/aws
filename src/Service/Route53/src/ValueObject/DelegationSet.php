@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Route53\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * A complex type that lists the name servers in a delegation set, as well as the `CallerReference` and the `ID` for the
  * delegation set.
@@ -35,7 +37,7 @@ final class DelegationSet
     {
         $this->id = $input['Id'] ?? null;
         $this->callerReference = $input['CallerReference'] ?? null;
-        $this->nameServers = $input['NameServers'] ?? null;
+        $this->nameServers = $input['NameServers'] ?? $this->throwException(new InvalidArgument('Missing required field "NameServers".'));
     }
 
     /**
@@ -65,6 +67,14 @@ final class DelegationSet
      */
     public function getNameServers(): array
     {
-        return $this->nameServers ?? [];
+        return $this->nameServers;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

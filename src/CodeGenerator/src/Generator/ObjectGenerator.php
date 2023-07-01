@@ -106,7 +106,7 @@ class ObjectGenerator
 
         $serializer = $this->serializer->get($shape->getService());
         if ($this->isShapeUsedInput($shape)) {
-            [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($shape) + [null, null, []];
+            [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($shape, false) + [null, null, []];
             $method = $classBuilder->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPublic()->setComment('@internal');
             foreach ($args as $arg => $type) {
                 $method->addParameter($arg)->setType($type);
@@ -191,36 +191,60 @@ class ObjectGenerator
 
         $constructor->addParameter('input')->setType('array');
 
+        // To throw an exception in an expression, we need to use a method to support PHP 7.x
+        $needsThrowMethod = false;
+
         $constructorBody = '';
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
             if ($memberShape instanceof StructureShape) {
                 $objectClass = $this->generate($memberShape);
-                $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                $memberCode = strtr('CLASS::create($input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // Check if this is a list of objects
                 if ($listMemberShape instanceof StructureShape) {
                     $objectClass = $this->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $memberCode = strtr('array_map([CLASS::class, "create"], $input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
-                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
+                    $memberCode = strtr('$input["NAME"]', ['NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 $mapValueShape = $memberShape->getValue()->getShape();
 
                 if ($mapValueShape instanceof StructureShape) {
                     $objectClass = $this->generate($mapValueShape);
-                    $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $memberCode = strtr('array_map([CLASS::class, "create"], $input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
-                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
+                    $memberCode = strtr('$input["NAME"]', ['NAME' => $member->getName()]);
                 }
             } else {
-                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
+                $memberCode = strtr('$input["NAME"]', ['NAME' => $member->getName()]);
             }
+            if ($member->isRequired()) {
+                $fallback = strtr('$this->throwException(new InvalidArgument(\'Missing required field "NAME".\'))', ['NAME' => $member->getName()]);
+                $classBuilder->addUse(InvalidArgument::class);
+                $needsThrowMethod = true;
+            } else {
+                $fallback = 'null';
+            }
+            $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? MEMBER_CODE : FALLBACK;' . "\n", [
+                'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
+                'NAME' => $member->getName(),
+                'MEMBER_CODE' => $memberCode,
+                'FALLBACK' => $fallback,
+            ]);
         }
         $constructor->setBody($constructorBody);
+
+        if ($needsThrowMethod) {
+            $throwMethod = $classBuilder->addMethod('throwException');
+            $throwMethod->setPrivate();
+            $throwMethod->addComment('@return never');
+            $throwMethod->addParameter('exception')->setType(\Throwable::class);
+            $throwMethod->setBody('throw $exception;');
+        }
     }
 
     /**
@@ -249,12 +273,12 @@ class ObjectGenerator
                 $enumClassName = $this->enumGenerator->generate($memberShape);
                 $classBuilder->addUse($enumClassName->getFqdn());
             }
-            $getterSetterNullable = true;
+            $getterSetterNullable = null;
 
             if ($memberShape instanceof StructureShape) {
                 $this->generate($memberShape);
             } elseif ($memberShape instanceof MapShape) {
-                $nullable = $getterSetterNullable = false;
+                $getterSetterNullable = false;
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
                     throw new \RuntimeException('Complex maps are not supported');
@@ -271,7 +295,7 @@ class ObjectGenerator
                     $classBuilder->addUse($enumClassName->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
-                $nullable = $getterSetterNullable = false;
+                $getterSetterNullable = false;
                 $memberShape->getMember()->getShape();
 
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
@@ -297,7 +321,10 @@ class ObjectGenerator
                 $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
             }
 
-            if ($getterSetterNullable) {
+            $nullable = $nullable ?? !$member->isRequired();
+            $getterSetterNullable = $getterSetterNullable ?? $nullable;
+
+            if ($getterSetterNullable || !$nullable) {
                 $method->setBody($deprecation . strtr('
                         return $this->PROPERTY;
                     ', [
@@ -311,11 +338,10 @@ class ObjectGenerator
                 ]));
             }
 
-            $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {
-                $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
+                $method->addComment('@return ' . $parameterType . ($getterSetterNullable ? '|null' : ''));
             }
-            $method->setReturnNullable($nullable);
+            $method->setReturnNullable($getterSetterNullable);
         }
 
         foreach ($forEndpointProps as $key => $ok) {

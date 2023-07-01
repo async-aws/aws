@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Specifies the KMS key that is used to encrypt the user's data stores in Athena. This setting does not apply to Athena
  * SQL workgroups.
@@ -20,7 +22,7 @@ final class CustomerContentEncryptionConfiguration
      */
     public function __construct(array $input)
     {
-        $this->kmsKey = $input['KmsKey'] ?? null;
+        $this->kmsKey = $input['KmsKey'] ?? $this->throwException(new InvalidArgument('Missing required field "KmsKey".'));
     }
 
     /**
@@ -36,5 +38,13 @@ final class CustomerContentEncryptionConfiguration
     public function getKmsKey(): string
     {
         return $this->kmsKey;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -28,8 +28,8 @@ final class InputLogEvent
      */
     public function __construct(array $input)
     {
-        $this->timestamp = $input['timestamp'] ?? null;
-        $this->message = $input['message'] ?? null;
+        $this->timestamp = $input['timestamp'] ?? $this->throwException(new InvalidArgument('Missing required field "timestamp".'));
+        $this->message = $input['message'] ?? $this->throwException(new InvalidArgument('Missing required field "message".'));
     }
 
     /**
@@ -59,15 +59,19 @@ final class InputLogEvent
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->timestamp) {
-            throw new InvalidArgument(sprintf('Missing parameter "timestamp" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->timestamp;
         $payload['timestamp'] = $v;
-        if (null === $v = $this->message) {
-            throw new InvalidArgument(sprintf('Missing parameter "message" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->message;
         $payload['message'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

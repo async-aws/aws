@@ -56,8 +56,8 @@ final class Put
      */
     public function __construct(array $input)
     {
-        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
-        $this->tableName = $input['TableName'] ?? null;
+        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : $this->throwException(new InvalidArgument('Missing required field "Item".'));
+        $this->tableName = $input['TableName'] ?? $this->throwException(new InvalidArgument('Missing required field "TableName".'));
         $this->conditionExpression = $input['ConditionExpression'] ?? null;
         $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
         $this->expressionAttributeValues = isset($input['ExpressionAttributeValues']) ? array_map([AttributeValue::class, 'create'], $input['ExpressionAttributeValues']) : null;
@@ -105,7 +105,7 @@ final class Put
      */
     public function getItem(): array
     {
-        return $this->item ?? [];
+        return $this->item;
     }
 
     /**
@@ -127,9 +127,7 @@ final class Put
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->item) {
-            throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->item;
 
         if (empty($v)) {
             $payload['Item'] = new \stdClass();
@@ -139,9 +137,7 @@ final class Put
                 $payload['Item'][$name] = $mv->requestBody();
             }
         }
-        if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tableName;
         $payload['TableName'] = $v;
         if (null !== $v = $this->conditionExpression) {
             $payload['ConditionExpression'] = $v;
@@ -174,5 +170,13 @@ final class Put
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

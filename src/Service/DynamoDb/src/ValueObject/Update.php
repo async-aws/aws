@@ -60,9 +60,9 @@ final class Update
      */
     public function __construct(array $input)
     {
-        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
-        $this->updateExpression = $input['UpdateExpression'] ?? null;
-        $this->tableName = $input['TableName'] ?? null;
+        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : $this->throwException(new InvalidArgument('Missing required field "Key".'));
+        $this->updateExpression = $input['UpdateExpression'] ?? $this->throwException(new InvalidArgument('Missing required field "UpdateExpression".'));
+        $this->tableName = $input['TableName'] ?? $this->throwException(new InvalidArgument('Missing required field "TableName".'));
         $this->conditionExpression = $input['ConditionExpression'] ?? null;
         $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
         $this->expressionAttributeValues = isset($input['ExpressionAttributeValues']) ? array_map([AttributeValue::class, 'create'], $input['ExpressionAttributeValues']) : null;
@@ -111,7 +111,7 @@ final class Update
      */
     public function getKey(): array
     {
-        return $this->key ?? [];
+        return $this->key;
     }
 
     /**
@@ -138,9 +138,7 @@ final class Update
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->key;
 
         if (empty($v)) {
             $payload['Key'] = new \stdClass();
@@ -150,13 +148,9 @@ final class Update
                 $payload['Key'][$name] = $mv->requestBody();
             }
         }
-        if (null === $v = $this->updateExpression) {
-            throw new InvalidArgument(sprintf('Missing parameter "UpdateExpression" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->updateExpression;
         $payload['UpdateExpression'] = $v;
-        if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->tableName;
         $payload['TableName'] = $v;
         if (null !== $v = $this->conditionExpression) {
             $payload['ConditionExpression'] = $v;
@@ -189,5 +183,13 @@ final class Update
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -3,6 +3,7 @@
 namespace AsyncAws\Athena\ValueObject;
 
 use AsyncAws\Athena\Enum\ColumnNullable;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Information about the columns in a query execution result.
@@ -79,9 +80,9 @@ final class ColumnInfo
         $this->catalogName = $input['CatalogName'] ?? null;
         $this->schemaName = $input['SchemaName'] ?? null;
         $this->tableName = $input['TableName'] ?? null;
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->label = $input['Label'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
         $this->precision = $input['Precision'] ?? null;
         $this->scale = $input['Scale'] ?? null;
         $this->nullable = $input['Nullable'] ?? null;
@@ -158,5 +159,13 @@ final class ColumnInfo
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

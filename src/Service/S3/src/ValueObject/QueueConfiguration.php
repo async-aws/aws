@@ -37,8 +37,8 @@ final class QueueConfiguration
     public function __construct(array $input)
     {
         $this->id = $input['Id'] ?? null;
-        $this->queueArn = $input['QueueArn'] ?? null;
-        $this->events = $input['Events'] ?? null;
+        $this->queueArn = $input['QueueArn'] ?? $this->throwException(new InvalidArgument('Missing required field "QueueArn".'));
+        $this->events = $input['Events'] ?? $this->throwException(new InvalidArgument('Missing required field "Events".'));
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
@@ -60,7 +60,7 @@ final class QueueConfiguration
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
@@ -86,13 +86,9 @@ final class QueueConfiguration
         if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('Id', $v));
         }
-        if (null === $v = $this->queueArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueArn" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->queueArn;
         $node->appendChild($document->createElement('Queue', $v));
-        if (null === $v = $this->events) {
-            throw new InvalidArgument(sprintf('Missing parameter "Events" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->events;
         foreach ($v as $item) {
             if (!Event::exists($item)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Event" for "%s". The value "%s" is not a valid "Event".', __CLASS__, $item));
@@ -105,5 +101,13 @@ final class QueueConfiguration
 
             $v->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

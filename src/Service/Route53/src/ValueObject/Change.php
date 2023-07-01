@@ -41,8 +41,8 @@ final class Change
      */
     public function __construct(array $input)
     {
-        $this->action = $input['Action'] ?? null;
-        $this->resourceRecordSet = isset($input['ResourceRecordSet']) ? ResourceRecordSet::create($input['ResourceRecordSet']) : null;
+        $this->action = $input['Action'] ?? $this->throwException(new InvalidArgument('Missing required field "Action".'));
+        $this->resourceRecordSet = isset($input['ResourceRecordSet']) ? ResourceRecordSet::create($input['ResourceRecordSet']) : $this->throwException(new InvalidArgument('Missing required field "ResourceRecordSet".'));
     }
 
     /**
@@ -74,19 +74,23 @@ final class Change
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->action) {
-            throw new InvalidArgument(sprintf('Missing parameter "Action" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->action;
         if (!ChangeAction::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Action" for "%s". The value "%s" is not a valid "ChangeAction".', __CLASS__, $v));
         }
         $node->appendChild($document->createElement('Action', $v));
-        if (null === $v = $this->resourceRecordSet) {
-            throw new InvalidArgument(sprintf('Missing parameter "ResourceRecordSet" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->resourceRecordSet;
 
         $node->appendChild($child = $document->createElement('ResourceRecordSet'));
 
         $v->requestBody($child, $document);
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

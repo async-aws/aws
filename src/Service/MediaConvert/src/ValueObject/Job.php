@@ -2,6 +2,7 @@
 
 namespace AsyncAws\MediaConvert\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\AccelerationStatus;
 use AsyncAws\MediaConvert\Enum\BillingTagsSource;
 use AsyncAws\MediaConvert\Enum\JobPhase;
@@ -226,8 +227,8 @@ final class Job
         $this->queue = $input['Queue'] ?? null;
         $this->queueTransitions = isset($input['QueueTransitions']) ? array_map([QueueTransition::class, 'create'], $input['QueueTransitions']) : null;
         $this->retryCount = $input['RetryCount'] ?? null;
-        $this->role = $input['Role'] ?? null;
-        $this->settings = isset($input['Settings']) ? JobSettings::create($input['Settings']) : null;
+        $this->role = $input['Role'] ?? $this->throwException(new InvalidArgument('Missing required field "Role".'));
+        $this->settings = isset($input['Settings']) ? JobSettings::create($input['Settings']) : $this->throwException(new InvalidArgument('Missing required field "Settings".'));
         $this->simulateReservedQueue = $input['SimulateReservedQueue'] ?? null;
         $this->status = $input['Status'] ?? null;
         $this->statusUpdateInterval = $input['StatusUpdateInterval'] ?? null;
@@ -438,5 +439,13 @@ final class Job
     public function getWarnings(): array
     {
         return $this->warnings ?? [];
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

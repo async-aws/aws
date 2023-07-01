@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains metadata for a column in a table.
  */
@@ -31,7 +33,7 @@ final class Column
      */
     public function __construct(array $input)
     {
-        $this->name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
         $this->type = $input['Type'] ?? null;
         $this->comment = $input['Comment'] ?? null;
     }
@@ -61,5 +63,13 @@ final class Column
     public function getType(): ?string
     {
         return $this->type;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

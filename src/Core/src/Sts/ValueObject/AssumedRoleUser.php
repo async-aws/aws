@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The identifiers for the temporary security credentials that the operation returns.
  */
@@ -29,8 +31,8 @@ final class AssumedRoleUser
      */
     public function __construct(array $input)
     {
-        $this->assumedRoleId = $input['AssumedRoleId'] ?? null;
-        $this->arn = $input['Arn'] ?? null;
+        $this->assumedRoleId = $input['AssumedRoleId'] ?? $this->throwException(new InvalidArgument('Missing required field "AssumedRoleId".'));
+        $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
     }
 
     /**
@@ -52,5 +54,13 @@ final class AssumedRoleUser
     public function getAssumedRoleId(): string
     {
         return $this->assumedRoleId;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

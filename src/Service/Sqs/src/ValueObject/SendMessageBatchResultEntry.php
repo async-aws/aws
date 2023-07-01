@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Sqs\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Encloses a `MessageId` for a successfully-enqueued message in a `SendMessageBatch.`.
  */
@@ -66,9 +68,9 @@ final class SendMessageBatchResultEntry
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->messageId = $input['MessageId'] ?? null;
-        $this->md5OfMessageBody = $input['MD5OfMessageBody'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->messageId = $input['MessageId'] ?? $this->throwException(new InvalidArgument('Missing required field "MessageId".'));
+        $this->md5OfMessageBody = $input['MD5OfMessageBody'] ?? $this->throwException(new InvalidArgument('Missing required field "MD5OfMessageBody".'));
         $this->md5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
         $this->md5OfMessageSystemAttributes = $input['MD5OfMessageSystemAttributes'] ?? null;
         $this->sequenceNumber = $input['SequenceNumber'] ?? null;
@@ -117,5 +119,13 @@ final class SendMessageBatchResultEntry
     public function getSequenceNumber(): ?string
     {
         return $this->sequenceNumber;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

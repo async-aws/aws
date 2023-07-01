@@ -29,7 +29,7 @@ final class Content
      */
     public function __construct(array $input)
     {
-        $this->data = $input['Data'] ?? null;
+        $this->data = $input['Data'] ?? $this->throwException(new InvalidArgument('Missing required field "Data".'));
         $this->charset = $input['Charset'] ?? null;
     }
 
@@ -60,14 +60,20 @@ final class Content
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->data) {
-            throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->data;
         $payload['Data'] = $v;
         if (null !== $v = $this->charset) {
             $payload['Charset'] = $v;
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

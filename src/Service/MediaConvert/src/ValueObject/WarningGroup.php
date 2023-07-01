@@ -2,6 +2,8 @@
 
 namespace AsyncAws\MediaConvert\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Contains any warning codes and their count for the job.
  */
@@ -26,8 +28,8 @@ final class WarningGroup
      */
     public function __construct(array $input)
     {
-        $this->code = $input['Code'] ?? null;
-        $this->count = $input['Count'] ?? null;
+        $this->code = $input['Code'] ?? $this->throwException(new InvalidArgument('Missing required field "Code".'));
+        $this->count = $input['Count'] ?? $this->throwException(new InvalidArgument('Missing required field "Count".'));
     }
 
     /**
@@ -49,5 +51,13 @@ final class WarningGroup
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

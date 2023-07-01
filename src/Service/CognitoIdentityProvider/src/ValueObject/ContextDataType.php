@@ -48,10 +48,10 @@ final class ContextDataType
      */
     public function __construct(array $input)
     {
-        $this->ipAddress = $input['IpAddress'] ?? null;
-        $this->serverName = $input['ServerName'] ?? null;
-        $this->serverPath = $input['ServerPath'] ?? null;
-        $this->httpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : null;
+        $this->ipAddress = $input['IpAddress'] ?? $this->throwException(new InvalidArgument('Missing required field "IpAddress".'));
+        $this->serverName = $input['ServerName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServerName".'));
+        $this->serverPath = $input['ServerPath'] ?? $this->throwException(new InvalidArgument('Missing required field "ServerPath".'));
+        $this->httpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : $this->throwException(new InvalidArgument('Missing required field "HttpHeaders".'));
         $this->encodedData = $input['EncodedData'] ?? null;
     }
 
@@ -79,7 +79,7 @@ final class ContextDataType
      */
     public function getHttpHeaders(): array
     {
-        return $this->httpHeaders ?? [];
+        return $this->httpHeaders;
     }
 
     public function getIpAddress(): string
@@ -103,21 +103,13 @@ final class ContextDataType
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ipAddress) {
-            throw new InvalidArgument(sprintf('Missing parameter "IpAddress" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->ipAddress;
         $payload['IpAddress'] = $v;
-        if (null === $v = $this->serverName) {
-            throw new InvalidArgument(sprintf('Missing parameter "ServerName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->serverName;
         $payload['ServerName'] = $v;
-        if (null === $v = $this->serverPath) {
-            throw new InvalidArgument(sprintf('Missing parameter "ServerPath" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->serverPath;
         $payload['ServerPath'] = $v;
-        if (null === $v = $this->httpHeaders) {
-            throw new InvalidArgument(sprintf('Missing parameter "HttpHeaders" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->httpHeaders;
 
         $index = -1;
         $payload['HttpHeaders'] = [];
@@ -131,5 +123,13 @@ final class ContextDataType
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

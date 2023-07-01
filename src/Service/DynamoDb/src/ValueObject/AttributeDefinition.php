@@ -32,8 +32,8 @@ final class AttributeDefinition
      */
     public function __construct(array $input)
     {
-        $this->attributeName = $input['AttributeName'] ?? null;
-        $this->attributeType = $input['AttributeType'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeName".'));
+        $this->attributeType = $input['AttributeType'] ?? $this->throwException(new InvalidArgument('Missing required field "AttributeType".'));
     }
 
     /**
@@ -66,18 +66,22 @@ final class AttributeDefinition
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->attributeName) {
-            throw new InvalidArgument(sprintf('Missing parameter "AttributeName" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->attributeName;
         $payload['AttributeName'] = $v;
-        if (null === $v = $this->attributeType) {
-            throw new InvalidArgument(sprintf('Missing parameter "AttributeType" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->attributeType;
         if (!ScalarAttributeType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "AttributeType" for "%s". The value "%s" is not a valid "ScalarAttributeType".', __CLASS__, $v));
         }
         $payload['AttributeType'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

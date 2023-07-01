@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kinesis\Enum\EncryptionType;
 
 /**
@@ -52,10 +53,10 @@ final class Record
      */
     public function __construct(array $input)
     {
-        $this->sequenceNumber = $input['SequenceNumber'] ?? null;
+        $this->sequenceNumber = $input['SequenceNumber'] ?? $this->throwException(new InvalidArgument('Missing required field "SequenceNumber".'));
         $this->approximateArrivalTimestamp = $input['ApproximateArrivalTimestamp'] ?? null;
-        $this->data = $input['Data'] ?? null;
-        $this->partitionKey = $input['PartitionKey'] ?? null;
+        $this->data = $input['Data'] ?? $this->throwException(new InvalidArgument('Missing required field "Data".'));
+        $this->partitionKey = $input['PartitionKey'] ?? $this->throwException(new InvalidArgument('Missing required field "PartitionKey".'));
         $this->encryptionType = $input['EncryptionType'] ?? null;
     }
 
@@ -99,5 +100,13 @@ final class Record
     public function getSequenceNumber(): string
     {
         return $this->sequenceNumber;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -31,7 +31,7 @@ final class AclConfiguration
      */
     public function __construct(array $input)
     {
-        $this->s3AclOption = $input['S3AclOption'] ?? null;
+        $this->s3AclOption = $input['S3AclOption'] ?? $this->throwException(new InvalidArgument('Missing required field "S3AclOption".'));
     }
 
     /**
@@ -58,14 +58,20 @@ final class AclConfiguration
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->s3AclOption) {
-            throw new InvalidArgument(sprintf('Missing parameter "S3AclOption" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->s3AclOption;
         if (!S3AclOption::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "S3AclOption" for "%s". The value "%s" is not a valid "S3AclOption".', __CLASS__, $v));
         }
         $payload['S3AclOption'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

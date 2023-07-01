@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Kinesis\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The range of possible hash key values for the shard, which is a set of ordered contiguous positive integers.
  */
@@ -25,8 +27,8 @@ final class HashKeyRange
      */
     public function __construct(array $input)
     {
-        $this->startingHashKey = $input['StartingHashKey'] ?? null;
-        $this->endingHashKey = $input['EndingHashKey'] ?? null;
+        $this->startingHashKey = $input['StartingHashKey'] ?? $this->throwException(new InvalidArgument('Missing required field "StartingHashKey".'));
+        $this->endingHashKey = $input['EndingHashKey'] ?? $this->throwException(new InvalidArgument('Missing required field "EndingHashKey".'));
     }
 
     /**
@@ -48,5 +50,13 @@ final class HashKeyRange
     public function getStartingHashKey(): string
     {
         return $this->startingHashKey;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

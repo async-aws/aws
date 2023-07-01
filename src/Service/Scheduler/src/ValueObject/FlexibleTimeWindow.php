@@ -29,7 +29,7 @@ final class FlexibleTimeWindow
     public function __construct(array $input)
     {
         $this->maximumWindowInMinutes = $input['MaximumWindowInMinutes'] ?? null;
-        $this->mode = $input['Mode'] ?? null;
+        $this->mode = $input['Mode'] ?? $this->throwException(new InvalidArgument('Missing required field "Mode".'));
     }
 
     /**
@@ -65,14 +65,20 @@ final class FlexibleTimeWindow
         if (null !== $v = $this->maximumWindowInMinutes) {
             $payload['MaximumWindowInMinutes'] = $v;
         }
-        if (null === $v = $this->mode) {
-            throw new InvalidArgument(sprintf('Missing parameter "Mode" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->mode;
         if (!FlexibleTimeWindowMode::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "FlexibleTimeWindowMode".', __CLASS__, $v));
         }
         $payload['Mode'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

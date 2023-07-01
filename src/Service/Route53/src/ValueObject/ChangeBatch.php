@@ -28,7 +28,7 @@ final class ChangeBatch
     public function __construct(array $input)
     {
         $this->comment = $input['Comment'] ?? null;
-        $this->changes = isset($input['Changes']) ? array_map([Change::class, 'create'], $input['Changes']) : null;
+        $this->changes = isset($input['Changes']) ? array_map([Change::class, 'create'], $input['Changes']) : $this->throwException(new InvalidArgument('Missing required field "Changes".'));
     }
 
     /**
@@ -47,7 +47,7 @@ final class ChangeBatch
      */
     public function getChanges(): array
     {
-        return $this->changes ?? [];
+        return $this->changes;
     }
 
     public function getComment(): ?string
@@ -63,9 +63,7 @@ final class ChangeBatch
         if (null !== $v = $this->comment) {
             $node->appendChild($document->createElement('Comment', $v));
         }
-        if (null === $v = $this->changes) {
-            throw new InvalidArgument(sprintf('Missing parameter "Changes" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->changes;
 
         $node->appendChild($nodeList = $document->createElement('Changes'));
         foreach ($v as $item) {
@@ -73,5 +71,13 @@ final class ChangeBatch
 
             $item->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

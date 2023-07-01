@@ -24,7 +24,7 @@ final class PutRequest
      */
     public function __construct(array $input)
     {
-        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
+        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : $this->throwException(new InvalidArgument('Missing required field "Item".'));
     }
 
     /**
@@ -42,7 +42,7 @@ final class PutRequest
      */
     public function getItem(): array
     {
-        return $this->item ?? [];
+        return $this->item;
     }
 
     /**
@@ -51,9 +51,7 @@ final class PutRequest
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->item) {
-            throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->item;
 
         if (empty($v)) {
             $payload['Item'] = new \stdClass();
@@ -65,5 +63,13 @@ final class PutRequest
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

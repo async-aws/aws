@@ -117,7 +117,7 @@ final class MetricDataQuery
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
         $this->metricStat = isset($input['MetricStat']) ? MetricStat::create($input['MetricStat']) : null;
         $this->expression = $input['Expression'] ?? null;
         $this->label = $input['Label'] ?? null;
@@ -183,9 +183,7 @@ final class MetricDataQuery
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->id;
         $payload['Id'] = $v;
         if (null !== $v = $this->metricStat) {
             foreach ($v->requestBody() as $bodyKey => $bodyValue) {
@@ -209,5 +207,13 @@ final class MetricDataQuery
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

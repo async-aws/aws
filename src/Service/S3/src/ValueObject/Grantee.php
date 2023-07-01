@@ -65,7 +65,7 @@ final class Grantee
         $this->displayName = $input['DisplayName'] ?? null;
         $this->emailAddress = $input['EmailAddress'] ?? null;
         $this->id = $input['ID'] ?? null;
-        $this->type = $input['Type'] ?? null;
+        $this->type = $input['Type'] ?? $this->throwException(new InvalidArgument('Missing required field "Type".'));
         $this->uri = $input['URI'] ?? null;
     }
 
@@ -125,9 +125,7 @@ final class Grantee
         if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('ID', $v));
         }
-        if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->type;
         if (!Type::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
         }
@@ -135,5 +133,13 @@ final class Grantee
         if (null !== $v = $this->uri) {
             $node->appendChild($document->createElement('URI', $v));
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

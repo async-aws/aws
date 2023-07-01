@@ -26,7 +26,7 @@ final class KinesisParameters
      */
     public function __construct(array $input)
     {
-        $this->partitionKey = $input['PartitionKey'] ?? null;
+        $this->partitionKey = $input['PartitionKey'] ?? $this->throwException(new InvalidArgument('Missing required field "PartitionKey".'));
     }
 
     /**
@@ -50,11 +50,17 @@ final class KinesisParameters
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->partitionKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "PartitionKey" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->partitionKey;
         $payload['PartitionKey'] = $v;
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

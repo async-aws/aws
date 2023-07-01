@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Route53\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * A complex type that contains general information about the hosted zone.
  */
@@ -56,9 +58,9 @@ final class HostedZone
      */
     public function __construct(array $input)
     {
-        $this->id = $input['Id'] ?? null;
-        $this->name = $input['Name'] ?? null;
-        $this->callerReference = $input['CallerReference'] ?? null;
+        $this->id = $input['Id'] ?? $this->throwException(new InvalidArgument('Missing required field "Id".'));
+        $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->callerReference = $input['CallerReference'] ?? $this->throwException(new InvalidArgument('Missing required field "CallerReference".'));
         $this->config = isset($input['Config']) ? HostedZoneConfig::create($input['Config']) : null;
         $this->resourceRecordSetCount = $input['ResourceRecordSetCount'] ?? null;
         $this->linkedService = isset($input['LinkedService']) ? LinkedService::create($input['LinkedService']) : null;
@@ -107,5 +109,13 @@ final class HostedZone
     public function getResourceRecordSetCount(): ?int
     {
         return $this->resourceRecordSetCount;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

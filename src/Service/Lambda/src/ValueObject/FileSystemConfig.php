@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * Details about the connection between a Lambda function and an Amazon EFS file system [^1].
  *
@@ -27,8 +29,8 @@ final class FileSystemConfig
      */
     public function __construct(array $input)
     {
-        $this->arn = $input['Arn'] ?? null;
-        $this->localMountPath = $input['LocalMountPath'] ?? null;
+        $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
+        $this->localMountPath = $input['LocalMountPath'] ?? $this->throwException(new InvalidArgument('Missing required field "LocalMountPath".'));
     }
 
     /**
@@ -50,5 +52,13 @@ final class FileSystemConfig
     public function getLocalMountPath(): string
     {
         return $this->localMountPath;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

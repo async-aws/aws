@@ -28,7 +28,7 @@ final class ResultReuseByAgeConfiguration
      */
     public function __construct(array $input)
     {
-        $this->enabled = $input['Enabled'] ?? null;
+        $this->enabled = $input['Enabled'] ?? $this->throwException(new InvalidArgument('Missing required field "Enabled".'));
         $this->maxAgeInMinutes = $input['MaxAgeInMinutes'] ?? null;
     }
 
@@ -59,14 +59,20 @@ final class ResultReuseByAgeConfiguration
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->enabled) {
-            throw new InvalidArgument(sprintf('Missing parameter "Enabled" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->enabled;
         $payload['Enabled'] = (bool) $v;
         if (null !== $v = $this->maxAgeInMinutes) {
             $payload['MaxAgeInMinutes'] = $v;
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

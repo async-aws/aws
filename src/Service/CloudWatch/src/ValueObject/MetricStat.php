@@ -55,9 +55,9 @@ final class MetricStat
      */
     public function __construct(array $input)
     {
-        $this->metric = isset($input['Metric']) ? Metric::create($input['Metric']) : null;
-        $this->period = $input['Period'] ?? null;
-        $this->stat = $input['Stat'] ?? null;
+        $this->metric = isset($input['Metric']) ? Metric::create($input['Metric']) : $this->throwException(new InvalidArgument('Missing required field "Metric".'));
+        $this->period = $input['Period'] ?? $this->throwException(new InvalidArgument('Missing required field "Period".'));
+        $this->stat = $input['Stat'] ?? $this->throwException(new InvalidArgument('Missing required field "Stat".'));
         $this->unit = $input['Unit'] ?? null;
     }
 
@@ -103,20 +103,14 @@ final class MetricStat
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->metric) {
-            throw new InvalidArgument(sprintf('Missing parameter "Metric" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->metric;
         foreach ($v->requestBody() as $bodyKey => $bodyValue) {
             $payload["Metric.$bodyKey"] = $bodyValue;
         }
 
-        if (null === $v = $this->period) {
-            throw new InvalidArgument(sprintf('Missing parameter "Period" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->period;
         $payload['Period'] = $v;
-        if (null === $v = $this->stat) {
-            throw new InvalidArgument(sprintf('Missing parameter "Stat" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->stat;
         $payload['Stat'] = $v;
         if (null !== $v = $this->unit) {
             if (!StandardUnit::exists($v)) {
@@ -126,5 +120,13 @@ final class MetricStat
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

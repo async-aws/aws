@@ -52,7 +52,7 @@ final class EngineConfiguration
     public function __construct(array $input)
     {
         $this->coordinatorDpuSize = $input['CoordinatorDpuSize'] ?? null;
-        $this->maxConcurrentDpus = $input['MaxConcurrentDpus'] ?? null;
+        $this->maxConcurrentDpus = $input['MaxConcurrentDpus'] ?? $this->throwException(new InvalidArgument('Missing required field "MaxConcurrentDpus".'));
         $this->defaultExecutorDpuSize = $input['DefaultExecutorDpuSize'] ?? null;
         $this->additionalConfigs = $input['AdditionalConfigs'] ?? null;
         $this->sparkProperties = $input['SparkProperties'] ?? null;
@@ -112,9 +112,7 @@ final class EngineConfiguration
         if (null !== $v = $this->coordinatorDpuSize) {
             $payload['CoordinatorDpuSize'] = $v;
         }
-        if (null === $v = $this->maxConcurrentDpus) {
-            throw new InvalidArgument(sprintf('Missing parameter "MaxConcurrentDpus" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->maxConcurrentDpus;
         $payload['MaxConcurrentDpus'] = $v;
         if (null !== $v = $this->defaultExecutorDpuSize) {
             $payload['DefaultExecutorDpuSize'] = $v;
@@ -141,5 +139,13 @@ final class EngineConfiguration
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

@@ -25,7 +25,7 @@ final class CORSConfiguration
      */
     public function __construct(array $input)
     {
-        $this->corsRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : null;
+        $this->corsRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : $this->throwException(new InvalidArgument('Missing required field "CORSRules".'));
     }
 
     /**
@@ -43,7 +43,7 @@ final class CORSConfiguration
      */
     public function getCorsRules(): array
     {
-        return $this->corsRules ?? [];
+        return $this->corsRules;
     }
 
     /**
@@ -51,13 +51,19 @@ final class CORSConfiguration
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
-        if (null === $v = $this->corsRules) {
-            throw new InvalidArgument(sprintf('Missing parameter "CORSRules" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->corsRules;
         foreach ($v as $item) {
             $node->appendChild($child = $document->createElement('CORSRule'));
 
             $item->requestBody($child, $document);
         }
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }

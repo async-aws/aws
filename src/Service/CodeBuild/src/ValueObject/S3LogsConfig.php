@@ -42,7 +42,7 @@ final class S3LogsConfig
      */
     public function __construct(array $input)
     {
-        $this->status = $input['status'] ?? null;
+        $this->status = $input['status'] ?? $this->throwException(new InvalidArgument('Missing required field "status".'));
         $this->location = $input['location'] ?? null;
         $this->encryptionDisabled = $input['encryptionDisabled'] ?? null;
         $this->bucketOwnerAccess = $input['bucketOwnerAccess'] ?? null;
@@ -93,9 +93,7 @@ final class S3LogsConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->status) {
-            throw new InvalidArgument(sprintf('Missing parameter "status" for "%s". The value cannot be null.', __CLASS__));
-        }
+        $v = $this->status;
         if (!LogsConfigStatusType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LogsConfigStatusType".', __CLASS__, $v));
         }
@@ -114,5 +112,13 @@ final class S3LogsConfig
         }
 
         return $payload;
+    }
+
+    /**
+     * @return never
+     */
+    private function throwException(\Throwable $exception)
+    {
+        throw $exception;
     }
 }
