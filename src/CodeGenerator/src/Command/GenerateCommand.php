@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\File\Cache;
 use AsyncAws\CodeGenerator\File\ClassWriter;
 use AsyncAws\CodeGenerator\File\ComposerWriter;
+use AsyncAws\CodeGenerator\File\UnusedClassCleaner;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use PhpCsFixer\Config;
@@ -65,13 +66,19 @@ class GenerateCommand extends Command
      */
     private $composerWriter;
 
-    public function __construct(string $manifestFile, Cache $cache, ClassWriter $classWriter, ComposerWriter $composerWriter, ApiGenerator $generator)
+    /**
+     * @var UnusedClassCleaner
+     */
+    private $unusedClassCleaner;
+
+    public function __construct(string $manifestFile, Cache $cache, ClassWriter $classWriter, ComposerWriter $composerWriter, ApiGenerator $generator, UnusedClassCleaner $unusedClassCleaner)
     {
         $this->manifestFile = $manifestFile;
         $this->cache = $cache;
         $this->generator = $generator;
         $this->classWriter = $classWriter;
         $this->composerWriter = $composerWriter;
+        $this->unusedClassCleaner = $unusedClassCleaner;
 
         parent::__construct();
     }
@@ -316,6 +323,10 @@ class GenerateCommand extends Command
         }
 
         $this->composerWriter->setRequirements($namespace, $this->generator->getUpdatedRequirements(), $input->getOption('all') && 'Sts' !== $serviceName);
+
+        if ($input->getOption('all')) {
+            $this->unusedClassCleaner->cleanUnusedClasses($serviceGenerator->getNamespaceRegistry(), $this->generator->getUpdatedClasses());
+        }
 
         if (!$input->getOption('raw')) {
             $this->fixCs($clientClass, $io);
