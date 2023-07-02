@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace AsyncAws\Symfony\Bundle\DependencyInjection;
 
+use AsyncAws\Core\AbstractApi;
+
 class AwsPackagesProvider
 {
+    /**
+     * @return array<string, array{class: class-string<AbstractApi>, package: string}>
+     */
     public static function getAllServices(): array
     {
         return [
@@ -172,6 +177,9 @@ class AwsPackagesProvider
         ];
     }
 
+    /**
+     * @return list<string>
+     */
     public static function getServiceNames(): array
     {
         $services = self::getAllServices();

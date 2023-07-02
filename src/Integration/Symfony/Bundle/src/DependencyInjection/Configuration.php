@@ -63,7 +63,12 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private static function validateType(?array $clients)
+    /**
+     * @param null|array<string, array{type?: string, ...}> $clients
+     *
+     * @return array<string, array{type?: string, ...}>
+     */
+    private static function validateType(?array $clients): array
     {
         if (null === $clients) {
             return [];

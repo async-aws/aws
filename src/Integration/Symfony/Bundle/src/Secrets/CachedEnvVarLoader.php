@@ -8,10 +8,19 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 class CachedEnvVarLoader implements EnvVarLoaderInterface
 {
+    /**
+     * @var EnvVarLoaderInterface
+     */
     private $decorated;
 
+    /**
+     * @var CacheInterface
+     */
     private $cache;
 
+    /**
+     * @var int
+     */
     private $ttl;
 
     public function __construct(EnvVarLoaderInterface $decorated, CacheInterface $cache, int $ttl)
