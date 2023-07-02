@@ -38,6 +38,9 @@ class SignerV4ForS3 extends SignerV4
         'PutObjectLockConfiguration' => true,
     ];
 
+    /**
+     * @var bool
+     */
     private $sendChunkedBody;
 
     /**
