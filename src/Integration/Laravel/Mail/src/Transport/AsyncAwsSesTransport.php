@@ -5,6 +5,8 @@ namespace AsyncAws\Illuminate\Mail\Transport;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\ListManagementOptions;
+use AsyncAws\Ses\ValueObject\MessageTag;
 use AsyncAws\Ses\ValueObject\RawMessage;
 use Illuminate\Mail\Transport\Transport;
 
@@ -23,18 +25,34 @@ class AsyncAwsSesTransport extends Transport
     /**
      * The Amazon SES transmission options.
      *
-     * @var array
+     * @var array{
+     *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
+     *   ReplyToAddresses?: string[],
+     *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
+     *   EmailTags?: array<MessageTag|array>,
+     *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
+     * }
      */
     protected $options = [];
 
     /**
      * Create a new SES transport instance.
      *
-     * @param array $options
-     *
-     * @return void
+     * @param array{
+     *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
+     *   ReplyToAddresses?: string[],
+     *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
+     *   EmailTags?: array<MessageTag|array>,
+     *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
+     * } $options
      */
-    public function __construct(SesClient $ses, $options = [])
+    public function __construct(SesClient $ses, array $options = [])
     {
         $this->ses = $ses;
         $this->options = $options;
@@ -87,7 +105,16 @@ class AsyncAwsSesTransport extends Transport
     /**
      * Get the transmission options being used by the transport.
      *
-     * @return array
+     * @return array{
+     *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
+     *   ReplyToAddresses?: string[],
+     *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
+     *   EmailTags?: array<MessageTag|array>,
+     *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
+     * }
      */
     public function getOptions()
     {
@@ -97,7 +124,27 @@ class AsyncAwsSesTransport extends Transport
     /**
      * Set the transmission options being used by the transport.
      *
-     * @return array
+     * @param array{
+     *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
+     *   ReplyToAddresses?: string[],
+     *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
+     *   EmailTags?: array<MessageTag|array>,
+     *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
+     * } $options
+     *
+     * @return array{
+     *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
+     *   ReplyToAddresses?: string[],
+     *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
+     *   EmailTags?: array<MessageTag|array>,
+     *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
+     * }
      */
     public function setOptions(array $options)
     {

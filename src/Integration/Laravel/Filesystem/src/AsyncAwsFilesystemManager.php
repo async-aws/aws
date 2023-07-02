@@ -12,6 +12,18 @@ class AsyncAwsFilesystemManager extends FilesystemManager
     /**
      * Create an instance of the Amazon S3 driver.
      *
+     * @param array{
+     *     key?: string|null,
+     *     secret?: string|null,
+     *     token?: string|null,
+     *     endpoint?: string|null,
+     *     region?: string|null,
+     *     bucket: string,
+     *     root?: string|null,
+     *     options?: array<string, mixed>,
+     *     ...
+     * } $config
+     *
      * @return FilesystemAdapter
      */
     public function createAsyncAwsS3Driver(array $config)

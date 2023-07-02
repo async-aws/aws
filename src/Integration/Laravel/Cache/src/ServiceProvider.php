@@ -10,6 +10,9 @@ use Illuminate\Support\ServiceProvider as AbstractServiceProvider;
 
 class ServiceProvider extends AbstractServiceProvider
 {
+    /**
+     * @return void
+     */
     public function boot()
     {
         /** @var CacheManager $manager */
@@ -25,6 +28,19 @@ class ServiceProvider extends AbstractServiceProvider
         });
     }
 
+    /**
+     * @param mixed $app
+     * @param array{
+     *     key?: string|null,
+     *     secret?: string|null,
+     *     token?: string|null,
+     *     endpoint?: string|null,
+     *     region?: string|null,
+     *     table: string,
+     *     attributes?: array{key?: string|null, value?: string|null, expiration?: string|null},
+     *     prefix?: string|null
+     * } $config
+     */
     public function createStore($app, array $config): AsyncAwsDynamoDbStore
     {
         $closure = $this->getClosure();
@@ -32,6 +48,18 @@ class ServiceProvider extends AbstractServiceProvider
         return $closure($app, $config);
     }
 
+    /**
+     * @return \Closure(mixed, array{
+     *     key?: string|null,
+     *     secret?: string|null,
+     *     token?: string|null,
+     *     endpoint?: string|null,
+     *     region?: string|null,
+     *     table: string,
+     *     attributes?: array{key?: string|null, value?: string|null, expiration?: string|null},
+     *     prefix?: string|null
+     * }): AsyncAwsDynamoDbStore
+     */
     private function getClosure(): \Closure
     {
         return \Closure::fromCallable(function ($app, array $config) {

@@ -7,6 +7,7 @@ use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\Store;
@@ -64,22 +65,14 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
 
     /**
      * Create a new store instance.
-     *
-     * @param string $table
-     * @param string $keyAttribute
-     * @param string $valueAttribute
-     * @param string $expirationAttribute
-     * @param string $prefix
-     *
-     * @return void
      */
     public function __construct(
         DynamoDbClient $dynamo,
-        $table,
-        $keyAttribute = 'key',
-        $valueAttribute = 'value',
-        $expirationAttribute = 'expires_at',
-        $prefix = ''
+        string $table,
+        string $keyAttribute = 'key',
+        string $valueAttribute = 'value',
+        string $expirationAttribute = 'expires_at',
+        string $prefix = ''
     ) {
         $this->table = $table;
         $this->dynamoDb = $dynamo;
@@ -125,11 +118,11 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
 
         $item = $response->getItem();
         if (empty($item)) {
-            return;
+            return null;
         }
 
         if ($this->isExpired($item)) {
-            return;
+            return null;
         }
 
         if (isset($item[$this->valueAttribute])) {
@@ -139,6 +132,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
                 null
             );
         }
+
+        return null;
     }
 
     /**
@@ -463,11 +458,11 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
     /**
      * Determine if the given item is expired.
      *
-     * @param \DateTimeInterface|null $expiration
+     * @param array<string, AttributeValue> $item
      *
      * @return bool
      */
-    private function isExpired(array $item, $expiration = null)
+    private function isExpired(array $item, ?\DateTimeInterface $expiration = null)
     {
         $expiration = $expiration ?: Carbon::now();
 
@@ -477,12 +472,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
 
     /**
      * Get the UNIX timestamp for the given number of seconds.
-     *
-     * @param int $seconds
-     *
-     * @return int
      */
-    private function toTimestamp($seconds)
+    private function toTimestamp(int $seconds): int
     {
         return $seconds > 0
                     ? $this->availableAt($seconds)
@@ -493,10 +484,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
      * Serialize the value.
      *
      * @param mixed $value
-     *
-     * @return mixed
      */
-    private function serialize($value)
+    private function serialize($value): string
     {
         return is_numeric($value) ? (string) $value : serialize($value);
     }

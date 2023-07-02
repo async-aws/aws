@@ -10,6 +10,9 @@ use Illuminate\Support\ServiceProvider as AbstractServiceProvider;
 
 class ServiceProvider extends AbstractServiceProvider
 {
+    /**
+     * @return void
+     */
     public function boot()
     {
         /** @var QueueManager $manager */
