@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
+use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
@@ -304,6 +305,84 @@ class InputGenerator
         return $className;
     }
 
+    private function inputClassRequestPartGettersEnumGenerator(Member $member, string $requestPart, string $input): string
+    {
+        $memberShape = $member->getShape();
+        $validateEnum = '';
+        if (!empty($memberShape->getEnum())) {
+            $enumClassName = $this->namespaceRegistry->getEnum($memberShape);
+            $validateEnum = strtr('if (!ENUM_CLASS::exists(VALUE)) {
+                throw new InvalidArgument(sprintf(\'Invalid parameter "MEMBER_NAME" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
+            }', [
+                'VALUE' => $this->stringify($input, $member, $requestPart),
+                'ENUM_CLASS' => $enumClassName->getName(),
+                'INPUT' => $input,
+            ]);
+        }
+
+        return $validateEnum;
+    }
+
+    private function inputClassRequestPartGettersHookGenerator(StructureMember $member, Operation $operation, string $requestPart, string $input): string
+    {
+        $applyHook = '';
+        foreach ($operation->getService()->getHooks($requestPart . '_parameters') as $hook) {
+            if (!\in_array($member->getLocationName() ?? $member->getName(), $hook->getFilters())) {
+                continue;
+            }
+
+            $applyHook .= $this->hookGenerator->generate($hook, 'VALUE');
+        }
+
+        if (!$applyHook) {
+            return '';
+        }
+
+        return strtr($applyHook, [
+            'VALUE' => $this->stringify($input, $member, $requestPart),
+        ]);
+    }
+
+    private function inputClassRequestPartGetters(StructureMember $member, Operation $operation, string $requestPart, string $input, string $output): string
+    {
+        $memberShape = $member->getShape();
+        if ($memberShape instanceof ListShape) {
+            if ('header' !== $requestPart) {
+                throw new \InvalidArgumentException(sprintf('ListShape in request part "%s" is not yet implemented', $requestPart));
+            }
+
+            $bodyCode = '
+            APPLY_HOOK
+            $items = [];
+            foreach (INPUT as $value) {
+                VALIDATE_ENUM
+                $items[] = VALUE;
+            }
+            OUTPUT = implode(\',\', $items);
+            ';
+
+            return strtr($bodyCode, [
+                'INPUT' => $input,
+                'OUTPUT' => $output,
+                'VALUE' => $this->stringify('$value', $memberShape->getMember(), $requestPart),
+                'VALIDATE_ENUM' => $this->inputClassRequestPartGettersEnumGenerator($memberShape->getMember(), $requestPart, '$value'),
+                'APPLY_HOOK' => $this->inputClassRequestPartGettersHookGenerator($member, $operation, $requestPart, $input),
+            ]);
+        }
+
+        $bodyCode = '
+        VALIDATE_ENUM
+        APPLY_HOOK
+        OUTPUT = VALUE;';
+
+        return strtr($bodyCode, [
+            'VALIDATE_ENUM' => $this->inputClassRequestPartGettersEnumGenerator($member, $requestPart, $input),
+            'APPLY_HOOK' => $this->inputClassRequestPartGettersHookGenerator($member, $operation, $requestPart, $input),
+            'OUTPUT' => $output,
+            'VALUE' => $this->stringify($input, $member, $requestPart),
+        ]);
+    }
+
     private function inputClassRequestGetters(StructureShape $inputShape, ClassBuilder $classBuilder, Operation $operation): void
     {
         $serializer = $this->serializer->get($operation->getService());
@@ -324,67 +403,39 @@ class InputGenerator
                 if ($requestPart !== $member->getLocation()) {
                     continue;
                 }
-
                 if ('querystring' === $requestPart && $usesEndpointDiscovery) {
                     if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
                         $this->requirementsRegistry->addRequirement('async-aws/core', '^1.19');
                     }
                 }
 
-                $memberShape = $member->getShape();
-                if ($member->isRequired()) {
-                    $bodyCode = 'if (null === $v = $this->PROPERTY) {
-                        throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
-                    }
-                    VALIDATE_ENUM
-                    APPLY_HOOK
-                    VAR_NAME["LOCATION"] = VALUE;';
-                    $inputElement = '$v';
-                } else {
-                    $bodyCode = 'if (null !== $this->PROPERTY) {
-                        VALIDATE_ENUM
-                        APPLY_HOOK
-                        VAR_NAME["LOCATION"] = VALUE;
-                    }';
-                    $inputElement = '$this->' . GeneratorHelper::normalizeName($member->getName());
-                }
-                $validateEnum = '';
-                if (!empty($memberShape->getEnum())) {
-                    $enumClassName = $this->namespaceRegistry->getEnum($memberShape);
-                    $validateEnum = strtr('if (!ENUM_CLASS::exists(VALUE)) {
-                        throw new InvalidArgument(sprintf(\'Invalid parameter "NAME" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $this->PROPERTY));
-                    }', [
-                        'VALUE' => $this->stringify($inputElement, $member, $requestPart),
-                        'ENUM_CLASS' => $enumClassName->getName(),
-                        'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
-                        'NAME' => $member->getName(),
-                    ]);
-                }
-
-                $applyHook = '';
-                foreach ($operation->getService()->getHooks($requestPart . '_parameters') as $hook) {
-                    if (!\in_array($member->getLocationName() ?? $member->getName(), $hook->getFilters())) {
-                        continue;
-                    }
-
-                    $applyHook .= $this->hookGenerator->generate($hook, 'VALUE');
-                }
-                $applyHook = strtr($applyHook, [
-                    'VALUE' => $this->stringify($inputElement, $member, $requestPart),
-                ]);
-
-                $bodyCode = strtr($bodyCode, [
-                    'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
-                    'NAME' => $member->getName(),
-                    'VAR_NAME' => $varName,
-                    'LOCATION' => $member->getLocationName() ?? $member->getName(),
-                    'VALIDATE_ENUM' => $validateEnum,
-                    'APPLY_HOOK' => $applyHook,
-                    'VALUE' => $this->stringify($inputElement, $member, $requestPart),
-                ]);
                 if (!isset($body[$requestPart])) {
                     $body[$requestPart] = $varName . ' = [];' . "\n";
                 }
+
+                if ($member->isRequired()) {
+                    $bodyCode = 'if (null === $v = $this->PROPERTY) {
+                        throw new InvalidArgument(sprintf(\'Missing parameter "MEMBER_NAME" for "%s". The value cannot be null.\', __CLASS__));
+                    }
+                    GETTER_CODE';
+                    $input = '$v';
+                    $output = 'VAR_NAME["LOCATION"]';
+                } else {
+                    $bodyCode = 'if (null !== $this->PROPERTY) {
+                        GETTER_CODE
+                    }';
+                    $input = '$this->PROPERTY';
+                    $output = 'VAR_NAME["LOCATION"]';
+                }
+
+                $bodyCode = strtr(strtr($bodyCode, [
+                    'GETTER_CODE' => $this->inputClassRequestPartGetters($member, $operation, $requestPart, $input, $output),
+                ]), [
+                    'MEMBER_NAME' => $member->getName(),
+                    'VAR_NAME' => $varName,
+                    'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
+                    'LOCATION' => $member->getLocationName() ?? $member->getName(),
+                ]);
                 $body[$requestPart] .= $bodyCode . "\n";
             }
         }
