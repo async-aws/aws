@@ -20,18 +20,39 @@ class ServiceDefinition
      */
     private $name;
 
+    /**
+     * @var array
+     */
     private $endpoints;
 
+    /**
+     * @var array
+     */
     private $definition;
 
+    /**
+     * @var array
+     */
     private $documentation;
 
+    /**
+     * @var array
+     */
     private $pagination;
 
+    /**
+     * @var array
+     */
     private $waiter;
 
+    /**
+     * @var array
+     */
     private $example;
 
+    /**
+     * @var array
+     */
     private $hooks;
 
     /**
