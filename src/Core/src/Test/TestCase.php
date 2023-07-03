@@ -5,7 +5,6 @@ namespace AsyncAws\Core\Test;
 use AsyncAws\Core\Request;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
-/** @psalm-suppress UndefinedClass */
 class TestCase extends PHPUnitTestCase
 {
     /**
@@ -101,7 +100,4 @@ class TestCase extends PHPUnitTestCase
                 break;
         }
     }
-}
-if (!class_exists(PHPUnitTestCase::class)) {
-    class_alias(InternalTestCase::class, PHPUnitTestCase::class);
 }

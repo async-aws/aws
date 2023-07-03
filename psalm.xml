@@ -23,6 +23,10 @@
         </ignoreFiles>
     </projectFiles>
 
+    <extraFiles>
+        <directory name="vendor/bin/.phpunit" />
+    </extraFiles>
+
     <issueHandlers>
         <LessSpecificReturnType errorLevel="info" />
 

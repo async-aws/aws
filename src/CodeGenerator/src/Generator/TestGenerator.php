@@ -52,8 +52,6 @@ class TestGenerator
 
     /**
      * Update the API test client.
-     *
-     * @return ClassBuilder[]
      */
     public function generate(Operation $operation): void
     {
