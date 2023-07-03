@@ -97,6 +97,9 @@ menu:
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
+            location-service:
+                text: LocationService
+                url: /clients/location-service.html
             media-convert:
                 text: MediaConvert
                 url: /clients/media-convert.html

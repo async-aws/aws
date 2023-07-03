@@ -102,6 +102,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',
             ],
+            'location_service' => [
+                'class' => \AsyncAws\LocationService\LocationServiceClient::class,
+                'package' => 'async-aws/location-service',
+            ],
             'media_convert' => [
                 'class' => \AsyncAws\MediaConvert\MediaConvertClient::class,
                 'package' => 'async-aws/media-convert',

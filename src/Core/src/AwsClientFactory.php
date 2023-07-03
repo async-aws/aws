@@ -32,6 +32,7 @@ use AsyncAws\IotData\IotDataClient;
 use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\LocationService\LocationServiceClient;
 use AsyncAws\MediaConvert\MediaConvertClient;
 use AsyncAws\RdsDataService\RdsDataServiceClient;
 use AsyncAws\Rekognition\RekognitionClient;
@@ -357,6 +358,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new LambdaClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function locationService(): LocationServiceClient
+    {
+        if (!class_exists(LocationServiceClient::class)) {
+            throw MissingDependency::create('async-aws/location-service', 'LocationService');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new LocationServiceClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

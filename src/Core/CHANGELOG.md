@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for LocationService
+
 ## 1.19.0
 
 ### Added

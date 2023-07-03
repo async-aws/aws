@@ -287,6 +287,11 @@ if (empty(INPUT)) {
                     'OUTPUT' => $output,
                     'INPUT' => $input,
                 ]);
+            case 'iso8601':
+                return strtr('$payloadOUTPUT = INPUT->format(\DateTimeInterface::ATOM);', [
+                    'OUTPUT' => $output,
+                    'INPUT' => $input,
+                ]);
             default:
                 throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
         }

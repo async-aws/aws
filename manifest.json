@@ -404,6 +404,21 @@
                 "PublishLayerVersion"
             ]
         },
+        "LocationService": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/location/2020-11-19/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/location/2020-11-19/docs-2.json",
+            "endpoint-rule-set": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/location/2020-11-19/endpoint-rule-set-1.json",
+            "endpoint-tests": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/location/2020-11-19/endpoint-tests-1.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/location/2020-11-19/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/location/2020-11-19/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/location/latest/APIReference",
+            "methods": [
+                "CalculateRoute",
+                "CalculateRouteMatrix",
+                "SearchPlaceIndexForPosition",
+                "SearchPlaceIndexForText"
+            ]
+        },
         "MediaConvert": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/mediaconvert/2017-08-29/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/mediaconvert/2017-08-29/docs-2.json",

@@ -159,6 +159,7 @@ for more information.
 | [Kinesis](./kinesis.md)                     | [async-aws/kinesis](https://packagist.org/packages/async-aws/kinesis)                                     |
 | [KMS](./kms.md)                             | [async-aws/kms](https://packagist.org/packages/async-aws/kms)                                             |
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)                                       |
+| [LocationService](./location-service.md)    | [async-aws/location-service](https://packagist.org/packages/async-aws/location-service)                   |
 | [MediaConvert](./media-convert.md)          | [async-aws/media-convert](https://packagist.org/packages/async-aws/media-convert)                         |
 | [RdsDataService](./rds-data-service.md)     | [async-aws/rds-data-service](https://packagist.org/packages/async-aws/rds-data-service)                   |
 | [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)                             |
