@@ -22,7 +22,7 @@ final class ListMultipartUploadsRequest extends Input
      * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
      * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
      * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
      * [^2] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
@@ -52,7 +52,7 @@ final class ListMultipartUploadsRequest extends Input
     private $encodingType;
 
     /**
-     * Together with upload-id-marker, this parameter specifies the multipart upload after which listing should begin.
+     * Together with `upload-id-marker`, this parameter specifies the multipart upload after which listing should begin.
      *
      * If `upload-id-marker` is not specified, only the keys lexicographically greater than the specified `key-marker` will
      * be included in the list.
@@ -74,8 +74,8 @@ final class ListMultipartUploadsRequest extends Input
 
     /**
      * Lists in-progress uploads only for those keys that begin with the specified prefix. You can use prefixes to separate
-     * a bucket into different grouping of keys. (You can think of using prefix to make groups in the same way you'd use a
-     * folder in a file system.).
+     * a bucket into different grouping of keys. (You can think of using `prefix` to make groups in the same way that you'd
+     * use a folder in a file system.).
      *
      * @var string|null
      */

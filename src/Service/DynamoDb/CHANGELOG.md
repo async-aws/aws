@@ -14,6 +14,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: This release adds ReturnValuesOnConditionCheckFailure parameter to PutItem, UpdateItem, DeleteItem, ExecuteStatement, BatchExecuteStatement and ExecuteTransaction APIs. When set to ALL_OLD, API returns a copy of the item as it was when a conditional write failed
 
 ## 1.4.0
 

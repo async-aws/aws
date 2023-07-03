@@ -13,6 +13,7 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\Owner;
+use AsyncAws\S3\ValueObject\RestoreStatus;
 
 /**
  * @implements \IteratorAggregate<AwsObject|CommonPrefix>
@@ -20,8 +21,8 @@ use AsyncAws\S3\ValueObject\Owner;
 class ListObjectsV2Output extends Result implements \IteratorAggregate
 {
     /**
-     * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
-     * results exceeds that specified by MaxKeys, all of the results might not be returned.
+     * Set to `false` if all of the results were returned. Set to `true` if more keys are available to return. If the number
+     * of results exceeds that specified by `MaxKeys`, all of the results might not be returned.
      *
      * @var bool|null
      */
@@ -45,7 +46,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
      * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
      * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
      * [^2] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
@@ -63,16 +64,16 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $prefix;
 
     /**
-     * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
-     * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
-     * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
+     * Causes keys that contain the same string between the `prefix` and the first occurrence of the delimiter to be rolled
+     * up into a single result element in the `CommonPrefixes` collection. These rolled-up keys are not returned elsewhere
+     * in the response. Each rolled-up result counts as only one return against the `MaxKeys` value.
      *
      * @var string|null
      */
     private $delimiter;
 
     /**
-     * Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The
+     * Sets the maximum number of keys returned in the response. By default, the action returns up to 1,000 key names. The
      * response might contain fewer keys but will never contain more.
      *
      * @var int|null
@@ -101,7 +102,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * Encoding type used by Amazon S3 to encode object key names in the XML response.
      *
-     * If you specify the encoding-type request parameter, Amazon S3 includes this element in the response, and returns
+     * If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns
      * encoded key name values in the following response elements:
      *
      * `Delimiter, Prefix, Key,` and `StartAfter`.
@@ -111,15 +112,15 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $encodingType;
 
     /**
-     * KeyCount is the number of keys returned with this request. KeyCount will always be less than or equal to the
-     * `MaxKeys` field. Say you ask for 50 keys, your result will include 50 keys or fewer.
+     * `KeyCount` is the number of keys returned with this request. `KeyCount` will always be less than or equal to the
+     * `MaxKeys` field. For example, if you ask for 50 keys, your result will include 50 keys or fewer.
      *
      * @var int|null
      */
     private $keyCount;
 
     /**
-     * If ContinuationToken was sent with the request, it is included in the response.
+     * If `ContinuationToken` was sent with the request, it is included in the response.
      *
      * @var string|null
      */
@@ -424,6 +425,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                 'Owner' => !$item->Owner ? null : new Owner([
                     'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
                     'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
+                ]),
+                'RestoreStatus' => !$item->RestoreStatus ? null : new RestoreStatus([
+                    'IsRestoreInProgress' => ($v = $item->RestoreStatus->IsRestoreInProgress) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+                    'RestoreExpiryDate' => ($v = $item->RestoreStatus->RestoreExpiryDate) ? new \DateTimeImmutable((string) $v) : null,
                 ]),
             ]);
         }

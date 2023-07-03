@@ -10,6 +10,7 @@ use AsyncAws\DynamoDb\Enum\ConditionalOperator;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
 use AsyncAws\DynamoDb\Enum\ReturnValue;
+use AsyncAws\DynamoDb\Enum\ReturnValuesOnConditionCheckFailure;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
@@ -189,6 +190,16 @@ final class PutItemInput extends Input
     private $expressionAttributeValues;
 
     /**
+     * An optional parameter that returns the item attributes for a `PutItem` operation that failed a condition check.
+     *
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     *
+     * @var ReturnValuesOnConditionCheckFailure::*|null
+     */
+    private $returnValuesOnConditionCheckFailure;
+
+    /**
      * @param array{
      *   TableName?: string,
      *   Item?: array<string, AttributeValue|array>,
@@ -200,6 +211,7 @@ final class PutItemInput extends Input
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -233,6 +245,7 @@ final class PutItemInput extends Input
                 $this->expressionAttributeValues[$key] = AttributeValue::create($item);
             }
         }
+        $this->returnValuesOnConditionCheckFailure = $input['ReturnValuesOnConditionCheckFailure'] ?? null;
         parent::__construct($input);
     }
 
@@ -248,6 +261,7 @@ final class PutItemInput extends Input
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|PutItemInput $input
      */
@@ -323,6 +337,14 @@ final class PutItemInput extends Input
     public function getReturnValues(): ?string
     {
         return $this->returnValues;
+    }
+
+    /**
+     * @return ReturnValuesOnConditionCheckFailure::*|null
+     */
+    public function getReturnValuesOnConditionCheckFailure(): ?string
+    {
+        return $this->returnValuesOnConditionCheckFailure;
     }
 
     public function getTableName(): ?string
@@ -442,6 +464,16 @@ final class PutItemInput extends Input
         return $this;
     }
 
+    /**
+     * @param ReturnValuesOnConditionCheckFailure::*|null $value
+     */
+    public function setReturnValuesOnConditionCheckFailure(?string $value): self
+    {
+        $this->returnValuesOnConditionCheckFailure = $value;
+
+        return $this;
+    }
+
     public function setTableName(?string $value): self
     {
         $this->tableName = $value;
@@ -524,6 +556,12 @@ final class PutItemInput extends Input
                     $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
                 }
             }
+        }
+        if (null !== $v = $this->returnValuesOnConditionCheckFailure) {
+            if (!ReturnValuesOnConditionCheckFailure::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
+            }
+            $payload['ReturnValuesOnConditionCheckFailure'] = $v;
         }
 
         return $payload;

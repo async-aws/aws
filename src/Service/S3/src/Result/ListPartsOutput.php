@@ -74,7 +74,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
-     * part-number-marker request parameter in a subsequent request.
+     * `part-number-marker` request parameter in a subsequent request.
      *
      * @var int|null
      */

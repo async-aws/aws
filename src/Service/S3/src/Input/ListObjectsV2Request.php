@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
+use AsyncAws\S3\Enum\OptionalObjectAttributes;
 use AsyncAws\S3\Enum\RequestPayer;
 
 final class ListObjectsV2Request extends Input
@@ -22,7 +23,7 @@ final class ListObjectsV2Request extends Input
      * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
      * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
      * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts
+     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
      * [^2] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
@@ -35,7 +36,7 @@ final class ListObjectsV2Request extends Input
     private $bucket;
 
     /**
-     * A delimiter is a character you use to group keys.
+     * A delimiter is a character that you use to group keys.
      *
      * @var string|null
      */
@@ -49,7 +50,7 @@ final class ListObjectsV2Request extends Input
     private $encodingType;
 
     /**
-     * Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The
+     * Sets the maximum number of keys returned in the response. By default, the action returns up to 1,000 key names. The
      * response might contain fewer keys but will never contain more.
      *
      * @var int|null
@@ -64,16 +65,16 @@ final class ListObjectsV2Request extends Input
     private $prefix;
 
     /**
-     * ContinuationToken indicates Amazon S3 that the list is being continued on this bucket with a token. ContinuationToken
-     * is obfuscated and is not a real key.
+     * `ContinuationToken` indicates to Amazon S3 that the list is being continued on this bucket with a token.
+     * `ContinuationToken` is obfuscated and is not a real key.
      *
      * @var string|null
      */
     private $continuationToken;
 
     /**
-     * The owner field is not present in listV2 by default, if you want to return owner field with each key in the result
-     * then set the fetch owner field to true.
+     * The owner field is not present in `ListObjectsV2` by default. If you want to return the owner field with each key in
+     * the result, then set the `FetchOwner` field to `true`.
      *
      * @var bool|null
      */
@@ -104,6 +105,14 @@ final class ListObjectsV2Request extends Input
     private $expectedBucketOwner;
 
     /**
+     * Specifies the optional fields that you want returned in the response. Fields that you do not specify are not
+     * returned.
+     *
+     * @var list<OptionalObjectAttributes::*>|null
+     */
+    private $optionalObjectAttributes;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
@@ -115,6 +124,7 @@ final class ListObjectsV2Request extends Input
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -130,6 +140,7 @@ final class ListObjectsV2Request extends Input
         $this->startAfter = $input['StartAfter'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->optionalObjectAttributes = $input['OptionalObjectAttributes'] ?? null;
         parent::__construct($input);
     }
 
@@ -145,6 +156,7 @@ final class ListObjectsV2Request extends Input
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>,
      *   '@region'?: string|null,
      * }|ListObjectsV2Request $input
      */
@@ -191,6 +203,14 @@ final class ListObjectsV2Request extends Input
         return $this->maxKeys;
     }
 
+    /**
+     * @return list<OptionalObjectAttributes::*>
+     */
+    public function getOptionalObjectAttributes(): array
+    {
+        return $this->optionalObjectAttributes ?? [];
+    }
+
     public function getPrefix(): ?string
     {
         return $this->prefix;
@@ -224,6 +244,16 @@ final class ListObjectsV2Request extends Input
         }
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
+        }
+        if (null !== $this->optionalObjectAttributes) {
+            $items = [];
+            foreach ($this->optionalObjectAttributes as $value) {
+                if (!OptionalObjectAttributes::exists($value)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "OptionalObjectAttributes" for "%s". The value "%s" is not a valid "OptionalObjectAttributes".', __CLASS__, $value));
+                }
+                $items[] = $value;
+            }
+            $headers['x-amz-optional-object-attributes'] = implode(',', $items);
         }
 
         // Prepare query
@@ -316,6 +346,16 @@ final class ListObjectsV2Request extends Input
     public function setMaxKeys(?int $value): self
     {
         $this->maxKeys = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param list<OptionalObjectAttributes::*> $value
+     */
+    public function setOptionalObjectAttributes(array $value): self
+    {
+        $this->optionalObjectAttributes = $value;
 
         return $this;
     }

@@ -11,6 +11,10 @@
 - The return type for `\AsyncAws\S3\ValueObject\AwsObject::getSize` uses `int` instead of `string` to reflect the AWS type.
 - The return type for `\AsyncAws\S3\ValueObject\Part::getSize` uses `int` instead of `string` to reflect the AWS type.
 
+### Added
+
+- AWS api-change: The S3 LISTObjects, ListObjectsV2 and ListObjectVersions API now supports a new optional header x-amz-optional-object-attributes. If header contains RestoreStatus as the value, then S3 will include Glacier restore status i.e. isRestoreInProgress and RestoreExpiryDate in List response.
+
 ## 1.14.0
 
 ### Added
