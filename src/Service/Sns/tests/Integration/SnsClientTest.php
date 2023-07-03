@@ -128,15 +128,13 @@ class SnsClientTest extends TestCase
     {
         $client = $this->getClient();
 
-        $input = new ListTopicsInput([
-            'NextToken' => 'change me',
-        ]);
+        $input = new ListTopicsInput();
         $result = $client->listTopics($input);
 
         $result->resolve();
 
         self::assertNull($result->getNextToken());
-        self::assertCount(2, $result->getTopics());
+        self::assertCount(2, iterator_to_array($result->getTopics()));
     }
 
     public function testPublish(): void

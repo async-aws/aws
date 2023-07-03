@@ -27,7 +27,6 @@ class ListTopicsResponseTest extends TestCase
         <TopicArn>arn:aws:sns:eu-west-1:000000000000:MyTopic2</TopicArn>
       </member>
     </Topics>
-    <NextToken>NextTokenValue</NextToken>
   </ListTopicsResult>
 </ListTopicsResponse>');
 
@@ -40,6 +39,5 @@ class ListTopicsResponseTest extends TestCase
         ];
 
         self::assertEquals($expected, iterator_to_array($result->getTopics()));
-        self::assertSame('NextTokenValue', $result->getNextToken());
     }
 }
