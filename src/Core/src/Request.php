@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Stream\RequestStream;
 
@@ -42,6 +43,9 @@ final class Request
      */
     private $endpoint;
 
+    /**
+     * @var array{scheme: string, host: string, port: int|null}|null
+     */
     private $parsed;
 
     /**
@@ -147,6 +151,10 @@ final class Request
     public function getEndpoint(): string
     {
         if (empty($this->endpoint)) {
+            if (null === $this->parsed) {
+                throw new LogicException('Request::$endpoint must be set before using it.');
+            }
+
             $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986) : '');
         }
 
@@ -160,8 +168,15 @@ final class Request
         }
 
         $this->endpoint = $endpoint;
-        $this->parsed = parse_url($this->endpoint);
-        parse_str($this->parsed['query'] ?? '', $this->query);
-        $this->uri = $this->parsed['path'] ?? '/';
+        $parsed = parse_url($this->endpoint);
+
+        if (false === $parsed || !isset($parsed['scheme'], $parsed['host'])) {
+            throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $endpoint));
+        }
+
+        $this->parsed = ['scheme' => $parsed['scheme'], 'host' => $parsed['host'], 'port' => $parsed['port'] ?? null];
+
+        parse_str($parsed['query'] ?? '', $this->query);
+        $this->uri = $parsed['path'] ?? '/';
     }
 }
