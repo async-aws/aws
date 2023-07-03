@@ -42,6 +42,7 @@ jobs:
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
+          ./vendor/bin/simple-phpunit install
 
       - name: PHPStan
         run: vendor/bin/phpstan analyze --no-progress
@@ -97,12 +98,10 @@ jobs:
           key: psalm-${{ github.sha }}
           restore-keys: psalm-
 
-      # Downloading deps manually is faster than doing it with psalm docker action
-      # 1. cache
-      # 2. composer v2
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
+          ./vendor/bin/simple-phpunit install
 
       - name: Psalm
         run: vendor/bin/psalm.phar --no-progress --show-info=false --stats
