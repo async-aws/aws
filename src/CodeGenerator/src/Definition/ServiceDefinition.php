@@ -169,7 +169,7 @@ class ServiceDefinition
     /**
      * @param array<string, mixed> $extra
      */
-    private function getShape(string $name, ?Member $member, array $extra): ?Shape
+    private function getShape(string $name, ?Member $member, array $extra): Shape
     {
         if (isset($this->definition['shapes'][$name])) {
             $documentationMember = null;
@@ -181,11 +181,11 @@ class ServiceDefinition
             return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation_main' => $documentationMain, '_documentation_member' => $documentationMember] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());
         }
 
-        return null;
+        throw new \InvalidArgumentException(sprintf('The shape "%s" does not exist.', $name));
     }
 
     /**
-     * @return \Closure(string, ?Member=, array<string, mixed>=): ?Shape
+     * @return \Closure(string, ?Member=, array<string, mixed>=): Shape
      */
     private function createClosureToFindShape(): \Closure
     {
@@ -209,14 +209,20 @@ class ServiceDefinition
     }
 
     /**
-     * @return \Closure(string): ?Operation
+     * @return \Closure(string): Operation
      */
     private function createClosureToFindOperation(): \Closure
     {
         $definition = $this;
 
-        return \Closure::fromCallable(function (string $name) use ($definition): ?Operation {
-            return $definition->getOperation($name);
+        return \Closure::fromCallable(function (string $name) use ($definition): Operation {
+            $operation = $definition->getOperation($name);
+
+            if (null === $operation) {
+                throw new \InvalidArgumentException(sprintf('The operation "%s" is not defined.', $name));
+            }
+
+            return $operation;
         });
     }
 }

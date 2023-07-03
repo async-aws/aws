@@ -35,7 +35,7 @@ class Operation
     private $example;
 
     /**
-     * @var \Closure
+     * @var \Closure(string, Member|null=, array<string, mixed>=): Shape
      */
     private $shapeLocator;
 
@@ -43,6 +43,9 @@ class Operation
     {
     }
 
+    /**
+     * @param \Closure(string, Member|null=, array<string, mixed>=): Shape $shapeLocator
+     */
     public static function create(string $name, array $data, ServiceDefinition $service, ?Pagination $pagination, Example $example, \Closure $shapeLocator): self
     {
         $operation = new self();
@@ -97,7 +100,13 @@ class Operation
     public function getOutput(): ?StructureShape
     {
         if (isset($this->data['output']['shape'])) {
-            return ($this->shapeLocator)($this->data['output']['shape'], null, ['resultWrapper' => $this->data['output']['resultWrapper'] ?? null]);
+            $shape = ($this->shapeLocator)($this->data['output']['shape'], null, ['resultWrapper' => $this->data['output']['resultWrapper'] ?? null]);
+
+            if (!$shape instanceof StructureShape) {
+                throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure output.', $this->getName()));
+            }
+
+            return $shape;
         }
 
         return null;
@@ -113,8 +122,11 @@ class Operation
             if (isset($errors[$error['shape']])) {
                 continue;
             }
-            /** @var ExceptionShape $shape */
             $shape = ($this->shapeLocator)($error['shape']);
+            if (!$shape instanceof ExceptionShape) {
+                throw new \InvalidArgumentException(sprintf('The error "%s" of the operation "%s" should have an Exception shape.', $error['shape'], $this->getName()));
+            }
+
             $errors[$error['shape']] = $shape;
         }
 
@@ -200,11 +212,9 @@ class Operation
         return Shape::create(
             sprintf('%sRequest', $this->getName()),
             ['type' => 'structure', 'required' => [], 'members' => []],
+            $this->shapeLocator,
             function () {
-                return null;
-            },
-            function () {
-                return null;
+                return $this->service;
             }
         );
     }

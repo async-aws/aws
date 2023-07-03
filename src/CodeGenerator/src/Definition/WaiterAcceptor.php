@@ -23,7 +23,7 @@ class WaiterAcceptor
     protected $data;
 
     /**
-     * @var \Closure
+     * @var \Closure(string, Member|null=, array<string, mixed>=): Shape
      */
     protected $shapeLocator;
 
@@ -31,6 +31,9 @@ class WaiterAcceptor
     {
     }
 
+    /**
+     * @param \Closure(string, Member|null=, array<string, mixed>=): Shape $shapeLocator
+     */
     public static function create(array $data, \Closure $shapeLocator): self
     {
         switch ($data['matcher']) {

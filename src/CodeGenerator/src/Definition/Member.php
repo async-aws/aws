@@ -15,10 +15,13 @@ class Member
     protected $data;
 
     /**
-     * @var \Closure
+     * @var \Closure(string, Member|null=, array<string, mixed>=): Shape
      */
     protected $shapeLocator;
 
+    /**
+     * @param \Closure(string, Member|null=, array<string, mixed>=): Shape $shapeLocator
+     */
     public function __construct(array $data, \Closure $shapeLocator)
     {
         if (isset($data['endpointdiscoveryid'])) {

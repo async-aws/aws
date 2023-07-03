@@ -15,12 +15,12 @@ class Shape
     protected $data;
 
     /**
-     * @var \Closure
+     * @var \Closure(string, Member|null=, array<string, mixed>=): Shape
      */
     protected $shapeLocator;
 
     /**
-     * @var \Closure
+     * @var \Closure(): ServiceDefinition
      */
     protected $serviceLocator;
 
@@ -33,6 +33,10 @@ class Shape
     {
     }
 
+    /**
+     * @param \Closure(string, Member|null=, array<string, mixed>=): Shape $shapeLocator
+     * @param \Closure(): ServiceDefinition $serviceLocator
+     */
     public static function create(string $name, array $data, \Closure $shapeLocator, \Closure $serviceLocator): Shape
     {
         switch ($data['type']) {
