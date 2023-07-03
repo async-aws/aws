@@ -39,6 +39,9 @@ class GenerateCommand extends Command
 {
     protected static $defaultName = 'generate';
 
+    /**
+     * @var array|null
+     */
     private $manifest;
 
     /**
@@ -124,6 +127,9 @@ class GenerateCommand extends Command
         return 0;
     }
 
+    /**
+     * @return array|int
+     */
     private function generateServicesParallel(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $endpoints, array $serviceNames)
     {
         $progress = (new SymfonyStyle($input, $output->section()))->createProgressBar();
@@ -278,6 +284,9 @@ class GenerateCommand extends Command
         return $serviceEndpoints;
     }
 
+    /**
+     * @return array|int
+     */
     private function generateService(SymfonyStyle $io, InputInterface $input, array $manifest, array $endpoints, string $serviceName)
     {
         $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source", $manifest['services'][$serviceName]['patches']['source'] ?? []);
