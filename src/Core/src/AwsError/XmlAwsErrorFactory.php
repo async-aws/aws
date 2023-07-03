@@ -13,11 +13,6 @@ final class XmlAwsErrorFactory implements AwsErrorFactoryInterface
     public function createFromContent(string $content, array $headers): AwsError
     {
         try {
-            /**
-             * @phpstan-ignore-next-line
-             *
-             * @psalm-suppress InvalidArgument
-             */
             set_error_handler(static function ($errno, $errstr) {
                 throw new RuntimeException($errstr, $errno);
             });

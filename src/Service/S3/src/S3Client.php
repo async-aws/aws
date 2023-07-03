@@ -2464,7 +2464,7 @@ class S3Client extends AbstractApi
             $bucketLen < 3 || $bucketLen > 63
             || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
             || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
-            || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
+            || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address
             || filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
         ) {
             return parent::getEndpoint($uri, $query, $region);

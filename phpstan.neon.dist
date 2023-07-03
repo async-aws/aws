@@ -15,12 +15,6 @@ parameters:
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php
 
     ignoreErrors:
-        - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
         - '#^Parameter \#1 \$input of method AsyncAws\\DynamoDb\\DynamoDbClient::\w+\(\) expects array\{[^\)]+\}\|AsyncAws\\DynamoDb\\Input\\\w+Input, array\{[^\)]+\} given\.#'
-        - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
         - '#^Dead catch - JsonException is never thrown in the try block\.$#'
-        - '#^Method AsyncAws\\[^\\]+\\Result\\[^ ]+ should return #'
-        - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects #'
-        - '#^Argument 1 of AsyncAws\\Scheduler\\ValueObject\\ScheduleGroupSummary::__construct expects #'
-        - '#^Property AsyncAws\\Sqs\\Input\\SendMessageRequest::\$messageSystemAttributes \([^)]+\) does not accept non-empty-array#'
