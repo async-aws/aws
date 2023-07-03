@@ -177,6 +177,11 @@ class PopulatorGenerator
         $nonHeaders = [];
         $body = '';
         foreach ($shape->getMembers() as $member) {
+            // Avoid conflicts with PHP properties. Those AWS members are included in the AWSError anyway.
+            if ($forException && \in_array(strtolower($member->getName()), ['code', 'message'])) {
+                continue;
+            }
+
             if ('header' !== $member->getLocation()) {
                 $nonHeaders[$member->getName()] = $member;
 
