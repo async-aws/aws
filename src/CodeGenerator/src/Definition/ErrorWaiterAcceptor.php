@@ -11,6 +11,12 @@ class ErrorWaiterAcceptor extends WaiterAcceptor
 {
     public function getError(): ExceptionShape
     {
-        return ($this->shapeLocator)($this->data['expected']);
+        $shape = ($this->shapeLocator)($this->data['expected']);
+
+        if (!$shape instanceof ExceptionShape) {
+            throw new \InvalidArgumentException(sprintf('The error "%s" of the waiter acceptor should have an Exception shape.', $this->data['expected']));
+        }
+
+        return $shape;
     }
 }
