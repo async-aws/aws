@@ -11,26 +11,36 @@ final class Shard
 {
     /**
      * The unique identifier of the shard within the stream.
+     *
+     * @var string
      */
     private $shardId;
 
     /**
      * The shard ID of the shard's parent.
+     *
+     * @var string|null
      */
     private $parentShardId;
 
     /**
      * The shard ID of the shard adjacent to the shard's parent.
+     *
+     * @var string|null
      */
     private $adjacentParentShardId;
 
     /**
      * The range of possible hash key values for the shard, which is a set of ordered contiguous positive integers.
+     *
+     * @var HashKeyRange
      */
     private $hashKeyRange;
 
     /**
      * The range of possible sequence numbers for the shard.
+     *
+     * @var SequenceNumberRange
      */
     private $sequenceNumberRange;
 

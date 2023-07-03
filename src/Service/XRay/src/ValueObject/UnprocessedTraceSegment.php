@@ -9,16 +9,22 @@ final class UnprocessedTraceSegment
 {
     /**
      * The segment's ID.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * The error that caused processing to fail.
+     *
+     * @var string|null
      */
     private $errorCode;
 
     /**
      * The error message.
+     *
+     * @var string|null
      */
     private $message;
 

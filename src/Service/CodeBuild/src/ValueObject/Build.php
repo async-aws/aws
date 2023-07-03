@@ -11,32 +11,44 @@ final class Build
 {
     /**
      * The unique ID for the build.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the build.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The number of the build. For each project, the `buildNumber` of its first build is `1`. The `buildNumber` of each
      * subsequent build is incremented by `1`. If a build is deleted, the `buildNumber` of other builds does not change.
+     *
+     * @var int|null
      */
     private $buildNumber;
 
     /**
      * When the build process started, expressed in Unix time format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $startTime;
 
     /**
      * When the build process ended, expressed in Unix time format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $endTime;
 
     /**
      * The current build phase.
+     *
+     * @var string|null
      */
     private $currentPhase;
 
@@ -49,6 +61,8 @@ final class Build
      * - `STOPPED`: The build stopped.
      * - `SUCCEEDED`: The build succeeded.
      * - `TIMED_OUT`: The build timed out.
+     *
+     * @var StatusType::*|null
      */
     private $buildStatus;
 
@@ -59,6 +73,8 @@ final class Build
      * For more information, see Source Version Sample with CodeBuild [^1] in the *CodeBuild User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html
+     *
+     * @var string|null
      */
     private $sourceVersion;
 
@@ -68,27 +84,37 @@ final class Build
      * - For CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
      * - For CodePipeline, the source revision provided by CodePipeline.
      * - For Amazon S3, this does not apply.
+     *
+     * @var string|null
      */
     private $resolvedSourceVersion;
 
     /**
      * The name of the CodeBuild project.
+     *
+     * @var string|null
      */
     private $projectName;
 
     /**
      * Information about all previous build phases that are complete and information about any current build phase that is
      * not yet complete.
+     *
+     * @var BuildPhase[]|null
      */
     private $phases;
 
     /**
      * Information about the source code to be built.
+     *
+     * @var ProjectSource|null
      */
     private $source;
 
     /**
      * An array of `ProjectSource` objects.
+     *
+     * @var ProjectSource[]|null
      */
     private $secondarySources;
 
@@ -104,51 +130,71 @@ final class Build
      *   to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      *   branch's HEAD commit ID is used.
      * - For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
+     *
+     * @var ProjectSourceVersion[]|null
      */
     private $secondarySourceVersions;
 
     /**
      * Information about the output artifacts for the build.
+     *
+     * @var BuildArtifacts|null
      */
     private $artifacts;
 
     /**
      * An array of `ProjectArtifacts` objects.
+     *
+     * @var BuildArtifacts[]|null
      */
     private $secondaryArtifacts;
 
     /**
      * Information about the cache for the build.
+     *
+     * @var ProjectCache|null
      */
     private $cache;
 
     /**
      * Information about the build environment for this build.
+     *
+     * @var ProjectEnvironment|null
      */
     private $environment;
 
     /**
      * The name of a service role used for this build.
+     *
+     * @var string|null
      */
     private $serviceRole;
 
     /**
      * Information about the build's logs in CloudWatch Logs.
+     *
+     * @var LogsLocation|null
      */
     private $logs;
 
     /**
      * How long, in minutes, for CodeBuild to wait before timing out this build if it does not get marked as completed.
+     *
+     * @var int|null
      */
     private $timeoutInMinutes;
 
     /**
      * The number of minutes a build is allowed to be queued before it times out.
+     *
+     * @var int|null
      */
     private $queuedTimeoutInMinutes;
 
     /**
      * Whether the build is complete. True if complete; otherwise, false.
+     *
+     * @var bool|null
      */
     private $buildComplete;
 
@@ -158,6 +204,8 @@ final class Build
      * - If CodePipeline started the build, the pipeline's name (for example, `codepipeline/my-demo-pipeline`).
      * - If an IAM user started the build, the user's name (for example, `MyUserName`).
      * - If the Jenkins plugin for CodeBuild started the build, the string `CodeBuild-Jenkins-Plugin`.
+     *
+     * @var string|null
      */
     private $initiator;
 
@@ -165,11 +213,15 @@ final class Build
      * If your CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the VPC ID
      * and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same VPC. You
      * must provide at least one security group and one subnet ID.
+     *
+     * @var VpcConfig|null
      */
     private $vpcConfig;
 
     /**
      * Describes a network interface.
+     *
+     * @var NetworkInterface|null
      */
     private $networkInterface;
 
@@ -181,6 +233,8 @@ final class Build
      *
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the format
      * `alias/<alias-name>`).
+     *
+     * @var string|null
      */
     private $encryptionKey;
 
@@ -192,11 +246,15 @@ final class Build
      * the *CodePipeline User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-variables.html
+     *
+     * @var ExportedEnvironmentVariable[]|null
      */
     private $exportedEnvironmentVariables;
 
     /**
      * An array of the ARNs associated with this build's reports.
+     *
+     * @var string[]|null
      */
     private $reportArns;
 
@@ -204,16 +262,22 @@ final class Build
      * An array of `ProjectFileSystemLocation` objects for a CodeBuild build project. A `ProjectFileSystemLocation` object
      * specifies the `identifier`, `location`, `mountOptions`, `mountPoint`, and `type` of a file system created using
      * Amazon Elastic File System.
+     *
+     * @var ProjectFileSystemLocation[]|null
      */
     private $fileSystemLocations;
 
     /**
      * Contains information about the debug session for this build.
+     *
+     * @var DebugSession|null
      */
     private $debugSession;
 
     /**
      * The ARN of the batch build that this build is a member of, if applicable.
+     *
+     * @var string|null
      */
     private $buildBatchArn;
 

@@ -9,11 +9,15 @@ final class Mustache
 {
     /**
      * Boolean value that indicates whether the face has mustache or not.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

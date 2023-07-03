@@ -11,6 +11,8 @@ final class CommonPrefix
 {
     /**
      * Container for the specified common prefix.
+     *
+     * @var string|null
      */
     private $prefix;
 

@@ -10,6 +10,8 @@ class PutTraceSegmentsResult extends Result
 {
     /**
      * Segments that failed processing.
+     *
+     * @var UnprocessedTraceSegment[]
      */
     private $unprocessedTraceSegments;
 

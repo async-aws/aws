@@ -17,11 +17,15 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
 {
     /**
      * The metrics that are returned, including the metric name, namespace, and dimensions.
+     *
+     * @var MetricDataResult[]
      */
     private $metricDataResults;
 
     /**
      * A token that marks the next batch of returned results.
+     *
+     * @var string|null
      */
     private $nextToken;
 
@@ -32,6 +36,8 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
      *
      * A message appears here only if it is related to the global `GetMetricData` operation. Any message about a specific
      * metric returned by the operation appears in the `MetricDataResult` object returned for that metric.
+     *
+     * @var MessageData[]
      */
     private $messages;
 

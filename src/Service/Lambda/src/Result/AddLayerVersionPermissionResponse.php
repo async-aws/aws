@@ -9,11 +9,15 @@ class AddLayerVersionPermissionResponse extends Result
 {
     /**
      * The permission statement.
+     *
+     * @var string|null
      */
     private $statement;
 
     /**
      * A unique identifier for the current revision of the policy.
+     *
+     * @var string|null
      */
     private $revisionId;
 

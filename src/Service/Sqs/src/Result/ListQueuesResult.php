@@ -17,12 +17,16 @@ class ListQueuesResult extends Result implements \IteratorAggregate
 {
     /**
      * A list of queue URLs, up to 1,000 entries, or the value of `MaxResults` that you sent in the request.
+     *
+     * @var string[]
      */
     private $queueUrls;
 
     /**
      * Pagination token to include in the next request. Token value is `null` if there are no additional results to request,
      * or if you did not set `MaxResults` in the request.
+     *
+     * @var string|null
      */
     private $nextToken;
 

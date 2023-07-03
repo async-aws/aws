@@ -16,6 +16,8 @@ class GetWorkGroupOutput extends Result
 {
     /**
      * Information about the workgroup.
+     *
+     * @var WorkGroup|null
      */
     private $workGroup;
 

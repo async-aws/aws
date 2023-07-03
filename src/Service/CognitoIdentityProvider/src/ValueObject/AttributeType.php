@@ -11,11 +11,15 @@ final class AttributeType
 {
     /**
      * The name of the attribute.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The value of the attribute.
+     *
+     * @var string|null
      */
     private $value;
 

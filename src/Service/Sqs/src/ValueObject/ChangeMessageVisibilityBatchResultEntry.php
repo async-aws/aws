@@ -11,6 +11,8 @@ final class ChangeMessageVisibilityBatchResultEntry
 {
     /**
      * Represents a message whose visibility timeout has been changed successfully.
+     *
+     * @var string
      */
     private $id;
 

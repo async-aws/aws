@@ -17,11 +17,15 @@ class ListSchedulesOutput extends Result implements \IteratorAggregate
 {
     /**
      * Indicates whether there are additional results to retrieve. If the value is null, there are no more results.
+     *
+     * @var string|null
      */
     private $nextToken;
 
     /**
      * The schedules that match the specified criteria.
+     *
+     * @var ScheduleSummary[]
      */
     private $schedules;
 

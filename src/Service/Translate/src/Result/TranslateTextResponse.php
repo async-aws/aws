@@ -12,26 +12,36 @@ class TranslateTextResponse extends Result
 {
     /**
      * The translated text.
+     *
+     * @var string
      */
     private $translatedText;
 
     /**
      * The language code for the language of the source text.
+     *
+     * @var string
      */
     private $sourceLanguageCode;
 
     /**
      * The language code for the language of the target text.
+     *
+     * @var string
      */
     private $targetLanguageCode;
 
     /**
      * The names of the custom terminologies applied to the input text by Amazon Translate for the translated text response.
+     *
+     * @var AppliedTerminology[]
      */
     private $appliedTerminologies;
 
     /**
      * Optional settings that modify the translation output.
+     *
+     * @var TranslationSettings|null
      */
     private $appliedSettings;
 

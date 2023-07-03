@@ -22,11 +22,15 @@ final class BillingModeSummary
      *   predictable workloads.
      * - `PAY_PER_REQUEST` - Sets the read/write capacity mode to `PAY_PER_REQUEST`. We recommend using `PAY_PER_REQUEST`
      *   for unpredictable workloads.
+     *
+     * @var BillingMode::*|null
      */
     private $billingMode;
 
     /**
      * Represents the time when `PAY_PER_REQUEST` was last set as the read/write capacity mode.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastUpdateToPayPerRequestDateTime;
 

@@ -12,6 +12,8 @@ class BeginTransactionResponse extends Result
 {
     /**
      * The transaction ID of the transaction started by the call.
+     *
+     * @var string|null
      */
     private $transactionId;
 

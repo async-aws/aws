@@ -11,11 +11,15 @@ final class Tag
 {
     /**
      * The required key portion of the tag.
+     *
+     * @var string
      */
     private $key;
 
     /**
      * The optional value portion of the tag.
+     *
+     * @var string
      */
     private $value;
 

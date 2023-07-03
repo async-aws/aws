@@ -9,6 +9,8 @@ final class ArchivalSummary
 {
     /**
      * The date and time when table archival was initiated by DynamoDB, in UNIX epoch time format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $archivalDateTime;
 
@@ -17,12 +19,16 @@ final class ArchivalSummary
      *
      * - `INACCESSIBLE_ENCRYPTION_CREDENTIALS` - The table was archived due to the table's KMS key being inaccessible for
      *   more than seven days. An On-Demand backup was created at the archival time.
+     *
+     * @var string|null
      */
     private $archivalReason;
 
     /**
      * The Amazon Resource Name (ARN) of the backup the table was archived to, when applicable in the archival reason. If
      * you wish to restore this backup to the same table name, you will need to delete the original table.
+     *
+     * @var string|null
      */
     private $archivalBackupArn;
 

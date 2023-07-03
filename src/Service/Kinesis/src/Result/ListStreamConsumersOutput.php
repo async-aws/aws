@@ -16,6 +16,8 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
 {
     /**
      * An array of JSON objects. Each object represents one registered consumer.
+     *
+     * @var Consumer[]
      */
     private $consumers;
 
@@ -30,6 +32,8 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
      * ! Tokens expire after 300 seconds. When you obtain a value for `NextToken` in the response to a call to
      * ! `ListStreamConsumers`, you have 300 seconds to use that value. If you specify an expired token in a call to
      * ! `ListStreamConsumers`, you get `ExpiredNextTokenException`.
+     *
+     * @var string|null
      */
     private $nextToken;
 

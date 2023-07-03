@@ -11,11 +11,15 @@ final class SageMakerPipelineParameter
 {
     /**
      * Name of parameter to start execution of a SageMaker Model Building Pipeline.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * Value of parameter to start execution of a SageMaker Model Building Pipeline.
+     *
+     * @var string
      */
     private $value;
 

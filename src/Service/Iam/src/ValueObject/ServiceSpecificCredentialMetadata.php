@@ -12,17 +12,23 @@ final class ServiceSpecificCredentialMetadata
 {
     /**
      * The name of the IAM user associated with the service-specific credential.
+     *
+     * @var string
      */
     private $userName;
 
     /**
      * The status of the service-specific credential. `Active` means that the key is valid for API calls, while `Inactive`
      * means it is not.
+     *
+     * @var StatusType::*
      */
     private $status;
 
     /**
      * The generated user name for the service-specific credential.
+     *
+     * @var string
      */
     private $serviceUserName;
 
@@ -30,16 +36,22 @@ final class ServiceSpecificCredentialMetadata
      * The date and time, in ISO 8601 date-time format [^1], when the service-specific credential were created.
      *
      * [^1]: http://www.iso.org/iso/iso8601
+     *
+     * @var \DateTimeImmutable
      */
     private $createDate;
 
     /**
      * The unique identifier for the service-specific credential.
+     *
+     * @var string
      */
     private $serviceSpecificCredentialId;
 
     /**
      * The name of the service associated with the service-specific credential.
+     *
+     * @var string
      */
     private $serviceName;
 

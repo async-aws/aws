@@ -17,6 +17,8 @@ final class AudioChannelTaggingSettings
     /**
      * You can add a tag for this mono-channel audio track to mimic its placement in a multi-channel layout. For example, if
      * this track is the left surround channel, choose Left surround (LS).
+     *
+     * @var AudioChannelTag::*|null
      */
     private $channelTag;
 

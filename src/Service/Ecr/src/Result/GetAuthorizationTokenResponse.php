@@ -10,6 +10,8 @@ class GetAuthorizationTokenResponse extends Result
 {
     /**
      * A list of authorization token data objects that correspond to the `registryIds` values in the request.
+     *
+     * @var AuthorizationData[]
      */
     private $authorizationData;
 

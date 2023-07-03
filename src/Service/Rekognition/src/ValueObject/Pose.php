@@ -9,16 +9,22 @@ final class Pose
 {
     /**
      * Value representing the face rotation on the roll axis.
+     *
+     * @var float|null
      */
     private $roll;
 
     /**
      * Value representing the face rotation on the yaw axis.
+     *
+     * @var float|null
      */
     private $yaw;
 
     /**
      * Value representing the face rotation on the pitch axis.
+     *
+     * @var float|null
      */
     private $pitch;
 

@@ -9,6 +9,8 @@ final class Datum
 {
     /**
      * The value of the datum.
+     *
+     * @var string|null
      */
     private $varCharValue;
 

@@ -14,6 +14,8 @@ final class EsamSignalProcessingNotification
      * file outputs, if you want the service to place SCTE-35 markers at the insertion points you specify in the XML
      * document, you must also enable SCTE-35 ESAM (scte35Esam). Note that you can either specify an ESAM XML document or
      * enable SCTE-35 passthrough. You can't do both.
+     *
+     * @var string|null
      */
     private $sccXml;
 

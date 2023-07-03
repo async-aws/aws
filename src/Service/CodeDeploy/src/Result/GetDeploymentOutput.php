@@ -39,6 +39,8 @@ class GetDeploymentOutput extends Result
 {
     /**
      * Information about the deployment.
+     *
+     * @var DeploymentInfo|null
      */
     private $deploymentInfo;
 

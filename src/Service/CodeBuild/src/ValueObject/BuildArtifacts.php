@@ -11,6 +11,8 @@ final class BuildArtifacts
 {
     /**
      * Information about the location of the build artifacts.
+     *
+     * @var string|null
      */
     private $location;
 
@@ -20,6 +22,8 @@ final class BuildArtifacts
      * You can use this hash along with a checksum tool to confirm file integrity and authenticity.
      *
      * > This value is available only if the build project's `packaging` value is set to `ZIP`.
+     *
+     * @var string|null
      */
     private $sha256sum;
 
@@ -29,6 +33,8 @@ final class BuildArtifacts
      * You can use this hash along with a checksum tool to confirm file integrity and authenticity.
      *
      * > This value is available only if the build project's `packaging` value is set to `ZIP`.
+     *
+     * @var string|null
      */
     private $md5sum;
 
@@ -36,19 +42,28 @@ final class BuildArtifacts
      * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
      * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a date
      * and time to your artifact name so that it is always unique.
+     *
+     * @var bool|null
      */
     private $overrideArtifactName;
 
     /**
      * Information that tells you if encryption for build artifacts is disabled.
+     *
+     * @var bool|null
      */
     private $encryptionDisabled;
 
     /**
      * An identifier for this artifact definition.
+     *
+     * @var string|null
      */
     private $artifactIdentifier;
 
+    /**
+     * @var BucketOwnerAccess::*|null
+     */
     private $bucketOwnerAccess;
 
     /**

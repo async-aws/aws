@@ -13,6 +13,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class DataAlreadyAcceptedException extends ClientException
 {
+    /**
+     * @var string|null
+     */
     private $expectedSequenceToken;
 
     public function getExpectedSequenceToken(): ?string

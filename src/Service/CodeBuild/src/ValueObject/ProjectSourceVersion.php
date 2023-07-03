@@ -12,6 +12,8 @@ final class ProjectSourceVersion
     /**
      * An identifier for a source in the build project. The identifier can only contain alphanumeric characters and
      * underscores, and must be less than 128 characters in length.
+     *
+     * @var string
      */
     private $sourceIdentifier;
 
@@ -31,6 +33,8 @@ final class ProjectSourceVersion
      * For more information, see Source Version Sample with CodeBuild [^1] in the *CodeBuild User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html
+     *
+     * @var string
      */
     private $sourceVersion;
 

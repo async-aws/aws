@@ -10,11 +10,15 @@ class GetParametersResult extends Result
 {
     /**
      * A list of details for a parameter.
+     *
+     * @var Parameter[]
      */
     private $parameters;
 
     /**
      * A list of parameters that aren't formatted correctly or don't run during an execution.
+     *
+     * @var string[]
      */
     private $invalidParameters;
 

@@ -20,6 +20,8 @@ class UpdateItemOutput extends Result
      *
      * The `Attributes` map is only present if the update was successful and `ReturnValues` was specified as something other
      * than `NONE` in the request. Each element represents one attribute.
+     *
+     * @var array<string, AttributeValue>
      */
     private $attributes;
 
@@ -30,6 +32,8 @@ class UpdateItemOutput extends Result
      * see Provisioned Throughput [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads
+     *
+     * @var ConsumedCapacity|null
      */
     private $consumedCapacity;
 
@@ -48,6 +52,8 @@ class UpdateItemOutput extends Result
      *   this estimate to measure whether a local secondary index is approaching its size limit.
      *
      *   The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+     *
+     * @var ItemCollectionMetrics|null
      */
     private $itemCollectionMetrics;
 

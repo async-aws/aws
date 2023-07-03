@@ -20,12 +20,16 @@ class CreateMultipartUploadOutput extends Result
      * that defines this action.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
+     *
+     * @var \DateTimeImmutable|null
      */
     private $abortDate;
 
     /**
      * This header is returned along with the `x-amz-abort-date` header. It identifies the applicable lifecycle
      * configuration rule that defines the action to abort incomplete multipart uploads.
+     *
+     * @var string|null
      */
     private $abortRuleId;
 
@@ -46,58 +50,81 @@ class CreateMultipartUploadOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
+     * @var string|null
      */
     private $bucket;
 
     /**
      * Object key for which the multipart upload was initiated.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * ID for the initiated multipart upload.
+     *
+     * @var string|null
      */
     private $uploadId;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     *
+     * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
+     *
+     * @var string|null
      */
     private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
      * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
      * used for the object.
+     *
+     * @var string|null
      */
     private $sseKmsKeyId;
 
     /**
      * If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this
      * header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+     *
+     * @var string|null
      */
     private $sseKmsEncryptionContext;
 
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * @var bool|null
      */
     private $bucketKeyEnabled;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     /**
      * The algorithm that was used to create a checksum of the object.
+     *
+     * @var ChecksumAlgorithm::*|null
      */
     private $checksumAlgorithm;
 

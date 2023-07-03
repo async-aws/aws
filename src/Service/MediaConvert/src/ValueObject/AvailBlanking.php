@@ -11,6 +11,8 @@ final class AvailBlanking
 {
     /**
      * Blanking image to be used. Leave empty for solid black. Only bmp and png images are supported.
+     *
+     * @var string|null
      */
     private $availBlankingImage;
 

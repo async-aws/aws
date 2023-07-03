@@ -21,6 +21,8 @@ final class ResourceRecord
      * > If you're creating an alias resource record set, omit `Value`.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html
+     *
+     * @var string
      */
     private $value;
 

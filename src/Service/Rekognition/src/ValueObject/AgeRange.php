@@ -13,11 +13,15 @@ final class AgeRange
 {
     /**
      * The lowest estimated age.
+     *
+     * @var int|null
      */
     private $low;
 
     /**
      * The highest estimated age.
+     *
+     * @var int|null
      */
     private $high;
 

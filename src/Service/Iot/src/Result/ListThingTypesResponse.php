@@ -20,11 +20,15 @@ class ListThingTypesResponse extends Result implements \IteratorAggregate
 {
     /**
      * The thing types.
+     *
+     * @var ThingTypeDefinition[]
      */
     private $thingTypes;
 
     /**
      * The token for the next set of results. Will not be returned if operation has returned all results.
+     *
+     * @var string|null
      */
     private $nextToken;
 

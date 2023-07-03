@@ -12,17 +12,23 @@ final class Output
     /**
      * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
      * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     *
+     * @var AudioDescription[]|null
      */
     private $audioDescriptions;
 
     /**
      * (CaptionDescriptions) contains groups of captions settings. For each output that has captions, include one instance
      * of (CaptionDescriptions). (CaptionDescriptions) can contain multiple groups of captions settings.
+     *
+     * @var CaptionDescription[]|null
      */
     private $captionDescriptions;
 
     /**
      * Container specific settings.
+     *
+     * @var ContainerSettings|null
      */
     private $containerSettings;
 
@@ -31,6 +37,8 @@ final class Output
      * value, the service will use default extensions by container type as follows * MPEG-2 transport stream, m2ts *
      * Quicktime, mov * MXF container, mxf * MPEG-4 container, mp4 * WebM container, webm * No Container, the service will
      * use codec extensions (e.g. AAC, H265, H265, AC3).
+     *
+     * @var string|null
      */
     private $extension;
 
@@ -40,23 +48,31 @@ final class Output
      * modifier (NameModifier) is required. Name modifier also accepts format identifiers. For DASH ISO outputs, if you use
      * the format identifiers $Number$ or $Time$ in one output, you must use them in the same way in all outputs of the
      * output group.
+     *
+     * @var string|null
      */
     private $nameModifier;
 
     /**
      * Specific settings for this type of output.
+     *
+     * @var OutputSettings|null
      */
     private $outputSettings;
 
     /**
      * Use Preset (Preset) to specify a preset for your transcoding settings. Provide the system or custom preset name. You
      * can specify either Preset (Preset) or Container settings (ContainerSettings), but not both.
+     *
+     * @var string|null
      */
     private $preset;
 
     /**
      * VideoDescription contains a group of video encoding settings. The specific video settings depend on the video codec
      * that you choose for the property codec. Include one instance of VideoDescription per output.
+     *
+     * @var VideoDescription|null
      */
     private $videoDescription;
 

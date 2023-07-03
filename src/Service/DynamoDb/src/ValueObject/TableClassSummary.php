@@ -11,11 +11,15 @@ final class TableClassSummary
 {
     /**
      * The table class of the specified table. Valid values are `STANDARD` and `STANDARD_INFREQUENT_ACCESS`.
+     *
+     * @var TableClass::*|null
      */
     private $tableClass;
 
     /**
      * The date and time at which the table class was last updated.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastUpdateDateTime;
 

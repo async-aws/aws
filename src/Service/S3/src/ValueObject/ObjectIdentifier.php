@@ -16,11 +16,15 @@ final class ObjectIdentifier
      * ! requests. For more information, see  XML related object key constraints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints
+     *
+     * @var string
      */
     private $key;
 
     /**
      * VersionId for the specific version of the object to delete.
+     *
+     * @var string|null
      */
     private $versionId;
 

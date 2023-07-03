@@ -12,6 +12,8 @@ final class InvalidRequestContentException extends ClientException
 {
     /**
      * The exception type.
+     *
+     * @var string|null
      */
     private $type;
 

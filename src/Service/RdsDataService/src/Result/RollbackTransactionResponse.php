@@ -12,6 +12,8 @@ class RollbackTransactionResponse extends Result
 {
     /**
      * The status of the rollback operation.
+     *
+     * @var string|null
      */
     private $transactionStatus;
 

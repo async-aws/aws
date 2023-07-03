@@ -17,11 +17,15 @@ final class FaceOccluded
      * True if a detected face’s eyes, nose, and mouth are partially captured or if they are covered by masks, dark
      * sunglasses, cell phones, hands, or other objects. False if common occurrences that do not impact face verification
      * are detected, such as eye glasses, lightly tinted sunglasses, strands of hair, and others.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * The confidence that the service has detected the presence of a face occlusion.
+     *
+     * @var float|null
      */
     private $confidence;
 

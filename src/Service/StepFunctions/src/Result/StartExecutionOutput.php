@@ -9,11 +9,15 @@ class StartExecutionOutput extends Result
 {
     /**
      * The Amazon Resource Name (ARN) that identifies the execution.
+     *
+     * @var string
      */
     private $executionArn;
 
     /**
      * The date the execution is started.
+     *
+     * @var \DateTimeImmutable
      */
     private $startDate;
 

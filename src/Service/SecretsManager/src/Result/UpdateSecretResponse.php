@@ -9,17 +9,23 @@ class UpdateSecretResponse extends Result
 {
     /**
      * The ARN of the secret that was updated.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The name of the secret that was updated.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * If Secrets Manager created a new version of the secret during this operation, then `VersionId` contains the unique
      * identifier of the new version.
+     *
+     * @var string|null
      */
     private $versionId;
 

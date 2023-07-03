@@ -9,11 +9,15 @@ final class RuntimeVersionError
 {
     /**
      * The error code.
+     *
+     * @var string|null
      */
     private $errorCode;
 
     /**
      * The error message.
+     *
+     * @var string|null
      */
     private $message;
 

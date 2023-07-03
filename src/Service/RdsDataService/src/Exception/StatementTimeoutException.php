@@ -12,6 +12,8 @@ final class StatementTimeoutException extends ClientException
 {
     /**
      * The database connection ID that executed the SQL statement.
+     *
+     * @var int|null
      */
     private $dbConnectionId;
 

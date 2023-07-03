@@ -17,16 +17,22 @@ class GetCallerIdentityResponse extends Result
      * Variables** reference page in the *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable
+     *
+     * @var string|null
      */
     private $userId;
 
     /**
      * The Amazon Web Services account ID number of the account that owns or contains the calling entity.
+     *
+     * @var string|null
      */
     private $account;
 
     /**
      * The Amazon Web Services ARN associated with the calling entity.
+     *
+     * @var string|null
      */
     private $arn;
 

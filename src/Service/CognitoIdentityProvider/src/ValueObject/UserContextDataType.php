@@ -10,6 +10,8 @@ final class UserContextDataType
 {
     /**
      * The source IP address of your user's device.
+     *
+     * @var string|null
      */
     private $ipAddress;
 
@@ -18,6 +20,8 @@ final class UserContextDataType
      * For more information, see Adding user device and session data to API requests [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint
+     *
+     * @var string|null
      */
     private $encodedData;
 

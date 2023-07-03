@@ -12,6 +12,8 @@ final class SecretListEntry
 {
     /**
      * The Amazon Resource Name (ARN) of the secret.
+     *
+     * @var string|null
      */
     private $arn;
 
@@ -19,22 +21,30 @@ final class SecretListEntry
      * The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For example,
      * `/prod/databases/dbserver1` could represent the secret for a server named `dbserver1` in the folder `databases` in
      * the folder `prod`.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The user-provided description of the secret.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted with the
      * Amazon Web Services managed key `aws/secretsmanager`, this field is omitted.
+     *
+     * @var string|null
      */
     private $kmsKeyId;
 
     /**
      * Indicates whether automatic, scheduled rotation is enabled for this secret.
+     *
+     * @var bool|null
      */
     private $rotationEnabled;
 
@@ -43,28 +53,38 @@ final class SecretListEntry
      * automatically per the schedule or manually by a call to `RotateSecret` [^1].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html
+     *
+     * @var string|null
      */
     private $rotationLambdaArn;
 
     /**
      * A structure that defines the rotation configuration for the secret.
+     *
+     * @var RotationRulesType|null
      */
     private $rotationRules;
 
     /**
      * The most recent date and time that the Secrets Manager rotation process was successfully completed. This value is
      * null if the secret hasn't ever rotated.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastRotatedDate;
 
     /**
      * The last date and time that this secret was modified in any way.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastChangedDate;
 
     /**
      * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
      * retrieved in the Region.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastAccessedDate;
 
@@ -74,12 +94,16 @@ final class SecretListEntry
      * the `DeleteSecret` [^1] operation.
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html
+     *
+     * @var \DateTimeImmutable|null
      */
     private $deletedDate;
 
     /**
      * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation, Secrets
      * Manager returns null.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $nextRotationDate;
 
@@ -89,6 +113,8 @@ final class SecretListEntry
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html
      * [^2]: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html
+     *
+     * @var Tag[]|null
      */
     private $tags;
 
@@ -98,21 +124,29 @@ final class SecretListEntry
      *
      * > A version that does not have any `SecretVersionStage` is considered deprecated and subject to deletion. Such
      * > versions are not included in this list.
+     *
+     * @var array<string, string[]>|null
      */
     private $secretVersionsToStages;
 
     /**
      * Returns the name of the service that created the secret.
+     *
+     * @var string|null
      */
     private $owningService;
 
     /**
      * The date and time when a secret was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $createdDate;
 
     /**
      * The Region where Secrets Manager originated the secret.
+     *
+     * @var string|null
      */
     private $primaryRegion;
 

@@ -9,16 +9,22 @@ final class Timing
 {
     /**
      * The time, in Unix epoch format, that the transcoding job finished.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $finishTime;
 
     /**
      * The time, in Unix epoch format, that transcoding for the job began.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $startTime;
 
     /**
      * The time, in Unix epoch format, that you submitted the job.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $submitTime;
 

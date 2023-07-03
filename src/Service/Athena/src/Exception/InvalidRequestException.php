@@ -11,6 +11,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidRequestException extends ClientException
 {
+    /**
+     * @var string|null
+     */
     private $athenaErrorCode;
 
     public function getAthenaErrorCode(): ?string

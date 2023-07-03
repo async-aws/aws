@@ -32,22 +32,30 @@ final class Mpeg2Settings
      * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
      * the following settings: Spatial adaptive quantization (spatialAdaptiveQuantization), and Temporal adaptive
      * quantization (temporalAdaptiveQuantization).
+     *
+     * @var Mpeg2AdaptiveQuantization::*|null
      */
     private $adaptiveQuantization;
 
     /**
      * Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be
      * unique when rounded down to the nearest multiple of 1000.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * Use Level (Mpeg2CodecLevel) to set the MPEG-2 level for the video output.
+     *
+     * @var Mpeg2CodecLevel::*|null
      */
     private $codecLevel;
 
     /**
      * Use Profile (Mpeg2CodecProfile) to set the MPEG-2 profile for the video output.
+     *
+     * @var Mpeg2CodecProfile::*|null
      */
     private $codecProfile;
 
@@ -56,6 +64,8 @@ final class Mpeg2Settings
      * B-frames (which infer information based on other frames) for high-motion portions of the video and more B-frames for
      * low-motion portions. The maximum number of B-frames is limited by the value you provide for the setting B frames
      * between reference frames (numberBFramesBetweenReferenceFrames).
+     *
+     * @var Mpeg2DynamicSubGop::*|null
      */
     private $dynamicSubGop;
 
@@ -68,6 +78,8 @@ final class Mpeg2Settings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var Mpeg2FramerateControl::*|null
      */
     private $framerateControl;
 
@@ -80,6 +92,8 @@ final class Mpeg2Settings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var Mpeg2FramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -88,6 +102,8 @@ final class Mpeg2Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -96,6 +112,8 @@ final class Mpeg2Settings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -104,6 +122,8 @@ final class Mpeg2Settings
      * GOPs and then require a closed GOP, set this value to 5. When you create a streaming output, we recommend that you
      * keep the default value, 1, so that players starting mid-stream receive an IDR frame as quickly as possible. Don't set
      * this value to 0; that would break output segmenting.
+     *
+     * @var int|null
      */
     private $gopClosedCadence;
 
@@ -111,12 +131,16 @@ final class Mpeg2Settings
      * Specify the interval between keyframes, in seconds or frames, for this output. Default: 12 Related settings: When you
      * specify the GOP size in seconds, set GOP mode control (GopSizeUnits) to Specified, seconds (SECONDS). The default
      * value for GOP mode control (GopSizeUnits) is Frames (FRAMES).
+     *
+     * @var float|null
      */
     private $gopSize;
 
     /**
      * Specify the units for GOP size (GopSize). If you don't specify a value here, by default the encoder measures GOP size
      * in frames.
+     *
+     * @var Mpeg2GopSizeUnits::*|null
      */
     private $gopSizeUnits;
 
@@ -124,16 +148,22 @@ final class Mpeg2Settings
      * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer that's
      * available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
      * automatically determine the final buffer fill percentage.
+     *
+     * @var int|null
      */
     private $hrdBufferFinalFillPercentage;
 
     /**
      * Percentage of the buffer that should initially be filled (HRD buffer model).
+     *
+     * @var int|null
      */
     private $hrdBufferInitialFillPercentage;
 
     /**
      * Size of buffer (HRD buffer model) in bits. For example, enter five megabits as 5000000.
+     *
+     * @var int|null
      */
     private $hrdBufferSize;
 
@@ -146,17 +176,23 @@ final class Mpeg2Settings
      * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
      * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
      * first, depending on which of the Follow options you choose.
+     *
+     * @var Mpeg2InterlaceMode::*|null
      */
     private $interlaceMode;
 
     /**
      * Use Intra DC precision (Mpeg2IntraDcPrecision) to set quantization precision for intra-block DC coefficients. If you
      * choose the value auto, the service will automatically select the precision based on the per-frame compression ratio.
+     *
+     * @var Mpeg2IntraDcPrecision::*|null
      */
     private $intraDcPrecision;
 
     /**
      * Maximum bitrate in bits/second. For example, enter five megabits per second as 5000000.
+     *
+     * @var int|null
      */
     private $maxBitrate;
 
@@ -169,12 +205,16 @@ final class Mpeg2Settings
      * cadence-driven I-frame. In this way, one GOP is shrunk slightly and one GOP is stretched slightly. When the
      * cadence-driven I-frames are farther from the scene-change I-frame than the value you set, then the encoder leaves all
      * I-frames in place and the GOPs surrounding the scene change are smaller than the usual cadence GOPs.
+     *
+     * @var int|null
      */
     private $minIinterval;
 
     /**
      * Specify the number of B-frames that MediaConvert puts between reference frames in this output. Valid values are whole
      * numbers from 0 through 7. When you don't specify a value, MediaConvert defaults to 2.
+     *
+     * @var int|null
      */
     private $numberBframesBetweenReferenceFrames;
 
@@ -184,6 +224,8 @@ final class Mpeg2Settings
      * PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job
      * specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
+     *
+     * @var Mpeg2ParControl::*|null
      */
     private $parControl;
 
@@ -192,6 +234,8 @@ final class Mpeg2Settings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parDenominator is 33.
+     *
+     * @var int|null
      */
     private $parDenominator;
 
@@ -200,17 +244,23 @@ final class Mpeg2Settings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parNumerator is 40.
+     *
+     * @var int|null
      */
     private $parNumerator;
 
     /**
      * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
      * video quality. The default behavior is faster, lower quality, single-pass encoding.
+     *
+     * @var Mpeg2QualityTuningLevel::*|null
      */
     private $qualityTuningLevel;
 
     /**
      * Use Rate control mode (Mpeg2RateControlMode) to specify whether the bitrate is variable (vbr) or constant (cbr).
+     *
+     * @var Mpeg2RateControlMode::*|null
      */
     private $rateControlMode;
 
@@ -224,12 +274,16 @@ final class Mpeg2Settings
      * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
      * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
      * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     *
+     * @var Mpeg2ScanTypeConversionMode::*|null
      */
     private $scanTypeConversionMode;
 
     /**
      * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video
      * quality and is enabled by default.
+     *
+     * @var Mpeg2SceneChangeDetect::*|null
      */
     private $sceneChangeDetect;
 
@@ -239,6 +293,8 @@ final class Mpeg2Settings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
      * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var Mpeg2SlowPal::*|null
      */
     private $slowPal;
 
@@ -249,6 +305,8 @@ final class Mpeg2Settings
      * setting specifies the quantization matrices that the encoder uses. Keep the default value, 0, to use the AWS
      * Elemental default matrices. Choose a value from 17 to 128 to use planar interpolation. Increasing values from 17 to
      * 128 result in increasing reduction of high-frequency data. The value 128 results in the softest video.
+     *
+     * @var int|null
      */
     private $softness;
 
@@ -263,12 +321,16 @@ final class Mpeg2Settings
      * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization
      * (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it
      * to Low. For content with a wider variety of textures, set it to High or Higher.
+     *
+     * @var Mpeg2SpatialAdaptiveQuantization::*|null
      */
     private $spatialAdaptiveQuantization;
 
     /**
      * Specify whether this output's video uses the D10 syntax. Keep the default value to not use the syntax. Related
      * settings: When you choose D10 (D_10) for your MXF profile (profile), you must also set this value to D10 (D_10).
+     *
+     * @var Mpeg2Syntax::*|null
      */
     private $syntax;
 
@@ -279,6 +341,8 @@ final class Mpeg2Settings
      * player device to do the conversion during play back. When you keep the default value, None (NONE), MediaConvert does
      * a standard frame rate conversion to 29.97 without doing anything with the field polarity to create a smoother
      * picture.
+     *
+     * @var Mpeg2Telecine::*|null
      */
     private $telecine;
 
@@ -292,6 +356,8 @@ final class Mpeg2Settings
      * objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting:
      * When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization
      * (adaptiveQuantization).
+     *
+     * @var Mpeg2TemporalAdaptiveQuantization::*|null
      */
     private $temporalAdaptiveQuantization;
 

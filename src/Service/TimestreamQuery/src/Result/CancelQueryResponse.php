@@ -10,6 +10,8 @@ class CancelQueryResponse extends Result
     /**
      * A `CancellationMessage` is returned when a `CancelQuery` request for the query specified by `QueryId` has already
      * been issued.
+     *
+     * @var string|null
      */
     private $cancellationMessage;
 

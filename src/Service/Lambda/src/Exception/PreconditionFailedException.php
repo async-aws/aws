@@ -13,6 +13,8 @@ final class PreconditionFailedException extends ClientException
 {
     /**
      * The exception type.
+     *
+     * @var string|null
      */
     private $type;
 

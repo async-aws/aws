@@ -12,70 +12,94 @@ final class Hdr10Metadata
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $bluePrimaryX;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $bluePrimaryY;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $greenPrimaryX;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $greenPrimaryY;
 
     /**
      * Maximum light level among all samples in the coded video sequence, in units of candelas per square meter. This
      * setting doesn't have a default value; you must specify a value that is suitable for the content.
+     *
+     * @var int|null
      */
     private $maxContentLightLevel;
 
     /**
      * Maximum average light level of any frame in the coded video sequence, in units of candelas per square meter. This
      * setting doesn't have a default value; you must specify a value that is suitable for the content.
+     *
+     * @var int|null
      */
     private $maxFrameAverageLightLevel;
 
     /**
      * Nominal maximum mastering display luminance in units of of 0.0001 candelas per square meter.
+     *
+     * @var int|null
      */
     private $maxLuminance;
 
     /**
      * Nominal minimum mastering display luminance in units of of 0.0001 candelas per square meter.
+     *
+     * @var int|null
      */
     private $minLuminance;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $redPrimaryX;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $redPrimaryY;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $whitePointX;
 
     /**
      * HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000,
      * each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+     *
+     * @var int|null
      */
     private $whitePointY;
 

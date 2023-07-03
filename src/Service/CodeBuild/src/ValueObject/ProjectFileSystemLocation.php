@@ -14,6 +14,8 @@ final class ProjectFileSystemLocation
 {
     /**
      * The type of the file system. The one supported type is `EFS`.
+     *
+     * @var FileSystemType::*|null
      */
     private $type;
 
@@ -26,11 +28,15 @@ final class ProjectFileSystemLocation
      *
      * The directory path in the format `efs-dns-name:/directory-path` is optional. If you do not specify a directory path,
      * the location is only the DNS name and CodeBuild mounts the entire file system.
+     *
+     * @var string|null
      */
     private $location;
 
     /**
      * The location in the container where you mount the file system.
+     *
+     * @var string|null
      */
     private $mountPoint;
 
@@ -40,6 +46,8 @@ final class ProjectFileSystemLocation
      * environment variable is create named `CODEBUILD_MY_EFS`.
      *
      * The `identifier` is used to mount your file system.
+     *
+     * @var string|null
      */
     private $identifier;
 
@@ -49,6 +57,8 @@ final class ProjectFileSystemLocation
      * Options [^1].
      *
      * [^1]: https://docs.aws.amazon.com/efs/latest/ug/mounting-fs-nfs-mount-settings.html
+     *
+     * @var string|null
      */
     private $mountOptions;
 

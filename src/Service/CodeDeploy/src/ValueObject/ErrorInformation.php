@@ -36,11 +36,15 @@ final class ErrorInformation
      *
      * [^1]: https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html
      * [^2]: https://docs.aws.amazon.com/codedeploy/latest/userguide
+     *
+     * @var ErrorCode::*|null
      */
     private $code;
 
     /**
      * An accompanying error message.
+     *
+     * @var string|null
      */
     private $message;
 

@@ -15,6 +15,8 @@ class AdminCreateUserResponse extends Result
 {
     /**
      * The newly created user.
+     *
+     * @var UserType|null
      */
     private $user;
 

@@ -9,6 +9,8 @@ final class CompletedPart
 {
     /**
      * Entity tag returned when the part was uploaded.
+     *
+     * @var string|null
      */
     private $etag;
 
@@ -18,6 +20,8 @@ final class CompletedPart
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32;
 
@@ -27,6 +31,8 @@ final class CompletedPart
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32C;
 
@@ -36,6 +42,8 @@ final class CompletedPart
      * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha1;
 
@@ -45,11 +53,15 @@ final class CompletedPart
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha256;
 
     /**
      * Part number that identifies the part. This is a positive integer between 1 and 10,000.
+     *
+     * @var int|null
      */
     private $partNumber;
 

@@ -20,6 +20,8 @@ final class MeasureValue
      * For constraints on MeasureValue names, see  Naming Constraints [^1] in the Amazon Timestream Developer Guide.
      *
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming
+     *
+     * @var string
      */
     private $name;
 
@@ -27,11 +29,15 @@ final class MeasureValue
      * The value for the MeasureValue. For information, see Data types [^1].
      *
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Contains the data type of the MeasureValue for the time-series data point.
+     *
+     * @var MeasureValueType::*
      */
     private $type;
 

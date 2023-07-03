@@ -15,6 +15,8 @@ class CreateUserResponse extends Result
 {
     /**
      * A structure with details about the new IAM user.
+     *
+     * @var User|null
      */
     private $user;
 

@@ -24,6 +24,8 @@ final class Filter
      * - **owning-service**: Prefix match, case-sensitive.
      * - **all**: Breaks the filter value string into words and then searches all attributes for matches. Not
      *   case-sensitive.
+     *
+     * @var FilterNameStringType::*|null
      */
     private $key;
 
@@ -31,6 +33,8 @@ final class Filter
      * The keyword to filter for.
      *
      * You can prefix your search value with an exclamation mark (`!`) in order to perform negation filters.
+     *
+     * @var string[]|null
      */
     private $values;
 

@@ -9,6 +9,8 @@ class CreateProjectResponse extends Result
 {
     /**
      * The Amazon Resource Name (ARN) of the new project. You can use the ARN to configure IAM access to the project.
+     *
+     * @var string|null
      */
     private $projectArn;
 

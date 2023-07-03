@@ -22,11 +22,15 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
      * results exceeds that specified by MaxKeys, all of the results might not be returned.
+     *
+     * @var bool|null
      */
     private $isTruncated;
 
     /**
      * Metadata about each object returned.
+     *
+     * @var AwsObject[]
      */
     private $contents;
 
@@ -46,11 +50,15 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * Keys that begin with the indicated prefix.
+     *
+     * @var string|null
      */
     private $prefix;
 
@@ -58,12 +66,16 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
      * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
      * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
+     *
+     * @var string|null
      */
     private $delimiter;
 
     /**
      * Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The
      * response might contain fewer keys but will never contain more.
+     *
+     * @var int|null
      */
     private $maxKeys;
 
@@ -81,6 +93,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * For example, if the prefix is `notes/` and the delimiter is a slash (`/`) as in `notes/summer/july`, the common
      * prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when
      * calculating the number of returns.
+     *
+     * @var CommonPrefix[]
      */
     private $commonPrefixes;
 
@@ -91,17 +105,23 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * encoded key name values in the following response elements:
      *
      * `Delimiter, Prefix, Key,` and `StartAfter`.
+     *
+     * @var EncodingType::*|null
      */
     private $encodingType;
 
     /**
      * KeyCount is the number of keys returned with this request. KeyCount will always be less than or equal to the
      * `MaxKeys` field. Say you ask for 50 keys, your result will include 50 keys or fewer.
+     *
+     * @var int|null
      */
     private $keyCount;
 
     /**
      * If ContinuationToken was sent with the request, it is included in the response.
+     *
+     * @var string|null
      */
     private $continuationToken;
 
@@ -109,14 +129,21 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be
      * listed. The next list requests to Amazon S3 can be continued with this `NextContinuationToken`.
      * `NextContinuationToken` is obfuscated and is not a real key.
+     *
+     * @var string|null
      */
     private $nextContinuationToken;
 
     /**
      * If StartAfter was sent with the request, it is included in the response.
+     *
+     * @var string|null
      */
     private $startAfter;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     /**

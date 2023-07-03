@@ -15,11 +15,15 @@ final class RelationalDatabaseDataSourceConfig
      *
      * - **RDS_HTTP_ENDPOINT**: The relational database source type is an Amazon Relational Database Service (Amazon RDS)
      *   HTTP endpoint.
+     *
+     * @var RelationalDatabaseSourceType::*|null
      */
     private $relationalDatabaseSourceType;
 
     /**
      * Amazon RDS HTTP endpoint settings.
+     *
+     * @var RdsHttpEndpointConfig|null
      */
     private $rdsHttpEndpointConfig;
 

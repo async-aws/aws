@@ -13,11 +13,15 @@ final class StreamDescriptionSummary
 {
     /**
      * The name of the stream being described.
+     *
+     * @var string
      */
     private $streamName;
 
     /**
      * The Amazon Resource Name (ARN) for the stream being described.
+     *
+     * @var string
      */
     private $streamArn;
 
@@ -32,27 +36,37 @@ final class StreamDescriptionSummary
      *   write operations only on an `ACTIVE` stream.
      * - `UPDATING` - Shards in the stream are being merged or split. Read and write operations continue to work while the
      *   stream is in the `UPDATING` state.
+     *
+     * @var StreamStatus::*
      */
     private $streamStatus;
 
     /**
      * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can
      * choose between an **on-demand** ycapacity mode and a **provisioned** capacity mode for your data streams.
+     *
+     * @var StreamModeDetails|null
      */
     private $streamModeDetails;
 
     /**
      * The current retention period, in hours.
+     *
+     * @var int
      */
     private $retentionPeriodHours;
 
     /**
      * The approximate time that the stream was created.
+     *
+     * @var \DateTimeImmutable
      */
     private $streamCreationTimestamp;
 
     /**
      * Represents the current enhanced monitoring settings of the stream.
+     *
+     * @var EnhancedMetrics[]
      */
     private $enhancedMonitoring;
 
@@ -61,6 +75,8 @@ final class StreamDescriptionSummary
      *
      * - `KMS`
      * - `NONE`
+     *
+     * @var EncryptionType::*|null
      */
     private $encryptionType;
 
@@ -74,16 +90,22 @@ final class StreamDescriptionSummary
      * - Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
      * - Alias name example: `alias/MyAliasName`
      * - Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
+     *
+     * @var string|null
      */
     private $keyId;
 
     /**
      * The number of open shards in the stream.
+     *
+     * @var int
      */
     private $openShardCount;
 
     /**
      * The number of enhanced fan-out consumers registered with the stream.
+     *
+     * @var int|null
      */
     private $consumerCount;
 

@@ -9,11 +9,15 @@ final class BranchInfo
 {
     /**
      * The name of the branch.
+     *
+     * @var string|null
      */
     private $branchName;
 
     /**
      * The ID of the last commit made to the branch.
+     *
+     * @var string|null
      */
     private $commitId;
 

@@ -10,6 +10,8 @@ class GetDataCatalogOutput extends Result
 {
     /**
      * The data catalog returned.
+     *
+     * @var DataCatalog|null
      */
     private $dataCatalog;
 

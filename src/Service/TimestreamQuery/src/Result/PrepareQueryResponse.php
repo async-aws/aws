@@ -13,16 +13,22 @@ class PrepareQueryResponse extends Result
 {
     /**
      * The query string that you want prepare.
+     *
+     * @var string
      */
     private $queryString;
 
     /**
      * A list of SELECT clause columns of the submitted query string.
+     *
+     * @var SelectColumn[]
      */
     private $columns;
 
     /**
      * A list of parameters used in the submitted query string.
+     *
+     * @var ParameterMapping[]
      */
     private $parameters;
 

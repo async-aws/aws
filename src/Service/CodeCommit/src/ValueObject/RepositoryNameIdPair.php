@@ -9,11 +9,15 @@ final class RepositoryNameIdPair
 {
     /**
      * The name associated with the repository.
+     *
+     * @var string|null
      */
     private $repositoryName;
 
     /**
      * The ID associated with the repository.
+     *
+     * @var string|null
      */
     private $repositoryId;
 

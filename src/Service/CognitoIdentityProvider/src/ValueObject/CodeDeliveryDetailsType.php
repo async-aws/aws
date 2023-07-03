@@ -11,16 +11,22 @@ final class CodeDeliveryDetailsType
 {
     /**
      * The email address or phone number destination where Amazon Cognito sent the code.
+     *
+     * @var string|null
      */
     private $destination;
 
     /**
      * The method that Amazon Cognito used to send the code.
+     *
+     * @var DeliveryMediumType::*|null
      */
     private $deliveryMedium;
 
     /**
      * The name of the attribute that Amazon Cognito verifies with the code.
+     *
+     * @var string|null
      */
     private $attributeName;
 

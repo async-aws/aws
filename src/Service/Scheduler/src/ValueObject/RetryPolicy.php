@@ -10,6 +10,8 @@ final class RetryPolicy
 {
     /**
      * The maximum amount of time, in seconds, to continue to make retry attempts.
+     *
+     * @var int|null
      */
     private $maximumEventAgeInSeconds;
 
@@ -17,6 +19,8 @@ final class RetryPolicy
      * The maximum number of retry attempts to make before the request fails. Retry attempts with exponential backoff
      * continue until either the maximum number of attempts is made or until the duration of the `MaximumEventAgeInSeconds`
      * is reached.
+     *
+     * @var int|null
      */
     private $maximumRetryAttempts;
 

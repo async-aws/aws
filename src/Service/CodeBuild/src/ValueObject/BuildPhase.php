@@ -46,6 +46,8 @@ final class BuildPhase
      * - `UPLOAD_ARTIFACTS`:
      *
      *   Build output artifacts are being uploaded to the output location.
+     *
+     * @var BuildPhaseType::*|null
      */
     private $phaseType;
 
@@ -70,26 +72,36 @@ final class BuildPhase
      * - `TIMED_OUT`:
      *
      *   The build phase timed out.
+     *
+     * @var StatusType::*|null
      */
     private $phaseStatus;
 
     /**
      * When the build phase started, expressed in Unix time format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $startTime;
 
     /**
      * When the build phase ended, expressed in Unix time format.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $endTime;
 
     /**
      * How long, in seconds, between the starting and ending times of the build's phase.
+     *
+     * @var int|null
      */
     private $durationInSeconds;
 
     /**
      * Additional information about a build phase, especially to help troubleshoot a failed build.
+     *
+     * @var PhaseContext[]|null
      */
     private $contexts;
 

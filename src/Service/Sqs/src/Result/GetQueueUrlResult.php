@@ -14,6 +14,8 @@ class GetQueueUrlResult extends Result
 {
     /**
      * The URL of the queue.
+     *
+     * @var string|null
      */
     private $queueUrl;
 

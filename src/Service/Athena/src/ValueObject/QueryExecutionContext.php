@@ -9,11 +9,15 @@ final class QueryExecutionContext
 {
     /**
      * The name of the database used in the query execution. The database must exist in the catalog.
+     *
+     * @var string|null
      */
     private $database;
 
     /**
      * The name of the data catalog used in the query execution.
+     *
+     * @var string|null
      */
     private $catalog;
 

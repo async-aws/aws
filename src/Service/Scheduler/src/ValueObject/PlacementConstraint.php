@@ -16,12 +16,16 @@ final class PlacementConstraint
      * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/latest/developerguide/cluster-query-language.html
+     *
+     * @var string|null
      */
     private $expression;
 
     /**
      * The type of constraint. Use `distinctInstance` to ensure that each task in a particular group is running on a
      * different container instance. Use `memberOf` to restrict the selection to a group of valid candidates.
+     *
+     * @var PlacementConstraintType::*|null
      */
     private $type;
 

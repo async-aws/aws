@@ -17,6 +17,8 @@ final class CaptionSelector
      * is Burn-in or SMPTE-TT, complete this field and/or PID to select the caption language to extract. If input is DVB-Sub
      * that is being passed through, omit this field (and PID field); there is no way to extract a specific language with
      * pass-through captions.
+     *
+     * @var string|null
      */
     private $customLanguageCode;
 
@@ -25,12 +27,16 @@ final class CaptionSelector
      * caption language to extract. If input is DVB-Sub and output is Burn-in or SMPTE-TT, complete this field and/or PID to
      * select the caption language to extract. If input is DVB-Sub that is being passed through, omit this field (and PID
      * field); there is no way to extract a specific language with pass-through captions.
+     *
+     * @var LanguageCode::*|null
      */
     private $languageCode;
 
     /**
      * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file, specify the URI of the input captions
      * source file. If your input captions are IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     *
+     * @var CaptionSourceSettings|null
      */
     private $sourceSettings;
 

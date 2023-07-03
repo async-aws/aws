@@ -18,12 +18,16 @@ final class Dimension
      * The name of the dimension. Dimension names must contain only ASCII characters, must include at least one
      * non-whitespace character, and cannot start with a colon (`:`). ASCII control characters are not supported as part of
      * dimension names.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The value of the dimension. Dimension values must contain only ASCII characters and must include at least one
      * non-whitespace character. ASCII control characters are not supported as part of dimension values.
+     *
+     * @var string
      */
     private $value;
 

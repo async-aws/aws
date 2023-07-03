@@ -9,6 +9,8 @@ final class LambdaConflictHandlerConfig
 {
     /**
      * The Amazon Resource Name (ARN) for the Lambda function to use as the Conflict Handler.
+     *
+     * @var string|null
      */
     private $lambdaConflictHandlerArn;
 

@@ -10,17 +10,23 @@ final class TargetInstances
     /**
      * The tag filter key, type, and value used to identify Amazon EC2 instances in a replacement environment for a
      * blue/green deployment. Cannot be used in the same call as `ec2TagSet`.
+     *
+     * @var EC2TagFilter[]|null
      */
     private $tagFilters;
 
     /**
      * The names of one or more Auto Scaling groups to identify a replacement environment for a blue/green deployment.
+     *
+     * @var string[]|null
      */
     private $autoScalingGroups;
 
     /**
      * Information about the groups of Amazon EC2 instance tags that an instance must be identified by in order for it to be
      * included in the replacement environment for a blue/green deployment. Cannot be used in the same call as `tagFilters`.
+     *
+     * @var EC2TagSet|null
      */
     private $ec2TagSet;
 

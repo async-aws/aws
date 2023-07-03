@@ -12,6 +12,8 @@ final class AttributeDefinition
 {
     /**
      * A name for the attribute.
+     *
+     * @var string
      */
     private $attributeName;
 
@@ -21,6 +23,8 @@ final class AttributeDefinition
      * - `S` - the attribute is of type String
      * - `N` - the attribute is of type Number
      * - `B` - the attribute is of type Binary
+     *
+     * @var ScalarAttributeType::*
      */
     private $attributeType;
 

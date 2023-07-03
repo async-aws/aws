@@ -12,11 +12,15 @@ final class FlexibleTimeWindow
 {
     /**
      * The maximum time window during which a schedule can be invoked.
+     *
+     * @var int|null
      */
     private $maximumWindowInMinutes;
 
     /**
      * Determines whether the schedule is invoked within a flexible time window.
+     *
+     * @var FlexibleTimeWindowMode::*
      */
     private $mode;
 

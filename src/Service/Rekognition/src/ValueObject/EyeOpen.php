@@ -9,11 +9,15 @@ final class EyeOpen
 {
     /**
      * Boolean value that indicates whether the eyes on the face are open.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

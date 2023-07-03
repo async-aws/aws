@@ -11,6 +11,8 @@ final class CompletedMultipartUpload
      * Array of CompletedPart data types.
      *
      * If you do not supply a valid `Part` with your request, the service sends back an HTTP 400 response.
+     *
+     * @var CompletedPart[]|null
      */
     private $parts;
 

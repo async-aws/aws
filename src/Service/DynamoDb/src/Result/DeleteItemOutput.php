@@ -17,6 +17,8 @@ class DeleteItemOutput extends Result
     /**
      * A map of attribute names to `AttributeValue` objects, representing the item as it appeared before the `DeleteItem`
      * operation. This map appears in the response only if `ReturnValues` was specified as `ALL_OLD` in the request.
+     *
+     * @var array<string, AttributeValue>
      */
     private $attributes;
 
@@ -27,6 +29,8 @@ class DeleteItemOutput extends Result
      * see Provisioned Throughput [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
+     *
+     * @var ConsumedCapacity|null
      */
     private $consumedCapacity;
 
@@ -45,6 +49,8 @@ class DeleteItemOutput extends Result
      *   this estimate to measure whether a local secondary index is approaching its size limit.
      *
      *   The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+     *
+     * @var ItemCollectionMetrics|null
      */
     private $itemCollectionMetrics;
 

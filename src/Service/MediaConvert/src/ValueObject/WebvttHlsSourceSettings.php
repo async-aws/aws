@@ -17,16 +17,22 @@ final class WebvttHlsSourceSettings
 {
     /**
      * Optional. Specify alternative group ID.
+     *
+     * @var string|null
      */
     private $renditionGroupId;
 
     /**
      * Optional. Specify ISO 639-2 or ISO 639-3 code in the language property.
+     *
+     * @var LanguageCode::*|null
      */
     private $renditionLanguageCode;
 
     /**
      * Optional. Specify media name.
+     *
+     * @var string|null
      */
     private $renditionName;
 

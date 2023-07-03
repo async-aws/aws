@@ -12,27 +12,37 @@ final class ReplicationStatusType
 {
     /**
      * The Region where replication occurs.
+     *
+     * @var string|null
      */
     private $region;
 
     /**
      * Can be an `ARN`, `Key ID`, or `Alias`.
+     *
+     * @var string|null
      */
     private $kmsKeyId;
 
     /**
      * The status can be `InProgress`, `Failed`, or `InSync`.
+     *
+     * @var StatusType::*|null
      */
     private $status;
 
     /**
      * Status message such as "*Secret with this name already exists in this region*".
+     *
+     * @var string|null
      */
     private $statusMessage;
 
     /**
      * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
      * retrieved in the Region.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastAccessedDate;
 

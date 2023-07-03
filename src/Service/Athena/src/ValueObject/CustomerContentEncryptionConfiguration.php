@@ -12,6 +12,8 @@ final class CustomerContentEncryptionConfiguration
 {
     /**
      * The KMS key that is used to encrypt the user's data stores in Athena.
+     *
+     * @var string
      */
     private $kmsKey;
 

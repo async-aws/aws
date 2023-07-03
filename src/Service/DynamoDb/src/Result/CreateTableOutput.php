@@ -28,6 +28,8 @@ class CreateTableOutput extends Result
 {
     /**
      * Represents the properties of the table.
+     *
+     * @var TableDescription|null
      */
     private $tableDescription;
 

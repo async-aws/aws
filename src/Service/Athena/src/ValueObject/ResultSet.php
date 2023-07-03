@@ -10,11 +10,15 @@ final class ResultSet
 {
     /**
      * The rows in the table.
+     *
+     * @var Row[]|null
      */
     private $rows;
 
     /**
      * The metadata that describes the column structure and data types of a table of query results.
+     *
+     * @var ResultSetMetadata|null
      */
     private $resultSetMetadata;
 

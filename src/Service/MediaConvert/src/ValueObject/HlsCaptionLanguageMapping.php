@@ -12,22 +12,30 @@ final class HlsCaptionLanguageMapping
 {
     /**
      * Caption channel.
+     *
+     * @var int|null
      */
     private $captionChannel;
 
     /**
      * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3 three-letter language code.
+     *
+     * @var string|null
      */
     private $customLanguageCode;
 
     /**
      * Specify the language, using the ISO 639-2 three-letter code listed at
      * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     *
+     * @var LanguageCode::*|null
      */
     private $languageCode;
 
     /**
      * Caption language description.
+     *
+     * @var string|null
      */
     private $languageDescription;
 

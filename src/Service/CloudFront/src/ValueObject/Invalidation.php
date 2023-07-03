@@ -11,21 +11,29 @@ final class Invalidation
 {
     /**
      * The identifier for the invalidation request. For example: `IDFDVBD632BHDS5`.
+     *
+     * @var string
      */
     private $id;
 
     /**
      * The status of the invalidation request. When the invalidation batch is finished, the status is `Completed`.
+     *
+     * @var string
      */
     private $status;
 
     /**
      * The date and time the invalidation request was first made.
+     *
+     * @var \DateTimeImmutable
      */
     private $createTime;
 
     /**
      * The current invalidation information for the batch request.
+     *
+     * @var InvalidationBatch
      */
     private $invalidationBatch;
 

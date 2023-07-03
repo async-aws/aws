@@ -13,6 +13,8 @@ final class ValidationException extends ClientException
 {
     /**
      * The input does not satisfy the constraints specified by an Amazon Web Services service.
+     *
+     * @var ValidationExceptionReason::*|null
      */
     private $reason;
 

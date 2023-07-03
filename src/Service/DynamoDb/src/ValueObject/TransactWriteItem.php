@@ -10,21 +10,29 @@ final class TransactWriteItem
 {
     /**
      * A request to perform a check item operation.
+     *
+     * @var ConditionCheck|null
      */
     private $conditionCheck;
 
     /**
      * A request to perform a `PutItem` operation.
+     *
+     * @var Put|null
      */
     private $put;
 
     /**
      * A request to perform a `DeleteItem` operation.
+     *
+     * @var Delete|null
      */
     private $delete;
 
     /**
      * A request to perform an `UpdateItem` operation.
+     *
+     * @var Update|null
      */
     private $update;
 

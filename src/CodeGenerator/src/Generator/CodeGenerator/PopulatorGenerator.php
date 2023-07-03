@@ -132,8 +132,9 @@ class PopulatorGenerator
                 $nullable = false;
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
-                $parameterType = ResultStream::class;
+                $parameterType = 'ResultStream';
                 $memberClassNames = [];
+                $classBuilder->addUse(ResultStream::class);
                 $nullable = false;
             }
 
@@ -160,6 +161,9 @@ class PopulatorGenerator
                 $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);
+            if ($parameterType) {
+                $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
+            }
         }
 
         if ($forEndpoint) {

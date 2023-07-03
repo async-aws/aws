@@ -16,11 +16,15 @@ final class DeleteMessageBatchRequestEntry
      * >
      * > This identifier can have up to 80 characters. The following characters are accepted: alphanumeric characters,
      * > hyphens(-), and underscores (_).
+     *
+     * @var string
      */
     private $id;
 
     /**
      * A receipt handle.
+     *
+     * @var string
      */
     private $receiptHandle;
 

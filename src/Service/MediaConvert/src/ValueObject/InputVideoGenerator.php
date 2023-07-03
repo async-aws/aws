@@ -13,6 +13,8 @@ final class InputVideoGenerator
     /**
      * Specify an integer value for Black video duration from 50 to 86400000 to generate a black video input for that many
      * milliseconds. Required when you include Video generator.
+     *
+     * @var int|null
      */
     private $duration;
 

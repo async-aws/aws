@@ -9,12 +9,16 @@ final class OutputChannelMapping
 {
     /**
      * Use this setting to specify your remix values when they are integers, such as -10, 0, or 4.
+     *
+     * @var int[]|null
      */
     private $inputChannels;
 
     /**
      * Use this setting to specify your remix values when they have a decimal component, such as -10.312, 0.08, or 4.9.
      * MediaConvert rounds your remixing values to the nearest thousandth.
+     *
+     * @var float[]|null
      */
     private $inputChannelsFineTune;
 

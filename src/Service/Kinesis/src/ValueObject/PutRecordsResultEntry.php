@@ -11,17 +11,23 @@ final class PutRecordsResultEntry
 {
     /**
      * The sequence number for an individual record result.
+     *
+     * @var string|null
      */
     private $sequenceNumber;
 
     /**
      * The shard ID for an individual record result.
+     *
+     * @var string|null
      */
     private $shardId;
 
     /**
      * The error code for an individual record result. `ErrorCodes` can be either `ProvisionedThroughputExceededException`
      * or `InternalFailure`.
+     *
+     * @var string|null
      */
     private $errorCode;
 
@@ -29,6 +35,8 @@ final class PutRecordsResultEntry
      * The error message for an individual record result. An `ErrorCode` value of `ProvisionedThroughputExceededException`
      * has an error message that includes the account ID, stream name, and shard ID. An `ErrorCode` value of
      * `InternalFailure` has the error message `"Internal Service Failure"`.
+     *
+     * @var string|null
      */
     private $errorMessage;
 

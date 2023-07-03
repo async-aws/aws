@@ -23,17 +23,23 @@ final class Record
 {
     /**
      * Contains the list of dimensions for time-series data points.
+     *
+     * @var Dimension[]|null
      */
     private $dimensions;
 
     /**
      * Measure represents the data attribute of the time series. For example, the CPU utilization of an EC2 instance or the
      * RPM of a wind turbine are measures.
+     *
+     * @var string|null
      */
     private $measureName;
 
     /**
      * Contains the measure value for the time-series data point.
+     *
+     * @var string|null
      */
     private $measureValue;
 
@@ -42,6 +48,8 @@ final class Record
      * information, see Data types [^1].
      *
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types
+     *
+     * @var MeasureValueType::*|null
      */
     private $measureValueType;
 
@@ -49,12 +57,16 @@ final class Record
      * Contains the time at which the measure value for the data point was collected. The time value plus the unit provides
      * the time elapsed since the epoch. For example, if the time value is `12345` and the unit is `ms`, then `12345 ms`
      * have elapsed since the epoch.
+     *
+     * @var string|null
      */
     private $time;
 
     /**
      * The granularity of the timestamp unit. It indicates if the time value is in seconds, milliseconds, nanoseconds, or
      * other supported values. Default is `MILLISECONDS`.
+     *
+     * @var TimeUnit::*|null
      */
     private $timeUnit;
 
@@ -64,6 +76,8 @@ final class Record
      * updated. Default value is `1`.
      *
      * > `Version` must be `1` or greater, or you will receive a `ValidationException` error.
+     *
+     * @var int|null
      */
     private $version;
 
@@ -71,6 +85,8 @@ final class Record
      * Contains the list of MeasureValue for time-series data points.
      *
      * This is only allowed for type `MULTI`. For scalar values, use `MeasureValue` attribute of the record directly.
+     *
+     * @var MeasureValue[]|null
      */
     private $measureValues;
 

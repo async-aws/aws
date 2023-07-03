@@ -9,17 +9,23 @@ final class BlueGreenDeploymentConfiguration
 {
     /**
      * Information about whether to terminate instances in the original fleet during a blue/green deployment.
+     *
+     * @var BlueInstanceTerminationOption|null
      */
     private $terminateBlueInstancesOnDeploymentSuccess;
 
     /**
      * Information about the action to take when newly provisioned instances are ready to receive traffic in a blue/green
      * deployment.
+     *
+     * @var DeploymentReadyOption|null
      */
     private $deploymentReadyOption;
 
     /**
      * Information about how instances are provisioned for a replacement environment in a blue/green deployment.
+     *
+     * @var GreenFleetProvisioningOption|null
      */
     private $greenFleetProvisioningOption;
 

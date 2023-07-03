@@ -25,12 +25,16 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
 {
     /**
      * A list of stack structures.
+     *
+     * @var Stack[]
      */
     private $stacks;
 
     /**
      * If the output exceeds 1 MB in size, a string that identifies the next page of stacks. If no additional page exists,
      * this value is null.
+     *
+     * @var string|null
      */
     private $nextToken;
 

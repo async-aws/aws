@@ -10,10 +10,15 @@ use AsyncAws\S3\Enum\Event;
  */
 final class LambdaFunctionConfiguration
 {
+    /**
+     * @var string|null
+     */
     private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the Lambda function that Amazon S3 invokes when the specified event type occurs.
+     *
+     * @var string
      */
     private $lambdaFunctionArn;
 
@@ -22,9 +27,14 @@ final class LambdaFunctionConfiguration
      * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+     *
+     * @var list<Event::*>
      */
     private $events;
 
+    /**
+     * @var NotificationConfigurationFilter|null
+     */
     private $filter;
 
     /**

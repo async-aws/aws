@@ -32,6 +32,8 @@ class IndexFacesResponse extends Result
     /**
      * An array of faces detected and added to the collection. For more information, see Searching Faces in a Collection in
      * the Amazon Rekognition Developer Guide.
+     *
+     * @var FaceRecord[]
      */
     private $faceRecords;
 
@@ -53,11 +55,15 @@ class IndexFacesResponse extends Result
      *
      * Bounding box information is returned in the `FaceRecords` array. You can get the version of the face detection model
      * by calling DescribeCollection.
+     *
+     * @var OrientationCorrection::*|null
      */
     private $orientationCorrection;
 
     /**
      * The version number of the face detection model that's associated with the input collection (`CollectionId`).
+     *
+     * @var string|null
      */
     private $faceModelVersion;
 
@@ -65,6 +71,8 @@ class IndexFacesResponse extends Result
      * An array of faces that were detected in the image but weren't indexed. They weren't indexed because the quality
      * filter identified them as low quality, or the `MaxFaces` request parameter filtered them out. To use the quality
      * filter, you specify the `QualityFilter` request parameter.
+     *
+     * @var UnindexedFace[]
      */
     private $unindexedFaces;
 

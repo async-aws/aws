@@ -15,6 +15,8 @@ final class Tag
     /**
      * The key name that can be used to look up or retrieve the associated value. For example, `Department` or `Cost Center`
      * are common choices.
+     *
+     * @var string
      */
     private $key;
 
@@ -26,6 +28,8 @@ final class Tag
      *
      * > Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can
      * > store comma-separated values in the string. However, you must interpret the value in your code.
+     *
+     * @var string
      */
     private $value;
 

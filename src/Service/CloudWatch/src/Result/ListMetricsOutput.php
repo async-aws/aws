@@ -17,11 +17,15 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
 {
     /**
      * The metrics that match your request.
+     *
+     * @var Metric[]
      */
     private $metrics;
 
     /**
      * The token that marks the start of the next batch of returned results.
+     *
+     * @var string|null
      */
     private $nextToken;
 
@@ -30,6 +34,8 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
      * where the metrics in the returned data are from.
      *
      * This field is a 1:1 mapping between each metric that is returned and the ID of the owning account.
+     *
+     * @var string[]
      */
     private $owningAccounts;
 

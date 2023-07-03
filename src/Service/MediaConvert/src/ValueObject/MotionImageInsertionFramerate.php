@@ -12,12 +12,16 @@ final class MotionImageInsertionFramerate
     /**
      * The bottom of the fraction that expresses your overlay frame rate. For example, if your frame rate is 24 fps, set
      * this value to 1.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
     /**
      * The top of the fraction that expresses your overlay frame rate. For example, if your frame rate is 24 fps, set this
      * value to 24.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 

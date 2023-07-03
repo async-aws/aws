@@ -11,17 +11,23 @@ class PutRecordBatchOutput extends Result
     /**
      * The number of records that might have failed processing. This number might be greater than 0 even if the
      * PutRecordBatch call succeeds. Check `FailedPutCount` to determine whether there are records that you need to resend.
+     *
+     * @var int
      */
     private $failedPutCount;
 
     /**
      * Indicates whether server-side encryption (SSE) was enabled during this operation.
+     *
+     * @var bool|null
      */
     private $encrypted;
 
     /**
      * The results array. For each record, the index of the response element is the same as the index used in the request
      * array.
+     *
+     * @var PutRecordBatchResponseEntry[]
      */
     private $requestResponses;
 

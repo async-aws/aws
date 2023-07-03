@@ -9,6 +9,8 @@ final class DestinationSettings
 {
     /**
      * Settings associated with S3 destination.
+     *
+     * @var S3DestinationSettings|null
      */
     private $s3Settings;
 

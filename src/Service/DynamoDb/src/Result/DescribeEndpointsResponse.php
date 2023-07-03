@@ -10,6 +10,8 @@ class DescribeEndpointsResponse extends Result
 {
     /**
      * List of endpoints.
+     *
+     * @var Endpoint[]
      */
     private $endpoints;
 

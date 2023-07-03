@@ -14,6 +14,8 @@ class GetUserResponse extends Result
 {
     /**
      * The user name of the user you want to retrieve from the get user request.
+     *
+     * @var string
      */
     private $username;
 
@@ -21,6 +23,8 @@ class GetUserResponse extends Result
      * An array of name-value pairs representing user attributes.
      *
      * For custom attributes, you must prepend the `custom:` prefix to the attribute name.
+     *
+     * @var AttributeType[]
      */
     private $userAttributes;
 
@@ -28,17 +32,23 @@ class GetUserResponse extends Result
      * *This response parameter is no longer supported.* It provides information only about SMS MFA configurations. It
      * doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up
      * information about either type of MFA configuration, use UserMFASettingList instead.
+     *
+     * @var MFAOptionType[]
      */
     private $mfaOptions;
 
     /**
      * The user's preferred MFA setting.
+     *
+     * @var string|null
      */
     private $preferredMfaSetting;
 
     /**
      * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
+     *
+     * @var string[]
      */
     private $userMfaSettingList;
 

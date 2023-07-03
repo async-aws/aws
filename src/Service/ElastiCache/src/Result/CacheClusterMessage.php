@@ -30,11 +30,15 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
 {
     /**
      * Provides an identifier to allow retrieval of paginated results.
+     *
+     * @var string|null
      */
     private $marker;
 
     /**
      * A list of clusters. Each item in the list contains detailed information about one cluster.
+     *
+     * @var CacheCluster[]
      */
     private $cacheClusters;
 

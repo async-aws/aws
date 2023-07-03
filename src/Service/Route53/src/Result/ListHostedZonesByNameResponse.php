@@ -15,17 +15,23 @@ class ListHostedZonesByNameResponse extends Result
 {
     /**
      * A complex type that contains general information about the hosted zone.
+     *
+     * @var HostedZone[]
      */
     private $hostedZones;
 
     /**
      * For the second and subsequent calls to `ListHostedZonesByName`, `DNSName` is the value that you specified for the
      * `dnsname` parameter in the request that produced the current response.
+     *
+     * @var string|null
      */
     private $dnsName;
 
     /**
      * The ID that Amazon Route 53 assigned to the hosted zone when you created it.
+     *
+     * @var string|null
      */
     private $hostedZoneId;
 
@@ -33,6 +39,8 @@ class ListHostedZonesByNameResponse extends Result
      * A flag that indicates whether there are more hosted zones to be listed. If the response was truncated, you can get
      * the next group of `maxitems` hosted zones by calling `ListHostedZonesByName` again and specifying the values of
      * `NextDNSName` and `NextHostedZoneId` elements in the `dnsname` and `hostedzoneid` parameters.
+     *
+     * @var bool
      */
     private $isTruncated;
 
@@ -42,6 +50,8 @@ class ListHostedZonesByNameResponse extends Result
      * `NextHostedZoneId` in the `dnsname` and `hostedzoneid` parameters, respectively.
      *
      * This element is present only if `IsTruncated` is `true`.
+     *
+     * @var string|null
      */
     private $nextDnsName;
 
@@ -51,12 +61,16 @@ class ListHostedZonesByNameResponse extends Result
      * `NextHostedZoneId` in the `dnsname` and `hostedzoneid` parameters, respectively.
      *
      * This element is present only if `IsTruncated` is `true`.
+     *
+     * @var string|null
      */
     private $nextHostedZoneId;
 
     /**
      * The value that you specified for the `maxitems` parameter in the call to `ListHostedZonesByName` that produced the
      * current response.
+     *
+     * @var string
      */
     private $maxItems;
 

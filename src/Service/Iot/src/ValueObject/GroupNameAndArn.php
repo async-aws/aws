@@ -9,11 +9,15 @@ final class GroupNameAndArn
 {
     /**
      * The group name.
+     *
+     * @var string|null
      */
     private $groupName;
 
     /**
      * The group ARN.
+     *
+     * @var string|null
      */
     private $groupArn;
 

@@ -16,11 +16,15 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
 {
     /**
      * A list of parameters found in the specified hierarchy.
+     *
+     * @var Parameter[]
      */
     private $parameters;
 
     /**
      * The token for the next set of items to return. Use this token to get the next set of results.
+     *
+     * @var string|null
      */
     private $nextToken;
 

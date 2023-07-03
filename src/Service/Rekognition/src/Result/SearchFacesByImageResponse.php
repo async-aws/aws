@@ -12,21 +12,29 @@ class SearchFacesByImageResponse extends Result
 {
     /**
      * The bounding box around the face in the input image that Amazon Rekognition used for the search.
+     *
+     * @var BoundingBox|null
      */
     private $searchedFaceBoundingBox;
 
     /**
      * The level of confidence that the `searchedFaceBoundingBox`, contains a face.
+     *
+     * @var float|null
      */
     private $searchedFaceConfidence;
 
     /**
      * An array of faces that match the input face, along with the confidence in the match.
+     *
+     * @var FaceMatch[]
      */
     private $faceMatches;
 
     /**
      * Version number of the face detection model associated with the input collection (`CollectionId`).
+     *
+     * @var string|null
      */
     private $faceModelVersion;
 

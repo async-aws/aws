@@ -11,16 +11,22 @@ final class CancellationReason
 {
     /**
      * Item in the request which caused the transaction to get cancelled.
+     *
+     * @var array<string, AttributeValue>|null
      */
     private $item;
 
     /**
      * Status code for the result of the cancelled transaction.
+     *
+     * @var string|null
      */
     private $code;
 
     /**
      * Cancellation reason message description.
+     *
+     * @var string|null
      */
     private $message;
 

@@ -12,6 +12,8 @@ class CreateDeploymentOutput extends Result
 {
     /**
      * The unique ID of a deployment.
+     *
+     * @var string|null
      */
     private $deploymentId;
 

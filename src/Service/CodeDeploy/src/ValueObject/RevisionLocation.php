@@ -18,27 +18,37 @@ final class RevisionLocation
      * - String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
      * - AppSpecContent: An `AppSpecContent` object that contains the contents of an AppSpec file for an Lambda or Amazon
      *   ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
+     *
+     * @var RevisionLocationType::*|null
      */
     private $revisionType;
 
     /**
      * Information about the location of a revision stored in Amazon S3.
+     *
+     * @var S3Location|null
      */
     private $s3Location;
 
     /**
      * Information about the location of application artifacts stored in GitHub.
+     *
+     * @var GitHubLocation|null
      */
     private $gitHubLocation;
 
     /**
      * Information about the location of an Lambda deployment revision stored as a RawString.
+     *
+     * @var RawString|null
      */
     private $string;
 
     /**
      * The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML and
      * stored as a RawString.
+     *
+     * @var AppSpecContent|null
      */
     private $appSpecContent;
 

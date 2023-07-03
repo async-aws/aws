@@ -12,11 +12,15 @@ final class ListManagementOptions
 {
     /**
      * The name of the contact list.
+     *
+     * @var string
      */
     private $contactListName;
 
     /**
      * The name of the topic.
+     *
+     * @var string|null
      */
     private $topicName;
 

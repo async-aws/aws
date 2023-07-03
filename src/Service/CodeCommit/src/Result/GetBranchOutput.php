@@ -13,6 +13,8 @@ class GetBranchOutput extends Result
 {
     /**
      * The name of the branch.
+     *
+     * @var BranchInfo|null
      */
     private $branch;
 

@@ -11,31 +11,43 @@ final class Resolver
 {
     /**
      * The resolver type name.
+     *
+     * @var string|null
      */
     private $typeName;
 
     /**
      * The resolver field name.
+     *
+     * @var string|null
      */
     private $fieldName;
 
     /**
      * The resolver data source name.
+     *
+     * @var string|null
      */
     private $dataSourceName;
 
     /**
      * The resolver Amazon Resource Name (ARN).
+     *
+     * @var string|null
      */
     private $resolverArn;
 
     /**
      * The request mapping template.
+     *
+     * @var string|null
      */
     private $requestMappingTemplate;
 
     /**
      * The response mapping template.
+     *
+     * @var string|null
      */
     private $responseMappingTemplate;
 
@@ -46,34 +58,49 @@ final class Resolver
      *   GraphQL query against a single data source.
      * - **PIPELINE**: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of `Function` objects in
      *   a serial manner. You can use a pipeline resolver to run a GraphQL query against multiple data sources.
+     *
+     * @var ResolverKind::*|null
      */
     private $kind;
 
     /**
      * The `PipelineConfig`.
+     *
+     * @var PipelineConfig|null
      */
     private $pipelineConfig;
 
     /**
      * The `SyncConfig` for a resolver attached to a versioned data source.
+     *
+     * @var SyncConfig|null
      */
     private $syncConfig;
 
     /**
      * The caching configuration for the resolver.
+     *
+     * @var CachingConfig|null
      */
     private $cachingConfig;
 
     /**
      * The maximum batching size for a resolver.
+     *
+     * @var int|null
      */
     private $maxBatchSize;
 
+    /**
+     * @var AppSyncRuntime|null
+     */
     private $runtime;
 
     /**
      * The `resolver` code that contains the request and response functions. When code is used, the `runtime` is required.
      * The `runtime` value must be `APPSYNC_JS`.
+     *
+     * @var string|null
      */
     private $code;
 

@@ -10,6 +10,8 @@ class StartCalculationExecutionResponse extends Result
 {
     /**
      * The calculation execution UUID.
+     *
+     * @var string|null
      */
     private $calculationExecutionId;
 
@@ -29,6 +31,8 @@ class StartCalculationExecutionResponse extends Result
      * `COMPLETED` - The calculation has completed without error.
      *
      * `FAILED` - The calculation failed and is no longer running.
+     *
+     * @var CalculationExecutionState::*|null
      */
     private $state;
 

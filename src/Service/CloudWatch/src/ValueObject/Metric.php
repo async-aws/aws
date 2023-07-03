@@ -9,16 +9,22 @@ final class Metric
 {
     /**
      * The namespace of the metric.
+     *
+     * @var string|null
      */
     private $namespace;
 
     /**
      * The name of the metric. This is a required field.
+     *
+     * @var string|null
      */
     private $metricName;
 
     /**
      * The dimensions for the metric.
+     *
+     * @var Dimension[]|null
      */
     private $dimensions;
 

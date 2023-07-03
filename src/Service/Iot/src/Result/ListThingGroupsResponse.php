@@ -16,11 +16,15 @@ class ListThingGroupsResponse extends Result implements \IteratorAggregate
 {
     /**
      * The thing groups.
+     *
+     * @var GroupNameAndArn[]
      */
     private $thingGroups;
 
     /**
      * The token to use to get the next set of results. Will not be returned if operation has returned all results.
+     *
+     * @var string|null
      */
     private $nextToken;
 

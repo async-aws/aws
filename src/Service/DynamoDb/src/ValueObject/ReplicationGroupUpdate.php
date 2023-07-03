@@ -18,16 +18,22 @@ final class ReplicationGroupUpdate
 {
     /**
      * The parameters required for creating a replica for the table.
+     *
+     * @var CreateReplicationGroupMemberAction|null
      */
     private $create;
 
     /**
      * The parameters required for updating a replica for the table.
+     *
+     * @var UpdateReplicationGroupMemberAction|null
      */
     private $update;
 
     /**
      * The parameters required for deleting a replica for the table.
+     *
+     * @var DeleteReplicationGroupMemberAction|null
      */
     private $delete;
 

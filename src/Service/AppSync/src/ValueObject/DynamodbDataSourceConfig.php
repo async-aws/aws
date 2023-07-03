@@ -11,26 +11,36 @@ final class DynamodbDataSourceConfig
 {
     /**
      * The table name.
+     *
+     * @var string
      */
     private $tableName;
 
     /**
      * The Amazon Web Services Region.
+     *
+     * @var string
      */
     private $awsRegion;
 
     /**
      * Set to TRUE to use Amazon Cognito credentials with this data source.
+     *
+     * @var bool|null
      */
     private $useCallerCredentials;
 
     /**
      * The `DeltaSyncConfig` for a versioned data source.
+     *
+     * @var DeltaSyncConfig|null
      */
     private $deltaSyncConfig;
 
     /**
      * Set to TRUE to use Conflict Detection and Resolution with this data source.
+     *
+     * @var bool|null
      */
     private $versioned;
 

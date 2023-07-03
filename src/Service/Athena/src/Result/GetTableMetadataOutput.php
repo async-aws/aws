@@ -11,6 +11,8 @@ class GetTableMetadataOutput extends Result
 {
     /**
      * An object that contains table metadata.
+     *
+     * @var TableMetadata|null
      */
     private $tableMetadata;
 

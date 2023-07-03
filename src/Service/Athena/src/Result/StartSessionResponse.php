@@ -10,6 +10,8 @@ class StartSessionResponse extends Result
 {
     /**
      * The session ID.
+     *
+     * @var string|null
      */
     private $sessionId;
 
@@ -31,6 +33,8 @@ class StartSessionResponse extends Result
      * `DEGRADED` - The session has no healthy coordinators.
      *
      * `FAILED` - Due to a failure, the session and its resources are no longer running.
+     *
+     * @var SessionState::*|null
      */
     private $state;
 

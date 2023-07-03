@@ -12,22 +12,30 @@ final class LayerVersionContentInput
 {
     /**
      * The Amazon S3 bucket of the layer archive.
+     *
+     * @var string|null
      */
     private $s3Bucket;
 
     /**
      * The Amazon S3 key of the layer archive.
+     *
+     * @var string|null
      */
     private $s3Key;
 
     /**
      * For versioned objects, the version of the layer archive object to use.
+     *
+     * @var string|null
      */
     private $s3ObjectVersion;
 
     /**
      * The base64-encoded contents of the layer archive. Amazon Web Services SDK and Amazon Web Services CLI clients handle
      * the encoding for you.
+     *
+     * @var string|null
      */
     private $zipFile;
 

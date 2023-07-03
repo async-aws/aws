@@ -11,11 +11,15 @@ final class DimensionFilter
 {
     /**
      * The dimension name to be matched.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The value of the dimension to be matched.
+     *
+     * @var string|null
      */
     private $value;
 

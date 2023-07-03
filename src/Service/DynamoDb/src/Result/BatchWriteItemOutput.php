@@ -44,6 +44,8 @@ class BatchWriteItemOutput extends Result
      *
      *
      * If there are no unprocessed items remaining, the response contains an empty `UnprocessedItems` map.
+     *
+     * @var array<string, WriteRequest[]>
      */
     private $unprocessedItems;
 
@@ -61,6 +63,8 @@ class BatchWriteItemOutput extends Result
      *   estimate to measure whether a local secondary index is approaching its size limit.
      *
      *   The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+     *
+     * @var array<string, ItemCollectionMetrics[]>
      */
     private $itemCollectionMetrics;
 
@@ -71,6 +75,8 @@ class BatchWriteItemOutput extends Result
      *
      * - `TableName` - The table that consumed the provisioned throughput.
      * - `CapacityUnits` - The total number of capacity units consumed.
+     *
+     * @var ConsumedCapacity[]
      */
     private $consumedCapacity;
 

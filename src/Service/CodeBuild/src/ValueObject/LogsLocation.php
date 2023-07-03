@@ -9,21 +9,29 @@ final class LogsLocation
 {
     /**
      * The name of the CloudWatch Logs group for the build logs.
+     *
+     * @var string|null
      */
     private $groupName;
 
     /**
      * The name of the CloudWatch Logs stream for the build logs.
+     *
+     * @var string|null
      */
     private $streamName;
 
     /**
      * The URL to an individual build log in CloudWatch Logs.
+     *
+     * @var string|null
      */
     private $deepLink;
 
     /**
      * The URL to a build log in an S3 bucket.
+     *
+     * @var string|null
      */
     private $s3DeepLink;
 
@@ -33,6 +41,8 @@ final class LogsLocation
      * information, see Resources Defined by CloudWatch Logs [^1].
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies
+     *
+     * @var string|null
      */
     private $cloudWatchLogsArn;
 
@@ -41,16 +51,22 @@ final class LogsLocation
      * information, see Resources Defined by Amazon S3 [^1].
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies
+     *
+     * @var string|null
      */
     private $s3LogsArn;
 
     /**
      * Information about CloudWatch Logs for a build project.
+     *
+     * @var CloudWatchLogsConfig|null
      */
     private $cloudWatchLogs;
 
     /**
      * Information about S3 logs for a build project.
+     *
+     * @var S3LogsConfig|null
      */
     private $s3Logs;
 

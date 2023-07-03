@@ -11,6 +11,8 @@ class CompleteMultipartUploadOutput extends Result
 {
     /**
      * The URI that identifies the newly created object.
+     *
+     * @var string|null
      */
     private $location;
 
@@ -31,17 +33,23 @@ class CompleteMultipartUploadOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     *
+     * @var string|null
      */
     private $bucket;
 
     /**
      * The object key of the newly created object.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * If the object expiration is configured, this will contain the expiration date (`expiry-date`) and rule ID
      * (`rule-id`). The value of `rule-id` is URL-encoded.
+     *
+     * @var string|null
      */
     private $expiration;
 
@@ -53,6 +61,8 @@ class CompleteMultipartUploadOutput extends Result
      * is calculated, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
      */
     private $etag;
 
@@ -62,6 +72,8 @@ class CompleteMultipartUploadOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32;
 
@@ -71,6 +83,8 @@ class CompleteMultipartUploadOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32C;
 
@@ -80,6 +94,8 @@ class CompleteMultipartUploadOutput extends Result
      * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha1;
 
@@ -89,31 +105,44 @@ class CompleteMultipartUploadOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha256;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     *
+     * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
 
     /**
      * Version ID of the newly created object, in case the bucket has versioning turned on.
+     *
+     * @var string|null
      */
     private $versionId;
 
     /**
      * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
      * used for the object.
+     *
+     * @var string|null
      */
     private $sseKmsKeyId;
 
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * @var bool|null
      */
     private $bucketKeyEnabled;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     public function getBucket(): ?string

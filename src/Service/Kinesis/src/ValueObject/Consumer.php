@@ -13,6 +13,8 @@ final class Consumer
 {
     /**
      * The name of the consumer is something you choose when you register the consumer.
+     *
+     * @var string
      */
     private $consumerName;
 
@@ -23,14 +25,21 @@ final class Consumer
      * If you delete a consumer and then create a new one with the same name, it won't have the same ARN. That's because
      * consumer ARNs contain the creation timestamp. This is important to keep in mind if you have IAM policies that
      * reference consumer ARNs.
+     *
+     * @var string
      */
     private $consumerArn;
 
     /**
      * A consumer can't read data while in the `CREATING` or `DELETING` states.
+     *
+     * @var ConsumerStatus::*
      */
     private $consumerStatus;
 
+    /**
+     * @var \DateTimeImmutable
+     */
     private $consumerCreationTimestamp;
 
     /**

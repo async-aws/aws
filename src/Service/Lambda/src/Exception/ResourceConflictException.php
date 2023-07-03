@@ -12,6 +12,8 @@ final class ResourceConflictException extends ClientException
 {
     /**
      * The exception type.
+     *
+     * @var string|null
      */
     private $type;
 

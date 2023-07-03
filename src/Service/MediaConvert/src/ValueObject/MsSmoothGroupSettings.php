@@ -19,12 +19,16 @@ final class MsSmoothGroupSettings
      * By default, the service creates one .ism Microsoft Smooth Streaming manifest for each Microsoft Smooth Streaming
      * output group in your job. This default manifest references every output in the output group. To create additional
      * manifests that reference a subset of the outputs in the output group, specify a list of them here.
+     *
+     * @var MsSmoothAdditionalManifest[]|null
      */
     private $additionalManifests;
 
     /**
      * COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings across a Microsoft Smooth output group into a
      * single audio stream.
+     *
+     * @var MsSmoothAudioDeduplication::*|null
      */
     private $audioDeduplication;
 
@@ -32,16 +36,22 @@ final class MsSmoothGroupSettings
      * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
      * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
      * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     *
+     * @var string|null
      */
     private $destination;
 
     /**
      * Settings associated with the destination. Will vary based on the type of destination.
+     *
+     * @var DestinationSettings|null
      */
     private $destinationSettings;
 
     /**
      * If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify the value SpekeKeyProvider.
+     *
+     * @var MsSmoothEncryptionSettings|null
      */
     private $encryption;
 
@@ -50,6 +60,8 @@ final class MsSmoothGroupSettings
      * exact length that you specify with the setting Fragment length (FragmentLength). This might result in extra I-frames.
      * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
      * boundary.
+     *
+     * @var int|null
      */
     private $fragmentLength;
 
@@ -58,12 +70,16 @@ final class MsSmoothGroupSettings
      * exact length that you specify with the setting Fragment length (FragmentLength). This might result in extra I-frames.
      * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
      * boundary.
+     *
+     * @var MsSmoothFragmentLengthControl::*|null
      */
     private $fragmentLengthControl;
 
     /**
      * Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding format for the server and client manifest.
      * Valid options are utf8 and utf16.
+     *
+     * @var MsSmoothManifestEncoding::*|null
      */
     private $manifestEncoding;
 

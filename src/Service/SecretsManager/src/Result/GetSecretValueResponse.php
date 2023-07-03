@@ -9,16 +9,22 @@ class GetSecretValueResponse extends Result
 {
     /**
      * The ARN of the secret.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The friendly name of the secret.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The unique identifier of this version of the secret.
+     *
+     * @var string|null
      */
     private $versionId;
 
@@ -30,6 +36,8 @@ class GetSecretValueResponse extends Result
      * string, then this field is omitted. The secret value appears in `SecretString` instead.
      *
      * [^1]: https://tools.ietf.org/html/rfc4648#section-4
+     *
+     * @var string|null
      */
     private $secretBinary;
 
@@ -39,17 +47,23 @@ class GetSecretValueResponse extends Result
      *
      * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure of
      * key/value pairs.
+     *
+     * @var string|null
      */
     private $secretString;
 
     /**
      * A list of all of the staging labels currently attached to this version of the secret.
+     *
+     * @var string[]
      */
     private $versionStages;
 
     /**
      * The date and time that this version of the secret was created. If you don't specify which version in `VersionId` or
      * `VersionStage`, then Secrets Manager uses the `AWSCURRENT` version.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $createdDate;
 

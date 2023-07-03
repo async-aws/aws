@@ -10,16 +10,22 @@ class GetCelebrityInfoResponse extends Result
 {
     /**
      * An array of URLs pointing to additional celebrity information.
+     *
+     * @var string[]
      */
     private $urls;
 
     /**
      * The name of the celebrity.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * Retrieves the known gender for the celebrity.
+     *
+     * @var KnownGender|null
      */
     private $knownGender;
 

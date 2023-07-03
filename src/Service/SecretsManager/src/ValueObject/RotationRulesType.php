@@ -16,6 +16,8 @@ final class RotationRulesType
      * In `DescribeSecret` and `ListSecrets`, this value is calculated from the rotation schedule after every successful
      * rotation. In `RotateSecret`, you can set the rotation schedule in `RotationRules` with `AutomaticallyAfterDays` or
      * `ScheduleExpression`, but not both. To set a rotation schedule in hours, use `ScheduleExpression`.
+     *
+     * @var int|null
      */
     private $automaticallyAfterDays;
 
@@ -28,6 +30,8 @@ final class RotationRulesType
      * expressions in Secrets Manager rotation [^1] in the *Secrets Manager Users Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html
+     *
+     * @var string|null
      */
     private $duration;
 
@@ -50,6 +54,8 @@ final class RotationRulesType
      * the next UTC day or into the next rotation window.
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html
+     *
+     * @var string|null
      */
     private $scheduleExpression;
 

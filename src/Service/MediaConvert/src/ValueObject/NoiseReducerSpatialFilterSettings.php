@@ -10,16 +10,22 @@ final class NoiseReducerSpatialFilterSettings
     /**
      * Specify strength of post noise reduction sharpening filter, with 0 disabling the filter and 3 enabling it at maximum
      * strength.
+     *
+     * @var int|null
      */
     private $postFilterSharpenStrength;
 
     /**
      * The speed of the filter, from -2 (lower speed) to 3 (higher speed), with 0 being the nominal value.
+     *
+     * @var int|null
      */
     private $speed;
 
     /**
      * Relative strength of noise reducing filter. Higher values produce stronger filtering.
+     *
+     * @var int|null
      */
     private $strength;
 

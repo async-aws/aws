@@ -11,11 +11,15 @@ final class TimeToLiveSpecification
 {
     /**
      * Indicates whether TTL is to be enabled (true) or disabled (false) on the table.
+     *
+     * @var bool
      */
     private $enabled;
 
     /**
      * The name of the TTL attribute used to store the expiration time for items in the table.
+     *
+     * @var string
      */
     private $attributeName;
 

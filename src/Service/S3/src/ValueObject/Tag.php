@@ -11,11 +11,15 @@ final class Tag
 {
     /**
      * Name of the object key.
+     *
+     * @var string
      */
     private $key;
 
     /**
      * Value of the tag.
+     *
+     * @var string
      */
     private $value;
 

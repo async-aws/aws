@@ -9,17 +9,23 @@ class DeleteSecretResponse extends Result
 {
     /**
      * The ARN of the secret.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The name of the secret.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The date and time after which this secret Secrets Manager can permanently delete this secret, and it can no longer be
      * restored. This value is the date and time of the delete request plus the number of days in `RecoveryWindowInDays`.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $deletionDate;
 

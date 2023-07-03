@@ -9,6 +9,8 @@ class UpdateScheduleOutput extends Result
 {
     /**
      * The Amazon Resource Name (ARN) of the schedule that you updated.
+     *
+     * @var string
      */
     private $scheduleArn;
 

@@ -11,21 +11,29 @@ final class BatchResultErrorEntry
 {
     /**
      * The `Id` of an entry in a batch request.
+     *
+     * @var string
      */
     private $id;
 
     /**
      * An error code representing why the action failed on this entry.
+     *
+     * @var string
      */
     private $code;
 
     /**
      * A message explaining why the action failed on this entry.
+     *
+     * @var string|null
      */
     private $message;
 
     /**
      * Specifies whether the error happened due to the caller of the batch API action.
+     *
+     * @var bool
      */
     private $senderFault;
 

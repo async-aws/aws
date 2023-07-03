@@ -10,11 +10,15 @@ final class ThingTypeProperties
 {
     /**
      * The description of the thing type.
+     *
+     * @var string|null
      */
     private $thingTypeDescription;
 
     /**
      * A list of searchable thing attribute names.
+     *
+     * @var string[]|null
      */
     private $searchableAttributes;
 

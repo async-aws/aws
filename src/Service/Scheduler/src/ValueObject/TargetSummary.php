@@ -11,6 +11,8 @@ final class TargetSummary
 {
     /**
      * The Amazon Resource Name (ARN) of the target.
+     *
+     * @var string
      */
     private $arn;
 

@@ -9,6 +9,8 @@ final class CloudWatchLogsDestinationDetails
 {
     /**
      * The name of the CloudWatch Logs log group.
+     *
+     * @var string|null
      */
     private $logGroup;
 

@@ -11,11 +11,15 @@ final class SequenceNumberRange
 {
     /**
      * The starting sequence number for the range.
+     *
+     * @var string
      */
     private $startingSequenceNumber;
 
     /**
      * The ending sequence number for the range. Shards that are in the OPEN state have an ending sequence number of `null`.
+     *
+     * @var string|null
      */
     private $endingSequenceNumber;
 

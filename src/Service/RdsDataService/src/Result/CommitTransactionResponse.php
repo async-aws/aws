@@ -12,6 +12,8 @@ class CommitTransactionResponse extends Result
 {
     /**
      * The status of the commit operation.
+     *
+     * @var string|null
      */
     private $transactionStatus;
 

@@ -15,6 +15,8 @@ final class HlsSettings
 {
     /**
      * Specifies the group to which the audio rendition belongs.
+     *
+     * @var string|null
      */
     private $audioGroupId;
 
@@ -23,12 +25,16 @@ final class HlsSettings
      * container. Keep the default value Automatic (AUTOMATIC) to create an audio-only file in a raw container. Regardless
      * of the value that you specify here, if this output has video, the service will place the output into an MPEG2-TS
      * container.
+     *
+     * @var HlsAudioOnlyContainer::*|null
      */
     private $audioOnlyContainer;
 
     /**
      * List all the audio groups that are used with the video output stream. Input all the audio GROUP-IDs that are
      * associated to the video, separate by ','.
+     *
+     * @var string|null
      */
     private $audioRenditionSets;
 
@@ -40,6 +46,8 @@ final class HlsSettings
      * rendition that the client may try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with
      * DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not Auto Select Alternate rendition that the client will not try to play
      * back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=NO.
+     *
+     * @var HlsAudioTrackType::*|null
      */
     private $audioTrackType;
 
@@ -49,6 +57,8 @@ final class HlsSettings
      * EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag (DONT_FLAG), MediaConvert leaves this
      * parameter out. The DVS flag can help with accessibility on Apple devices. For more information, see the Apple
      * documentation.
+     *
+     * @var HlsDescriptiveVideoServiceFlag::*|null
      */
     private $descriptiveVideoServiceFlag;
 
@@ -58,6 +68,8 @@ final class HlsSettings
      * that creates preview functions for your video. MediaConvert adds both the I-frame only child manifest and the regular
      * child manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value
      * Exclude (EXCLUDE).
+     *
+     * @var HlsIFrameOnlyManifest::*|null
      */
     private $iframeOnlyManifest;
 
@@ -65,6 +77,8 @@ final class HlsSettings
      * Use this setting to add an identifying string to the filename of each segment. The service adds this string between
      * the name modifier and segment index number. You can use format identifiers in the string. For more information, see
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html.
+     *
+     * @var string|null
      */
     private $segmentModifier;
 

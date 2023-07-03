@@ -13,11 +13,15 @@ final class DominantLanguage
      * Languages [^1] on the *IETF Tools* web site.
      *
      * [^1]: https://tools.ietf.org/html/rfc5646
+     *
+     * @var string|null
      */
     private $languageCode;
 
     /**
      * The level of confidence that Amazon Comprehend has in the accuracy of the detection.
+     *
+     * @var float|null
      */
     private $score;
 

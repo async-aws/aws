@@ -25,6 +25,8 @@ final class WebvttDestinationSettings
      * provide such accessibility: Keep the default value, Disabled. When you do, for DASH manifests, MediaConvert instead
      * adds the following in the adaptation set for this track: `<Role schemeIDUri="urn:mpeg:dash:role:2011"
      * value="subtitle"/>`.
+     *
+     * @var WebvttAccessibilitySubs::*|null
      */
     private $accessibility;
 
@@ -35,6 +37,8 @@ final class WebvttDestinationSettings
      * MediaConvert automatically applies timing adjustments, including adjustments for frame rate conversion, ad avails,
      * and input clipping. Your input captions format must be WebVTT. To ignore the style and position information from your
      * input captions and use simplified output captions: Set Style passthrough to Disabled (DISABLED), or leave blank.
+     *
+     * @var WebvttStylePassthrough::*|null
      */
     private $stylePassthrough;
 

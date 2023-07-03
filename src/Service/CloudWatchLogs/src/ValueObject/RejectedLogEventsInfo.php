@@ -9,16 +9,22 @@ final class RejectedLogEventsInfo
 {
     /**
      * The log events that are too new.
+     *
+     * @var int|null
      */
     private $tooNewLogEventStartIndex;
 
     /**
      * The log events that are dated too far in the past.
+     *
+     * @var int|null
      */
     private $tooOldLogEventEndIndex;
 
     /**
      * The expired log events.
+     *
+     * @var int|null
      */
     private $expiredLogEventEndIndex;
 

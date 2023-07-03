@@ -9,6 +9,8 @@ class PutObjectTaggingOutput extends Result
 {
     /**
      * The versionId of the object the tag-set was added to.
+     *
+     * @var string|null
      */
     private $versionId;
 

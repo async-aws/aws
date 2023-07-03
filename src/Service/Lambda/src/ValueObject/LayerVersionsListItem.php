@@ -14,21 +14,29 @@ final class LayerVersionsListItem
 {
     /**
      * The ARN of the layer version.
+     *
+     * @var string|null
      */
     private $layerVersionArn;
 
     /**
      * The version number.
+     *
+     * @var int|null
      */
     private $version;
 
     /**
      * The description of the version.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The date that the version was created, in ISO 8601 format. For example, `2018-11-27T15:10:45.123+0000`.
+     *
+     * @var string|null
      */
     private $createdDate;
 
@@ -38,11 +46,15 @@ final class LayerVersionsListItem
      * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+     *
+     * @var list<Runtime::*>|null
      */
     private $compatibleRuntimes;
 
     /**
      * The layer's open-source license.
+     *
+     * @var string|null
      */
     private $licenseInfo;
 
@@ -50,6 +62,8 @@ final class LayerVersionsListItem
      * A list of compatible instruction set architectures [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var list<Architecture::*>|null
      */
     private $compatibleArchitectures;
 

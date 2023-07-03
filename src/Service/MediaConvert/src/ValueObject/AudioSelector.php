@@ -24,23 +24,31 @@ final class AudioSelector
      * tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a variable amount to align
      * audio frames with STTS timestamps. No corrections are made to already-aligned frames. Frame-level correction may
      * affect the pitch of corrected frames, and is recommended for atonal audio content such as speech or percussion.
+     *
+     * @var AudioDurationCorrection::*|null
      */
     private $audioDurationCorrection;
 
     /**
      * Selects a specific language code from within an audio source, using the ISO 639-2 or ISO 639-3 three-letter language
      * code.
+     *
+     * @var string|null
      */
     private $customLanguageCode;
 
     /**
      * Enable this setting on one audio selector to set it as the default for the job. The service uses this default for
      * outputs where it can't find the specified input audio. If you don't set a default, those outputs have no audio.
+     *
+     * @var AudioDefaultSelection::*|null
      */
     private $defaultSelection;
 
     /**
      * Specifies audio data from an external file source.
+     *
+     * @var string|null
      */
     private $externalAudioFileInput;
 
@@ -50,21 +58,29 @@ final class AudioSelector
      * present in the HLS manifest. If no unique track is found, or multiple tracks match the properties provided, the job
      * fails. If no properties in hlsRenditionGroupSettings are specified, the default audio track within the video segment
      * is chosen. If there is no audio within video segment, the alternative audio with DEFAULT=YES is chosen instead.
+     *
+     * @var HlsRenditionGroupSettings|null
      */
     private $hlsRenditionGroupSettings;
 
     /**
      * Selects a specific language code from within an audio source.
+     *
+     * @var LanguageCode::*|null
      */
     private $languageCode;
 
     /**
      * Specifies a time delta in milliseconds to offset the audio from the input video.
+     *
+     * @var int|null
      */
     private $offset;
 
     /**
      * Selects a specific PID from within an audio source (e.g. 257 selects PID 0x101).
+     *
+     * @var int[]|null
      */
     private $pids;
 
@@ -75,17 +91,23 @@ final class AudioSelector
      * list. If you are sending a JSON file, provide the program ID, which is part of the audio metadata. If your input file
      * has incorrect metadata, you can choose All channels instead of a program number to have the service ignore the
      * program IDs and include all the programs in the track.
+     *
+     * @var int|null
      */
     private $programSelection;
 
     /**
      * Use these settings to reorder the audio channels of one input to match those of another input. This allows you to
      * combine the two files into a single output, one after the other.
+     *
+     * @var RemixSettings|null
      */
     private $remixSettings;
 
     /**
      * Specifies the type of the audio selector.
+     *
+     * @var AudioSelectorType::*|null
      */
     private $selectorType;
 
@@ -94,6 +116,8 @@ final class AudioSelector
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
      * comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly in your JSON job
      * file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     *
+     * @var int[]|null
      */
     private $tracks;
 

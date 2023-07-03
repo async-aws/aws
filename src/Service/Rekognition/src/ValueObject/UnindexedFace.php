@@ -21,11 +21,15 @@ final class UnindexedFace
      * - LOW_SHARPNESS - The image is too blurry.
      * - LOW_CONFIDENCE - The face was detected with a low confidence.
      * - SMALL_BOUNDING_BOX - The bounding box around the face is too small.
+     *
+     * @var list<Reason::*>|null
      */
     private $reasons;
 
     /**
      * The structure that contains attributes of a face that `IndexFaces`detected, but didn't index.
+     *
+     * @var FaceDetail|null
      */
     private $faceDetail;
 

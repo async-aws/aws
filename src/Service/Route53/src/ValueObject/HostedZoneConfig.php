@@ -10,11 +10,15 @@ final class HostedZoneConfig
 {
     /**
      * Any comments that you want to include about the hosted zone.
+     *
+     * @var string|null
      */
     private $comment;
 
     /**
      * A value that indicates whether this is a private hosted zone.
+     *
+     * @var bool|null
      */
     private $privateZone;
 

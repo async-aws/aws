@@ -15,11 +15,15 @@ class PutObjectOutput extends Result
      * The value of the `rule-id` is URL-encoded.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
+     *
+     * @var string|null
      */
     private $expiration;
 
     /**
      * Entity tag for the uploaded object.
+     *
+     * @var string|null
      */
     private $etag;
 
@@ -29,6 +33,8 @@ class PutObjectOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32;
 
@@ -38,6 +44,8 @@ class PutObjectOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumCrc32C;
 
@@ -47,6 +55,8 @@ class PutObjectOutput extends Result
      * calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha1;
 
@@ -56,35 +66,47 @@ class PutObjectOutput extends Result
      * checksums are calculated with multipart uploads, see  Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     *
+     * @var string|null
      */
     private $checksumSha256;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`,
      * `aws:kms:dsse`).
+     *
+     * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
 
     /**
      * Version of the object.
+     *
+     * @var string|null
      */
     private $versionId;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
+     *
+     * @var string|null
      */
     private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
      * If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header specifies the ID of
      * the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+     *
+     * @var string|null
      */
     private $sseKmsKeyId;
 
@@ -93,15 +115,22 @@ class PutObjectOutput extends Result
      * header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value is
      * stored as object metadata and automatically gets passed on to Amazon Web Services KMS for future `GetObject` or
      * `CopyObject` operations on this object.
+     *
+     * @var string|null
      */
     private $sseKmsEncryptionContext;
 
     /**
      * Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * @var bool|null
      */
     private $bucketKeyEnabled;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     public function getBucketKeyEnabled(): ?bool

@@ -11,11 +11,15 @@ final class HashKeyRange
 {
     /**
      * The starting hash key of the hash key range.
+     *
+     * @var string
      */
     private $startingHashKey;
 
     /**
      * The ending hash key of the hash key range.
+     *
+     * @var string
      */
     private $endingHashKey;
 

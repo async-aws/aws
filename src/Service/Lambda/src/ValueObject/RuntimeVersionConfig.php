@@ -9,11 +9,15 @@ final class RuntimeVersionConfig
 {
     /**
      * The ARN of the runtime version you want the function to use.
+     *
+     * @var string|null
      */
     private $runtimeVersionArn;
 
     /**
      * Error response when Lambda is unable to retrieve the runtime version for a function.
+     *
+     * @var RuntimeVersionError|null
      */
     private $error;
 

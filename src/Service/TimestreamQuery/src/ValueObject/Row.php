@@ -11,6 +11,8 @@ final class Row
 {
     /**
      * List of data points in a single row of the result set.
+     *
+     * @var Datum[]
      */
     private $data;
 

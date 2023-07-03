@@ -15,6 +15,8 @@ final class RollbackTrigger
      * The Amazon Resource Name (ARN) of the rollback trigger.
      *
      * If a specified trigger is missing, the entire stack operation fails and is rolled back.
+     *
+     * @var string
      */
     private $arn;
 
@@ -24,6 +26,8 @@ final class RollbackTrigger
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
      * [^2]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html
+     *
+     * @var string
      */
     private $type;
 

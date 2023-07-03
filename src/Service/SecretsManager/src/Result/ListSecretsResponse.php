@@ -18,6 +18,8 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
 {
     /**
      * A list of the secrets in the account.
+     *
+     * @var SecretListEntry[]
      */
     private $secretList;
 
@@ -25,6 +27,8 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
      * Secrets Manager includes this value if there's more output available than what is included in the current response.
      * This can occur even when the response includes no values at all, such as when you ask for a filtered view of a long
      * list. To get the next results, call `ListSecrets` again with this value.
+     *
+     * @var string|null
      */
     private $nextToken;
 

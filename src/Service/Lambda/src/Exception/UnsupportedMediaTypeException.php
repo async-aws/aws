@@ -10,6 +10,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class UnsupportedMediaTypeException extends ClientException
 {
+    /**
+     * @var string|null
+     */
     private $type;
 
     public function getType(): ?string

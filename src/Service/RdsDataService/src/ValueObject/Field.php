@@ -9,36 +9,50 @@ final class Field
 {
     /**
      * A NULL value.
+     *
+     * @var bool|null
      */
     private $isNull;
 
     /**
      * A value of Boolean data type.
+     *
+     * @var bool|null
      */
     private $booleanValue;
 
     /**
      * A value of long data type.
+     *
+     * @var int|null
      */
     private $longValue;
 
     /**
      * A value of double data type.
+     *
+     * @var float|null
      */
     private $doubleValue;
 
     /**
      * A value of string data type.
+     *
+     * @var string|null
      */
     private $stringValue;
 
     /**
      * A value of BLOB data type.
+     *
+     * @var string|null
      */
     private $blobValue;
 
     /**
      * An array of values.
+     *
+     * @var ArrayValue|null
      */
     private $arrayValue;
 

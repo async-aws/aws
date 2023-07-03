@@ -25,6 +25,8 @@ final class Eac3Settings
 {
     /**
      * If set to ATTENUATE_3_DB, applies a 3 dB attenuation to the surround channels. Only used for 3/2 coding mode.
+     *
+     * @var Eac3AttenuationControl::*|null
      */
     private $attenuationControl;
 
@@ -34,27 +36,37 @@ final class Eac3Settings
      * ETSI TS 102 366. Valid bitrates for coding mode 1/0: Default: 96000. Minimum: 32000. Maximum: 3024000. Valid bitrates
      * for coding mode 2/0: Default: 192000. Minimum: 96000. Maximum: 3024000. Valid bitrates for coding mode 3/2: Default:
      * 384000. Minimum: 192000. Maximum: 3024000.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * Specify the bitstream mode for the E-AC-3 stream that the encoder emits. For more information about the EAC3
      * bitstream mode, see ATSC A/52-2012 (Annex E).
+     *
+     * @var Eac3BitstreamMode::*|null
      */
     private $bitstreamMode;
 
     /**
      * Dolby Digital Plus coding mode. Determines number of channels.
+     *
+     * @var Eac3CodingMode::*|null
      */
     private $codingMode;
 
     /**
      * Activates a DC highpass filter for all input channels.
+     *
+     * @var Eac3DcFilter::*|null
      */
     private $dcFilter;
 
     /**
      * Sets the dialnorm for the output. If blank and input audio is Dolby Digital Plus, dialnorm will be passed through.
+     *
+     * @var int|null
      */
     private $dialnorm;
 
@@ -64,6 +76,8 @@ final class Eac3Settings
      * any value you provide for Dynamic range compression profile (DynamicRangeCompressionProfile). For information about
      * the Dolby Digital DRC operating modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide
      * at https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
+     *
+     * @var Eac3DynamicRangeCompressionLine::*|null
      */
     private $dynamicRangeCompressionLine;
 
@@ -73,16 +87,22 @@ final class Eac3Settings
      * value you provide for Dynamic range compression profile (DynamicRangeCompressionProfile). For information about the
      * Dolby Digital DRC operating modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
+     *
+     * @var Eac3DynamicRangeCompressionRf::*|null
      */
     private $dynamicRangeCompressionRf;
 
     /**
      * When encoding 3/2 audio, controls whether the LFE channel is enabled.
+     *
+     * @var Eac3LfeControl::*|null
      */
     private $lfeControl;
 
     /**
      * Applies a 120Hz lowpass filter to the LFE channel prior to encoding. Only valid with 3_2_LFE coding mode.
+     *
+     * @var Eac3LfeFilter::*|null
      */
     private $lfeFilter;
 
@@ -93,6 +113,8 @@ final class Eac3Settings
      * the channel. This setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for
      * the setting Coding mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left
      * only/Right only center (loRoCenterMixLevel).
+     *
+     * @var float|null
      */
     private $loRoCenterMixLevel;
 
@@ -103,6 +125,8 @@ final class Eac3Settings
      * setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for the setting Coding
      * mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left only/Right only
      * surround (loRoSurroundMixLevel).
+     *
+     * @var float|null
      */
     private $loRoSurroundMixLevel;
 
@@ -113,6 +137,8 @@ final class Eac3Settings
      * the channel. This setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for
      * the setting Coding mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left
      * total/Right total center (ltRtCenterMixLevel).
+     *
+     * @var float|null
      */
     private $ltRtCenterMixLevel;
 
@@ -123,12 +149,16 @@ final class Eac3Settings
      * This setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for the setting
      * Coding mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left total/Right
      * total surround (ltRtSurroundMixLevel).
+     *
+     * @var float|null
      */
     private $ltRtSurroundMixLevel;
 
     /**
      * When set to FOLLOW_INPUT, encoder metadata will be sourced from the DD, DD+, or DolbyE decoder that supplied this
      * audio data. If audio was not supplied from one of these streams, then the static metadata settings will be used.
+     *
+     * @var Eac3MetadataControl::*|null
      */
     private $metadataControl;
 
@@ -136,16 +166,22 @@ final class Eac3Settings
      * When set to WHEN_POSSIBLE, input DD+ audio will be passed through if it is present on the input. this detection is
      * dynamic over the life of the transcode. Inputs that alternate between DD+ and non-DD+ content will have a consistent
      * DD+ output as the system alternates between passthrough and encoding.
+     *
+     * @var Eac3PassthroughControl::*|null
      */
     private $passthroughControl;
 
     /**
      * Controls the amount of phase-shift applied to the surround channels. Only used for 3/2 coding mode.
+     *
+     * @var Eac3PhaseControl::*|null
      */
     private $phaseControl;
 
     /**
      * This value is always 48000. It represents the sample rate in Hz.
+     *
+     * @var int|null
      */
     private $sampleRate;
 
@@ -153,17 +189,23 @@ final class Eac3Settings
      * Choose how the service does stereo downmixing. This setting only applies if you keep the default value of 3/2 - L, R,
      * C, Ls, Rs (CODING_MODE_3_2) for the setting Coding mode (Eac3CodingMode). If you choose a different value for Coding
      * mode, the service ignores Stereo downmix (Eac3StereoDownmix).
+     *
+     * @var Eac3StereoDownmix::*|null
      */
     private $stereoDownmix;
 
     /**
      * When encoding 3/2 audio, sets whether an extra center back surround channel is matrix encoded into the left and right
      * surround channels.
+     *
+     * @var Eac3SurroundExMode::*|null
      */
     private $surroundExMode;
 
     /**
      * When encoding 2/0 audio, sets whether Dolby Surround is matrix encoded into the two channels.
+     *
+     * @var Eac3SurroundMode::*|null
      */
     private $surroundMode;
 

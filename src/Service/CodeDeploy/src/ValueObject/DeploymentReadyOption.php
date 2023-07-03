@@ -18,12 +18,16 @@ final class DeploymentReadyOption
      * - STOP_DEPLOYMENT: Do not register new instances with a load balancer unless traffic rerouting is started using
      *   ContinueDeployment. If traffic rerouting is not started before the end of the specified wait period, the deployment
      *   status is changed to Stopped.
+     *
+     * @var DeploymentReadyAction::*|null
      */
     private $actionOnTimeout;
 
     /**
      * The number of minutes to wait before the status of a blue/green deployment is changed to Stopped if rerouting is not
      * started manually. Applies only to the `STOP_DEPLOYMENT` option for `actionOnTimeout`.
+     *
+     * @var int|null
      */
     private $waitTimeInMinutes;
 

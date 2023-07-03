@@ -21,11 +21,15 @@ class RecognizeCelebritiesResponse extends Result
      * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
      * image. Each celebrity object includes the following attributes: `Face`, `Confidence`, `Emotions`, `Landmarks`,
      * `Pose`, `Quality`, `Smile`, `Id`, `KnownGender`, `MatchConfidence`, `Name`, `Urls`.
+     *
+     * @var Celebrity[]
      */
     private $celebrityFaces;
 
     /**
      * Details about each unrecognized face in the image.
+     *
+     * @var ComparedFace[]
      */
     private $unrecognizedFaces;
 
@@ -42,6 +46,8 @@ class RecognizeCelebritiesResponse extends Result
      * > `OrientationCorrection` is null. The `CelebrityFaces` and `UnrecognizedFaces` bounding box coordinates represent
      * > face locations after Exif metadata is used to correct the image orientation. Images in .png format don't contain
      * > Exif metadata.
+     *
+     * @var OrientationCorrection::*|null
      */
     private $orientationCorrection;
 

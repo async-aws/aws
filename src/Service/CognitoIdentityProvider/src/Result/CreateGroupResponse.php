@@ -10,6 +10,8 @@ class CreateGroupResponse extends Result
 {
     /**
      * The group object for the group.
+     *
+     * @var GroupType|null
      */
     private $group;
 

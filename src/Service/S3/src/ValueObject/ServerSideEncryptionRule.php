@@ -10,6 +10,8 @@ final class ServerSideEncryptionRule
     /**
      * Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't
      * specify any server-side encryption, this default encryption will be applied.
+     *
+     * @var ServerSideEncryptionByDefault|null
      */
     private $applyServerSideEncryptionByDefault;
 
@@ -21,6 +23,8 @@ final class ServerSideEncryptionRule
      * For more information, see Amazon S3 Bucket Keys [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html
+     *
+     * @var bool|null
      */
     private $bucketKeyEnabled;
 

@@ -17,6 +17,8 @@ final class Deinterlacer
      * blend produces smoother motion. If your source file includes a ticker, such as a scrolling headline at the bottom of
      * the frame: Choose Interpolate ticker or Blend ticker. To apply field doubling: Choose Linear interpolation. Note that
      * Linear interpolation may introduce video artifacts into your output.
+     *
+     * @var DeinterlaceAlgorithm::*|null
      */
     private $algorithm;
 
@@ -27,6 +29,8 @@ final class Deinterlacer
      * there is a good chance that the metadata has tagged frames as progressive when they are not progressive. Do not turn
      * on otherwise; processing frames that are already progressive into progressive will probably result in lower quality
      * video.
+     *
+     * @var DeinterlacerControl::*|null
      */
     private $control;
 
@@ -34,6 +38,8 @@ final class Deinterlacer
      * Use Deinterlacer (DeinterlaceMode) to choose how the service will do deinterlacing. Default is Deinterlace. -
      * Deinterlace converts interlaced to progressive. - Inverse telecine converts Hard Telecine 29.97i to progressive
      * 23.976p. - Adaptive auto-detects and converts to progressive.
+     *
+     * @var DeinterlacerMode::*|null
      */
     private $mode;
 

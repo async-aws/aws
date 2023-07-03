@@ -36,23 +36,31 @@ final class ApiKey
 {
     /**
      * The API key ID.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * A description of the purpose of the API key.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The time after which the API key expires. The date is represented as seconds since the epoch, rounded down to the
      * nearest hour.
+     *
+     * @var int|null
      */
     private $expires;
 
     /**
      * The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded down to the
      * nearest hour.
+     *
+     * @var int|null
      */
     private $deletes;
 

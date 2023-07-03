@@ -23,11 +23,15 @@ final class KeyMetadata
 {
     /**
      * The twelve-digit account ID of the Amazon Web Services account that owns the KMS key.
+     *
+     * @var string|null
      */
     private $awsAccountId;
 
     /**
      * The globally unique identifier for the KMS key.
+     *
+     * @var string
      */
     private $keyId;
 
@@ -36,21 +40,29 @@ final class KeyMetadata
      * ARNs section of the *Amazon Web Services General Reference*.
      *
      * [^1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The date and time when the KMS key was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 
     /**
      * Specifies whether the KMS key is enabled. When `KeyState` is `Enabled` this value is true, otherwise it is false.
+     *
+     * @var bool|null
      */
     private $enabled;
 
     /**
      * The description of the KMS key.
+     *
+     * @var string|null
      */
     private $description;
 
@@ -58,6 +70,8 @@ final class KeyMetadata
      * The cryptographic operations [^1] for which you can use the KMS key.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
+     *
+     * @var KeyUsageType::*|null
      */
     private $keyUsage;
 
@@ -68,6 +82,8 @@ final class KeyMetadata
      * Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
+     *
+     * @var KeyState::*|null
      */
     private $keyState;
 
@@ -78,6 +94,8 @@ final class KeyMetadata
      * When the primary key in a multi-Region key is scheduled for deletion but still has replica keys, its key state is
      * `PendingReplicaDeletion` and the length of its waiting period is displayed in the `PendingDeletionWindowInDays`
      * field.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $deletionDate;
 
@@ -85,6 +103,8 @@ final class KeyMetadata
      * The time at which the imported key material expires. When the key material expires, KMS deletes the key material and
      * the KMS key becomes unusable. This value is present only for KMS keys whose `Origin` is `EXTERNAL` and whose
      * `ExpirationModel` is `KEY_MATERIAL_EXPIRES`, otherwise this value is omitted.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $validTo;
 
@@ -92,6 +112,8 @@ final class KeyMetadata
      * The source of the key material for the KMS key. When this value is `AWS_KMS`, KMS created the key material. When this
      * value is `EXTERNAL`, the key material was imported or the KMS key doesn't have any key material. When this value is
      * `AWS_CLOUDHSM`, the key material was created in the CloudHSM cluster associated with a custom key store.
+     *
+     * @var OriginType::*|null
      */
     private $origin;
 
@@ -100,6 +122,8 @@ final class KeyMetadata
      * key is created in a custom key store.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     *
+     * @var string|null
      */
     private $customKeyStoreId;
 
@@ -109,12 +133,16 @@ final class KeyMetadata
      * This field is present only when the KMS key is created in an CloudHSM key store.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     *
+     * @var string|null
      */
     private $cloudHsmClusterId;
 
     /**
      * Specifies whether the KMS key's key material expires. This value is present only when `Origin` is `EXTERNAL`,
      * otherwise this value is omitted.
+     *
+     * @var ExpirationModelType::*|null
      */
     private $expirationModel;
 
@@ -124,6 +152,8 @@ final class KeyMetadata
      * Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys
+     *
+     * @var KeyManagerType::*|null
      */
     private $keyManager;
 
@@ -132,11 +162,15 @@ final class KeyMetadata
      *
      * The `KeySpec` and `CustomerMasterKeySpec` fields have the same value. We recommend that you use the `KeySpec` field
      * in your code. However, to avoid breaking changes, KMS supports both fields.
+     *
+     * @var CustomerMasterKeySpec::*|null
      */
     private $customerMasterKeySpec;
 
     /**
      * Describes the type of key material in the KMS key.
+     *
+     * @var KeySpec::*|null
      */
     private $keySpec;
 
@@ -145,6 +179,8 @@ final class KeyMetadata
      * within KMS.
      *
      * This value is present only when the `KeyUsage` of the KMS key is `ENCRYPT_DECRYPT`.
+     *
+     * @var list<EncryptionAlgorithmSpec::*>|null
      */
     private $encryptionAlgorithms;
 
@@ -153,6 +189,8 @@ final class KeyMetadata
      * KMS.
      *
      * This field appears only when the `KeyUsage` of the KMS key is `SIGN_VERIFY`.
+     *
+     * @var list<SigningAlgorithmSpec::*>|null
      */
     private $signingAlgorithms;
 
@@ -164,6 +202,8 @@ final class KeyMetadata
      * Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html
+     *
+     * @var bool|null
      */
     private $multiRegion;
 
@@ -178,6 +218,8 @@ final class KeyMetadata
      *   the primary key.
      * - `ReplicaKeys` displays the key ARNs and Regions of all replica keys. This field includes the current KMS key if it
      *   is a replica key.
+     *
+     * @var MultiRegionConfiguration|null
      */
     private $multiRegionConfiguration;
 
@@ -192,6 +234,8 @@ final class KeyMetadata
      * waiting period doesn't begin until all of its replica keys are deleted. This value displays that waiting period. When
      * the last replica key in the multi-Region key is deleted, the `KeyState` of the scheduled primary key changes from
      * `PendingReplicaDeletion` to `PendingDeletion` and the deletion date appears in the `DeletionDate` field.
+     *
+     * @var int|null
      */
     private $pendingDeletionWindowInDays;
 
@@ -199,6 +243,8 @@ final class KeyMetadata
      * The message authentication code (MAC) algorithm that the HMAC KMS key supports.
      *
      * This value is present only when the `KeyUsage` of the KMS key is `GENERATE_VERIFY_MAC`.
+     *
+     * @var list<MacAlgorithmSpec::*>|null
      */
     private $macAlgorithms;
 
@@ -208,6 +254,8 @@ final class KeyMetadata
      * For more information, see External key [^1] in the *Key Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
+     *
+     * @var XksKeyConfigurationType|null
      */
     private $xksKeyConfiguration;
 

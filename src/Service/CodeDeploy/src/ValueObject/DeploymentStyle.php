@@ -13,11 +13,15 @@ final class DeploymentStyle
 {
     /**
      * Indicates whether to run an in-place deployment or a blue/green deployment.
+     *
+     * @var DeploymentType::*|null
      */
     private $deploymentType;
 
     /**
      * Indicates whether to route deployment traffic behind a load balancer.
+     *
+     * @var DeploymentOption::*|null
      */
     private $deploymentOption;
 

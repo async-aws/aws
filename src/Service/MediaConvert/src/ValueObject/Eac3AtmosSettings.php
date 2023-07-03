@@ -23,22 +23,30 @@ final class Eac3AtmosSettings
      * Specify the average bitrate for this output in bits per second. Valid values: 384k, 448k, 576k, 640k, 768k, 1024k
      * Default value: 448k Note that MediaConvert supports 384k only with channel-based immersive (CBI) 7.1.4 and 5.1.4
      * inputs. For CBI 9.1.6 and other input types, MediaConvert automatically increases your output bitrate to 448k.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * Specify the bitstream mode for the E-AC-3 stream that the encoder emits. For more information about the EAC3
      * bitstream mode, see ATSC A/52-2012 (Annex E).
+     *
+     * @var Eac3AtmosBitstreamMode::*|null
      */
     private $bitstreamMode;
 
     /**
      * The coding mode for Dolby Digital Plus JOC (Atmos).
+     *
+     * @var Eac3AtmosCodingMode::*|null
      */
     private $codingMode;
 
     /**
      * Enable Dolby Dialogue Intelligence to adjust loudness based on dialogue analysis.
+     *
+     * @var Eac3AtmosDialogueIntelligence::*|null
      */
     private $dialogueIntelligence;
 
@@ -50,6 +58,8 @@ final class Eac3AtmosSettings
      * center (LtRtCenterMixLevel), Left only/Right only center (LoRoCenterMixLevel), and Stereo downmix (StereoDownmix).
      * When you keep Custom (SPECIFIED) for Downmix control (DownmixControl) and you don't specify values for the related
      * settings, MediaConvert uses default values for those settings.
+     *
+     * @var Eac3AtmosDownmixControl::*|null
      */
     private $downmixControl;
 
@@ -61,6 +71,8 @@ final class Eac3AtmosSettings
      * (DynamicRangeCompressionLine). For information about the Dolby DRC operating modes and profiles, see the Dynamic
      * Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
+     *
+     * @var Eac3AtmosDynamicRangeCompressionLine::*|null
      */
     private $dynamicRangeCompressionLine;
 
@@ -72,6 +84,8 @@ final class Eac3AtmosSettings
      * (DynamicRangeCompressionRf). For information about the Dolby DRC operating modes and profiles, see the Dynamic Range
      * Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
+     *
+     * @var Eac3AtmosDynamicRangeCompressionRf::*|null
      */
     private $dynamicRangeCompressionRf;
 
@@ -83,6 +97,8 @@ final class Eac3AtmosSettings
      * compression RF (DynamicRangeCompressionRf). When you keep the value Custom (SPECIFIED) for Dynamic range control
      * (DynamicRangeControl) and you don't specify values for the related settings, MediaConvert uses default values for
      * those settings.
+     *
+     * @var Eac3AtmosDynamicRangeControl::*|null
      */
     private $dynamicRangeControl;
 
@@ -93,6 +109,8 @@ final class Eac3AtmosSettings
      * choose for Stereo downmix (Eac3AtmosStereoDownmix). Related setting: To have MediaConvert use this value, keep the
      * default value, Custom (SPECIFIED) for the setting Downmix control (DownmixControl). Otherwise, MediaConvert ignores
      * Left only/Right only center (LoRoCenterMixLevel).
+     *
+     * @var float|null
      */
     private $loRoCenterMixLevel;
 
@@ -103,6 +121,8 @@ final class Eac3AtmosSettings
      * that you choose for Stereo downmix (Eac3AtmosStereoDownmix). Related setting: To have MediaConvert use this value,
      * keep the default value, Custom (SPECIFIED) for the setting Downmix control (DownmixControl). Otherwise, MediaConvert
      * ignores Left only/Right only surround (LoRoSurroundMixLevel).
+     *
+     * @var float|null
      */
     private $loRoSurroundMixLevel;
 
@@ -113,6 +133,8 @@ final class Eac3AtmosSettings
      * choose for Stereo downmix (Eac3AtmosStereoDownmix). Related setting: To have MediaConvert use this value, keep the
      * default value, Custom (SPECIFIED) for the setting Downmix control (DownmixControl). Otherwise, MediaConvert ignores
      * Left total/Right total center (LtRtCenterMixLevel).
+     *
+     * @var float|null
      */
     private $ltRtCenterMixLevel;
 
@@ -123,22 +145,30 @@ final class Eac3AtmosSettings
      * depends on the value that you choose for Stereo downmix (Eac3AtmosStereoDownmix). Related setting: To have
      * MediaConvert use this value, keep the default value, Custom (SPECIFIED) for the setting Downmix control
      * (DownmixControl). Otherwise, the service ignores Left total/Right total surround (LtRtSurroundMixLevel).
+     *
+     * @var float|null
      */
     private $ltRtSurroundMixLevel;
 
     /**
      * Choose how the service meters the loudness of your audio.
+     *
+     * @var Eac3AtmosMeteringMode::*|null
      */
     private $meteringMode;
 
     /**
      * This value is always 48000. It represents the sample rate in Hz.
+     *
+     * @var int|null
      */
     private $sampleRate;
 
     /**
      * Specify the percentage of audio content, from 0% to 100%, that must be speech in order for the encoder to use the
      * measured speech loudness as the overall program loudness. Default value: 15%.
+     *
+     * @var int|null
      */
     private $speechThreshold;
 
@@ -146,12 +176,16 @@ final class Eac3AtmosSettings
      * Choose how the service does stereo downmixing. Default value: Not indicated (ATMOS_STORAGE_DDP_DMIXMOD_NOT_INDICATED)
      * Related setting: To have MediaConvert use this value, keep the default value, Custom (SPECIFIED) for the setting
      * Downmix control (DownmixControl). Otherwise, MediaConvert ignores Stereo downmix (StereoDownmix).
+     *
+     * @var Eac3AtmosStereoDownmix::*|null
      */
     private $stereoDownmix;
 
     /**
      * Specify whether your input audio has an additional center rear surround channel matrix encoded into your left and
      * right surround channels.
+     *
+     * @var Eac3AtmosSurroundExMode::*|null
      */
     private $surroundExMode;
 

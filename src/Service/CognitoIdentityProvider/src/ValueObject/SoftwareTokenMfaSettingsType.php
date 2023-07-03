@@ -13,11 +13,15 @@ final class SoftwareTokenMfaSettingsType
     /**
      * Specifies whether software token MFA is activated. If an MFA type is activated for a user, the user will be prompted
      * for MFA during all sign-in attempts, unless device tracking is turned on and the device has been trusted.
+     *
+     * @var bool|null
      */
     private $enabled;
 
     /**
      * Specifies whether software token MFA is the preferred MFA method.
+     *
+     * @var bool|null
      */
     private $preferredMfa;
 

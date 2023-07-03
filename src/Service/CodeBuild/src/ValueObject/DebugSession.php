@@ -12,12 +12,16 @@ final class DebugSession
 {
     /**
      * Specifies if session debugging is enabled for this build.
+     *
+     * @var bool|null
      */
     private $sessionEnabled;
 
     /**
      * Contains the identifier of the Session Manager session used for the build. To work with the paused build, you open
      * this session to examine, control, and resume the build.
+     *
+     * @var string|null
      */
     private $sessionTarget;
 

@@ -18,12 +18,16 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
 {
     /**
      * A list of `StackEvents` structures.
+     *
+     * @var StackEvent[]
      */
     private $stackEvents;
 
     /**
      * If the output exceeds 1 MB in size, a string that identifies the next page of events. If no additional page exists,
      * this value is null.
+     *
+     * @var string|null
      */
     private $nextToken;
 

@@ -18,26 +18,36 @@ final class AccessKey
 {
     /**
      * The name of the IAM user that the access key is associated with.
+     *
+     * @var string
      */
     private $userName;
 
     /**
      * The ID for this access key.
+     *
+     * @var string
      */
     private $accessKeyId;
 
     /**
      * The status of the access key. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
+     *
+     * @var StatusType::*
      */
     private $status;
 
     /**
      * The secret key used to sign requests.
+     *
+     * @var string
      */
     private $secretAccessKey;
 
     /**
      * The date when the access key was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $createDate;
 

@@ -18,6 +18,8 @@ final class XavcHdProfileSettings
     /**
      * Specify the XAVC HD (Long GOP) Bitrate Class to set the bitrate of your output. Outputs of the same class have
      * similar image quality over the operating points that are valid for that class.
+     *
+     * @var XavcHdProfileBitrateClass::*|null
      */
     private $bitrateClass;
 
@@ -32,6 +34,8 @@ final class XavcHdProfileSettings
      * setting: In addition to enabling this setting, you must also set Adaptive quantization (adaptiveQuantization) to a
      * value other than Off (OFF) or Auto (AUTO). Use Adaptive quantization to adjust the degree of smoothing that Flicker
      * adaptive quantization provides.
+     *
+     * @var XavcFlickerAdaptiveQuantization::*|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -39,12 +43,16 @@ final class XavcHdProfileSettings
      * Specify whether the encoder uses B-frames as reference frames for other pictures in the same GOP. Choose Allow
      * (ENABLED) to allow the encoder to use B-frames as reference frames. Choose Don't allow (DISABLED) to prevent the
      * encoder from using B-frames as reference frames.
+     *
+     * @var XavcGopBReference::*|null
      */
     private $gopBreference;
 
     /**
      * Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining
      * mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output segmenting.
+     *
+     * @var int|null
      */
     private $gopClosedCadence;
 
@@ -52,6 +60,8 @@ final class XavcHdProfileSettings
      * Specify the size of the buffer that MediaConvert uses in the HRD buffer model for this output. Specify this value in
      * bits; for example, enter five megabits as 5000000. When you don't set this value, or you set it to zero, MediaConvert
      * calculates the default by doubling the bitrate of this output point.
+     *
+     * @var int|null
      */
     private $hrdBufferSize;
 
@@ -64,18 +74,24 @@ final class XavcHdProfileSettings
      * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
      * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
      * first, depending on which of the Follow options you choose.
+     *
+     * @var XavcInterlaceMode::*|null
      */
     private $interlaceMode;
 
     /**
      * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
      * video quality. The default behavior is faster, lower quality, single-pass encoding.
+     *
+     * @var XavcHdProfileQualityTuningLevel::*|null
      */
     private $qualityTuningLevel;
 
     /**
      * Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive pictures,
      * and less than or equal to half the number of macroblock rows for interlaced pictures.
+     *
+     * @var int|null
      */
     private $slices;
 
@@ -83,6 +99,8 @@ final class XavcHdProfileSettings
      * Ignore this setting unless you set Frame rate (framerateNumerator divided by framerateDenominator) to 29.970. If your
      * input framerate is 23.976, choose Hard (HARD). Otherwise, keep the default value None (NONE). For more information,
      * see https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-telecine-and-inverse-telecine.html.
+     *
+     * @var XavcHdProfileTelecine::*|null
      */
     private $telecine;
 

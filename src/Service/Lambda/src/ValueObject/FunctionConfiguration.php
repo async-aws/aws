@@ -17,11 +17,15 @@ final class FunctionConfiguration
 {
     /**
      * The name of the function.
+     *
+     * @var string|null
      */
     private $functionName;
 
     /**
      * The function's Amazon Resource Name (ARN).
+     *
+     * @var string|null
      */
     private $functionArn;
 
@@ -32,36 +36,50 @@ final class FunctionConfiguration
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+     *
+     * @var Runtime::*|null
      */
     private $runtime;
 
     /**
      * The function's execution role.
+     *
+     * @var string|null
      */
     private $role;
 
     /**
      * The function that Lambda calls to begin running your function.
+     *
+     * @var string|null
      */
     private $handler;
 
     /**
      * The size of the function's deployment package, in bytes.
+     *
+     * @var int|null
      */
     private $codeSize;
 
     /**
      * The function's description.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The amount of time in seconds that Lambda allows a function to run before stopping it.
+     *
+     * @var int|null
      */
     private $timeout;
 
     /**
      * The amount of memory available to the function at runtime.
+     *
+     * @var int|null
      */
     private $memorySize;
 
@@ -69,26 +87,36 @@ final class FunctionConfiguration
      * The date and time that the function was last updated, in ISO-8601 format [^1] (YYYY-MM-DDThh:mm:ss.sTZD).
      *
      * [^1]: https://www.w3.org/TR/NOTE-datetime
+     *
+     * @var string|null
      */
     private $lastModified;
 
     /**
      * The SHA256 hash of the function's deployment package.
+     *
+     * @var string|null
      */
     private $codeSha256;
 
     /**
      * The version of the Lambda function.
+     *
+     * @var string|null
      */
     private $version;
 
     /**
      * The function's networking configuration.
+     *
+     * @var VpcConfigResponse|null
      */
     private $vpcConfig;
 
     /**
      * The function's dead letter queue.
+     *
+     * @var DeadLetterConfig|null
      */
     private $deadLetterConfig;
 
@@ -96,6 +124,8 @@ final class FunctionConfiguration
      * The function's environment variables [^1]. Omitted from CloudTrail logs.
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
+     *
+     * @var EnvironmentResponse|null
      */
     private $environment;
 
@@ -106,21 +136,29 @@ final class FunctionConfiguration
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html
+     *
+     * @var string|null
      */
     private $kmsKeyArn;
 
     /**
      * The function's X-Ray tracing configuration.
+     *
+     * @var TracingConfigResponse|null
      */
     private $tracingConfig;
 
     /**
      * For Lambda@Edge functions, the ARN of the main function.
+     *
+     * @var string|null
      */
     private $masterArn;
 
     /**
      * The latest updated revision of the function or alias.
+     *
+     * @var string|null
      */
     private $revisionId;
 
@@ -128,38 +166,52 @@ final class FunctionConfiguration
      * The function's layers [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     *
+     * @var Layer[]|null
      */
     private $layers;
 
     /**
      * The current state of the function. When the state is `Inactive`, you can reactivate the function by invoking it.
+     *
+     * @var State::*|null
      */
     private $state;
 
     /**
      * The reason for the function's current state.
+     *
+     * @var string|null
      */
     private $stateReason;
 
     /**
      * The reason code for the function's current state. When the code is `Creating`, you can't invoke or modify the
      * function.
+     *
+     * @var StateReasonCode::*|null
      */
     private $stateReasonCode;
 
     /**
      * The status of the last update that was performed on the function. This is first set to `Successful` after function
      * creation completes.
+     *
+     * @var LastUpdateStatus::*|null
      */
     private $lastUpdateStatus;
 
     /**
      * The reason for the last update that was performed on the function.
+     *
+     * @var string|null
      */
     private $lastUpdateStatusReason;
 
     /**
      * The reason code for the last update that was performed on the function.
+     *
+     * @var LastUpdateStatusReasonCode::*|null
      */
     private $lastUpdateStatusReasonCode;
 
@@ -167,38 +219,52 @@ final class FunctionConfiguration
      * Connection settings for an Amazon EFS file system [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
+     *
+     * @var FileSystemConfig[]|null
      */
     private $fileSystemConfigs;
 
     /**
      * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
+     *
+     * @var PackageType::*|null
      */
     private $packageType;
 
     /**
      * The function's image configuration values.
+     *
+     * @var ImageConfigResponse|null
      */
     private $imageConfigResponse;
 
     /**
      * The ARN of the signing profile version.
+     *
+     * @var string|null
      */
     private $signingProfileVersionArn;
 
     /**
      * The ARN of the signing job.
+     *
+     * @var string|null
      */
     private $signingJobArn;
 
     /**
      * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
      * values. The default architecture value is `x86_64`.
+     *
+     * @var list<Architecture::*>|null
      */
     private $architectures;
 
     /**
      * The size of the function’s `/tmp` directory in MB. The default value is 512, but it can be any whole number between
      * 512 and 10,240 MB.
+     *
+     * @var EphemeralStorage|null
      */
     private $ephemeralStorage;
 
@@ -207,11 +273,15 @@ final class FunctionConfiguration
      * function version. For more information, see Improving startup performance with Lambda SnapStart [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+     *
+     * @var SnapStartResponse|null
      */
     private $snapStart;
 
     /**
      * The ARN of the runtime and any errors that occured.
+     *
+     * @var RuntimeVersionConfig|null
      */
     private $runtimeVersionConfig;
 

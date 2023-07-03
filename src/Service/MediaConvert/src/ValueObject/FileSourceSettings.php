@@ -18,6 +18,8 @@ final class FileSourceSettings
      * Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose
      * Upconvert (UPCONVERT), MediaConvert includes the captions data in two ways: it passes the 608 data through using the
      * 608 compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
+     *
+     * @var FileSourceConvert608To708::*|null
      */
     private $convert608To708;
 
@@ -25,6 +27,8 @@ final class FileSourceSettings
      * Choose the presentation style of your input SCC captions. To use the same presentation style as your input: Keep the
      * default value, Disabled. To convert paint-on captions to pop-on: Choose Enabled. We also recommend that you choose
      * Enabled if you notice additional repeated lines in your output captions.
+     *
+     * @var CaptionSourceConvertPaintOnToPopOn::*|null
      */
     private $convertPaintToPop;
 
@@ -34,12 +38,16 @@ final class FileSourceSettings
      * a fraction. When you work directly in your JSON job specification, use the settings framerateNumerator and
      * framerateDenominator. For example, you might specify 24 / 1 for 24 fps, 25 / 1 for 25 fps, 24000 / 1001 for 23.976
      * fps, or 30000 / 1001 for 29.97 fps.
+     *
+     * @var CaptionSourceFramerate|null
      */
     private $framerate;
 
     /**
      * External caption file used for loading captions. Accepted file extensions are 'scc', 'ttml', 'dfxp', 'stl', 'srt',
      * 'xml', 'smi', 'webvtt', and 'vtt'.
+     *
+     * @var string|null
      */
     private $sourceFile;
 
@@ -53,6 +61,8 @@ final class FileSourceSettings
      * sources, such as SCC and STL, and your time delta isn't a multiple of the input frame rate, MediaConvert snaps the
      * captions to the nearest frame. For example, when your input video frame rate is 25 fps and you specify 1010ms for
      * time delta, MediaConvert delays your captions by 1000 ms.
+     *
+     * @var int|null
      */
     private $timeDelta;
 
@@ -60,6 +70,8 @@ final class FileSourceSettings
      * When you use the setting Time delta (TimeDelta) to adjust the sync between your sidecar captions and your video, use
      * this setting to specify the units for the delta that you specify. When you don't specify a value for Time delta units
      * (TimeDeltaUnits), MediaConvert uses seconds by default.
+     *
+     * @var FileSourceTimeDeltaUnits::*|null
      */
     private $timeDeltaUnits;
 

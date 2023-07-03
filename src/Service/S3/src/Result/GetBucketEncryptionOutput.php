@@ -10,6 +10,9 @@ use AsyncAws\S3\ValueObject\ServerSideEncryptionRule;
 
 class GetBucketEncryptionOutput extends Result
 {
+    /**
+     * @var ServerSideEncryptionConfiguration|null
+     */
     private $serverSideEncryptionConfiguration;
 
     public function getServerSideEncryptionConfiguration(): ?ServerSideEncryptionConfiguration

@@ -9,16 +9,22 @@ class CreateThingGroupResponse extends Result
 {
     /**
      * The thing group name.
+     *
+     * @var string|null
      */
     private $thingGroupName;
 
     /**
      * The thing group ARN.
+     *
+     * @var string|null
      */
     private $thingGroupArn;
 
     /**
      * The thing group ID.
+     *
+     * @var string|null
      */
     private $thingGroupId;
 

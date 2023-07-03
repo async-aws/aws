@@ -11,21 +11,29 @@ final class Layer
 {
     /**
      * The Amazon Resource Name (ARN) of the function layer.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The size of the layer archive in bytes.
+     *
+     * @var int|null
      */
     private $codeSize;
 
     /**
      * The Amazon Resource Name (ARN) for a signing profile version.
+     *
+     * @var string|null
      */
     private $signingProfileVersionArn;
 
     /**
      * The Amazon Resource Name (ARN) of a signing job.
+     *
+     * @var string|null
      */
     private $signingJobArn;
 

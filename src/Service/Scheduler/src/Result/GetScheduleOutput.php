@@ -25,16 +25,22 @@ class GetScheduleOutput extends Result
 {
     /**
      * The Amazon Resource Name (ARN) of the schedule.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The time at which the schedule was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 
     /**
      * The description of the schedule.
+     *
+     * @var string|null
      */
     private $description;
 
@@ -42,31 +48,43 @@ class GetScheduleOutput extends Result
      * The date, in UTC, before which the schedule can invoke its target. Depending on the schedule's recurrence expression,
      * invocations might stop on, or before, the `EndDate` you specify. EventBridge Scheduler ignores `EndDate` for one-time
      * schedules.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $endDate;
 
     /**
      * Allows you to configure a time window during which EventBridge Scheduler invokes the schedule.
+     *
+     * @var FlexibleTimeWindow|null
      */
     private $flexibleTimeWindow;
 
     /**
      * The name of the schedule group associated with this schedule.
+     *
+     * @var string|null
      */
     private $groupName;
 
     /**
      * The ARN for a customer managed KMS Key that is be used to encrypt and decrypt your data.
+     *
+     * @var string|null
      */
     private $kmsKeyArn;
 
     /**
      * The time at which the schedule was last modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModificationDate;
 
     /**
      * The name of the schedule.
+     *
+     * @var string|null
      */
     private $name;
 
@@ -93,11 +111,15 @@ class GetScheduleOutput extends Result
      * User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/scheduler/latest/UserGuide/schedule-types.html
+     *
+     * @var string|null
      */
     private $scheduleExpression;
 
     /**
      * The timezone in which the scheduling expression is evaluated.
+     *
+     * @var string|null
      */
     private $scheduleExpressionTimezone;
 
@@ -105,16 +127,22 @@ class GetScheduleOutput extends Result
      * The date, in UTC, after which the schedule can begin invoking its target. Depending on the schedule's recurrence
      * expression, invocations might occur on, or after, the `StartDate` you specify. EventBridge Scheduler ignores
      * `StartDate` for one-time schedules.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $startDate;
 
     /**
      * Specifies whether the schedule is enabled or disabled.
+     *
+     * @var ScheduleState::*|null
      */
     private $state;
 
     /**
      * The schedule target.
+     *
+     * @var Target|null
      */
     private $target;
 

@@ -15,6 +15,8 @@ final class NexGuardFileMarkerSettings
      * Use the base64 license string that Nagra provides you. Enter it directly in your JSON job specification or in the
      * console. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your
      * job.
+     *
+     * @var string|null
      */
     private $license;
 
@@ -27,18 +29,24 @@ final class NexGuardFileMarkerSettings
      * IDs. For OTT Streaming, create two adaptive bitrate (ABR) stacks for each asset. Do this by setting up two output
      * groups. For one output group, set the value of Payload ID (payload) to 0 in every output. For the other output group,
      * set Payload ID (payload) to 1 in every output.
+     *
+     * @var int|null
      */
     private $payload;
 
     /**
      * Enter one of the watermarking preset strings that Nagra provides you. Required when you include Nagra NexGuard File
      * Marker watermarking (NexGuardWatermarkingSettings) in your job.
+     *
+     * @var string|null
      */
     private $preset;
 
     /**
      * Optional. Ignore this setting unless Nagra support directs you to specify a value. When you don't specify a value
      * here, the Nagra NexGuard library uses its default value.
+     *
+     * @var WatermarkingStrength::*|null
      */
     private $strength;
 

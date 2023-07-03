@@ -21,11 +21,15 @@ final class User
      * The ARN of the policy used to set the permissions boundary for the user.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
+     *
+     * @var string
      */
     private $path;
 
     /**
      * The friendly name identifying the user.
+     *
+     * @var string
      */
     private $userName;
 
@@ -34,6 +38,8 @@ final class User
      * *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
+     *
+     * @var string
      */
     private $userId;
 
@@ -42,6 +48,8 @@ final class User
      * policies, see IAM Identifiers [^1] in the *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
+     *
+     * @var string
      */
     private $arn;
 
@@ -49,6 +57,8 @@ final class User
      * The date and time, in ISO 8601 date-time format [^1], when the user was created.
      *
      * [^1]: http://www.iso.org/iso/iso8601
+     *
+     * @var \DateTimeImmutable
      */
     private $createDate;
 
@@ -69,6 +79,8 @@ final class User
      *
      * [^1]: http://www.iso.org/iso/iso8601
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html
+     *
+     * @var \DateTimeImmutable|null
      */
     private $passwordLastUsed;
 
@@ -77,6 +89,8 @@ final class User
      * User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
+     *
+     * @var AttachedPermissionsBoundary|null
      */
     private $permissionsBoundary;
 
@@ -85,6 +99,8 @@ final class User
      * in the *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
+     *
+     * @var Tag[]|null
      */
     private $tags;
 

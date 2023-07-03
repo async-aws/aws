@@ -28,11 +28,15 @@ final class ProresSettings
      * sampling to Preserve 4:4:4 sampling, you must disable all video preprocessors except for Nexguard file marker
      * (PartnerWatermarking). When you set Chroma sampling to Preserve 4:4:4 sampling and use framerate conversion, you must
      * set Frame rate conversion algorithm (FramerateConversionAlgorithm) to Drop duplicate (DUPLICATE_DROP).
+     *
+     * @var ProresChromaSampling::*|null
      */
     private $chromaSampling;
 
     /**
      * Use Profile (ProResCodecProfile) to specify the type of Apple ProRes codec to use for this output.
+     *
+     * @var ProresCodecProfile::*|null
      */
     private $codecProfile;
 
@@ -45,6 +49,8 @@ final class ProresSettings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var ProresFramerateControl::*|null
      */
     private $framerateControl;
 
@@ -57,6 +63,8 @@ final class ProresSettings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var ProresFramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -65,6 +73,8 @@ final class ProresSettings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -73,6 +83,8 @@ final class ProresSettings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -85,6 +97,8 @@ final class ProresSettings
      * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
      * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
      * first, depending on which of the Follow options you choose.
+     *
+     * @var ProresInterlaceMode::*|null
      */
     private $interlaceMode;
 
@@ -94,6 +108,8 @@ final class ProresSettings
      * PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job
      * specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
+     *
+     * @var ProresParControl::*|null
      */
     private $parControl;
 
@@ -102,6 +118,8 @@ final class ProresSettings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parDenominator is 33.
+     *
+     * @var int|null
      */
     private $parDenominator;
 
@@ -110,6 +128,8 @@ final class ProresSettings
      * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
      * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
      * In this example, the value for parNumerator is 40.
+     *
+     * @var int|null
      */
     private $parNumerator;
 
@@ -123,6 +143,8 @@ final class ProresSettings
      * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
      * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
      * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     *
+     * @var ProresScanTypeConversionMode::*|null
      */
     private $scanTypeConversionMode;
 
@@ -132,6 +154,8 @@ final class ProresSettings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
      * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var ProresSlowPal::*|null
      */
     private $slowPal;
 
@@ -140,6 +164,8 @@ final class ProresSettings
      * interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default
      * value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field
      * polarity to create a smoother picture.
+     *
+     * @var ProresTelecine::*|null
      */
     private $telecine;
 

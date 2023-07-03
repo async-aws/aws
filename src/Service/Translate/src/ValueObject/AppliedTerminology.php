@@ -11,6 +11,8 @@ final class AppliedTerminology
 {
     /**
      * The name of the custom terminology applied to the input text by Amazon Translate for the translated text response.
+     *
+     * @var string|null
      */
     private $name;
 
@@ -18,6 +20,8 @@ final class AppliedTerminology
      * The specific terms of the custom terminology applied to the input text by Amazon Translate for the translated text
      * response. A maximum of 250 terms will be returned, and the specific terms applied will be the first 250 terms in the
      * source text.
+     *
+     * @var Term[]|null
      */
     private $terms;
 

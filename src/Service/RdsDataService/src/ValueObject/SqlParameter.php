@@ -12,11 +12,15 @@ final class SqlParameter
 {
     /**
      * The name of the parameter.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The value of the parameter.
+     *
+     * @var Field|null
      */
     private $value;
 
@@ -32,6 +36,8 @@ final class SqlParameter
      * - `TIMESTAMP` - The corresponding `String` parameter value is sent as an object of `TIMESTAMP` type to the database.
      *   The accepted format is `YYYY-MM-DD HH:MM:SS[.FFF]`.
      * - `UUID` - The corresponding `String` parameter value is sent as an object of `UUID` type to the database.
+     *
+     * @var TypeHint::*|null
      */
     private $typeHint;
 

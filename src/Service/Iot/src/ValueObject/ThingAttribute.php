@@ -9,26 +9,36 @@ final class ThingAttribute
 {
     /**
      * The name of the thing.
+     *
+     * @var string|null
      */
     private $thingName;
 
     /**
      * The name of the thing type, if the thing has been associated with a type.
+     *
+     * @var string|null
      */
     private $thingTypeName;
 
     /**
      * The thing ARN.
+     *
+     * @var string|null
      */
     private $thingArn;
 
     /**
      * A list of thing attributes which are name-value pairs.
+     *
+     * @var array<string, string>|null
      */
     private $attributes;
 
     /**
      * The version of the thing record in the registry.
+     *
+     * @var int|null
      */
     private $version;
 

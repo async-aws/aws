@@ -12,6 +12,8 @@ class CreateTopicResponse extends Result
 {
     /**
      * The Amazon Resource Name (ARN) assigned to the created topic.
+     *
+     * @var string|null
      */
     private $topicArn;
 

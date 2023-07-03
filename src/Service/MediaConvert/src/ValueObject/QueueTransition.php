@@ -10,16 +10,22 @@ final class QueueTransition
 {
     /**
      * The queue that the job was on after the transition.
+     *
+     * @var string|null
      */
     private $destinationQueue;
 
     /**
      * The queue that the job was on before the transition.
+     *
+     * @var string|null
      */
     private $sourceQueue;
 
     /**
      * The time, in Unix epoch format, that the job moved from the source queue to the destination queue.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $timestamp;
 

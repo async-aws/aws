@@ -9,11 +9,15 @@ final class PhaseContext
 {
     /**
      * The status code for the context of the build phase.
+     *
+     * @var string|null
      */
     private $statusCode;
 
     /**
      * An explanation of the build phase's context. This might include a command ID and an exit code.
+     *
+     * @var string|null
      */
     private $message;
 

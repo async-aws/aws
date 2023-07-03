@@ -13,6 +13,8 @@ final class S3DestinationAccessControl
 {
     /**
      * Choose an Amazon S3 canned ACL for MediaConvert to apply to this output.
+     *
+     * @var S3ObjectCannedAcl::*|null
      */
     private $cannedAcl;
 

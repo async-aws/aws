@@ -11,21 +11,29 @@ final class Credentials
 {
     /**
      * The access key ID that identifies the temporary security credentials.
+     *
+     * @var string
      */
     private $accessKeyId;
 
     /**
      * The secret access key that can be used to sign requests.
+     *
+     * @var string
      */
     private $secretAccessKey;
 
     /**
      * The token that users must pass to the service API to use the temporary credentials.
+     *
+     * @var string
      */
     private $sessionToken;
 
     /**
      * The date on which the current credentials expire.
+     *
+     * @var \DateTimeImmutable
      */
     private $expiration;
 

@@ -9,6 +9,8 @@ final class UpdateResult
 {
     /**
      * Values for fields generated during the request.
+     *
+     * @var Field[]|null
      */
     private $generatedFields;
 

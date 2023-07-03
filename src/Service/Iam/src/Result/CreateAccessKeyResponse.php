@@ -13,6 +13,8 @@ class CreateAccessKeyResponse extends Result
 {
     /**
      * A structure with details about the access key.
+     *
+     * @var AccessKey
      */
     private $accessKey;
 

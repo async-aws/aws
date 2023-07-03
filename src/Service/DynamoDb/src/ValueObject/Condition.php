@@ -32,6 +32,8 @@ final class Condition
      * For Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values.
      *
      * [^1]: http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+     *
+     * @var AttributeValue[]|null
      */
     private $attributeValueList;
 
@@ -134,6 +136,8 @@ final class Condition
      * *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html
+     *
+     * @var ComparisonOperator::*
      */
     private $comparisonOperator;
 

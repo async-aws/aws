@@ -12,6 +12,8 @@ class CreateQueueResult extends Result
 {
     /**
      * The URL of the created Amazon SQS queue.
+     *
+     * @var string|null
      */
     private $queueUrl;
 

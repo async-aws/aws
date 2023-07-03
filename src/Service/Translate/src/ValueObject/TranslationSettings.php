@@ -26,6 +26,8 @@ final class TranslationSettings
      *
      * [^1]: https://en.wikipedia.org/wiki/Register_(sociolinguistics)
      * [^2]: https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-formality.html#customizing-translations-formality-languages
+     *
+     * @var Formality::*|null
      */
     private $formality;
 
@@ -44,6 +46,8 @@ final class TranslationSettings
      * language.
      *
      * [^1]: https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-profanity.html#customizing-translations-profanity-languages
+     *
+     * @var Profanity::*|null
      */
     private $profanity;
 

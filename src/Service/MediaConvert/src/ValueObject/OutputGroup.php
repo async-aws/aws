@@ -10,6 +10,8 @@ final class OutputGroup
     /**
      * Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of your
      * input video.
+     *
+     * @var AutomatedEncodingSettings|null
      */
     private $automatedEncodingSettings;
 
@@ -17,21 +19,29 @@ final class OutputGroup
      * Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console and
      * can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters
      * that are either letters, numbers, spaces, or underscores.
+     *
+     * @var string|null
      */
     private $customName;
 
     /**
      * Name of the output group.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * Output Group settings, including type.
+     *
+     * @var OutputGroupSettings|null
      */
     private $outputGroupSettings;
 
     /**
      * This object holds groups of encoding settings, one group of settings per output.
+     *
+     * @var Output[]|null
      */
     private $outputs;
 

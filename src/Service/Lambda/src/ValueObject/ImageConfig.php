@@ -12,16 +12,22 @@ final class ImageConfig
 {
     /**
      * Specifies the entry point to their application, which is typically the location of the runtime executable.
+     *
+     * @var string[]|null
      */
     private $entryPoint;
 
     /**
      * Specifies parameters that you want to pass in with ENTRYPOINT.
+     *
+     * @var string[]|null
      */
     private $command;
 
     /**
      * Specifies the working directory.
+     *
+     * @var string|null
      */
     private $workingDirectory;
 

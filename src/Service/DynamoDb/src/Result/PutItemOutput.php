@@ -17,6 +17,8 @@ class PutItemOutput extends Result
     /**
      * The attribute values as they appeared before the `PutItem` operation, but only if `ReturnValues` is specified as
      * `ALL_OLD` in the request. Each element consists of an attribute name and an attribute value.
+     *
+     * @var array<string, AttributeValue>
      */
     private $attributes;
 
@@ -27,6 +29,8 @@ class PutItemOutput extends Result
      * [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
+     *
+     * @var ConsumedCapacity|null
      */
     private $consumedCapacity;
 
@@ -45,6 +49,8 @@ class PutItemOutput extends Result
      *   this estimate to measure whether a local secondary index is approaching its size limit.
      *
      *   The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+     *
+     * @var ItemCollectionMetrics|null
      */
     private $itemCollectionMetrics;
 

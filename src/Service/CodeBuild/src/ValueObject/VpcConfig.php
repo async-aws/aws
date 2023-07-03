@@ -9,16 +9,22 @@ final class VpcConfig
 {
     /**
      * The ID of the Amazon VPC.
+     *
+     * @var string|null
      */
     private $vpcId;
 
     /**
      * A list of one or more subnet IDs in your Amazon VPC.
+     *
+     * @var string[]|null
      */
     private $subnets;
 
     /**
      * A list of one or more security groups IDs in your Amazon VPC.
+     *
+     * @var string[]|null
      */
     private $securityGroupIds;
 

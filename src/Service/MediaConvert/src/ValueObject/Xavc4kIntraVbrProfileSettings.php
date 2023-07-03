@@ -14,6 +14,8 @@ final class Xavc4kIntraVbrProfileSettings
     /**
      * Specify the XAVC Intra 4k (VBR) Class to set the bitrate of your output. Outputs of the same class have similar image
      * quality over the operating points that are valid for that class.
+     *
+     * @var Xavc4kIntraVbrProfileClass::*|null
      */
     private $xavcClass;
 

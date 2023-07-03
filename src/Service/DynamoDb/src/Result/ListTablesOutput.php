@@ -21,6 +21,8 @@ class ListTablesOutput extends Result implements \IteratorAggregate
      *
      * If `LastEvaluatedTableName` also appears in the output, you can use this value as the `ExclusiveStartTableName`
      * parameter in a subsequent `ListTables` request and obtain the next page of results.
+     *
+     * @var string[]
      */
     private $tableNames;
 
@@ -30,6 +32,8 @@ class ListTablesOutput extends Result implements \IteratorAggregate
      *
      * If you do not receive a `LastEvaluatedTableName` value in the response, this means that there are no more table names
      * to be retrieved.
+     *
+     * @var string|null
      */
     private $lastEvaluatedTableName;
 

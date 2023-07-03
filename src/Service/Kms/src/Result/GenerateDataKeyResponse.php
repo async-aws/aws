@@ -10,6 +10,8 @@ class GenerateDataKeyResponse extends Result
     /**
      * The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
      * Base64-encoded. Otherwise, it is not Base64-encoded.
+     *
+     * @var string|null
      */
     private $ciphertextBlob;
 
@@ -19,6 +21,8 @@ class GenerateDataKeyResponse extends Result
      * memory as soon as possible.
      *
      * If the response includes the `CiphertextForRecipient` field, the `Plaintext` field is null or empty.
+     *
+     * @var string|null
      */
     private $plaintext;
 
@@ -26,6 +30,8 @@ class GenerateDataKeyResponse extends Result
      * The Amazon Resource Name (key ARN [^1]) of the KMS key that encrypted the data key.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
+     *
+     * @var string|null
      */
     private $keyId;
 
@@ -39,6 +45,8 @@ class GenerateDataKeyResponse extends Result
      * Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     *
+     * @var string|null
      */
     private $ciphertextForRecipient;
 

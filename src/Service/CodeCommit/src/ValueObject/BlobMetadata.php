@@ -9,11 +9,15 @@ final class BlobMetadata
 {
     /**
      * The full ID of the blob.
+     *
+     * @var string|null
      */
     private $blobId;
 
     /**
      * The path to the blob and associated file name, if any.
+     *
+     * @var string|null
      */
     private $path;
 
@@ -24,6 +28,8 @@ final class BlobMetadata
      * - `100755` indicates read/write/execute
      * - `160000` indicates a submodule
      * - `120000` indicates a symlink
+     *
+     * @var string|null
      */
     private $mode;
 

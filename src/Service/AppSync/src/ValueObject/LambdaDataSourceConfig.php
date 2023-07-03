@@ -11,6 +11,8 @@ final class LambdaDataSourceConfig
 {
     /**
      * The Amazon Resource Name (ARN) for the Lambda function.
+     *
+     * @var string
      */
     private $lambdaFunctionArn;
 

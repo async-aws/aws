@@ -11,36 +11,50 @@ final class TableMetadata
 {
     /**
      * The name of the table.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The time that the table was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $createTime;
 
     /**
      * The last time the table was accessed.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastAccessTime;
 
     /**
      * The type of table. In Athena, only `EXTERNAL_TABLE` is supported.
+     *
+     * @var string|null
      */
     private $tableType;
 
     /**
      * A list of the columns in the table.
+     *
+     * @var Column[]|null
      */
     private $columns;
 
     /**
      * A list of the partition keys in the table.
+     *
+     * @var Column[]|null
      */
     private $partitionKeys;
 
     /**
      * A set of custom key/value pairs for table properties.
+     *
+     * @var array<string, string>|null
      */
     private $parameters;
 

@@ -18,6 +18,8 @@ final class Projection
      * - `INCLUDE` - In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non-key
      *   attributes that you specify.
      * - `ALL` - All of the table attributes are projected into the index.
+     *
+     * @var ProjectionType::*|null
      */
     private $projectionType;
 
@@ -27,6 +29,8 @@ final class Projection
      * For local secondary indexes, the total count of `NonKeyAttributes` summed across all of the local secondary indexes,
      * must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct
      * attributes when determining the total.
+     *
+     * @var string[]|null
      */
     private $nonKeyAttributes;
 

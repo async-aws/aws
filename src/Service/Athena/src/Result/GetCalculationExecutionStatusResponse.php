@@ -11,11 +11,15 @@ class GetCalculationExecutionStatusResponse extends Result
 {
     /**
      * Contains information about the calculation execution status.
+     *
+     * @var CalculationStatus|null
      */
     private $status;
 
     /**
      * Contains information about the DPU execution time and progress.
+     *
+     * @var CalculationStatistics|null
      */
     private $statistics;
 

@@ -12,11 +12,15 @@ final class GitHubLocation
      * for the application revision.
      *
      * Specified as account/repository.
+     *
+     * @var string|null
      */
     private $repository;
 
     /**
      * The SHA1 commit ID of the GitHub commit that represents the bundled artifacts for the application revision.
+     *
+     * @var string|null
      */
     private $commitId;
 

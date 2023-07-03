@@ -9,23 +9,34 @@ final class SelectColumn
 {
     /**
      * Name of the column.
+     *
+     * @var string|null
      */
     private $name;
 
+    /**
+     * @var Type|null
+     */
     private $type;
 
     /**
      * Database that has this column.
+     *
+     * @var string|null
      */
     private $databaseName;
 
     /**
      * Table within the database that has this column.
+     *
+     * @var string|null
      */
     private $tableName;
 
     /**
      * True, if the column name was aliased by the query. False otherwise.
+     *
+     * @var bool|null
      */
     private $aliased;
 

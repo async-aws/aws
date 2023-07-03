@@ -17,6 +17,8 @@ class DetectDominantLanguageResponse extends Result
      * the *IETF Tools* web site.
      *
      * [^1]: https://tools.ietf.org/html/rfc5646
+     *
+     * @var DominantLanguage[]
      */
     private $languages;
 

@@ -14,11 +14,15 @@ final class Message
      * non-ASCII characters in the subject line by using encoded-word syntax, as described in RFC 2047 [^1].
      *
      * [^1]: https://tools.ietf.org/html/rfc2047
+     *
+     * @var Content
      */
     private $subject;
 
     /**
      * The body of the message. You can specify an HTML version of the message, a text-only version of the message, or both.
+     *
+     * @var Body
      */
     private $body;
 

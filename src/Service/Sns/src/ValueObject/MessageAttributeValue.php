@@ -24,6 +24,8 @@ final class MessageAttributeValue
      * see Message Attribute Data Types [^1].
      *
      * [^1]: https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes
+     *
+     * @var string
      */
     private $dataType;
 
@@ -31,11 +33,15 @@ final class MessageAttributeValue
      * Strings are Unicode with UTF8 binary encoding. For a list of code values, see ASCII Printable Characters [^1].
      *
      * [^1]: https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+     *
+     * @var string|null
      */
     private $stringValue;
 
     /**
      * Binary type attributes can store any binary data, for example, compressed data, encrypted data, or images.
+     *
+     * @var string|null
      */
     private $binaryValue;
 

@@ -13,6 +13,8 @@ class GetQueueAttributesResult extends Result
 {
     /**
      * A map of attributes to their respective values.
+     *
+     * @var array<QueueAttributeName::*, string>
      */
     private $attributes;
 

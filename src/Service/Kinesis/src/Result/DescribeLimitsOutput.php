@@ -9,21 +9,29 @@ class DescribeLimitsOutput extends Result
 {
     /**
      * The maximum number of shards.
+     *
+     * @var int
      */
     private $shardLimit;
 
     /**
      * The number of open shards.
+     *
+     * @var int
      */
     private $openShardCount;
 
     /**
      * Indicates the number of data streams with the on-demand capacity mode.
+     *
+     * @var int
      */
     private $onDemandStreamCount;
 
     /**
      * The maximum number of data streams with the on-demand capacity mode.
+     *
+     * @var int
      */
     private $onDemandStreamCountLimit;
 

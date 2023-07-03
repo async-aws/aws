@@ -24,21 +24,29 @@ final class BoundingBox
 {
     /**
      * Width of the bounding box as a ratio of the overall image width.
+     *
+     * @var float|null
      */
     private $width;
 
     /**
      * Height of the bounding box as a ratio of the overall image height.
+     *
+     * @var float|null
      */
     private $height;
 
     /**
      * Left coordinate of the bounding box as a ratio of overall image width.
+     *
+     * @var float|null
      */
     private $left;
 
     /**
      * Top coordinate of the bounding box as a ratio of overall image height.
+     *
+     * @var float|null
      */
     private $top;
 

@@ -17,11 +17,15 @@ final class SendMessageBatchRequestEntry
      * >
      * > This identifier can have up to 80 characters. The following characters are accepted: alphanumeric characters,
      * > hyphens(-), and underscores (_).
+     *
+     * @var string
      */
     private $id;
 
     /**
      * The body of the message.
+     *
+     * @var string
      */
     private $messageBody;
 
@@ -32,6 +36,8 @@ final class SendMessageBatchRequestEntry
      *
      * > When you set `FifoQueue`, you can't set `DelaySeconds` per message. You can set this parameter only on a queue
      * > level.
+     *
+     * @var int|null
      */
     private $delaySeconds;
 
@@ -40,6 +46,8 @@ final class SendMessageBatchRequestEntry
      * attributes [^1] in the *Amazon SQS Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
+     *
+     * @var array<string, MessageAttributeValue>|null
      */
     private $messageAttributes;
 
@@ -50,6 +58,8 @@ final class SendMessageBatchRequestEntry
      * !   value must be a correctly formatted X-Ray trace header string.
      * ! - The size of a message system attribute doesn't count towards the total size of a message.
      * !
+     *
+     * @var array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>|null
      */
     private $messageSystemAttributes;
 
@@ -93,6 +103,8 @@ final class SendMessageBatchRequestEntry
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html
      * [^2]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html
+     *
+     * @var string|null
      */
     private $messageDeduplicationId;
 
@@ -119,6 +131,8 @@ final class SendMessageBatchRequestEntry
      * ! `MessageGroupId` is required for FIFO queues. You can't use it for Standard queues.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagegroupid-property.html
+     *
+     * @var string|null
      */
     private $messageGroupId;
 

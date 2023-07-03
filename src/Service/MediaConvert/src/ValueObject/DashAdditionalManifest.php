@@ -13,11 +13,15 @@ final class DashAdditionalManifest
      * of the other main manifests in the output group. For example, say that the default main manifest for your DASH group
      * is film-name.mpd. If you enter "-no-premium" for this setting, then the file name the service generates for this
      * top-level manifest is film-name-no-premium.mpd.
+     *
+     * @var string|null
      */
     private $manifestNameModifier;
 
     /**
      * Specify the outputs that you want this additional top-level manifest to reference.
+     *
+     * @var string[]|null
      */
     private $selectedOutputs;
 

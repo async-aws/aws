@@ -10,26 +10,36 @@ class GetScheduleGroupOutput extends Result
 {
     /**
      * The Amazon Resource Name (ARN) of the schedule group.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The time at which the schedule group was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 
     /**
      * The time at which the schedule group was last modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModificationDate;
 
     /**
      * The name of the schedule group.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * Specifies the state of the schedule group.
+     *
+     * @var ScheduleGroupState::*|null
      */
     private $state;
 

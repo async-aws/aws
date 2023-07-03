@@ -15,26 +15,36 @@ class AdminGetUserResponse extends Result
 {
     /**
      * The user name of the user about whom you're receiving information.
+     *
+     * @var string
      */
     private $username;
 
     /**
      * An array of name-value pairs representing user attributes.
+     *
+     * @var AttributeType[]
      */
     private $userAttributes;
 
     /**
      * The date the user was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $userCreateDate;
 
     /**
      * The date the user was last modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $userLastModifiedDate;
 
     /**
      * Indicates that the status is `enabled`.
+     *
+     * @var bool|null
      */
     private $enabled;
 
@@ -49,6 +59,8 @@ class AdminGetUserResponse extends Result
      *   in.
      * - FORCE_CHANGE_PASSWORD - The user is confirmed and the user can sign in using a temporary password, but on first
      *   sign-in, the user must change their password to a new value before doing anything else.
+     *
+     * @var UserStatusType::*|null
      */
     private $userStatus;
 
@@ -56,17 +68,23 @@ class AdminGetUserResponse extends Result
      * *This response parameter is no longer supported.* It provides information only about SMS MFA configurations. It
      * doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up
      * information about either type of MFA configuration, use UserMFASettingList instead.
+     *
+     * @var MFAOptionType[]
      */
     private $mfaOptions;
 
     /**
      * The user's preferred MFA setting.
+     *
+     * @var string|null
      */
     private $preferredMfaSetting;
 
     /**
      * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
+     *
+     * @var string[]
      */
     private $userMfaSettingList;
 

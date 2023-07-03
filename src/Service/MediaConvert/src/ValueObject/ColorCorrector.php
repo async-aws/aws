@@ -14,11 +14,15 @@ final class ColorCorrector
 {
     /**
      * Brightness level.
+     *
+     * @var int|null
      */
     private $brightness;
 
     /**
      * Specify YUV limits and RGB tolerances when you set Sample range conversion to Limited range clip.
+     *
+     * @var ClipLimits|null
      */
     private $clipLimits;
 
@@ -34,11 +38,15 @@ final class ColorCorrector
      * * P3DCI (Theater): DCIP3, SMPTE 428M, BT.709
      * * P3D65 (SDR): Display P3, sRGB, BT.709
      * * P3D65 (HDR): Display P3, PQ, BT.709.
+     *
+     * @var ColorSpaceConversion::*|null
      */
     private $colorSpaceConversion;
 
     /**
      * Contrast level.
+     *
+     * @var int|null
      */
     private $contrast;
 
@@ -51,6 +59,8 @@ final class ColorCorrector
      * (maxFrameAverageLightLevel) and Max content light level (maxContentLightLevel); these settings don't have a default
      * value. The default values for the other HDR 10 metadata settings are defined by the P3D65 color space. For more
      * information about MediaConvert HDR jobs, see https://docs.aws.amazon.com/console/mediaconvert/hdr.
+     *
+     * @var Hdr10Metadata|null
      */
     private $hdr10Metadata;
 
@@ -63,11 +73,15 @@ final class ColorCorrector
      * this mode when any of your source content is HDR10, and for the best results when it is mastered for 1000 nits. You
      * may notice loss of details in bright or saturated areas of your output. HDR to SDR tone mapping has no effect when
      * your input is SDR.
+     *
+     * @var HDRToSDRToneMapper::*|null
      */
     private $hdrToSdrToneMapper;
 
     /**
      * Hue in degrees.
+     *
+     * @var int|null
      */
     private $hue;
 
@@ -82,11 +96,15 @@ final class ColorCorrector
      * MediaConvert also corrects any YUV values that, when converted to RGB, would be outside the bounds you specify under
      * Minimum RGB tolerance and Maximum RGB tolerance. With either limited range conversion, MediaConvert writes the sample
      * range metadata in the output.
+     *
+     * @var SampleRangeConversion::*|null
      */
     private $sampleRangeConversion;
 
     /**
      * Saturation level.
+     *
+     * @var int|null
      */
     private $saturation;
 
@@ -97,6 +115,8 @@ final class ColorCorrector
      * metadata, manually specify a color space in the input video selector. For 1,000 nit peak brightness displays, we
      * recommend that you set SDR reference white level to 203 (according to ITU-R BT.2408). Leave blank to use the default
      * value of 100, or specify an integer from 100 to 1000.
+     *
+     * @var int|null
      */
     private $sdrReferenceWhiteLevel;
 

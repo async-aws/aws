@@ -9,11 +9,15 @@ class DeleteParametersResult extends Result
 {
     /**
      * The names of the deleted parameters.
+     *
+     * @var string[]
      */
     private $deletedParameters;
 
     /**
      * The names of parameters that weren't deleted because the parameters aren't valid.
+     *
+     * @var string[]
      */
     private $invalidParameters;
 

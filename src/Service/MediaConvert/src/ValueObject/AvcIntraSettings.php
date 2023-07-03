@@ -23,12 +23,16 @@ final class AvcIntraSettings
      * Specify the AVC-Intra class of your output. The AVC-Intra class selection determines the output video bit rate
      * depending on the frame rate of the output. Outputs with higher class values have higher bitrates and improved image
      * quality. Note that for Class 4K/2K, MediaConvert supports only 4:2:2 chroma subsampling.
+     *
+     * @var AvcIntraClass::*|null
      */
     private $avcIntraClass;
 
     /**
      * Optional when you set AVC-Intra class (avcIntraClass) to Class 4K/2K (CLASS_4K_2K). When you set AVC-Intra class to a
      * different value, this object isn't allowed.
+     *
+     * @var AvcIntraUhdSettings|null
      */
     private $avcIntraUhdSettings;
 
@@ -41,6 +45,8 @@ final class AvcIntraSettings
      * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
+     *
+     * @var AvcIntraFramerateControl::*|null
      */
     private $framerateControl;
 
@@ -53,6 +59,8 @@ final class AvcIntraSettings
      * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
      * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at least
      * 128x96.
+     *
+     * @var AvcIntraFramerateConversionAlgorithm::*|null
      */
     private $framerateConversionAlgorithm;
 
@@ -61,6 +69,8 @@ final class AvcIntraSettings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
      * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateDenominator;
 
@@ -69,6 +79,8 @@ final class AvcIntraSettings
      * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
      * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
      * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     *
+     * @var int|null
      */
     private $framerateNumerator;
 
@@ -81,6 +93,8 @@ final class AvcIntraSettings
      * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
      * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
      * first, depending on which of the Follow options you choose.
+     *
+     * @var AvcIntraInterlaceMode::*|null
      */
     private $interlaceMode;
 
@@ -94,6 +108,8 @@ final class AvcIntraSettings
      * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
      * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
      * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     *
+     * @var AvcIntraScanTypeConversionMode::*|null
      */
     private $scanTypeConversionMode;
 
@@ -103,6 +119,8 @@ final class AvcIntraSettings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
      * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     *
+     * @var AvcIntraSlowPal::*|null
      */
     private $slowPal;
 
@@ -111,6 +129,8 @@ final class AvcIntraSettings
      * interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default
      * value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field
      * polarity to create a smoother picture.
+     *
+     * @var AvcIntraTelecine::*|null
      */
     private $telecine;
 

@@ -12,6 +12,8 @@ final class EnvironmentVariable
 {
     /**
      * The name or key of the environment variable.
+     *
+     * @var string
      */
     private $name;
 
@@ -22,6 +24,8 @@ final class EnvironmentVariable
      * ! Web Services secret key IDs and secret access keys. `PLAINTEXT` environment variables can be displayed in plain
      * ! text using the CodeBuild console and the CLI. For sensitive values, we recommend you use an environment variable of
      * ! type `PARAMETER_STORE` or `SECRETS_MANAGER`.
+     *
+     * @var string
      */
     private $value;
 
@@ -36,6 +40,8 @@ final class EnvironmentVariable
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.env.parameter-store
      * [^2]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.env.secrets-manager
+     *
+     * @var EnvironmentVariableType::*|null
      */
     private $type;
 

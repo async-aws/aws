@@ -9,26 +9,36 @@ final class Subscription
 {
     /**
      * The subscription's ARN.
+     *
+     * @var string|null
      */
     private $subscriptionArn;
 
     /**
      * The subscription's owner.
+     *
+     * @var string|null
      */
     private $owner;
 
     /**
      * The subscription's protocol.
+     *
+     * @var string|null
      */
     private $protocol;
 
     /**
      * The subscription's endpoint (format depends on the protocol).
+     *
+     * @var string|null
      */
     private $endpoint;
 
     /**
      * The ARN of the subscription's topic.
+     *
+     * @var string|null
      */
     private $topicArn;
 

@@ -13,6 +13,8 @@ class CreateRepositoryOutput extends Result
 {
     /**
      * Information about the newly created repository.
+     *
+     * @var RepositoryMetadata|null
      */
     private $repositoryMetadata;
 

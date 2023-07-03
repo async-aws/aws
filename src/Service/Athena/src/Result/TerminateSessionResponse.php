@@ -26,6 +26,8 @@ class TerminateSessionResponse extends Result
      * `DEGRADED` - The session has no healthy coordinators.
      *
      * `FAILED` - Due to a failure, the session and its resources are no longer running.
+     *
+     * @var SessionState::*|null
      */
     private $state;
 

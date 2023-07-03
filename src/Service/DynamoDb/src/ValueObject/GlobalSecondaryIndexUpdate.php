@@ -14,6 +14,8 @@ final class GlobalSecondaryIndexUpdate
     /**
      * The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that
      * index.
+     *
+     * @var UpdateGlobalSecondaryIndexAction|null
      */
     private $update;
 
@@ -25,11 +27,15 @@ final class GlobalSecondaryIndexUpdate
      * - `AttributeDefinitions `
      * - `Projection `
      * - `ProvisionedThroughput `
+     *
+     * @var CreateGlobalSecondaryIndexAction|null
      */
     private $create;
 
     /**
      * The name of an existing global secondary index to be removed.
+     *
+     * @var DeleteGlobalSecondaryIndexAction|null
      */
     private $delete;
 

@@ -10,29 +10,42 @@ final class Celebrity
     /**
      * An array of URLs pointing to additional information about the celebrity. If there is no additional information about
      * the celebrity, this list is empty.
+     *
+     * @var string[]|null
      */
     private $urls;
 
     /**
      * The name of the celebrity.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * A unique identifier for the celebrity.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * Provides information about the celebrity's face, such as its location on the image.
+     *
+     * @var ComparedFace|null
      */
     private $face;
 
     /**
      * The confidence, in percentage, that Amazon Rekognition has that the recognized face is the celebrity.
+     *
+     * @var float|null
      */
     private $matchConfidence;
 
+    /**
+     * @var KnownGender|null
+     */
     private $knownGender;
 
     /**

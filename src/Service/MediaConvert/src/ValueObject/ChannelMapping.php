@@ -17,6 +17,8 @@ final class ChannelMapping
     /**
      * In your JSON job specification, include one child of OutputChannels for each audio channel that you want in your
      * output. Each child should contain one instance of InputChannels or InputChannelsFineTune.
+     *
+     * @var OutputChannelMapping[]|null
      */
     private $outputChannels;
 

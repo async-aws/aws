@@ -14,6 +14,8 @@ class PublishResponse extends Result
      * Unique identifier assigned to the published message.
      *
      * Length Constraint: Maximum 100 characters
+     *
+     * @var string|null
      */
     private $messageId;
 
@@ -22,6 +24,8 @@ class PublishResponse extends Result
      *
      * The sequence number is a large, non-consecutive number that Amazon SNS assigns to each message. The length of
      * `SequenceNumber` is 128 bits. `SequenceNumber` continues to increase for each `MessageGroupId`.
+     *
+     * @var string|null
      */
     private $sequenceNumber;
 

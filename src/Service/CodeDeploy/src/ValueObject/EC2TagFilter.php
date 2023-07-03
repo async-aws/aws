@@ -12,11 +12,15 @@ final class EC2TagFilter
 {
     /**
      * The tag filter key.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * The tag filter value.
+     *
+     * @var string|null
      */
     private $value;
 
@@ -26,6 +30,8 @@ final class EC2TagFilter
      * - `KEY_ONLY`: Key only.
      * - `VALUE_ONLY`: Value only.
      * - `KEY_AND_VALUE`: Key and value.
+     *
+     * @var EC2TagFilterType::*|null
      */
     private $type;
 

@@ -10,6 +10,8 @@ class DescribeEndpointsResponse extends Result
 {
     /**
      * An `Endpoints` object is returned when a `DescribeEndpoints` request is made.
+     *
+     * @var Endpoint[]
      */
     private $endpoints;
 

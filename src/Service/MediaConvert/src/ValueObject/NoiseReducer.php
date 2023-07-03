@@ -19,21 +19,29 @@ final class NoiseReducer
      * noise. * Mean (softest), Gaussian, Lanczos, and Sharpen (sharpest) do convolution filtering. * Conserve does min/max
      * noise reduction. * Spatial does frequency-domain filtering based on JND principles. * Temporal optimizes video
      * quality for complex motion.
+     *
+     * @var NoiseReducerFilter::*|null
      */
     private $filter;
 
     /**
      * Settings for a noise reducer filter.
+     *
+     * @var NoiseReducerFilterSettings|null
      */
     private $filterSettings;
 
     /**
      * Noise reducer filter settings for spatial filter.
+     *
+     * @var NoiseReducerSpatialFilterSettings|null
      */
     private $spatialFilterSettings;
 
     /**
      * Noise reducer filter settings for temporal filter.
+     *
+     * @var NoiseReducerTemporalFilterSettings|null
      */
     private $temporalFilterSettings;
 

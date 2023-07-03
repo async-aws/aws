@@ -36,6 +36,8 @@ final class MetricDataQuery
      * `GetMetricData`. If you are performing math expressions on this set of data, this name represents that data and can
      * serve as a variable in the mathematical expression. The valid characters are letters, numbers, and underscore. The
      * first character must be a lowercase letter.
+     *
+     * @var string
      */
     private $id;
 
@@ -44,6 +46,8 @@ final class MetricDataQuery
      * retrieving a metric and not performing a math expression on returned data.
      *
      * Within one MetricDataQuery object, you must specify either `Expression` or `MetricStat` but not both.
+     *
+     * @var MetricStat|null
      */
     private $metricStat;
 
@@ -60,6 +64,8 @@ final class MetricDataQuery
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage
      * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax
+     *
+     * @var string|null
      */
     private $expression;
 
@@ -72,6 +78,8 @@ final class MetricDataQuery
      * Labels [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html
+     *
+     * @var string|null
      */
     private $label;
 
@@ -82,6 +90,8 @@ final class MetricDataQuery
      *
      * When used in `PutMetricAlarm`, specify `true` for the one expression result to use as the alarm. For all other
      * metrics and expressions in the same `PutMetricAlarm` operation, specify `ReturnData` as False.
+     *
+     * @var bool|null
      */
     private $returnData;
 
@@ -90,6 +100,8 @@ final class MetricDataQuery
      * short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at
      * intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution metrics
      * are those metrics stored by a `PutMetricData` operation that includes a `StorageResolution of 1 second`.
+     *
+     * @var int|null
      */
     private $period;
 
@@ -101,6 +113,8 @@ final class MetricDataQuery
      *
      * If you are performing a `PutMetricAlarm` operation, use this to specify which account contains the metric that the
      * alarm is watching.
+     *
+     * @var string|null
      */
     private $accountId;
 

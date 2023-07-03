@@ -28,6 +28,8 @@ class DeleteTableOutput extends Result
 {
     /**
      * Represents the properties of a table.
+     *
+     * @var TableDescription|null
      */
     private $tableDescription;
 

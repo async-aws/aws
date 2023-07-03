@@ -9,6 +9,8 @@ final class Endpoint
 {
     /**
      * URL of endpoint.
+     *
+     * @var string|null
      */
     private $url;
 

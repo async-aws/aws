@@ -15,6 +15,8 @@ class ReceiveMessageResult extends Result
 {
     /**
      * A list of messages.
+     *
+     * @var Message[]
      */
     private $messages;
 

@@ -11,6 +11,8 @@ final class ImageInserter
 {
     /**
      * Specify the images that you want to overlay on your video. The images must be PNG or TGA files.
+     *
+     * @var InsertableImage[]|null
      */
     private $insertableImages;
 
@@ -19,6 +21,8 @@ final class ImageInserter
      * within HDR10 outputs. For 1,000 nit peak brightness displays, we recommend that you set SDR reference white level to
      * 203 (according to ITU-R BT.2408). Leave blank to use the default value of 100, or specify an integer from 100 to
      * 1000.
+     *
+     * @var int|null
      */
     private $sdrReferenceWhiteLevel;
 

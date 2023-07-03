@@ -10,6 +10,9 @@ namespace AsyncAws\S3\ValueObject;
  */
 final class NotificationConfigurationFilter
 {
+    /**
+     * @var S3KeyFilter|null
+     */
     private $key;
 
     /**

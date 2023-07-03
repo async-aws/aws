@@ -18,6 +18,8 @@ final class ServerSideEncryptionByDefault
 {
     /**
      * Server-side encryption algorithm to use for the default encryption.
+     *
+     * @var ServerSideEncryption::*
      */
     private $sseAlgorithm;
 
@@ -39,6 +41,8 @@ final class ServerSideEncryptionByDefault
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
+     *
+     * @var string|null
      */
     private $kmsMasterKeyId;
 

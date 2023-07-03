@@ -22,6 +22,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     /**
      * A map of table name to a list of items. Each object in `Responses` consists of a table name, along with a map of
      * attribute data consisting of the data type and attribute value.
+     *
+     * @var array<string, array<string, AttributeValue>[]>
      */
     private $responses;
 
@@ -39,6 +41,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
      *   otherwise, an eventually consistent read is used.
      *
      * If there are no unprocessed keys remaining, the response contains an empty `UnprocessedKeys` map.
+     *
+     * @var array<string, KeysAndAttributes>
      */
     private $unprocessedKeys;
 
@@ -49,6 +53,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
      *
      * - `TableName` - The table that consumed the provisioned throughput.
      * - `CapacityUnits` - The total number of capacity units consumed.
+     *
+     * @var ConsumedCapacity[]
      */
     private $consumedCapacity;
 

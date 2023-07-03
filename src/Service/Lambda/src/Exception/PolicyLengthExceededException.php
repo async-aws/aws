@@ -12,6 +12,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class PolicyLengthExceededException extends ClientException
 {
+    /**
+     * @var string|null
+     */
     private $type;
 
     public function getType(): ?string

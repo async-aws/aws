@@ -13,11 +13,15 @@ final class StreamDescription
 {
     /**
      * The name of the stream being described.
+     *
+     * @var string
      */
     private $streamName;
 
     /**
      * The Amazon Resource Name (ARN) for the stream being described.
+     *
+     * @var string
      */
     private $streamArn;
 
@@ -32,37 +36,51 @@ final class StreamDescription
      *   write operations only on an `ACTIVE` stream.
      * - `UPDATING` - Shards in the stream are being merged or split. Read and write operations continue to work while the
      *   stream is in the `UPDATING` state.
+     *
+     * @var StreamStatus::*
      */
     private $streamStatus;
 
     /**
      * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can
      * choose between an **on-demand** capacity mode and a **provisioned** capacity mode for your data streams.
+     *
+     * @var StreamModeDetails|null
      */
     private $streamModeDetails;
 
     /**
      * The shards that comprise the stream.
+     *
+     * @var Shard[]
      */
     private $shards;
 
     /**
      * If set to `true`, more shards in the stream are available to describe.
+     *
+     * @var bool
      */
     private $hasMoreShards;
 
     /**
      * The current retention period, in hours. Minimum value of 24. Maximum value of 168.
+     *
+     * @var int
      */
     private $retentionPeriodHours;
 
     /**
      * The approximate time that the stream was created.
+     *
+     * @var \DateTimeImmutable
      */
     private $streamCreationTimestamp;
 
     /**
      * Represents the current enhanced monitoring settings of the stream.
+     *
+     * @var EnhancedMetrics[]
      */
     private $enhancedMonitoring;
 
@@ -72,6 +90,8 @@ final class StreamDescription
      * - `NONE`: Do not encrypt the records in the stream.
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
+     *
+     * @var EncryptionType::*|null
      */
     private $encryptionType;
 
@@ -85,6 +105,8 @@ final class StreamDescription
      * - Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
      * - Alias name example: `alias/MyAliasName`
      * - Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
+     *
+     * @var string|null
      */
     private $keyId;
 

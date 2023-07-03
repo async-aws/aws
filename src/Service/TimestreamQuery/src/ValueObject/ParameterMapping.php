@@ -11,9 +11,14 @@ final class ParameterMapping
 {
     /**
      * Parameter name.
+     *
+     * @var string
      */
     private $name;
 
+    /**
+     * @var Type
+     */
     private $type;
 
     /**

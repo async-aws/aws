@@ -13,21 +13,29 @@ final class Type
 {
     /**
      * Indicates if the column is of type string, integer, Boolean, double, timestamp, date, time.
+     *
+     * @var ScalarType::*|null
      */
     private $scalarType;
 
     /**
      * Indicates if the column is an array.
+     *
+     * @var ColumnInfo|null
      */
     private $arrayColumnInfo;
 
     /**
      * Indicates if the column is a timeseries data type.
+     *
+     * @var ColumnInfo|null
      */
     private $timeSeriesMeasureValueColumnInfo;
 
     /**
      * Indicates if the column is a row.
+     *
+     * @var ColumnInfo[]|null
      */
     private $rowColumnInfo;
 

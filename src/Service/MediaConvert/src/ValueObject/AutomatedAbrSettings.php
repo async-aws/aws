@@ -13,6 +13,8 @@ final class AutomatedAbrSettings
      * Optional. The maximum target bit rate used in your automated ABR stack. Use this value to set an upper limit on the
      * bandwidth consumed by the highest-quality rendition. This is the rendition that is delivered to viewers with the
      * fastest internet connections. If you don't specify a value, MediaConvert uses 8,000,000 (8 mb/s) by default.
+     *
+     * @var int|null
      */
     private $maxAbrBitrate;
 
@@ -21,6 +23,8 @@ final class AutomatedAbrSettings
      * renditions is determined automatically, based on analysis of each job, but will never exceed this limit. When you set
      * this to Auto in the console, which is equivalent to excluding it from your JSON job specification, MediaConvert
      * defaults to a limit of 15.
+     *
+     * @var int|null
      */
     private $maxRenditions;
 
@@ -28,6 +32,8 @@ final class AutomatedAbrSettings
      * Optional. The minimum target bitrate used in your automated ABR stack. Use this value to set a lower limit on the
      * bitrate of video delivered to viewers with slow internet connections. If you don't specify a value, MediaConvert uses
      * 600,000 (600 kb/s) by default.
+     *
+     * @var int|null
      */
     private $minAbrBitrate;
 
@@ -35,6 +41,8 @@ final class AutomatedAbrSettings
      * Optional. Use Automated ABR rules to specify restrictions for the rendition sizes MediaConvert will create in your
      * ABR stack. You can use these rules if your ABR workflow has specific rendition size requirements, but you still want
      * MediaConvert to optimize for video quality and overall file size.
+     *
+     * @var AutomatedAbrRule[]|null
      */
     private $rules;
 

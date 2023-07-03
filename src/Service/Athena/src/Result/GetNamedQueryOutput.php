@@ -10,6 +10,8 @@ class GetNamedQueryOutput extends Result
 {
     /**
      * Information about the query.
+     *
+     * @var NamedQuery|null
      */
     private $namedQuery;
 

@@ -20,6 +20,8 @@ final class SyncConfig
      *   at the server.
      * - **AUTOMERGE**: Resolve conflicts with the Automerge conflict resolution strategy.
      * - **LAMBDA**: Resolve conflicts with an Lambda function supplied in the `LambdaConflictHandlerConfig`.
+     *
+     * @var ConflictHandlerType::*|null
      */
     private $conflictHandler;
 
@@ -28,11 +30,15 @@ final class SyncConfig
      *
      * - **VERSION**: Detect conflicts based on object versions for this resolver.
      * - **NONE**: Do not detect conflicts when invoking this resolver.
+     *
+     * @var ConflictDetectionType::*|null
      */
     private $conflictDetection;
 
     /**
      * The `LambdaConflictHandlerConfig` when configuring `LAMBDA` as the Conflict Handler.
+     *
+     * @var LambdaConflictHandlerConfig|null
      */
     private $lambdaConflictHandlerConfig;
 

@@ -113,6 +113,8 @@ final class TransactionCanceledException extends ClientException
 {
     /**
      * A list of cancellation reasons.
+     *
+     * @var CancellationReason[]
      */
     private $cancellationReasons;
 

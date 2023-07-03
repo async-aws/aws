@@ -15,11 +15,15 @@ class ChangeMessageVisibilityBatchResult extends Result
 {
     /**
      * A list of `ChangeMessageVisibilityBatchResultEntry` items.
+     *
+     * @var ChangeMessageVisibilityBatchResultEntry[]
      */
     private $successful;
 
     /**
      * A list of `BatchResultErrorEntry` items.
+     *
+     * @var BatchResultErrorEntry[]
      */
     private $failed;
 

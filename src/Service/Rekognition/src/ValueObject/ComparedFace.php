@@ -9,37 +9,51 @@ final class ComparedFace
 {
     /**
      * Bounding box of the face.
+     *
+     * @var BoundingBox|null
      */
     private $boundingBox;
 
     /**
      * Level of confidence that what the bounding box contains is a face.
+     *
+     * @var float|null
      */
     private $confidence;
 
     /**
      * An array of facial landmarks.
+     *
+     * @var Landmark[]|null
      */
     private $landmarks;
 
     /**
      * Indicates the pose of the face as determined by its pitch, roll, and yaw.
+     *
+     * @var Pose|null
      */
     private $pose;
 
     /**
      * Identifies face image brightness and sharpness.
+     *
+     * @var ImageQuality|null
      */
     private $quality;
 
     /**
      * The emotions that appear to be expressed on the face, and the confidence level in the determination. Valid values
      * include "Happy", "Sad", "Angry", "Confused", "Disgusted", "Surprised", "Calm", "Unknown", and "Fear".
+     *
+     * @var Emotion[]|null
      */
     private $emotions;
 
     /**
      * Indicates whether or not the face is smiling, and the confidence level in the determination.
+     *
+     * @var Smile|null
      */
     private $smile;
 

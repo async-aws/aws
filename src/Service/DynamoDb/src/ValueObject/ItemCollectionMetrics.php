@@ -11,6 +11,8 @@ final class ItemCollectionMetrics
 {
     /**
      * The partition key value of the item collection. This value is the same as the partition key value of the item.
+     *
+     * @var array<string, AttributeValue>|null
      */
     private $itemCollectionKey;
 
@@ -21,6 +23,8 @@ final class ItemCollectionMetrics
      * local secondary index is approaching its size limit.
      *
      * The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+     *
+     * @var float[]|null
      */
     private $sizeEstimateRangeGb;
 

@@ -12,8 +12,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidObjectStateException extends ClientException
 {
+    /**
+     * @var StorageClass::*|null
+     */
     private $storageClass;
 
+    /**
+     * @var IntelligentTieringAccessTier::*|null
+     */
     private $accessTier;
 
     /**

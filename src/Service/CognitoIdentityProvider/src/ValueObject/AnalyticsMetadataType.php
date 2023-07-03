@@ -15,6 +15,8 @@ final class AnalyticsMetadataType
 {
     /**
      * The endpoint ID.
+     *
+     * @var string|null
      */
     private $analyticsEndpointId;
 

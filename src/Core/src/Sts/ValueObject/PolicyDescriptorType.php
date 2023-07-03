@@ -14,6 +14,8 @@ final class PolicyDescriptorType
      * *Amazon Web Services General Reference*.
      *
      * [^1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+     *
+     * @var string|null
      */
     private $arn;
 

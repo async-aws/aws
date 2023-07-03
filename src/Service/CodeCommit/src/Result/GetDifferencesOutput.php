@@ -18,11 +18,15 @@ class GetDifferencesOutput extends Result implements \IteratorAggregate
     /**
      * A data type object that contains information about the differences, including whether the difference is added,
      * modified, or deleted (A, D, M).
+     *
+     * @var Difference[]
      */
     private $differences;
 
     /**
      * An enumeration token that can be used in a request to return the next batch of the results.
+     *
+     * @var string|null
      */
     private $nextToken;
 

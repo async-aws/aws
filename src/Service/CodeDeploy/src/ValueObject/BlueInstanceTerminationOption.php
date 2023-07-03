@@ -16,6 +16,8 @@ final class BlueInstanceTerminationOption
      * - `TERMINATE`: Instances are terminated after a specified wait time.
      * - `KEEP_ALIVE`: Instances are left running after they are deregistered from the load balancer and removed from the
      *   deployment group.
+     *
+     * @var InstanceAction::*|null
      */
     private $action;
 
@@ -27,6 +29,8 @@ final class BlueInstanceTerminationOption
      * ECS deployment, CodeDeploy shifts traffic from the original (blue) task set to a replacement (green) task set.
      *
      * The maximum setting is 2880 minutes (2 days).
+     *
+     * @var int|null
      */
     private $terminationWaitTimeInMinutes;
 

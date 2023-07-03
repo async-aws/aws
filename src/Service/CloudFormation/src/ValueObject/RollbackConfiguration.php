@@ -28,6 +28,8 @@ final class RollbackConfiguration
      * - To remove all currently specified triggers, specify an empty list for this parameter.
      *
      * If a specified trigger is missing, the entire stack operation fails and is rolled back.
+     *
+     * @var RollbackTrigger[]|null
      */
     private $rollbackTriggers;
 
@@ -47,6 +49,8 @@ final class RollbackConfiguration
      * the operation completes.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html
+     *
+     * @var int|null
      */
     private $monitoringTimeInMinutes;
 

@@ -26,17 +26,23 @@ final class M3u8Settings
      * applies audio padding or trimming only to the end of the last segment of the output. For unsegmented outputs,
      * MediaConvert adds padding only to the end of the file. When you keep the default value, any minor discrepancies
      * between audio and video duration will depend on your output audio codec.
+     *
+     * @var M3u8AudioDuration::*|null
      */
     private $audioDuration;
 
     /**
      * The number of audio frames to insert for each PES packet.
+     *
+     * @var int|null
      */
     private $audioFramesPerPes;
 
     /**
      * Packet Identifier (PID) of the elementary audio stream(s) in the transport stream. Multiple values are accepted, and
      * can be entered in ranges and/or by comma separation.
+     *
+     * @var int[]|null
      */
     private $audioPids;
 
@@ -44,60 +50,82 @@ final class M3u8Settings
      * If you select ALIGN_TO_VIDEO, MediaConvert writes captions and data packets with Presentation Timestamp (PTS) values
      * greater than or equal to the first video packet PTS (MediaConvert drops captions and data packets with lesser PTS
      * values). Keep the default value (AUTO) to allow all PTS values.
+     *
+     * @var M3u8DataPtsControl::*|null
      */
     private $dataPtsControl;
 
     /**
      * Specify the maximum time, in milliseconds, between Program Clock References (PCRs) inserted into the transport
      * stream.
+     *
+     * @var int|null
      */
     private $maxPcrInterval;
 
     /**
      * If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag
      * will be inserted in the output.
+     *
+     * @var M3u8NielsenId3::*|null
      */
     private $nielsenId3;
 
     /**
      * The number of milliseconds between instances of this table in the output transport stream.
+     *
+     * @var int|null
      */
     private $patInterval;
 
     /**
      * When set to PCR_EVERY_PES_PACKET a Program Clock Reference value is inserted for every Packetized Elementary Stream
      * (PES) header. This parameter is effective only when the PCR PID is the same as the video or audio elementary stream.
+     *
+     * @var M3u8PcrControl::*|null
      */
     private $pcrControl;
 
     /**
      * Packet Identifier (PID) of the Program Clock Reference (PCR) in the transport stream. When no value is given, the
      * encoder will assign the same value as the Video PID.
+     *
+     * @var int|null
      */
     private $pcrPid;
 
     /**
      * The number of milliseconds between instances of this table in the output transport stream.
+     *
+     * @var int|null
      */
     private $pmtInterval;
 
     /**
      * Packet Identifier (PID) for the Program Map Table (PMT) in the transport stream.
+     *
+     * @var int|null
      */
     private $pmtPid;
 
     /**
      * Packet Identifier (PID) of the private metadata stream in the transport stream.
+     *
+     * @var int|null
      */
     private $privateMetadataPid;
 
     /**
      * The value of the program number field in the Program Map Table.
+     *
+     * @var int|null
      */
     private $programNumber;
 
     /**
      * Packet Identifier (PID) of the SCTE-35 stream in the transport stream.
+     *
+     * @var int|null
      */
     private $scte35Pid;
 
@@ -107,6 +135,8 @@ final class M3u8Settings
      * SCTE-35 markers from an ESAM XML document-- Choose None (NONE) if you don't want manifest conditioning. Choose
      * Passthrough (PASSTHROUGH) and choose Ad markers (adMarkers) if you do want manifest conditioning. In both cases, also
      * provide the ESAM XML as a string in the setting Signal processing notification XML (sccXml).
+     *
+     * @var M3u8Scte35Source::*|null
      */
     private $scte35Source;
 
@@ -115,21 +145,29 @@ final class M3u8Settings
      * ID3 metadata from the following features: ID3 timestamp period (timedMetadataId3Period), and Custom ID3 metadata
      * inserter (timedMetadataInsertion). To exclude this ID3 metadata in this output: set ID3 metadata to None (NONE) or
      * leave blank.
+     *
+     * @var TimedMetadata::*|null
      */
     private $timedMetadata;
 
     /**
      * Packet Identifier (PID) of the ID3 metadata stream in the transport stream.
+     *
+     * @var int|null
      */
     private $timedMetadataPid;
 
     /**
      * The value of the transport stream ID field in the Program Map Table.
+     *
+     * @var int|null
      */
     private $transportStreamId;
 
     /**
      * Packet Identifier (PID) of the elementary video stream in the transport stream.
+     *
+     * @var int|null
      */
     private $videoPid;
 

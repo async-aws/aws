@@ -48,6 +48,8 @@ class InitiateAuthResponse extends Result
      *   add a phone number to their account, and then the user should call `InitiateAuth` again to restart sign-in.
      *
      * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
+     *
+     * @var ChallengeNameType::*|null
      */
     private $challengeName;
 
@@ -55,6 +57,8 @@ class InitiateAuthResponse extends Result
      * The session that should pass both ways in challenge-response calls to the service. If the caller must pass another
      * challenge, they return a session with other challenge parameters. This session should be passed as it is to the next
      * `RespondToAuthChallenge` API call.
+     *
+     * @var string|null
      */
     private $session;
 
@@ -63,6 +67,8 @@ class InitiateAuthResponse extends Result
      * responses in this parameter should be used to compute inputs to the next call (`RespondToAuthChallenge`).
      *
      * All challenges require `USERNAME` and `SECRET_HASH` (if applicable).
+     *
+     * @var array<string, string>
      */
     private $challengeParameters;
 
@@ -70,6 +76,8 @@ class InitiateAuthResponse extends Result
      * The result of the authentication response. This result is only returned if the caller doesn't need to pass another
      * challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`,
      * `ChallengeParameters`, and `Session` are returned.
+     *
+     * @var AuthenticationResultType|null
      */
     private $authenticationResult;
 

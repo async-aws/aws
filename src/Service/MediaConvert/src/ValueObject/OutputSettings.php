@@ -9,6 +9,8 @@ final class OutputSettings
 {
     /**
      * Settings for HLS output groups.
+     *
+     * @var HlsSettings|null
      */
     private $hlsSettings;
 

@@ -9,6 +9,8 @@ class DeleteObjectTaggingOutput extends Result
 {
     /**
      * The versionId of the object the tag-set was removed from.
+     *
+     * @var string|null
      */
     private $versionId;
 

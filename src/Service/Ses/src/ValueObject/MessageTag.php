@@ -15,6 +15,8 @@ final class MessageTag
      *
      * - It can only contain ASCII letters (a–z, A–Z), numbers (0–9), underscores (_), or dashes (-).
      * - It can contain no more than 256 characters.
+     *
+     * @var string
      */
     private $name;
 
@@ -23,6 +25,8 @@ final class MessageTag
      *
      * - It can only contain ASCII letters (a–z, A–Z), numbers (0–9), underscores (_), or dashes (-).
      * - It can contain no more than 256 characters.
+     *
+     * @var string
      */
     private $value;
 

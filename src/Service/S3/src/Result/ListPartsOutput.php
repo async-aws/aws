@@ -29,56 +29,76 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * configuration rule that defines this action.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
+     *
+     * @var \DateTimeImmutable|null
      */
     private $abortDate;
 
     /**
      * This header is returned along with the `x-amz-abort-date` header. It identifies applicable lifecycle configuration
      * rule that defines the action to abort incomplete multipart uploads.
+     *
+     * @var string|null
      */
     private $abortRuleId;
 
     /**
      * The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access
      * point alias if used.
+     *
+     * @var string|null
      */
     private $bucket;
 
     /**
      * Object key for which the multipart upload was initiated.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * Upload ID identifying the multipart upload whose parts are being listed.
+     *
+     * @var string|null
      */
     private $uploadId;
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
      * part-number-marker request parameter in a subsequent request.
+     *
+     * @var int|null
      */
     private $partNumberMarker;
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
      * part-number-marker request parameter in a subsequent request.
+     *
+     * @var int|null
      */
     private $nextPartNumberMarker;
 
     /**
      * Maximum number of parts that were allowed in the response.
+     *
+     * @var int|null
      */
     private $maxParts;
 
     /**
      * Indicates whether the returned list of parts is truncated. A true value indicates that the list was truncated. A list
      * can be truncated if the number of parts exceeds the limit returned in the MaxParts element.
+     *
+     * @var bool|null
      */
     private $isTruncated;
 
     /**
      * Container for elements related to a particular part. A response can contain zero or more `Part` elements.
+     *
+     * @var Part[]
      */
     private $parts;
 
@@ -86,24 +106,35 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * Container element that identifies who initiated the multipart upload. If the initiator is an Amazon Web Services
      * account, this element provides the same information as the `Owner` element. If the initiator is an IAM User, this
      * element provides the user ARN and display name.
+     *
+     * @var Initiator|null
      */
     private $initiator;
 
     /**
      * Container element that identifies the object owner, after the object is created. If multipart upload is initiated by
      * an IAM user, this element provides the parent account ID and display name.
+     *
+     * @var Owner|null
      */
     private $owner;
 
     /**
      * Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
+     *
+     * @var StorageClass::*|null
      */
     private $storageClass;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     /**
      * The algorithm that was used to create a checksum of the object.
+     *
+     * @var ChecksumAlgorithm::*|null
      */
     private $checksumAlgorithm;
 

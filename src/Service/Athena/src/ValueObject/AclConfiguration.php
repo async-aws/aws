@@ -21,6 +21,8 @@ final class AclConfiguration
      * workgroup. For more information about Amazon S3 canned ACLs, see Canned ACL [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl
+     *
+     * @var S3AclOption::*
      */
     private $s3AclOption;
 

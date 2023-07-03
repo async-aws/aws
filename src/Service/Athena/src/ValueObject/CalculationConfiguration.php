@@ -9,6 +9,8 @@ final class CalculationConfiguration
 {
     /**
      * A string that contains the code for the calculation.
+     *
+     * @var string|null
      */
     private $codeBlock;
 

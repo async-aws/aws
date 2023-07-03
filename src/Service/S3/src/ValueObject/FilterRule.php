@@ -16,11 +16,15 @@ final class FilterRule
      * Configuring Event Notifications [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+     *
+     * @var FilterRuleName::*|null
      */
     private $name;
 
     /**
      * The value that the filter searches for in object key names.
+     *
+     * @var string|null
      */
     private $value;
 

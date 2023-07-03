@@ -12,11 +12,15 @@ final class AwsObject
 {
     /**
      * The name that you assign to an object. You use the object key to retrieve the object.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * Creation date of the object.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModified;
 
@@ -32,26 +36,36 @@ final class AwsObject
      * - If an object is created by either the Multipart Upload or Part Copy operation, the ETag is not an MD5 digest,
      *   regardless of the method of encryption. If an object is larger than 16 MB, the Amazon Web Services Management
      *   Console will upload or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest.
+     *
+     * @var string|null
      */
     private $etag;
 
     /**
      * The algorithm that was used to create a checksum of the object.
+     *
+     * @var list<ChecksumAlgorithm::*>|null
      */
     private $checksumAlgorithm;
 
     /**
      * Size in bytes of the object.
+     *
+     * @var int|null
      */
     private $size;
 
     /**
      * The class of storage used to store the object.
+     *
+     * @var ObjectStorageClass::*|null
      */
     private $storageClass;
 
     /**
      * The owner of the object.
+     *
+     * @var Owner|null
      */
     private $owner;
 

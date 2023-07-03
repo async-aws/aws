@@ -9,6 +9,8 @@ final class SessionStatistics
 {
     /**
      * The data processing unit execution time for a session in milliseconds.
+     *
+     * @var int|null
      */
     private $dpuExecutionInMillis;
 

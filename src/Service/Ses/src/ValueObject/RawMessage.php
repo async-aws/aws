@@ -23,6 +23,8 @@ final class RawMessage
      *   RFC 5321 [^1].
      *
      * [^1]: https://tools.ietf.org/html/rfc5321
+     *
+     * @var string
      */
     private $data;
 

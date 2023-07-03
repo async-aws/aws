@@ -11,21 +11,29 @@ final class StatisticSet
 {
     /**
      * The number of samples used for the statistic set.
+     *
+     * @var float
      */
     private $sampleCount;
 
     /**
      * The sum of values for the sample set.
+     *
+     * @var float
      */
     private $sum;
 
     /**
      * The minimum value of the sample set.
+     *
+     * @var float
      */
     private $minimum;
 
     /**
      * The maximum value of the sample set.
+     *
+     * @var float
      */
     private $maximum;
 

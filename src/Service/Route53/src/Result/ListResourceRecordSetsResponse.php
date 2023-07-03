@@ -23,12 +23,16 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
 {
     /**
      * Information about multiple resource record sets.
+     *
+     * @var ResourceRecordSet[]
      */
     private $resourceRecordSets;
 
     /**
      * A flag that indicates whether more resource record sets remain to be listed. If your results were truncated, you can
      * make a follow-up pagination request by using the `NextRecordName` element.
+     *
+     * @var bool
      */
     private $isTruncated;
 
@@ -36,6 +40,8 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
      * If the results were truncated, the name of the next record in the list.
      *
      * This element is present only if `IsTruncated` is true.
+     *
+     * @var string|null
      */
     private $nextRecordName;
 
@@ -43,6 +49,8 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
      * If the results were truncated, the type of the next record in the list.
      *
      * This element is present only if `IsTruncated` is true.
+     *
+     * @var RRType::*|null
      */
     private $nextRecordType;
 
@@ -53,11 +61,15 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
      * For information about routing policies, see Choosing a Routing Policy [^1] in the *Amazon Route 53 Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html
+     *
+     * @var string|null
      */
     private $nextRecordIdentifier;
 
     /**
      * The maximum number of records you requested.
+     *
+     * @var string
      */
     private $maxItems;
 

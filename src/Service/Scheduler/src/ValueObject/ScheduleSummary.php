@@ -11,36 +11,50 @@ final class ScheduleSummary
 {
     /**
      * The Amazon Resource Name (ARN) of the schedule.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The time at which the schedule was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDate;
 
     /**
      * The name of the schedule group associated with this schedule.
+     *
+     * @var string|null
      */
     private $groupName;
 
     /**
      * The time at which the schedule was last modified.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastModificationDate;
 
     /**
      * The name of the schedule.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * Specifies whether the schedule is enabled or disabled.
+     *
+     * @var ScheduleState::*|null
      */
     private $state;
 
     /**
      * The schedule's target details.
+     *
+     * @var TargetSummary|null
      */
     private $target;
 

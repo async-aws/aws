@@ -13,6 +13,8 @@ final class Target
 {
     /**
      * The Amazon Resource Name (ARN) of the target.
+     *
+     * @var string
      */
     private $arn;
 
@@ -20,6 +22,8 @@ final class Target
      * An object that contains information about an Amazon SQS queue that EventBridge Scheduler uses as a dead-letter queue
      * for your schedule. If specified, EventBridge Scheduler delivers failed events that could not be successfully
      * delivered to a target to the queue.
+     *
+     * @var DeadLetterConfig|null
      */
     private $deadLetterConfig;
 
@@ -27,6 +31,8 @@ final class Target
      * The templated target type for the Amazon ECS `RunTask` [^1] API operation.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html
+     *
+     * @var EcsParameters|null
      */
     private $ecsParameters;
 
@@ -34,6 +40,8 @@ final class Target
      * The templated target type for the EventBridge `PutEvents` [^1] API operation.
      *
      * [^1]: https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
+     *
+     * @var EventBridgeParameters|null
      */
     private $eventBridgeParameters;
 
@@ -42,6 +50,8 @@ final class Target
      * or Amazon EventBridge target, the input must be a well-formed JSON. For all other target types, a JSON is not
      * required. If you do not specify anything for this field, EventBridge Scheduler delivers a default notification to the
      * target.
+     *
+     * @var string|null
      */
     private $input;
 
@@ -49,18 +59,24 @@ final class Target
      * The templated target type for the Amazon Kinesis `PutRecord` [^1] API operation.
      *
      * [^1]: kinesis/latest/APIReference/API_PutRecord.html
+     *
+     * @var KinesisParameters|null
      */
     private $kinesisParameters;
 
     /**
      * A `RetryPolicy` object that includes information about the retry policy settings, including the maximum age of an
      * event, and the maximum number of times EventBridge Scheduler will try to deliver the event to a target.
+     *
+     * @var RetryPolicy|null
      */
     private $retryPolicy;
 
     /**
      * The Amazon Resource Name (ARN) of the IAM role that EventBridge Scheduler will use for this target when the schedule
      * is invoked.
+     *
+     * @var string
      */
     private $roleArn;
 
@@ -68,6 +84,8 @@ final class Target
      * The templated target type for the Amazon SageMaker `StartPipelineExecution` [^1] API operation.
      *
      * [^1]: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html
+     *
+     * @var SageMakerPipelineParameters|null
      */
     private $sageMakerPipelineParameters;
 
@@ -79,6 +97,8 @@ final class Target
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
      * [^2]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html
+     *
+     * @var SqsParameters|null
      */
     private $sqsParameters;
 

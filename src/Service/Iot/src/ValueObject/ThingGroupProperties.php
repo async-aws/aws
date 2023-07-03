@@ -9,11 +9,15 @@ final class ThingGroupProperties
 {
     /**
      * The thing group description.
+     *
+     * @var string|null
      */
     private $thingGroupDescription;
 
     /**
      * The thing group attributes in JSON format.
+     *
+     * @var AttributePayload|null
      */
     private $attributePayload;
 

@@ -18,6 +18,8 @@ final class Job
 {
     /**
      * Accelerated transcoding can significantly speed up jobs with long, visually complex content.
+     *
+     * @var AccelerationSettings|null
      */
     private $accelerationSettings;
 
@@ -30,17 +32,23 @@ final class Job
      * compatible with accelerated transcoding, the service either fails your job or runs it without accelerated
      * transcoding, depending on how you set Acceleration (AccelerationMode). When the service runs your job without
      * accelerated transcoding, AccelerationStatus is NOT_ACCELERATED.
+     *
+     * @var AccelerationStatus::*|null
      */
     private $accelerationStatus;
 
     /**
      * An identifier for this resource that is unique within all of AWS.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert costs on any
      * billing report that you set up.
+     *
+     * @var BillingTagsSource::*|null
      */
     private $billingTagsSource;
 
@@ -49,36 +57,50 @@ final class Job
      * string that includes up to 64 ASCII characters. If you reuse a client request token within one minute of a successful
      * request, the API returns the job details of the original request instead. For more information see
      * https://docs.aws.amazon.com/mediaconvert/latest/apireference/idempotency.html.
+     *
+     * @var string|null
      */
     private $clientRequestToken;
 
     /**
      * The time, in Unix epoch format in seconds, when the job got created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $createdAt;
 
     /**
      * A job's phase can be PROBING, TRANSCODING OR UPLOADING.
+     *
+     * @var JobPhase::*|null
      */
     private $currentPhase;
 
     /**
      * Error code for the job.
+     *
+     * @var int|null
      */
     private $errorCode;
 
     /**
      * Error message of Job.
+     *
+     * @var string|null
      */
     private $errorMessage;
 
     /**
      * Optional list of hop destinations.
+     *
+     * @var HopDestination[]|null
      */
     private $hopDestinations;
 
     /**
      * A portion of the job's ARN, unique within your AWS Elemental MediaConvert resources.
+     *
+     * @var string|null
      */
     private $id;
 
@@ -89,26 +111,36 @@ final class Job
      * ListJobs requests. The jobPercentComplete estimate is reliable for the following input containers: Quicktime,
      * Transport Stream, MP4, and MXF. For some jobs, the service can't provide information about job progress. In those
      * cases, jobPercentComplete returns a null value.
+     *
+     * @var int|null
      */
     private $jobPercentComplete;
 
     /**
      * The job template that the job is created from, if it is created from a job template.
+     *
+     * @var string|null
      */
     private $jobTemplate;
 
     /**
      * Provides messages from the service about jobs that you have already successfully submitted.
+     *
+     * @var JobMessages|null
      */
     private $messages;
 
     /**
      * List of output group details.
+     *
+     * @var OutputGroupDetail[]|null
      */
     private $outputGroupDetails;
 
     /**
      * Relative priority on the job.
+     *
+     * @var int|null
      */
     private $priority;
 
@@ -116,27 +148,37 @@ final class Job
      * When you create a job, you can specify a queue to send it to. If you don't specify, the job will go to the default
      * queue. For more about queues, see the User Guide topic at
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html.
+     *
+     * @var string|null
      */
     private $queue;
 
     /**
      * The job's queue hopping history.
+     *
+     * @var QueueTransition[]|null
      */
     private $queueTransitions;
 
     /**
      * The number of times that the service automatically attempted to process your job after encountering an error.
+     *
+     * @var int|null
      */
     private $retryCount;
 
     /**
      * The IAM role you use for creating this job. For details about permissions, see the User Guide topic at the User Guide
      * at https://docs.aws.amazon.com/mediaconvert/latest/ug/iam-role.html.
+     *
+     * @var string
      */
     private $role;
 
     /**
      * JobSettings contains all the transcode settings for a job.
+     *
+     * @var JobSettings
      */
     private $settings;
 
@@ -144,11 +186,15 @@ final class Job
      * Enable this setting when you run a test job to estimate how many reserved transcoding slots (RTS) you need. When this
      * is enabled, MediaConvert runs your job from an on-demand queue with similar performance to what you will see with one
      * RTS in a reserved queue. This setting is disabled by default.
+     *
+     * @var SimulateReservedQueue::*|null
      */
     private $simulateReservedQueue;
 
     /**
      * A job's status can be SUBMITTED, PROGRESSING, COMPLETE, CANCELED, or ERROR.
+     *
+     * @var JobStatus::*|null
      */
     private $status;
 
@@ -156,22 +202,30 @@ final class Job
      * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds,
      * between status updates. MediaConvert sends an update at this interval from the time the service begins processing
      * your job to the time it completes the transcode or encounters an error.
+     *
+     * @var StatusUpdateInterval::*|null
      */
     private $statusUpdateInterval;
 
     /**
      * Information about when jobs are submitted, started, and finished is specified in Unix epoch format in seconds.
+     *
+     * @var Timing|null
      */
     private $timing;
 
     /**
      * User-defined metadata that you want to associate with an MediaConvert job. You specify metadata in key/value pairs.
+     *
+     * @var array<string, string>|null
      */
     private $userMetadata;
 
     /**
      * Contains any warning messages for the job. Use to help identify potential issues with your input, output, or job. For
      * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/warning_codes.html.
+     *
+     * @var WarningGroup[]|null
      */
     private $warnings;
 

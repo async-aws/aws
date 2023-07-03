@@ -12,6 +12,8 @@ final class StreamSpecification
 {
     /**
      * Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.
+     *
+     * @var bool
      */
     private $streamEnabled;
 
@@ -23,6 +25,8 @@ final class StreamSpecification
      * - `NEW_IMAGE` - The entire item, as it appears after it was modified, is written to the stream.
      * - `OLD_IMAGE` - The entire item, as it appeared before it was modified, is written to the stream.
      * - `NEW_AND_OLD_IMAGES` - Both the new and the old item images of the item are written to the stream.
+     *
+     * @var StreamViewType::*|null
      */
     private $streamViewType;
 

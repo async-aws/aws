@@ -9,11 +9,15 @@ final class SearchedLogStream
 {
     /**
      * The name of the log stream.
+     *
+     * @var string|null
      */
     private $logStreamName;
 
     /**
      * Indicates whether all the events in this log stream were searched.
+     *
+     * @var bool|null
      */
     private $searchedCompletely;
 

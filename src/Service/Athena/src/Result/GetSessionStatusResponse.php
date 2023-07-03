@@ -10,11 +10,15 @@ class GetSessionStatusResponse extends Result
 {
     /**
      * The session ID.
+     *
+     * @var string|null
      */
     private $sessionId;
 
     /**
      * Contains information about the status of the session.
+     *
+     * @var SessionStatus|null
      */
     private $status;
 

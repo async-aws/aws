@@ -15,6 +15,8 @@ class CreateResolverResponse extends Result
 {
     /**
      * The `Resolver` object.
+     *
+     * @var Resolver|null
      */
     private $resolver;
 

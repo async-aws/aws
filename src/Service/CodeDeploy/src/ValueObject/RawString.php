@@ -11,11 +11,15 @@ final class RawString
     /**
      * The YAML-formatted or JSON-formatted revision string. It includes information about which Lambda function to update
      * and optional Lambda functions that validate deployment lifecycle events.
+     *
+     * @var string|null
      */
     private $content;
 
     /**
      * The SHA256 hash value of the revision content.
+     *
+     * @var string|null
      */
     private $sha256;
 

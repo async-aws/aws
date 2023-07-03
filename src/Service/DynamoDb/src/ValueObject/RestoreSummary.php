@@ -11,21 +11,29 @@ final class RestoreSummary
 {
     /**
      * The Amazon Resource Name (ARN) of the backup from which the table was restored.
+     *
+     * @var string|null
      */
     private $sourceBackupArn;
 
     /**
      * The ARN of the source table of the backup that is being restored.
+     *
+     * @var string|null
      */
     private $sourceTableArn;
 
     /**
      * Point in time or source backup time.
+     *
+     * @var \DateTimeImmutable
      */
     private $restoreDateTime;
 
     /**
      * Indicates if a restore is in progress or not.
+     *
+     * @var bool
      */
     private $restoreInProgress;
 

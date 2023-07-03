@@ -14,6 +14,8 @@ final class DashIsoImageBasedTrickPlaySettings
      * The cadence MediaConvert follows for generating thumbnails. If set to FOLLOW_IFRAME, MediaConvert generates
      * thumbnails for each IDR frame in the output (matching the GOP cadence). If set to FOLLOW_CUSTOM, MediaConvert
      * generates thumbnails according to the interval you specify in thumbnailInterval.
+     *
+     * @var DashIsoIntervalCadence::*|null
      */
     private $intervalCadence;
 
@@ -21,6 +23,8 @@ final class DashIsoImageBasedTrickPlaySettings
      * Height of each thumbnail within each tile image, in pixels. Leave blank to maintain aspect ratio with thumbnail
      * width. If following the aspect ratio would lead to a total tile height greater than 4096, then the job will be
      * rejected. Must be divisible by 2.
+     *
+     * @var int|null
      */
     private $thumbnailHeight;
 
@@ -29,21 +33,29 @@ final class DashIsoImageBasedTrickPlaySettings
      * align with the output frame rate, MediaConvert automatically rounds the interval to align with the output frame rate.
      * For example, if the output frame rate is 29.97 frames per second and you enter 5, MediaConvert uses a 150 frame
      * interval to generate thumbnails.
+     *
+     * @var float|null
      */
     private $thumbnailInterval;
 
     /**
      * Width of each thumbnail within each tile image, in pixels. Default is 312. Must be divisible by 8.
+     *
+     * @var int|null
      */
     private $thumbnailWidth;
 
     /**
      * Number of thumbnails in each column of a tile image. Set a value between 2 and 2048. Must be divisible by 2.
+     *
+     * @var int|null
      */
     private $tileHeight;
 
     /**
      * Number of thumbnails in each row of a tile image. Set a value between 1 and 512.
+     *
+     * @var int|null
      */
     private $tileWidth;
 

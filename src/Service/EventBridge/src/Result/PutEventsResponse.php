@@ -10,6 +10,8 @@ class PutEventsResponse extends Result
 {
     /**
      * The number of failed entries.
+     *
+     * @var int|null
      */
     private $failedEntryCount;
 
@@ -18,6 +20,8 @@ class PutEventsResponse extends Result
      * ID in it. Otherwise, you can use the error code and error message to identify the problem with the entry.
      *
      * For each record, the index of the response element is the same as the index in the request array.
+     *
+     * @var PutEventsResultEntry[]
      */
     private $entries;
 

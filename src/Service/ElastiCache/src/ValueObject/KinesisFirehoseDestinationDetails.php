@@ -9,6 +9,8 @@ final class KinesisFirehoseDestinationDetails
 {
     /**
      * The name of the Kinesis Data Firehose delivery stream.
+     *
+     * @var string|null
      */
     private $deliveryStream;
 

@@ -9,11 +9,15 @@ final class PublishBatchResultEntry
 {
     /**
      * The `Id` of an entry in a batch request.
+     *
+     * @var string|null
      */
     private $id;
 
     /**
      * An identifier for the message.
+     *
+     * @var string|null
      */
     private $messageId;
 
@@ -23,6 +27,8 @@ final class PublishBatchResultEntry
      * The large, non-consecutive number that Amazon SNS assigns to each message.
      *
      * The length of `SequenceNumber` is 128 bits. `SequenceNumber` continues to increase for a particular `MessageGroupId`.
+     *
+     * @var string|null
      */
     private $sequenceNumber;
 

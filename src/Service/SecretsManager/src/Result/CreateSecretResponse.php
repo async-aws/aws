@@ -12,16 +12,22 @@ class CreateSecretResponse extends Result
      * The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This ensures
      * that if you create a new secret with the same name as a deleted secret, then users with access to the old secret
      * don't get access to the new secret because the ARNs are different.
+     *
+     * @var string|null
      */
     private $arn;
 
     /**
      * The name of the new secret.
+     *
+     * @var string|null
      */
     private $name;
 
     /**
      * The unique identifier associated with the version of the new secret.
+     *
+     * @var string|null
      */
     private $versionId;
 
@@ -31,6 +37,8 @@ class CreateSecretResponse extends Result
      * - `Failed`, which indicates that the replica was not created.
      * - `InProgress`, which indicates that Secrets Manager is in the process of creating the replica.
      * - `InSync`, which indicates that the replica was created.
+     *
+     * @var ReplicationStatusType[]
      */
     private $replicationStatus;
 

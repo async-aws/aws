@@ -13,27 +13,37 @@ final class PutEventsRequestEntry
      *
      * [^1]: https://www.rfc-editor.org/rfc/rfc3339.txt
      * [^2]: https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
+     *
+     * @var \DateTimeImmutable|null
      */
     private $time;
 
     /**
      * The source of the event.
+     *
+     * @var string|null
      */
     private $source;
 
     /**
      * Amazon Web Services resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. Any
      * number, including zero, may be present.
+     *
+     * @var string[]|null
      */
     private $resources;
 
     /**
      * Free-form string, with a maximum of 128 characters, used to decide what fields to expect in the event detail.
+     *
+     * @var string|null
      */
     private $detailType;
 
     /**
      * A valid JSON object. There is no other schema imposed. The JSON object may contain fields and nested subobjects.
+     *
+     * @var string|null
      */
     private $detail;
 
@@ -44,6 +54,8 @@ final class PutEventsRequestEntry
      * > If you're using a global endpoint with a custom bus, you must enter the name, not the ARN, of the event bus in
      * > either the primary or secondary Region here and the corresponding event bus in the other Region will be determined
      * > based on the endpoint referenced by the `EndpointId`.
+     *
+     * @var string|null
      */
     private $eventBusName;
 
@@ -54,6 +66,8 @@ final class PutEventsRequestEntry
      * To learn more about X-Ray trace headers, see Tracing header [^1] in the X-Ray Developer Guide.
      *
      * [^1]: https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-tracingheader
+     *
+     * @var string|null
      */
     private $traceHeader;
 

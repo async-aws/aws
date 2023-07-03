@@ -11,6 +11,8 @@ final class DeleteMessageBatchResultEntry
 {
     /**
      * Represents a successfully deleted message.
+     *
+     * @var string
      */
     private $id;
 

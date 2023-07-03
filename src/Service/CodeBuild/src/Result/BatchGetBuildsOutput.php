@@ -31,11 +31,15 @@ class BatchGetBuildsOutput extends Result
 {
     /**
      * Information about the requested builds.
+     *
+     * @var Build[]
      */
     private $builds;
 
     /**
      * The IDs of builds for which information could not be found.
+     *
+     * @var string[]
      */
     private $buildsNotFound;
 

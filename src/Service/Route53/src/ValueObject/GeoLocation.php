@@ -22,6 +22,8 @@ final class GeoLocation
      *
      * Constraint: Specifying `ContinentCode` with either `CountryCode` or `SubdivisionCode` returns an `InvalidInput`
      * error.
+     *
+     * @var string|null
      */
     private $continentCode;
 
@@ -31,6 +33,8 @@ final class GeoLocation
      * Amazon Route 53 uses the two-letter country codes that are specified in ISO standard 3166-1 alpha-2 [^1].
      *
      * [^1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     *
+     * @var string|null
      */
     private $countryCode;
 
@@ -42,6 +46,8 @@ final class GeoLocation
      * If you specify `subdivisioncode`, you must also specify `US` for `CountryCode`.
      *
      * [^1]: https://pe.usps.com/text/pub28/28apb.htm
+     *
+     * @var string|null
      */
     private $subdivisionCode;
 

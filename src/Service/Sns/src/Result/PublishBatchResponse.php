@@ -11,11 +11,15 @@ class PublishBatchResponse extends Result
 {
     /**
      * A list of successful `PublishBatch` responses.
+     *
+     * @var PublishBatchResultEntry[]
      */
     private $successful;
 
     /**
      * A list of failed `PublishBatch` responses.
+     *
+     * @var BatchResultErrorEntry[]
      */
     private $failed;
 

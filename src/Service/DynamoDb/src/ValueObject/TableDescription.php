@@ -17,11 +17,15 @@ final class TableDescription
      *
      * - `AttributeName` - The name of the attribute.
      * - `AttributeType` - The data type for the attribute.
+     *
+     * @var AttributeDefinition[]|null
      */
     private $attributeDefinitions;
 
     /**
      * The name of the table.
+     *
+     * @var string|null
      */
     private $tableName;
 
@@ -46,6 +50,8 @@ final class TableDescription
      * For more information about primary keys, see Primary Key [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey
+     *
+     * @var KeySchemaElement[]|null
      */
     private $keySchema;
 
@@ -62,6 +68,8 @@ final class TableDescription
      *   remains inaccessible for more than seven days.
      * - `ARCHIVING` - The table is being archived. Operations are not allowed until archival is complete.
      * - `ARCHIVED` - The table has been archived. See the ArchivalReason for more information.
+     *
+     * @var TableStatus::*|null
      */
     private $tableStatus;
 
@@ -69,39 +77,53 @@ final class TableDescription
      * The date and time when the table was created, in UNIX epoch time [^1] format.
      *
      * [^1]: http://www.epochconverter.com/
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationDateTime;
 
     /**
      * The provisioned throughput settings for the table, consisting of read and write capacity units, along with data about
      * increases and decreases.
+     *
+     * @var ProvisionedThroughputDescription|null
      */
     private $provisionedThroughput;
 
     /**
      * The total size of the specified table, in bytes. DynamoDB updates this value approximately every six hours. Recent
      * changes might not be reflected in this value.
+     *
+     * @var int|null
      */
     private $tableSizeBytes;
 
     /**
      * The number of items in the specified table. DynamoDB updates this value approximately every six hours. Recent changes
      * might not be reflected in this value.
+     *
+     * @var int|null
      */
     private $itemCount;
 
     /**
      * The Amazon Resource Name (ARN) that uniquely identifies the table.
+     *
+     * @var string|null
      */
     private $tableArn;
 
     /**
      * Unique identifier for the table for which the backup was created.
+     *
+     * @var string|null
      */
     private $tableId;
 
     /**
      * Contains the details for the read/write capacity mode.
+     *
+     * @var BillingModeSummary|null
      */
     private $billingModeSummary;
 
@@ -135,6 +157,8 @@ final class TableDescription
      *   hours. Recent changes might not be reflected in this value.
      *
      * If the table is in the `DELETING` state, no information about indexes will be returned.
+     *
+     * @var LocalSecondaryIndexDescription[]|null
      */
     private $localSecondaryIndexes;
 
@@ -184,11 +208,15 @@ final class TableDescription
      *   and write capacity units, along with data about increases and decreases.
      *
      * If the table is in the `DELETING` state, no information about indexes will be returned.
+     *
+     * @var GlobalSecondaryIndexDescription[]|null
      */
     private $globalSecondaryIndexes;
 
     /**
      * The current DynamoDB Streams configuration for the table.
+     *
+     * @var StreamSpecification|null
      */
     private $streamSpecification;
 
@@ -202,11 +230,15 @@ final class TableDescription
      * - Amazon Web Services customer ID
      * - Table name
      * - `StreamLabel`
+     *
+     * @var string|null
      */
     private $latestStreamLabel;
 
     /**
      * The Amazon Resource Name (ARN) that uniquely identifies the latest stream for this table.
+     *
+     * @var string|null
      */
     private $latestStreamArn;
 
@@ -214,36 +246,50 @@ final class TableDescription
      * Represents the version of global tables [^1] in use, if the table is replicated across Amazon Web Services Regions.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html
+     *
+     * @var string|null
      */
     private $globalTableVersion;
 
     /**
      * Represents replicas of the table.
+     *
+     * @var ReplicaDescription[]|null
      */
     private $replicas;
 
     /**
      * Contains details for the restore.
+     *
+     * @var RestoreSummary|null
      */
     private $restoreSummary;
 
     /**
      * The description of the server-side encryption status on the specified table.
+     *
+     * @var SSEDescription|null
      */
     private $sseDescription;
 
     /**
      * Contains information about the table archive.
+     *
+     * @var ArchivalSummary|null
      */
     private $archivalSummary;
 
     /**
      * Contains details of the table class.
+     *
+     * @var TableClassSummary|null
      */
     private $tableClassSummary;
 
     /**
      * Indicates whether deletion protection is enabled (true) or disabled (false) on the table.
+     *
+     * @var bool|null
      */
     private $deletionProtectionEnabled;
 

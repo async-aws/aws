@@ -13,14 +13,21 @@ class GetObjectAclOutput extends Result
 {
     /**
      * Container for the bucket owner's display name and ID.
+     *
+     * @var Owner|null
      */
     private $owner;
 
     /**
      * A list of grants.
+     *
+     * @var Grant[]
      */
     private $grants;
 
+    /**
+     * @var RequestCharged::*|null
+     */
     private $requestCharged;
 
     /**

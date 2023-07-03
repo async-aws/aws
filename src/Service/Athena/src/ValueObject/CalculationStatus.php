@@ -11,11 +11,15 @@ final class CalculationStatus
 {
     /**
      * The date and time the calculation was submitted for processing.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $submissionDateTime;
 
     /**
      * The date and time the calculation completed processing.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $completionDateTime;
 
@@ -37,12 +41,16 @@ final class CalculationStatus
      * `COMPLETED` - The calculation has completed without error.
      *
      * `FAILED` - The calculation failed and is no longer running.
+     *
+     * @var CalculationExecutionState::*|null
      */
     private $state;
 
     /**
      * The reason for the calculation state change (for example, the calculation was canceled because the session was
      * terminated).
+     *
+     * @var string|null
      */
     private $stateChangeReason;
 

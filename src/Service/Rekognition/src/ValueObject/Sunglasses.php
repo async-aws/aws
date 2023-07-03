@@ -9,11 +9,15 @@ final class Sunglasses
 {
     /**
      * Boolean value that indicates whether the face is wearing sunglasses or not.
+     *
+     * @var bool|null
      */
     private $value;
 
     /**
      * Level of confidence in the determination.
+     *
+     * @var float|null
      */
     private $confidence;
 

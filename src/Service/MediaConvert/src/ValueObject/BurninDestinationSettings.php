@@ -28,6 +28,8 @@ final class BurninDestinationSettings
      * placethe captions at the bottom center of the output. Similarly, setting a left alignment willalign captions to the
      * bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will
      * be justified (either left or centered) relative to those coordinates.
+     *
+     * @var BurninSubtitleAlignment::*|null
      */
     private $alignment;
 
@@ -38,12 +40,16 @@ final class BurninDestinationSettings
      * in your input captions. For example, if your font color setting is Yellow, and your input captions have red and white
      * text, your output captions will have red and yellow text. When you choose ALL_TEXT, your font color setting applies
      * to all of your output captions text.
+     *
+     * @var BurninSubtitleApplyFontColor::*|null
      */
     private $applyFontColor;
 
     /**
      * Specify the color of the rectangle behind the captions. Leave background color (BackgroundColor) blank and set Style
      * passthrough (StylePassthrough) to enabled to use the background color data from your input captions, if present.
+     *
+     * @var BurninSubtitleBackgroundColor::*|null
      */
     private $backgroundColor;
 
@@ -52,6 +58,8 @@ final class BurninDestinationSettings
      * opaque. If Style passthrough (StylePassthrough) is set to enabled, leave blank to pass through the background style
      * information in your input captions to your output captions. If Style passthrough is set to disabled, leave blank to
      * use a value of 0 and remove all backgrounds from your output captions.
+     *
+     * @var int|null
      */
     private $backgroundOpacity;
 
@@ -62,22 +70,30 @@ final class BurninDestinationSettings
      * there are multiple unsupported fonts in your input captions, MediaConvert matches each font with the supported font
      * that matches best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all
      * unsupported fonts from your input.
+     *
+     * @var BurninSubtitleFallbackFont::*|null
      */
     private $fallbackFont;
 
     /**
      * Specify the color of the burned-in captions text. Leave Font color (FontColor) blank and set Style passthrough
      * (StylePassthrough) to enabled to use the font color data from your input captions, if present.
+     *
+     * @var BurninSubtitleFontColor::*|null
      */
     private $fontColor;
 
     /**
      * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent.
+     *
+     * @var int|null
      */
     private $fontOpacity;
 
     /**
      * Specify the Font resolution (FontResolution) in DPI (dots per inch).
+     *
+     * @var int|null
      */
     private $fontResolution;
 
@@ -85,12 +101,16 @@ final class BurninDestinationSettings
      * Set Font script (FontScript) to Automatically determined (AUTOMATIC), or leave blank, to automatically determine the
      * font script in your input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your
      * input font script uses Simplified or Traditional Chinese.
+     *
+     * @var FontScript::*|null
      */
     private $fontScript;
 
     /**
      * Specify the Font size (FontSize) in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font
      * size.
+     *
+     * @var int|null
      */
     private $fontSize;
 
@@ -98,24 +118,32 @@ final class BurninDestinationSettings
      * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits, representing
      * red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a red value of
      * 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     *
+     * @var string|null
      */
     private $hexFontColor;
 
     /**
      * Specify font outline color. Leave Outline color (OutlineColor) blank and set Style passthrough (StylePassthrough) to
      * enabled to use the font outline color data from your input captions, if present.
+     *
+     * @var BurninSubtitleOutlineColor::*|null
      */
     private $outlineColor;
 
     /**
      * Specify the Outline size (OutlineSize) of the caption text, in pixels. Leave Outline size blank and set Style
      * passthrough (StylePassthrough) to enabled to use the outline size data from your input captions, if present.
+     *
+     * @var int|null
      */
     private $outlineSize;
 
     /**
      * Specify the color of the shadow cast by the captions. Leave Shadow color (ShadowColor) blank and set Style
      * passthrough (StylePassthrough) to enabled to use the shadow color data from your input captions, if present.
+     *
+     * @var BurninSubtitleShadowColor::*|null
      */
     private $shadowColor;
 
@@ -124,12 +152,16 @@ final class BurninDestinationSettings
      * passthrough (StylePassthrough) is set to Enabled, leave Shadow opacity (ShadowOpacity) blank to pass through the
      * shadow style information in your input captions to your output captions. If Style passthrough is set to disabled,
      * leave blank to use a value of 0 and remove all shadows from your output captions.
+     *
+     * @var int|null
      */
     private $shadowOpacity;
 
     /**
      * Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would result in a
      * shadow offset 2 pixels to the left.
+     *
+     * @var int|null
      */
     private $shadowXoffset;
 
@@ -137,6 +169,8 @@ final class BurninDestinationSettings
      * Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a shadow
      * offset 2 pixels above the text. Leave Shadow y-offset (ShadowYOffset) blank and set Style passthrough
      * (StylePassthrough) to enabled to use the shadow y-offset data from your input captions, if present.
+     *
+     * @var int|null
      */
     private $shadowYoffset;
 
@@ -147,6 +181,8 @@ final class BurninDestinationSettings
      * input captions and use default settings: white text with black outlining, bottom-center positioning, and automatic
      * sizing. Whether you set Style passthrough to enabled or not, you can also choose to manually override any of the
      * individual style and position settings.
+     *
+     * @var BurnInSubtitleStylePassthrough::*|null
      */
     private $stylePassthrough;
 
@@ -154,6 +190,8 @@ final class BurninDestinationSettings
      * Specify whether the text spacing (TeletextSpacing) in your captions is set by the captions grid, or varies depending
      * on letter width. Choose fixed grid (FIXED_GRID) to conform to the spacing specified in the captions file more
      * accurately. Choose proportional (PROPORTIONAL) to make the text easier to read for closed captions.
+     *
+     * @var BurninSubtitleTeletextSpacing::*|null
      */
     private $teletextSpacing;
 
@@ -161,6 +199,8 @@ final class BurninDestinationSettings
      * Specify the horizontal position (XPosition) of the captions, relative to the left side of the output in pixels. A
      * value of 10 would result in the captions starting 10 pixels from the left of the output. If no explicit x_position is
      * provided, the horizontal caption position will be determined by the alignment parameter.
+     *
+     * @var int|null
      */
     private $xposition;
 
@@ -168,6 +208,8 @@ final class BurninDestinationSettings
      * Specify the vertical position (YPosition) of the captions, relative to the top of the output in pixels. A value of 10
      * would result in the captions starting 10 pixels from the top of the output. If no explicit y_position is provided,
      * the caption will be positioned towards the bottom of the output.
+     *
+     * @var int|null
      */
     private $yposition;
 

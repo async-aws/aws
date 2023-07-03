@@ -11,11 +11,15 @@ final class SpekeKeyProvider
     /**
      * If you want your key provider to encrypt the content keys that it provides to MediaConvert, set up a certificate with
      * a master key using AWS Certificate Manager. Specify the certificate's Amazon Resource Name (ARN) here.
+     *
+     * @var string|null
      */
     private $certificateArn;
 
     /**
      * Specify the resource ID that your SPEKE-compliant key provider uses to identify this content.
+     *
+     * @var string|null
      */
     private $resourceId;
 
@@ -23,12 +27,16 @@ final class SpekeKeyProvider
      * Relates to SPEKE implementation. DRM system identifiers. DASH output groups support a max of two system ids. Other
      * group types support one system id. See
      * https://dashif.org/identifiers/content_protection/ for more details.
+     *
+     * @var string[]|null
      */
     private $systemIds;
 
     /**
      * Specify the URL to the key server that your SPEKE-compliant DRM key provider uses to provide keys for encrypting your
      * content.
+     *
+     * @var string|null
      */
     private $url;
 

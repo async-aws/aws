@@ -10,17 +10,23 @@ final class Parameter
     /**
      * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
      * CloudFormation uses the default value that's specified in your template.
+     *
+     * @var string|null
      */
     private $parameterKey;
 
     /**
      * The input value associated with the parameter.
+     *
+     * @var string|null
      */
     private $parameterValue;
 
     /**
      * During a stack update, use the existing parameter value that the stack is using for a given parameter key. If you
      * specify `true`, do not specify a parameter value.
+     *
+     * @var bool|null
      */
     private $usePreviousValue;
 
@@ -29,6 +35,8 @@ final class Parameter
      * types in the template.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types
+     *
+     * @var string|null
      */
     private $resolvedValue;
 

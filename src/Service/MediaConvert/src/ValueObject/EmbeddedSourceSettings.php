@@ -15,23 +15,31 @@ final class EmbeddedSourceSettings
      * Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose
      * Upconvert (UPCONVERT), MediaConvert includes the captions data in two ways: it passes the 608 data through using the
      * 608 compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
+     *
+     * @var EmbeddedConvert608To708::*|null
      */
     private $convert608To708;
 
     /**
      * Specifies the 608/708 channel number within the video track from which to extract captions. Unused for passthrough.
+     *
+     * @var int|null
      */
     private $source608ChannelNumber;
 
     /**
      * Specifies the video track index used for extracting captions. The system only supports one input video track, so this
      * should always be set to '1'.
+     *
+     * @var int|null
      */
     private $source608TrackNumber;
 
     /**
      * By default, the service terminates any unterminated captions at the end of each input. If you want the caption to
      * continue onto your next input, disable this setting.
+     *
+     * @var EmbeddedTerminateCaptions::*|null
      */
     private $terminateCaptions;
 

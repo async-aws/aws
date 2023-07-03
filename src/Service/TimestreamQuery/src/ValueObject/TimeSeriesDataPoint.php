@@ -13,11 +13,15 @@ final class TimeSeriesDataPoint
 {
     /**
      * The timestamp when the measure value was collected.
+     *
+     * @var string
      */
     private $time;
 
     /**
      * The measure value for the data point.
+     *
+     * @var Datum
      */
     private $value;
 

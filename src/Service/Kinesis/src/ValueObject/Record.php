@@ -13,11 +13,15 @@ final class Record
 {
     /**
      * The unique identifier of the record within its shard.
+     *
+     * @var string
      */
     private $sequenceNumber;
 
     /**
      * The approximate time that the record was inserted into the stream.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $approximateArrivalTimestamp;
 
@@ -25,11 +29,15 @@ final class Record
      * The data blob. The data in the blob is both opaque and immutable to Kinesis Data Streams, which does not inspect,
      * interpret, or change the data in the blob in any way. When the data blob (the payload before base64-encoding) is
      * added to the partition key size, the total size must not exceed the maximum record size (1 MiB).
+     *
+     * @var string
      */
     private $data;
 
     /**
      * Identifies which shard in the stream the data record is assigned to.
+     *
+     * @var string
      */
     private $partitionKey;
 
@@ -39,6 +47,8 @@ final class Record
      * - `NONE`: Do not encrypt the records in the stream.
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
+     *
+     * @var EncryptionType::*|null
      */
     private $encryptionType;
 

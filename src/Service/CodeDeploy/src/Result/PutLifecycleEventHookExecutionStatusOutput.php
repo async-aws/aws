@@ -10,6 +10,8 @@ class PutLifecycleEventHookExecutionStatusOutput extends Result
     /**
      * The execution ID of the lifecycle event hook. A hook is specified in the `hooks` section of the deployment's AppSpec
      * file.
+     *
+     * @var string|null
      */
     private $lifecycleEventHookExecutionId;
 

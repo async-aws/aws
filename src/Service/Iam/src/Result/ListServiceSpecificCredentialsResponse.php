@@ -10,6 +10,8 @@ class ListServiceSpecificCredentialsResponse extends Result
 {
     /**
      * A list of structures that each contain details about a service-specific credential.
+     *
+     * @var ServiceSpecificCredentialMetadata[]
      */
     private $serviceSpecificCredentials;
 

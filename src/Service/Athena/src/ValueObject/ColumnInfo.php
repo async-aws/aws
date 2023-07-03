@@ -12,52 +12,72 @@ final class ColumnInfo
 {
     /**
      * The catalog to which the query results belong.
+     *
+     * @var string|null
      */
     private $catalogName;
 
     /**
      * The schema name (database name) to which the query results belong.
+     *
+     * @var string|null
      */
     private $schemaName;
 
     /**
      * The table name for the query results.
+     *
+     * @var string|null
      */
     private $tableName;
 
     /**
      * The name of the column.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * A column label.
+     *
+     * @var string|null
      */
     private $label;
 
     /**
      * The data type of the column.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * For `DECIMAL` data types, specifies the total number of digits, up to 38. For performance reasons, we recommend up to
      * 18 digits.
+     *
+     * @var int|null
      */
     private $precision;
 
     /**
      * For `DECIMAL` data types, specifies the total number of digits in the fractional part of the value. Defaults to 0.
+     *
+     * @var int|null
      */
     private $scale;
 
     /**
      * Indicates the column's nullable status.
+     *
+     * @var ColumnNullable::*|null
      */
     private $nullable;
 
     /**
      * Indicates whether values in the column are case-sensitive.
+     *
+     * @var bool|null
      */
     private $caseSensitive;
 

@@ -9,11 +9,15 @@ final class ImageConfigResponse
 {
     /**
      * Configuration values that override the container image Dockerfile.
+     *
+     * @var ImageConfig|null
      */
     private $imageConfig;
 
     /**
      * Error response to `GetFunctionConfiguration`.
+     *
+     * @var ImageConfigError|null
      */
     private $error;
 

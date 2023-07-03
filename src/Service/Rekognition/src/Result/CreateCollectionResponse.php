@@ -9,16 +9,22 @@ class CreateCollectionResponse extends Result
 {
     /**
      * HTTP status code indicating the result of the operation.
+     *
+     * @var int|null
      */
     private $statusCode;
 
     /**
      * Amazon Resource Name (ARN) of the collection. You can use this to manage permissions on your resources.
+     *
+     * @var string|null
      */
     private $collectionArn;
 
     /**
      * Version number of the face detection model associated with the collection you are creating.
+     *
+     * @var string|null
      */
     private $faceModelVersion;
 

@@ -15,6 +15,8 @@ final class CloudWatchLogsConfig
      *
      * - `ENABLED`: CloudWatch Logs are enabled for this build project.
      * - `DISABLED`: CloudWatch Logs are not enabled for this build project.
+     *
+     * @var LogsConfigStatusType::*
      */
     private $status;
 
@@ -23,6 +25,8 @@ final class CloudWatchLogsConfig
      * [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
+     *
+     * @var string|null
      */
     private $groupName;
 
@@ -31,6 +35,8 @@ final class CloudWatchLogsConfig
      * Streams [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
+     *
+     * @var string|null
      */
     private $streamName;
 

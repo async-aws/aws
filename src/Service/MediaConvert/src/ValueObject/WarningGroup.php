@@ -12,11 +12,15 @@ final class WarningGroup
     /**
      * Warning code that identifies a specific warning in the job. For more information, see
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/warning_codes.html.
+     *
+     * @var int
      */
     private $code;
 
     /**
      * The number of times this warning occurred in the job.
+     *
+     * @var int
      */
     private $count;
 

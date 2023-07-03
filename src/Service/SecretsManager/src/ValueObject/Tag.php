@@ -9,11 +9,15 @@ final class Tag
 {
     /**
      * The key identifier, or name, of the tag.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * The string value associated with the key of the tag.
+     *
+     * @var string|null
      */
     private $value;
 

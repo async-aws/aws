@@ -89,6 +89,8 @@ final class AliasTarget
      * [^7]: http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html
      * [^8]: http://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-load-balancers.html
      * [^9]: https://docs.aws.amazon.com/general/latest/gr/s3.html#s3_website_region_endpoints
+     *
+     * @var string
      */
     private $hostedZoneId;
 
@@ -210,6 +212,8 @@ final class AliasTarget
      * [^12]: https://docs.aws.amazon.com/cli/latest/reference/globalaccelerator/describe-accelerator.html
      * [^13]: https://docs.aws.amazon.com/general/latest/gr/s3.html#s3_website_region_endpoints
      * [^14]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html
+     *
+     * @var string
      */
     private $dnsName;
 
@@ -270,6 +274,8 @@ final class AliasTarget
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-complex-configs.html#dns-failover-complex-configs-hc-omitting
      * [^2]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html
+     *
+     * @var bool
      */
     private $evaluateTargetHealth;
 

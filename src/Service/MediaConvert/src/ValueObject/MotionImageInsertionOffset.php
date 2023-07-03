@@ -9,11 +9,15 @@ final class MotionImageInsertionOffset
 {
     /**
      * Set the distance, in pixels, between the overlay and the left edge of the video frame.
+     *
+     * @var int|null
      */
     private $imageX;
 
     /**
      * Set the distance, in pixels, between the overlay and the top edge of the video frame.
+     *
+     * @var int|null
      */
     private $imageY;
 

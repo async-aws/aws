@@ -9,16 +9,22 @@ final class Capacity
 {
     /**
      * The total number of read capacity units consumed on a table or an index.
+     *
+     * @var float|null
      */
     private $readCapacityUnits;
 
     /**
      * The total number of write capacity units consumed on a table or an index.
+     *
+     * @var float|null
      */
     private $writeCapacityUnits;
 
     /**
      * The total number of capacity units consumed on a table or an index.
+     *
+     * @var float|null
      */
     private $capacityUnits;
 

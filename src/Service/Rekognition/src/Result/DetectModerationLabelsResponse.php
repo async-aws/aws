@@ -11,16 +11,22 @@ class DetectModerationLabelsResponse extends Result
 {
     /**
      * Array of detected Moderation labels and the time, in milliseconds from the start of the video, they were detected.
+     *
+     * @var ModerationLabel[]
      */
     private $moderationLabels;
 
     /**
      * Version number of the moderation detection model that was used to detect unsafe content.
+     *
+     * @var string|null
      */
     private $moderationModelVersion;
 
     /**
      * Shows the results of the human in the loop evaluation.
+     *
+     * @var HumanLoopActivationOutput|null
      */
     private $humanLoopActivationOutput;
 

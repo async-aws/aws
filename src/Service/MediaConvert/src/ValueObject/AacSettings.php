@@ -27,6 +27,8 @@ final class AacSettings
      * mixing. When you choose BROADCASTER_MIXED_AD, the encoder ignores any values you provide in AudioType and
      * FollowInputAudioType. Choose NORMAL when the input does not contain pre-mixed audio + audio description (AD). In this
      * case, the encoder will use any values you provide for AudioType and FollowInputAudioType.
+     *
+     * @var AacAudioDescriptionBroadcasterMix::*|null
      */
     private $audioDescriptionBroadcasterMix;
 
@@ -36,11 +38,15 @@ final class AacSettings
      * 192000, 224000, 256000, 288000, 320000, 384000, 448000, 512000, 576000, 640000, 768000, 896000, 1024000. The value
      * you set is also constrained by the values that you choose for Profile (codecProfile), Bitrate control mode
      * (codingMode), and Sample rate (sampleRate). Default values depend on Bitrate control mode and Profile.
+     *
+     * @var int|null
      */
     private $bitrate;
 
     /**
      * AAC Profile.
+     *
+     * @var AacCodecProfile::*|null
      */
     private $codecProfile;
 
@@ -51,17 +57,23 @@ final class AacSettings
      * One channel, C. Includes audio description data from your stereo input. For more information see ETSI TS 101 154
      * Annex E. * 1.0 Mono: One channel, C. * 2.0 Stereo: Two channels, L, R. * 5.1 Surround: Six channels, C, L, R, Ls, Rs,
      * LFE.
+     *
+     * @var AacCodingMode::*|null
      */
     private $codingMode;
 
     /**
      * Rate Control Mode.
+     *
+     * @var AacRateControlMode::*|null
      */
     private $rateControlMode;
 
     /**
      * Enables LATM/LOAS AAC output. Note that if you use LATM/LOAS AAC in an output, you must choose "No container" for the
      * output container.
+     *
+     * @var AacRawFormat::*|null
      */
     private $rawFormat;
 
@@ -72,16 +84,22 @@ final class AacSettings
      * 32000, 44100, 48000, 96000. * HEV1 Profile, Coding mode 1.0 and Receiver Mix: 22050, 24000, 32000, 44100, 48000. *
      * HEV1 Profile, Coding mode 2.0 and 5.1: 32000, 44100, 48000, 96000. * HEV2 Profile, Coding mode 2.0: 22050, 24000,
      * 32000, 44100, 48000.
+     *
+     * @var int|null
      */
     private $sampleRate;
 
     /**
      * Use MPEG-2 AAC instead of MPEG-4 AAC audio for raw or MPEG-2 Transport Stream containers.
+     *
+     * @var AacSpecification::*|null
      */
     private $specification;
 
     /**
      * VBR Quality Level - Only used if rate_control_mode is VBR.
+     *
+     * @var AacVbrQuality::*|null
      */
     private $vbrQuality;
 

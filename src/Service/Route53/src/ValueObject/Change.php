@@ -25,11 +25,15 @@ final class Change
      *   Route 53 updates it with the values in the request.
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicyInstance.html
+     *
+     * @var ChangeAction::*
      */
     private $action;
 
     /**
      * Information about the resource record set to create, delete, or update.
+     *
+     * @var ResourceRecordSet
      */
     private $resourceRecordSet;
 

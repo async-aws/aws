@@ -9,16 +9,22 @@ final class CodeErrorLocation
 {
     /**
      * The line number in the code. Defaults to `0` if unknown.
+     *
+     * @var int|null
      */
     private $line;
 
     /**
      * The column number in the code. Defaults to `0` if unknown.
+     *
+     * @var int|null
      */
     private $column;
 
     /**
      * The span/length of the error. Defaults to `-1` if unknown.
+     *
+     * @var int|null
      */
     private $span;
 

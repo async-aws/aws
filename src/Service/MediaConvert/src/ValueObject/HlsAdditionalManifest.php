@@ -15,11 +15,15 @@ final class HlsAdditionalManifest
      * top-level manifest is film-name-no-premium.m3u8. For HLS output groups, specify a manifestNameModifier that is
      * different from the nameModifier of the output. The service uses the output name modifier to create unique names for
      * the individual variant manifests.
+     *
+     * @var string|null
      */
     private $manifestNameModifier;
 
     /**
      * Specify the outputs that you want this additional top-level manifest to reference.
+     *
+     * @var string[]|null
      */
     private $selectedOutputs;
 

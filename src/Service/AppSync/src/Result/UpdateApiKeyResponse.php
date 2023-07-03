@@ -10,6 +10,8 @@ class UpdateApiKeyResponse extends Result
 {
     /**
      * The API key.
+     *
+     * @var ApiKey|null
      */
     private $apiKey;
 

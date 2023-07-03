@@ -15,6 +15,8 @@ final class SnapStartResponse
     /**
      * When set to `PublishedVersions`, Lambda creates a snapshot of the execution environment when you publish a function
      * version.
+     *
+     * @var SnapStartApplyOn::*|null
      */
     private $applyOn;
 
@@ -23,6 +25,8 @@ final class SnapStartResponse
      * activated for the specified function version.
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using
+     *
+     * @var SnapStartOptimizationStatus::*|null
      */
     private $optimizationStatus;
 

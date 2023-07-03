@@ -12,16 +12,22 @@ final class HumanLoopQuotaExceededException extends ClientException
 {
     /**
      * The resource type.
+     *
+     * @var string|null
      */
     private $resourceType;
 
     /**
      * The quota code.
+     *
+     * @var string|null
      */
     private $quotaCode;
 
     /**
      * The service code.
+     *
+     * @var string|null
      */
     private $serviceCode;
 

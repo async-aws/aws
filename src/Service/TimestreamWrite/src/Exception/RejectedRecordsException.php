@@ -28,6 +28,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class RejectedRecordsException extends ClientException
 {
+    /**
+     * @var RejectedRecord[]
+     */
     private $rejectedRecords;
 
     /**

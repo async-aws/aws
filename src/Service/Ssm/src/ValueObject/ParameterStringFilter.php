@@ -24,6 +24,8 @@ final class ParameterStringFilter
      * for Systems Manager parameters [^1] in the *Amazon Web Services Systems Manager User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html
+     *
+     * @var string
      */
     private $key;
 
@@ -34,11 +36,15 @@ final class ParameterStringFilter
      *
      * For filters used with GetParametersByPath, valid options include `Equals` and `BeginsWith`. (Exception: For filters
      * using `Label` as the Key name, the only valid option is `Equals`.)
+     *
+     * @var string|null
      */
     private $option;
 
     /**
      * The value you want to search for.
+     *
+     * @var string[]|null
      */
     private $values;
 

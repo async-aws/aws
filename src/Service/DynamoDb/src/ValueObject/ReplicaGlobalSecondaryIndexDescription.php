@@ -9,11 +9,15 @@ final class ReplicaGlobalSecondaryIndexDescription
 {
     /**
      * The name of the global secondary index.
+     *
+     * @var string|null
      */
     private $indexName;
 
     /**
      * If not described, uses the source table GSI's read capacity settings.
+     *
+     * @var ProvisionedThroughputOverride|null
      */
     private $provisionedThroughputOverride;
 

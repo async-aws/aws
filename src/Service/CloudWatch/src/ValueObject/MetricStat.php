@@ -12,6 +12,8 @@ final class MetricStat
 {
     /**
      * The metric to return, including the metric name, namespace, and dimensions.
+     *
+     * @var Metric
      */
     private $metric;
 
@@ -27,11 +29,15 @@ final class MetricStat
      * - Start time between 3 hours and 15 days ago - Use a multiple of 60 seconds (1 minute).
      * - Start time between 15 and 63 days ago - Use a multiple of 300 seconds (5 minutes).
      * - Start time greater than 63 days ago - Use a multiple of 3600 seconds (1 hour).
+     *
+     * @var int
      */
     private $period;
 
     /**
      * The statistic to return. It can include any CloudWatch statistic or extended statistic.
+     *
+     * @var string
      */
     private $stat;
 
@@ -42,6 +48,8 @@ final class MetricStat
      * corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the
      * operation returns only data that was collected with that unit specified. If you specify a unit that does not match
      * the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.
+     *
+     * @var StandardUnit::*|null
      */
     private $unit;
 

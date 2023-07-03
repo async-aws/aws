@@ -11,12 +11,16 @@ final class ResultReuseByAgeConfiguration
 {
     /**
      * True if previous query results can be reused when the query is run; otherwise, false. The default is false.
+     *
+     * @var bool
      */
     private $enabled;
 
     /**
      * Specifies, in minutes, the maximum age of a previous query result that Athena should consider for reuse. The default
      * is 60.
+     *
+     * @var int|null
      */
     private $maxAgeInMinutes;
 

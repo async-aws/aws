@@ -11,6 +11,8 @@ final class DvbTdtSettings
 {
     /**
      * The number of milliseconds between instances of this table in the output transport stream.
+     *
+     * @var int|null
      */
     private $tdtInterval;
 

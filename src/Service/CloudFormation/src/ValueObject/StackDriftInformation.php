@@ -20,12 +20,16 @@ final class StackDriftInformation
      * - `NOT_CHECKED`: CloudFormation hasn't checked if the stack differs from its expected template configuration.
      * - `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
      * - `UNKNOWN`: This value is reserved for future use.
+     *
+     * @var StackDriftStatus::*
      */
     private $stackDriftStatus;
 
     /**
      * Most recent time when a drift detection operation was initiated on the stack, or any of its individual resources that
      * support drift detection.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $lastCheckTimestamp;
 

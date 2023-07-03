@@ -19,6 +19,8 @@ final class CaptionDestinationSettings
      * video. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      * When you work directly in your JSON job specification, include this object and any required children when you set
      * destinationType to BURN_IN.
+     *
+     * @var BurninDestinationSettings|null
      */
     private $burninDestinationSettings;
 
@@ -29,6 +31,8 @@ final class CaptionDestinationSettings
      * want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED). To
      * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
      * (EMBEDDED_PLUS_SCTE20).
+     *
+     * @var CaptionDestinationType::*|null
      */
     private $destinationType;
 
@@ -36,6 +40,8 @@ final class CaptionDestinationSettings
      * Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more information,
      * see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html. When you work directly in your
      * JSON job specification, include this object and any required children when you set destinationType to DVB_SUB.
+     *
+     * @var DvbSubDestinationSettings|null
      */
     private $dvbSubDestinationSettings;
 
@@ -45,6 +51,8 @@ final class CaptionDestinationSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html. When you work directly in your JSON
      * job specification, include this object and any required children when you set destinationType to EMBEDDED,
      * EMBEDDED_PLUS_SCTE20, or SCTE20_PLUS_EMBEDDED.
+     *
+     * @var EmbeddedDestinationSettings|null
      */
     private $embeddedDestinationSettings;
 
@@ -54,6 +62,8 @@ final class CaptionDestinationSettings
      * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html. When you
      * work directly in your JSON job specification, include this object and any required children when you set
      * destinationType to IMSC.
+     *
+     * @var ImscDestinationSettings|null
      */
     private $imscDestinationSettings;
 
@@ -63,6 +73,8 @@ final class CaptionDestinationSettings
      * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html. When you work
      * directly in your JSON job specification, include this object and any required children when you set destinationType
      * to SCC.
+     *
+     * @var SccDestinationSettings|null
      */
     private $sccDestinationSettings;
 
@@ -71,6 +83,8 @@ final class CaptionDestinationSettings
      * video container. Set up sidecar captions in the same output group, but different output from your video. When you
      * work directly in your JSON job specification, include this object and any required children when you set
      * destinationType to SRT.
+     *
+     * @var SrtDestinationSettings|null
      */
     private $srtDestinationSettings;
 
@@ -79,6 +93,8 @@ final class CaptionDestinationSettings
      * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html. When you work
      * directly in your JSON job specification, include this object and any required children when you set destinationType
      * to TELETEXT.
+     *
+     * @var TeletextDestinationSettings|null
      */
     private $teletextDestinationSettings;
 
@@ -88,6 +104,8 @@ final class CaptionDestinationSettings
      * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html. When you
      * work directly in your JSON job specification, include this object and any required children when you set
      * destinationType to TTML.
+     *
+     * @var TtmlDestinationSettings|null
      */
     private $ttmlDestinationSettings;
 
@@ -97,6 +115,8 @@ final class CaptionDestinationSettings
      * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html. When you
      * work directly in your JSON job specification, include this object and any required children when you set
      * destinationType to WebVTT.
+     *
+     * @var WebvttDestinationSettings|null
      */
     private $webvttDestinationSettings;
 

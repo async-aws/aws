@@ -11,6 +11,8 @@ final class HostedZone
 {
     /**
      * The ID that Amazon Route 53 assigned to the hosted zone when you created it.
+     *
+     * @var string
      */
     private $id;
 
@@ -21,28 +23,38 @@ final class HostedZone
      * internationalized domain names, see CreateHostedZone [^1].
      *
      * [^1]: https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The value that you specified for `CallerReference` when you created the hosted zone.
+     *
+     * @var string
      */
     private $callerReference;
 
     /**
      * A complex type that includes the `Comment` and `PrivateZone` elements. If you omitted the `HostedZoneConfig` and
      * `Comment` elements from the request, the `Config` and `Comment` elements don't appear in the response.
+     *
+     * @var HostedZoneConfig|null
      */
     private $config;
 
     /**
      * The number of resource record sets in the hosted zone.
+     *
+     * @var int|null
      */
     private $resourceRecordSetCount;
 
     /**
      * If the hosted zone was created by another service, the service that created the hosted zone. When a hosted zone is
      * created by another service, you can't edit or delete it using Route 53.
+     *
+     * @var LinkedService|null
      */
     private $linkedService;
 

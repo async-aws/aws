@@ -31,6 +31,8 @@ final class ProjectEnvironment
      * For more information, see Build environment compute types [^1] in the *CodeBuild user guide*.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html
+     *
+     * @var EnvironmentType::*
      */
     private $type;
 
@@ -47,6 +49,8 @@ final class ProjectEnvironment
      * For more information, see Docker images provided by CodeBuild [^1] in the *CodeBuild user guide*.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+     *
+     * @var string
      */
     private $image;
 
@@ -70,11 +74,15 @@ final class ProjectEnvironment
      * For more information, see Build Environment Compute Types [^1] in the *CodeBuild User Guide.*
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html
+     *
+     * @var ComputeType::*
      */
     private $computeType;
 
     /**
      * A set of environment variables to make available to builds for this build project.
+     *
+     * @var EnvironmentVariable[]|null
      */
     private $environmentVariables;
 
@@ -100,6 +108,8 @@ final class ProjectEnvironment
      * --storage-driver=overlay&`
      *
      * `- timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"`
+     *
+     * @var bool|null
      */
     private $privilegedMode;
 
@@ -108,11 +118,15 @@ final class ProjectEnvironment
      * project. For more information, see certificate [^1] in the *CodeBuild User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate
+     *
+     * @var string|null
      */
     private $certificate;
 
     /**
      * The credentials for access to a private registry.
+     *
+     * @var RegistryCredential|null
      */
     private $registryCredential;
 
@@ -125,6 +139,8 @@ final class ProjectEnvironment
      *
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
      * CodeBuild curated image, you must use CODEBUILD credentials.
+     *
+     * @var ImagePullCredentialsType::*|null
      */
     private $imagePullCredentialsType;
 

@@ -9,11 +9,15 @@ final class Term
 {
     /**
      * The source text of the term being translated by the custom terminology.
+     *
+     * @var string|null
      */
     private $sourceText;
 
     /**
      * The target text of the term being translated by the custom terminology.
+     *
+     * @var string|null
      */
     private $targetText;
 

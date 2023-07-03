@@ -15,32 +15,44 @@ final class Put
      * of the table's primary key attributes must be specified, and their data types must match those of the table's key
      * schema. If any attributes are present in the item that are part of an index key schema for the table, their types
      * must match the index key schema.
+     *
+     * @var array<string, AttributeValue>
      */
     private $item;
 
     /**
      * Name of the table in which to write the item.
+     *
+     * @var string
      */
     private $tableName;
 
     /**
      * A condition that must be satisfied in order for a conditional update to succeed.
+     *
+     * @var string|null
      */
     private $conditionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression.
+     *
+     * @var array<string, string>|null
      */
     private $expressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
+     *
+     * @var array<string, AttributeValue>|null
      */
     private $expressionAttributeValues;
 
     /**
      * Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Put` condition fails. For
      * `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
+     *
+     * @var ReturnValuesOnConditionCheckFailure::*|null
      */
     private $returnValuesOnConditionCheckFailure;
 

@@ -16,6 +16,8 @@ final class DetectedLanguageLowConfidenceException extends ClientException
 {
     /**
      * The language code of the auto-detected language from Amazon Comprehend.
+     *
+     * @var string|null
      */
     private $detectedLanguageCode;
 

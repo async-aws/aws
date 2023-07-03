@@ -18,11 +18,15 @@ final class WorkGroup
 {
     /**
      * The workgroup name.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The state of the workgroup: ENABLED or DISABLED.
+     *
+     * @var WorkGroupState::*|null
      */
     private $state;
 
@@ -33,16 +37,22 @@ final class WorkGroup
      * limits for the amount of data scanned per query or per workgroup. The workgroup settings override is specified in
      * `EnforceWorkGroupConfiguration` (true/false) in the `WorkGroupConfiguration`. See
      * WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+     *
+     * @var WorkGroupConfiguration|null
      */
     private $configuration;
 
     /**
      * The workgroup description.
+     *
+     * @var string|null
      */
     private $description;
 
     /**
      * The date and time the workgroup was created.
+     *
+     * @var \DateTimeImmutable|null
      */
     private $creationTime;
 

@@ -11,11 +11,15 @@ final class Error
 {
     /**
      * The error key.
+     *
+     * @var string|null
      */
     private $key;
 
     /**
      * The version ID of the error.
+     *
+     * @var string|null
      */
     private $versionId;
 
@@ -493,6 +497,8 @@ final class Error
      * [^3]: http://aws.amazon.com/s3
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/SOAPAuthentication.html
+     *
+     * @var string|null
      */
     private $code;
 
@@ -501,6 +507,8 @@ final class Error
      * audience. Simple programs display the message directly to the end user if they encounter an error condition they
      * don't know how or don't care to handle. Sophisticated programs with more exhaustive error handling and proper
      * internationalization are more likely to ignore the error message.
+     *
+     * @var string|null
      */
     private $message;
 

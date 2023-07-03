@@ -15,11 +15,15 @@ class SendMessageBatchResult extends Result
 {
     /**
      * A list of `SendMessageBatchResultEntry` items.
+     *
+     * @var SendMessageBatchResultEntry[]
      */
     private $successful;
 
     /**
      * A list of `BatchResultErrorEntry` items with error details about each message that can't be enqueued.
+     *
+     * @var BatchResultErrorEntry[]
      */
     private $failed;
 

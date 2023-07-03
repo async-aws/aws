@@ -22,6 +22,8 @@ final class ProjectArtifacts
      *
      * - `NO_ARTIFACTS`: The build project does not produce any build output.
      * - `S3`: The build project stores build output in Amazon S3.
+     *
+     * @var ArtifactsType::*
      */
     private $type;
 
@@ -32,6 +34,8 @@ final class ProjectArtifacts
      *   manages its build output locations instead of CodeBuild.
      * - If `type` is set to `NO_ARTIFACTS`, this value is ignored if specified, because no build output is produced.
      * - If `type` is set to `S3`, this is the name of the output bucket.
+     *
+     * @var string|null
      */
     private $location;
 
@@ -45,6 +49,8 @@ final class ProjectArtifacts
      *
      * For example, if `path` is set to `MyArtifacts`, `namespaceType` is set to `NONE`, and `name` is set to
      * `MyArtifact.zip`, the output artifact is stored in the output bucket at `MyArtifacts/MyArtifact.zip`.
+     *
+     * @var string|null
      */
     private $path;
 
@@ -63,6 +69,8 @@ final class ProjectArtifacts
      *
      * For example, if `path` is set to `MyArtifacts`, `namespaceType` is set to `BUILD_ID`, and `name` is set to
      * `MyArtifact.zip`, the output artifact is stored in `MyArtifacts/<build-ID>/MyArtifact.zip`.
+     *
+     * @var ArtifactNamespace::*|null
      */
     private $namespaceType;
 
@@ -83,6 +91,8 @@ final class ProjectArtifacts
      *   the root of the output bucket.
      * - If `path` is set to `MyArtifacts`, `namespaceType` is set to `BUILD_ID`, and `name` is set to "`/`", the output
      *   artifact is stored in `MyArtifacts/<build-ID>`.
+     *
+     * @var string|null
      */
     private $name;
 
@@ -97,6 +107,8 @@ final class ProjectArtifacts
      *   - `NONE`: CodeBuild creates in the output bucket a folder that contains the build output. This is the default if
      *     `packaging` is not specified.
      *   - `ZIP`: CodeBuild creates in the output bucket a ZIP file that contains the build output.
+     *
+     * @var ArtifactPackaging::*|null
      */
     private $packaging;
 
@@ -104,20 +116,29 @@ final class ProjectArtifacts
      * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
      * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a date
      * and time to your artifact name so that it is always unique.
+     *
+     * @var bool|null
      */
     private $overrideArtifactName;
 
     /**
      * Set to true if you do not want your output artifacts encrypted. This option is valid only if your artifacts type is
      * Amazon S3. If this is set with another artifacts type, an invalidInputException is thrown.
+     *
+     * @var bool|null
      */
     private $encryptionDisabled;
 
     /**
      * An identifier for this artifact definition.
+     *
+     * @var string|null
      */
     private $artifactIdentifier;
 
+    /**
+     * @var BucketOwnerAccess::*|null
+     */
     private $bucketOwnerAccess;
 
     /**

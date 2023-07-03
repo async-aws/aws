@@ -16,6 +16,8 @@ class CreateKeyResponse extends Result
 {
     /**
      * Metadata associated with the KMS key.
+     *
+     * @var KeyMetadata|null
      */
     private $keyMetadata;
 

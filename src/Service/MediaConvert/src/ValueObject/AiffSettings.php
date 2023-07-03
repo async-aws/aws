@@ -9,17 +9,23 @@ final class AiffSettings
 {
     /**
      * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     *
+     * @var int|null
      */
     private $bitDepth;
 
     /**
      * Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For example,
      * 1, 2, 4, 6, and so on, up to 64.
+     *
+     * @var int|null
      */
     private $channels;
 
     /**
      * Sample rate in hz.
+     *
+     * @var int|null
      */
     private $sampleRate;
 

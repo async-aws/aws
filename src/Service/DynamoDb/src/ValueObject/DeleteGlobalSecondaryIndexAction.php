@@ -11,6 +11,8 @@ final class DeleteGlobalSecondaryIndexAction
 {
     /**
      * The name of the global secondary index to be deleted.
+     *
+     * @var string
      */
     private $indexName;
 

@@ -27,6 +27,8 @@ class DetectFacesResponse extends Result
 {
     /**
      * Details of each face found in the image.
+     *
+     * @var FaceDetail[]
      */
     private $faceDetails;
 
@@ -41,6 +43,8 @@ class DetectFacesResponse extends Result
      * Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation
      * information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object
      * locations before the image is rotated.
+     *
+     * @var OrientationCorrection::*|null
      */
     private $orientationCorrection;
 

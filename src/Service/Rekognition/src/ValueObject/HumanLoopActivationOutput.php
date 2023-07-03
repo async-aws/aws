@@ -10,16 +10,22 @@ final class HumanLoopActivationOutput
 {
     /**
      * The Amazon Resource Name (ARN) of the HumanLoop created.
+     *
+     * @var string|null
      */
     private $humanLoopArn;
 
     /**
      * Shows if and why human review was needed.
+     *
+     * @var string[]|null
      */
     private $humanLoopActivationReasons;
 
     /**
      * Shows the result of condition evaluations, including those conditions which activated a human review.
+     *
+     * @var string|null
      */
     private $humanLoopActivationConditionsEvaluationResults;
 

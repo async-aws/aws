@@ -11,11 +11,16 @@ use AsyncAws\S3\Enum\Event;
  */
 final class TopicConfiguration
 {
+    /**
+     * @var string|null
+     */
     private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events
      * of the specified type.
+     *
+     * @var string
      */
     private $topicArn;
 
@@ -24,9 +29,14 @@ final class TopicConfiguration
      * the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+     *
+     * @var list<Event::*>
      */
     private $events;
 
+    /**
+     * @var NotificationConfigurationFilter|null
+     */
     private $filter;
 
     /**

@@ -11,19 +11,29 @@ use AsyncAws\S3\Enum\Event;
  */
 final class QueueConfiguration
 {
+    /**
+     * @var string|null
+     */
     private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3 publishes a message when it detects events
      * of the specified type.
+     *
+     * @var string
      */
     private $queueArn;
 
     /**
      * A collection of bucket events for which to send notifications.
+     *
+     * @var list<Event::*>
      */
     private $events;
 
+    /**
+     * @var NotificationConfigurationFilter|null
+     */
     private $filter;
 
     /**

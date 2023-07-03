@@ -11,12 +11,16 @@ final class ReplicaRegionType
      * A Region code. For a list of Region codes, see Name and code of Regions [^1].
      *
      * [^1]: https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints
+     *
+     * @var string|null
      */
     private $region;
 
     /**
      * The ARN, key ID, or alias of the KMS key to encrypt the secret. If you don't include this field, Secrets Manager uses
      * `aws/secretsmanager`.
+     *
+     * @var string|null
      */
     private $kmsKeyId;
 
