@@ -108,7 +108,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.
      *
-     * If you specify `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns
+     * If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns
      * encoded key name values in the following response elements:
      *
      * `Delimiter`, `KeyMarker`, `Prefix`, `NextKeyMarker`, `Key`.

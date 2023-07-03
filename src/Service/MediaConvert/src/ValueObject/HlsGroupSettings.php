@@ -259,7 +259,7 @@ final class HlsGroupSettings
     private $segmentLengthControl;
 
     /**
-     * Specify the number of segments to write to a subdirectory before starting a new one. You  must also set Directory
+     * Specify the number of segments to write to a subdirectory before starting a new one. You must also set Directory
      * structure to Subdirectory per stream for this setting to have an effect.
      *
      * @var int|null

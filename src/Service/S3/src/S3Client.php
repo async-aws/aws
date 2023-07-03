@@ -17,6 +17,7 @@ use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
 use AsyncAws\S3\Enum\ObjectOwnership;
+use AsyncAws\S3\Enum\OptionalObjectAttributes;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
@@ -1586,18 +1587,18 @@ class S3Client extends AbstractApi
      * selection criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid
      * XML. Make sure to design your application to parse the contents of the response and handle it appropriately. Objects
      * are returned sorted in an ascending order of the respective key names in the list. For more information about listing
-     * objects, see Listing object keys programmatically [^1].
+     * objects, see Listing object keys programmatically [^1] in the *Amazon S3 User Guide*.
      *
      * To use this operation, you must have READ access to the bucket.
      *
-     * To use this action in an Identity and Access Management (IAM) policy, you must have permissions to perform the
+     * To use this action in an Identity and Access Management (IAM) policy, you must have permission to perform the
      * `s3:ListBucket` action. The bucket owner has this permission by default and can grant this permission to others. For
      * more information about permissions, see Permissions Related to Bucket Subresource Operations [^2] and Managing Access
-     * Permissions to Your Amazon S3 Resources [^3].
+     * Permissions to Your Amazon S3 Resources [^3] in the *Amazon S3 User Guide*.
      *
-     * ! This section describes the latest revision of this action. We recommend that you use this revised API for
-     * ! application development. For backward compatibility, Amazon S3 continues to support the prior version of this API,
-     * ! ListObjects [^4].
+     * ! This section describes the latest revision of this action. We recommend that you use this revised API operation for
+     * ! application development. For backward compatibility, Amazon S3 continues to support the prior version of this API
+     * ! operation, ListObjects [^4].
      *
      * To get a list of your buckets, see ListBuckets [^5].
      *
@@ -1630,6 +1631,7 @@ class S3Client extends AbstractApi
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>,
      *   '@region'?: string|null,
      * }|ListObjectsV2Request $input
      *

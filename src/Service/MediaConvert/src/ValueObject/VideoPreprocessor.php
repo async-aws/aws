@@ -32,7 +32,7 @@ final class VideoPreprocessor
     private $dolbyVision;
 
     /**
-     * Enable HDR10+ analyis and metadata injection. Compatible with HEVC only.
+     * Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
      *
      * @var Hdr10Plus|null
      */

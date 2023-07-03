@@ -12,6 +12,7 @@ use AsyncAws\DynamoDb\Enum\ConditionalOperator;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
 use AsyncAws\DynamoDb\Enum\ReturnValue;
+use AsyncAws\DynamoDb\Enum\ReturnValuesOnConditionCheckFailure;
 use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
@@ -323,6 +324,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|DeleteItemInput $input
      *
@@ -476,6 +478,7 @@ class DynamoDbClient extends AbstractApi
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|ExecuteStatementInput $input
      *
@@ -608,6 +611,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|PutItemInput $input
      *
@@ -918,6 +922,7 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|UpdateItemInput $input
      *

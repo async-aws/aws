@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
+use AsyncAws\DynamoDb\Enum\ReturnValuesOnConditionCheckFailure;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
 final class ExecuteStatementInput extends Input
@@ -60,6 +61,17 @@ final class ExecuteStatementInput extends Input
     private $limit;
 
     /**
+     * An optional parameter that returns the item attributes for an `ExecuteStatement` operation that failed a condition
+     * check.
+     *
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     *
+     * @var ReturnValuesOnConditionCheckFailure::*|null
+     */
+    private $returnValuesOnConditionCheckFailure;
+
+    /**
      * @param array{
      *   Statement?: string,
      *   Parameters?: array<AttributeValue|array>,
@@ -67,6 +79,7 @@ final class ExecuteStatementInput extends Input
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -78,6 +91,7 @@ final class ExecuteStatementInput extends Input
         $this->nextToken = $input['NextToken'] ?? null;
         $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->limit = $input['Limit'] ?? null;
+        $this->returnValuesOnConditionCheckFailure = $input['ReturnValuesOnConditionCheckFailure'] ?? null;
         parent::__construct($input);
     }
 
@@ -89,6 +103,7 @@ final class ExecuteStatementInput extends Input
      *   NextToken?: string,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   Limit?: int,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|ExecuteStatementInput $input
      */
@@ -126,6 +141,14 @@ final class ExecuteStatementInput extends Input
     public function getReturnConsumedCapacity(): ?string
     {
         return $this->returnConsumedCapacity;
+    }
+
+    /**
+     * @return ReturnValuesOnConditionCheckFailure::*|null
+     */
+    public function getReturnValuesOnConditionCheckFailure(): ?string
+    {
+        return $this->returnValuesOnConditionCheckFailure;
     }
 
     public function getStatement(): ?string
@@ -199,6 +222,16 @@ final class ExecuteStatementInput extends Input
         return $this;
     }
 
+    /**
+     * @param ReturnValuesOnConditionCheckFailure::*|null $value
+     */
+    public function setReturnValuesOnConditionCheckFailure(?string $value): self
+    {
+        $this->returnValuesOnConditionCheckFailure = $value;
+
+        return $this;
+    }
+
     public function setStatement(?string $value): self
     {
         $this->statement = $value;
@@ -235,6 +268,12 @@ final class ExecuteStatementInput extends Input
         }
         if (null !== $v = $this->limit) {
             $payload['Limit'] = $v;
+        }
+        if (null !== $v = $this->returnValuesOnConditionCheckFailure) {
+            if (!ReturnValuesOnConditionCheckFailure::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
+            }
+            $payload['ReturnValuesOnConditionCheckFailure'] = $v;
         }
 
         return $payload;

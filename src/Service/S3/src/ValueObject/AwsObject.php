@@ -70,6 +70,17 @@ final class AwsObject
     private $owner;
 
     /**
+     * Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be
+     * retrieved. For more information about these storage classes and how to work with archived objects, see  Working with
+     * archived objects [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html
+     *
+     * @var RestoreStatus|null
+     */
+    private $restoreStatus;
+
+    /**
      * @param array{
      *   Key?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
@@ -78,6 +89,7 @@ final class AwsObject
      *   Size?: null|int,
      *   StorageClass?: null|ObjectStorageClass::*,
      *   Owner?: null|Owner|array,
+     *   RestoreStatus?: null|RestoreStatus|array,
      * } $input
      */
     public function __construct(array $input)
@@ -89,6 +101,7 @@ final class AwsObject
         $this->size = $input['Size'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
         $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
+        $this->restoreStatus = isset($input['RestoreStatus']) ? RestoreStatus::create($input['RestoreStatus']) : null;
     }
 
     /**
@@ -100,6 +113,7 @@ final class AwsObject
      *   Size?: null|int,
      *   StorageClass?: null|ObjectStorageClass::*,
      *   Owner?: null|Owner|array,
+     *   RestoreStatus?: null|RestoreStatus|array,
      * }|AwsObject $input
      */
     public static function create($input): self
@@ -133,6 +147,11 @@ final class AwsObject
     public function getOwner(): ?Owner
     {
         return $this->owner;
+    }
+
+    public function getRestoreStatus(): ?RestoreStatus
+    {
+        return $this->restoreStatus;
     }
 
     public function getSize(): ?int
