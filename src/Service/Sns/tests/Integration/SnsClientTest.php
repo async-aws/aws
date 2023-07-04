@@ -135,8 +135,8 @@ class SnsClientTest extends TestCase
         $result->resolve();
 
         $expected = [
-            new Topic(['TopicArn' => 'arn:aws:sns:eu-west-1:000000000000:my-topic']),
-            new Topic(['TopicArn' => 'arn:aws:sns:eu-west-1:000000000000:async-aws']),
+            new Topic(['TopicArn' => 'arn:aws:sns:us-east-1:000000000000:my-topic']),
+            new Topic(['TopicArn' => 'arn:aws:sns:us-east-1:000000000000:async-aws']),
         ];
 
         self::assertNull($result->getNextToken());
