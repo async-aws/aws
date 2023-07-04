@@ -50,9 +50,6 @@ if (version_compare($currentVersion, $lastVersion, '>=')) {
     exit;
 }
 
-$currentVersion = '3.204.0';
-
-
 /**
  * Regenerate code
  */
