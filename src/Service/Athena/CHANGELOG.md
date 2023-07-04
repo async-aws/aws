@@ -12,6 +12,10 @@
 - The return type for `\AsyncAws\Athena\ValueObject\WorkGroupConfiguration::getBytesScannedCutoffPerQuery` uses `int` instead of `string` to reflect the AWS type.
 
 
+### Added
+
+- Added `me-central-1` region
+
 ## 1.0.0
 
 ### Added
