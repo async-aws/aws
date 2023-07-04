@@ -72,7 +72,7 @@ class OperationGenerator
     private $exceptionGenerator;
 
     /**
-     * @var ClassName[]
+     * @var array<string, true>
      */
     private $generated = [];
 

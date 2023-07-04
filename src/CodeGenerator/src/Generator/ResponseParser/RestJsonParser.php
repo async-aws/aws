@@ -46,6 +46,11 @@ class RestJsonParser implements Parser
     private $functions = [];
 
     /**
+     * @var array<string, true>
+     */
+    private $generatedFunctions = [];
+
+    /**
      * @var list<ClassName>
      */
     private $imports = [];
@@ -65,6 +70,7 @@ class RestJsonParser implements Parser
 
         $properties = [];
         $this->functions = [];
+        $this->generatedFunctions = [];
         $this->imports = [];
         foreach ($shape->getMembers() as $member) {
             if (\in_array($member->getLocation(), ['header', 'headers'])) {
@@ -205,9 +211,9 @@ class RestJsonParser implements Parser
     private function parseResponseStructure(StructureShape $shape, string $input, bool $required): string
     {
         $functionName = 'populateResult' . ucfirst($shape->getName());
-        if (!isset($this->functions[$functionName])) {
+        if (!isset($this->generatedFunctions[$functionName])) {
             // prevent recursion
-            $this->functions[$functionName] = true;
+            $this->generatedFunctions[$functionName] = true;
 
             $properties = [];
             foreach ($shape->getMembers() as $member) {
@@ -287,9 +293,9 @@ class RestJsonParser implements Parser
     {
         $shapeMember = $shape->getMember();
         $functionName = 'populateResult' . ucfirst($shape->getName());
-        if (!isset($this->functions[$functionName])) {
+        if (!isset($this->generatedFunctions[$functionName])) {
             // prevent recursion
-            $this->functions[$functionName] = true;
+            $this->generatedFunctions[$functionName] = true;
 
             if ($shapeMember->getShape() instanceof StructureShape || $shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
                 $listAccessorRequired = true;
@@ -332,9 +338,9 @@ class RestJsonParser implements Parser
     {
         $shapeValue = $shape->getValue();
         $functionName = 'populateResult' . ucfirst($shape->getName());
-        if (!isset($this->functions[$functionName])) {
+        if (!isset($this->generatedFunctions[$functionName])) {
             // prevent recursion
-            $this->functions[$functionName] = true;
+            $this->generatedFunctions[$functionName] = true;
 
             if (null === $locationName = $shape->getKey()->getLocationName()) {
                 // We need to use array keys

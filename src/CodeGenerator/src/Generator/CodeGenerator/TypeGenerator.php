@@ -99,7 +99,7 @@ class TypeGenerator
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($memberShape);
                     $param = $className->getName() . '::*';
                 } else {
-                    $param = $this->getNativePhpType($param);
+                    $param = $this->getNativePhpType($memberShape->getType());
                 }
             }
 
