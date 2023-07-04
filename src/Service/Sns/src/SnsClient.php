@@ -54,7 +54,6 @@ use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
-use AsyncAws\Sns\ValueObject\Subscription;
 use AsyncAws\Sns\ValueObject\Tag;
 
 class SnsClient extends AbstractApi
@@ -265,8 +264,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null.
      * }|ListTopicsInput $input
      *
      * @throws InvalidParameterException

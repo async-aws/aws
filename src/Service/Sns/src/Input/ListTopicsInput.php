@@ -18,8 +18,7 @@ final class ListTopicsInput extends Input
     /**
      * @param array{
      *   NextToken?: string,
-     *
-     *   @region?: string,
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
@@ -28,6 +27,12 @@ final class ListTopicsInput extends Input
         parent::__construct($input);
     }
 
+    /**
+     * @param array{
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|ListTopicsInput $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);

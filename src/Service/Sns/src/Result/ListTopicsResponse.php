@@ -18,12 +18,16 @@ class ListTopicsResponse extends Result implements \IteratorAggregate
 {
     /**
      * A list of topic ARNs.
+     *
+     * @var Topic[]
      */
     private $topics;
 
     /**
      * Token to pass along to the next `ListTopics` request. This element is returned if there are additional topics to
      * retrieve.
+     *
+     * @var string|null
      */
     private $nextToken;
 

@@ -10,6 +10,8 @@ final class Topic
 {
     /**
      * The topic's ARN.
+     *
+     * @var string|null
      */
     private $topicArn;
 
@@ -23,6 +25,11 @@ final class Topic
         $this->topicArn = $input['TopicArn'] ?? null;
     }
 
+    /**
+     * @param array{
+     *   TopicArn?: null|string,
+     * }|Topic $input
+     */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
