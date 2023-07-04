@@ -264,7 +264,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   NextToken?: string,
-     *   '@region'?: string|null.
+     *   '@region'?: string|null,
      * }|ListTopicsInput $input
      *
      * @throws InvalidParameterException
