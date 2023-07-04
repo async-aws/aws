@@ -10,6 +10,7 @@ use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\ListTopicsInput;
 use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
@@ -17,6 +18,7 @@ use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
 use AsyncAws\Sns\ValueObject\Tag;
+use AsyncAws\Sns\ValueObject\Topic;
 
 class SnsClientTest extends TestCase
 {
@@ -121,6 +123,24 @@ class SnsClientTest extends TestCase
         $subscriptions = iterator_to_array($result->getSubscriptions());
         self::assertCount(1, $subscriptions);
         self::assertSame('http://async-aws.com', $subscriptions[0]->getEndpoint());
+    }
+
+    public function testListTopics(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListTopicsInput();
+        $result = $client->listTopics($input);
+
+        $result->resolve();
+
+        $expected = [
+            new Topic(['TopicArn' => 'arn:aws:sns:us-east-1:000000000000:my-topic']),
+            new Topic(['TopicArn' => 'arn:aws:sns:us-east-1:000000000000:async-aws']),
+        ];
+
+        self::assertNull($result->getNextToken());
+        self::assertEquals($expected, iterator_to_array($result->getTopics()));
     }
 
     public function testPublish(): void

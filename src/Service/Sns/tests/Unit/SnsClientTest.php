@@ -10,6 +10,7 @@ use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\ListTopicsInput;
 use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
@@ -17,6 +18,7 @@ use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\Result\CreateEndpointResponse;
 use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
+use AsyncAws\Sns\Result\ListTopicsResponse;
 use AsyncAws\Sns\Result\PublishBatchResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
@@ -89,6 +91,18 @@ class SnsClientTest extends TestCase
         $result = $client->ListSubscriptionsByTopic($input);
 
         self::assertInstanceOf(ListSubscriptionsByTopicResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListTopics(): void
+    {
+        $client = new SnsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListTopicsInput([
+        ]);
+        $result = $client->listTopics($input);
+
+        self::assertInstanceOf(ListTopicsResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

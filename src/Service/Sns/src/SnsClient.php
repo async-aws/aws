@@ -40,6 +40,7 @@ use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\ListTopicsInput;
 use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
@@ -47,12 +48,12 @@ use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\Result\CreateEndpointResponse;
 use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
+use AsyncAws\Sns\Result\ListTopicsResponse;
 use AsyncAws\Sns\Result\PublishBatchResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
-use AsyncAws\Sns\ValueObject\Subscription;
 use AsyncAws\Sns\ValueObject\Tag;
 
 class SnsClient extends AbstractApi
@@ -249,6 +250,37 @@ class SnsClient extends AbstractApi
         ]]));
 
         return new ListSubscriptionsByTopicResponse($response, $this, $input);
+    }
+
+    /**
+     * Returns a list of the requester's topics. Each call returns a limited list of topics, up to 100. If there are more
+     * topics, a `NextToken` is also returned. Use the `NextToken` parameter in a new `ListTopics` call to get further
+     * results.
+     *
+     * This action is throttled at 30 transactions per second (TPS).
+     *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#listtopics
+     *
+     * @param array{
+     *   NextToken?: string,
+     *   '@region'?: string|null,
+     * }|ListTopicsInput $input
+     *
+     * @throws InvalidParameterException
+     * @throws InternalErrorException
+     * @throws AuthorizationErrorException
+     */
+    public function listTopics($input = []): ListTopicsResponse
+    {
+        $input = ListTopicsInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTopics', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameter' => InvalidParameterException::class,
+            'InternalError' => InternalErrorException::class,
+            'AuthorizationError' => AuthorizationErrorException::class,
+        ]]));
+
+        return new ListTopicsResponse($response, $this, $input);
     }
 
     /**
