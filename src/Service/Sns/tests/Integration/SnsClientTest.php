@@ -18,6 +18,7 @@ use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
 use AsyncAws\Sns\ValueObject\Tag;
+use AsyncAws\Sns\ValueObject\Topic;
 
 class SnsClientTest extends TestCase
 {
@@ -133,8 +134,13 @@ class SnsClientTest extends TestCase
 
         $result->resolve();
 
+        $expected = [
+            new Topic(['TopicArn' => 'arn:aws:sns:eu-west-1:000000000000:my-topic']),
+            new Topic(['TopicArn' => 'arn:aws:sns:eu-west-1:000000000000:async-aws']),
+        ];
+
         self::assertNull($result->getNextToken());
-        self::assertCount(2, iterator_to_array($result->getTopics()));
+        self::assertEquals($expected, iterator_to_array($result->getTopics()));
     }
 
     public function testPublish(): void
