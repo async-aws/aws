@@ -136,7 +136,7 @@ class ResultMockFactory
      */
     public static function waiter(string $class, string $finalState)
     {
-        if (Result::class !== $class) {
+        if (Waiter::class !== $class) {
             $parent = get_parent_class($class);
             if (false === $parent || Waiter::class !== $parent) {
                 throw new LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Waiter::class));
