@@ -23,6 +23,7 @@ use AsyncAws\Kms\Exception\CustomKeyStoreInvalidStateException;
 use AsyncAws\Kms\Exception\CustomKeyStoreNotFoundException;
 use AsyncAws\Kms\Exception\DependencyTimeoutException;
 use AsyncAws\Kms\Exception\DisabledException;
+use AsyncAws\Kms\Exception\DryRunOperationException;
 use AsyncAws\Kms\Exception\IncorrectKeyException;
 use AsyncAws\Kms\Exception\InvalidAliasNameException;
 use AsyncAws\Kms\Exception\InvalidArnException;
@@ -419,6 +420,7 @@ class KmsClient extends AbstractApi
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
      *   Recipient?: RecipientInfo|array,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      *
@@ -432,6 +434,7 @@ class KmsClient extends AbstractApi
      * @throws InvalidGrantTokenException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
+     * @throws DryRunOperationException
      */
     public function decrypt($input): DecryptResponse
     {
@@ -447,6 +450,7 @@ class KmsClient extends AbstractApi
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
         ]]));
 
         return new DecryptResponse($response);
@@ -530,6 +534,7 @@ class KmsClient extends AbstractApi
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|EncryptRequest $input
      *
@@ -541,6 +546,7 @@ class KmsClient extends AbstractApi
      * @throws InvalidGrantTokenException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
+     * @throws DryRunOperationException
      */
     public function encrypt($input): EncryptResponse
     {
@@ -554,6 +560,7 @@ class KmsClient extends AbstractApi
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
         ]]));
 
         return new EncryptResponse($response);
@@ -648,6 +655,7 @@ class KmsClient extends AbstractApi
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
      *   Recipient?: RecipientInfo|array,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      *
@@ -659,6 +667,7 @@ class KmsClient extends AbstractApi
      * @throws InvalidGrantTokenException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
+     * @throws DryRunOperationException
      */
     public function generateDataKey($input): GenerateDataKeyResponse
     {
@@ -672,6 +681,7 @@ class KmsClient extends AbstractApi
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
         ]]));
 
         return new GenerateDataKeyResponse($response);
@@ -796,6 +806,7 @@ class KmsClient extends AbstractApi
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm: SigningAlgorithmSpec::*,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|SignRequest $input
      *
@@ -807,6 +818,7 @@ class KmsClient extends AbstractApi
      * @throws InvalidGrantTokenException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
+     * @throws DryRunOperationException
      */
     public function sign($input): SignResponse
     {
@@ -820,6 +832,7 @@ class KmsClient extends AbstractApi
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
         ]]));
 
         return new SignResponse($response);

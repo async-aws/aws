@@ -115,6 +115,18 @@ final class GenerateDataKeyRequest extends Input
     private $recipient;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   KeyId?: string,
      *   EncryptionContext?: array<string, string>,
@@ -122,6 +134,7 @@ final class GenerateDataKeyRequest extends Input
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
      *   Recipient?: RecipientInfo|array,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -133,6 +146,7 @@ final class GenerateDataKeyRequest extends Input
         $this->keySpec = $input['KeySpec'] ?? null;
         $this->grantTokens = $input['GrantTokens'] ?? null;
         $this->recipient = isset($input['Recipient']) ? RecipientInfo::create($input['Recipient']) : null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -144,12 +158,18 @@ final class GenerateDataKeyRequest extends Input
      *   KeySpec?: DataKeySpec::*,
      *   GrantTokens?: string[],
      *   Recipient?: RecipientInfo|array,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     /**
@@ -214,6 +234,13 @@ final class GenerateDataKeyRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
+
+        return $this;
     }
 
     /**
@@ -303,6 +330,9 @@ final class GenerateDataKeyRequest extends Input
         }
         if (null !== $v = $this->recipient) {
             $payload['Recipient'] = $v->requestBody();
+        }
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
         }
 
         return $payload;
