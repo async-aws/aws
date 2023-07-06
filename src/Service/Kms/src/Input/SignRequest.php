@@ -105,12 +105,25 @@ final class SignRequest extends Input
     private $signingAlgorithm;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -121,6 +134,7 @@ final class SignRequest extends Input
         $this->messageType = $input['MessageType'] ?? null;
         $this->grantTokens = $input['GrantTokens'] ?? null;
         $this->signingAlgorithm = $input['SigningAlgorithm'] ?? null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -131,12 +145,18 @@ final class SignRequest extends Input
      *   MessageType?: MessageType::*,
      *   GrantTokens?: string[],
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|SignRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     /**
@@ -196,6 +216,13 @@ final class SignRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
+
+        return $this;
     }
 
     /**
@@ -274,6 +301,9 @@ final class SignRequest extends Input
             throw new InvalidArgument(sprintf('Invalid parameter "SigningAlgorithm" for "%s". The value "%s" is not a valid "SigningAlgorithmSpec".', __CLASS__, $v));
         }
         $payload['SigningAlgorithm'] = $v;
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
+        }
 
         return $payload;
     }

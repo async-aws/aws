@@ -93,12 +93,25 @@ final class EncryptRequest extends Input
     private $encryptionAlgorithm;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   KeyId?: string,
      *   Plaintext?: string,
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -109,6 +122,7 @@ final class EncryptRequest extends Input
         $this->encryptionContext = $input['EncryptionContext'] ?? null;
         $this->grantTokens = $input['GrantTokens'] ?? null;
         $this->encryptionAlgorithm = $input['EncryptionAlgorithm'] ?? null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -119,12 +133,18 @@ final class EncryptRequest extends Input
      *   EncryptionContext?: array<string, string>,
      *   GrantTokens?: string[],
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|EncryptRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     /**
@@ -184,6 +204,13 @@ final class EncryptRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
+
+        return $this;
     }
 
     /**
@@ -264,6 +291,9 @@ final class EncryptRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "EncryptionAlgorithm" for "%s". The value "%s" is not a valid "EncryptionAlgorithmSpec".', __CLASS__, $v));
             }
             $payload['EncryptionAlgorithm'] = $v;
+        }
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
         }
 
         return $payload;

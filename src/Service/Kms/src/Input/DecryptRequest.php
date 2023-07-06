@@ -116,6 +116,18 @@ final class DecryptRequest extends Input
     private $recipient;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   CiphertextBlob?: string,
      *   EncryptionContext?: array<string, string>,
@@ -123,6 +135,7 @@ final class DecryptRequest extends Input
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
      *   Recipient?: RecipientInfo|array,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -134,6 +147,7 @@ final class DecryptRequest extends Input
         $this->keyId = $input['KeyId'] ?? null;
         $this->encryptionAlgorithm = $input['EncryptionAlgorithm'] ?? null;
         $this->recipient = isset($input['Recipient']) ? RecipientInfo::create($input['Recipient']) : null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -145,6 +159,7 @@ final class DecryptRequest extends Input
      *   KeyId?: string,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
      *   Recipient?: RecipientInfo|array,
+     *   DryRun?: bool,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      */
@@ -156,6 +171,11 @@ final class DecryptRequest extends Input
     public function getCiphertextBlob(): ?string
     {
         return $this->ciphertextBlob;
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     /**
@@ -220,6 +240,13 @@ final class DecryptRequest extends Input
     public function setCiphertextBlob(?string $value): self
     {
         $this->ciphertextBlob = $value;
+
+        return $this;
+    }
+
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
 
         return $this;
     }
@@ -304,6 +331,9 @@ final class DecryptRequest extends Input
         }
         if (null !== $v = $this->recipient) {
             $payload['Recipient'] = $v->requestBody();
+        }
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
         }
 
         return $payload;
