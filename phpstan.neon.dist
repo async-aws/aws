@@ -15,6 +15,5 @@ parameters:
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php
 
     ignoreErrors:
-        - '#^Parameter \#1 \$input of method AsyncAws\\DynamoDb\\DynamoDbClient::\w+\(\) expects array\{[^\)]+\}\|AsyncAws\\DynamoDb\\Input\\\w+Input, array\{[^\)]+\} given\.#'
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
         - '#^Dead catch - JsonException is never thrown in the try block\.$#'

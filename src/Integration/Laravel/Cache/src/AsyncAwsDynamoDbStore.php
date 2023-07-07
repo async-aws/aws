@@ -6,7 +6,9 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
+use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
 use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
+use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use Illuminate\Contracts\Cache\LockProvider;
@@ -419,7 +421,10 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
         $this->dynamoDb->createTable([
             'TableName' => $this->table,
             'KeySchema' => [
-                new KeySchemaElement(['AttributeName' => 'key', 'KeyType' => KeyType::HASH]),
+                new KeySchemaElement(['AttributeName' => $this->keyAttribute, 'KeyType' => KeyType::HASH]),
+            ],
+            'AttributeDefinitions' => [
+                new AttributeDefinition(['AttributeName' => $this->keyAttribute, 'AttributeType' => ScalarAttributeType::S]),
             ],
         ]);
 

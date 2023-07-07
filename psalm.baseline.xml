@@ -50,11 +50,6 @@
   </file>
   <file src="src/Integration/Aws/SimpleS3/src/SimpleS3Client.php">
     <InvalidArgument>
-      <code><![CDATA[array_merge($options, [
-            'Bucket' => $bucket,
-            'Key' => $key,
-            'Body' => $object,
-        ])]]></code>
       <code><![CDATA[array_merge($options, ['Bucket' => $bucket, 'Key' => $key])]]></code>
     </InvalidArgument>
   </file>
@@ -73,14 +68,6 @@
     </InvalidArgument>
   </file>
   <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'TableName' => $this->table,
-            'KeySchema' => [
-                new KeySchemaElement(['AttributeName' => 'key', 'KeyType' => KeyType::HASH]),
-            ],
-        ]]]></code>
-    </InvalidArgument>
     <RedundantCast>
       <code><![CDATA[(int) $e->getCode()]]></code>
     </RedundantCast>
