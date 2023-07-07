@@ -66,6 +66,7 @@ class LocationServiceClient extends AbstractApi
      *   DestinationPosition: float[],
      *   DistanceUnit?: DistanceUnit::*,
      *   IncludeLegGeometry?: bool,
+     *   Key?: string,
      *   TravelMode?: TravelMode::*,
      *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
      *   WaypointPositions?: array[],
@@ -135,6 +136,7 @@ class LocationServiceClient extends AbstractApi
      *   DepartureTime?: \DateTimeImmutable|string,
      *   DestinationPositions: array[],
      *   DistanceUnit?: DistanceUnit::*,
+     *   Key?: string,
      *   TravelMode?: TravelMode::*,
      *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
      *   '@region'?: string|null,
@@ -169,6 +171,7 @@ class LocationServiceClient extends AbstractApi
      *
      * @param array{
      *   IndexName: string,
+     *   Key?: string,
      *   Language?: string,
      *   MaxResults?: int,
      *   Position: float[],
@@ -216,6 +219,7 @@ class LocationServiceClient extends AbstractApi
      *   FilterCategories?: string[],
      *   FilterCountries?: string[],
      *   IndexName: string,
+     *   Key?: string,
      *   Language?: string,
      *   MaxResults?: int,
      *   Text: string,

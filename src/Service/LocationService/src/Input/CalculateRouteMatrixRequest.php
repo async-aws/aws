@@ -115,6 +115,15 @@ final class CalculateRouteMatrixRequest extends Input
     private $distanceUnit;
 
     /**
+     * The optional API key [^1] to authorize the request.
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     *
+     * @var string|null
+     */
+    private $key;
+
+    /**
      * Specifies the mode of transport when calculating a route. Used in estimating the speed of travel and road
      * compatibility.
      *
@@ -157,6 +166,7 @@ final class CalculateRouteMatrixRequest extends Input
      *   DepartureTime?: \DateTimeImmutable|string,
      *   DestinationPositions?: array[],
      *   DistanceUnit?: DistanceUnit::*,
+     *   Key?: string,
      *   TravelMode?: TravelMode::*,
      *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
      *   '@region'?: string|null,
@@ -171,6 +181,7 @@ final class CalculateRouteMatrixRequest extends Input
         $this->departureTime = !isset($input['DepartureTime']) ? null : ($input['DepartureTime'] instanceof \DateTimeImmutable ? $input['DepartureTime'] : new \DateTimeImmutable($input['DepartureTime']));
         $this->destinationPositions = $input['DestinationPositions'] ?? null;
         $this->distanceUnit = $input['DistanceUnit'] ?? null;
+        $this->key = $input['Key'] ?? null;
         $this->travelMode = $input['TravelMode'] ?? null;
         $this->truckModeOptions = isset($input['TruckModeOptions']) ? CalculateRouteTruckModeOptions::create($input['TruckModeOptions']) : null;
         parent::__construct($input);
@@ -185,6 +196,7 @@ final class CalculateRouteMatrixRequest extends Input
      *   DepartureTime?: \DateTimeImmutable|string,
      *   DestinationPositions?: array[],
      *   DistanceUnit?: DistanceUnit::*,
+     *   Key?: string,
      *   TravelMode?: TravelMode::*,
      *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
      *   '@region'?: string|null,
@@ -239,6 +251,11 @@ final class CalculateRouteMatrixRequest extends Input
         return $this->distanceUnit;
     }
 
+    public function getKey(): ?string
+    {
+        return $this->key;
+    }
+
     /**
      * @return TravelMode::*|null
      */
@@ -262,6 +279,9 @@ final class CalculateRouteMatrixRequest extends Input
 
         // Prepare query
         $query = [];
+        if (null !== $this->key) {
+            $query['key'] = $this->key;
+        }
 
         // Prepare URI
         $uri = [];
@@ -337,6 +357,13 @@ final class CalculateRouteMatrixRequest extends Input
         return $this;
     }
 
+    public function setKey(?string $value): self
+    {
+        $this->key = $value;
+
+        return $this;
+    }
+
     /**
      * @param TravelMode::*|null $value
      */
@@ -407,6 +434,7 @@ final class CalculateRouteMatrixRequest extends Input
             }
             $payload['DistanceUnit'] = $v;
         }
+
         if (null !== $v = $this->travelMode) {
             if (!TravelMode::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
