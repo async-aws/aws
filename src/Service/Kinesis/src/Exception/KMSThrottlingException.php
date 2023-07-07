@@ -3,7 +3,6 @@
 namespace AsyncAws\Kinesis\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The request was denied due to request throttling. For more information about throttling, see Limits [^1] in the
@@ -13,12 +12,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class KMSThrottlingException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }

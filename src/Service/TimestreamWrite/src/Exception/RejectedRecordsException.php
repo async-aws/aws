@@ -45,9 +45,6 @@ final class RejectedRecordsException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->rejectedRecords = empty($data['RejectedRecords']) ? [] : $this->populateResultRejectedRecords($data['RejectedRecords']);
     }
 

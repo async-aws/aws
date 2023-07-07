@@ -50,11 +50,6 @@
   </file>
   <file src="src/Integration/Aws/SimpleS3/src/SimpleS3Client.php">
     <InvalidArgument>
-      <code><![CDATA[array_merge($options, [
-            'Bucket' => $bucket,
-            'Key' => $key,
-            'Body' => $object,
-        ])]]></code>
       <code><![CDATA[array_merge($options, ['Bucket' => $bucket, 'Key' => $key])]]></code>
     </InvalidArgument>
   </file>
@@ -175,11 +170,6 @@
       <code><![CDATA[$input['BOOL']]]></code>
       <code><![CDATA[$input['NULL']]]></code>
     </InvalidArrayOffset>
-  </file>
-  <file src="src/Service/Firehose/src/Exception/InvalidKMSResourceException.php">
-    <InvalidPropertyAssignmentValue>
-      <code>$v</code>
-    </InvalidPropertyAssignmentValue>
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
     <LessSpecificReturnStatement>

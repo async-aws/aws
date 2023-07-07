@@ -3,7 +3,6 @@
 namespace AsyncAws\Kms\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * From the Decrypt or ReEncrypt operation, the request was rejected because the specified ciphertext, or additional
@@ -15,12 +14,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidCiphertextException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }

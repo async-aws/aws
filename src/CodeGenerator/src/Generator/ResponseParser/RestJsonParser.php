@@ -68,12 +68,19 @@ class RestJsonParser implements Parser
             return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent(THROW);', ['THROW' => $throwOnError ? '' : 'false', 'PROPERTY_NAME' => GeneratorHelper::normalizeName($payloadProperty)]));
         }
 
+        $forException = !$throwOnError;
+
         $properties = [];
         $this->functions = [];
         $this->generatedFunctions = [];
         $this->imports = [];
         foreach ($shape->getMembers() as $member) {
             if (\in_array($member->getLocation(), ['header', 'headers'])) {
+                continue;
+            }
+
+            // Avoid conflicts with PHP properties. Those AWS members are included in the AWSError anyway.
+            if ($forException && \in_array(strtolower($member->getName()), ['code', 'message'])) {
                 continue;
             }
 

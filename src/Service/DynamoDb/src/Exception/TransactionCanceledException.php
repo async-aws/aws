@@ -130,9 +130,6 @@ final class TransactionCanceledException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->cancellationReasons = empty($data['CancellationReasons']) ? [] : $this->populateResultCancellationReasonList($data['CancellationReasons']);
     }
 

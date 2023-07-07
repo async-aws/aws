@@ -28,9 +28,6 @@ final class TooManyRequestsException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->reason = isset($data['Reason']) ? (string) $data['Reason'] : null;
     }
 }

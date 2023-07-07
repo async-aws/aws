@@ -3,7 +3,6 @@
 namespace AsyncAws\Ssm\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * You have exceeded the number of parameters for this Amazon Web Services account. Delete one or more parameters and
@@ -11,12 +10,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class ParameterLimitExceededException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }

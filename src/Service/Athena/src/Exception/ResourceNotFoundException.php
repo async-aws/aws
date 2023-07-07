@@ -26,9 +26,6 @@ final class ResourceNotFoundException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->resourceName = isset($data['ResourceName']) ? (string) $data['ResourceName'] : null;
     }
 }

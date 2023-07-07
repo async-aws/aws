@@ -3,7 +3,6 @@
 namespace AsyncAws\Route53\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * This operation can't be completed either because the current account has reached the limit on the number of hosted
@@ -26,14 +25,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class TooManyHostedZonesException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = new \SimpleXMLElement($response->getContent(false));
-        if (0 < $data->Error->count()) {
-            $data = $data->Error;
-        }
-        if (null !== $v = (($v = $data->message) ? (string) $v : null)) {
-            $this->message = $v;
-        }
-    }
 }

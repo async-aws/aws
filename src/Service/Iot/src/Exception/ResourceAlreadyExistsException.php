@@ -38,9 +38,6 @@ final class ResourceAlreadyExistsException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->resourceId = isset($data['resourceId']) ? (string) $data['resourceId'] : null;
         $this->resourceArn = isset($data['resourceArn']) ? (string) $data['resourceArn'] : null;
     }

@@ -26,8 +26,5 @@ final class InvalidRequestException extends ClientException
         $data = $response->toArray(false);
 
         $this->athenaErrorCode = isset($data['AthenaErrorCode']) ? (string) $data['AthenaErrorCode'] : null;
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
     }
 }
