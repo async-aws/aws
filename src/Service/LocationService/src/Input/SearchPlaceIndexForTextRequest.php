@@ -78,6 +78,15 @@ final class SearchPlaceIndexForTextRequest extends Input
     private $indexName;
 
     /**
+     * The optional API key [^1] to authorize the request.
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     *
+     * @var string|null
+     */
+    private $key;
+
+    /**
      * The preferred language used to return results. The value must be a valid BCP 47 [^1] language tag, for example, `en`
      * for English.
      *
@@ -124,6 +133,7 @@ final class SearchPlaceIndexForTextRequest extends Input
      *   FilterCategories?: string[],
      *   FilterCountries?: string[],
      *   IndexName?: string,
+     *   Key?: string,
      *   Language?: string,
      *   MaxResults?: int,
      *   Text?: string,
@@ -137,6 +147,7 @@ final class SearchPlaceIndexForTextRequest extends Input
         $this->filterCategories = $input['FilterCategories'] ?? null;
         $this->filterCountries = $input['FilterCountries'] ?? null;
         $this->indexName = $input['IndexName'] ?? null;
+        $this->key = $input['Key'] ?? null;
         $this->language = $input['Language'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->text = $input['Text'] ?? null;
@@ -150,6 +161,7 @@ final class SearchPlaceIndexForTextRequest extends Input
      *   FilterCategories?: string[],
      *   FilterCountries?: string[],
      *   IndexName?: string,
+     *   Key?: string,
      *   Language?: string,
      *   MaxResults?: int,
      *   Text?: string,
@@ -198,6 +210,11 @@ final class SearchPlaceIndexForTextRequest extends Input
         return $this->indexName;
     }
 
+    public function getKey(): ?string
+    {
+        return $this->key;
+    }
+
     public function getLanguage(): ?string
     {
         return $this->language;
@@ -223,6 +240,9 @@ final class SearchPlaceIndexForTextRequest extends Input
 
         // Prepare query
         $query = [];
+        if (null !== $this->key) {
+            $query['key'] = $this->key;
+        }
 
         // Prepare URI
         $uri = [];
@@ -283,6 +303,13 @@ final class SearchPlaceIndexForTextRequest extends Input
     public function setIndexName(?string $value): self
     {
         $this->indexName = $value;
+
+        return $this;
+    }
+
+    public function setKey(?string $value): self
+    {
+        $this->key = $value;
 
         return $this;
     }
