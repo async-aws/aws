@@ -515,6 +515,16 @@ class InputGenerator
             }
         }
 
+        $hostPrefixArgument = '';
+        if (null !== $hostPrefix = $operation->getHostPrefix()) {
+            if (preg_match('/\{([a-zA-Z0-9]+)}/', $hostPrefix)) {
+                throw new \InvalidArgumentException('Parameters are not supported in host prefix yet.');
+            }
+
+            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.20');
+            $hostPrefixArgument = ', ' . var_export($hostPrefix, true);
+        }
+
         $body['uri'] .= '$uriString = ' . $uriStringCode . ';';
 
         $method = var_export($operation->getHttpMethod(), true);
@@ -534,7 +544,7 @@ class InputGenerator
 {$body['body']}
 
 // Return the Request
-return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create(\$body));
+return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create(\$body)$hostPrefixArgument);
 PHP
         );
     }

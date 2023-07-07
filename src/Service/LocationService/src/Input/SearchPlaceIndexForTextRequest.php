@@ -257,7 +257,7 @@ final class SearchPlaceIndexForTextRequest extends Input
         $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body), 'places.');
     }
 
     /**

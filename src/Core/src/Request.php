@@ -44,6 +44,11 @@ final class Request
     private $endpoint;
 
     /**
+     * @var string
+     */
+    private $hostPrefix;
+
+    /**
      * @var array{scheme: string, host: string, port: int|null}|null
      */
     private $parsed;
@@ -52,7 +57,7 @@ final class Request
      * @param array<string, string> $query
      * @param array<string, string> $headers
      */
-    public function __construct(string $method, string $uri, array $query, array $headers, RequestStream $body)
+    public function __construct(string $method, string $uri, array $query, array $headers, RequestStream $body, string $hostPrefix = '')
     {
         $this->method = $method;
         $this->uri = $uri;
@@ -62,6 +67,7 @@ final class Request
         }
         $this->body = $body;
         $this->query = $query;
+        $this->hostPrefix = $hostPrefix;
         $this->endpoint = '';
     }
 
@@ -148,6 +154,17 @@ final class Request
         return $this->query;
     }
 
+    public function getHostPrefix(): string
+    {
+        return $this->hostPrefix;
+    }
+
+    public function setHostPrefix(string $hostPrefix): void
+    {
+        $this->hostPrefix = $hostPrefix;
+        $this->endpoint = '';
+    }
+
     public function getEndpoint(): string
     {
         if (empty($this->endpoint)) {
@@ -155,7 +172,7 @@ final class Request
                 throw new LogicException('Request::$endpoint must be set before using it.');
             }
 
-            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986) : '');
+            $this->endpoint = $this->parsed['scheme'] . '://' . $this->hostPrefix . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986) : '');
         }
 
         return $this->endpoint;
@@ -163,12 +180,11 @@ final class Request
 
     public function setEndpoint(string $endpoint): void
     {
-        if (!empty($this->endpoint)) {
+        if (null !== $this->parsed) {
             throw new LogicException('Request::$endpoint cannot be changed after it has a value.');
         }
 
-        $this->endpoint = $endpoint;
-        $parsed = parse_url($this->endpoint);
+        $parsed = parse_url($endpoint);
 
         if (false === $parsed || !isset($parsed['scheme'], $parsed['host'])) {
             throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $endpoint));

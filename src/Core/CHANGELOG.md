@@ -5,6 +5,7 @@
 ### Added
 
 - Support for LocationService
+- Support for hostPrefix in requests
 
 ## 1.19.0
 

@@ -156,6 +156,8 @@ class SignerV4Test extends TestCase
 
         $req = new Request($method, '/', [], $headers, StringStream::create(implode("\n", $lines)));
         $req->setEndpoint('https://' . $headers['Host'] . $path);
+        // Ensure that the memoized property is filled, so that comparison works consistently.
+        $req->getEndpoint();
 
         return $req;
     }
