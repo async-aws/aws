@@ -3,7 +3,6 @@
 namespace AsyncAws\Kinesis\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The request rate for the stream is too high, or the requested data is too large for the available throughput. Reduce
@@ -16,12 +15,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class ProvisionedThroughputExceededException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }

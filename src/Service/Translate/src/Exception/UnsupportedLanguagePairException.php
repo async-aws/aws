@@ -41,9 +41,6 @@ final class UnsupportedLanguagePairException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->sourceLanguageCode = isset($data['SourceLanguageCode']) ? (string) $data['SourceLanguageCode'] : null;
         $this->targetLanguageCode = isset($data['TargetLanguageCode']) ? (string) $data['TargetLanguageCode'] : null;
     }

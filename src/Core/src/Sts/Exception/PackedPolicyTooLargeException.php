@@ -3,7 +3,6 @@
 namespace AsyncAws\Core\Sts\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The request was rejected because the total packed size of the session policies and session tags combined was too
@@ -20,14 +19,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class PackedPolicyTooLargeException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = new \SimpleXMLElement($response->getContent(false));
-        if (0 < $data->Error->count()) {
-            $data = $data->Error;
-        }
-        if (null !== $v = (($v = $data->message) ? (string) $v : null)) {
-            $this->message = $v;
-        }
-    }
 }

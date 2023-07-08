@@ -30,9 +30,6 @@ final class ValidationException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->reason = isset($data['reason']) ? (string) $data['reason'] : null;
     }
 }

@@ -30,9 +30,6 @@ final class DetectedLanguageLowConfidenceException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->detectedLanguageCode = isset($data['DetectedLanguageCode']) ? (string) $data['DetectedLanguageCode'] : null;
     }
 }

@@ -30,9 +30,6 @@ final class ConditionalCheckFailedException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->item = empty($data['Item']) ? [] : $this->populateResultAttributeMap($data['Item']);
     }
 

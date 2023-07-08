@@ -31,9 +31,6 @@ final class InvalidChangeBatchException extends ClientException
             $data = $data->Error;
         }
         $this->messages = !$data->messages ? [] : $this->populateResultErrorMessages($data->messages);
-        if (null !== $v = (($v = $data->message) ? (string) $v : null)) {
-            $this->message = $v;
-        }
     }
 
     /**

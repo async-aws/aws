@@ -39,9 +39,6 @@ final class InvalidRequestException extends ClientException
     {
         $data = $response->toArray(false);
 
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->reason = isset($data['Reason']) ? (string) $data['Reason'] : null;
         $this->detail = empty($data['Detail']) ? null : $this->populateResultInvalidRequestDetail($data['Detail']);
     }

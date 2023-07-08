@@ -35,9 +35,6 @@ final class EC2UnexpectedException extends ServerException
         $data = $response->toArray(false);
 
         $this->type = isset($data['Type']) ? (string) $data['Type'] : null;
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
         $this->ec2ErrorCode = isset($data['EC2ErrorCode']) ? (string) $data['EC2ErrorCode'] : null;
     }
 }

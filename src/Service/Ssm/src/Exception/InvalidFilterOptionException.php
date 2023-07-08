@@ -3,7 +3,6 @@
 namespace AsyncAws\Ssm\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The specified filter option isn't valid. Valid options are Equals and BeginsWith. For Path filter, valid options are
@@ -11,12 +10,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidFilterOptionException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }

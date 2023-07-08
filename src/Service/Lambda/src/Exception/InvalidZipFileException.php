@@ -25,8 +25,5 @@ final class InvalidZipFileException extends ServerException
         $data = $response->toArray(false);
 
         $this->type = isset($data['Type']) ? (string) $data['Type'] : null;
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
     }
 }

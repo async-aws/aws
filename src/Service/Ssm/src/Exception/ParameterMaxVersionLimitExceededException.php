@@ -3,7 +3,6 @@
 namespace AsyncAws\Ssm\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Parameter Store retains the 100 most recently created versions of a parameter. After this number of versions has been
@@ -25,12 +24,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class ParameterMaxVersionLimitExceededException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }

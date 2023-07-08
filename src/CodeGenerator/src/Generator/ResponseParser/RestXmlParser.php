@@ -69,8 +69,14 @@ class RestXmlParser implements Parser
                 'PROPERTY_ACCESSOR' => $this->parseXmlElement('$data', $member->getShape(), $member->isRequired() || null === $shape->getResultWrapper(), false),
             ]);
         } else {
+            $forException = !$throwOnError;
             foreach ($shape->getMembers() as $member) {
                 if (\in_array($member->getLocation(), ['header', 'headers'])) {
+                    continue;
+                }
+
+                // Avoid conflicts with PHP properties. Those AWS members are included in the AWSError anyway.
+                if ($forException && \in_array(strtolower($member->getName()), ['code', 'message'])) {
                     continue;
                 }
 

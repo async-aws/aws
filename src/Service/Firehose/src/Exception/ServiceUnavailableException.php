@@ -3,7 +3,6 @@
 namespace AsyncAws\Firehose\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The service is unavailable. Back off and retry the operation. If you continue to see the exception, throughput limits
@@ -14,12 +13,4 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class ServiceUnavailableException extends ClientException
 {
-    protected function populateResult(ResponseInterface $response): void
-    {
-        $data = $response->toArray(false);
-
-        if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
-            $this->message = $v;
-        }
-    }
 }
