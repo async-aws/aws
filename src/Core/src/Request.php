@@ -34,6 +34,11 @@ final class Request
     private $body;
 
     /**
+     * @var string|null
+     */
+    private $queryString;
+
+    /**
      * @var array<string, string>
      */
     private $query;
@@ -132,12 +137,14 @@ final class Request
     public function removeQueryAttribute(string $name): void
     {
         unset($this->query[$name]);
+        $this->queryString = null;
         $this->endpoint = '';
     }
 
     public function setQueryAttribute(string $name, string $value): void
     {
         $this->query[$name] = $value;
+        $this->queryString = null;
         $this->endpoint = '';
     }
 
@@ -172,7 +179,7 @@ final class Request
                 throw new LogicException('Request::$endpoint must be set before using it.');
             }
 
-            $this->endpoint = $this->parsed['scheme'] . '://' . $this->hostPrefix . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986) : '');
+            $this->endpoint = $this->parsed['scheme'] . '://' . $this->hostPrefix . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . $this->getQueryString() : '');
         }
 
         return $this->endpoint;
@@ -192,7 +199,17 @@ final class Request
 
         $this->parsed = ['scheme' => $parsed['scheme'], 'host' => $parsed['host'], 'port' => $parsed['port'] ?? null];
 
+        $this->queryString = $parsed['query'] ?? '';
         parse_str($parsed['query'] ?? '', $this->query);
         $this->uri = $parsed['path'] ?? '/';
+    }
+
+    private function getQueryString(): string
+    {
+        if (null === $this->queryString) {
+            $this->queryString = http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986);
+        }
+
+        return $this->queryString;
     }
 }
