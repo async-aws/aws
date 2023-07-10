@@ -133,6 +133,9 @@ menu:
             ssm:
                 text: SSM
                 url: /clients/ssm.html
+            sso:
+                text: SSO
+                url: /clients/sso.html
             sts:
                 text: STS
                 url: /clients/sts.html

@@ -7,6 +7,7 @@
 - Support for LocationService
 - Support for hostPrefix in requests
 - AWS api-change: API updates for the AWS Security Token Service
+- Support for SSO credentials
 
 ## 1.19.0
 

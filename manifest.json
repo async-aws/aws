@@ -713,6 +713,15 @@
                 "PutParameter"
             ]
         },
+        "Sso": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sso/2019-06-10/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sso/2019-06-10/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sso/2019-06-10/paginators-1.json",
+            "api-reference": "https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference",
+            "methods": [
+                "GetRoleCredentials"
+            ]
+        },
         "Sts": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sts/2011-06-15/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sts/2011-06-15/docs-2.json",

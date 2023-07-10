@@ -171,6 +171,7 @@ for more information.
 | [SNS](./sns.md)                             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)                                             |
 | [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)                                             |
 | [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)                                             |
+| [SSO](./sso.md)                             | [async-aws/sso](https://packagist.org/packages/async-aws/sso)                                             |
 | [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)                                           |
 | [StepFunctions](./step-functions.md)        | [async-aws/step-functions](https://packagist.org/packages/async-aws/step-functions)                       |
 | [TimestreamQuery](./timestream-query.md)    | [async-aws/timestream-query](https://packagist.org/packages/async-aws/timestream-query)                   |
