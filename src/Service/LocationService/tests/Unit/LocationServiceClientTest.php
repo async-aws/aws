@@ -30,6 +30,7 @@ class LocationServiceClientTest extends TestCase
 
         self::assertInstanceOf(CalculateRouteResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
+        self::assertEquals('https://routes.geo.us-east-1.amazonaws.com/routes/v0/calculators/CalculatorName/calculate/route', $result->info()['response']->getInfo('url'));
     }
 
     public function testCalculateRouteMatrix(): void
@@ -45,6 +46,7 @@ class LocationServiceClientTest extends TestCase
 
         self::assertInstanceOf(CalculateRouteMatrixResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
+        self::assertEquals('https://routes.geo.us-east-1.amazonaws.com/routes/v0/calculators/CalculatorName/calculate/route-matrix', $result->info()['response']->getInfo('url'));
     }
 
     public function testSearchPlaceIndexForPosition(): void
@@ -59,6 +61,7 @@ class LocationServiceClientTest extends TestCase
 
         self::assertInstanceOf(SearchPlaceIndexForPositionResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
+        self::assertEquals('https://places.geo.us-east-1.amazonaws.com/places/v0/indexes/IndexName/search/position', $result->info()['response']->getInfo('url'));
     }
 
     public function testSearchPlaceIndexForText(): void
@@ -73,5 +76,6 @@ class LocationServiceClientTest extends TestCase
 
         self::assertInstanceOf(SearchPlaceIndexForTextResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
+        self::assertEquals('https://places.geo.us-east-1.amazonaws.com/places/v0/indexes/IndexName/search/text', $result->info()['response']->getInfo('url'));
     }
 }

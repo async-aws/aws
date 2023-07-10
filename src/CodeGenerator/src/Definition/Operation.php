@@ -203,6 +203,11 @@ class Operation
         return $this->data['endpointoperation'] ?? false;
     }
 
+    public function getHostPrefix(): ?string
+    {
+        return $this->data['endpoint']['hostPrefix'] ?? null;
+    }
+
     private function getInputShape(): Shape
     {
         if (isset($this->data['input']['shape'])) {
