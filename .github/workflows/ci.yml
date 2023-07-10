@@ -60,7 +60,6 @@ jobs:
           echo ::endgroup::
 
       - name: Modify composer.json - default
-        if: matrix.strategy != 'lowest'
         run: |
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src/Service -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
@@ -69,8 +68,7 @@ jobs:
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
 
-            sed -i -re 's/"async-aws\/core": "[^"]+"/"async-aws\/core": "*@dev"/' composer.json
-            sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core"}],"require": \{/' composer.json
+            sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core", "options": {"versions": {"async-aws\/core": "dev-master"}}, "canonical": ${{matrix.strategy != 'lowest' && 'true' || 'false'}} }],"require": \{/' composer.json
             sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
             cat composer.json
 
@@ -90,39 +88,10 @@ jobs:
             echo ::endgroup::
           done
 
-      - name: Modify composer.json - lowest
-        if: matrix.strategy == 'lowest'
-        run: |
-          CURRENT_DIR=$(pwd)
-          for COMPONENT in $(find src/Service -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
-          do
-            echo ::group::$COMPONENT
-            echo "$CURRENT_DIR/$COMPONENT"
-            cd "$CURRENT_DIR/$COMPONENT"
-
-            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
-            cat composer.json
-
-            echo ::endgroup::
-          done
-
-          cd "$CURRENT_DIR"
-          for COMPONENT in $(find src/Integration/Symfony -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
-          do
-            echo ::group::$COMPONENT
-            echo "$CURRENT_DIR/$COMPONENT"
-            cd "$CURRENT_DIR/$COMPONENT"
-
-            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
-            cat composer.json
-
-            echo ::endgroup::
-          done
-
       - name: Download dependencies
         env:
           PHP_VERSION: ${{ matrix.php }}
-          # Make sure we dont download awfully old Symfony versions.
+          # Make sure we don't download awfully old Symfony versions.
           SYMFONY_REQUIRE: ">=4.4"
         run: |
           CURRENT_DIR=$(pwd)
