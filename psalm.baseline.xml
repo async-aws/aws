@@ -68,14 +68,6 @@
     </InvalidArgument>
   </file>
   <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
-    <InvalidArgument>
-      <code><![CDATA[[
-            'TableName' => $this->table,
-            'KeySchema' => [
-                new KeySchemaElement(['AttributeName' => 'key', 'KeyType' => KeyType::HASH]),
-            ],
-        ]]]></code>
-    </InvalidArgument>
     <RedundantCast>
       <code><![CDATA[(int) $e->getCode()]]></code>
     </RedundantCast>
