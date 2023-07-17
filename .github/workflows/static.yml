@@ -91,14 +91,6 @@ jobs:
           key: composer-${{ github.sha }}
           restore-keys: composer-
 
-      - name: Cache Psalm
-        uses: actions/cache@v3
-        with:
-          path: .cache/psalm/
-          # The cache version should be incremented in the keys whenever a config change requires a cache invalidation to work
-          key: psalm-v2-${{ github.sha }}
-          restore-keys: psalm-v2-
-
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
