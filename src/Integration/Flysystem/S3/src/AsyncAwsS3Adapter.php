@@ -96,6 +96,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function write($path, $contents, Config $config)
     {
@@ -104,6 +106,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function update($path, $contents, Config $config)
     {
@@ -112,6 +116,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function rename($path, $newpath)
     {
@@ -124,6 +130,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function delete($path)
     {
@@ -143,6 +151,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function deleteDir($dirname)
     {
@@ -170,6 +180,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function createDir($dirname, Config $config)
     {
@@ -178,6 +190,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|bool|null
      */
     public function has($path)
     {
@@ -193,6 +207,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function read($path)
     {
@@ -207,6 +223,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array
      */
     public function listContents($directory = '', $recursive = false)
     {
@@ -226,6 +244,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function getMetadata($path)
     {
@@ -250,6 +270,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function getSize($path)
     {
@@ -258,6 +280,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function getMimetype($path)
     {
@@ -266,6 +290,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function getTimestamp($path)
     {
@@ -274,6 +300,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function writeStream($path, $resource, Config $config)
     {
@@ -282,6 +310,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function updateStream($path, $resource, Config $config)
     {
@@ -290,6 +320,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function copy($path, $newpath)
     {
@@ -312,6 +344,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function readStream($path)
     {
@@ -327,6 +361,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function setVisibility($path, $visibility)
     {
@@ -347,6 +383,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|false
      */
     public function getVisibility($path)
     {
@@ -357,6 +395,8 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * {@inheritdoc}
+     *
+     * @return string
      */
     public function applyPathPrefix($path)
     {
