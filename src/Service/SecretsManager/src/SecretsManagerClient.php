@@ -403,8 +403,9 @@ class SecretsManagerClient extends AbstractApi
      *
      * **Required permissions: **`secretsmanager:UpdateSecret`. For more information, see  IAM policy actions for Secrets
      * Manager [^3] and Authentication and access control in Secrets Manager [^4]. If you use a customer managed key, you
-     * must also have `kms:GenerateDataKey` and `kms:Decrypt` permissions on the key. For more information, see  Secret
-     * encryption and decryption [^5].
+     * must also have `kms:GenerateDataKey`, `kms:Encrypt`, and `kms:Decrypt` permissions on the key. If you change the KMS
+     * key and you don't have `kms:Encrypt` permission to the new key, Secrets Manager does not re-ecrypt existing secret
+     * versions with the new key. For more information, see  Secret encryption and decryption [^5].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html
      * [^2]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html

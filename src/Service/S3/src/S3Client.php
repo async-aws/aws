@@ -317,8 +317,9 @@ class S3Client extends AbstractApi
      * > If the request is an HTTP 1.1 request, the response is chunk encoded. If it were not, it would not contain the
      * > content-length, and you would need to read the entire body.
      *
-     * The copy request charge is based on the storage class and Region that you specify for the destination object. For
-     * pricing information, see Amazon S3 pricing [^3].
+     * The copy request charge is based on the storage class and Region that you specify for the destination object. The
+     * request can also result in a data retrieval charge for the source if the source storage class bills for data
+     * retrieval. For pricing information, see Amazon S3 pricing [^3].
      *
      * ! Amazon S3 transfer acceleration does not support cross-Region copies. If you request a cross-Region copy using a
      * ! transfer acceleration endpoint, you get a 400 `Bad Request` error. For more information, see Transfer Acceleration
