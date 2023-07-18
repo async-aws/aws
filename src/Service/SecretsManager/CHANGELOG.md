@@ -7,6 +7,10 @@
 - The type for `\AsyncAws\SecretsManager\Input\DeleteSecretRequest::getRecoveryWindowInDays` and `\AsyncAws\SecretsManager\Input\DeleteSecretRequest::setRecoveryWindowInDays` uses `int` instead of `string` to reflect the AWS type.
 - The return type for `\AsyncAws\SecretsManager\ValueObject\RotationRulesType::getAutomaticallyAfterDays` uses `int` instead of `string` to reflect the AWS type.
 
+### Added
+
+- AWS enhancement: Documentation updates.
+
 ## 1.0.0
 
 ### Added
