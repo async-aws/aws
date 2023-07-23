@@ -85,7 +85,7 @@ final class User
     private $passwordLastUsed;
 
     /**
-     * For more information about permissions boundaries, see Permissions boundaries for IAM identities  [^1] in the *IAM
+     * For more information about permissions boundaries, see Permissions boundaries for IAM identities [^1] in the *IAM
      * User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html

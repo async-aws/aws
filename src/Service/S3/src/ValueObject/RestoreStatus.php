@@ -4,7 +4,7 @@ namespace AsyncAws\S3\ValueObject;
 
 /**
  * Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be
- * retrieved. For more information about these storage classes and how to work with archived objects, see  Working with
+ * retrieved. For more information about these storage classes and how to work with archived objects, see Working with
  * archived objects [^1] in the *Amazon S3 User Guide*.
  *
  * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html

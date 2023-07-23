@@ -10,7 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class TimeZone
 {
     /**
-     * The name of the time zone, following the  IANA time zone standard [^1]. For example, `America/Los_Angeles`.
+     * The name of the time zone, following the IANA time zone standard [^1]. For example, `America/Los_Angeles`.
      *
      * [^1]: https://www.iana.org/time-zones
      *

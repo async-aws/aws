@@ -44,8 +44,8 @@ final class StartExecutionInput extends Input
 
     /**
      * Optional name of the execution. This name must be unique for your Amazon Web Services account, Region, and state
-     * machine for 90 days. For more information, see  Limits Related to State Machine Executions [^1] in the *Step
-     * Functions Developer Guide*.
+     * machine for 90 days. For more information, see Limits Related to State Machine Executions [^1] in the *Step Functions
+     * Developer Guide*.
      *
      * A name must *not* contain:
      *

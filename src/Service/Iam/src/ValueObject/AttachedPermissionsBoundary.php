@@ -10,7 +10,7 @@ use AsyncAws\Iam\Enum\PermissionsBoundaryAttachmentType;
  * An attached permissions boundary is a managed policy that has been attached to a user or role to set the permissions
  * boundary.
  *
- * For more information about permissions boundaries, see Permissions boundaries for IAM identities  [^1] in the *IAM
+ * For more information about permissions boundaries, see Permissions boundaries for IAM identities [^1] in the *IAM
  * User Guide*.
  *
  * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html

@@ -175,7 +175,7 @@ class CodeDeployClient extends AbstractApi
      * `BeforeAllowTraffic` and `AfterAllowTraffic`. For Amazon ECS deployments, the available lifecycle hooks are
      * `BeforeInstall`, `AfterInstall`, `AfterAllowTestTraffic`, `BeforeAllowTraffic`, and `AfterAllowTraffic`. Lambda
      * validation functions return `Succeeded` or `Failed`. For more information, see AppSpec 'hooks' Section for an Lambda
-     * Deployment  [^1] and AppSpec 'hooks' Section for an Amazon ECS Deployment [^2].
+     * Deployment [^1] and AppSpec 'hooks' Section for an Amazon ECS Deployment [^2].
      *
      * [^1]: https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-lambda
      * [^2]: https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-ecs

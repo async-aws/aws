@@ -68,8 +68,8 @@ final class SendMessageBatchRequestEntry
      *
      * The token used for deduplication of messages within a 5-minute minimum deduplication interval. If a message with a
      * particular `MessageDeduplicationId` is sent successfully, subsequent messages with the same `MessageDeduplicationId`
-     * are accepted successfully but aren't delivered. For more information, see  Exactly-once processing [^1] in the
-     * *Amazon SQS Developer Guide*.
+     * are accepted successfully but aren't delivered. For more information, see Exactly-once processing [^1] in the *Amazon
+     * SQS Developer Guide*.
      *
      * - Every message must have a unique `MessageDeduplicationId`,
      *

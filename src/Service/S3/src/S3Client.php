@@ -399,7 +399,7 @@ class S3Client extends AbstractApi
      *   specify an ACL or `PUT` requests that specify bucket owner full control ACLs, such as the
      *   `bucket-owner-full-control` canned ACL or an equivalent form of this ACL expressed in the XML format.
      *
-     *   For more information, see  Controlling ownership of objects and disabling ACLs [^12] in the *Amazon S3 User Guide*.
+     *   For more information, see Controlling ownership of objects and disabling ACLs [^12] in the *Amazon S3 User Guide*.
      *
      *   > If your bucket uses the bucket owner enforced setting for Object Ownership, all objects written to the bucket by
      *   > any account will be owned by the bucket owner.
@@ -552,7 +552,7 @@ class S3Client extends AbstractApi
      *     `BucketOWnerEnforced` and ACLs are disabled. We recommend keeping ACLs disabled, except in uncommon use cases
      *     where you must control access for each object individually. If you want to change the `ObjectOwnership` setting,
      *     you can use the `x-amz-object-ownership` header in your `CreateBucket` request to set the `ObjectOwnership`
-     *     setting of your choice. For more information about S3 Object Ownership, see Controlling object ownership  [^5] in
+     *     setting of your choice. For more information about S3 Object Ownership, see Controlling object ownership [^5] in
      *     the *Amazon S3 User Guide*.
      *   - **S3 Block Public Access** - If your specific use case requires granting public access to your S3 resources, you
      *     can disable Block Public Access. You can create a new bucket with Block Public Access enabled, then separately
@@ -560,13 +560,13 @@ class S3Client extends AbstractApi
      *     `s3:PutBucketPublicAccessBlock` permission. By default, all Block Public Access settings are enabled for new
      *     buckets. To avoid inadvertent exposure of your resources, we recommend keeping the S3 Block Public Access
      *     settings enabled. For more information about S3 Block Public Access, see Blocking public access to your Amazon S3
-     *     storage  [^7] in the *Amazon S3 User Guide*.
+     *     storage [^7] in the *Amazon S3 User Guide*.
      *
      *
      * ! If your `CreateBucket` request sets `BucketOwnerEnforced` for Amazon S3 Object Ownership and specifies a bucket ACL
      * ! that provides access to an external Amazon Web Services account, your request fails with a `400` error and returns
      * ! the `InvalidBucketAcLWithObjectOwnership` error code. For more information, see Setting Object Ownership on an
-     * ! existing bucket  [^8] in the *Amazon S3 User Guide*.
+     * ! existing bucket [^8] in the *Amazon S3 User Guide*.
      *
      * The following operations are related to `CreateBucket`:
      *
@@ -713,7 +713,7 @@ class S3Client extends AbstractApi
      *     - `x-amz-server-side-encryption-customer-key`
      *     - `x-amz-server-side-encryption-customer-key-MD5`
      *
-     *     For more information about server-side encryption with customer-provided encryption keys (SSE-C), see  Protecting
+     *     For more information about server-side encryption with customer-provided encryption keys (SSE-C), see Protecting
      *     data using server-side encryption with customer-provided encryption keys (SSE-C) [^14].
      *
      * - `Access-Control-List (ACL)-Specific Request Headers`:
@@ -961,7 +961,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Removes the entire tag set from the specified object. For more information about managing object tags, see  Object
+     * Removes the entire tag set from the specified object. For more information about managing object tags, see Object
      * Tagging [^1].
      *
      * To use this operation, you must have permission to perform the `s3:DeleteObjectTagging` action.
@@ -1015,7 +1015,7 @@ class S3Client extends AbstractApi
      * When performing this action on an MFA Delete enabled bucket, that attempts to delete any versioned objects, you must
      * include an MFA token. If you do not provide one, the entire request will fail, even if there are non-versioned
      * objects you are trying to delete. If you provide an invalid token, whether there are versioned keys in the request or
-     * not, the entire Multi-Object Delete request will fail. For information about MFA Delete, see  MFA Delete [^1].
+     * not, the entire Multi-Object Delete request will fail. For information about MFA Delete, see MFA Delete [^1].
      *
      * Finally, the Content-MD5 header is required for all Multi-Object Delete requests. Amazon S3 uses the header value to
      * ensure that your request body has not been altered in transit.
@@ -1071,7 +1071,7 @@ class S3Client extends AbstractApi
      * `InvalidAccessPointAliasError` is returned. For more information about `InvalidAccessPointAliasError`, see List of
      * Error Codes [^1].
      *
-     * For more information about CORS, see  Enabling Cross-Origin Resource Sharing [^2].
+     * For more information about CORS, see Enabling Cross-Origin Resource Sharing [^2].
      *
      * The following operations are related to `GetBucketCors`:
      *
@@ -1310,7 +1310,7 @@ class S3Client extends AbstractApi
      *
      * > If your bucket uses the bucket owner enforced setting for S3 Object Ownership, requests to read ACLs are still
      * > supported and return the `bucket-owner-full-control` ACL with the owner being the account that created the bucket.
-     * > For more information, see  Controlling object ownership and disabling ACLs [^2] in the *Amazon S3 User Guide*.
+     * > For more information, see Controlling object ownership and disabling ACLs [^2] in the *Amazon S3 User Guide*.
      *
      * The following operations are related to `GetObjectAcl`:
      *
@@ -2017,7 +2017,7 @@ class S3Client extends AbstractApi
      * specify an ACL or PUT requests that specify bucket owner full control ACLs, such as the `bucket-owner-full-control`
      * canned ACL or an equivalent form of this ACL expressed in the XML format. PUT requests that contain other ACLs (for
      * example, custom grants to certain Amazon Web Services accounts) fail and return a `400` error with the error code
-     * `AccessControlListNotSupported`. For more information, see  Controlling ownership of objects and disabling ACLs [^6]
+     * `AccessControlListNotSupported`. For more information, see Controlling ownership of objects and disabling ACLs [^6]
      * in the *Amazon S3 User Guide*.
      *
      * > If your bucket uses the bucket owner enforced setting for Object Ownership, all objects written to the bucket by

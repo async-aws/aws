@@ -47,7 +47,7 @@ final class CreateUserRequest extends Input
      * policy can grant to an entity. To learn more, see Permissions boundaries for IAM entities [^1] in the *IAM User
      * Guide*.
      *
-     * For more information about policy types, see Policy types  [^2] in the *IAM User Guide*.
+     * For more information about policy types, see Policy types [^2] in the *IAM User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types

@@ -25,7 +25,7 @@ class Waiter
     private $shapeLocator;
 
     /**
-     * @param \Closure(string): Operation $operationLocator
+     * @param \Closure(string): Operation                                  $operationLocator
      * @param \Closure(string, Member|null=, array<string, mixed>=): Shape $shapeLocator
      */
     public function __construct(array $data, \Closure $operationLocator, \Closure $shapeLocator)

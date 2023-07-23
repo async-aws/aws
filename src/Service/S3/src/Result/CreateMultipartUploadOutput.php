@@ -13,7 +13,7 @@ class CreateMultipartUploadOutput extends Result
     /**
      * If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in
      * the lifecycle rule matches the object name in the request, the response includes this header. The header indicates
-     * when the initiated multipart upload becomes eligible for an abort operation. For more information, see  Aborting
+     * when the initiated multipart upload becomes eligible for an abort operation. For more information, see Aborting
      * Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration [^1].
      *
      * The response also includes the `x-amz-abort-rule-id` header that provides the ID of the lifecycle configuration rule

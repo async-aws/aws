@@ -49,10 +49,10 @@ final class CalculateRouteMatrixRequest extends Input
      * array defined in WGS 84 [^1] format: `[longitude, latitude]`. For example, `[-123.115, 49.285]`.
      *
      * ! Depending on the data provider selected in the route calculator resource there may be additional restrictions on
-     * ! the inputs you can choose. See  Position restrictions [^2] in the *Amazon Location Service Developer Guide*.
+     * ! the inputs you can choose. See Position restrictions [^2] in the *Amazon Location Service Developer Guide*.
      *
      * > For route calculators that use Esri as the data provider, if you specify a departure that's not located on a road,
-     * > Amazon Location  moves the position to the nearest road [^3]. The snapped value is available in the result in
+     * > Amazon Location moves the position to the nearest road [^3]. The snapped value is available in the result in
      * > `SnappedDeparturePositions`.
      *
      * Valid Values: `[-180 to 180,-90 to 90]`
@@ -87,10 +87,10 @@ final class CalculateRouteMatrixRequest extends Input
      * defined in WGS 84 [^1] format: `[longitude, latitude]`. For example, `[-122.339, 47.615]`.
      *
      * ! Depending on the data provider selected in the route calculator resource there may be additional restrictions on
-     * ! the inputs you can choose. See  Position restrictions [^2] in the *Amazon Location Service Developer Guide*.
+     * ! the inputs you can choose. See Position restrictions [^2] in the *Amazon Location Service Developer Guide*.
      *
      * > For route calculators that use Esri as the data provider, if you specify a destination that's not located on a
-     * > road, Amazon Location  moves the position to the nearest road [^3]. The snapped value is available in the result in
+     * > road, Amazon Location moves the position to the nearest road [^3]. The snapped value is available in the result in
      * > `SnappedDestinationPositions`.
      *
      * Valid Values: `[-180 to 180,-90 to 90]`

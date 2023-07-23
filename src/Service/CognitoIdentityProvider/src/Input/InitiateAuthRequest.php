@@ -83,7 +83,7 @@ final class InitiateAuthRequest extends Input
      * - Define auth challenge
      * - Verify auth challenge
      *
-     * For more information, see  Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
+     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
      * Guide*.
      *
      * > When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
