@@ -80,8 +80,8 @@ final class SendMessageRequest extends Input
      *
      * The token used for deduplication of sent messages. If a message with a particular `MessageDeduplicationId` is sent
      * successfully, any messages sent with the same `MessageDeduplicationId` are accepted successfully but aren't delivered
-     * during the 5-minute deduplication interval. For more information, see  Exactly-once processing [^1] in the *Amazon
-     * SQS Developer Guide*.
+     * during the 5-minute deduplication interval. For more information, see Exactly-once processing [^1] in the *Amazon SQS
+     * Developer Guide*.
      *
      * - Every message must have a unique `MessageDeduplicationId`,
      *

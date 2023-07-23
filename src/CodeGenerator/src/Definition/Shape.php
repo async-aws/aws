@@ -35,7 +35,7 @@ class Shape
 
     /**
      * @param \Closure(string, Member|null=, array<string, mixed>=): Shape $shapeLocator
-     * @param \Closure(): ServiceDefinition $serviceLocator
+     * @param \Closure(): ServiceDefinition                                $serviceLocator
      */
     public static function create(string $name, array $data, \Closure $shapeLocator, \Closure $serviceLocator): Shape
     {

@@ -69,7 +69,7 @@ class SecretsManagerClient extends AbstractApi
      * Logging Secrets Manager events with CloudTrail [^4].
      *
      * **Required permissions: **`secretsmanager:CreateSecret`. If you include tags in the secret, you also need
-     * `secretsmanager:TagResource`. For more information, see  IAM policy actions for Secrets Manager [^5] and
+     * `secretsmanager:TagResource`. For more information, see IAM policy actions for Secrets Manager [^5] and
      * Authentication and access control in Secrets Manager [^6].
      *
      * To encrypt the secret with a KMS key other than `aws/secretsmanager`, you need `kms:GenerateDataKey` and
@@ -143,7 +143,7 @@ class SecretsManagerClient extends AbstractApi
      * version in the background.
      *
      * To determine whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to
-     * any attempts to access a secret during the recovery window. For more information, see  Monitor secrets scheduled for
+     * any attempts to access a secret during the recovery window. For more information, see Monitor secrets scheduled for
      * deletion [^1].
      *
      * Secrets Manager performs the permanent secret deletion at the end of the waiting period as a background task with low
@@ -159,7 +159,7 @@ class SecretsManagerClient extends AbstractApi
      * request parameters because it might be logged. For more information, see Logging Secrets Manager events with
      * CloudTrail [^2].
      *
-     * **Required permissions: **`secretsmanager:DeleteSecret`. For more information, see  IAM policy actions for Secrets
+     * **Required permissions: **`secretsmanager:DeleteSecret`. For more information, see IAM policy actions for Secrets
      * Manager [^3] and Authentication and access control in Secrets Manager [^4].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring_cloudwatch_deleted-secrets.html
@@ -211,8 +211,8 @@ class SecretsManagerClient extends AbstractApi
      *
      * **Required permissions: **`secretsmanager:GetSecretValue`. If the secret is encrypted using a customer-managed key
      * instead of the Amazon Web Services managed key `aws/secretsmanager`, then you also need `kms:Decrypt` permissions for
-     * that key. For more information, see  IAM policy actions for Secrets Manager [^4] and Authentication and access
-     * control in Secrets Manager [^5].
+     * that key. For more information, see IAM policy actions for Secrets Manager [^4] and Authentication and access control
+     * in Secrets Manager [^5].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html
      * [^2]: https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret-version-stage.html
@@ -267,7 +267,7 @@ class SecretsManagerClient extends AbstractApi
      * request parameters because it might be logged. For more information, see Logging Secrets Manager events with
      * CloudTrail [^2].
      *
-     * **Required permissions: **`secretsmanager:ListSecrets`. For more information, see  IAM policy actions for Secrets
+     * **Required permissions: **`secretsmanager:ListSecrets`. For more information, see IAM policy actions for Secrets
      * Manager [^3] and Authentication and access control in Secrets Manager [^4].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_search-secret.html
@@ -329,7 +329,7 @@ class SecretsManagerClient extends AbstractApi
      * request parameters except `SecretBinary` or `SecretString` because it might be logged. For more information, see
      * Logging Secrets Manager events with CloudTrail [^1].
      *
-     * **Required permissions: **`secretsmanager:PutSecretValue`. For more information, see  IAM policy actions for Secrets
+     * **Required permissions: **`secretsmanager:PutSecretValue`. For more information, see IAM policy actions for Secrets
      * Manager [^2] and Authentication and access control in Secrets Manager [^3].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html
@@ -401,11 +401,11 @@ class SecretsManagerClient extends AbstractApi
      * request parameters except `SecretBinary` or `SecretString` because it might be logged. For more information, see
      * Logging Secrets Manager events with CloudTrail [^2].
      *
-     * **Required permissions: **`secretsmanager:UpdateSecret`. For more information, see  IAM policy actions for Secrets
+     * **Required permissions: **`secretsmanager:UpdateSecret`. For more information, see IAM policy actions for Secrets
      * Manager [^3] and Authentication and access control in Secrets Manager [^4]. If you use a customer managed key, you
      * must also have `kms:GenerateDataKey`, `kms:Encrypt`, and `kms:Decrypt` permissions on the key. If you change the KMS
      * key and you don't have `kms:Encrypt` permission to the new key, Secrets Manager does not re-ecrypt existing secret
-     * versions with the new key. For more information, see  Secret encryption and decryption [^5].
+     * versions with the new key. For more information, see Secret encryption and decryption [^5].
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html
      * [^2]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html

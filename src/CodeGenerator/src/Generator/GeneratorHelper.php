@@ -233,7 +233,7 @@ class GeneratorHelper
             }
 
             $empty = false;
-            foreach (explode("\n", wordwrap(trim($line), 117 - \strlen(implode('', $prefix)))) as $l) {
+            foreach (explode("\n", wordwrap(trim(str_replace('  ', ' ', $line)), 117 - \strlen(implode('', $prefix)))) as $l) {
                 $lines[] = implode('', $prefix) . $l;
                 if ($spaceNext) {
                     $last = array_pop($prefix);

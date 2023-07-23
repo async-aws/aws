@@ -103,7 +103,7 @@ final class RespondToAuthChallengeRequest extends Input
      * ClientMetadata parameter in your RespondToAuthChallenge request. In your function code in Lambda, you can process the
      * `clientMetadata` value to enhance your workflow for your specific needs.
      *
-     * For more information, see  Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
+     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
      * Guide*.
      *
      * > When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:

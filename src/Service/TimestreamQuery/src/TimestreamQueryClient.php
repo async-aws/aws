@@ -68,7 +68,7 @@ class TimestreamQueryClient extends AbstractApi
      * Because the Timestream SDKs are designed to transparently work with the service’s architecture, including the
      * management and mapping of the service endpoints, *it is not recommended that you use this API unless*:
      *
-     * - You are using VPC endpoints (Amazon Web Services PrivateLink) with Timestream  [^1]
+     * - You are using VPC endpoints (Amazon Web Services PrivateLink) with Timestream [^1]
      * - Your application uses a programming language that does not yet have SDK support
      * - You require better control over the client-side implementation
      *

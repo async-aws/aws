@@ -66,7 +66,7 @@ final class ReceiveMessageRequest extends Input
      *
      * ! To avoid HTTP errors, ensure that the HTTP response timeout for `ReceiveMessage` requests is longer than the
      * ! `WaitTimeSeconds` parameter. For example, with the Java SDK, you can set HTTP transport settings using the
-     * ! NettyNioAsyncHttpClient [^1] for asynchronous clients, or the  ApacheHttpClient [^2] for synchronous clients.
+     * ! NettyNioAsyncHttpClient [^1] for asynchronous clients, or the ApacheHttpClient [^2] for synchronous clients.
      *
      * [^1]: https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/nio/netty/NettyNioAsyncHttpClient.html
      * [^2]: https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.html

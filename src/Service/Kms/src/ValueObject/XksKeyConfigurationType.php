@@ -3,7 +3,7 @@
 namespace AsyncAws\Kms\ValueObject;
 
 /**
- * Information about the external key  [^1]that is associated with a KMS key in an external key store.
+ * Information about the external key [^1]that is associated with a KMS key in an external key store.
  *
  * This element appears in a CreateKey or DescribeKey response only for a KMS key in an external key store.
  *

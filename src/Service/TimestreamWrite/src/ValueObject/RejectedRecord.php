@@ -32,7 +32,7 @@ final class RejectedRecord
      *
      *   > When the retention window is updated, you will receive a `RejectedRecords` exception if you immediately try to
      *   > ingest data within the new window. To avoid a `RejectedRecords` exception, wait until the duration of the new
-     *   > window to ingest new data. For further information, see  Best Practices for Configuring Timestream [^1] and the
+     *   > window to ingest new data. For further information, see Best Practices for Configuring Timestream [^1] and the
      *   > explanation of how storage works in Timestream [^2].
      *
      * - Records with dimensions or measures that exceed the Timestream defined limits.

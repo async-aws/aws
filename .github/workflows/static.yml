@@ -55,6 +55,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
+
       - name: Cache PhpCsFixer
         uses: actions/cache@v3
         with:
@@ -62,10 +73,11 @@ jobs:
           key: php-cs-fixer-${{ github.sha }}
           restore-keys: php-cs-fixer-
 
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader
+
       - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:3.17.0
-        with:
-          args: --dry-run --diff
+        run: ./vendor/bin/php-cs-fixer fix --dry-run --diff
 
   psalm:
     name: Psalm

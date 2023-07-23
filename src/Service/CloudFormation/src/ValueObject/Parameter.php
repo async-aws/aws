@@ -31,7 +31,7 @@ final class Parameter
     private $usePreviousValue;
 
     /**
-     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for  SSM [^1] parameter
+     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for SSM [^1] parameter
      * types in the template.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types

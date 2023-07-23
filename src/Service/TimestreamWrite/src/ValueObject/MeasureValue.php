@@ -17,7 +17,7 @@ final class MeasureValue
     /**
      * The name of the MeasureValue.
      *
-     * For constraints on MeasureValue names, see  Naming Constraints [^1] in the Amazon Timestream Developer Guide.
+     * For constraints on MeasureValue names, see Naming Constraints [^1] in the Amazon Timestream Developer Guide.
      *
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming
      *
