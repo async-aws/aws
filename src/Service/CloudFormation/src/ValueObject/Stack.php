@@ -148,8 +148,8 @@ final class Stack
      * For nested stacks [^1], termination protection is set on the root stack and can't be changed directly on the nested
      * stack. For more information, see Protecting a Stack From Being Deleted [^2] in the *CloudFormation User Guide*.
      *
-     * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
-     * [^2]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
+     * [^2]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html
      *
      * @var bool|null
      */
@@ -161,7 +161,7 @@ final class Stack
      *
      * For more information, see Working with Nested Stacks [^1] in the *CloudFormation User Guide*.
      *
-     * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      *
      * @var string|null
      */
@@ -173,7 +173,7 @@ final class Stack
      *
      * For more information, see Working with Nested Stacks [^1] in the *CloudFormation User Guide*.
      *
-     * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      *
      * @var string|null
      */
@@ -184,7 +184,7 @@ final class Stack
      * as defined in the stack template and any values specified as template parameters. For more information, see Detecting
      * Unregulated Configuration Changes to Stacks and Resources [^1].
      *
-     * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
      *
      * @var StackDriftInformation|null
      */

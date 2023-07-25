@@ -10,7 +10,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
  * updating, and to roll back that operation if the application breaches the threshold of any of the alarms you've
  * specified. For more information, see Monitor and Roll Back Stack Operations [^1].
  *
- * [^1]: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-rollback-triggers.html
+ * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-rollback-triggers.html
  */
 final class RollbackConfiguration
 {
