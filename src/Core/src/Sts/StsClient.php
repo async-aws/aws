@@ -20,6 +20,7 @@ use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
 use AsyncAws\Core\Sts\Result\AssumeRoleWithWebIdentityResponse;
 use AsyncAws\Core\Sts\Result\GetCallerIdentityResponse;
 use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
+use AsyncAws\Core\Sts\ValueObject\ProvidedContext;
 use AsyncAws\Core\Sts\ValueObject\Tag;
 
 class StsClient extends AbstractApi
@@ -121,6 +122,7 @@ class StsClient extends AbstractApi
      *   SerialNumber?: string,
      *   TokenCode?: string,
      *   SourceIdentity?: string,
+     *   ProvidedContexts?: array<ProvidedContext|array>,
      *   '@region'?: string|null,
      * }|AssumeRoleRequest $input
      *
