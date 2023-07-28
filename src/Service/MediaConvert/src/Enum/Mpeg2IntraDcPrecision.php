@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Intra DC precision (Mpeg2IntraDcPrecision) to set quantization precision for intra-block DC coefficients. If you
- * choose the value auto, the service will automatically select the precision based on the per-frame compression ratio.
+ * Use Intra DC precision to set quantization precision for intra-block DC coefficients. If you choose the value auto,
+ * the service will automatically select the precision based on the per-frame compression ratio.
  */
 final class Mpeg2IntraDcPrecision
 {

@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption format.
+ * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
  */
 final class CaptionSourceType
 {

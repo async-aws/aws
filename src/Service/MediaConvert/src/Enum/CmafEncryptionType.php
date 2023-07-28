@@ -4,7 +4,7 @@ namespace AsyncAws\MediaConvert\Enum;
 
 /**
  * Specify the encryption scheme that you want the service to use when encrypting your CMAF segments. Choose AES-CBC
- * subsample (SAMPLE-AES) or AES_CTR (AES-CTR).
+ * subsample or AES_CTR.
  */
 final class CmafEncryptionType
 {

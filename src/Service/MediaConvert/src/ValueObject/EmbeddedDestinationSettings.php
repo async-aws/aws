@@ -5,9 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 /**
  * Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up embedded
  * captions in the same output as your video. For more information, see
- * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html. When you work directly in your JSON
- * job specification, include this object and any required children when you set destinationType to EMBEDDED,
- * EMBEDDED_PLUS_SCTE20, or SCTE20_PLUS_EMBEDDED.
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
  */
 final class EmbeddedDestinationSettings
 {
@@ -24,10 +22,10 @@ final class EmbeddedDestinationSettings
     /**
      * Ignore this setting unless your input captions are SCC format and you want both 608 and 708 captions embedded in your
      * output stream. Optionally, specify the 708 service number for each output captions channel. Choose a different number
-     * for each channel. To use this setting, also set Force 608 to 708 upconvert (Convert608To708) to Upconvert (UPCONVERT)
-     * in your input captions selector settings. If you choose to upconvert but don't specify a 708 service number,
-     * MediaConvert uses the number that you specify for CC channel number (destination608ChannelNumber) for the 708 service
-     * number. For more information, see https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
+     * for each channel. To use this setting, also set Force 608 to 708 upconvert to Upconvert in your input captions
+     * selector settings. If you choose to upconvert but don't specify a 708 service number, MediaConvert uses the number
+     * that you specify for CC channel number for the 708 service number. For more information, see
+     * https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
      *
      * @var int|null
      */

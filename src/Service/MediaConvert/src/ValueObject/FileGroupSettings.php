@@ -4,15 +4,14 @@ namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
  * Settings related to your File output group. MediaConvert uses this group of settings to generate a single standalone
- * file, rather than a streaming package. When you work directly in your JSON job specification, include this object and
- * any required children when you set Type, under OutputGroupSettings, to FILE_GROUP_SETTINGS.
+ * file, rather than a streaming package.
  */
 final class FileGroupSettings
 {
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file.
+     * If your job has multiple inputs, the service uses the filename of the first input file.
      *
      * @var string|null
      */

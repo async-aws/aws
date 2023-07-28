@@ -6,8 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\Xavc4kIntraVbrProfileClass;
 
 /**
- * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value
- * XAVC_4K_INTRA_VBR.
+ * Required when you set Profile to the value XAVC_4K_INTRA_VBR.
  */
 final class Xavc4kIntraVbrProfileSettings
 {

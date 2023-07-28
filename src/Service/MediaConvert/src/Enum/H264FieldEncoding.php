@@ -4,8 +4,8 @@ namespace AsyncAws\MediaConvert\Enum;
 
 /**
  * The video encoding method for your MPEG-4 AVC output. Keep the default value, PAFF, to have MediaConvert use PAFF
- * encoding for interlaced outputs. Choose Force field (FORCE_FIELD) to disable PAFF encoding and create separate
- * interlaced fields. Choose MBAFF to disable PAFF and have MediaConvert use MBAFF encoding for interlaced outputs.
+ * encoding for interlaced outputs. Choose Force field to disable PAFF encoding and create separate interlaced fields.
+ * Choose MBAFF to disable PAFF and have MediaConvert use MBAFF encoding for interlaced outputs.
  */
 final class H264FieldEncoding
 {

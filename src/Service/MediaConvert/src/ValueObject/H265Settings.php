@@ -35,13 +35,11 @@ use AsyncAws\MediaConvert\Enum\H265WriteMp4PackagingType;
 final class H265Settings
 {
     /**
-     * When you set Adaptive Quantization (H265AdaptiveQuantization) to Auto (AUTO), or leave blank, MediaConvert
-     * automatically applies quantization to improve the video quality of your output. Set Adaptive Quantization to Low
-     * (LOW), Medium (MEDIUM), High (HIGH), Higher (HIGHER), or Max (MAX) to manually control the strength of the
-     * quantization filter. When you do, you can specify a value for Spatial Adaptive Quantization
-     * (H265SpatialAdaptiveQuantization), Temporal Adaptive Quantization (H265TemporalAdaptiveQuantization), and Flicker
-     * Adaptive Quantization (H265FlickerAdaptiveQuantization), to further control the quantization filter. Set Adaptive
-     * Quantization to Off (OFF) to apply no quantization to your output.
+     * When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies quantization to
+     * improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High, Higher, or Max to manually
+     * control the strength of the quantization filter. When you do, you can specify a value for Spatial Adaptive
+     * Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the quantization
+     * filter. Set Adaptive Quantization to Off to apply no quantization to your output.
      *
      * @var H265AdaptiveQuantization::*|null
      */
@@ -105,21 +103,17 @@ final class H265Settings
      * when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes them at
      * the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to smooth out
      * the flicker. This setting is disabled by default. Related setting: In addition to enabling this setting, you must
-     * also set adaptiveQuantization to a value other than Off (OFF).
+     * also set adaptiveQuantization to a value other than Off.
      *
      * @var H265FlickerAdaptiveQuantization::*|null
      */
     private $flickerAdaptiveQuantization;
 
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a
-     * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
-     * FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the
+     * input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown
+     * list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you
+     * choose Custom, specify your frame rate as a fraction.
      *
      * @var H265FramerateControl::*|null
      */
@@ -172,21 +166,20 @@ final class H265Settings
     /**
      * Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow four open
      * GOPs and then require a closed GOP, set this value to 5. We recommend that you have the transcoder automatically
-     * choose this value for you based on characteristics of your input video. To enable this automatic behavior, keep the
-     * default value by leaving this setting out of your JSON job specification. In the console, do this by keeping the
-     * default empty value. If you do explicitly specify a value, for segmented outputs, don't set this value to 0.
+     * choose this value for you based on characteristics of your input video. To enable this automatic behavior, do this by
+     * keeping the default empty value. If you do explicitly specify a value, for segmented outputs, don't set this value to
+     * 0.
      *
      * @var int|null
      */
     private $gopClosedCadence;
 
     /**
-     * Use this setting only when you set GOP mode control (GopSizeUnits) to Specified, frames (FRAMES) or Specified,
-     * seconds (SECONDS). Specify the GOP length using a whole number of frames or a decimal value of seconds. MediaConvert
-     * will interpret this value as frames or seconds depending on the value you choose for GOP mode control (GopSizeUnits).
-     * If you want to allow MediaConvert to automatically determine GOP size, leave GOP size blank and set GOP mode control
-     * to Auto (AUTO). If your output group specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to
-     * Auto in each output in your output group.
+     * Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify the GOP
+     * length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret this value as frames
+     * or seconds depending on the value you choose for GOP mode control. If you want to allow MediaConvert to automatically
+     * determine GOP size, leave GOP size blank and set GOP mode control to Auto. If your output group specifies HLS, DASH,
+     * or CMAF, leave GOP size blank and set GOP mode control to Auto in each output in your output group.
      *
      * @var float|null
      */
@@ -195,11 +188,10 @@ final class H265Settings
     /**
      * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
      * automatically choose this value for you based on characteristics of your input video. To enable this automatic
-     * behavior, choose Auto (AUTO) and and leave GOP size (GopSize) blank. By default, if you don't specify GOP mode
-     * control (GopSizeUnits), MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF,
-     * set GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly specify the
-     * GOP length, choose Specified, frames (FRAMES) or Specified, seconds (SECONDS) and then provide the GOP length in the
-     * related setting GOP size (GopSize).
+     * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control, MediaConvert
+     * will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control to Auto and
+     * leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose Specified,
+     * frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      *
      * @var H265GopSizeUnits::*|null
      */
@@ -229,14 +221,13 @@ final class H265Settings
     private $hrdBufferSize;
 
     /**
-     * Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive
-     * output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first
-     * (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top
-     * (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as
-     * the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output.
-     * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
-     * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
-     * first, depending on which of the Follow options you choose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
      * @var H265InterlaceMode::*|null
      */
@@ -251,17 +242,16 @@ final class H265Settings
     private $maxBitrate;
 
     /**
-     * Use this setting only when you also enable Scene change detection (SceneChangeDetect). This setting determines how
-     * the encoder manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that
-     * it inserts for Scene change detection. We recommend that you have the transcoder automatically choose this value for
-     * you based on characteristics of your input video. To enable this automatic behavior, keep the default value by
-     * leaving this setting out of your JSON job specification. In the console, do this by keeping the default empty value.
+     * Use this setting only when you also enable Scene change detection. This setting determines how the encoder manages
+     * the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that it inserts for
+     * Scene change detection. We recommend that you have the transcoder automatically choose this value for you based on
+     * characteristics of your input video. To enable this automatic behavior, do this by keeping the default empty value.
      * When you explicitly specify a value for this setting, the encoder determines whether to skip a cadence-driven I-frame
-     * by the value you set. For example, if you set Min I interval (minIInterval) to 5 and a cadence-driven I-frame would
-     * fall within 5 frames of a scene-change I-frame, then the encoder skips the cadence-driven I-frame. In this way, one
-     * GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are farther from the
-     * scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and the GOPs surrounding
-     * the scene change are smaller than the usual cadence GOPs.
+     * by the value you set. For example, if you set Min I interval to 5 and a cadence-driven I-frame would fall within 5
+     * frames of a scene-change I-frame, then the encoder skips the cadence-driven I-frame. In this way, one GOP is shrunk
+     * slightly and one GOP is stretched slightly. When the cadence-driven I-frames are farther from the scene-change
+     * I-frame than the value you set, then the encoder leaves all I-frames in place and the GOPs surrounding the scene
+     * change are smaller than the usual cadence GOPs.
      *
      * @var int|null
      */
@@ -286,38 +276,37 @@ final class H265Settings
 
     /**
      * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
-     * Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different
-     * PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job
-     * specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the
-     * parNumerator and parDenominator settings.
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value other
+     * than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and
+     * parDenominator settings.
      *
      * @var H265ParControl::*|null
      */
     private $parControl;
 
     /**
-     * Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value
-     * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
-     * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
-     * In this example, the value for parDenominator is 33.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
      *
      * @var int|null
      */
     private $parDenominator;
 
     /**
-     * Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value
-     * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
-     * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
-     * In this example, the value for parNumerator is 40.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
      *
      * @var int|null
      */
     private $parNumerator;
 
     /**
-     * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
-     * video quality. The default behavior is faster, lower quality, single-pass encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
+     * default behavior is faster, lower quality, single-pass encoding.
      *
      * @var H265QualityTuningLevel::*|null
      */
@@ -325,7 +314,7 @@ final class H265Settings
 
     /**
      * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
-     * QVBR for Rate control mode (RateControlMode).
+     * QVBR for Rate control mode.
      *
      * @var H265QvbrSettings|null
      */
@@ -349,14 +338,13 @@ final class H265Settings
 
     /**
      * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
-     * situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this
-     * case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value,
-     * Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any
-     * frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your
-     * output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
-     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
-     * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
-     * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each progressive
+     * frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing, for
+     * all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then
+     * interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't
+     * suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To
+     * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
+     * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
      * @var H265ScanTypeConversionMode::*|null
      */
@@ -364,9 +352,8 @@ final class H265Settings
 
     /**
      * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video
-     * quality and is enabled by default. If this output uses QVBR, choose Transition detection (TRANSITION_DETECTION) for
-     * further video quality improvement. For more information about QVBR, see
-     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
+     * quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video quality
+     * improvement. For more information about QVBR, see https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      *
      * @var H265SceneChangeDetect::*|null
      */
@@ -384,50 +371,47 @@ final class H265Settings
      * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a
      * 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
-     * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
-     * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     * Required settings: You must also set Framerate to 25.
      *
      * @var H265SlowPal::*|null
      */
     private $slowPal;
 
     /**
-     * Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on spatial variation of
-     * content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more
-     * distortion with no noticeable visual degradation and uses more bits on areas where any small distortion will be
-     * noticeable. For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded
-     * with more bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature
-     * doesn't take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
-     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
-     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization
-     * (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it
-     * to Low. For content with a wider variety of textures, set it to High or Higher.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion with
+     * no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable. For
+     * example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more bits.
+     * Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't take
+     * into account where the viewer's attention is likely to be. If viewers are likely to be focusing their attention on a
+     * part of the screen with a lot of complex texture, you might choose to disable this feature. Related setting: When you
+     * enable spatial adaptive quantization, set the value for Adaptive quantization depending on your content. For
+     * homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures,
+     * set it to High or Higher.
      *
      * @var H265SpatialAdaptiveQuantization::*|null
      */
     private $spatialAdaptiveQuantization;
 
     /**
-     * This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This field works
-     * with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams > Advanced >
-     * Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive, Interlaced, Hard
-     * Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player
-     * converts this output to 29.97i.
+     * This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works with the
+     * Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced Mode field to
+     * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
+     * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      *
      * @var H265Telecine::*|null
      */
     private $telecine;
 
     /**
-     * Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on temporal variation of
-     * content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't
-     * moving and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
+     * Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving and
+     * uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
      * readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost always
      * improve your video quality. Note, though, that this feature doesn't take into account where the viewer's attention is
      * likely to be. If viewers are likely to be focusing their attention on a part of the screen that doesn't have moving
      * objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting:
-     * When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization
-     * (adaptiveQuantization).
+     * When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization.
      *
      * @var H265TemporalAdaptiveQuantization::*|null
      */

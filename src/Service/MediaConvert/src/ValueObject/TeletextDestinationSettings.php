@@ -7,9 +7,7 @@ use AsyncAws\MediaConvert\Enum\TeletextPageType;
 
 /**
  * Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
- * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html. When you work
- * directly in your JSON job specification, include this object and any required children when you set destinationType
- * to TELETEXT.
+ * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
  */
 final class TeletextDestinationSettings
 {
@@ -24,8 +22,8 @@ final class TeletextDestinationSettings
 
     /**
      * Specify the page types for this Teletext page. If you don't specify a value here, the service sets the page type to
-     * the default value Subtitle (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext data, don't use this
-     * field. When you pass through a set of Teletext pages, your output has the same page types as your input.
+     * the default value Subtitle. If you pass through the entire set of Teletext data, don't use this field. When you pass
+     * through a set of Teletext pages, your output has the same page types as your input.
      *
      * @var list<TeletextPageType::*>|null
      */

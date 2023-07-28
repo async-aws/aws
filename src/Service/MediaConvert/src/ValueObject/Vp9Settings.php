@@ -10,7 +10,7 @@ use AsyncAws\MediaConvert\Enum\Vp9QualityTuningLevel;
 use AsyncAws\MediaConvert\Enum\Vp9RateControlMode;
 
 /**
- * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VP9.
+ * Required when you set Codec to the value VP9.
  */
 final class Vp9Settings
 {
@@ -25,11 +25,7 @@ final class Vp9Settings
      * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
      * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
-     * FramerateNumerator and FramerateDenominator.
+     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
      * @var Vp9FramerateControl::*|null
      */
@@ -101,28 +97,28 @@ final class Vp9Settings
     private $parControl;
 
     /**
-     * Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value
-     * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
-     * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
-     * In this example, the value for parDenominator is 33.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
      *
      * @var int|null
      */
     private $parDenominator;
 
     /**
-     * Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value
-     * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
-     * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
-     * In this example, the value for parNumerator is 40.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
      *
      * @var int|null
      */
     private $parNumerator;
 
     /**
-     * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
-     * video quality. The default behavior is faster, lower quality, multi-pass encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
+     * default behavior is faster, lower quality, multi-pass encoding.
      *
      * @var Vp9QualityTuningLevel::*|null
      */

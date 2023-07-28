@@ -6,12 +6,11 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\VideoCodec;
 
 /**
- * Video codec settings, (CodecSettings) under (VideoDescription), contains the group of settings related to video
- * encoding. The settings in this group vary depending on the value that you choose for Video codec (Codec). For each
- * codec enum that you choose, define the corresponding settings object. The following lists the codec enum, settings
- * object pairs. * AV1, Av1Settings * AVC_INTRA, AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * H_264,
- * H264Settings * H_265, H265Settings * MPEG2, Mpeg2Settings * PRORES, ProresSettings * VC3, Vc3Settings * VP8,
- * Vp8Settings * VP9, Vp9Settings * XAVC, XavcSettings.
+ * Video codec settings contains the group of settings related to video encoding. The settings in this group vary
+ * depending on the value that you choose for Video codec. For each codec enum that you choose, define the corresponding
+ * settings object. The following lists the codec enum, settings object pairs. * AV1, Av1Settings * AVC_INTRA,
+ * AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * H_264, H264Settings * H_265, H265Settings * MPEG2,
+ * Mpeg2Settings * PRORES, ProresSettings * VC3, Vc3Settings * VP8, Vp8Settings * VP9, Vp9Settings * XAVC, XavcSettings.
  */
 final class VideoCodecSettings
 {
@@ -43,14 +42,14 @@ final class VideoCodecSettings
     private $codec;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value FRAME_CAPTURE.
+     * Required when you set Codec to the value FRAME_CAPTURE.
      *
      * @var FrameCaptureSettings|null
      */
     private $frameCaptureSettings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value H_264.
+     * Required when you set Codec to the value H_264.
      *
      * @var H264Settings|null
      */
@@ -64,42 +63,42 @@ final class VideoCodecSettings
     private $h265Settings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value MPEG2.
+     * Required when you set Codec to the value MPEG2.
      *
      * @var Mpeg2Settings|null
      */
     private $mpeg2Settings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value PRORES.
+     * Required when you set Codec to the value PRORES.
      *
      * @var ProresSettings|null
      */
     private $proresSettings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VC3.
+     * Required when you set Codec to the value VC3.
      *
      * @var Vc3Settings|null
      */
     private $vc3Settings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VP8.
+     * Required when you set Codec to the value VP8.
      *
      * @var Vp8Settings|null
      */
     private $vp8Settings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value VP9.
+     * Required when you set Codec to the value VP9.
      *
      * @var Vp9Settings|null
      */
     private $vp9Settings;
 
     /**
-     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value XAVC.
+     * Required when you set Codec to the value XAVC.
      *
      * @var XavcSettings|null
      */

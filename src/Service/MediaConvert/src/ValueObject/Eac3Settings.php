@@ -19,7 +19,7 @@ use AsyncAws\MediaConvert\Enum\Eac3SurroundExMode;
 use AsyncAws\MediaConvert\Enum\Eac3SurroundMode;
 
 /**
- * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3.
+ * Required when you set Codec to the value EAC3.
  */
 final class Eac3Settings
 {
@@ -73,9 +73,9 @@ final class Eac3Settings
     /**
      * Choose the Dolby Digital dynamic range control (DRC) profile that MediaConvert uses when encoding the metadata in the
      * Dolby Digital stream for the line operating mode. Related setting: When you use this setting, MediaConvert ignores
-     * any value you provide for Dynamic range compression profile (DynamicRangeCompressionProfile). For information about
-     * the Dolby Digital DRC operating modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide
-     * at https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
+     * any value you provide for Dynamic range compression profile. For information about the Dolby Digital DRC operating
+     * modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
+     * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
      * @var Eac3DynamicRangeCompressionLine::*|null
      */
@@ -84,8 +84,8 @@ final class Eac3Settings
     /**
      * Choose the Dolby Digital dynamic range control (DRC) profile that MediaConvert uses when encoding the metadata in the
      * Dolby Digital stream for the RF operating mode. Related setting: When you use this setting, MediaConvert ignores any
-     * value you provide for Dynamic range compression profile (DynamicRangeCompressionProfile). For information about the
-     * Dolby Digital DRC operating modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
+     * value you provide for Dynamic range compression profile. For information about the Dolby Digital DRC operating modes
+     * and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
      * @var Eac3DynamicRangeCompressionRf::*|null
@@ -107,48 +107,44 @@ final class Eac3Settings
     private $lfeFilter;
 
     /**
-     * Specify a value for the following Dolby Digital Plus setting: Left only/Right only center mix (Lo/Ro center).
-     * MediaConvert uses this value for downmixing. How the service uses this value depends on the value that you choose for
-     * Stereo downmix (Eac3StereoDownmix). Valid values: 3.0, 1.5, 0.0, -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes
-     * the channel. This setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for
-     * the setting Coding mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left
-     * only/Right only center (loRoCenterMixLevel).
+     * Specify a value for the following Dolby Digital Plus setting: Left only/Right only center mix. MediaConvert uses this
+     * value for downmixing. How the service uses this value depends on the value that you choose for Stereo downmix. Valid
+     * values: 3.0, 1.5, 0.0, -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel. This setting applies only if
+     * you keep the default value of 3/2 - L, R, C, Ls, Rs for the setting Coding mode. If you choose a different value for
+     * Coding mode, the service ignores Left only/Right only center.
      *
      * @var float|null
      */
     private $loRoCenterMixLevel;
 
     /**
-     * Specify a value for the following Dolby Digital Plus setting: Left only/Right only (Lo/Ro surround). MediaConvert
-     * uses this value for downmixing. How the service uses this value depends on the value that you choose for Stereo
-     * downmix (Eac3StereoDownmix). Valid values: -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel. This
-     * setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for the setting Coding
-     * mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left only/Right only
-     * surround (loRoSurroundMixLevel).
+     * Specify a value for the following Dolby Digital Plus setting: Left only/Right only. MediaConvert uses this value for
+     * downmixing. How the service uses this value depends on the value that you choose for Stereo downmix. Valid values:
+     * -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel. This setting applies only if you keep the default
+     * value of 3/2 - L, R, C, Ls, Rs for the setting Coding mode. If you choose a different value for Coding mode, the
+     * service ignores Left only/Right only surround.
      *
      * @var float|null
      */
     private $loRoSurroundMixLevel;
 
     /**
-     * Specify a value for the following Dolby Digital Plus setting: Left total/Right total center mix (Lt/Rt center).
-     * MediaConvert uses this value for downmixing. How the service uses this value depends on the value that you choose for
-     * Stereo downmix (Eac3StereoDownmix). Valid values: 3.0, 1.5, 0.0, -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes
-     * the channel. This setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for
-     * the setting Coding mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left
-     * total/Right total center (ltRtCenterMixLevel).
+     * Specify a value for the following Dolby Digital Plus setting: Left total/Right total center mix. MediaConvert uses
+     * this value for downmixing. How the service uses this value depends on the value that you choose for Stereo downmix.
+     * Valid values: 3.0, 1.5, 0.0, -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel. This setting applies
+     * only if you keep the default value of 3/2 - L, R, C, Ls, Rs for the setting Coding mode. If you choose a different
+     * value for Coding mode, the service ignores Left total/Right total center.
      *
      * @var float|null
      */
     private $ltRtCenterMixLevel;
 
     /**
-     * Specify a value for the following Dolby Digital Plus setting: Left total/Right total surround mix (Lt/Rt surround).
-     * MediaConvert uses this value for downmixing. How the service uses this value depends on the value that you choose for
-     * Stereo downmix (Eac3StereoDownmix). Valid values: -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel.
-     * This setting applies only if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2) for the setting
-     * Coding mode (Eac3CodingMode). If you choose a different value for Coding mode, the service ignores Left total/Right
-     * total surround (ltRtSurroundMixLevel).
+     * Specify a value for the following Dolby Digital Plus setting: Left total/Right total surround mix. MediaConvert uses
+     * this value for downmixing. How the service uses this value depends on the value that you choose for Stereo downmix.
+     * Valid values: -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel. This setting applies only if you keep
+     * the default value of 3/2 - L, R, C, Ls, Rs for the setting Coding mode. If you choose a different value for Coding
+     * mode, the service ignores Left total/Right total surround.
      *
      * @var float|null
      */
@@ -187,8 +183,8 @@ final class Eac3Settings
 
     /**
      * Choose how the service does stereo downmixing. This setting only applies if you keep the default value of 3/2 - L, R,
-     * C, Ls, Rs (CODING_MODE_3_2) for the setting Coding mode (Eac3CodingMode). If you choose a different value for Coding
-     * mode, the service ignores Stereo downmix (Eac3StereoDownmix).
+     * C, Ls, Rs for the setting Coding mode. If you choose a different value for Coding mode, the service ignores Stereo
+     * downmix.
      *
      * @var Eac3StereoDownmix::*|null
      */

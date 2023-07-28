@@ -98,9 +98,9 @@ class Route53Client extends AbstractApi
      * **Change Propagation to Route 53 DNS Servers**
      *
      * When you submit a `ChangeResourceRecordSets` request, Route 53 propagates your changes to all of the Route 53
-     * authoritative DNS servers. While your changes are propagating, `GetChange` returns a status of `PENDING`. When
-     * propagation is complete, `GetChange` returns a status of `INSYNC`. Changes generally propagate to all Route 53 name
-     * servers within 60 seconds. For more information, see GetChange [^2].
+     * authoritative DNS servers managing the hosted zone. While your changes are propagating, `GetChange` returns a status
+     * of `PENDING`. When propagation is complete, `GetChange` returns a status of `INSYNC`. Changes generally propagate to
+     * all Route 53 name servers managing the hosted zone within 60 seconds. For more information, see GetChange [^2].
      *
      * **Limits on ChangeResourceRecordSets Requests**
      *

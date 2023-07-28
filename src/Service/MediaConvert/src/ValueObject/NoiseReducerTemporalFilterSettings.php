@@ -20,22 +20,20 @@ final class NoiseReducerTemporalFilterSettings
     private $aggressiveMode;
 
     /**
-     * When you set Noise reducer (noiseReducer) to Temporal (TEMPORAL), the bandwidth and sharpness of your output is
-     * reduced. You can optionally use Post temporal sharpening (postTemporalSharpening) to apply sharpening to the edges of
-     * your output. Note that Post temporal sharpening will also make the bandwidth reduction from the Noise reducer
-     * smaller. The default behavior, Auto (AUTO), allows the transcoder to determine whether to apply sharpening, depending
-     * on your input type and quality. When you set Post temporal sharpening to Enabled (ENABLED), specify how much
-     * sharpening is applied using Post temporal sharpening strength (postTemporalSharpeningStrength). Set Post temporal
-     * sharpening to Disabled (DISABLED) to not apply sharpening.
+     * When you set Noise reducer to Temporal, the bandwidth and sharpness of your output is reduced. You can optionally use
+     * Post temporal sharpening to apply sharpening to the edges of your output. Note that Post temporal sharpening will
+     * also make the bandwidth reduction from the Noise reducer smaller. The default behavior, Auto, allows the transcoder
+     * to determine whether to apply sharpening, depending on your input type and quality. When you set Post temporal
+     * sharpening to Enabled, specify how much sharpening is applied using Post temporal sharpening strength. Set Post
+     * temporal sharpening to Disabled to not apply sharpening.
      *
      * @var NoiseFilterPostTemporalSharpening::*|null
      */
     private $postTemporalSharpening;
 
     /**
-     * Use Post temporal sharpening strength (postTemporalSharpeningStrength) to define the amount of sharpening the
-     * transcoder applies to your output. Set Post temporal sharpening strength to Low (LOW), Medium (MEDIUM), or High
-     * (HIGH) to indicate the amount of sharpening.
+     * Use Post temporal sharpening strength to define the amount of sharpening the transcoder applies to your output. Set
+     * Post temporal sharpening strength to Low, Medium, or High to indicate the amount of sharpening.
      *
      * @var NoiseFilterPostTemporalSharpeningStrength::*|null
      */

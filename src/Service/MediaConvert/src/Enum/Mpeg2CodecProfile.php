@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Profile (Mpeg2CodecProfile) to set the MPEG-2 profile for the video output.
+ * Use Profile to set the MPEG-2 profile for the video output.
  */
 final class Mpeg2CodecProfile
 {

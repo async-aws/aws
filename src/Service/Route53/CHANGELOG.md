@@ -7,6 +7,10 @@
 - The return type for `\AsyncAws\Route53\ValueObject\HostedZone::getResourceRecordSetCount` uses `int` instead of `string` to reflect the AWS type.
 - The return type for the methods `getTtl` and `getWeight` of `\AsyncAws\Route53\ValueObject\ResourceRecordSet` uses `int` instead of `string` to reflect the AWS type.
 
+### Added
+
+- AWS enhancement: Documentation updates.
+
 ## 1.1.0
 
 ### Added

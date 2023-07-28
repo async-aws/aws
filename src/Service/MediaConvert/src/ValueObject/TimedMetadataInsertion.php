@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * Insert user-defined custom ID3 metadata (id3) at timecodes (timecode) that you specify. In each output that you want
- * to include this metadata, you must set ID3 metadata (timedMetadata) to Passthrough (PASSTHROUGH).
+ * Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to include this
+ * metadata, you must set ID3 metadata to Passthrough.
  */
 final class TimedMetadataInsertion
 {

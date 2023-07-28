@@ -12,7 +12,7 @@ use AsyncAws\MediaConvert\Enum\Ac3LfeFilter;
 use AsyncAws\MediaConvert\Enum\Ac3MetadataControl;
 
 /**
- * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AC3.
+ * Required when you set Codec to the value AC3.
  */
 final class Ac3Settings
 {
@@ -53,9 +53,9 @@ final class Ac3Settings
     /**
      * Choose the Dolby Digital dynamic range control (DRC) profile that MediaConvert uses when encoding the metadata in the
      * Dolby Digital stream for the line operating mode. Related setting: When you use this setting, MediaConvert ignores
-     * any value you provide for Dynamic range compression profile (DynamicRangeCompressionProfile). For information about
-     * the Dolby Digital DRC operating modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide
-     * at https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
+     * any value you provide for Dynamic range compression profile. For information about the Dolby Digital DRC operating
+     * modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
+     * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
      * @var Ac3DynamicRangeCompressionLine::*|null
      */
@@ -63,12 +63,11 @@ final class Ac3Settings
 
     /**
      * When you want to add Dolby dynamic range compression (DRC) signaling to your output stream, we recommend that you use
-     * the mode-specific settings instead of Dynamic range compression profile (DynamicRangeCompressionProfile). The
-     * mode-specific settings are Dynamic range compression profile, line mode (dynamicRangeCompressionLine) and Dynamic
-     * range compression profile, RF mode (dynamicRangeCompressionRf). Note that when you specify values for all three
-     * settings, MediaConvert ignores the value of this setting in favor of the mode-specific settings. If you do use this
-     * setting instead of the mode-specific settings, choose None (NONE) to leave out DRC signaling. Keep the default Film
-     * standard (FILM_STANDARD) to set the profile to Dolby's film standard profile for all operating modes.
+     * the mode-specific settings instead of Dynamic range compression profile. The mode-specific settings are Dynamic range
+     * compression profile, line mode and Dynamic range compression profile, RF mode. Note that when you specify values for
+     * all three settings, MediaConvert ignores the value of this setting in favor of the mode-specific settings. If you do
+     * use this setting instead of the mode-specific settings, choose None to leave out DRC signaling. Keep the default Film
+     * standard to set the profile to Dolby's film standard profile for all operating modes.
      *
      * @var Ac3DynamicRangeCompressionProfile::*|null
      */
@@ -77,8 +76,8 @@ final class Ac3Settings
     /**
      * Choose the Dolby Digital dynamic range control (DRC) profile that MediaConvert uses when encoding the metadata in the
      * Dolby Digital stream for the RF operating mode. Related setting: When you use this setting, MediaConvert ignores any
-     * value you provide for Dynamic range compression profile (DynamicRangeCompressionProfile). For information about the
-     * Dolby Digital DRC operating modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
+     * value you provide for Dynamic range compression profile. For information about the Dolby Digital DRC operating modes
+     * and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
      * @var Ac3DynamicRangeCompressionRf::*|null

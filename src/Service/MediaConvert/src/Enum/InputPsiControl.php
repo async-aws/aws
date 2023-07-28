@@ -3,8 +3,9 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Set PSI control (InputPsiControl) for transport stream inputs to specify which data the demux process to scans. *
- * Ignore PSI - Scan all PIDs for audio and video. * Use PSI - Scan only PSI data.
+ * Set PSI control for transport stream inputs to specify which data the demux process to scans.
+ * * Ignore PSI - Scan all PIDs for audio and video.
+ * * Use PSI - Scan only PSI data.
  */
 final class InputPsiControl
 {

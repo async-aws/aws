@@ -9,7 +9,7 @@ final class EsamSettings
 {
     /**
      * Specifies an ESAM ManifestConfirmConditionNotification XML as per OC-SP-ESAM-API-I03-131025. The transcoder uses the
-     * manifest conditioning instructions that you provide in the setting MCC XML (mccXml).
+     * manifest conditioning instructions that you provide in the setting MCC XML.
      *
      * @var EsamManifestConfirmConditionNotification|null
      */
@@ -26,7 +26,7 @@ final class EsamSettings
 
     /**
      * Specifies an ESAM SignalProcessingNotification XML as per OC-SP-ESAM-API-I03-131025. The transcoder uses the signal
-     * processing instructions that you provide in the setting SCC XML (sccXml).
+     * processing instructions that you provide in the setting SCC XML.
      *
      * @var EsamSignalProcessingNotification|null
      */

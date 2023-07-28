@@ -24,7 +24,7 @@ final class StaticKeyProvider
     private $keyFormatVersions;
 
     /**
-     * Relates to DRM implementation. Use a 32-character hexidecimal string to specify Key Value (StaticKeyValue).
+     * Relates to DRM implementation. Use a 32-character hexidecimal string to specify Key Value.
      *
      * @var string|null
      */

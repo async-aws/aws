@@ -57,10 +57,9 @@ final class AudioNormalizationSettings
     private $peakCalculation;
 
     /**
-     * When you use Audio normalization (AudioNormalizationSettings), optionally use this setting to specify a target
-     * loudness. If you don't specify a value here, the encoder chooses a value for you, based on the algorithm that you
-     * choose for Algorithm (algorithm). If you choose algorithm 1770-1, the encoder will choose -24 LKFS; otherwise, the
-     * encoder will choose -23 LKFS.
+     * When you use Audio normalization, optionally use this setting to specify a target loudness. If you don't specify a
+     * value here, the encoder chooses a value for you, based on the algorithm that you choose for Algorithm. If you choose
+     * algorithm 1770-1, the encoder will choose -24 LKFS; otherwise, the encoder will choose -23 LKFS.
      *
      * @var float|null
      */

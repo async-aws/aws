@@ -9,9 +9,7 @@ use AsyncAws\MediaConvert\Enum\MsSmoothManifestEncoding;
 
 /**
  * Settings related to your Microsoft Smooth Streaming output package. For more information, see
- * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html. When you work directly in your JSON job
- * specification, include this object and any required children when you set Type, under OutputGroupSettings, to
- * MS_SMOOTH_GROUP_SETTINGS.
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
  */
 final class MsSmoothGroupSettings
 {
@@ -33,9 +31,9 @@ final class MsSmoothGroupSettings
     private $audioDeduplication;
 
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file.
+     * If your job has multiple inputs, the service uses the filename of the first input file.
      *
      * @var string|null
      */
@@ -49,35 +47,33 @@ final class MsSmoothGroupSettings
     private $destinationSettings;
 
     /**
-     * If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify the value SpekeKeyProvider.
+     * If you are using DRM, set DRM System to specify the value SpekeKeyProvider.
      *
      * @var MsSmoothEncryptionSettings|null
      */
     private $encryption;
 
     /**
-     * Specify how you want MediaConvert to determine the fragment length. Choose Exact (EXACT) to have the encoder use the
-     * exact length that you specify with the setting Fragment length (FragmentLength). This might result in extra I-frames.
-     * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
-     * boundary.
+     * Specify how you want MediaConvert to determine the fragment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Fragment length. This might result in extra I-frames. Choose Multiple of GOP
+     * to have the encoder round up the segment lengths to match the next GOP boundary.
      *
      * @var int|null
      */
     private $fragmentLength;
 
     /**
-     * Specify how you want MediaConvert to determine the fragment length. Choose Exact (EXACT) to have the encoder use the
-     * exact length that you specify with the setting Fragment length (FragmentLength). This might result in extra I-frames.
-     * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
-     * boundary.
+     * Specify how you want MediaConvert to determine the fragment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Fragment length. This might result in extra I-frames. Choose Multiple of GOP
+     * to have the encoder round up the segment lengths to match the next GOP boundary.
      *
      * @var MsSmoothFragmentLengthControl::*|null
      */
     private $fragmentLengthControl;
 
     /**
-     * Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding format for the server and client manifest.
-     * Valid options are utf8 and utf16.
+     * Use Manifest encoding to specify the encoding format for the server and client manifest. Valid options are utf8 and
+     * utf16.
      *
      * @var MsSmoothManifestEncoding::*|null
      */

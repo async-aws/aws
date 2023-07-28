@@ -75,8 +75,8 @@ final class InsertableImage
     private $layer;
 
     /**
-     * Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is transparent
-     * and 100 is fully opaque. Default is 50.
+     * Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent and 100 is
+     * fully opaque. Default is 50.
      *
      * @var int|null
      */

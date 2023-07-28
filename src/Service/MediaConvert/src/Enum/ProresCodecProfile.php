@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Profile (ProResCodecProfile) to specify the type of Apple ProRes codec to use for this output.
+ * Use Profile to specify the type of Apple ProRes codec to use for this output.
  */
 final class ProresCodecProfile
 {

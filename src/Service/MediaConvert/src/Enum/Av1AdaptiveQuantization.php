@@ -4,7 +4,7 @@ namespace AsyncAws\MediaConvert\Enum;
 
 /**
  * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
- * Spatial adaptive quantization (spatialAdaptiveQuantization).
+ * Spatial adaptive quantization.
  */
 final class Av1AdaptiveQuantization
 {

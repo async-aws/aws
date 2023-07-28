@@ -6,12 +6,12 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\WavFormat;
 
 /**
- * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value WAV.
+ * Required when you set Codec to the value WAV.
  */
 final class WavSettings
 {
     /**
-     * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     * Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      *
      * @var int|null
      */

@@ -420,7 +420,7 @@ class SqsClient extends AbstractApi
     }
 
     /**
-     * Deletes the messages in a queue specified by the `QueueURL` parameter.
+     * Deletes available messages in a queue (including in-flight messages) specified by the `QueueURL` parameter.
      *
      * ! When you use the `PurgeQueue` action, you can't retrieve any messages deleted from a queue.
      * !

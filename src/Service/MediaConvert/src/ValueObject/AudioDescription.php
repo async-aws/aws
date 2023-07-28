@@ -75,12 +75,11 @@ final class AudioDescription
 
     /**
      * Specify the language for this audio output track. The service puts this language code into your output audio track
-     * when you set Language code control (AudioLanguageCodeControl) to Use configured (USE_CONFIGURED). The service also
-     * uses your specified custom language code when you set Language code control (AudioLanguageCodeControl) to Follow
-     * input (FOLLOW_INPUT), but your input file doesn't specify a language code. For all outputs, you can use an ISO 639-2
-     * or ISO 639-3 code. For streaming outputs, you can also use any other code in the full RFC-5646 specification.
-     * Streaming outputs are those that are in one of the following output groups: CMAF, DASH ISO, Apple HLS, or Microsoft
-     * Smooth Streaming.
+     * when you set Language code control to Use configured. The service also uses your specified custom language code when
+     * you set Language code control to Follow input, but your input file doesn't specify a language code. For all outputs,
+     * you can use an ISO 639-2 or ISO 639-3 code. For streaming outputs, you can also use any other code in the full
+     * RFC-5646 specification. Streaming outputs are those that are in one of the following output groups: CMAF, DASH ISO,
+     * Apple HLS, or Microsoft Smooth Streaming.
      *
      * @var string|null
      */
@@ -96,11 +95,10 @@ final class AudioDescription
     private $languageCode;
 
     /**
-     * Specify which source for language code takes precedence for this audio track. When you choose Follow input
-     * (FOLLOW_INPUT), the service uses the language code from the input track if it's present. If there's no languge code
-     * on the input track, the service uses the code that you specify in the setting Language code (languageCode or
-     * customLanguageCode). When you choose Use configured (USE_CONFIGURED), the service uses the language code that you
-     * specify.
+     * Specify which source for language code takes precedence for this audio track. When you choose Follow input, the
+     * service uses the language code from the input track if it's present. If there's no languge code on the input track,
+     * the service uses the code that you specify in the setting Language code. When you choose Use configured, the service
+     * uses the language code that you specify.
      *
      * @var AudioLanguageCodeControl::*|null
      */

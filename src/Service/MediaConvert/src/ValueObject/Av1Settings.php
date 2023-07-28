@@ -17,28 +17,24 @@ final class Av1Settings
 {
     /**
      * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
-     * Spatial adaptive quantization (spatialAdaptiveQuantization).
+     * Spatial adaptive quantization.
      *
      * @var Av1AdaptiveQuantization::*|null
      */
     private $adaptiveQuantization;
 
     /**
-     * Specify the Bit depth (Av1BitDepth). You can choose 8-bit (BIT_8) or 10-bit (BIT_10).
+     * Specify the Bit depth. You can choose 8-bit or 10-bit.
      *
      * @var Av1BitDepth::*|null
      */
     private $bitDepth;
 
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a
-     * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
-     * FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the
+     * input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown
+     * list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you
+     * choose Custom, specify your frame rate as a fraction.
      *
      * @var Av1FramerateControl::*|null
      */
@@ -105,7 +101,7 @@ final class Av1Settings
 
     /**
      * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
-     * QVBR for Rate control mode (RateControlMode).
+     * QVBR for Rate control mode.
      *
      * @var Av1QvbrSettings|null
      */
@@ -129,16 +125,16 @@ final class Av1Settings
     private $slices;
 
     /**
-     * Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on spatial variation of
-     * content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more
-     * distortion with no noticeable visual degradation and uses more bits on areas where any small distortion will be
-     * noticeable. For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded
-     * with more bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature
-     * doesn't take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
-     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
-     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization
-     * (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it
-     * to Low. For content with a wider variety of textures, set it to High or Higher.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion with
+     * no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable. For
+     * example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more bits.
+     * Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't take
+     * into account where the viewer's attention is likely to be. If viewers are likely to be focusing their attention on a
+     * part of the screen with a lot of complex texture, you might choose to disable this feature. Related setting: When you
+     * enable spatial adaptive quantization, set the value for Adaptive quantization depending on your content. For
+     * homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures,
+     * set it to High or Higher.
      *
      * @var Av1SpatialAdaptiveQuantization::*|null
      */

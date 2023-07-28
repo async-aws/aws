@@ -3,9 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * To create assets that have the same TIC values in each audio track, keep the default value Share TICs
- * (SAME_TICS_PER_TRACK). To create assets that have unique TIC values for each audio track, choose Use unique TICs
- * (RESERVE_UNIQUE_TICS_PER_TRACK).
+ * To create assets that have the same TIC values in each audio track, keep the default value Share TICs. To create
+ * assets that have unique TIC values for each audio track, choose Use unique TICs.
  */
 final class NielsenUniqueTicPerAudioTrackType
 {
