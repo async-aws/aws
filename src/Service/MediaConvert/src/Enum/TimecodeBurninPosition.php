@@ -3,8 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify the location the burned-in timecode
- * on output video.
+ * Use Position under Timecode burn-in to specify the location the burned-in timecode on output video.
  */
 final class TimecodeBurninPosition
 {

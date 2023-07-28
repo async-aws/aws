@@ -3,12 +3,12 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AIFF.
+ * Required when you set Codec to the value AIFF.
  */
 final class AiffSettings
 {
     /**
-     * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     * Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      *
      * @var int|null
      */

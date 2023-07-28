@@ -3,21 +3,21 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * To insert ID3 tags in your output, specify two values. Use ID3 tag (Id3) to specify the base 64 encoded string and
- * use Timecode (TimeCode) to specify the time when the tag should be inserted. To insert multiple ID3 tags in your
- * output, create multiple instances of ID3 insertion (Id3Insertion).
+ * To insert ID3 tags in your output, specify two values. Use ID3 tag to specify the base 64 encoded string and use
+ * Timecode to specify the time when the tag should be inserted. To insert multiple ID3 tags in your output, create
+ * multiple instances of ID3 insertion.
  */
 final class Id3Insertion
 {
     /**
-     * Use ID3 tag (Id3) to provide a fully formed ID3 tag in base64-encode format.
+     * Use ID3 tag to provide a fully formed ID3 tag in base64-encode format.
      *
      * @var string|null
      */
     private $id3;
 
     /**
-     * Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.
+     * Provide a Timecode in HH:MM:SS:FF or HH:MM:SS;FF format.
      *
      * @var string|null
      */

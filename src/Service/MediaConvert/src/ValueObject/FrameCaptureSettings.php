@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value FRAME_CAPTURE.
+ * Required when you set Codec to the value FRAME_CAPTURE.
  */
 final class FrameCaptureSettings
 {

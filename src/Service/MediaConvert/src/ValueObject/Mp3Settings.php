@@ -18,8 +18,8 @@ final class Mp3Settings
     private $bitrate;
 
     /**
-     * Specify the number of channels in this output audio track. Choosing Mono on the console gives you 1 output channel;
-     * choosing Stereo gives you 2. In the API, valid values are 1 and 2.
+     * Specify the number of channels in this output audio track. Choosing Mono gives you 1 output channel; choosing Stereo
+     * gives you 2. In the API, valid values are 1 and 2.
      *
      * @var int|null
      */
@@ -40,8 +40,8 @@ final class Mp3Settings
     private $sampleRate;
 
     /**
-     * Required when you set Bitrate control mode (rateControlMode) to VBR. Specify the audio quality of this MP3 output
-     * from 0 (highest quality) to 9 (lowest quality).
+     * Required when you set Bitrate control mode to VBR. Specify the audio quality of this MP3 output from 0 (highest
+     * quality) to 9 (lowest quality).
      *
      * @var int|null
      */

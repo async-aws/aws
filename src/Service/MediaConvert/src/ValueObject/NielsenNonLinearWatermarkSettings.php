@@ -17,10 +17,9 @@ use AsyncAws\MediaConvert\Enum\NielsenUniqueTicPerAudioTrackType;
 final class NielsenNonLinearWatermarkSettings
 {
     /**
-     * Choose the type of Nielsen watermarks that you want in your outputs. When you choose NAES 2 and NW (NAES2_AND_NW),
-     * you must provide a value for the setting SID (sourceId). When you choose CBET (CBET), you must provide a value for
-     * the setting CSID (cbetSourceId). When you choose NAES 2, NW, and CBET (NAES2_AND_NW_AND_CBET), you must provide
-     * values for both of these settings.
+     * Choose the type of Nielsen watermarks that you want in your outputs. When you choose NAES 2 and NW, you must provide
+     * a value for the setting SID. When you choose CBET, you must provide a value for the setting CSID. When you choose
+     * NAES 2, NW, and CBET, you must provide values for both of these settings.
      *
      * @var NielsenActiveWatermarkProcessType::*|null
      */
@@ -29,8 +28,7 @@ final class NielsenNonLinearWatermarkSettings
     /**
      * Optional. Use this setting when you want the service to include an ADI file in the Nielsen metadata .zip file. To
      * provide an ADI file, store it in Amazon S3 and provide a URL to it here. The URL should be in the following format:
-     * S3://bucket/path/ADI-file. For more information about the metadata .zip file, see the setting Metadata destination
-     * (metadataDestination).
+     * S3://bucket/path/ADI-file. For more information about the metadata .zip file, see the setting Metadata destination.
      *
      * @var string|null
      */
@@ -54,7 +52,7 @@ final class NielsenNonLinearWatermarkSettings
     /**
      * Use the CSID that Nielsen provides to you. This CBET source ID should be unique to your Nielsen account but common to
      * all of your output assets that have CBET watermarking. Required when you choose a value for the setting Watermark
-     * types (ActiveWatermarkProcess) that includes CBET.
+     * types that includes CBET.
      *
      * @var string|null
      */
@@ -70,9 +68,9 @@ final class NielsenNonLinearWatermarkSettings
     /**
      * Specify the Amazon S3 location where you want MediaConvert to save your Nielsen non-linear metadata .zip file. This
      * Amazon S3 bucket must be in the same Region as the one where you do your MediaConvert transcoding. If you want to
-     * include an ADI file in this .zip file, use the setting ADI file (adiFilename) to specify it. MediaConvert delivers
-     * the Nielsen metadata .zip files only to your metadata destination Amazon S3 bucket. It doesn't deliver the .zip files
-     * to Nielsen. You are responsible for delivering the metadata .zip files to Nielsen.
+     * include an ADI file in this .zip file, use the setting ADI file to specify it. MediaConvert delivers the Nielsen
+     * metadata .zip files only to your metadata destination Amazon S3 bucket. It doesn't deliver the .zip files to Nielsen.
+     * You are responsible for delivering the metadata .zip files to Nielsen.
      *
      * @var string|null
      */
@@ -89,8 +87,8 @@ final class NielsenNonLinearWatermarkSettings
 
     /**
      * Required. Specify whether your source content already contains Nielsen non-linear watermarks. When you set this value
-     * to Watermarked (WATERMARKED), the service fails the job. Nielsen requires that you add non-linear watermarking to
-     * only clean content that doesn't already have non-linear Nielsen watermarks.
+     * to Watermarked, the service fails the job. Nielsen requires that you add non-linear watermarking to only clean
+     * content that doesn't already have non-linear Nielsen watermarks.
      *
      * @var NielsenSourceWatermarkStatusType::*|null
      */
@@ -107,9 +105,8 @@ final class NielsenNonLinearWatermarkSettings
     private $ticServerUrl;
 
     /**
-     * To create assets that have the same TIC values in each audio track, keep the default value Share TICs
-     * (SAME_TICS_PER_TRACK). To create assets that have unique TIC values for each audio track, choose Use unique TICs
-     * (RESERVE_UNIQUE_TICS_PER_TRACK).
+     * To create assets that have the same TIC values in each audio track, keep the default value Share TICs. To create
+     * assets that have unique TIC values for each audio track, choose Use unique TICs.
      *
      * @var NielsenUniqueTicPerAudioTrackType::*|null
      */

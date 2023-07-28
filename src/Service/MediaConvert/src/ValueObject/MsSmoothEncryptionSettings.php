@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify the value SpekeKeyProvider.
+ * If you are using DRM, set DRM System to specify the value SpekeKeyProvider.
  */
 final class MsSmoothEncryptionSettings
 {

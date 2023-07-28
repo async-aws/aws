@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
- * video quality. The default behavior is faster, lower quality, single-pass encoding.
+ * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
+ * default behavior is faster, lower quality, single-pass encoding.
  */
 final class Mpeg2QualityTuningLevel
 {

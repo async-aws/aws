@@ -29,8 +29,8 @@ final class AvcIntraSettings
     private $avcIntraClass;
 
     /**
-     * Optional when you set AVC-Intra class (avcIntraClass) to Class 4K/2K (CLASS_4K_2K). When you set AVC-Intra class to a
-     * different value, this object isn't allowed.
+     * Optional when you set AVC-Intra class to Class 4K/2K. When you set AVC-Intra class to a different value, this object
+     * isn't allowed.
      *
      * @var AvcIntraUhdSettings|null
      */
@@ -40,11 +40,7 @@ final class AvcIntraSettings
      * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
      * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
-     * FramerateNumerator and FramerateDenominator.
+     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
      * @var AvcIntraFramerateControl::*|null
      */
@@ -85,14 +81,13 @@ final class AvcIntraSettings
     private $framerateNumerator;
 
     /**
-     * Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive
-     * output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first
-     * (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top
-     * (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as
-     * the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output.
-     * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
-     * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
-     * first, depending on which of the Follow options you choose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
      * @var AvcIntraInterlaceMode::*|null
      */
@@ -100,14 +95,13 @@ final class AvcIntraSettings
 
     /**
      * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
-     * situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this
-     * case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value,
-     * Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any
-     * frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your
-     * output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
-     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
-     * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
-     * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each progressive
+     * frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing, for
+     * all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then
+     * interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't
+     * suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To
+     * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
+     * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
      * @var AvcIntraScanTypeConversionMode::*|null
      */
@@ -117,8 +111,7 @@ final class AvcIntraSettings
      * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a
      * 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
-     * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
-     * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     * Required settings: You must also set Framerate to 25.
      *
      * @var AvcIntraSlowPal::*|null
      */
@@ -126,9 +119,9 @@ final class AvcIntraSettings
 
     /**
      * When you do frame rate conversion from 23.976 frames per second (fps) to 29.97 fps, and your output scan type is
-     * interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default
-     * value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field
-     * polarity to create a smoother picture.
+     * interlaced, you can optionally enable hard telecine to create a smoother picture. When you keep the default value,
+     * None, MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to
+     * create a smoother picture.
      *
      * @var AvcIntraTelecine::*|null
      */

@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value MP2.
+ * Required when you set Codec to the value MP2.
  */
 final class Mp2Settings
 {
@@ -15,8 +15,8 @@ final class Mp2Settings
     private $bitrate;
 
     /**
-     * Set Channels to specify the number of channels in this output audio track. Choosing Mono in the console will give you
-     * 1 output channel; choosing Stereo will give you 2. In the API, valid values are 1 and 2.
+     * Set Channels to specify the number of channels in this output audio track. Choosing Mono in will give you 1 output
+     * channel; choosing Stereo will give you 2. In the API, valid values are 1 and 2.
      *
      * @var int|null
      */

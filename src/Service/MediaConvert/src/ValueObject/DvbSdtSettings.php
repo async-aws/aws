@@ -6,9 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\OutputSdt;
 
 /**
- * Use these settings to insert a DVB Service Description Table (SDT) in the transport stream of this output. When you
- * work directly in your JSON job specification, include this object only when your job has a transport stream output
- * and the container settings contain the object M2tsSettings.
+ * Use these settings to insert a DVB Service Description Table (SDT) in the transport stream of this output.
  */
 final class DvbSdtSettings
 {

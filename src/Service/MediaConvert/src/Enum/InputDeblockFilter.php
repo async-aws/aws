@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Enable Deblock (InputDeblockFilter) to produce smoother motion in the output. Default is disabled. Only manually
- * controllable for MPEG2 and uncompressed video inputs.
+ * Enable Deblock to produce smoother motion in the output. Default is disabled. Only manually controllable for MPEG2
+ * and uncompressed video inputs.
  */
 final class InputDeblockFilter
 {

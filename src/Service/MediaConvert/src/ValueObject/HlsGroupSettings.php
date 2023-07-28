@@ -24,9 +24,7 @@ use AsyncAws\MediaConvert\Enum\HlsTimedMetadataId3Frame;
 
 /**
  * Settings related to your HLS output package. For more information, see
- * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html. When you work directly in your JSON job
- * specification, include this object and any required children when you set Type, under OutputGroupSettings, to
- * HLS_GROUP_SETTINGS.
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
  */
 final class HlsGroupSettings
 {
@@ -49,8 +47,8 @@ final class HlsGroupSettings
 
     /**
      * Ignore this setting unless you are using FairPlay DRM with Verimatrix and you encounter playback issues. Keep the
-     * default value, Include (INCLUDE), to output audio-only headers. Choose Exclude (EXCLUDE) to remove the audio-only
-     * headers from your audio segments.
+     * default value, Include, to output audio-only headers. Choose Exclude to remove the audio-only headers from your audio
+     * segments.
      *
      * @var HlsAudioOnlyHeader::*|null
      */
@@ -84,10 +82,10 @@ final class HlsGroupSettings
     private $captionLanguageSetting;
 
     /**
-     * Set Caption segment length control (CaptionSegmentLengthControl) to Match video (MATCH_VIDEO) to create caption
-     * segments that align with the video segments from the first video output in this output group. For example, if the
-     * video segments are 2 seconds long, your WebVTT segments will also be 2 seconds long. Keep the default setting, Large
-     * segments (LARGE_SEGMENTS) to create caption segments that are 300 seconds long.
+     * Set Caption segment length control to Match video to create caption segments that align with the video segments from
+     * the first video output in this output group. For example, if the video segments are 2 seconds long, your WebVTT
+     * segments will also be 2 seconds long. Keep the default setting, Large segments to create caption segments that are
+     * 300 seconds long.
      *
      * @var HlsCaptionSegmentLengthControl::*|null
      */
@@ -95,8 +93,7 @@ final class HlsGroupSettings
 
     /**
      * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
-     * value Enabled (ENABLED) and control caching in your video distribution set up. For example, use the Cache-Control
-     * http header.
+     * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http header.
      *
      * @var HlsClientCache::*|null
      */
@@ -110,9 +107,9 @@ final class HlsGroupSettings
     private $codecSpecification;
 
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file.
+     * If your job has multiple inputs, the service uses the filename of the first input file.
      *
      * @var string|null
      */
@@ -140,13 +137,12 @@ final class HlsGroupSettings
     private $encryption;
 
     /**
-     * Specify whether MediaConvert generates images for trick play. Keep the default value, None (NONE), to not generate
-     * any images. Choose Thumbnail (THUMBNAIL) to generate tiled thumbnails. Choose Thumbnail and full frame
-     * (THUMBNAIL_AND_FULLFRAME) to generate tiled thumbnails and full-resolution images of single frames. MediaConvert
-     * creates a child manifest for each set of images that you generate and adds corresponding entries to the parent
-     * manifest. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
-     * MediaConvert creates with this feature are compatible with this Roku specification:
-     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
+     * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
+     * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled thumbnails
+     * and full-resolution images of single frames. MediaConvert creates a child manifest for each set of images that you
+     * generate and adds corresponding entries to the parent manifest. A common application for these images is Roku trick
+     * mode. The thumbnails and full-frame images that MediaConvert creates with this feature are compatible with this Roku
+     * specification: https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
      * @var HlsImageBasedTrickPlay::*|null
      */
@@ -240,19 +236,18 @@ final class HlsGroupSettings
 
     /**
      * Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert defaults to 10.
-     * Related settings: Use Segment length control (SegmentLengthControl) to specify whether the encoder enforces this
-     * value strictly. Use Segment control (HlsSegmentControl) to specify whether MediaConvert creates separate segment
-     * files or one content file that has metadata to mark the segment boundaries.
+     * Related settings: Use Segment length control to specify whether the encoder enforces this value strictly. Use Segment
+     * control to specify whether MediaConvert creates separate segment files or one content file that has metadata to mark
+     * the segment boundaries.
      *
      * @var int|null
      */
     private $segmentLength;
 
     /**
-     * Specify how you want MediaConvert to determine the segment length. Choose Exact (EXACT) to have the encoder use the
-     * exact length that you specify with the setting Segment length (SegmentLength). This might result in extra I-frames.
-     * Choose Multiple of GOP (GOP_MULTIPLE) to have the encoder round up the segment lengths to match the next GOP
-     * boundary.
+     * Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Segment length. This might result in extra I-frames. Choose Multiple of GOP
+     * to have the encoder round up the segment lengths to match the next GOP boundary.
      *
      * @var HlsSegmentLengthControl::*|null
      */
@@ -286,9 +281,8 @@ final class HlsGroupSettings
     private $targetDurationCompatibilityMode;
 
     /**
-     * Specify the type of the ID3 frame (timedMetadataId3Frame) to use for ID3 timestamps (timedMetadataId3Period) in your
-     * output. To include ID3 timestamps: Specify PRIV (PRIV) or TDRL (TDRL) and set ID3 metadata (timedMetadata) to
-     * Passthrough (PASSTHROUGH). To exclude ID3 timestamps: Set ID3 timestamp frame type to None (NONE).
+     * Specify the type of the ID3 frame to use for ID3 timestamps in your output. To include ID3 timestamps: Specify PRIV
+     * or TDRL and set ID3 metadata to Passthrough. To exclude ID3 timestamps: Set ID3 timestamp frame type to None.
      *
      * @var HlsTimedMetadataId3Frame::*|null
      */
@@ -297,8 +291,8 @@ final class HlsGroupSettings
     /**
      * Specify the interval in seconds to write ID3 timestamps in your output. The first timestamp starts at the output
      * timecode and date, and increases incrementally with each ID3 timestamp. To use the default interval of 10 seconds:
-     * Leave blank. To include this metadata in your output: Set ID3 timestamp frame type (timedMetadataId3Frame) to PRIV
-     * (PRIV) or TDRL (TDRL), and set ID3 metadata (timedMetadata) to Passthrough (PASSTHROUGH).
+     * Leave blank. To include this metadata in your output: Set ID3 timestamp frame type to PRIV or TDRL, and set ID3
+     * metadata to Passthrough.
      *
      * @var int|null
      */

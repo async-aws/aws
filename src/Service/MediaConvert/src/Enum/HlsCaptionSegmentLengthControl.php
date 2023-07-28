@@ -3,10 +3,10 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Set Caption segment length control (CaptionSegmentLengthControl) to Match video (MATCH_VIDEO) to create caption
- * segments that align with the video segments from the first video output in this output group. For example, if the
- * video segments are 2 seconds long, your WebVTT segments will also be 2 seconds long. Keep the default setting, Large
- * segments (LARGE_SEGMENTS) to create caption segments that are 300 seconds long.
+ * Set Caption segment length control to Match video to create caption segments that align with the video segments from
+ * the first video output in this output group. For example, if the video segments are 2 seconds long, your WebVTT
+ * segments will also be 2 seconds long. Keep the default setting, Large segments to create caption segments that are
+ * 300 seconds long.
  */
 final class HlsCaptionSegmentLengthControl
 {

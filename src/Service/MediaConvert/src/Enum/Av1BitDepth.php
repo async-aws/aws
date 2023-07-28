@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Specify the Bit depth (Av1BitDepth). You can choose 8-bit (BIT_8) or 10-bit (BIT_10).
+ * Specify the Bit depth. You can choose 8-bit or 10-bit.
  */
 final class Av1BitDepth
 {

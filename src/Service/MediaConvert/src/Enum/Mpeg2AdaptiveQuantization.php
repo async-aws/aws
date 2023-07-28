@@ -4,8 +4,7 @@ namespace AsyncAws\MediaConvert\Enum;
 
 /**
  * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
- * the following settings: Spatial adaptive quantization (spatialAdaptiveQuantization), and Temporal adaptive
- * quantization (temporalAdaptiveQuantization).
+ * the following settings: Spatial adaptive quantization, and Temporal adaptive quantization.
  */
 final class Mpeg2AdaptiveQuantization
 {

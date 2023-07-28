@@ -11,7 +11,7 @@ use AsyncAws\MediaConvert\Enum\XavcHdProfileTelecine;
 use AsyncAws\MediaConvert\Enum\XavcInterlaceMode;
 
 /**
- * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value XAVC_HD.
+ * Required when you set Profile to the value XAVC_HD.
  */
 final class XavcHdProfileSettings
 {
@@ -24,25 +24,24 @@ final class XavcHdProfileSettings
     private $bitrateClass;
 
     /**
-     * The best way to set up adaptive quantization is to keep the default value, Auto (AUTO), for the setting Adaptive
-     * quantization (XavcAdaptiveQuantization). When you do so, MediaConvert automatically applies the best types of
-     * quantization for your video content. Include this setting in your JSON job specification only when you choose to
-     * change the default value for Adaptive quantization. Enable this setting to have the encoder reduce I-frame pop.
-     * I-frame pop appears as a visual flicker that can arise when the encoder saves bits by copying some macroblocks many
-     * times from frame to frame, and then refreshes them at the I-frame. When you enable this setting, the encoder updates
-     * these macroblocks slightly more often to smooth out the flicker. This setting is disabled by default. Related
-     * setting: In addition to enabling this setting, you must also set Adaptive quantization (adaptiveQuantization) to a
-     * value other than Off (OFF) or Auto (AUTO). Use Adaptive quantization to adjust the degree of smoothing that Flicker
-     * adaptive quantization provides.
+     * The best way to set up adaptive quantization is to keep the default value, Auto, for the setting Adaptive
+     * quantization. When you do so, MediaConvert automatically applies the best types of quantization for your video
+     * content. Include this setting in your JSON job specification only when you choose to change the default value for
+     * Adaptive quantization. Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual
+     * flicker that can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and
+     * then refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more
+     * often to smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this
+     * setting, you must also set Adaptive quantization to a value other than Off or Auto. Use Adaptive quantization to
+     * adjust the degree of smoothing that Flicker adaptive quantization provides.
      *
      * @var XavcFlickerAdaptiveQuantization::*|null
      */
     private $flickerAdaptiveQuantization;
 
     /**
-     * Specify whether the encoder uses B-frames as reference frames for other pictures in the same GOP. Choose Allow
-     * (ENABLED) to allow the encoder to use B-frames as reference frames. Choose Don't allow (DISABLED) to prevent the
-     * encoder from using B-frames as reference frames.
+     * Specify whether the encoder uses B-frames as reference frames for other pictures in the same GOP. Choose Allow to
+     * allow the encoder to use B-frames as reference frames. Choose Don't allow to prevent the encoder from using B-frames
+     * as reference frames.
      *
      * @var XavcGopBReference::*|null
      */
@@ -66,22 +65,21 @@ final class XavcHdProfileSettings
     private $hrdBufferSize;
 
     /**
-     * Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive
-     * output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first
-     * (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top
-     * (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as
-     * the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output.
-     * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
-     * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
-     * first, depending on which of the Follow options you choose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
      * @var XavcInterlaceMode::*|null
      */
     private $interlaceMode;
 
     /**
-     * Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output
-     * video quality. The default behavior is faster, lower quality, single-pass encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
+     * default behavior is faster, lower quality, single-pass encoding.
      *
      * @var XavcHdProfileQualityTuningLevel::*|null
      */
@@ -97,8 +95,8 @@ final class XavcHdProfileSettings
 
     /**
      * Ignore this setting unless you set Frame rate (framerateNumerator divided by framerateDenominator) to 29.970. If your
-     * input framerate is 23.976, choose Hard (HARD). Otherwise, keep the default value None (NONE). For more information,
-     * see https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-telecine-and-inverse-telecine.html.
+     * input framerate is 23.976, choose Hard. Otherwise, keep the default value None. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-telecine-and-inverse-telecine.html.
      *
      * @var XavcHdProfileTelecine::*|null
      */

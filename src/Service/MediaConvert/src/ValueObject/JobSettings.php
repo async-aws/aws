@@ -39,8 +39,8 @@ final class JobSettings
     private $extendedDataServices;
 
     /**
-     * Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a job. These
-     * inputs will be concantenated together to create the output.
+     * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These inputs
+     * will be concantenated together to create the output.
      *
      * @var Input[]|null
      */
@@ -67,9 +67,7 @@ final class JobSettings
 
     /**
      * Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these settings.
-     * When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging for all outputs
-     * in the job. To enable Nielsen configuration programmatically, include an instance of nielsenConfiguration in your
-     * JSON job specification. Even if you don't include any children of nielsenConfiguration, you still enable the setting.
+     * When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs in the job.
      *
      * @var NielsenConfiguration|null
      */
@@ -87,12 +85,12 @@ final class JobSettings
     private $nielsenNonLinearWatermark;
 
     /**
-     * (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All
-     * unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well.
-     * Required in (OutputGroups) is a group of settings that apply to the whole group. This required object depends on the
-     * value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs are as follows. *
-     * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS,
-     * DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings.
+     * Contains one group of settings for each set of outputs that share a common package type. All unpackaged files
+     * (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in is a
+     * group of settings that apply to the whole group. This required object depends on the value you set for Type. Type,
+     * settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings
+     * * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
+     * CMAF_GROUP_SETTINGS, CmafGroupSettings.
      *
      * @var OutputGroup[]|null
      */
@@ -107,8 +105,8 @@ final class JobSettings
     private $timecodeConfig;
 
     /**
-     * Insert user-defined custom ID3 metadata (id3) at timecodes (timecode) that you specify. In each output that you want
-     * to include this metadata, you must set ID3 metadata (timedMetadata) to Passthrough (PASSTHROUGH).
+     * Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to include this
+     * metadata, you must set ID3 metadata to Passthrough.
      *
      * @var TimedMetadataInsertion|null
      */

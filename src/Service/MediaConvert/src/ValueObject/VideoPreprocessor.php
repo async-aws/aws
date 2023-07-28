@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * Find additional transcoding features under Preprocessors (VideoPreprocessors). Enable the features at each output
- * individually. These features are disabled by default.
+ * Find additional transcoding features under Preprocessors. Enable the features at each output individually. These
+ * features are disabled by default.
  */
 final class VideoPreprocessor
 {
@@ -39,8 +39,8 @@ final class VideoPreprocessor
     private $hdr10Plus;
 
     /**
-     * Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or disable this
-     * feature for each output individually. This setting is disabled by default.
+     * Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this feature for each
+     * output individually. This setting is disabled by default.
      *
      * @var ImageInserter|null
      */

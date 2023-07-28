@@ -3,12 +3,12 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Keep the default value, Auto (AUTO), for this setting to have MediaConvert automatically apply the best types of
+ * Keep the default value, Auto, for this setting to have MediaConvert automatically apply the best types of
  * quantization for your video content. When you want to apply your quantization settings manually, you must set
- * H264AdaptiveQuantization to a value other than Auto (AUTO). Use this setting to specify the strength of any adaptive
+ * H264AdaptiveQuantization to a value other than Auto. Use this setting to specify the strength of any adaptive
  * quantization filters that you enable. If you don't want MediaConvert to do any adaptive quantization in this
- * transcode, set Adaptive quantization (H264AdaptiveQuantization) to Off (OFF). Related settings: The value that you
- * choose here applies to the following settings: H264FlickerAdaptiveQuantization, H264SpatialAdaptiveQuantization, and
+ * transcode, set Adaptive quantization to Off. Related settings: The value that you choose here applies to the
+ * following settings: H264FlickerAdaptiveQuantization, H264SpatialAdaptiveQuantization, and
  * H264TemporalAdaptiveQuantization.
  */
 final class H264AdaptiveQuantization

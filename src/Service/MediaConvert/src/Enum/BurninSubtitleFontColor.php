@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Specify the color of the burned-in captions text. Leave Font color (FontColor) blank and set Style passthrough
- * (StylePassthrough) to enabled to use the font color data from your input captions, if present.
+ * Specify the color of the burned-in captions text. Leave Font color blank and set Style passthrough to enabled to use
+ * the font color data from your input captions, if present.
  */
 final class BurninSubtitleFontColor
 {

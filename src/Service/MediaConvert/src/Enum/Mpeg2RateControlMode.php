@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Rate control mode (Mpeg2RateControlMode) to specify whether the bitrate is variable (vbr) or constant (cbr).
+ * Use Rate control mode to specify whether the bitrate is variable (vbr) or constant (cbr).
  */
 final class Mpeg2RateControlMode
 {

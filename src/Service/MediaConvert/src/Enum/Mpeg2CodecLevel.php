@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Level (Mpeg2CodecLevel) to set the MPEG-2 level for the video output.
+ * Use Level to set the MPEG-2 level for the video output.
  */
 final class Mpeg2CodecLevel
 {

@@ -4,8 +4,8 @@ namespace AsyncAws\MediaConvert\Enum;
 
 /**
  * Ignore this setting unless you are using FairPlay DRM with Verimatrix and you encounter playback issues. Keep the
- * default value, Include (INCLUDE), to output audio-only headers. Choose Exclude (EXCLUDE) to remove the audio-only
- * headers from your audio segments.
+ * default value, Include, to output audio-only headers. Choose Exclude to remove the audio-only headers from your audio
+ * segments.
  */
 final class HlsAudioOnlyHeader
 {

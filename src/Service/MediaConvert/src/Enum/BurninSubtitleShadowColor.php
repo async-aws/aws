@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Specify the color of the shadow cast by the captions. Leave Shadow color (ShadowColor) blank and set Style
- * passthrough (StylePassthrough) to enabled to use the shadow color data from your input captions, if present.
+ * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to enabled
+ * to use the shadow color data from your input captions, if present.
  */
 final class BurninSubtitleShadowColor
 {

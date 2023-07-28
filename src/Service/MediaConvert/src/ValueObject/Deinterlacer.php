@@ -35,9 +35,10 @@ final class Deinterlacer
     private $control;
 
     /**
-     * Use Deinterlacer (DeinterlaceMode) to choose how the service will do deinterlacing. Default is Deinterlace. -
-     * Deinterlace converts interlaced to progressive. - Inverse telecine converts Hard Telecine 29.97i to progressive
-     * 23.976p. - Adaptive auto-detects and converts to progressive.
+     * Use Deinterlacer to choose how the service will do deinterlacing. Default is Deinterlace.
+     * - Deinterlace converts interlaced to progressive.
+     * - Inverse telecine converts Hard Telecine 29.97i to progressive 23.976p.
+     * - Adaptive auto-detects and converts to progressive.
      *
      * @var DeinterlacerMode::*|null
      */

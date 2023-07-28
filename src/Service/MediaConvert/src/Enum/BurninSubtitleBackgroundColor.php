@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Specify the color of the rectangle behind the captions. Leave background color (BackgroundColor) blank and set Style
- * passthrough (StylePassthrough) to enabled to use the background color data from your input captions, if present.
+ * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
+ * enabled to use the background color data from your input captions, if present.
  */
 final class BurninSubtitleBackgroundColor
 {

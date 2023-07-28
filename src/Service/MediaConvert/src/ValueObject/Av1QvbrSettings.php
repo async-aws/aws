@@ -4,14 +4,14 @@ namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
  * Settings for quality-defined variable bitrate encoding with the AV1 codec. Use these settings only when you set QVBR
- * for Rate control mode (RateControlMode).
+ * for Rate control mode.
  */
 final class Av1QvbrSettings
 {
     /**
-     * Use this setting only when you set Rate control mode (RateControlMode) to QVBR. Specify the target quality level for
-     * this output. MediaConvert determines the right number of bits to use for each part of the video to maintain the video
-     * quality that you specify. When you keep the default value, AUTO, MediaConvert picks a quality level for you, based on
+     * Use this setting only when you set Rate control mode to QVBR. Specify the target quality level for this output.
+     * MediaConvert determines the right number of bits to use for each part of the video to maintain the video quality that
+     * you specify. When you keep the default value, AUTO, MediaConvert picks a quality level for you, based on
      * characteristics of your input video. If you prefer to specify a quality level, specify a number from 1 through 10.
      * Use higher numbers for greater quality. Level 10 results in nearly lossless compression. The quality level for most
      * broadcast-quality transcodes is between 6 and 9. Optionally, to specify a value between whole numbers, also provide a

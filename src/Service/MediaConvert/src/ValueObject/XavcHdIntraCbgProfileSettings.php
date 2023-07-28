@@ -6,8 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\XavcHdIntraCbgProfileClass;
 
 /**
- * Required when you set (Profile) under (VideoDescription)>(CodecSettings)>(XavcSettings) to the value
- * XAVC_HD_INTRA_CBG.
+ * Required when you set Profile to the value XAVC_HD_INTRA_CBG.
  */
 final class XavcHdIntraCbgProfileSettings
 {

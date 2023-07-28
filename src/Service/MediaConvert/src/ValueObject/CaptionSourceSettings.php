@@ -42,7 +42,7 @@ final class CaptionSourceSettings
     private $fileSourceSettings;
 
     /**
-     * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption format.
+     * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      *
      * @var CaptionSourceType::*|null
      */

@@ -10,16 +10,16 @@ namespace AsyncAws\MediaConvert\ValueObject;
 final class Output
 {
     /**
-     * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
-     * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     * Contains groups of audio encoding settings organized by audio codec. Include one instance of per output. Can contain
+     * multiple groups of encoding settings.
      *
      * @var AudioDescription[]|null
      */
     private $audioDescriptions;
 
     /**
-     * (CaptionDescriptions) contains groups of captions settings. For each output that has captions, include one instance
-     * of (CaptionDescriptions). (CaptionDescriptions) can contain multiple groups of captions settings.
+     * Contains groups of captions settings. For each output that has captions, include one instance of CaptionDescriptions.
+     * Can contain multiple groups of captions settings.
      *
      * @var CaptionDescription[]|null
      */
@@ -33,21 +33,20 @@ final class Output
     private $containerSettings;
 
     /**
-     * Use Extension (Extension) to specify the file extension for outputs in File output groups. If you do not specify a
-     * value, the service will use default extensions by container type as follows * MPEG-2 transport stream, m2ts *
-     * Quicktime, mov * MXF container, mxf * MPEG-4 container, mp4 * WebM container, webm * No Container, the service will
-     * use codec extensions (e.g. AAC, H265, H265, AC3).
+     * Use Extension to specify the file extension for outputs in File output groups. If you do not specify a value, the
+     * service will use default extensions by container type as follows * MPEG-2 transport stream, m2ts * Quicktime, mov *
+     * MXF container, mxf * MPEG-4 container, mp4 * WebM container, webm * No Container, the service will use codec
+     * extensions (e.g. AAC, H265, H265, AC3).
      *
      * @var string|null
      */
     private $extension;
 
     /**
-     * Use Name modifier (NameModifier) to have the service add a string to the end of each output filename. You specify the
-     * base filename as part of your destination URI. When you create multiple outputs in the same output group, Name
-     * modifier (NameModifier) is required. Name modifier also accepts format identifiers. For DASH ISO outputs, if you use
-     * the format identifiers $Number$ or $Time$ in one output, you must use them in the same way in all outputs of the
-     * output group.
+     * Use Name modifier to have the service add a string to the end of each output filename. You specify the base filename
+     * as part of your destination URI. When you create multiple outputs in the same output group, Name modifier is
+     * required. Name modifier also accepts format identifiers. For DASH ISO outputs, if you use the format identifiers
+     * $Number$ or $Time$ in one output, you must use them in the same way in all outputs of the output group.
      *
      * @var string|null
      */
@@ -61,8 +60,8 @@ final class Output
     private $outputSettings;
 
     /**
-     * Use Preset (Preset) to specify a preset for your transcoding settings. Provide the system or custom preset name. You
-     * can specify either Preset (Preset) or Container settings (ContainerSettings), but not both.
+     * Use Preset to specify a preset for your transcoding settings. Provide the system or custom preset name. You can
+     * specify either Preset or Container settings, but not both.
      *
      * @var string|null
      */

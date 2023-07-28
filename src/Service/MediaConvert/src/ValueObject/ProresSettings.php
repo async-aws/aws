@@ -14,25 +14,24 @@ use AsyncAws\MediaConvert\Enum\ProresSlowPal;
 use AsyncAws\MediaConvert\Enum\ProresTelecine;
 
 /**
- * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value PRORES.
+ * Required when you set Codec to the value PRORES.
  */
 final class ProresSettings
 {
     /**
      * This setting applies only to ProRes 4444 and ProRes 4444 XQ outputs that you create from inputs that use 4:4:4 chroma
-     * sampling. Set Preserve 4:4:4 sampling (PRESERVE_444_SAMPLING) to allow outputs to also use 4:4:4 chroma sampling. You
-     * must specify a value for this setting when your output codec profile supports 4:4:4 chroma sampling. Related
-     * Settings: For Apple ProRes outputs with 4:4:4 chroma sampling: Choose Preserve 4:4:4 sampling. Use when your input
-     * has 4:4:4 chroma sampling and your output codec Profile is Apple ProRes 4444 or 4444 XQ. Note that when you choose
-     * Preserve 4:4:4 sampling, you cannot include any of the following Preprocessors: Dolby Vision, HDR10+, or Noise
-     * reducer.
+     * sampling. Set Preserve 4:4:4 sampling to allow outputs to also use 4:4:4 chroma sampling. You must specify a value
+     * for this setting when your output codec profile supports 4:4:4 chroma sampling. Related Settings: For Apple ProRes
+     * outputs with 4:4:4 chroma sampling: Choose Preserve 4:4:4 sampling. Use when your input has 4:4:4 chroma sampling and
+     * your output codec Profile is Apple ProRes 4444 or 4444 XQ. Note that when you choose Preserve 4:4:4 sampling, you
+     * cannot include any of the following Preprocessors: Dolby Vision, HDR10+, or Noise reducer.
      *
      * @var ProresChromaSampling::*|null
      */
     private $chromaSampling;
 
     /**
-     * Use Profile (ProResCodecProfile) to specify the type of Apple ProRes codec to use for this output.
+     * Use Profile to specify the type of Apple ProRes codec to use for this output.
      *
      * @var ProresCodecProfile::*|null
      */
@@ -42,11 +41,7 @@ final class ProresSettings
      * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
      * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
-     * FramerateNumerator and FramerateDenominator.
+     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
      * @var ProresFramerateControl::*|null
      */
@@ -87,14 +82,13 @@ final class ProresSettings
     private $framerateNumerator;
 
     /**
-     * Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive
-     * output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first
-     * (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top
-     * (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as
-     * the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output.
-     * Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the
-     * same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field
-     * first, depending on which of the Follow options you choose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
      * @var ProresInterlaceMode::*|null
      */
@@ -102,30 +96,29 @@ final class ProresSettings
 
     /**
      * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
-     * Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different
-     * PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job
-     * specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the
-     * parNumerator and parDenominator settings.
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value other
+     * than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and
+     * parDenominator settings.
      *
      * @var ProresParControl::*|null
      */
     private $parControl;
 
     /**
-     * Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value
-     * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
-     * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
-     * In this example, the value for parDenominator is 33.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
      *
      * @var int|null
      */
     private $parDenominator;
 
     /**
-     * Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value
-     * other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video
-     * PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33.
-     * In this example, the value for parNumerator is 40.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
      *
      * @var int|null
      */
@@ -133,14 +126,13 @@ final class ProresSettings
 
     /**
      * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
-     * situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this
-     * case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value,
-     * Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any
-     * frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your
-     * output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
-     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE)
-     * or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode
-     * (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each progressive
+     * frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing, for
+     * all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then
+     * interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't
+     * suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To
+     * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
+     * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
      * @var ProresScanTypeConversionMode::*|null
      */
@@ -150,8 +142,7 @@ final class ProresSettings
      * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a
      * 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
-     * Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to
-     * (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
+     * Required settings: You must also set Framerate to 25.
      *
      * @var ProresSlowPal::*|null
      */
@@ -159,9 +150,9 @@ final class ProresSettings
 
     /**
      * When you do frame rate conversion from 23.976 frames per second (fps) to 29.97 fps, and your output scan type is
-     * interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default
-     * value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field
-     * polarity to create a smoother picture.
+     * interlaced, you can optionally enable hard telecine to create a smoother picture. When you keep the default value,
+     * None, MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to
+     * create a smoother picture.
      *
      * @var ProresTelecine::*|null
      */
