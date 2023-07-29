@@ -191,6 +191,17 @@ final class Stack
     private $driftInformation;
 
     /**
+     * This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is
+     * rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are
+     * retained. `RetainExceptOnCreate` can be specified for any resource that supports the DeletionPolicy [^1] attribute.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
+     *
+     * @var bool|null
+     */
+    private $retainExceptOnCreate;
+
+    /**
      * @param array{
      *   StackId?: null|string,
      *   StackName: string,
@@ -214,6 +225,7 @@ final class Stack
      *   ParentId?: null|string,
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
+     *   RetainExceptOnCreate?: null|bool,
      * } $input
      */
     public function __construct(array $input)
@@ -240,6 +252,7 @@ final class Stack
         $this->parentId = $input['ParentId'] ?? null;
         $this->rootId = $input['RootId'] ?? null;
         $this->driftInformation = isset($input['DriftInformation']) ? StackDriftInformation::create($input['DriftInformation']) : null;
+        $this->retainExceptOnCreate = $input['RetainExceptOnCreate'] ?? null;
     }
 
     /**
@@ -266,6 +279,7 @@ final class Stack
      *   ParentId?: null|string,
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
+     *   RetainExceptOnCreate?: null|bool,
      * }|Stack $input
      */
     public static function create($input): self
@@ -348,6 +362,11 @@ final class Stack
     public function getParentId(): ?string
     {
         return $this->parentId;
+    }
+
+    public function getRetainExceptOnCreate(): ?bool
+    {
+        return $this->retainExceptOnCreate;
     }
 
     public function getRoleArn(): ?string
