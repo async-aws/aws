@@ -7,6 +7,7 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Scheduler\Enum\ActionAfterCompletion;
 use AsyncAws\Scheduler\Enum\ScheduleState;
 use AsyncAws\Scheduler\Exception\ConflictException;
 use AsyncAws\Scheduler\Exception\InternalServerException;
@@ -45,6 +46,7 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#createschedule
      *
      * @param array{
+     *   ActionAfterCompletion?: ActionAfterCompletion::*,
      *   ClientToken?: string,
      *   Description?: string,
      *   EndDate?: \DateTimeImmutable|string,
@@ -319,6 +321,7 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#updateschedule
      *
      * @param array{
+     *   ActionAfterCompletion?: ActionAfterCompletion::*,
      *   ClientToken?: string,
      *   Description?: string,
      *   EndDate?: \DateTimeImmutable|string,

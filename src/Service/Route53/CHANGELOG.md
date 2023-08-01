@@ -10,6 +10,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Amazon Route 53 now supports the Israel (Tel Aviv) Region (il-central-1) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
 
 ## 1.1.0
 

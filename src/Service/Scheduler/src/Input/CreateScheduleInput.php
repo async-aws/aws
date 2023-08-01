@@ -6,12 +6,21 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Scheduler\Enum\ActionAfterCompletion;
 use AsyncAws\Scheduler\Enum\ScheduleState;
 use AsyncAws\Scheduler\ValueObject\FlexibleTimeWindow;
 use AsyncAws\Scheduler\ValueObject\Target;
 
 final class CreateScheduleInput extends Input
 {
+    /**
+     * Specifies the action that EventBridge Scheduler applies to the schedule after the schedule completes invoking the
+     * target.
+     *
+     * @var ActionAfterCompletion::*|null
+     */
+    private $actionAfterCompletion;
+
     /**
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
      * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
@@ -73,7 +82,7 @@ final class CreateScheduleInput extends Input
      * The expression that defines when the schedule runs. The following formats are supported.
      *
      * - `at` expression - `at(yyyy-mm-ddThh:mm:ss)`
-     * - `rate` expression - `rate(unit value)`
+     * - `rate` expression - `rate(value unit)`
      * - `cron` expression - `cron(fields)`
      *
      * You can use `at` expressions to create one-time schedules that invoke a target once, at the time and in the time
@@ -133,6 +142,7 @@ final class CreateScheduleInput extends Input
 
     /**
      * @param array{
+     *   ActionAfterCompletion?: ActionAfterCompletion::*,
      *   ClientToken?: string,
      *   Description?: string,
      *   EndDate?: \DateTimeImmutable|string,
@@ -150,6 +160,7 @@ final class CreateScheduleInput extends Input
      */
     public function __construct(array $input = [])
     {
+        $this->actionAfterCompletion = $input['ActionAfterCompletion'] ?? null;
         $this->clientToken = $input['ClientToken'] ?? null;
         $this->description = $input['Description'] ?? null;
         $this->endDate = !isset($input['EndDate']) ? null : ($input['EndDate'] instanceof \DateTimeImmutable ? $input['EndDate'] : new \DateTimeImmutable($input['EndDate']));
@@ -167,6 +178,7 @@ final class CreateScheduleInput extends Input
 
     /**
      * @param array{
+     *   ActionAfterCompletion?: ActionAfterCompletion::*,
      *   ClientToken?: string,
      *   Description?: string,
      *   EndDate?: \DateTimeImmutable|string,
@@ -185,6 +197,14 @@ final class CreateScheduleInput extends Input
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return ActionAfterCompletion::*|null
+     */
+    public function getActionAfterCompletion(): ?string
+    {
+        return $this->actionAfterCompletion;
     }
 
     public function getClientToken(): ?string
@@ -277,6 +297,16 @@ final class CreateScheduleInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    /**
+     * @param ActionAfterCompletion::*|null $value
+     */
+    public function setActionAfterCompletion(?string $value): self
+    {
+        $this->actionAfterCompletion = $value;
+
+        return $this;
+    }
+
     public function setClientToken(?string $value): self
     {
         $this->clientToken = $value;
@@ -367,6 +397,12 @@ final class CreateScheduleInput extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->actionAfterCompletion) {
+            if (!ActionAfterCompletion::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ActionAfterCompletion" for "%s". The value "%s" is not a valid "ActionAfterCompletion".', __CLASS__, $v));
+            }
+            $payload['ActionAfterCompletion'] = $v;
+        }
         if (null === $v = $this->clientToken) {
             $v = uuid_create(\UUID_TYPE_RANDOM);
         }
