@@ -4,6 +4,7 @@ namespace AsyncAws\Scheduler\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Scheduler\Enum\ActionAfterCompletion;
 use AsyncAws\Scheduler\Enum\ScheduleState;
 use AsyncAws\Scheduler\ValueObject\AwsVpcConfiguration;
 use AsyncAws\Scheduler\ValueObject\CapacityProviderStrategyItem;
@@ -23,6 +24,14 @@ use AsyncAws\Scheduler\ValueObject\Target;
 
 class GetScheduleOutput extends Result
 {
+    /**
+     * Indicates the action that EventBridge Scheduler applies to the schedule after the schedule completes invoking the
+     * target.
+     *
+     * @var ActionAfterCompletion::*|null
+     */
+    private $actionAfterCompletion;
+
     /**
      * The Amazon Resource Name (ARN) of the schedule.
      *
@@ -92,7 +101,7 @@ class GetScheduleOutput extends Result
      * The expression that defines when the schedule runs. The following formats are supported.
      *
      * - `at` expression - `at(yyyy-mm-ddThh:mm:ss)`
-     * - `rate` expression - `rate(unit value)`
+     * - `rate` expression - `rate(value unit)`
      * - `cron` expression - `cron(fields)`
      *
      * You can use `at` expressions to create one-time schedules that invoke a target once, at the time and in the time
@@ -145,6 +154,16 @@ class GetScheduleOutput extends Result
      * @var Target|null
      */
     private $target;
+
+    /**
+     * @return ActionAfterCompletion::*|null
+     */
+    public function getActionAfterCompletion(): ?string
+    {
+        $this->initialize();
+
+        return $this->actionAfterCompletion;
+    }
 
     public function getArn(): ?string
     {
@@ -251,6 +270,7 @@ class GetScheduleOutput extends Result
     {
         $data = $response->toArray();
 
+        $this->actionAfterCompletion = isset($data['ActionAfterCompletion']) ? (string) $data['ActionAfterCompletion'] : null;
         $this->arn = isset($data['Arn']) ? (string) $data['Arn'] : null;
         $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['CreationDate']))) ? $d : null;
         $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
