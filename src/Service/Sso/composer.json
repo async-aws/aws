@@ -1,0 +1,32 @@
+{
+    "name": "async-aws/sso",
+    "description": "Sso client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "sso"
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "async-aws/core": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Sso\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Sso\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}

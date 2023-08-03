@@ -5,6 +5,7 @@
 ### Added
 
 - Support for LocationService
+- Support for SSO
 
 ## 1.11.0
 

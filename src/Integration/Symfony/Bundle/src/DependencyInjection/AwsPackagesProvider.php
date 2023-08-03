@@ -154,6 +154,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Ssm\SsmClient::class,
                 'package' => 'async-aws/ssm',
             ],
+            'sso' => [
+                'class' => \AsyncAws\Sso\SsoClient::class,
+                'package' => 'async-aws/sso',
+            ],
             'sts' => [
                 'class' => \AsyncAws\Core\Sts\StsClient::class,
                 'package' => 'async-aws/core',

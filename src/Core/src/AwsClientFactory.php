@@ -44,6 +44,7 @@ use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Ssm\SsmClient;
+use AsyncAws\Sso\SsoClient;
 use AsyncAws\StepFunctions\StepFunctionsClient;
 use AsyncAws\TimestreamQuery\TimestreamQueryClient;
 use AsyncAws\TimestreamWrite\TimestreamWriteClient;
@@ -514,6 +515,15 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new SsmClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function sso(): SsoClient
+    {
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new SsoClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
