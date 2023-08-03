@@ -19,7 +19,15 @@ use AsyncAws\Core\Result;
 class ListUsersResponse extends Result implements \IteratorAggregate
 {
     /**
-     * The users returned in the request to list users.
+     * A list of the user pool users, and their attributes, that match your query.
+     *
+     * > Amazon Cognito creates a profile in your user pool for each native user in your user pool, and each unique user ID
+     * > from your third-party identity providers (IdPs). When you link users with the AdminLinkProviderForUser [^1] API
+     * > operation, the output of `ListUsers` displays both the IdP user and the native user that you linked. You can
+     * > identify IdP users in the `Users` object of this API response by the IdP prefix that Amazon Cognito appends to
+     * > `Username`.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminLinkProviderForUser.html
      *
      * @var UserType[]
      */

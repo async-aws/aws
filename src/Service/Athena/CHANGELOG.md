@@ -15,6 +15,7 @@
 ### Added
 
 - Added `me-central-1` region
+- AWS api-change: TODO
 
 ## 1.0.0
 

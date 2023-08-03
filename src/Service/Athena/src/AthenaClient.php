@@ -715,13 +715,17 @@ class AthenaClient extends AbstractApi
             case 'ap-northeast-2':
             case 'ap-northeast-3':
             case 'ap-south-1':
+            case 'ap-south-2':
             case 'ap-southeast-1':
             case 'ap-southeast-2':
             case 'ap-southeast-3':
+            case 'ap-southeast-4':
             case 'ca-central-1':
             case 'eu-central-1':
+            case 'eu-central-2':
             case 'eu-north-1':
             case 'eu-south-1':
+            case 'eu-south-2':
             case 'eu-west-1':
             case 'eu-west-2':
             case 'eu-west-3':

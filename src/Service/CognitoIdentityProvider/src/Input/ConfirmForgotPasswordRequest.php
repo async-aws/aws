@@ -25,7 +25,9 @@ final class ConfirmForgotPasswordRequest extends Input
 
     /**
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username
-     * plus the client ID in the message.
+     * plus the client ID in the message. For more information about `SecretHash`, see Computing secret hash values [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash
      *
      * @var string|null
      */

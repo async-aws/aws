@@ -13,7 +13,7 @@ use AsyncAws\Core\Result;
 class GetUserResponse extends Result
 {
     /**
-     * The user name of the user you want to retrieve from the get user request.
+     * The username of the user that you requested.
      *
      * @var string
      */

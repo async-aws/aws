@@ -87,9 +87,9 @@ final class AdminCreateUserRequest extends Input
      *
      * This parameter isn't required. If you don't specify a value, Amazon Cognito generates one for you.
      *
-     * The temporary password can only be used until the user account expiration limit that you specified when you created
-     * the user pool. To reset the account after that time limit, you must call `AdminCreateUser` again, specifying
-     * `"RESEND"` for the `MessageAction` parameter.
+     * The temporary password can only be used until the user account expiration limit that you set for your user pool. To
+     * reset the account after that time limit, you must call `AdminCreateUser` again and specify `RESEND` for the
+     * `MessageAction` parameter.
      *
      * @var string|null
      */

@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 /**
- * Represents the request to confirm user registration.
+ * Confirm a user's registration as a user pool administrator.
  */
 final class AdminConfirmSignUpRequest extends Input
 {
