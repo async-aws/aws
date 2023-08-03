@@ -72,6 +72,12 @@ final class RespondToAuthChallengeRequest extends Input
      * - `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the
      *   `Session` parameter.
      *
+     * For more information about `SECRET_HASH`, see Computing secret hash values [^1]. For information about `DEVICE_KEY`,
+     * see Working with user devices in your user pool [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html
+     *
      * @var array<string, string>|null
      */
     private $challengeResponses;

@@ -54,14 +54,18 @@ final class GroupType
     private $precedence;
 
     /**
-     * The date the group was last modified.
+     * The date and time, in ISO 8601 [^1] format, when the item was modified.
+     *
+     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
      *
      * @var \DateTimeImmutable|null
      */
     private $lastModifiedDate;
 
     /**
-     * The date the group was created.
+     * The date and time, in ISO 8601 [^1] format, when the item was created.
+     *
+     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
      *
      * @var \DateTimeImmutable|null
      */

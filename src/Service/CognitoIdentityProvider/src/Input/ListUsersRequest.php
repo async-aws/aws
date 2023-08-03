@@ -22,8 +22,9 @@ final class ListUsersRequest extends Input
     private $userPoolId;
 
     /**
-     * An array of strings, where each string is the name of a user attribute to be returned for each user in the search
-     * results. If the array is null, all attributes are returned.
+     * A JSON array of user attribute names, for example `given_name`, that you want Amazon Cognito to include in the
+     * response for each user. When you don't provide an `AttributesToGet` parameter, Amazon Cognito returns all attributes
+     * for each user.
      *
      * @var string[]|null
      */

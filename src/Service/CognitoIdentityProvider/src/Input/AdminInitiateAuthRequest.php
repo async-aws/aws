@@ -65,13 +65,19 @@ final class AdminInitiateAuthRequest extends Input
      *
      * - For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.
+     * - For `ADMIN_USER_PASSWORD_AUTH`: `USERNAME` (required), `PASSWORD` (required), `SECRET_HASH` (required if the app
+     *   client is configured with a client secret), `DEVICE_KEY`.
      * - For `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.
-     * - For `ADMIN_NO_SRP_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret),
-     *   `PASSWORD` (required), `DEVICE_KEY`.
      * - For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret),
      *   `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and
      *   `SRP_A: (The SRP_A Value)`.
+     *
+     * For more information about `SECRET_HASH`, see Computing secret hash values [^1]. For information about `DEVICE_KEY`,
+     * see Working with user devices in your user pool [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html
      *
      * @var array<string, string>|null
      */

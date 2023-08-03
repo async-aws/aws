@@ -31,7 +31,9 @@ final class UserType
     private $userCreateDate;
 
     /**
-     * The last modified date of the user.
+     * The date and time, in ISO 8601 [^1] format, when the item was modified.
+     *
+     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
      *
      * @var \DateTimeImmutable|null
      */
@@ -50,7 +52,6 @@ final class UserType
      * - UNCONFIRMED - User has been created but not confirmed.
      * - CONFIRMED - User has been confirmed.
      * - EXTERNAL_PROVIDER - User signed in with a third-party IdP.
-     * - ARCHIVED - User is no longer active.
      * - UNKNOWN - User status isn't known.
      * - RESET_REQUIRED - User is confirmed, but the user must request a code and reset their password before they can sign
      *   in.

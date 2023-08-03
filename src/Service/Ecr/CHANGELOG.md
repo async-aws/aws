@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add support for the `il-central-1` region
+
 ## 1.4.0
 
 ### Added
