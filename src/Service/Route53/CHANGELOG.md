@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
@@ -11,6 +11,12 @@
 
 - AWS enhancement: Documentation updates.
 - AWS api-change: Amazon Route 53 now supports the Israel (Tel Aviv) Region (il-central-1) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+- Avoid overriding the exception message with the raw message
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.1.0
 

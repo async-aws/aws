@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
@@ -17,6 +17,12 @@
 - AWS enhancement: Documentation updates.
 - AWS api-change: Add Python 3.11 (python3.11) support to AWS Lambda
 - AWS api-change: Add support for the `il-central-1` region
+- Avoid overriding the exception message with the raw message
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.9.0
 

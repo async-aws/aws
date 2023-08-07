@@ -1,10 +1,18 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
 - The return type for the methods `getFailed`, `getInProgress`, `getPending`, `getReady`, `getSkipped` and `getSucceeded` of `\AsyncAws\CodeDeploy\ValueObject\DeploymentOverview` uses `int` instead of `string` to reflect the AWS type.
+
+### Added
+
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.4.0
 

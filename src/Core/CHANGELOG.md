@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 1.20.0
 
 ### Added
 
@@ -8,6 +8,11 @@
 - Support for hostPrefix in requests
 - AWS api-change: API updates for the AWS Security Token Service
 - Support for SSO credentials
+- Avoid overriding the exception message with the raw message
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.19.0
 

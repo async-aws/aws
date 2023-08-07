@@ -1,11 +1,15 @@
 # Change Log
 
-## NOT RELEASED
+## 1.5.0
 
 ### Added
 
 - AWS enhancement: Documentation updates.
 - AWS api-change: This SDK release is for the feature launch of AWS CloudFormation RetainExceptOnCreate. It adds a new parameter retainExceptOnCreate in the following APIs: CreateStack, UpdateStack, RollbackStack, ExecuteChangeSet.
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.4.0
 

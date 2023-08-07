@@ -1,6 +1,10 @@
 # Change Log
 
-## NOT RELEASED
+## 0.2.3
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 0.2.2
 
