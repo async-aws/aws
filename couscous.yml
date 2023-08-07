@@ -185,9 +185,6 @@ menu:
             laravel:
                 text: Laravel
                 url: /integration/laravel.html
-            flysystem:
-                text: Flysystem
-                url: /integration/flysystem.html
             monolog:
                 text: Monolog
                 url: /integration/monolog.html

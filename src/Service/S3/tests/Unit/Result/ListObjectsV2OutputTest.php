@@ -45,7 +45,7 @@ class ListObjectsV2OutputTest extends TestCase
     {
         $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
         <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-            <Name>flysystem-test-bucket</Name>
+            <Name>test-bucket</Name>
             <Prefix>travis-ci/102a8a14f41cc3cf7056/</Prefix>
             <Marker/>
             <MaxKeys>1000</MaxKeys>
