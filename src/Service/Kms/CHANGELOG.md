@@ -1,11 +1,16 @@
 # Change Log
 
-## NOT RELEASED
+## 1.2.0
 
 ### Added
 
 - AWS api-change: Added Dry Run Feature to cryptographic and cross-account mutating KMS APIs (14 in all). This feature allows users to test their permissions and parameters before making the actual API call.
 - AWS api-change: Add support for the `il-central-1` region
+- Avoid overriding the exception message with the raw message
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.1.0
 

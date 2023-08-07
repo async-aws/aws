@@ -1,10 +1,15 @@
 # Change Log
 
-## NOT RELEASED
+## 1.7.0
 
 ### Added
 
 - AWS enhancement: Documentation updates.
+- Avoid overriding the exception message with the raw message
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.6.0
 

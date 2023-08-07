@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
@@ -16,6 +16,11 @@
 - AWS api-change: The S3 LISTObjects, ListObjectsV2 and ListObjectVersions API now supports a new optional header x-amz-optional-object-attributes. If header contains RestoreStatus as the value, then S3 will include Glacier restore status i.e. isRestoreInProgress and RestoreExpiryDate in List response.
 - AWS api-change: Added `ap-south-2` and `eu-south-2` bucket location constraints.
 - AWS api-change: Add support for the `il-central-1` region
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.14.0
 

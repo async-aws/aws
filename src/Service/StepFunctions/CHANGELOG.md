@@ -1,10 +1,15 @@
 # Change Log
 
-## NOT RELEASED
+## 1.2.0
 
 ### Added
 
 - AWS api-change: Adding `INVALID_ROUTING_CONFIGURATION` reason to ValidationExceptionReason enum
+- Avoid overriding the exception message with the raw message
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.1.0
 

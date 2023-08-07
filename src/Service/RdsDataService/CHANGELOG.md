@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
@@ -8,6 +8,15 @@
 - The return type for `\AsyncAws\RdsDataService\Result\ExecuteStatementResponse::getNumberOfRecordsUpdated` uses `int` instead of `string` to reflect the AWS type.
 - The return type for `\AsyncAws\RdsDataService\ValueObject\ArrayValue::getLongValues` uses `int` instead of `string` to reflect the AWS type.
 - The return type for `\AsyncAws\RdsDataService\ValueObject\Field::getLongValue` uses `int` instead of `string` to reflect the AWS type.
+
+### Added
+
+- Avoid overriding the exception message with the raw message
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.0.0
 

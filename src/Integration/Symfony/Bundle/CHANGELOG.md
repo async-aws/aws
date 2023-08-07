@@ -1,11 +1,15 @@
 # Change Log
 
-## NOT RELEASED
+## 1.12.0
 
 ### Added
 
 - Support for LocationService
 - Support for SSO
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.11.0
 

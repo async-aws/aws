@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
@@ -9,6 +9,15 @@
 - The return type for `\AsyncAws\AppSync\ValueObject\CachingConfig::getTtl` uses `int` instead of `string` to reflect the AWS type.
 - The return type for the methods `getBaseTableTtl` and `getDeltaSyncTableTtl` of `\AsyncAws\AppSync\ValueObject\DeltaSyncConfig` uses `int` instead of `string` to reflect the AWS type.
 - The class `AsyncAws\AppSync\ValueObject\FunctionConfiguration` (not used by any supported operations) has been removed.
+
+### Added
+
+- Avoid overriding the exception message with the raw message
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.1.0
 

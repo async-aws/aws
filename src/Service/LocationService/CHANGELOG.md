@@ -1,6 +1,14 @@
 # Change Log
 
-## NOT RELEASED
+## 0.1.1
+
+### Added
+
+- Avoid overriding the exception message with the raw message
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ### Added
 

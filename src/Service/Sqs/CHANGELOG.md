@@ -1,10 +1,14 @@
 # Change Log
 
-## NOT RELEASED
+## 1.9.0
 
 ### Added
 
 - AWS enhancement: Documentation updates.
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.8.0
 

@@ -1,6 +1,6 @@
 # Change Log
 
-## NOT RELEASED
+## 2.0.0
 
 ### BC-BREAK
 
@@ -10,6 +10,12 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- Avoid overriding the exception message with the raw message
+- Use int as the PHP representation of long fields in generated code
+
+### Changed
+
+- Improve parameter type and return type in phpdoc
 
 ## 1.0.0
 
