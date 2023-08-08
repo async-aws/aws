@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'docs/**'
+      - 'website/**'
+      - 'couscous.yml'
+      - '.github/workflows/website.yml'
 
 jobs:
   build:
