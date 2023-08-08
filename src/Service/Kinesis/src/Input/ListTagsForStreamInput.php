@@ -43,10 +43,10 @@ final class ListTagsForStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
-     *   ExclusiveStartTagKey?: string,
-     *   Limit?: int,
-     *   StreamARN?: string,
+     *   StreamName?: null|string,
+     *   ExclusiveStartTagKey?: null|string,
+     *   Limit?: null|int,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -61,10 +61,10 @@ final class ListTagsForStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
-     *   ExclusiveStartTagKey?: string,
-     *   Limit?: int,
-     *   StreamARN?: string,
+     *   StreamName?: null|string,
+     *   ExclusiveStartTagKey?: null|string,
+     *   Limit?: null|int,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * }|ListTagsForStreamInput $input
      */

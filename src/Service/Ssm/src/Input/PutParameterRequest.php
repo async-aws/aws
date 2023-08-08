@@ -240,16 +240,16 @@ final class PutParameterRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   Description?: string,
+     *   Description?: null|string,
      *   Value?: string,
-     *   Type?: ParameterType::*,
-     *   KeyId?: string,
-     *   Overwrite?: bool,
-     *   AllowedPattern?: string,
-     *   Tags?: array<Tag|array>,
-     *   Tier?: ParameterTier::*,
-     *   Policies?: string,
-     *   DataType?: string,
+     *   Type?: null|ParameterType::*,
+     *   KeyId?: null|string,
+     *   Overwrite?: null|bool,
+     *   AllowedPattern?: null|string,
+     *   Tags?: null|array<Tag|array>,
+     *   Tier?: null|ParameterTier::*,
+     *   Policies?: null|string,
+     *   DataType?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -272,16 +272,16 @@ final class PutParameterRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   Description?: string,
+     *   Description?: null|string,
      *   Value?: string,
-     *   Type?: ParameterType::*,
-     *   KeyId?: string,
-     *   Overwrite?: bool,
-     *   AllowedPattern?: string,
-     *   Tags?: array<Tag|array>,
-     *   Tier?: ParameterTier::*,
-     *   Policies?: string,
-     *   DataType?: string,
+     *   Type?: null|ParameterType::*,
+     *   KeyId?: null|string,
+     *   Overwrite?: null|bool,
+     *   AllowedPattern?: null|string,
+     *   Tags?: null|array<Tag|array>,
+     *   Tier?: null|ParameterTier::*,
+     *   Policies?: null|string,
+     *   DataType?: null|string,
      *   '@region'?: string|null,
      * }|PutParameterRequest $input
      */

@@ -243,8 +243,8 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   QueryExecutionId: string,
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|GetQueryResultsInput $input
      *
@@ -380,8 +380,8 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   CatalogName: string,
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      *
@@ -415,9 +415,9 @@ class AthenaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listnamedqueries
      *
      * @param array{
-     *   NextToken?: string,
-     *   MaxResults?: int,
-     *   WorkGroup?: string,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|ListNamedQueriesInput $input
      *
@@ -449,9 +449,9 @@ class AthenaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listqueryexecutions
      *
      * @param array{
-     *   NextToken?: string,
-     *   MaxResults?: int,
-     *   WorkGroup?: string,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|ListQueryExecutionsInput $input
      *
@@ -478,9 +478,9 @@ class AthenaClient extends AbstractApi
      * @param array{
      *   CatalogName: string,
      *   DatabaseName: string,
-     *   Expression?: string,
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   Expression?: null|string,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      *
@@ -509,10 +509,10 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   SessionId: string,
-     *   Description?: string,
-     *   CalculationConfiguration?: CalculationConfiguration|array,
-     *   CodeBlock?: string,
-     *   ClientRequestToken?: string,
+     *   Description?: null|string,
+     *   CalculationConfiguration?: null|CalculationConfiguration|array,
+     *   CodeBlock?: null|string,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * }|StartCalculationExecutionRequest $input
      *
@@ -545,12 +545,12 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   QueryString: string,
-     *   ClientRequestToken?: string,
-     *   QueryExecutionContext?: QueryExecutionContext|array,
-     *   ResultConfiguration?: ResultConfiguration|array,
-     *   WorkGroup?: string,
-     *   ExecutionParameters?: string[],
-     *   ResultReuseConfiguration?: ResultReuseConfiguration|array,
+     *   ClientRequestToken?: null|string,
+     *   QueryExecutionContext?: null|QueryExecutionContext|array,
+     *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   WorkGroup?: null|string,
+     *   ExecutionParameters?: null|string[],
+     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
      *   '@region'?: string|null,
      * }|StartQueryExecutionInput $input
      *
@@ -577,12 +577,12 @@ class AthenaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#startsession
      *
      * @param array{
-     *   Description?: string,
+     *   Description?: null|string,
      *   WorkGroup: string,
      *   EngineConfiguration: EngineConfiguration|array,
-     *   NotebookVersion?: string,
-     *   SessionIdleTimeoutInMinutes?: int,
-     *   ClientRequestToken?: string,
+     *   NotebookVersion?: null|string,
+     *   SessionIdleTimeoutInMinutes?: null|int,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * }|StartSessionRequest $input
      *

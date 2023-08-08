@@ -191,8 +191,8 @@ final class CreateQueueRequest extends Input
     /**
      * @param array{
      *   QueueName?: string,
-     *   Attributes?: array<QueueAttributeName::*, string>,
-     *   tags?: array<string, string>,
+     *   Attributes?: null|array<QueueAttributeName::*, string>,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -207,8 +207,8 @@ final class CreateQueueRequest extends Input
     /**
      * @param array{
      *   QueueName?: string,
-     *   Attributes?: array<QueueAttributeName::*, string>,
-     *   tags?: array<string, string>,
+     *   Attributes?: null|array<QueueAttributeName::*, string>,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateQueueRequest $input
      */

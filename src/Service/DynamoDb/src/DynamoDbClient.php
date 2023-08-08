@@ -135,7 +135,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   RequestItems: array<string, KeysAndAttributes|array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
      *   '@region'?: string|null,
      * }|BatchGetItemInput $input
      *
@@ -222,8 +222,8 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   RequestItems: array<string, array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
      *   '@region'?: string|null,
      * }|BatchWriteItemInput $input
      *
@@ -269,15 +269,15 @@ class DynamoDbClient extends AbstractApi
      *   AttributeDefinitions: array<AttributeDefinition|array>,
      *   TableName: string,
      *   KeySchema: array<KeySchemaElement|array>,
-     *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>,
-     *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>,
-     *   BillingMode?: BillingMode::*,
-     *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   StreamSpecification?: StreamSpecification|array,
-     *   SSESpecification?: SSESpecification|array,
-     *   Tags?: array<Tag|array>,
-     *   TableClass?: TableClass::*,
-     *   DeletionProtectionEnabled?: bool,
+     *   LocalSecondaryIndexes?: null|array<LocalSecondaryIndex|array>,
+     *   GlobalSecondaryIndexes?: null|array<GlobalSecondaryIndex|array>,
+     *   BillingMode?: null|BillingMode::*,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   StreamSpecification?: null|StreamSpecification|array,
+     *   SSESpecification?: null|SSESpecification|array,
+     *   Tags?: null|array<Tag|array>,
+     *   TableClass?: null|TableClass::*,
+     *   DeletionProtectionEnabled?: null|bool,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
@@ -316,15 +316,15 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Key: array<string, AttributeValue|array>,
-     *   Expected?: array<string, ExpectedAttributeValue|array>,
-     *   ConditionalOperator?: ConditionalOperator::*,
-     *   ReturnValues?: ReturnValue::*,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *   ConditionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
+     *   Expected?: null|array<string, ExpectedAttributeValue|array>,
+     *   ConditionalOperator?: null|ConditionalOperator::*,
+     *   ReturnValues?: null|ReturnValue::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   ConditionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|DeleteItemInput $input
      *
@@ -473,12 +473,12 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   Statement: string,
-     *   Parameters?: array<AttributeValue|array>,
-     *   ConsistentRead?: bool,
-     *   NextToken?: string,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   Limit?: int,
-     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
+     *   Parameters?: null|array<AttributeValue|array>,
+     *   ConsistentRead?: null|bool,
+     *   NextToken?: null|string,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   Limit?: null|int,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|ExecuteStatementInput $input
      *
@@ -522,11 +522,11 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Key: array<string, AttributeValue|array>,
-     *   AttributesToGet?: string[],
-     *   ConsistentRead?: bool,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ProjectionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
+     *   AttributesToGet?: null|string[],
+     *   ConsistentRead?: null|bool,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ProjectionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|GetItemInput $input
      *
@@ -556,8 +556,8 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      *
      * @param array{
-     *   ExclusiveStartTableName?: string,
-     *   Limit?: int,
+     *   ExclusiveStartTableName?: null|string,
+     *   Limit?: null|int,
      *   '@region'?: string|null,
      * }|ListTablesInput $input
      *
@@ -603,15 +603,15 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Item: array<string, AttributeValue|array>,
-     *   Expected?: array<string, ExpectedAttributeValue|array>,
-     *   ReturnValues?: ReturnValue::*,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *   ConditionalOperator?: ConditionalOperator::*,
-     *   ConditionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
+     *   Expected?: null|array<string, ExpectedAttributeValue|array>,
+     *   ReturnValues?: null|ReturnValue::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   ConditionalOperator?: null|ConditionalOperator::*,
+     *   ConditionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|PutItemInput $input
      *
@@ -686,22 +686,22 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   IndexName?: string,
-     *   Select?: Select::*,
-     *   AttributesToGet?: string[],
-     *   Limit?: int,
-     *   ConsistentRead?: bool,
-     *   KeyConditions?: array<string, Condition|array>,
-     *   QueryFilter?: array<string, Condition|array>,
-     *   ConditionalOperator?: ConditionalOperator::*,
-     *   ScanIndexForward?: bool,
-     *   ExclusiveStartKey?: array<string, AttributeValue|array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ProjectionExpression?: string,
-     *   FilterExpression?: string,
-     *   KeyConditionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
+     *   IndexName?: null|string,
+     *   Select?: null|Select::*,
+     *   AttributesToGet?: null|string[],
+     *   Limit?: null|int,
+     *   ConsistentRead?: null|bool,
+     *   KeyConditions?: null|array<string, Condition|array>,
+     *   QueryFilter?: null|array<string, Condition|array>,
+     *   ConditionalOperator?: null|ConditionalOperator::*,
+     *   ScanIndexForward?: null|bool,
+     *   ExclusiveStartKey?: null|array<string, AttributeValue|array>,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ProjectionExpression?: null|string,
+     *   FilterExpression?: null|string,
+     *   KeyConditionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
      *   '@region'?: string|null,
      * }|QueryInput $input
      *
@@ -764,21 +764,21 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   IndexName?: string,
-     *   AttributesToGet?: string[],
-     *   Limit?: int,
-     *   Select?: Select::*,
-     *   ScanFilter?: array<string, Condition|array>,
-     *   ConditionalOperator?: ConditionalOperator::*,
-     *   ExclusiveStartKey?: array<string, AttributeValue|array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   TotalSegments?: int,
-     *   Segment?: int,
-     *   ProjectionExpression?: string,
-     *   FilterExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
-     *   ConsistentRead?: bool,
+     *   IndexName?: null|string,
+     *   AttributesToGet?: null|string[],
+     *   Limit?: null|int,
+     *   Select?: null|Select::*,
+     *   ScanFilter?: null|array<string, Condition|array>,
+     *   ConditionalOperator?: null|ConditionalOperator::*,
+     *   ExclusiveStartKey?: null|array<string, AttributeValue|array>,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   TotalSegments?: null|int,
+     *   Segment?: null|int,
+     *   ProjectionExpression?: null|string,
+     *   FilterExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
+     *   ConsistentRead?: null|bool,
      *   '@region'?: string|null,
      * }|ScanInput $input
      *
@@ -879,9 +879,9 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TransactItems: array<TransactWriteItem|array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *   ClientRequestToken?: string,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * }|TransactWriteItemsInput $input
      *
@@ -924,17 +924,17 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Key: array<string, AttributeValue|array>,
-     *   AttributeUpdates?: array<string, AttributeValueUpdate|array>,
-     *   Expected?: array<string, ExpectedAttributeValue|array>,
-     *   ConditionalOperator?: ConditionalOperator::*,
-     *   ReturnValues?: ReturnValue::*,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *   UpdateExpression?: string,
-     *   ConditionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
+     *   AttributeUpdates?: null|array<string, AttributeValueUpdate|array>,
+     *   Expected?: null|array<string, ExpectedAttributeValue|array>,
+     *   ConditionalOperator?: null|ConditionalOperator::*,
+     *   ReturnValues?: null|ReturnValue::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   UpdateExpression?: null|string,
+     *   ConditionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|UpdateItemInput $input
      *
@@ -985,16 +985,16 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
      *
      * @param array{
-     *   AttributeDefinitions?: array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName: string,
-     *   BillingMode?: BillingMode::*,
-     *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>,
-     *   StreamSpecification?: StreamSpecification|array,
-     *   SSESpecification?: SSESpecification|array,
-     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>,
-     *   TableClass?: TableClass::*,
-     *   DeletionProtectionEnabled?: bool,
+     *   BillingMode?: null|BillingMode::*,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   GlobalSecondaryIndexUpdates?: null|array<GlobalSecondaryIndexUpdate|array>,
+     *   StreamSpecification?: null|StreamSpecification|array,
+     *   SSESpecification?: null|SSESpecification|array,
+     *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
+     *   TableClass?: null|TableClass::*,
+     *   DeletionProtectionEnabled?: null|bool,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *

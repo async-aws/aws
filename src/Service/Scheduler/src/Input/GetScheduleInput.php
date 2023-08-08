@@ -28,7 +28,7 @@ final class GetScheduleInput extends Input
 
     /**
      * @param array{
-     *   GroupName?: string,
+     *   GroupName?: null|string,
      *   Name?: string,
      *   '@region'?: string|null,
      * } $input
@@ -42,7 +42,7 @@ final class GetScheduleInput extends Input
 
     /**
      * @param array{
-     *   GroupName?: string,
+     *   GroupName?: null|string,
      *   Name?: string,
      *   '@region'?: string|null,
      * }|GetScheduleInput $input

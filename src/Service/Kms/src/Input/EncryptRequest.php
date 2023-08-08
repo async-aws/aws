@@ -108,10 +108,10 @@ final class EncryptRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Plaintext?: string,
-     *   EncryptionContext?: array<string, string>,
-     *   GrantTokens?: string[],
-     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   GrantTokens?: null|string[],
+     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -130,10 +130,10 @@ final class EncryptRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Plaintext?: string,
-     *   EncryptionContext?: array<string, string>,
-     *   GrantTokens?: string[],
-     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   GrantTokens?: null|string[],
+     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|EncryptRequest $input
      */

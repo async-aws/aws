@@ -91,7 +91,7 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createaccesskey
      *
      * @param array{
-     *   UserName?: string,
+     *   UserName?: null|string,
      *   '@region'?: string|null,
      * }|CreateAccessKeyRequest $input
      *
@@ -163,10 +163,10 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createuser
      *
      * @param array{
-     *   Path?: string,
+     *   Path?: null|string,
      *   UserName: string,
-     *   PermissionsBoundary?: string,
-     *   Tags?: array<Tag|array>,
+     *   PermissionsBoundary?: null|string,
+     *   Tags?: null|array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateUserRequest $input
      *
@@ -204,7 +204,7 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#deleteaccesskey
      *
      * @param array{
-     *   UserName?: string,
+     *   UserName?: null|string,
      *   AccessKeyId: string,
      *   '@region'?: string|null,
      * }|DeleteAccessKeyRequest $input
@@ -232,7 +232,7 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#deleteservicespecificcredential
      *
      * @param array{
-     *   UserName?: string,
+     *   UserName?: null|string,
      *   ServiceSpecificCredentialId: string,
      *   '@region'?: string|null,
      * }|DeleteServiceSpecificCredentialRequest $input
@@ -337,7 +337,7 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#getuser
      *
      * @param array{
-     *   UserName?: string,
+     *   UserName?: null|string,
      *   '@region'?: string|null,
      * }|GetUserRequest $input
      *
@@ -368,8 +368,8 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#listservicespecificcredentials
      *
      * @param array{
-     *   UserName?: string,
-     *   ServiceName?: string,
+     *   UserName?: null|string,
+     *   ServiceName?: null|string,
      *   '@region'?: string|null,
      * }|ListServiceSpecificCredentialsRequest $input
      *
@@ -405,9 +405,9 @@ class IamClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#listusers
      *
      * @param array{
-     *   PathPrefix?: string,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   PathPrefix?: null|string,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListUsersRequest $input
      *
@@ -489,8 +489,8 @@ class IamClient extends AbstractApi
      *
      * @param array{
      *   UserName: string,
-     *   NewPath?: string,
-     *   NewUserName?: string,
+     *   NewPath?: null|string,
+     *   NewUserName?: null|string,
      *   '@region'?: string|null,
      * }|UpdateUserRequest $input
      *

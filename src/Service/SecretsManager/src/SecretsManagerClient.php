@@ -87,14 +87,14 @@ class SecretsManagerClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   ClientRequestToken?: string,
-     *   Description?: string,
-     *   KmsKeyId?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
-     *   Tags?: array<Tag|array>,
-     *   AddReplicaRegions?: array<ReplicaRegionType|array>,
-     *   ForceOverwriteReplicaSecret?: bool,
+     *   ClientRequestToken?: null|string,
+     *   Description?: null|string,
+     *   KmsKeyId?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
+     *   Tags?: null|array<Tag|array>,
+     *   AddReplicaRegions?: null|array<ReplicaRegionType|array>,
+     *   ForceOverwriteReplicaSecret?: null|bool,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      *
@@ -172,8 +172,8 @@ class SecretsManagerClient extends AbstractApi
      *
      * @param array{
      *   SecretId: string,
-     *   RecoveryWindowInDays?: int,
-     *   ForceDeleteWithoutRecovery?: bool,
+     *   RecoveryWindowInDays?: null|int,
+     *   ForceDeleteWithoutRecovery?: null|bool,
      *   '@region'?: string|null,
      * }|DeleteSecretRequest $input
      *
@@ -225,8 +225,8 @@ class SecretsManagerClient extends AbstractApi
      *
      * @param array{
      *   SecretId: string,
-     *   VersionId?: string,
-     *   VersionStage?: string,
+     *   VersionId?: null|string,
+     *   VersionStage?: null|string,
      *   '@region'?: string|null,
      * }|GetSecretValueRequest $input
      *
@@ -279,11 +279,11 @@ class SecretsManagerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#listsecrets
      *
      * @param array{
-     *   IncludePlannedDeletion?: bool,
-     *   MaxResults?: int,
-     *   NextToken?: string,
-     *   Filters?: array<Filter|array>,
-     *   SortOrder?: SortOrderType::*,
+     *   IncludePlannedDeletion?: null|bool,
+     *   MaxResults?: null|int,
+     *   NextToken?: null|string,
+     *   Filters?: null|array<Filter|array>,
+     *   SortOrder?: null|SortOrderType::*,
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input
      *
@@ -341,10 +341,10 @@ class SecretsManagerClient extends AbstractApi
      *
      * @param array{
      *   SecretId: string,
-     *   ClientRequestToken?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
-     *   VersionStages?: string[],
+     *   ClientRequestToken?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
+     *   VersionStages?: null|string[],
      *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      *
@@ -418,11 +418,11 @@ class SecretsManagerClient extends AbstractApi
      *
      * @param array{
      *   SecretId: string,
-     *   ClientRequestToken?: string,
-     *   Description?: string,
-     *   KmsKeyId?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
+     *   ClientRequestToken?: null|string,
+     *   Description?: null|string,
+     *   KmsKeyId?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
      *   '@region'?: string|null,
      * }|UpdateSecretRequest $input
      *

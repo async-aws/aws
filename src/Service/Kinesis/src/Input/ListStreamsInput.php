@@ -33,9 +33,9 @@ final class ListStreamsInput extends Input
 
     /**
      * @param array{
-     *   Limit?: int,
-     *   ExclusiveStartStreamName?: string,
-     *   NextToken?: string,
+     *   Limit?: null|int,
+     *   ExclusiveStartStreamName?: null|string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -49,9 +49,9 @@ final class ListStreamsInput extends Input
 
     /**
      * @param array{
-     *   Limit?: int,
-     *   ExclusiveStartStreamName?: string,
-     *   NextToken?: string,
+     *   Limit?: null|int,
+     *   ExclusiveStartStreamName?: null|string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|ListStreamsInput $input
      */

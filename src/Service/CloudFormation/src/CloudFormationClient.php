@@ -60,8 +60,8 @@ class CloudFormationClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestackevents
      *
      * @param array{
-     *   StackName?: string,
-     *   NextToken?: string,
+     *   StackName?: null|string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|DescribeStackEventsInput $input
      */
@@ -83,8 +83,8 @@ class CloudFormationClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestacks
      *
      * @param array{
-     *   StackName?: string,
-     *   NextToken?: string,
+     *   StackName?: null|string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|DescribeStacksInput $input
      */

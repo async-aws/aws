@@ -38,9 +38,9 @@ final class DescribeEndpointsRequest extends Input
 
     /**
      * @param array{
-     *   MaxResults?: int,
-     *   Mode?: DescribeEndpointsMode::*,
-     *   NextToken?: string,
+     *   MaxResults?: null|int,
+     *   Mode?: null|DescribeEndpointsMode::*,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -54,9 +54,9 @@ final class DescribeEndpointsRequest extends Input
 
     /**
      * @param array{
-     *   MaxResults?: int,
-     *   Mode?: DescribeEndpointsMode::*,
-     *   NextToken?: string,
+     *   MaxResults?: null|int,
+     *   Mode?: null|DescribeEndpointsMode::*,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|DescribeEndpointsRequest $input
      */

@@ -129,12 +129,12 @@ final class GenerateDataKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   EncryptionContext?: array<string, string>,
-     *   NumberOfBytes?: int,
-     *   KeySpec?: DataKeySpec::*,
-     *   GrantTokens?: string[],
-     *   Recipient?: RecipientInfo|array,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   NumberOfBytes?: null|int,
+     *   KeySpec?: null|DataKeySpec::*,
+     *   GrantTokens?: null|string[],
+     *   Recipient?: null|RecipientInfo|array,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -153,12 +153,12 @@ final class GenerateDataKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   EncryptionContext?: array<string, string>,
-     *   NumberOfBytes?: int,
-     *   KeySpec?: DataKeySpec::*,
-     *   GrantTokens?: string[],
-     *   Recipient?: RecipientInfo|array,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   NumberOfBytes?: null|int,
+     *   KeySpec?: null|DataKeySpec::*,
+     *   GrantTokens?: null|string[],
+     *   Recipient?: null|RecipientInfo|array,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      */

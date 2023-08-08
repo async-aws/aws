@@ -43,7 +43,7 @@ final class DetectFacesRequest extends Input
     /**
      * @param array{
      *   Image?: Image|array,
-     *   Attributes?: array<Attribute::*>,
+     *   Attributes?: null|array<Attribute::*>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -57,7 +57,7 @@ final class DetectFacesRequest extends Input
     /**
      * @param array{
      *   Image?: Image|array,
-     *   Attributes?: array<Attribute::*>,
+     *   Attributes?: null|array<Attribute::*>,
      *   '@region'?: string|null,
      * }|DetectFacesRequest $input
      */

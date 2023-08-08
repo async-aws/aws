@@ -45,8 +45,8 @@ final class DetectModerationLabelsRequest extends Input
     /**
      * @param array{
      *   Image?: Image|array,
-     *   MinConfidence?: float,
-     *   HumanLoopConfig?: HumanLoopConfig|array,
+     *   MinConfidence?: null|float,
+     *   HumanLoopConfig?: null|HumanLoopConfig|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -61,8 +61,8 @@ final class DetectModerationLabelsRequest extends Input
     /**
      * @param array{
      *   Image?: Image|array,
-     *   MinConfidence?: float,
-     *   HumanLoopConfig?: HumanLoopConfig|array,
+     *   MinConfidence?: null|float,
+     *   HumanLoopConfig?: null|HumanLoopConfig|array,
      *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      */

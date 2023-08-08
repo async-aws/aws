@@ -40,8 +40,8 @@ final class GetRecordsInput extends Input
     /**
      * @param array{
      *   ShardIterator?: string,
-     *   Limit?: int,
-     *   StreamARN?: string,
+     *   Limit?: null|int,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -56,8 +56,8 @@ final class GetRecordsInput extends Input
     /**
      * @param array{
      *   ShardIterator?: string,
-     *   Limit?: int,
-     *   StreamARN?: string,
+     *   Limit?: null|int,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * }|GetRecordsInput $input
      */

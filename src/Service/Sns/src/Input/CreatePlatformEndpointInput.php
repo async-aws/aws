@@ -54,8 +54,8 @@ final class CreatePlatformEndpointInput extends Input
      * @param array{
      *   PlatformApplicationArn?: string,
      *   Token?: string,
-     *   CustomUserData?: string,
-     *   Attributes?: array<string, string>,
+     *   CustomUserData?: null|string,
+     *   Attributes?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -72,8 +72,8 @@ final class CreatePlatformEndpointInput extends Input
      * @param array{
      *   PlatformApplicationArn?: string,
      *   Token?: string,
-     *   CustomUserData?: string,
-     *   Attributes?: array<string, string>,
+     *   CustomUserData?: null|string,
+     *   Attributes?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreatePlatformEndpointInput $input
      */

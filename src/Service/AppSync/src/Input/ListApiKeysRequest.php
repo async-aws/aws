@@ -36,8 +36,8 @@ final class ListApiKeysRequest extends Input
     /**
      * @param array{
      *   apiId?: string,
-     *   nextToken?: string,
-     *   maxResults?: int,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -52,8 +52,8 @@ final class ListApiKeysRequest extends Input
     /**
      * @param array{
      *   apiId?: string,
-     *   nextToken?: string,
-     *   maxResults?: int,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListApiKeysRequest $input
      */

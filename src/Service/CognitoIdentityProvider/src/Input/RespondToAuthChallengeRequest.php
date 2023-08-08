@@ -131,11 +131,11 @@ final class RespondToAuthChallengeRequest extends Input
      * @param array{
      *   ClientId?: string,
      *   ChallengeName?: ChallengeNameType::*,
-     *   Session?: string,
-     *   ChallengeResponses?: array<string, string>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   Session?: null|string,
+     *   ChallengeResponses?: null|array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -155,11 +155,11 @@ final class RespondToAuthChallengeRequest extends Input
      * @param array{
      *   ClientId?: string,
      *   ChallengeName?: ChallengeNameType::*,
-     *   Session?: string,
-     *   ChallengeResponses?: array<string, string>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   Session?: null|string,
+     *   ChallengeResponses?: null|array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|RespondToAuthChallengeRequest $input
      */

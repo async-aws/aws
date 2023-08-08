@@ -46,8 +46,8 @@ final class UpdateApiKeyRequest extends Input
      * @param array{
      *   apiId?: string,
      *   id?: string,
-     *   description?: string,
-     *   expires?: int,
+     *   description?: null|string,
+     *   expires?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -64,8 +64,8 @@ final class UpdateApiKeyRequest extends Input
      * @param array{
      *   apiId?: string,
      *   id?: string,
-     *   description?: string,
-     *   expires?: int,
+     *   description?: null|string,
+     *   expires?: null|int,
      *   '@region'?: string|null,
      * }|UpdateApiKeyRequest $input
      */

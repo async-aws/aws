@@ -59,17 +59,17 @@ class LocationServiceClient extends AbstractApi
      *
      * @param array{
      *   CalculatorName: string,
-     *   CarModeOptions?: CalculateRouteCarModeOptions|array,
-     *   DepartNow?: bool,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
+     *   DepartNow?: null|bool,
      *   DeparturePosition: float[],
-     *   DepartureTime?: \DateTimeImmutable|string,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPosition: float[],
-     *   DistanceUnit?: DistanceUnit::*,
-     *   IncludeLegGeometry?: bool,
-     *   Key?: string,
-     *   TravelMode?: TravelMode::*,
-     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
-     *   WaypointPositions?: array[],
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   IncludeLegGeometry?: null|bool,
+     *   Key?: null|string,
+     *   TravelMode?: null|TravelMode::*,
+     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
+     *   WaypointPositions?: null|array[],
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      *
@@ -130,15 +130,15 @@ class LocationServiceClient extends AbstractApi
      *
      * @param array{
      *   CalculatorName: string,
-     *   CarModeOptions?: CalculateRouteCarModeOptions|array,
-     *   DepartNow?: bool,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
+     *   DepartNow?: null|bool,
      *   DeparturePositions: array[],
-     *   DepartureTime?: \DateTimeImmutable|string,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPositions: array[],
-     *   DistanceUnit?: DistanceUnit::*,
-     *   Key?: string,
-     *   TravelMode?: TravelMode::*,
-     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   Key?: null|string,
+     *   TravelMode?: null|TravelMode::*,
+     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
      *   '@region'?: string|null,
      * }|CalculateRouteMatrixRequest $input
      *
@@ -171,9 +171,9 @@ class LocationServiceClient extends AbstractApi
      *
      * @param array{
      *   IndexName: string,
-     *   Key?: string,
-     *   Language?: string,
-     *   MaxResults?: int,
+     *   Key?: null|string,
+     *   Language?: null|string,
+     *   MaxResults?: null|int,
      *   Position: float[],
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input
@@ -214,14 +214,14 @@ class LocationServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#searchplaceindexfortext
      *
      * @param array{
-     *   BiasPosition?: float[],
-     *   FilterBBox?: float[],
-     *   FilterCategories?: string[],
-     *   FilterCountries?: string[],
+     *   BiasPosition?: null|float[],
+     *   FilterBBox?: null|float[],
+     *   FilterCategories?: null|string[],
+     *   FilterCountries?: null|string[],
      *   IndexName: string,
-     *   Key?: string,
-     *   Language?: string,
-     *   MaxResults?: int,
+     *   Key?: null|string,
+     *   Language?: null|string,
+     *   MaxResults?: null|int,
      *   Text: string,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input

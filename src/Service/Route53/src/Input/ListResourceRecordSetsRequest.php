@@ -78,10 +78,10 @@ final class ListResourceRecordSetsRequest extends Input
     /**
      * @param array{
      *   HostedZoneId?: string,
-     *   StartRecordName?: string,
-     *   StartRecordType?: RRType::*,
-     *   StartRecordIdentifier?: string,
-     *   MaxItems?: string,
+     *   StartRecordName?: null|string,
+     *   StartRecordType?: null|RRType::*,
+     *   StartRecordIdentifier?: null|string,
+     *   MaxItems?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -98,10 +98,10 @@ final class ListResourceRecordSetsRequest extends Input
     /**
      * @param array{
      *   HostedZoneId?: string,
-     *   StartRecordName?: string,
-     *   StartRecordType?: RRType::*,
-     *   StartRecordIdentifier?: string,
-     *   MaxItems?: string,
+     *   StartRecordName?: null|string,
+     *   StartRecordType?: null|RRType::*,
+     *   StartRecordIdentifier?: null|string,
+     *   MaxItems?: null|string,
      *   '@region'?: string|null,
      * }|ListResourceRecordSetsRequest $input
      */

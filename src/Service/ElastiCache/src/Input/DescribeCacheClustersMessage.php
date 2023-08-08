@@ -58,11 +58,11 @@ final class DescribeCacheClustersMessage extends Input
 
     /**
      * @param array{
-     *   CacheClusterId?: string,
-     *   MaxRecords?: int,
-     *   Marker?: string,
-     *   ShowCacheNodeInfo?: bool,
-     *   ShowCacheClustersNotInReplicationGroups?: bool,
+     *   CacheClusterId?: null|string,
+     *   MaxRecords?: null|int,
+     *   Marker?: null|string,
+     *   ShowCacheNodeInfo?: null|bool,
+     *   ShowCacheClustersNotInReplicationGroups?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -78,11 +78,11 @@ final class DescribeCacheClustersMessage extends Input
 
     /**
      * @param array{
-     *   CacheClusterId?: string,
-     *   MaxRecords?: int,
-     *   Marker?: string,
-     *   ShowCacheNodeInfo?: bool,
-     *   ShowCacheClustersNotInReplicationGroups?: bool,
+     *   CacheClusterId?: null|string,
+     *   MaxRecords?: null|int,
+     *   Marker?: null|string,
+     *   ShowCacheNodeInfo?: null|bool,
+     *   ShowCacheClustersNotInReplicationGroups?: null|bool,
      *   '@region'?: string|null,
      * }|DescribeCacheClustersMessage $input
      */

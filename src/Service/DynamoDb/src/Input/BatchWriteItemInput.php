@@ -61,8 +61,8 @@ final class BatchWriteItemInput extends Input
     /**
      * @param array{
      *   RequestItems?: array<string, array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -82,8 +82,8 @@ final class BatchWriteItemInput extends Input
     /**
      * @param array{
      *   RequestItems?: array<string, array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
      *   '@region'?: string|null,
      * }|BatchWriteItemInput $input
      */

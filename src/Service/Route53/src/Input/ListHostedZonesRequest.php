@@ -44,9 +44,9 @@ final class ListHostedZonesRequest extends Input
 
     /**
      * @param array{
-     *   Marker?: string,
-     *   MaxItems?: string,
-     *   DelegationSetId?: string,
+     *   Marker?: null|string,
+     *   MaxItems?: null|string,
+     *   DelegationSetId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -60,9 +60,9 @@ final class ListHostedZonesRequest extends Input
 
     /**
      * @param array{
-     *   Marker?: string,
-     *   MaxItems?: string,
-     *   DelegationSetId?: string,
+     *   Marker?: null|string,
+     *   MaxItems?: null|string,
+     *   DelegationSetId?: null|string,
      *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      */

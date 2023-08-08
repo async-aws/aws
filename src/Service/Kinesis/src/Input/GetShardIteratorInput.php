@@ -78,12 +78,12 @@ final class GetShardIteratorInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
+     *   StreamName?: null|string,
      *   ShardId?: string,
      *   ShardIteratorType?: ShardIteratorType::*,
-     *   StartingSequenceNumber?: string,
-     *   Timestamp?: \DateTimeImmutable|string,
-     *   StreamARN?: string,
+     *   StartingSequenceNumber?: null|string,
+     *   Timestamp?: null|\DateTimeImmutable|string,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -100,12 +100,12 @@ final class GetShardIteratorInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
+     *   StreamName?: null|string,
      *   ShardId?: string,
      *   ShardIteratorType?: ShardIteratorType::*,
-     *   StartingSequenceNumber?: string,
-     *   Timestamp?: \DateTimeImmutable|string,
-     *   StreamARN?: string,
+     *   StartingSequenceNumber?: null|string,
+     *   Timestamp?: null|\DateTimeImmutable|string,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * }|GetShardIteratorInput $input
      */

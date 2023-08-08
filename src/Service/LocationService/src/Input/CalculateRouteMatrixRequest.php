@@ -160,15 +160,15 @@ final class CalculateRouteMatrixRequest extends Input
     /**
      * @param array{
      *   CalculatorName?: string,
-     *   CarModeOptions?: CalculateRouteCarModeOptions|array,
-     *   DepartNow?: bool,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
+     *   DepartNow?: null|bool,
      *   DeparturePositions?: array[],
-     *   DepartureTime?: \DateTimeImmutable|string,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPositions?: array[],
-     *   DistanceUnit?: DistanceUnit::*,
-     *   Key?: string,
-     *   TravelMode?: TravelMode::*,
-     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   Key?: null|string,
+     *   TravelMode?: null|TravelMode::*,
+     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -190,15 +190,15 @@ final class CalculateRouteMatrixRequest extends Input
     /**
      * @param array{
      *   CalculatorName?: string,
-     *   CarModeOptions?: CalculateRouteCarModeOptions|array,
-     *   DepartNow?: bool,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
+     *   DepartNow?: null|bool,
      *   DeparturePositions?: array[],
-     *   DepartureTime?: \DateTimeImmutable|string,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPositions?: array[],
-     *   DistanceUnit?: DistanceUnit::*,
-     *   Key?: string,
-     *   TravelMode?: TravelMode::*,
-     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   Key?: null|string,
+     *   TravelMode?: null|TravelMode::*,
+     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
      *   '@region'?: string|null,
      * }|CalculateRouteMatrixRequest $input
      */

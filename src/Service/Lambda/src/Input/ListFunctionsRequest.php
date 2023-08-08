@@ -43,10 +43,10 @@ final class ListFunctionsRequest extends Input
 
     /**
      * @param array{
-     *   MasterRegion?: string,
-     *   FunctionVersion?: FunctionVersion::*,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   MasterRegion?: null|string,
+     *   FunctionVersion?: null|FunctionVersion::*,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -61,10 +61,10 @@ final class ListFunctionsRequest extends Input
 
     /**
      * @param array{
-     *   MasterRegion?: string,
-     *   FunctionVersion?: FunctionVersion::*,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   MasterRegion?: null|string,
+     *   FunctionVersion?: null|FunctionVersion::*,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListFunctionsRequest $input
      */

@@ -88,10 +88,10 @@ class CloudWatchClient extends AbstractApi
      *   MetricDataQueries: array<MetricDataQuery|array>,
      *   StartTime: \DateTimeImmutable|string,
      *   EndTime: \DateTimeImmutable|string,
-     *   NextToken?: string,
-     *   ScanBy?: ScanBy::*,
-     *   MaxDatapoints?: int,
-     *   LabelOptions?: LabelOptions|array,
+     *   NextToken?: null|string,
+     *   ScanBy?: null|ScanBy::*,
+     *   MaxDatapoints?: null|int,
+     *   LabelOptions?: null|LabelOptions|array,
      *   '@region'?: string|null,
      * }|GetMetricDataInput $input
      *
@@ -154,13 +154,13 @@ class CloudWatchClient extends AbstractApi
      * @param array{
      *   Namespace: string,
      *   MetricName: string,
-     *   Dimensions?: array<Dimension|array>,
+     *   Dimensions?: null|array<Dimension|array>,
      *   StartTime: \DateTimeImmutable|string,
      *   EndTime: \DateTimeImmutable|string,
      *   Period: int,
-     *   Statistics?: array<Statistic::*>,
-     *   ExtendedStatistics?: string[],
-     *   Unit?: StandardUnit::*,
+     *   Statistics?: null|array<Statistic::*>,
+     *   ExtendedStatistics?: null|string[],
+     *   Unit?: null|StandardUnit::*,
      *   '@region'?: string|null,
      * }|GetMetricStatisticsInput $input
      *
@@ -210,13 +210,13 @@ class CloudWatchClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#listmetrics
      *
      * @param array{
-     *   Namespace?: string,
-     *   MetricName?: string,
-     *   Dimensions?: array<DimensionFilter|array>,
-     *   NextToken?: string,
-     *   RecentlyActive?: RecentlyActive::*,
-     *   IncludeLinkedAccounts?: bool,
-     *   OwningAccount?: string,
+     *   Namespace?: null|string,
+     *   MetricName?: null|string,
+     *   Dimensions?: null|array<DimensionFilter|array>,
+     *   NextToken?: null|string,
+     *   RecentlyActive?: null|RecentlyActive::*,
+     *   IncludeLinkedAccounts?: null|bool,
+     *   OwningAccount?: null|string,
      *   '@region'?: string|null,
      * }|ListMetricsInput $input
      *

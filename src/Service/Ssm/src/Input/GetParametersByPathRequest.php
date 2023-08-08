@@ -71,11 +71,11 @@ final class GetParametersByPathRequest extends Input
     /**
      * @param array{
      *   Path?: string,
-     *   Recursive?: bool,
-     *   ParameterFilters?: array<ParameterStringFilter|array>,
-     *   WithDecryption?: bool,
-     *   MaxResults?: int,
-     *   NextToken?: string,
+     *   Recursive?: null|bool,
+     *   ParameterFilters?: null|array<ParameterStringFilter|array>,
+     *   WithDecryption?: null|bool,
+     *   MaxResults?: null|int,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -93,11 +93,11 @@ final class GetParametersByPathRequest extends Input
     /**
      * @param array{
      *   Path?: string,
-     *   Recursive?: bool,
-     *   ParameterFilters?: array<ParameterStringFilter|array>,
-     *   WithDecryption?: bool,
-     *   MaxResults?: int,
-     *   NextToken?: string,
+     *   Recursive?: null|bool,
+     *   ParameterFilters?: null|array<ParameterStringFilter|array>,
+     *   WithDecryption?: null|bool,
+     *   MaxResults?: null|int,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|GetParametersByPathRequest $input
      */

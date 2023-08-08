@@ -76,12 +76,12 @@ final class StartQueryExecutionInput extends Input
     /**
      * @param array{
      *   QueryString?: string,
-     *   ClientRequestToken?: string,
-     *   QueryExecutionContext?: QueryExecutionContext|array,
-     *   ResultConfiguration?: ResultConfiguration|array,
-     *   WorkGroup?: string,
-     *   ExecutionParameters?: string[],
-     *   ResultReuseConfiguration?: ResultReuseConfiguration|array,
+     *   ClientRequestToken?: null|string,
+     *   QueryExecutionContext?: null|QueryExecutionContext|array,
+     *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   WorkGroup?: null|string,
+     *   ExecutionParameters?: null|string[],
+     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -100,12 +100,12 @@ final class StartQueryExecutionInput extends Input
     /**
      * @param array{
      *   QueryString?: string,
-     *   ClientRequestToken?: string,
-     *   QueryExecutionContext?: QueryExecutionContext|array,
-     *   ResultConfiguration?: ResultConfiguration|array,
-     *   WorkGroup?: string,
-     *   ExecutionParameters?: string[],
-     *   ResultReuseConfiguration?: ResultReuseConfiguration|array,
+     *   ClientRequestToken?: null|string,
+     *   QueryExecutionContext?: null|QueryExecutionContext|array,
+     *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   WorkGroup?: null|string,
+     *   ExecutionParameters?: null|string[],
+     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
      *   '@region'?: string|null,
      * }|StartQueryExecutionInput $input
      */

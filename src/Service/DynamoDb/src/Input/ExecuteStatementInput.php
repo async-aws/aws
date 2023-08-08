@@ -74,12 +74,12 @@ final class ExecuteStatementInput extends Input
     /**
      * @param array{
      *   Statement?: string,
-     *   Parameters?: array<AttributeValue|array>,
-     *   ConsistentRead?: bool,
-     *   NextToken?: string,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   Limit?: int,
-     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
+     *   Parameters?: null|array<AttributeValue|array>,
+     *   ConsistentRead?: null|bool,
+     *   NextToken?: null|string,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   Limit?: null|int,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -98,12 +98,12 @@ final class ExecuteStatementInput extends Input
     /**
      * @param array{
      *   Statement?: string,
-     *   Parameters?: array<AttributeValue|array>,
-     *   ConsistentRead?: bool,
-     *   NextToken?: string,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   Limit?: int,
-     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*,
+     *   Parameters?: null|array<AttributeValue|array>,
+     *   ConsistentRead?: null|bool,
+     *   NextToken?: null|string,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   Limit?: null|int,
+     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
      *   '@region'?: string|null,
      * }|ExecuteStatementInput $input
      */

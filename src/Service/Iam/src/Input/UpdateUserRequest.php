@@ -50,8 +50,8 @@ final class UpdateUserRequest extends Input
     /**
      * @param array{
      *   UserName?: string,
-     *   NewPath?: string,
-     *   NewUserName?: string,
+     *   NewPath?: null|string,
+     *   NewUserName?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -66,8 +66,8 @@ final class UpdateUserRequest extends Input
     /**
      * @param array{
      *   UserName?: string,
-     *   NewPath?: string,
-     *   NewUserName?: string,
+     *   NewPath?: null|string,
+     *   NewUserName?: null|string,
      *   '@region'?: string|null,
      * }|UpdateUserRequest $input
      */

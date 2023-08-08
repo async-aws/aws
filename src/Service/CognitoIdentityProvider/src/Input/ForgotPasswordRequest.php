@@ -87,11 +87,11 @@ final class ForgotPasswordRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: string,
-     *   UserContextData?: UserContextDataType|array,
+     *   SecretHash?: null|string,
+     *   UserContextData?: null|UserContextDataType|array,
      *   Username?: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -109,11 +109,11 @@ final class ForgotPasswordRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: string,
-     *   UserContextData?: UserContextDataType|array,
+     *   SecretHash?: null|string,
+     *   UserContextData?: null|UserContextDataType|array,
      *   Username?: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|ForgotPasswordRequest $input
      */

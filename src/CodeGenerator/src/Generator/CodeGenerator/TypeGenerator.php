@@ -103,12 +103,12 @@ class TypeGenerator
                 }
             }
 
-            if ($allNullable || $nullable) {
-                if ($isObject) {
-                    $body[] = sprintf('  %s?: %s,', $member->getName(), 'null|' . $param);
-                } else {
-                    $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
-                }
+            if ($nullable) {
+                $body[] = sprintf('  %s?: %s,', $member->getName(), 'null|' . $param);
+            } elseif ($allNullable) {
+                // For input objects, the constructor allows to omit all members to set them later. But when provided,
+                // they should respect the nullability of the member.
+                $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
             } else {
                 $body[] = sprintf('  %s: %s,', $member->getName(), $param);
             }

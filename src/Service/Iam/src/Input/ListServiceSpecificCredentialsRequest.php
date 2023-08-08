@@ -31,8 +31,8 @@ final class ListServiceSpecificCredentialsRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: string,
-     *   ServiceName?: string,
+     *   UserName?: null|string,
+     *   ServiceName?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,8 +45,8 @@ final class ListServiceSpecificCredentialsRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: string,
-     *   ServiceName?: string,
+     *   UserName?: null|string,
+     *   ServiceName?: null|string,
      *   '@region'?: string|null,
      * }|ListServiceSpecificCredentialsRequest $input
      */

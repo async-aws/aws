@@ -50,8 +50,8 @@ final class GetSecretValueRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   VersionId?: string,
-     *   VersionStage?: string,
+     *   VersionId?: null|string,
+     *   VersionStage?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -66,8 +66,8 @@ final class GetSecretValueRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   VersionId?: string,
-     *   VersionStage?: string,
+     *   VersionId?: null|string,
+     *   VersionStage?: null|string,
      *   '@region'?: string|null,
      * }|GetSecretValueRequest $input
      */

@@ -97,11 +97,11 @@ final class UpdateSecretRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   ClientRequestToken?: string,
-     *   Description?: string,
-     *   KmsKeyId?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
+     *   ClientRequestToken?: null|string,
+     *   Description?: null|string,
+     *   KmsKeyId?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -119,11 +119,11 @@ final class UpdateSecretRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   ClientRequestToken?: string,
-     *   Description?: string,
-     *   KmsKeyId?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
+     *   ClientRequestToken?: null|string,
+     *   Description?: null|string,
+     *   KmsKeyId?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
      *   '@region'?: string|null,
      * }|UpdateSecretRequest $input
      */

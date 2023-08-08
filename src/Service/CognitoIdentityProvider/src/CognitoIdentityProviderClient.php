@@ -180,7 +180,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   ClientMetadata?: array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|AdminConfirmSignUpRequest $input
      *
@@ -263,13 +263,13 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   UserAttributes?: array<AttributeType|array>,
-     *   ValidationData?: array<AttributeType|array>,
-     *   TemporaryPassword?: string,
-     *   ForceAliasCreation?: bool,
-     *   MessageAction?: MessageActionType::*,
-     *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>,
-     *   ClientMetadata?: array<string, string>,
+     *   UserAttributes?: null|array<AttributeType|array>,
+     *   ValidationData?: null|array<AttributeType|array>,
+     *   TemporaryPassword?: null|string,
+     *   ForceAliasCreation?: null|bool,
+     *   MessageAction?: null|MessageActionType::*,
+     *   DesiredDeliveryMediums?: null|array<DeliveryMediumType::*>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|AdminCreateUserRequest $input
      *
@@ -542,10 +542,10 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   ClientId: string,
      *   AuthFlow: AuthFlowType::*,
-     *   AuthParameters?: array<string, string>,
-     *   ClientMetadata?: array<string, string>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ContextData?: ContextDataType|array,
+     *   AuthParameters?: null|array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ContextData?: null|ContextDataType|array,
      *   '@region'?: string|null,
      * }|AdminInitiateAuthRequest $input
      *
@@ -681,7 +681,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   ClientMetadata?: array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|AdminResetUserPasswordRequest $input
      *
@@ -760,7 +760,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   Password: string,
-     *   Permanent?: bool,
+     *   Permanent?: null|bool,
      *   '@region'?: string|null,
      * }|AdminSetUserPasswordRequest $input
      *
@@ -830,7 +830,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   UserAttributes: array<AttributeType|array>,
-     *   ClientMetadata?: array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|AdminUpdateUserAttributesRequest $input
      *
@@ -950,8 +950,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#associatesoftwaretoken
      *
      * @param array{
-     *   AccessToken?: string,
-     *   Session?: string,
+     *   AccessToken?: null|string,
+     *   Session?: null|string,
      *   '@region'?: string|null,
      * }|AssociateSoftwareTokenRequest $input
      *
@@ -1046,13 +1046,13 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   ClientId: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username: string,
      *   ConfirmationCode: string,
      *   Password: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|ConfirmForgotPasswordRequest $input
      *
@@ -1113,13 +1113,13 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   ClientId: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username: string,
      *   ConfirmationCode: string,
-     *   ForceAliasCreation?: bool,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   ForceAliasCreation?: null|bool,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|ConfirmSignUpRequest $input
      *
@@ -1185,9 +1185,9 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   GroupName: string,
      *   UserPoolId: string,
-     *   Description?: string,
-     *   RoleArn?: string,
-     *   Precedence?: int,
+     *   Description?: null|string,
+     *   RoleArn?: null|string,
+     *   Precedence?: null|int,
      *   '@region'?: string|null,
      * }|CreateGroupRequest $input
      *
@@ -1255,11 +1255,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   ClientId: string,
-     *   SecretHash?: string,
-     *   UserContextData?: UserContextDataType|array,
+     *   SecretHash?: null|string,
+     *   UserContextData?: null|UserContextDataType|array,
      *   Username: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|ForgotPasswordRequest $input
      *
@@ -1381,11 +1381,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   AuthFlow: AuthFlowType::*,
-     *   AuthParameters?: array<string, string>,
-     *   ClientMetadata?: array<string, string>,
+     *   AuthParameters?: null|array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   ClientId: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
      *   '@region'?: string|null,
      * }|InitiateAuthRequest $input
      *
@@ -1450,8 +1450,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   UserPoolId: string,
-     *   Limit?: int,
-     *   NextToken?: string,
+     *   Limit?: null|int,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|ListGroupsRequest $input
      *
@@ -1496,10 +1496,10 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   UserPoolId: string,
-     *   AttributesToGet?: string[],
-     *   Limit?: int,
-     *   PaginationToken?: string,
-     *   Filter?: string,
+     *   AttributesToGet?: null|string[],
+     *   Limit?: null|int,
+     *   PaginationToken?: null|string,
+     *   Filter?: null|string,
      *   '@region'?: string|null,
      * }|ListUsersRequest $input
      *
@@ -1553,11 +1553,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   ClientId: string,
-     *   SecretHash?: string,
-     *   UserContextData?: UserContextDataType|array,
+     *   SecretHash?: null|string,
+     *   UserContextData?: null|UserContextDataType|array,
      *   Username: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|ResendConfirmationCodeRequest $input
      *
@@ -1632,11 +1632,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   ClientId: string,
      *   ChallengeName: ChallengeNameType::*,
-     *   Session?: string,
-     *   ChallengeResponses?: array<string, string>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   Session?: null|string,
+     *   ChallengeResponses?: null|array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|RespondToAuthChallengeRequest $input
      *
@@ -1710,7 +1710,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   Token: string,
      *   ClientId: string,
-     *   ClientSecret?: string,
+     *   ClientSecret?: null|string,
      *   '@region'?: string|null,
      * }|RevokeTokenRequest $input
      *
@@ -1758,8 +1758,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#setusermfapreference
      *
      * @param array{
-     *   SMSMfaSettings?: SMSMfaSettingsType|array,
-     *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
+     *   SMSMfaSettings?: null|SMSMfaSettingsType|array,
+     *   SoftwareTokenMfaSettings?: null|SoftwareTokenMfaSettingsType|array,
      *   AccessToken: string,
      *   '@region'?: string|null,
      * }|SetUserMFAPreferenceRequest $input
@@ -1820,14 +1820,14 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   ClientId: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username: string,
      *   Password: string,
-     *   UserAttributes?: array<AttributeType|array>,
-     *   ValidationData?: array<AttributeType|array>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   UserAttributes?: null|array<AttributeType|array>,
+     *   ValidationData?: null|array<AttributeType|array>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|SignUpRequest $input
      *
@@ -1886,10 +1886,10 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#verifysoftwaretoken
      *
      * @param array{
-     *   AccessToken?: string,
-     *   Session?: string,
+     *   AccessToken?: null|string,
+     *   Session?: null|string,
      *   UserCode: string,
-     *   FriendlyDeviceName?: string,
+     *   FriendlyDeviceName?: null|string,
      *   '@region'?: string|null,
      * }|VerifySoftwareTokenRequest $input
      *

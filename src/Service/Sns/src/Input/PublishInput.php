@@ -144,15 +144,15 @@ final class PublishInput extends Input
 
     /**
      * @param array{
-     *   TopicArn?: string,
-     *   TargetArn?: string,
-     *   PhoneNumber?: string,
+     *   TopicArn?: null|string,
+     *   TargetArn?: null|string,
+     *   PhoneNumber?: null|string,
      *   Message?: string,
-     *   Subject?: string,
-     *   MessageStructure?: string,
-     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
-     *   MessageDeduplicationId?: string,
-     *   MessageGroupId?: string,
+     *   Subject?: null|string,
+     *   MessageStructure?: null|string,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -178,15 +178,15 @@ final class PublishInput extends Input
 
     /**
      * @param array{
-     *   TopicArn?: string,
-     *   TargetArn?: string,
-     *   PhoneNumber?: string,
+     *   TopicArn?: null|string,
+     *   TargetArn?: null|string,
+     *   PhoneNumber?: null|string,
      *   Message?: string,
-     *   Subject?: string,
-     *   MessageStructure?: string,
-     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
-     *   MessageDeduplicationId?: string,
-     *   MessageGroupId?: string,
+     *   Subject?: null|string,
+     *   MessageStructure?: null|string,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
      *   '@region'?: string|null,
      * }|PublishInput $input
      */

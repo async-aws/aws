@@ -28,7 +28,7 @@ final class CreateCollectionRequest extends Input
     /**
      * @param array{
      *   CollectionId?: string,
-     *   Tags?: array<string, string>,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -42,7 +42,7 @@ final class CreateCollectionRequest extends Input
     /**
      * @param array{
      *   CollectionId?: string,
-     *   Tags?: array<string, string>,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateCollectionRequest $input
      */

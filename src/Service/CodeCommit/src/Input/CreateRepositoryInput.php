@@ -49,8 +49,8 @@ final class CreateRepositoryInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   repositoryDescription?: string,
-     *   tags?: array<string, string>,
+     *   repositoryDescription?: null|string,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -65,8 +65,8 @@ final class CreateRepositoryInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   repositoryDescription?: string,
-     *   tags?: array<string, string>,
+     *   repositoryDescription?: null|string,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateRepositoryInput $input
      */

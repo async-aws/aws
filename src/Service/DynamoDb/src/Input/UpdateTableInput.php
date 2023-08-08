@@ -124,16 +124,16 @@ final class UpdateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: string,
-     *   BillingMode?: BillingMode::*,
-     *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>,
-     *   StreamSpecification?: StreamSpecification|array,
-     *   SSESpecification?: SSESpecification|array,
-     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>,
-     *   TableClass?: TableClass::*,
-     *   DeletionProtectionEnabled?: bool,
+     *   BillingMode?: null|BillingMode::*,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   GlobalSecondaryIndexUpdates?: null|array<GlobalSecondaryIndexUpdate|array>,
+     *   StreamSpecification?: null|StreamSpecification|array,
+     *   SSESpecification?: null|SSESpecification|array,
+     *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
+     *   TableClass?: null|TableClass::*,
+     *   DeletionProtectionEnabled?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -154,16 +154,16 @@ final class UpdateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: string,
-     *   BillingMode?: BillingMode::*,
-     *   ProvisionedThroughput?: ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>,
-     *   StreamSpecification?: StreamSpecification|array,
-     *   SSESpecification?: SSESpecification|array,
-     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>,
-     *   TableClass?: TableClass::*,
-     *   DeletionProtectionEnabled?: bool,
+     *   BillingMode?: null|BillingMode::*,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   GlobalSecondaryIndexUpdates?: null|array<GlobalSecondaryIndexUpdate|array>,
+     *   StreamSpecification?: null|StreamSpecification|array,
+     *   SSESpecification?: null|SSESpecification|array,
+     *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
+     *   TableClass?: null|TableClass::*,
+     *   DeletionProtectionEnabled?: null|bool,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      */

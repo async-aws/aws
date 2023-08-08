@@ -47,11 +47,11 @@ final class AddThingToThingGroupRequest extends Input
 
     /**
      * @param array{
-     *   thingGroupName?: string,
-     *   thingGroupArn?: string,
-     *   thingName?: string,
-     *   thingArn?: string,
-     *   overrideDynamicGroups?: bool,
+     *   thingGroupName?: null|string,
+     *   thingGroupArn?: null|string,
+     *   thingName?: null|string,
+     *   thingArn?: null|string,
+     *   overrideDynamicGroups?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -67,11 +67,11 @@ final class AddThingToThingGroupRequest extends Input
 
     /**
      * @param array{
-     *   thingGroupName?: string,
-     *   thingGroupArn?: string,
-     *   thingName?: string,
-     *   thingArn?: string,
-     *   overrideDynamicGroups?: bool,
+     *   thingGroupName?: null|string,
+     *   thingGroupArn?: null|string,
+     *   thingName?: null|string,
+     *   thingArn?: null|string,
+     *   overrideDynamicGroups?: null|bool,
      *   '@region'?: string|null,
      * }|AddThingToThingGroupRequest $input
      */

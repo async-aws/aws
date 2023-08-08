@@ -81,9 +81,9 @@ final class QueryRequest extends Input
     /**
      * @param array{
      *   QueryString?: string,
-     *   ClientToken?: string,
-     *   NextToken?: string,
-     *   MaxRows?: int,
+     *   ClientToken?: null|string,
+     *   NextToken?: null|string,
+     *   MaxRows?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -99,9 +99,9 @@ final class QueryRequest extends Input
     /**
      * @param array{
      *   QueryString?: string,
-     *   ClientToken?: string,
-     *   NextToken?: string,
-     *   MaxRows?: int,
+     *   ClientToken?: null|string,
+     *   NextToken?: null|string,
+     *   MaxRows?: null|int,
      *   '@region'?: string|null,
      * }|QueryRequest $input
      */

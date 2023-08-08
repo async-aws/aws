@@ -17,7 +17,7 @@ final class ListTopicsInput extends Input
 
     /**
      * @param array{
-     *   NextToken?: string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -29,7 +29,7 @@ final class ListTopicsInput extends Input
 
     /**
      * @param array{
-     *   NextToken?: string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|ListTopicsInput $input
      */

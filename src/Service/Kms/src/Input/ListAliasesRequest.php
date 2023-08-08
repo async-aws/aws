@@ -48,9 +48,9 @@ final class ListAliasesRequest extends Input
 
     /**
      * @param array{
-     *   KeyId?: string,
-     *   Limit?: int,
-     *   Marker?: string,
+     *   KeyId?: null|string,
+     *   Limit?: null|int,
+     *   Marker?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -64,9 +64,9 @@ final class ListAliasesRequest extends Input
 
     /**
      * @param array{
-     *   KeyId?: string,
-     *   Limit?: int,
-     *   Marker?: string,
+     *   KeyId?: null|string,
+     *   Limit?: null|int,
+     *   Marker?: null|string,
      *   '@region'?: string|null,
      * }|ListAliasesRequest $input
      */

@@ -76,11 +76,11 @@ final class InvocationRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   InvocationType?: InvocationType::*,
-     *   LogType?: LogType::*,
-     *   ClientContext?: string,
-     *   Payload?: string,
-     *   Qualifier?: string,
+     *   InvocationType?: null|InvocationType::*,
+     *   LogType?: null|LogType::*,
+     *   ClientContext?: null|string,
+     *   Payload?: null|string,
+     *   Qualifier?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -98,11 +98,11 @@ final class InvocationRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   InvocationType?: InvocationType::*,
-     *   LogType?: LogType::*,
-     *   ClientContext?: string,
-     *   Payload?: string,
-     *   Qualifier?: string,
+     *   InvocationType?: null|InvocationType::*,
+     *   LogType?: null|LogType::*,
+     *   ClientContext?: null|string,
+     *   Payload?: null|string,
+     *   Qualifier?: null|string,
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      */

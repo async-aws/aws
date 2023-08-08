@@ -140,19 +140,19 @@ final class CreateJobRequest extends Input1
 
     /**
      * @param array{
-     *   AccelerationSettings?: AccelerationSettings|array,
-     *   BillingTagsSource?: BillingTagsSource::*,
-     *   ClientRequestToken?: string,
-     *   HopDestinations?: array<HopDestination|array>,
-     *   JobTemplate?: string,
-     *   Priority?: int,
-     *   Queue?: string,
+     *   AccelerationSettings?: null|AccelerationSettings|array,
+     *   BillingTagsSource?: null|BillingTagsSource::*,
+     *   ClientRequestToken?: null|string,
+     *   HopDestinations?: null|array<HopDestination|array>,
+     *   JobTemplate?: null|string,
+     *   Priority?: null|int,
+     *   Queue?: null|string,
      *   Role?: string,
      *   Settings?: JobSettings|array,
-     *   SimulateReservedQueue?: SimulateReservedQueue::*,
-     *   StatusUpdateInterval?: StatusUpdateInterval::*,
-     *   Tags?: array<string, string>,
-     *   UserMetadata?: array<string, string>,
+     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
+     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
+     *   Tags?: null|array<string, string>,
+     *   UserMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -176,19 +176,19 @@ final class CreateJobRequest extends Input1
 
     /**
      * @param array{
-     *   AccelerationSettings?: AccelerationSettings|array,
-     *   BillingTagsSource?: BillingTagsSource::*,
-     *   ClientRequestToken?: string,
-     *   HopDestinations?: array<HopDestination|array>,
-     *   JobTemplate?: string,
-     *   Priority?: int,
-     *   Queue?: string,
+     *   AccelerationSettings?: null|AccelerationSettings|array,
+     *   BillingTagsSource?: null|BillingTagsSource::*,
+     *   ClientRequestToken?: null|string,
+     *   HopDestinations?: null|array<HopDestination|array>,
+     *   JobTemplate?: null|string,
+     *   Priority?: null|int,
+     *   Queue?: null|string,
      *   Role?: string,
      *   Settings?: JobSettings|array,
-     *   SimulateReservedQueue?: SimulateReservedQueue::*,
-     *   StatusUpdateInterval?: StatusUpdateInterval::*,
-     *   Tags?: array<string, string>,
-     *   UserMetadata?: array<string, string>,
+     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
+     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
+     *   Tags?: null|array<string, string>,
+     *   UserMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateJobRequest $input
      */

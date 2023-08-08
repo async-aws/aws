@@ -39,7 +39,7 @@ final class DeleteServiceSpecificCredentialRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: string,
+     *   UserName?: null|string,
      *   ServiceSpecificCredentialId?: string,
      *   '@region'?: string|null,
      * } $input
@@ -53,7 +53,7 @@ final class DeleteServiceSpecificCredentialRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: string,
+     *   UserName?: null|string,
      *   ServiceSpecificCredentialId?: string,
      *   '@region'?: string|null,
      * }|DeleteServiceSpecificCredentialRequest $input

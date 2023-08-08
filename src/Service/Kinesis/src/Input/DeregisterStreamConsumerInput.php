@@ -36,9 +36,9 @@ final class DeregisterStreamConsumerInput extends Input
 
     /**
      * @param array{
-     *   StreamARN?: string,
-     *   ConsumerName?: string,
-     *   ConsumerARN?: string,
+     *   StreamARN?: null|string,
+     *   ConsumerName?: null|string,
+     *   ConsumerARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -52,9 +52,9 @@ final class DeregisterStreamConsumerInput extends Input
 
     /**
      * @param array{
-     *   StreamARN?: string,
-     *   ConsumerName?: string,
-     *   ConsumerARN?: string,
+     *   StreamARN?: null|string,
+     *   ConsumerName?: null|string,
+     *   ConsumerARN?: null|string,
      *   '@region'?: string|null,
      * }|DeregisterStreamConsumerInput $input
      */

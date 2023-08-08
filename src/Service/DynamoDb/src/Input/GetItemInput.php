@@ -114,11 +114,11 @@ final class GetItemInput extends Input
      * @param array{
      *   TableName?: string,
      *   Key?: array<string, AttributeValue|array>,
-     *   AttributesToGet?: string[],
-     *   ConsistentRead?: bool,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ProjectionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
+     *   AttributesToGet?: null|string[],
+     *   ConsistentRead?: null|bool,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ProjectionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -144,11 +144,11 @@ final class GetItemInput extends Input
      * @param array{
      *   TableName?: string,
      *   Key?: array<string, AttributeValue|array>,
-     *   AttributesToGet?: string[],
-     *   ConsistentRead?: bool,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ProjectionExpression?: string,
-     *   ExpressionAttributeNames?: array<string, string>,
+     *   AttributesToGet?: null|string[],
+     *   ConsistentRead?: null|bool,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ProjectionExpression?: null|string,
+     *   ExpressionAttributeNames?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|GetItemInput $input
      */

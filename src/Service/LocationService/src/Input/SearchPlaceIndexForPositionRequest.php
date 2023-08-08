@@ -75,9 +75,9 @@ final class SearchPlaceIndexForPositionRequest extends Input
     /**
      * @param array{
      *   IndexName?: string,
-     *   Key?: string,
-     *   Language?: string,
-     *   MaxResults?: int,
+     *   Key?: null|string,
+     *   Language?: null|string,
+     *   MaxResults?: null|int,
      *   Position?: float[],
      *   '@region'?: string|null,
      * } $input
@@ -95,9 +95,9 @@ final class SearchPlaceIndexForPositionRequest extends Input
     /**
      * @param array{
      *   IndexName?: string,
-     *   Key?: string,
-     *   Language?: string,
-     *   MaxResults?: int,
+     *   Key?: null|string,
+     *   Language?: null|string,
+     *   MaxResults?: null|int,
      *   Position?: float[],
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input

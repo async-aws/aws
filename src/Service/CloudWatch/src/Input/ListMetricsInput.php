@@ -71,13 +71,13 @@ final class ListMetricsInput extends Input
 
     /**
      * @param array{
-     *   Namespace?: string,
-     *   MetricName?: string,
-     *   Dimensions?: array<DimensionFilter|array>,
-     *   NextToken?: string,
-     *   RecentlyActive?: RecentlyActive::*,
-     *   IncludeLinkedAccounts?: bool,
-     *   OwningAccount?: string,
+     *   Namespace?: null|string,
+     *   MetricName?: null|string,
+     *   Dimensions?: null|array<DimensionFilter|array>,
+     *   NextToken?: null|string,
+     *   RecentlyActive?: null|RecentlyActive::*,
+     *   IncludeLinkedAccounts?: null|bool,
+     *   OwningAccount?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -95,13 +95,13 @@ final class ListMetricsInput extends Input
 
     /**
      * @param array{
-     *   Namespace?: string,
-     *   MetricName?: string,
-     *   Dimensions?: array<DimensionFilter|array>,
-     *   NextToken?: string,
-     *   RecentlyActive?: RecentlyActive::*,
-     *   IncludeLinkedAccounts?: bool,
-     *   OwningAccount?: string,
+     *   Namespace?: null|string,
+     *   MetricName?: null|string,
+     *   Dimensions?: null|array<DimensionFilter|array>,
+     *   NextToken?: null|string,
+     *   RecentlyActive?: null|RecentlyActive::*,
+     *   IncludeLinkedAccounts?: null|bool,
+     *   OwningAccount?: null|string,
      *   '@region'?: string|null,
      * }|ListMetricsInput $input
      */

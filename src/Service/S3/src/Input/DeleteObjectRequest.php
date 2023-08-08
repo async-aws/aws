@@ -83,11 +83,11 @@ final class DeleteObjectRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   MFA?: string,
-     *   VersionId?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   BypassGovernanceRetention?: bool,
-     *   ExpectedBucketOwner?: string,
+     *   MFA?: null|string,
+     *   VersionId?: null|string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   BypassGovernanceRetention?: null|bool,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -107,11 +107,11 @@ final class DeleteObjectRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   MFA?: string,
-     *   VersionId?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   BypassGovernanceRetention?: bool,
-     *   ExpectedBucketOwner?: string,
+     *   MFA?: null|string,
+     *   VersionId?: null|string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   BypassGovernanceRetention?: null|bool,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * }|DeleteObjectRequest $input
      */

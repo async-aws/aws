@@ -76,19 +76,19 @@ class MediaConvertClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#createjob
      *
      * @param array{
-     *   AccelerationSettings?: AccelerationSettings|array,
-     *   BillingTagsSource?: BillingTagsSource::*,
-     *   ClientRequestToken?: string,
-     *   HopDestinations?: array<HopDestination|array>,
-     *   JobTemplate?: string,
-     *   Priority?: int,
-     *   Queue?: string,
+     *   AccelerationSettings?: null|AccelerationSettings|array,
+     *   BillingTagsSource?: null|BillingTagsSource::*,
+     *   ClientRequestToken?: null|string,
+     *   HopDestinations?: null|array<HopDestination|array>,
+     *   JobTemplate?: null|string,
+     *   Priority?: null|int,
+     *   Queue?: null|string,
      *   Role: string,
      *   Settings: JobSettings|array,
-     *   SimulateReservedQueue?: SimulateReservedQueue::*,
-     *   StatusUpdateInterval?: StatusUpdateInterval::*,
-     *   Tags?: array<string, string>,
-     *   UserMetadata?: array<string, string>,
+     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
+     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
+     *   Tags?: null|array<string, string>,
+     *   UserMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateJobRequest $input
      *
@@ -121,9 +121,9 @@ class MediaConvertClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#describeendpoints
      *
      * @param array{
-     *   MaxResults?: int,
-     *   Mode?: DescribeEndpointsMode::*,
-     *   NextToken?: string,
+     *   MaxResults?: null|int,
+     *   Mode?: null|DescribeEndpointsMode::*,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|DescribeEndpointsRequest $input
      *
@@ -191,11 +191,11 @@ class MediaConvertClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#listjobs
      *
      * @param array{
-     *   MaxResults?: int,
-     *   NextToken?: string,
-     *   Order?: Order::*,
-     *   Queue?: string,
-     *   Status?: JobStatus::*,
+     *   MaxResults?: null|int,
+     *   NextToken?: null|string,
+     *   Order?: null|Order::*,
+     *   Queue?: null|string,
+     *   Status?: null|JobStatus::*,
      *   '@region'?: string|null,
      * }|ListJobsRequest $input
      *

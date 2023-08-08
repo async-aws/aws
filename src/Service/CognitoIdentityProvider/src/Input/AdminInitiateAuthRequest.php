@@ -148,10 +148,10 @@ final class AdminInitiateAuthRequest extends Input
      *   UserPoolId?: string,
      *   ClientId?: string,
      *   AuthFlow?: AuthFlowType::*,
-     *   AuthParameters?: array<string, string>,
-     *   ClientMetadata?: array<string, string>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ContextData?: ContextDataType|array,
+     *   AuthParameters?: null|array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ContextData?: null|ContextDataType|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -172,10 +172,10 @@ final class AdminInitiateAuthRequest extends Input
      *   UserPoolId?: string,
      *   ClientId?: string,
      *   AuthFlow?: AuthFlowType::*,
-     *   AuthParameters?: array<string, string>,
-     *   ClientMetadata?: array<string, string>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   ContextData?: ContextDataType|array,
+     *   AuthParameters?: null|array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   ContextData?: null|ContextDataType|array,
      *   '@region'?: string|null,
      * }|AdminInitiateAuthRequest $input
      */

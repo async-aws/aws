@@ -106,13 +106,13 @@ final class ConfirmSignUpRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username?: string,
      *   ConfirmationCode?: string,
-     *   ForceAliasCreation?: bool,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   ForceAliasCreation?: null|bool,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -132,13 +132,13 @@ final class ConfirmSignUpRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username?: string,
      *   ConfirmationCode?: string,
-     *   ForceAliasCreation?: bool,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   ForceAliasCreation?: null|bool,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|ConfirmSignUpRequest $input
      */

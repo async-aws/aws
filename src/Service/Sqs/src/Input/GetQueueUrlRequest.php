@@ -31,7 +31,7 @@ final class GetQueueUrlRequest extends Input
     /**
      * @param array{
      *   QueueName?: string,
-     *   QueueOwnerAWSAccountId?: string,
+     *   QueueOwnerAWSAccountId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,7 +45,7 @@ final class GetQueueUrlRequest extends Input
     /**
      * @param array{
      *   QueueName?: string,
-     *   QueueOwnerAWSAccountId?: string,
+     *   QueueOwnerAWSAccountId?: null|string,
      *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      */
