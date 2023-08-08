@@ -1,6 +1,6 @@
 # Flysystem adapter for AsyncAws S3
 
-**CAUTION**: this bundle is deprecated. Use the
+**CAUTION**: this adapter is deprecated. Use the
 [league/flysystem-async-aws-s3](https://packagist.org/packages/league/flysystem-async-aws-s3)
 package instead.
 
