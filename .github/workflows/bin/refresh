@@ -149,24 +149,26 @@ if ($hasChange) {
 foreach ($services as $service => $hasChange) {
     $awsServiceNames = array_merge([$service], $manifest['services'][$service]['alternative-names'] ?? []);
     $newLines = [];
-    foreach ($awsServiceNames as $awsServiceName) {
-        $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($awsServiceName));
-        if ($hasChange) {
+    if ($hasChange) {
+        foreach ($awsServiceNames as $awsServiceName) {
+            $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($awsServiceName));
             if (!isset($changesByService[$sanitizedService])) {
                 continue;
             }
             foreach ($changesByService[$sanitizedService] as $change) {
                 $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
             }
-        } else {
-            $newLines[] = '- AWS enhancement: Documentation updates.';
         }
+    } else {
+        $newLines[] = '- AWS enhancement: Documentation updates.';
     }
 
     if (empty($newLines)) {
         console_log('/!\ No entry in changelog for service '.$service);
         $newLines[] = '- AWS api-change: TODO';
     }
+
+    $newLines = array_unique($newLines);
 
     console_log('Generating CHANGELOG for '. $service);
     if ($service === 'Sts') {
@@ -177,6 +179,8 @@ foreach ($services as $service => $hasChange) {
     $changeLog = explode("\n", file_get_contents($changeLogPath));
     $nrSection = false;
     $fixSection = false;
+    $fixSectionLabel = $hasChange ? '### Added' : '### Changed';
+
     foreach ($changeLog as $index => $line) {
         if ($line === '## NOT RELEASED') {
             $nrSection = true;
@@ -188,7 +192,7 @@ foreach ($services as $service => $hasChange) {
         if (strpos($line, '## ') === 0) {
             break;
         }
-        if ($line === '### Added') {
+        if ($line === $fixSectionLabel) {
             $fixSection = true;
             continue;
         }
@@ -213,12 +217,12 @@ foreach ($services as $service => $hasChange) {
         array_splice($changeLog, 2, 0, array_merge([
             '## NOT RELEASED',
             '',
-            '### Added',
+            $fixSectionLabel,
             '',
         ], $newLines, ['']));
     } elseif (!$fixSection) {
         array_splice($changeLog, $index, 0, array_merge([
-            '### Added',
+            $fixSectionLabel,
             '',
         ], $newLines, ['']));
     } else {
