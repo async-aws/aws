@@ -53,20 +53,6 @@
       <code><![CDATA[array_merge($options, ['Bucket' => $bucket, 'Key' => $key])]]></code>
     </InvalidArgument>
   </file>
-  <file src="src/Integration/Flysystem/S3/src/AsyncAwsS3Adapter.php">
-    <InvalidArgument>
-      <code><![CDATA[array_merge($options, [
-            'Bucket' => $this->bucket,
-            'Key' => $key,
-            'Body' => $body,
-            'ACL' => $acl,
-        ])]]></code>
-      <code><![CDATA[array_merge($this->options, [
-            'Bucket' => $this->bucket,
-            'Key' => $location,
-        ])]]></code>
-    </InvalidArgument>
-  </file>
   <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
     <RedundantCast>
       <code><![CDATA[(int) $e->getCode()]]></code>
