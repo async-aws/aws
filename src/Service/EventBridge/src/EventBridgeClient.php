@@ -24,7 +24,7 @@ class EventBridgeClient extends AbstractApi
      *
      * @param array{
      *   Entries: array<PutEventsRequestEntry|array>,
-     *   EndpointId?: string,
+     *   EndpointId?: null|string,
      *   '@region'?: string|null,
      * }|PutEventsRequest $input
      *

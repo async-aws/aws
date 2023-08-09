@@ -24,8 +24,8 @@ final class ListCollectionsRequest extends Input
 
     /**
      * @param array{
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -38,8 +38,8 @@ final class ListCollectionsRequest extends Input
 
     /**
      * @param array{
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListCollectionsRequest $input
      */

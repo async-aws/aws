@@ -33,7 +33,7 @@ final class PutEventsRequest extends Input
     /**
      * @param array{
      *   Entries?: array<PutEventsRequestEntry|array>,
-     *   EndpointId?: string,
+     *   EndpointId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,7 +47,7 @@ final class PutEventsRequest extends Input
     /**
      * @param array{
      *   Entries?: array<PutEventsRequestEntry|array>,
-     *   EndpointId?: string,
+     *   EndpointId?: null|string,
      *   '@region'?: string|null,
      * }|PutEventsRequest $input
      */

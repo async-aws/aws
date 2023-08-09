@@ -30,7 +30,7 @@ final class PrepareQueryRequest extends Input
     /**
      * @param array{
      *   QueryString?: string,
-     *   ValidateOnly?: bool,
+     *   ValidateOnly?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -44,7 +44,7 @@ final class PrepareQueryRequest extends Input
     /**
      * @param array{
      *   QueryString?: string,
-     *   ValidateOnly?: bool,
+     *   ValidateOnly?: null|bool,
      *   '@region'?: string|null,
      * }|PrepareQueryRequest $input
      */

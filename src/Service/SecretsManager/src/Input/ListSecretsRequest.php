@@ -53,11 +53,11 @@ final class ListSecretsRequest extends Input
 
     /**
      * @param array{
-     *   IncludePlannedDeletion?: bool,
-     *   MaxResults?: int,
-     *   NextToken?: string,
-     *   Filters?: array<Filter|array>,
-     *   SortOrder?: SortOrderType::*,
+     *   IncludePlannedDeletion?: null|bool,
+     *   MaxResults?: null|int,
+     *   NextToken?: null|string,
+     *   Filters?: null|array<Filter|array>,
+     *   SortOrder?: null|SortOrderType::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -73,11 +73,11 @@ final class ListSecretsRequest extends Input
 
     /**
      * @param array{
-     *   IncludePlannedDeletion?: bool,
-     *   MaxResults?: int,
-     *   NextToken?: string,
-     *   Filters?: array<Filter|array>,
-     *   SortOrder?: SortOrderType::*,
+     *   IncludePlannedDeletion?: null|bool,
+     *   MaxResults?: null|int,
+     *   NextToken?: null|string,
+     *   Filters?: null|array<Filter|array>,
+     *   SortOrder?: null|SortOrderType::*,
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input
      */

@@ -70,7 +70,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   CollectionId: string,
-     *   Tags?: array<string, string>,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateCollectionRequest $input
      *
@@ -240,7 +240,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
-     *   Attributes?: array<Attribute::*>,
+     *   Attributes?: null|array<Attribute::*>,
      *   '@region'?: string|null,
      * }|DetectFacesRequest $input
      *
@@ -289,8 +289,8 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
-     *   MinConfidence?: float,
-     *   HumanLoopConfig?: HumanLoopConfig|array,
+     *   MinConfidence?: null|float,
+     *   HumanLoopConfig?: null|HumanLoopConfig|array,
      *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      *
@@ -438,10 +438,10 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   CollectionId: string,
      *   Image: Image|array,
-     *   ExternalImageId?: string,
-     *   DetectionAttributes?: array<Attribute::*>,
-     *   MaxFaces?: int,
-     *   QualityFilter?: QualityFilter::*,
+     *   ExternalImageId?: null|string,
+     *   DetectionAttributes?: null|array<Attribute::*>,
+     *   MaxFaces?: null|int,
+     *   QualityFilter?: null|QualityFilter::*,
      *   '@region'?: string|null,
      * }|IndexFacesRequest $input
      *
@@ -487,8 +487,8 @@ class RekognitionClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#listcollections
      *
      * @param array{
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListCollectionsRequest $input
      *
@@ -615,9 +615,9 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   CollectionId: string,
      *   Image: Image|array,
-     *   MaxFaces?: int,
-     *   FaceMatchThreshold?: float,
-     *   QualityFilter?: QualityFilter::*,
+     *   MaxFaces?: null|int,
+     *   FaceMatchThreshold?: null|float,
+     *   QualityFilter?: null|QualityFilter::*,
      *   '@region'?: string|null,
      * }|SearchFacesByImageRequest $input
      *

@@ -95,10 +95,10 @@ final class PutSecretValueRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   ClientRequestToken?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
-     *   VersionStages?: string[],
+     *   ClientRequestToken?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
+     *   VersionStages?: null|string[],
      *   '@region'?: string|null,
      * } $input
      */
@@ -115,10 +115,10 @@ final class PutSecretValueRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   ClientRequestToken?: string,
-     *   SecretBinary?: string,
-     *   SecretString?: string,
-     *   VersionStages?: string[],
+     *   ClientRequestToken?: null|string,
+     *   SecretBinary?: null|string,
+     *   SecretString?: null|string,
+     *   VersionStages?: null|string[],
      *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      */

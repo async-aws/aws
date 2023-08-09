@@ -31,7 +31,7 @@ final class GetParameterRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   WithDecryption?: bool,
+     *   WithDecryption?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,7 +45,7 @@ final class GetParameterRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   WithDecryption?: bool,
+     *   WithDecryption?: null|bool,
      *   '@region'?: string|null,
      * }|GetParameterRequest $input
      */

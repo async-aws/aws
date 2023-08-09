@@ -56,10 +56,10 @@ final class StartCalculationExecutionRequest extends Input
     /**
      * @param array{
      *   SessionId?: string,
-     *   Description?: string,
-     *   CalculationConfiguration?: CalculationConfiguration|array,
-     *   CodeBlock?: string,
-     *   ClientRequestToken?: string,
+     *   Description?: null|string,
+     *   CalculationConfiguration?: null|CalculationConfiguration|array,
+     *   CodeBlock?: null|string,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -76,10 +76,10 @@ final class StartCalculationExecutionRequest extends Input
     /**
      * @param array{
      *   SessionId?: string,
-     *   Description?: string,
-     *   CalculationConfiguration?: CalculationConfiguration|array,
-     *   CodeBlock?: string,
-     *   ClientRequestToken?: string,
+     *   Description?: null|string,
+     *   CalculationConfiguration?: null|CalculationConfiguration|array,
+     *   CodeBlock?: null|string,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * }|StartCalculationExecutionRequest $input
      */

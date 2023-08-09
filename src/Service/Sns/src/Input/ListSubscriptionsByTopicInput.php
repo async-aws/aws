@@ -31,7 +31,7 @@ final class ListSubscriptionsByTopicInput extends Input
     /**
      * @param array{
      *   TopicArn?: string,
-     *   NextToken?: string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,7 +45,7 @@ final class ListSubscriptionsByTopicInput extends Input
     /**
      * @param array{
      *   TopicArn?: string,
-     *   NextToken?: string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|ListSubscriptionsByTopicInput $input
      */

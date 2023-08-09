@@ -28,7 +28,7 @@ final class DeleteScheduleGroupInput extends Input
 
     /**
      * @param array{
-     *   ClientToken?: string,
+     *   ClientToken?: null|string,
      *   Name?: string,
      *   '@region'?: string|null,
      * } $input
@@ -42,7 +42,7 @@ final class DeleteScheduleGroupInput extends Input
 
     /**
      * @param array{
-     *   ClientToken?: string,
+     *   ClientToken?: null|string,
      *   Name?: string,
      *   '@region'?: string|null,
      * }|DeleteScheduleGroupInput $input

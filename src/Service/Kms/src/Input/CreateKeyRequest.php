@@ -288,17 +288,17 @@ final class CreateKeyRequest extends Input
 
     /**
      * @param array{
-     *   Policy?: string,
-     *   Description?: string,
-     *   KeyUsage?: KeyUsageType::*,
-     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*,
-     *   KeySpec?: KeySpec::*,
-     *   Origin?: OriginType::*,
-     *   CustomKeyStoreId?: string,
-     *   BypassPolicyLockoutSafetyCheck?: bool,
-     *   Tags?: array<Tag|array>,
-     *   MultiRegion?: bool,
-     *   XksKeyId?: string,
+     *   Policy?: null|string,
+     *   Description?: null|string,
+     *   KeyUsage?: null|KeyUsageType::*,
+     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
+     *   KeySpec?: null|KeySpec::*,
+     *   Origin?: null|OriginType::*,
+     *   CustomKeyStoreId?: null|string,
+     *   BypassPolicyLockoutSafetyCheck?: null|bool,
+     *   Tags?: null|array<Tag|array>,
+     *   MultiRegion?: null|bool,
+     *   XksKeyId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -320,17 +320,17 @@ final class CreateKeyRequest extends Input
 
     /**
      * @param array{
-     *   Policy?: string,
-     *   Description?: string,
-     *   KeyUsage?: KeyUsageType::*,
-     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*,
-     *   KeySpec?: KeySpec::*,
-     *   Origin?: OriginType::*,
-     *   CustomKeyStoreId?: string,
-     *   BypassPolicyLockoutSafetyCheck?: bool,
-     *   Tags?: array<Tag|array>,
-     *   MultiRegion?: bool,
-     *   XksKeyId?: string,
+     *   Policy?: null|string,
+     *   Description?: null|string,
+     *   KeyUsage?: null|KeyUsageType::*,
+     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
+     *   KeySpec?: null|KeySpec::*,
+     *   Origin?: null|OriginType::*,
+     *   CustomKeyStoreId?: null|string,
+     *   BypassPolicyLockoutSafetyCheck?: null|bool,
+     *   Tags?: null|array<Tag|array>,
+     *   MultiRegion?: null|bool,
+     *   XksKeyId?: null|string,
      *   '@region'?: string|null,
      * }|CreateKeyRequest $input
      */

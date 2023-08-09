@@ -192,10 +192,10 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   VPC?: VPC|array,
+     *   VPC?: null|VPC|array,
      *   CallerReference: string,
-     *   HostedZoneConfig?: HostedZoneConfig|array,
-     *   DelegationSetId?: string,
+     *   HostedZoneConfig?: null|HostedZoneConfig|array,
+     *   DelegationSetId?: null|string,
      *   '@region'?: string|null,
      * }|CreateHostedZoneRequest $input
      *
@@ -306,9 +306,9 @@ class Route53Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-route53-2013-04-01.html#listhostedzones
      *
      * @param array{
-     *   Marker?: string,
-     *   MaxItems?: string,
-     *   DelegationSetId?: string,
+     *   Marker?: null|string,
+     *   MaxItems?: null|string,
+     *   DelegationSetId?: null|string,
      *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      *
@@ -373,9 +373,9 @@ class Route53Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-route53-2013-04-01.html#listhostedzonesbyname
      *
      * @param array{
-     *   DNSName?: string,
-     *   HostedZoneId?: string,
-     *   MaxItems?: string,
+     *   DNSName?: null|string,
+     *   HostedZoneId?: null|string,
+     *   MaxItems?: null|string,
      *   '@region'?: string|null,
      * }|ListHostedZonesByNameRequest $input
      *
@@ -452,10 +452,10 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   HostedZoneId: string,
-     *   StartRecordName?: string,
-     *   StartRecordType?: RRType::*,
-     *   StartRecordIdentifier?: string,
-     *   MaxItems?: string,
+     *   StartRecordName?: null|string,
+     *   StartRecordType?: null|RRType::*,
+     *   StartRecordIdentifier?: null|string,
+     *   MaxItems?: null|string,
      *   '@region'?: string|null,
      * }|ListResourceRecordSetsRequest $input
      *

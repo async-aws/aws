@@ -37,7 +37,7 @@ final class DeleteFunctionRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   Qualifier?: string,
+     *   Qualifier?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -51,7 +51,7 @@ final class DeleteFunctionRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   Qualifier?: string,
+     *   Qualifier?: null|string,
      *   '@region'?: string|null,
      * }|DeleteFunctionRequest $input
      */

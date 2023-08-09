@@ -113,14 +113,14 @@ final class SignUpRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username?: string,
      *   Password?: string,
-     *   UserAttributes?: array<AttributeType|array>,
-     *   ValidationData?: array<AttributeType|array>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   UserAttributes?: null|array<AttributeType|array>,
+     *   ValidationData?: null|array<AttributeType|array>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -141,14 +141,14 @@ final class SignUpRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: string,
+     *   SecretHash?: null|string,
      *   Username?: string,
      *   Password?: string,
-     *   UserAttributes?: array<AttributeType|array>,
-     *   ValidationData?: array<AttributeType|array>,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
-     *   ClientMetadata?: array<string, string>,
+     *   UserAttributes?: null|array<AttributeType|array>,
+     *   ValidationData?: null|array<AttributeType|array>,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|SignUpRequest $input
      */

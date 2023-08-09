@@ -105,13 +105,13 @@ final class ListShardsInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
-     *   NextToken?: string,
-     *   ExclusiveStartShardId?: string,
-     *   MaxResults?: int,
-     *   StreamCreationTimestamp?: \DateTimeImmutable|string,
-     *   ShardFilter?: ShardFilter|array,
-     *   StreamARN?: string,
+     *   StreamName?: null|string,
+     *   NextToken?: null|string,
+     *   ExclusiveStartShardId?: null|string,
+     *   MaxResults?: null|int,
+     *   StreamCreationTimestamp?: null|\DateTimeImmutable|string,
+     *   ShardFilter?: null|ShardFilter|array,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -129,13 +129,13 @@ final class ListShardsInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
-     *   NextToken?: string,
-     *   ExclusiveStartShardId?: string,
-     *   MaxResults?: int,
-     *   StreamCreationTimestamp?: \DateTimeImmutable|string,
-     *   ShardFilter?: ShardFilter|array,
-     *   StreamARN?: string,
+     *   StreamName?: null|string,
+     *   NextToken?: null|string,
+     *   ExclusiveStartShardId?: null|string,
+     *   MaxResults?: null|int,
+     *   StreamCreationTimestamp?: null|\DateTimeImmutable|string,
+     *   ShardFilter?: null|ShardFilter|array,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * }|ListShardsInput $input
      */

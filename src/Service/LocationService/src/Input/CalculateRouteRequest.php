@@ -185,17 +185,17 @@ final class CalculateRouteRequest extends Input
     /**
      * @param array{
      *   CalculatorName?: string,
-     *   CarModeOptions?: CalculateRouteCarModeOptions|array,
-     *   DepartNow?: bool,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
+     *   DepartNow?: null|bool,
      *   DeparturePosition?: float[],
-     *   DepartureTime?: \DateTimeImmutable|string,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPosition?: float[],
-     *   DistanceUnit?: DistanceUnit::*,
-     *   IncludeLegGeometry?: bool,
-     *   Key?: string,
-     *   TravelMode?: TravelMode::*,
-     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
-     *   WaypointPositions?: array[],
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   IncludeLegGeometry?: null|bool,
+     *   Key?: null|string,
+     *   TravelMode?: null|TravelMode::*,
+     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
+     *   WaypointPositions?: null|array[],
      *   '@region'?: string|null,
      * } $input
      */
@@ -219,17 +219,17 @@ final class CalculateRouteRequest extends Input
     /**
      * @param array{
      *   CalculatorName?: string,
-     *   CarModeOptions?: CalculateRouteCarModeOptions|array,
-     *   DepartNow?: bool,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
+     *   DepartNow?: null|bool,
      *   DeparturePosition?: float[],
-     *   DepartureTime?: \DateTimeImmutable|string,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPosition?: float[],
-     *   DistanceUnit?: DistanceUnit::*,
-     *   IncludeLegGeometry?: bool,
-     *   Key?: string,
-     *   TravelMode?: TravelMode::*,
-     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array,
-     *   WaypointPositions?: array[],
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   IncludeLegGeometry?: null|bool,
+     *   Key?: null|string,
+     *   TravelMode?: null|TravelMode::*,
+     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
+     *   WaypointPositions?: null|array[],
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      */

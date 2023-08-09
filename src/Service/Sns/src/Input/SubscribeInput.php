@@ -115,9 +115,9 @@ final class SubscribeInput extends Input
      * @param array{
      *   TopicArn?: string,
      *   Protocol?: string,
-     *   Endpoint?: string,
-     *   Attributes?: array<string, string>,
-     *   ReturnSubscriptionArn?: bool,
+     *   Endpoint?: null|string,
+     *   Attributes?: null|array<string, string>,
+     *   ReturnSubscriptionArn?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -135,9 +135,9 @@ final class SubscribeInput extends Input
      * @param array{
      *   TopicArn?: string,
      *   Protocol?: string,
-     *   Endpoint?: string,
-     *   Attributes?: array<string, string>,
-     *   ReturnSubscriptionArn?: bool,
+     *   Endpoint?: null|string,
+     *   Attributes?: null|array<string, string>,
+     *   ReturnSubscriptionArn?: null|bool,
      *   '@region'?: string|null,
      * }|SubscribeInput $input
      */

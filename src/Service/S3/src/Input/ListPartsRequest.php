@@ -115,14 +115,14 @@ final class ListPartsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   MaxParts?: int,
-     *   PartNumberMarker?: int,
+     *   MaxParts?: null|int,
+     *   PartNumberMarker?: null|int,
      *   UploadId?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   ExpectedBucketOwner?: string,
-     *   SSECustomerAlgorithm?: string,
-     *   SSECustomerKey?: string,
-     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
+     *   SSECustomerAlgorithm?: null|string,
+     *   SSECustomerKey?: null|string,
+     *   SSECustomerKeyMD5?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -145,14 +145,14 @@ final class ListPartsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   MaxParts?: int,
-     *   PartNumberMarker?: int,
+     *   MaxParts?: null|int,
+     *   PartNumberMarker?: null|int,
      *   UploadId?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   ExpectedBucketOwner?: string,
-     *   SSECustomerAlgorithm?: string,
-     *   SSECustomerKey?: string,
-     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
+     *   SSECustomerAlgorithm?: null|string,
+     *   SSECustomerKey?: null|string,
+     *   SSECustomerKeyMD5?: null|string,
      *   '@region'?: string|null,
      * }|ListPartsRequest $input
      */

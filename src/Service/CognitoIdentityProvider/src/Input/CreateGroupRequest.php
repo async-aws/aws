@@ -63,9 +63,9 @@ final class CreateGroupRequest extends Input
      * @param array{
      *   GroupName?: string,
      *   UserPoolId?: string,
-     *   Description?: string,
-     *   RoleArn?: string,
-     *   Precedence?: int,
+     *   Description?: null|string,
+     *   RoleArn?: null|string,
+     *   Precedence?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -83,9 +83,9 @@ final class CreateGroupRequest extends Input
      * @param array{
      *   GroupName?: string,
      *   UserPoolId?: string,
-     *   Description?: string,
-     *   RoleArn?: string,
-     *   Precedence?: int,
+     *   Description?: null|string,
+     *   RoleArn?: null|string,
+     *   Precedence?: null|int,
      *   '@region'?: string|null,
      * }|CreateGroupRequest $input
      */

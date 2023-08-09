@@ -124,12 +124,12 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: array<MessageSystemAttributeName::*>,
-     *   MessageAttributeNames?: string[],
-     *   MaxNumberOfMessages?: int,
-     *   VisibilityTimeout?: int,
-     *   WaitTimeSeconds?: int,
-     *   ReceiveRequestAttemptId?: string,
+     *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
+     *   MessageAttributeNames?: null|string[],
+     *   MaxNumberOfMessages?: null|int,
+     *   VisibilityTimeout?: null|int,
+     *   WaitTimeSeconds?: null|int,
+     *   ReceiveRequestAttemptId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -148,12 +148,12 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: array<MessageSystemAttributeName::*>,
-     *   MessageAttributeNames?: string[],
-     *   MaxNumberOfMessages?: int,
-     *   VisibilityTimeout?: int,
-     *   WaitTimeSeconds?: int,
-     *   ReceiveRequestAttemptId?: string,
+     *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
+     *   MessageAttributeNames?: null|string[],
+     *   MaxNumberOfMessages?: null|int,
+     *   VisibilityTimeout?: null|int,
+     *   WaitTimeSeconds?: null|int,
+     *   ReceiveRequestAttemptId?: null|string,
      *   '@region'?: string|null,
      * }|ReceiveMessageRequest $input
      */

@@ -46,8 +46,8 @@ final class ListResolversRequest extends Input
      * @param array{
      *   apiId?: string,
      *   typeName?: string,
-     *   nextToken?: string,
-     *   maxResults?: int,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -64,8 +64,8 @@ final class ListResolversRequest extends Input
      * @param array{
      *   apiId?: string,
      *   typeName?: string,
-     *   nextToken?: string,
-     *   maxResults?: int,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListResolversRequest $input
      */

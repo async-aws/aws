@@ -65,9 +65,9 @@ final class TransactWriteItemsInput extends Input
     /**
      * @param array{
      *   TransactItems?: array<TransactWriteItem|array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *   ClientRequestToken?: string,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -83,9 +83,9 @@ final class TransactWriteItemsInput extends Input
     /**
      * @param array{
      *   TransactItems?: array<TransactWriteItem|array>,
-     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
-     *   ClientRequestToken?: string,
+     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   ClientRequestToken?: null|string,
      *   '@region'?: string|null,
      * }|TransactWriteItemsInput $input
      */

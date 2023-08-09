@@ -60,12 +60,12 @@ final class ListThingsRequest extends Input
 
     /**
      * @param array{
-     *   nextToken?: string,
-     *   maxResults?: int,
-     *   attributeName?: string,
-     *   attributeValue?: string,
-     *   thingTypeName?: string,
-     *   usePrefixAttributeValue?: bool,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
+     *   attributeName?: null|string,
+     *   attributeValue?: null|string,
+     *   thingTypeName?: null|string,
+     *   usePrefixAttributeValue?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -82,12 +82,12 @@ final class ListThingsRequest extends Input
 
     /**
      * @param array{
-     *   nextToken?: string,
-     *   maxResults?: int,
-     *   attributeName?: string,
-     *   attributeValue?: string,
-     *   thingTypeName?: string,
-     *   usePrefixAttributeValue?: bool,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
+     *   attributeName?: null|string,
+     *   attributeValue?: null|string,
+     *   thingTypeName?: null|string,
+     *   usePrefixAttributeValue?: null|bool,
      *   '@region'?: string|null,
      * }|ListThingsRequest $input
      */

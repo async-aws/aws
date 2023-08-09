@@ -48,10 +48,10 @@ final class DescribeStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
-     *   Limit?: int,
-     *   ExclusiveStartShardId?: string,
-     *   StreamARN?: string,
+     *   StreamName?: null|string,
+     *   Limit?: null|int,
+     *   ExclusiveStartShardId?: null|string,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -66,10 +66,10 @@ final class DescribeStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
-     *   Limit?: int,
-     *   ExclusiveStartShardId?: string,
-     *   StreamARN?: string,
+     *   StreamName?: null|string,
+     *   Limit?: null|int,
+     *   ExclusiveStartShardId?: null|string,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * }|DescribeStreamInput $input
      */

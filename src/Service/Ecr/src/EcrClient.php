@@ -30,7 +30,7 @@ class EcrClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-api.ecr-2015-09-21.html#getauthorizationtoken
      *
      * @param array{
-     *   registryIds?: string[],
+     *   registryIds?: null|string[],
      *   '@region'?: string|null,
      * }|GetAuthorizationTokenRequest $input
      *

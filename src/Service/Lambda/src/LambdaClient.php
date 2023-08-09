@@ -82,8 +82,8 @@ class LambdaClient extends AbstractApi
      *   StatementId: string,
      *   Action: string,
      *   Principal: string,
-     *   OrganizationId?: string,
-     *   RevisionId?: string,
+     *   OrganizationId?: null|string,
+     *   RevisionId?: null|string,
      *   '@region'?: string|null,
      * }|AddLayerVersionPermissionRequest $input
      *
@@ -124,7 +124,7 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   Qualifier?: string,
+     *   Qualifier?: null|string,
      *   '@region'?: string|null,
      * }|DeleteFunctionRequest $input
      *
@@ -193,11 +193,11 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   InvocationType?: InvocationType::*,
-     *   LogType?: LogType::*,
-     *   ClientContext?: string,
-     *   Payload?: string,
-     *   Qualifier?: string,
+     *   InvocationType?: null|InvocationType::*,
+     *   LogType?: null|LogType::*,
+     *   ClientContext?: null|string,
+     *   Payload?: null|string,
+     *   Qualifier?: null|string,
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      *
@@ -286,10 +286,10 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listfunctions
      *
      * @param array{
-     *   MasterRegion?: string,
-     *   FunctionVersion?: FunctionVersion::*,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   MasterRegion?: null|string,
+     *   FunctionVersion?: null|FunctionVersion::*,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListFunctionsRequest $input
      *
@@ -321,11 +321,11 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
      * @param array{
-     *   CompatibleRuntime?: Runtime::*,
+     *   CompatibleRuntime?: null|Runtime::*,
      *   LayerName: string,
-     *   Marker?: string,
-     *   MaxItems?: int,
-     *   CompatibleArchitecture?: Architecture::*,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
+     *   CompatibleArchitecture?: null|Architecture::*,
      *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      *
@@ -358,8 +358,8 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListVersionsByFunctionRequest $input
      *
@@ -394,11 +394,11 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   LayerName: string,
-     *   Description?: string,
+     *   Description?: null|string,
      *   Content: LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: array<Runtime::*>,
-     *   LicenseInfo?: string,
-     *   CompatibleArchitectures?: array<Architecture::*>,
+     *   CompatibleRuntimes?: null|array<Runtime::*>,
+     *   LicenseInfo?: null|string,
+     *   CompatibleArchitectures?: null|array<Architecture::*>,
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      *

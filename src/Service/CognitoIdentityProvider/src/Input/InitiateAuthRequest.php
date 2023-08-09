@@ -137,11 +137,11 @@ final class InitiateAuthRequest extends Input
     /**
      * @param array{
      *   AuthFlow?: AuthFlowType::*,
-     *   AuthParameters?: array<string, string>,
-     *   ClientMetadata?: array<string, string>,
+     *   AuthParameters?: null|array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   ClientId?: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -159,11 +159,11 @@ final class InitiateAuthRequest extends Input
     /**
      * @param array{
      *   AuthFlow?: AuthFlowType::*,
-     *   AuthParameters?: array<string, string>,
-     *   ClientMetadata?: array<string, string>,
+     *   AuthParameters?: null|array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   ClientId?: string,
-     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
-     *   UserContextData?: UserContextDataType|array,
+     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
+     *   UserContextData?: null|UserContextDataType|array,
      *   '@region'?: string|null,
      * }|InitiateAuthRequest $input
      */

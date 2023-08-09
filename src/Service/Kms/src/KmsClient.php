@@ -294,17 +294,17 @@ class KmsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey
      *
      * @param array{
-     *   Policy?: string,
-     *   Description?: string,
-     *   KeyUsage?: KeyUsageType::*,
-     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*,
-     *   KeySpec?: KeySpec::*,
-     *   Origin?: OriginType::*,
-     *   CustomKeyStoreId?: string,
-     *   BypassPolicyLockoutSafetyCheck?: bool,
-     *   Tags?: array<Tag|array>,
-     *   MultiRegion?: bool,
-     *   XksKeyId?: string,
+     *   Policy?: null|string,
+     *   Description?: null|string,
+     *   KeyUsage?: null|KeyUsageType::*,
+     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
+     *   KeySpec?: null|KeySpec::*,
+     *   Origin?: null|OriginType::*,
+     *   CustomKeyStoreId?: null|string,
+     *   BypassPolicyLockoutSafetyCheck?: null|bool,
+     *   Tags?: null|array<Tag|array>,
+     *   MultiRegion?: null|bool,
+     *   XksKeyId?: null|string,
      *   '@region'?: string|null,
      * }|CreateKeyRequest $input
      *
@@ -415,12 +415,12 @@ class KmsClient extends AbstractApi
      *
      * @param array{
      *   CiphertextBlob: string,
-     *   EncryptionContext?: array<string, string>,
-     *   GrantTokens?: string[],
-     *   KeyId?: string,
-     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
-     *   Recipient?: RecipientInfo|array,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   GrantTokens?: null|string[],
+     *   KeyId?: null|string,
+     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
+     *   Recipient?: null|RecipientInfo|array,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      *
@@ -531,10 +531,10 @@ class KmsClient extends AbstractApi
      * @param array{
      *   KeyId: string,
      *   Plaintext: string,
-     *   EncryptionContext?: array<string, string>,
-     *   GrantTokens?: string[],
-     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   GrantTokens?: null|string[],
+     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|EncryptRequest $input
      *
@@ -650,12 +650,12 @@ class KmsClient extends AbstractApi
      *
      * @param array{
      *   KeyId: string,
-     *   EncryptionContext?: array<string, string>,
-     *   NumberOfBytes?: int,
-     *   KeySpec?: DataKeySpec::*,
-     *   GrantTokens?: string[],
-     *   Recipient?: RecipientInfo|array,
-     *   DryRun?: bool,
+     *   EncryptionContext?: null|array<string, string>,
+     *   NumberOfBytes?: null|int,
+     *   KeySpec?: null|DataKeySpec::*,
+     *   GrantTokens?: null|string[],
+     *   Recipient?: null|RecipientInfo|array,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      *
@@ -723,9 +723,9 @@ class KmsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listaliases
      *
      * @param array{
-     *   KeyId?: string,
-     *   Limit?: int,
-     *   Marker?: string,
+     *   KeyId?: null|string,
+     *   Limit?: null|int,
+     *   Marker?: null|string,
      *   '@region'?: string|null,
      * }|ListAliasesRequest $input
      *
@@ -803,10 +803,10 @@ class KmsClient extends AbstractApi
      * @param array{
      *   KeyId: string,
      *   Message: string,
-     *   MessageType?: MessageType::*,
-     *   GrantTokens?: string[],
+     *   MessageType?: null|MessageType::*,
+     *   GrantTokens?: null|string[],
      *   SigningAlgorithm: SigningAlgorithmSpec::*,
-     *   DryRun?: bool,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|SignRequest $input
      *

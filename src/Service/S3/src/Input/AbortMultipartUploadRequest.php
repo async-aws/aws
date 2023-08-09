@@ -69,8 +69,8 @@ final class AbortMultipartUploadRequest extends Input
      *   Bucket?: string,
      *   Key?: string,
      *   UploadId?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -89,8 +89,8 @@ final class AbortMultipartUploadRequest extends Input
      *   Bucket?: string,
      *   Key?: string,
      *   UploadId?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   ExpectedBucketOwner?: string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * }|AbortMultipartUploadRequest $input
      */

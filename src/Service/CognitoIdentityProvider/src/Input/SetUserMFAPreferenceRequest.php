@@ -36,8 +36,8 @@ final class SetUserMFAPreferenceRequest extends Input
 
     /**
      * @param array{
-     *   SMSMfaSettings?: SMSMfaSettingsType|array,
-     *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
+     *   SMSMfaSettings?: null|SMSMfaSettingsType|array,
+     *   SoftwareTokenMfaSettings?: null|SoftwareTokenMfaSettingsType|array,
      *   AccessToken?: string,
      *   '@region'?: string|null,
      * } $input
@@ -52,8 +52,8 @@ final class SetUserMFAPreferenceRequest extends Input
 
     /**
      * @param array{
-     *   SMSMfaSettings?: SMSMfaSettingsType|array,
-     *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
+     *   SMSMfaSettings?: null|SMSMfaSettingsType|array,
+     *   SoftwareTokenMfaSettings?: null|SoftwareTokenMfaSettingsType|array,
      *   AccessToken?: string,
      *   '@region'?: string|null,
      * }|SetUserMFAPreferenceRequest $input

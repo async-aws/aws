@@ -152,11 +152,11 @@ final class SendMessageRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   MessageBody?: string,
-     *   DelaySeconds?: int,
-     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: string,
-     *   MessageGroupId?: string,
+     *   DelaySeconds?: null|int,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -188,11 +188,11 @@ final class SendMessageRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   MessageBody?: string,
-     *   DelaySeconds?: int,
-     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: string,
-     *   MessageGroupId?: string,
+     *   DelaySeconds?: null|int,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
      *   '@region'?: string|null,
      * }|SendMessageRequest $input
      */

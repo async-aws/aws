@@ -128,14 +128,14 @@ final class SearchPlaceIndexForTextRequest extends Input
 
     /**
      * @param array{
-     *   BiasPosition?: float[],
-     *   FilterBBox?: float[],
-     *   FilterCategories?: string[],
-     *   FilterCountries?: string[],
+     *   BiasPosition?: null|float[],
+     *   FilterBBox?: null|float[],
+     *   FilterCategories?: null|string[],
+     *   FilterCountries?: null|string[],
      *   IndexName?: string,
-     *   Key?: string,
-     *   Language?: string,
-     *   MaxResults?: int,
+     *   Key?: null|string,
+     *   Language?: null|string,
+     *   MaxResults?: null|int,
      *   Text?: string,
      *   '@region'?: string|null,
      * } $input
@@ -156,14 +156,14 @@ final class SearchPlaceIndexForTextRequest extends Input
 
     /**
      * @param array{
-     *   BiasPosition?: float[],
-     *   FilterBBox?: float[],
-     *   FilterCategories?: string[],
-     *   FilterCountries?: string[],
+     *   BiasPosition?: null|float[],
+     *   FilterBBox?: null|float[],
+     *   FilterCategories?: null|string[],
+     *   FilterCountries?: null|string[],
      *   IndexName?: string,
-     *   Key?: string,
-     *   Language?: string,
-     *   MaxResults?: int,
+     *   Key?: null|string,
+     *   Language?: null|string,
+     *   MaxResults?: null|int,
      *   Text?: string,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input

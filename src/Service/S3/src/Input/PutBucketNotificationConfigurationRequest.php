@@ -45,8 +45,8 @@ final class PutBucketNotificationConfigurationRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   NotificationConfiguration?: NotificationConfiguration|array,
-     *   ExpectedBucketOwner?: string,
-     *   SkipDestinationValidation?: bool,
+     *   ExpectedBucketOwner?: null|string,
+     *   SkipDestinationValidation?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,8 +63,8 @@ final class PutBucketNotificationConfigurationRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   NotificationConfiguration?: NotificationConfiguration|array,
-     *   ExpectedBucketOwner?: string,
-     *   SkipDestinationValidation?: bool,
+     *   ExpectedBucketOwner?: null|string,
+     *   SkipDestinationValidation?: null|bool,
      *   '@region'?: string|null,
      * }|PutBucketNotificationConfigurationRequest $input
      */

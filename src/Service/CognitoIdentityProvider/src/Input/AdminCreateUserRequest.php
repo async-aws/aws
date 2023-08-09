@@ -158,13 +158,13 @@ final class AdminCreateUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   UserAttributes?: array<AttributeType|array>,
-     *   ValidationData?: array<AttributeType|array>,
-     *   TemporaryPassword?: string,
-     *   ForceAliasCreation?: bool,
-     *   MessageAction?: MessageActionType::*,
-     *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>,
-     *   ClientMetadata?: array<string, string>,
+     *   UserAttributes?: null|array<AttributeType|array>,
+     *   ValidationData?: null|array<AttributeType|array>,
+     *   TemporaryPassword?: null|string,
+     *   ForceAliasCreation?: null|bool,
+     *   MessageAction?: null|MessageActionType::*,
+     *   DesiredDeliveryMediums?: null|array<DeliveryMediumType::*>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -186,13 +186,13 @@ final class AdminCreateUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   UserAttributes?: array<AttributeType|array>,
-     *   ValidationData?: array<AttributeType|array>,
-     *   TemporaryPassword?: string,
-     *   ForceAliasCreation?: bool,
-     *   MessageAction?: MessageActionType::*,
-     *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>,
-     *   ClientMetadata?: array<string, string>,
+     *   UserAttributes?: null|array<AttributeType|array>,
+     *   ValidationData?: null|array<AttributeType|array>,
+     *   TemporaryPassword?: null|string,
+     *   ForceAliasCreation?: null|bool,
+     *   MessageAction?: null|MessageActionType::*,
+     *   DesiredDeliveryMediums?: null|array<DeliveryMediumType::*>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|AdminCreateUserRequest $input
      */

@@ -46,9 +46,9 @@ final class ListHostedZonesByNameRequest extends Input
 
     /**
      * @param array{
-     *   DNSName?: string,
-     *   HostedZoneId?: string,
-     *   MaxItems?: string,
+     *   DNSName?: null|string,
+     *   HostedZoneId?: null|string,
+     *   MaxItems?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -62,9 +62,9 @@ final class ListHostedZonesByNameRequest extends Input
 
     /**
      * @param array{
-     *   DNSName?: string,
-     *   HostedZoneId?: string,
-     *   MaxItems?: string,
+     *   DNSName?: null|string,
+     *   HostedZoneId?: null|string,
+     *   MaxItems?: null|string,
      *   '@region'?: string|null,
      * }|ListHostedZonesByNameRequest $input
      */

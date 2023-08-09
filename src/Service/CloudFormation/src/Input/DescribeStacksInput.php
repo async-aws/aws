@@ -41,8 +41,8 @@ final class DescribeStacksInput extends Input
 
     /**
      * @param array{
-     *   StackName?: string,
-     *   NextToken?: string,
+     *   StackName?: null|string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -55,8 +55,8 @@ final class DescribeStacksInput extends Input
 
     /**
      * @param array{
-     *   StackName?: string,
-     *   NextToken?: string,
+     *   StackName?: null|string,
+     *   NextToken?: null|string,
      *   '@region'?: string|null,
      * }|DescribeStacksInput $input
      */

@@ -57,11 +57,11 @@ class IotClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#addthingtothinggroup
      *
      * @param array{
-     *   thingGroupName?: string,
-     *   thingGroupArn?: string,
-     *   thingName?: string,
-     *   thingArn?: string,
-     *   overrideDynamicGroups?: bool,
+     *   thingGroupName?: null|string,
+     *   thingGroupArn?: null|string,
+     *   thingName?: null|string,
+     *   thingArn?: null|string,
+     *   overrideDynamicGroups?: null|bool,
      *   '@region'?: string|null,
      * }|AddThingToThingGroupRequest $input
      *
@@ -100,9 +100,9 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingName: string,
-     *   thingTypeName?: string,
-     *   attributePayload?: AttributePayload|array,
-     *   billingGroupName?: string,
+     *   thingTypeName?: null|string,
+     *   attributePayload?: null|AttributePayload|array,
+     *   billingGroupName?: null|string,
      *   '@region'?: string|null,
      * }|CreateThingRequest $input
      *
@@ -145,9 +145,9 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingGroupName: string,
-     *   parentGroupName?: string,
-     *   thingGroupProperties?: ThingGroupProperties|array,
-     *   tags?: array<Tag|array>,
+     *   parentGroupName?: null|string,
+     *   thingGroupProperties?: null|ThingGroupProperties|array,
+     *   tags?: null|array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateThingGroupRequest $input
      *
@@ -181,8 +181,8 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingTypeName: string,
-     *   thingTypeProperties?: ThingTypeProperties|array,
-     *   tags?: array<Tag|array>,
+     *   thingTypeProperties?: null|ThingTypeProperties|array,
+     *   tags?: null|array<Tag|array>,
      *   '@region'?: string|null,
      * }|CreateThingTypeRequest $input
      *
@@ -221,7 +221,7 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingName: string,
-     *   expectedVersion?: int,
+     *   expectedVersion?: null|int,
      *   '@region'?: string|null,
      * }|DeleteThingRequest $input
      *
@@ -261,7 +261,7 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingGroupName: string,
-     *   expectedVersion?: int,
+     *   expectedVersion?: null|int,
      *   '@region'?: string|null,
      * }|DeleteThingGroupRequest $input
      *
@@ -334,11 +334,11 @@ class IotClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthinggroups
      *
      * @param array{
-     *   nextToken?: string,
-     *   maxResults?: int,
-     *   parentGroup?: string,
-     *   namePrefixFilter?: string,
-     *   recursive?: bool,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
+     *   parentGroup?: null|string,
+     *   namePrefixFilter?: null|string,
+     *   recursive?: null|bool,
      *   '@region'?: string|null,
      * }|ListThingGroupsRequest $input
      *
@@ -372,8 +372,8 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingName: string,
-     *   nextToken?: string,
-     *   maxResults?: int,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListThingGroupsForThingRequest $input
      *
@@ -406,9 +406,9 @@ class IotClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthingtypes
      *
      * @param array{
-     *   nextToken?: string,
-     *   maxResults?: int,
-     *   thingTypeName?: string,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
+     *   thingTypeName?: null|string,
      *   '@region'?: string|null,
      * }|ListThingTypesRequest $input
      *
@@ -450,12 +450,12 @@ class IotClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthings
      *
      * @param array{
-     *   nextToken?: string,
-     *   maxResults?: int,
-     *   attributeName?: string,
-     *   attributeValue?: string,
-     *   thingTypeName?: string,
-     *   usePrefixAttributeValue?: bool,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
+     *   attributeName?: null|string,
+     *   attributeValue?: null|string,
+     *   thingTypeName?: null|string,
+     *   usePrefixAttributeValue?: null|bool,
      *   '@region'?: string|null,
      * }|ListThingsRequest $input
      *
@@ -491,9 +491,9 @@ class IotClient extends AbstractApi
      *
      * @param array{
      *   thingGroupName: string,
-     *   recursive?: bool,
-     *   nextToken?: string,
-     *   maxResults?: int,
+     *   recursive?: null|bool,
+     *   nextToken?: null|string,
+     *   maxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListThingsInThingGroupRequest $input
      *

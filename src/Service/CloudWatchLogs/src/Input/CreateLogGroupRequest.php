@@ -47,8 +47,8 @@ final class CreateLogGroupRequest extends Input
     /**
      * @param array{
      *   logGroupName?: string,
-     *   kmsKeyId?: string,
-     *   tags?: array<string, string>,
+     *   kmsKeyId?: null|string,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,8 +63,8 @@ final class CreateLogGroupRequest extends Input
     /**
      * @param array{
      *   logGroupName?: string,
-     *   kmsKeyId?: string,
-     *   tags?: array<string, string>,
+     *   kmsKeyId?: null|string,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      */

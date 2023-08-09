@@ -45,8 +45,8 @@ final class ListVersionsByFunctionRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -61,8 +61,8 @@ final class ListVersionsByFunctionRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   Marker?: string,
-     *   MaxItems?: int,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListVersionsByFunctionRequest $input
      */

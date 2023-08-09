@@ -199,8 +199,8 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   Attributes?: array<QueueAttributeName::*, string>,
-     *   tags?: array<string, string>,
+     *   Attributes?: null|array<QueueAttributeName::*, string>,
+     *   tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateQueueRequest $input
      *
@@ -339,7 +339,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: array<QueueAttributeName::*>,
+     *   AttributeNames?: null|array<QueueAttributeName::*>,
      *   '@region'?: string|null,
      * }|GetQueueAttributesRequest $input
      *
@@ -370,7 +370,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   QueueOwnerAWSAccountId?: string,
+     *   QueueOwnerAWSAccountId?: null|string,
      *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      *
@@ -405,9 +405,9 @@ class SqsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#listqueues
      *
      * @param array{
-     *   QueueNamePrefix?: string,
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   QueueNamePrefix?: null|string,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListQueuesRequest $input
      */
@@ -458,7 +458,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   QueueOwnerAWSAccountId?: string,
+     *   QueueOwnerAWSAccountId?: null|string,
      *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      */
@@ -516,12 +516,12 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: array<MessageSystemAttributeName::*>,
-     *   MessageAttributeNames?: string[],
-     *   MaxNumberOfMessages?: int,
-     *   VisibilityTimeout?: int,
-     *   WaitTimeSeconds?: int,
-     *   ReceiveRequestAttemptId?: string,
+     *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
+     *   MessageAttributeNames?: null|string[],
+     *   MaxNumberOfMessages?: null|int,
+     *   VisibilityTimeout?: null|int,
+     *   WaitTimeSeconds?: null|int,
+     *   ReceiveRequestAttemptId?: null|string,
      *   '@region'?: string|null,
      * }|ReceiveMessageRequest $input
      *
@@ -555,11 +555,11 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   MessageBody: string,
-     *   DelaySeconds?: int,
-     *   MessageAttributes?: array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: string,
-     *   MessageGroupId?: string,
+     *   DelaySeconds?: null|int,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
+     *   MessageDeduplicationId?: null|string,
+     *   MessageGroupId?: null|string,
      *   '@region'?: string|null,
      * }|SendMessageRequest $input
      *

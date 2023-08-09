@@ -137,16 +137,16 @@ final class CreateDeploymentInput extends Input
     /**
      * @param array{
      *   applicationName?: string,
-     *   deploymentGroupName?: string,
-     *   revision?: RevisionLocation|array,
-     *   deploymentConfigName?: string,
-     *   description?: string,
-     *   ignoreApplicationStopFailures?: bool,
-     *   targetInstances?: TargetInstances|array,
-     *   autoRollbackConfiguration?: AutoRollbackConfiguration|array,
-     *   updateOutdatedInstancesOnly?: bool,
-     *   fileExistsBehavior?: FileExistsBehavior::*,
-     *   overrideAlarmConfiguration?: AlarmConfiguration|array,
+     *   deploymentGroupName?: null|string,
+     *   revision?: null|RevisionLocation|array,
+     *   deploymentConfigName?: null|string,
+     *   description?: null|string,
+     *   ignoreApplicationStopFailures?: null|bool,
+     *   targetInstances?: null|TargetInstances|array,
+     *   autoRollbackConfiguration?: null|AutoRollbackConfiguration|array,
+     *   updateOutdatedInstancesOnly?: null|bool,
+     *   fileExistsBehavior?: null|FileExistsBehavior::*,
+     *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -169,16 +169,16 @@ final class CreateDeploymentInput extends Input
     /**
      * @param array{
      *   applicationName?: string,
-     *   deploymentGroupName?: string,
-     *   revision?: RevisionLocation|array,
-     *   deploymentConfigName?: string,
-     *   description?: string,
-     *   ignoreApplicationStopFailures?: bool,
-     *   targetInstances?: TargetInstances|array,
-     *   autoRollbackConfiguration?: AutoRollbackConfiguration|array,
-     *   updateOutdatedInstancesOnly?: bool,
-     *   fileExistsBehavior?: FileExistsBehavior::*,
-     *   overrideAlarmConfiguration?: AlarmConfiguration|array,
+     *   deploymentGroupName?: null|string,
+     *   revision?: null|RevisionLocation|array,
+     *   deploymentConfigName?: null|string,
+     *   description?: null|string,
+     *   ignoreApplicationStopFailures?: null|bool,
+     *   targetInstances?: null|TargetInstances|array,
+     *   autoRollbackConfiguration?: null|AutoRollbackConfiguration|array,
+     *   updateOutdatedInstancesOnly?: null|bool,
+     *   fileExistsBehavior?: null|FileExistsBehavior::*,
+     *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
      */

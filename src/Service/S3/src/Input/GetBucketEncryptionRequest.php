@@ -29,7 +29,7 @@ final class GetBucketEncryptionRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ExpectedBucketOwner?: string,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -43,7 +43,7 @@ final class GetBucketEncryptionRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ExpectedBucketOwner?: string,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * }|GetBucketEncryptionRequest $input
      */

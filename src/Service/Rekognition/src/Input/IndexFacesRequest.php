@@ -90,10 +90,10 @@ final class IndexFacesRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   Image?: Image|array,
-     *   ExternalImageId?: string,
-     *   DetectionAttributes?: array<Attribute::*>,
-     *   MaxFaces?: int,
-     *   QualityFilter?: QualityFilter::*,
+     *   ExternalImageId?: null|string,
+     *   DetectionAttributes?: null|array<Attribute::*>,
+     *   MaxFaces?: null|int,
+     *   QualityFilter?: null|QualityFilter::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -112,10 +112,10 @@ final class IndexFacesRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   Image?: Image|array,
-     *   ExternalImageId?: string,
-     *   DetectionAttributes?: array<Attribute::*>,
-     *   MaxFaces?: int,
-     *   QualityFilter?: QualityFilter::*,
+     *   ExternalImageId?: null|string,
+     *   DetectionAttributes?: null|array<Attribute::*>,
+     *   MaxFaces?: null|int,
+     *   QualityFilter?: null|QualityFilter::*,
      *   '@region'?: string|null,
      * }|IndexFacesRequest $input
      */

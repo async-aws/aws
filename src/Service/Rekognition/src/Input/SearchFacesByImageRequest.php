@@ -67,9 +67,9 @@ final class SearchFacesByImageRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   Image?: Image|array,
-     *   MaxFaces?: int,
-     *   FaceMatchThreshold?: float,
-     *   QualityFilter?: QualityFilter::*,
+     *   MaxFaces?: null|int,
+     *   FaceMatchThreshold?: null|float,
+     *   QualityFilter?: null|QualityFilter::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -87,9 +87,9 @@ final class SearchFacesByImageRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   Image?: Image|array,
-     *   MaxFaces?: int,
-     *   FaceMatchThreshold?: float,
-     *   QualityFilter?: QualityFilter::*,
+     *   MaxFaces?: null|int,
+     *   FaceMatchThreshold?: null|float,
+     *   QualityFilter?: null|QualityFilter::*,
      *   '@region'?: string|null,
      * }|SearchFacesByImageRequest $input
      */

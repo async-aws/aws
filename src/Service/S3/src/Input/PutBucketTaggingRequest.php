@@ -68,10 +68,10 @@ final class PutBucketTaggingRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ContentMD5?: string,
-     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ContentMD5?: null|string,
+     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   Tagging?: Tagging|array,
-     *   ExpectedBucketOwner?: string,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -88,10 +88,10 @@ final class PutBucketTaggingRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ContentMD5?: string,
-     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ContentMD5?: null|string,
+     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   Tagging?: Tagging|array,
-     *   ExpectedBucketOwner?: string,
+     *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * }|PutBucketTaggingRequest $input
      */

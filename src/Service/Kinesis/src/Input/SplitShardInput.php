@@ -50,10 +50,10 @@ final class SplitShardInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
+     *   StreamName?: null|string,
      *   ShardToSplit?: string,
      *   NewStartingHashKey?: string,
-     *   StreamARN?: string,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -68,10 +68,10 @@ final class SplitShardInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: string,
+     *   StreamName?: null|string,
      *   ShardToSplit?: string,
      *   NewStartingHashKey?: string,
-     *   StreamARN?: string,
+     *   StreamARN?: null|string,
      *   '@region'?: string|null,
      * }|SplitShardInput $input
      */

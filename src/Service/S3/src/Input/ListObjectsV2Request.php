@@ -115,16 +115,16 @@ final class ListObjectsV2Request extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: string,
-     *   EncodingType?: EncodingType::*,
-     *   MaxKeys?: int,
-     *   Prefix?: string,
-     *   ContinuationToken?: string,
-     *   FetchOwner?: bool,
-     *   StartAfter?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   ExpectedBucketOwner?: string,
-     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>,
+     *   Delimiter?: null|string,
+     *   EncodingType?: null|EncodingType::*,
+     *   MaxKeys?: null|int,
+     *   Prefix?: null|string,
+     *   ContinuationToken?: null|string,
+     *   FetchOwner?: null|bool,
+     *   StartAfter?: null|string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
+     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -147,16 +147,16 @@ final class ListObjectsV2Request extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: string,
-     *   EncodingType?: EncodingType::*,
-     *   MaxKeys?: int,
-     *   Prefix?: string,
-     *   ContinuationToken?: string,
-     *   FetchOwner?: bool,
-     *   StartAfter?: string,
-     *   RequestPayer?: RequestPayer::*,
-     *   ExpectedBucketOwner?: string,
-     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>,
+     *   Delimiter?: null|string,
+     *   EncodingType?: null|EncodingType::*,
+     *   MaxKeys?: null|int,
+     *   Prefix?: null|string,
+     *   ContinuationToken?: null|string,
+     *   FetchOwner?: null|bool,
+     *   StartAfter?: null|string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
+     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
      *   '@region'?: string|null,
      * }|ListObjectsV2Request $input
      */

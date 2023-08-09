@@ -85,7 +85,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   UserAttributes?: array<AttributeType|array>,
-     *   ClientMetadata?: array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -103,7 +103,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   UserAttributes?: array<AttributeType|array>,
-     *   ClientMetadata?: array<string, string>,
+     *   ClientMetadata?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|AdminUpdateUserAttributesRequest $input
      */

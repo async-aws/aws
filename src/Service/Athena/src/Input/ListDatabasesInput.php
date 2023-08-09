@@ -37,8 +37,8 @@ final class ListDatabasesInput extends Input
     /**
      * @param array{
      *   CatalogName?: string,
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -53,8 +53,8 @@ final class ListDatabasesInput extends Input
     /**
      * @param array{
      *   CatalogName?: string,
-     *   NextToken?: string,
-     *   MaxResults?: int,
+     *   NextToken?: null|string,
+     *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      */

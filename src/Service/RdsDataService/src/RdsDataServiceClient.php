@@ -54,10 +54,10 @@ class RdsDataServiceClient extends AbstractApi
      *   resourceArn: string,
      *   secretArn: string,
      *   sql: string,
-     *   database?: string,
-     *   schema?: string,
-     *   parameterSets?: array[],
-     *   transactionId?: string,
+     *   database?: null|string,
+     *   schema?: null|string,
+     *   parameterSets?: null|array[],
+     *   transactionId?: null|string,
      *   '@region'?: string|null,
      * }|BatchExecuteStatementRequest $input
      *
@@ -101,8 +101,8 @@ class RdsDataServiceClient extends AbstractApi
      * @param array{
      *   resourceArn: string,
      *   secretArn: string,
-     *   database?: string,
-     *   schema?: string,
+     *   database?: null|string,
+     *   schema?: null|string,
      *   '@region'?: string|null,
      * }|BeginTransactionRequest $input
      *
@@ -180,14 +180,14 @@ class RdsDataServiceClient extends AbstractApi
      *   resourceArn: string,
      *   secretArn: string,
      *   sql: string,
-     *   database?: string,
-     *   schema?: string,
-     *   parameters?: array<SqlParameter|array>,
-     *   transactionId?: string,
-     *   includeResultMetadata?: bool,
-     *   continueAfterTimeout?: bool,
-     *   resultSetOptions?: ResultSetOptions|array,
-     *   formatRecordsAs?: RecordsFormatType::*,
+     *   database?: null|string,
+     *   schema?: null|string,
+     *   parameters?: null|array<SqlParameter|array>,
+     *   transactionId?: null|string,
+     *   includeResultMetadata?: null|bool,
+     *   continueAfterTimeout?: null|bool,
+     *   resultSetOptions?: null|ResultSetOptions|array,
+     *   formatRecordsAs?: null|RecordsFormatType::*,
      *   '@region'?: string|null,
      * }|ExecuteStatementRequest $input
      *

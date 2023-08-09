@@ -120,10 +120,10 @@ final class SignRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
-     *   MessageType?: MessageType::*,
-     *   GrantTokens?: string[],
+     *   MessageType?: null|MessageType::*,
+     *   GrantTokens?: null|string[],
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
-     *   DryRun?: bool,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * } $input
      */
@@ -142,10 +142,10 @@ final class SignRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
-     *   MessageType?: MessageType::*,
-     *   GrantTokens?: string[],
+     *   MessageType?: null|MessageType::*,
+     *   GrantTokens?: null|string[],
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
-     *   DryRun?: bool,
+     *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|SignRequest $input
      */
