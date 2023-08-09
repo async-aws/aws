@@ -522,6 +522,10 @@ class AwsClientFactory
 
     public function sso(): SsoClient
     {
+        if (!class_exists(SsoClient::class)) {
+            throw MissingDependency::create('async-aws/sso', 'Sso');
+        }
+
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new SsoClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
