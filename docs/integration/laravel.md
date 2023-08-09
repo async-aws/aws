@@ -6,7 +6,7 @@ category: integration
 
 The AsyncAws integrations for Laravel are similar to the integrations for the
 official AWS SDK. The sections below describe how you can install and configure
-Cache, Mail and Queue.
+Cache and Queue.
 
 ## Illuminate Cache
 
@@ -35,29 +35,6 @@ key will not work.
      'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
      'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
      'endpoint' => env('DYNAMODB_ENDPOINT'),
- ],
-```
-
-## Illuminate Mail
-
-Send emails with SES.
-
-### Install
-
-```shell
-composer require async-aws/illuminate-mail
-```
-
-### Configure
-
-```diff
-# config/mail.php
-
- 'ses' => [
--    'driver' => 'ses',
-+    'driver' => 'async-aws-ses',
-     'key' => env('AWS_ACCESS_KEY_ID'),
-     'secret' => env('AWS_SECRET_ACCESS_KEY'),
  ],
 ```
 
