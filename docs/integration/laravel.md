@@ -6,7 +6,7 @@ category: integration
 
 The AsyncAws integrations for Laravel are similar to the integrations for the
 official AWS SDK. The sections below describe how you can install and configure
-Cache, Filesystem, Mail and Queue.
+Cache, Mail and Queue.
 
 ## Illuminate Cache
 
@@ -35,32 +35,6 @@ key will not work.
      'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
      'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
      'endpoint' => env('DYNAMODB_ENDPOINT'),
- ],
-```
-
-## Illuminate Filesystem
-
-Use S3 as filesystem.
-
-### Install
-
-```shell
-composer require async-aws/illuminate-filesystem
-```
-
-### Configure
-
-```diff
-# config/filesystems.php
-
- 's3' => [
--    'driver' => 's3',
-+    'driver' => 'async-aws-s3',
-     'key' => env('AWS_ACCESS_KEY_ID'),
-     'secret' => env('AWS_SECRET_ACCESS_KEY'),
-     'region' => env('AWS_DEFAULT_REGION'),
-     'bucket' => env('AWS_BUCKET'),
-     'endpoint' => env('AWS_ENDPOINT'),
  ],
 ```
 
