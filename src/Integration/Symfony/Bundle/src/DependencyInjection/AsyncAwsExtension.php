@@ -261,7 +261,7 @@ class AsyncAwsExtension extends Extension
 
         if ($config['secrets']['cache']['enabled']) {
             if (!interface_exists(CacheInterface::class)) {
-                throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"'));
+                throw new InvalidConfigurationException('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"');
             }
 
             $container->register(CachedEnvVarLoader::class)

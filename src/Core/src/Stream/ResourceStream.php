@@ -42,7 +42,7 @@ final class ResourceStream implements RequestStream
         }
         if (\is_resource($content)) {
             if (!stream_get_meta_data($content)['seekable']) {
-                throw new InvalidArgument(sprintf('The give body is not seekable.'));
+                throw new InvalidArgument('The given body is not seekable.');
             }
 
             return new self($content, $chunkSize);
