@@ -84,11 +84,6 @@
       <code>repository</code>
     </UndefinedMethod>
   </file>
-  <file src="src/Integration/Laravel/Filesystem/src/ServiceProvider.php">
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[$this->app]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Integration/Laravel/Mail/src/ServiceProvider.php">
     <UndefinedInterfaceMethod>
       <code><![CDATA[$this->app]]></code>
