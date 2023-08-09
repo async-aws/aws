@@ -4,6 +4,10 @@
 
 ### Changed
 
+- Allow passing explicit null values for optional fields of input objects
+
+### Changed
+
 - AWS enhancement: Documentation updates.
 
 ## 1.0.1

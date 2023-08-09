@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Allow passing explicit null values for optional fields of input objects
+
 ## 1.20.0
 
 ### Added
