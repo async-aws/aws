@@ -1,5 +1,7 @@
 # AsyncAws Illuminate Mail integration
 
+**CAUTION**: this adapter is deprecated.
+
 ![](https://github.com/async-aws/illuminate-mail/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/illuminate-mail/workflows/BC%20Check/badge.svg?branch=master)
 
