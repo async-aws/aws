@@ -17,8 +17,6 @@
             <directory name="src/Service/*/tests" />
             <directory name="src/Integration/*/*/tests" />
             <file name="src/Core/src/HttpClient/AwsRetryStrategy.php" /><!-- # requires symfony/http-client: 5.2-->
-            <file name="src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php" />
-            <file name="src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>

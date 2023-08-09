@@ -11,8 +11,6 @@ parameters:
     excludePaths:
         - src/*/tests/*
         - src/**/tests/*
-        - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php
-        - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php
 
     ignoreErrors:
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
