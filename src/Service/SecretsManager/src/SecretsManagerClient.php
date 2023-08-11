@@ -288,6 +288,7 @@ class SecretsManagerClient extends AbstractApi
      * }|ListSecretsRequest $input
      *
      * @throws InvalidParameterException
+     * @throws InvalidRequestException
      * @throws InvalidNextTokenException
      * @throws InternalServiceErrorException
      */
@@ -296,6 +297,7 @@ class SecretsManagerClient extends AbstractApi
         $input = ListSecretsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListSecrets', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
             'InvalidNextTokenException' => InvalidNextTokenException::class,
             'InternalServiceError' => InternalServiceErrorException::class,
         ]]));

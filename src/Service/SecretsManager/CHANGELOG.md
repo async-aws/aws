@@ -6,6 +6,10 @@
 
 - Allow passing explicit null values for optional fields of input objects
 
+### Added
+
+- AWS api-change: Add additional InvalidRequestException to list of possible exceptions for ListSecret.
+
 ## 2.0.0
 
 ### BC-BREAK
