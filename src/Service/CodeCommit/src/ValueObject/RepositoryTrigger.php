@@ -7,6 +7,11 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Information about a trigger for a repository.
+ *
+ * > If you want to receive notifications about repository events, consider using notifications instead of triggers. For
+ * > more information, see Configuring notifications for repository events [^1].
+ *
+ * [^1]: https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-repository-email.html
  */
 final class RepositoryTrigger
 {
