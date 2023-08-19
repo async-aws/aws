@@ -8,7 +8,7 @@ namespace AsyncAws\CodeCommit\ValueObject;
 final class RepositoryMetadata
 {
     /**
-     * The ID of the AWS account associated with the repository.
+     * The ID of the Amazon Web Services account associated with the repository.
      *
      * @var string|null
      */
