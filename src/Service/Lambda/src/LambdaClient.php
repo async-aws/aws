@@ -14,7 +14,9 @@ use AsyncAws\Lambda\Enum\FunctionVersion;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\Exception\CodeSigningConfigNotFoundException;
 use AsyncAws\Lambda\Exception\CodeStorageExceededException;
+use AsyncAws\Lambda\Exception\CodeVerificationFailedException;
 use AsyncAws\Lambda\Exception\EC2AccessDeniedException;
 use AsyncAws\Lambda\Exception\EC2ThrottledException;
 use AsyncAws\Lambda\Exception\EC2UnexpectedException;
@@ -23,6 +25,7 @@ use AsyncAws\Lambda\Exception\EFSMountConnectivityException;
 use AsyncAws\Lambda\Exception\EFSMountFailureException;
 use AsyncAws\Lambda\Exception\EFSMountTimeoutException;
 use AsyncAws\Lambda\Exception\ENILimitReachedException;
+use AsyncAws\Lambda\Exception\InvalidCodeSignatureException;
 use AsyncAws\Lambda\Exception\InvalidParameterValueException;
 use AsyncAws\Lambda\Exception\InvalidRequestContentException;
 use AsyncAws\Lambda\Exception\InvalidRuntimeException;
@@ -49,18 +52,29 @@ use AsyncAws\Lambda\Exception\TooManyRequestsException;
 use AsyncAws\Lambda\Exception\UnsupportedMediaTypeException;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
+use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
+use AsyncAws\Lambda\ValueObject\Environment;
+use AsyncAws\Lambda\ValueObject\EphemeralStorage;
+use AsyncAws\Lambda\ValueObject\FileSystemConfig;
+use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
+use AsyncAws\Lambda\ValueObject\SnapStart;
+use AsyncAws\Lambda\ValueObject\TracingConfig;
+use AsyncAws\Lambda\ValueObject\VpcConfig;
 
 class LambdaClient extends AbstractApi
 {
@@ -146,6 +160,39 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new Result($response);
+    }
+
+    /**
+     * Returns the version-specific settings of a Lambda function or version. The output includes only options that can vary
+     * between versions of a function. To modify these settings, use UpdateFunctionConfiguration.
+     *
+     * To get all of a function's details, including function-level settings, use GetFunction.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_GetFunctionConfiguration.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#getfunctionconfiguration
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   Qualifier?: null|string,
+     *   '@region'?: string|null,
+     * }|GetFunctionConfigurationRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterValueException
+     */
+    public function getFunctionConfiguration($input): FunctionConfiguration
+    {
+        $input = GetFunctionConfigurationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetFunctionConfiguration', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+        ]]));
+
+        return new FunctionConfiguration($response);
     }
 
     /**
@@ -420,6 +467,76 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new PublishLayerVersionResponse($response);
+    }
+
+    /**
+     * Modify the version-specific settings of a Lambda function.
+     *
+     * When you update a function, Lambda provisions an instance of the function and its supporting resources. If your
+     * function connects to a VPC, this process can take a minute. During this time, you can't modify the function, but you
+     * can still invoke it. The `LastUpdateStatus`, `LastUpdateStatusReason`, and `LastUpdateStatusReasonCode` fields in the
+     * response from GetFunctionConfiguration indicate when the update is complete and the function is processing events
+     * with the new configuration. For more information, see Lambda function states [^1].
+     *
+     * These settings can vary between versions of a function and are locked when you publish a version. You can't modify
+     * the configuration of a published version, only the unpublished version.
+     *
+     * To configure function concurrency, use PutFunctionConcurrency. To grant invoke permissions to an Amazon Web Services
+     * account or Amazon Web Service, use AddPermission.
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_UpdateFunctionConfiguration.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#updatefunctionconfiguration
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   Role?: null|string,
+     *   Handler?: null|string,
+     *   Description?: null|string,
+     *   Timeout?: null|int,
+     *   MemorySize?: null|int,
+     *   VpcConfig?: null|VpcConfig|array,
+     *   Environment?: null|Environment|array,
+     *   Runtime?: null|Runtime::*,
+     *   DeadLetterConfig?: null|DeadLetterConfig|array,
+     *   KMSKeyArn?: null|string,
+     *   TracingConfig?: null|TracingConfig|array,
+     *   RevisionId?: null|string,
+     *   Layers?: null|string[],
+     *   FileSystemConfigs?: null|array<FileSystemConfig|array>,
+     *   ImageConfig?: null|ImageConfig|array,
+     *   EphemeralStorage?: null|EphemeralStorage|array,
+     *   SnapStart?: null|SnapStart|array,
+     *   '@region'?: string|null,
+     * }|UpdateFunctionConfigurationRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterValueException
+     * @throws TooManyRequestsException
+     * @throws ResourceConflictException
+     * @throws PreconditionFailedException
+     * @throws CodeVerificationFailedException
+     * @throws InvalidCodeSignatureException
+     * @throws CodeSigningConfigNotFoundException
+     */
+    public function updateFunctionConfiguration($input): FunctionConfiguration
+    {
+        $input = UpdateFunctionConfigurationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateFunctionConfiguration', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'PreconditionFailedException' => PreconditionFailedException::class,
+            'CodeVerificationFailedException' => CodeVerificationFailedException::class,
+            'InvalidCodeSignatureException' => InvalidCodeSignatureException::class,
+            'CodeSigningConfigNotFoundException' => CodeSigningConfigNotFoundException::class,
+        ]]));
+
+        return new FunctionConfiguration($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface

@@ -397,11 +397,13 @@
             "methods": [
                 "AddLayerVersionPermission",
                 "DeleteFunction",
+                "GetFunctionConfiguration",
                 "Invoke",
                 "ListFunctions",
                 "ListLayerVersions",
                 "ListVersionsByFunction",
-                "PublishLayerVersion"
+                "PublishLayerVersion",
+                "UpdateFunctionConfiguration"
             ]
         },
         "LocationService": {

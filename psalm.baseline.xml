@@ -283,4 +283,12 @@
       <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['stopDate']))]]></code>
     </PossiblyFalsePropertyAssignmentValue>
   </file>
+  <file src="src/Service/Lambda/src/Result/FunctionConfiguration.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$items]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Architecture::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
 </files>

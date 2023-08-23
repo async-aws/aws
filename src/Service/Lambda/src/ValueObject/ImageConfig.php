@@ -77,4 +77,33 @@ final class ImageConfig
     {
         return $this->workingDirectory;
     }
+
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->entryPoint) {
+            $index = -1;
+            $payload['EntryPoint'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['EntryPoint'][$index] = $listValue;
+            }
+        }
+        if (null !== $v = $this->command) {
+            $index = -1;
+            $payload['Command'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Command'][$index] = $listValue;
+            }
+        }
+        if (null !== $v = $this->workingDirectory) {
+            $payload['WorkingDirectory'] = $v;
+        }
+
+        return $payload;
+    }
 }
