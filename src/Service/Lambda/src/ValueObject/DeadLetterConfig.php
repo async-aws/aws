@@ -40,4 +40,17 @@ final class DeadLetterConfig
     {
         return $this->targetArn;
     }
+
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->targetArn) {
+            $payload['TargetArn'] = $v;
+        }
+
+        return $payload;
+    }
 }

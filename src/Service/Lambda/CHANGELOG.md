@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added operation `getFunctionConfiguration` and `updateFunctionConfiguration`.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects

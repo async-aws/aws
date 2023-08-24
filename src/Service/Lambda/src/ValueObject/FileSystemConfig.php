@@ -59,6 +59,20 @@ final class FileSystemConfig
     }
 
     /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $v = $this->arn;
+        $payload['Arn'] = $v;
+        $v = $this->localMountPath;
+        $payload['LocalMountPath'] = $v;
+
+        return $payload;
+    }
+
+    /**
      * @return never
      */
     private function throwException(\Throwable $exception)

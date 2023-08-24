@@ -5,16 +5,29 @@ namespace AsyncAws\Lambda\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\Enum\SnapStartApplyOn;
+use AsyncAws\Lambda\Enum\TracingMode;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
+use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
+use AsyncAws\Lambda\ValueObject\Environment;
+use AsyncAws\Lambda\ValueObject\EphemeralStorage;
+use AsyncAws\Lambda\ValueObject\FileSystemConfig;
+use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
+use AsyncAws\Lambda\ValueObject\SnapStart;
+use AsyncAws\Lambda\ValueObject\TracingConfig;
+use AsyncAws\Lambda\ValueObject\VpcConfig;
 
 class LambdaClientTest extends TestCase
 {
@@ -53,6 +66,56 @@ class LambdaClientTest extends TestCase
         $result = $client->DeleteFunction($input);
 
         $result->resolve();
+    }
+
+    public function testGetFunctionConfiguration(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement GetFunctionConfiguration.');
+        $client = $this->getClient();
+
+        $input = new GetFunctionConfigurationRequest([
+            'FunctionName' => 'change me',
+            'Qualifier' => 'change me',
+        ]);
+        $result = $client->getFunctionConfiguration($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getFunctionName());
+        self::assertSame('changeIt', $result->getFunctionArn());
+        self::assertSame('changeIt', $result->getRuntime());
+        self::assertSame('changeIt', $result->getRole());
+        self::assertSame('changeIt', $result->getHandler());
+        self::assertSame(1337, $result->getCodeSize());
+        self::assertSame('changeIt', $result->getDescription());
+        self::assertSame(1337, $result->getTimeout());
+        self::assertSame(1337, $result->getMemorySize());
+        self::assertSame('changeIt', $result->getLastModified());
+        self::assertSame('changeIt', $result->getCodeSha256());
+        self::assertSame('changeIt', $result->getVersion());
+        // self::assertTODO(expected, $result->getVpcConfig());
+        // self::assertTODO(expected, $result->getDeadLetterConfig());
+        // self::assertTODO(expected, $result->getEnvironment());
+        self::assertSame('changeIt', $result->getKmsKeyArn());
+        // self::assertTODO(expected, $result->getTracingConfig());
+        self::assertSame('changeIt', $result->getMasterArn());
+        self::assertSame('changeIt', $result->getRevisionId());
+        // self::assertTODO(expected, $result->getLayers());
+        self::assertSame('changeIt', $result->getState());
+        self::assertSame('changeIt', $result->getStateReason());
+        self::assertSame('changeIt', $result->getStateReasonCode());
+        self::assertSame('changeIt', $result->getLastUpdateStatus());
+        self::assertSame('changeIt', $result->getLastUpdateStatusReason());
+        self::assertSame('changeIt', $result->getLastUpdateStatusReasonCode());
+        // self::assertTODO(expected, $result->getFileSystemConfigs());
+        self::assertSame('changeIt', $result->getPackageType());
+        // self::assertTODO(expected, $result->getImageConfigResponse());
+        self::assertSame('changeIt', $result->getSigningProfileVersionArn());
+        self::assertSame('changeIt', $result->getSigningJobArn());
+        // self::assertTODO(expected, $result->getArchitectures());
+        // self::assertTODO(expected, $result->getEphemeralStorage());
+        // self::assertTODO(expected, $result->getSnapStart());
+        // self::assertTODO(expected, $result->getRuntimeVersionConfig());
     }
 
     public function testInvoke(): void
@@ -185,6 +248,93 @@ class LambdaClientTest extends TestCase
         self::assertSame(1337, $result->getVersion());
         // self::assertTODO(expected, $result->getCompatibleRuntimes());
         self::assertStringContainsString('change it', $result->getLicenseInfo());
+    }
+
+    public function testUpdateFunctionConfiguration(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement UpdateFunctionConfiguration.');
+
+        $client = $this->getClient();
+
+        $input = new UpdateFunctionConfigurationRequest([
+            'FunctionName' => 'test-func',
+            'Role' => 'testRole',
+            'Handler' => 'testHandler',
+            'Description' => 'testDescription',
+            'Timeout' => 1337,
+            'MemorySize' => 1337,
+            'VpcConfig' => new VpcConfig([
+                'SubnetIds' => ['testSubnetId'],
+                'SecurityGroupIds' => ['testSecurityGroupIds'],
+            ]),
+            'Environment' => new Environment([
+                'Variables' => ['testEnvKey' => 'testEnvValue'],
+            ]),
+            'Runtime' => Runtime::NODEJS_14_X,
+            'DeadLetterConfig' => new DeadLetterConfig([
+                'TargetArn' => 'testDeadLetterConfig',
+            ]),
+            'KMSKeyArn' => 'testKmsKeyArn',
+            'TracingConfig' => new TracingConfig([
+                'Mode' => TracingMode::PASS_THROUGH,
+            ]),
+            'RevisionId' => 'testRevisionId',
+            'Layers' => ['testLayer'],
+            'FileSystemConfigs' => [new FileSystemConfig([
+                'Arn' => 'testFileArn',
+                'LocalMountPath' => 'testMountPoint',
+            ])],
+            'ImageConfig' => new ImageConfig([
+                'EntryPoint' => ['testImageEntryPoint'],
+                'Command' => ['testImageConfigCommand'],
+                'WorkingDirectory' => 'testImageConfigWorkingDirectory',
+            ]),
+            'EphemeralStorage' => new EphemeralStorage([
+                'Size' => 1337,
+            ]),
+            'SnapStart' => new SnapStart([
+                'ApplyOn' => SnapStartApplyOn::NONE,
+            ]),
+        ]);
+        $result = $client->updateFunctionConfiguration($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getFunctionName());
+        self::assertSame('changeIt', $result->getFunctionArn());
+        self::assertSame('changeIt', $result->getRuntime());
+        self::assertSame('changeIt', $result->getRole());
+        self::assertSame('changeIt', $result->getHandler());
+        self::assertSame(1337, $result->getCodeSize());
+        self::assertSame('changeIt', $result->getDescription());
+        self::assertSame(1337, $result->getTimeout());
+        self::assertSame(1337, $result->getMemorySize());
+        self::assertSame('changeIt', $result->getLastModified());
+        self::assertSame('changeIt', $result->getCodeSha256());
+        self::assertSame('changeIt', $result->getVersion());
+        // self::assertTODO(expected, $result->getVpcConfig());
+        // self::assertTODO(expected, $result->getDeadLetterConfig());
+        // self::assertTODO(expected, $result->getEnvironment());
+        self::assertSame('changeIt', $result->getKmsKeyArn());
+        // self::assertTODO(expected, $result->getTracingConfig());
+        self::assertSame('changeIt', $result->getMasterArn());
+        self::assertSame('changeIt', $result->getRevisionId());
+        // self::assertTODO(expected, $result->getLayers());
+        self::assertSame('changeIt', $result->getState());
+        self::assertSame('changeIt', $result->getStateReason());
+        self::assertSame('changeIt', $result->getStateReasonCode());
+        self::assertSame('changeIt', $result->getLastUpdateStatus());
+        self::assertSame('changeIt', $result->getLastUpdateStatusReason());
+        self::assertSame('changeIt', $result->getLastUpdateStatusReasonCode());
+        // self::assertTODO(expected, $result->getFileSystemConfigs());
+        self::assertSame('changeIt', $result->getPackageType());
+        // self::assertTODO(expected, $result->getImageConfigResponse());
+        self::assertSame('changeIt', $result->getSigningProfileVersionArn());
+        self::assertSame('changeIt', $result->getSigningJobArn());
+        // self::assertTODO(expected, $result->getArchitectures());
+        // self::assertTODO(expected, $result->getEphemeralStorage());
+        // self::assertTODO(expected, $result->getSnapStart());
+        // self::assertTODO(expected, $result->getRuntimeVersionConfig());
     }
 
     private function getClient(): LambdaClient

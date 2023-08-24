@@ -7,13 +7,16 @@ use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
+use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
@@ -51,6 +54,19 @@ class LambdaClientTest extends TestCase
         $result = $client->DeleteFunction($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetFunctionConfiguration(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetFunctionConfigurationRequest([
+            'FunctionName' => 'change me',
+        ]);
+        $result = $client->getFunctionConfiguration($input);
+
+        self::assertInstanceOf(FunctionConfiguration::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -122,6 +138,19 @@ class LambdaClientTest extends TestCase
         $result = $client->PublishLayerVersion($input);
 
         self::assertInstanceOf(PublishLayerVersionResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testUpdateFunctionConfiguration(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new UpdateFunctionConfigurationRequest([
+            'FunctionName' => 'test-func',
+        ]);
+        $result = $client->updateFunctionConfiguration($input);
+
+        self::assertInstanceOf(FunctionConfiguration::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

@@ -43,6 +43,18 @@ final class EphemeralStorage
     }
 
     /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $v = $this->size;
+        $payload['Size'] = $v;
+
+        return $payload;
+    }
+
+    /**
      * @return never
      */
     private function throwException(\Throwable $exception)
