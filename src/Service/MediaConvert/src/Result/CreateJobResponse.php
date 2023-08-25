@@ -61,6 +61,7 @@ use AsyncAws\MediaConvert\ValueObject\EsamSignalProcessingNotification;
 use AsyncAws\MediaConvert\ValueObject\ExtendedDataServices;
 use AsyncAws\MediaConvert\ValueObject\F4vSettings;
 use AsyncAws\MediaConvert\ValueObject\FileGroupSettings;
+use AsyncAws\MediaConvert\ValueObject\FlacSettings;
 use AsyncAws\MediaConvert\ValueObject\ForceIncludeRenditionSize;
 use AsyncAws\MediaConvert\ValueObject\FrameCaptureSettings;
 use AsyncAws\MediaConvert\ValueObject\H264QvbrSettings;
@@ -267,6 +268,7 @@ class CreateJobResponse extends Result
             'Codec' => isset($json['codec']) ? (string) $json['codec'] : null,
             'Eac3AtmosSettings' => empty($json['eac3AtmosSettings']) ? null : $this->populateResultEac3AtmosSettings($json['eac3AtmosSettings']),
             'Eac3Settings' => empty($json['eac3Settings']) ? null : $this->populateResultEac3Settings($json['eac3Settings']),
+            'FlacSettings' => empty($json['flacSettings']) ? null : $this->populateResultFlacSettings($json['flacSettings']),
             'Mp2Settings' => empty($json['mp2Settings']) ? null : $this->populateResultMp2Settings($json['mp2Settings']),
             'Mp3Settings' => empty($json['mp3Settings']) ? null : $this->populateResultMp3Settings($json['mp3Settings']),
             'OpusSettings' => empty($json['opusSettings']) ? null : $this->populateResultOpusSettings($json['opusSettings']),
@@ -346,6 +348,7 @@ class CreateJobResponse extends Result
         return new Av1Settings([
             'AdaptiveQuantization' => isset($json['adaptiveQuantization']) ? (string) $json['adaptiveQuantization'] : null,
             'BitDepth' => isset($json['bitDepth']) ? (string) $json['bitDepth'] : null,
+            'FilmGrainSynthesis' => isset($json['filmGrainSynthesis']) ? (string) $json['filmGrainSynthesis'] : null,
             'FramerateControl' => isset($json['framerateControl']) ? (string) $json['framerateControl'] : null,
             'FramerateConversionAlgorithm' => isset($json['framerateConversionAlgorithm']) ? (string) $json['framerateConversionAlgorithm'] : null,
             'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
@@ -837,6 +840,15 @@ class CreateJobResponse extends Result
         ]);
     }
 
+    private function populateResultFlacSettings(array $json): FlacSettings
+    {
+        return new FlacSettings([
+            'BitDepth' => isset($json['bitDepth']) ? (int) $json['bitDepth'] : null,
+            'Channels' => isset($json['channels']) ? (int) $json['channels'] : null,
+            'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
+        ]);
+    }
+
     private function populateResultForceIncludeRenditionSize(array $json): ForceIncludeRenditionSize
     {
         return new ForceIncludeRenditionSize([
@@ -1311,6 +1323,8 @@ class CreateJobResponse extends Result
             'PmtPid' => isset($json['pmtPid']) ? (int) $json['pmtPid'] : null,
             'PrivateMetadataPid' => isset($json['privateMetadataPid']) ? (int) $json['privateMetadataPid'] : null,
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,
+            'PtsOffset' => isset($json['ptsOffset']) ? (int) $json['ptsOffset'] : null,
+            'PtsOffsetMode' => isset($json['ptsOffsetMode']) ? (string) $json['ptsOffsetMode'] : null,
             'RateMode' => isset($json['rateMode']) ? (string) $json['rateMode'] : null,
             'Scte35Esam' => empty($json['scte35Esam']) ? null : $this->populateResultM2tsScte35Esam($json['scte35Esam']),
             'Scte35Pid' => isset($json['scte35Pid']) ? (int) $json['scte35Pid'] : null,
@@ -1340,6 +1354,8 @@ class CreateJobResponse extends Result
             'PmtPid' => isset($json['pmtPid']) ? (int) $json['pmtPid'] : null,
             'PrivateMetadataPid' => isset($json['privateMetadataPid']) ? (int) $json['privateMetadataPid'] : null,
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,
+            'PtsOffset' => isset($json['ptsOffset']) ? (int) $json['ptsOffset'] : null,
+            'PtsOffsetMode' => isset($json['ptsOffsetMode']) ? (string) $json['ptsOffsetMode'] : null,
             'Scte35Pid' => isset($json['scte35Pid']) ? (int) $json['scte35Pid'] : null,
             'Scte35Source' => isset($json['scte35Source']) ? (string) $json['scte35Source'] : null,
             'TimedMetadata' => isset($json['timedMetadata']) ? (string) $json['timedMetadata'] : null,
@@ -1752,6 +1768,7 @@ class CreateJobResponse extends Result
         return new S3DestinationSettings([
             'AccessControl' => empty($json['accessControl']) ? null : $this->populateResultS3DestinationAccessControl($json['accessControl']),
             'Encryption' => empty($json['encryption']) ? null : $this->populateResultS3EncryptionSettings($json['encryption']),
+            'StorageClass' => isset($json['storageClass']) ? (string) $json['storageClass'] : null,
         ]);
     }
 

@@ -150,7 +150,7 @@ class MediaConvertClient extends AbstractApi
     }
 
     /**
-     * Retrieve the JSON for a specific completed transcoding job.
+     * Retrieve the JSON for a specific transcoding job.
      *
      * @see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_GetJob.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#getjob

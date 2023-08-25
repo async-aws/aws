@@ -10,9 +10,10 @@ namespace AsyncAws\MediaConvert\ValueObject;
 final class AutomatedAbrSettings
 {
     /**
-     * Optional. The maximum target bit rate used in your automated ABR stack. Use this value to set an upper limit on the
-     * bandwidth consumed by the highest-quality rendition. This is the rendition that is delivered to viewers with the
-     * fastest internet connections. If you don't specify a value, MediaConvert uses 8,000,000 (8 mb/s) by default.
+     * Specify the maximum average bitrate for MediaConvert to use in your automated ABR stack. If you don't specify a
+     * value, MediaConvert uses 8,000,000 (8 mb/s) by default. The average bitrate of your highest-quality rendition will be
+     * equal to or below this value, depending on the quality, complexity, and resolution of your content. Note that the
+     * instantaneous maximum bitrate may vary above the value that you specify.
      *
      * @var int|null
      */
@@ -29,9 +30,9 @@ final class AutomatedAbrSettings
     private $maxRenditions;
 
     /**
-     * Optional. The minimum target bitrate used in your automated ABR stack. Use this value to set a lower limit on the
-     * bitrate of video delivered to viewers with slow internet connections. If you don't specify a value, MediaConvert uses
-     * 600,000 (600 kb/s) by default.
+     * Specify the minimum average bitrate for MediaConvert to use in your automated ABR stack. If you don't specify a
+     * value, MediaConvert uses 600,000 (600 kb/s) by default. The average bitrate of your lowest-quality rendition will be
+     * near this value. Note that the instantaneous minimum bitrate may vary below the value that you specify.
      *
      * @var int|null
      */

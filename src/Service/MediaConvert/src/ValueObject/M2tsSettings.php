@@ -18,6 +18,7 @@ use AsyncAws\MediaConvert\Enum\M2tsRateMode;
 use AsyncAws\MediaConvert\Enum\M2tsScte35Source;
 use AsyncAws\MediaConvert\Enum\M2tsSegmentationMarkers;
 use AsyncAws\MediaConvert\Enum\M2tsSegmentationStyle;
+use AsyncAws\MediaConvert\Enum\TsPtsOffset;
 
 /**
  * MPEG-2 TS container settings. These apply to outputs in a File output group when the output's container is MPEG-2
@@ -265,6 +266,25 @@ final class M2tsSettings
     private $programNumber;
 
     /**
+     * Manually specify the initial PTS offset, in seconds, when you set PTS offset to Seconds. Enter an integer from 0 to
+     * 3600. Leave blank to keep the default value 2.
+     *
+     * @var int|null
+     */
+    private $ptsOffset;
+
+    /**
+     * Specify the initial presentation timestamp (PTS) offset for your transport stream output. To let MediaConvert
+     * automatically determine the initial PTS offset: Keep the default value, Auto. We recommend that you choose Auto for
+     * the widest player compatibility. The initial PTS will be at least two seconds and vary depending on your output's
+     * bitrate, HRD buffer size and HRD buffer initial fill percentage. To manually specify an initial PTS offset: Choose
+     * Seconds. Then specify the number of seconds with PTS offset.
+     *
+     * @var TsPtsOffset::*|null
+     */
+    private $ptsOffsetMode;
+
+    /**
      * When set to CBR, inserts null packets into transport stream to fill specified bitrate. When set to VBR, the bitrate
      * setting acts as the maximum bitrate, but the output will not be padded up to that bitrate.
      *
@@ -382,6 +402,8 @@ final class M2tsSettings
      *   PmtPid?: null|int,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
+     *   PtsOffset?: null|int,
+     *   PtsOffsetMode?: null|TsPtsOffset::*,
      *   RateMode?: null|M2tsRateMode::*,
      *   Scte35Esam?: null|M2tsScte35Esam|array,
      *   Scte35Pid?: null|int,
@@ -425,6 +447,8 @@ final class M2tsSettings
         $this->pmtPid = $input['PmtPid'] ?? null;
         $this->privateMetadataPid = $input['PrivateMetadataPid'] ?? null;
         $this->programNumber = $input['ProgramNumber'] ?? null;
+        $this->ptsOffset = $input['PtsOffset'] ?? null;
+        $this->ptsOffsetMode = $input['PtsOffsetMode'] ?? null;
         $this->rateMode = $input['RateMode'] ?? null;
         $this->scte35Esam = isset($input['Scte35Esam']) ? M2tsScte35Esam::create($input['Scte35Esam']) : null;
         $this->scte35Pid = $input['Scte35Pid'] ?? null;
@@ -468,6 +492,8 @@ final class M2tsSettings
      *   PmtPid?: null|int,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
+     *   PtsOffset?: null|int,
+     *   PtsOffsetMode?: null|TsPtsOffset::*,
      *   RateMode?: null|M2tsRateMode::*,
      *   Scte35Esam?: null|M2tsScte35Esam|array,
      *   Scte35Pid?: null|int,
@@ -669,6 +695,19 @@ final class M2tsSettings
         return $this->programNumber;
     }
 
+    public function getPtsOffset(): ?int
+    {
+        return $this->ptsOffset;
+    }
+
+    /**
+     * @return TsPtsOffset::*|null
+     */
+    public function getPtsOffsetMode(): ?string
+    {
+        return $this->ptsOffsetMode;
+    }
+
     /**
      * @return M2tsRateMode::*|null
      */
@@ -866,6 +905,15 @@ final class M2tsSettings
         }
         if (null !== $v = $this->programNumber) {
             $payload['programNumber'] = $v;
+        }
+        if (null !== $v = $this->ptsOffset) {
+            $payload['ptsOffset'] = $v;
+        }
+        if (null !== $v = $this->ptsOffsetMode) {
+            if (!TsPtsOffset::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ptsOffsetMode" for "%s". The value "%s" is not a valid "TsPtsOffset".', __CLASS__, $v));
+            }
+            $payload['ptsOffsetMode'] = $v;
         }
         if (null !== $v = $this->rateMode) {
             if (!M2tsRateMode::exists($v)) {
