@@ -9,6 +9,7 @@ use AsyncAws\MediaConvert\Enum\M3u8NielsenId3;
 use AsyncAws\MediaConvert\Enum\M3u8PcrControl;
 use AsyncAws\MediaConvert\Enum\M3u8Scte35Source;
 use AsyncAws\MediaConvert\Enum\TimedMetadata;
+use AsyncAws\MediaConvert\Enum\TsPtsOffset;
 
 /**
  * These settings relate to the MPEG-2 transport stream (MPEG2-TS) container for the MPEG2-TS segments in your HLS
@@ -123,6 +124,25 @@ final class M3u8Settings
     private $programNumber;
 
     /**
+     * Manually specify the initial PTS offset, in seconds, when you set PTS offset to Seconds. Enter an integer from 0 to
+     * 3600. Leave blank to keep the default value 2.
+     *
+     * @var int|null
+     */
+    private $ptsOffset;
+
+    /**
+     * Specify the initial presentation timestamp (PTS) offset for your transport stream output. To let MediaConvert
+     * automatically determine the initial PTS offset: Keep the default value, Auto. We recommend that you choose Auto for
+     * the widest player compatibility. The initial PTS will be at least two seconds and vary depending on your output's
+     * bitrate, HRD buffer size and HRD buffer initial fill percentage. To manually specify an initial PTS offset: Choose
+     * Seconds. Then specify the number of seconds with PTS offset.
+     *
+     * @var TsPtsOffset::*|null
+     */
+    private $ptsOffsetMode;
+
+    /**
      * Packet Identifier (PID) of the SCTE-35 stream in the transport stream.
      *
      * @var int|null
@@ -185,6 +205,8 @@ final class M3u8Settings
      *   PmtPid?: null|int,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
+     *   PtsOffset?: null|int,
+     *   PtsOffsetMode?: null|TsPtsOffset::*,
      *   Scte35Pid?: null|int,
      *   Scte35Source?: null|M3u8Scte35Source::*,
      *   TimedMetadata?: null|TimedMetadata::*,
@@ -208,6 +230,8 @@ final class M3u8Settings
         $this->pmtPid = $input['PmtPid'] ?? null;
         $this->privateMetadataPid = $input['PrivateMetadataPid'] ?? null;
         $this->programNumber = $input['ProgramNumber'] ?? null;
+        $this->ptsOffset = $input['PtsOffset'] ?? null;
+        $this->ptsOffsetMode = $input['PtsOffsetMode'] ?? null;
         $this->scte35Pid = $input['Scte35Pid'] ?? null;
         $this->scte35Source = $input['Scte35Source'] ?? null;
         $this->timedMetadata = $input['TimedMetadata'] ?? null;
@@ -231,6 +255,8 @@ final class M3u8Settings
      *   PmtPid?: null|int,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
+     *   PtsOffset?: null|int,
+     *   PtsOffsetMode?: null|TsPtsOffset::*,
      *   Scte35Pid?: null|int,
      *   Scte35Source?: null|M3u8Scte35Source::*,
      *   TimedMetadata?: null|TimedMetadata::*,
@@ -322,6 +348,19 @@ final class M3u8Settings
     public function getProgramNumber(): ?int
     {
         return $this->programNumber;
+    }
+
+    public function getPtsOffset(): ?int
+    {
+        return $this->ptsOffset;
+    }
+
+    /**
+     * @return TsPtsOffset::*|null
+     */
+    public function getPtsOffsetMode(): ?string
+    {
+        return $this->ptsOffsetMode;
     }
 
     public function getScte35Pid(): ?int
@@ -421,6 +460,15 @@ final class M3u8Settings
         }
         if (null !== $v = $this->programNumber) {
             $payload['programNumber'] = $v;
+        }
+        if (null !== $v = $this->ptsOffset) {
+            $payload['ptsOffset'] = $v;
+        }
+        if (null !== $v = $this->ptsOffsetMode) {
+            if (!TsPtsOffset::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ptsOffsetMode" for "%s". The value "%s" is not a valid "TsPtsOffset".', __CLASS__, $v));
+            }
+            $payload['ptsOffsetMode'] = $v;
         }
         if (null !== $v = $this->scte35Pid) {
             $payload['scte35Pid'] = $v;

@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\Av1AdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\Av1BitDepth;
+use AsyncAws\MediaConvert\Enum\Av1FilmGrainSynthesis;
 use AsyncAws\MediaConvert\Enum\Av1FramerateControl;
 use AsyncAws\MediaConvert\Enum\Av1FramerateConversionAlgorithm;
 use AsyncAws\MediaConvert\Enum\Av1RateControlMode;
@@ -29,6 +30,16 @@ final class Av1Settings
      * @var Av1BitDepth::*|null
      */
     private $bitDepth;
+
+    /**
+     * Film grain synthesis replaces film grain present in your content with similar quality synthesized AV1 film grain. We
+     * recommend that you choose Enabled to reduce the bandwidth of your QVBR quality level 5, 6, 7, or 8 outputs. For QVBR
+     * quality level 9 or 10 outputs we recommend that you keep the default value, Disabled. When you include Film grain
+     * synthesis, you cannot include the Noise reducer preprocessor.
+     *
+     * @var Av1FilmGrainSynthesis::*|null
+     */
+    private $filmGrainSynthesis;
 
     /**
      * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the
@@ -144,6 +155,7 @@ final class Av1Settings
      * @param array{
      *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
      *   BitDepth?: null|Av1BitDepth::*,
+     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*,
      *   FramerateControl?: null|Av1FramerateControl::*,
      *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
      *   FramerateDenominator?: null|int,
@@ -161,6 +173,7 @@ final class Av1Settings
     {
         $this->adaptiveQuantization = $input['AdaptiveQuantization'] ?? null;
         $this->bitDepth = $input['BitDepth'] ?? null;
+        $this->filmGrainSynthesis = $input['FilmGrainSynthesis'] ?? null;
         $this->framerateControl = $input['FramerateControl'] ?? null;
         $this->framerateConversionAlgorithm = $input['FramerateConversionAlgorithm'] ?? null;
         $this->framerateDenominator = $input['FramerateDenominator'] ?? null;
@@ -178,6 +191,7 @@ final class Av1Settings
      * @param array{
      *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
      *   BitDepth?: null|Av1BitDepth::*,
+     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*,
      *   FramerateControl?: null|Av1FramerateControl::*,
      *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
      *   FramerateDenominator?: null|int,
@@ -210,6 +224,14 @@ final class Av1Settings
     public function getBitDepth(): ?string
     {
         return $this->bitDepth;
+    }
+
+    /**
+     * @return Av1FilmGrainSynthesis::*|null
+     */
+    public function getFilmGrainSynthesis(): ?string
+    {
+        return $this->filmGrainSynthesis;
     }
 
     /**
@@ -296,6 +318,12 @@ final class Av1Settings
                 throw new InvalidArgument(sprintf('Invalid parameter "bitDepth" for "%s". The value "%s" is not a valid "Av1BitDepth".', __CLASS__, $v));
             }
             $payload['bitDepth'] = $v;
+        }
+        if (null !== $v = $this->filmGrainSynthesis) {
+            if (!Av1FilmGrainSynthesis::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "filmGrainSynthesis" for "%s". The value "%s" is not a valid "Av1FilmGrainSynthesis".', __CLASS__, $v));
+            }
+            $payload['filmGrainSynthesis'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!Av1FramerateControl::exists($v)) {

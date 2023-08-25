@@ -2,6 +2,9 @@
 
 namespace AsyncAws\MediaConvert\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\S3StorageClass;
+
 /**
  * Settings associated with S3 destination.
  */
@@ -23,21 +26,31 @@ final class S3DestinationSettings
     private $encryption;
 
     /**
+     * Specify the S3 storage class to use for this destination.
+     *
+     * @var S3StorageClass::*|null
+     */
+    private $storageClass;
+
+    /**
      * @param array{
      *   AccessControl?: null|S3DestinationAccessControl|array,
      *   Encryption?: null|S3EncryptionSettings|array,
+     *   StorageClass?: null|S3StorageClass::*,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->accessControl = isset($input['AccessControl']) ? S3DestinationAccessControl::create($input['AccessControl']) : null;
         $this->encryption = isset($input['Encryption']) ? S3EncryptionSettings::create($input['Encryption']) : null;
+        $this->storageClass = $input['StorageClass'] ?? null;
     }
 
     /**
      * @param array{
      *   AccessControl?: null|S3DestinationAccessControl|array,
      *   Encryption?: null|S3EncryptionSettings|array,
+     *   StorageClass?: null|S3StorageClass::*,
      * }|S3DestinationSettings $input
      */
     public static function create($input): self
@@ -56,6 +69,14 @@ final class S3DestinationSettings
     }
 
     /**
+     * @return S3StorageClass::*|null
+     */
+    public function getStorageClass(): ?string
+    {
+        return $this->storageClass;
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -66,6 +87,12 @@ final class S3DestinationSettings
         }
         if (null !== $v = $this->encryption) {
             $payload['encryption'] = $v->requestBody();
+        }
+        if (null !== $v = $this->storageClass) {
+            if (!S3StorageClass::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "storageClass" for "%s". The value "%s" is not a valid "S3StorageClass".', __CLASS__, $v));
+            }
+            $payload['storageClass'] = $v;
         }
 
         return $payload;

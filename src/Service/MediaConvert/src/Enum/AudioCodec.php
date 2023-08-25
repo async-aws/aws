@@ -18,6 +18,7 @@ final class AudioCodec
     public const AIFF = 'AIFF';
     public const EAC3 = 'EAC3';
     public const EAC3_ATMOS = 'EAC3_ATMOS';
+    public const FLAC = 'FLAC';
     public const MP2 = 'MP2';
     public const MP3 = 'MP3';
     public const OPUS = 'OPUS';
@@ -33,6 +34,7 @@ final class AudioCodec
             self::AIFF => true,
             self::EAC3 => true,
             self::EAC3_ATMOS => true,
+            self::FLAC => true,
             self::MP2 => true,
             self::MP3 => true,
             self::OPUS => true,

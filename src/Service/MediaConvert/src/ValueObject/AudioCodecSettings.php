@@ -63,6 +63,13 @@ final class AudioCodecSettings
     private $eac3Settings;
 
     /**
+     * Required when you set Codec, under AudioDescriptions>CodecSettings, to the value FLAC.
+     *
+     * @var FlacSettings|null
+     */
+    private $flacSettings;
+
+    /**
      * Required when you set Codec to the value MP2.
      *
      * @var Mp2Settings|null
@@ -105,6 +112,7 @@ final class AudioCodecSettings
      *   Codec?: null|AudioCodec::*,
      *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
      *   Eac3Settings?: null|Eac3Settings|array,
+     *   FlacSettings?: null|FlacSettings|array,
      *   Mp2Settings?: null|Mp2Settings|array,
      *   Mp3Settings?: null|Mp3Settings|array,
      *   OpusSettings?: null|OpusSettings|array,
@@ -120,6 +128,7 @@ final class AudioCodecSettings
         $this->codec = $input['Codec'] ?? null;
         $this->eac3AtmosSettings = isset($input['Eac3AtmosSettings']) ? Eac3AtmosSettings::create($input['Eac3AtmosSettings']) : null;
         $this->eac3Settings = isset($input['Eac3Settings']) ? Eac3Settings::create($input['Eac3Settings']) : null;
+        $this->flacSettings = isset($input['FlacSettings']) ? FlacSettings::create($input['FlacSettings']) : null;
         $this->mp2Settings = isset($input['Mp2Settings']) ? Mp2Settings::create($input['Mp2Settings']) : null;
         $this->mp3Settings = isset($input['Mp3Settings']) ? Mp3Settings::create($input['Mp3Settings']) : null;
         $this->opusSettings = isset($input['OpusSettings']) ? OpusSettings::create($input['OpusSettings']) : null;
@@ -135,6 +144,7 @@ final class AudioCodecSettings
      *   Codec?: null|AudioCodec::*,
      *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
      *   Eac3Settings?: null|Eac3Settings|array,
+     *   FlacSettings?: null|FlacSettings|array,
      *   Mp2Settings?: null|Mp2Settings|array,
      *   Mp3Settings?: null|Mp3Settings|array,
      *   OpusSettings?: null|OpusSettings|array,
@@ -178,6 +188,11 @@ final class AudioCodecSettings
     public function getEac3Settings(): ?Eac3Settings
     {
         return $this->eac3Settings;
+    }
+
+    public function getFlacSettings(): ?FlacSettings
+    {
+        return $this->flacSettings;
     }
 
     public function getMp2Settings(): ?Mp2Settings
@@ -231,6 +246,9 @@ final class AudioCodecSettings
         }
         if (null !== $v = $this->eac3Settings) {
             $payload['eac3Settings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->flacSettings) {
+            $payload['flacSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->mp2Settings) {
             $payload['mp2Settings'] = $v->requestBody();

@@ -6,6 +6,10 @@
 
 - Allow passing explicit null values for optional fields of input objects
 
+### Added
+
+- Added `il-central-1` region
+
 ## 2.0.0
 
 ### BC-BREAK
