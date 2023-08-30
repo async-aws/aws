@@ -8,7 +8,7 @@
         "ext-SimpleXML": "*",
         "ext-dom": "*",
         "ext-json": "*",
-        "friendsofphp/php-cs-fixer": "^3.17",
+        "friendsofphp/php-cs-fixer": "~3.24.0",
         "nette/php-generator": "^3.6.4",
         "nette/utils": "^3.0",
         "symfony/console": "^4.4 || ^5.0 || ^6.0 || ^7.0",
