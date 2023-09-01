@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- Added region `il-central-1`
 
 ## 0.1.0
 
