@@ -76,6 +76,7 @@ class SsoClient extends AbstractApi
             case 'eu-west-1':
             case 'eu-west-2':
             case 'eu-west-3':
+            case 'il-central-1':
             case 'me-south-1':
             case 'sa-east-1':
             case 'us-east-1':
