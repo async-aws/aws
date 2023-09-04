@@ -180,7 +180,39 @@ class ScanOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = AttributeValue::create($value);
+            $items[(string) $name] = $this->populateResultAttributeValue($value);
+        }
+
+        return $items;
+    }
+
+    private function populateResultAttributeValue(array $json): AttributeValue
+    {
+        return new AttributeValue([
+            'S' => isset($json['S']) ? (string) $json['S'] : null,
+            'N' => isset($json['N']) ? (string) $json['N'] : null,
+            'B' => isset($json['B']) ? base64_decode((string) $json['B']) : null,
+            'SS' => !isset($json['SS']) ? null : $this->populateResultStringSetAttributeValue($json['SS']),
+            'NS' => !isset($json['NS']) ? null : $this->populateResultNumberSetAttributeValue($json['NS']),
+            'BS' => !isset($json['BS']) ? null : $this->populateResultBinarySetAttributeValue($json['BS']),
+            'M' => !isset($json['M']) ? null : $this->populateResultMapAttributeValue($json['M']),
+            'L' => !isset($json['L']) ? null : $this->populateResultListAttributeValue($json['L']),
+            'NULL' => isset($json['NULL']) ? filter_var($json['NULL'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'BOOL' => isset($json['BOOL']) ? filter_var($json['BOOL'], \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultBinarySetAttributeValue(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? base64_decode((string) $item) : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;
@@ -228,7 +260,49 @@ class ScanOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = AttributeValue::create($value);
+            $items[(string) $name] = $this->populateResultAttributeValue($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return AttributeValue[]
+     */
+    private function populateResultListAttributeValue(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultAttributeValue($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, AttributeValue>
+     */
+    private function populateResultMapAttributeValue(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultAttributeValue($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultNumberSetAttributeValue(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;
@@ -241,7 +315,23 @@ class ScanOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = Capacity::create($value);
+            $items[(string) $name] = $this->populateResultCapacity($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultStringSetAttributeValue(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;

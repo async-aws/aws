@@ -12,6 +12,7 @@ use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
 use AsyncAws\MediaConvert\ValueObject\AdvancedInputFilterSettings;
 use AsyncAws\MediaConvert\ValueObject\AiffSettings;
 use AsyncAws\MediaConvert\ValueObject\AllowedRenditionSize;
+use AsyncAws\MediaConvert\ValueObject\AncillarySourceSettings;
 use AsyncAws\MediaConvert\ValueObject\AudioChannelTaggingSettings;
 use AsyncAws\MediaConvert\ValueObject\AudioCodecSettings;
 use AsyncAws\MediaConvert\ValueObject\AudioDescription;
@@ -31,6 +32,8 @@ use AsyncAws\MediaConvert\ValueObject\BurninDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\CaptionDescription;
 use AsyncAws\MediaConvert\ValueObject\CaptionDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\CaptionSelector;
+use AsyncAws\MediaConvert\ValueObject\CaptionSourceFramerate;
+use AsyncAws\MediaConvert\ValueObject\CaptionSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\ChannelMapping;
 use AsyncAws\MediaConvert\ValueObject\ClipLimits;
 use AsyncAws\MediaConvert\ValueObject\CmafAdditionalManifest;
@@ -51,16 +54,19 @@ use AsyncAws\MediaConvert\ValueObject\DolbyVisionLevel6Metadata;
 use AsyncAws\MediaConvert\ValueObject\DvbNitSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbSdtSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbSubDestinationSettings;
+use AsyncAws\MediaConvert\ValueObject\DvbSubSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbTdtSettings;
 use AsyncAws\MediaConvert\ValueObject\Eac3AtmosSettings;
 use AsyncAws\MediaConvert\ValueObject\Eac3Settings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedDestinationSettings;
+use AsyncAws\MediaConvert\ValueObject\EmbeddedSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\EsamManifestConfirmConditionNotification;
 use AsyncAws\MediaConvert\ValueObject\EsamSettings;
 use AsyncAws\MediaConvert\ValueObject\EsamSignalProcessingNotification;
 use AsyncAws\MediaConvert\ValueObject\ExtendedDataServices;
 use AsyncAws\MediaConvert\ValueObject\F4vSettings;
 use AsyncAws\MediaConvert\ValueObject\FileGroupSettings;
+use AsyncAws\MediaConvert\ValueObject\FileSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\FlacSettings;
 use AsyncAws\MediaConvert\ValueObject\ForceIncludeRenditionSize;
 use AsyncAws\MediaConvert\ValueObject\FrameCaptureSettings;
@@ -75,6 +81,7 @@ use AsyncAws\MediaConvert\ValueObject\HlsCaptionLanguageMapping;
 use AsyncAws\MediaConvert\ValueObject\HlsEncryptionSettings;
 use AsyncAws\MediaConvert\ValueObject\HlsGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\HlsImageBasedTrickPlaySettings;
+use AsyncAws\MediaConvert\ValueObject\HlsRenditionGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\HlsSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
 use AsyncAws\MediaConvert\ValueObject\Id3Insertion;
@@ -137,10 +144,12 @@ use AsyncAws\MediaConvert\ValueObject\SpekeKeyProviderCmaf;
 use AsyncAws\MediaConvert\ValueObject\SrtDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\StaticKeyProvider;
 use AsyncAws\MediaConvert\ValueObject\TeletextDestinationSettings;
+use AsyncAws\MediaConvert\ValueObject\TeletextSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\TimecodeBurnin;
 use AsyncAws\MediaConvert\ValueObject\TimecodeConfig;
 use AsyncAws\MediaConvert\ValueObject\TimedMetadataInsertion;
 use AsyncAws\MediaConvert\ValueObject\Timing;
+use AsyncAws\MediaConvert\ValueObject\TrackSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\TtmlDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\Vc3Settings;
 use AsyncAws\MediaConvert\ValueObject\VideoCodecSettings;
@@ -154,6 +163,7 @@ use AsyncAws\MediaConvert\ValueObject\Vp9Settings;
 use AsyncAws\MediaConvert\ValueObject\WarningGroup;
 use AsyncAws\MediaConvert\ValueObject\WavSettings;
 use AsyncAws\MediaConvert\ValueObject\WebvttDestinationSettings;
+use AsyncAws\MediaConvert\ValueObject\WebvttHlsSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\Xavc4kIntraCbgProfileSettings;
 use AsyncAws\MediaConvert\ValueObject\Xavc4kIntraVbrProfileSettings;
 use AsyncAws\MediaConvert\ValueObject\Xavc4kProfileSettings;
@@ -252,6 +262,15 @@ class CreateJobResponse extends Result
         ]);
     }
 
+    private function populateResultAncillarySourceSettings(array $json): AncillarySourceSettings
+    {
+        return new AncillarySourceSettings([
+            'Convert608To708' => isset($json['convert608To708']) ? (string) $json['convert608To708'] : null,
+            'SourceAncillaryChannelNumber' => isset($json['sourceAncillaryChannelNumber']) ? (int) $json['sourceAncillaryChannelNumber'] : null,
+            'TerminateCaptions' => isset($json['terminateCaptions']) ? (string) $json['terminateCaptions'] : null,
+        ]);
+    }
+
     private function populateResultAudioChannelTaggingSettings(array $json): AudioChannelTaggingSettings
     {
         return new AudioChannelTaggingSettings([
@@ -304,6 +323,31 @@ class CreateJobResponse extends Result
             'PeakCalculation' => isset($json['peakCalculation']) ? (string) $json['peakCalculation'] : null,
             'TargetLkfs' => isset($json['targetLkfs']) ? (float) $json['targetLkfs'] : null,
             'TruePeakLimiterThreshold' => isset($json['truePeakLimiterThreshold']) ? (float) $json['truePeakLimiterThreshold'] : null,
+        ]);
+    }
+
+    private function populateResultAudioSelector(array $json): AudioSelector
+    {
+        return new AudioSelector([
+            'AudioDurationCorrection' => isset($json['audioDurationCorrection']) ? (string) $json['audioDurationCorrection'] : null,
+            'CustomLanguageCode' => isset($json['customLanguageCode']) ? (string) $json['customLanguageCode'] : null,
+            'DefaultSelection' => isset($json['defaultSelection']) ? (string) $json['defaultSelection'] : null,
+            'ExternalAudioFileInput' => isset($json['externalAudioFileInput']) ? (string) $json['externalAudioFileInput'] : null,
+            'HlsRenditionGroupSettings' => empty($json['hlsRenditionGroupSettings']) ? null : $this->populateResultHlsRenditionGroupSettings($json['hlsRenditionGroupSettings']),
+            'LanguageCode' => isset($json['languageCode']) ? (string) $json['languageCode'] : null,
+            'Offset' => isset($json['offset']) ? (int) $json['offset'] : null,
+            'Pids' => !isset($json['pids']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['pids']),
+            'ProgramSelection' => isset($json['programSelection']) ? (int) $json['programSelection'] : null,
+            'RemixSettings' => empty($json['remixSettings']) ? null : $this->populateResultRemixSettings($json['remixSettings']),
+            'SelectorType' => isset($json['selectorType']) ? (string) $json['selectorType'] : null,
+            'Tracks' => !isset($json['tracks']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['tracks']),
+        ]);
+    }
+
+    private function populateResultAudioSelectorGroup(array $json): AudioSelectorGroup
+    {
+        return new AudioSelectorGroup([
+            'AudioSelectorNames' => !isset($json['audioSelectorNames']) ? null : $this->populateResult__listOf__stringMin1($json['audioSelectorNames']),
         ]);
     }
 
@@ -452,6 +496,37 @@ class CreateJobResponse extends Result
             'TeletextDestinationSettings' => empty($json['teletextDestinationSettings']) ? null : $this->populateResultTeletextDestinationSettings($json['teletextDestinationSettings']),
             'TtmlDestinationSettings' => empty($json['ttmlDestinationSettings']) ? null : $this->populateResultTtmlDestinationSettings($json['ttmlDestinationSettings']),
             'WebvttDestinationSettings' => empty($json['webvttDestinationSettings']) ? null : $this->populateResultWebvttDestinationSettings($json['webvttDestinationSettings']),
+        ]);
+    }
+
+    private function populateResultCaptionSelector(array $json): CaptionSelector
+    {
+        return new CaptionSelector([
+            'CustomLanguageCode' => isset($json['customLanguageCode']) ? (string) $json['customLanguageCode'] : null,
+            'LanguageCode' => isset($json['languageCode']) ? (string) $json['languageCode'] : null,
+            'SourceSettings' => empty($json['sourceSettings']) ? null : $this->populateResultCaptionSourceSettings($json['sourceSettings']),
+        ]);
+    }
+
+    private function populateResultCaptionSourceFramerate(array $json): CaptionSourceFramerate
+    {
+        return new CaptionSourceFramerate([
+            'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
+            'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
+        ]);
+    }
+
+    private function populateResultCaptionSourceSettings(array $json): CaptionSourceSettings
+    {
+        return new CaptionSourceSettings([
+            'AncillarySourceSettings' => empty($json['ancillarySourceSettings']) ? null : $this->populateResultAncillarySourceSettings($json['ancillarySourceSettings']),
+            'DvbSubSourceSettings' => empty($json['dvbSubSourceSettings']) ? null : $this->populateResultDvbSubSourceSettings($json['dvbSubSourceSettings']),
+            'EmbeddedSourceSettings' => empty($json['embeddedSourceSettings']) ? null : $this->populateResultEmbeddedSourceSettings($json['embeddedSourceSettings']),
+            'FileSourceSettings' => empty($json['fileSourceSettings']) ? null : $this->populateResultFileSourceSettings($json['fileSourceSettings']),
+            'SourceType' => isset($json['sourceType']) ? (string) $json['sourceType'] : null,
+            'TeletextSourceSettings' => empty($json['teletextSourceSettings']) ? null : $this->populateResultTeletextSourceSettings($json['teletextSourceSettings']),
+            'TrackSourceSettings' => empty($json['trackSourceSettings']) ? null : $this->populateResultTrackSourceSettings($json['trackSourceSettings']),
+            'WebvttHlsSourceSettings' => empty($json['webvttHlsSourceSettings']) ? null : $this->populateResultWebvttHlsSourceSettings($json['webvttHlsSourceSettings']),
         ]);
     }
 
@@ -729,6 +804,13 @@ class CreateJobResponse extends Result
         ]);
     }
 
+    private function populateResultDvbSubSourceSettings(array $json): DvbSubSourceSettings
+    {
+        return new DvbSubSourceSettings([
+            'Pid' => isset($json['pid']) ? (int) $json['pid'] : null,
+        ]);
+    }
+
     private function populateResultDvbTdtSettings(array $json): DvbTdtSettings
     {
         return new DvbTdtSettings([
@@ -794,6 +876,16 @@ class CreateJobResponse extends Result
         ]);
     }
 
+    private function populateResultEmbeddedSourceSettings(array $json): EmbeddedSourceSettings
+    {
+        return new EmbeddedSourceSettings([
+            'Convert608To708' => isset($json['convert608To708']) ? (string) $json['convert608To708'] : null,
+            'Source608ChannelNumber' => isset($json['source608ChannelNumber']) ? (int) $json['source608ChannelNumber'] : null,
+            'Source608TrackNumber' => isset($json['source608TrackNumber']) ? (int) $json['source608TrackNumber'] : null,
+            'TerminateCaptions' => isset($json['terminateCaptions']) ? (string) $json['terminateCaptions'] : null,
+        ]);
+    }
+
     private function populateResultEsamManifestConfirmConditionNotification(array $json): EsamManifestConfirmConditionNotification
     {
         return new EsamManifestConfirmConditionNotification([
@@ -837,6 +929,18 @@ class CreateJobResponse extends Result
         return new FileGroupSettings([
             'Destination' => isset($json['destination']) ? (string) $json['destination'] : null,
             'DestinationSettings' => empty($json['destinationSettings']) ? null : $this->populateResultDestinationSettings($json['destinationSettings']),
+        ]);
+    }
+
+    private function populateResultFileSourceSettings(array $json): FileSourceSettings
+    {
+        return new FileSourceSettings([
+            'Convert608To708' => isset($json['convert608To708']) ? (string) $json['convert608To708'] : null,
+            'ConvertPaintToPop' => isset($json['convertPaintToPop']) ? (string) $json['convertPaintToPop'] : null,
+            'Framerate' => empty($json['framerate']) ? null : $this->populateResultCaptionSourceFramerate($json['framerate']),
+            'SourceFile' => isset($json['sourceFile']) ? (string) $json['sourceFile'] : null,
+            'TimeDelta' => isset($json['timeDelta']) ? (int) $json['timeDelta'] : null,
+            'TimeDeltaUnits' => isset($json['timeDeltaUnits']) ? (string) $json['timeDeltaUnits'] : null,
         ]);
     }
 
@@ -1085,6 +1189,15 @@ class CreateJobResponse extends Result
             'ThumbnailWidth' => isset($json['thumbnailWidth']) ? (int) $json['thumbnailWidth'] : null,
             'TileHeight' => isset($json['tileHeight']) ? (int) $json['tileHeight'] : null,
             'TileWidth' => isset($json['tileWidth']) ? (int) $json['tileWidth'] : null,
+        ]);
+    }
+
+    private function populateResultHlsRenditionGroupSettings(array $json): HlsRenditionGroupSettings
+    {
+        return new HlsRenditionGroupSettings([
+            'RenditionGroupId' => isset($json['renditionGroupId']) ? (string) $json['renditionGroupId'] : null,
+            'RenditionLanguageCode' => isset($json['renditionLanguageCode']) ? (string) $json['renditionLanguageCode'] : null,
+            'RenditionName' => isset($json['renditionName']) ? (string) $json['renditionName'] : null,
         ]);
     }
 
@@ -1834,6 +1947,13 @@ class CreateJobResponse extends Result
         ]);
     }
 
+    private function populateResultTeletextSourceSettings(array $json): TeletextSourceSettings
+    {
+        return new TeletextSourceSettings([
+            'PageNumber' => isset($json['pageNumber']) ? (string) $json['pageNumber'] : null,
+        ]);
+    }
+
     private function populateResultTimecodeBurnin(array $json): TimecodeBurnin
     {
         return new TimecodeBurnin([
@@ -1866,6 +1986,13 @@ class CreateJobResponse extends Result
             'FinishTime' => isset($json['finishTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['finishTime']))) ? $d : null,
             'StartTime' => isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime']))) ? $d : null,
             'SubmitTime' => isset($json['submitTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['submitTime']))) ? $d : null,
+        ]);
+    }
+
+    private function populateResultTrackSourceSettings(array $json): TrackSourceSettings
+    {
+        return new TrackSourceSettings([
+            'TrackNumber' => isset($json['trackNumber']) ? (int) $json['trackNumber'] : null,
         ]);
     }
 
@@ -2038,6 +2165,15 @@ class CreateJobResponse extends Result
         return new WebvttDestinationSettings([
             'Accessibility' => isset($json['accessibility']) ? (string) $json['accessibility'] : null,
             'StylePassthrough' => isset($json['stylePassthrough']) ? (string) $json['stylePassthrough'] : null,
+        ]);
+    }
+
+    private function populateResultWebvttHlsSourceSettings(array $json): WebvttHlsSourceSettings
+    {
+        return new WebvttHlsSourceSettings([
+            'RenditionGroupId' => isset($json['renditionGroupId']) ? (string) $json['renditionGroupId'] : null,
+            'RenditionLanguageCode' => isset($json['renditionLanguageCode']) ? (string) $json['renditionLanguageCode'] : null,
+            'RenditionName' => isset($json['renditionName']) ? (string) $json['renditionName'] : null,
         ]);
     }
 
@@ -2450,6 +2586,22 @@ class CreateJobResponse extends Result
     /**
      * @return int[]
      */
+    private function populateResult__listOf__integerMin1Max2147483647(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (int) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return int[]
+     */
     private function populateResult__listOf__integerMin32Max8182(array $json): array
     {
         $items = [];
@@ -2566,7 +2718,7 @@ class CreateJobResponse extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = AudioSelector::create($value);
+            $items[(string) $name] = $this->populateResultAudioSelector($value);
         }
 
         return $items;
@@ -2579,7 +2731,7 @@ class CreateJobResponse extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = AudioSelectorGroup::create($value);
+            $items[(string) $name] = $this->populateResultAudioSelectorGroup($value);
         }
 
         return $items;
@@ -2592,7 +2744,7 @@ class CreateJobResponse extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = CaptionSelector::create($value);
+            $items[(string) $name] = $this->populateResultCaptionSelector($value);
         }
 
         return $items;
