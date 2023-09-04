@@ -103,14 +103,23 @@ class TypeGenerator
                 }
             }
 
+            $phpdocMemberName = $member->getName();
+
+            // Psalm treats a scalar type names as keywords and makes them lowercase even in array shape keys which are not types.
+            // When a different case is needed, it requires using a quoted literal instead of an identifier.
+            // TODO remove that code once https://github.com/vimeo/psalm/issues/10008 is solved (in a release)
+            if (\in_array(strtolower($phpdocMemberName), ['bool', 'null', 'int', 'float', 'double', 'scalar']) && $phpdocMemberName !== strtolower($phpdocMemberName)) {
+                $phpdocMemberName = "'" . $phpdocMemberName . "'";
+            }
+
             if ($nullable) {
-                $body[] = sprintf('  %s?: %s,', $member->getName(), 'null|' . $param);
+                $body[] = sprintf('  %s?: %s,', $phpdocMemberName, 'null|' . $param);
             } elseif ($allNullable) {
                 // For input objects, the constructor allows to omit all members to set them later. But when provided,
                 // they should respect the nullability of the member.
-                $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
+                $body[] = sprintf('  %s?: %s,', $phpdocMemberName, $param);
             } else {
-                $body[] = sprintf('  %s: %s,', $member->getName(), $param);
+                $body[] = sprintf('  %s: %s,', $phpdocMemberName, $param);
             }
         }
         $body = array_merge($body, $extra);

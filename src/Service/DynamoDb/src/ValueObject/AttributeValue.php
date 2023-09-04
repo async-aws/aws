@@ -119,8 +119,8 @@ final class AttributeValue
      *   BS?: null|string[],
      *   M?: null|array<string, AttributeValue|array>,
      *   L?: null|array<AttributeValue|array>,
-     *   NULL?: null|bool,
-     *   BOOL?: null|bool,
+     *   'NULL'?: null|bool,
+     *   'BOOL'?: null|bool,
      * } $input
      */
     public function __construct(array $input)
@@ -147,8 +147,8 @@ final class AttributeValue
      *   BS?: null|string[],
      *   M?: null|array<string, AttributeValue|array>,
      *   L?: null|array<AttributeValue|array>,
-     *   NULL?: null|bool,
-     *   BOOL?: null|bool,
+     *   'NULL'?: null|bool,
+     *   'BOOL'?: null|bool,
      * }|AttributeValue $input
      */
     public static function create($input): self

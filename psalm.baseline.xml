@@ -53,11 +53,6 @@
       <code><![CDATA[array_merge($options, ['Bucket' => $bucket, 'Key' => $key])]]></code>
     </InvalidArgument>
   </file>
-  <file src="src/Integration/Laravel/Cache/src/AsyncAwsDynamoDbStore.php">
-    <RedundantCast>
-      <code><![CDATA[(int) $e->getCode()]]></code>
-    </RedundantCast>
-  </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
     <InvalidArgument>
       <code>$config</code>
@@ -132,12 +127,6 @@
     <MoreSpecificReturnType>
       <code><![CDATA[list<AutoRollbackEvent::*>]]></code>
     </MoreSpecificReturnType>
-  </file>
-  <file src="src/Service/DynamoDb/src/ValueObject/AttributeValue.php">
-    <InvalidArrayOffset>
-      <code><![CDATA[$input['BOOL']]]></code>
-      <code><![CDATA[$input['NULL']]]></code>
-    </InvalidArrayOffset>
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
     <LessSpecificReturnStatement>
