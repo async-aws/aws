@@ -355,14 +355,14 @@ class RestJsonParser implements Parser
                     $body = '
                         $items = [];
                         foreach ($json as $name => $value) {
-                           $items[(string) $name] = CLASS::create($value);
+                           $items[(string) $name] = BUILDER_CODE;
                         }
 
                         return $items;
                     ';
 
                     $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                        'CLASS' => $shape->getValue()->getShape()->getName(),
+                        'BUILDER_CODE' => $this->parseResponseStructure($shapeValue->getShape(), '$value', true),
                     ]), $shape);
                 } else {
                     $body = '

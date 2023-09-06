@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The value returned by `AttributeValue::getB` and `AttributeValue::getBS` is now base64 decoded.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects

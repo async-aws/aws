@@ -5,6 +5,7 @@
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
+- Change the way `AudioSelectorGroup` and `AudioSelector` are populated
 
 ### Added
 
