@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.0.0
+
 ### BC Break
 
 - Upgrade to `async-aws/s3` 2.0

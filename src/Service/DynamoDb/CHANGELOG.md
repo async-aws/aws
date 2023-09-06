@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.0
+
 ### BC-BREAK
 
 - The value returned by `AttributeValue::getB` and `AttributeValue::getBS` is now base64 decoded.
