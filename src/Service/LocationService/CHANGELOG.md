@@ -6,6 +6,10 @@
 
 - Allow passing explicit null values for optional fields of input objects
 
+### Added
+
+- AWS api-change: Added `fips-us-gov-west-1` region
+
 ## 0.1.1
 
 ### Added

@@ -257,6 +257,16 @@ class LocationServiceClient extends AbstractApi
             $region = Configuration::DEFAULT_REGION;
         }
 
+        switch ($region) {
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://geo-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'geo',
+                    'signVersions' => ['v4'],
+                ];
+        }
+
         return [
             'endpoint' => "https://geo.$region.amazonaws.com",
             'signRegion' => $region,
