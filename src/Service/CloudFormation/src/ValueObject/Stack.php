@@ -191,11 +191,10 @@ final class Stack
     private $driftInformation;
 
     /**
-     * This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is
-     * rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are
-     * retained. `RetainExceptOnCreate` can be specified for any resource that supports the DeletionPolicy [^1] attribute.
+     * When set to `true`, newly created resources are deleted when the operation rolls back. This includes newly created
+     * resources marked with a deletion policy of `Retain`.
      *
-     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
+     * Default: `false`
      *
      * @var bool|null
      */
