@@ -13,7 +13,9 @@ final class DescribeStacksInput extends Input
 {
     /**
      * > If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the
-     * > account. This requires `ListStacks` and `DescribeStacks` permissions.
+     * > account, which can impact performance. This requires `ListStacks` and `DescribeStacks` permissions.
+     * >
+     * > Consider using the ListStacks API if you're not passing a parameter to `StackName`.
      * >
      * > The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid
      * > returning a response when no parameter is sent in the request:
