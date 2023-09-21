@@ -316,12 +316,12 @@ final class PutObjectRequest extends Input
     private $sseCustomerKeyMd5;
 
     /**
-     * If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header specifies the ID of
-     * the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object. If you
-     * specify `x-amz-server-side-encryption:aws:kms` or `x-amz-server-side-encryption:aws:kms:dsse`, but do not provide`
-     * x-amz-server-side-encryption-aws-kms-key-id`, Amazon S3 uses the Amazon Web Services managed key (`aws/s3`) to
-     * protect the data. If the KMS key does not exist in the same account that's issuing the command, you must use the full
-     * ARN and not just the ID.
+     * If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header specifies the ID (Key
+     * ID, Key ARN, or Key Alias) of the Key Management Service (KMS) symmetric encryption customer managed key that was
+     * used for the object. If you specify `x-amz-server-side-encryption:aws:kms` or
+     * `x-amz-server-side-encryption:aws:kms:dsse`, but do not provide` x-amz-server-side-encryption-aws-kms-key-id`, Amazon
+     * S3 uses the Amazon Web Services managed key (`aws/s3`) to protect the data. If the KMS key does not exist in the same
+     * account that's issuing the command, you must use the full ARN and not just the ID.
      *
      * @var string|null
      */

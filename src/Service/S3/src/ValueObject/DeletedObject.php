@@ -22,8 +22,9 @@ final class DeletedObject
     private $versionId;
 
     /**
-     * Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In
-     * a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
+     * Indicates whether the specified object version that was permanently deleted was (true) or was not (false) a delete
+     * marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version
+     * of the object is a delete marker.
      *
      * @var bool|null
      */
