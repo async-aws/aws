@@ -414,9 +414,10 @@ class S3Client extends AbstractApi
      *   You can use the `CopyObject` action to change the storage class of an object that is already stored in Amazon S3 by
      *   using the `StorageClass` parameter. For more information, see Storage Classes [^13] in the *Amazon S3 User Guide*.
      *
-     *   If the source object's storage class is GLACIER, you must restore a copy of this object before you can use it as a
-     *   source object for the copy operation. For more information, see RestoreObject [^14]. For more information, see
-     *   Copying Objects [^15].
+     *   If the source object's storage class is GLACIER or DEEP_ARCHIVE, or the object's storage class is
+     *   INTELLIGENT_TIERING and it's S3 Intelligent-Tiering access tier [^14] is Archive Access or Deep Archive Access, you
+     *   must restore a copy of this object before you can use it as a source object for the copy operation. For more
+     *   information, see RestoreObject [^15]. For more information, see Copying Objects [^16].
      * - `Versioning`:
      *
      *   By default, `x-amz-copy-source` header identifies the current version of an object to copy. If the current version
@@ -432,8 +433,8 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `CopyObject`:
      *
-     * - PutObject [^16]
-     * - GetObject [^17]
+     * - PutObject [^17]
+     * - GetObject [^18]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
@@ -448,10 +449,11 @@ class S3Client extends AbstractApi
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-using-rest-api.html
      * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
      * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
-     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
-     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html
-     * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/intelligent-tiering-overview.html#intel-tiering-tier-definition
+     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
+     * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html
+     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
@@ -525,15 +527,16 @@ class S3Client extends AbstractApi
      * If you want to create an Amazon S3 on Outposts bucket, see Create Bucket [^2].
      *
      * By default, the bucket is created in the US East (N. Virginia) Region. You can optionally specify a Region in the
-     * request body. You might choose a Region to optimize latency, minimize costs, or address regulatory requirements. For
-     * example, if you reside in Europe, you will probably find it advantageous to create buckets in the Europe (Ireland)
-     * Region. For more information, see Accessing a bucket [^3].
+     * request body. To constrain the bucket creation to a specific Region, you can use `LocationConstraint` [^3] condition
+     * key. You might choose a Region to optimize latency, minimize costs, or address regulatory requirements. For example,
+     * if you reside in Europe, you will probably find it advantageous to create buckets in the Europe (Ireland) Region. For
+     * more information, see Accessing a bucket [^4].
      *
      * > If you send your create bucket request to the `s3.amazonaws.com` endpoint, the request goes to the `us-east-1`
      * > Region. Accordingly, the signature calculations in Signature Version 4 must use `us-east-1` as the Region, even if
      * > the location constraint in the request specifies another Region where the bucket is to be created. If you create a
      * > bucket in a Region other than US East (N. Virginia), your application must be able to handle 307 redirect. For more
-     * > information, see Virtual hosting of buckets [^4].
+     * > information, see Virtual hosting of buckets [^5].
      *
      * - `Permissions`:
      *
@@ -552,37 +555,38 @@ class S3Client extends AbstractApi
      *     `BucketOWnerEnforced` and ACLs are disabled. We recommend keeping ACLs disabled, except in uncommon use cases
      *     where you must control access for each object individually. If you want to change the `ObjectOwnership` setting,
      *     you can use the `x-amz-object-ownership` header in your `CreateBucket` request to set the `ObjectOwnership`
-     *     setting of your choice. For more information about S3 Object Ownership, see Controlling object ownership [^5] in
+     *     setting of your choice. For more information about S3 Object Ownership, see Controlling object ownership [^6] in
      *     the *Amazon S3 User Guide*.
      *   - **S3 Block Public Access** - If your specific use case requires granting public access to your S3 resources, you
      *     can disable Block Public Access. You can create a new bucket with Block Public Access enabled, then separately
-     *     call the `DeletePublicAccessBlock` [^6] API. To use this operation, you must have the
+     *     call the `DeletePublicAccessBlock` [^7] API. To use this operation, you must have the
      *     `s3:PutBucketPublicAccessBlock` permission. By default, all Block Public Access settings are enabled for new
      *     buckets. To avoid inadvertent exposure of your resources, we recommend keeping the S3 Block Public Access
      *     settings enabled. For more information about S3 Block Public Access, see Blocking public access to your Amazon S3
-     *     storage [^7] in the *Amazon S3 User Guide*.
+     *     storage [^8] in the *Amazon S3 User Guide*.
      *
      *
      * ! If your `CreateBucket` request sets `BucketOwnerEnforced` for Amazon S3 Object Ownership and specifies a bucket ACL
      * ! that provides access to an external Amazon Web Services account, your request fails with a `400` error and returns
      * ! the `InvalidBucketAcLWithObjectOwnership` error code. For more information, see Setting Object Ownership on an
-     * ! existing bucket [^8] in the *Amazon S3 User Guide*.
+     * ! existing bucket [^9] in the *Amazon S3 User Guide*.
      *
      * The following operations are related to `CreateBucket`:
      *
-     * - PutObject [^9]
-     * - DeleteBucket [^10]
+     * - PutObject [^10]
+     * - DeleteBucket [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateBucket.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-ownership-existing-bucket.html
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucketConfiguration.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-ownership-existing-bucket.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
@@ -1918,26 +1922,14 @@ class S3Client extends AbstractApi
      * Permissions Related to Bucket Subresource Operations [^3] and Managing Access Permissions to Your Amazon S3 Resources
      * [^4].
      *
-     * `PutBucketTagging` has the following special errors:
+     * `PutBucketTagging` has the following special errors. For more Amazon S3 errors see, Error Responses [^5].
      *
-     * - Error code: `InvalidTagError`
-     *
-     *   - Description: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.
-     *     For information about tag restrictions, see User-Defined Tag Restrictions [^5] and Amazon Web Services-Generated
-     *     Cost Allocation Tag Restrictions [^6].
-     *
-     * - Error code: `MalformedXMLError`
-     *
-     *   - Description: The XML provided does not match the schema.
-     *
-     * - Error code: `OperationAbortedError `
-     *
-     *   - Description: A conflicting conditional action is currently in progress against this resource. Please try again.
-     *
-     * - Error code: `InternalError`
-     *
-     *   - Description: The service was unable to apply the provided tag to the bucket.
-     *
+     * - `InvalidTag` - The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.
+     *   For more information, see Using Cost Allocation in Amazon S3 Bucket Tags [^6].
+     * - `MalformedXML` - The XML provided does not match the schema.
+     * - `OperationAborted` - A conflicting conditional action is currently in progress against this resource. Please try
+     *   again.
+     * - `InternalError` - The service was unable to apply the provided tag to the bucket.
      *
      * The following operations are related to `PutBucketTagging`:
      *
@@ -1945,11 +1937,11 @@ class S3Client extends AbstractApi
      * - DeleteBucketTagging [^8]
      *
      * [^1]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CostAllocTagging.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
-     * [^5]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
-     * [^6]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/aws-tag-restrictions.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
      *
@@ -2257,13 +2249,13 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Sets the supplied tag-set to an object that already exists in a bucket.
+     * Sets the supplied tag-set to an object that already exists in a bucket. A tag is a key-value pair. For more
+     * information, see Object Tagging [^1].
      *
-     * A tag is a key-value pair. You can associate tags with an object by sending a PUT request against the tagging
-     * subresource that is associated with the object. You can retrieve tags by sending a GET request. For more information,
-     * see GetObjectTagging [^1].
+     * You can associate tags with an object by sending a PUT request against the tagging subresource that is associated
+     * with the object. You can retrieve tags by sending a GET request. For more information, see GetObjectTagging [^2].
      *
-     * For tagging-related restrictions related to characters and encodings, see Tag Restrictions [^2]. Note that Amazon S3
+     * For tagging-related restrictions related to characters and encodings, see Tag Restrictions [^3]. Note that Amazon S3
      * limits the maximum number of tags to 10 tags per object.
      *
      * To use this operation, you must have permission to perform the `s3:PutObjectTagging` action. By default, the bucket
@@ -2272,35 +2264,27 @@ class S3Client extends AbstractApi
      * To put tags of any other version, use the `versionId` query parameter. You also need permission for the
      * `s3:PutObjectVersionTagging` action.
      *
-     * For information about the Amazon S3 object tagging feature, see Object Tagging [^3].
+     * `PutObjectTagging` has the following special errors. For more Amazon S3 errors see, Error Responses [^4].
      *
-     * `PutObjectTagging` has the following special errors:
-     *
-     * - - *Code: InvalidTagError *
-     * - - *Cause: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation. For
-     * -   more information, see Object Tagging [^4].*
-     * -
-     * - - *Code: MalformedXMLError *
-     * - - *Cause: The XML provided does not match the schema.*
-     * -
-     * - - *Code: OperationAbortedError *
-     * - - *Cause: A conflicting conditional action is currently in progress against this resource. Please try again.*
-     * -
-     * - - *Code: InternalError*
-     * - - *Cause: The service was unable to apply the provided tag to the object.*
-     * -
+     * - `InvalidTag` - The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.
+     *   For more information, see Object Tagging [^5].
+     * - `MalformedXML` - The XML provided does not match the schema.
+     * - `OperationAborted` - A conflicting conditional action is currently in progress against this resource. Please try
+     *   again.
+     * - `InternalError` - The service was unable to apply the provided tag to the object.
      *
      * The following operations are related to `PutObjectTagging`:
      *
-     * - GetObjectTagging [^5]
-     * - DeleteObjectTagging [^6]
+     * - GetObjectTagging [^6]
+     * - DeleteObjectTagging [^7]
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
-     * [^2]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     * [^3]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobjecttagging

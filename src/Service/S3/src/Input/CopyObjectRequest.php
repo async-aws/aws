@@ -244,10 +244,10 @@ final class CopyObjectRequest extends Input
     private $serverSideEncryption;
 
     /**
-     * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
-     * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
-     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes [^1] in
-     * the *Amazon S3 User Guide*.
+     * If the `x-amz-storage-class` header is not used, the copied object will be stored in the STANDARD Storage Class by
+     * default. The STANDARD storage class provides high durability and high availability. Depending on performance needs,
+     * you can specify a different Storage Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more
+     * information, see Storage Classes [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
@@ -290,10 +290,10 @@ final class CopyObjectRequest extends Input
     private $sseCustomerKeyMd5;
 
     /**
-     * Specifies the KMS key ID to use for object encryption. All GET and PUT requests for an object protected by KMS will
-     * fail if they're not made via SSL or using SigV4. For information about configuring any of the officially supported
-     * Amazon Web Services SDKs and Amazon Web Services CLI, see Specifying the Signature Version in Request Authentication
-     * [^1] in the *Amazon S3 User Guide*.
+     * Specifies the KMS ID (Key ID, Key ARN, or Key Alias) to use for object encryption. All GET and PUT requests for an
+     * object protected by KMS will fail if they're not made via SSL or using SigV4. For information about configuring any
+     * of the officially supported Amazon Web Services SDKs and Amazon Web Services CLI, see Specifying the Signature
+     * Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      *

@@ -9,7 +9,9 @@ use AsyncAws\S3\Enum\RequestCharged;
 class DeleteObjectOutput extends Result
 {
     /**
-     * Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
+     * Indicates whether the specified object version that was permanently deleted was (true) or was not (false) a delete
+     * marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version
+     * of the object is a delete marker.
      *
      * @var bool|null
      */
