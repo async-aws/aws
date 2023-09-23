@@ -1367,6 +1367,7 @@ class CreateJobResponse extends Result
             'AvailBlanking' => empty($json['availBlanking']) ? null : $this->populateResultAvailBlanking($json['availBlanking']),
             'Esam' => empty($json['esam']) ? null : $this->populateResultEsamSettings($json['esam']),
             'ExtendedDataServices' => empty($json['extendedDataServices']) ? null : $this->populateResultExtendedDataServices($json['extendedDataServices']),
+            'FollowInputIndex' => isset($json['followInputIndex']) ? (int) $json['followInputIndex'] : null,
             'Inputs' => !isset($json['inputs']) ? null : $this->populateResult__listOfInput($json['inputs']),
             'KantarWatermark' => empty($json['kantarWatermark']) ? null : $this->populateResultKantarWatermarkSettings($json['kantarWatermark']),
             'MotionImageInserter' => empty($json['motionImageInserter']) ? null : $this->populateResultMotionImageInserter($json['motionImageInserter']),
