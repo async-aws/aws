@@ -71,6 +71,7 @@ class SsoClient extends AbstractApi
             case 'ap-southeast-3':
             case 'ca-central-1':
             case 'eu-central-1':
+            case 'eu-central-2':
             case 'eu-north-1':
             case 'eu-south-1':
             case 'eu-west-1':
@@ -87,6 +88,14 @@ class SsoClient extends AbstractApi
             case 'us-west-2':
                 return [
                     'endpoint' => "https://portal.sso.$region.amazonaws.com",
+                    'signRegion' => $region,
+                    'signService' => 'awsssoportal',
+                    'signVersions' => ['v4'],
+                ];
+            case 'cn-north-1':
+            case 'cn-northwest-1':
+                return [
+                    'endpoint' => "https://portal.sso.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'awsssoportal',
                     'signVersions' => ['v4'],

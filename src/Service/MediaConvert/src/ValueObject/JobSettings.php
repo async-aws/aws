@@ -39,6 +39,16 @@ final class JobSettings
     private $extendedDataServices;
 
     /**
+     * Specifies which input metadata to use for the default "Follow input" option for the following settings: resolution,
+     * frame rate, and pixel aspect ratio. In the simplest case, specify which input is used based on its index in the job.
+     * For example if you specify 3, then the fourth input will be used from each input. If the job does not have a fourth
+     * input, then the first input will be used. If no followInputIndex is specified, then 0 will be chosen automatically.
+     *
+     * @var int|null
+     */
+    private $followInputIndex;
+
+    /**
      * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These inputs
      * will be concantenated together to create the output.
      *
@@ -118,6 +128,7 @@ final class JobSettings
      *   AvailBlanking?: null|AvailBlanking|array,
      *   Esam?: null|EsamSettings|array,
      *   ExtendedDataServices?: null|ExtendedDataServices|array,
+     *   FollowInputIndex?: null|int,
      *   Inputs?: null|array<Input|array>,
      *   KantarWatermark?: null|KantarWatermarkSettings|array,
      *   MotionImageInserter?: null|MotionImageInserter|array,
@@ -134,6 +145,7 @@ final class JobSettings
         $this->availBlanking = isset($input['AvailBlanking']) ? AvailBlanking::create($input['AvailBlanking']) : null;
         $this->esam = isset($input['Esam']) ? EsamSettings::create($input['Esam']) : null;
         $this->extendedDataServices = isset($input['ExtendedDataServices']) ? ExtendedDataServices::create($input['ExtendedDataServices']) : null;
+        $this->followInputIndex = $input['FollowInputIndex'] ?? null;
         $this->inputs = isset($input['Inputs']) ? array_map([Input::class, 'create'], $input['Inputs']) : null;
         $this->kantarWatermark = isset($input['KantarWatermark']) ? KantarWatermarkSettings::create($input['KantarWatermark']) : null;
         $this->motionImageInserter = isset($input['MotionImageInserter']) ? MotionImageInserter::create($input['MotionImageInserter']) : null;
@@ -150,6 +162,7 @@ final class JobSettings
      *   AvailBlanking?: null|AvailBlanking|array,
      *   Esam?: null|EsamSettings|array,
      *   ExtendedDataServices?: null|ExtendedDataServices|array,
+     *   FollowInputIndex?: null|int,
      *   Inputs?: null|array<Input|array>,
      *   KantarWatermark?: null|KantarWatermarkSettings|array,
      *   MotionImageInserter?: null|MotionImageInserter|array,
@@ -183,6 +196,11 @@ final class JobSettings
     public function getExtendedDataServices(): ?ExtendedDataServices
     {
         return $this->extendedDataServices;
+    }
+
+    public function getFollowInputIndex(): ?int
+    {
+        return $this->followInputIndex;
     }
 
     /**
@@ -248,6 +266,9 @@ final class JobSettings
         }
         if (null !== $v = $this->extendedDataServices) {
             $payload['extendedDataServices'] = $v->requestBody();
+        }
+        if (null !== $v = $this->followInputIndex) {
+            $payload['followInputIndex'] = $v;
         }
         if (null !== $v = $this->inputs) {
             $index = -1;
