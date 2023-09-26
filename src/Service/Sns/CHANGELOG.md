@@ -6,6 +6,10 @@
 
 - Allow passing explicit null values for optional fields of input objects
 
+### Added
+
+- AWS api-change: Remove `ValidationException`
+
 ## 1.5.0
 
 ### Added

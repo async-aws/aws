@@ -412,7 +412,6 @@ class SnsClient extends AbstractApi
      * @throws KMSThrottlingException
      * @throws KMSAccessDeniedException
      * @throws InvalidSecurityException
-     * @throws ValidationException
      */
     public function publishBatch($input): PublishBatchResponse
     {
@@ -437,7 +436,6 @@ class SnsClient extends AbstractApi
             'KMSThrottling' => KMSThrottlingException::class,
             'KMSAccessDenied' => KMSAccessDeniedException::class,
             'InvalidSecurity' => InvalidSecurityException::class,
-            'ValidationException' => ValidationException::class,
         ]]));
 
         return new PublishBatchResponse($response);
