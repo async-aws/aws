@@ -561,7 +561,7 @@ PHP
         $shape = $member->getShape();
         switch ($shape->getType()) {
             case 'timestamp':
-                $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'iso8601'));
+                $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'atom'));
                 if (!\defined('\DateTimeInterface::' . $format)) {
                     throw new \InvalidArgumentException('Constant "\DateTimeInterface::' . $format . '" does not exists.');
                 }
