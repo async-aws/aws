@@ -7,6 +7,10 @@
 - Allow passing explicit null values for optional fields of input objects
 - AWS enhancement: Documentation updates.
 
+### Added
+
+- AWS api-change: This release adds a new field COMPLETED to the ReplicationStatus Enum. You can now use this field to validate the replication status of S3 objects using the AWS SDK.
+
 ## 2.0.0
 
 ### BC-BREAK

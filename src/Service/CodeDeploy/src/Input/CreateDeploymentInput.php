@@ -19,7 +19,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class CreateDeploymentInput extends Input
 {
     /**
-     * The name of an CodeDeploy application associated with the IAM user or Amazon Web Services account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      *
      * @required
      *
@@ -42,7 +42,7 @@ final class CreateDeploymentInput extends Input
     private $revision;
 
     /**
-     * The name of a deployment configuration associated with the IAM user or Amazon Web Services account.
+     * The name of a deployment configuration associated with the user or Amazon Web Services account.
      *
      * If not specified, the value configured in the deployment group is used as the default. If the deployment group does
      * not have a deployment configuration associated with it, `CodeDeployDefault`.`OneAtATime` is used by default.

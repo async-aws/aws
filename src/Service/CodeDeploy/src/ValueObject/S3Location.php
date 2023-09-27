@@ -30,6 +30,8 @@ final class S3Location
      * - `tar`: A tar archive file.
      * - `tgz`: A compressed tar archive file.
      * - `zip`: A zip archive file.
+     * - `YAML`: A YAML-formatted file.
+     * - `JSON`: A JSON-formatted file.
      *
      * @var BundleType::*|null
      */
