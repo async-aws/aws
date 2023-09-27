@@ -906,7 +906,7 @@ final class CopyObjectRequest extends Input
             $headers['x-amz-object-lock-mode'] = $this->objectLockMode;
         }
         if (null !== $this->objectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->objectLockRetainUntilDate->format(\DateTimeInterface::ATOM);
+            $headers['x-amz-object-lock-retain-until-date'] = $this->objectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
         }
         if (null !== $this->objectLockLegalHoldStatus) {
             if (!ObjectLockLegalHoldStatus::exists($this->objectLockLegalHoldStatus)) {
