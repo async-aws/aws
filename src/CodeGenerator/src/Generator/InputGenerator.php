@@ -562,6 +562,10 @@ PHP
         switch ($shape->getType()) {
             case 'timestamp':
                 $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'atom'));
+                if ('ISO8601' === $format) {
+                    $format = 'ATOM';
+                }
+
                 if (!\defined('\DateTimeInterface::' . $format)) {
                     throw new \InvalidArgumentException('Constant "\DateTimeInterface::' . $format . '" does not exists.');
                 }
