@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- According PHP documentation, format datetime with `ATOM` to provide a workaround for the incompatibility with `ISO8601` format.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
