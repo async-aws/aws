@@ -11,6 +11,7 @@
 
 - AWS api-change: This release includes additional audio channel tags in Quicktime outputs, support for film grain synthesis for AV1 outputs, ability to create audio-only FLAC outputs, and ability to specify Amazon S3 destination storage class.
 - AWS api-change: This release supports the creation of of audio-only tracks in CMAF output groups.
+- AWS api-change: This release adds the ability to replace video frames without modifying the audio essence.
 
 ## 0.1.1
 
