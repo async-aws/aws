@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- According PHP documentation, format datetime with `ATOM` to provide a workaround for the incompatibility with `ISO8601` format.
+- Fix the format of the `objectLockRetainUntilDate` field in requests
 
 ### Changed
 
