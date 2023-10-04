@@ -561,7 +561,7 @@ PHP
         $shape = $member->getShape();
         switch ($shape->getType()) {
             case 'timestamp':
-                $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'atom'));
+                $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'iso8601'));
                 if ('ISO8601' === $format) {
                     $format = 'ATOM';
                 }
