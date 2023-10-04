@@ -652,7 +652,7 @@ final class CreateMultipartUploadRequest extends Input
             $headers['x-amz-object-lock-mode'] = $this->objectLockMode;
         }
         if (null !== $this->objectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->objectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
+            $headers['x-amz-object-lock-retain-until-date'] = $this->objectLockRetainUntilDate->format(\DateTimeInterface::ATOM);
         }
         if (null !== $this->objectLockLegalHoldStatus) {
             if (!ObjectLockLegalHoldStatus::exists($this->objectLockLegalHoldStatus)) {

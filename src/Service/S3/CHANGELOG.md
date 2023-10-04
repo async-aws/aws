@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix the format of the `objectLockRetainUntilDate` field in requests
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
