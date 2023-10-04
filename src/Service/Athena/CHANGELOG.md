@@ -2,13 +2,13 @@
 
 ## NOT RELEASED
 
-### Changed
-
-- Allow passing explicit null values for optional fields of input objects
-
 ### Added
 
 - Added `il-central-1` region
+
+### Changed
+
+- Allow passing explicit null values for optional fields of input objects
 
 ## 2.0.0
 

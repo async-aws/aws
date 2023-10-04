@@ -106,13 +106,13 @@
 
 ## 0.3.0
 
-### Added
-
-- Added operation `UpdateTimeToLiveInput`
-
 ### Removed
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
+
+### Added
+
+- Added operation `UpdateTimeToLiveInput`
 
 ### Fixed
 

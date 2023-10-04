@@ -10,15 +10,12 @@
 
 ### Added
 
+- AWS api-change: Add support for the `il-central-1` region
 - Avoid overriding the exception message with the raw message
 
 ### Changed
 
 - Improve parameter type and return type in phpdoc
-
-### Added
-
-- AWS api-change: Add support for the `il-central-1` region
 
 ## 1.4.0
 
@@ -48,14 +45,14 @@
 
 ## 1.0.0
 
-### Fixed
-
-- Assert the provided Input can be json-encoded.
-
 ### Added
 
 - AWS api-change: Added `ap-northeast-3` region
 - AWS enhancement: Documentation updates
+
+### Fixed
+
+- Assert the provided Input can be json-encoded.
 
 ## 0.1.2
 
@@ -66,13 +63,13 @@
 
 ## 0.1.1
 
-### Fixed
-
-- AWS api-change: Added us-isob-east-1 region
-
 ### Deprecated
 
 - AWS api-change: `GetAuthorizationTokenRequest::$registryIds` has been deprecated
+
+### Fixed
+
+- AWS api-change: Added us-isob-east-1 region
 
 ## 0.1.0
 

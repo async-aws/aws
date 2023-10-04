@@ -4,7 +4,7 @@
 
 ## 2.0.0
 
-### BC Break
+### BC-BREAK
 
 - Upgrade to `async-aws/s3` 2.0
 
@@ -22,7 +22,7 @@
 
 ## 1.0.0
 
-No changes since 0.1.2.
+- Empty release
 
 ## 0.1.2
 

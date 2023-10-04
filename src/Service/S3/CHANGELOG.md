@@ -2,18 +2,18 @@
 
 ## NOT RELEASED
 
-### Fixed
+### Added
 
-- Fix the format of the `objectLockRetainUntilDate` field in requests
+- AWS api-change: This release adds a new field COMPLETED to the ReplicationStatus Enum. You can now use this field to validate the replication status of S3 objects using the AWS SDK.
 
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
 - AWS enhancement: Documentation updates.
 
-### Added
+### Fixed
 
-- AWS api-change: This release adds a new field COMPLETED to the ReplicationStatus Enum. You can now use this field to validate the replication status of S3 objects using the AWS SDK.
+- Fix the format of the `objectLockRetainUntilDate` field in requests
 
 ## 2.0.0
 
@@ -55,14 +55,14 @@
 
 ## 1.12.0
 
+### Changed
+
+- Set default value to `false` for the `sendChunkedBody` option.
+
 ### Fixed
 
 - Format datetime with `RFC7231` to provide a workaround for unsupported `RFC822` format.
 - Broken path to host when operation's URL contains a query string.
-
-### Changed
-
-- Set default value to `false` for the `sendChunkedBody` option.
 
 ## 1.11.0
 
@@ -174,15 +174,15 @@
 - Support for PHP 8
 - Added `S3Client::deleteBucket()`
 
+### Deprecated
+
+- `PutObjectAclRequest::getContentMD5()`
+- `PutObjectAclRequest::setContentMD5()`
+
 ### Fixed
 
 - Fixed an issue in Metadata not beeing sent to AWS in `PutObject`, `CopyObject` and `CreateMultipartUpload`
 - Internal AWS prefix were added to Metadata's name in `GetObject` and `HeadObject`.
-
-### Deprecated by AWS
-
-- `PutObjectAclRequest::getContentMD5()`
-- `PutObjectAclRequest::setContentMD5()`
 
 ## 1.2.0
 
@@ -190,13 +190,13 @@
 
 - Changed from "path  style" endpoints (https://amazon.com/bucket) to "host style" endpoints (https://bucket.amazon.com). To keep the old behavior, use `s3PathStyleEndpoint: true` configuration option.
 
+### Deprecated
+
+- Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of `S3Client` are deprecated and will be removed in 2.0
+
 ### Fixed
 
 - Fixed issue when Bucket or Object's Key contained a special char like `#`
-
-### Deprecation
-
-- Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of `S3Client` are deprecated and will be removed in 2.0
 
 ## 1.1.0
 
@@ -216,6 +216,11 @@
 
 ## 0.4.0
 
+### Removed
+
+- Dependency on `symfony/http-client-contracts`
+- All `validate()` methods on the inputs. They are merged with `request()`.
+
 ### Added
 
 - Support for presign
@@ -228,11 +233,6 @@
 - Moved value objects to a dedicated namespace.
 - Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
 - Using `DateTimeImmutable` instead of `DateTimeInterface`
-
-### Removed
-
-- Dependency on `symfony/http-client-contracts`
-- All `validate()` methods on the inputs. They are merged with `request()`.
 
 ## 0.3.0
 

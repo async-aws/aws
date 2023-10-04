@@ -2,13 +2,13 @@
 
 ## NOT RELEASED
 
-### Changed
-
-- Allow passing explicit null values for optional fields of input objects
-
 ### Added
 
 - AWS api-change: Added `fips-ca-central-1`, `fips-us-east-2` and `fips-us-west-1` regions
+
+### Changed
+
+- Allow passing explicit null values for optional fields of input objects
 
 ## 1.6.0
 
@@ -70,7 +70,7 @@
 
 ## 1.1.0
 
-### Deprecation
+### Deprecated
 
 - Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of `SesClient` are deprecated and will be removed in 2.0
 
@@ -82,16 +82,16 @@
 
 ## 0.4.0
 
+### Removed
+
+- Dependency on `symfony/http-client-contracts`
+- All `validate()` methods on the inputs. They are merged with `request()`.
+
 ### Changed
 
 - Moved value objects to a dedicated namespace.
 - Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
 - The `AsyncAws\Ses\Input\*` and `AsyncAws\Ses\ValueObject*` classes are marked final.
-
-### Removed
-
-- Dependency on `symfony/http-client-contracts`
-- All `validate()` methods on the inputs. They are merged with `request()`.
 
 ## 0.3.0
 

@@ -2,13 +2,13 @@
 
 ## NOT RELEASED
 
-### Changed
-
-- Allow passing explicit null values for optional fields of input objects
-
 ### Added
 
 - AWS api-change: Add additional InvalidRequestException to list of possible exceptions for ListSecret.
+
+### Changed
+
+- Allow passing explicit null values for optional fields of input objects
 
 ## 2.0.0
 

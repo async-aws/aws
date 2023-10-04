@@ -2,13 +2,13 @@
 
 ## NOT RELEASED
 
-### Changed
-
-- Allow passing explicit null values for optional fields of input objects
-
 ### Added
 
 - AWS api-change: Remove `ValidationException`
+
+### Changed
+
+- Allow passing explicit null values for optional fields of input objects
 
 ## 1.5.0
 
@@ -108,16 +108,16 @@
 
 ## 0.4.0
 
+### Removed
+
+- Dependency on `symfony/http-client-contracts`
+- All `validate()` methods on the inputs. They are merged with `request()`.
+
 ### Changed
 
 - Moved value objects to a dedicated namespace.
 - Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
 - The `AsyncAws\Sns\Input\*` and `AsyncAws\Sns\ValueObject*` classes are marked final.
-
-### Removed
-
-- Dependency on `symfony/http-client-contracts`
-- All `validate()` methods on the inputs. They are merged with `request()`.
 
 ## 0.3.0
 

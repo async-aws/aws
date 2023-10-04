@@ -79,18 +79,18 @@
 
 ## 1.5.0
 
-### Fixed
+### Added
 
-- Assert the provided Input can be json-encoded.
+- AWS api-change: Lambda Python 3.9 runtime launch
+- AWS api-change: Adds support for Lambda functions powered by AWS Graviton2 processors. Customers can now select the CPU architecture for their functions.
 
 ### Changed
 
 - AWS enhancement: Documentation updates for Amazon Lambda.
 
-### Added
+### Fixed
 
-- AWS api-change: Lambda Python 3.9 runtime launch
-- AWS api-change: Adds support for Lambda functions powered by AWS Graviton2 processors. Customers can now select the CPU architecture for their functions.
+- Assert the provided Input can be json-encoded.
 
 ## 1.4.0
 
@@ -154,17 +154,17 @@
 
 ## 0.4.0
 
+### Removed
+
+- Dependency on `symfony/http-client-contracts`
+- All `validate()` methods on the inputs. They are merged with `request()`.
+
 ### Changed
 
 - Moved value objects to a dedicated namespace.
 - Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
 - Using `DateTimeImmutable` instead of `DateTimeInterface`
 - The `AsyncAws\Lambda\Enum\*`, `AsyncAws\Lambda\Input\*` and `AsyncAws\Lambda\ValueObject*` classes are marked final.
-
-### Removed
-
-- Dependency on `symfony/http-client-contracts`
-- All `validate()` methods on the inputs. They are merged with `request()`.
 
 ## 0.3.0
 
