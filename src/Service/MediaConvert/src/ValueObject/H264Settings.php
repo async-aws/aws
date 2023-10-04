@@ -7,6 +7,7 @@ use AsyncAws\MediaConvert\Enum\H264AdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H264CodecLevel;
 use AsyncAws\MediaConvert\Enum\H264CodecProfile;
 use AsyncAws\MediaConvert\Enum\H264DynamicSubGop;
+use AsyncAws\MediaConvert\Enum\H264EndOfStreamMarkers;
 use AsyncAws\MediaConvert\Enum\H264EntropyEncoding;
 use AsyncAws\MediaConvert\Enum\H264FieldEncoding;
 use AsyncAws\MediaConvert\Enum\H264FlickerAdaptiveQuantization;
@@ -90,6 +91,15 @@ final class H264Settings
      * @var H264DynamicSubGop::*|null
      */
     private $dynamicSubGop;
+
+    /**
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To include
+     * end of stream markers: Leave blank or keep the default value, Include. To not include end of stream markers: Choose
+     * Suppress. This is useful when your output will be inserted into another stream.
+     *
+     * @var H264EndOfStreamMarkers::*|null
+     */
+    private $endOfStreamMarkers;
 
     /**
      * Entropy encoding mode. Use CABAC (must be in Main or High profile) or CAVLC.
@@ -478,6 +488,7 @@ final class H264Settings
      *   CodecLevel?: null|H264CodecLevel::*,
      *   CodecProfile?: null|H264CodecProfile::*,
      *   DynamicSubGop?: null|H264DynamicSubGop::*,
+     *   EndOfStreamMarkers?: null|H264EndOfStreamMarkers::*,
      *   EntropyEncoding?: null|H264EntropyEncoding::*,
      *   FieldEncoding?: null|H264FieldEncoding::*,
      *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*,
@@ -524,6 +535,7 @@ final class H264Settings
         $this->codecLevel = $input['CodecLevel'] ?? null;
         $this->codecProfile = $input['CodecProfile'] ?? null;
         $this->dynamicSubGop = $input['DynamicSubGop'] ?? null;
+        $this->endOfStreamMarkers = $input['EndOfStreamMarkers'] ?? null;
         $this->entropyEncoding = $input['EntropyEncoding'] ?? null;
         $this->fieldEncoding = $input['FieldEncoding'] ?? null;
         $this->flickerAdaptiveQuantization = $input['FlickerAdaptiveQuantization'] ?? null;
@@ -570,6 +582,7 @@ final class H264Settings
      *   CodecLevel?: null|H264CodecLevel::*,
      *   CodecProfile?: null|H264CodecProfile::*,
      *   DynamicSubGop?: null|H264DynamicSubGop::*,
+     *   EndOfStreamMarkers?: null|H264EndOfStreamMarkers::*,
      *   EntropyEncoding?: null|H264EntropyEncoding::*,
      *   FieldEncoding?: null|H264FieldEncoding::*,
      *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*,
@@ -653,6 +666,14 @@ final class H264Settings
     public function getDynamicSubGop(): ?string
     {
         return $this->dynamicSubGop;
+    }
+
+    /**
+     * @return H264EndOfStreamMarkers::*|null
+     */
+    public function getEndOfStreamMarkers(): ?string
+    {
+        return $this->endOfStreamMarkers;
     }
 
     /**
@@ -930,6 +951,12 @@ final class H264Settings
                 throw new InvalidArgument(sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "H264DynamicSubGop".', __CLASS__, $v));
             }
             $payload['dynamicSubGop'] = $v;
+        }
+        if (null !== $v = $this->endOfStreamMarkers) {
+            if (!H264EndOfStreamMarkers::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "endOfStreamMarkers" for "%s". The value "%s" is not a valid "H264EndOfStreamMarkers".', __CLASS__, $v));
+            }
+            $payload['endOfStreamMarkers'] = $v;
         }
         if (null !== $v = $this->entropyEncoding) {
             if (!H264EntropyEncoding::exists($v)) {

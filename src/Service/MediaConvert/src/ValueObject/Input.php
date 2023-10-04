@@ -242,6 +242,13 @@ final class Input
     private $videoGenerator;
 
     /**
+     * Contains an array of video overlays.
+     *
+     * @var VideoOverlay[]|null
+     */
+    private $videoOverlays;
+
+    /**
      * Input video selectors contain the video settings for the input. Each of your inputs can have up to one video
      * selector.
      *
@@ -274,6 +281,7 @@ final class Input
      *   TimecodeSource?: null|InputTimecodeSource::*,
      *   TimecodeStart?: null|string,
      *   VideoGenerator?: null|InputVideoGenerator|array,
+     *   VideoOverlays?: null|array<VideoOverlay|array>,
      *   VideoSelector?: null|VideoSelector|array,
      * } $input
      */
@@ -302,6 +310,7 @@ final class Input
         $this->timecodeSource = $input['TimecodeSource'] ?? null;
         $this->timecodeStart = $input['TimecodeStart'] ?? null;
         $this->videoGenerator = isset($input['VideoGenerator']) ? InputVideoGenerator::create($input['VideoGenerator']) : null;
+        $this->videoOverlays = isset($input['VideoOverlays']) ? array_map([VideoOverlay::class, 'create'], $input['VideoOverlays']) : null;
         $this->videoSelector = isset($input['VideoSelector']) ? VideoSelector::create($input['VideoSelector']) : null;
     }
 
@@ -330,6 +339,7 @@ final class Input
      *   TimecodeSource?: null|InputTimecodeSource::*,
      *   TimecodeStart?: null|string,
      *   VideoGenerator?: null|InputVideoGenerator|array,
+     *   VideoOverlays?: null|array<VideoOverlay|array>,
      *   VideoSelector?: null|VideoSelector|array,
      * }|Input $input
      */
@@ -489,6 +499,14 @@ final class Input
         return $this->videoGenerator;
     }
 
+    /**
+     * @return VideoOverlay[]
+     */
+    public function getVideoOverlays(): array
+    {
+        return $this->videoOverlays ?? [];
+    }
+
     public function getVideoSelector(): ?VideoSelector
     {
         return $this->videoSelector;
@@ -620,6 +638,14 @@ final class Input
         }
         if (null !== $v = $this->videoGenerator) {
             $payload['videoGenerator'] = $v->requestBody();
+        }
+        if (null !== $v = $this->videoOverlays) {
+            $index = -1;
+            $payload['videoOverlays'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['videoOverlays'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->videoSelector) {
             $payload['videoSelector'] = $v->requestBody();

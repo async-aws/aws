@@ -8,6 +8,7 @@ use AsyncAws\MediaConvert\Enum\H265AlternateTransferFunctionSei;
 use AsyncAws\MediaConvert\Enum\H265CodecLevel;
 use AsyncAws\MediaConvert\Enum\H265CodecProfile;
 use AsyncAws\MediaConvert\Enum\H265DynamicSubGop;
+use AsyncAws\MediaConvert\Enum\H265EndOfStreamMarkers;
 use AsyncAws\MediaConvert\Enum\H265FlickerAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H265FramerateControl;
 use AsyncAws\MediaConvert\Enum\H265FramerateConversionAlgorithm;
@@ -97,6 +98,15 @@ final class H265Settings
      * @var H265DynamicSubGop::*|null
      */
     private $dynamicSubGop;
+
+    /**
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To include
+     * end of stream markers: Leave blank or keep the default value, Include. To not include end of stream markers: Choose
+     * Suppress. This is useful when your output will be inserted into another stream.
+     *
+     * @var H265EndOfStreamMarkers::*|null
+     */
+    private $endOfStreamMarkers;
 
     /**
      * Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can arise
@@ -465,6 +475,7 @@ final class H265Settings
      *   CodecLevel?: null|H265CodecLevel::*,
      *   CodecProfile?: null|H265CodecProfile::*,
      *   DynamicSubGop?: null|H265DynamicSubGop::*,
+     *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*,
      *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
      *   FramerateControl?: null|H265FramerateControl::*,
      *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*,
@@ -511,6 +522,7 @@ final class H265Settings
         $this->codecLevel = $input['CodecLevel'] ?? null;
         $this->codecProfile = $input['CodecProfile'] ?? null;
         $this->dynamicSubGop = $input['DynamicSubGop'] ?? null;
+        $this->endOfStreamMarkers = $input['EndOfStreamMarkers'] ?? null;
         $this->flickerAdaptiveQuantization = $input['FlickerAdaptiveQuantization'] ?? null;
         $this->framerateControl = $input['FramerateControl'] ?? null;
         $this->framerateConversionAlgorithm = $input['FramerateConversionAlgorithm'] ?? null;
@@ -557,6 +569,7 @@ final class H265Settings
      *   CodecLevel?: null|H265CodecLevel::*,
      *   CodecProfile?: null|H265CodecProfile::*,
      *   DynamicSubGop?: null|H265DynamicSubGop::*,
+     *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*,
      *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
      *   FramerateControl?: null|H265FramerateControl::*,
      *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*,
@@ -647,6 +660,14 @@ final class H265Settings
     public function getDynamicSubGop(): ?string
     {
         return $this->dynamicSubGop;
+    }
+
+    /**
+     * @return H265EndOfStreamMarkers::*|null
+     */
+    public function getEndOfStreamMarkers(): ?string
+    {
+        return $this->endOfStreamMarkers;
     }
 
     /**
@@ -925,6 +946,12 @@ final class H265Settings
                 throw new InvalidArgument(sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "H265DynamicSubGop".', __CLASS__, $v));
             }
             $payload['dynamicSubGop'] = $v;
+        }
+        if (null !== $v = $this->endOfStreamMarkers) {
+            if (!H265EndOfStreamMarkers::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "endOfStreamMarkers" for "%s". The value "%s" is not a valid "H265EndOfStreamMarkers".', __CLASS__, $v));
+            }
+            $payload['endOfStreamMarkers'] = $v;
         }
         if (null !== $v = $this->flickerAdaptiveQuantization) {
             if (!H265FlickerAdaptiveQuantization::exists($v)) {

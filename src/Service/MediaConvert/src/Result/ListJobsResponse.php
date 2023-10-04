@@ -158,6 +158,9 @@ use AsyncAws\MediaConvert\ValueObject\Vc3Settings;
 use AsyncAws\MediaConvert\ValueObject\VideoCodecSettings;
 use AsyncAws\MediaConvert\ValueObject\VideoDescription;
 use AsyncAws\MediaConvert\ValueObject\VideoDetail;
+use AsyncAws\MediaConvert\ValueObject\VideoOverlay;
+use AsyncAws\MediaConvert\ValueObject\VideoOverlayInput;
+use AsyncAws\MediaConvert\ValueObject\VideoOverlayInputClipping;
 use AsyncAws\MediaConvert\ValueObject\VideoPreprocessor;
 use AsyncAws\MediaConvert\ValueObject\VideoSelector;
 use AsyncAws\MediaConvert\ValueObject\VorbisSettings;
@@ -1056,6 +1059,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'CodecLevel' => isset($json['codecLevel']) ? (string) $json['codecLevel'] : null,
             'CodecProfile' => isset($json['codecProfile']) ? (string) $json['codecProfile'] : null,
             'DynamicSubGop' => isset($json['dynamicSubGop']) ? (string) $json['dynamicSubGop'] : null,
+            'EndOfStreamMarkers' => isset($json['endOfStreamMarkers']) ? (string) $json['endOfStreamMarkers'] : null,
             'EntropyEncoding' => isset($json['entropyEncoding']) ? (string) $json['entropyEncoding'] : null,
             'FieldEncoding' => isset($json['fieldEncoding']) ? (string) $json['fieldEncoding'] : null,
             'FlickerAdaptiveQuantization' => isset($json['flickerAdaptiveQuantization']) ? (string) $json['flickerAdaptiveQuantization'] : null,
@@ -1114,6 +1118,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'CodecLevel' => isset($json['codecLevel']) ? (string) $json['codecLevel'] : null,
             'CodecProfile' => isset($json['codecProfile']) ? (string) $json['codecProfile'] : null,
             'DynamicSubGop' => isset($json['dynamicSubGop']) ? (string) $json['dynamicSubGop'] : null,
+            'EndOfStreamMarkers' => isset($json['endOfStreamMarkers']) ? (string) $json['endOfStreamMarkers'] : null,
             'FlickerAdaptiveQuantization' => isset($json['flickerAdaptiveQuantization']) ? (string) $json['flickerAdaptiveQuantization'] : null,
             'FramerateControl' => isset($json['framerateControl']) ? (string) $json['framerateControl'] : null,
             'FramerateConversionAlgorithm' => isset($json['framerateConversionAlgorithm']) ? (string) $json['framerateConversionAlgorithm'] : null,
@@ -1340,6 +1345,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'TimecodeSource' => isset($json['timecodeSource']) ? (string) $json['timecodeSource'] : null,
             'TimecodeStart' => isset($json['timecodeStart']) ? (string) $json['timecodeStart'] : null,
             'VideoGenerator' => empty($json['videoGenerator']) ? null : $this->populateResultInputVideoGenerator($json['videoGenerator']),
+            'VideoOverlays' => !isset($json['videoOverlays']) ? null : $this->populateResult__listOfVideoOverlay($json['videoOverlays']),
             'VideoSelector' => empty($json['videoSelector']) ? null : $this->populateResultVideoSelector($json['videoSelector']),
         ]);
     }
@@ -1434,7 +1440,6 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'AvailBlanking' => empty($json['availBlanking']) ? null : $this->populateResultAvailBlanking($json['availBlanking']),
             'Esam' => empty($json['esam']) ? null : $this->populateResultEsamSettings($json['esam']),
             'ExtendedDataServices' => empty($json['extendedDataServices']) ? null : $this->populateResultExtendedDataServices($json['extendedDataServices']),
-            'FollowInputIndex' => isset($json['followInputIndex']) ? (int) $json['followInputIndex'] : null,
             'Inputs' => !isset($json['inputs']) ? null : $this->populateResult__listOfInput($json['inputs']),
             'KantarWatermark' => empty($json['kantarWatermark']) ? null : $this->populateResultKantarWatermarkSettings($json['kantarWatermark']),
             'MotionImageInserter' => empty($json['motionImageInserter']) ? null : $this->populateResultMotionImageInserter($json['motionImageInserter']),
@@ -2133,6 +2138,33 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         ]);
     }
 
+    private function populateResultVideoOverlay(array $json): VideoOverlay
+    {
+        return new VideoOverlay([
+            'EndTimecode' => isset($json['endTimecode']) ? (string) $json['endTimecode'] : null,
+            'Input' => empty($json['input']) ? null : $this->populateResultVideoOverlayInput($json['input']),
+            'StartTimecode' => isset($json['startTimecode']) ? (string) $json['startTimecode'] : null,
+        ]);
+    }
+
+    private function populateResultVideoOverlayInput(array $json): VideoOverlayInput
+    {
+        return new VideoOverlayInput([
+            'FileInput' => isset($json['fileInput']) ? (string) $json['fileInput'] : null,
+            'InputClippings' => !isset($json['inputClippings']) ? null : $this->populateResult__listOfVideoOverlayInputClipping($json['inputClippings']),
+            'TimecodeSource' => isset($json['timecodeSource']) ? (string) $json['timecodeSource'] : null,
+            'TimecodeStart' => isset($json['timecodeStart']) ? (string) $json['timecodeStart'] : null,
+        ]);
+    }
+
+    private function populateResultVideoOverlayInputClipping(array $json): VideoOverlayInputClipping
+    {
+        return new VideoOverlayInputClipping([
+            'EndTimecode' => isset($json['endTimecode']) ? (string) $json['endTimecode'] : null,
+            'StartTimecode' => isset($json['startTimecode']) ? (string) $json['startTimecode'] : null,
+        ]);
+    }
+
     private function populateResultVideoPreprocessor(array $json): VideoPreprocessor
     {
         return new VideoPreprocessor([
@@ -2630,6 +2662,32 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             if (null !== $a) {
                 $items[] = $a;
             }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return VideoOverlay[]
+     */
+    private function populateResult__listOfVideoOverlay(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultVideoOverlay($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return VideoOverlayInputClipping[]
+     */
+    private function populateResult__listOfVideoOverlayInputClipping(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultVideoOverlayInputClipping($item);
         }
 
         return $items;
