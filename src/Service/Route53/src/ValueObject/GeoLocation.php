@@ -32,6 +32,8 @@ final class GeoLocation
      *
      * Amazon Route 53 uses the two-letter country codes that are specified in ISO standard 3166-1 alpha-2 [^1].
      *
+     * Route 53 also supports the contry code **UA** forr Ukraine.
+     *
      * [^1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      *
      * @var string|null

@@ -2,9 +2,11 @@
 
 namespace AsyncAws\Route53\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Route53\Enum\HostedZoneType;
 
 /**
  * A request to retrieve a list of the public and private hosted zones that are associated with the current Amazon Web
@@ -43,10 +45,18 @@ final class ListHostedZonesRequest extends Input
     private $delegationSetId;
 
     /**
+     * (Optional) Specifies if the hosted zone is private.
+     *
+     * @var HostedZoneType::*|null
+     */
+    private $hostedZoneType;
+
+    /**
      * @param array{
      *   Marker?: null|string,
      *   MaxItems?: null|string,
      *   DelegationSetId?: null|string,
+     *   HostedZoneType?: null|HostedZoneType::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -55,6 +65,7 @@ final class ListHostedZonesRequest extends Input
         $this->marker = $input['Marker'] ?? null;
         $this->maxItems = $input['MaxItems'] ?? null;
         $this->delegationSetId = $input['DelegationSetId'] ?? null;
+        $this->hostedZoneType = $input['HostedZoneType'] ?? null;
         parent::__construct($input);
     }
 
@@ -63,6 +74,7 @@ final class ListHostedZonesRequest extends Input
      *   Marker?: null|string,
      *   MaxItems?: null|string,
      *   DelegationSetId?: null|string,
+     *   HostedZoneType?: null|HostedZoneType::*,
      *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      */
@@ -74,6 +86,14 @@ final class ListHostedZonesRequest extends Input
     public function getDelegationSetId(): ?string
     {
         return $this->delegationSetId;
+    }
+
+    /**
+     * @return HostedZoneType::*|null
+     */
+    public function getHostedZoneType(): ?string
+    {
+        return $this->hostedZoneType;
     }
 
     public function getMarker(): ?string
@@ -105,6 +125,12 @@ final class ListHostedZonesRequest extends Input
         if (null !== $this->delegationSetId) {
             $query['delegationsetid'] = $this->delegationSetId;
         }
+        if (null !== $this->hostedZoneType) {
+            if (!HostedZoneType::exists($this->hostedZoneType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "HostedZoneType" for "%s". The value "%s" is not a valid "HostedZoneType".', __CLASS__, $this->hostedZoneType));
+            }
+            $query['hostedzonetype'] = $this->hostedZoneType;
+        }
 
         // Prepare URI
         $uriString = '/2013-04-01/hostedzone';
@@ -119,6 +145,16 @@ final class ListHostedZonesRequest extends Input
     public function setDelegationSetId(?string $value): self
     {
         $this->delegationSetId = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param HostedZoneType::*|null $value
+     */
+    public function setHostedZoneType(?string $value): self
+    {
+        $this->hostedZoneType = $value;
 
         return $this;
     }
