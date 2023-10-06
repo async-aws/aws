@@ -6,6 +6,10 @@
 
 - Allow passing explicit null values for optional fields of input objects
 
+### Added
+
+- AWS api-change: Add hostedzonetype filter to ListHostedZones API.
+
 ## 2.0.0
 
 ### BC-BREAK

@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Route53\Enum\HostedZoneType;
 use AsyncAws\Route53\Enum\RRType;
 use AsyncAws\Route53\Exception\ConflictingDomainExistsException;
 use AsyncAws\Route53\Exception\DelegationSetNotAvailableException;
@@ -83,7 +84,8 @@ class Route53Client extends AbstractApi
      *
      * - `CREATE`: Creates a resource record set that has the specified values.
      * - `DELETE`: Deletes an existing resource record set that has the specified values.
-     * - `UPSERT`: If a resource set exists Route 53 updates it with the values in the request.
+     * - `UPSERT`: If a resource set doesn't exist, Route 53 creates it. If a resource set exists Route 53 updates it with
+     *   the values in the request.
      *
      * **Syntaxes for Creating, Updating, and Deleting Resource Record Sets**
      *
@@ -309,6 +311,7 @@ class Route53Client extends AbstractApi
      *   Marker?: null|string,
      *   MaxItems?: null|string,
      *   DelegationSetId?: null|string,
+     *   HostedZoneType?: null|HostedZoneType::*,
      *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      *
