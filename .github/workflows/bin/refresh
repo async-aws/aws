@@ -180,7 +180,12 @@ foreach ($services as $service => $hasChange) {
     $nrSection = false;
     $fixSection = false;
     $fixSectionLabel = $hasChange ? '### Added' : '### Changed';
-
+    $fixSectionOrder = [
+        '### BC-BREAK', '### Removed', // Major
+        '### Added', '### Deprecated', // Minor
+        '### Changed', '### Fixed', '### Security', // Patch
+    ];
+    $fixSectionIndex = array_search($fixSectionLabel, $fixSectionOrder);
     foreach ($changeLog as $index => $line) {
         if ($line === '## NOT RELEASED') {
             $nrSection = true;
@@ -192,15 +197,16 @@ foreach ($services as $service => $hasChange) {
         if (strpos($line, '## ') === 0) {
             break;
         }
+        if (strpos($line, '### ') === 0 && array_search($line, $fixSectionOrder) > $fixSectionIndex) {
+            break;
+        }
+
         if ($line === $fixSectionLabel) {
             $fixSection = true;
             continue;
         }
         if (!$fixSection) {
             continue;
-        }
-        if (strpos($line, '### ') === 0) {
-            break;
         }
 
         if ($line !== '' && false !== $index = array_search($line, $newLines, true)) {
