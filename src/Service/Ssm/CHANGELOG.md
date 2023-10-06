@@ -64,15 +64,15 @@
 
 ## 1.1.0
 
+### Removed
+
+- The following regions are no longer supported by AWS and has been remove from
+  the client: `ssm-facade-fips-us-east-1`, `ssm-facade-fips-us-east-2`, `ssm-facade-fips-us-gov-east-1`,
+  `ssm-facade-fips-us-gov-west-1`, `ssm-facade-fips-us-west-1`, `ssm-facade-fips-us-west-2`.
+
 ### Added
 
 - AWS api-change: Added region `fips-ca-central-1`
-
-### Removed
-
-The following regions are no longer supported by AWS and has been remove from
-the client: `ssm-facade-fips-us-east-1`, `ssm-facade-fips-us-east-2`, `ssm-facade-fips-us-gov-east-1`,
-`ssm-facade-fips-us-gov-west-1`, `ssm-facade-fips-us-west-1`, `ssm-facade-fips-us-west-2`.
 
 ## 1.0.0
 
@@ -82,13 +82,13 @@ the client: `ssm-facade-fips-us-east-1`, `ssm-facade-fips-us-east-2`, `ssm-facad
 
 ## 0.2.0
 
-### Changed
-
-- parameter `type` of `putParameter` is optional.
-
 ### Removed
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
+
+### Changed
+
+- parameter `type` of `putParameter` is optional.
 
 ## 0.1.2
 

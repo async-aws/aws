@@ -10,13 +10,13 @@
 
 ## 1.0.1
 
-### Updated
+### Changed
 
 - Remove unnecessary sequenceToken from log events
 
 ## 1.0.0
 
-### Updated
+### Changed
 
 - Use async-aws/cloud-watch-logs: ^1.0
 
@@ -32,7 +32,7 @@
 
 ## 0.2.0
 
-### Deprecation
+### Deprecated
 
 - `CloudWatchLogsHandler` constructor arguments changed
 

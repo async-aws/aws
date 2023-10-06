@@ -41,13 +41,13 @@
 
 ## 0.1.3
 
-### Fixed
-
-- Assert the provided Input can be json-encoded.
-
 ### Added
 
 - AWS api-change: With the Data API, you can now use UUID and JSON data types as input to your database.
+
+### Fixed
+
+- Assert the provided Input can be json-encoded.
 
 ## 0.1.2
 

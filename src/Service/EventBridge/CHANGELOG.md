@@ -40,14 +40,14 @@
 
 ## 1.2.0
 
-### Fixed
-
-- Assert the provided Input can be json-encoded.
-
 ### Added
 
 - AWS api-change: Adds TraceHeader to PutEventsRequestEntry to support AWS X-Ray trace-ids on events generated using the PutEvents operation.
 - AWS enhancement: Documentation updates
+
+### Fixed
+
+- Assert the provided Input can be json-encoded.
 
 ## 1.1.0
 

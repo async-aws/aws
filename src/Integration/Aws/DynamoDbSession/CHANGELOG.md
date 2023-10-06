@@ -10,13 +10,13 @@
 
 ## 1.0.1
 
-### Updated
+### Changed
 
 - Fix deprecations triggered by php 8.1
 
 ## 1.0.0
 
-### Updated
+### Changed
 
 - Use async-aws/dynamo-db: ^1.0
 
