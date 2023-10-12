@@ -6,6 +6,10 @@
 
 - Allow passing explicit null values for optional fields of input objects
 
+### Fixed
+
+- Treat empty env variable as undefined
+
 ## 1.20.0
 
 ### Added
