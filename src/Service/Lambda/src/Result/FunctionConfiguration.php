@@ -827,6 +827,7 @@ class FunctionConfiguration extends Result
             'SubnetIds' => !isset($json['SubnetIds']) ? null : $this->populateResultSubnetIds($json['SubnetIds']),
             'SecurityGroupIds' => !isset($json['SecurityGroupIds']) ? null : $this->populateResultSecurityGroupIds($json['SecurityGroupIds']),
             'VpcId' => isset($json['VpcId']) ? (string) $json['VpcId'] : null,
+            'Ipv6AllowedForDualStack' => isset($json['Ipv6AllowedForDualStack']) ? filter_var($json['Ipv6AllowedForDualStack'], \FILTER_VALIDATE_BOOLEAN) : null,
         ]);
     }
 }

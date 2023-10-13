@@ -43,10 +43,19 @@ final class DetectModerationLabelsRequest extends Input
     private $humanLoopConfig;
 
     /**
+     * Identifier for the custom adapter. Expects the ProjectVersionArn as a value. Use the CreateProject or
+     * CreateProjectVersion APIs to create a custom adapter.
+     *
+     * @var string|null
+     */
+    private $projectVersion;
+
+    /**
      * @param array{
      *   Image?: Image|array,
      *   MinConfidence?: null|float,
      *   HumanLoopConfig?: null|HumanLoopConfig|array,
+     *   ProjectVersion?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -55,6 +64,7 @@ final class DetectModerationLabelsRequest extends Input
         $this->image = isset($input['Image']) ? Image::create($input['Image']) : null;
         $this->minConfidence = $input['MinConfidence'] ?? null;
         $this->humanLoopConfig = isset($input['HumanLoopConfig']) ? HumanLoopConfig::create($input['HumanLoopConfig']) : null;
+        $this->projectVersion = $input['ProjectVersion'] ?? null;
         parent::__construct($input);
     }
 
@@ -63,6 +73,7 @@ final class DetectModerationLabelsRequest extends Input
      *   Image?: Image|array,
      *   MinConfidence?: null|float,
      *   HumanLoopConfig?: null|HumanLoopConfig|array,
+     *   ProjectVersion?: null|string,
      *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      */
@@ -84,6 +95,11 @@ final class DetectModerationLabelsRequest extends Input
     public function getMinConfidence(): ?float
     {
         return $this->minConfidence;
+    }
+
+    public function getProjectVersion(): ?string
+    {
+        return $this->projectVersion;
     }
 
     /**
@@ -132,6 +148,13 @@ final class DetectModerationLabelsRequest extends Input
         return $this;
     }
 
+    public function setProjectVersion(?string $value): self
+    {
+        $this->projectVersion = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -144,6 +167,9 @@ final class DetectModerationLabelsRequest extends Input
         }
         if (null !== $v = $this->humanLoopConfig) {
             $payload['HumanLoopConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->projectVersion) {
+            $payload['ProjectVersion'] = $v;
         }
 
         return $payload;

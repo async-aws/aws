@@ -25,26 +25,41 @@ final class VpcConfig
     private $securityGroupIds;
 
     /**
+     * Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets.
+     *
+     * @var bool|null
+     */
+    private $ipv6AllowedForDualStack;
+
+    /**
      * @param array{
      *   SubnetIds?: null|string[],
      *   SecurityGroupIds?: null|string[],
+     *   Ipv6AllowedForDualStack?: null|bool,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->subnetIds = $input['SubnetIds'] ?? null;
         $this->securityGroupIds = $input['SecurityGroupIds'] ?? null;
+        $this->ipv6AllowedForDualStack = $input['Ipv6AllowedForDualStack'] ?? null;
     }
 
     /**
      * @param array{
      *   SubnetIds?: null|string[],
      *   SecurityGroupIds?: null|string[],
+     *   Ipv6AllowedForDualStack?: null|bool,
      * }|VpcConfig $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getIpv6AllowedForDualStack(): ?bool
+    {
+        return $this->ipv6AllowedForDualStack;
     }
 
     /**
@@ -84,6 +99,9 @@ final class VpcConfig
                 ++$index;
                 $payload['SecurityGroupIds'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->ipv6AllowedForDualStack) {
+            $payload['Ipv6AllowedForDualStack'] = (bool) $v;
         }
 
         return $payload;

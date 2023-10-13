@@ -8,6 +8,8 @@ use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Rekognition\Enum\Attribute;
+use AsyncAws\Rekognition\Enum\CustomizationFeature;
+use AsyncAws\Rekognition\Enum\ProjectAutoUpdate;
 use AsyncAws\Rekognition\Enum\QualityFilter;
 use AsyncAws\Rekognition\Exception\AccessDeniedException;
 use AsyncAws\Rekognition\Exception\HumanLoopQuotaExceededException;
@@ -22,6 +24,7 @@ use AsyncAws\Rekognition\Exception\ProvisionedThroughputExceededException;
 use AsyncAws\Rekognition\Exception\ResourceAlreadyExistsException;
 use AsyncAws\Rekognition\Exception\ResourceInUseException;
 use AsyncAws\Rekognition\Exception\ResourceNotFoundException;
+use AsyncAws\Rekognition\Exception\ResourceNotReadyException;
 use AsyncAws\Rekognition\Exception\ServiceQuotaExceededException;
 use AsyncAws\Rekognition\Exception\ThrottlingException;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
@@ -99,16 +102,19 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
-     * Creates a new Amazon Rekognition Custom Labels project. A project is a group of resources (datasets, model versions)
-     * that you use to create and manage Amazon Rekognition Custom Labels models.
-     *
-     * This operation requires permissions to perform the `rekognition:CreateProject` action.
+     * Creates a new Amazon Rekognition project. A project is a group of resources (datasets, model versions) that you use
+     * to create and manage a Amazon Rekognition Custom Labels Model or custom adapter. You can specify a feature to create
+     * the project with, if no feature is specified then Custom Labels is used by default. For adapters, you can also choose
+     * whether or not to have the project auto update by using the AutoUpdate argument. This operation requires permissions
+     * to perform the `rekognition:CreateProject` action.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateProject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#createproject
      *
      * @param array{
      *   ProjectName: string,
+     *   Feature?: null|CustomizationFeature::*,
+     *   AutoUpdate?: null|ProjectAutoUpdate::*,
      *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      *
@@ -175,8 +181,8 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
-     * Deletes an Amazon Rekognition Custom Labels project. To delete a project you must first delete all models associated
-     * with the project. To delete a model, see DeleteProjectVersion.
+     * Deletes a Amazon Rekognition project. To delete a project you must first delete all models or adapters associated
+     * with the project. To delete a model or adapter, see DeleteProjectVersion.
      *
      * `DeleteProject` is an asynchronous operation. To check if the project is deleted, call DescribeProjects. The project
      * is deleted when the project no longer appears in the response. Be aware that deleting a given project will also
@@ -284,6 +290,9 @@ class RekognitionClient extends AbstractApi
      * If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be
      * either a PNG or JPEG formatted file.
      *
+     * You can specify an adapter to use when retrieving label predictions by providing a `ProjectVersionArn` to the
+     * `ProjectVersion` argument.
+     *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectModerationLabels.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#detectmoderationlabels
      *
@@ -291,6 +300,7 @@ class RekognitionClient extends AbstractApi
      *   Image: Image|array,
      *   MinConfidence?: null|float,
      *   HumanLoopConfig?: null|HumanLoopConfig|array,
+     *   ProjectVersion?: null|string,
      *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      *
@@ -303,6 +313,8 @@ class RekognitionClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws InvalidImageFormatException
      * @throws HumanLoopQuotaExceededException
+     * @throws ResourceNotFoundException
+     * @throws ResourceNotReadyException
      */
     public function detectModerationLabels($input): DetectModerationLabelsResponse
     {
@@ -317,6 +329,8 @@ class RekognitionClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'InvalidImageFormatException' => InvalidImageFormatException::class,
             'HumanLoopQuotaExceededException' => HumanLoopQuotaExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ResourceNotReadyException' => ResourceNotReadyException::class,
         ]]));
 
         return new DetectModerationLabelsResponse($response);
