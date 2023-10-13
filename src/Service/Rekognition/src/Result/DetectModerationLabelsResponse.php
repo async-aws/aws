@@ -17,7 +17,7 @@ class DetectModerationLabelsResponse extends Result
     private $moderationLabels;
 
     /**
-     * Version number of the moderation detection model that was used to detect unsafe content.
+     * Version number of the base moderation detection model that was used to detect unsafe content.
      *
      * @var string|null
      */
@@ -29,6 +29,14 @@ class DetectModerationLabelsResponse extends Result
      * @var HumanLoopActivationOutput|null
      */
     private $humanLoopActivationOutput;
+
+    /**
+     * Identifier of the custom adapter that was used during inference. If during inference the adapter was EXPIRED, then
+     * the parameter will not be returned, indicating that a base moderation detection project version was used.
+     *
+     * @var string|null
+     */
+    private $projectVersion;
 
     public function getHumanLoopActivationOutput(): ?HumanLoopActivationOutput
     {
@@ -54,6 +62,13 @@ class DetectModerationLabelsResponse extends Result
         return $this->moderationModelVersion;
     }
 
+    public function getProjectVersion(): ?string
+    {
+        $this->initialize();
+
+        return $this->projectVersion;
+    }
+
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
@@ -61,6 +76,7 @@ class DetectModerationLabelsResponse extends Result
         $this->moderationLabels = empty($data['ModerationLabels']) ? [] : $this->populateResultModerationLabels($data['ModerationLabels']);
         $this->moderationModelVersion = isset($data['ModerationModelVersion']) ? (string) $data['ModerationModelVersion'] : null;
         $this->humanLoopActivationOutput = empty($data['HumanLoopActivationOutput']) ? null : $this->populateResultHumanLoopActivationOutput($data['HumanLoopActivationOutput']);
+        $this->projectVersion = isset($data['ProjectVersion']) ? (string) $data['ProjectVersion'] : null;
     }
 
     private function populateResultHumanLoopActivationOutput(array $json): HumanLoopActivationOutput
