@@ -101,6 +101,7 @@ class SimpleS3Client extends S3Client
 
         $partIndex = 1;
         $startByte = 0;
+        $parts = [];
         while ($startByte < $contentLength) {
             $endByte = min($startByte + $partSize, $contentLength) - 1;
 
