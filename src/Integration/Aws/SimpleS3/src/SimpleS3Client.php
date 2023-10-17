@@ -7,10 +7,15 @@ namespace AsyncAws\SimpleS3;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
+use AsyncAws\S3\Input\CopyObjectRequest;
+use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\CopyPartResult;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -45,6 +50,73 @@ class SimpleS3Client extends S3Client
     public function has(string $bucket, string $key): bool
     {
         return $this->objectExists(['Bucket' => $bucket, 'Key' => $key])->isSuccess();
+    }
+
+    /**
+     * @param array{
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   CacheControl?: string,
+     *   ContentLength?: int,
+     *   ContentType?: string,
+     *   Metadata?: array<string, string>,
+     *   PartSize?: int,
+     * } $options
+     */
+    public function copy(string $srcBucket, string $srcKey, string $destBucket, string $destKey, array $options = []): void
+    {
+        $megabyte = 1024 * 1024;
+        if (!empty($options['ContentLength'])) {
+            $contentLength = (int) $options['ContentLength'];
+            unset($options['ContentLength']);
+        } else {
+            $contentLength = (int) $this->headObject(['Bucket' => $srcBucket, 'Key' => $srcKey])->getContentLength();
+        }
+
+        /*
+         * The maximum number of parts is 10.000. The partSize must be a power of 2.
+         * We default this to 64MB per part. That means that we only support to copy
+         * files smaller than 64 * 10 000 = 640GB. If you are coping larger files,
+         * please set PartSize to a higher number, like 128, 256 or 512. (Max 4096).
+         */
+        $partSize = ($options['PartSize'] ?? 64) * $megabyte;
+        unset($options['PartSize']);
+
+        // If file is less than 5GB, use normal atomic copy
+        if ($contentLength < 5120 * $megabyte) {
+            $this->copyObject(
+                CopyObjectRequest::create(
+                    array_merge($options, ['Bucket' => $destBucket, 'Key' => $destKey, 'CopySource' => "{$srcBucket}/{$srcKey}"])
+                )
+            );
+
+            return;
+        }
+
+        /** @var string $uploadId */
+        $uploadId = $this->createMultipartUpload(
+            CreateMultipartUploadRequest::create(
+                array_merge($options, ['Bucket' => $destBucket, 'Key' => $destKey])
+            )
+        )->getUploadId();
+
+        $partIndex = 1;
+        $startByte = 0;
+        while ($startByte < $contentLength) {
+            $endByte = min($startByte + $partSize, $contentLength) - 1;
+
+            $parts[] = $this->doMultipartCopy($destBucket, $destKey, $uploadId, $partIndex, "{$srcBucket}/{$srcKey}", $startByte, $endByte);
+
+            $startByte += $partSize;
+            $partIndex ++;
+        }
+        $this->completeMultipartUpload(
+            CompleteMultipartUploadRequest::create([
+                'Bucket' => $destBucket,
+                'Key' => $destKey,
+                'UploadId' => $uploadId,
+                'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
+            ])
+        );
     }
 
     /**
@@ -194,5 +266,29 @@ class SimpleS3Client extends S3Client
             'Key' => $key,
             'Body' => $object,
         ]));
+    }
+
+    private function doMultipartCopy(string $bucket, string $key, string $uploadId, int $partNumber, string $copySource, int $startByte, int $endByte): CompletedPart
+    {
+        try {
+            $response = $this->uploadPartCopy(
+                UploadPartCopyRequest::create([
+                    'Bucket' => $bucket,
+                    'Key' => $key,
+                    'UploadId' => $uploadId,
+                    'CopySource' => $copySource,
+                    'CopySourceRange' => sprintf('bytes=%d-%d', $startByte, $endByte),
+                    'PartNumber' => $partNumber,
+                ])
+            );
+            /** @var CopyPartResult $copyPartResult */
+            $copyPartResult = $response->getCopyPartResult();
+
+            return new CompletedPart(['ETag' => $copyPartResult->getEtag(), 'PartNumber' => $partNumber]);
+        } catch (\Throwable $e) {
+            $this->abortMultipartUpload(['Bucket' => $bucket, 'Key' => $key, 'UploadId' => $uploadId]);
+
+            throw $e;
+        }
     }
 }
