@@ -15,6 +15,7 @@ use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\CopyPartResult;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -91,6 +92,7 @@ class SimpleS3Client extends S3Client
             return;
         }
 
+        /** @var string $uploadId */
         $uploadId = $this->createMultipartUpload(
             CreateMultipartUploadRequest::create(
                 array_merge($options, ['Bucket' => $destBucket, 'Key' => $destKey])
@@ -277,8 +279,10 @@ class SimpleS3Client extends S3Client
                     'PartNumber' => $partNumber,
                 ])
             );
+            /** @var  CopyPartResult $copyPartResult */
+            $copyPartResult = $response->getCopyPartResult();
 
-            return new CompletedPart(['ETag' => $response->getCopyPartResult()?->getEtag(), 'PartNumber' => $partNumber]);
+            return new CompletedPart(['ETag' => $copyPartResult->getEtag(), 'PartNumber' => $partNumber]);
         } catch (\Throwable $e) {
             $this->abortMultipartUpload(['Bucket' => $bucket, 'Key' => $key, 'UploadId' => $uploadId]);
 
