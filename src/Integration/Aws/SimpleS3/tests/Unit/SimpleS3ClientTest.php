@@ -203,7 +203,7 @@ class SimpleS3ClientTest extends TestCase
             return true;
         }));
 
-        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt', ['ContentLength' => 70 * $megabyte]);
+        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt', ['ContentLength' => 6144 * $megabyte]);
 
         self::assertEquals($completedParts, $uploadedParts);
     }

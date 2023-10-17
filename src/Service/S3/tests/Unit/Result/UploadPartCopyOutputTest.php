@@ -13,8 +13,6 @@ class UploadPartCopyOutputTest extends TestCase
 {
     public function testUploadPartCopyOutput(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('<CopyPartResult>
           <ETag>"b0c6f0e7e054ab8fa2536a2677f8734d"</ETag>
@@ -24,13 +22,7 @@ class UploadPartCopyOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new UploadPartCopyOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getCopySourceVersionId());
-        // self::assertTODO(expected, $result->getCopyPartResult());
-        self::assertSame('changeIt', $result->getServerSideEncryption());
-        self::assertSame('changeIt', $result->getSseCustomerAlgorithm());
-        self::assertSame('changeIt', $result->getSseCustomerKeyMd5());
-        self::assertSame('changeIt', $result->getSseKmsKeyId());
-        self::assertFalse($result->getBucketKeyEnabled());
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertSame('"b0c6f0e7e054ab8fa2536a2677f8734d"', $result->getCopyPartResult()->getEtag());
+        self::assertEquals(new \DateTimeImmutable('2016-12-29T21:24:43.000Z'), $result->getCopyPartResult()->getLastModified());
     }
 }

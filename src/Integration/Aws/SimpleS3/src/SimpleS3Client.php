@@ -102,7 +102,7 @@ class SimpleS3Client extends S3Client
         for ($i = 1; $bytePosition < $contentLength; ++$i) {
             $startByte = $bytePosition;
             $endByte = $bytePosition + $partSize - 1 >= $contentLength ? $contentLength - 1 : $bytePosition + $partSize - 1;
-            $parts[] = $this->doMultipartCopy($destBucket, $destKey, $uploadId, $i, "{$srcBucket}/{$srcKey}", $startByte, $endByte);
+            $parts[] = $this->doMultipartCopy($destBucket, $destKey, $uploadId, $i, sprintf('%s/%s', $srcBucket, $srcKey), $startByte, $endByte);
             $bytePosition += $partSize;
         }
         $this->completeMultipartUpload(
@@ -273,7 +273,7 @@ class SimpleS3Client extends S3Client
                     'Key' => $key,
                     'UploadId' => $uploadId,
                     'CopySource' => $copySource,
-                    'CopySourceRange' => "bytes={$startByte}-{$endByte}",
+                    'CopySourceRange' => sprintf('bytes=%d-%d', $startByte, $endByte),
                     'PartNumber' => $partNumber,
                 ])
             );

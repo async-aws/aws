@@ -9,37 +9,21 @@ class UploadPartCopyRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new UploadPartCopyRequest([
-            'Bucket' => 'change me',
-            'CopySource' => 'change me',
-            'CopySourceIfMatch' => 'change me',
-            'CopySourceIfModifiedSince' => new \DateTimeImmutable(),
-            'CopySourceIfNoneMatch' => 'change me',
-            'CopySourceIfUnmodifiedSince' => new \DateTimeImmutable(),
-            'CopySourceRange' => 'change me',
-            'Key' => 'change me',
-            'PartNumber' => 1337,
-            'UploadId' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'CopySourceSSECustomerAlgorithm' => 'change me',
-            'CopySourceSSECustomerKey' => 'change me',
-            'CopySourceSSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
-            'ExpectedBucketOwner' => 'change me',
-            'ExpectedSourceBucketOwner' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Key' => 'copy-movie.m2ts',
+            'CopySource' => 'example-bucket/my-movie.m2ts',
+            'CopySourceRange' => 'bytes=0-1',
+            'PartNumber' => 1,
+            'UploadId' => 'VCVsb2FkIElEIGZvciBlbZZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZR',
         ]);
 
         // see example-1.json from SDK
         $expected = '
-            PUT / HTTP/1.0
+            PUT /example-bucket/copy-movie.m2ts?partNumber=1&uploadId=VCVsb2FkIElEIGZvciBlbZZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZR HTTP/1.1
             Content-Type: application/xml
-
-            <Bucket>examplebucket</Bucket>
-                ';
+            x-amz-copy-source: example-bucket/my-movie.m2ts
+            x-amz-copy-source-range: bytes=0-1';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
