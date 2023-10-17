@@ -56,6 +56,7 @@ use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
+use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
 use AsyncAws\S3\Result\BucketExistsWaiter;
@@ -82,6 +83,7 @@ use AsyncAws\S3\Result\ObjectNotExistsWaiter;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\PutObjectTaggingOutput;
+use AsyncAws\S3\Result\UploadPartCopyOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
@@ -2430,6 +2432,136 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UploadPart', 'region' => $input->getRegion()]));
 
         return new UploadPartOutput($response);
+    }
+
+    /**
+     * Uploads a part by copying data from an existing object as data source. You specify the data source by adding the
+     * request header `x-amz-copy-source` in your request and a byte range by adding the request header
+     * `x-amz-copy-source-range` in your request.
+     *
+     * For information about maximum and minimum part sizes and other multipart upload specifications, see Multipart upload
+     * limits [^1] in the *Amazon S3 User Guide*.
+     *
+     * > Instead of using an existing object as part data, you might use the UploadPart [^2] action and provide data in your
+     * > request.
+     *
+     * You must initiate a multipart upload before you can upload any part. In response to your initiate request. Amazon S3
+     * returns a unique identifier, the upload ID, that you must include in your upload part request.
+     *
+     * For more information about using the `UploadPartCopy` operation, see the following:
+     *
+     * - For conceptual information about multipart uploads, see Uploading Objects Using Multipart Upload [^3] in the
+     *   *Amazon S3 User Guide*.
+     * - For information about permissions required to use the multipart upload API, see Multipart Upload and Permissions
+     *   [^4] in the *Amazon S3 User Guide*.
+     * - For information about copying objects using a single atomic action vs. a multipart upload, see Operations on
+     *   Objects [^5] in the *Amazon S3 User Guide*.
+     * - For information about using server-side encryption with customer-provided encryption keys with the `UploadPartCopy`
+     *   operation, see CopyObject [^6] and UploadPart [^7].
+     *
+     * Note the following additional considerations about the request headers `x-amz-copy-source-if-match`,
+     * `x-amz-copy-source-if-none-match`, `x-amz-copy-source-if-unmodified-since`, and
+     * `x-amz-copy-source-if-modified-since`:
+     *
+     * - **Consideration 1** - If both of the `x-amz-copy-source-if-match` and `x-amz-copy-source-if-unmodified-since`
+     *   headers are present in the request as follows:
+     *
+     *   `x-amz-copy-source-if-match` condition evaluates to `true`, and;
+     *
+     *   `x-amz-copy-source-if-unmodified-since` condition evaluates to `false`;
+     *
+     *   Amazon S3 returns `200 OK` and copies the data.
+     * - **Consideration 2** - If both of the `x-amz-copy-source-if-none-match` and `x-amz-copy-source-if-modified-since`
+     *   headers are present in the request as follows:
+     *
+     *   `x-amz-copy-source-if-none-match` condition evaluates to `false`, and;
+     *
+     *   `x-amz-copy-source-if-modified-since` condition evaluates to `true`;
+     *
+     *   Amazon S3 returns `412 Precondition Failed` response code.
+     *
+     * - `Versioning`:
+     *
+     *   If your bucket has versioning enabled, you could have multiple versions of the same object. By default,
+     *   `x-amz-copy-source` identifies the current version of the object to copy. If the current version is a delete marker
+     *   and you don't specify a versionId in the `x-amz-copy-source`, Amazon S3 returns a 404 error, because the object
+     *   does not exist. If you specify versionId in the `x-amz-copy-source` and the versionId is a delete marker, Amazon S3
+     *   returns an HTTP 400 error, because you are not allowed to specify a delete marker as a version for the
+     *   `x-amz-copy-source`.
+     *
+     *   You can optionally specify a specific version of the source object to copy by adding the `versionId` subresource as
+     *   shown in the following example:
+     *
+     *   `x-amz-copy-source: /bucket/object?versionId=version id`
+     * - `Special errors`:
+     *
+     *   - - *Code: NoSuchUpload*
+     *   - - *Cause: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload
+     *   -   might have been aborted or completed.*
+     *   - - *HTTP Status Code: 404 Not Found*
+     *   -
+     *   - - *Code: InvalidRequest*
+     *   - - *Cause: The specified copy source is not supported as a byte-range copy source.*
+     *   - - *HTTP Status Code: 400 Bad Request*
+     *   -
+     *
+     *
+     * The following operations are related to `UploadPartCopy`:
+     *
+     * - CreateMultipartUpload [^8]
+     * - UploadPart [^9]
+     * - CompleteMultipartUpload [^10]
+     * - AbortMultipartUpload [^11]
+     * - ListParts [^12]
+     * - ListMultipartUploads [^13]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
+     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
+     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPartCopy.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpartcopy
+     *
+     * @param array{
+     *   Bucket: string,
+     *   CopySource: string,
+     *   CopySourceIfMatch?: null|string,
+     *   CopySourceIfModifiedSince?: null|\DateTimeImmutable|string,
+     *   CopySourceIfNoneMatch?: null|string,
+     *   CopySourceIfUnmodifiedSince?: null|\DateTimeImmutable|string,
+     *   CopySourceRange?: null|string,
+     *   Key: string,
+     *   PartNumber: int,
+     *   UploadId: string,
+     *   SSECustomerAlgorithm?: null|string,
+     *   SSECustomerKey?: null|string,
+     *   SSECustomerKeyMD5?: null|string,
+     *   CopySourceSSECustomerAlgorithm?: null|string,
+     *   CopySourceSSECustomerKey?: null|string,
+     *   CopySourceSSECustomerKeyMD5?: null|string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: null|string,
+     *   ExpectedSourceBucketOwner?: null|string,
+     *   '@region'?: string|null,
+     * }|UploadPartCopyRequest $input
+     */
+    public function uploadPartCopy($input): UploadPartCopyOutput
+    {
+        $input = UploadPartCopyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UploadPartCopy', 'region' => $input->getRegion()]));
+
+        return new UploadPartCopyOutput($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
