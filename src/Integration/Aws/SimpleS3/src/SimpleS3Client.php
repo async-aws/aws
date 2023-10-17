@@ -279,7 +279,7 @@ class SimpleS3Client extends S3Client
                     'PartNumber' => $partNumber,
                 ])
             );
-            /** @var  CopyPartResult $copyPartResult */
+            /** @var CopyPartResult $copyPartResult */
             $copyPartResult = $response->getCopyPartResult();
 
             return new CompletedPart(['ETag' => $copyPartResult->getEtag(), 'PartNumber' => $partNumber]);

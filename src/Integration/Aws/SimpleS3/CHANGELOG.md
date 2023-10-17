@@ -6,6 +6,7 @@
 
 
 ### Added
+
 - Added `SimpleS3Client::copy()` method
 
 ### BC-BREAK
