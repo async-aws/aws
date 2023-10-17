@@ -35,6 +35,7 @@ use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
+use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
@@ -945,6 +946,24 @@ class S3ClientTest extends TestCase
             'UploadId' => '123',
         ]);
         $result = $client->UploadPart($input);
+
+        $result->resolve();
+
+        self::assertEquals(200, $result->info()['status']);
+    }
+
+    public function testUploadPartCopy(): void
+    {
+        $client = $this->getClient();
+
+        $input = new UploadPartCopyRequest([
+            'Bucket' => 'foo',
+            'Key' => 'destination-object.txt',
+            'PartNumber' => 1,
+            'UploadId' => '123',
+            'CopySource' => 'foo/bar',
+        ]);
+        $result = $client->uploadPartCopy($input);
 
         $result->resolve();
 
