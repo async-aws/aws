@@ -577,7 +577,8 @@
                 "PutObject",
                 "PutObjectAcl",
                 "PutObjectTagging",
-                "UploadPart"
+                "UploadPart",
+                "UploadPartCopy"
             ]
         },
         "Scheduler": {
