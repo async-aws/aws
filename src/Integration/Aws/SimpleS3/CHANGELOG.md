@@ -4,14 +4,13 @@
 
 ## 2.0.0
 
+### BC-BREAK
+
+- Upgrade to `async-aws/s3` 2.0
 
 ### Added
 
 - Added `SimpleS3Client::copy()` method
-
-### BC-BREAK
-
-- Upgrade to `async-aws/s3` 2.0
 
 ## 1.1.1
 
