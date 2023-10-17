@@ -16,7 +16,9 @@ final class RawMessage
      * - All of the required header fields must be present in the message.
      * - Each part of a multipart MIME message must be formatted properly.
      * - Attachments must be in a file format that the Amazon SES supports.
-     * - The entire message must be Base64 encoded.
+     * - The raw data of the message needs to base64-encoded if you are accessing Amazon SES directly through the HTTPS
+     *   interface. If you are accessing Amazon SES using an Amazon Web Services SDK, the SDK takes care of the base
+     *   64-encoding for you.
      * - If any of the MIME parts in your message contain content that is outside of the 7-bit ASCII character range, you
      *   should encode that content to ensure that recipients' email clients render the message properly.
      * - The length of any single line of text in the message can't exceed 1,000 characters. This restriction is defined in
