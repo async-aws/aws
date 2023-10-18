@@ -60,8 +60,8 @@ class SimpleS3Client extends S3Client
      *   ContentLength?: int,
      *   ContentType?: string,
      *   Metadata?: array<string, string>,
-     *   PartSize?: int,
-     *   concurrency?: int,
+     *   PartSize?: positive-int,
+     *   Concurrency?: positive-int,
      * } $options
      */
     public function copy(string $srcBucket, string $srcKey, string $destBucket, string $destKey, array $options = []): void
@@ -74,13 +74,10 @@ class SimpleS3Client extends S3Client
             $contentLength = (int) $this->headObject(['Bucket' => $srcBucket, 'Key' => $srcKey])->getContentLength();
         }
 
-        $concurrency = (int) ($options['concurrency'] ?? 25);
-        unset($options['concurrency']);
-        if ($concurrency > 500) {
-            $concurrency = 500;
-        }
+        $concurrency = (int) ($options['Concurrency'] ?? 10);
+        unset($options['Concurrency']);
         if ($concurrency < 1) {
-            $concurrency = 25;
+            $concurrency = 10;
         }
 
         /*
