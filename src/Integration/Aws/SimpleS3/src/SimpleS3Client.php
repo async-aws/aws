@@ -16,7 +16,6 @@ use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
-use AsyncAws\S3\ValueObject\CopyPartResult;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -61,6 +60,7 @@ class SimpleS3Client extends S3Client
      *   ContentType?: string,
      *   Metadata?: array<string, string>,
      *   PartSize?: int,
+     *   concurrency?: int,
      * } $options
      */
     public function copy(string $srcBucket, string $srcKey, string $destBucket, string $destKey, array $options = []): void
@@ -73,7 +73,7 @@ class SimpleS3Client extends S3Client
             $contentLength = (int) $this->headObject(['Bucket' => $srcBucket, 'Key' => $srcKey])->getContentLength();
         }
 
-        $concurrency = (int) ($options["concurrency"] ?? 25);
+        $concurrency = (int) ($options['concurrency'] ?? 25);
         unset($options['concurrency']);
         if ($concurrency > 500) {
             $concurrency = 500;
@@ -110,8 +110,8 @@ class SimpleS3Client extends S3Client
         )->getUploadId();
 
         $partNumber = 1;
-        $startByte  = 0;
-        $parts      = [];
+        $startByte = 0;
+        $parts = [];
         while ($startByte < $contentLength) {
             $parallelChunks = $concurrency;
             $responses = [];
@@ -129,8 +129,8 @@ class SimpleS3Client extends S3Client
                 );
 
                 $startByte += $partSize;
-                $partNumber ++;
-                $parallelChunks --;
+                ++$partNumber;
+                --$parallelChunks;
             }
             $error = null;
             foreach ($responses as $idx => $response) {
@@ -139,6 +139,7 @@ class SimpleS3Client extends S3Client
                     $parts[] = new CompletedPart(['ETag' => $copyPartResult->getEtag(), 'PartNumber' => $idx]);
                 } catch (\Throwable $e) {
                     $error = $e;
+
                     break;
                 }
             }
@@ -151,6 +152,7 @@ class SimpleS3Client extends S3Client
                     }
                 }
                 $this->abortMultipartUpload(AbortMultipartUploadRequest::create(['Bucket' => $destBucket, 'Key' => $destKey, 'UploadId' => $uploadId]));
+
                 throw $error;
             }
         }
