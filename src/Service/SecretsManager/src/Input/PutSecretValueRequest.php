@@ -29,13 +29,15 @@ final class PutSecretValueRequest extends Input
      * A unique identifier for the new version of the secret.
      *
      * > If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then you can
-     * > leave this parameter empty because they generate a random UUID for you. If you don't use the SDK and instead
-     * > generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a `ClientRequestToken`
-     * > yourself for new versions and include that value in the request.
+     * > leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the value for this
+     * > parameter in the request.
+     *
+     * If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     * `ClientRequestToken` and include it in the request.
      *
      * This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of duplicate
-     * versions if there are failures and retries during the Lambda rotation function processing. We recommend that you
-     * generate a UUID-type [^1] value to ensure uniqueness within the specified secret.
+     * versions if there are failures and retries during a rotation. We recommend that you generate a UUID-type [^1] value
+     * to ensure uniqueness of your versions within the specified secret.
      *
      * - If the `ClientRequestToken` value isn't already associated with a version of the secret then a new version of the
      *   secret is created.
