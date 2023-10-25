@@ -225,10 +225,19 @@ class ChangelogTest extends TestCase
             } else {
                 continue;
             }
+
+            $subPath = substr($file, \strlen($base));
+            $normalizedSubPath = str_replace(\DIRECTORY_SEPARATOR, '/', $subPath);
+
+            if (\in_array($normalizedSubPath, ['/README.md', '/Makefile', '/.gitattributes', '/.gitignore', '/LICENSE', '/phpunit.xml.dist', '/roave-bc-check.yaml'], true) || str_starts_with($normalizedSubPath, '/.github/') || str_starts_with($normalizedSubPath, '/tests/')) {
+                // Scaffolding files don't require a changelog entry when modified as they don't impact the usage of the packages
+                continue;
+            }
+
             if (!isset($changedServices[$service])) {
                 $changedServices[$service] = ['base' => $base, 'files' => []];
             }
-            $changedServices[$service]['files'][] = substr($file, \strlen($base));
+            $changedServices[$service]['files'][] = $subPath;
         }
 
         foreach ($changedServices as $service => $changesService) {
