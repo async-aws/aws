@@ -77,7 +77,7 @@ class SimpleS3Client extends S3Client
         $concurrency = (int) ($options['Concurrency'] ?? 10);
         unset($options['Concurrency']);
         if ($concurrency < 1) {
-            $concurrency = 10;
+            $concurrency = 1;
         }
 
         /*
@@ -100,7 +100,6 @@ class SimpleS3Client extends S3Client
             return;
         }
 
-        /** @var string $uploadId */
         $uploadId = $this->createMultipartUpload(
             CreateMultipartUploadRequest::create(
                 array_merge($options, ['Bucket' => $destBucket, 'Key' => $destKey])
@@ -133,7 +132,6 @@ class SimpleS3Client extends S3Client
             $error = null;
             foreach ($responses as $idx => $response) {
                 try {
-                    /** @var CopyPartResult $copyPartResult */
                     $copyPartResult = $response->getCopyPartResult();
                     $parts[] = new CompletedPart(['ETag' => $copyPartResult->getEtag(), 'PartNumber' => $idx]);
                 } catch (\Throwable $e) {
