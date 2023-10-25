@@ -195,7 +195,8 @@ final class Configuration
                 // Read environment files
                 $envVariableNames = (array) $envVariableNames;
                 foreach ($envVariableNames as $envVariableName) {
-                    if (null !== $envVariableValue = EnvVar::get($envVariableName)) {
+                    $envVariableValue = EnvVar::get($envVariableName);
+                    if (null !== $envVariableValue && '' !== $envVariableValue) {
                         $options[$option] = $envVariableValue;
 
                         break;
