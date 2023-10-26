@@ -221,7 +221,8 @@ class Route53ClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertCount(2, iterator_to_array($result->getResourceRecordSets()));
+        // Creating a zone automatically creates NS and SOA records, and we added 2 records above.
+        self::assertCount(4, iterator_to_array($result->getResourceRecordSets()));
         self::assertFalse($result->getIsTruncated());
         self::assertNull($result->getNextRecordName());
     }
