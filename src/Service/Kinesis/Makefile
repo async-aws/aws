@@ -14,3 +14,4 @@ test: initialize
 clean: stop-docker
 stop-docker:
 	docker stop async_aws_localstack-kinesis || true
+	docker rm async_aws_localstack-kinesis || true

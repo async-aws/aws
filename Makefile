@@ -32,6 +32,7 @@ start-docker-kms:
 
 stop-docker: clean
 	docker stop async_aws_localstack || true
+	docker rm async_aws_localstack || true
 
 test: initialize
 	./vendor/bin/simple-phpunit
