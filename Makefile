@@ -4,7 +4,7 @@ SUBCLEAN = $(addsuffix .clean,$(COMPONENTS))
 SUBINITIALIZE = $(addsuffix .initialize,$(COMPONENTS))
 
 .PHONY: clean $(SUBCLEAN)
-clean: $(SUBCLEAN)
+clean: stop-docker $(SUBCLEAN)
 $(SUBCLEAN): %.clean:
 	$(MAKE) -C $* clean
 
@@ -30,8 +30,13 @@ start-docker-kms:
 	docker start async_aws_kms && exit 0 || \
 	docker run -d -p 4579:8080 --name async_aws_kms nsmithuk/local-kms
 
-stop-docker: clean
+stop-docker:
 	docker stop async_aws_localstack || true
+	docker rm async_aws_localstack || true
+	docker stop async_aws_s3 || true
+	docker rm async_aws_s3 || true
+	docker stop async_aws_kms || true
+	docker rm async_aws_kms || true
 
 test: initialize
 	./vendor/bin/simple-phpunit

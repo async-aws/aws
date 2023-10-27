@@ -13,3 +13,4 @@ test: initialize
 clean: stop-docker
 stop-docker:
 	docker stop async_aws_s3-client || true
+	docker rm async_aws_s3-client || true

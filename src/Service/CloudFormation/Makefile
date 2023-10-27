@@ -14,3 +14,4 @@ test: initialize
 clean: stop-docker
 stop-docker:
 	docker stop async_aws_localstack-cloudformation || true
+	docker rm async_aws_localstack-cloudformation || true

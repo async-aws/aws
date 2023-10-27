@@ -12,3 +12,4 @@ test: initialize
 clean: stop-docker
 stop-docker:
 	docker stop async_aws_sqs || true
+	docker rm async_aws_sqs || true
