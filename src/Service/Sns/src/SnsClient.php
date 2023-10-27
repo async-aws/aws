@@ -20,6 +20,7 @@ use AsyncAws\Sns\Exception\InvalidBatchEntryIdException;
 use AsyncAws\Sns\Exception\InvalidParameterException;
 use AsyncAws\Sns\Exception\InvalidParameterValueException;
 use AsyncAws\Sns\Exception\InvalidSecurityException;
+use AsyncAws\Sns\Exception\InvalidStateException;
 use AsyncAws\Sns\Exception\KMSAccessDeniedException;
 use AsyncAws\Sns\Exception\KMSDisabledException;
 use AsyncAws\Sns\Exception\KMSInvalidStateException;
@@ -28,6 +29,7 @@ use AsyncAws\Sns\Exception\KMSOptInRequiredException;
 use AsyncAws\Sns\Exception\KMSThrottlingException;
 use AsyncAws\Sns\Exception\NotFoundException;
 use AsyncAws\Sns\Exception\PlatformApplicationDisabledException;
+use AsyncAws\Sns\Exception\ReplayLimitExceededException;
 use AsyncAws\Sns\Exception\StaleTagException;
 use AsyncAws\Sns\Exception\SubscriptionLimitExceededException;
 use AsyncAws\Sns\Exception\TagLimitExceededException;
@@ -195,6 +197,7 @@ class SnsClient extends AbstractApi
      * }|DeleteTopicInput $input
      *
      * @throws InvalidParameterException
+     * @throws InvalidStateException
      * @throws InternalErrorException
      * @throws AuthorizationErrorException
      * @throws NotFoundException
@@ -207,6 +210,7 @@ class SnsClient extends AbstractApi
         $input = DeleteTopicInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteTopic', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidParameter' => InvalidParameterException::class,
+            'InvalidState' => InvalidStateException::class,
             'InternalError' => InternalErrorException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
             'NotFound' => NotFoundException::class,
@@ -412,6 +416,7 @@ class SnsClient extends AbstractApi
      * @throws KMSThrottlingException
      * @throws KMSAccessDeniedException
      * @throws InvalidSecurityException
+     * @throws ValidationException
      */
     public function publishBatch($input): PublishBatchResponse
     {
@@ -436,6 +441,7 @@ class SnsClient extends AbstractApi
             'KMSThrottling' => KMSThrottlingException::class,
             'KMSAccessDenied' => KMSAccessDeniedException::class,
             'InvalidSecurity' => InvalidSecurityException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new PublishBatchResponse($response);
@@ -447,7 +453,7 @@ class SnsClient extends AbstractApi
      * to confirm the subscription.
      *
      * You call the `ConfirmSubscription` action with the token from the subscription response. Confirmation tokens are
-     * valid for three days.
+     * valid for two days.
      *
      * This action is throttled at 100 transactions per second (TPS).
      *
@@ -465,6 +471,7 @@ class SnsClient extends AbstractApi
      *
      * @throws SubscriptionLimitExceededException
      * @throws FilterPolicyLimitExceededException
+     * @throws ReplayLimitExceededException
      * @throws InvalidParameterException
      * @throws InternalErrorException
      * @throws NotFoundException
@@ -477,6 +484,7 @@ class SnsClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Subscribe', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'SubscriptionLimitExceeded' => SubscriptionLimitExceededException::class,
             'FilterPolicyLimitExceeded' => FilterPolicyLimitExceededException::class,
+            'ReplayLimitExceeded' => ReplayLimitExceededException::class,
             'InvalidParameter' => InvalidParameterException::class,
             'InternalError' => InternalErrorException::class,
             'NotFound' => NotFoundException::class,

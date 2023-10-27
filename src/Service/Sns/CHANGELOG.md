@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Remove `ValidationException`
+- AWS api-change: Message Archiving and Replay is now supported in Amazon SNS for FIFO topics.
 
 ### Changed
 
