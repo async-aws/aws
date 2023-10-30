@@ -13,9 +13,11 @@ use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\UploadPartCopyRequest;
+use AsyncAws\S3\Result\UploadPartCopyOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\CopyPartResult;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -95,12 +97,16 @@ class SimpleS3Client extends S3Client
                 array_merge($options, ['Bucket' => $destBucket, 'Key' => $destKey])
             )
         )->getUploadId();
+        if (!$uploadId) {
+            throw new \RuntimeException('UploadId can not be obtained');
+        }
 
         $partNumber = 1;
         $startByte = 0;
         $parts = [];
         while ($startByte < $contentLength) {
             $parallelChunks = $concurrency;
+            /** @var UploadPartCopyOutput[] $responses */
             $responses = [];
             while ($startByte < $contentLength && $parallelChunks > 0) {
                 $endByte = min($startByte + $partSize, $contentLength) - 1;
@@ -122,6 +128,7 @@ class SimpleS3Client extends S3Client
             $error = null;
             foreach ($responses as $idx => $response) {
                 try {
+                    /** @var CopyPartResult $copyPartResult */
                     $copyPartResult = $response->getCopyPartResult();
                     $parts[] = new CompletedPart(['ETag' => $copyPartResult->getEtag(), 'PartNumber' => $idx]);
                 } catch (\Throwable $e) {
