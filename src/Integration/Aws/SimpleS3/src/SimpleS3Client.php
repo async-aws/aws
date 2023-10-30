@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\SimpleS3;
 
+use AsyncAws\Core\Exception\UnexpectedValue;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -98,7 +99,7 @@ class SimpleS3Client extends S3Client
             )
         )->getUploadId();
         if (!$uploadId) {
-            throw new \RuntimeException('UploadId can not be obtained');
+            throw new UnexpectedValue('UploadId can not be obtained');
         }
 
         $partNumber = 1;
