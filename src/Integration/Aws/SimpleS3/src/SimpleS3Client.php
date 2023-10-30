@@ -16,7 +16,6 @@ use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
-use AsyncAws\S3\ValueObject\CopyPartResult;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -57,8 +56,6 @@ class SimpleS3Client extends S3Client
      * @param array{
      *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   CacheControl?: string,
-     *   ContentLength?: int,
-     *   ContentType?: string,
      *   Metadata?: array<string, string>,
      *   PartSize?: positive-int,
      *   Concurrency?: positive-int,
@@ -66,20 +63,13 @@ class SimpleS3Client extends S3Client
      */
     public function copy(string $srcBucket, string $srcKey, string $destBucket, string $destKey, array $options = []): void
     {
-        $megabyte = 1024 * 1024;
-        if (!empty($options['ContentLength'])) {
-            $contentLength = (int) $options['ContentLength'];
-            unset($options['ContentLength']);
-        } else {
-            $contentLength = (int) $this->headObject(['Bucket' => $srcBucket, 'Key' => $srcKey])->getContentLength();
-        }
-
+        $sourceHead = $this->headObject(['Bucket' => $srcBucket, 'Key' => $srcKey]);
+        $contentLength = (int) $sourceHead->getContentLength();
+        $options['ContentType'] = $sourceHead->getContentType();
         $concurrency = (int) ($options['Concurrency'] ?? 10);
         unset($options['Concurrency']);
-        if ($concurrency < 1) {
-            $concurrency = 1;
-        }
 
+        $megabyte = 1024 * 1024;
         /*
          * The maximum number of parts is 10.000. The partSize must be a power of 2.
          * We default this to 64MB per part. That means that we only support to copy
