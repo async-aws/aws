@@ -141,23 +141,7 @@ class SimpleS3ClientTest extends TestCase
         });
     }
 
-    public function testCopySmallFileWithProvidedLength()
-    {
-        $megabyte = 1024 * 1024;
-        $s3 = $this->getMockBuilder(SimpleS3Client::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'copyObject', 'completeMultipartUpload'])
-            ->getMock();
-
-        $s3->expects(self::never())->method('createMultipartUpload');
-        $s3->expects(self::never())->method('abortMultipartUpload');
-        $s3->expects(self::never())->method('completeMultipartUpload');
-        $s3->expects(self::once())->method('copyObject');
-
-        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt', ['ContentLength' => 5 * $megabyte]);
-    }
-
-    public function testCopySmallFileWithoutProvidedLength()
+    public function testCopySmallFile()
     {
         $megabyte = 1024 * 1024;
         $s3 = $this->getMockBuilder(SimpleS3Client::class)
