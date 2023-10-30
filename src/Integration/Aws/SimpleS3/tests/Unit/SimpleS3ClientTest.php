@@ -183,7 +183,7 @@ class SimpleS3ClientTest extends TestCase
 
         $s3 = $this->getMockBuilder(SimpleS3Client::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'copyObject', 'completeMultipartUpload', 'uploadPartCopy'])
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'copyObject', 'completeMultipartUpload', 'uploadPartCopy', 'headObject'])
             ->getMock();
 
         $s3->expects(self::once())->method('createMultipartUpload')
@@ -202,8 +202,11 @@ class SimpleS3ClientTest extends TestCase
 
             return true;
         }));
+        $s3->expects(self::once())
+            ->method('headObject')
+            ->willReturn(ResultMockFactory::create(HeadObjectOutput::class, ['ContentLength' => 6144 * $megabyte]));
 
-        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt', ['ContentLength' => 6144 * $megabyte]);
+        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt');
 
         self::assertEquals($completedParts, $uploadedParts);
     }
