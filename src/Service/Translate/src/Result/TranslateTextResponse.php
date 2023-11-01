@@ -141,6 +141,7 @@ class TranslateTextResponse extends Result
         return new TranslationSettings([
             'Formality' => isset($json['Formality']) ? (string) $json['Formality'] : null,
             'Profanity' => isset($json['Profanity']) ? (string) $json['Profanity'] : null,
+            'Brevity' => isset($json['Brevity']) ? (string) $json['Brevity'] : null,
         ]);
     }
 }
