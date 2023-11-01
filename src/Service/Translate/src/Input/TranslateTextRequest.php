@@ -6,7 +6,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Translate\Enum\Brevity;
 use AsyncAws\Translate\Enum\Formality;
+use AsyncAws\Translate\Enum\Profanity;
 use AsyncAws\Translate\ValueObject\TranslationSettings;
 
 final class TranslateTextRequest extends Input
@@ -68,8 +70,11 @@ final class TranslateTextRequest extends Input
     private $targetLanguageCode;
 
     /**
-     * Settings to configure your translation output, including the option to set the formality level of the output text and
-     * the option to mask profane words and phrases.
+     * Settings to configure your translation output. You can configure the following options:.
+     *
+     * - Brevity: reduces the length of the translated output for most translations.
+     * - Formality: sets the formality level of the output text.
+     * - Profanity: masks profane words and phrases in your translation output.
      *
      * @var TranslationSettings|null
      */

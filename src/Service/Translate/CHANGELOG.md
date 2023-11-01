@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added support for Brevity translation settings feature.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
