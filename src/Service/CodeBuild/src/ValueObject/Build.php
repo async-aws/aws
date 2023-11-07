@@ -202,7 +202,7 @@ final class Build
      * The entity that started the build. Valid values include:.
      *
      * - If CodePipeline started the build, the pipeline's name (for example, `codepipeline/my-demo-pipeline`).
-     * - If an IAM user started the build, the user's name (for example, `MyUserName`).
+     * - If a user started the build, the user's name (for example, `MyUserName`).
      * - If the Jenkins plugin for CodeBuild started the build, the string `CodeBuild-Jenkins-Plugin`.
      *
      * @var string|null
