@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: AWS CodeBuild now supports AWS Lambda compute.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects

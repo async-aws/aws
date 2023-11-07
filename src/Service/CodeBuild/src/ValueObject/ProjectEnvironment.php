@@ -25,6 +25,10 @@ final class ProjectEnvironment
      *   West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific
      *   (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
      *
+     * - The environment types `ARM_LAMBDA_CONTAINER` and `LINUX_LAMBDA_CONTAINER` are available only in regions US East (N.
+     *   Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific (Singapore), Asia Pacific
+     *   (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São Paulo).
+     *
      * - The environment types `WINDOWS_CONTAINER` and `WINDOWS_SERVER_2019_CONTAINER` are available only in regions US East
      *   (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
      *
@@ -62,6 +66,23 @@ final class ProjectEnvironment
      * - `BUILD_GENERAL1_LARGE`: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment type.
      * - `BUILD_GENERAL1_2XLARGE`: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds. This compute
      *   type supports Docker images up to 100 GB uncompressed.
+     * - `BUILD_LAMBDA_1GB`: Use up to 1 GB memory for builds. Only available for environment type `LINUX_LAMBDA_CONTAINER`
+     *   and `ARM_LAMBDA_CONTAINER`.
+     * - `BUILD_LAMBDA_2GB`: Use up to 2 GB memory for builds. Only available for environment type `LINUX_LAMBDA_CONTAINER`
+     *   and `ARM_LAMBDA_CONTAINER`.
+     * - `BUILD_LAMBDA_4GB`: Use up to 4 GB memory for builds. Only available for environment type `LINUX_LAMBDA_CONTAINER`
+     *   and `ARM_LAMBDA_CONTAINER`.
+     * - `BUILD_LAMBDA_8GB`: Use up to 8 GB memory for builds. Only available for environment type `LINUX_LAMBDA_CONTAINER`
+     *   and `ARM_LAMBDA_CONTAINER`.
+     * - `BUILD_LAMBDA_10GB`: Use up to 10 GB memory for builds. Only available for environment type
+     *   `LINUX_LAMBDA_CONTAINER` and `ARM_LAMBDA_CONTAINER`.
+     *
+     * If you use `BUILD_GENERAL1_SMALL`:
+     *
+     * - For environment type `LINUX_CONTAINER`, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * - For environment type `LINUX_GPU_CONTAINER`, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G Tensor Core
+     *   GPU for builds.
+     * - For environment type `ARM_CONTAINER`, you can use up to 4 GB memory and 2 vCPUs on ARM-based processors for builds.
      *
      * If you use `BUILD_GENERAL1_LARGE`:
      *

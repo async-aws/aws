@@ -22,7 +22,8 @@ final class LogsLocation
     private $streamName;
 
     /**
-     * The URL to an individual build log in CloudWatch Logs.
+     * The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING phase of a
+     * build and the `deeplink` will not be valid until it is created.
      *
      * @var string|null
      */
@@ -36,9 +37,10 @@ final class LogsLocation
     private $s3DeepLink;
 
     /**
-     * The ARN of CloudWatch Logs for a build project. Its format is
-     * `arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}`. For more
-     * information, see Resources Defined by CloudWatch Logs [^1].
+     * The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     * `arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}`. The CloudWatch
+     * Logs stream is created during the PROVISIONING phase of a build and the ARN will not be valid until it is created.
+     * For more information, see Resources Defined by CloudWatch Logs [^1].
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies
      *
