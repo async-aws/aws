@@ -72,7 +72,7 @@ class SimpleS3Client extends S3Client
         $contentLength = (int) $sourceHead->getContentLength();
         $options['ContentType'] = $sourceHead->getContentType();
         $concurrency = (int) ($options['Concurrency'] ?? 10);
-        $mupThreshold = ((int)($options['mupThreshold'] ?? 2 * 1024)) * $megabyte;
+        $mupThreshold = ((int) ($options['mupThreshold'] ?? 2 * 1024)) * $megabyte;
         unset($options['Concurrency'], $options['mupThreshold']);
         /*
          * The maximum number of parts is 10.000. The partSize must be a power of 2.
