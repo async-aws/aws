@@ -62,17 +62,18 @@ class SimpleS3Client extends S3Client
      *   Metadata?: array<string, string>,
      *   PartSize?: positive-int,
      *   Concurrency?: positive-int,
+     *   mupThreshold?: positive-int,
      * } $options
      */
     public function copy(string $srcBucket, string $srcKey, string $destBucket, string $destKey, array $options = []): void
     {
+        $megabyte = 1024 * 1024;
         $sourceHead = $this->headObject(['Bucket' => $srcBucket, 'Key' => $srcKey]);
         $contentLength = (int) $sourceHead->getContentLength();
         $options['ContentType'] = $sourceHead->getContentType();
         $concurrency = (int) ($options['Concurrency'] ?? 10);
-        unset($options['Concurrency']);
-
-        $megabyte = 1024 * 1024;
+        $mupThreshold = ((int)($options['mupThreshold'] ?? 2 * 1024)) * $megabyte;
+        unset($options['Concurrency'], $options['mupThreshold']);
         /*
          * The maximum number of parts is 10.000. The partSize must be a power of 2.
          * We default this to 64MB per part. That means that we only support to copy
@@ -82,8 +83,8 @@ class SimpleS3Client extends S3Client
         $partSize = ($options['PartSize'] ?? 64) * $megabyte;
         unset($options['PartSize']);
 
-        // If file is less than 5GB, use normal atomic copy
-        if ($contentLength < 5120 * $megabyte) {
+        // If file is less than multipart upload threshold, use normal atomic copy
+        if ($contentLength < $mupThreshold) {
             $this->copyObject(
                 CopyObjectRequest::create(
                     array_merge($options, ['Bucket' => $destBucket, 'Key' => $destKey, 'CopySource' => "{$srcBucket}/{$srcKey}"])
