@@ -219,7 +219,9 @@ class ChangelogTest extends TestCase
             } elseif ('Integration' === $parts[1]) {
                 $service = $parts[2] . '/' . $parts[3];
                 $base = 'src/Integration/' . $service;
-            } elseif ('CodeGenerator' === $parts[1] || 'Core' === $parts[1]) {
+            } elseif ('CodeGenerator' === $parts[1]) {
+                continue; // The code generator does not have a changelog as it has no releases
+            } elseif ('Core' === $parts[1]) {
                 $service = $parts[1];
                 $base = 'src/' . $service;
             } else {
