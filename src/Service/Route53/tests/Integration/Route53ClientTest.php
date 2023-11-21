@@ -80,6 +80,8 @@ class Route53ClientTest extends TestCase
 
     public function testCreateHostedZone(): void
     {
+        self::markTestSkipped('Localstack does not implement this operation correctly');
+
         $client = $this->getClient();
 
         $this->deleteZone('test-domain.com.');
