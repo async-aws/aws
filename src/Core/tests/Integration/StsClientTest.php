@@ -65,7 +65,7 @@ class StsClientTest extends TestCase
         self::assertNotNull($result->getCredentials());
         self::assertLessThanOrEqual(new \DateTime('+5min'), $result->getCredentials()->getExpiration());
         self::assertNotNull($result->getAssumedRoleUser());
-        self::assertSame('arn:aws:sts::000000000000:assumed-role/FederatedWebIdentityRole/app1', $result->getAssumedRoleUser()->getArn());
+        self::assertSame('arn:aws:sts::123456789012:assumed-role/FederatedWebIdentityRole/app1', $result->getAssumedRoleUser()->getArn());
         self::assertSame(6, $result->getPackedPolicySize());
     }
 
@@ -78,7 +78,7 @@ class StsClientTest extends TestCase
 
         self::assertNotNull($result->getUserId());
         self::assertStringContainsString('000000000000', $result->getAccount());
-        self::assertStringContainsString('arn:aws:sts::000000000000:user/localstack', $result->getArn());
+        self::assertStringContainsString('arn:aws:iam::000000000000:root', $result->getArn());
     }
 
     public function testNonAwsRegionWithCustomEndpoint(): void

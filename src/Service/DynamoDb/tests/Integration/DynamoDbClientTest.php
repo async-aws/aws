@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
+use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
@@ -348,9 +349,11 @@ class DynamoDbClientTest extends TestCase
                 'Subject' => ['S' => 'How do I update multiple items?'],
                 'LastPostedBy' => ['S' => 'fred@example.com'],
             ],
+            'ReturnConsumedCapacity' => ReturnConsumedCapacity::INDEXES,
         ]);
 
         $result = $client->putItem($input);
+        self::assertNotNull($result->getConsumedCapacity());
         self::assertSame(1.0, $result->getConsumedCapacity()->getCapacityUnits());
     }
 
