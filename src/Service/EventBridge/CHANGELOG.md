@@ -2,12 +2,9 @@
 
 ## NOT RELEASED
 
-### Added
-
-- AWS api-change: Introduces a new rule state ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS for matching with Get, List and Describe AWS API call events from CloudTrail.
-
 ### Changed
 
+- AWS enhancement: Documentation updates.
 - Allow passing explicit null values for optional fields of input objects
 
 ## 1.5.1
