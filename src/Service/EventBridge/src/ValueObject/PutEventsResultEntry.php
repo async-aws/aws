@@ -2,8 +2,6 @@
 
 namespace AsyncAws\EventBridge\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 /**
  * Represents the results of an event submitted to an event bus.
  *

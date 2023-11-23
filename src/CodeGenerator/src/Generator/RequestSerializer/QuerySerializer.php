@@ -14,6 +14,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Serialize a request body to a flattened array with "." as separator.
@@ -24,6 +25,8 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class QuerySerializer implements Serializer
 {
+    use UseClassesTrait;
+
     /**
      * @var NamespaceRegistry
      */
@@ -45,10 +48,12 @@ class QuerySerializer implements Serializer
         return '["content-type" => "application/x-www-form-urlencoded"]';
     }
 
-    public function generateRequestBody(Operation $operation, StructureShape $shape): array
+    public function generateRequestBody(Operation $operation, StructureShape $shape): SerializerResultBody
     {
+        $this->usedClassesInit();
         if (null !== $payloadProperty = $shape->getPayload()) {
             if ($shape->getMember($payloadProperty)->isRequired()) {
+                $this->usedClassesAdd(InvalidArgument::class);
                 $body = 'if (null === $v = $this->PROPERTY) {
                     throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }
@@ -57,20 +62,21 @@ class QuerySerializer implements Serializer
                 $body = '$body = $this->PROPERTY ?? "";';
             }
 
-            return [strtr($body, [
+            return new SerializerResultBody(strtr($body, [
                 'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
                 'NAME' => $payloadProperty,
-            ]), false];
+            ]), false, $this->usedClassesFlush());
         }
 
-        return [strtr('$body = http_build_query([\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION] + $this->requestBody(), \'\', \'&\', \PHP_QUERY_RFC1738);', [
+        return new SerializerResultBody(strtr('$body = http_build_query([\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION] + $this->requestBody(), \'\', \'&\', \PHP_QUERY_RFC1738);', [
             'OPERATION_NAME' => var_export($operation->getName(), true),
             'API_VERSION' => var_export($operation->getApiVersion(), true),
-        ]), true];
+        ]), true, $this->usedClassesFlush());
     }
 
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): array
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder
     {
+        $this->usedClassesInit();
         $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
             if (null !== $member->getLocation()) {
                 return '';
@@ -85,6 +91,7 @@ class QuerySerializer implements Serializer
                 $inputElement = '$v';
             } elseif ($member->isRequired()) {
                 if ($needsChecks) {
+                    $this->usedClassesAdd(InvalidArgument::class);
                     $body = 'if (null === $v = $this->PROPERTY) {
                         throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                     }
@@ -113,14 +120,14 @@ class QuerySerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return ['array', strtr('
+        return new SerializerResultBuilder('array', strtr('
                 $payload = [];
                 CHILDREN_CODE
 
                 return $payload;
             ', [
             'CHILDREN_CODE' => $body,
-        ])];
+        ]), $this->usedClassesFlush());
     }
 
     private function getQueryName(Member $member, string $default): string
@@ -206,6 +213,7 @@ class QuerySerializer implements Serializer
         $mapKeyShape = $shape->getKey()->getShape();
         if (!empty($mapKeyShape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
+            $this->usedClassesAdd(InvalidArgument::class);
             $validateEnum = strtr('if (!ENUM_CLASS::exists($mapKey)) {
                     throw new InvalidArgument(sprintf(\'Invalid key for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $mapKey));
                 }', [
@@ -228,7 +236,7 @@ class QuerySerializer implements Serializer
                 'INPUT' => $input,
                 'VALIDATE_ENUM' => $validateEnum,
                 'OUTPUT_KEY' => sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
             ]);
     }
 
@@ -245,7 +253,7 @@ class QuerySerializer implements Serializer
         ',
             [
                 'INPUT' => $input,
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.$index', $output), '$mapValue', $contextProperty, $memberShape),
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.$index', $output), '$mapValue', $contextProperty, $memberShape),
             ]);
     }
 
@@ -258,6 +266,7 @@ class QuerySerializer implements Serializer
         ];
         if (!empty($shape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
+            $this->usedClassesAdd(InvalidArgument::class);
             $body = 'if (!ENUM_CLASS::exists(INPUT)) {
                     throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
                 }

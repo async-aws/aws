@@ -296,7 +296,6 @@ class InputGenerator
         $classBuilder->addUse(StreamFactory::class);
         $this->inputClassRequestGetters($shape, $classBuilder, $operation);
 
-        $classBuilder->addUse(InvalidArgument::class);
         $this->addUse($shape, $classBuilder);
 
         $classBuilder->addExtend(Input::class);
@@ -305,12 +304,14 @@ class InputGenerator
         return $className;
     }
 
-    private function inputClassRequestPartGettersEnumGenerator(Member $member, string $requestPart, string $input): string
+    private function inputClassRequestPartGettersEnumGenerator(Member $member, ClassBuilder $classBuilder, string $requestPart, string $input): string
     {
         $memberShape = $member->getShape();
         $validateEnum = '';
         if (!empty($memberShape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($memberShape);
+            $classBuilder->addUse(InvalidArgument::class);
+
             $validateEnum = strtr('if (!ENUM_CLASS::exists(VALUE)) {
                 throw new InvalidArgument(sprintf(\'Invalid parameter "MEMBER_NAME" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
             }', [
@@ -343,7 +344,7 @@ class InputGenerator
         ]);
     }
 
-    private function inputClassRequestPartGetters(StructureMember $member, Operation $operation, string $requestPart, string $input, string $output): string
+    private function inputClassRequestPartGetters(StructureMember $member, ClassBuilder $classBuilder, Operation $operation, string $requestPart, string $input, string $output): string
     {
         $memberShape = $member->getShape();
         if ($memberShape instanceof ListShape) {
@@ -365,7 +366,7 @@ class InputGenerator
                 'INPUT' => $input,
                 'OUTPUT' => $output,
                 'VALUE' => $this->stringify('$value', $memberShape->getMember(), $requestPart),
-                'VALIDATE_ENUM' => $this->inputClassRequestPartGettersEnumGenerator($memberShape->getMember(), $requestPart, '$value'),
+                'VALIDATE_ENUM' => $this->inputClassRequestPartGettersEnumGenerator($memberShape->getMember(), $classBuilder, $requestPart, '$value'),
                 'APPLY_HOOK' => $this->inputClassRequestPartGettersHookGenerator($member, $operation, $requestPart, $input),
             ]);
         }
@@ -376,7 +377,7 @@ class InputGenerator
         OUTPUT = VALUE;';
 
         return strtr($bodyCode, [
-            'VALIDATE_ENUM' => $this->inputClassRequestPartGettersEnumGenerator($member, $requestPart, $input),
+            'VALIDATE_ENUM' => $this->inputClassRequestPartGettersEnumGenerator($member, $classBuilder, $requestPart, $input),
             'APPLY_HOOK' => $this->inputClassRequestPartGettersHookGenerator($member, $operation, $requestPart, $input),
             'OUTPUT' => $output,
             'VALUE' => $this->stringify($input, $member, $requestPart),
@@ -414,6 +415,7 @@ class InputGenerator
                 }
 
                 if ($member->isRequired()) {
+                    $classBuilder->addUse(InvalidArgument::class);
                     $bodyCode = 'if (null === $v = $this->PROPERTY) {
                         throw new InvalidArgument(sprintf(\'Missing parameter "MEMBER_NAME" for "%s". The value cannot be null.\', __CLASS__));
                     }
@@ -429,7 +431,7 @@ class InputGenerator
                 }
 
                 $bodyCode = strtr(strtr($bodyCode, [
-                    'GETTER_CODE' => $this->inputClassRequestPartGetters($member, $operation, $requestPart, $input, $output),
+                    'GETTER_CODE' => $this->inputClassRequestPartGetters($member, $classBuilder, $operation, $requestPart, $input, $output),
                 ]), [
                     'MEMBER_NAME' => $member->getName(),
                     'VAR_NAME' => $varName,
@@ -478,14 +480,23 @@ class InputGenerator
         }
 
         if ($operation->hasBody()) {
-            [$body['body'], $hasRequestBody, $overrideArgs] = $serializer->generateRequestBody($operation, $inputShape) + [null, null, []];
-            if ($hasRequestBody) {
-                [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($inputShape, true) + [null, null, []];
-                if ('' === trim($requestBody)) {
+            $serializerBodyResult = $serializer->generateRequestBody($operation, $inputShape);
+            $body['body'] = $serializerBodyResult->getBody();
+            foreach ($serializerBodyResult->getUsedClasses() as $classNameFqdn) {
+                $classBuilder->addUse($classNameFqdn);
+            }
+
+            if ($serializerBodyResult->hasRequestBody()) {
+                $serializerBuilderResult = $serializer->generateRequestBuilder($inputShape, true);
+                foreach ($serializerBuilderResult->getUsedClasses() as $classNameFqdn) {
+                    $classBuilder->addUse($classNameFqdn);
+                }
+
+                if ('' === trim($serializerBuilderResult->getBody())) {
                     $body['body'] = '$body = "";';
                 } else {
-                    $method = $classBuilder->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPrivate();
-                    foreach ($overrideArgs + $args as $arg => $type) {
+                    $method = $classBuilder->addMethod('requestBody')->setReturnType($serializerBuilderResult->getReturnType())->setBody($serializerBuilderResult->getBody())->setPrivate();
+                    foreach ($serializerBodyResult->getExtraMethodArgs() + $serializerBuilderResult->getExtraMethodArgs() as $arg => $type) {
                         $method->addParameter($arg)->setType($type);
                     }
                 }
