@@ -20,7 +20,7 @@ class QueueExistsWaiter extends Waiter
             return self::STATE_SUCCESS;
         }
 
-        if (null !== $exception && 'AWS.SimpleQueueService.NonExistentQueue' === $exception->getAwsCode() && 400 === $exception->getCode()) {
+        if (null !== $exception && 'QueueDoesNotExist' === $exception->getAwsCode()) {
             return self::STATE_PENDING;
         }
 

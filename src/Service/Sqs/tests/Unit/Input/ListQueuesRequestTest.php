@@ -16,12 +16,12 @@ class ListQueuesRequestTest extends TestCase
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html */
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: AmazonSQS.ListQueues
 
-            Action=ListQueues
-            &Version=2012-11-05
-            &QueueNamePrefix=M
-        ';
+            {
+                "QueueNamePrefix": "M"
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

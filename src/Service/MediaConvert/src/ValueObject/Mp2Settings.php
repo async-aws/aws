@@ -23,7 +23,7 @@ final class Mp2Settings
     private $channels;
 
     /**
-     * Sample rate in hz.
+     * Sample rate in Hz.
      *
      * @var int|null
      */

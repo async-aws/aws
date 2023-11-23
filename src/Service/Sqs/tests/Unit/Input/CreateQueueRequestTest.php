@@ -18,16 +18,18 @@ class CreateQueueRequestTest extends TestCase
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html */
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: AmazonSQS.CreateQueue
 
-            Action=CreateQueue
-            &Version=2012-11-05
-            &QueueName=MyQueue
-            &Attribute.1.Name=DelaySeconds
-            &Attribute.1.Value=45
-            &Tag.1.Key=team
-            &Tag.1.Value=Engineering
-        ';
+            {
+                "QueueName":"MyQueue",
+                "Attributes": {
+                    "DelaySeconds": "45"
+                },
+                "tags": {
+                    "team": "Engineering"
+                }
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

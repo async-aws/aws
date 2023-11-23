@@ -20,6 +20,7 @@ use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
 use AsyncAws\Lambda\ValueObject\Layer;
+use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionError;
 use AsyncAws\Lambda\ValueObject\SnapStartResponse;
@@ -302,6 +303,13 @@ class FunctionConfiguration extends Result
     private $runtimeVersionConfig;
 
     /**
+     * The function's Amazon CloudWatch Logs configuration settings.
+     *
+     * @var LoggingConfig|null
+     */
+    private $loggingConfig;
+
+    /**
      * @return list<Architecture::*>
      */
     public function getArchitectures(): array
@@ -440,6 +448,13 @@ class FunctionConfiguration extends Result
         $this->initialize();
 
         return $this->layers;
+    }
+
+    public function getLoggingConfig(): ?LoggingConfig
+    {
+        $this->initialize();
+
+        return $this->loggingConfig;
     }
 
     public function getMasterArn(): ?string
@@ -612,6 +627,7 @@ class FunctionConfiguration extends Result
         $this->ephemeralStorage = empty($data['EphemeralStorage']) ? null : $this->populateResultEphemeralStorage($data['EphemeralStorage']);
         $this->snapStart = empty($data['SnapStart']) ? null : $this->populateResultSnapStartResponse($data['SnapStart']);
         $this->runtimeVersionConfig = empty($data['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($data['RuntimeVersionConfig']);
+        $this->loggingConfig = empty($data['LoggingConfig']) ? null : $this->populateResultLoggingConfig($data['LoggingConfig']);
     }
 
     /**
@@ -740,6 +756,16 @@ class FunctionConfiguration extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultLoggingConfig(array $json): LoggingConfig
+    {
+        return new LoggingConfig([
+            'LogFormat' => isset($json['LogFormat']) ? (string) $json['LogFormat'] : null,
+            'ApplicationLogLevel' => isset($json['ApplicationLogLevel']) ? (string) $json['ApplicationLogLevel'] : null,
+            'SystemLogLevel' => isset($json['SystemLogLevel']) ? (string) $json['SystemLogLevel'] : null,
+            'LogGroup' => isset($json['LogGroup']) ? (string) $json['LogGroup'] : null,
+        ]);
     }
 
     private function populateResultRuntimeVersionConfig(array $json): RuntimeVersionConfig

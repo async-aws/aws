@@ -63,8 +63,6 @@ final class DataCatalog
      *
      *   - The `GLUE` data catalog type also applies to the default `AwsDataCatalog` that already exists in your account, of
      *     which you can have only one and cannot modify.
-     *   - Queries that specify a Glue Data Catalog other than the default `AwsDataCatalog` must be run on Athena engine
-     *     version 2.
      *
      * @var array<string, string>|null
      */

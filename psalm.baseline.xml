@@ -204,8 +204,10 @@
     <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
+      <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
+      <code><![CDATA[list<AudioChannelTag::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
@@ -214,8 +216,10 @@
     <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
+      <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
+      <code><![CDATA[list<AudioChannelTag::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
@@ -224,8 +228,10 @@
     <LessSpecificReturnStatement>
       <code>$items</code>
       <code>$items</code>
+      <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
+      <code><![CDATA[list<AudioChannelTag::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
     </MoreSpecificReturnType>
@@ -271,6 +277,22 @@
     <PossiblyFalsePropertyAssignmentValue>
       <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['stopDate']))]]></code>
     </PossiblyFalsePropertyAssignmentValue>
+  </file>
+  <file src="src/Service/Sqs/src/Result/GetQueueAttributesResult.php">
+    <LessSpecificReturnStatement>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[array<QueueAttributeName::*, string>]]></code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
+    <LessSpecificReturnStatement>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[array<MessageSystemAttributeName::*, string>]]></code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/FunctionConfiguration.php">
     <LessSpecificReturnStatement>

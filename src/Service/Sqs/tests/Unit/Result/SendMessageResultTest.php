@@ -15,18 +15,14 @@ class SendMessageResultTest extends TestCase
 {
     public function testSendMessageResult()
     {
-        $response = new SimpleMockedResponse(<<<XML
-<SendMessageResponse>
-    <SendMessageResult>
-        <MD5OfMessageBody>fafb00f5732ab283681e124bf8747ed1</MD5OfMessageBody>
-        <MD5OfMessageAttributes>3ae8f24a165a8cedc005670c81a27295</MD5OfMessageAttributes>
-        <MessageId>5fea7756-0ea4-451a-a703-a558b933e274</MessageId>
-    </SendMessageResult>
-    <ResponseMetadata>
-        <RequestId>27daac76-34dd-47df-bd01-1f6e873584a0</RequestId>
-    </ResponseMetadata>
-</SendMessageResponse>
-XML
+        // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "MD5OfMessageAttributes": "3ae8f24a165a8cedc005670c81a27295",
+    "MD5OfMessageBody": "fafb00f5732ab283681e124bf8747ed1",
+    "MessageId": "5fea7756-0ea4-451a-a703-a558b933e274"
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

@@ -123,6 +123,7 @@ class GetQueryExecutionOutput extends Result
             'DataManifestLocation' => isset($json['DataManifestLocation']) ? (string) $json['DataManifestLocation'] : null,
             'TotalExecutionTimeInMillis' => isset($json['TotalExecutionTimeInMillis']) ? (int) $json['TotalExecutionTimeInMillis'] : null,
             'QueryQueueTimeInMillis' => isset($json['QueryQueueTimeInMillis']) ? (int) $json['QueryQueueTimeInMillis'] : null,
+            'ServicePreProcessingTimeInMillis' => isset($json['ServicePreProcessingTimeInMillis']) ? (int) $json['ServicePreProcessingTimeInMillis'] : null,
             'QueryPlanningTimeInMillis' => isset($json['QueryPlanningTimeInMillis']) ? (int) $json['QueryPlanningTimeInMillis'] : null,
             'ServiceProcessingTimeInMillis' => isset($json['ServiceProcessingTimeInMillis']) ? (int) $json['ServiceProcessingTimeInMillis'] : null,
             'ResultReuseInformation' => empty($json['ResultReuseInformation']) ? null : $this->populateResultResultReuseInformation($json['ResultReuseInformation']),

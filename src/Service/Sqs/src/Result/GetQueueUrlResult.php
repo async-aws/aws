@@ -28,9 +28,8 @@ class GetQueueUrlResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->GetQueueUrlResult;
+        $data = $response->toArray();
 
-        $this->queueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
+        $this->queueUrl = isset($data['QueueUrl']) ? (string) $data['QueueUrl'] : null;
     }
 }

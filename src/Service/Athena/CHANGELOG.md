@@ -5,6 +5,7 @@
 ### Added
 
 - Added `il-central-1` region
+- AWS api-change: Adding SerivicePreProcessing time metric
 
 ### Changed
 

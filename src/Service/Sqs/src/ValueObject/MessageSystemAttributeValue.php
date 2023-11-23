@@ -131,17 +131,19 @@ final class MessageSystemAttributeValue
             $payload['BinaryValue'] = base64_encode($v);
         }
         if (null !== $v = $this->stringListValues) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['StringListValues'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                $payload["StringListValue.$index"] = $mapValue;
+                $payload['StringListValues'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->binaryListValues) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['BinaryListValues'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                $payload["BinaryListValue.$index"] = base64_encode($mapValue);
+                $payload['BinaryListValues'][$index] = base64_encode($listValue);
             }
         }
         $v = $this->dataType;

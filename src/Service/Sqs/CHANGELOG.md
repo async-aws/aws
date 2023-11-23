@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release enables customers to call SQS using AWS JSON-1.0 protocol and bug fix.
+- AWS api-change: This release enables customers to call SQS using AWS JSON-1.0 protocol.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects

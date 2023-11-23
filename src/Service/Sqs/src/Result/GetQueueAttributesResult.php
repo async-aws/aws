@@ -30,21 +30,19 @@ class GetQueueAttributesResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->GetQueueAttributesResult;
+        $data = $response->toArray();
 
-        $this->attributes = !$data->Attribute ? [] : $this->populateResultQueueAttributeMap($data->Attribute);
+        $this->attributes = empty($data['Attributes']) ? [] : $this->populateResultQueueAttributeMap($data['Attributes']);
     }
 
     /**
      * @return array<QueueAttributeName::*, string>
      */
-    private function populateResultQueueAttributeMap(\SimpleXMLElement $xml): array
+    private function populateResultQueueAttributeMap(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $a = $item->Value;
-            $items[$item->Name->__toString()] = (string) $a;
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = (string) $value;
         }
 
         return $items;

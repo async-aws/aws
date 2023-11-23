@@ -66,7 +66,7 @@ class HeadObjectOutput extends Result
     private $archiveStatus;
 
     /**
-     * Creation date of the object.
+     * Date and time when the object was last modified.
      *
      * @var \DateTimeImmutable|null
      */

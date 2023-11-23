@@ -23,7 +23,7 @@ final class FlacSettings
     private $channels;
 
     /**
-     * Sample rate in hz.
+     * Sample rate in Hz.
      *
      * @var int|null
      */

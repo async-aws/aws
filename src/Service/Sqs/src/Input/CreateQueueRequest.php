@@ -244,7 +244,10 @@ final class CreateQueueRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'AmazonSQS.CreateQueue',
+        ];
 
         // Prepare query
         $query = [];
@@ -253,7 +256,8 @@ final class CreateQueueRequest extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'CreateQueue', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -294,22 +298,26 @@ final class CreateQueueRequest extends Input
         }
         $payload['QueueName'] = $v;
         if (null !== $v = $this->attributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                if (!QueueAttributeName::exists($mapKey)) {
-                    throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapKey));
+            if (empty($v)) {
+                $payload['Attributes'] = new \stdClass();
+            } else {
+                $payload['Attributes'] = [];
+                foreach ($v as $name => $mv) {
+                    if (!QueueAttributeName::exists($name)) {
+                        throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $name));
+                    }
+                    $payload['Attributes'][$name] = $mv;
                 }
-                ++$index;
-                $payload["Attribute.$index.Name"] = $mapKey;
-                $payload["Attribute.$index.Value"] = $mapValue;
             }
         }
         if (null !== $v = $this->tags) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                ++$index;
-                $payload["Tag.$index.Key"] = $mapKey;
-                $payload["Tag.$index.Value"] = $mapValue;
+            if (empty($v)) {
+                $payload['tags'] = new \stdClass();
+            } else {
+                $payload['tags'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['tags'][$name] = $mv;
+                }
             }
         }
 

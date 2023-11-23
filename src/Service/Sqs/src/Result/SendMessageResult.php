@@ -98,13 +98,12 @@ class SendMessageResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->SendMessageResult;
+        $data = $response->toArray();
 
-        $this->md5OfMessageBody = ($v = $data->MD5OfMessageBody) ? (string) $v : null;
-        $this->md5OfMessageAttributes = ($v = $data->MD5OfMessageAttributes) ? (string) $v : null;
-        $this->md5OfMessageSystemAttributes = ($v = $data->MD5OfMessageSystemAttributes) ? (string) $v : null;
-        $this->messageId = ($v = $data->MessageId) ? (string) $v : null;
-        $this->sequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
+        $this->md5OfMessageBody = isset($data['MD5OfMessageBody']) ? (string) $data['MD5OfMessageBody'] : null;
+        $this->md5OfMessageAttributes = isset($data['MD5OfMessageAttributes']) ? (string) $data['MD5OfMessageAttributes'] : null;
+        $this->md5OfMessageSystemAttributes = isset($data['MD5OfMessageSystemAttributes']) ? (string) $data['MD5OfMessageSystemAttributes'] : null;
+        $this->messageId = isset($data['MessageId']) ? (string) $data['MessageId'] : null;
+        $this->sequenceNumber = isset($data['SequenceNumber']) ? (string) $data['SequenceNumber'] : null;
     }
 }

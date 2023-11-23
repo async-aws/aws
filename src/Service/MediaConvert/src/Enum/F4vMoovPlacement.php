@@ -3,8 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of the archive as required for
- * progressive downloading. Otherwise it is placed normally at the end.
+ * To place the MOOV atom at the beginning of your output, which is useful for progressive downloading: Leave blank or
+ * choose Progressive download. To place the MOOV at the end of your output: Choose Normal.
  */
 final class F4vMoovPlacement
 {

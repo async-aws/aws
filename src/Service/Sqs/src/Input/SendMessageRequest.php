@@ -248,7 +248,10 @@ final class SendMessageRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'AmazonSQS.SendMessage',
+        ];
 
         // Prepare query
         $query = [];
@@ -257,7 +260,8 @@ final class SendMessageRequest extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'SendMessage', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -333,25 +337,25 @@ final class SendMessageRequest extends Input
             $payload['DelaySeconds'] = $v;
         }
         if (null !== $v = $this->messageAttributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                ++$index;
-                $payload["MessageAttribute.$index.Name"] = $mapKey;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageAttribute.$index.Value.$bodyKey"] = $bodyValue;
+            if (empty($v)) {
+                $payload['MessageAttributes'] = new \stdClass();
+            } else {
+                $payload['MessageAttributes'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['MessageAttributes'][$name] = $mv->requestBody();
                 }
             }
         }
         if (null !== $v = $this->messageSystemAttributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                if (!MessageSystemAttributeNameForSends::exists($mapKey)) {
-                    throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $mapKey));
-                }
-                ++$index;
-                $payload["MessageSystemAttribute.$index.Name"] = $mapKey;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageSystemAttribute.$index.Value.$bodyKey"] = $bodyValue;
+            if (empty($v)) {
+                $payload['MessageSystemAttributes'] = new \stdClass();
+            } else {
+                $payload['MessageSystemAttributes'] = [];
+                foreach ($v as $name => $mv) {
+                    if (!MessageSystemAttributeNameForSends::exists($name)) {
+                        throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $name));
+                    }
+                    $payload['MessageSystemAttributes'][$name] = $mv->requestBody();
                 }
             }
         }

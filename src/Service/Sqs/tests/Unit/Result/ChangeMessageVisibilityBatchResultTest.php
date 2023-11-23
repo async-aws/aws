@@ -14,21 +14,19 @@ class ChangeMessageVisibilityBatchResultTest extends TestCase
     public function testChangeMessageVisibilityBatchResult(): void
     {
         // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibilityBatch.html
-        $response = new SimpleMockedResponse(<<<XML
-<ChangeMessageVisibilityBatchResponse>
-    <ChangeMessageVisibilityBatchResult>
-        <ChangeMessageVisibilityBatchResultEntry>
-            <Id>change_visibility_msg_2</Id>
-        </ChangeMessageVisibilityBatchResultEntry>
-        <ChangeMessageVisibilityBatchResultEntry>
-            <Id>change_visibility_msg_3</Id>
-        </ChangeMessageVisibilityBatchResultEntry>
-    </ChangeMessageVisibilityBatchResult>
-    <ResponseMetadata>
-        <RequestId>ca9668f7-ab1b-4f7a-8859-f15747ab17a7</RequestId>
-    </ResponseMetadata>
-</ChangeMessageVisibilityBatchResponse>
-XML
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "Failed": [],
+    "Successful": [
+        {
+            "Id": "change_visibility_msg_2"
+        },
+        {
+            "Id": "change_visibility_msg_3"
+        }
+    ]
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

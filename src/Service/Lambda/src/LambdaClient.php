@@ -72,6 +72,7 @@ use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
+use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\SnapStart;
 use AsyncAws\Lambda\ValueObject\TracingConfig;
 use AsyncAws\Lambda\ValueObject\VpcConfig;
@@ -196,8 +197,10 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. To
-     * invoke a function asynchronously, set `InvocationType` to `Event`.
+     * Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. By
+     * default, Lambda invokes your function synchronously (i.e. the`InvocationType` is `RequestResponse`). To invoke a
+     * function asynchronously, set `InvocationType` to `Event`. Lambda passes the `ClientContext` object to your function
+     * for synchronous invocations only.
      *
      * For synchronous invocation [^1], details about the function response, including errors, are included in the response
      * body and headers. For either invocation type, you can find more information in the execution log [^2] and trace [^3].
@@ -508,6 +511,7 @@ class LambdaClient extends AbstractApi
      *   ImageConfig?: null|ImageConfig|array,
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStart|array,
+     *   LoggingConfig?: null|LoggingConfig|array,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      *

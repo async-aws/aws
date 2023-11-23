@@ -134,6 +134,9 @@ class IotClient extends AbstractApi
      * Create a thing group.
      *
      * > This is a control plane operation. See Authorization [^1] for information about authorizing control plane actions.
+     * >
+     * > If the `ThingGroup` that you create has the exact same attributes as an existing `ThingGroup`, you will get a 200
+     * > success response.
      *
      * Requires permission to access the CreateThingGroup [^2] action.
      *

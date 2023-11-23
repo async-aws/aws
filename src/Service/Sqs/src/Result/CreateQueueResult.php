@@ -26,9 +26,8 @@ class CreateQueueResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->CreateQueueResult;
+        $data = $response->toArray();
 
-        $this->queueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
+        $this->queueUrl = isset($data['QueueUrl']) ? (string) $data['QueueUrl'] : null;
     }
 }

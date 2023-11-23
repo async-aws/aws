@@ -49,7 +49,7 @@ class CloudFormationClient extends AbstractApi
 
     /**
      * Returns all stack related events for a specified stack in reverse chronological order. For more information about a
-     * stack's event history, go to Stacks [^1] in the CloudFormation User Guide.
+     * stack's event history, go to Stacks [^1] in the *CloudFormation User Guide*.
      *
      * > You can list events for stacks that have failed to create or have been deleted by specifying the unique stack
      * > identifier (stack ID).
@@ -77,7 +77,7 @@ class CloudFormationClient extends AbstractApi
      * Returns the description for the specified stack; if no stack name was specified, then it returns the description for
      * all the stacks created.
      *
-     * > If the stack doesn't exist, an `ValidationError` is returned.
+     * > If the stack doesn't exist, a `ValidationError` is returned.
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStacks.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestacks

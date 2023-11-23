@@ -29,20 +29,27 @@ class SendMessageBatchRequestTest extends TestCase
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessageBatch.html */
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: AmazonSQS.SendMessageBatch
 
-            Action=SendMessageBatch
-            &QueueUrl=queueUrl
-            &SendMessageBatchRequestEntry.1.Id=qwertyuiop
-            &SendMessageBatchRequestEntry.1.DelaySeconds=45
-            &SendMessageBatchRequestEntry.1.MessageAttribute.1.Value.DataType=String
-            &SendMessageBatchRequestEntry.1.MessageAttribute.1.Value.StringValue=my_attribute_value_1
-            &SendMessageBatchRequestEntry.1.MessageAttribute.1.Name=my_attribute_name_1
-            &SendMessageBatchRequestEntry.1.MessageBody=This+is+a+test+message
-            &SendMessageBatchRequestEntry.1.MessageDeduplicationId=abcdef
-            &SendMessageBatchRequestEntry.1.MessageGroupId=abcdef01
-            &Version=2012-11-05
-                ';
+            {
+                "QueueUrl": "queueUrl",
+                "Entries": [
+                    {
+                        "Id": "qwertyuiop",
+                        "MessageBody": "This is a test message",
+                        "DelaySeconds": 45,
+                        "MessageAttributes": {
+                            "my_attribute_name_1": {
+                                "DataType": "String",
+                                "StringValue": "my_attribute_value_1"
+                            }
+                        },
+                        "MessageDeduplicationId": "abcdef",
+                        "MessageGroupId": "abcdef01"
+                    }
+                ]
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

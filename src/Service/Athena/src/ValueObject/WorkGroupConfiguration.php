@@ -78,7 +78,8 @@ final class WorkGroupConfiguration
     private $additionalConfiguration;
 
     /**
-     * Role used in a session for accessing the user's resources.
+     * Role used in a Spark session for accessing the user's resources. This property applies only to Spark-enabled
+     * workgroups.
      *
      * @var string|null
      */

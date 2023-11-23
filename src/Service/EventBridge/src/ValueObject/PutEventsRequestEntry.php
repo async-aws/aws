@@ -21,6 +21,11 @@ final class PutEventsRequestEntry
     /**
      * The source of the event.
      *
+     * > `Detail`, `DetailType`, and `Source` are required for EventBridge to successfully send an event to an event bus. If
+     * > you include event entries in a request that do not include each of those properties, EventBridge fails that entry.
+     * > If you submit a request in which *none* of the entries have each of these properties, EventBridge fails the entire
+     * > request.
+     *
      * @var string|null
      */
     private $source;
@@ -36,12 +41,22 @@ final class PutEventsRequestEntry
     /**
      * Free-form string, with a maximum of 128 characters, used to decide what fields to expect in the event detail.
      *
+     * > `Detail`, `DetailType`, and `Source` are required for EventBridge to successfully send an event to an event bus. If
+     * > you include event entries in a request that do not include each of those properties, EventBridge fails that entry.
+     * > If you submit a request in which *none* of the entries have each of these properties, EventBridge fails the entire
+     * > request.
+     *
      * @var string|null
      */
     private $detailType;
 
     /**
-     * A valid JSON object. There is no other schema imposed. The JSON object may contain fields and nested subobjects.
+     * A valid JSON object. There is no other schema imposed. The JSON object may contain fields and nested sub-objects.
+     *
+     * > `Detail`, `DetailType`, and `Source` are required for EventBridge to successfully send an event to an event bus. If
+     * > you include event entries in a request that do not include each of those properties, EventBridge fails that entry.
+     * > If you submit a request in which *none* of the entries have each of these properties, EventBridge fails the entire
+     * > request.
      *
      * @var string|null
      */
@@ -51,9 +66,10 @@ final class PutEventsRequestEntry
      * The name or ARN of the event bus to receive the event. Only the rules that are associated with this event bus are
      * used to match the event. If you omit this, the default event bus is used.
      *
-     * > If you're using a global endpoint with a custom bus, you must enter the name, not the ARN, of the event bus in
-     * > either the primary or secondary Region here and the corresponding event bus in the other Region will be determined
-     * > based on the endpoint referenced by the `EndpointId`.
+     * > If you're using a global endpoint with a custom bus, you can enter either the name or Amazon Resource Name (ARN) of
+     * > the event bus in either the primary or secondary Region here. EventBridge then determines the corresponding event
+     * > bus in the other Region based on the endpoint referenced by the `EndpointId`. Specifying the event bus ARN is
+     * > preferred.
      *
      * @var string|null
      */

@@ -406,11 +406,6 @@ class AthenaClient extends AbstractApi
      * access to the specified workgroup. If a workgroup is not specified, lists the saved queries for the primary
      * workgroup.
      *
-     * For code samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena
-     * User Guide*.
-     *
-     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
-     *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_ListNamedQueries.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listnamedqueries
      *
@@ -436,14 +431,9 @@ class AthenaClient extends AbstractApi
     }
 
     /**
-     * Provides a list of available query execution IDs for the queries in the specified workgroup. If a workgroup is not
-     * specified, returns a list of query execution IDs for the primary workgroup. Requires you to have access to the
-     * workgroup in which the queries ran.
-     *
-     * For code samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena
-     * User Guide*.
-     *
-     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
+     * Provides a list of available query execution IDs for the queries in the specified workgroup. Athena keeps a query
+     * history for 45 days. If a workgroup is not specified, returns a list of query execution IDs for the primary
+     * workgroup. Requires you to have access to the workgroup in which the queries ran.
      *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_ListQueryExecutions.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listqueryexecutions
@@ -503,6 +493,10 @@ class AthenaClient extends AbstractApi
     /**
      * Submits calculations for execution within a session. You can supply the code to run as an inline code block within
      * the request.
+     *
+     * > The request syntax requires the StartCalculationExecutionRequest$CodeBlock parameter or the
+     * > CalculationConfiguration$CodeBlock parameter, but not both. Because CalculationConfiguration$CodeBlock is
+     * > deprecated, use the StartCalculationExecutionRequest$CodeBlock parameter instead.
      *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_StartCalculationExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#startcalculationexecution
@@ -640,11 +634,6 @@ class AthenaClient extends AbstractApi
 
     /**
      * Stops a query execution. Requires you to have access to the workgroup in which the query ran.
-     *
-     * For code samples using the Amazon Web Services SDK for Java, see Examples and Code Samples [^1] in the *Amazon Athena
-     * User Guide*.
-     *
-     * [^1]: http://docs.aws.amazon.com/athena/latest/ug/code-samples.html
      *
      * @see https://docs.aws.amazon.com/athena/latest/APIReference/API_StopQueryExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#stopqueryexecution

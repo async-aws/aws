@@ -80,8 +80,8 @@ class KinesisClient extends AbstractApi
     /**
      * Adds or updates tags for the specified Kinesis data stream. You can assign up to 50 tags to a data stream.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * If tags have already been assigned to the stream, `AddTagsToStream` overwrites any existing tags that correspond to
      * the specified tag keys.
@@ -184,8 +184,8 @@ class KinesisClient extends AbstractApi
      * Decreases the Kinesis data stream's retention period, which is the length of time data records are accessible after
      * they are added to the stream. The minimum value of a stream's retention period is 24 hours.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * This operation may result in lost data. For example, if the stream's retention period is 48 hours and is decreased to
      * 24 hours, any data already in the stream that is older than 24 hours is inaccessible.
@@ -225,8 +225,8 @@ class KinesisClient extends AbstractApi
      * the stream before you delete the stream. If an application attempts to operate on a deleted stream, it receives the
      * exception `ResourceNotFoundException`.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * If the stream is in the `ACTIVE` state, you can delete it. After a `DeleteStream` request, the specified stream is in
      * the `DELETING` state until Kinesis Data Streams completes the deletion.
@@ -339,8 +339,8 @@ class KinesisClient extends AbstractApi
      * > description of the specified Kinesis data stream and the ListShards API to list the shards in a specified data
      * > stream and obtain information about each shard.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * The information returned includes the stream name, Amazon Resource Name (ARN), creation time, enhanced metric
      * configuration, and shard map. The shard map is an array of shard objects. For each shard object, there is the hash
@@ -396,6 +396,8 @@ class KinesisClient extends AbstractApi
      *
      * This operation has a limit of 20 transactions per second per stream.
      *
+     * > When making a cross-account call with `DescribeStreamConsumer`, make sure to provide the ARN of the consumer.
+     *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeStreamConsumer.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestreamconsumer
      *
@@ -425,8 +427,8 @@ class KinesisClient extends AbstractApi
     /**
      * Provides a summarized description of the specified Kinesis data stream without the shard list.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * The information returned includes the stream name, Amazon Resource Name (ARN), status, record retention period,
      * approximate creation time, monitoring, encryption details, and open shard count.
@@ -463,8 +465,8 @@ class KinesisClient extends AbstractApi
     /**
      * Disables enhanced monitoring.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DisableEnhancedMonitoring.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#disableenhancedmonitoring
@@ -499,8 +501,8 @@ class KinesisClient extends AbstractApi
     /**
      * Enables enhanced Kinesis data stream monitoring for shard-level metrics.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_EnableEnhancedMonitoring.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#enableenhancedmonitoring
@@ -535,8 +537,8 @@ class KinesisClient extends AbstractApi
     /**
      * Gets data records from a Kinesis data stream's shard.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter in addition to the
-     * > `ShardIterator` parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * Specify a shard iterator using the `ShardIterator` parameter. The shard iterator specifies the position in the shard
      * from which you want to start reading data records sequentially. If there are no records available in the portion of
@@ -628,8 +630,8 @@ class KinesisClient extends AbstractApi
     /**
      * Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes after it is returned to the requester.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * A shard iterator specifies the shard position from which to start reading data records sequentially. The position is
      * specified using the sequence number of a data record in a shard. A sequence number is the identifier associated with
@@ -696,8 +698,8 @@ class KinesisClient extends AbstractApi
      * Increases the Kinesis data stream's retention period, which is the length of time data records are accessible after
      * they are added to the stream. The maximum value of a stream's retention period is 8760 hours (365 days).
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * If you choose a longer stream retention period, this operation increases the time period during which records that
      * have not yet expired are accessible. However, it does not make previous, expired data (older than the stream's
@@ -739,8 +741,8 @@ class KinesisClient extends AbstractApi
      * Lists the shards in a stream and provides information about each shard. This operation has a limit of 1000
      * transactions per second per data stream.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * This action does not list expired shards. For information about expired shards, see Data Routing, Data Persistence,
      * and Shard State after a Reshard [^1].
@@ -870,8 +872,8 @@ class KinesisClient extends AbstractApi
      * Lists the tags for the specified Kinesis data stream. This operation has a limit of five transactions per second per
      * account.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListTagsForStream.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#listtagsforstream
@@ -911,8 +913,8 @@ class KinesisClient extends AbstractApi
      * 276...454. After the merge, the single child shard receives data for all hash key values covered by the two parent
      * shards.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * `MergeShards` is called when there is a need to reduce the overall capacity of a stream because of excess capacity
      * that is not being used. You must specify the shard to be merged and the adjacent shard for a stream. For more
@@ -977,8 +979,8 @@ class KinesisClient extends AbstractApi
      * real-time ingestion and subsequent processing, one record at a time. Each shard can support writes up to 1,000
      * records per second, up to a maximum data write total of 1 MiB per second.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * You must specify the name of the stream that captures, stores, and transports the data; a partition key; and the data
      * blob itself.
@@ -1062,8 +1064,8 @@ class KinesisClient extends AbstractApi
      * Writes multiple data records into a Kinesis data stream in a single call (also referred to as a `PutRecords`
      * request). Use this operation to send data into the stream for data ingestion and processing.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * Each `PutRecords` request can support up to 500 records. Each record in the request can be as large as 1 MiB, up to a
      * limit of 5 MiB for the entire request, including partition keys. Each shard can support writes up to 1,000 records
@@ -1203,8 +1205,8 @@ class KinesisClient extends AbstractApi
      * Removes tags from the specified Kinesis data stream. Removed tags are deleted and cannot be recovered after this
      * operation successfully completes.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * If you specify a tag that does not exist, it is ignored.
      *
@@ -1246,8 +1248,8 @@ class KinesisClient extends AbstractApi
      * an expected increase in the volume of data records being ingested. This API is only supported for the data streams
      * with the provisioned capacity mode.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * You can also use `SplitShard` when a shard appears to be approaching its maximum utilization; for example, the
      * producers sending data into the specific shard are suddenly sending more than previously anticipated. You can also
@@ -1321,6 +1323,9 @@ class KinesisClient extends AbstractApi
     /**
      * Enables or updates server-side encryption using an Amazon Web Services KMS key for a specified stream.
      *
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
+     *
      * Starting encryption is an asynchronous operation. Upon receiving the request, Kinesis Data Streams returns
      * immediately and sets the status of the stream to `UPDATING`. After the update is complete, Kinesis Data Streams sets
      * the status of the stream back to `ACTIVE`. Updating or applying encryption normally takes a few seconds to complete,
@@ -1333,9 +1338,6 @@ class KinesisClient extends AbstractApi
      * Note: It can take up to 5 seconds after the stream is in an `ACTIVE` status before all records written to the stream
      * are encrypted. After you enable encryption, you can verify that encryption is applied by inspecting the API response
      * from `PutRecord` or `PutRecords`.
-     *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_StartStreamEncryption.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#startstreamencryption
@@ -1383,8 +1385,8 @@ class KinesisClient extends AbstractApi
     /**
      * Disables server-side encryption for a specified stream.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * Stopping encryption is an asynchronous operation. Upon receiving the request, Kinesis Data Streams returns
      * immediately and sets the status of the stream to `UPDATING`. After the update is complete, Kinesis Data Streams sets
@@ -1481,8 +1483,8 @@ class KinesisClient extends AbstractApi
      * Updates the shard count of the specified stream to the specified number of shards. This API is only supported for the
      * data streams with the provisioned capacity mode.
      *
-     * > When invoking this API, it is recommended you use the `StreamARN` input parameter rather than the `StreamName`
-     * > input parameter.
+     * > When invoking this API, you must use either the `StreamARN` or the `StreamName` parameter, or both. It is
+     * > recommended that you use the `StreamARN` input parameter when you invoke this API.
      *
      * Updating the shard count is an asynchronous operation. Upon receiving the request, Kinesis Data Streams returns
      * immediately and sets the status of the stream to `UPDATING`. After the update is complete, Kinesis Data Streams sets
@@ -1505,6 +1507,7 @@ class KinesisClient extends AbstractApi
      * - Scale up to more than 10000 shards in a stream
      * - Scale a stream with more than 10000 shards down unless the result is less than 10000 shards
      * - Scale up to more than the shard limit for your account
+     * - Make over 10 TPS. TPS over 10 will trigger the LimitExceededException
      *
      * For the default limits for an Amazon Web Services account, see Streams Limits [^1] in the *Amazon Kinesis Data
      * Streams Developer Guide*. To request an increase in the call rate limit, the shard limit for this API, or your

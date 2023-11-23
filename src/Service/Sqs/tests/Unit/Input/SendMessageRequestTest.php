@@ -31,23 +31,28 @@ class SendMessageRequestTest extends TestCase
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html */
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: AmazonSQS.SendMessage
 
-            Action=SendMessage
-            &Version=2012-11-05
-            &QueueUrl=queueUrl
-            &MessageBody=This+is+a+test+message
-            &DelaySeconds=45
-            &MessageAttribute.1.Name=my_attribute_name_1
-            &MessageAttribute.1.Value.StringValue=my_attribute_value_1
-            &MessageAttribute.1.Value.DataType=String
-            &MessageSystemAttribute.1.Name=AWSTraceHeader
-            &MessageSystemAttribute.1.Value.StringListValue.1=my_attribute_value_2
-            &MessageSystemAttribute.1.Value.StringListValue.2=my_attribute_value_3
-            &MessageSystemAttribute.1.Value.DataType=String
-            &MessageDeduplicationId=abcdef
-            &MessageGroupId=abcdef01
-        ';
+            {
+                "QueueUrl": "queueUrl",
+                "MessageBody": "This is a test message",
+                "DelaySeconds": 45,
+                "MessageAttributes": {
+                    "my_attribute_name_1": {
+                        "DataType": "String",
+                        "StringValue": "my_attribute_value_1"
+                    }
+                },
+                "MessageSystemAttributes": {
+                    "AWSTraceHeader": {
+                        "DataType": "String",
+                        "StringListValues": ["my_attribute_value_2", "my_attribute_value_3"]
+                    }
+                },
+                "MessageDeduplicationId": "abcdef",
+                "MessageGroupId": "abcdef01"
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
