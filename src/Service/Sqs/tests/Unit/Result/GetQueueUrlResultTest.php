@@ -15,16 +15,12 @@ class GetQueueUrlResultTest extends TestCase
 {
     public function testGetQueueUrlResult()
     {
-        $response = new SimpleMockedResponse(<<<XML
-<GetQueueUrlResponse>
-    <GetQueueUrlResult>
-        <QueueUrl>https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue</QueueUrl>
-    </GetQueueUrlResult>
-    <ResponseMetadata>
-        <RequestId>470a6f13-2ed9-4181-ad8a-2fdea142988e</RequestId>
-    </ResponseMetadata>
-</GetQueueUrlResponse>
-XML
+        // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueUrl.html
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "QueueUrl": "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue"
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

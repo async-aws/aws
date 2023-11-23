@@ -17,13 +17,13 @@ class GetQueueUrlRequestTest extends TestCase
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueUrl.html */
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: AmazonSQS.GetQueueUrl
 
-            Action=GetQueueUrl
-            &Version=2012-11-05
-            &QueueName=MyQueue
-            &QueueOwnerAWSAccountId=123456
-        ';
+            {
+                "QueueName": "MyQueue",
+                "QueueOwnerAWSAccountId": "123456"
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

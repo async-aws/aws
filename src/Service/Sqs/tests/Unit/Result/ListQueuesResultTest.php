@@ -17,16 +17,20 @@ class ListQueuesResultTest extends TestCase
 {
     public function testListQueuesResult()
     {
-        $response = new SimpleMockedResponse(<<<XML
-<ListQueuesResponse>
-    <ListQueuesResult>
-        <QueueUrl>https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue</QueueUrl>
-    </ListQueuesResult>
-    <ResponseMetadata>
-        <RequestId>725275ae-0b9b-4762-b238-436d7c65a1ac</RequestId>
-    </ResponseMetadata>
-</ListQueuesResponse>
-XML
+        // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "QueueUrls": [
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue",
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue1648169377027",
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue1648169549830",
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue1648227401019",
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue1648248132466",
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue1649201932174",
+        "https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue2"
+    ]
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

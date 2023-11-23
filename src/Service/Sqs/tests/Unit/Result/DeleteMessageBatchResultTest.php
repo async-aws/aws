@@ -14,21 +14,19 @@ class DeleteMessageBatchResultTest extends TestCase
     public function testDeleteMessageBatchResult(): void
     {
         // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessageBatch.html
-        $response = new SimpleMockedResponse(<<<XML
-<DeleteMessageBatchResponse>
-    <DeleteMessageBatchResult>
-        <DeleteMessageBatchResultEntry>
-            <Id>msg1</Id>
-        </DeleteMessageBatchResultEntry>
-        <DeleteMessageBatchResultEntry>
-            <Id>msg2</Id>
-        </DeleteMessageBatchResultEntry>
-    </DeleteMessageBatchResult>
-    <ResponseMetadata>
-        <RequestId>d6f86b7a-74d1-4439-b43f-196a1e29cd85</RequestId>
-    </ResponseMetadata>
-</DeleteMessageBatchResponse>
-XML
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "Failed": [],
+    "Successful": [
+        {
+            "Id": "msg1"
+        },
+        {
+            "Id": "msg2"
+        }
+    ]
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

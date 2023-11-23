@@ -283,7 +283,7 @@
       <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
-      <code><![CDATA[array<QueueAttributeName::*>]]></code>
+      <code><![CDATA[array<QueueAttributeName::*, string>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
@@ -291,7 +291,7 @@
       <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
-      <code><![CDATA[array<MessageSystemAttributeName::*>]]></code>
+      <code><![CDATA[array<MessageSystemAttributeName::*, string>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/FunctionConfiguration.php">

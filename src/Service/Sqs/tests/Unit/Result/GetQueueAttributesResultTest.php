@@ -15,51 +15,27 @@ class GetQueueAttributesResultTest extends TestCase
 {
     public function testGetQueueAttributesResult()
     {
-        $response = new SimpleMockedResponse(<<<XML
-<GetQueueAttributesResponse>
-  <GetQueueAttributesResult>
-    <Attribute>
-      <Name>ReceiveMessageWaitTimeSeconds</Name>
-      <Value>2</Value>
-    </Attribute>
-    <Attribute>
-      <Name>VisibilityTimeout</Name>
-      <Value>30</Value>
-    </Attribute>
-    <Attribute>
-      <Name>ApproximateNumberOfMessages</Name>
-      <Value>0</Value>
-    </Attribute>
-    <Attribute>
-      <Name>ApproximateNumberOfMessagesNotVisible</Name>
-      <Value>0</Value>
-    </Attribute>
-    <Attribute>
-      <Name>CreatedTimestamp</Name>
-      <Value>1286771522</Value>
-    </Attribute>
-    <Attribute>
-      <Name>LastModifiedTimestamp</Name>
-      <Value>1286771522</Value>
-    </Attribute>
-    <Attribute>
-      <Name>QueueArn</Name>
-      <Value>arn:aws:sqs:us-east-2:123456789012:MyQueue</Value>
-    </Attribute>
-    <Attribute>
-      <Name>MaximumMessageSize</Name>
-      <Value>8192</Value>
-    </Attribute>
-    <Attribute>
-      <Name>MessageRetentionPeriod</Name>
-      <Value>345600</Value>
-    </Attribute>
-  </GetQueueAttributesResult>
-  <ResponseMetadata>
-    <RequestId>1ea71be5-b5a2-4f9d-b85a-945d8d08cd0b</RequestId>
-  </ResponseMetadata>
-</GetQueueAttributesResponse>
-XML
+        // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "Attributes": {
+       "QueueArn": "arn:aws:sqs:us-east-1:555555555555:MyQueue",
+        "ApproximateNumberOfMessages": "0",
+        "ApproximateNumberOfMessagesNotVisible": "0",
+        "ApproximateNumberOfMessagesDelayed": "0",
+        "CreatedTimestamp": "1676665337",
+        "LastModifiedTimestamp": "1677096375",
+        "VisibilityTimeout": "60",
+        "MaximumMessageSize": "8192",
+        "MessageRetentionPeriod": "345600",
+        "DelaySeconds": "0",
+        "Policy": "{\"Version\":\"2012-10-17\",\"Id\":\"Policy1677095510157\",\"Statement\":[{\"Sid\":\"Stmt1677095506939\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"sqs:ReceiveMessage\",\"Resource\":\"arn:aws:sqs:us-east-1:555555555555:MyQueue6\"}]}",
+        "RedriveAllowPolicy": "{\"redrivePermission\":\"allowAll\"}",
+        "ReceiveMessageWaitTimeSeconds": "2",
+        "SqsManagedSseEnabled": "true"
+    }
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

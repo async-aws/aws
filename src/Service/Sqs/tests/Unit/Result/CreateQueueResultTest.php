@@ -15,17 +15,12 @@ class CreateQueueResultTest extends TestCase
 {
     public function testCreateQueueResult()
     {
-        $response = new SimpleMockedResponse(<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<CreateQueueResponse>
-    <CreateQueueResult>
-        <QueueUrl>https://queue.amazonaws.com/123456789012/MyQueue</QueueUrl>
-    </CreateQueueResult>
-    <ResponseMetadata>
-        <RequestId>7a62c49f-347e-4fc4-9331-6e8e7a96aa73</RequestId>
-    </ResponseMetadata>
-</CreateQueueResponse>
-XML
+        // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "QueueUrl":"https://queue.amazonaws.com/123456789012/MyQueue"
+}
+JSON
         );
 
         $client = new MockHttpClient($response);

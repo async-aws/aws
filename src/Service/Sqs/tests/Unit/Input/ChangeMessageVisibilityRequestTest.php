@@ -18,14 +18,14 @@ class ChangeMessageVisibilityRequestTest extends TestCase
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html */
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: AmazonSQS.ChangeMessageVisibility
 
-            Action=ChangeMessageVisibility
-            &Version=2012-11-05
-            &QueueUrl=queueUrl
-            &ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
-            &VisibilityTimeout=60
-        ';
+            {
+                "QueueUrl": "queueUrl",
+                "ReceiptHandle": "MbZj6wDWli+JvwwJaBV+3dcjk2YW2vA3+STFFljT",
+                "VisibilityTimeout": 60
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
