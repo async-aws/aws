@@ -13,6 +13,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -21,6 +22,8 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class RestXmlSerializer implements Serializer
 {
+    use UseClassesTrait;
+
     /**
      * @var NamespaceRegistry
      */
@@ -42,12 +45,14 @@ class RestXmlSerializer implements Serializer
         return '["content-type" => "application/xml"]';
     }
 
-    public function generateRequestBody(Operation $operation, StructureShape $shape): array
+    public function generateRequestBody(Operation $operation, StructureShape $shape): SerializerResultBody
     {
+        $this->usedClassesInit();
         if (null !== $payloadProperty = $shape->getPayload()) {
             $member = $shape->getMember($payloadProperty);
             if ($member->isStreaming()) {
                 if ($shape->getMember($payloadProperty)->isRequired()) {
+                    $this->usedClassesAdd(InvalidArgument::class);
                     $body = 'if (null === $v = $this->PROPERTY) {
                         throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                     }
@@ -56,10 +61,10 @@ class RestXmlSerializer implements Serializer
                     $body = '$body = $this->PROPERTY ?? "";';
                 }
 
-                return [strtr($body, [
+                return new SerializerResultBody(strtr($body, [
                     'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
                     'NAME' => $payloadProperty,
-                ]), false];
+                ]), false, $this->usedClassesFlush());
             }
         }
 
@@ -85,16 +90,17 @@ class RestXmlSerializer implements Serializer
 
         $this->requirementsRegistry->addRequirement('ext-dom');
 
-        return ['
+        return new SerializerResultBody('
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');
             $document->formatOutput = false;
             ' . $requestBody . '
             $body = $document->hasChildNodes() ? $document->saveXML() : "";
-        ',  true, ['node' => \DOMNode::class]];
+        ', true, $this->usedClassesFlush(), ['node' => \DOMNode::class]);
     }
 
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): array
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder
     {
+        $this->usedClassesInit();
         $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
             if (null !== $member->getLocation()) {
                 return '';
@@ -108,6 +114,7 @@ class RestXmlSerializer implements Serializer
                 MEMBER_CODE';
                 $inputElement = '$v';
             } elseif ($member->isRequired()) {
+                $this->usedClassesAdd(InvalidArgument::class);
                 if ($needsChecks) {
                     $body = 'if (null === $v = $this->PROPERTY) {
                         throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
@@ -137,7 +144,7 @@ class RestXmlSerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return ['void', $body, ['node' => \DOMElement::class, 'document' => \DOMDocument::class]];
+        return new SerializerResultBuilder('void', $body, $this->usedClassesFlush(), ['node' => \DOMElement::class, 'document' => \DOMDocument::class]);
     }
 
     private function dumpXmlShape(Member $member, Shape $shape, string $output, string $input): string
@@ -247,6 +254,7 @@ class RestXmlSerializer implements Serializer
         ];
         if (!empty($shape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
+            $this->usedClassesAdd(InvalidArgument::class);
             $body = 'if (!ENUM_CLASS::exists(INPUT)) {
                     throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
                 }

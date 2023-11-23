@@ -14,6 +14,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Serialize a request body to a nice nested array.
@@ -24,6 +25,8 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class RestJsonSerializer implements Serializer
 {
+    use UseClassesTrait;
+
     /**
      * @var NamespaceRegistry
      */
@@ -45,10 +48,12 @@ class RestJsonSerializer implements Serializer
         return '["content-type" => "application/json"]';
     }
 
-    public function generateRequestBody(Operation $operation, StructureShape $shape): array
+    public function generateRequestBody(Operation $operation, StructureShape $shape): SerializerResultBody
     {
+        $this->usedClassesInit();
         if (null !== $payloadProperty = $shape->getPayload()) {
             if ($shape->getMember($payloadProperty)->isRequired()) {
+                $this->usedClassesAdd(InvalidArgument::class);
                 $body = 'if (null === $v = $this->PROPERTY) {
                     throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }
@@ -57,19 +62,20 @@ class RestJsonSerializer implements Serializer
                 $body = '$body = $this->PROPERTY ?? "";';
             }
 
-            return [strtr($body, [
+            return new SerializerResultBody(strtr($body, [
                 'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
                 'NAME' => $payloadProperty,
-            ]), false];
+            ]), false, $this->usedClassesFlush());
         }
 
         $this->requirementsRegistry->addRequirement('ext-json');
 
-        return ['$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true];
+        return new SerializerResultBody('$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true, $this->usedClassesFlush());
     }
 
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): array
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder
     {
+        $this->usedClassesInit();
         $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
             if (null !== $member->getLocation()) {
                 return '';
@@ -84,6 +90,7 @@ class RestJsonSerializer implements Serializer
                 $inputElement = '$v';
             } elseif ($member->isRequired()) {
                 if ($needsChecks) {
+                    $this->usedClassesAdd(InvalidArgument::class);
                     $body = 'if (null === $v = $this->PROPERTY) {
                         throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                     }
@@ -112,14 +119,14 @@ class RestJsonSerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return ['array', strtr('
+        return new SerializerResultBuilder('array', strtr('
                 $payload = [];
                 CHILDREN_CODE
 
                 return $payload;
             ', [
             'CHILDREN_CODE' => $body,
-        ])];
+        ]), $this->usedClassesFlush());
     }
 
     protected function dumpArrayBoolean(string $output, string $input, Shape $shape): string
@@ -227,6 +234,7 @@ class RestJsonSerializer implements Serializer
         $mapKeyShape = $shape->getKey()->getShape();
         if (!empty($mapKeyShape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
+            $this->usedClassesAdd(InvalidArgument::class);
             $validateEnum = strtr('if (!ENUM_CLASS::exists($name)) {
                     throw new InvalidArgument(sprintf(\'Invalid key for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $name));
                 }', [
@@ -265,6 +273,7 @@ if (empty(INPUT)) {
         ];
         if (!empty($shape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
+            $this->usedClassesAdd(InvalidArgument::class);
             $body = 'if (!ENUM_CLASS::exists(INPUT)) {
                     throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
                 }

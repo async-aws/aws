@@ -19,17 +19,13 @@ interface Serializer
     /**
      * Returns the body of the method, a boolean indicating whether a requestBody method is needed
      * and optionally a list of extra parameters for the method with their type.
-     *
-     * @return array{0: string, 1: bool, 2?: array<string, string>}
      */
-    public function generateRequestBody(Operation $operation, StructureShape $shape): array;
+    public function generateRequestBody(Operation $operation, StructureShape $shape): SerializerResultBody;
 
     /**
      * Returns the return type, the body and extra arguments for the requestBody method.
-     *
-     * @return array{0: string, 1: string, 2?: array<string, string>}
      */
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): array;
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder;
 
     public function getHeaders(Operation $operation): string;
 }
