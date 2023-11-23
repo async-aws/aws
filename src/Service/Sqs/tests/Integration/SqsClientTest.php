@@ -332,6 +332,8 @@ class SqsClientTest extends TestCase
 
     private function getClient(): SqsClient
     {
+        self::markTestSkipped('The docker image does not (yet) accept JSON payload.');
+
         return new SqsClient([
             'endpoint' => 'http://localhost:9494',
         ], new NullProvider());
