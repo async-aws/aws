@@ -20,6 +20,7 @@ class JsonRpcSerializer extends RestJsonSerializer
         return strtr(<<<PHP
 [
     'Content-Type' => 'application/x-amz-json-VERSION',
+    'Accept' => 'application/json',
     'X-Amz-Target' => 'TARGET',
 ];
 

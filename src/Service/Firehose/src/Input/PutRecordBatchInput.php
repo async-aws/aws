@@ -75,6 +75,7 @@ final class PutRecordBatchInput extends Input
         // Prepare headers
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
+            'Accept' => 'application/json',
             'X-Amz-Target' => 'Firehose_20150804.PutRecordBatch',
         ];
 

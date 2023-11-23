@@ -75,6 +75,7 @@ final class GetParametersRequest extends Input
         // Prepare headers
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
+            'Accept' => 'application/json',
             'X-Amz-Target' => 'AmazonSSM.GetParameters',
         ];
 

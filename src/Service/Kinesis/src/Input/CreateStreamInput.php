@@ -93,6 +93,7 @@ final class CreateStreamInput extends Input
         // Prepare headers
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
+            'Accept' => 'application/json',
             'X-Amz-Target' => 'Kinesis_20131202.CreateStream',
         ];
 
