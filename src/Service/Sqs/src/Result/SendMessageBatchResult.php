@@ -49,46 +49,55 @@ class SendMessageBatchResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->SendMessageBatchResult;
+        $data = $response->toArray();
 
-        $this->successful = $this->populateResultSendMessageBatchResultEntryList($data->SendMessageBatchResultEntry);
-        $this->failed = $this->populateResultBatchResultErrorEntryList($data->BatchResultErrorEntry);
+        $this->successful = $this->populateResultSendMessageBatchResultEntryList($data['Successful']);
+        $this->failed = $this->populateResultBatchResultErrorEntryList($data['Failed']);
+    }
+
+    private function populateResultBatchResultErrorEntry(array $json): BatchResultErrorEntry
+    {
+        return new BatchResultErrorEntry([
+            'Id' => (string) $json['Id'],
+            'SenderFault' => filter_var($json['SenderFault'], \FILTER_VALIDATE_BOOLEAN),
+            'Code' => (string) $json['Code'],
+            'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
     }
 
     /**
      * @return BatchResultErrorEntry[]
      */
-    private function populateResultBatchResultErrorEntryList(\SimpleXMLElement $xml): array
+    private function populateResultBatchResultErrorEntryList(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $items[] = new BatchResultErrorEntry([
-                'Id' => (string) $item->Id,
-                'SenderFault' => filter_var((string) $item->SenderFault, \FILTER_VALIDATE_BOOLEAN),
-                'Code' => (string) $item->Code,
-                'Message' => ($v = $item->Message) ? (string) $v : null,
-            ]);
+        foreach ($json as $item) {
+            $items[] = $this->populateResultBatchResultErrorEntry($item);
         }
 
         return $items;
     }
 
+    private function populateResultSendMessageBatchResultEntry(array $json): SendMessageBatchResultEntry
+    {
+        return new SendMessageBatchResultEntry([
+            'Id' => (string) $json['Id'],
+            'MessageId' => (string) $json['MessageId'],
+            'MD5OfMessageBody' => (string) $json['MD5OfMessageBody'],
+            'MD5OfMessageAttributes' => isset($json['MD5OfMessageAttributes']) ? (string) $json['MD5OfMessageAttributes'] : null,
+            'MD5OfMessageSystemAttributes' => isset($json['MD5OfMessageSystemAttributes']) ? (string) $json['MD5OfMessageSystemAttributes'] : null,
+            'SequenceNumber' => isset($json['SequenceNumber']) ? (string) $json['SequenceNumber'] : null,
+        ]);
+    }
+
     /**
      * @return SendMessageBatchResultEntry[]
      */
-    private function populateResultSendMessageBatchResultEntryList(\SimpleXMLElement $xml): array
+    private function populateResultSendMessageBatchResultEntryList(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $items[] = new SendMessageBatchResultEntry([
-                'Id' => (string) $item->Id,
-                'MessageId' => (string) $item->MessageId,
-                'MD5OfMessageBody' => (string) $item->MD5OfMessageBody,
-                'MD5OfMessageAttributes' => ($v = $item->MD5OfMessageAttributes) ? (string) $v : null,
-                'MD5OfMessageSystemAttributes' => ($v = $item->MD5OfMessageSystemAttributes) ? (string) $v : null,
-                'SequenceNumber' => ($v = $item->SequenceNumber) ? (string) $v : null,
-            ]);
+        foreach ($json as $item) {
+            $items[] = $this->populateResultSendMessageBatchResultEntry($item);
         }
 
         return $items;

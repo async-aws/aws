@@ -93,21 +93,20 @@ class ListQueuesResult extends Result implements \IteratorAggregate
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->ListQueuesResult;
+        $data = $response->toArray();
 
-        $this->queueUrls = !$data->QueueUrl ? [] : $this->populateResultQueueUrlList($data->QueueUrl);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->queueUrls = empty($data['QueueUrls']) ? [] : $this->populateResultQueueUrlList($data['QueueUrls']);
+        $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
     /**
      * @return string[]
      */
-    private function populateResultQueueUrlList(\SimpleXMLElement $xml): array
+    private function populateResultQueueUrlList(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $a = ($v = $item) ? (string) $v : null;
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
                 $items[] = $a;
             }

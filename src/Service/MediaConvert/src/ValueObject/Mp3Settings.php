@@ -33,7 +33,7 @@ final class Mp3Settings
     private $rateControlMode;
 
     /**
-     * Sample rate in hz.
+     * Sample rate in Hz.
      *
      * @var int|null
      */

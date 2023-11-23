@@ -286,6 +286,13 @@ final class FunctionConfiguration
     private $runtimeVersionConfig;
 
     /**
+     * The function's Amazon CloudWatch Logs configuration settings.
+     *
+     * @var LoggingConfig|null
+     */
+    private $loggingConfig;
+
+    /**
      * @param array{
      *   FunctionName?: null|string,
      *   FunctionArn?: null|string,
@@ -322,6 +329,7 @@ final class FunctionConfiguration
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStartResponse|array,
      *   RuntimeVersionConfig?: null|RuntimeVersionConfig|array,
+     *   LoggingConfig?: null|LoggingConfig|array,
      * } $input
      */
     public function __construct(array $input)
@@ -361,6 +369,7 @@ final class FunctionConfiguration
         $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
         $this->snapStart = isset($input['SnapStart']) ? SnapStartResponse::create($input['SnapStart']) : null;
         $this->runtimeVersionConfig = isset($input['RuntimeVersionConfig']) ? RuntimeVersionConfig::create($input['RuntimeVersionConfig']) : null;
+        $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
     }
 
     /**
@@ -400,6 +409,7 @@ final class FunctionConfiguration
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStartResponse|array,
      *   RuntimeVersionConfig?: null|RuntimeVersionConfig|array,
+     *   LoggingConfig?: null|LoggingConfig|array,
      * }|FunctionConfiguration $input
      */
     public static function create($input): self
@@ -510,6 +520,11 @@ final class FunctionConfiguration
     public function getLayers(): array
     {
         return $this->layers ?? [];
+    }
+
+    public function getLoggingConfig(): ?LoggingConfig
+    {
+        return $this->loggingConfig;
     }
 
     public function getMasterArn(): ?string

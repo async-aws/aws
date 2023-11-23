@@ -5,13 +5,13 @@ namespace AsyncAws\Athena\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Specifies the KMS key that is used to encrypt the user's data stores in Athena. This setting does not apply to Athena
- * SQL workgroups.
+ * Specifies the customer managed KMS key that is used to encrypt the user's data stores in Athena. When an Amazon Web
+ * Services managed key is used, this value is null. This setting does not apply to Athena SQL workgroups.
  */
 final class CustomerContentEncryptionConfiguration
 {
     /**
-     * The KMS key that is used to encrypt the user's data stores in Athena.
+     * The customer managed KMS key that is used to encrypt the user's data stores in Athena.
      *
      * @var string
      */

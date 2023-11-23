@@ -303,7 +303,8 @@ final class CopyObjectRequest extends Input
 
     /**
      * Specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a
-     * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+     * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value must be explicitly
+     * added to specify encryption context for CopyObject requests.
      *
      * @var string|null
      */

@@ -34,10 +34,11 @@ use AsyncAws\StepFunctions\Result\StopExecutionOutput;
 class StepFunctionsClient extends AbstractApi
 {
     /**
-     * Used by activity workers and task states using the callback [^1] pattern to report that the task identified by the
-     * `taskToken` failed.
+     * Used by activity workers, Task states using the callback [^1] pattern, and optionally Task states using the job run
+     * [^2] pattern to report that the task identified by the `taskToken` failed.
      *
      * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * [^2]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskFailure.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#sendtaskfailure
@@ -66,12 +67,12 @@ class StepFunctionsClient extends AbstractApi
     }
 
     /**
-     * Used by activity workers and task states using the callback [^1] pattern to report to Step Functions that the task
-     * represented by the specified `taskToken` is still making progress. This action resets the `Heartbeat` clock. The
-     * `Heartbeat` threshold is specified in the state machine's Amazon States Language definition (`HeartbeatSeconds`).
-     * This action does not in itself create an event in the execution history. However, if the task times out, the
-     * execution history contains an `ActivityTimedOut` entry for activities, or a `TaskTimedOut` entry for for tasks using
-     * the job run [^2] or callback [^3] pattern.
+     * Used by activity workers and Task states using the callback [^1] pattern, and optionally Task states using the job
+     * run [^2] pattern to report to Step Functions that the task represented by the specified `taskToken` is still making
+     * progress. This action resets the `Heartbeat` clock. The `Heartbeat` threshold is specified in the state machine's
+     * Amazon States Language definition (`HeartbeatSeconds`). This action does not in itself create an event in the
+     * execution history. However, if the task times out, the execution history contains an `ActivityTimedOut` entry for
+     * activities, or a `TaskTimedOut` entry for tasks using the job run [^3] or callback [^4] pattern.
      *
      * > The `Timeout` of a task, defined in the state machine's Amazon States Language definition, is its maximum allowed
      * > duration, regardless of the number of SendTaskHeartbeat requests received. Use `HeartbeatSeconds` to configure the
@@ -79,7 +80,8 @@ class StepFunctionsClient extends AbstractApi
      *
      * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
      * [^2]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
-     * [^3]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * [^3]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
+     * [^4]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskHeartbeat.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#sendtaskheartbeat
@@ -106,10 +108,11 @@ class StepFunctionsClient extends AbstractApi
     }
 
     /**
-     * Used by activity workers and task states using the callback [^1] pattern to report that the task identified by the
-     * `taskToken` completed successfully.
+     * Used by activity workers, Task states using the callback [^1] pattern, and optionally Task states using the job run
+     * [^2] pattern to report that the task identified by the `taskToken` completed successfully.
      *
      * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+     * [^2]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskSuccess.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#sendtasksuccess

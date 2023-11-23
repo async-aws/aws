@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: TODO
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects

@@ -117,11 +117,11 @@ final class CompleteMultipartUploadRequest extends Input
     private $expectedBucketOwner;
 
     /**
-     * The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is needed only when the object
-     * was created using a checksum algorithm. For more information, see Protecting data using SSE-C keys [^1] in the
-     * *Amazon S3 User Guide*.
+     * The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is required only when the
+     * object was created using a checksum algorithm or if your bucket policy requires the use of SSE-C. For more
+     * information, see Protecting data using SSE-C keys [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html#ssec-require-condition-key
      *
      * @var string|null
      */

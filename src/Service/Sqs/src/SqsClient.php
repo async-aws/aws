@@ -4,7 +4,7 @@ namespace AsyncAws\Sqs;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
-use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
+use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -14,10 +14,20 @@ use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Exception\BatchEntryIdsNotDistinctException;
 use AsyncAws\Sqs\Exception\BatchRequestTooLongException;
 use AsyncAws\Sqs\Exception\EmptyBatchRequestException;
+use AsyncAws\Sqs\Exception\InvalidAddressException;
 use AsyncAws\Sqs\Exception\InvalidAttributeNameException;
+use AsyncAws\Sqs\Exception\InvalidAttributeValueException;
 use AsyncAws\Sqs\Exception\InvalidBatchEntryIdException;
 use AsyncAws\Sqs\Exception\InvalidIdFormatException;
 use AsyncAws\Sqs\Exception\InvalidMessageContentsException;
+use AsyncAws\Sqs\Exception\InvalidSecurityException;
+use AsyncAws\Sqs\Exception\KmsAccessDeniedException;
+use AsyncAws\Sqs\Exception\KmsDisabledException;
+use AsyncAws\Sqs\Exception\KmsInvalidKeyUsageException;
+use AsyncAws\Sqs\Exception\KmsInvalidStateException;
+use AsyncAws\Sqs\Exception\KmsNotFoundException;
+use AsyncAws\Sqs\Exception\KmsOptInRequiredException;
+use AsyncAws\Sqs\Exception\KmsThrottledException;
 use AsyncAws\Sqs\Exception\MessageNotInflightException;
 use AsyncAws\Sqs\Exception\OverLimitException;
 use AsyncAws\Sqs\Exception\PurgeQueueInProgressException;
@@ -25,6 +35,7 @@ use AsyncAws\Sqs\Exception\QueueDeletedRecentlyException;
 use AsyncAws\Sqs\Exception\QueueDoesNotExistException;
 use AsyncAws\Sqs\Exception\QueueNameExistsException;
 use AsyncAws\Sqs\Exception\ReceiptHandleIsInvalidException;
+use AsyncAws\Sqs\Exception\RequestThrottledException;
 use AsyncAws\Sqs\Exception\TooManyEntriesInBatchRequestException;
 use AsyncAws\Sqs\Exception\UnsupportedOperationException;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
@@ -114,13 +125,23 @@ class SqsClient extends AbstractApi
      *
      * @throws MessageNotInflightException
      * @throws ReceiptHandleIsInvalidException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws UnsupportedOperationException
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
      */
     public function changeMessageVisibility($input): Result
     {
         $input = ChangeMessageVisibilityRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeMessageVisibility', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.MessageNotInflight' => MessageNotInflightException::class,
+            'MessageNotInflight' => MessageNotInflightException::class,
             'ReceiptHandleIsInvalid' => ReceiptHandleIsInvalidException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
         ]]));
 
         return new Result($response);
@@ -147,15 +168,25 @@ class SqsClient extends AbstractApi
      * @throws EmptyBatchRequestException
      * @throws BatchEntryIdsNotDistinctException
      * @throws InvalidBatchEntryIdException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws UnsupportedOperationException
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
      */
     public function changeMessageVisibilityBatch($input): ChangeMessageVisibilityBatchResult
     {
         $input = ChangeMessageVisibilityBatchRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeMessageVisibilityBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
-            'AWS.SimpleQueueService.EmptyBatchRequest' => EmptyBatchRequestException::class,
-            'AWS.SimpleQueueService.BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
-            'AWS.SimpleQueueService.InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
         ]]));
 
         return new ChangeMessageVisibilityBatchResult($response);
@@ -206,13 +237,25 @@ class SqsClient extends AbstractApi
      *
      * @throws QueueDeletedRecentlyException
      * @throws QueueNameExistsException
+     * @throws RequestThrottledException
+     * @throws InvalidAddressException
+     * @throws InvalidAttributeNameException
+     * @throws InvalidAttributeValueException
+     * @throws UnsupportedOperationException
+     * @throws InvalidSecurityException
      */
     public function createQueue($input): CreateQueueResult
     {
         $input = CreateQueueRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.QueueDeletedRecently' => QueueDeletedRecentlyException::class,
-            'QueueAlreadyExists' => QueueNameExistsException::class,
+            'QueueDeletedRecently' => QueueDeletedRecentlyException::class,
+            'QueueNameExists' => QueueNameExistsException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidAttributeName' => InvalidAttributeNameException::class,
+            'InvalidAttributeValue' => InvalidAttributeValueException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
         ]]));
 
         return new CreateQueueResult($response);
@@ -246,6 +289,11 @@ class SqsClient extends AbstractApi
      *
      * @throws InvalidIdFormatException
      * @throws ReceiptHandleIsInvalidException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws UnsupportedOperationException
+     * @throws InvalidSecurityException
+     * @throws InvalidAddressException
      */
     public function deleteMessage($input): Result
     {
@@ -253,6 +301,11 @@ class SqsClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteMessage', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidIdFormat' => InvalidIdFormatException::class,
             'ReceiptHandleIsInvalid' => ReceiptHandleIsInvalidException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'InvalidAddress' => InvalidAddressException::class,
         ]]));
 
         return new Result($response);
@@ -278,15 +331,25 @@ class SqsClient extends AbstractApi
      * @throws EmptyBatchRequestException
      * @throws BatchEntryIdsNotDistinctException
      * @throws InvalidBatchEntryIdException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws UnsupportedOperationException
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
      */
     public function deleteMessageBatch($input): DeleteMessageBatchResult
     {
         $input = DeleteMessageBatchRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteMessageBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
-            'AWS.SimpleQueueService.EmptyBatchRequest' => EmptyBatchRequestException::class,
-            'AWS.SimpleQueueService.BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
-            'AWS.SimpleQueueService.InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
         ]]));
 
         return new DeleteMessageBatchResult($response);
@@ -318,11 +381,23 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   '@region'?: string|null,
      * }|DeleteQueueRequest $input
+     *
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws InvalidAddressException
+     * @throws UnsupportedOperationException
+     * @throws InvalidSecurityException
      */
     public function deleteQueue($input): Result
     {
         $input = DeleteQueueRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteQueue', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+        ]]));
 
         return new Result($response);
     }
@@ -344,12 +419,22 @@ class SqsClient extends AbstractApi
      * }|GetQueueAttributesRequest $input
      *
      * @throws InvalidAttributeNameException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws UnsupportedOperationException
+     * @throws InvalidSecurityException
+     * @throws InvalidAddressException
      */
     public function getQueueAttributes($input): GetQueueAttributesResult
     {
         $input = GetQueueAttributesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueAttributes', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidAttributeName' => InvalidAttributeNameException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'InvalidAddress' => InvalidAddressException::class,
         ]]));
 
         return new GetQueueAttributesResult($response);
@@ -374,13 +459,21 @@ class SqsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      *
+     * @throws RequestThrottledException
      * @throws QueueDoesNotExistException
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws UnsupportedOperationException
      */
     public function getQueueUrl($input): GetQueueUrlResult
     {
         $input = GetQueueUrlRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
         ]]));
 
         return new GetQueueUrlResult($response);
@@ -410,11 +503,21 @@ class SqsClient extends AbstractApi
      *   MaxResults?: null|int,
      *   '@region'?: string|null,
      * }|ListQueuesRequest $input
+     *
+     * @throws RequestThrottledException
+     * @throws InvalidSecurityException
+     * @throws InvalidAddressException
+     * @throws UnsupportedOperationException
      */
     public function listQueues($input = []): ListQueuesResult
     {
         $input = ListQueuesRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListQueues', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListQueues', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'RequestThrottled' => RequestThrottledException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
 
         return new ListQueuesResult($response, $this, $input);
     }
@@ -441,13 +544,21 @@ class SqsClient extends AbstractApi
      *
      * @throws QueueDoesNotExistException
      * @throws PurgeQueueInProgressException
+     * @throws RequestThrottledException
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws UnsupportedOperationException
      */
     public function purgeQueue($input): Result
     {
         $input = PurgeQueueRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
-            'AWS.SimpleQueueService.PurgeQueueInProgress' => PurgeQueueInProgressException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'PurgeQueueInProgress' => PurgeQueueInProgressException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
         ]]));
 
         return new Result($response);
@@ -466,7 +577,11 @@ class SqsClient extends AbstractApi
     {
         $input = GetQueueUrlRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
         ]]));
 
         return new QueueExistsWaiter($response, $this, $input);
@@ -525,13 +640,37 @@ class SqsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ReceiveMessageRequest $input
      *
+     * @throws UnsupportedOperationException
      * @throws OverLimitException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws InvalidSecurityException
+     * @throws KmsDisabledException
+     * @throws KmsInvalidStateException
+     * @throws KmsNotFoundException
+     * @throws KmsOptInRequiredException
+     * @throws KmsThrottledException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidKeyUsageException
+     * @throws InvalidAddressException
      */
     public function receiveMessage($input): ReceiveMessageResult
     {
         $input = ReceiveMessageRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ReceiveMessage', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'UnsupportedOperation' => UnsupportedOperationException::class,
             'OverLimit' => OverLimitException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'KmsDisabled' => KmsDisabledException::class,
+            'KmsInvalidState' => KmsInvalidStateException::class,
+            'KmsNotFound' => KmsNotFoundException::class,
+            'KmsOptInRequired' => KmsOptInRequiredException::class,
+            'KmsThrottled' => KmsThrottledException::class,
+            'KmsAccessDenied' => KmsAccessDeniedException::class,
+            'KmsInvalidKeyUsage' => KmsInvalidKeyUsageException::class,
+            'InvalidAddress' => InvalidAddressException::class,
         ]]));
 
         return new ReceiveMessageResult($response);
@@ -565,13 +704,35 @@ class SqsClient extends AbstractApi
      *
      * @throws InvalidMessageContentsException
      * @throws UnsupportedOperationException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws InvalidSecurityException
+     * @throws KmsDisabledException
+     * @throws KmsInvalidStateException
+     * @throws KmsNotFoundException
+     * @throws KmsOptInRequiredException
+     * @throws KmsThrottledException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidKeyUsageException
+     * @throws InvalidAddressException
      */
     public function sendMessage($input): SendMessageResult
     {
         $input = SendMessageRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendMessage', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidMessageContents' => InvalidMessageContentsException::class,
-            'AWS.SimpleQueueService.UnsupportedOperation' => UnsupportedOperationException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'KmsDisabled' => KmsDisabledException::class,
+            'KmsInvalidState' => KmsInvalidStateException::class,
+            'KmsNotFound' => KmsNotFoundException::class,
+            'KmsOptInRequired' => KmsOptInRequiredException::class,
+            'KmsThrottled' => KmsThrottledException::class,
+            'KmsAccessDenied' => KmsAccessDeniedException::class,
+            'KmsInvalidKeyUsage' => KmsInvalidKeyUsageException::class,
+            'InvalidAddress' => InvalidAddressException::class,
         ]]));
 
         return new SendMessageResult($response);
@@ -615,17 +776,39 @@ class SqsClient extends AbstractApi
      * @throws BatchRequestTooLongException
      * @throws InvalidBatchEntryIdException
      * @throws UnsupportedOperationException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws InvalidSecurityException
+     * @throws KmsDisabledException
+     * @throws KmsInvalidStateException
+     * @throws KmsNotFoundException
+     * @throws KmsOptInRequiredException
+     * @throws KmsThrottledException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidKeyUsageException
+     * @throws InvalidAddressException
      */
     public function sendMessageBatch($input): SendMessageBatchResult
     {
         $input = SendMessageBatchRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendMessageBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
-            'AWS.SimpleQueueService.EmptyBatchRequest' => EmptyBatchRequestException::class,
-            'AWS.SimpleQueueService.BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
-            'AWS.SimpleQueueService.BatchRequestTooLong' => BatchRequestTooLongException::class,
-            'AWS.SimpleQueueService.InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
-            'AWS.SimpleQueueService.UnsupportedOperation' => UnsupportedOperationException::class,
+            'TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'BatchRequestTooLong' => BatchRequestTooLongException::class,
+            'InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'KmsDisabled' => KmsDisabledException::class,
+            'KmsInvalidState' => KmsInvalidStateException::class,
+            'KmsNotFound' => KmsNotFoundException::class,
+            'KmsOptInRequired' => KmsOptInRequiredException::class,
+            'KmsThrottled' => KmsThrottledException::class,
+            'KmsAccessDenied' => KmsAccessDeniedException::class,
+            'KmsInvalidKeyUsage' => KmsInvalidKeyUsageException::class,
+            'InvalidAddress' => InvalidAddressException::class,
         ]]));
 
         return new SendMessageBatchResult($response);
@@ -633,7 +816,7 @@ class SqsClient extends AbstractApi
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
     {
-        return new XmlAwsErrorFactory();
+        return new JsonRpcAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

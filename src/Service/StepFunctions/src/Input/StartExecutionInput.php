@@ -47,6 +47,9 @@ final class StartExecutionInput extends Input
      * machine for 90 days. For more information, see Limits Related to State Machine Executions [^1] in the *Step Functions
      * Developer Guide*.
      *
+     * If you don't provide a name for the execution, Step Functions automatically generates a universally unique identifier
+     * (UUID) as the execution name.
+     *
      * A name must *not* contain:
      *
      * - white space

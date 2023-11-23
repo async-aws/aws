@@ -49,41 +49,50 @@ class ChangeMessageVisibilityBatchResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->ChangeMessageVisibilityBatchResult;
+        $data = $response->toArray();
 
-        $this->successful = $this->populateResultChangeMessageVisibilityBatchResultEntryList($data->ChangeMessageVisibilityBatchResultEntry);
-        $this->failed = $this->populateResultBatchResultErrorEntryList($data->BatchResultErrorEntry);
+        $this->successful = $this->populateResultChangeMessageVisibilityBatchResultEntryList($data['Successful']);
+        $this->failed = $this->populateResultBatchResultErrorEntryList($data['Failed']);
+    }
+
+    private function populateResultBatchResultErrorEntry(array $json): BatchResultErrorEntry
+    {
+        return new BatchResultErrorEntry([
+            'Id' => (string) $json['Id'],
+            'SenderFault' => filter_var($json['SenderFault'], \FILTER_VALIDATE_BOOLEAN),
+            'Code' => (string) $json['Code'],
+            'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
     }
 
     /**
      * @return BatchResultErrorEntry[]
      */
-    private function populateResultBatchResultErrorEntryList(\SimpleXMLElement $xml): array
+    private function populateResultBatchResultErrorEntryList(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $items[] = new BatchResultErrorEntry([
-                'Id' => (string) $item->Id,
-                'SenderFault' => filter_var((string) $item->SenderFault, \FILTER_VALIDATE_BOOLEAN),
-                'Code' => (string) $item->Code,
-                'Message' => ($v = $item->Message) ? (string) $v : null,
-            ]);
+        foreach ($json as $item) {
+            $items[] = $this->populateResultBatchResultErrorEntry($item);
         }
 
         return $items;
     }
 
+    private function populateResultChangeMessageVisibilityBatchResultEntry(array $json): ChangeMessageVisibilityBatchResultEntry
+    {
+        return new ChangeMessageVisibilityBatchResultEntry([
+            'Id' => (string) $json['Id'],
+        ]);
+    }
+
     /**
      * @return ChangeMessageVisibilityBatchResultEntry[]
      */
-    private function populateResultChangeMessageVisibilityBatchResultEntryList(\SimpleXMLElement $xml): array
+    private function populateResultChangeMessageVisibilityBatchResultEntryList(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $items[] = new ChangeMessageVisibilityBatchResultEntry([
-                'Id' => (string) $item->Id,
-            ]);
+        foreach ($json as $item) {
+            $items[] = $this->populateResultChangeMessageVisibilityBatchResultEntry($item);
         }
 
         return $items;

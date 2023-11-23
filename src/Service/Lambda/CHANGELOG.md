@@ -5,6 +5,11 @@
 ### Added
 
 - AWS api-change: Adds support for Lambda functions to access Dual-Stack subnets over IPv6, via an opt-in flag in CreateFunction and UpdateFunctionConfiguration APIs
+- AWS api-change: Adds support for logging configuration in Lambda Functions. Customers will have more control how their function logs are captured and to which cloud watch log group they are delivered also.
+- AWS api-change: Add Java 21 (java21) support to AWS Lambda
+- AWS api-change: Add Python 3.12 (python3.12) support to AWS Lambda
+- AWS api-change: Add Custom runtime on Amazon Linux 2023 (provided.al2023) support to AWS Lambda.
+- AWS api-change: Add Node 20 (nodejs20.x) support to AWS Lambda.
 
 ## 2.1.0
 

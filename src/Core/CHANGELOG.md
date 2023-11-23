@@ -5,6 +5,7 @@
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
+- AWS enhancement: Documentation updates.
 
 ### Fixed
 

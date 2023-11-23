@@ -6,35 +6,48 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\AudioChannelTag;
 
 /**
- * When you mimic a multi-channel audio layout with multiple mono-channel tracks, you can tag each channel layout
- * manually. For example, you would tag the tracks that contain your left, right, and center audio with Left (L), Right
- * (R), and Center (C), respectively. When you don't specify a value, MediaConvert labels your track as Center (C) by
- * default. To use audio layout tagging, your output must be in a QuickTime (.mov) container; your audio codec must be
- * AAC, WAV, or AIFF; and you must set up your audio track to have only one channel.
+ * Specify the QuickTime audio channel layout tags for the audio channels in this audio track. When you don't specify a
+ * value, MediaConvert labels your track as Center (C) by default. To use Audio layout tagging, your output must be in a
+ * QuickTime (MOV) container and your audio codec must be AAC, WAV, or AIFF.
  */
 final class AudioChannelTaggingSettings
 {
     /**
-     * You can add a tag for this mono-channel audio track to mimic its placement in a multi-channel layout. For example, if
-     * this track is the left surround channel, choose Left surround (LS).
+     * Specify the QuickTime audio channel layout tags for the audio channels in this audio track. Enter channel layout tags
+     * in the same order as your output's audio channel order. For example, if your output audio track has a left and a
+     * right channel, enter Left (L) for the first channel and Right (R) for the second. If your output has multiple
+     * single-channel audio tracks, enter a single channel layout tag for each track.
      *
      * @var AudioChannelTag::*|null
      */
     private $channelTag;
 
     /**
+     * Specify the QuickTime audio channel layout tags for the audio channels in this audio track. Enter channel layout tags
+     * in the same order as your output's audio channel order. For example, if your output audio track has a left and a
+     * right channel, enter Left (L) for the first channel and Right (R) for the second. If your output has multiple
+     * single-channel audio tracks, enter a single channel layout tag for each track.
+     *
+     * @var list<AudioChannelTag::*>|null
+     */
+    private $channelTags;
+
+    /**
      * @param array{
      *   ChannelTag?: null|AudioChannelTag::*,
+     *   ChannelTags?: null|array<AudioChannelTag::*>,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->channelTag = $input['ChannelTag'] ?? null;
+        $this->channelTags = $input['ChannelTags'] ?? null;
     }
 
     /**
      * @param array{
      *   ChannelTag?: null|AudioChannelTag::*,
+     *   ChannelTags?: null|array<AudioChannelTag::*>,
      * }|AudioChannelTaggingSettings $input
      */
     public static function create($input): self
@@ -51,6 +64,14 @@ final class AudioChannelTaggingSettings
     }
 
     /**
+     * @return list<AudioChannelTag::*>
+     */
+    public function getChannelTags(): array
+    {
+        return $this->channelTags ?? [];
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -61,6 +82,17 @@ final class AudioChannelTaggingSettings
                 throw new InvalidArgument(sprintf('Invalid parameter "channelTag" for "%s". The value "%s" is not a valid "AudioChannelTag".', __CLASS__, $v));
             }
             $payload['channelTag'] = $v;
+        }
+        if (null !== $v = $this->channelTags) {
+            $index = -1;
+            $payload['channelTags'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!AudioChannelTag::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "channelTags" for "%s". The value "%s" is not a valid "AudioChannelTag".', __CLASS__, $listValue));
+                }
+                $payload['channelTags'][$index] = $listValue;
+            }
         }
 
         return $payload;

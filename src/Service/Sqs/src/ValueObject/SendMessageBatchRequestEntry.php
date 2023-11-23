@@ -229,25 +229,25 @@ final class SendMessageBatchRequestEntry
             $payload['DelaySeconds'] = $v;
         }
         if (null !== $v = $this->messageAttributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                ++$index;
-                $payload["MessageAttribute.$index.Name"] = $mapKey;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageAttribute.$index.Value.$bodyKey"] = $bodyValue;
+            if (empty($v)) {
+                $payload['MessageAttributes'] = new \stdClass();
+            } else {
+                $payload['MessageAttributes'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['MessageAttributes'][$name] = $mv->requestBody();
                 }
             }
         }
         if (null !== $v = $this->messageSystemAttributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                if (!MessageSystemAttributeNameForSends::exists($mapKey)) {
-                    throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $mapKey));
-                }
-                ++$index;
-                $payload["MessageSystemAttribute.$index.Name"] = $mapKey;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageSystemAttribute.$index.Value.$bodyKey"] = $bodyValue;
+            if (empty($v)) {
+                $payload['MessageSystemAttributes'] = new \stdClass();
+            } else {
+                $payload['MessageSystemAttributes'] = [];
+                foreach ($v as $name => $mv) {
+                    if (!MessageSystemAttributeNameForSends::exists($name)) {
+                        throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $name));
+                    }
+                    $payload['MessageSystemAttributes'][$name] = $mv->requestBody();
                 }
             }
         }

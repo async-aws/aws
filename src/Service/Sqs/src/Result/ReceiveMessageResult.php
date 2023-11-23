@@ -32,20 +32,19 @@ class ReceiveMessageResult extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->ReceiveMessageResult;
+        $data = $response->toArray();
 
-        $this->messages = !$data->Message ? [] : $this->populateResultMessageList($data->Message);
+        $this->messages = empty($data['Messages']) ? [] : $this->populateResultMessageList($data['Messages']);
     }
 
     /**
      * @return string[]
      */
-    private function populateResultBinaryList(\SimpleXMLElement $xml): array
+    private function populateResultBinaryList(array $json): array
     {
         $items = [];
-        foreach ($xml->BinaryListValue as $item) {
-            $a = ($v = $item) ? base64_decode((string) $v) : null;
+        foreach ($json as $item) {
+            $a = isset($item) ? base64_decode((string) $item) : null;
             if (null !== $a) {
                 $items[] = $a;
             }
@@ -54,21 +53,38 @@ class ReceiveMessageResult extends Result
         return $items;
     }
 
+    private function populateResultMessage(array $json): Message
+    {
+        return new Message([
+            'MessageId' => isset($json['MessageId']) ? (string) $json['MessageId'] : null,
+            'ReceiptHandle' => isset($json['ReceiptHandle']) ? (string) $json['ReceiptHandle'] : null,
+            'MD5OfBody' => isset($json['MD5OfBody']) ? (string) $json['MD5OfBody'] : null,
+            'Body' => isset($json['Body']) ? (string) $json['Body'] : null,
+            'Attributes' => !isset($json['Attributes']) ? null : $this->populateResultMessageSystemAttributeMap($json['Attributes']),
+            'MD5OfMessageAttributes' => isset($json['MD5OfMessageAttributes']) ? (string) $json['MD5OfMessageAttributes'] : null,
+            'MessageAttributes' => !isset($json['MessageAttributes']) ? null : $this->populateResultMessageBodyAttributeMap($json['MessageAttributes']),
+        ]);
+    }
+
+    private function populateResultMessageAttributeValue(array $json): MessageAttributeValue
+    {
+        return new MessageAttributeValue([
+            'StringValue' => isset($json['StringValue']) ? (string) $json['StringValue'] : null,
+            'BinaryValue' => isset($json['BinaryValue']) ? base64_decode((string) $json['BinaryValue']) : null,
+            'StringListValues' => !isset($json['StringListValues']) ? null : $this->populateResultStringList($json['StringListValues']),
+            'BinaryListValues' => !isset($json['BinaryListValues']) ? null : $this->populateResultBinaryList($json['BinaryListValues']),
+            'DataType' => (string) $json['DataType'],
+        ]);
+    }
+
     /**
      * @return array<string, MessageAttributeValue>
      */
-    private function populateResultMessageBodyAttributeMap(\SimpleXMLElement $xml): array
+    private function populateResultMessageBodyAttributeMap(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $a = $item->Value;
-            $items[$item->Name->__toString()] = new MessageAttributeValue([
-                'StringValue' => ($v = $a->StringValue) ? (string) $v : null,
-                'BinaryValue' => ($v = $a->BinaryValue) ? base64_decode((string) $v) : null,
-                'StringListValues' => !$a->StringListValue ? null : $this->populateResultStringList($a->StringListValue),
-                'BinaryListValues' => !$a->BinaryListValue ? null : $this->populateResultBinaryList($a->BinaryListValue),
-                'DataType' => (string) $a->DataType,
-            ]);
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultMessageAttributeValue($value);
         }
 
         return $items;
@@ -77,19 +93,11 @@ class ReceiveMessageResult extends Result
     /**
      * @return Message[]
      */
-    private function populateResultMessageList(\SimpleXMLElement $xml): array
+    private function populateResultMessageList(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $items[] = new Message([
-                'MessageId' => ($v = $item->MessageId) ? (string) $v : null,
-                'ReceiptHandle' => ($v = $item->ReceiptHandle) ? (string) $v : null,
-                'MD5OfBody' => ($v = $item->MD5OfBody) ? (string) $v : null,
-                'Body' => ($v = $item->Body) ? (string) $v : null,
-                'Attributes' => !$item->Attribute ? null : $this->populateResultMessageSystemAttributeMap($item->Attribute),
-                'MD5OfMessageAttributes' => ($v = $item->MD5OfMessageAttributes) ? (string) $v : null,
-                'MessageAttributes' => !$item->MessageAttribute ? null : $this->populateResultMessageBodyAttributeMap($item->MessageAttribute),
-            ]);
+        foreach ($json as $item) {
+            $items[] = $this->populateResultMessage($item);
         }
 
         return $items;
@@ -98,12 +106,11 @@ class ReceiveMessageResult extends Result
     /**
      * @return array<MessageSystemAttributeName::*, string>
      */
-    private function populateResultMessageSystemAttributeMap(\SimpleXMLElement $xml): array
+    private function populateResultMessageSystemAttributeMap(array $json): array
     {
         $items = [];
-        foreach ($xml as $item) {
-            $a = $item->Value;
-            $items[$item->Name->__toString()] = (string) $a;
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = (string) $value;
         }
 
         return $items;
@@ -112,11 +119,11 @@ class ReceiveMessageResult extends Result
     /**
      * @return string[]
      */
-    private function populateResultStringList(\SimpleXMLElement $xml): array
+    private function populateResultStringList(array $json): array
     {
         $items = [];
-        foreach ($xml->StringListValue as $item) {
-            $a = ($v = $item) ? (string) $v : null;
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
                 $items[] = $a;
             }

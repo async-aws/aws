@@ -12,6 +12,7 @@ use AsyncAws\Lambda\ValueObject\Environment;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
+use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\SnapStart;
 use AsyncAws\Lambda\ValueObject\TracingConfig;
 use AsyncAws\Lambda\ValueObject\VpcConfig;
@@ -197,6 +198,13 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $snapStart;
 
     /**
+     * The function's Amazon CloudWatch Logs configuration settings.
+     *
+     * @var LoggingConfig|null
+     */
+    private $loggingConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string,
      *   Role?: null|string,
@@ -216,6 +224,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   ImageConfig?: null|ImageConfig|array,
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStart|array,
+     *   LoggingConfig?: null|LoggingConfig|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -239,6 +248,7 @@ final class UpdateFunctionConfigurationRequest extends Input
         $this->imageConfig = isset($input['ImageConfig']) ? ImageConfig::create($input['ImageConfig']) : null;
         $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
         $this->snapStart = isset($input['SnapStart']) ? SnapStart::create($input['SnapStart']) : null;
+        $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
         parent::__construct($input);
     }
 
@@ -262,6 +272,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   ImageConfig?: null|ImageConfig|array,
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStart|array,
+     *   LoggingConfig?: null|LoggingConfig|array,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      */
@@ -324,6 +335,11 @@ final class UpdateFunctionConfigurationRequest extends Input
     public function getLayers(): array
     {
         return $this->layers ?? [];
+    }
+
+    public function getLoggingConfig(): ?LoggingConfig
+    {
+        return $this->loggingConfig;
     }
 
     public function getMemorySize(): ?int
@@ -472,6 +488,13 @@ final class UpdateFunctionConfigurationRequest extends Input
         return $this;
     }
 
+    public function setLoggingConfig(?LoggingConfig $value): self
+    {
+        $this->loggingConfig = $value;
+
+        return $this;
+    }
+
     public function setMemorySize(?int $value): self
     {
         $this->memorySize = $value;
@@ -598,6 +621,9 @@ final class UpdateFunctionConfigurationRequest extends Input
         }
         if (null !== $v = $this->snapStart) {
             $payload['SnapStart'] = $v->requestBody();
+        }
+        if (null !== $v = $this->loggingConfig) {
+            $payload['LoggingConfig'] = $v->requestBody();
         }
 
         return $payload;

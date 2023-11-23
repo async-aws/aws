@@ -18,6 +18,7 @@ use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
 use AsyncAws\Lambda\ValueObject\Layer;
+use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionError;
 use AsyncAws\Lambda\ValueObject\SnapStartResponse;
@@ -230,6 +231,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
             'EphemeralStorage' => empty($json['EphemeralStorage']) ? null : $this->populateResultEphemeralStorage($json['EphemeralStorage']),
             'SnapStart' => empty($json['SnapStart']) ? null : $this->populateResultSnapStartResponse($json['SnapStart']),
             'RuntimeVersionConfig' => empty($json['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($json['RuntimeVersionConfig']),
+            'LoggingConfig' => empty($json['LoggingConfig']) ? null : $this->populateResultLoggingConfig($json['LoggingConfig']),
         ]);
     }
 
@@ -292,6 +294,16 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         }
 
         return $items;
+    }
+
+    private function populateResultLoggingConfig(array $json): LoggingConfig
+    {
+        return new LoggingConfig([
+            'LogFormat' => isset($json['LogFormat']) ? (string) $json['LogFormat'] : null,
+            'ApplicationLogLevel' => isset($json['ApplicationLogLevel']) ? (string) $json['ApplicationLogLevel'] : null,
+            'SystemLogLevel' => isset($json['SystemLogLevel']) ? (string) $json['SystemLogLevel'] : null,
+            'LogGroup' => isset($json['LogGroup']) ? (string) $json['LogGroup'] : null,
+        ]);
     }
 
     private function populateResultRuntimeVersionConfig(array $json): RuntimeVersionConfig

@@ -51,6 +51,13 @@ final class QueryExecutionStatistics
     private $queryQueueTimeInMillis;
 
     /**
+     * The number of milliseconds that Athena took to preprocess the query before submitting the query to the query engine.
+     *
+     * @var int|null
+     */
+    private $servicePreProcessingTimeInMillis;
+
+    /**
      * The number of milliseconds that Athena took to plan the query processing flow. This includes the time spent
      * retrieving table partitions from the data source. Note that because the query engine performs the query planning,
      * query planning time is a subset of engine processing time.
@@ -81,6 +88,7 @@ final class QueryExecutionStatistics
      *   DataManifestLocation?: null|string,
      *   TotalExecutionTimeInMillis?: null|int,
      *   QueryQueueTimeInMillis?: null|int,
+     *   ServicePreProcessingTimeInMillis?: null|int,
      *   QueryPlanningTimeInMillis?: null|int,
      *   ServiceProcessingTimeInMillis?: null|int,
      *   ResultReuseInformation?: null|ResultReuseInformation|array,
@@ -93,6 +101,7 @@ final class QueryExecutionStatistics
         $this->dataManifestLocation = $input['DataManifestLocation'] ?? null;
         $this->totalExecutionTimeInMillis = $input['TotalExecutionTimeInMillis'] ?? null;
         $this->queryQueueTimeInMillis = $input['QueryQueueTimeInMillis'] ?? null;
+        $this->servicePreProcessingTimeInMillis = $input['ServicePreProcessingTimeInMillis'] ?? null;
         $this->queryPlanningTimeInMillis = $input['QueryPlanningTimeInMillis'] ?? null;
         $this->serviceProcessingTimeInMillis = $input['ServiceProcessingTimeInMillis'] ?? null;
         $this->resultReuseInformation = isset($input['ResultReuseInformation']) ? ResultReuseInformation::create($input['ResultReuseInformation']) : null;
@@ -105,6 +114,7 @@ final class QueryExecutionStatistics
      *   DataManifestLocation?: null|string,
      *   TotalExecutionTimeInMillis?: null|int,
      *   QueryQueueTimeInMillis?: null|int,
+     *   ServicePreProcessingTimeInMillis?: null|int,
      *   QueryPlanningTimeInMillis?: null|int,
      *   ServiceProcessingTimeInMillis?: null|int,
      *   ResultReuseInformation?: null|ResultReuseInformation|array,
@@ -143,6 +153,11 @@ final class QueryExecutionStatistics
     public function getResultReuseInformation(): ?ResultReuseInformation
     {
         return $this->resultReuseInformation;
+    }
+
+    public function getServicePreProcessingTimeInMillis(): ?int
+    {
+        return $this->servicePreProcessingTimeInMillis;
     }
 
     public function getServiceProcessingTimeInMillis(): ?int

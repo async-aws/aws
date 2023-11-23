@@ -83,7 +83,10 @@ final class ListQueuesRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'AmazonSQS.ListQueues',
+        ];
 
         // Prepare query
         $query = [];
@@ -92,7 +95,8 @@ final class ListQueuesRequest extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'ListQueues', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

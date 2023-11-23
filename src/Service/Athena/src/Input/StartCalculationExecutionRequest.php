@@ -34,7 +34,8 @@ final class StartCalculationExecutionRequest extends Input
     private $calculationConfiguration;
 
     /**
-     * A string that contains the code of the calculation.
+     * A string that contains the code of the calculation. Use this parameter instead of CalculationConfiguration$CodeBlock,
+     * which is deprecated.
      *
      * @var string|null
      */

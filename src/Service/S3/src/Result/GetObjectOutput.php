@@ -53,7 +53,7 @@ class GetObjectOutput extends Result
     private $restore;
 
     /**
-     * Creation date of the object.
+     * Date and time when the object was last modified.
      *
      * @var \DateTimeImmutable|null
      */

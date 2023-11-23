@@ -3,7 +3,8 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 /**
- * Overlay one or more videos on top of your input video.
+ * Overlay one or more videos on top of your input video. For more information, see
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/video-overlays.html.
  */
 final class VideoOverlay
 {

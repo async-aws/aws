@@ -4,6 +4,7 @@ namespace AsyncAws\MediaConvert\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\MediaConvert\Enum\AudioChannelTag;
 use AsyncAws\MediaConvert\Enum\HlsAdMarkers;
 use AsyncAws\MediaConvert\Enum\TeletextPageType;
 use AsyncAws\MediaConvert\ValueObject\AacSettings;
@@ -278,6 +279,7 @@ class CreateJobResponse extends Result
     {
         return new AudioChannelTaggingSettings([
             'ChannelTag' => isset($json['channelTag']) ? (string) $json['channelTag'] : null,
+            'ChannelTags' => !isset($json['channelTags']) ? null : $this->populateResult__listOfAudioChannelTag($json['channelTags']),
         ]);
     }
 
@@ -1373,6 +1375,7 @@ class CreateJobResponse extends Result
             'AvailBlanking' => empty($json['availBlanking']) ? null : $this->populateResultAvailBlanking($json['availBlanking']),
             'Esam' => empty($json['esam']) ? null : $this->populateResultEsamSettings($json['esam']),
             'ExtendedDataServices' => empty($json['extendedDataServices']) ? null : $this->populateResultExtendedDataServices($json['extendedDataServices']),
+            'FollowSource' => isset($json['followSource']) ? (int) $json['followSource'] : null,
             'Inputs' => !isset($json['inputs']) ? null : $this->populateResult__listOfInput($json['inputs']),
             'KantarWatermark' => empty($json['kantarWatermark']) ? null : $this->populateResultKantarWatermarkSettings($json['kantarWatermark']),
             'MotionImageInserter' => empty($json['motionImageInserter']) ? null : $this->populateResultMotionImageInserter($json['motionImageInserter']),
@@ -2290,6 +2293,22 @@ class CreateJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultAllowedRenditionSize($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return list<AudioChannelTag::*>
+     */
+    private function populateResult__listOfAudioChannelTag(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;

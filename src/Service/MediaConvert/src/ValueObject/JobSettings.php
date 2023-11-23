@@ -39,6 +39,17 @@ final class JobSettings
     private $extendedDataServices;
 
     /**
+     * Specify the input that MediaConvert references for your default output settings. MediaConvert uses this input's
+     * Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify different output
+     * settings for. Enabling this setting will disable "Follow source" for all other inputs. If MediaConvert cannot follow
+     * your source, for example if you specify an audio-only input, MediaConvert uses the first followable input instead. In
+     * your JSON job specification, enter an integer from 1 to 150 corresponding to the order of your inputs.
+     *
+     * @var int|null
+     */
+    private $followSource;
+
+    /**
      * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These inputs
      * will be concantenated together to create the output.
      *
@@ -118,6 +129,7 @@ final class JobSettings
      *   AvailBlanking?: null|AvailBlanking|array,
      *   Esam?: null|EsamSettings|array,
      *   ExtendedDataServices?: null|ExtendedDataServices|array,
+     *   FollowSource?: null|int,
      *   Inputs?: null|array<Input|array>,
      *   KantarWatermark?: null|KantarWatermarkSettings|array,
      *   MotionImageInserter?: null|MotionImageInserter|array,
@@ -134,6 +146,7 @@ final class JobSettings
         $this->availBlanking = isset($input['AvailBlanking']) ? AvailBlanking::create($input['AvailBlanking']) : null;
         $this->esam = isset($input['Esam']) ? EsamSettings::create($input['Esam']) : null;
         $this->extendedDataServices = isset($input['ExtendedDataServices']) ? ExtendedDataServices::create($input['ExtendedDataServices']) : null;
+        $this->followSource = $input['FollowSource'] ?? null;
         $this->inputs = isset($input['Inputs']) ? array_map([Input::class, 'create'], $input['Inputs']) : null;
         $this->kantarWatermark = isset($input['KantarWatermark']) ? KantarWatermarkSettings::create($input['KantarWatermark']) : null;
         $this->motionImageInserter = isset($input['MotionImageInserter']) ? MotionImageInserter::create($input['MotionImageInserter']) : null;
@@ -150,6 +163,7 @@ final class JobSettings
      *   AvailBlanking?: null|AvailBlanking|array,
      *   Esam?: null|EsamSettings|array,
      *   ExtendedDataServices?: null|ExtendedDataServices|array,
+     *   FollowSource?: null|int,
      *   Inputs?: null|array<Input|array>,
      *   KantarWatermark?: null|KantarWatermarkSettings|array,
      *   MotionImageInserter?: null|MotionImageInserter|array,
@@ -183,6 +197,11 @@ final class JobSettings
     public function getExtendedDataServices(): ?ExtendedDataServices
     {
         return $this->extendedDataServices;
+    }
+
+    public function getFollowSource(): ?int
+    {
+        return $this->followSource;
     }
 
     /**
@@ -248,6 +267,9 @@ final class JobSettings
         }
         if (null !== $v = $this->extendedDataServices) {
             $payload['extendedDataServices'] = $v->requestBody();
+        }
+        if (null !== $v = $this->followSource) {
+            $payload['followSource'] = $v;
         }
         if (null !== $v = $this->inputs) {
             $index = -1;

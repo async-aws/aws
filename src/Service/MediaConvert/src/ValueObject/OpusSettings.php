@@ -24,7 +24,7 @@ final class OpusSettings
     private $channels;
 
     /**
-     * Optional. Sample rate in hz. Valid values are 16000, 24000, and 48000. The default value is 48000.
+     * Optional. Sample rate in Hz. Valid values are 16000, 24000, and 48000. The default value is 48000.
      *
      * @var int|null
      */

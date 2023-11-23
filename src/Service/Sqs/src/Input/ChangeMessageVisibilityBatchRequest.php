@@ -75,7 +75,10 @@ final class ChangeMessageVisibilityBatchRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'AmazonSQS.ChangeMessageVisibilityBatch',
+        ];
 
         // Prepare query
         $query = [];
@@ -84,7 +87,8 @@ final class ChangeMessageVisibilityBatchRequest extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'ChangeMessageVisibilityBatch', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -118,12 +122,11 @@ final class ChangeMessageVisibilityBatchRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        $index = 0;
-        foreach ($v as $mapValue) {
+        $index = -1;
+        $payload['Entries'] = [];
+        foreach ($v as $listValue) {
             ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["ChangeMessageVisibilityBatchRequestEntry.$index.$bodyKey"] = $bodyValue;
-            }
+            $payload['Entries'][$index] = $listValue->requestBody();
         }
 
         return $payload;
