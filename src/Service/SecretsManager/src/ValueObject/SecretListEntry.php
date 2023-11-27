@@ -18,9 +18,7 @@ final class SecretListEntry
     private $arn;
 
     /**
-     * The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For example,
-     * `/prod/databases/dbserver1` could represent the secret for a server named `dbserver1` in the folder `databases` in
-     * the folder `prod`.
+     * The friendly name of the secret.
      *
      * @var string|null
      */

@@ -199,6 +199,8 @@ class SecretsManagerClient extends AbstractApi
      * Retrieves the contents of the encrypted fields `SecretString` or `SecretBinary` from the specified version of a
      * secret, whichever contains content.
      *
+     * To retrieve the values for a group of secrets, call BatchGetSecretValue.
+     *
      * We recommend that you cache your secret values by using client-side caching. Caching secrets improves speed and
      * reduces your costs. For more information, see Cache secrets for your applications [^1].
      *
@@ -259,7 +261,7 @@ class SecretsManagerClient extends AbstractApi
      *
      * To list the versions of a secret, use ListSecretVersionIds.
      *
-     * To get the secret value from `SecretString` or `SecretBinary`, call GetSecretValue.
+     * To retrieve the values for the secrets, call BatchGetSecretValue or GetSecretValue.
      *
      * For information about finding secrets in the console, see Find secrets in Secrets Manager [^1].
      *
