@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatchLogs;
 
+use AsyncAws\CloudWatchLogs\Enum\LogGroupClass;
 use AsyncAws\CloudWatchLogs\Enum\OrderBy;
 use AsyncAws\CloudWatchLogs\Exception\DataAlreadyAcceptedException;
 use AsyncAws\CloudWatchLogs\Exception\InvalidParameterException;
@@ -63,6 +64,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   logGroupName: string,
      *   kmsKeyId?: null|string,
      *   tags?: null|array<string, string>,
+     *   logGroupClass?: null|LogGroupClass::*,
      *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      *

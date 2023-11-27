@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatchLogs\Input;
 
+use AsyncAws\CloudWatchLogs\Enum\LogGroupClass;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -10,7 +11,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class CreateLogGroupRequest extends Input
 {
     /**
-     * The name of the log group.
+     * A name for the log group.
      *
      * @required
      *
@@ -45,10 +46,27 @@ final class CreateLogGroupRequest extends Input
     private $tags;
 
     /**
+     * Use this parameter to specify the log group class for this log group. There are two classes:.
+     *
+     * - The `Standard` log class supports all CloudWatch Logs features.
+     * - The `Infrequent Access` log class supports a subset of CloudWatch Logs features and incurs lower costs.
+     *
+     * If you omit this parameter, the default of `STANDARD` is used.
+     *
+     * For details about the features supported by each class, see Log classes [^1]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html
+     *
+     * @var LogGroupClass::*|null
+     */
+    private $logGroupClass;
+
+    /**
      * @param array{
      *   logGroupName?: string,
      *   kmsKeyId?: null|string,
      *   tags?: null|array<string, string>,
+     *   logGroupClass?: null|LogGroupClass::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -57,6 +75,7 @@ final class CreateLogGroupRequest extends Input
         $this->logGroupName = $input['logGroupName'] ?? null;
         $this->kmsKeyId = $input['kmsKeyId'] ?? null;
         $this->tags = $input['tags'] ?? null;
+        $this->logGroupClass = $input['logGroupClass'] ?? null;
         parent::__construct($input);
     }
 
@@ -65,6 +84,7 @@ final class CreateLogGroupRequest extends Input
      *   logGroupName?: string,
      *   kmsKeyId?: null|string,
      *   tags?: null|array<string, string>,
+     *   logGroupClass?: null|LogGroupClass::*,
      *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      */
@@ -76,6 +96,14 @@ final class CreateLogGroupRequest extends Input
     public function getKmsKeyId(): ?string
     {
         return $this->kmsKeyId;
+    }
+
+    /**
+     * @return LogGroupClass::*|null
+     */
+    public function getLogGroupClass(): ?string
+    {
+        return $this->logGroupClass;
     }
 
     public function getLogGroupName(): ?string
@@ -123,6 +151,16 @@ final class CreateLogGroupRequest extends Input
         return $this;
     }
 
+    /**
+     * @param LogGroupClass::*|null $value
+     */
+    public function setLogGroupClass(?string $value): self
+    {
+        $this->logGroupClass = $value;
+
+        return $this;
+    }
+
     public function setLogGroupName(?string $value): self
     {
         $this->logGroupName = $value;
@@ -159,6 +197,12 @@ final class CreateLogGroupRequest extends Input
                     $payload['tags'][$name] = $mv;
                 }
             }
+        }
+        if (null !== $v = $this->logGroupClass) {
+            if (!LogGroupClass::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "logGroupClass" for "%s". The value "%s" is not a valid "LogGroupClass".', __CLASS__, $v));
+            }
+            $payload['logGroupClass'] = $v;
         }
 
         return $payload;
