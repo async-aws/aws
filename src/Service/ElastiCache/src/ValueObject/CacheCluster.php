@@ -45,11 +45,14 @@ final class CacheCluster
      *
      *   - Current generation:
      *
+     *     **M7g node types**: `cache.m7g.large`, `cache.m7g.xlarge`, `cache.m7g.2xlarge`, `cache.m7g.4xlarge`,
+     *     `cache.m7g.8xlarge`, `cache.m7g.12xlarge`, `cache.m7g.16xlarge`
+     *
+     *     > For region availability, see Supported Node Types [^1]
+     *
      *     **M6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
      *     onward): `cache.m6g.large`, `cache.m6g.xlarge`, `cache.m6g.2xlarge`, `cache.m6g.4xlarge`, `cache.m6g.8xlarge`,
      *     `cache.m6g.12xlarge`, `cache.m6g.16xlarge`
-     *
-     *     > For region availability, see Supported Node Types [^1]
      *
      *     **M5 node types:**`cache.m5.large`, `cache.m5.xlarge`, `cache.m5.2xlarge`, `cache.m5.4xlarge`,
      *     `cache.m5.12xlarge`, `cache.m5.24xlarge`
@@ -83,13 +86,14 @@ final class CacheCluster
      *
      *   - Current generation:
      *
-     *     **R6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
-     *     onward).
-     *
-     *     `cache.r6g.large`, `cache.r6g.xlarge`, `cache.r6g.2xlarge`, `cache.r6g.4xlarge`, `cache.r6g.8xlarge`,
-     *     `cache.r6g.12xlarge`, `cache.r6g.16xlarge`
+     *     **R7g node types**: `cache.r7g.large`, `cache.r7g.xlarge`, `cache.r7g.2xlarge`, `cache.r7g.4xlarge`,
+     *     `cache.r7g.8xlarge`, `cache.r7g.12xlarge`, `cache.r7g.16xlarge`
      *
      *     > For region availability, see Supported Node Types [^2]
+     *
+     *     **R6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
+     *     onward): `cache.r6g.large`, `cache.r6g.xlarge`, `cache.r6g.2xlarge`, `cache.r6g.4xlarge`, `cache.r6g.8xlarge`,
+     *     `cache.r6g.12xlarge`, `cache.r6g.16xlarge`
      *
      *     **R5 node types:**`cache.r5.large`, `cache.r5.xlarge`, `cache.r5.2xlarge`, `cache.r5.4xlarge`,
      *     `cache.r5.12xlarge`, `cache.r5.24xlarge`
