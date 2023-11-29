@@ -22,24 +22,34 @@ class GetObjectOutput extends Result
     private $body;
 
     /**
-     * Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header
+     * Indicates whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header
      * does not appear in the response.
+     *
+     * > - If the current version of the object is a delete marker, Amazon S3 behaves as if the object was deleted and
+     * >   includes `x-amz-delete-marker: true` in the response.
+     * > - If the specified version in the request is a delete marker, the response returns a `405 Method Not Allowed` error
+     * >   and the `Last-Modified: timestamp` response header.
+     * >
      *
      * @var bool|null
      */
     private $deleteMarker;
 
     /**
-     * Indicates that a range of bytes was specified.
+     * Indicates that a range of bytes was specified in the request.
      *
      * @var string|null
      */
     private $acceptRanges;
 
     /**
-     * If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the
-     * `expiry-date` and `rule-id` key-value pairs providing object expiration information. The value of the `rule-id` is
-     * URL-encoded.
+     * If the object expiration is configured (see `PutBucketLifecycleConfiguration` [^1]), the response includes this
+     * header. It includes the `expiry-date` and `rule-id` key-value pairs providing object expiration information. The
+     * value of the `rule-id` is URL-encoded.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
      *
      * @var string|null
      */
@@ -48,12 +58,19 @@ class GetObjectOutput extends Result
     /**
      * Provides information about object restoration action and expiration time of the restored object copy.
      *
+     * > This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported
+     * > by directory buckets to store objects.
+     *
      * @var string|null
      */
     private $restore;
 
     /**
      * Date and time when the object was last modified.
+     *
+     * **General purpose buckets ** - When you specify a `versionId` of the object in your request, if the specified version
+     * in the request is a delete marker, the response returns a `405 Method Not Allowed` error and the `Last-Modified:
+     * timestamp` response header.
      *
      * @var \DateTimeImmutable|null
      */
@@ -76,10 +93,9 @@ class GetObjectOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -87,10 +103,9 @@ class GetObjectOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -98,10 +113,9 @@ class GetObjectOutput extends Result
 
     /**
      * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
-     * calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
@@ -109,26 +123,29 @@ class GetObjectOutput extends Result
 
     /**
      * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumSha256;
 
     /**
-     * This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create
-     * metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you
-     * can create metadata whose values are not legal HTTP headers.
+     * This is set to the number of metadata entries not returned in the headers that are prefixed with `x-amz-meta-`. This
+     * can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For
+     * example, using SOAP, you can create metadata whose values are not legal HTTP headers.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var int|null
      */
     private $missingMeta;
 
     /**
-     * Version of the object.
+     * Version ID of the object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -149,7 +166,7 @@ class GetObjectOutput extends Result
     private $contentDisposition;
 
     /**
-     * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
+     * Indicates what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
      * obtain the media-type referenced by the Content-Type header field.
      *
      * @var string|null
@@ -188,13 +205,17 @@ class GetObjectOutput extends Result
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
      * to an external URL. Amazon S3 stores the value of this header in the object metadata.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $websiteRedirectLocation;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`,
+     * The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`,
      * `aws:kms:dsse`).
+     *
+     * > For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
      *
      * @var ServerSideEncryption::*|null
      */
@@ -209,7 +230,9 @@ class GetObjectOutput extends Result
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header confirming the encryption algorithm used.
+     * header to confirm the encryption algorithm that's used.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -217,15 +240,19 @@ class GetObjectOutput extends Result
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     * header to provide the round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
+     * If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
      * used for the object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -235,6 +262,8 @@ class GetObjectOutput extends Result
      * Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys
      * (SSE-KMS).
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var bool|null
      */
     private $bucketKeyEnabled;
@@ -242,6 +271,9 @@ class GetObjectOutput extends Result
     /**
      * Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3
      * Standard storage class objects.
+     *
+     * > **Directory buckets ** - Only the S3 Express One Zone storage class is supported by directory buckets to store
+     * > objects.
      *
      * @var StorageClass::*|null
      */
@@ -256,6 +288,8 @@ class GetObjectOutput extends Result
      * Amazon S3 can return this if your request involves a bucket that is either a source or destination in a replication
      * rule.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var ReplicationStatus::*|null
      */
     private $replicationStatus;
@@ -269,14 +303,22 @@ class GetObjectOutput extends Result
     private $partsCount;
 
     /**
-     * The number of tags, if any, on the object.
+     * The number of tags, if any, on the object, when you have the relevant permission to read object tags.
+     *
+     * You can use GetObjectTagging [^1] to retrieve the tag set associated with an object.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
      *
      * @var int|null
      */
     private $tagCount;
 
     /**
-     * The Object Lock mode currently in place for this object.
+     * The Object Lock mode that's currently in place for this object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var ObjectLockMode::*|null
      */
@@ -285,6 +327,8 @@ class GetObjectOutput extends Result
     /**
      * The date and time when this object's Object Lock will expire.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var \DateTimeImmutable|null
      */
     private $objectLockRetainUntilDate;
@@ -292,6 +336,8 @@ class GetObjectOutput extends Result
     /**
      * Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an
      * object's legal hold status.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var ObjectLockLegalHoldStatus::*|null
      */

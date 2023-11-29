@@ -37,6 +37,8 @@ final class AwsObject
      *   regardless of the method of encryption. If an object is larger than 16 MB, the Amazon Web Services Management
      *   Console will upload or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest.
      *
+     * > **Directory buckets** - MD5 is not supported by directory buckets.
+     *
      * @var string|null
      */
     private $etag;
@@ -58,12 +60,17 @@ final class AwsObject
     /**
      * The class of storage used to store the object.
      *
+     * > **Directory buckets** - Only the S3 Express One Zone storage class is supported by directory buckets to store
+     * > objects.
+     *
      * @var ObjectStorageClass::*|null
      */
     private $storageClass;
 
     /**
      * The owner of the object.
+     *
+     * > **Directory buckets** - The bucket owner is returned as the object owner.
      *
      * @var Owner|null
      */
@@ -73,6 +80,9 @@ final class AwsObject
      * Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be
      * retrieved. For more information about these storage classes and how to work with archived objects, see Working with
      * archived objects [^1] in the *Amazon S3 User Guide*.
+     *
+     * > This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported
+     * > by directory buckets to store objects.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html
      *

@@ -10,7 +10,9 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
 class UploadPartOutput extends Result
 {
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     * The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     *
+     * > For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
      *
      * @var ServerSideEncryption::*|null
      */
@@ -25,8 +27,10 @@ class UploadPartOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -36,8 +40,10 @@ class UploadPartOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -47,8 +53,10 @@ class UploadPartOutput extends Result
 
     /**
      * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
-     * calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * When you use the API operation on an object that was uploaded using multipart uploads, this value may not be a direct
+     * checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part.
+     * For more information about how checksums are calculated with multipart uploads, see Checking object integrity [^1] in
+     * the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -58,8 +66,10 @@ class UploadPartOutput extends Result
 
     /**
      * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -69,7 +79,9 @@ class UploadPartOutput extends Result
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header confirming the encryption algorithm used.
+     * header to confirm the encryption algorithm that's used.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -77,15 +89,19 @@ class UploadPartOutput extends Result
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     * header to provide the round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key was used
-     * for the object.
+     * If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
+     * used for the object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -94,6 +110,8 @@ class UploadPartOutput extends Result
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */

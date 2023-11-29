@@ -38,26 +38,14 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * The bucket name.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
-     *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
-     *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
-     *
      * @var string|null
      */
     private $name;
 
     /**
      * Keys that begin with the indicated prefix.
+     *
+     * > **Directory buckets** - For directory buckets, only prefixes that end in a delimiter (`/`) are supported.
      *
      * @var string|null
      */
@@ -67,6 +55,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * Causes keys that contain the same string between the `prefix` and the first occurrence of the delimiter to be rolled
      * up into a single result element in the `CommonPrefixes` collection. These rolled-up keys are not returned elsewhere
      * in the response. Each rolled-up result counts as only one return against the `MaxKeys` value.
+     *
+     * > **Directory buckets** - For directory buckets, `/` is the only supported delimiter.
      *
      * @var string|null
      */
@@ -81,8 +71,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $maxKeys;
 
     /**
-     * All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of
-     * returns.
+     * All of the keys (up to 1,000) that share the same prefix are grouped together. When counting the total numbers of
+     * returns by this API operation, this group of keys is considered as one item.
      *
      * A response can contain `CommonPrefixes` only if you specify a delimiter.
      *
@@ -94,6 +84,15 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * For example, if the prefix is `notes/` and the delimiter is a slash (`/`) as in `notes/summer/july`, the common
      * prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when
      * calculating the number of returns.
+     *
+     * > - **Directory buckets** - For directory buckets, only prefixes that end in a delimiter (`/`) are supported.
+     * > - **Directory buckets ** - When you query `ListObjectsV2` with a delimiter during in-progress multipart uploads,
+     * >   the `CommonPrefixes` response parameter contains the prefixes that are associated with the in-progress multipart
+     * >   uploads. For more information about multipart uploads, see Multipart Upload Overview [^1] in the *Amazon S3 User
+     * >   Guide*.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html
      *
      * @var CommonPrefix[]
      */
@@ -120,7 +119,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $keyCount;
 
     /**
-     * If `ContinuationToken` was sent with the request, it is included in the response.
+     * If `ContinuationToken` was sent with the request, it is included in the response. You can use the returned
+     * `ContinuationToken` for pagination of the list response. You can use this `ContinuationToken` for pagination of the
+     * list results.
      *
      * @var string|null
      */
@@ -137,6 +138,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
 
     /**
      * If StartAfter was sent with the request, it is included in the response.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */

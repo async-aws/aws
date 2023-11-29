@@ -13,12 +13,16 @@ class DeleteObjectOutput extends Result
      * marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version
      * of the object is a delete marker.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var bool|null
      */
     private $deleteMarker;
 
     /**
      * Returns the version ID of the delete marker created as a result of the DELETE operation.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */

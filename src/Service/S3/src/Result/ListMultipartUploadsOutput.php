@@ -37,6 +37,8 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * Upload ID after which listing began.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $uploadIdMarker;
@@ -53,6 +55,8 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
      * When a prefix is provided in the request, this field contains the specified prefix. The result contains only keys
      * starting with the specified prefix.
      *
+     * > **Directory buckets** - For directory buckets, only prefixes that end in a delimiter (`/`) are supported.
+     *
      * @var string|null
      */
     private $prefix;
@@ -61,6 +65,8 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
      * Contains the delimiter you specified in the request. If you don't specify a delimiter in your request, this element
      * is absent from the response.
      *
+     * > **Directory buckets** - For directory buckets, `/` is the only supported delimiter.
+     *
      * @var string|null
      */
     private $delimiter;
@@ -68,6 +74,8 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * When a list is truncated, this element specifies the value that should be used for the `upload-id-marker` request
      * parameter in a subsequent request.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -100,6 +108,8 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * If you specify a delimiter in the request, then the result returns each distinct key prefix containing the delimiter
      * in a `CommonPrefixes` element. The distinct key prefixes are returned in the `Prefix` child element.
+     *
+     * > **Directory buckets** - For directory buckets, only prefixes that end in a delimiter (`/`) are supported.
      *
      * @var CommonPrefix[]
      */

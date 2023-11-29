@@ -28,6 +28,8 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * The response will also include the `x-amz-abort-rule-id` header that will provide the ID of the lifecycle
      * configuration rule that defines this action.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
      *
      * @var \DateTimeImmutable|null
@@ -37,6 +39,8 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     /**
      * This header is returned along with the `x-amz-abort-date` header. It identifies applicable lifecycle configuration
      * rule that defines the action to abort incomplete multipart uploads.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -115,12 +119,17 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * Container element that identifies the object owner, after the object is created. If multipart upload is initiated by
      * an IAM user, this element provides the parent account ID and display name.
      *
+     * > **Directory buckets** - The bucket owner is returned as the object owner for all the parts.
+     *
      * @var Owner|null
      */
     private $owner;
 
     /**
-     * Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
+     * The class of storage used to store the uploaded object.
+     *
+     * > **Directory buckets** - Only the S3 Express One Zone storage class is supported by directory buckets to store
+     * > objects.
      *
      * @var StorageClass::*|null
      */

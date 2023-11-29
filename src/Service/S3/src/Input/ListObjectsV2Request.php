@@ -13,21 +13,30 @@ use AsyncAws\S3\Enum\RequestPayer;
 final class ListObjectsV2Request extends Input
 {
     /**
-     * Bucket name to list.
+     * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
+     * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
+     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information about
+     * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
+     * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action with an access point
+     * through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more
+     * information about access point ARNs, see Using access points [^2] in the *Amazon S3 User Guide*.
      *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
+     * > Access points and Object Lambda access points are not supported by directory buckets.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
+     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
+     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
+     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      *
      * @required
      *
@@ -37,6 +46,15 @@ final class ListObjectsV2Request extends Input
 
     /**
      * A delimiter is a character that you use to group keys.
+     *
+     * > - **Directory buckets** - For directory buckets, `/` is the only supported delimiter.
+     * > - **Directory buckets ** - When you query `ListObjectsV2` with a delimiter during in-progress multipart uploads,
+     * >   the `CommonPrefixes` response parameter contains the prefixes that are associated with the in-progress multipart
+     * >   uploads. For more information about multipart uploads, see Multipart Upload Overview [^1] in the *Amazon S3 User
+     * >   Guide*.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html
      *
      * @var string|null
      */
@@ -60,13 +78,16 @@ final class ListObjectsV2Request extends Input
     /**
      * Limits the response to keys that begin with the specified prefix.
      *
+     * > **Directory buckets** - For directory buckets, only prefixes that end in a delimiter (`/`) are supported.
+     *
      * @var string|null
      */
     private $prefix;
 
     /**
      * `ContinuationToken` indicates to Amazon S3 that the list is being continued on this bucket with a token.
-     * `ContinuationToken` is obfuscated and is not a real key.
+     * `ContinuationToken` is obfuscated and is not a real key. You can use this `ContinuationToken` for pagination of the
+     * list results.
      *
      * @var string|null
      */
@@ -76,6 +97,8 @@ final class ListObjectsV2Request extends Input
      * The owner field is not present in `ListObjectsV2` by default. If you want to return the owner field with each key in
      * the result, then set the `FetchOwner` field to `true`.
      *
+     * > **Directory buckets** - For directory buckets, the bucket owner is returned as the object owner for all objects.
+     *
      * @var bool|null
      */
     private $fetchOwner;
@@ -83,6 +106,8 @@ final class ListObjectsV2Request extends Input
     /**
      * StartAfter is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key.
      * StartAfter can be any key in the bucket.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -92,13 +117,15 @@ final class ListObjectsV2Request extends Input
      * Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket
      * owners need not specify this parameter in their requests.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var RequestPayer::*|null
      */
     private $requestPayer;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
-     * the HTTP status code `403 Forbidden` (access denied).
+     * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
+     * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -107,6 +134,8 @@ final class ListObjectsV2Request extends Input
     /**
      * Specifies the optional fields that you want returned in the response. Fields that you do not specify are not
      * returned.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var list<OptionalObjectAttributes::*>|null
      */

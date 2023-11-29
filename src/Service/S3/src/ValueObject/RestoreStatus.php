@@ -7,6 +7,9 @@ namespace AsyncAws\S3\ValueObject;
  * retrieved. For more information about these storage classes and how to work with archived objects, see Working with
  * archived objects [^1] in the *Amazon S3 User Guide*.
  *
+ * > This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported
+ * > by directory buckets to store objects.
+ *
  * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html
  */
 final class RestoreStatus

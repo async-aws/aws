@@ -10,9 +10,11 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
 class PutObjectOutput extends Result
 {
     /**
-     * If the expiration is configured for the object (see PutBucketLifecycleConfiguration [^1]), the response includes this
-     * header. It includes the `expiry-date` and `rule-id` key-value pairs that provide information about object expiration.
-     * The value of the `rule-id` is URL-encoded.
+     * If the expiration is configured for the object (see PutBucketLifecycleConfiguration [^1]) in the *Amazon S3 User
+     * Guide*, the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide
+     * information about object expiration. The value of the `rule-id` is URL-encoded.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
      *
@@ -23,14 +25,22 @@ class PutObjectOutput extends Result
     /**
      * Entity tag for the uploaded object.
      *
+     * **General purpose buckets ** - To ensure that data is not corrupted traversing the network, for objects where the
+     * ETag is the MD5 digest of the object, you can calculate the MD5 while putting an object to Amazon S3 and compare the
+     * returned ETag to the calculated MD5 value.
+     *
+     * **Directory buckets ** - The ETag for the object in a directory bucket isn't the MD5 digest of the object.
+     *
      * @var string|null
      */
     private $etag;
 
     /**
      * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -40,8 +50,10 @@ class PutObjectOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -51,8 +63,10 @@ class PutObjectOutput extends Result
 
     /**
      * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
-     * calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * When you use the API operation on an object that was uploaded using multipart uploads, this value may not be a direct
+     * checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part.
+     * For more information about how checksums are calculated with multipart uploads, see Checking object integrity [^1] in
+     * the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -62,8 +76,10 @@ class PutObjectOutput extends Result
 
     /**
      * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -72,15 +88,28 @@ class PutObjectOutput extends Result
     private $checksumSha256;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`,
+     * The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`,
      * `aws:kms:dsse`).
+     *
+     * > For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
      *
      * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
 
     /**
-     * Version of the object.
+     * Version ID of the object.
+     *
+     * If you enable versioning for a bucket, Amazon S3 automatically generates a unique version ID for the object being
+     * stored. Amazon S3 returns this ID in the response. When you enable versioning for a bucket, if Amazon S3 receives
+     * multiple write requests for the same object simultaneously, it stores all of the objects. For more information about
+     * versioning, see Adding Objects to Versioning-Enabled Buckets [^1] in the *Amazon S3 User Guide*. For information
+     * about returning the versioning state of a bucket, see GetBucketVersioning [^2].
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/AddingObjectstoVersioningEnabledBuckets.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html
      *
      * @var string|null
      */
@@ -88,7 +117,9 @@ class PutObjectOutput extends Result
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header confirming the encryption algorithm used.
+     * header to confirm the encryption algorithm that's used.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -96,25 +127,31 @@ class PutObjectOutput extends Result
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     * header to provide the round-trip message integrity verification of the customer-provided encryption key.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
     private $sseCustomerKeyMd5;
 
     /**
-     * If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header specifies the ID of
+     * If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header indicates the ID of
      * the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
     private $sseKmsKeyId;
 
     /**
-     * If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this
+     * If present, indicates the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this
      * header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value is
      * stored as object metadata and automatically gets passed on to Amazon Web Services KMS for future `GetObject` or
      * `CopyObject` operations on this object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -123,6 +160,8 @@ class PutObjectOutput extends Result
     /**
      * Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */

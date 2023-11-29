@@ -20,19 +20,7 @@ class CompleteMultipartUploadOutput extends Result
      * The name of the bucket that contains the newly created object. Does not return the access point ARN or access point
      * alias if used.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
-     *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
-     *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     * > Access points are not supported by directory buckets.
      *
      * @var string|null
      */
@@ -48,6 +36,8 @@ class CompleteMultipartUploadOutput extends Result
     /**
      * If the object expiration is configured, this will contain the expiration date (`expiry-date`) and rule ID
      * (`rule-id`). The value of `rule-id` is URL-encoded.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -68,8 +58,10 @@ class CompleteMultipartUploadOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -79,8 +71,10 @@ class CompleteMultipartUploadOutput extends Result
 
     /**
      * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -90,8 +84,10 @@ class CompleteMultipartUploadOutput extends Result
 
     /**
      * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
-     * calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * When you use the API operation on an object that was uploaded using multipart uploads, this value may not be a direct
+     * checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part.
+     * For more information about how checksums are calculated with multipart uploads, see Checking object integrity [^1] in
+     * the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -101,8 +97,10 @@ class CompleteMultipartUploadOutput extends Result
 
     /**
      * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
-     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
-     * checksums are calculated with multipart uploads, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
+     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
+     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -113,6 +111,8 @@ class CompleteMultipartUploadOutput extends Result
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
      *
+     * > For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
+     *
      * @var ServerSideEncryption::*|null
      */
     private $serverSideEncryption;
@@ -120,13 +120,17 @@ class CompleteMultipartUploadOutput extends Result
     /**
      * Version ID of the newly created object, in case the bucket has versioning turned on.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $versionId;
 
     /**
-     * If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
+     * If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
      * used for the object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -135,6 +139,8 @@ class CompleteMultipartUploadOutput extends Result
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service
      * (KMS) keys (SSE-KMS).
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */

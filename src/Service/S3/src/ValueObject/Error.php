@@ -17,6 +17,8 @@ final class Error
     /**
      * The version ID of the error.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $versionId;
