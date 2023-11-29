@@ -20,6 +20,8 @@ final class Owner
      * - Europe (Ireland)
      * - South America (São Paulo)
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $displayName;

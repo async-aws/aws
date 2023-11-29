@@ -15,12 +15,26 @@ final class CreateBucketRequest extends Input
     /**
      * The canned ACL to apply to the bucket.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var BucketCannedACL::*|null
      */
     private $acl;
 
     /**
      * The name of the bucket to create.
+     *
+     * **General purpose buckets** - For information about bucket naming restrictions, see Bucket naming rules [^1] in the
+     * *Amazon S3 User Guide*.
+     *
+     * **Directory buckets ** - When you use this operation with a directory bucket, you must use path-style requests in the
+     * format `https://s3express-control.*region_code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must also follow the
+     * format `*bucket_base_name*--*az_id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information
+     * about bucket naming restrictions, see Directory bucket naming rules [^2] in the *Amazon S3 User Guide*
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
      *
      * @required
      *
@@ -38,6 +52,8 @@ final class CreateBucketRequest extends Input
     /**
      * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $grantFullControl;
@@ -45,12 +61,16 @@ final class CreateBucketRequest extends Input
     /**
      * Allows grantee to list the objects in the bucket.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $grantRead;
 
     /**
      * Allows grantee to read the bucket ACL.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -61,6 +81,8 @@ final class CreateBucketRequest extends Input
      *
      * For the bucket and object owners of existing objects, also allows deletions and overwrites of those objects.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $grantWrite;
@@ -68,12 +90,16 @@ final class CreateBucketRequest extends Input
     /**
      * Allows grantee to write the ACL for the applicable bucket.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $grantWriteAcp;
 
     /**
      * Specifies whether you want S3 Object Lock to be enabled for the new bucket.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */

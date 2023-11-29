@@ -27,8 +27,8 @@ final class PutBucketNotificationConfigurationRequest extends Input
     private $notificationConfiguration;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
-     * the HTTP status code `403 Forbidden` (access denied).
+     * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
+     * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */

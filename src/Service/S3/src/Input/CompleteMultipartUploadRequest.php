@@ -14,19 +14,30 @@ final class CompleteMultipartUploadRequest extends Input
     /**
      * Name of the bucket to which the multipart upload was initiated.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
+     * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
+     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information about
+     * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
      *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
+     * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
+     * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action with an access point
+     * through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more
+     * information about access point ARNs, see Using access points [^2] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     * > Access points and Object Lambda access points are not supported by directory buckets.
+     *
+     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
+     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
+     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
+     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      *
      * @required
      *
@@ -109,8 +120,8 @@ final class CompleteMultipartUploadRequest extends Input
     private $requestPayer;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
-     * the HTTP status code `403 Forbidden` (access denied).
+     * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
+     * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -120,6 +131,8 @@ final class CompleteMultipartUploadRequest extends Input
      * The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is required only when the
      * object was created using a checksum algorithm or if your bucket policy requires the use of SSE-C. For more
      * information, see Protecting data using SSE-C keys [^1] in the *Amazon S3 User Guide*.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html#ssec-require-condition-key
      *
@@ -132,6 +145,8 @@ final class CompleteMultipartUploadRequest extends Input
      * using a checksum algorithm. For more information, see Protecting data using SSE-C keys [^1] in the *Amazon S3 User
      * Guide*.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
      *
      * @var string|null
@@ -142,6 +157,8 @@ final class CompleteMultipartUploadRequest extends Input
      * The MD5 server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created
      * using a checksum algorithm. For more information, see Protecting data using SSE-C keys [^1] in the *Amazon S3 User
      * Guide*.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
      *

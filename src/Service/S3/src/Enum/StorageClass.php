@@ -5,6 +5,7 @@ namespace AsyncAws\S3\Enum;
 final class StorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
+    public const EXPRESS_ONEZONE = 'EXPRESS_ONEZONE';
     public const GLACIER = 'GLACIER';
     public const GLACIER_IR = 'GLACIER_IR';
     public const INTELLIGENT_TIERING = 'INTELLIGENT_TIERING';
@@ -19,6 +20,7 @@ final class StorageClass
     {
         return isset([
             self::DEEP_ARCHIVE => true,
+            self::EXPRESS_ONEZONE => true,
             self::GLACIER => true,
             self::GLACIER_IR => true,
             self::INTELLIGENT_TIERING => true,

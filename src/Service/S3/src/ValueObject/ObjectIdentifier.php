@@ -22,7 +22,9 @@ final class ObjectIdentifier
     private $key;
 
     /**
-     * VersionId for the specific version of the object to delete.
+     * Version ID for the specific version of the object to delete.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */

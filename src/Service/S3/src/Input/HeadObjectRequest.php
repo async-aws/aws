@@ -12,21 +12,32 @@ use AsyncAws\S3\Enum\RequestPayer;
 final class HeadObjectRequest extends Input
 {
     /**
-     * The name of the bucket containing the object.
+     * The name of the bucket that contains the object.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
+     * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
+     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information about
+     * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
      *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
+     * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
+     * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action with an access point
+     * through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more
+     * information about access point ARNs, see Using access points [^2] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     * > Access points and Object Lambda access points are not supported by directory buckets.
+     *
+     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
+     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
+     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
+     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      *
      * @required
      *
@@ -38,6 +49,17 @@ final class HeadObjectRequest extends Input
      * Return the object only if its entity tag (ETag) is the same as the one specified; otherwise, return a 412
      * (precondition failed) error.
      *
+     * If both of the `If-Match` and `If-Unmodified-Since` headers are present in the request as follows:
+     *
+     * - `If-Match` condition evaluates to `true`, and;
+     * - `If-Unmodified-Since` condition evaluates to `false`;
+     *
+     * Then Amazon S3 returns `200 OK` and the data requested.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
+     *
      * @var string|null
      */
     private $ifMatch;
@@ -45,6 +67,17 @@ final class HeadObjectRequest extends Input
     /**
      * Return the object only if it has been modified since the specified time; otherwise, return a 304 (not modified)
      * error.
+     *
+     * If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as follows:
+     *
+     * - `If-None-Match` condition evaluates to `false`, and;
+     * - `If-Modified-Since` condition evaluates to `true`;
+     *
+     * Then Amazon S3 returns the `304 Not Modified` response code.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
      *
      * @var \DateTimeImmutable|null
      */
@@ -54,6 +87,17 @@ final class HeadObjectRequest extends Input
      * Return the object only if its entity tag (ETag) is different from the one specified; otherwise, return a 304 (not
      * modified) error.
      *
+     * If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as follows:
+     *
+     * - `If-None-Match` condition evaluates to `false`, and;
+     * - `If-Modified-Since` condition evaluates to `true`;
+     *
+     * Then Amazon S3 returns the `304 Not Modified` response code.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
+     *
      * @var string|null
      */
     private $ifNoneMatch;
@@ -61,6 +105,17 @@ final class HeadObjectRequest extends Input
     /**
      * Return the object only if it has not been modified since the specified time; otherwise, return a 412 (precondition
      * failed) error.
+     *
+     * If both of the `If-Match` and `If-Unmodified-Since` headers are present in the request as follows:
+     *
+     * - `If-Match` condition evaluates to `true`, and;
+     * - `If-Unmodified-Since` condition evaluates to `false`;
+     *
+     * Then Amazon S3 returns `200 OK` and the data requested.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
      *
      * @var \DateTimeImmutable|null
      */
@@ -84,14 +139,18 @@ final class HeadObjectRequest extends Input
     private $range;
 
     /**
-     * VersionId used to reference a specific version of the object.
+     * Version ID used to reference a specific version of the object.
+     *
+     * > For directory buckets in this API operation, only the `null` value of the version ID is supported.
      *
      * @var string|null
      */
     private $versionId;
 
     /**
-     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     * Specifies the algorithm to use when encrypting the object (for example, AES256).
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -102,6 +161,8 @@ final class HeadObjectRequest extends Input
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
      * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $sseCustomerKey;
@@ -109,6 +170,8 @@ final class HeadObjectRequest extends Input
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
      * message integrity check to ensure that the encryption key was transmitted without error.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -129,8 +192,8 @@ final class HeadObjectRequest extends Input
     private $partNumber;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
-     * the HTTP status code `403 Forbidden` (access denied).
+     * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
+     * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */

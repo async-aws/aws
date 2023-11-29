@@ -17,6 +17,8 @@ final class DeletedObject
     /**
      * The version ID of the deleted object.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $versionId;
@@ -26,6 +28,8 @@ final class DeletedObject
      * marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version
      * of the object is a delete marker.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var bool|null
      */
     private $deleteMarker;
@@ -33,6 +37,8 @@ final class DeletedObject
     /**
      * The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object
      * version, the value returned by this header is the version ID of the object version deleted.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */

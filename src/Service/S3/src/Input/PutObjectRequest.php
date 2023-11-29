@@ -17,11 +17,29 @@ use AsyncAws\S3\Enum\StorageClass;
 final class PutObjectRequest extends Input
 {
     /**
-     * The canned ACL to apply to the object. For more information, see Canned ACL [^1].
+     * The canned ACL to apply to the object. For more information, see Canned ACL [^1] in the *Amazon S3 User Guide*.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * When adding a new object, you can use headers to grant ACL-based permissions to individual Amazon Web Services
+     * accounts or to predefined groups defined by Amazon S3. These permissions are then added to the ACL on the object. By
+     * default, all objects are private. Only the owner has full access control. For more information, see Access Control
+     * List (ACL) Overview [^2] and Managing ACLs Using the REST API [^3] in the *Amazon S3 User Guide*.
+     *
+     * If the bucket that you're uploading objects to uses the bucket owner enforced setting for S3 Object Ownership, ACLs
+     * are disabled and no longer affect permissions. Buckets that use this setting only accept PUT requests that don't
+     * specify an ACL or PUT requests that specify bucket owner full control ACLs, such as the `bucket-owner-full-control`
+     * canned ACL or an equivalent form of this ACL expressed in the XML format. PUT requests that contain other ACLs (for
+     * example, custom grants to certain Amazon Web Services accounts) fail and return a `400` error with the error code
+     * `AccessControlListNotSupported`. For more information, see Controlling ownership of objects and disabling ACLs [^4]
+     * in the *Amazon S3 User Guide*.
+     *
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-using-rest-api.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
      *
      * @var ObjectCannedACL::*|null
      */
@@ -37,19 +55,30 @@ final class PutObjectRequest extends Input
     /**
      * The bucket name to which the PUT action was initiated.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
+     * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
+     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information about
+     * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
      *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
+     * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
+     * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action with an access point
+     * through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more
+     * information about access point ARNs, see Using access points [^2] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     * > Access points and Object Lambda access points are not supported by directory buckets.
+     *
+     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
+     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
+     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
+     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      *
      * @required
      *
@@ -111,7 +140,14 @@ final class PutObjectRequest extends Input
      * optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about
      * REST request authentication, see REST Authentication [^1].
      *
+     * > The `Content-MD5` header is required for any request to upload an object with a retention period configured using
+     * > Amazon S3 Object Lock. For more information about Amazon S3 Object Lock, see Amazon S3 Object Lock Overview [^2] in
+     * > the *Amazon S3 User Guide*.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html
      *
      * @var string|null
      */
@@ -128,12 +164,27 @@ final class PutObjectRequest extends Input
     private $contentType;
 
     /**
-     * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
-     * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
-     * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
-     * `400 Bad Request`. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * Indicates the algorithm used to create the checksum for the object when you use the SDK. This header will not provide
+     * any additional functionality if you don't use the SDK. When you send this header, there must be a corresponding
+     * `x-amz-checksum-*algorithm*` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP
+     * status code `400 Bad Request`.
      *
-     * If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+     * For the `x-amz-checksum-*algorithm*` header, replace `*algorithm*` with the supported algorithm from the following
+     * list:
+     *
+     * - CRC32
+     * - CRC32C
+     * - SHA1
+     * - SHA256
+     *
+     * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * If the individual checksum value you provide through `x-amz-checksum-*algorithm*` doesn't match the checksum
+     * algorithm you set through `x-amz-sdk-checksum-algorithm`, Amazon S3 ignores any provided `ChecksumAlgorithm`
+     * parameter and uses the checksum algorithm that matches the provided value in `x-amz-checksum-*algorithm*`.
+     *
+     * > For directory buckets, when you use Amazon Web Services SDKs, `CRC32` is the default checksum algorithm that's used
+     * > for performance.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -198,7 +249,9 @@ final class PutObjectRequest extends Input
     /**
      * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
      *
      * @var string|null
      */
@@ -207,7 +260,9 @@ final class PutObjectRequest extends Input
     /**
      * Allows grantee to read the object data and its metadata.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
      *
      * @var string|null
      */
@@ -216,7 +271,9 @@ final class PutObjectRequest extends Input
     /**
      * Allows grantee to read the object ACL.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
      *
      * @var string|null
      */
@@ -225,7 +282,9 @@ final class PutObjectRequest extends Input
     /**
      * Allows grantee to write the ACL for the applicable object.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
      *
      * @var string|null
      */
@@ -248,8 +307,20 @@ final class PutObjectRequest extends Input
     private $metadata;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`,
-     * `aws:kms:dsse`).
+     * The server-side encryption algorithm that was used when you store this object in Amazon S3 (for example, `AES256`,
+     * `aws:kms`, `aws:kms:dsse`).
+     *
+     * **General purpose buckets ** - You have four mutually exclusive options to protect data using server-side encryption
+     * in Amazon S3, depending on how you choose to manage the encryption keys. Specifically, the encryption key options are
+     * Amazon S3 managed keys (SSE-S3), Amazon Web Services KMS keys (SSE-KMS or DSSE-KMS), and customer-provided keys
+     * (SSE-C). Amazon S3 encrypts data with server-side encryption by using Amazon S3 managed keys (SSE-S3) by default. You
+     * can optionally tell Amazon S3 to encrypt data at rest by using server-side encryption with other key options. For
+     * more information, see Using Server-Side Encryption [^1] in the *Amazon S3 User Guide*.
+     *
+     * **Directory buckets ** - For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3)
+     * (`AES256`) value is supported.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
      *
      * @var ServerSideEncryption::*|null
      */
@@ -258,8 +329,11 @@ final class PutObjectRequest extends Input
     /**
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
      * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
-     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes [^1] in
-     * the *Amazon S3 User Guide*.
+     * Class. For more information, see Storage Classes [^1] in the *Amazon S3 User Guide*.
+     *
+     * > - For directory buckets, only the S3 Express One Zone storage class is supported to store newly created objects.
+     * > - Amazon S3 on Outposts only uses the OUTPOSTS Storage Class.
+     * >
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
@@ -270,7 +344,7 @@ final class PutObjectRequest extends Input
     /**
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
      * to an external URL. Amazon S3 stores the value of this header in the object metadata. For information about object
-     * metadata, see Object Key and Metadata [^1].
+     * metadata, see Object Key and Metadata [^1] in the *Amazon S3 User Guide*.
      *
      * In the following example, the request header sets the redirect to an object (anotherPage.html) in the same bucket:
      *
@@ -281,7 +355,9 @@ final class PutObjectRequest extends Input
      * `x-amz-website-redirect-location: http://www.example.com/`
      *
      * For more information about website hosting in Amazon S3, see Hosting Websites on Amazon S3 [^2] and How to Configure
-     * Website Page Redirects [^3].
+     * Website Page Redirects [^3] in the *Amazon S3 User Guide*.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html
@@ -292,7 +368,9 @@ final class PutObjectRequest extends Input
     private $websiteRedirectLocation;
 
     /**
-     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     * Specifies the algorithm to use when encrypting the object (for example, `AES256`).
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -303,6 +381,8 @@ final class PutObjectRequest extends Input
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
      * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $sseCustomerKey;
@@ -310,6 +390,8 @@ final class PutObjectRequest extends Input
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
      * message integrity check to ensure that the encryption key was transmitted without error.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -323,6 +405,8 @@ final class PutObjectRequest extends Input
      * S3 uses the Amazon Web Services managed key (`aws/s3`) to protect the data. If the KMS key does not exist in the same
      * account that's issuing the command, you must use the full ARN and not just the ID.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $sseKmsKeyId;
@@ -331,7 +415,9 @@ final class PutObjectRequest extends Input
      * Specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a
      * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value is stored as object
      * metadata and automatically gets passed on to Amazon Web Services KMS for future `GetObject` or `CopyObject`
-     * operations on this object. This value must be explicitly added during CopyObject operations.
+     * operations on this object. This value must be explicitly added during `CopyObject` operations.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -343,6 +429,8 @@ final class PutObjectRequest extends Input
      * object encryption with SSE-KMS.
      *
      * Specifying this header with a PUT action doesn’t affect bucket-level settings for S3 Bucket Key.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */
@@ -356,12 +444,16 @@ final class PutObjectRequest extends Input
     /**
      * The tag-set for the object. The tag-set must be encoded as URL Query parameters. (For example, "Key1=Value1").
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $tagging;
 
     /**
      * The Object Lock mode that you want to apply to this object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var ObjectLockMode::*|null
      */
@@ -370,13 +462,17 @@ final class PutObjectRequest extends Input
     /**
      * The date and time when you want this object's Object Lock to expire. Must be formatted as a timestamp parameter.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var \DateTimeImmutable|null
      */
     private $objectLockRetainUntilDate;
 
     /**
      * Specifies whether a legal hold will be applied to this object. For more information about S3 Object Lock, see Object
-     * Lock [^1].
+     * Lock [^1] in the *Amazon S3 User Guide*.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      *
@@ -385,8 +481,8 @@ final class PutObjectRequest extends Input
     private $objectLockLegalHoldStatus;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
-     * the HTTP status code `403 Forbidden` (access denied).
+     * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
+     * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */

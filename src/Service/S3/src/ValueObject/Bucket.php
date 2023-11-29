@@ -3,8 +3,7 @@
 namespace AsyncAws\S3\ValueObject;
 
 /**
- * In terms of implementation, a Bucket is a resource. An Amazon S3 bucket name is globally unique, and the namespace is
- * shared by all Amazon Web Services accounts.
+ * In terms of implementation, a Bucket is a resource.
  */
 final class Bucket
 {

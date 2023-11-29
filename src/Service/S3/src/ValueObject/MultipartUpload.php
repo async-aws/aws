@@ -34,12 +34,17 @@ final class MultipartUpload
     /**
      * The class of storage used to store the object.
      *
+     * > **Directory buckets** - Only the S3 Express One Zone storage class is supported by directory buckets to store
+     * > objects.
+     *
      * @var StorageClass::*|null
      */
     private $storageClass;
 
     /**
      * Specifies the owner of the object that is part of the multipart upload.
+     *
+     * > **Directory buckets** - The bucket owner is returned as the object owner for all the objects.
      *
      * @var Owner|null
      */

@@ -17,30 +17,54 @@ use AsyncAws\S3\Enum\StorageClass;
 final class CreateMultipartUploadRequest extends Input
 {
     /**
-     * The canned ACL to apply to the object.
+     * The canned ACL to apply to the object. Amazon S3 supports a set of predefined ACLs, known as *canned ACLs*. Each
+     * canned ACL has a predefined set of grantees and permissions. For more information, see Canned ACL [^1] in the *Amazon
+     * S3 User Guide*.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * By default, all objects are private. Only the owner has full access control. When uploading an object, you can grant
+     * access permissions to individual Amazon Web Services accounts or to predefined groups defined by Amazon S3. These
+     * permissions are then added to the access control list (ACL) on the new object. For more information, see Using ACLs
+     * [^2]. One way to grant the permissions using the request headers is to specify a canned ACL with the `x-amz-acl`
+     * request header.
+     *
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html
      *
      * @var ObjectCannedACL::*|null
      */
     private $acl;
 
     /**
-     * The name of the bucket to which to initiate the upload.
+     * The name of the bucket where the multipart upload is initiated and where the object is uploaded.
      *
-     * When using this action with an access point, you must direct requests to the access point hostname. The access point
-     * hostname takes the form *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action
-     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket
-     * name. For more information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
+     * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
+     * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
+     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information about
+     * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
      *
-     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3
-     * on Outposts hostname takes the form `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`.
-     * When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access
-     * point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see What is S3 on Outposts?
-     * [^2] in the *Amazon S3 User Guide*.
+     * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
+     * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * *AccessPointName*-*AccountId*.s3-accesspoint.*Region*.amazonaws.com. When using this action with an access point
+     * through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more
+     * information about access point ARNs, see Using access points [^2] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
+     * > Access points and Object Lambda access points are not supported by directory buckets.
+     *
+     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
+     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
+     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
+     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
      *
      * @required
      *
@@ -66,12 +90,14 @@ final class CreateMultipartUploadRequest extends Input
      * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
      * obtain the media-type referenced by the Content-Type header field.
      *
+     * > For directory buckets, only the `aws-chunked` value is supported in this header field.
+     *
      * @var string|null
      */
     private $contentEncoding;
 
     /**
-     * The language the content is in.
+     * The language that the content is in.
      *
      * @var string|null
      */
@@ -92,36 +118,180 @@ final class CreateMultipartUploadRequest extends Input
     private $expires;
 
     /**
-     * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
+     * Specify access permissions explicitly to give the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * By default, all objects are private. Only the owner has full access control. When uploading an object, you can use
+     * this header to explicitly grant access permissions to specific Amazon Web Services accounts or groups. This header
+     * maps to specific permissions that Amazon S3 supports in an ACL. For more information, see Access Control List (ACL)
+     * Overview [^1] in the *Amazon S3 User Guide*.
+     *
+     * You specify each grantee as a type=value pair, where the type is one of the following:
+     *
+     * - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
+     * - `uri` – if you are granting permissions to a predefined group
+     * - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
+     *
+     *   > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
+     *   >
+     *   > - US East (N. Virginia)
+     *   > - US West (N. California)
+     *   > - US West (Oregon)
+     *   > - Asia Pacific (Singapore)
+     *   > - Asia Pacific (Sydney)
+     *   > - Asia Pacific (Tokyo)
+     *   > - Europe (Ireland)
+     *   > - South America (São Paulo)
+     *   >
+     *   > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^2] in the Amazon Web
+     *   > Services General Reference.
+     *
+     *
+     * For example, the following `x-amz-grant-read` header grants the Amazon Web Services accounts identified by account
+     * IDs permissions to read object data and its metadata:
+     *
+     * `x-amz-grant-read: id="11112222333", id="444455556666" `
+     *
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+     * [^2]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
      *
      * @var string|null
      */
     private $grantFullControl;
 
     /**
-     * Allows grantee to read the object data and its metadata.
+     * Specify access permissions explicitly to allow grantee to read the object data and its metadata.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * By default, all objects are private. Only the owner has full access control. When uploading an object, you can use
+     * this header to explicitly grant access permissions to specific Amazon Web Services accounts or groups. This header
+     * maps to specific permissions that Amazon S3 supports in an ACL. For more information, see Access Control List (ACL)
+     * Overview [^1] in the *Amazon S3 User Guide*.
+     *
+     * You specify each grantee as a type=value pair, where the type is one of the following:
+     *
+     * - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
+     * - `uri` – if you are granting permissions to a predefined group
+     * - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
+     *
+     *   > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
+     *   >
+     *   > - US East (N. Virginia)
+     *   > - US West (N. California)
+     *   > - US West (Oregon)
+     *   > - Asia Pacific (Singapore)
+     *   > - Asia Pacific (Sydney)
+     *   > - Asia Pacific (Tokyo)
+     *   > - Europe (Ireland)
+     *   > - South America (São Paulo)
+     *   >
+     *   > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^2] in the Amazon Web
+     *   > Services General Reference.
+     *
+     *
+     * For example, the following `x-amz-grant-read` header grants the Amazon Web Services accounts identified by account
+     * IDs permissions to read object data and its metadata:
+     *
+     * `x-amz-grant-read: id="11112222333", id="444455556666" `
+     *
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+     * [^2]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
      *
      * @var string|null
      */
     private $grantRead;
 
     /**
-     * Allows grantee to read the object ACL.
+     * Specify access permissions explicitly to allows grantee to read the object ACL.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * By default, all objects are private. Only the owner has full access control. When uploading an object, you can use
+     * this header to explicitly grant access permissions to specific Amazon Web Services accounts or groups. This header
+     * maps to specific permissions that Amazon S3 supports in an ACL. For more information, see Access Control List (ACL)
+     * Overview [^1] in the *Amazon S3 User Guide*.
+     *
+     * You specify each grantee as a type=value pair, where the type is one of the following:
+     *
+     * - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
+     * - `uri` – if you are granting permissions to a predefined group
+     * - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
+     *
+     *   > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
+     *   >
+     *   > - US East (N. Virginia)
+     *   > - US West (N. California)
+     *   > - US West (Oregon)
+     *   > - Asia Pacific (Singapore)
+     *   > - Asia Pacific (Sydney)
+     *   > - Asia Pacific (Tokyo)
+     *   > - Europe (Ireland)
+     *   > - South America (São Paulo)
+     *   >
+     *   > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^2] in the Amazon Web
+     *   > Services General Reference.
+     *
+     *
+     * For example, the following `x-amz-grant-read` header grants the Amazon Web Services accounts identified by account
+     * IDs permissions to read object data and its metadata:
+     *
+     * `x-amz-grant-read: id="11112222333", id="444455556666" `
+     *
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+     * [^2]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
      *
      * @var string|null
      */
     private $grantReadAcp;
 
     /**
-     * Allows grantee to write the ACL for the applicable object.
+     * Specify access permissions explicitly to allows grantee to allow grantee to write the ACL for the applicable object.
      *
-     * This action is not supported by Amazon S3 on Outposts.
+     * By default, all objects are private. Only the owner has full access control. When uploading an object, you can use
+     * this header to explicitly grant access permissions to specific Amazon Web Services accounts or groups. This header
+     * maps to specific permissions that Amazon S3 supports in an ACL. For more information, see Access Control List (ACL)
+     * Overview [^1] in the *Amazon S3 User Guide*.
+     *
+     * You specify each grantee as a type=value pair, where the type is one of the following:
+     *
+     * - `id` – if the value specified is the canonical user ID of an Amazon Web Services account
+     * - `uri` – if you are granting permissions to a predefined group
+     * - `emailAddress` – if the value specified is the email address of an Amazon Web Services account
+     *
+     *   > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
+     *   >
+     *   > - US East (N. Virginia)
+     *   > - US West (N. California)
+     *   > - US West (Oregon)
+     *   > - Asia Pacific (Singapore)
+     *   > - Asia Pacific (Sydney)
+     *   > - Asia Pacific (Tokyo)
+     *   > - Europe (Ireland)
+     *   > - South America (São Paulo)
+     *   >
+     *   > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^2] in the Amazon Web
+     *   > Services General Reference.
+     *
+     *
+     * For example, the following `x-amz-grant-read` header grants the Amazon Web Services accounts identified by account
+     * IDs permissions to read object data and its metadata:
+     *
+     * `x-amz-grant-read: id="11112222333", id="444455556666" `
+     *
+     * > - This functionality is not supported for directory buckets.
+     * > - This functionality is not supported for Amazon S3 on Outposts.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+     * [^2]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
      *
      * @var string|null
      */
@@ -144,7 +314,9 @@ final class CreateMultipartUploadRequest extends Input
     private $metadata;
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     * The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     *
+     * > For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
      *
      * @var ServerSideEncryption::*|null
      */
@@ -153,8 +325,11 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
      * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
-     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes [^1] in
-     * the *Amazon S3 User Guide*.
+     * Class. For more information, see Storage Classes [^1] in the *Amazon S3 User Guide*.
+     *
+     * > - For directory buckets, only the S3 Express One Zone storage class is supported to store newly created objects.
+     * > - Amazon S3 on Outposts only uses the OUTPOSTS Storage Class.
+     * >
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
@@ -166,12 +341,16 @@ final class CreateMultipartUploadRequest extends Input
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
      * to an external URL. Amazon S3 stores the value of this header in the object metadata.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $websiteRedirectLocation;
 
     /**
-     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     * Specifies the algorithm to use when encrypting the object (for example, AES256).
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -182,13 +361,17 @@ final class CreateMultipartUploadRequest extends Input
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
      * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $sseCustomerKey;
 
     /**
-     * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
-     * message integrity check to ensure that the encryption key was transmitted without error.
+     * Specifies the 128-bit MD5 digest of the customer-provided encryption key according to RFC 1321. Amazon S3 uses this
+     * header for a message integrity check to ensure that the encryption key was transmitted without error.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -196,11 +379,9 @@ final class CreateMultipartUploadRequest extends Input
 
     /**
      * Specifies the ID (Key ID, Key ARN, or Key Alias) of the symmetric encryption customer managed key to use for object
-     * encryption. All GET and PUT requests for an object protected by KMS will fail if they're not made via SSL or using
-     * SigV4. For information about configuring any of the officially supported Amazon Web Services SDKs and Amazon Web
-     * Services CLI, see Specifying the Signature Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
+     * encryption.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -209,6 +390,8 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * Specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a
      * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var string|null
      */
@@ -220,6 +403,8 @@ final class CreateMultipartUploadRequest extends Input
      * object encryption with SSE-KMS.
      *
      * Specifying this header with an object action doesn’t affect bucket-level settings for S3 Bucket Key.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */
@@ -233,12 +418,16 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * The tag-set for the object. The tag-set must be encoded as URL Query parameters.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var string|null
      */
     private $tagging;
 
     /**
      * Specifies the Object Lock mode that you want to apply to the uploaded object.
+     *
+     * > This functionality is not supported for directory buckets.
      *
      * @var ObjectLockMode::*|null
      */
@@ -247,6 +436,8 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * Specifies the date and time when you want the Object Lock to expire.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var \DateTimeImmutable|null
      */
     private $objectLockRetainUntilDate;
@@ -254,21 +445,23 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * Specifies whether you want to apply a legal hold to the uploaded object.
      *
+     * > This functionality is not supported for directory buckets.
+     *
      * @var ObjectLockLegalHoldStatus::*|null
      */
     private $objectLockLegalHoldStatus;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
-     * the HTTP status code `403 Forbidden` (access denied).
+     * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
+     * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
     private $expectedBucketOwner;
 
     /**
-     * Indicates the algorithm you want Amazon S3 to use to create the checksum for the object. For more information, see
-     * Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * Indicates the algorithm that you want Amazon S3 to use to create the checksum for the object. For more information,
+     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
