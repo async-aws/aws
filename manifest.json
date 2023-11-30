@@ -567,6 +567,7 @@
                 "HeadObject",
                 "ListBuckets",
                 "ListMultipartUploads",
+                "ListObjectVersions",
                 "ListObjectsV2",
                 "ListParts",
                 "ObjectExists",

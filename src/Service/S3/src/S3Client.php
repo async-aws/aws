@@ -49,6 +49,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
@@ -77,6 +78,7 @@ use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ListObjectVersionsOutput;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\ObjectNotExistsWaiter;
@@ -1740,6 +1742,58 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListMultipartUploads', 'region' => $input->getRegion()]));
 
         return new ListMultipartUploadsOutput($response, $this, $input);
+    }
+
+    /**
+     * > This operation is not supported by directory buckets.
+     *
+     * Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection
+     * criteria to return metadata about a subset of all the object versions.
+     *
+     * ! To use this operation, you must have permission to perform the `s3:ListBucketVersions` action. Be aware of the name
+     * ! difference.
+     *
+     * > A `200 OK` response can contain valid or invalid XML. Make sure to design your application to parse the contents of
+     * > the response and handle it appropriately.
+     *
+     * To use this operation, you must have READ access to the bucket.
+     *
+     * The following operations are related to `ListObjectVersions`:
+     *
+     * - ListObjectsV2 [^1]
+     * - GetObject [^2]
+     * - PutObject [^3]
+     * - DeleteObject [^4]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETVersion.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectVersions.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listobjectversions
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Delimiter?: null|string,
+     *   EncodingType?: null|EncodingType::*,
+     *   KeyMarker?: null|string,
+     *   MaxKeys?: null|int,
+     *   Prefix?: null|string,
+     *   VersionIdMarker?: null|string,
+     *   ExpectedBucketOwner?: null|string,
+     *   RequestPayer?: null|RequestPayer::*,
+     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
+     *   '@region'?: string|null,
+     * }|ListObjectVersionsRequest $input
+     */
+    public function listObjectVersions($input): ListObjectVersionsOutput
+    {
+        $input = ListObjectVersionsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectVersions', 'region' => $input->getRegion()]));
+
+        return new ListObjectVersionsOutput($response, $this, $input);
     }
 
     /**
