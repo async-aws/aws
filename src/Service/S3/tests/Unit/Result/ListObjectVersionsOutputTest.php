@@ -14,10 +14,10 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListObjectVersionsOutputTest extends TestCase
 {
-  public function testListObjectVersionsOutput(): void
-  {
-    // see example-1.json from SDK
-    $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
+    public function testListObjectVersionsOutput(): void
+    {
+        // see example-1.json from SDK
+        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
 <ListVersionsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01">
     <Name>bucket</Name>
     <Prefix>my</Prefix>
@@ -86,19 +86,19 @@ class ListObjectVersionsOutputTest extends TestCase
      </Version>
 </ListVersionsResult>');
 
-    $client = new MockHttpClient($response);
-    $result = new ListObjectVersionsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new S3Client(), new ListObjectVersionsRequest([]));
+        $client = new MockHttpClient($response);
+        $result = new ListObjectVersionsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new S3Client(), new ListObjectVersionsRequest([]));
 
-    /** @var ObjectVersion[] $versions */
-    $versions = iterator_to_array($result->getVersions());
+        /** @var ObjectVersion[] $versions */
+        $versions = iterator_to_array($result->getVersions());
 
-    self::assertCount(3, $versions);
+        self::assertCount(3, $versions);
 
-    self::assertEquals('my-image.jpg', $versions[0]->getKey());
-    self::assertEquals('3/L4kqtJl40Nr8X8gdRQBpUMLUo', $versions[0]->getVersionId());
-    self::assertEquals('my-second-image.jpg', $versions[1]->getKey());
-    self::assertEquals('QUpfdndhfd8438MNFDN93jdnJFkdmqnh893', $versions[1]->getVersionId());
-    self::assertEquals('my-third-image.jpg', $versions[2]->getKey());
-    self::assertEquals('UIORUnfndfhnw89493jJFJ', $versions[2]->getVersionId());
-  }
+        self::assertEquals('my-image.jpg', $versions[0]->getKey());
+        self::assertEquals('3/L4kqtJl40Nr8X8gdRQBpUMLUo', $versions[0]->getVersionId());
+        self::assertEquals('my-second-image.jpg', $versions[1]->getKey());
+        self::assertEquals('QUpfdndhfd8438MNFDN93jdnJFkdmqnh893', $versions[1]->getVersionId());
+        self::assertEquals('my-third-image.jpg', $versions[2]->getKey());
+        self::assertEquals('UIORUnfndfhnw89493jJFJ', $versions[2]->getVersionId());
+    }
 }
