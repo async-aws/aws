@@ -126,6 +126,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|GetDataCatalogInput $input
      *
@@ -152,6 +153,7 @@ class AthenaClient extends AbstractApi
      * @param array{
      *   CatalogName: string,
      *   DatabaseName: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|GetDatabaseInput $input
      *
@@ -328,6 +330,7 @@ class AthenaClient extends AbstractApi
      *   CatalogName: string,
      *   DatabaseName: string,
      *   TableName: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|GetTableMetadataInput $input
      *
@@ -382,6 +385,7 @@ class AthenaClient extends AbstractApi
      *   CatalogName: string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      *
@@ -471,6 +475,7 @@ class AthenaClient extends AbstractApi
      *   Expression?: null|string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      *

@@ -6,6 +6,8 @@ use AsyncAws\Athena\ValueObject\AclConfiguration;
 use AsyncAws\Athena\ValueObject\CustomerContentEncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EngineVersion;
+use AsyncAws\Athena\ValueObject\IdentityCenterConfiguration;
+use AsyncAws\Athena\ValueObject\QueryResultsS3AccessGrantsConfiguration;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
 use AsyncAws\Athena\ValueObject\WorkGroup;
 use AsyncAws\Athena\ValueObject\WorkGroupConfiguration;
@@ -65,6 +67,23 @@ class GetWorkGroupOutput extends Result
         ]);
     }
 
+    private function populateResultIdentityCenterConfiguration(array $json): IdentityCenterConfiguration
+    {
+        return new IdentityCenterConfiguration([
+            'EnableIdentityCenter' => isset($json['EnableIdentityCenter']) ? filter_var($json['EnableIdentityCenter'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'IdentityCenterInstanceArn' => isset($json['IdentityCenterInstanceArn']) ? (string) $json['IdentityCenterInstanceArn'] : null,
+        ]);
+    }
+
+    private function populateResultQueryResultsS3AccessGrantsConfiguration(array $json): QueryResultsS3AccessGrantsConfiguration
+    {
+        return new QueryResultsS3AccessGrantsConfiguration([
+            'EnableS3AccessGrants' => filter_var($json['EnableS3AccessGrants'], \FILTER_VALIDATE_BOOLEAN),
+            'CreateUserLevelPrefix' => isset($json['CreateUserLevelPrefix']) ? filter_var($json['CreateUserLevelPrefix'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'AuthenticationType' => (string) $json['AuthenticationType'],
+        ]);
+    }
+
     private function populateResultResultConfiguration(array $json): ResultConfiguration
     {
         return new ResultConfiguration([
@@ -83,6 +102,7 @@ class GetWorkGroupOutput extends Result
             'Configuration' => empty($json['Configuration']) ? null : $this->populateResultWorkGroupConfiguration($json['Configuration']),
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'CreationTime' => (isset($json['CreationTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationTime'])))) ? $d : null,
+            'IdentityCenterApplicationArn' => isset($json['IdentityCenterApplicationArn']) ? (string) $json['IdentityCenterApplicationArn'] : null,
         ]);
     }
 
@@ -99,6 +119,8 @@ class GetWorkGroupOutput extends Result
             'ExecutionRole' => isset($json['ExecutionRole']) ? (string) $json['ExecutionRole'] : null,
             'CustomerContentEncryptionConfiguration' => empty($json['CustomerContentEncryptionConfiguration']) ? null : $this->populateResultCustomerContentEncryptionConfiguration($json['CustomerContentEncryptionConfiguration']),
             'EnableMinimumEncryptionConfiguration' => isset($json['EnableMinimumEncryptionConfiguration']) ? filter_var($json['EnableMinimumEncryptionConfiguration'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'IdentityCenterConfiguration' => empty($json['IdentityCenterConfiguration']) ? null : $this->populateResultIdentityCenterConfiguration($json['IdentityCenterConfiguration']),
+            'QueryResultsS3AccessGrantsConfiguration' => empty($json['QueryResultsS3AccessGrantsConfiguration']) ? null : $this->populateResultQueryResultsS3AccessGrantsConfiguration($json['QueryResultsS3AccessGrantsConfiguration']),
         ]);
     }
 }

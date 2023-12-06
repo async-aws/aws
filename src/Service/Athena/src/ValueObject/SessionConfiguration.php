@@ -8,8 +8,8 @@ namespace AsyncAws\Athena\ValueObject;
 final class SessionConfiguration
 {
     /**
-     * The ARN of the execution role used in a Spark session to access user resources. This property applies only to
-     * Spark-enabled workgroups.
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
      *
      * @var string|null
      */

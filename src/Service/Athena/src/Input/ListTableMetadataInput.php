@@ -50,12 +50,21 @@ final class ListTableMetadataInput extends Input
     private $maxResults;
 
     /**
+     * The name of the workgroup for which the metadata is being fetched. Required if requesting an IAM Identity Center
+     * enabled Glue Data Catalog.
+     *
+     * @var string|null
+     */
+    private $workGroup;
+
+    /**
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
      *   Expression?: null|string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -66,6 +75,7 @@ final class ListTableMetadataInput extends Input
         $this->expression = $input['Expression'] ?? null;
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
+        $this->workGroup = $input['WorkGroup'] ?? null;
         parent::__construct($input);
     }
 
@@ -76,6 +86,7 @@ final class ListTableMetadataInput extends Input
      *   Expression?: null|string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      */
@@ -107,6 +118,11 @@ final class ListTableMetadataInput extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    public function getWorkGroup(): ?string
+    {
+        return $this->workGroup;
     }
 
     /**
@@ -169,6 +185,13 @@ final class ListTableMetadataInput extends Input
         return $this;
     }
 
+    public function setWorkGroup(?string $value): self
+    {
+        $this->workGroup = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -188,6 +211,9 @@ final class ListTableMetadataInput extends Input
         }
         if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
+        }
+        if (null !== $v = $this->workGroup) {
+            $payload['WorkGroup'] = $v;
         }
 
         return $payload;

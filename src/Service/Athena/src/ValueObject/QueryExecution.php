@@ -101,6 +101,13 @@ final class QueryExecution
     private $substatementType;
 
     /**
+     * Specifies whether Amazon S3 access grants are enabled for query results.
+     *
+     * @var QueryResultsS3AccessGrantsConfiguration|null
+     */
+    private $queryResultsS3AccessGrantsConfiguration;
+
+    /**
      * @param array{
      *   QueryExecutionId?: null|string,
      *   Query?: null|string,
@@ -114,6 +121,7 @@ final class QueryExecution
      *   EngineVersion?: null|EngineVersion|array,
      *   ExecutionParameters?: null|string[],
      *   SubstatementType?: null|string,
+     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
      * } $input
      */
     public function __construct(array $input)
@@ -130,6 +138,7 @@ final class QueryExecution
         $this->engineVersion = isset($input['EngineVersion']) ? EngineVersion::create($input['EngineVersion']) : null;
         $this->executionParameters = $input['ExecutionParameters'] ?? null;
         $this->substatementType = $input['SubstatementType'] ?? null;
+        $this->queryResultsS3AccessGrantsConfiguration = isset($input['QueryResultsS3AccessGrantsConfiguration']) ? QueryResultsS3AccessGrantsConfiguration::create($input['QueryResultsS3AccessGrantsConfiguration']) : null;
     }
 
     /**
@@ -146,6 +155,7 @@ final class QueryExecution
      *   EngineVersion?: null|EngineVersion|array,
      *   ExecutionParameters?: null|string[],
      *   SubstatementType?: null|string,
+     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
      * }|QueryExecution $input
      */
     public static function create($input): self
@@ -179,6 +189,11 @@ final class QueryExecution
     public function getQueryExecutionId(): ?string
     {
         return $this->queryExecutionId;
+    }
+
+    public function getQueryResultsS3AccessGrantsConfiguration(): ?QueryResultsS3AccessGrantsConfiguration
+    {
+        return $this->queryResultsS3AccessGrantsConfiguration;
     }
 
     public function getResultConfiguration(): ?ResultConfiguration
