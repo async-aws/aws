@@ -6,6 +6,7 @@
 
 - Added `il-central-1` region
 - AWS api-change: Adding SerivicePreProcessing time metric
+- AWS api-change: Adding IdentityCenter enabled request for interactive query
 
 ### Changed
 

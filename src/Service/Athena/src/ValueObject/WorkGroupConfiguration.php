@@ -78,8 +78,8 @@ final class WorkGroupConfiguration
     private $additionalConfiguration;
 
     /**
-     * Role used in a Spark session for accessing the user's resources. This property applies only to Spark-enabled
-     * workgroups.
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
      *
      * @var string|null
      */
@@ -107,6 +107,20 @@ final class WorkGroupConfiguration
     private $enableMinimumEncryptionConfiguration;
 
     /**
+     * Specifies whether the workgroup is IAM Identity Center supported.
+     *
+     * @var IdentityCenterConfiguration|null
+     */
+    private $identityCenterConfiguration;
+
+    /**
+     * Specifies whether Amazon S3 access grants are enabled for query results.
+     *
+     * @var QueryResultsS3AccessGrantsConfiguration|null
+     */
+    private $queryResultsS3AccessGrantsConfiguration;
+
+    /**
      * @param array{
      *   ResultConfiguration?: null|ResultConfiguration|array,
      *   EnforceWorkGroupConfiguration?: null|bool,
@@ -118,6 +132,8 @@ final class WorkGroupConfiguration
      *   ExecutionRole?: null|string,
      *   CustomerContentEncryptionConfiguration?: null|CustomerContentEncryptionConfiguration|array,
      *   EnableMinimumEncryptionConfiguration?: null|bool,
+     *   IdentityCenterConfiguration?: null|IdentityCenterConfiguration|array,
+     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
      * } $input
      */
     public function __construct(array $input)
@@ -132,6 +148,8 @@ final class WorkGroupConfiguration
         $this->executionRole = $input['ExecutionRole'] ?? null;
         $this->customerContentEncryptionConfiguration = isset($input['CustomerContentEncryptionConfiguration']) ? CustomerContentEncryptionConfiguration::create($input['CustomerContentEncryptionConfiguration']) : null;
         $this->enableMinimumEncryptionConfiguration = $input['EnableMinimumEncryptionConfiguration'] ?? null;
+        $this->identityCenterConfiguration = isset($input['IdentityCenterConfiguration']) ? IdentityCenterConfiguration::create($input['IdentityCenterConfiguration']) : null;
+        $this->queryResultsS3AccessGrantsConfiguration = isset($input['QueryResultsS3AccessGrantsConfiguration']) ? QueryResultsS3AccessGrantsConfiguration::create($input['QueryResultsS3AccessGrantsConfiguration']) : null;
     }
 
     /**
@@ -146,6 +164,8 @@ final class WorkGroupConfiguration
      *   ExecutionRole?: null|string,
      *   CustomerContentEncryptionConfiguration?: null|CustomerContentEncryptionConfiguration|array,
      *   EnableMinimumEncryptionConfiguration?: null|bool,
+     *   IdentityCenterConfiguration?: null|IdentityCenterConfiguration|array,
+     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
      * }|WorkGroupConfiguration $input
      */
     public static function create($input): self
@@ -188,9 +208,19 @@ final class WorkGroupConfiguration
         return $this->executionRole;
     }
 
+    public function getIdentityCenterConfiguration(): ?IdentityCenterConfiguration
+    {
+        return $this->identityCenterConfiguration;
+    }
+
     public function getPublishCloudWatchMetricsEnabled(): ?bool
     {
         return $this->publishCloudWatchMetricsEnabled;
+    }
+
+    public function getQueryResultsS3AccessGrantsConfiguration(): ?QueryResultsS3AccessGrantsConfiguration
+    {
+        return $this->queryResultsS3AccessGrantsConfiguration;
     }
 
     public function getRequesterPaysEnabled(): ?bool

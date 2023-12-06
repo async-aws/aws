@@ -68,7 +68,7 @@ final class ColumnInfo
     private $scale;
 
     /**
-     * Indicates the column's nullable status.
+     * Unsupported constraint. This value always shows as `UNKNOWN`.
      *
      * @var ColumnNullable::*|null
      */

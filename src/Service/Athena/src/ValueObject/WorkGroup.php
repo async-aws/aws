@@ -57,12 +57,20 @@ final class WorkGroup
     private $creationTime;
 
     /**
+     * The ARN of the IAM Identity Center enabled application associated with the workgroup.
+     *
+     * @var string|null
+     */
+    private $identityCenterApplicationArn;
+
+    /**
      * @param array{
      *   Name: string,
      *   State?: null|WorkGroupState::*,
      *   Configuration?: null|WorkGroupConfiguration|array,
      *   Description?: null|string,
      *   CreationTime?: null|\DateTimeImmutable,
+     *   IdentityCenterApplicationArn?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -72,6 +80,7 @@ final class WorkGroup
         $this->configuration = isset($input['Configuration']) ? WorkGroupConfiguration::create($input['Configuration']) : null;
         $this->description = $input['Description'] ?? null;
         $this->creationTime = $input['CreationTime'] ?? null;
+        $this->identityCenterApplicationArn = $input['IdentityCenterApplicationArn'] ?? null;
     }
 
     /**
@@ -81,6 +90,7 @@ final class WorkGroup
      *   Configuration?: null|WorkGroupConfiguration|array,
      *   Description?: null|string,
      *   CreationTime?: null|\DateTimeImmutable,
+     *   IdentityCenterApplicationArn?: null|string,
      * }|WorkGroup $input
      */
     public static function create($input): self
@@ -101,6 +111,11 @@ final class WorkGroup
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getIdentityCenterApplicationArn(): ?string
+    {
+        return $this->identityCenterApplicationArn;
     }
 
     public function getName(): string

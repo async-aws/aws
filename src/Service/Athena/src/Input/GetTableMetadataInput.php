@@ -37,10 +37,19 @@ final class GetTableMetadataInput extends Input
     private $tableName;
 
     /**
+     * The name of the workgroup for which the metadata is being fetched. Required if requesting an IAM Identity Center
+     * enabled Glue Data Catalog.
+     *
+     * @var string|null
+     */
+    private $workGroup;
+
+    /**
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
      *   TableName?: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -49,6 +58,7 @@ final class GetTableMetadataInput extends Input
         $this->catalogName = $input['CatalogName'] ?? null;
         $this->databaseName = $input['DatabaseName'] ?? null;
         $this->tableName = $input['TableName'] ?? null;
+        $this->workGroup = $input['WorkGroup'] ?? null;
         parent::__construct($input);
     }
 
@@ -57,6 +67,7 @@ final class GetTableMetadataInput extends Input
      *   CatalogName?: string,
      *   DatabaseName?: string,
      *   TableName?: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|GetTableMetadataInput $input
      */
@@ -78,6 +89,11 @@ final class GetTableMetadataInput extends Input
     public function getTableName(): ?string
     {
         return $this->tableName;
+    }
+
+    public function getWorkGroup(): ?string
+    {
+        return $this->workGroup;
     }
 
     /**
@@ -126,6 +142,13 @@ final class GetTableMetadataInput extends Input
         return $this;
     }
 
+    public function setWorkGroup(?string $value): self
+    {
+        $this->workGroup = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -141,6 +164,9 @@ final class GetTableMetadataInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
+        if (null !== $v = $this->workGroup) {
+            $payload['WorkGroup'] = $v;
+        }
 
         return $payload;
     }

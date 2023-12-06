@@ -19,20 +19,30 @@ final class GetDataCatalogInput extends Input
     private $name;
 
     /**
+     * The name of the workgroup. Required if making an IAM Identity Center request.
+     *
+     * @var string|null
+     */
+    private $workGroup;
+
+    /**
      * @param array{
      *   Name?: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->name = $input['Name'] ?? null;
+        $this->workGroup = $input['WorkGroup'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
      *   Name?: string,
+     *   WorkGroup?: null|string,
      *   '@region'?: string|null,
      * }|GetDataCatalogInput $input
      */
@@ -44,6 +54,11 @@ final class GetDataCatalogInput extends Input
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getWorkGroup(): ?string
+    {
+        return $this->workGroup;
     }
 
     /**
@@ -78,6 +93,13 @@ final class GetDataCatalogInput extends Input
         return $this;
     }
 
+    public function setWorkGroup(?string $value): self
+    {
+        $this->workGroup = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -85,6 +107,9 @@ final class GetDataCatalogInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
+        if (null !== $v = $this->workGroup) {
+            $payload['WorkGroup'] = $v;
+        }
 
         return $payload;
     }

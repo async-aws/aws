@@ -10,6 +10,7 @@ use AsyncAws\Athena\ValueObject\QueryExecution;
 use AsyncAws\Athena\ValueObject\QueryExecutionContext;
 use AsyncAws\Athena\ValueObject\QueryExecutionStatistics;
 use AsyncAws\Athena\ValueObject\QueryExecutionStatus;
+use AsyncAws\Athena\ValueObject\QueryResultsS3AccessGrantsConfiguration;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
 use AsyncAws\Athena\ValueObject\ResultReuseByAgeConfiguration;
 use AsyncAws\Athena\ValueObject\ResultReuseConfiguration;
@@ -104,6 +105,7 @@ class GetQueryExecutionOutput extends Result
             'EngineVersion' => empty($json['EngineVersion']) ? null : $this->populateResultEngineVersion($json['EngineVersion']),
             'ExecutionParameters' => !isset($json['ExecutionParameters']) ? null : $this->populateResultExecutionParameters($json['ExecutionParameters']),
             'SubstatementType' => isset($json['SubstatementType']) ? (string) $json['SubstatementType'] : null,
+            'QueryResultsS3AccessGrantsConfiguration' => empty($json['QueryResultsS3AccessGrantsConfiguration']) ? null : $this->populateResultQueryResultsS3AccessGrantsConfiguration($json['QueryResultsS3AccessGrantsConfiguration']),
         ]);
     }
 
@@ -138,6 +140,15 @@ class GetQueryExecutionOutput extends Result
             'SubmissionDateTime' => (isset($json['SubmissionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['SubmissionDateTime'])))) ? $d : null,
             'CompletionDateTime' => (isset($json['CompletionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CompletionDateTime'])))) ? $d : null,
             'AthenaError' => empty($json['AthenaError']) ? null : $this->populateResultAthenaError($json['AthenaError']),
+        ]);
+    }
+
+    private function populateResultQueryResultsS3AccessGrantsConfiguration(array $json): QueryResultsS3AccessGrantsConfiguration
+    {
+        return new QueryResultsS3AccessGrantsConfiguration([
+            'EnableS3AccessGrants' => filter_var($json['EnableS3AccessGrants'], \FILTER_VALIDATE_BOOLEAN),
+            'CreateUserLevelPrefix' => isset($json['CreateUserLevelPrefix']) ? filter_var($json['CreateUserLevelPrefix'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'AuthenticationType' => (string) $json['AuthenticationType'],
         ]);
     }
 
