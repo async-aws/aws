@@ -28,6 +28,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
@@ -611,6 +612,43 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getUploads());
         // self::assertTODO(expected, $result->getCommonPrefixes());
         self::assertSame('changeIt', $result->getEncodingType());
+    }
+
+    public function testListObjectVersions(): void
+    {
+        self::markTestSkipped('');
+        $client = $this->getClient();
+
+        $input = new ListObjectVersionsRequest([
+            'Bucket' => 'change me',
+            'Delimiter' => 'change me',
+            'EncodingType' => 'change me',
+            'KeyMarker' => 'change me',
+            'MaxKeys' => 1337,
+            'Prefix' => 'change me',
+            'VersionIdMarker' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+            'RequestPayer' => 'change me',
+            'OptionalObjectAttributes' => ['change me'],
+        ]);
+        $result = $client->listObjectVersions($input);
+
+        $result->resolve();
+
+        self::assertFalse($result->getIsTruncated());
+        self::assertSame('changeIt', $result->getKeyMarker());
+        self::assertSame('changeIt', $result->getVersionIdMarker());
+        self::assertSame('changeIt', $result->getNextKeyMarker());
+        self::assertSame('changeIt', $result->getNextVersionIdMarker());
+        // self::assertTODO(expected, $result->getVersions());
+        // self::assertTODO(expected, $result->getDeleteMarkers());
+        self::assertSame('changeIt', $result->getName());
+        self::assertSame('changeIt', $result->getPrefix());
+        self::assertSame('changeIt', $result->getDelimiter());
+        self::assertSame(1337, $result->getMaxKeys());
+        // self::assertTODO(expected, $result->getCommonPrefixes());
+        self::assertSame('changeIt', $result->getEncodingType());
+        self::assertSame('changeIt', $result->getRequestCharged());
     }
 
     public function testListObjectsV2()

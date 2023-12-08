@@ -25,6 +25,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
@@ -51,6 +52,7 @@ use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ListObjectVersionsOutput;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
@@ -369,6 +371,19 @@ class S3ClientTest extends TestCase
         $result = $client->ListMultipartUploads($input);
 
         self::assertInstanceOf(ListMultipartUploadsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListObjectVersions(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListObjectVersionsRequest([
+            'Bucket' => 'example-bucket',
+        ]);
+        $result = $client->listObjectVersions($input);
+
+        self::assertInstanceOf(ListObjectVersionsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
