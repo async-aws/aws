@@ -53,7 +53,7 @@ class SearchPlaceIndexForTextResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->results = $this->populateResultSearchForTextResultList($data['Results']);
+        $this->results = $this->populateResultSearchForTextResultList($data['Results'] ?? []);
         $this->summary = $this->populateResultSearchPlaceIndexForTextSummary($data['Summary']);
     }
 

@@ -145,8 +145,8 @@ class QueryResponse extends Result implements \IteratorAggregate
 
         $this->queryId = (string) $data['QueryId'];
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
-        $this->rows = $this->populateResultRowList($data['Rows']);
-        $this->columnInfo = $this->populateResultColumnInfoList($data['ColumnInfo']);
+        $this->rows = $this->populateResultRowList($data['Rows'] ?? []);
+        $this->columnInfo = $this->populateResultColumnInfoList($data['ColumnInfo'] ?? []);
         $this->queryStatus = empty($data['QueryStatus']) ? null : $this->populateResultQueryStatus($data['QueryStatus']);
     }
 

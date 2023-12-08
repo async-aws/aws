@@ -336,7 +336,7 @@ class RestJsonParser implements Parser
         return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'EMPTY_METHOD(INPUT) ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
             'EMPTY_METHOD' => $inObject ? '!isset' : 'empty',
             'EMPTY' => !$inObject ? '[]' : 'null',
-            'INPUT' => $input,
+            'INPUT' => $required && !$inObject ? "$input ?? []" : $input,
             'FUNCTION_NAME' => $functionName,
         ]);
     }

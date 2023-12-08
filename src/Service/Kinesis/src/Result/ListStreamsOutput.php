@@ -185,7 +185,7 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->streamNames = $this->populateResultStreamNameList($data['StreamNames']);
+        $this->streamNames = $this->populateResultStreamNameList($data['StreamNames'] ?? []);
         $this->hasMoreStreams = filter_var($data['HasMoreStreams'], \FILTER_VALIDATE_BOOLEAN);
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
         $this->streamSummaries = empty($data['StreamSummaries']) ? [] : $this->populateResultStreamSummaryList($data['StreamSummaries']);

@@ -83,7 +83,7 @@ class GetRecordsOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->records = $this->populateResultRecordList($data['Records']);
+        $this->records = $this->populateResultRecordList($data['Records'] ?? []);
         $this->nextShardIterator = isset($data['NextShardIterator']) ? (string) $data['NextShardIterator'] : null;
         $this->millisBehindLatest = isset($data['MillisBehindLatest']) ? (int) $data['MillisBehindLatest'] : null;
         $this->childShards = empty($data['ChildShards']) ? [] : $this->populateResultChildShardList($data['ChildShards']);

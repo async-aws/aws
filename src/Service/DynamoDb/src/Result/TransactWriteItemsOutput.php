@@ -163,7 +163,7 @@ class TransactWriteItemsOutput extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = $this->populateResultItemCollectionMetricsMultiple($value);
+            $items[(string) $name] = $this->populateResultItemCollectionMetricsMultiple($value ?? []);
         }
 
         return $items;

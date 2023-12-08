@@ -94,7 +94,7 @@ class ListScheduleGroupsOutput extends Result implements \IteratorAggregate
         $data = $response->toArray();
 
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
-        $this->scheduleGroups = $this->populateResultScheduleGroupList($data['ScheduleGroups']);
+        $this->scheduleGroups = $this->populateResultScheduleGroupList($data['ScheduleGroups'] ?? []);
     }
 
     /**

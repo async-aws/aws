@@ -64,8 +64,8 @@ class PrepareQueryResponse extends Result
         $data = $response->toArray();
 
         $this->queryString = (string) $data['QueryString'];
-        $this->columns = $this->populateResultSelectColumnList($data['Columns']);
-        $this->parameters = $this->populateResultParameterMappingList($data['Parameters']);
+        $this->columns = $this->populateResultSelectColumnList($data['Columns'] ?? []);
+        $this->parameters = $this->populateResultParameterMappingList($data['Parameters'] ?? []);
     }
 
     private function populateResultColumnInfo(array $json): ColumnInfo

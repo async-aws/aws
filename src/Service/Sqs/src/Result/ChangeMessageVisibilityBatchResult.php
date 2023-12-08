@@ -51,8 +51,8 @@ class ChangeMessageVisibilityBatchResult extends Result
     {
         $data = $response->toArray();
 
-        $this->successful = $this->populateResultChangeMessageVisibilityBatchResultEntryList($data['Successful']);
-        $this->failed = $this->populateResultBatchResultErrorEntryList($data['Failed']);
+        $this->successful = $this->populateResultChangeMessageVisibilityBatchResultEntryList($data['Successful'] ?? []);
+        $this->failed = $this->populateResultBatchResultErrorEntryList($data['Failed'] ?? []);
     }
 
     private function populateResultBatchResultErrorEntry(array $json): BatchResultErrorEntry

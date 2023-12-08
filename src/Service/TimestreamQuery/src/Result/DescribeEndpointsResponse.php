@@ -29,7 +29,7 @@ class DescribeEndpointsResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->endpoints = $this->populateResultEndpoints($data['Endpoints']);
+        $this->endpoints = $this->populateResultEndpoints($data['Endpoints'] ?? []);
     }
 
     private function populateResultEndpoint(array $json): Endpoint

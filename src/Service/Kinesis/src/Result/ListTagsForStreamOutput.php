@@ -48,7 +48,7 @@ class ListTagsForStreamOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->tags = $this->populateResultTagList($data['Tags']);
+        $this->tags = $this->populateResultTagList($data['Tags'] ?? []);
         $this->hasMoreTags = filter_var($data['HasMoreTags'], \FILTER_VALIDATE_BOOLEAN);
     }
 

@@ -206,7 +206,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = $this->populateResultItemList($value);
+            $items[(string) $name] = $this->populateResultItemList($value ?? []);
         }
 
         return $items;

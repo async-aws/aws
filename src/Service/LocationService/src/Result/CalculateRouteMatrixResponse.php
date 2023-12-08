@@ -87,7 +87,7 @@ class CalculateRouteMatrixResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->routeMatrix = $this->populateResultRouteMatrix($data['RouteMatrix']);
+        $this->routeMatrix = $this->populateResultRouteMatrix($data['RouteMatrix'] ?? []);
         $this->snappedDeparturePositions = empty($data['SnappedDeparturePositions']) ? [] : $this->populateResultCalculateRouteMatrixResponseSnappedDeparturePositionsList($data['SnappedDeparturePositions']);
         $this->snappedDestinationPositions = empty($data['SnappedDestinationPositions']) ? [] : $this->populateResultCalculateRouteMatrixResponseSnappedDestinationPositionsList($data['SnappedDestinationPositions']);
         $this->summary = $this->populateResultCalculateRouteMatrixSummary($data['Summary']);
@@ -100,7 +100,7 @@ class CalculateRouteMatrixResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = $this->populateResultPosition($item);
+            $items[] = $this->populateResultPosition($item ?? []);
         }
 
         return $items;
@@ -113,7 +113,7 @@ class CalculateRouteMatrixResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = $this->populateResultPosition($item);
+            $items[] = $this->populateResultPosition($item ?? []);
         }
 
         return $items;
@@ -152,7 +152,7 @@ class CalculateRouteMatrixResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = $this->populateResultRouteMatrixRow($item);
+            $items[] = $this->populateResultRouteMatrixRow($item ?? []);
         }
 
         return $items;
