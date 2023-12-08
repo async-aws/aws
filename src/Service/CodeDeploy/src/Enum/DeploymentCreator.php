@@ -5,6 +5,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 final class DeploymentCreator
 {
     public const AUTOSCALING = 'autoscaling';
+    public const AUTOSCALING_TERMINATION = 'autoscalingTermination';
     public const CLOUD_FORMATION = 'CloudFormation';
     public const CLOUD_FORMATION_ROLLBACK = 'CloudFormationRollback';
     public const CODE_DEPLOY = 'CodeDeploy';
@@ -16,6 +17,7 @@ final class DeploymentCreator
     {
         return isset([
             self::AUTOSCALING => true,
+            self::AUTOSCALING_TERMINATION => true,
             self::CLOUD_FORMATION => true,
             self::CLOUD_FORMATION_ROLLBACK => true,
             self::CODE_DEPLOY => true,
