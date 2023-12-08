@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Add additional InvalidRequestException to list of possible exceptions for ListSecret.
+- AWS api-change: Change region's endpoints.
 
 ### Changed
 

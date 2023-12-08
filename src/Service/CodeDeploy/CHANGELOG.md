@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add `AUTOSCALING_TERMINATION` const to `DeploymentCreator`.
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
