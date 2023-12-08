@@ -61,7 +61,7 @@ class PutRecordBatchOutput extends Result
 
         $this->failedPutCount = (int) $data['FailedPutCount'];
         $this->encrypted = isset($data['Encrypted']) ? filter_var($data['Encrypted'], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->requestResponses = $this->populateResultPutRecordBatchResponseEntryList($data['RequestResponses']);
+        $this->requestResponses = $this->populateResultPutRecordBatchResponseEntryList($data['RequestResponses'] ?? []);
     }
 
     private function populateResultPutRecordBatchResponseEntry(array $json): PutRecordBatchResponseEntry

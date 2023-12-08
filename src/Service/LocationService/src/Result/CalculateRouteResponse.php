@@ -67,7 +67,7 @@ class CalculateRouteResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->legs = $this->populateResultLegList($data['Legs']);
+        $this->legs = $this->populateResultLegList($data['Legs'] ?? []);
         $this->summary = $this->populateResultCalculateRouteSummary($data['Summary']);
     }
 

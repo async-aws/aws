@@ -142,7 +142,7 @@ class BatchWriteItemOutput extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = $this->populateResultWriteRequests($value);
+            $items[(string) $name] = $this->populateResultWriteRequests($value ?? []);
         }
 
         return $items;
@@ -247,7 +247,7 @@ class BatchWriteItemOutput extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = $this->populateResultItemCollectionMetricsMultiple($value);
+            $items[(string) $name] = $this->populateResultItemCollectionMetricsMultiple($value ?? []);
         }
 
         return $items;

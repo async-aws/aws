@@ -49,7 +49,7 @@ class SearchPlaceIndexForPositionResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->results = $this->populateResultSearchForPositionResultList($data['Results']);
+        $this->results = $this->populateResultSearchForPositionResultList($data['Results'] ?? []);
         $this->summary = $this->populateResultSearchPlaceIndexForPositionSummary($data['Summary']);
     }
 

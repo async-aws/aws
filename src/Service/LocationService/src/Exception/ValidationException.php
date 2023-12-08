@@ -46,7 +46,7 @@ final class ValidationException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->fieldList = $this->populateResultValidationExceptionFieldList($data['fieldList']);
+        $this->fieldList = $this->populateResultValidationExceptionFieldList($data['fieldList'] ?? []);
         $this->reason = (string) $data['reason'];
     }
 

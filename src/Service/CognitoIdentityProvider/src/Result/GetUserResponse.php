@@ -101,7 +101,7 @@ class GetUserResponse extends Result
         $data = $response->toArray();
 
         $this->username = (string) $data['Username'];
-        $this->userAttributes = $this->populateResultAttributeListType($data['UserAttributes']);
+        $this->userAttributes = $this->populateResultAttributeListType($data['UserAttributes'] ?? []);
         $this->mfaOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
         $this->preferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
         $this->userMfaSettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);

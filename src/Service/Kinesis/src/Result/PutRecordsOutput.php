@@ -70,7 +70,7 @@ class PutRecordsOutput extends Result
         $data = $response->toArray();
 
         $this->failedRecordCount = isset($data['FailedRecordCount']) ? (int) $data['FailedRecordCount'] : null;
-        $this->records = $this->populateResultPutRecordsResultEntryList($data['Records']);
+        $this->records = $this->populateResultPutRecordsResultEntryList($data['Records'] ?? []);
         $this->encryptionType = isset($data['EncryptionType']) ? (string) $data['EncryptionType'] : null;
     }
 

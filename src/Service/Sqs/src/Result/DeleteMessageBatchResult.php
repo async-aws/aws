@@ -51,8 +51,8 @@ class DeleteMessageBatchResult extends Result
     {
         $data = $response->toArray();
 
-        $this->successful = $this->populateResultDeleteMessageBatchResultEntryList($data['Successful']);
-        $this->failed = $this->populateResultBatchResultErrorEntryList($data['Failed']);
+        $this->successful = $this->populateResultDeleteMessageBatchResultEntryList($data['Successful'] ?? []);
+        $this->failed = $this->populateResultBatchResultErrorEntryList($data['Failed'] ?? []);
     }
 
     private function populateResultBatchResultErrorEntry(array $json): BatchResultErrorEntry
