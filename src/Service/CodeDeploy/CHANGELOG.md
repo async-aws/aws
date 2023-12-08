@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release adds support for two new CodeDeploy features: 1) zonal deployments for Amazon EC2 in-place deployments, 2) deployments triggered by Auto Scaling group termination lifecycle hook events.
+- AWS api-change: Add `AUTOSCALING_TERMINATION` const to `DeploymentCreator`.
 
 ### Changed
 
