@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
 ### Added
 
 - AWS api-change: Added `fips-us-gov-west-1` region

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.1.0
+
 ### Added
 
 - AWS api-change: Add `AUTOSCALING_TERMINATION` const to `DeploymentCreator`.

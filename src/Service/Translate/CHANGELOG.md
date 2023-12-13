@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
 ### Added
 
 - AWS api-change: Added support for Brevity translation settings feature.

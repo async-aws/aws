@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.0
+
 ### Added
 
 - AWS api-change: Added `fips-ca-central-1`, `fips-us-east-2` and `fips-us-west-1` regions

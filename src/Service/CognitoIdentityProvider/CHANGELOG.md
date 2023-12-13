@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.1
+
 ### Changed
 
 - Allow passing explicit null values for optional fields of input objects
