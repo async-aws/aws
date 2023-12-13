@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.0.0
+
 ### BC-BREAK
 
 - AWS api-change: This release enables customers to call SQS using AWS JSON-1.0 protocol.
