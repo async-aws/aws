@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `fips-us-gov-west-1` region
+- AWS api-change: This release 1) adds sub-municipality field in Places API for searching and getting places information, and 2) allows optimizing route calculation based on expected arrival time.
 
 ### Changed
 

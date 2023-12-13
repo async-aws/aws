@@ -53,6 +53,8 @@ final class CreateLogGroupRequest extends Input
      *
      * If you omit this parameter, the default of `STANDARD` is used.
      *
+     * ! After a log group is created, its class can't be changed.
+     *
      * For details about the features supported by each class, see Log classes [^1]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html

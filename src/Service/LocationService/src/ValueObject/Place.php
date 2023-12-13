@@ -104,6 +104,17 @@ final class Place
     private $street;
 
     /**
+     * An area that's part of a larger municipality. For example, `Blissville ` is a submunicipality in the Queen County in
+     * New York.
+     *
+     * > This property supported by Esri and OpenData. The Esri property is `district`, and the OpenData property is
+     * > `borough`.
+     *
+     * @var string|null
+     */
+    private $subMunicipality;
+
+    /**
      * A county, or an area that's part of a larger region. For example, `Metro Vancouver`.
      *
      * @var string|null
@@ -157,6 +168,7 @@ final class Place
      *   PostalCode?: null|string,
      *   Region?: null|string,
      *   Street?: null|string,
+     *   SubMunicipality?: null|string,
      *   SubRegion?: null|string,
      *   SupplementalCategories?: null|string[],
      *   TimeZone?: null|TimeZone|array,
@@ -177,6 +189,7 @@ final class Place
         $this->postalCode = $input['PostalCode'] ?? null;
         $this->region = $input['Region'] ?? null;
         $this->street = $input['Street'] ?? null;
+        $this->subMunicipality = $input['SubMunicipality'] ?? null;
         $this->subRegion = $input['SubRegion'] ?? null;
         $this->supplementalCategories = $input['SupplementalCategories'] ?? null;
         $this->timeZone = isset($input['TimeZone']) ? TimeZone::create($input['TimeZone']) : null;
@@ -197,6 +210,7 @@ final class Place
      *   PostalCode?: null|string,
      *   Region?: null|string,
      *   Street?: null|string,
+     *   SubMunicipality?: null|string,
      *   SubRegion?: null|string,
      *   SupplementalCategories?: null|string[],
      *   TimeZone?: null|TimeZone|array,
@@ -265,6 +279,11 @@ final class Place
     public function getStreet(): ?string
     {
         return $this->street;
+    }
+
+    public function getSubMunicipality(): ?string
+    {
+        return $this->subMunicipality;
     }
 
     public function getSubRegion(): ?string

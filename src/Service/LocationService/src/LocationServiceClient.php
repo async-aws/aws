@@ -8,6 +8,7 @@ use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\LocationService\Enum\DistanceUnit;
+use AsyncAws\LocationService\Enum\OptimizationMode;
 use AsyncAws\LocationService\Enum\TravelMode;
 use AsyncAws\LocationService\Exception\AccessDeniedException;
 use AsyncAws\LocationService\Exception\InternalServerException;
@@ -58,6 +59,7 @@ class LocationServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#calculateroute
      *
      * @param array{
+     *   ArrivalTime?: null|\DateTimeImmutable|string,
      *   CalculatorName: string,
      *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   DepartNow?: null|bool,
@@ -67,6 +69,7 @@ class LocationServiceClient extends AbstractApi
      *   DistanceUnit?: null|DistanceUnit::*,
      *   IncludeLegGeometry?: null|bool,
      *   Key?: null|string,
+     *   OptimizeFor?: null|OptimizationMode::*,
      *   TravelMode?: null|TravelMode::*,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
      *   WaypointPositions?: null|array[],

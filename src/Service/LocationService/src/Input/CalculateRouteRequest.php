@@ -7,12 +7,23 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\LocationService\Enum\DistanceUnit;
+use AsyncAws\LocationService\Enum\OptimizationMode;
 use AsyncAws\LocationService\Enum\TravelMode;
 use AsyncAws\LocationService\ValueObject\CalculateRouteCarModeOptions;
 use AsyncAws\LocationService\ValueObject\CalculateRouteTruckModeOptions;
 
 final class CalculateRouteRequest extends Input
 {
+    /**
+     * Specifies the desired time of arrival. Uses the given time to calculate the route. Otherwise, the best time of day to
+     * travel with the best traffic conditions is used to calculate the route.
+     *
+     * > ArrivalTime is not supported Esri.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $arrivalTime;
+
     /**
      * The name of the route calculator resource that you want to use to calculate the route.
      *
@@ -66,8 +77,6 @@ final class CalculateRouteRequest extends Input
     /**
      * Specifies the desired time of departure. Uses the given time to calculate the route. Otherwise, the best time of day
      * to travel with the best traffic conditions is used to calculate the route.
-     *
-     * > Setting a departure time in the past returns a `400 ValidationException` error.
      *
      * - In ISO 8601 [^1] format: `YYYY-MM-DDThh:mm:ss.sssZ`. For example, `2020–07-2T12:15:20.000Z+01:00`
      *
@@ -124,6 +133,13 @@ final class CalculateRouteRequest extends Input
      * @var string|null
      */
     private $key;
+
+    /**
+     * Specifies the distance to optimize for when calculating a route.
+     *
+     * @var OptimizationMode::*|null
+     */
+    private $optimizeFor;
 
     /**
      * Specifies the mode of transport when calculating a route. Used in estimating the speed of travel and road
@@ -184,6 +200,7 @@ final class CalculateRouteRequest extends Input
 
     /**
      * @param array{
+     *   ArrivalTime?: null|\DateTimeImmutable|string,
      *   CalculatorName?: string,
      *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   DepartNow?: null|bool,
@@ -193,6 +210,7 @@ final class CalculateRouteRequest extends Input
      *   DistanceUnit?: null|DistanceUnit::*,
      *   IncludeLegGeometry?: null|bool,
      *   Key?: null|string,
+     *   OptimizeFor?: null|OptimizationMode::*,
      *   TravelMode?: null|TravelMode::*,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
      *   WaypointPositions?: null|array[],
@@ -201,6 +219,7 @@ final class CalculateRouteRequest extends Input
      */
     public function __construct(array $input = [])
     {
+        $this->arrivalTime = !isset($input['ArrivalTime']) ? null : ($input['ArrivalTime'] instanceof \DateTimeImmutable ? $input['ArrivalTime'] : new \DateTimeImmutable($input['ArrivalTime']));
         $this->calculatorName = $input['CalculatorName'] ?? null;
         $this->carModeOptions = isset($input['CarModeOptions']) ? CalculateRouteCarModeOptions::create($input['CarModeOptions']) : null;
         $this->departNow = $input['DepartNow'] ?? null;
@@ -210,6 +229,7 @@ final class CalculateRouteRequest extends Input
         $this->distanceUnit = $input['DistanceUnit'] ?? null;
         $this->includeLegGeometry = $input['IncludeLegGeometry'] ?? null;
         $this->key = $input['Key'] ?? null;
+        $this->optimizeFor = $input['OptimizeFor'] ?? null;
         $this->travelMode = $input['TravelMode'] ?? null;
         $this->truckModeOptions = isset($input['TruckModeOptions']) ? CalculateRouteTruckModeOptions::create($input['TruckModeOptions']) : null;
         $this->waypointPositions = $input['WaypointPositions'] ?? null;
@@ -218,6 +238,7 @@ final class CalculateRouteRequest extends Input
 
     /**
      * @param array{
+     *   ArrivalTime?: null|\DateTimeImmutable|string,
      *   CalculatorName?: string,
      *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   DepartNow?: null|bool,
@@ -227,6 +248,7 @@ final class CalculateRouteRequest extends Input
      *   DistanceUnit?: null|DistanceUnit::*,
      *   IncludeLegGeometry?: null|bool,
      *   Key?: null|string,
+     *   OptimizeFor?: null|OptimizationMode::*,
      *   TravelMode?: null|TravelMode::*,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
      *   WaypointPositions?: null|array[],
@@ -236,6 +258,11 @@ final class CalculateRouteRequest extends Input
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getArrivalTime(): ?\DateTimeImmutable
+    {
+        return $this->arrivalTime;
     }
 
     public function getCalculatorName(): ?string
@@ -293,6 +320,14 @@ final class CalculateRouteRequest extends Input
     }
 
     /**
+     * @return OptimizationMode::*|null
+     */
+    public function getOptimizeFor(): ?string
+    {
+        return $this->optimizeFor;
+    }
+
+    /**
      * @return TravelMode::*|null
      */
     public function getTravelMode(): ?string
@@ -341,6 +376,13 @@ final class CalculateRouteRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body), 'routes.');
+    }
+
+    public function setArrivalTime(?\DateTimeImmutable $value): self
+    {
+        $this->arrivalTime = $value;
+
+        return $this;
     }
 
     public function setCalculatorName(?string $value): self
@@ -416,6 +458,16 @@ final class CalculateRouteRequest extends Input
     }
 
     /**
+     * @param OptimizationMode::*|null $value
+     */
+    public function setOptimizeFor(?string $value): self
+    {
+        $this->optimizeFor = $value;
+
+        return $this;
+    }
+
+    /**
      * @param TravelMode::*|null $value
      */
     public function setTravelMode(?string $value): self
@@ -445,6 +497,9 @@ final class CalculateRouteRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->arrivalTime) {
+            $payload['ArrivalTime'] = $v->format(\DateTimeInterface::ATOM);
+        }
 
         if (null !== $v = $this->carModeOptions) {
             $payload['CarModeOptions'] = $v->requestBody();
@@ -487,6 +542,12 @@ final class CalculateRouteRequest extends Input
             $payload['IncludeLegGeometry'] = (bool) $v;
         }
 
+        if (null !== $v = $this->optimizeFor) {
+            if (!OptimizationMode::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "OptimizeFor" for "%s". The value "%s" is not a valid "OptimizationMode".', __CLASS__, $v));
+            }
+            $payload['OptimizeFor'] = $v;
+        }
         if (null !== $v = $this->travelMode) {
             if (!TravelMode::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
