@@ -67,6 +67,7 @@ class SearchPlaceIndexForPositionResponse extends Result
             'PostalCode' => isset($json['PostalCode']) ? (string) $json['PostalCode'] : null,
             'Region' => isset($json['Region']) ? (string) $json['Region'] : null,
             'Street' => isset($json['Street']) ? (string) $json['Street'] : null,
+            'SubMunicipality' => isset($json['SubMunicipality']) ? (string) $json['SubMunicipality'] : null,
             'SubRegion' => isset($json['SubRegion']) ? (string) $json['SubRegion'] : null,
             'SupplementalCategories' => !isset($json['SupplementalCategories']) ? null : $this->populateResultPlaceSupplementalCategoryList($json['SupplementalCategories']),
             'TimeZone' => empty($json['TimeZone']) ? null : $this->populateResultTimeZone($json['TimeZone']),
