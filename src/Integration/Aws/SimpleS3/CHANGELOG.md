@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 2.1.0
+
+### Changed
+
+- Added optional `versionId` parameter to `SimpleS3Client::getPresignedUrl()`
+
 ## 2.0.0
 
 ### BC-BREAK
