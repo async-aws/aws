@@ -144,7 +144,7 @@ if ($hasChange) {
 }
 
 /**
- * Generating ChangeLog
+ * Generating ChangeLog and Composer.json
  */
 foreach ($services as $service => $hasChange) {
     $awsServiceNames = array_merge([$service], $manifest['services'][$service]['alternative-names'] ?? []);
@@ -234,8 +234,54 @@ foreach ($services as $service => $hasChange) {
     } else {
         array_splice($changeLog, $index - 1, 0, $newLines);
     }
-
     file_put_contents($changeLogPath, implode("\n", $changeLog));
+
+    // Fix branch-alias in composer.json
+    if ($hasChange) {
+        $lastVersion = null;
+        $level = 1;
+        switch ($changeLog[4]) {
+            case '### BC-BREAK':
+            case '### Removed':
+                $level = 0;
+
+                break;
+        }
+        foreach (\array_slice($changeLog, 4) as $line) {
+            if (strpos($line, '## ') === 0) {
+                $lastVersion = substr($line, 3);
+
+                break;
+            }
+        }
+        if (empty($lastVersion)) {
+            console_log('unable to find the next version in CHANGELOG');
+
+            exit(1);
+        }
+        if (!preg_match('/^\d+\.\d+\.\d+$/', $lastVersion)) {
+            console_log('the last version in CHANGELOG is not a valid version');
+
+            exit(1);
+        }
+        $parts = explode('.', $lastVersion);
+        $level = 1;
+        if (0 === (int) $parts[0]) {
+            $level = min(2, $level + 1);
+        }
+        $parts[$level] = (int) $parts[$level] + 1;
+        for ($i = $level + 1; $i < 3; ++$i) {
+            $parts[$i] = 0;
+        }
+
+        $alias = "{$parts[0]}.{$parts[1]}-dev";
+
+        $composerPath = dirname($changeLogPath).'/composer.json';
+        $composer = json_decode(file_get_contents($composerPath), true);
+        $composer['extra']['branch-alias']['dev-master'] = $alias;
+
+        file_put_contents($composerPath, json_encode($composer, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES) . "\n");
+    }
 }
 
 // forward version to .github action
