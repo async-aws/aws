@@ -9,6 +9,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Firehose\Exception\InvalidArgumentException;
 use AsyncAws\Firehose\Exception\InvalidKMSResourceException;
+use AsyncAws\Firehose\Exception\InvalidSourceException;
 use AsyncAws\Firehose\Exception\ResourceNotFoundException;
 use AsyncAws\Firehose\Exception\ServiceUnavailableException;
 use AsyncAws\Firehose\Input\PutRecordBatchInput;
@@ -73,6 +74,7 @@ class FirehoseClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws InvalidArgumentException
      * @throws InvalidKMSResourceException
+     * @throws InvalidSourceException
      * @throws ServiceUnavailableException
      */
     public function putRecord($input): PutRecordOutput
@@ -82,6 +84,7 @@ class FirehoseClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'InvalidKMSResourceException' => InvalidKMSResourceException::class,
+            'InvalidSourceException' => InvalidSourceException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 
@@ -158,6 +161,7 @@ class FirehoseClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws InvalidArgumentException
      * @throws InvalidKMSResourceException
+     * @throws InvalidSourceException
      * @throws ServiceUnavailableException
      */
     public function putRecordBatch($input): PutRecordBatchOutput
@@ -167,6 +171,7 @@ class FirehoseClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'InvalidKMSResourceException' => InvalidKMSResourceException::class,
+            'InvalidSourceException' => InvalidSourceException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 
