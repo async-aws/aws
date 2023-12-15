@@ -6,3 +6,4 @@ composer.lock
 /website/package-lock.json
 /website/template/assets/*
 !/website/template/assets/.gitignore
+.idea
