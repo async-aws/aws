@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release, 1) adds configurable buffering hints for the Splunk destination, and 2) reduces the minimum configurable buffering interval for supported destinations
+- AWS api-change: Added InvalidSourceException in put operations
 
 ## 1.1.1
 
