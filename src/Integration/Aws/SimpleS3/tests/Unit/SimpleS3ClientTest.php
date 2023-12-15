@@ -32,6 +32,8 @@ class SimpleS3ClientTest extends TestCase
         $client = new SimpleS3Client(['region' => 'eu-central-1'], new NullProvider(), new MockHttpClient());
         $url = $client->getPresignedUrl('bucket', 'images/file.jpg');
         self::assertSame('https://bucket.s3.eu-central-1.amazonaws.com/images/file.jpg', $url);
+        $urlWithVersion = $client->getPresignedUrl('bucket', 'images/file.jpg', null, 'abc123');
+        self::assertSame('https://bucket.s3.eu-central-1.amazonaws.com/images/file.jpg?versionId=abc123', $urlWithVersion);
     }
 
     public function testUploadSmallFileString()

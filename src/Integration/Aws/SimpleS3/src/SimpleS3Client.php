@@ -27,12 +27,20 @@ class SimpleS3Client extends S3Client
         return $this->getEndpoint($uri, [], null);
     }
 
-    public function getPresignedUrl(string $bucket, string $key, ?\DateTimeImmutable $expires = null): string
-    {
+    public function getPresignedUrl(
+        string $bucket,
+        string $key,
+        ?\DateTimeImmutable $expires = null,
+        ?string $versionId = null
+    ): string {
         $request = new GetObjectRequest([
             'Bucket' => $bucket,
             'Key' => $key,
         ]);
+
+        if (null !== $versionId) {
+            $request->setVersionId($versionId);
+        }
 
         return $this->presign($request, $expires);
     }
