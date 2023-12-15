@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added InvalidSourceException in put operations
+
 ## 1.1.1
 
 ### Changed
