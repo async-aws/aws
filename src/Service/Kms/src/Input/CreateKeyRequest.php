@@ -196,9 +196,10 @@ final class CreateKeyRequest extends Input
      * ! For more information, see Default key policy [^1] in the *Key Management Service Developer Guide*.
      *
      * Use this parameter only when you intend to prevent the principal that is making the request from making a subsequent
-     * PutKeyPolicy request on the KMS key.
+     * PutKeyPolicy [^2] request on the KMS key.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-default.html#prevent-unmanageable-key
+     * [^2]: https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html
      *
      * @var bool|null
      */
