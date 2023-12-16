@@ -107,7 +107,7 @@ final class DecryptRequest extends Input
      * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services
      * Nitro Enclaves uses KMS [^3] in the *Key Management Service Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
+     * [^1]: https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave-concepts.html#term-attestdoc
      * [^2]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
      *

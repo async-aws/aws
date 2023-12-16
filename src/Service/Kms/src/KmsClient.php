@@ -98,6 +98,9 @@ class KmsClient extends AbstractApi
      * - ListAliases
      * - UpdateAlias
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^8].
+     *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/abac.html
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html
@@ -105,6 +108,7 @@ class KmsClient extends AbstractApi
      * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html#alias-access
+     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createalias
@@ -274,6 +278,9 @@ class KmsClient extends AbstractApi
      * - ListKeys
      * - ScheduleKeyDeletion
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^16].
+     *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms-keys
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
@@ -289,6 +296,7 @@ class KmsClient extends AbstractApi
      * [^13]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^14]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^15]: https://docs.aws.amazon.com/kms/latest/developerguide/iam-policies.html#iam-policy-example-create-key
+     * [^16]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey
@@ -382,8 +390,8 @@ class KmsClient extends AbstractApi
      * Amazon EC2. To call `Decrypt` for a Nitro enclave, use the Amazon Web Services Nitro Enclaves SDK [^6] or any Amazon
      * Web Services SDK. Use the `Recipient` parameter to provide the attestation document for the enclave. Instead of the
      * plaintext data, the response includes the plaintext data encrypted with the public key from the attestation document
-     * (`CiphertextForRecipient`).For information about the interaction between KMS and Amazon Web Services Nitro Enclaves,
-     * see How Amazon Web Services Nitro Enclaves uses KMS [^7] in the *Key Management Service Developer Guide*..
+     * (`CiphertextForRecipient`). For information about the interaction between KMS and Amazon Web Services Nitro Enclaves,
+     * see How Amazon Web Services Nitro Enclaves uses KMS [^7] in the *Key Management Service Developer Guide*.
      *
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
      * keys [^8] in the *Key Management Service Developer Guide*.
@@ -400,6 +408,9 @@ class KmsClient extends AbstractApi
      * - GenerateDataKeyPair
      * - ReEncrypt
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^10].
+     *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
      * [^2]: https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html
@@ -409,6 +420,7 @@ class KmsClient extends AbstractApi
      * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
      * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt
@@ -521,9 +533,13 @@ class KmsClient extends AbstractApi
      * - GenerateDataKey
      * - GenerateDataKeyPair
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^4].
+     *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt
@@ -635,6 +651,9 @@ class KmsClient extends AbstractApi
      * - GenerateDataKeyPairWithoutPlaintext
      * - GenerateDataKeyWithoutPlaintext
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^10].
+     *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
      * [^2]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave.html
      * [^3]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
@@ -644,6 +663,7 @@ class KmsClient extends AbstractApi
      * [^7]: https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html
      * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey
@@ -715,9 +735,13 @@ class KmsClient extends AbstractApi
      * - DeleteAlias
      * - UpdateAlias
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^4].
+     *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#aliases-limit
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html#alias-access
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listaliases
@@ -792,10 +816,14 @@ class KmsClient extends AbstractApi
      *
      * **Related operations**: Verify
      *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^5].
+     *
      * [^1]: https://en.wikipedia.org/wiki/Digital_signature
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#sign
