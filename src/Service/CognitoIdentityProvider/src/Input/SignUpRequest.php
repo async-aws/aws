@@ -33,7 +33,8 @@ final class SignUpRequest extends Input
     private $secretHash;
 
     /**
-     * The user name of the user you want to register.
+     * The username of the user that you want to sign up. The value of this parameter is typically a username, but can be
+     * any alias attribute in your user pool.
      *
      * @required
      *
@@ -60,7 +61,17 @@ final class SignUpRequest extends Input
     private $userAttributes;
 
     /**
-     * The validation data in the request to register a user.
+     * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of key-value
+     * pairs are for custom validation of information that you collect from your users but don't need to retain.
+     *
+     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
+     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
+     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they sign
+     * up from within your network.
+     *
+     * For more information about the pre sign-up Lambda trigger, see Pre sign-up Lambda trigger [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html
      *
      * @var AttributeType[]|null
      */

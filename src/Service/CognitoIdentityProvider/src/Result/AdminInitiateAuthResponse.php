@@ -42,7 +42,7 @@ class AdminInitiateAuthResponse extends Result
      *   > additional attributes.
      *
      * - `MFA_SETUP`: For users who are required to set up an MFA factor before they can sign in. The MFA types activated
-     *   for the user pool will be listed in the challenge parameters `MFA_CAN_SETUP` value.
+     *   for the user pool will be listed in the challenge parameters `MFAS_CAN_SETUP` value.
      *
      *   To set up software token MFA, use the session returned here from `InitiateAuth` as an input to
      *   `AssociateSoftwareToken`, and use the session returned by `VerifySoftwareToken` as an input to

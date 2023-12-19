@@ -14,7 +14,7 @@ use AsyncAws\Core\Result;
 class InitiateAuthResponse extends Result
 {
     /**
-     * The name of the challenge that you're responding to with this call. This name is returned in the `AdminInitiateAuth`
+     * The name of the challenge that you're responding to with this call. This name is returned in the `InitiateAuth`
      * response if you must pass another challenge.
      *
      * Valid values include the following:
@@ -40,7 +40,7 @@ class InitiateAuthResponse extends Result
      *   > parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
      *
      * - `MFA_SETUP`: For users who are required to setup an MFA factor before they can sign in. The MFA types activated for
-     *   the user pool will be listed in the challenge parameters `MFA_CAN_SETUP` value.
+     *   the user pool will be listed in the challenge parameters `MFAS_CAN_SETUP` value.
      *
      *   To set up software token MFA, use the session returned here from `InitiateAuth` as an input to
      *   `AssociateSoftwareToken`. Use the session returned by `VerifySoftwareToken` as an input to `RespondToAuthChallenge`

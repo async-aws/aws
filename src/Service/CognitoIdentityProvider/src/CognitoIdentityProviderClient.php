@@ -111,7 +111,8 @@ use AsyncAws\Core\Result;
 class CognitoIdentityProviderClient extends AbstractApi
 {
     /**
-     * Adds the specified user to the specified group.
+     * Adds a user to a group. A user who is in a group can present a preferred-role claim to an identity pool, and
+     * populates a `cognito:groups` claim to their access and identity tokens.
      *
      * > Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this
      * > operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM
@@ -159,7 +160,14 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Confirms user registration as an admin without using a confirmation code. Works on any user.
+     * This IAM-authenticated API operation provides a code that Amazon Cognito sent to your user when they signed up in
+     * your user pool. After your user enters their code, they confirm ownership of the email address or phone number that
+     * they provided, and their user account becomes active. Depending on your user pool configuration, your users will
+     * receive their confirmation code in an email or SMS message.
+     *
+     * Local users who signed up in your user pool are the only type of user who can confirm sign-up with a code. Users who
+     * federate through an external identity provider (IdP) have already been confirmed by their IdP. Administrator-created
+     * users confirm their accounts when they respond to their invitation email message and choose a password.
      *
      * > Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this
      * > operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM
@@ -872,13 +880,19 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Signs out a user from all devices. `AdminUserGlobalSignOut` invalidates all identity, access and refresh tokens that
-     * Amazon Cognito has issued to a user. A user can still use a hosted UI cookie to retrieve new tokens for the duration
-     * of the 1-hour cookie validity period.
+     * Invalidates the identity, access, and refresh tokens that Amazon Cognito issued to a user. Call this operation with
+     * your administrative credentials when your user signs out of your app. This results in the following behavior.
      *
-     * Your app isn't aware that a user's access token is revoked unless it attempts to authorize a user pools API request
-     * with an access token that contains the scope `aws.cognito.signin.user.admin`. Your app might otherwise accept access
-     * tokens until they expire.
+     * - Amazon Cognito no longer accepts *token-authorized* user operations that you authorize with a signed-out user's
+     *   access tokens. For more information, see Using the Amazon Cognito user pools API and user pool endpoints [^1].
+     *
+     *   Amazon Cognito returns an `Access Token has been revoked` error when your app attempts to authorize a user pools
+     *   API request with a revoked access token that contains the scope `aws.cognito.signin.user.admin`.
+     * - Amazon Cognito no longer accepts a signed-out user's ID token in a GetId [^2] request to an identity pool with
+     *   `ServerSideTokenCheck` enabled for its user pool IdP configuration in CognitoIdentityProvider [^3].
+     * - Amazon Cognito no longer accepts a signed-out user's refresh tokens in refresh requests.
+     *
+     * Other requests might be valid until your user's token expires.
      *
      * > Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this
      * > operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM
@@ -886,12 +900,15 @@ class CognitoIdentityProviderClient extends AbstractApi
      * >
      * > **Learn more**
      * >
-     * > - Signing Amazon Web Services API Requests [^1]
-     * > - Using the Amazon Cognito user pools API and user pool endpoints [^2]
+     * > - Signing Amazon Web Services API Requests [^4]
+     * > - Using the Amazon Cognito user pools API and user pool endpoints [^5]
      * >
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
-     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^2]: https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetId.html
+     * [^3]: https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_CognitoIdentityProvider.html
+     * [^4]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+     * [^5]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUserGlobalSignOut.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminuserglobalsignout
@@ -1100,14 +1117,25 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Confirms registration of a new user.
+     * This public API operation provides a code that Amazon Cognito sent to your user when they signed up in your user pool
+     * via the SignUp [^1] API operation. After your user enters their code, they confirm ownership of the email address or
+     * phone number that they provided, and their user account becomes active. Depending on your user pool configuration,
+     * your users will receive their confirmation code in an email or SMS message.
+     *
+     * Local users who signed up in your user pool are the only type of user who can confirm sign-up with a code. Users who
+     * federate through an external identity provider (IdP) have already been confirmed by their IdP. Administrator-created
+     * users, users created with the AdminCreateUser [^2] API operation, confirm their accounts when they respond to their
+     * invitation email message and choose a password. They do not receive a confirmation code. Instead, they receive a
+     * temporary password.
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
      * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > and OIDC APIs [^3].
      *
-     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
+     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
+     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#confirmsignup
@@ -1603,29 +1631,36 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Responds to the authentication challenge.
+     * Some API operations in a user pool generate a challenge, like a prompt for an MFA code, for device authentication
+     * that bypasses MFA, or for a custom authentication challenge. A `RespondToAuthChallenge` API request provides the
+     * answer to that challenge, like a code or a secure remote password (SRP). The parameters of a response to an
+     * authentication challenge vary with the type of challenge.
+     *
+     * For more information about custom authentication challenges, see Custom authentication challenge Lambda triggers
+     * [^1].
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
      * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > and OIDC APIs [^2].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
-     * > Amazon Cognito, you must register a phone number with Amazon Pinpoint [^2]. Amazon Cognito uses the registered
+     * > Amazon Cognito, you must register a phone number with Amazon Pinpoint [^3]. Amazon Cognito uses the registered
      * > number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up,
      * > activate their accounts, or sign in.
      * >
      * > If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple
-     * > Notification Service might place your account in the SMS sandbox. In *sandbox mode [^3]*, you can send messages
+     * > Notification Service might place your account in the SMS sandbox. In *sandbox mode [^4]*, you can send messages
      * > only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the
-     * > sandbox and into production. For more information, see SMS message settings for Amazon Cognito user pools [^4] in
+     * > sandbox and into production. For more information, see SMS message settings for Amazon Cognito user pools [^5] in
      * > the *Amazon Cognito Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
-     * [^2]: https://console.aws.amazon.com/pinpoint/home/
-     * [^3]: https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html
-     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^3]: https://console.aws.amazon.com/pinpoint/home/
+     * [^4]: https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html
+     * [^5]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#respondtoauthchallenge

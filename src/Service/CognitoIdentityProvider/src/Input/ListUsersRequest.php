@@ -26,6 +26,11 @@ final class ListUsersRequest extends Input
      * response for each user. When you don't provide an `AttributesToGet` parameter, Amazon Cognito returns all attributes
      * for each user.
      *
+     * Use `AttributesToGet` with required attributes in your user pool, or in conjunction with `Filter`. Amazon Cognito
+     * returns an error if not all users in the results have set a value for the attribute you request. Attributes that you
+     * can't filter on, including custom attributes, must have a value set in every user profile before an `AttributesToGet`
+     * parameter returns results.
+     *
      * @var string[]|null
      */
     private $attributesToGet;
@@ -38,8 +43,10 @@ final class ListUsersRequest extends Input
     private $limit;
 
     /**
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next set of
-     * items in the list.
+     * This API operation returns a limited number of results. The pagination token is an identifier that you can present in
+     * an additional API request with the same parameters. When you include the pagination token, Amazon Cognito returns the
+     * next set of items after the current list. Subsequent requests return a new pagination token. By use of this token,
+     * you can paginate through the full list of items.
      *
      * @var string|null
      */
