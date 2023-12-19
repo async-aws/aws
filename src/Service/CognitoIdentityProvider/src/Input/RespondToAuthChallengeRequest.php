@@ -47,30 +47,61 @@ final class RespondToAuthChallengeRequest extends Input
     private $session;
 
     /**
-     * The challenge responses. These are inputs corresponding to the value of `ChallengeName`, for example:.
+     * The responses to the challenge that you received in the previous request. Each challenge has its own required
+     * response parameters. The following examples are partial JSON request bodies that highlight challenge-response
+     * parameters.
      *
-     * > `SECRET_HASH` (if app client is configured with client secret) applies to all of the inputs that follow (including
-     * > `SOFTWARE_TOKEN_MFA`).
+     * ! You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
      *
-     * - `SMS_MFA`: `SMS_MFA_CODE`, `USERNAME`.
-     * - `PASSWORD_VERIFIER`: `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`.
+     * - `SMS_MFA`:
      *
-     *   > `PASSWORD_VERIFIER` requires `DEVICE_KEY` when you sign in with a remembered device.
+     *   `"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}`
+     * - `PASSWORD_VERIFIER`:
      *
-     * - `NEW_PASSWORD_REQUIRED`: `NEW_PASSWORD`, `USERNAME`, `SECRET_HASH` (if app client is configured with client
-     *   secret). To set any required attributes that Amazon Cognito returned as `requiredAttributes` in the `InitiateAuth`
-     *   response, add a `userAttributes.*attributename*` parameter. This parameter can also set values for writable
+     *   `"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]",
+     *   "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}`
+     *
+     *   Add `"DEVICE_KEY"` when you sign in with a remembered device.
+     * - `CUSTOM_CHALLENGE`:
+     *
+     *   `"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER":
+     *   "[challenge_answer]"}`
+     *
+     *   Add `"DEVICE_KEY"` when you sign in with a remembered device.
+     * - `NEW_PASSWORD_REQUIRED`:
+     *
+     *   `"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME":
+     *   "[username]"}`
+     *
+     *   To set any required attributes that `InitiateAuth` returned in an `requiredAttributes` parameter, add
+     *   `"userAttributes.[attribute_name]": "[attribute_value]"`. This parameter can also set values for writable
      *   attributes that aren't required by your user pool.
      *
      *   > In a `NEW_PASSWORD_REQUIRED` challenge response, you can't modify a required attribute that already has a value.
      *   > In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes`
      *   > parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
      *
-     * - `SOFTWARE_TOKEN_MFA`: `USERNAME` and `SOFTWARE_TOKEN_MFA_CODE` are required attributes.
-     * - `DEVICE_SRP_AUTH` requires `USERNAME`, `DEVICE_KEY`, `SRP_A` (and `SECRET_HASH`).
-     * - `DEVICE_PASSWORD_VERIFIER` requires everything that `PASSWORD_VERIFIER` requires, plus `DEVICE_KEY`.
-     * - `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the
-     *   `Session` parameter.
+     * - `SOFTWARE_TOKEN_MFA`:
+     *
+     *   `"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE":
+     *   [authenticator_code]}`
+     * - `DEVICE_SRP_AUTH`:
+     *
+     *   `"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]",
+     *   "SRP_A": "[srp_a]"}`
+     * - `DEVICE_PASSWORD_VERIFIER`:
+     *
+     *   `"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]",
+     *   "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP":
+     *   [timestamp], "USERNAME": "[username]"}`
+     * - `MFA_SETUP`:
+     *
+     *   `"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from
+     *   VerifySoftwareToken]"`
+     * - `SELECT_MFA_TYPE`:
+     *
+     *   `"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or
+     *   SOFTWARE_TOKEN_MFA]"}`
      *
      * For more information about `SECRET_HASH`, see Computing secret hash values [^1]. For information about `DEVICE_KEY`,
      * see Working with user devices in your user pool [^2].

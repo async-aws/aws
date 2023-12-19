@@ -3039,6 +3039,27 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'fips-us-iso-east-1':
+                return [
+                    'endpoint' => 'https://s3-fips.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-us-iso-west-1':
+                return [
+                    'endpoint' => 'https://s3-fips.us-iso-west-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-us-isob-east-1':
+                return [
+                    'endpoint' => 'https://s3-fips.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
         }
 
         return [

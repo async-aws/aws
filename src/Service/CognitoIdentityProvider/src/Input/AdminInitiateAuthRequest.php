@@ -107,7 +107,6 @@ final class AdminInitiateAuthRequest extends Input
      * - Pre token generation
      * - Create auth challenge
      * - Define auth challenge
-     * - Verify auth challenge
      *
      * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
      * Guide*.
