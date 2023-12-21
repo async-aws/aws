@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `ca-west-1-fips` region
 
 ## 3.0.1
 
