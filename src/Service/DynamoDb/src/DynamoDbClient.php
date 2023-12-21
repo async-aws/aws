@@ -1107,6 +1107,13 @@ class DynamoDbClient extends AbstractApi
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
+            case 'ca-west-1-fips':
+                return [
+                    'endpoint' => 'https://dynamodb-fips.ca-west-1.amazonaws.com',
+                    'signRegion' => 'ca-west-1',
+                    'signService' => 'dynamodb',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://dynamodb-fips.us-east-1.amazonaws.com',

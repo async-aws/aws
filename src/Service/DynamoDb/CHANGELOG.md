@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `ca-west-1-fips` region
+
 ## 3.0.1
 
 ### Changed
