@@ -2936,6 +2936,7 @@ class S3Client extends AbstractApi
             case 'ap-southeast-3':
             case 'ap-southeast-4':
             case 'ca-central-1':
+            case 'ca-west-1':
             case 'eu-central-1':
             case 'eu-central-2':
             case 'eu-north-1':
@@ -2979,6 +2980,13 @@ class S3Client extends AbstractApi
                 return [
                     'endpoint' => 'https://s3-fips.ca-central-1.amazonaws.com',
                     'signRegion' => 'ca-central-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-ca-west-1':
+                return [
+                    'endpoint' => 'https://s3-fips.ca-west-1.amazonaws.com',
+                    'signRegion' => 'ca-west-1',
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];

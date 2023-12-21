@@ -290,6 +290,13 @@ class SsmClient extends AbstractApi
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-ca-west-1':
+                return [
+                    'endpoint' => 'https://ssm-fips.ca-west-1.amazonaws.com',
+                    'signRegion' => 'ca-west-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://ssm-fips.us-east-1.amazonaws.com',

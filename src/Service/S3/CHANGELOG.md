@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `fips-us-iso-east-1` region
+- AWS api-change: TODO
 
 ## 2.1.0
 
