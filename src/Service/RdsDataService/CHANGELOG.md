@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added new kind of Exceptions in transactions and execute statement operations
+
 ## 2.0.1
 
 ### Changed

@@ -78,6 +78,13 @@ final class RepositoryMetadata
     private $arn;
 
     /**
+     * The ID of the Key Management Service encryption key used to encrypt and decrypt the repository.
+     *
+     * @var string|null
+     */
+    private $kmsKeyId;
+
+    /**
      * @param array{
      *   accountId?: null|string,
      *   repositoryId?: null|string,
@@ -89,6 +96,7 @@ final class RepositoryMetadata
      *   cloneUrlHttp?: null|string,
      *   cloneUrlSsh?: null|string,
      *   Arn?: null|string,
+     *   kmsKeyId?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -103,6 +111,7 @@ final class RepositoryMetadata
         $this->cloneUrlHttp = $input['cloneUrlHttp'] ?? null;
         $this->cloneUrlSsh = $input['cloneUrlSsh'] ?? null;
         $this->arn = $input['Arn'] ?? null;
+        $this->kmsKeyId = $input['kmsKeyId'] ?? null;
     }
 
     /**
@@ -117,6 +126,7 @@ final class RepositoryMetadata
      *   cloneUrlHttp?: null|string,
      *   cloneUrlSsh?: null|string,
      *   Arn?: null|string,
+     *   kmsKeyId?: null|string,
      * }|RepositoryMetadata $input
      */
     public static function create($input): self
@@ -152,6 +162,11 @@ final class RepositoryMetadata
     public function getDefaultBranch(): ?string
     {
         return $this->defaultBranch;
+    }
+
+    public function getKmsKeyId(): ?string
+    {
+        return $this->kmsKeyId;
     }
 
     public function getLastModifiedDate(): ?\DateTimeImmutable
