@@ -48,10 +48,24 @@ final class CreateRepositoryInput extends Input
     private $tags;
 
     /**
+     * The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to
+     * programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see KeyId [^1] in the
+     * Decrypt API description in the *Key Management Service API Reference*.
+     *
+     * If no key is specified, the default `aws/codecommit` Amazon Web Services managed key is used.
+     *
+     * [^1]: https://docs.aws.amazon.com/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId
+     *
+     * @var string|null
+     */
+    private $kmsKeyId;
+
+    /**
      * @param array{
      *   repositoryName?: string,
      *   repositoryDescription?: null|string,
      *   tags?: null|array<string, string>,
+     *   kmsKeyId?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -60,6 +74,7 @@ final class CreateRepositoryInput extends Input
         $this->repositoryName = $input['repositoryName'] ?? null;
         $this->repositoryDescription = $input['repositoryDescription'] ?? null;
         $this->tags = $input['tags'] ?? null;
+        $this->kmsKeyId = $input['kmsKeyId'] ?? null;
         parent::__construct($input);
     }
 
@@ -68,12 +83,18 @@ final class CreateRepositoryInput extends Input
      *   repositoryName?: string,
      *   repositoryDescription?: null|string,
      *   tags?: null|array<string, string>,
+     *   kmsKeyId?: null|string,
      *   '@region'?: string|null,
      * }|CreateRepositoryInput $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getKmsKeyId(): ?string
+    {
+        return $this->kmsKeyId;
     }
 
     public function getRepositoryDescription(): ?string
@@ -119,6 +140,13 @@ final class CreateRepositoryInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setKmsKeyId(?string $value): self
+    {
+        $this->kmsKeyId = $value;
+
+        return $this;
+    }
+
     public function setRepositoryDescription(?string $value): self
     {
         $this->repositoryDescription = $value;
@@ -162,6 +190,9 @@ final class CreateRepositoryInput extends Input
                     $payload['tags'][$name] = $mv;
                 }
             }
+        }
+        if (null !== $v = $this->kmsKeyId) {
+            $payload['kmsKeyId'] = $v;
         }
 
         return $payload;

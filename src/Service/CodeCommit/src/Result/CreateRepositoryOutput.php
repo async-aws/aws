@@ -45,6 +45,7 @@ class CreateRepositoryOutput extends Result
             'cloneUrlHttp' => isset($json['cloneUrlHttp']) ? (string) $json['cloneUrlHttp'] : null,
             'cloneUrlSsh' => isset($json['cloneUrlSsh']) ? (string) $json['cloneUrlSsh'] : null,
             'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
+            'kmsKeyId' => isset($json['kmsKeyId']) ? (string) $json['kmsKeyId'] : null,
         ]);
     }
 }

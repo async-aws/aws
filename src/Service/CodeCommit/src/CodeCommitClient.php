@@ -15,6 +15,8 @@ use AsyncAws\CodeCommit\Exception\CommitRequiredException;
 use AsyncAws\CodeCommit\Exception\EncryptionIntegrityChecksFailedException;
 use AsyncAws\CodeCommit\Exception\EncryptionKeyAccessDeniedException;
 use AsyncAws\CodeCommit\Exception\EncryptionKeyDisabledException;
+use AsyncAws\CodeCommit\Exception\EncryptionKeyInvalidIdException;
+use AsyncAws\CodeCommit\Exception\EncryptionKeyInvalidUsageException;
 use AsyncAws\CodeCommit\Exception\EncryptionKeyNotFoundException;
 use AsyncAws\CodeCommit\Exception\EncryptionKeyUnavailableException;
 use AsyncAws\CodeCommit\Exception\FileTooLargeException;
@@ -86,6 +88,7 @@ class CodeCommitClient extends AbstractApi
      *   repositoryName: string,
      *   repositoryDescription?: null|string,
      *   tags?: null|array<string, string>,
+     *   kmsKeyId?: null|string,
      *   '@region'?: string|null,
      * }|CreateRepositoryInput $input
      *
@@ -99,6 +102,8 @@ class CodeCommitClient extends AbstractApi
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
+     * @throws EncryptionKeyInvalidIdException
+     * @throws EncryptionKeyInvalidUsageException
      * @throws InvalidTagsMapException
      * @throws TooManyTagsException
      * @throws InvalidSystemTagUsageException
@@ -118,6 +123,8 @@ class CodeCommitClient extends AbstractApi
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'EncryptionKeyInvalidIdException' => EncryptionKeyInvalidIdException::class,
+            'EncryptionKeyInvalidUsageException' => EncryptionKeyInvalidUsageException::class,
             'InvalidTagsMapException' => InvalidTagsMapException::class,
             'TooManyTagsException' => TooManyTagsException::class,
             'InvalidSystemTagUsageException' => InvalidSystemTagUsageException::class,
