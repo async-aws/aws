@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release adds support for using RDS Data API with Aurora PostgreSQL Serverless v2 and provisioned DB clusters.
+- AWS api-change: Added new kind of Exceptions in transactions and execute statement operations
 
 ## 2.0.1
 
