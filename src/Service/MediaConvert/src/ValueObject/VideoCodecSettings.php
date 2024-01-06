@@ -10,7 +10,8 @@ use AsyncAws\MediaConvert\Enum\VideoCodec;
  * depending on the value that you choose for Video codec. For each codec enum that you choose, define the corresponding
  * settings object. The following lists the codec enum, settings object pairs. * AV1, Av1Settings * AVC_INTRA,
  * AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * H_264, H264Settings * H_265, H265Settings * MPEG2,
- * Mpeg2Settings * PRORES, ProresSettings * VC3, Vc3Settings * VP8, Vp8Settings * VP9, Vp9Settings * XAVC, XavcSettings.
+ * Mpeg2Settings * PRORES, ProresSettings * UNCOMPRESSED, UncompressedSettings * VC3, Vc3Settings * VP8, Vp8Settings *
+ * VP9, Vp9Settings * XAVC, XavcSettings.
  */
 final class VideoCodecSettings
 {
@@ -77,6 +78,13 @@ final class VideoCodecSettings
     private $proresSettings;
 
     /**
+     * Required when you set Codec, under VideoDescription>CodecSettings to the value UNCOMPRESSED.
+     *
+     * @var UncompressedSettings|null
+     */
+    private $uncompressedSettings;
+
+    /**
      * Required when you set Codec to the value VC3.
      *
      * @var Vc3Settings|null
@@ -114,6 +122,7 @@ final class VideoCodecSettings
      *   H265Settings?: null|H265Settings|array,
      *   Mpeg2Settings?: null|Mpeg2Settings|array,
      *   ProresSettings?: null|ProresSettings|array,
+     *   UncompressedSettings?: null|UncompressedSettings|array,
      *   Vc3Settings?: null|Vc3Settings|array,
      *   Vp8Settings?: null|Vp8Settings|array,
      *   Vp9Settings?: null|Vp9Settings|array,
@@ -130,6 +139,7 @@ final class VideoCodecSettings
         $this->h265Settings = isset($input['H265Settings']) ? H265Settings::create($input['H265Settings']) : null;
         $this->mpeg2Settings = isset($input['Mpeg2Settings']) ? Mpeg2Settings::create($input['Mpeg2Settings']) : null;
         $this->proresSettings = isset($input['ProresSettings']) ? ProresSettings::create($input['ProresSettings']) : null;
+        $this->uncompressedSettings = isset($input['UncompressedSettings']) ? UncompressedSettings::create($input['UncompressedSettings']) : null;
         $this->vc3Settings = isset($input['Vc3Settings']) ? Vc3Settings::create($input['Vc3Settings']) : null;
         $this->vp8Settings = isset($input['Vp8Settings']) ? Vp8Settings::create($input['Vp8Settings']) : null;
         $this->vp9Settings = isset($input['Vp9Settings']) ? Vp9Settings::create($input['Vp9Settings']) : null;
@@ -146,6 +156,7 @@ final class VideoCodecSettings
      *   H265Settings?: null|H265Settings|array,
      *   Mpeg2Settings?: null|Mpeg2Settings|array,
      *   ProresSettings?: null|ProresSettings|array,
+     *   UncompressedSettings?: null|UncompressedSettings|array,
      *   Vc3Settings?: null|Vc3Settings|array,
      *   Vp8Settings?: null|Vp8Settings|array,
      *   Vp9Settings?: null|Vp9Settings|array,
@@ -200,6 +211,11 @@ final class VideoCodecSettings
         return $this->proresSettings;
     }
 
+    public function getUncompressedSettings(): ?UncompressedSettings
+    {
+        return $this->uncompressedSettings;
+    }
+
     public function getVc3Settings(): ?Vc3Settings
     {
         return $this->vc3Settings;
@@ -252,6 +268,9 @@ final class VideoCodecSettings
         }
         if (null !== $v = $this->proresSettings) {
             $payload['proresSettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->uncompressedSettings) {
+            $payload['uncompressedSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->vc3Settings) {
             $payload['vc3Settings'] = $v->requestBody();

@@ -15,6 +15,7 @@ final class VideoCodec
     public const MPEG2 = 'MPEG2';
     public const PASSTHROUGH = 'PASSTHROUGH';
     public const PRORES = 'PRORES';
+    public const UNCOMPRESSED = 'UNCOMPRESSED';
     public const VC3 = 'VC3';
     public const VP8 = 'VP8';
     public const VP9 = 'VP9';
@@ -31,6 +32,7 @@ final class VideoCodec
             self::MPEG2 => true,
             self::PASSTHROUGH => true,
             self::PRORES => true,
+            self::UNCOMPRESSED => true,
             self::VC3 => true,
             self::VP8 => true,
             self::VP9 => true,

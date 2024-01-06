@@ -42,6 +42,7 @@ use AsyncAws\MediaConvert\ValueObject\CmafEncryptionSettings;
 use AsyncAws\MediaConvert\ValueObject\CmafGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\CmafImageBasedTrickPlaySettings;
 use AsyncAws\MediaConvert\ValueObject\CmfcSettings;
+use AsyncAws\MediaConvert\ValueObject\ColorConversion3DLUTSetting;
 use AsyncAws\MediaConvert\ValueObject\ColorCorrector;
 use AsyncAws\MediaConvert\ValueObject\ContainerSettings;
 use AsyncAws\MediaConvert\ValueObject\DashAdditionalManifest;
@@ -152,6 +153,7 @@ use AsyncAws\MediaConvert\ValueObject\TimedMetadataInsertion;
 use AsyncAws\MediaConvert\ValueObject\Timing;
 use AsyncAws\MediaConvert\ValueObject\TrackSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\TtmlDestinationSettings;
+use AsyncAws\MediaConvert\ValueObject\UncompressedSettings;
 use AsyncAws\MediaConvert\ValueObject\Vc3Settings;
 use AsyncAws\MediaConvert\ValueObject\VideoCodecSettings;
 use AsyncAws\MediaConvert\ValueObject\VideoDescription;
@@ -637,6 +639,30 @@ class GetJobResponse extends Result
         ]);
     }
 
+    private function populateResultColorConversion3DLUTSetting(array $json): ColorConversion3DLUTSetting
+    {
+        return new ColorConversion3DLUTSetting([
+            'FileInput' => isset($json['fileInput']) ? (string) $json['fileInput'] : null,
+            'InputColorSpace' => isset($json['inputColorSpace']) ? (string) $json['inputColorSpace'] : null,
+            'InputMasteringLuminance' => isset($json['inputMasteringLuminance']) ? (int) $json['inputMasteringLuminance'] : null,
+            'OutputColorSpace' => isset($json['outputColorSpace']) ? (string) $json['outputColorSpace'] : null,
+            'OutputMasteringLuminance' => isset($json['outputMasteringLuminance']) ? (int) $json['outputMasteringLuminance'] : null,
+        ]);
+    }
+
+    /**
+     * @return ColorConversion3DLUTSetting[]
+     */
+    private function populateResultColorConversion3DLUTSettings(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultColorConversion3DLUTSetting($item);
+        }
+
+        return $items;
+    }
+
     private function populateResultColorCorrector(array $json): ColorCorrector
     {
         return new ColorCorrector([
@@ -647,6 +673,7 @@ class GetJobResponse extends Result
             'Hdr10Metadata' => empty($json['hdr10Metadata']) ? null : $this->populateResultHdr10Metadata($json['hdr10Metadata']),
             'HdrToSdrToneMapper' => isset($json['hdrToSdrToneMapper']) ? (string) $json['hdrToSdrToneMapper'] : null,
             'Hue' => isset($json['hue']) ? (int) $json['hue'] : null,
+            'MaxLuminance' => isset($json['maxLuminance']) ? (int) $json['maxLuminance'] : null,
             'SampleRangeConversion' => isset($json['sampleRangeConversion']) ? (string) $json['sampleRangeConversion'] : null,
             'Saturation' => isset($json['saturation']) ? (int) $json['saturation'] : null,
             'SdrReferenceWhiteLevel' => isset($json['sdrReferenceWhiteLevel']) ? (int) $json['sdrReferenceWhiteLevel'] : null,
@@ -1373,6 +1400,7 @@ class GetJobResponse extends Result
         return new JobSettings([
             'AdAvailOffset' => isset($json['adAvailOffset']) ? (int) $json['adAvailOffset'] : null,
             'AvailBlanking' => empty($json['availBlanking']) ? null : $this->populateResultAvailBlanking($json['availBlanking']),
+            'ColorConversion3DLUTSettings' => !isset($json['colorConversion3DLUTSettings']) ? null : $this->populateResultColorConversion3DLUTSettings($json['colorConversion3DLUTSettings']),
             'Esam' => empty($json['esam']) ? null : $this->populateResultEsamSettings($json['esam']),
             'ExtendedDataServices' => empty($json['extendedDataServices']) ? null : $this->populateResultExtendedDataServices($json['extendedDataServices']),
             'FollowSource' => isset($json['followSource']) ? (int) $json['followSource'] : null,
@@ -2012,6 +2040,21 @@ class GetJobResponse extends Result
         ]);
     }
 
+    private function populateResultUncompressedSettings(array $json): UncompressedSettings
+    {
+        return new UncompressedSettings([
+            'Fourcc' => isset($json['fourcc']) ? (string) $json['fourcc'] : null,
+            'FramerateControl' => isset($json['framerateControl']) ? (string) $json['framerateControl'] : null,
+            'FramerateConversionAlgorithm' => isset($json['framerateConversionAlgorithm']) ? (string) $json['framerateConversionAlgorithm'] : null,
+            'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
+            'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
+            'InterlaceMode' => isset($json['interlaceMode']) ? (string) $json['interlaceMode'] : null,
+            'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (string) $json['scanTypeConversionMode'] : null,
+            'SlowPal' => isset($json['slowPal']) ? (string) $json['slowPal'] : null,
+            'Telecine' => isset($json['telecine']) ? (string) $json['telecine'] : null,
+        ]);
+    }
+
     private function populateResultVc3Settings(array $json): Vc3Settings
     {
         return new Vc3Settings([
@@ -2038,6 +2081,7 @@ class GetJobResponse extends Result
             'H265Settings' => empty($json['h265Settings']) ? null : $this->populateResultH265Settings($json['h265Settings']),
             'Mpeg2Settings' => empty($json['mpeg2Settings']) ? null : $this->populateResultMpeg2Settings($json['mpeg2Settings']),
             'ProresSettings' => empty($json['proresSettings']) ? null : $this->populateResultProresSettings($json['proresSettings']),
+            'UncompressedSettings' => empty($json['uncompressedSettings']) ? null : $this->populateResultUncompressedSettings($json['uncompressedSettings']),
             'Vc3Settings' => empty($json['vc3Settings']) ? null : $this->populateResultVc3Settings($json['vc3Settings']),
             'Vp8Settings' => empty($json['vp8Settings']) ? null : $this->populateResultVp8Settings($json['vp8Settings']),
             'Vp9Settings' => empty($json['vp9Settings']) ? null : $this->populateResultVp9Settings($json['vp9Settings']),
@@ -2123,6 +2167,7 @@ class GetJobResponse extends Result
             'ColorSpaceUsage' => isset($json['colorSpaceUsage']) ? (string) $json['colorSpaceUsage'] : null,
             'EmbeddedTimecodeOverride' => isset($json['embeddedTimecodeOverride']) ? (string) $json['embeddedTimecodeOverride'] : null,
             'Hdr10Metadata' => empty($json['hdr10Metadata']) ? null : $this->populateResultHdr10Metadata($json['hdr10Metadata']),
+            'MaxLuminance' => isset($json['maxLuminance']) ? (int) $json['maxLuminance'] : null,
             'PadVideo' => isset($json['padVideo']) ? (string) $json['padVideo'] : null,
             'Pid' => isset($json['pid']) ? (int) $json['pid'] : null,
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,

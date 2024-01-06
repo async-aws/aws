@@ -19,6 +19,7 @@ final class ContainerType
     public const MXF = 'MXF';
     public const RAW = 'RAW';
     public const WEBM = 'WEBM';
+    public const Y4M = 'Y4M';
 
     public static function exists(string $value): bool
     {
@@ -34,6 +35,7 @@ final class ContainerType
             self::MXF => true,
             self::RAW => true,
             self::WEBM => true,
+            self::Y4M => true,
         ][$value]);
     }
 }
