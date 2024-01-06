@@ -3,7 +3,8 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * VBR Quality Level - Only used if rate_control_mode is VBR.
+ * Specify the quality of your variable bitrate (VBR) AAC audio. For a list of approximate VBR bitrates, see:
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/aac-support.html#aac_vbr.
  */
 final class AacVbrQuality
 {

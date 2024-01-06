@@ -23,6 +23,14 @@ final class JobSettings
     private $availBlanking;
 
     /**
+     * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
+     * include up to 8 different 3D LUTs.
+     *
+     * @var ColorConversion3DLUTSetting[]|null
+     */
+    private $colorConversion3DlutSettings;
+
+    /**
      * Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these settings.
      *
      * @var EsamSettings|null
@@ -127,6 +135,7 @@ final class JobSettings
      * @param array{
      *   AdAvailOffset?: null|int,
      *   AvailBlanking?: null|AvailBlanking|array,
+     *   ColorConversion3DLUTSettings?: null|array<ColorConversion3DLUTSetting|array>,
      *   Esam?: null|EsamSettings|array,
      *   ExtendedDataServices?: null|ExtendedDataServices|array,
      *   FollowSource?: null|int,
@@ -144,6 +153,7 @@ final class JobSettings
     {
         $this->adAvailOffset = $input['AdAvailOffset'] ?? null;
         $this->availBlanking = isset($input['AvailBlanking']) ? AvailBlanking::create($input['AvailBlanking']) : null;
+        $this->colorConversion3DlutSettings = isset($input['ColorConversion3DLUTSettings']) ? array_map([ColorConversion3DLUTSetting::class, 'create'], $input['ColorConversion3DLUTSettings']) : null;
         $this->esam = isset($input['Esam']) ? EsamSettings::create($input['Esam']) : null;
         $this->extendedDataServices = isset($input['ExtendedDataServices']) ? ExtendedDataServices::create($input['ExtendedDataServices']) : null;
         $this->followSource = $input['FollowSource'] ?? null;
@@ -161,6 +171,7 @@ final class JobSettings
      * @param array{
      *   AdAvailOffset?: null|int,
      *   AvailBlanking?: null|AvailBlanking|array,
+     *   ColorConversion3DLUTSettings?: null|array<ColorConversion3DLUTSetting|array>,
      *   Esam?: null|EsamSettings|array,
      *   ExtendedDataServices?: null|ExtendedDataServices|array,
      *   FollowSource?: null|int,
@@ -187,6 +198,14 @@ final class JobSettings
     public function getAvailBlanking(): ?AvailBlanking
     {
         return $this->availBlanking;
+    }
+
+    /**
+     * @return ColorConversion3DLUTSetting[]
+     */
+    public function getColorConversion3DlutSettings(): array
+    {
+        return $this->colorConversion3DlutSettings ?? [];
     }
 
     public function getEsam(): ?EsamSettings
@@ -261,6 +280,14 @@ final class JobSettings
         }
         if (null !== $v = $this->availBlanking) {
             $payload['availBlanking'] = $v->requestBody();
+        }
+        if (null !== $v = $this->colorConversion3DlutSettings) {
+            $index = -1;
+            $payload['colorConversion3DLUTSettings'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['colorConversion3DLUTSettings'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->esam) {
             $payload['esam'] = $v->requestBody();

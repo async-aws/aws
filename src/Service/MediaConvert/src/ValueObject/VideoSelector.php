@@ -82,6 +82,14 @@ final class VideoSelector
     private $hdr10Metadata;
 
     /**
+     * Specify the maximum mastering display luminance. Enter an integer from 0 to 2147483647, in units of 0.0001 nits. For
+     * example, enter 10000000 for 1000 nits.
+     *
+     * @var int|null
+     */
+    private $maxLuminance;
+
+    /**
      * Use this setting if your input has video and audio durations that don't align, and your output or player has strict
      * alignment requirements. Examples: Input audio track has a delayed start. Input video track ends before audio ends.
      * When you set Pad video to Black, MediaConvert generates black video frames so that output video and audio durations
@@ -140,6 +148,7 @@ final class VideoSelector
      *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
      *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
+     *   MaxLuminance?: null|int,
      *   PadVideo?: null|PadVideo::*,
      *   Pid?: null|int,
      *   ProgramNumber?: null|int,
@@ -154,6 +163,7 @@ final class VideoSelector
         $this->colorSpaceUsage = $input['ColorSpaceUsage'] ?? null;
         $this->embeddedTimecodeOverride = $input['EmbeddedTimecodeOverride'] ?? null;
         $this->hdr10Metadata = isset($input['Hdr10Metadata']) ? Hdr10Metadata::create($input['Hdr10Metadata']) : null;
+        $this->maxLuminance = $input['MaxLuminance'] ?? null;
         $this->padVideo = $input['PadVideo'] ?? null;
         $this->pid = $input['Pid'] ?? null;
         $this->programNumber = $input['ProgramNumber'] ?? null;
@@ -168,6 +178,7 @@ final class VideoSelector
      *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
      *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
+     *   MaxLuminance?: null|int,
      *   PadVideo?: null|PadVideo::*,
      *   Pid?: null|int,
      *   ProgramNumber?: null|int,
@@ -215,6 +226,11 @@ final class VideoSelector
     public function getHdr10Metadata(): ?Hdr10Metadata
     {
         return $this->hdr10Metadata;
+    }
+
+    public function getMaxLuminance(): ?int
+    {
+        return $this->maxLuminance;
     }
 
     /**
@@ -283,6 +299,9 @@ final class VideoSelector
         }
         if (null !== $v = $this->hdr10Metadata) {
             $payload['hdr10Metadata'] = $v->requestBody();
+        }
+        if (null !== $v = $this->maxLuminance) {
+            $payload['maxLuminance'] = $v;
         }
         if (null !== $v = $this->padVideo) {
             if (!PadVideo::exists($v)) {

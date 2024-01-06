@@ -85,6 +85,14 @@ final class ColorCorrector
     private $hue;
 
     /**
+     * Specify the maximum mastering display luminance. Enter an integer from 0 to 2147483647, in units of 0.0001 nits. For
+     * example, enter 10000000 for 1000 nits.
+     *
+     * @var int|null
+     */
+    private $maxLuminance;
+
+    /**
      * Specify how MediaConvert limits the color sample range for this output. To create a limited range output from a full
      * range input: Choose Limited range squeeze. For full range inputs, MediaConvert performs a linear offset to color
      * samples equally across all pixels and frames. Color samples in 10-bit outputs are limited to 64 through 940, and
@@ -128,6 +136,7 @@ final class ColorCorrector
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
      *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
      *   Hue?: null|int,
+     *   MaxLuminance?: null|int,
      *   SampleRangeConversion?: null|SampleRangeConversion::*,
      *   Saturation?: null|int,
      *   SdrReferenceWhiteLevel?: null|int,
@@ -142,6 +151,7 @@ final class ColorCorrector
         $this->hdr10Metadata = isset($input['Hdr10Metadata']) ? Hdr10Metadata::create($input['Hdr10Metadata']) : null;
         $this->hdrToSdrToneMapper = $input['HdrToSdrToneMapper'] ?? null;
         $this->hue = $input['Hue'] ?? null;
+        $this->maxLuminance = $input['MaxLuminance'] ?? null;
         $this->sampleRangeConversion = $input['SampleRangeConversion'] ?? null;
         $this->saturation = $input['Saturation'] ?? null;
         $this->sdrReferenceWhiteLevel = $input['SdrReferenceWhiteLevel'] ?? null;
@@ -156,6 +166,7 @@ final class ColorCorrector
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
      *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
      *   Hue?: null|int,
+     *   MaxLuminance?: null|int,
      *   SampleRangeConversion?: null|SampleRangeConversion::*,
      *   Saturation?: null|int,
      *   SdrReferenceWhiteLevel?: null|int,
@@ -205,6 +216,11 @@ final class ColorCorrector
     public function getHue(): ?int
     {
         return $this->hue;
+    }
+
+    public function getMaxLuminance(): ?int
+    {
+        return $this->maxLuminance;
     }
 
     /**
@@ -257,6 +273,9 @@ final class ColorCorrector
         }
         if (null !== $v = $this->hue) {
             $payload['hue'] = $v;
+        }
+        if (null !== $v = $this->maxLuminance) {
+            $payload['maxLuminance'] = $v;
         }
         if (null !== $v = $this->sampleRangeConversion) {
             if (!SampleRangeConversion::exists($v)) {

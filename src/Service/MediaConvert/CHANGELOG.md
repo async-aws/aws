@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes video engine updates including HEVC improvements, support for ingesting VP9 encoded video in MP4 containers, and support for user-specified 3D LUTs.
+
 ## 0.1.2
 
 ### Added
