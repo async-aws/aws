@@ -10,6 +10,7 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use Monolog\LogRecord;
 
 /**
  * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
@@ -128,8 +129,12 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    protected function write(array $record): void
+    protected function write(LogRecord|array $record): void
     {
+        if($record instanceof LogRecord){
+            $formatted = $record->formatted;
+            $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
+        }
         $records = $this->formatRecords($record);
 
         foreach ($records as $record) {
@@ -211,8 +216,13 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *
      * @param array{message: string, timestamp: int|float} $record
      */
-    private function getMessageSize(array $record): int
+    private function getMessageSize(LogRecord|array $record): int
     {
+        if($record instanceof LogRecord){
+            $formatted = $record->formatted;
+            $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
+        }
+
         return \strlen($record['message']) + 26;
     }
 
@@ -251,5 +261,40 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->checkThrottle();
 
         $this->client->putLogEvents($data);
+    }
+
+    public function handle(LogRecord|array $record): bool
+    {
+        if(is_array($record)){
+            $message = $record['message']??null;
+            $channel = $record['channel']??null;;
+            $level= $record['level']??null;;
+            $context= $record['context']??null;;
+            $extra= $record['extra']??null;;
+            $datetime= $record['datetime']??null;;
+            $formatted= $record['formatted']??null;;
+            $record = new LogRecord(
+                datetime: $datetime,
+                channel: $channel,
+                level: $level,
+                message: $message,
+                context: $context,
+                extra: $extra,
+                formatted: $formatted
+            );
+        }
+        if (!$this->isHandling($record)) {
+            return false;
+        }
+
+        if (\count($this->processors) > 0) {
+            $record = $this->processRecord($record);
+        }
+
+        $record->formatted = $this->getFormatter()->format($record);
+
+        $this->write($record);
+
+        return false === $this->bubble;
     }
 }

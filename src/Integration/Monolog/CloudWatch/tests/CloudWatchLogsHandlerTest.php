@@ -7,6 +7,7 @@ use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Level;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -42,9 +43,9 @@ class CloudWatchLogsHandlerTest extends TestCase
             'batchSize' => 1337,
             'group' => $this->groupName,
             'stream' => $this->streamName,
-        ], Logger::CRITICAL, false);
+        ], Level::Critical, false);
 
-        self::assertEquals(Logger::CRITICAL, $handler->getLevel());
+        self::assertEquals(Level::Critical, $handler->getLevel());
         self::assertFalse($handler->getBubble());
     }
 
@@ -115,7 +116,7 @@ class CloudWatchLogsHandlerTest extends TestCase
         $records = [];
 
         for ($i = 1; $i <= 4; ++$i) {
-            $record = $this->getRecord(Logger::INFO, 'record' . $i);
+            $record = $this->getRecord(Level::Info, 'record' . $i);
             $record['datetime'] = \DateTime::createFromFormat('U', time() + $i);
             $records[] = $record;
         }
@@ -138,13 +139,13 @@ class CloudWatchLogsHandlerTest extends TestCase
         ]);
     }
 
-    private function getRecord(int $level = Logger::WARNING, string $message = 'test', array $context = []): array
+    private function getRecord(int|Level $level = Level::Warning, string $message = 'test', array $context = []): array
     {
         return [
             'message' => $message,
             'context' => $context,
             'level' => $level,
-            'level_name' => Logger::getLevelName($level),
+            'level_name' => Logger::toMonologLevel($level),
             'channel' => 'test',
             'datetime' => \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true))),
             'extra' => [],
@@ -154,11 +155,11 @@ class CloudWatchLogsHandlerTest extends TestCase
     private function getMultipleRecords(): array
     {
         return [
-            $this->getRecord(Logger::DEBUG, 'debug message 1'),
-            $this->getRecord(Logger::DEBUG, 'debug message 2'),
-            $this->getRecord(Logger::INFO, 'information'),
-            $this->getRecord(Logger::WARNING, 'warning'),
-            $this->getRecord(Logger::ERROR, 'error'),
+            $this->getRecord(Level::Debug, 'debug message 1'),
+            $this->getRecord(Level::Debug, 'debug message 2'),
+            $this->getRecord(Level::Debug, 'information'),
+            $this->getRecord(Level::Debug, 'warning'),
+            $this->getRecord(Level::Debug, 'error'),
         ];
     }
 }
