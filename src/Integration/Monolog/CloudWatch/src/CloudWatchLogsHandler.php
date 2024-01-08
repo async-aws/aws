@@ -9,6 +9,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Level;
 use Monolog\Logger;
 use Monolog\LogRecord;
 
@@ -127,14 +128,18 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @param LogRecord|array $record
      */
-    protected function write(LogRecord|array $record): void
+    protected function write($record): void
     {
         if($record instanceof LogRecord){
             $formatted = $record->formatted;
             $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
         }
+        if (!is_array($record)) {
+            throw new \TypeError(sprintf('Argument 1 passed to &s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
+        }
+
         $records = $this->formatRecords($record);
 
         foreach ($records as $record) {
@@ -214,13 +219,17 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * http://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html.
      *
-     * @param array{message: string, timestamp: int|float} $record
+     * @param LogRecord|array{message: string, timestamp: int|float} $record
      */
-    private function getMessageSize(LogRecord|array $record): int
+    private function getMessageSize($record): int
     {
         if($record instanceof LogRecord){
             $formatted = $record->formatted;
             $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
+        }
+
+        if (!is_array($record)) {
+            throw new \TypeError(sprintf('Argument 1 passed to &s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
         }
 
         return \strlen($record['message']) + 26;
@@ -263,26 +272,26 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->client->putLogEvents($data);
     }
 
-    public function handle(LogRecord|array $record): bool
+    /**
+     * @param LogRecord|array $record
+     */
+    public function handle($record): bool
     {
         if(is_array($record)){
             $message = $record['message']??null;
             $channel = $record['channel']??null;;
-            $level= $record['level']??null;;
+            $level= $record['level']? Level::fromValue($record['level']) : null;;
             $context= $record['context']??null;;
             $extra= $record['extra']??null;;
-            $datetime= $record['datetime']??null;;
+            $datetime= $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;;
             $formatted= $record['formatted']??null;;
-            $record = new LogRecord(
-                datetime: $datetime,
-                channel: $channel,
-                level: $level,
-                message: $message,
-                context: $context,
-                extra: $extra,
-                formatted: $formatted
-            );
+            $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
         }
+
+        if (!$record instanceof LogRecord) {
+            throw new \TypeError(sprintf('Argument 1 passed to &s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
+        }
+
         if (!$this->isHandling($record)) {
             return false;
         }

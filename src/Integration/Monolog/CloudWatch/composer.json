@@ -11,7 +11,7 @@
         "Logs"
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^7.2.5 || ^8.0",
         "async-aws/cloud-watch-logs": "^1.0",
         "monolog/monolog": "^1.1 || ^2.0 || ^3.0"
     },
