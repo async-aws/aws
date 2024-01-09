@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Aws CodeBuild now supports new compute type BUILD_GENERAL1_XLARGE
+
 ## 2.1.0
 
 ### Added
