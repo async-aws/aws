@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.1.0
+
 ### Added
 
 - Added optional `versionId` parameter to `SimpleS3Client::getPresignedUrl()`

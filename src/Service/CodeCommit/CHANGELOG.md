@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
 ### Added
 
 - AWS api-change: AWS CodeCommit now supports customer managed keys from AWS Key Management Service. UpdateRepositoryEncryptionKey is added for updating the key configuration. CreateRepository, GetRepository, BatchGetRepositories are updated with new input or output parameters.

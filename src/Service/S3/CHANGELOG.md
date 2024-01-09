@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.2.0
+
 ### Added
 
 - AWS api-change: Added `fips-us-iso-east-1` region
