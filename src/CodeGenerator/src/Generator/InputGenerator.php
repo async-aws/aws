@@ -298,7 +298,7 @@ class InputGenerator
 
         $this->addUse($shape, $classBuilder);
 
-        $classBuilder->addExtend(Input::class);
+        $classBuilder->setExtends(Input::class);
         $classBuilder->addUse(Input::class);
 
         return $className;

@@ -81,7 +81,7 @@ class ResultGenerator
         }
 
         $classBuilder->addUse(Result::class);
-        $classBuilder->addExtend(Result::class);
+        $classBuilder->setExtends(Result::class);
         $classBuilder->addUse(ResponseInterface::class);
         $classBuilder->addUse(HttpClientInterface::class);
 

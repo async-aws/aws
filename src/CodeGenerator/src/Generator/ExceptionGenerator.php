@@ -65,10 +65,10 @@ class ExceptionGenerator
         }
 
         if ($shape->isSenderFault()) {
-            $classBuilder->addExtend(ClientException::class);
+            $classBuilder->setExtends(ClientException::class);
             $classBuilder->addUse(ClientException::class);
         } else {
-            $classBuilder->addExtend(ServerException::class);
+            $classBuilder->setExtends(ServerException::class);
             $classBuilder->addUse(ServerException::class);
         }
 

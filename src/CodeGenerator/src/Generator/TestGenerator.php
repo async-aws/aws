@@ -385,7 +385,7 @@ class TestGenerator
         $classBuilder->addUse($sourceClassName->getFqdn());
         $classBuilder->addUse(TestCase::class);
 
-        $classBuilder->addExtend(TestCase::class);
+        $classBuilder->setExtends(TestCase::class);
 
         return $classBuilder;
     }
@@ -399,7 +399,7 @@ class TestGenerator
         $classBuilder->addUse($clientClassName->getFqdn());
         $classBuilder->addUse(NullProvider::class);
 
-        $classBuilder->addExtend(TestCase::class);
+        $classBuilder->setExtends(TestCase::class);
         $classBuilder->addMethod('getClient')
             ->setVisibility(ClassType::VISIBILITY_PRIVATE)
             ->setReturnType($clientClassName->getFqdn())

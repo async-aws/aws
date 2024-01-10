@@ -158,7 +158,7 @@ class WaiterGenerator
         $classBuilder->addUse($clientClass->getFqdn());
         $classBuilder->addUse(InvalidArgument::class);
 
-        $classBuilder->addExtend(WaiterResult::class);
+        $classBuilder->setExtends(WaiterResult::class);
 
         $classBuilder->addMethod('refreshState')
             ->setReturnType(WaiterResult::class)
