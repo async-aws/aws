@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for `async-aws/sqs` 2.0
+
 ## 0.2.1
 
 ### Changed

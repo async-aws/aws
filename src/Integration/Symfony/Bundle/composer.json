@@ -19,12 +19,12 @@
         "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0 || ^7.0"
     },
     "require-dev": {
-        "async-aws/s3": "^1.0",
+        "async-aws/s3": "^1.0 || ^2.0",
         "async-aws/ses": "^1.0",
-        "async-aws/sqs": "^1.0",
-        "async-aws/ssm": "^1.0",
-        "matthiasnoback/symfony-config-test": "^4.1",
-        "nyholm/symfony-bundle-test": "^2.0",
+        "async-aws/sqs": "^1.0 || ^2.0",
+        "async-aws/ssm": "^1.0 || ^2.0",
+        "matthiasnoback/symfony-config-test": "^4.1 || ^5.0",
+        "nyholm/symfony-bundle-test": "^3.0",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0"
     },
     "autoload": {

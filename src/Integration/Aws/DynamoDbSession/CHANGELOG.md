@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for `async-aws/dynamo-db` 2.0 and 3.0
+
 ## 1.0.2
 
 ### Changed
