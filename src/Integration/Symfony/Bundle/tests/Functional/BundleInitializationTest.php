@@ -186,8 +186,9 @@ class BundleInitializationTest extends KernelTestCase
 
             // hack to assert the version of the bundle
             if (class_exists(ConsoleProfilerListener::class)) {
-                $kernel->addTestConfig(__DIR__ . '/Resources/config/default_sf64.yaml');
+                $kernel->addTestConfig(__DIR__ . '/Resources/config/base_sf64.yaml');
             }
+            $kernel->addTestConfig(__DIR__ . '/Resources/config/base.yaml');
         }]);
     }
 }
