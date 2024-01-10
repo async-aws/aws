@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Adding `async-aws/s3` 2.0, `async-aws/sqs` 2.0, `async-aws/ssm` 2.0 in dev dependencies
+
 ## 1.12.0
 
 ### Added
