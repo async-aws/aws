@@ -65,13 +65,6 @@ class ClassBuilder
         return $this;
     }
 
-    public function addExtend(string $name): self
-    {
-        $this->class->addExtend($name);
-
-        return $this;
-    }
-
     public function addImplement(string $name): self
     {
         $this->class->addImplement($name);
@@ -96,6 +89,10 @@ class ClassBuilder
 
     public function addMethod(string $name): Method
     {
+        if ($this->class->hasMethod($name)) {
+            $this->class->removeMethod($name);
+        }
+
         return $this->class->addMethod($name);
     }
 
