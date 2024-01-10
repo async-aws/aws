@@ -17,17 +17,19 @@ use Nette\PhpGenerator\Printer as BasePrinter;
  */
 class Printer extends BasePrinter
 {
-    /**
-     * @var string
-     */
-    protected $indentation = '    ';
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->indentation = '    ';
+        $this->linesBetweenMethods = 1;
+        $this->wrapLength = 1000;
+    }
 
     /**
-     * @var int
+     * @param ClassType $class
      */
-    protected $linesBetweenMethods = 1;
-
-    public function printClass(ClassType $class, ?PhpNamespace $namespace = null): string
+    public function printClass($class, ?PhpNamespace $namespace = null): string
     {
         $methods = $class->getMethods();
         ksort($methods);
