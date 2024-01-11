@@ -19,7 +19,7 @@ $eventBridge = new EventBridgeClient();
 $events = $eventBridge->putEvents(new PutEventsRequest([
     'Entries' => [
         new PutEventsRequestEntry([
-            'EventBusName' => 'marketing',
+            'EventBusName' => 'arn:aws:events:region:account:event-bus/event-bus-name',
             'Source' => 'acme.newsletter.campaign',
             'DetailType' => 'UserSignUp',
             'Detail' => json_encode(['email' => $userEmail]),
