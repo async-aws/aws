@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Route53 now supports geoproximity routing in AWS regions
+
 ## 2.2.0
 
 ### Added

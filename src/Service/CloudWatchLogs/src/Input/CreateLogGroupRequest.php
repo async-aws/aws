@@ -53,7 +53,7 @@ final class CreateLogGroupRequest extends Input
      *
      * If you omit this parameter, the default of `STANDARD` is used.
      *
-     * ! After a log group is created, its class can't be changed.
+     * ! The value of `logGroupClass` can't be changed after a log group is created.
      *
      * For details about the features supported by each class, see Log classes [^1]
      *

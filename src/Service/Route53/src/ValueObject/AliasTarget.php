@@ -42,7 +42,7 @@ final class AliasTarget
      *
      *   Specify the hosted zone ID for the region that you created the environment in. The environment must have a
      *   regionalized subdomain. For a list of regions and the corresponding hosted zone IDs, see Elastic Beanstalk
-     *   endpoints and quotas [^3] in the the *Amazon Web Services General Reference*.
+     *   endpoints and quotas [^3] in the *Amazon Web Services General Reference*.
      * - `ELB load balancer`:
      *
      *   Specify the value of the hosted zone ID for the load balancer. Use the following methods to get the hosted zone ID:
