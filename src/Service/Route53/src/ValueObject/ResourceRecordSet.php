@@ -160,9 +160,6 @@ final class ResourceRecordSet
      * a web server with an IP address of `192.0.2.111`, create a resource record set with a `Type` of `A` and a
      * `ContinentCode` of `AF`.
      *
-     * > Although creating geolocation and geolocation alias resource record sets in a private hosted zone is allowed, it's
-     * > not supported.
-     *
      * If you create separate resource record sets for overlapping geographic regions (for example, one resource record set
      * for a continent and one for a country on the same continent), priority goes to the smallest geographic region. This
      * allows you to route most queries for a continent to one resource and to route queries for a country on that continent
@@ -405,6 +402,14 @@ final class ResourceRecordSet
     private $cidrRoutingConfig;
 
     /**
+     * * GeoproximityLocation resource record sets only:* A complex type that lets you control how Route 53 responds to DNS
+     * queries based on the geographic origin of the query and your resources.
+     *
+     * @var GeoProximityLocation|null
+     */
+    private $geoProximityLocation;
+
+    /**
      * @param array{
      *   Name: string,
      *   Type: RRType::*,
@@ -420,6 +425,7 @@ final class ResourceRecordSet
      *   HealthCheckId?: null|string,
      *   TrafficPolicyInstanceId?: null|string,
      *   CidrRoutingConfig?: null|CidrRoutingConfig|array,
+     *   GeoProximityLocation?: null|GeoProximityLocation|array,
      * } $input
      */
     public function __construct(array $input)
@@ -438,6 +444,7 @@ final class ResourceRecordSet
         $this->healthCheckId = $input['HealthCheckId'] ?? null;
         $this->trafficPolicyInstanceId = $input['TrafficPolicyInstanceId'] ?? null;
         $this->cidrRoutingConfig = isset($input['CidrRoutingConfig']) ? CidrRoutingConfig::create($input['CidrRoutingConfig']) : null;
+        $this->geoProximityLocation = isset($input['GeoProximityLocation']) ? GeoProximityLocation::create($input['GeoProximityLocation']) : null;
     }
 
     /**
@@ -456,6 +463,7 @@ final class ResourceRecordSet
      *   HealthCheckId?: null|string,
      *   TrafficPolicyInstanceId?: null|string,
      *   CidrRoutingConfig?: null|CidrRoutingConfig|array,
+     *   GeoProximityLocation?: null|GeoProximityLocation|array,
      * }|ResourceRecordSet $input
      */
     public static function create($input): self
@@ -484,6 +492,11 @@ final class ResourceRecordSet
     public function getGeoLocation(): ?GeoLocation
     {
         return $this->geoLocation;
+    }
+
+    public function getGeoProximityLocation(): ?GeoProximityLocation
+    {
+        return $this->geoProximityLocation;
     }
 
     public function getHealthCheckId(): ?string
@@ -607,6 +620,11 @@ final class ResourceRecordSet
         }
         if (null !== $v = $this->cidrRoutingConfig) {
             $node->appendChild($child = $document->createElement('CidrRoutingConfig'));
+
+            $v->requestBody($child, $document);
+        }
+        if (null !== $v = $this->geoProximityLocation) {
+            $node->appendChild($child = $document->createElement('GeoProximityLocation'));
 
             $v->requestBody($child, $document);
         }
