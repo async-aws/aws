@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
+- Empty release
+
 ## 0.1.3
 
 ### Added
