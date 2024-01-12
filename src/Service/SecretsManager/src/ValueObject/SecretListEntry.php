@@ -98,8 +98,8 @@ final class SecretListEntry
     private $deletedDate;
 
     /**
-     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation, Secrets
-     * Manager returns null.
+     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation or
+     * rotation has been disabled, Secrets Manager returns null.
      *
      * @var \DateTimeImmutable|null
      */

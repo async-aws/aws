@@ -30,12 +30,11 @@ class GetSecretValueResponse extends Result
 
     /**
      * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte array.
-     * The response parameter represents the binary data as a base64-encoded [^1] string.
+     * When you retrieve a `SecretBinary` using the HTTP API, the Python SDK, or the Amazon Web Services CLI, the value is
+     * Base64-encoded. Otherwise, it is not encoded.
      *
      * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as a
      * string, then this field is omitted. The secret value appears in `SecretString` instead.
-     *
-     * [^1]: https://tools.ietf.org/html/rfc4648#section-4
      *
      * @var string|null
      */
