@@ -104,11 +104,15 @@ final class Place
     private $street;
 
     /**
-     * An area that's part of a larger municipality. For example, `Blissville ` is a submunicipality in the Queen County in
+     * An area that's part of a larger municipality. For example, `Blissville` is a submunicipality in the Queen County in
      * New York.
      *
-     * > This property supported by Esri and OpenData. The Esri property is `district`, and the OpenData property is
-     * > `borough`.
+     * > This property is only returned for a place index that uses Esri as a data provider. The property is represented as
+     * > a `district`.
+     *
+     * For more information about data providers, see Amazon Location Service data providers [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
      *
      * @var string|null
      */
@@ -139,7 +143,7 @@ final class Place
      * For addresses with multiple units, the unit identifier. Can include numbers and letters, for example `3B` or `Unit
      * 123`.
      *
-     * > Returned only for a place index that uses Esri or Grab as a data provider. Is not returned for
+     * > This property is returned only for a place index that uses Esri or Grab as a data provider. It is not returned for
      * > `SearchPlaceIndexForPosition`.
      *
      * @var string|null
@@ -149,7 +153,7 @@ final class Place
     /**
      * For addresses with a `UnitNumber`, the type of unit. For example, `Apartment`.
      *
-     * > Returned only for a place index that uses Esri as a data provider.
+     * > This property is returned only for a place index that uses Esri as a data provider.
      *
      * @var string|null
      */
