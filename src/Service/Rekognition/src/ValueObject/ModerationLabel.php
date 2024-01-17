@@ -34,10 +34,18 @@ final class ModerationLabel
     private $parentName;
 
     /**
+     * The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     *
+     * @var int|null
+     */
+    private $taxonomyLevel;
+
+    /**
      * @param array{
      *   Confidence?: null|float,
      *   Name?: null|string,
      *   ParentName?: null|string,
+     *   TaxonomyLevel?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -45,6 +53,7 @@ final class ModerationLabel
         $this->confidence = $input['Confidence'] ?? null;
         $this->name = $input['Name'] ?? null;
         $this->parentName = $input['ParentName'] ?? null;
+        $this->taxonomyLevel = $input['TaxonomyLevel'] ?? null;
     }
 
     /**
@@ -52,6 +61,7 @@ final class ModerationLabel
      *   Confidence?: null|float,
      *   Name?: null|string,
      *   ParentName?: null|string,
+     *   TaxonomyLevel?: null|int,
      * }|ModerationLabel $input
      */
     public static function create($input): self
@@ -72,5 +82,10 @@ final class ModerationLabel
     public function getParentName(): ?string
     {
         return $this->parentName;
+    }
+
+    public function getTaxonomyLevel(): ?int
+    {
+        return $this->taxonomyLevel;
     }
 }

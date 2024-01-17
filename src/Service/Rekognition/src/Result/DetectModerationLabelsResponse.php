@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Rekognition\ValueObject\ContentType;
 use AsyncAws\Rekognition\ValueObject\HumanLoopActivationOutput;
 use AsyncAws\Rekognition\ValueObject\ModerationLabel;
 
@@ -37,6 +38,24 @@ class DetectModerationLabelsResponse extends Result
      * @var string|null
      */
     private $projectVersion;
+
+    /**
+     * A list of predicted results for the type of content an image contains. For example, the image content might be from
+     * animation, sports, or a video game.
+     *
+     * @var ContentType[]
+     */
+    private $contentTypes;
+
+    /**
+     * @return ContentType[]
+     */
+    public function getContentTypes(): array
+    {
+        $this->initialize();
+
+        return $this->contentTypes;
+    }
 
     public function getHumanLoopActivationOutput(): ?HumanLoopActivationOutput
     {
@@ -77,6 +96,28 @@ class DetectModerationLabelsResponse extends Result
         $this->moderationModelVersion = isset($data['ModerationModelVersion']) ? (string) $data['ModerationModelVersion'] : null;
         $this->humanLoopActivationOutput = empty($data['HumanLoopActivationOutput']) ? null : $this->populateResultHumanLoopActivationOutput($data['HumanLoopActivationOutput']);
         $this->projectVersion = isset($data['ProjectVersion']) ? (string) $data['ProjectVersion'] : null;
+        $this->contentTypes = empty($data['ContentTypes']) ? [] : $this->populateResultContentTypes($data['ContentTypes']);
+    }
+
+    private function populateResultContentType(array $json): ContentType
+    {
+        return new ContentType([
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+        ]);
+    }
+
+    /**
+     * @return ContentType[]
+     */
+    private function populateResultContentTypes(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultContentType($item);
+        }
+
+        return $items;
     }
 
     private function populateResultHumanLoopActivationOutput(array $json): HumanLoopActivationOutput
@@ -110,6 +151,7 @@ class DetectModerationLabelsResponse extends Result
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
             'ParentName' => isset($json['ParentName']) ? (string) $json['ParentName'] : null,
+            'TaxonomyLevel' => isset($json['TaxonomyLevel']) ? (int) $json['TaxonomyLevel'] : null,
         ]);
     }
 
