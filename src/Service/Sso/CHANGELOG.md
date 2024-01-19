@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `me-central-1` region
+
 ## 1.0.0
 
 - Empty release
