@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Release CodeBuild Reserved Capacity feature
+
 ## 2.2.0
 
 ### Added
