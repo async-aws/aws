@@ -17,10 +17,9 @@ final class ProjectEnvironment
      *
      * - The environment type `ARM_CONTAINER` is available only in regions US East (N. Virginia), US East (Ohio), US West
      *   (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and EU (Frankfurt).
-     * - The environment type `LINUX_CONTAINER` with compute type `build.general1.2xlarge` is available only in regions US
-     *   East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt),
-     *   Asia Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and
-     *   China (Ningxia).
+     * - The environment type `LINUX_CONTAINER` is available only in regions US East (N. Virginia), US East (Ohio), US West
+     *   (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Seoul),
+     *   Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
      * - The environment type `LINUX_GPU_CONTAINER` is available only in regions US East (N. Virginia), US East (Ohio), US
      *   West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific
      *   (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
@@ -31,6 +30,8 @@ final class ProjectEnvironment
      *
      * - The environment types `WINDOWS_CONTAINER` and `WINDOWS_SERVER_2019_CONTAINER` are available only in regions US East
      *   (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     *
+     * > If you're using compute fleets during project creation, `type` will be ignored.
      *
      * For more information, see Build environment compute types [^1] in the *CodeBuild user guide*.
      *
@@ -93,6 +94,8 @@ final class ProjectEnvironment
      * - For environment type `ARM_CONTAINER`, you can use up to 16 GB memory and 8 vCPUs on ARM-based processors for
      *   builds.
      *
+     * > If you're using compute fleets during project creation, `computeType` will be ignored.
+     *
      * For more information, see Build Environment Compute Types [^1] in the *CodeBuild User Guide.*
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html
@@ -100,6 +103,13 @@ final class ProjectEnvironment
      * @var ComputeType::*
      */
     private $computeType;
+
+    /**
+     * A ProjectFleet object to use for this build project.
+     *
+     * @var ProjectFleet|null
+     */
+    private $fleet;
 
     /**
      * A set of environment variables to make available to builds for this build project.
@@ -171,6 +181,7 @@ final class ProjectEnvironment
      *   type: EnvironmentType::*,
      *   image: string,
      *   computeType: ComputeType::*,
+     *   fleet?: null|ProjectFleet|array,
      *   environmentVariables?: null|array<EnvironmentVariable|array>,
      *   privilegedMode?: null|bool,
      *   certificate?: null|string,
@@ -183,6 +194,7 @@ final class ProjectEnvironment
         $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->image = $input['image'] ?? $this->throwException(new InvalidArgument('Missing required field "image".'));
         $this->computeType = $input['computeType'] ?? $this->throwException(new InvalidArgument('Missing required field "computeType".'));
+        $this->fleet = isset($input['fleet']) ? ProjectFleet::create($input['fleet']) : null;
         $this->environmentVariables = isset($input['environmentVariables']) ? array_map([EnvironmentVariable::class, 'create'], $input['environmentVariables']) : null;
         $this->privilegedMode = $input['privilegedMode'] ?? null;
         $this->certificate = $input['certificate'] ?? null;
@@ -195,6 +207,7 @@ final class ProjectEnvironment
      *   type: EnvironmentType::*,
      *   image: string,
      *   computeType: ComputeType::*,
+     *   fleet?: null|ProjectFleet|array,
      *   environmentVariables?: null|array<EnvironmentVariable|array>,
      *   privilegedMode?: null|bool,
      *   certificate?: null|string,
@@ -226,6 +239,11 @@ final class ProjectEnvironment
     public function getEnvironmentVariables(): array
     {
         return $this->environmentVariables ?? [];
+    }
+
+    public function getFleet(): ?ProjectFleet
+    {
+        return $this->fleet;
     }
 
     public function getImage(): string
