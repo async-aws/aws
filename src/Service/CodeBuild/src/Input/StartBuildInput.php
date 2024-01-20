@@ -12,6 +12,7 @@ use AsyncAws\CodeBuild\ValueObject\GitSubmodulesConfig;
 use AsyncAws\CodeBuild\ValueObject\LogsConfig;
 use AsyncAws\CodeBuild\ValueObject\ProjectArtifacts;
 use AsyncAws\CodeBuild\ValueObject\ProjectCache;
+use AsyncAws\CodeBuild\ValueObject\ProjectFleet;
 use AsyncAws\CodeBuild\ValueObject\ProjectSource;
 use AsyncAws\CodeBuild\ValueObject\ProjectSourceVersion;
 use AsyncAws\CodeBuild\ValueObject\RegistryCredential;
@@ -320,6 +321,13 @@ final class StartBuildInput extends Input
     private $debugSessionEnabled;
 
     /**
+     * A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     *
+     * @var ProjectFleet|null
+     */
+    private $fleetOverride;
+
+    /**
      * @param array{
      *   projectName?: string,
      *   secondarySourcesOverride?: null|array<ProjectSource|array>,
@@ -352,6 +360,7 @@ final class StartBuildInput extends Input
      *   registryCredentialOverride?: null|RegistryCredential|array,
      *   imagePullCredentialsTypeOverride?: null|ImagePullCredentialsType::*,
      *   debugSessionEnabled?: null|bool,
+     *   fleetOverride?: null|ProjectFleet|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -388,6 +397,7 @@ final class StartBuildInput extends Input
         $this->registryCredentialOverride = isset($input['registryCredentialOverride']) ? RegistryCredential::create($input['registryCredentialOverride']) : null;
         $this->imagePullCredentialsTypeOverride = $input['imagePullCredentialsTypeOverride'] ?? null;
         $this->debugSessionEnabled = $input['debugSessionEnabled'] ?? null;
+        $this->fleetOverride = isset($input['fleetOverride']) ? ProjectFleet::create($input['fleetOverride']) : null;
         parent::__construct($input);
     }
 
@@ -424,6 +434,7 @@ final class StartBuildInput extends Input
      *   registryCredentialOverride?: null|RegistryCredential|array,
      *   imagePullCredentialsTypeOverride?: null|ImagePullCredentialsType::*,
      *   debugSessionEnabled?: null|bool,
+     *   fleetOverride?: null|ProjectFleet|array,
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      */
@@ -489,6 +500,11 @@ final class StartBuildInput extends Input
     public function getEnvironmentVariablesOverride(): array
     {
         return $this->environmentVariablesOverride ?? [];
+    }
+
+    public function getFleetOverride(): ?ProjectFleet
+    {
+        return $this->fleetOverride;
     }
 
     public function getGitCloneDepthOverride(): ?int
@@ -711,6 +727,13 @@ final class StartBuildInput extends Input
     public function setEnvironmentVariablesOverride(array $value): self
     {
         $this->environmentVariablesOverride = $value;
+
+        return $this;
+    }
+
+    public function setFleetOverride(?ProjectFleet $value): self
+    {
+        $this->fleetOverride = $value;
 
         return $this;
     }
@@ -1005,6 +1028,9 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->debugSessionEnabled) {
             $payload['debugSessionEnabled'] = (bool) $v;
+        }
+        if (null !== $v = $this->fleetOverride) {
+            $payload['fleetOverride'] = $v->requestBody();
         }
 
         return $payload;

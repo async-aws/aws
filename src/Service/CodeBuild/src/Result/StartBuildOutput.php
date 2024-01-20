@@ -18,6 +18,7 @@ use AsyncAws\CodeBuild\ValueObject\PhaseContext;
 use AsyncAws\CodeBuild\ValueObject\ProjectCache;
 use AsyncAws\CodeBuild\ValueObject\ProjectEnvironment;
 use AsyncAws\CodeBuild\ValueObject\ProjectFileSystemLocation;
+use AsyncAws\CodeBuild\ValueObject\ProjectFleet;
 use AsyncAws\CodeBuild\ValueObject\ProjectSource;
 use AsyncAws\CodeBuild\ValueObject\ProjectSourceVersion;
 use AsyncAws\CodeBuild\ValueObject\RegistryCredential;
@@ -304,6 +305,7 @@ class StartBuildOutput extends Result
             'type' => (string) $json['type'],
             'image' => (string) $json['image'],
             'computeType' => (string) $json['computeType'],
+            'fleet' => empty($json['fleet']) ? null : $this->populateResultProjectFleet($json['fleet']),
             'environmentVariables' => !isset($json['environmentVariables']) ? null : $this->populateResultEnvironmentVariables($json['environmentVariables']),
             'privilegedMode' => isset($json['privilegedMode']) ? filter_var($json['privilegedMode'], \FILTER_VALIDATE_BOOLEAN) : null,
             'certificate' => isset($json['certificate']) ? (string) $json['certificate'] : null,
@@ -334,6 +336,13 @@ class StartBuildOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultProjectFleet(array $json): ProjectFleet
+    {
+        return new ProjectFleet([
+            'fleetArn' => isset($json['fleetArn']) ? (string) $json['fleetArn'] : null,
+        ]);
     }
 
     /**

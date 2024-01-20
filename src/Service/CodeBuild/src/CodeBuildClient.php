@@ -21,6 +21,7 @@ use AsyncAws\CodeBuild\ValueObject\GitSubmodulesConfig;
 use AsyncAws\CodeBuild\ValueObject\LogsConfig;
 use AsyncAws\CodeBuild\ValueObject\ProjectArtifacts;
 use AsyncAws\CodeBuild\ValueObject\ProjectCache;
+use AsyncAws\CodeBuild\ValueObject\ProjectFleet;
 use AsyncAws\CodeBuild\ValueObject\ProjectSource;
 use AsyncAws\CodeBuild\ValueObject\ProjectSourceVersion;
 use AsyncAws\CodeBuild\ValueObject\RegistryCredential;
@@ -94,6 +95,7 @@ class CodeBuildClient extends AbstractApi
      *   registryCredentialOverride?: null|RegistryCredential|array,
      *   imagePullCredentialsTypeOverride?: null|ImagePullCredentialsType::*,
      *   debugSessionEnabled?: null|bool,
+     *   fleetOverride?: null|ProjectFleet|array,
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      *
