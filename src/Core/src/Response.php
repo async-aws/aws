@@ -145,13 +145,11 @@ final class Response
         try {
             if (null === $timeout) {
                 $this->httpResponse->getStatusCode();
+                $this->httpResponse->getContent(false);
             } else {
                 foreach ($this->httpClient->stream($this->httpResponse, $timeout) as $chunk) {
                     if ($chunk->isTimeout()) {
                         return false;
-                    }
-                    if ($chunk->isFirst()) {
-                        break;
                     }
                 }
             }

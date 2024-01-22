@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.20.2
+
+### Fixed
+
+- Optimization of Connection Persistence in HTTP Client
+
 ## 1.20.1
 
 ### Changed
