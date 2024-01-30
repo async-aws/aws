@@ -9,9 +9,10 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Level;
 use Monolog\Logger;
 use Monolog\LogRecord;
+use Monolog\Level;
+use AsyncAws\Core\Exception\Exception;
 
 /**
  * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
@@ -132,13 +133,13 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     protected function write($record): void
     {
-        if($record instanceof LogRecord){
-            $formatted = $record->formatted;
-            $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
-        }
-        if (!is_array($record)) {
-            throw new \TypeError(sprintf('Argument 1 passed to &s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
-        }
+            if($record instanceof LogRecord){
+                $formatted = $record->formatted;
+                $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
+            }
+            if (!is_array($record)) {
+                throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
+            }
 
         $records = $this->formatRecords($record);
 
@@ -219,18 +220,18 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * http://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html.
      *
-     * @param LogRecord|array{message: string, timestamp: int|float} $record
+     * @param \Monolog\LogRecord|array{message: string, timestamp: int|float} $record
      */
     private function getMessageSize($record): int
     {
-        if($record instanceof LogRecord){
-            $formatted = $record->formatted;
-            $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
-        }
+            if($record instanceof LogRecord){
+                $formatted = $record->formatted;
+                $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
+            }
 
-        if (!is_array($record)) {
-            throw new \TypeError(sprintf('Argument 1 passed to &s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
-        }
+            if (!is_array($record)) {
+                throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
+            }
 
         return \strlen($record['message']) + 26;
     }
@@ -277,20 +278,16 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     public function handle($record): bool
     {
-        if(is_array($record)){
-            $message = $record['message']??null;
-            $channel = $record['channel']??null;;
-            $level= $record['level']? Level::fromValue($record['level']) : null;;
-            $context= $record['context']??null;;
-            $extra= $record['extra']??null;;
-            $datetime= $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;;
-            $formatted= $record['formatted']??null;;
-            $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
-        }
-
-        if (!$record instanceof LogRecord) {
-            throw new \TypeError(sprintf('Argument 1 passed to &s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
-        }
+            if (is_array($record) && class_exists(LogRecord::class)) {
+                $message = $record['message'] ?? null;
+                $channel = $record['channel'] ?? null;;
+                $level = $record['level'] ? Level::fromValue($record['level']) : null;;
+                $context = $record['context'] ?? null;;
+                $extra = $record['extra'] ?? null;;
+                $datetime = $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;;
+                $formatted = $record['formatted'] ?? null;;
+                $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
+            }
 
         if (!$this->isHandling($record)) {
             return false;
@@ -300,7 +297,13 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             $record = $this->processRecord($record);
         }
 
-        $record->formatted = $this->getFormatter()->format($record);
+        if(is_array($record))
+        {
+            $record['formatted'] = $this->getFormatter()->format($record);
+        }else
+        {
+            $record->formatted = $this->getFormatter()->format($record);
+        }
 
         $this->write($record);
 

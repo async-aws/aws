@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for `monolog/monolog` 3.0
+- Added support for `async-aws/cloud-watch-logs` 2.0
+
 ## 1.0.2
 
 ### Changed
