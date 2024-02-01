@@ -26,7 +26,7 @@
         "nette/php-generator": "^3.6 || ^4.1",
         "nette/utils": "^3.0 || ^4.0",
         "nikic/php-parser": "^4.0",
-        "nyholm/symfony-bundle-test": "^2.0",
+        "nyholm/symfony-bundle-test": "^3.0",
         "phpstan/phpstan": "1.10.21",
         "psalm/phar": "5.14.1",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",
