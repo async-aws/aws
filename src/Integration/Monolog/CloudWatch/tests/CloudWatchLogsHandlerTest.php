@@ -43,7 +43,7 @@ class CloudWatchLogsHandlerTest extends TestCase
             'group' => $this->groupName,
             'stream' => $this->streamName,
         ], Logger::CRITICAL, false);
-        $level = !is_int($handler->getLevel()) ? $handler->getLevel()->value : $handler->getLevel();
+        $level = !\is_int($handler->getLevel()) ? $handler->getLevel()->value : $handler->getLevel();
         self::assertEquals(Logger::CRITICAL, $level);
         self::assertFalse($handler->getBubble());
     }
