@@ -9,9 +9,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Level;
 use Monolog\Logger;
 use Monolog\LogRecord;
-use Monolog\Level;
 
 class CloudWatchLogsHandler extends AbstractProcessingHandler
 {
@@ -117,6 +117,57 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     }
 
     /**
+     * @param LogRecord|array $record
+     */
+    public function handle($record): bool
+    {
+        if (\is_array($record) && class_exists(LogRecord::class)) {
+            $message = $record['message'] ?? null;
+            $channel = $record['channel'] ?? null;
+            /**
+             * @psalm-suppress UndefinedClass
+             */
+            $level = $record['level'] ? Level::fromValue($record['level']) : null;
+            $context = $record['context'] ?? null;
+            $extra = $record['extra'] ?? null;
+            $datetime = $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;
+            $formatted = $record['formatted'] ?? null;
+            /**
+             * @psalm-suppress InterfaceInstantiation
+             *
+             * @phpstan-ignore-next-line
+             */
+            $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
+        }
+
+        if (!$this->isHandling($record)) {
+            return false;
+        }
+
+        if (\count($this->processors) > 0) {
+            $record = $this->processRecord($record);
+        }
+
+        if (\is_array($record)) {
+            /**
+             * @psalm-suppress InvalidPropertyAssignment
+             *
+             * @phpstan-ignore-next-line
+             */
+            $record['formatted'] = $this->getFormatter()->format($record);
+        } else {
+            /**
+             * @psalm-suppress InvalidPropertyAssignment
+             */
+            $record->formatted = $this->getFormatter()->format($record);
+        }
+
+        $this->write($record);
+
+        return false === $this->bubble;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getDefaultFormatter(): FormatterInterface
@@ -129,13 +180,16 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     protected function write($record): void
     {
-            if($record instanceof LogRecord){
-                $formatted = $record->formatted;
-                $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
-            }
-            if (!is_array($record)) {
-                throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
-            }
+        if ($record instanceof LogRecord) {
+            /**
+             * @psalm-suppress NoInterfaceProperties
+             */
+            $formatted = $record->formatted;
+            $record = array_merge($record->toArray(), ['formatted' => $formatted]);
+        }
+        if (!\is_array($record)) {
+            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
+        }
 
         $records = $this->formatRecords($record);
 
@@ -193,7 +247,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * Event size in the batch can not be bigger than 256 KB
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/cloudwatch_limits_cwl.html.
      *
-     *
      * @return list<array{message: string, timestamp: int|float}>
      */
     private function formatRecords(array $entry): array
@@ -219,14 +272,17 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     private function getMessageSize($record): int
     {
-            if($record instanceof LogRecord){
-                $formatted = $record->formatted;
-                $record = array_merge($record->toArray(), ['formatted'=>$formatted]);
-            }
+        if ($record instanceof LogRecord) {
+            /**
+             * @psalm-suppress NoInterfaceProperties
+             */
+            $formatted = $record->formatted;
+            $record = array_merge($record->toArray(), ['formatted' => $formatted]);
+        }
 
-            if (!is_array($record)) {
-                throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, gettype($record)));
-            }
+        if (!\is_array($record)) {
+            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
+        }
 
         return \strlen($record['message']) + 26;
     }
@@ -266,45 +322,5 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->checkThrottle();
 
         $this->client->putLogEvents($data);
-    }
-
-    /**
-     *
-     * @param LogRecord|array $record
-     */
-    public function handle($record): bool
-    {
-            if (is_array($record) && class_exists(LogRecord::class)) {
-                $message = $record['message'] ?? null;
-                $channel = $record['channel'] ?? null;;
-                $level = $record['level'] ? Level::fromValue($record['level']) : null;;
-                $context = $record['context'] ?? null;;
-                $extra = $record['extra'] ?? null;;
-                $datetime = $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;;
-                $formatted = $record['formatted'] ?? null;
-                /** @phpstan-ignore-next-line */
-                $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
-            }
-
-        if (!$this->isHandling($record)) {
-            return false;
-        }
-
-        if (\count($this->processors) > 0) {
-            $record = $this->processRecord($record);
-        }
-
-        if(is_array($record))
-        {
-            /** @phpstan-ignore-next-line */
-            $record['formatted'] = $this->getFormatter()->format($record);
-        }else
-        {
-            $record->formatted = $this->getFormatter()->format($record);
-        }
-
-        $this->write($record);
-
-        return false === $this->bubble;
     }
 }
