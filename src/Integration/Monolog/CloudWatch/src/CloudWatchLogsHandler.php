@@ -12,11 +12,7 @@ use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Monolog\LogRecord;
 use Monolog\Level;
-use AsyncAws\Core\Exception\Exception;
 
-/**
- * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
- */
 class CloudWatchLogsHandler extends AbstractProcessingHandler
 {
     /**
@@ -197,7 +193,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * Event size in the batch can not be bigger than 256 KB
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/cloudwatch_limits_cwl.html.
      *
-     * @phpstan-param FormattedRecord $entry
      *
      * @return list<array{message: string, timestamp: int|float}>
      */
@@ -274,6 +269,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     }
 
     /**
+     *
      * @param LogRecord|array $record
      */
     public function handle($record): bool
@@ -285,7 +281,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
                 $context = $record['context'] ?? null;;
                 $extra = $record['extra'] ?? null;;
                 $datetime = $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;;
-                $formatted = $record['formatted'] ?? null;;
+                $formatted = $record['formatted'] ?? null;
+                /** @phpstan-ignore-next-line */
                 $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
             }
 
@@ -299,6 +296,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
         if(is_array($record))
         {
+            /** @phpstan-ignore-next-line */
             $record['formatted'] = $this->getFormatter()->format($record);
         }else
         {
