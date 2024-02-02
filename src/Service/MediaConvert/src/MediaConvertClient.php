@@ -133,9 +133,12 @@ class MediaConvertClient extends AbstractApi
      * @throws NotFoundException
      * @throws TooManyRequestsException
      * @throws ConflictException
+     *
+     * @deprecated
      */
     public function describeEndpoints($input = []): DescribeEndpointsResponse
     {
+        @trigger_error(sprintf('The operation "%s" is deprecated by AWS.', __FUNCTION__), \E_USER_DEPRECATED);
         $input = DescribeEndpointsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
