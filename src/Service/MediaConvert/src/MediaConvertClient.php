@@ -63,7 +63,7 @@ class MediaConvertClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'ConflictException' => ConflictException::class,
-        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
+        ]]));
 
         return new CancelJobResponse($response);
     }
@@ -109,7 +109,7 @@ class MediaConvertClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'ConflictException' => ConflictException::class,
-        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
+        ]]));
 
         return new CreateJobResponse($response);
     }
@@ -177,7 +177,7 @@ class MediaConvertClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'ConflictException' => ConflictException::class,
-        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
+        ]]));
 
         return new GetJobResponse($response);
     }
@@ -216,25 +216,9 @@ class MediaConvertClient extends AbstractApi
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'ConflictException' => ConflictException::class,
-        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
+        ]]));
 
         return new ListJobsResponse($response, $this, $input);
-    }
-
-    protected function discoverEndpoints(?string $region): array
-    {
-        $endpoints = [];
-
-        foreach ($this->describeEndpoints(['@region' => $region])->getEndpoints(true) as $endpoint) {
-            $url = $endpoint->getUrl();
-
-            // Allowing to return endpoints without a URL looks like a weird thing. Maybe the API contract is not precise enough.
-            if (null !== $url) {
-                $endpoints[] = new DiscoveredEndpoint($url);
-            }
-        }
-
-        return $endpoints;
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
