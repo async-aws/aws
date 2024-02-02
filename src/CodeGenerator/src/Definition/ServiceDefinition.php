@@ -65,6 +65,11 @@ class ServiceDefinition
      */
     private $apiReferenceUrl;
 
+    /**
+     * @var false|Operation|null
+     */
+    private $cachedEndpointOperation = false;
+
     public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, array $hooks, string $apiReferenceUrl)
     {
         $this->name = $name;
@@ -108,15 +113,19 @@ class ServiceDefinition
         return null;
     }
 
-    public function findEndpointOperationName(): ?Operation
+    public function findEndpointOperation(): ?Operation
     {
+        if (false !== $this->cachedEndpointOperation) {
+            return $this->cachedEndpointOperation;
+        }
+
         foreach ($this->definition['operations'] as $name => $data) {
             if (isset($data['endpointoperation'])) {
-                return $this->getOperation($name);
+                return $this->cachedEndpointOperation = $this->getOperation($name);
             }
         }
 
-        return null;
+        return $this->cachedEndpointOperation = null;
     }
 
     public function getWaiter(string $name): ?Waiter

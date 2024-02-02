@@ -106,6 +106,13 @@ class ClassBuilder
         return $this->class->hasMethod($name);
     }
 
+    public function removeMethod(string $name): void
+    {
+        if ($this->class->hasMethod($name)) {
+            $this->class->removeMethod($name);
+        }
+    }
+
     /**
      * @param Method[] $methods
      */

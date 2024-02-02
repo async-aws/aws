@@ -203,29 +203,33 @@ class OperationGenerator
             $extra .= ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]";
         }
 
-        if ($operation->requiresEndpointDiscovery()) {
-            if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
-                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
-            }
-            $endpointOperation = $operation->getService()->findEndpointOperationName();
+        $endpointOperation = $operation->getService()->findEndpointOperation();
+        if ($endpointOperation) {
+            if ($operation->requiresEndpointDiscovery()) {
+                if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
+                    $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+                }
 
-            if (null !== $endpointOperation) {
-                $this->generate($endpointOperation);
-            }
+                if (null !== $endpointOperation) {
+                    $this->generate($endpointOperation);
+                }
 
-            $extra .= ", 'requiresEndpointDiscovery' => true";
-        }
-        if ($operation->usesEndpointDiscovery()) {
-            if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
-                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+                $extra .= ", 'requiresEndpointDiscovery' => true";
             }
-            $endpointOperation = $operation->getService()->findEndpointOperationName();
+            if ($operation->usesEndpointDiscovery()) {
+                if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\Core\\')) {
+                    $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+                }
+                $endpointOperation = $operation->getService()->findEndpointOperation();
 
-            if (null !== $endpointOperation) {
-                $this->generate($endpointOperation);
+                if (null !== $endpointOperation) {
+                    $this->generate($endpointOperation);
+                }
+
+                $extra .= ", 'usesEndpointDiscovery' => true";
             }
-
-            $extra .= ", 'usesEndpointDiscovery' => true";
+        } else {
+            $classBuilder->removeMethod('discoverEndpoints');
         }
 
         $method->setBody(strtr($body, [
