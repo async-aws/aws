@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Use the regional endpoint instead of the account-specific endpoint
+
 ## 1.0.0
 
 - Empty release
