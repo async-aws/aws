@@ -2,6 +2,14 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes support for broadcast-mixed audio description tracks.
+
+### Changed
+
+- Use the regional endpoint instead of the account-specific endpoint
+
 ## 1.0.0
 
 - Empty release

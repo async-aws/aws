@@ -650,19 +650,6 @@ class GetJobResponse extends Result
         ]);
     }
 
-    /**
-     * @return ColorConversion3DLUTSetting[]
-     */
-    private function populateResultColorConversion3DLUTSettings(array $json): array
-    {
-        $items = [];
-        foreach ($json as $item) {
-            $items[] = $this->populateResultColorConversion3DLUTSetting($item);
-        }
-
-        return $items;
-    }
-
     private function populateResultColorCorrector(array $json): ColorCorrector
     {
         return new ColorCorrector([
@@ -1400,7 +1387,7 @@ class GetJobResponse extends Result
         return new JobSettings([
             'AdAvailOffset' => isset($json['adAvailOffset']) ? (int) $json['adAvailOffset'] : null,
             'AvailBlanking' => empty($json['availBlanking']) ? null : $this->populateResultAvailBlanking($json['availBlanking']),
-            'ColorConversion3DLUTSettings' => !isset($json['colorConversion3DLUTSettings']) ? null : $this->populateResultColorConversion3DLUTSettings($json['colorConversion3DLUTSettings']),
+            'ColorConversion3DLUTSettings' => !isset($json['colorConversion3DLUTSettings']) ? null : $this->populateResult__listOfColorConversion3DLUTSetting($json['colorConversion3DLUTSettings']),
             'Esam' => empty($json['esam']) ? null : $this->populateResultEsamSettings($json['esam']),
             'ExtendedDataServices' => empty($json['extendedDataServices']) ? null : $this->populateResultExtendedDataServices($json['extendedDataServices']),
             'FollowSource' => isset($json['followSource']) ? (int) $json['followSource'] : null,
@@ -1900,6 +1887,8 @@ class GetJobResponse extends Result
     private function populateResultRemixSettings(array $json): RemixSettings
     {
         return new RemixSettings([
+            'AudioDescriptionAudioChannel' => isset($json['audioDescriptionAudioChannel']) ? (int) $json['audioDescriptionAudioChannel'] : null,
+            'AudioDescriptionDataChannel' => isset($json['audioDescriptionDataChannel']) ? (int) $json['audioDescriptionDataChannel'] : null,
             'ChannelMapping' => empty($json['channelMapping']) ? null : $this->populateResultChannelMapping($json['channelMapping']),
             'ChannelsIn' => isset($json['channelsIn']) ? (int) $json['channelsIn'] : null,
             'ChannelsOut' => isset($json['channelsOut']) ? (int) $json['channelsOut'] : null,
@@ -2406,6 +2395,19 @@ class GetJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultCmafAdditionalManifest($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return ColorConversion3DLUTSetting[]
+     */
+    private function populateResult__listOfColorConversion3DLUTSetting(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultColorConversion3DLUTSetting($item);
         }
 
         return $items;

@@ -9,6 +9,26 @@ namespace AsyncAws\MediaConvert\ValueObject;
 final class RemixSettings
 {
     /**
+     * Optionally specify the channel in your input that contains your audio description audio signal. MediaConvert mixes
+     * your audio signal across all output channels, while reducing their volume according to your data stream. When you
+     * specify an audio description audio channel, you must also specify an audio description data channel. For more
+     * information about audio description signals, see the BBC WHP 198 and 051 white papers.
+     *
+     * @var int|null
+     */
+    private $audioDescriptionAudioChannel;
+
+    /**
+     * Optionally specify the channel in your input that contains your audio description data stream. MediaConvert mixes
+     * your audio signal across all output channels, while reducing their volume according to your data stream. When you
+     * specify an audio description data channel, you must also specify an audio description audio channel. For more
+     * information about audio description signals, see the BBC WHP 198 and 051 white papers.
+     *
+     * @var int|null
+     */
+    private $audioDescriptionDataChannel;
+
+    /**
      * Channel mapping contains the group of fields that hold the remixing value for each channel, in dB. Specify remix
      * values to indicate how much of the content from your input audio channel you want in your output audio channels. Each
      * instance of the InputChannels or InputChannelsFineTune array specifies these values for one output channel. Use one
@@ -43,6 +63,8 @@ final class RemixSettings
 
     /**
      * @param array{
+     *   AudioDescriptionAudioChannel?: null|int,
+     *   AudioDescriptionDataChannel?: null|int,
      *   ChannelMapping?: null|ChannelMapping|array,
      *   ChannelsIn?: null|int,
      *   ChannelsOut?: null|int,
@@ -50,6 +72,8 @@ final class RemixSettings
      */
     public function __construct(array $input)
     {
+        $this->audioDescriptionAudioChannel = $input['AudioDescriptionAudioChannel'] ?? null;
+        $this->audioDescriptionDataChannel = $input['AudioDescriptionDataChannel'] ?? null;
         $this->channelMapping = isset($input['ChannelMapping']) ? ChannelMapping::create($input['ChannelMapping']) : null;
         $this->channelsIn = $input['ChannelsIn'] ?? null;
         $this->channelsOut = $input['ChannelsOut'] ?? null;
@@ -57,6 +81,8 @@ final class RemixSettings
 
     /**
      * @param array{
+     *   AudioDescriptionAudioChannel?: null|int,
+     *   AudioDescriptionDataChannel?: null|int,
      *   ChannelMapping?: null|ChannelMapping|array,
      *   ChannelsIn?: null|int,
      *   ChannelsOut?: null|int,
@@ -65,6 +91,16 @@ final class RemixSettings
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getAudioDescriptionAudioChannel(): ?int
+    {
+        return $this->audioDescriptionAudioChannel;
+    }
+
+    public function getAudioDescriptionDataChannel(): ?int
+    {
+        return $this->audioDescriptionDataChannel;
     }
 
     public function getChannelMapping(): ?ChannelMapping
@@ -88,6 +124,12 @@ final class RemixSettings
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->audioDescriptionAudioChannel) {
+            $payload['audioDescriptionAudioChannel'] = $v;
+        }
+        if (null !== $v = $this->audioDescriptionDataChannel) {
+            $payload['audioDescriptionDataChannel'] = $v;
+        }
         if (null !== $v = $this->channelMapping) {
             $payload['channelMapping'] = $v->requestBody();
         }

@@ -958,8 +958,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^2].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^2].
      *
      * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html
      * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
@@ -1000,10 +1000,13 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Changes the password for a specified user in a user pool.
      *
+     * Authorize this action with a signed-in user's access token. It must include the scope
+     * `aws.cognito.signin.user.admin`.
+     *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
@@ -1054,8 +1057,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
@@ -1130,8 +1133,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^3].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^3].
      *
      * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
      * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
@@ -1257,8 +1260,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^3].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^3].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
@@ -1335,10 +1338,13 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Gets the user attributes and metadata for a user.
      *
+     * Authorize this action with a signed-in user's access token. It must include the scope
+     * `aws.cognito.signin.user.admin`.
+     *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
@@ -1384,8 +1390,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^2].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^2].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
@@ -1557,8 +1563,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
@@ -1641,8 +1647,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^2].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^2].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
@@ -1735,8 +1741,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
@@ -1783,10 +1789,13 @@ class CognitoIdentityProviderClient extends AbstractApi
      * you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users
      * and turn on Adaptive Authentication for the user pool.
      *
+     * Authorize this action with a signed-in user's access token. It must include the scope
+     * `aws.cognito.signin.user.admin`.
+     *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
@@ -1831,8 +1840,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
@@ -1913,8 +1922,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
-     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito native
-     * > and OIDC APIs [^1].
+     * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
+     * > pools API and user pool endpoints [^1].
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *

@@ -55,6 +55,9 @@ class MediaConvertClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    /**
+     * @group legacy
+     */
     public function testDescribeEndpoints(): void
     {
         $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient());
