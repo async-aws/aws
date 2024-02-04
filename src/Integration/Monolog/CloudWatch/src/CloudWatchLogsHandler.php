@@ -116,56 +116,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->flushBuffer();
     }
 
-    /**
-     * @param LogRecord|array $record
-     */
-    public function handle($record): bool
-    {
-        if (\is_array($record) && class_exists(LogRecord::class)) {
-            $message = $record['message'] ?? null;
-            $channel = $record['channel'] ?? null;
-            /**
-             * @psalm-suppress UndefinedClass
-             */
-            $level = $record['level'] ? Level::fromValue($record['level']) : null;
-            $context = $record['context'] ?? null;
-            $extra = $record['extra'] ?? null;
-            $datetime = $record['datetime'] ? \DateTimeImmutable::createFromMutable($record['datetime']) : null;
-            $formatted = $record['formatted'] ?? null;
-            /**
-             * @psalm-suppress InterfaceInstantiation
-             *
-             * @phpstan-ignore-next-line
-             */
-            $record = new LogRecord($datetime, $channel, $level, $message, $context, $extra, $formatted);
-        }
 
-        if (!$this->isHandling($record)) {
-            return false;
-        }
-
-        if (\count($this->processors) > 0) {
-            $record = $this->processRecord($record);
-        }
-
-        if (\is_array($record)) {
-            /**
-             * @psalm-suppress InvalidPropertyAssignment
-             *
-             * @phpstan-ignore-next-line
-             */
-            $record['formatted'] = $this->getFormatter()->format($record);
-        } else {
-            /**
-             * @psalm-suppress InvalidPropertyAssignment
-             */
-            $record->formatted = $this->getFormatter()->format($record);
-        }
-
-        $this->write($record);
-
-        return false === $this->bubble;
-    }
 
     /**
      * {@inheritdoc}
