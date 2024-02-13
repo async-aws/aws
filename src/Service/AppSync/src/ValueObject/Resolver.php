@@ -3,6 +3,7 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 use AsyncAws\AppSync\Enum\ResolverKind;
+use AsyncAws\AppSync\Enum\ResolverLevelMetricsConfig;
 
 /**
  * Describes a resolver.
@@ -105,6 +106,18 @@ final class Resolver
     private $code;
 
     /**
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that `metricsConfig` won't be used unless
+     * the `resolverLevelMetricsBehavior` value is set to `PER_RESOLVER_METRICS`. If the `resolverLevelMetricsBehavior` is
+     * set to `FULL_REQUEST_RESOLVER_METRICS` instead, `metricsConfig` will be ignored. However, you can still set its
+     * value.
+     *
+     * `metricsConfig` can be `ENABLED` or `DISABLED`.
+     *
+     * @var ResolverLevelMetricsConfig::*|null
+     */
+    private $metricsConfig;
+
+    /**
      * @param array{
      *   typeName?: null|string,
      *   fieldName?: null|string,
@@ -119,6 +132,7 @@ final class Resolver
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
      * } $input
      */
     public function __construct(array $input)
@@ -136,6 +150,7 @@ final class Resolver
         $this->maxBatchSize = $input['maxBatchSize'] ?? null;
         $this->runtime = isset($input['runtime']) ? AppSyncRuntime::create($input['runtime']) : null;
         $this->code = $input['code'] ?? null;
+        $this->metricsConfig = $input['metricsConfig'] ?? null;
     }
 
     /**
@@ -153,6 +168,7 @@ final class Resolver
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
      * }|Resolver $input
      */
     public static function create($input): self
@@ -191,6 +207,14 @@ final class Resolver
     public function getMaxBatchSize(): ?int
     {
         return $this->maxBatchSize;
+    }
+
+    /**
+     * @return ResolverLevelMetricsConfig::*|null
+     */
+    public function getMetricsConfig(): ?string
+    {
+        return $this->metricsConfig;
     }
 
     public function getPipelineConfig(): ?PipelineConfig

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\AppSync\ValueObject;
 
+use AsyncAws\AppSync\Enum\DataSourceLevelMetricsConfig;
 use AsyncAws\AppSync\Enum\DataSourceType;
 
 /**
@@ -106,6 +107,18 @@ final class DataSource
     private $eventBridgeConfig;
 
     /**
+     * Enables or disables enhanced data source metrics for specified data sources. Note that `metricsConfig` won't be used
+     * unless the `dataSourceLevelMetricsBehavior` value is set to `PER_DATA_SOURCE_METRICS`. If the
+     * `dataSourceLevelMetricsBehavior` is set to `FULL_REQUEST_DATA_SOURCE_METRICS` instead, `metricsConfig` will be
+     * ignored. However, you can still set its value.
+     *
+     * `metricsConfig` can be `ENABLED` or `DISABLED`.
+     *
+     * @var DataSourceLevelMetricsConfig::*|null
+     */
+    private $metricsConfig;
+
+    /**
      * @param array{
      *   dataSourceArn?: null|string,
      *   name?: null|string,
@@ -119,6 +132,7 @@ final class DataSource
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
      * } $input
      */
     public function __construct(array $input)
@@ -135,6 +149,7 @@ final class DataSource
         $this->httpConfig = isset($input['httpConfig']) ? HttpDataSourceConfig::create($input['httpConfig']) : null;
         $this->relationalDatabaseConfig = isset($input['relationalDatabaseConfig']) ? RelationalDatabaseDataSourceConfig::create($input['relationalDatabaseConfig']) : null;
         $this->eventBridgeConfig = isset($input['eventBridgeConfig']) ? EventBridgeDataSourceConfig::create($input['eventBridgeConfig']) : null;
+        $this->metricsConfig = $input['metricsConfig'] ?? null;
     }
 
     /**
@@ -151,6 +166,7 @@ final class DataSource
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
      * }|DataSource $input
      */
     public static function create($input): self
@@ -191,6 +207,14 @@ final class DataSource
     public function getLambdaConfig(): ?LambdaDataSourceConfig
     {
         return $this->lambdaConfig;
+    }
+
+    /**
+     * @return DataSourceLevelMetricsConfig::*|null
+     */
+    public function getMetricsConfig(): ?string
+    {
+        return $this->metricsConfig;
     }
 
     public function getName(): ?string

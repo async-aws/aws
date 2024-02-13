@@ -130,6 +130,7 @@ class ListResolversResponse extends Result
             'maxBatchSize' => isset($json['maxBatchSize']) ? (int) $json['maxBatchSize'] : null,
             'runtime' => empty($json['runtime']) ? null : $this->populateResultAppSyncRuntime($json['runtime']),
             'code' => isset($json['code']) ? (string) $json['code'] : null,
+            'metricsConfig' => isset($json['metricsConfig']) ? (string) $json['metricsConfig'] : null,
         ]);
     }
 

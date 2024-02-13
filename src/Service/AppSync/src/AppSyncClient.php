@@ -2,8 +2,10 @@
 
 namespace AsyncAws\AppSync;
 
+use AsyncAws\AppSync\Enum\DataSourceLevelMetricsConfig;
 use AsyncAws\AppSync\Enum\DataSourceType;
 use AsyncAws\AppSync\Enum\ResolverKind;
+use AsyncAws\AppSync\Enum\ResolverLevelMetricsConfig;
 use AsyncAws\AppSync\Exception\ApiKeyValidityOutOfBoundsException;
 use AsyncAws\AppSync\Exception\BadRequestException;
 use AsyncAws\AppSync\Exception\ConcurrentModificationException;
@@ -71,6 +73,7 @@ class AppSyncClient extends AbstractApi
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * }|CreateResolverRequest $input
      *
@@ -312,6 +315,7 @@ class AppSyncClient extends AbstractApi
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * }|UpdateDataSourceRequest $input
      *
@@ -355,6 +359,7 @@ class AppSyncClient extends AbstractApi
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * }|UpdateResolverRequest $input
      *
