@@ -2,6 +2,7 @@
 
 namespace AsyncAws\AppSync\Input;
 
+use AsyncAws\AppSync\Enum\DataSourceLevelMetricsConfig;
 use AsyncAws\AppSync\Enum\DataSourceType;
 use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
@@ -111,6 +112,18 @@ final class UpdateDataSourceRequest extends Input
     private $eventBridgeConfig;
 
     /**
+     * Enables or disables enhanced data source metrics for specified data sources. Note that `metricsConfig` won't be used
+     * unless the `dataSourceLevelMetricsBehavior` value is set to `PER_DATA_SOURCE_METRICS`. If the
+     * `dataSourceLevelMetricsBehavior` is set to `FULL_REQUEST_DATA_SOURCE_METRICS` instead, `metricsConfig` will be
+     * ignored. However, you can still set its value.
+     *
+     * `metricsConfig` can be `ENABLED` or `DISABLED`.
+     *
+     * @var DataSourceLevelMetricsConfig::*|null
+     */
+    private $metricsConfig;
+
+    /**
      * @param array{
      *   apiId?: string,
      *   name?: string,
@@ -124,6 +137,7 @@ final class UpdateDataSourceRequest extends Input
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -141,6 +155,7 @@ final class UpdateDataSourceRequest extends Input
         $this->httpConfig = isset($input['httpConfig']) ? HttpDataSourceConfig::create($input['httpConfig']) : null;
         $this->relationalDatabaseConfig = isset($input['relationalDatabaseConfig']) ? RelationalDatabaseDataSourceConfig::create($input['relationalDatabaseConfig']) : null;
         $this->eventBridgeConfig = isset($input['eventBridgeConfig']) ? EventBridgeDataSourceConfig::create($input['eventBridgeConfig']) : null;
+        $this->metricsConfig = $input['metricsConfig'] ?? null;
         parent::__construct($input);
     }
 
@@ -158,6 +173,7 @@ final class UpdateDataSourceRequest extends Input
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * }|UpdateDataSourceRequest $input
      */
@@ -199,6 +215,14 @@ final class UpdateDataSourceRequest extends Input
     public function getLambdaConfig(): ?LambdaDataSourceConfig
     {
         return $this->lambdaConfig;
+    }
+
+    /**
+     * @return DataSourceLevelMetricsConfig::*|null
+     */
+    public function getMetricsConfig(): ?string
+    {
+        return $this->metricsConfig;
     }
 
     public function getName(): ?string
@@ -309,6 +333,16 @@ final class UpdateDataSourceRequest extends Input
         return $this;
     }
 
+    /**
+     * @param DataSourceLevelMetricsConfig::*|null $value
+     */
+    public function setMetricsConfig(?string $value): self
+    {
+        $this->metricsConfig = $value;
+
+        return $this;
+    }
+
     public function setName(?string $value): self
     {
         $this->name = $value;
@@ -384,6 +418,12 @@ final class UpdateDataSourceRequest extends Input
         }
         if (null !== $v = $this->eventBridgeConfig) {
             $payload['eventBridgeConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->metricsConfig) {
+            if (!DataSourceLevelMetricsConfig::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "DataSourceLevelMetricsConfig".', __CLASS__, $v));
+            }
+            $payload['metricsConfig'] = $v;
         }
 
         return $payload;

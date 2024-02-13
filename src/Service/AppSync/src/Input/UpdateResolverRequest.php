@@ -3,6 +3,7 @@
 namespace AsyncAws\AppSync\Input;
 
 use AsyncAws\AppSync\Enum\ResolverKind;
+use AsyncAws\AppSync\Enum\ResolverLevelMetricsConfig;
 use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\PipelineConfig;
@@ -122,6 +123,18 @@ final class UpdateResolverRequest extends Input
     private $code;
 
     /**
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that `metricsConfig` won't be used unless
+     * the `resolverLevelMetricsBehavior` value is set to `PER_RESOLVER_METRICS`. If the `resolverLevelMetricsBehavior` is
+     * set to `FULL_REQUEST_RESOLVER_METRICS` instead, `metricsConfig` will be ignored. However, you can still set its
+     * value.
+     *
+     * `metricsConfig` can be `ENABLED` or `DISABLED`.
+     *
+     * @var ResolverLevelMetricsConfig::*|null
+     */
+    private $metricsConfig;
+
+    /**
      * @param array{
      *   apiId?: string,
      *   typeName?: string,
@@ -136,6 +149,7 @@ final class UpdateResolverRequest extends Input
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -154,6 +168,7 @@ final class UpdateResolverRequest extends Input
         $this->maxBatchSize = $input['maxBatchSize'] ?? null;
         $this->runtime = isset($input['runtime']) ? AppSyncRuntime::create($input['runtime']) : null;
         $this->code = $input['code'] ?? null;
+        $this->metricsConfig = $input['metricsConfig'] ?? null;
         parent::__construct($input);
     }
 
@@ -172,6 +187,7 @@ final class UpdateResolverRequest extends Input
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
      *   '@region'?: string|null,
      * }|UpdateResolverRequest $input
      */
@@ -216,6 +232,14 @@ final class UpdateResolverRequest extends Input
     public function getMaxBatchSize(): ?int
     {
         return $this->maxBatchSize;
+    }
+
+    /**
+     * @return ResolverLevelMetricsConfig::*|null
+     */
+    public function getMetricsConfig(): ?string
+    {
+        return $this->metricsConfig;
     }
 
     public function getPipelineConfig(): ?PipelineConfig
@@ -335,6 +359,16 @@ final class UpdateResolverRequest extends Input
         return $this;
     }
 
+    /**
+     * @param ResolverLevelMetricsConfig::*|null $value
+     */
+    public function setMetricsConfig(?string $value): self
+    {
+        $this->metricsConfig = $value;
+
+        return $this;
+    }
+
     public function setPipelineConfig(?PipelineConfig $value): self
     {
         $this->pipelineConfig = $value;
@@ -413,6 +447,12 @@ final class UpdateResolverRequest extends Input
         }
         if (null !== $v = $this->code) {
             $payload['code'] = $v;
+        }
+        if (null !== $v = $this->metricsConfig) {
+            if (!ResolverLevelMetricsConfig::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "ResolverLevelMetricsConfig".', __CLASS__, $v));
+            }
+            $payload['metricsConfig'] = $v;
         }
 
         return $payload;

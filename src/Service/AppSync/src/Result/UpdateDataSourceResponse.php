@@ -71,6 +71,7 @@ class UpdateDataSourceResponse extends Result
             'httpConfig' => empty($json['httpConfig']) ? null : $this->populateResultHttpDataSourceConfig($json['httpConfig']),
             'relationalDatabaseConfig' => empty($json['relationalDatabaseConfig']) ? null : $this->populateResultRelationalDatabaseDataSourceConfig($json['relationalDatabaseConfig']),
             'eventBridgeConfig' => empty($json['eventBridgeConfig']) ? null : $this->populateResultEventBridgeDataSourceConfig($json['eventBridgeConfig']),
+            'metricsConfig' => isset($json['metricsConfig']) ? (string) $json['metricsConfig'] : null,
         ]);
     }
 
