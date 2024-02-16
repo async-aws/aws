@@ -257,8 +257,8 @@ class SecretsManagerClient extends AbstractApi
      * Lists the secrets that are stored by Secrets Manager in the Amazon Web Services account, not including secrets that
      * are marked for deletion. To see secrets marked for deletion, use the Secrets Manager console.
      *
-     * ListSecrets is eventually consistent, however it might not reflect changes from the last five minutes. To get the
-     * latest information for a specific secret, use DescribeSecret.
+     * All Secrets Manager operations are eventually consistent. ListSecrets might not reflect changes from the last five
+     * minutes. You can get more recent information for a specific secret by calling DescribeSecret.
      *
      * To list the versions of a secret, use ListSecretVersionIds.
      *
