@@ -21,25 +21,23 @@ use AsyncAws\Firehose\ValueObject\Record;
 class FirehoseClient extends AbstractApi
 {
     /**
-     * Writes a single data record into an Amazon Kinesis Data Firehose delivery stream. To write multiple data records into
-     * a delivery stream, use PutRecordBatch. Applications using these operations are referred to as producers.
+     * Writes a single data record into an Amazon Firehose delivery stream. To write multiple data records into a delivery
+     * stream, use PutRecordBatch. Applications using these operations are referred to as producers.
      *
      * By default, each delivery stream can take in up to 2,000 transactions per second, 5,000 records per second, or 5 MB
      * per second. If you use PutRecord and PutRecordBatch, the limits are an aggregate across these two operations for each
-     * delivery stream. For more information about limits and how to request an increase, see Amazon Kinesis Data Firehose
-     * Limits [^1].
+     * delivery stream. For more information about limits and how to request an increase, see Amazon Firehose Limits [^1].
      *
-     * Kinesis Data Firehose accumulates and publishes a particular metric for a customer account in one minute intervals.
-     * It is possible that the bursts of incoming bytes/records ingested to a delivery stream last only for a few seconds.
-     * Due to this, the actual spikes in the traffic might not be fully visible in the customer's 1 minute CloudWatch
-     * metrics.
+     * Firehose accumulates and publishes a particular metric for a customer account in one minute intervals. It is possible
+     * that the bursts of incoming bytes/records ingested to a delivery stream last only for a few seconds. Due to this, the
+     * actual spikes in the traffic might not be fully visible in the customer's 1 minute CloudWatch metrics.
      *
      * You must specify the name of the delivery stream and the data record when using PutRecord. The data record consists
      * of a data blob that can be up to 1,000 KiB in size, and any kind of data. For example, it can be a segment from a log
      * file, geographic location data, website clickstream data, and so on.
      *
-     * Kinesis Data Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at
-     * the destination, a common solution is to use delimiters in the data, such as a newline (`\n`) or some other character
+     * Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the
+     * destination, a common solution is to use delimiters in the data, such as a newline (`\n`) or some other character
      * unique within the data. This allows the consumer application to parse individual data items when reading the data
      * from the destination.
      *
@@ -53,9 +51,9 @@ class FirehoseClient extends AbstractApi
      * Re-invoking the Put API operations (for example, PutRecord and PutRecordBatch) can result in data duplicates. For
      * larger data assets, allow for a longer time out before retrying Put API operations.
      *
-     * Data records sent to Kinesis Data Firehose are stored for 24 hours from the time they are added to a delivery stream
-     * as it tries to send the records to the destination. If the destination is unreachable for more than 24 hours, the
-     * data is no longer available.
+     * Data records sent to Firehose are stored for 24 hours from the time they are added to a delivery stream as it tries
+     * to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no
+     * longer available.
      *
      * ! Don't concatenate two or more base64 strings to form the data fields of your records. Instead, concatenate the raw
      * ! data, then perform base64 encoding.
@@ -96,12 +94,11 @@ class FirehoseClient extends AbstractApi
      * producer than when writing single records. To write single data records into a delivery stream, use PutRecord.
      * Applications using these operations are referred to as producers.
      *
-     * Kinesis Data Firehose accumulates and publishes a particular metric for a customer account in one minute intervals.
-     * It is possible that the bursts of incoming bytes/records ingested to a delivery stream last only for a few seconds.
-     * Due to this, the actual spikes in the traffic might not be fully visible in the customer's 1 minute CloudWatch
-     * metrics.
+     * Firehose accumulates and publishes a particular metric for a customer account in one minute intervals. It is possible
+     * that the bursts of incoming bytes/records ingested to a delivery stream last only for a few seconds. Due to this, the
+     * actual spikes in the traffic might not be fully visible in the customer's 1 minute CloudWatch metrics.
      *
-     * For information about service quota, see Amazon Kinesis Data Firehose Quota [^1].
+     * For information about service quota, see Amazon Firehose Quota [^1].
      *
      * Each PutRecordBatch request supports up to 500 records. Each record in the request can be as large as 1,000 KB
      * (before base64 encoding), up to a limit of 4 MB for the entire request. These limits cannot be changed.
@@ -110,8 +107,8 @@ class FirehoseClient extends AbstractApi
      * of a data blob that can be up to 1,000 KB in size, and any kind of data. For example, it could be a segment from a
      * log file, geographic location data, website clickstream data, and so on.
      *
-     * Kinesis Data Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at
-     * the destination, a common solution is to use delimiters in the data, such as a newline (`\n`) or some other character
+     * Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the
+     * destination, a common solution is to use delimiters in the data, such as a newline (`\n`) or some other character
      * unique within the data. This allows the consumer application to parse individual data items when reading the data
      * from the destination.
      *
@@ -120,9 +117,9 @@ class FirehoseClient extends AbstractApi
      * indicating that there are records for which the operation didn't succeed. Each entry in the `RequestResponses` array
      * provides additional information about the processed record. It directly correlates with a record in the request array
      * using the same ordering, from the top to the bottom. The response array always includes the same number of records as
-     * the request array. `RequestResponses` includes both successfully and unsuccessfully processed records. Kinesis Data
-     * Firehose tries to process all records in each PutRecordBatch request. A single record failure does not stop the
-     * processing of subsequent records.
+     * the request array. `RequestResponses` includes both successfully and unsuccessfully processed records. Firehose tries
+     * to process all records in each PutRecordBatch request. A single record failure does not stop the processing of
+     * subsequent records.
      *
      * A successfully processed record includes a `RecordId` value, which is unique for the record. An unsuccessfully
      * processed record includes `ErrorCode` and `ErrorMessage` values. `ErrorCode` reflects the type of error, and is one
@@ -140,9 +137,9 @@ class FirehoseClient extends AbstractApi
      * Re-invoking the Put API operations (for example, PutRecord and PutRecordBatch) can result in data duplicates. For
      * larger data assets, allow for a longer time out before retrying Put API operations.
      *
-     * Data records sent to Kinesis Data Firehose are stored for 24 hours from the time they are added to a delivery stream
-     * as it attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the
-     * data is no longer available.
+     * Data records sent to Firehose are stored for 24 hours from the time they are added to a delivery stream as it
+     * attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the data
+     * is no longer available.
      *
      * ! Don't concatenate two or more base64 strings to form the data fields of your records. Instead, concatenate the raw
      * ! data, then perform base64 encoding.

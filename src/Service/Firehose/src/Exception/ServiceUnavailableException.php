@@ -7,7 +7,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 /**
  * The service is unavailable. Back off and retry the operation. If you continue to see the exception, throughput limits
  * for the delivery stream may have been exceeded. For more information about limits and how to request an increase, see
- * Amazon Kinesis Data Firehose Limits [^1].
+ * Amazon Firehose Limits [^1].
  *
  * [^1]: https://docs.aws.amazon.com/firehose/latest/dev/limits.html
  */
