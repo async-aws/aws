@@ -12,7 +12,7 @@ use AsyncAws\Lambda\Enum\Runtime;
 final class ListLayerVersionsRequest extends Input
 {
     /**
-     * A runtime identifier. For example, `go1.x`.
+     * A runtime identifier. For example, `java21`.
      *
      * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
      *

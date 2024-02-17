@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class CreatePlatformEndpointInput extends Input
 {
     /**
-     * PlatformApplicationArn returned from CreatePlatformApplication is used to create a an endpoint.
+     * `PlatformApplicationArn` returned from CreatePlatformApplication is used to create a an endpoint.
      *
      * @required
      *
@@ -42,7 +42,7 @@ final class CreatePlatformEndpointInput extends Input
     private $customUserData;
 
     /**
-     * For a list of attributes, see SetEndpointAttributes [^1].
+     * For a list of attributes, see `SetEndpointAttributes` [^1].
      *
      * [^1]: https://docs.aws.amazon.com/sns/latest/api/API_SetEndpointAttributes.html
      *

@@ -22,7 +22,8 @@ final class LoggingConfig
 
     /**
      * Set this property to filter the application logs for your function that Lambda sends to CloudWatch. Lambda only sends
-     * application logs at the selected level and lower.
+     * application logs at the selected level of detail and lower, where `TRACE` is the highest level and `FATAL` is the
+     * lowest.
      *
      * @var ApplicationLogLevel::*|null
      */
@@ -30,7 +31,7 @@ final class LoggingConfig
 
     /**
      * Set this property to filter the system logs for your function that Lambda sends to CloudWatch. Lambda only sends
-     * system logs at the selected level and lower.
+     * system logs at the selected level of detail and lower, where `DEBUG` is the highest level and `WARN` is the lowest.
      *
      * @var SystemLogLevel::*|null
      */
