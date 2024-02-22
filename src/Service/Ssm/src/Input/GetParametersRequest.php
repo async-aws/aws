@@ -10,9 +10,15 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetParametersRequest extends Input
 {
     /**
-     * Names of the parameters for which you want to query information.
+     * The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with you
+     * from another account, you must use the full ARNs.
      *
      * To query by parameter label, use `"Name": "name:label"`. To query by parameter version, use `"Name": "name:version"`.
+     *
+     * For more information about shared parameters, see Working with shared parameters [^1] in the *Amazon Web Services
+     * Systems Manager User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/sharing.html
      *
      * @required
      *
