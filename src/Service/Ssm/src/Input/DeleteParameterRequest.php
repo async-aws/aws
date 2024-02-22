@@ -12,6 +12,8 @@ final class DeleteParameterRequest extends Input
     /**
      * The name of the parameter to delete.
      *
+     * > You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *
      * @required
      *
      * @var string|null
