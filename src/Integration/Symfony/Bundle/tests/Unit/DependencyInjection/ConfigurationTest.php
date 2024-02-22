@@ -39,6 +39,7 @@ class ConfigurationTest extends TestCase
                     'pool' => 'cache.system',
                     'ttl' => 600,
                 ],
+                'max_results' => null,
             ],
         ]);
     }

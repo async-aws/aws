@@ -68,6 +68,7 @@ async_aws:
     secrets: ~
 #        path: /parameters/my-project
 #        recursive: true
+#        max_results: 20
 #        client: app-secret
 #        cache:
 #            pool: cache.app

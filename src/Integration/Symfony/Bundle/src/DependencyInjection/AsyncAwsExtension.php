@@ -48,6 +48,7 @@ class AsyncAwsExtension extends Extension
      *          enabled: bool,
      *          client: string|null,
      *          path: string|null,
+     *          max_results: int|null,
      *          recursive: bool,
      *          cache: array{enabled: bool, pool: string, ttl: int},
      *     },
@@ -215,6 +216,7 @@ class AsyncAwsExtension extends Extension
      *          client: string|null,
      *          path: string|null,
      *          recursive: bool,
+     *          max_results: int|null,
      *          cache: array{enabled: bool, pool: string, ttl: int},
      *     },
      *     clients: array<string, array{type: string, ...}>,
@@ -257,6 +259,7 @@ class AsyncAwsExtension extends Extension
                 new Reference('async_aws.client.' . $client),
                 $config['secrets']['path'],
                 $config['secrets']['recursive'],
+                $config['secrets']['max_results'],
             ]);
 
         if ($config['secrets']['cache']['enabled']) {

@@ -36,4 +36,23 @@ class SsmVaultTest extends TestCase
         yield 'remove trailing' => ['/my_app/', '/my_app/foo', ['FOO' => 'value']];
         yield 'recursive' => [null, '/foo/bar', ['FOO_BAR' => 'value']];
     }
+
+    public function testMaxResults()
+    {
+        $maxResults = 50;
+        $client = $this->createMock(SsmClient::class);
+        $ssmVault = new SsmVault($client, '/', true, $maxResults);
+
+        $client->expects(self::once())
+            ->method('getParametersByPath')
+            ->with([
+                'Path' => '/',
+                'Recursive' => true,
+                'WithDecryption' => true,
+                'MaxResults' => $maxResults,
+            ])
+            ->willReturn(ResultMockFactory::create(GetParametersByPathResult::class, ['Parameters' => [new Parameter(['Name' => 'foo', 'Value' => 'value'])]]));
+
+        $ssmVault->loadEnvVars();
+    }
 }

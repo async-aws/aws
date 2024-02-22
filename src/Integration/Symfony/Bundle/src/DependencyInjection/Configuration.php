@@ -48,6 +48,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('path')->info('Path to the parameters.')->defaultNull()->end()
                         ->booleanNode('recursive')->info('Retrieve all parameters within a hierarchy.')->defaultValue(true)->end()
+                        ->integerNode('max_results')->info('The maximum number of items for each ssm call. Maximum value of 50.')->min(1)->max(50)->defaultNull()->end()
                         ->scalarNode('client')->info('Name of the SSM client. When null, use the default SSM configuration.')->defaultNull()->end()
                         ->arrayNode('cache')
                             ->canBeEnabled()
