@@ -70,6 +70,7 @@ class ConfigurationTest extends TestCase
 
         yield 'default when env missing' => [[], [], ['profile' => 'default']];
         yield 'fallback env' => [[], ['AWS_PROFILE' => 'foo'], ['profile' => 'foo']];
+        yield 'fallback endpoint env' => [[], ['AWS_ENDPOINT_URL' => 'http://localhost:4566'], ['endpoint' => 'http://localhost:4566']];
         yield 'config priority on env' => [['profile' => 'bar'], ['AWS_PROFILE' => 'foo'], ['profile' => 'bar']];
 
         yield 'config with env group' => [['accessKeyId' => 'key'], [], ['accessKeyId' => 'key', 'sessionToken' => null]];
