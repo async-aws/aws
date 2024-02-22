@@ -5,6 +5,7 @@
 ### Changed
 
 - Adding `async-aws/s3` 2.0, `async-aws/sqs` 2.0, `async-aws/ssm` 2.0 in dev dependencies
+- Adding `max_results` option in `secrets` configuration
 
 ## 1.12.0
 

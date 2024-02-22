@@ -23,11 +23,17 @@ class SsmVault implements EnvVarLoaderInterface
      */
     private $recursive;
 
-    public function __construct(SsmClient $client, ?string $path, bool $recursive)
+    /**
+     * @var int|null
+     */
+    private $maxResults;
+
+    public function __construct(SsmClient $client, ?string $path, bool $recursive, ?int $maxResults = null)
     {
         $this->client = $client;
         $this->path = $path ?? '/';
         $this->recursive = $recursive;
+        $this->maxResults = $maxResults;
     }
 
     public function loadEnvVars(): array
@@ -36,6 +42,7 @@ class SsmVault implements EnvVarLoaderInterface
             'Path' => $this->path,
             'Recursive' => $this->recursive,
             'WithDecryption' => true,
+            'MaxResults' => $this->maxResults,
         ]);
 
         $secrets = [];
