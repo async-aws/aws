@@ -13,13 +13,20 @@ for a limited time.
 
 ```php
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\S3Client;
 
 $s3 = new S3Client();
+// To allow reading of a file use:
 $input = new GetObjectRequest([
     'Bucket' => 'my-bucket',
     'Key' => 'test',
 ]);
+// To allow uploading a file use:
+// $input = new PutObjectRequest([
+//     'Bucket' => 'my-bucket',
+//     'Key' => 'test',
+// ]);
 
 $url = $s3->presign($input, new \DateTimeImmutable('+60 min'));
 
