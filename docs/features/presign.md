@@ -23,10 +23,10 @@ $input = new GetObjectRequest([
     'Key' => 'test',
 ]);
 // To allow uploading a file use:
-$input = new PutObjectRequest([
-    'Bucket' => 'my-bucket',
-    'Key' => 'test',
-]);
+// $input = new PutObjectRequest([
+//     'Bucket' => 'my-bucket',
+//     'Key' => 'test',
+// ]);
 
 $url = $s3->presign($input, new \DateTimeImmutable('+60 min'));
 
