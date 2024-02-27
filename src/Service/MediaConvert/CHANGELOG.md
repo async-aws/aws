@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
 ### Added
 
 - AWS api-change: This release includes support for broadcast-mixed audio description tracks.

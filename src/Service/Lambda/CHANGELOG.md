@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.4.0
+
 ### Added
 
 - AWS api-change: Add .NET 8 (dotnet8) Runtime support to AWS Lambda.

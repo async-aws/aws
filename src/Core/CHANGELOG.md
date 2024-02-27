@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.21.0
+
 ### Added
 
 - Support for AWS_ENDPOINT_URL environment variable

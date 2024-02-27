@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.1.0
+
 ### Added
 
 - AWS api-change: Adds support for new options on GraphqlAPIs, Resolvers and Data Sources for emitting Amazon CloudWatch metrics for enhanced monitoring of AppSync APIs.
