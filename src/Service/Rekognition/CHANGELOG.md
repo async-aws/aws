@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - AWS api-change: This release adds ContentType and TaxonomyLevel attributes to DetectModerationLabels and GetMediaAnalysisJob API responses.

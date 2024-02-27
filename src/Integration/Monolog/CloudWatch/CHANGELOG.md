@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
 ### Added
 
 - Added support for `async-aws/cloud-watch-logs` 2.0
