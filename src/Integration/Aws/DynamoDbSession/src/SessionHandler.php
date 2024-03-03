@@ -77,10 +77,10 @@ class SessionHandler implements \SessionHandlerInterface
         $options['session_lifetime_attribute'] = $options['session_lifetime_attribute'] ?? 'expires';
         $options['id_separator'] = $options['id_separator'] ?? '_';
         $options['consistent_read'] = $options['consistent_read'] ?? true;
-        $options['locking'] = (bool) ($options['locking'] ?? false);
-        $options['max_lock_wait_time'] = (float) ($options['max_lock_wait_time'] ?? 10.0);
-        $options['min_lock_retry_microtime'] = (int) ($options['min_lock_retry_microtime'] ?? 10000);
-        $options['max_lock_retry_microtime'] = (int) ($options['max_lock_retry_microtime'] ?? 50000);
+        $options['locking'] = $options['locking'] ?? false;
+        $options['max_lock_wait_time'] = $options['max_lock_wait_time'] ?? 10.0;
+        $options['min_lock_retry_microtime'] = $options['min_lock_retry_microtime'] ?? 10000;
+        $options['max_lock_retry_microtime'] = $options['max_lock_retry_microtime'] ?? 50000;
         $this->options = $options;
     }
 
