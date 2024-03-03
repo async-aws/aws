@@ -7,6 +7,8 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\BillingMode;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
+use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
 class SessionHandler implements \SessionHandlerInterface
 {
@@ -17,13 +19,17 @@ class SessionHandler implements \SessionHandlerInterface
 
     /**
      * @var array{
-     *   consistent_read?: bool,
+     *   consistent_read: bool,
      *   data_attribute: string,
      *   hash_key: string,
      *   session_lifetime?: int,
      *   session_lifetime_attribute: string,
      *   table_name: string,
-     *   id_separator: string
+     *   id_separator: string,
+     *   locking: bool,
+     *   max_lock_wait_time: float,
+     *   min_lock_retry_microtime: int<0, max>,
+     *   max_lock_retry_microtime: int<0, max>,
      * }
      */
     private $options;
@@ -56,7 +62,11 @@ class SessionHandler implements \SessionHandlerInterface
      *   session_lifetime?: int,
      *   session_lifetime_attribute?: string,
      *   table_name: string,
-     *   id_separator?: string
+     *   id_separator?: string,
+     *   locking?: bool,
+     *   max_lock_wait_time?: int|float,
+     *   min_lock_retry_microtime?: int<0, max>,
+     *   max_lock_retry_microtime?: int<0, max>,
      * } $options
      */
     public function __construct(DynamoDbClient $client, array $options)
@@ -66,6 +76,11 @@ class SessionHandler implements \SessionHandlerInterface
         $options['hash_key'] = $options['hash_key'] ?? 'id';
         $options['session_lifetime_attribute'] = $options['session_lifetime_attribute'] ?? 'expires';
         $options['id_separator'] = $options['id_separator'] ?? '_';
+        $options['consistent_read'] = $options['consistent_read'] ?? true;
+        $options['locking'] = (bool) ($options['locking'] ?? false);
+        $options['max_lock_wait_time'] = (float) ($options['max_lock_wait_time'] ?? 10.0);
+        $options['min_lock_retry_microtime'] = (int) ($options['min_lock_retry_microtime'] ?? 10000);
+        $options['max_lock_retry_microtime'] = (int) ($options['max_lock_retry_microtime'] ?? 50000);
         $this->options = $options;
     }
 
@@ -166,11 +181,8 @@ class SessionHandler implements \SessionHandlerInterface
 
         $this->dataRead = '';
 
-        $attributes = $this->client->getItem([
-            'TableName' => $this->options['table_name'],
-            'Key' => $this->formatKey($this->formatId($sessionId)),
-            'ConsistentRead' => $this->options['consistent_read'] ?? true,
-        ])->getItem();
+        $key = $this->formatKey($this->formatId($sessionId));
+        $attributes = $this->options['locking'] ? $this->readLocked($key) : $this->readNonLocked($key);
 
         // Return the data if it is not expired. If it is expired, remove it
         if (isset($attributes[$this->options['session_lifetime_attribute']]) && isset($attributes[$this->options['data_attribute']])) {
@@ -207,6 +219,10 @@ class SessionHandler implements \SessionHandlerInterface
             $this->options['session_lifetime_attribute'] => ['Value' => ['N' => (string) $expires]],
         ];
 
+        if ($this->options['locking']) {
+            $attributes['lock'] = ['Action' => 'DELETE'];
+        }
+
         if ($updateData) {
             $attributes[$this->options['data_attribute']] = '' != $data
                 ? ['Value' => ['S' => $data]]
@@ -237,5 +253,46 @@ class SessionHandler implements \SessionHandlerInterface
     private function formatKey(string $key): array
     {
         return [$this->options['hash_key'] => ['S' => $key]];
+    }
+
+    /**
+     * @return array<string, AttributeValue>
+     */
+    private function readNonLocked(array $key): array
+    {
+        return $this->client->getItem([
+            'TableName' => $this->options['table_name'],
+            'Key' => $key,
+            'ConsistentRead' => $this->options['consistent_read'],
+        ])->getItem();
+    }
+
+    /**
+     * @return array<string, AttributeValue>
+     */
+    private function readLocked(array $key): array
+    {
+        $timeout = microtime(true) + $this->options['max_lock_wait_time'];
+
+        while (true) {
+            try {
+                return $this->client->updateItem([
+                    'TableName' => $this->options['table_name'],
+                    'Key' => $key,
+                    'ConsistentRead' => $this->options['consistent_read'],
+                    'Expected' => ['lock' => ['Exists' => false]],
+                    'AttributeUpdates' => ['lock' => ['Value' => ['N' => '1']]],
+                    'ReturnValues' => 'ALL_NEW',
+                ])->getAttributes();
+            } catch (ConditionalCheckFailedException $e) {
+                // If we were to exceed the timeout after sleep, let's give up immediately.
+                $sleep = rand($this->options['min_lock_retry_microtime'], $this->options['max_lock_retry_microtime']);
+                if (microtime(true) + $sleep * 1e-6 > $timeout) {
+                    throw $e;
+                }
+
+                usleep($sleep);
+            }
+        }
     }
 }
