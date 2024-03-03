@@ -285,9 +285,9 @@ class SessionHandler implements \SessionHandlerInterface
                     'ReturnValues' => 'ALL_NEW',
                 ])->getAttributes();
             } catch (ConditionalCheckFailedException $e) {
-                // If we were to exceed the timeout after sleep, let's give up immediately.
-                $sleep = rand($this->options['min_lock_retry_microtime'], $this->options['max_lock_retry_microtime']);
-                if (microtime(true) + $sleep * 1e-6 > $timeout) {
+                $sleep = min((int) (($timeout - microtime(true)) * 1e6), random_int($this->options['min_lock_retry_microtime'], $this->options['max_lock_retry_microtime']));
+
+                if ($sleep < 0) {
                     throw $e;
                 }
 

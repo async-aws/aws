@@ -33,8 +33,8 @@ class SessionHandlerLockingTest extends TestCase
             'session_lifetime' => 86400,
             'locking' => true,
             'max_lock_wait_time' => 1.0,
-            'min_lock_retry_microtime' => 300000,
-            'max_lock_retry_microtime' => 300000,
+            'min_lock_retry_microtime' => 350000,
+            'max_lock_retry_microtime' => 350000,
         ]);
 
         $this->handler->open(null, 'PHPSESSID');
