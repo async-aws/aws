@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
+use AsyncAws\CloudFormation\Enum\DetailedStatus;
 use AsyncAws\CloudFormation\Enum\HookFailureMode;
 use AsyncAws\CloudFormation\Enum\HookInvocationPoint;
 use AsyncAws\CloudFormation\Enum\HookStatus;
@@ -141,6 +142,21 @@ final class StackEvent
     private $hookFailureMode;
 
     /**
+     * An optional field containing information about the detailed status of the stack event.
+     *
+     * - `CONFIGURATION_COMPLETE` - all of the resources in the stack have reached that event. For more information, see
+     *   CloudFormation stack deployment [^1] in the *CloudFormation User Guide*.
+     *
+     * - `VALIDATION_FAILED` - template validation failed because of invalid properties in the template. The
+     *   `ResourceStatusReason` field shows what properties are defined incorrectly.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html
+     *
+     * @var DetailedStatus::*|null
+     */
+    private $detailedStatus;
+
+    /**
      * @param array{
      *   StackId: string,
      *   EventId: string,
@@ -158,6 +174,7 @@ final class StackEvent
      *   HookStatusReason?: null|string,
      *   HookInvocationPoint?: null|HookInvocationPoint::*,
      *   HookFailureMode?: null|HookFailureMode::*,
+     *   DetailedStatus?: null|DetailedStatus::*,
      * } $input
      */
     public function __construct(array $input)
@@ -178,6 +195,7 @@ final class StackEvent
         $this->hookStatusReason = $input['HookStatusReason'] ?? null;
         $this->hookInvocationPoint = $input['HookInvocationPoint'] ?? null;
         $this->hookFailureMode = $input['HookFailureMode'] ?? null;
+        $this->detailedStatus = $input['DetailedStatus'] ?? null;
     }
 
     /**
@@ -198,6 +216,7 @@ final class StackEvent
      *   HookStatusReason?: null|string,
      *   HookInvocationPoint?: null|HookInvocationPoint::*,
      *   HookFailureMode?: null|HookFailureMode::*,
+     *   DetailedStatus?: null|DetailedStatus::*,
      * }|StackEvent $input
      */
     public static function create($input): self
@@ -208,6 +227,14 @@ final class StackEvent
     public function getClientRequestToken(): ?string
     {
         return $this->clientRequestToken;
+    }
+
+    /**
+     * @return DetailedStatus::*|null
+     */
+    public function getDetailedStatus(): ?string
+    {
+        return $this->detailedStatus;
     }
 
     public function getEventId(): string
