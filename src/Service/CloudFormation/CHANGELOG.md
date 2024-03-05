@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add DetailedStatus field to DescribeStackEvents and DescribeStacks APIs
+
 ## 1.5.1
 
 ### Changed

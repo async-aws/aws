@@ -3,6 +3,7 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\Capability;
+use AsyncAws\CloudFormation\Enum\DetailedStatus;
 use AsyncAws\CloudFormation\Enum\StackStatus;
 use AsyncAws\Core\Exception\InvalidArgument;
 
@@ -201,6 +202,18 @@ final class Stack
     private $retainExceptOnCreate;
 
     /**
+     * The detailed status of the resource or stack. If `CONFIGURATION_COMPLETE` is present, the resource or resource
+     * configuration phase has completed and the stabilization of the resources is in progress. The stack sets
+     * `CONFIGURATION_COMPLETE` when all of the resources in the stack have reached that event. For more information, see
+     * CloudFormation stack deployment [^1] in the *CloudFormation User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html
+     *
+     * @var DetailedStatus::*|null
+     */
+    private $detailedStatus;
+
+    /**
      * @param array{
      *   StackId?: null|string,
      *   StackName: string,
@@ -225,6 +238,7 @@ final class Stack
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
      *   RetainExceptOnCreate?: null|bool,
+     *   DetailedStatus?: null|DetailedStatus::*,
      * } $input
      */
     public function __construct(array $input)
@@ -252,6 +266,7 @@ final class Stack
         $this->rootId = $input['RootId'] ?? null;
         $this->driftInformation = isset($input['DriftInformation']) ? StackDriftInformation::create($input['DriftInformation']) : null;
         $this->retainExceptOnCreate = $input['RetainExceptOnCreate'] ?? null;
+        $this->detailedStatus = $input['DetailedStatus'] ?? null;
     }
 
     /**
@@ -279,6 +294,7 @@ final class Stack
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
      *   RetainExceptOnCreate?: null|bool,
+     *   DetailedStatus?: null|DetailedStatus::*,
      * }|Stack $input
      */
     public static function create($input): self
@@ -312,6 +328,14 @@ final class Stack
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @return DetailedStatus::*|null
+     */
+    public function getDetailedStatus(): ?string
+    {
+        return $this->detailedStatus;
     }
 
     public function getDisableRollback(): ?bool
