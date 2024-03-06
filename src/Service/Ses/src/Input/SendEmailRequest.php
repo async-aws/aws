@@ -13,7 +13,6 @@ use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\ListManagementOptions;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
-use AsyncAws\Ses\ValueObject\Template;
 
 /**
  * Represents a request to send a single formatted email using Amazon SES. For more information, see the Amazon SES
@@ -91,8 +90,8 @@ final class SendEmailRequest extends Input
     private $feedbackForwardingEmailAddressIdentityArn;
 
     /**
-     * An object that contains the body of the message. You can send either a Simple message Raw message or a template
-     * Message.
+     * An object that contains the body of the message. You can send either a Simple message, Raw message, or a Templated
+     * message.
      *
      * @required
      *

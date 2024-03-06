@@ -34,10 +34,18 @@ final class Template
     private $templateData;
 
     /**
+     * The list of message headers that will be added to the email message.
+     *
+     * @var MessageHeader[]|null
+     */
+    private $headers;
+
+    /**
      * @param array{
      *   TemplateName?: null|string,
      *   TemplateArn?: null|string,
      *   TemplateData?: null|string,
+     *   Headers?: null|array<MessageHeader|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -45,6 +53,7 @@ final class Template
         $this->templateName = $input['TemplateName'] ?? null;
         $this->templateArn = $input['TemplateArn'] ?? null;
         $this->templateData = $input['TemplateData'] ?? null;
+        $this->headers = isset($input['Headers']) ? array_map([MessageHeader::class, 'create'], $input['Headers']) : null;
     }
 
     /**
@@ -52,11 +61,20 @@ final class Template
      *   TemplateName?: null|string,
      *   TemplateArn?: null|string,
      *   TemplateData?: null|string,
+     *   Headers?: null|array<MessageHeader|array>,
      * }|Template $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return MessageHeader[]
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers ?? [];
     }
 
     public function getTemplateArn(): ?string
@@ -88,6 +106,14 @@ final class Template
         }
         if (null !== $v = $this->templateData) {
             $payload['TemplateData'] = $v;
+        }
+        if (null !== $v = $this->headers) {
+            $index = -1;
+            $payload['Headers'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Headers'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;
