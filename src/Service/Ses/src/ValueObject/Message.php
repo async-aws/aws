@@ -27,21 +27,31 @@ final class Message
     private $body;
 
     /**
+     * The list of message headers that will be added to the email message.
+     *
+     * @var MessageHeader[]|null
+     */
+    private $headers;
+
+    /**
      * @param array{
      *   Subject: Content|array,
      *   Body: Body|array,
+     *   Headers?: null|array<MessageHeader|array>,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->subject = isset($input['Subject']) ? Content::create($input['Subject']) : $this->throwException(new InvalidArgument('Missing required field "Subject".'));
         $this->body = isset($input['Body']) ? Body::create($input['Body']) : $this->throwException(new InvalidArgument('Missing required field "Body".'));
+        $this->headers = isset($input['Headers']) ? array_map([MessageHeader::class, 'create'], $input['Headers']) : null;
     }
 
     /**
      * @param array{
      *   Subject: Content|array,
      *   Body: Body|array,
+     *   Headers?: null|array<MessageHeader|array>,
      * }|Message $input
      */
     public static function create($input): self
@@ -52,6 +62,14 @@ final class Message
     public function getBody(): Body
     {
         return $this->body;
+    }
+
+    /**
+     * @return MessageHeader[]
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers ?? [];
     }
 
     public function getSubject(): Content
@@ -69,6 +87,14 @@ final class Message
         $payload['Subject'] = $v->requestBody();
         $v = $this->body;
         $payload['Body'] = $v->requestBody();
+        if (null !== $v = $this->headers) {
+            $index = -1;
+            $payload['Headers'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Headers'][$index] = $listValue->requestBody();
+            }
+        }
 
         return $payload;
     }
