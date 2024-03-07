@@ -19,6 +19,8 @@ final class Projection
      *   attributes that you specify.
      * - `ALL` - All of the table attributes are projected into the index.
      *
+     * When using the DynamoDB console, `ALL` is selected by default.
+     *
      * @var ProjectionType::*|null
      */
     private $projectionType;
