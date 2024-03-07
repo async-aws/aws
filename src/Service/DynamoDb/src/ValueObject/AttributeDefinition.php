@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
 
 /**
- * Represents an attribute for describing the key schema for the table and indexes.
+ * Represents an attribute for describing the schema for the table and indexes.
  */
 final class AttributeDefinition
 {

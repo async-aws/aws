@@ -194,7 +194,7 @@ final class QueryInput extends Input
      *
      * For more information, see Filter Expressions [^1] in the *Amazon DynamoDB Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Query.FilterExpression
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.FilterExpression.html
      *
      * @var string|null
      */
