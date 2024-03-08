@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DeleteFunctionRequest extends Input
 {
     /**
-     * The name of the Lambda function or version.
+     * The name or ARN of the Lambda function or version.
      *
      * **Name formats**
      *

@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ListVersionsByFunctionRequest extends Input
 {
     /**
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      *
      * **Name formats**
      *

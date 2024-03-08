@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetFunctionConfigurationRequest extends Input
 {
     /**
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      *
      * **Name formats**
      *
