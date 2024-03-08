@@ -20,7 +20,7 @@ use AsyncAws\Lambda\ValueObject\VpcConfig;
 final class UpdateFunctionConfigurationRequest extends Input
 {
     /**
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      *
      * **Name formats**
      *
