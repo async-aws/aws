@@ -142,8 +142,8 @@ final class StartBuildInput extends Input
     private $gitSubmodulesConfigOverride;
 
     /**
-     * A buildspec file declaration that overrides, for this build only, the latest one already defined in the build
-     * project.
+     * A buildspec file declaration that overrides the latest one defined in the build project, for this build only. The
+     * buildspec defined on the project is not changed.
      *
      * If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec file
      * relative to the value of the built-in `CODEBUILD_SRC_DIR` environment variable, or the path to an S3 bucket. The
@@ -151,6 +151,11 @@ final class StartBuildInput extends Input
      * (for example, `arn:aws:s3:::my-codebuild-sample2/buildspec.yml`). If this value is not provided or is set to an empty
      * string, the source code must contain a buildspec file in its root directory. For more information, see Buildspec File
      * Name and Storage Location [^1].
+     *
+     * > Since this property allows you to change the build commands that will run in the container, you should note that an
+     * > IAM principal with the ability to call this API and set this parameter can override the default settings. Moreover,
+     * > we encourage that you use a trustworthy buildspec location like a file in your source repository or a Amazon S3
+     * > bucket.
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage
      *

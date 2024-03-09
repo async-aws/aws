@@ -648,16 +648,19 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Resets the specified user's password in a user pool as an administrator. Works on any user.
      *
+     * To use this API operation, your user pool must have self-service account recovery configured. Use
+     * AdminSetUserPassword [^1] if you manage passwords as an administrator.
+     *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
-     * > Amazon Cognito, you must register a phone number with Amazon Pinpoint [^1]. Amazon Cognito uses the registered
+     * > Amazon Cognito, you must register a phone number with Amazon Pinpoint [^2]. Amazon Cognito uses the registered
      * > number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up,
      * > activate their accounts, or sign in.
      * >
      * > If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple
-     * > Notification Service might place your account in the SMS sandbox. In *sandbox mode [^2]*, you can send messages
+     * > Notification Service might place your account in the SMS sandbox. In *sandbox mode [^3]*, you can send messages
      * > only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the
-     * > sandbox and into production. For more information, see SMS message settings for Amazon Cognito user pools [^3] in
+     * > sandbox and into production. For more information, see SMS message settings for Amazon Cognito user pools [^4] in
      * > the *Amazon Cognito Developer Guide*.
      *
      * Deactivates a user's password, requiring them to change it. If a user tries to sign in after the API is called,
@@ -673,15 +676,16 @@ class CognitoIdentityProviderClient extends AbstractApi
      * >
      * > **Learn more**
      * >
-     * > - Signing Amazon Web Services API Requests [^4]
-     * > - Using the Amazon Cognito user pools API and user pool endpoints [^5]
+     * > - Signing Amazon Web Services API Requests [^5]
+     * > - Using the Amazon Cognito user pools API and user pool endpoints [^6]
      * >
      *
-     * [^1]: https://console.aws.amazon.com/pinpoint/home/
-     * [^2]: https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html
-     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html
-     * [^4]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
-     * [^5]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html
+     * [^2]: https://console.aws.amazon.com/pinpoint/home/
+     * [^3]: https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html
+     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html
+     * [^5]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+     * [^6]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminResetUserPassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminresetuserpassword
@@ -1258,29 +1262,33 @@ class CognitoIdentityProviderClient extends AbstractApi
      * app client has a client secret and you don't provide a `SECRET_HASH` parameter, this API returns
      * `NotAuthorizedException`.
      *
+     * To use this API operation, your user pool must have self-service account recovery configured. Use
+     * AdminSetUserPassword [^3] if you manage passwords as an administrator.
+     *
      * > Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation.
      * > For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in
      * > policies. For more information about authorization models in Amazon Cognito, see Using the Amazon Cognito user
-     * > pools API and user pool endpoints [^3].
+     * > pools API and user pool endpoints [^4].
      *
      * > This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register
      * > an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in
-     * > Amazon Cognito, you must register a phone number with Amazon Pinpoint [^4]. Amazon Cognito uses the registered
+     * > Amazon Cognito, you must register a phone number with Amazon Pinpoint [^5]. Amazon Cognito uses the registered
      * > number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up,
      * > activate their accounts, or sign in.
      * >
      * > If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple
-     * > Notification Service might place your account in the SMS sandbox. In *sandbox mode [^5]*, you can send messages
+     * > Notification Service might place your account in the SMS sandbox. In *sandbox mode [^6]*, you can send messages
      * > only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the
-     * > sandbox and into production. For more information, see SMS message settings for Amazon Cognito user pools [^6] in
+     * > sandbox and into production. For more information, see SMS message settings for Amazon Cognito user pools [^7] in
      * > the *Amazon Cognito Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-recover-a-user-account.html
      * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html
-     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
-     * [^4]: https://console.aws.amazon.com/pinpoint/home/
-     * [^5]: https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html
-     * [^6]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html
+     * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html
+     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^5]: https://console.aws.amazon.com/pinpoint/home/
+     * [^6]: https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html
+     * [^7]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#forgotpassword
