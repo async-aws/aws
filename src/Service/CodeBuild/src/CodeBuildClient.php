@@ -58,7 +58,12 @@ class CodeBuildClient extends AbstractApi
     }
 
     /**
-     * Starts running a build.
+     * Starts running a build with the settings defined in the project. These setting include: how to run a build, where to
+     * get the source code, which build environment to use, which build commands to run, and where to store the build
+     * output.
+     *
+     * You can also start a build run by overriding some of the build settings in the project. The overrides only apply for
+     * that specific start build request. The settings in the project are unaltered.
      *
      * @see https://docs.aws.amazon.com/codebuild/latest/APIReference/API_StartBuild.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codebuild-2016-10-06.html#startbuild
