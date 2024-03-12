@@ -3,7 +3,7 @@
 namespace AsyncAws\ElastiCache\ValueObject;
 
 /**
- * Represents the information required for client programs to connect to a cache node.
+ * Represents the information required for client programs to connect to a cache node. This value is read-only.
  */
 final class Endpoint
 {
