@@ -32,6 +32,9 @@ $resource = \fopen('/path/to/cat/image.jpg', 'r');
 $s3->upload('my-image-bucket', 'photos/cat_2.jpg', $resource);
 $s3->upload('my-image-bucket', 'photos/cat_2.txt', 'I like this cat');
 
+// Copy objects between buckets
+$s3->copy('source-bucket', 'source-key', 'destination-bucket', 'destination-key');
+
 // Check if a file exists
 $s3->has('my-image-bucket', 'photos/cat_2.jpg'); // true
 
