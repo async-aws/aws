@@ -51,7 +51,7 @@ final class StackEvent
 
     /**
      * Type of resource. (For more information, go to Amazon Web Services Resource Types Reference [^1] in the
-     * CloudFormation User Guide.).
+     * *CloudFormation User Guide*.).
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
      *

@@ -138,8 +138,8 @@ final class PutParameterRequest extends Input
      *
      * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can create
      * a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced parameters incur
-     * a charge. For more information, see Standard and advanced parameter tiers [^1] in the *Amazon Web Services Systems
-     * Manager User Guide*.
+     * a charge. For more information, see Managing parameter tiers [^1] in the *Amazon Web Services Systems Manager User
+     * Guide*.
      *
      * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter to
      * a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss because the
@@ -180,7 +180,7 @@ final class PutParameterRequest extends Input
      * *Amazon Web Services Systems Manager User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html
-     * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-default-tier.html
+     * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier
      *
      * @var ParameterTier::*|null
      */
@@ -232,7 +232,7 @@ final class PutParameterRequest extends Input
      * > success, but the asynchronous validation will fail and the parameter will not be created or updated. To monitor
      * > whether your `aws:ec2:image` parameters are created successfully, see Setting up notifications or trigger actions
      * > based on Parameter Store events [^1]. For more information about AMI format validation , see Native parameter
-     * > support for Amazon Machine Image (AMI) IDs [^2].
+     * > support for Amazon Machine Image IDs [^2].
      *
      * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html
      * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html
