@@ -18,7 +18,7 @@ final class GetParametersRequest extends Input
      * For more information about shared parameters, see Working with shared parameters [^1] in the *Amazon Web Services
      * Systems Manager User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/sharing.html
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html
      *
      * @required
      *
