@@ -16,7 +16,7 @@ final class ListObjectsV2Request extends Input
      * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
      * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
      * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
-     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az2*--x-s3`). For information about
+     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`). For information about
      * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
      *
      * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
@@ -61,7 +61,9 @@ final class ListObjectsV2Request extends Input
     private $delimiter;
 
     /**
-     * Encoding type used by Amazon S3 to encode object keys in the response.
+     * Encoding type used by Amazon S3 to encode object keys in the response. If using `url`, non-ASCII characters used in
+     * an object's key name will be URL encoded. For example, the object test_file(3).png will appear as
+     * test_file%283%29.png.
      *
      * @var EncodingType::*|null
      */

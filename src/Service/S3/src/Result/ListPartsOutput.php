@@ -69,8 +69,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     private $uploadId;
 
     /**
-     * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
-     * part-number-marker request parameter in a subsequent request.
+     * Specifies the part after which listing should begin. Only parts with higher part numbers will be listed.
      *
      * @var int|null
      */

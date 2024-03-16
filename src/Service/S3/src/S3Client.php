@@ -234,8 +234,8 @@ class S3Client extends AbstractApi
      * handling per your configuration settings (including automatically retrying the request as appropriate). If the
      * condition persists, the SDKs throw an exception (or, for the SDKs that don't use exceptions, they return an error).
      *
-     * Note that if `CompleteMultipartUpload` fails, applications should be prepared to retry the failed requests. For more
-     * information, see Amazon S3 Error Best Practices [^3].
+     * Note that if `CompleteMultipartUpload` fails, applications should be prepared to retry any failed requests (including
+     * 500 error responses). For more information, see Amazon S3 Error Best Practices [^3].
      *
      * ! You can't use `Content-Type: application/x-www-form-urlencoded` for the CompleteMultipartUpload requests. Also, if
      * ! you don't provide a `Content-Type` header, `CompleteMultipartUpload` can still return a `200 OK` response.
@@ -360,17 +360,18 @@ class S3Client extends AbstractApi
      * > For more information, see Regional and Zonal endpoints [^2] in the *Amazon S3 User Guide*.
      *
      * Both the Region that you want to copy the object from and the Region that you want to copy the object to must be
-     * enabled for your account.
+     * enabled for your account. For more information about how to enable a Region for your account, see Enable or disable a
+     * Region for standalone accounts [^3] in the *Amazon Web Services Account Management Guide*.
      *
      * ! Amazon S3 transfer acceleration does not support cross-Region copies. If you request a cross-Region copy using a
      * ! transfer acceleration endpoint, you get a `400 Bad Request` error. For more information, see Transfer Acceleration
-     * ! [^3].
+     * ! [^4].
      *
      * - `Authentication and authorization`:
      *
      *   All `CopyObject` requests must be authenticated and signed by using IAM credentials (access key ID and secret
      *   access key for the IAM identities). All headers with the `x-amz-` prefix, including `x-amz-copy-source`, must be
-     *   signed. For more information, see REST Authentication [^4].
+     *   signed. For more information, see REST Authentication [^5].
      *
      *   **Directory buckets** - You must use the IAM credentials to authenticate and authorize your access to the
      *   `CopyObject` API operation, instead of using the temporary security credentials through the `CreateSession` API
@@ -386,7 +387,7 @@ class S3Client extends AbstractApi
      *
      *     - If the source object is in a general purpose bucket, you must have **`s3:GetObject`** permission to read the
      *       source object that is being copied.
-     *     - If the destination bucket is a general purpose bucket, you must have **`s3:PubObject`** permission to write the
+     *     - If the destination bucket is a general purpose bucket, you must have **`s3:PutObject`** permission to write the
      *       object copy to the destination bucket.
      *
      *   - **Directory bucket permissions** - You must have permissions in a bucket policy or an IAM identity-based policy
@@ -400,8 +401,8 @@ class S3Client extends AbstractApi
      *       the `Action` element of a policy to write the object to the destination. The `s3express:SessionMode` condition
      *       key can't be set to `ReadOnly` on the copy destination bucket.
      *
-     *     For example policies, see Example bucket policies for S3 Express One Zone [^5] and Amazon Web Services Identity
-     *     and Access Management (IAM) identity-based policies for S3 Express One Zone [^6] in the *Amazon S3 User Guide*.
+     *     For example policies, see Example bucket policies for S3 Express One Zone [^6] and Amazon Web Services Identity
+     *     and Access Management (IAM) identity-based policies for S3 Express One Zone [^7] in the *Amazon S3 User Guide*.
      *
      * - `Response and special errors`:
      *
@@ -416,7 +417,7 @@ class S3Client extends AbstractApi
      *     - If the error occurs before the copy action starts, you receive a standard Amazon S3 error.
      *     - If the error occurs during the copy operation, the error response is embedded in the `200 OK` response. For
      *       example, in a cross-region copy, you may encounter throttling and receive a `200 OK` response. For more
-     *       information, see Resolve the Error 200 response when copying objects to Amazon S3 [^7]. The `200 OK` status
+     *       information, see Resolve the Error 200 response when copying objects to Amazon S3 [^8]. The `200 OK` status
      *       code means the copy was accepted, but it doesn't mean the copy is complete. Another example is when you
      *       disconnect from Amazon S3 before the copy is complete, Amazon S3 might cancel the copy and you may receive a
      *       `200 OK` response. You must stay connected to Amazon S3 until the entire response is successfully received and
@@ -433,26 +434,28 @@ class S3Client extends AbstractApi
      *
      *   The copy request charge is based on the storage class and Region that you specify for the destination object. The
      *   request can also result in a data retrieval charge for the source if the source storage class bills for data
-     *   retrieval. For pricing information, see Amazon S3 pricing [^8].
+     *   retrieval. If the copy source is in a different region, the data transfer is billed to the copy source account. For
+     *   pricing information, see Amazon S3 pricing [^9].
      * - `HTTP Host header syntax`:
      *
      *   **Directory buckets ** - The HTTP Host header syntax is `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`.
      *
      * The following operations are related to `CopyObject`:
      *
-     * - PutObject [^9]
-     * - GetObject [^10]
+     * - PutObject [^10]
+     * - GetObject [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-example-bucket-policies.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-identity-policies.html
-     * [^7]: repost.aws/knowledge-center/s3-resolve-200-internalerror
-     * [^8]: http://aws.amazon.com/s3/pricing/
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+     * [^3]: https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-regions.html#manage-acct-regions-enable-standalone
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-example-bucket-policies.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-identity-policies.html
+     * [^8]: https://repost.aws/knowledge-center/s3-resolve-200-internalerror
+     * [^9]: http://aws.amazon.com/s3/pricing/
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
@@ -552,30 +555,36 @@ class S3Client extends AbstractApi
      *     - **S3 Object Ownership** - If your `CreateBucket` request includes the `x-amz-object-ownership` header, then the
      *       `s3:PutBucketOwnershipControls` permission is required.
      *
-     *       ! If your `CreateBucket` request sets `BucketOwnerEnforced` for Amazon S3 Object Ownership and specifies a
-     *       ! bucket ACL that provides access to an external Amazon Web Services account, your request fails with a `400`
-     *       ! error and returns the `InvalidBucketAcLWithObjectOwnership` error code. For more information, see Setting
-     *       ! Object Ownership on an existing bucket [^5] in the *Amazon S3 User Guide*.
+     *       ! To set an ACL on a bucket as part of a `CreateBucket` request, you must explicitly set S3 Object Ownership
+     *       ! for the bucket to a different value than the default, `BucketOwnerEnforced`. Additionally, if your desired
+     *       ! bucket ACL grants public access, you must first create the bucket (without the bucket ACL) and then
+     *       ! explicitly disable Block Public Access on the bucket before using `PutBucketAcl` to set the ACL. If you try
+     *       ! to create a bucket with a public ACL, the request will fail.
+     *       !
+     *       ! For the majority of modern use cases in S3, we recommend that you keep all Block Public Access settings
+     *       ! enabled and keep ACLs disabled. If you would like to share data with users outside of your account, you can
+     *       ! use bucket policies as needed. For more information, see Controlling ownership of objects and disabling ACLs
+     *       ! for your bucket [^5] and Blocking public access to your Amazon S3 storage [^6] in the *Amazon S3 User Guide*.
      *
      *     - **S3 Block Public Access** - If your specific use case requires granting public access to your S3 resources,
      *       you can disable Block Public Access. Specifically, you can create a new bucket with Block Public Access
-     *       enabled, then separately call the `DeletePublicAccessBlock` [^6] API. To use this operation, you must have the
+     *       enabled, then separately call the `DeletePublicAccessBlock` [^7] API. To use this operation, you must have the
      *       `s3:PutBucketPublicAccessBlock` permission. For more information about S3 Block Public Access, see Blocking
-     *       public access to your Amazon S3 storage [^7] in the *Amazon S3 User Guide*.
+     *       public access to your Amazon S3 storage [^8] in the *Amazon S3 User Guide*.
      *
      *   - **Directory bucket permissions** - You must have the `s3express:CreateBucket` permission in an IAM identity-based
      *     policy instead of a bucket policy. Cross-account access to this API operation isn't supported. This operation can
      *     only be performed by the Amazon Web Services account that owns the resource. For more information about directory
      *     bucket policies and permissions, see Amazon Web Services Identity and Access Management (IAM) for S3 Express One
-     *     Zone [^8] in the *Amazon S3 User Guide*.
+     *     Zone [^9] in the *Amazon S3 User Guide*.
      *
      *     ! The permissions for ACLs, Object Lock, S3 Object Ownership, and S3 Block Public Access are not supported for
      *     ! directory buckets. For directory buckets, all Block Public Access settings are enabled at the bucket level and
      *     ! S3 Object Ownership is set to Bucket owner enforced (ACLs disabled). These settings can't be modified.
      *     !
      *     ! For more information about permissions for creating and working with directory buckets, see Directory buckets
-     *     ! [^9] in the *Amazon S3 User Guide*. For more information about supported S3 features for directory buckets, see
-     *     ! Features of S3 Express One Zone [^10] in the *Amazon S3 User Guide*.
+     *     ! [^10] in the *Amazon S3 User Guide*. For more information about supported S3 features for directory buckets,
+     *     ! see Features of S3 Express One Zone [^11] in the *Amazon S3 User Guide*.
      *
      *
      * - `HTTP Host header syntax`:
@@ -584,21 +593,22 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `CreateBucket`:
      *
-     * - PutObject [^11]
-     * - DeleteBucket [^12]
+     * - PutObject [^12]
+     * - DeleteBucket [^13]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateBucket.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-ownership-existing-bucket.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-overview.html
-     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-one-zone.html#s3-express-features
-     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-overview.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-one-zone.html#s3-express-features
+     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
@@ -914,10 +924,17 @@ class S3Client extends AbstractApi
     /**
      * Removes an object from a bucket. The behavior depends on the bucket's versioning state:.
      *
-     * - If versioning is enabled, the operation removes the null version (if there is one) of an object and inserts a
-     *   delete marker, which becomes the latest version of the object. If there isn't a null version, Amazon S3 does not
-     *   remove any objects but will still respond that the command was successful.
-     * - If versioning is suspended or not enabled, the operation permanently deletes the object.
+     * - If bucket versioning is not enabled, the operation permanently deletes the object.
+     * - If bucket versioning is enabled, the operation inserts a delete marker, which becomes the current version of the
+     *   object. To permanently delete an object in a versioned bucket, you must include the object’s `versionId` in the
+     *   request. For more information about versioning-enabled buckets, see Deleting object versions from a
+     *   versioning-enabled bucket [^1].
+     * - If bucket versioning is suspended, the operation removes the object that has a null `versionId`, if there is one,
+     *   and inserts a delete marker that becomes the current version of the object. If there isn't an object with a null
+     *   `versionId`, and all versions of the object have a `versionId`, Amazon S3 does not remove the object and only
+     *   inserts a delete marker. To permanently delete an object that has a `versionId`, you must include the object’s
+     *   `versionId` in the request. For more information about versioning-suspended buckets, see Deleting objects from
+     *   versioning-suspended buckets [^2].
      *
      * > - **Directory buckets** - S3 Versioning isn't enabled and supported for directory buckets. For this API operation,
      * >   only the `null` value of the version ID is supported by directory buckets. You can only specify `null` to the
@@ -925,7 +942,7 @@ class S3Client extends AbstractApi
      * > - **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal
      * >   endpoint. These endpoints support virtual-hosted-style requests in the format
      * >   `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
-     * >   supported. For more information, see Regional and Zonal endpoints [^1] in the *Amazon S3 User Guide*.
+     * >   supported. For more information, see Regional and Zonal endpoints [^3] in the *Amazon S3 User Guide*.
      * >
      *
      * To remove a specific version, you must use the `versionId` query parameter. Using this query parameter permanently
@@ -934,12 +951,12 @@ class S3Client extends AbstractApi
      *
      * If the object you want to delete is in a bucket where the bucket versioning configuration is MFA Delete enabled, you
      * must include the `x-amz-mfa` request header in the DELETE `versionId` request. Requests that include `x-amz-mfa` must
-     * use HTTPS. For more information about MFA Delete, see Using MFA Delete [^2] in the *Amazon S3 User Guide*. To see
-     * sample requests that use versioning, see Sample Request [^3].
+     * use HTTPS. For more information about MFA Delete, see Using MFA Delete [^4] in the *Amazon S3 User Guide*. To see
+     * sample requests that use versioning, see Sample Request [^5].
      *
      * > **Directory buckets** - MFA delete is not supported by directory buckets.
      *
-     * You can delete objects by explicitly calling DELETE Object or calling (PutBucketLifecycle [^4]) to enable Amazon S3
+     * You can delete objects by explicitly calling DELETE Object or calling (PutBucketLifecycle [^6]) to enable Amazon S3
      * to remove them for you. If you want to block users or accounts from removing or deleting objects from your bucket,
      * you must deny them the `s3:DeleteObject`, `s3:DeleteObjectVersion`, and `s3:PutLifeCycleConfiguration` actions.
      *
@@ -952,17 +969,17 @@ class S3Client extends AbstractApi
      *
      *     - **`s3:DeleteObject`** - To delete an object from a bucket, you must always have the `s3:DeleteObject`
      *       permission.
-     *     - **`s3:DeleteObjectVersion`** - To delete a specific version of an object from a versiong-enabled bucket, you
+     *     - **`s3:DeleteObjectVersion`** - To delete a specific version of an object from a versioning-enabled bucket, you
      *       must have the `s3:DeleteObjectVersion` permission.
      *
      *   - **Directory bucket permissions** - To grant access to this API operation on a directory bucket, we recommend that
-     *     you use the `CreateSession` [^5] API operation for session-based authorization. Specifically, you grant the
+     *     you use the `CreateSession` [^7] API operation for session-based authorization. Specifically, you grant the
      *     `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy.
      *     Then, you make the `CreateSession` API call on the bucket to obtain a session token. With the session token in
      *     your request header, you can make API requests to this operation. After the session token expires, you make
      *     another `CreateSession` API call to generate a new session token for use. Amazon Web Services CLI or SDKs create
      *     session and refresh the session token automatically to avoid service interruptions when a session expires. For
-     *     more information about authorization, see `CreateSession` [^6].
+     *     more information about authorization, see `CreateSession` [^8].
      *
      * - `HTTP Host header syntax`:
      *
@@ -970,15 +987,17 @@ class S3Client extends AbstractApi
      *
      * The following action is related to `DeleteObject`:
      *
-     * - PutObject [^7]
+     * - PutObject [^9]
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectDELETE.html#ExampleVersionObjectDelete
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectVersions.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectsfromVersioningSuspendedBuckets.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectDELETE.html#ExampleVersionObjectDelete
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
@@ -2780,7 +2799,7 @@ class S3Client extends AbstractApi
      *
      *     - If the source object is in a general purpose bucket, you must have the **`s3:GetObject`** permission to read
      *       the source object that is being copied.
-     *     - If the destination bucket is a general purpose bucket, you must have the **`s3:PubObject`** permission to write
+     *     - If the destination bucket is a general purpose bucket, you must have the **`s3:PutObject`** permission to write
      *       the object copy to the destination bucket.
      *
      *     For information about permissions required to use the multipart upload API, see Multipart Upload and Permissions

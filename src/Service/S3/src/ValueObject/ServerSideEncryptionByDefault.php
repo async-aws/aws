@@ -25,7 +25,7 @@ final class ServerSideEncryptionByDefault
 
     /**
      * Amazon Web Services Key Management Service (KMS) customer Amazon Web Services KMS key ID to use for the default
-     * encryption. This parameter is allowed if and only if `SSEAlgorithm` is set to `aws:kms`.
+     * encryption. This parameter is allowed if and only if `SSEAlgorithm` is set to `aws:kms` or `aws:kms:dsse`.
      *
      * You can specify the key ID, key alias, or the Amazon Resource Name (ARN) of the KMS key.
      *
