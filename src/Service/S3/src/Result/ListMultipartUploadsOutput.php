@@ -35,7 +35,10 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     private $keyMarker;
 
     /**
-     * Upload ID after which listing began.
+     * Together with key-marker, specifies the multipart upload after which listing should begin. If key-marker is not
+     * specified, the upload-id-marker parameter is ignored. Otherwise, any multipart uploads for a key equal to the
+     * key-marker might be included in the list only if they have an upload ID lexicographically greater than the specified
+     * `upload-id-marker`.
      *
      * > This functionality is not supported for directory buckets.
      *

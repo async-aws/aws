@@ -27,8 +27,8 @@ final class LocationInfo
     /**
      * The name of the location where the bucket will be created.
      *
-     * For directory buckets, the AZ ID of the Availability Zone where the bucket will be created. An example AZ ID value is
-     * `usw2-az2`.
+     * For directory buckets, the name of the location is the AZ ID of the Availability Zone where the bucket will be
+     * created. An example AZ ID value is `usw2-az1`.
      *
      * @var string|null
      */
