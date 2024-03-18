@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for Laravel 10 and 11
+
 ## 1.0.0
 
 ### Added
