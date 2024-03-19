@@ -51,7 +51,7 @@ class AdminGetUserResponse extends Result
     private $enabled;
 
     /**
-     * The user status. Can be one of the following:.
+     * The user status. Can be one of the following:
      *
      * - UNCONFIRMED - User has been created but not confirmed.
      * - CONFIRMED - User has been confirmed.

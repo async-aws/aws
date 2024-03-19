@@ -22,7 +22,7 @@ final class SubscribeInput extends Input
     private $topicArn;
 
     /**
-     * The protocol that you want to use. Supported protocols include:.
+     * The protocol that you want to use. Supported protocols include:
      *
      * - `http` – delivery of JSON-encoded message via HTTP POST
      * - `https` – delivery of JSON-encoded message via HTTPS POST
@@ -41,7 +41,7 @@ final class SubscribeInput extends Input
     private $protocol;
 
     /**
-     * The endpoint that you want to receive notifications. Endpoints vary by protocol:.
+     * The endpoint that you want to receive notifications. Endpoints vary by protocol:
      *
      * - For the `http` protocol, the (public) endpoint is a URL beginning with `http://`.
      * - For the `https` protocol, the (public) endpoint is a URL beginning with `https://`.

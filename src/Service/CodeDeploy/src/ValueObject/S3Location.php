@@ -25,7 +25,7 @@ final class S3Location
     private $key;
 
     /**
-     * The file type of the application revision. Must be one of the following:.
+     * The file type of the application revision. Must be one of the following:
      *
      * - `tar`: A tar archive file.
      * - `tgz`: A compressed tar archive file.

@@ -18,7 +18,7 @@ final class UpdateShardCountInput extends Input
     private $streamName;
 
     /**
-     * The new number of shards. This value has the following default limits. By default, you cannot do the following:.
+     * The new number of shards. This value has the following default limits. By default, you cannot do the following:
      *
      * - Set this value to more than double your current shard count for a stream.
      * - Set this value below half your current shard count for a stream.

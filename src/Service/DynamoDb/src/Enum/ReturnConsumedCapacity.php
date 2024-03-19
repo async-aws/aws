@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 /**
  * Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the
- * response:.
+ * response:
  *
  * - `INDEXES` - The response includes the aggregate `ConsumedCapacity` for the operation, together with
  *   `ConsumedCapacity` for each table and secondary index that was accessed.

@@ -109,7 +109,7 @@ class AsyncAwsSqsJob extends Job implements JobContract
     /**
      * Get the underlying SQS client instance.
      *
-     * @return \AsyncAws\Sqs\SqsClient
+     * @return SqsClient
      */
     public function getSqs()
     {

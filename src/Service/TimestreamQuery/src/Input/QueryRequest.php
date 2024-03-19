@@ -22,7 +22,7 @@ final class QueryRequest extends Input
      * Unique, case-sensitive string of up to 64 ASCII characters specified when a `Query` request is made. Providing a
      * `ClientToken` makes the call to `Query`*idempotent*. This means that running the same query repeatedly will produce
      * the same result. In other words, making multiple identical `Query` requests has the same effect as making a single
-     * request. When using `ClientToken` in a query, note the following:.
+     * request. When using `ClientToken` in a query, note the following:
      *
      * - If the Query API is instantiated without a `ClientToken`, the Query SDK generates a `ClientToken` on your behalf.
      * - If the `Query` invocation only contains the `ClientToken` but does not include a `NextToken`, that invocation of
@@ -62,7 +62,7 @@ final class QueryRequest extends Input
 
     /**
      * The total number of rows to be returned in the `Query` output. The initial run of `Query` with a `MaxRows` value
-     * specified will return the result set of the query in two cases:.
+     * specified will return the result set of the query in two cases:
      *
      * - The size of the result is less than `1MB`.
      * - The number of rows in the result set is less than the value of `maxRows`.

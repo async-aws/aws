@@ -199,7 +199,7 @@ final class ScanInput extends Input
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
-     * `ExpressionAttributeNames`:.
+     * `ExpressionAttributeNames`:
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.
@@ -259,7 +259,7 @@ final class ScanInput extends Input
     private $expressionAttributeValues;
 
     /**
-     * A Boolean value that determines the read consistency model during the scan:.
+     * A Boolean value that determines the read consistency model during the scan:
      *
      * - If `ConsistentRead` is `false`, then the data returned from `Scan` might not contain the results from other
      *   recently completed write operations (`PutItem`, `UpdateItem`, or `DeleteItem`).

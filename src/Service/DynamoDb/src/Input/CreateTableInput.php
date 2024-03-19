@@ -113,7 +113,7 @@ final class CreateTableInput extends Input
 
     /**
      * One or more global secondary indexes (the maximum is 20) to be created on the table. Each global secondary index in
-     * the array includes the following:.
+     * the array includes the following:
      *
      * - `IndexName` - The name of the global secondary index. Must be unique only for this table.
      * - `KeySchema` - Specifies the key schema for the global secondary index.
@@ -173,7 +173,7 @@ final class CreateTableInput extends Input
     private $provisionedThroughput;
 
     /**
-     * The settings for DynamoDB Streams on the table. These settings consist of:.
+     * The settings for DynamoDB Streams on the table. These settings consist of:
      *
      * - `StreamEnabled` - Indicates whether DynamoDB Streams is to be enabled (true) or disabled (false).
      * - `StreamViewType` - When an item in the table is modified, `StreamViewType` determines what information is written

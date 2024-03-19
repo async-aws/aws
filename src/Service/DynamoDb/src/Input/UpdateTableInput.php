@@ -64,7 +64,7 @@ final class UpdateTableInput extends Input
 
     /**
      * An array of one or more global secondary indexes for the table. For each index in the array, you can request one
-     * action:.
+     * action:
      *
      * - `Create` - add a new global secondary index to the table.
      * - `Update` - modify the provisioned throughput settings of an existing global secondary index.

@@ -3,7 +3,7 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
- * Represents one of the following:.
+ * Represents one of the following:
  *
  * - A new global secondary index to be added to an existing table.
  * - New provisioned throughput parameters for an existing global secondary index.
@@ -20,7 +20,7 @@ final class GlobalSecondaryIndexUpdate
     private $update;
 
     /**
-     * The parameters required for creating a global secondary index on an existing table:.
+     * The parameters required for creating a global secondary index on an existing table:
      *
      * - `IndexName `
      * - `KeySchema `

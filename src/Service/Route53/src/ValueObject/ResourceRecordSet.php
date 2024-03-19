@@ -108,7 +108,7 @@ final class ResourceRecordSet
      * a value that determines the proportion of DNS queries that Amazon Route 53 responds to using the current resource
      * record set. Route 53 calculates the sum of the weights for the resource record sets that have the same combination of
      * DNS name and type. Route 53 then responds to queries based on the ratio of a resource's weight to the total. Note the
-     * following:.
+     * following:
      *
      * - You must specify a value for the `Weight` element for every weighted resource record set.
      * - You can only specify one `ResourceRecord` per weighted resource record set.
@@ -226,7 +226,7 @@ final class ResourceRecordSet
     /**
      * *Multivalue answer resource record sets only*: To route traffic approximately randomly to multiple resources, such as
      * web servers, create one multivalue answer record for each resource and specify `true` for `MultiValueAnswer`. Note
-     * the following:.
+     * the following:
      *
      * - If you associate a health check with a multivalue answer resource record set, Amazon Route 53 responds to DNS
      *   queries with the corresponding IP address only when the health check is healthy.
@@ -247,7 +247,7 @@ final class ResourceRecordSet
     private $multiValueAnswer;
 
     /**
-     * The resource record cache time to live (TTL), in seconds. Note the following:.
+     * The resource record cache time to live (TTL), in seconds. Note the following:
      *
      * - If you're creating or updating an alias resource record set, omit `TTL`. Amazon Route 53 uses the value of `TTL`
      *   for the alias target.

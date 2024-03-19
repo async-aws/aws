@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class CloudWatchLogsConfig
 {
     /**
-     * The current status of the logs in CloudWatch Logs for a build project. Valid values are:.
+     * The current status of the logs in CloudWatch Logs for a build project. Valid values are:
      *
      * - `ENABLED`: CloudWatch Logs are enabled for this build project.
      * - `DISABLED`: CloudWatch Logs are not enabled for this build project.

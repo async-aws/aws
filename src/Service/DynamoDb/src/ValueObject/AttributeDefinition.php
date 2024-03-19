@@ -18,7 +18,7 @@ final class AttributeDefinition
     private $attributeName;
 
     /**
-     * The data type for the attribute, where:.
+     * The data type for the attribute, where:
      *
      * - `S` - the attribute is of type String
      * - `N` - the attribute is of type Number

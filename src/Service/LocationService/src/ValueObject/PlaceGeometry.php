@@ -8,7 +8,7 @@ namespace AsyncAws\LocationService\ValueObject;
 final class PlaceGeometry
 {
     /**
-     * A single point geometry specifies a location for a Place using WGS 84 [^1] coordinates:.
+     * A single point geometry specifies a location for a Place using WGS 84 [^1] coordinates:
      *
      * - *x* — Specifies the x coordinate or longitude.
      * - *y* — Specifies the y coordinate or latitude.

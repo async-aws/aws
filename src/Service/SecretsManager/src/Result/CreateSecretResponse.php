@@ -32,7 +32,7 @@ class CreateSecretResponse extends Result
     private $versionId;
 
     /**
-     * A list of the replicas of this secret and their status:.
+     * A list of the replicas of this secret and their status:
      *
      * - `Failed`, which indicates that the replica was not created.
      * - `InProgress`, which indicates that Secrets Manager is in the process of creating the replica.

@@ -17,7 +17,7 @@ final class ReplicaDescription
     private $regionName;
 
     /**
-     * The current state of the replica:.
+     * The current state of the replica:
      *
      * - `CREATING` - The replica is being created.
      * - `UPDATING` - The replica is being updated.

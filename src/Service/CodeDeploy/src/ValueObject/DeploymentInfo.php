@@ -108,7 +108,7 @@ final class DeploymentInfo
     private $description;
 
     /**
-     * The means by which the deployment was created:.
+     * The means by which the deployment was created:
      *
      * - `user`: A user created the deployment.
      * - `autoscaling`: Amazon EC2 Auto Scaling created the deployment.

@@ -18,7 +18,7 @@ final class GlobalSecondaryIndexDescription
 
     /**
      * The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key
-     * types:.
+     * types:
      *
      * - `HASH` - partition key
      * - `RANGE` - sort key
@@ -43,7 +43,7 @@ final class GlobalSecondaryIndexDescription
     private $projection;
 
     /**
-     * The current state of the global secondary index:.
+     * The current state of the global secondary index:
      *
      * - `CREATING` - The index is being created.
      * - `UPDATING` - The index is being updated.

@@ -45,7 +45,7 @@ final class Parameter
 
     /**
      * Either the version number or the label used to retrieve the parameter value. Specify selectors by using one of the
-     * following formats:.
+     * following formats:
      *
      * parameter_name:version
      *

@@ -53,7 +53,7 @@ final class Build
     private $currentPhase;
 
     /**
-     * The current status of the build. Valid values include:.
+     * The current status of the build. Valid values include:
      *
      * - `FAILED`: The build failed.
      * - `FAULT`: The build faulted.
@@ -119,7 +119,7 @@ final class Build
     private $secondarySources;
 
     /**
-     * An array of `ProjectSourceVersion` objects. Each `ProjectSourceVersion` must be one of:.
+     * An array of `ProjectSourceVersion` objects. Each `ProjectSourceVersion` must be one of:
      *
      * - For CodeCommit: the commit ID, branch, or Git tag to use.
      * - For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source
@@ -199,7 +199,7 @@ final class Build
     private $buildComplete;
 
     /**
-     * The entity that started the build. Valid values include:.
+     * The entity that started the build. Valid values include:
      *
      * - If CodePipeline started the build, the pipeline's name (for example, `codepipeline/my-demo-pipeline`).
      * - If a user started the build, the user's name (for example, `MyUserName`).

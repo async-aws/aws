@@ -50,7 +50,7 @@ final class StartBuildInput extends Input
 
     /**
      * The version of the build input to be built, for this build only. If not specified, the latest version is used. If
-     * specified, the contents depends on the source provider:.
+     * specified, the contents depends on the source provider:
      *
      * - `CodeCommit`:
      *
@@ -298,7 +298,7 @@ final class StartBuildInput extends Input
     private $registryCredentialOverride;
 
     /**
-     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:.
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      *
      * - `CODEBUILD`:
      *

@@ -11,7 +11,7 @@ use AsyncAws\Sqs\Enum\QueueAttributeName;
 final class CreateQueueRequest extends Input
 {
     /**
-     * The name of the new queue. The following limits apply to this name:.
+     * The name of the new queue. The following limits apply to this name:
      *
      * - A queue name can have up to 80 characters.
      * - Valid values: alphanumeric characters, hyphens (`-`), and underscores (`_`).

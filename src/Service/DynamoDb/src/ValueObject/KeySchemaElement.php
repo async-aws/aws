@@ -26,7 +26,7 @@ final class KeySchemaElement
     private $attributeName;
 
     /**
-     * The role that this key attribute will assume:.
+     * The role that this key attribute will assume:
      *
      * - `HASH` - partition key
      * - `RANGE` - sort key

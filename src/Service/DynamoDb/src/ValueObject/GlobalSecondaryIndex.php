@@ -18,7 +18,7 @@ final class GlobalSecondaryIndex
 
     /**
      * The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key
-     * types:.
+     * types:
      *
      * - `HASH` - partition key
      * - `RANGE` - sort key

@@ -17,7 +17,7 @@ final class BatchWriteItemInput extends Input
 {
     /**
      * A map of one or more table names and, for each table, a list of operations to be performed (`DeleteRequest` or
-     * `PutRequest`). Each element in the map consists of the following:.
+     * `PutRequest`). Each element in the map consists of the following:
      *
      * - `DeleteRequest` - Perform a `DeleteItem` operation on the specified item. The item to be deleted is identified by a
      *   `Key` subelement:

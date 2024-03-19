@@ -5,7 +5,7 @@ namespace AsyncAws\Route53\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 
 /**
- * The cause of this error depends on the operation that you're performing:.
+ * The cause of this error depends on the operation that you're performing:
  *
  * - **Create a public hosted zone:** Two hosted zones that have the same name or that have a parent/child relationship
  *   (example.com and test.example.com) can't have any common name servers. You tried to create a hosted zone that has

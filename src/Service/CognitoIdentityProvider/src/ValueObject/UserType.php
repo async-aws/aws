@@ -47,7 +47,7 @@ final class UserType
     private $enabled;
 
     /**
-     * The user status. This can be one of the following:.
+     * The user status. This can be one of the following:
      *
      * - UNCONFIRMED - User has been created but not confirmed.
      * - CONFIRMED - User has been confirmed.

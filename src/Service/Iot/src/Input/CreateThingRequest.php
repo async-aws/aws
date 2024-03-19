@@ -33,7 +33,7 @@ final class CreateThingRequest extends Input
     private $thingTypeName;
 
     /**
-     * The attribute payload, which consists of up to three name/value pairs in a JSON document. For example:.
+     * The attribute payload, which consists of up to three name/value pairs in a JSON document. For example:
      *
      * `{\"attributes\":{\"string1\":\"string2\"}}`
      *

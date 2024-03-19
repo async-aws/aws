@@ -14,7 +14,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ProjectArtifacts
 {
     /**
-     * The type of build output artifact. Valid values include:.
+     * The type of build output artifact. Valid values include:
      *
      * - `CODEPIPELINE`: The build project has build output generated through CodePipeline.
      *
@@ -28,7 +28,7 @@ final class ProjectArtifacts
     private $type;
 
     /**
-     * Information about the build output artifact location:.
+     * Information about the build output artifact location:
      *
      * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
      *   manages its build output locations instead of CodeBuild.
@@ -40,7 +40,7 @@ final class ProjectArtifacts
     private $location;
 
     /**
-     * Along with `namespaceType` and `name`, the pattern that CodeBuild uses to name and store the output artifact:.
+     * Along with `namespaceType` and `name`, the pattern that CodeBuild uses to name and store the output artifact:
      *
      * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
      *   manages its build output names instead of CodeBuild.
@@ -56,7 +56,7 @@ final class ProjectArtifacts
 
     /**
      * Along with `path` and `name`, the pattern that CodeBuild uses to determine the name and location to store the output
-     * artifact:.
+     * artifact:
      *
      * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
      *   manages its build output names instead of CodeBuild.
@@ -75,7 +75,7 @@ final class ProjectArtifacts
     private $namespaceType;
 
     /**
-     * Along with `path` and `namespaceType`, the pattern that CodeBuild uses to name and store the output artifact:.
+     * Along with `path` and `namespaceType`, the pattern that CodeBuild uses to name and store the output artifact:
      *
      * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
      *   manages its build output names instead of CodeBuild.
@@ -97,7 +97,7 @@ final class ProjectArtifacts
     private $name;
 
     /**
-     * The type of build output artifact to create:.
+     * The type of build output artifact to create:
      *
      * - If `type` is set to `CODEPIPELINE`, CodePipeline ignores this value if specified. This is because CodePipeline
      *   manages its build output artifacts instead of CodeBuild.

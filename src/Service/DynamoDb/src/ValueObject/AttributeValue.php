@@ -2,6 +2,8 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\DynamoDb\ValueObject\AttributeValue as AttributeValue1;
+
 /**
  * Represents the data for an attribute.
  *
@@ -14,7 +16,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 final class AttributeValue
 {
     /**
-     * An attribute of type String. For example:.
+     * An attribute of type String. For example:
      *
      * `"S": "Hello"`
      *
@@ -23,7 +25,7 @@ final class AttributeValue
     private $s;
 
     /**
-     * An attribute of type Number. For example:.
+     * An attribute of type Number. For example:
      *
      * `"N": "123.45"`
      *
@@ -35,7 +37,7 @@ final class AttributeValue
     private $n;
 
     /**
-     * An attribute of type Binary. For example:.
+     * An attribute of type Binary. For example:
      *
      * `"B": "dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk"`
      *
@@ -44,7 +46,7 @@ final class AttributeValue
     private $b;
 
     /**
-     * An attribute of type String Set. For example:.
+     * An attribute of type String Set. For example:
      *
      * `"SS": ["Giraffe", "Hippo" ,"Zebra"]`
      *
@@ -53,7 +55,7 @@ final class AttributeValue
     private $ss;
 
     /**
-     * An attribute of type Number Set. For example:.
+     * An attribute of type Number Set. For example:
      *
      * `"NS": ["42.2", "-19", "7.5", "3.14"]`
      *
@@ -65,7 +67,7 @@ final class AttributeValue
     private $ns;
 
     /**
-     * An attribute of type Binary Set. For example:.
+     * An attribute of type Binary Set. For example:
      *
      * `"BS": ["U3Vubnk=", "UmFpbnk=", "U25vd3k="]`
      *
@@ -74,7 +76,7 @@ final class AttributeValue
     private $bs;
 
     /**
-     * An attribute of type Map. For example:.
+     * An attribute of type Map. For example:
      *
      * `"M": {"Name": {"S": "Joe"}, "Age": {"N": "35"}}`
      *
@@ -83,7 +85,7 @@ final class AttributeValue
     private $m;
 
     /**
-     * An attribute of type List. For example:.
+     * An attribute of type List. For example:
      *
      * `"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]`
      *
@@ -92,7 +94,7 @@ final class AttributeValue
     private $l;
 
     /**
-     * An attribute of type Null. For example:.
+     * An attribute of type Null. For example:
      *
      * `"NULL": true`
      *
@@ -101,7 +103,7 @@ final class AttributeValue
     private $null;
 
     /**
-     * An attribute of type Boolean. For example:.
+     * An attribute of type Boolean. For example:
      *
      * `"BOOL": true`
      *
@@ -131,8 +133,8 @@ final class AttributeValue
         $this->ss = $input['SS'] ?? null;
         $this->ns = $input['NS'] ?? null;
         $this->bs = $input['BS'] ?? null;
-        $this->m = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : null;
-        $this->l = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : null;
+        $this->m = isset($input['M']) ? array_map([AttributeValue1::class, 'create'], $input['M']) : null;
+        $this->l = isset($input['L']) ? array_map([AttributeValue1::class, 'create'], $input['L']) : null;
         $this->null = $input['NULL'] ?? null;
         $this->bool = $input['BOOL'] ?? null;
     }

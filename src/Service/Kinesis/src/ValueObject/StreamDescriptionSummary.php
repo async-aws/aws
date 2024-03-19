@@ -26,7 +26,7 @@ final class StreamDescriptionSummary
     private $streamArn;
 
     /**
-     * The current status of the stream being described. The stream status is one of the following states:.
+     * The current status of the stream being described. The stream status is one of the following states:
      *
      * - `CREATING` - The stream is being created. Kinesis Data Streams immediately returns and sets `StreamStatus` to
      *   `CREATING`.
@@ -71,7 +71,7 @@ final class StreamDescriptionSummary
     private $enhancedMonitoring;
 
     /**
-     * The encryption type used. This value is one of the following:.
+     * The encryption type used. This value is one of the following:
      *
      * - `KMS`
      * - `NONE`

@@ -67,7 +67,7 @@ final class User
      * Web Services website. For a list of Amazon Web Services websites that capture a user's last sign-in time, see the
      * Credential reports [^2] topic in the *IAM User Guide*. If a password is used more than once in a five-minute span,
      * only the first use is returned in this field. If the field is null (no value), then it indicates that they never
-     * signed in with a password. This can be because:.
+     * signed in with a password. This can be because:
      *
      * - The user never had a password.
      * - A password exists but has not been used since IAM started tracking this information on October 20, 2014.

@@ -94,7 +94,7 @@ final class PublishInput extends Input
     /**
      * Set `MessageStructure` to `json` if you want to send a different message for each protocol. For example, using one
      * publish action, you can send a short message to your SMS subscribers and a longer message to your email subscribers.
-     * If you set `MessageStructure` to `json`, the value of the `Message` parameter must:.
+     * If you set `MessageStructure` to `json`, the value of the `Message` parameter must:
      *
      * - be a syntactically valid JSON object; and
      * - contain at least a top-level JSON key of "default" with a value that is a string.

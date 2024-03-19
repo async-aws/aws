@@ -353,7 +353,7 @@ class KmsClient extends AbstractApi
     }
 
     /**
-     * Decrypts ciphertext that was encrypted by a KMS key using any of the following operations:.
+     * Decrypts ciphertext that was encrypted by a KMS key using any of the following operations:
      *
      * - Encrypt
      * - GenerateDataKey

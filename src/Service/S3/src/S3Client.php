@@ -922,7 +922,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Removes an object from a bucket. The behavior depends on the bucket's versioning state:.
+     * Removes an object from a bucket. The behavior depends on the bucket's versioning state:
      *
      * - If bucket versioning is not enabled, the operation permanently deletes the object.
      * - If bucket versioning is enabled, the operation inserts a delete marker, which becomes the current version of the

@@ -8,7 +8,7 @@ use AsyncAws\Translate\Enum\Formality;
 use AsyncAws\Translate\Enum\Profanity;
 
 /**
- * Settings to configure your translation output. You can configure the following options:.
+ * Settings to configure your translation output. You can configure the following options:
  *
  * - Brevity: reduces the length of the translation output for most translations. Available for `TranslateText` only.
  * - Formality: sets the formality level of the translation output.

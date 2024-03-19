@@ -74,7 +74,7 @@ final class UpdateItemInput extends Input
 
     /**
      * Use `ReturnValues` if you want to get the item attributes as they appear before or after they are successfully
-     * updated. For `UpdateItem`, the valid values are:.
+     * updated. For `UpdateItem`, the valid values are:
      *
      * - `NONE` - If `ReturnValues` is not specified, or if its value is `NONE`, then nothing is returned. (This setting is
      *   the default for `ReturnValues`.)
@@ -196,7 +196,7 @@ final class UpdateItemInput extends Input
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
-     * `ExpressionAttributeNames`:.
+     * `ExpressionAttributeNames`:
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.

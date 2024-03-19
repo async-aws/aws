@@ -11,7 +11,7 @@ use AsyncAws\DynamoDb\Enum\SSEType;
 final class SSEDescription
 {
     /**
-     * Represents the current state of server-side encryption. The only supported values are:.
+     * Represents the current state of server-side encryption. The only supported values are:
      *
      * - `ENABLED` - Server-side encryption is enabled.
      * - `UPDATING` - Server-side encryption is being updated.
@@ -21,7 +21,7 @@ final class SSEDescription
     private $status;
 
     /**
-     * Server-side encryption type. The only supported value is:.
+     * Server-side encryption type. The only supported value is:
      *
      * - `KMS` - Server-side encryption that uses Key Management Service. The key is stored in your account and is managed
      *   by KMS (KMS charges apply).

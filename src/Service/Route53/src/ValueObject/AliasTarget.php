@@ -18,7 +18,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class AliasTarget
 {
     /**
-     * *Alias resource records sets only*: The value used depends on where you want to route traffic:.
+     * *Alias resource records sets only*: The value used depends on where you want to route traffic:
      *
      * - `Amazon API Gateway custom regional APIs and edge-optimized APIs`:
      *
@@ -95,7 +95,7 @@ final class AliasTarget
     private $hostedZoneId;
 
     /**
-     * *Alias resource record sets only:* The value that you specify depends on where you want to route queries:.
+     * *Alias resource record sets only:* The value that you specify depends on where you want to route queries:
      *
      * - `Amazon API Gateway custom regional APIs and edge-optimized APIs`:
      *

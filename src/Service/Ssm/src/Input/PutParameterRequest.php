@@ -117,7 +117,7 @@ final class PutParameterRequest extends Input
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as
      * by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify the
      * type of resource to which it applies, the environment, or the type of configuration data referenced by the parameter.
-     * In this case, you could specify the following key-value pairs:.
+     * In this case, you could specify the following key-value pairs:
      *
      * - `Key=Resource,Value=S3bucket`
      * - `Key=OS,Value=Windows`
@@ -188,7 +188,7 @@ final class PutParameterRequest extends Input
 
     /**
      * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
-     * Amazon Web Services Systems Manager supports the following policy types:.
+     * Amazon Web Services Systems Manager supports the following policy types:
      *
      * Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify the
      * expiration date. You can update the expiration date and time by updating the policy. Updating the *parameter* doesn't

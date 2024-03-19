@@ -8,7 +8,7 @@
         "ext-SimpleXML": "*",
         "ext-dom": "*",
         "ext-json": "*",
-        "friendsofphp/php-cs-fixer": "~3.24.0",
+        "friendsofphp/php-cs-fixer": "~3.52.0",
         "nette/php-generator": "^3.6 || ^4.1",
         "nette/utils": "^3.0 || ^4.0",
         "nikic/php-parser": "^4.0",

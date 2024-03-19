@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class RevisionLocation
 {
     /**
-     * The type of application revision:.
+     * The type of application revision:
      *
      * - S3: An application revision stored in Amazon S3.
      * - GitHub: An application revision stored in GitHub (EC2/On-premises deployments only).

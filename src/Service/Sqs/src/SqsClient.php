@@ -193,7 +193,7 @@ class SqsClient extends AbstractApi
     }
 
     /**
-     * Creates a new standard or FIFO queue. You can pass one or more attributes in the request. Keep the following in mind:.
+     * Creates a new standard or FIFO queue. You can pass one or more attributes in the request. Keep the following in mind:
      *
      * - If you don't specify the `FifoQueue` attribute, Amazon SQS creates a standard queue.
      *

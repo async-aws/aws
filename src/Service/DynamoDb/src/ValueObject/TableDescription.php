@@ -30,7 +30,7 @@ final class TableDescription
     private $tableName;
 
     /**
-     * The primary key structure for the table. Each `KeySchemaElement` consists of:.
+     * The primary key structure for the table. Each `KeySchemaElement` consists of:
      *
      * - `AttributeName` - The name of the attribute.
      * - `KeyType` - The role of the attribute:
@@ -56,7 +56,7 @@ final class TableDescription
     private $keySchema;
 
     /**
-     * The current state of the table:.
+     * The current state of the table:
      *
      * - `CREATING` - The table is being created.
      * - `UPDATING` - The table/index configuration is being updated. The table/index remains available for data operations
@@ -130,7 +130,7 @@ final class TableDescription
     /**
      * Represents one or more local secondary indexes on the table. Each index is scoped to a given partition key value.
      * Tables with one or more local secondary indexes are subject to an item collection size limit, where the amount of
-     * data within a given item collection cannot exceed 10 GB. Each element is composed of:.
+     * data within a given item collection cannot exceed 10 GB. Each element is composed of:
      *
      * - `IndexName` - The name of the local secondary index.
      * - `KeySchema` - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and
@@ -164,7 +164,7 @@ final class TableDescription
 
     /**
      * The global secondary indexes, if any, on the table. Each index is scoped to a given partition key value. Each element
-     * is composed of:.
+     * is composed of:
      *
      * - `Backfilling` - If true, then the index is currently in the backfilling phase. Backfilling occurs only when a new
      *   global secondary index is added to the table. It is the process by which DynamoDB populates the new index with data

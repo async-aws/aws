@@ -14,7 +14,7 @@ use AsyncAws\SecretsManager\Enum\FilterNameStringType;
 final class Filter
 {
     /**
-     * The following are keys you can use:.
+     * The following are keys you can use:
      *
      * - **description**: Prefix match, not case-sensitive.
      * - **name**: Prefix match, case-sensitive.

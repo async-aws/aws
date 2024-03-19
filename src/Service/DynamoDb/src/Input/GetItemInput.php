@@ -76,7 +76,7 @@ final class GetItemInput extends Input
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
-     * `ExpressionAttributeNames`:.
+     * `ExpressionAttributeNames`:
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.

@@ -5,7 +5,7 @@ namespace AsyncAws\CodeDeploy\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 
 /**
- * The format of the alarm configuration is invalid. Possible causes include:.
+ * The format of the alarm configuration is invalid. Possible causes include:
  *
  * - The alarm list is null.
  * - The alarm object is null.

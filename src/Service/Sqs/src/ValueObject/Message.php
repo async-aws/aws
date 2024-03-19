@@ -40,7 +40,7 @@ final class Message
     private $body;
 
     /**
-     * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
+     * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:
      *
      * - `ApproximateReceiveCount`
      * - `ApproximateFirstReceiveTimestamp`

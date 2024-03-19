@@ -2,6 +2,8 @@
 
 namespace AsyncAws\TimestreamQuery\ValueObject;
 
+use AsyncAws\TimestreamQuery\ValueObject\Datum as Datum1;
+
 /**
  * Datum represents a single data point in a query result.
  */
@@ -55,7 +57,7 @@ final class Datum
     {
         $this->scalarValue = $input['ScalarValue'] ?? null;
         $this->timeSeriesValue = isset($input['TimeSeriesValue']) ? array_map([TimeSeriesDataPoint::class, 'create'], $input['TimeSeriesValue']) : null;
-        $this->arrayValue = isset($input['ArrayValue']) ? array_map([Datum::class, 'create'], $input['ArrayValue']) : null;
+        $this->arrayValue = isset($input['ArrayValue']) ? array_map([Datum1::class, 'create'], $input['ArrayValue']) : null;
         $this->rowValue = isset($input['RowValue']) ? Row::create($input['RowValue']) : null;
         $this->nullValue = $input['NullValue'] ?? null;
     }

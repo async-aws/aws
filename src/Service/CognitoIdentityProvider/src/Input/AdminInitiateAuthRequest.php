@@ -34,7 +34,7 @@ final class AdminInitiateAuthRequest extends Input
     private $clientId;
 
     /**
-     * The authentication flow for this call to run. The API action will depend on this value. For example:.
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      *
      * - `REFRESH_TOKEN_AUTH` will take in a valid refresh token and return new tokens.
      * - `USER_SRP_AUTH` will take in `USERNAME` and `SRP_A` and return the Secure Remote Password (SRP) protocol variables
@@ -61,7 +61,7 @@ final class AdminInitiateAuthRequest extends Input
 
     /**
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required
-     * values depend on the value of `AuthFlow`:.
+     * values depend on the value of `AuthFlow`:
      *
      * - For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.

@@ -16,7 +16,7 @@ final class RestoreStatus
 {
     /**
      * Specifies whether the object is currently being restored. If the object restoration is in progress, the header
-     * returns the value `TRUE`. For example:.
+     * returns the value `TRUE`. For example:
      *
      * `x-amz-optional-object-attributes: IsRestoreInProgress="true"`
      *
@@ -32,7 +32,7 @@ final class RestoreStatus
 
     /**
      * Indicates when the restored copy will expire. This value is populated only if the object has already been restored.
-     * For example:.
+     * For example:
      *
      * `x-amz-optional-object-attributes: IsRestoreInProgress="false", RestoreExpiryDate="2012-12-21T00:00:00.000Z"`
      *
