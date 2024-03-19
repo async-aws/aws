@@ -11,7 +11,7 @@ use AsyncAws\Route53\Enum\ChangeAction;
 final class Change
 {
     /**
-     * The action to perform:.
+     * The action to perform:
      *
      * - `CREATE`: Creates a resource record set that has the specified values.
      * - `DELETE`: Deletes a existing resource record set.

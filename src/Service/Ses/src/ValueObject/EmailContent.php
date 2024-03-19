@@ -18,7 +18,7 @@ final class EmailContent
     private $simple;
 
     /**
-     * The raw email message. The message has to meet the following criteria:.
+     * The raw email message. The message has to meet the following criteria:
      *
      * - The message has to contain a header and a body, separated by one blank line.
      * - All of the required header fields must be present in the message.

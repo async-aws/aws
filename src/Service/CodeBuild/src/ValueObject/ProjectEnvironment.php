@@ -43,7 +43,7 @@ final class ProjectEnvironment
 
     /**
      * The image tag or image digest that identifies the Docker image to use for this build project. Use the following
-     * formats:.
+     * formats:
      *
      * - For an image tag: `<registry>/<repository>:<tag>`. For example, in the Docker repository that
      *   CodeBuild uses to manage its Docker images, this would be `aws/codebuild/standard:4.0`.
@@ -60,7 +60,7 @@ final class ProjectEnvironment
     private $image;
 
     /**
-     * Information about the compute resources the build project uses. Available values include:.
+     * Information about the compute resources the build project uses. Available values include:
      *
      * - `BUILD_GENERAL1_SMALL`: Use up to 3 GB memory and 2 vCPUs for builds.
      * - `BUILD_GENERAL1_MEDIUM`: Use up to 7 GB memory and 4 vCPUs for builds.
@@ -163,7 +163,7 @@ final class ProjectEnvironment
     private $registryCredential;
 
     /**
-     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:.
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      *
      * - `CODEBUILD` specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository
      *   policy to trust CodeBuild service principal.

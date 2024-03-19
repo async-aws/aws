@@ -16,7 +16,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class InitiateAuthRequest extends Input
 {
     /**
-     * The authentication flow for this call to run. The API action will depend on this value. For example:.
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      *
      * - `REFRESH_TOKEN_AUTH` takes in a valid refresh token and returns new tokens.
      * - `USER_SRP_AUTH` takes in `USERNAME` and `SRP_A` and returns the SRP variables to be used for next challenge
@@ -43,7 +43,7 @@ final class InitiateAuthRequest extends Input
 
     /**
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required
-     * values depend on the value of `AuthFlow`:.
+     * values depend on the value of `AuthFlow`:
      *
      * - For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.

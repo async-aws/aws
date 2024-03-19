@@ -12,7 +12,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ProjectCache
 {
     /**
-     * The type of cache used by the build project. Valid values include:.
+     * The type of cache used by the build project. Valid values include:
      *
      * - `NO_CACHE`: The build project does not use any cache.
      * - `S3`: The build project reads and writes from and to S3.
@@ -23,7 +23,7 @@ final class ProjectCache
     private $type;
 
     /**
-     * Information about the cache location:.
+     * Information about the cache location:
      *
      * - `NO_CACHE` or `LOCAL`: This value is ignored.
      * - `S3`: This is the S3 bucket name/prefix.

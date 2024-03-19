@@ -91,7 +91,7 @@ final class Stack
     private $stackStatusReason;
 
     /**
-     * Boolean to enable or disable rollback on stack creation failures:.
+     * Boolean to enable or disable rollback on stack creation failures:
      *
      * - `true`: disable rollback.
      * - `false`: enable rollback.

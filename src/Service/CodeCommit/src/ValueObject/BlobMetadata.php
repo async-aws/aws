@@ -22,7 +22,7 @@ final class BlobMetadata
     private $path;
 
     /**
-     * The file mode permissions of the blob. File mode permission codes include:.
+     * The file mode permissions of the blob. File mode permission codes include:
      *
      * - `100644` indicates read/write
      * - `100755` indicates read/write/execute

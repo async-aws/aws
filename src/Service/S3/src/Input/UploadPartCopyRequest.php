@@ -46,7 +46,7 @@ final class UploadPartCopyRequest extends Input
 
     /**
      * Specifies the source object for the copy operation. You specify the value in one of two formats, depending on whether
-     * you want to access the source object through an access point [^1]:.
+     * you want to access the source object through an access point [^1]:
      *
      * - For objects not accessed through an access point, specify the name of the source bucket and key of the source
      *   object, separated by a slash (/). For example, to copy the object `reports/january.pdf` from the bucket

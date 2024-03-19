@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Fix CS
+
 ## 1.0.0
 
 ### Added

@@ -12,7 +12,7 @@ final class CalculateRouteSummary
 {
     /**
      * The data provider of traffic and road network data used to calculate the route. Indicates one of the available
-     * providers:.
+     * providers:
      *
      * - `Esri`
      * - `Grab`

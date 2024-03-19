@@ -30,7 +30,7 @@ final class EnvironmentVariable
     private $value;
 
     /**
-     * The type of environment variable. Valid values include:.
+     * The type of environment variable. Valid values include:
      *
      * - `PARAMETER_STORE`: An environment variable stored in Systems Manager Parameter Store. For environment variables of
      *   this type, specify the name of the parameter as the `value` of the EnvironmentVariable. The parameter value will be

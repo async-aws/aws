@@ -3,7 +3,7 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 /**
- * Represents one of the following:.
+ * Represents one of the following:
  *
  * - A new replica to be added to an existing regional table or global table. This request invokes the
  *   `CreateTableReplica` action in the destination Region.

@@ -70,7 +70,7 @@ final class TranslateTextRequest extends Input
     private $targetLanguageCode;
 
     /**
-     * Settings to configure your translation output. You can configure the following options:.
+     * Settings to configure your translation output. You can configure the following options:
      *
      * - Brevity: reduces the length of the translated output for most translations.
      * - Formality: sets the formality level of the output text.

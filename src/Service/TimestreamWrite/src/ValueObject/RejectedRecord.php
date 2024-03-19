@@ -16,7 +16,7 @@ final class RejectedRecord
     private $recordIndex;
 
     /**
-     * The reason why a record was not successfully inserted into Timestream. Possible causes of failure include:.
+     * The reason why a record was not successfully inserted into Timestream. Possible causes of failure include:
      *
      * - Records with duplicate data where there are multiple records with the same dimensions, timestamps, and measure
      *   names but:

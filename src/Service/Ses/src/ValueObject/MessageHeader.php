@@ -10,7 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class MessageHeader
 {
     /**
-     * The name of the message header. The message header name has to meet the following criteria:.
+     * The name of the message header. The message header name has to meet the following criteria:
      *
      * - Can contain any printable ASCII character (33 - 126) except for colon (:).
      * - Can contain no more than 126 characters.
@@ -20,7 +20,7 @@ final class MessageHeader
     private $name;
 
     /**
-     * The value of the message header. The message header value has to meet the following criteria:.
+     * The value of the message header. The message header value has to meet the following criteria:
      *
      * - Can contain any printable ASCII character.
      * - Can contain no more than 870 characters.

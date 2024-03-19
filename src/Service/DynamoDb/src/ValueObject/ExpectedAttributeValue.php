@@ -8,7 +8,7 @@ use AsyncAws\DynamoDb\Enum\ComparisonOperator;
 /**
  * Represents a condition to be compared with an attribute value. This condition can be used with `DeleteItem`,
  * `PutItem`, or `UpdateItem` operations; if the comparison evaluates to true, the operation succeeds; if not, the
- * operation fails. You can use `ExpectedAttributeValue` in one of two different ways:.
+ * operation fails. You can use `ExpectedAttributeValue` in one of two different ways:
  *
  * - Use `AttributeValueList` to specify one or more values to compare against an attribute. Use `ComparisonOperator` to
  *   specify how you want to perform the comparison. If the comparison evaluates to true, then the conditional operation
@@ -37,7 +37,7 @@ final class ExpectedAttributeValue
     private $value;
 
     /**
-     * Causes DynamoDB to evaluate the value before attempting a conditional operation:.
+     * Causes DynamoDB to evaluate the value before attempting a conditional operation:
      *
      * - If `Exists` is `true`, DynamoDB will check to see if that attribute value already exists in the table. If it is
      *   found, then the operation succeeds. If it is not found, the operation fails with a `ConditionCheckFailedException`.

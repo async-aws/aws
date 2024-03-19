@@ -25,7 +25,7 @@ final class EC2TagFilter
     private $value;
 
     /**
-     * The tag filter type:.
+     * The tag filter type:
      *
      * - `KEY_ONLY`: Key only.
      * - `VALUE_ONLY`: Value only.

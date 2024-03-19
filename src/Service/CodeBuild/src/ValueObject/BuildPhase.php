@@ -11,7 +11,7 @@ use AsyncAws\CodeBuild\Enum\StatusType;
 final class BuildPhase
 {
     /**
-     * The name of the build phase. Valid values include:.
+     * The name of the build phase. Valid values include:
      *
      * - `BUILD`:
      *
@@ -52,7 +52,7 @@ final class BuildPhase
     private $phaseType;
 
     /**
-     * The current status of the build phase. Valid values include:.
+     * The current status of the build phase. Valid values include:
      *
      * - `FAILED`:
      *

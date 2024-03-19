@@ -252,7 +252,7 @@ class IamClient extends AbstractApi
     /**
      * Deletes the specified IAM user. Unlike the Amazon Web Services Management Console, when you delete a user
      * programmatically, you must delete the items attached to the user manually, or the deletion fails. For more
-     * information, see Deleting an IAM user [^1]. Before attempting to delete a user, remove the following items:.
+     * information, see Deleting an IAM user [^1]. Before attempting to delete a user, remove the following items:
      *
      * - Password (DeleteLoginProfile)
      * - Access keys (DeleteAccessKey)

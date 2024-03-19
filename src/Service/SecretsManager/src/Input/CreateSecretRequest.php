@@ -111,7 +111,7 @@ final class CreateSecretRequest extends Input
 
     /**
      * A list of tags to attach to the secret. Each tag is a key and value pair of strings in a JSON text string, for
-     * example:.
+     * example:
      *
      * `[{"Key":"CostCenter","Value":"12345"},{"Key":"environment","Value":"production"}]`
      *

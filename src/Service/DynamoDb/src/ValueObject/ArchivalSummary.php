@@ -15,7 +15,7 @@ final class ArchivalSummary
     private $archivalDateTime;
 
     /**
-     * The reason DynamoDB archived the table. Currently, the only possible value is:.
+     * The reason DynamoDB archived the table. Currently, the only possible value is:
      *
      * - `INACCESSIBLE_ENCRYPTION_CREDENTIALS` - The table was archived due to the table's KMS key being inaccessible for
      *   more than seven days. An On-Demand backup was created at the archival time.

@@ -6,6 +6,10 @@
 
 - AWS api-change: refine the list of available regions
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 2.1.1
 
 ### Changed

@@ -25,7 +25,7 @@ final class SqlParameter
     private $value;
 
     /**
-     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:.
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:
      *
      * - `DATE` - The corresponding `String` parameter value is sent as an object of `DATE` type to the database. The
      *   accepted format is `YYYY-MM-DD`.

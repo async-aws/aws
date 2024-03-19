@@ -58,7 +58,7 @@ final class CreateHostedZoneRequest extends Input
     private $callerReference;
 
     /**
-     * (Optional) A complex type that contains the following optional values:.
+     * (Optional) A complex type that contains the following optional values:
      *
      * - For public and private hosted zones, an optional comment
      * - For private hosted zones, an optional `PrivateZone` element

@@ -50,7 +50,7 @@ final class PublishLayerVersionRequest extends Input
     private $compatibleRuntimes;
 
     /**
-     * The layer's software license. It can be any of the following:.
+     * The layer's software license. It can be any of the following:
      *
      * - An SPDX license identifier [^1]. For example, `MIT`.
      * - The URL of a license hosted on the internet. For example, `https://opensource.org/licenses/MIT`.

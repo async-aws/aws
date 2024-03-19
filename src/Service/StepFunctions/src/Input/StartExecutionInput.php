@@ -67,7 +67,7 @@ final class StartExecutionInput extends Input
     private $name;
 
     /**
-     * The string that contains the JSON input data for the execution, for example:.
+     * The string that contains the JSON input data for the execution, for example:
      *
      * `"input": "{\"first_name\" : \"test\"}"`
      *

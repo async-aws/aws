@@ -26,7 +26,7 @@ final class StreamDescription
     private $streamArn;
 
     /**
-     * The current status of the stream being described. The stream status is one of the following states:.
+     * The current status of the stream being described. The stream status is one of the following states:
      *
      * - `CREATING` - The stream is being created. Kinesis Data Streams immediately returns and sets `StreamStatus` to
      *   `CREATING`.
@@ -85,7 +85,7 @@ final class StreamDescription
     private $enhancedMonitoring;
 
     /**
-     * The server-side encryption type used on the stream. This parameter can be one of the following values:.
+     * The server-side encryption type used on the stream. This parameter can be one of the following values:
      *
      * - `NONE`: Do not encrypt the records in the stream.
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS

@@ -8,7 +8,7 @@ namespace AsyncAws\Iot\ValueObject;
 final class AttributePayload
 {
     /**
-     * A JSON string containing up to three key-value pair in JSON format. For example:.
+     * A JSON string containing up to three key-value pair in JSON format. For example:
      *
      * `{\"attributes\":{\"string1\":\"string2\"}}`
      *

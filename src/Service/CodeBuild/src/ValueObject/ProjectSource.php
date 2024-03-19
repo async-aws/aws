@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ProjectSource
 {
     /**
-     * The type of repository that contains the source code to be built. Valid values include:.
+     * The type of repository that contains the source code to be built. Valid values include:
      *
      * - `BITBUCKET`: The source code is in a Bitbucket repository.
      * - `CODECOMMIT`: The source code is in an CodeCommit repository.
@@ -26,7 +26,7 @@ final class ProjectSource
     private $type;
 
     /**
-     * Information about the location of the source code to be built. Valid values include:.
+     * Information about the location of the source code to be built. Valid values include:
      *
      * - For source code settings that are specified in the source action of a pipeline in CodePipeline, `location` should
      *   not be specified. If it is specified, CodePipeline ignores it. This is because CodePipeline uses the settings in a

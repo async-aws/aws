@@ -27,7 +27,7 @@ final class AwsObject
     /**
      * The entity tag is a hash of the object. The ETag reflects changes only to the contents of an object, not its
      * metadata. The ETag may or may not be an MD5 digest of the object data. Whether or not it is depends on how the object
-     * was created and how it is encrypted as described below:.
+     * was created and how it is encrypted as described below:
      *
      * - Objects created by the PUT Object, POST Object, or Copy operation, or through the Amazon Web Services Management
      *   Console, and are encrypted by SSE-S3 or plaintext, have ETags that are an MD5 digest of their object data.

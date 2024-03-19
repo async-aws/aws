@@ -7,7 +7,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 /**
  * Parameter Store retains the 100 most recently created versions of a parameter. After this number of versions has been
  * created, Parameter Store deletes the oldest version when a new one is created. However, if the oldest version has a
- * *label* attached to it, Parameter Store won't delete the version and instead presents this error message:.
+ * *label* attached to it, Parameter Store won't delete the version and instead presents this error message:
  *
  * `An error occurred (ParameterMaxVersionLimitExceeded) when calling the PutParameter operation: You attempted to
  * create a new version of *parameter-name* by calling the PutParameter API with the overwrite flag. Version

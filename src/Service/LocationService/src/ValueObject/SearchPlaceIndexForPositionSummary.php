@@ -11,7 +11,7 @@ final class SearchPlaceIndexForPositionSummary
 {
     /**
      * The geospatial data provider attached to the place index resource specified in the request. Values can be one of the
-     * following:.
+     * following:
      *
      * - Esri
      * - Grab

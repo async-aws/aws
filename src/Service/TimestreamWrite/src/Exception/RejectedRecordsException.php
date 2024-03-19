@@ -7,7 +7,7 @@ use AsyncAws\TimestreamWrite\ValueObject\RejectedRecord;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * WriteRecords would throw this exception in the following cases:.
+ * WriteRecords would throw this exception in the following cases:
  *
  * - Records with duplicate data where there are multiple records with the same dimensions, timestamps, and measure
  *   names but:

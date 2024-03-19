@@ -10,7 +10,7 @@ use AsyncAws\Comprehend\Enum\InvalidRequestDetailReason;
 final class InvalidRequestDetail
 {
     /**
-     * Reason codes include the following values:.
+     * Reason codes include the following values:
      *
      * - DOCUMENT_SIZE_EXCEEDED - Document size is too large. Check the size of your file and resubmit the request.
      * - UNSUPPORTED_DOC_TYPE - Document type is not supported. Check the file type and resubmit the request.

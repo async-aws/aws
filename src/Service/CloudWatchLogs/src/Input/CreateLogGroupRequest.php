@@ -46,7 +46,7 @@ final class CreateLogGroupRequest extends Input
     private $tags;
 
     /**
-     * Use this parameter to specify the log group class for this log group. There are two classes:.
+     * Use this parameter to specify the log group class for this log group. There are two classes:
      *
      * - The `Standard` log class supports all CloudWatch Logs features.
      * - The `Infrequent Access` log class supports a subset of CloudWatch Logs features and incurs lower costs.

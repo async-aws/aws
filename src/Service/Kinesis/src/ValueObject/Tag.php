@@ -19,7 +19,7 @@ final class Tag
 
     /**
      * An optional string, typically used to describe or define the tag. Maximum length: 256 characters. Valid characters:
-     * Unicode letters, digits, white space, _ . / = + - % @.
+     * Unicode letters, digits, white space, _ . / = + - % @
      *
      * @var string|null
      */

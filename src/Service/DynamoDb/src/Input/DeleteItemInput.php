@@ -63,7 +63,7 @@ final class DeleteItemInput extends Input
 
     /**
      * Use `ReturnValues` if you want to get the item attributes as they appeared before they were deleted. For
-     * `DeleteItem`, the valid values are:.
+     * `DeleteItem`, the valid values are:
      *
      * - `NONE` - If `ReturnValues` is not specified, or if its value is `NONE`, then nothing is returned. (This setting is
      *   the default for `ReturnValues`.)
@@ -115,7 +115,7 @@ final class DeleteItemInput extends Input
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
-     * `ExpressionAttributeNames`:.
+     * `ExpressionAttributeNames`:
      *
      * - To access an attribute whose name conflicts with a DynamoDB reserved word.
      * - To create a placeholder for repeating occurrences of an attribute name in an expression.
