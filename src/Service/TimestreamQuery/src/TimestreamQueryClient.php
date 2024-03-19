@@ -103,7 +103,7 @@ class TimestreamQueryClient extends AbstractApi
 
     /**
      * A synchronous operation that allows you to submit a query with parameters to be stored by Timestream for later
-     * running. Timestream only supports using this operation with the `PrepareQueryRequest$ValidateOnly` set to `true`.
+     * running. Timestream only supports using this operation with `ValidateOnly` set to `true`.
      *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_PrepareQuery.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#preparequery

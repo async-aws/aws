@@ -12,7 +12,10 @@ use AsyncAws\TimestreamQuery\Enum\ScalarType;
 final class Type
 {
     /**
-     * Indicates if the column is of type string, integer, Boolean, double, timestamp, date, time.
+     * Indicates if the column is of type string, integer, Boolean, double, timestamp, date, time. For more information, see
+     * Supported data types [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/supported-data-types.html
      *
      * @var ScalarType::*|null
      */
