@@ -42,7 +42,7 @@ final class RollbackConfiguration
      * If you specify a monitoring period but don't specify any rollback triggers, CloudFormation still waits the specified
      * period of time before cleaning up old resources after update operations. You can use this monitoring period to
      * perform any manual stack validation desired, and manually cancel the stack creation or update (using
-     * `CancelUpdateStack` [^1], for example) as necessary.
+     * CancelUpdateStack [^1], for example) as necessary.
      *
      * If you specify 0 for this parameter, CloudFormation still monitors the specified rollback triggers during stack
      * creation and update operations. Then, for update operations, it begins disposing of old resources immediately once
