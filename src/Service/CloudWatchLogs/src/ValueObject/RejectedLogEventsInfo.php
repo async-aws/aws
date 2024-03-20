@@ -8,14 +8,14 @@ namespace AsyncAws\CloudWatchLogs\ValueObject;
 final class RejectedLogEventsInfo
 {
     /**
-     * The log events that are too new.
+     * The index of the first log event that is too new. This field is inclusive.
      *
      * @var int|null
      */
     private $tooNewLogEventStartIndex;
 
     /**
-     * The log events that are dated too far in the past.
+     * The index of the last log event that is too old. This field is exclusive.
      *
      * @var int|null
      */
