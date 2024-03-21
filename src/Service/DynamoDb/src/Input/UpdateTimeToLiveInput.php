@@ -14,7 +14,8 @@ use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 final class UpdateTimeToLiveInput extends Input
 {
     /**
-     * The name of the table to be configured.
+     * The name of the table to be configured. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      *
      * @required
      *

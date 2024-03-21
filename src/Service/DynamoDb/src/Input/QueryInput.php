@@ -18,7 +18,8 @@ use AsyncAws\DynamoDb\ValueObject\Condition;
 final class QueryInput extends Input
 {
     /**
-     * The name of the table containing the requested items.
+     * The name of the table containing the requested items. You can also provide the Amazon Resource Name (ARN) of the
+     * table in this parameter.
      *
      * @required
      *

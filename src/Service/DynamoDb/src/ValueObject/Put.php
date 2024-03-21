@@ -21,7 +21,8 @@ final class Put
     private $item;
 
     /**
-     * Name of the table in which to write the item.
+     * Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      *
      * @var string
      */

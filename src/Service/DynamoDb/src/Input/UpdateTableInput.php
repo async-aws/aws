@@ -29,7 +29,8 @@ final class UpdateTableInput extends Input
     private $attributeDefinitions;
 
     /**
-     * The name of the table to be updated.
+     * The name of the table to be updated. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      *
      * @required
      *

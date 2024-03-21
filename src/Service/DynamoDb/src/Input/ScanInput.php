@@ -18,8 +18,10 @@ use AsyncAws\DynamoDb\ValueObject\Condition;
 final class ScanInput extends Input
 {
     /**
-     * The name of the table containing the requested items; or, if you provide `IndexName`, the name of the table to which
+     * The name of the table containing the requested items or if you provide `IndexName`, the name of the table to which
      * that index belongs.
+     *
+     * You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      *
      * @required
      *

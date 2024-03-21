@@ -18,7 +18,8 @@ final class Delete
     private $key;
 
     /**
-     * Name of the table in which the item to be deleted resides.
+     * Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name (ARN) of the
+     * table in this parameter.
      *
      * @var string
      */

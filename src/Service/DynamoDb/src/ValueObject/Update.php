@@ -26,7 +26,8 @@ final class Update
     private $updateExpression;
 
     /**
-     * Name of the table for the `UpdateItem` request.
+     * Name of the table for the `UpdateItem` request. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      *
      * @var string
      */
