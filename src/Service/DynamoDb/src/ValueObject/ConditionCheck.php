@@ -19,7 +19,8 @@ final class ConditionCheck
     private $key;
 
     /**
-     * Name of the table for the check item request.
+     * Name of the table for the check item request. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      *
      * @var string
      */

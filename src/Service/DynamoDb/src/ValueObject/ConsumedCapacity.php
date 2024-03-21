@@ -13,7 +13,8 @@ namespace AsyncAws\DynamoDb\ValueObject;
 final class ConsumedCapacity
 {
     /**
-     * The name of the table that was affected by the operation.
+     * The name of the table that was affected by the operation. If you had specified the Amazon Resource Name (ARN) of a
+     * table in the input, you'll see the table ARN in the response.
      *
      * @var string|null
      */

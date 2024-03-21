@@ -15,7 +15,8 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 final class GetItemInput extends Input
 {
     /**
-     * The name of the table containing the requested item.
+     * The name of the table containing the requested item. You can also provide the Amazon Resource Name (ARN) of the table
+     * in this parameter.
      *
      * @required
      *

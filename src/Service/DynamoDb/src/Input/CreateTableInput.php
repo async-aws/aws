@@ -36,7 +36,7 @@ final class CreateTableInput extends Input
     private $attributeDefinitions;
 
     /**
-     * The name of the table to create.
+     * The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      *
      * @required
      *
@@ -219,6 +219,22 @@ final class CreateTableInput extends Input
     private $deletionProtectionEnabled;
 
     /**
+     * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
+     *
+     * When you attach a resource-based policy while creating a table, the policy creation is *strongly consistent*.
+     *
+     * The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     * calculating the size of a policy against this limit. You can’t request an increase for this limit. For a full list
+     * of all considerations that you should keep in mind while attaching a resource-based policy, see Resource-based policy
+     * considerations [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html
+     *
+     * @var string|null
+     */
+    private $resourcePolicy;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: array<AttributeDefinition|array>,
      *   TableName?: string,
@@ -232,6 +248,7 @@ final class CreateTableInput extends Input
      *   Tags?: null|array<Tag|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   ResourcePolicy?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -249,6 +266,7 @@ final class CreateTableInput extends Input
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
+        $this->resourcePolicy = $input['ResourcePolicy'] ?? null;
         parent::__construct($input);
     }
 
@@ -266,6 +284,7 @@ final class CreateTableInput extends Input
      *   Tags?: null|array<Tag|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   ResourcePolicy?: null|string,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      */
@@ -322,6 +341,11 @@ final class CreateTableInput extends Input
     public function getProvisionedThroughput(): ?ProvisionedThroughput
     {
         return $this->provisionedThroughput;
+    }
+
+    public function getResourcePolicy(): ?string
+    {
+        return $this->resourcePolicy;
     }
 
     public function getSseSpecification(): ?SSESpecification
@@ -444,6 +468,13 @@ final class CreateTableInput extends Input
         return $this;
     }
 
+    public function setResourcePolicy(?string $value): self
+    {
+        $this->resourcePolicy = $value;
+
+        return $this;
+    }
+
     public function setSseSpecification(?SSESpecification $value): self
     {
         $this->sseSpecification = $value;
@@ -561,6 +592,9 @@ final class CreateTableInput extends Input
         }
         if (null !== $v = $this->deletionProtectionEnabled) {
             $payload['DeletionProtectionEnabled'] = (bool) $v;
+        }
+        if (null !== $v = $this->resourcePolicy) {
+            $payload['ResourcePolicy'] = $v;
         }
 
         return $payload;

@@ -20,7 +20,8 @@ use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 final class PutItemInput extends Input
 {
     /**
-     * The name of the table to contain the item.
+     * The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      *
      * @required
      *

@@ -15,8 +15,8 @@ use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 final class BatchGetItemInput extends Input
 {
     /**
-     * A map of one or more table names and, for each table, a map that describes one or more items to retrieve from that
-     * table. Each table name can be used only once per `BatchGetItem` request.
+     * A map of one or more table names or table ARNs and, for each table, a map that describes one or more items to
+     * retrieve from that table. Each table name or ARN can be used only once per `BatchGetItem` request.
      *
      * Each element in the map of items to retrieve consists of the following:
      *

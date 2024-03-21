@@ -21,7 +21,8 @@ use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 final class UpdateItemInput extends Input
 {
     /**
-     * The name of the table containing the item to update.
+     * The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN) of the table
+     * in this parameter.
      *
      * @required
      *

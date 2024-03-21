@@ -13,7 +13,8 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DescribeTableInput extends Input
 {
     /**
-     * The name of the table to describe.
+     * The name of the table to describe. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      *
      * @required
      *

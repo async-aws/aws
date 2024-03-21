@@ -278,6 +278,7 @@ class DynamoDbClient extends AbstractApi
      *   Tags?: null|array<Tag|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   ResourcePolicy?: null|string,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
@@ -976,8 +977,8 @@ class DynamoDbClient extends AbstractApi
      *   perform other operations.
      *
      * `UpdateTable` is an asynchronous operation; while it's executing, the table status changes from `ACTIVE` to
-     * `UPDATING`. While it's `UPDATING`, you can't issue another `UpdateTable` request on the base table nor any replicas.
-     * When the table returns to the `ACTIVE` state, the `UpdateTable` operation is complete.
+     * `UPDATING`. While it's `UPDATING`, you can't issue another `UpdateTable` request. When the table returns to the
+     * `ACTIVE` state, the `UpdateTable` operation is complete.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
      *

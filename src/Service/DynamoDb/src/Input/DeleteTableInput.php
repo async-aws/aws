@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DeleteTableInput extends Input
 {
     /**
-     * The name of the table to delete.
+     * The name of the table to delete. You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      *
      * @required
      *
