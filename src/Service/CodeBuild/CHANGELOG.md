@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Supporting GitLab and GitLab Self Managed as source types in AWS CodeBuild.
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
