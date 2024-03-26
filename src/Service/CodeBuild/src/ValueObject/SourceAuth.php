@@ -13,9 +13,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class SourceAuth
 {
     /**
-     * > This data type is deprecated and is no longer accurate or used.
-     *
-     * The authorization type to use. The only valid value is `OAUTH`, which represents the OAuth authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      *
      * @var SourceAuthType::*
      */

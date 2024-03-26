@@ -16,8 +16,10 @@ final class ProjectSource
      * - `BITBUCKET`: The source code is in a Bitbucket repository.
      * - `CODECOMMIT`: The source code is in an CodeCommit repository.
      * - `CODEPIPELINE`: The source code settings are specified in the source action of a pipeline in CodePipeline.
-     * - `GITHUB`: The source code is in a GitHub or GitHub Enterprise Cloud repository.
+     * - `GITHUB`: The source code is in a GitHub repository.
      * - `GITHUB_ENTERPRISE`: The source code is in a GitHub Enterprise Server repository.
+     * - `GITLAB`: The source code is in a GitLab repository.
+     * - `GITLAB_SELF_MANAGED`: The source code is in a self-managed GitLab repository.
      * - `NO_SOURCE`: The project does not have input source code.
      * - `S3`: The source code is in an Amazon S3 bucket.
      *
@@ -48,6 +50,14 @@ final class ProjectSource
      *   want to allow CodeBuild to have access to, and then choose **Authorize application**. (After you have connected to
      *   your GitHub account, you do not need to finish creating the build project. You can leave the CodeBuild console.) To
      *   instruct CodeBuild to use this connection, in the `source` object, set the `auth` object's `type` value to `OAUTH`.
+     * - For source code in an GitLab or self-managed GitLab repository, the HTTPS clone URL to the repository that contains
+     *   the source and the buildspec file. You must connect your Amazon Web Services account to your GitLab account. Use
+     *   the CodeBuild console to start creating a build project. When you use the console to connect (or reconnect) with
+     *   GitLab, on the Connections **Authorize application** page, choose **Authorize**. Then on the CodeStar Connections
+     *   **Create GitLab connection** page, choose **Connect to GitLab**. (After you have connected to your GitLab account,
+     *   you do not need to finish creating the build project. You can leave the CodeBuild console.) To instruct CodeBuild
+     *   to override the default connection and use this connection instead, set the `auth` object's `type` value to
+     *   `CODECONNECTIONS` in the `source` object.
      * - For source code in a Bitbucket repository, the HTTPS clone URL to the repository that contains the source and the
      *   buildspec file. You must connect your Amazon Web Services account to your Bitbucket account. Use the CodeBuild
      *   console to start creating a build project. When you use the console to connect (or reconnect) with Bitbucket, on
@@ -103,8 +113,8 @@ final class ProjectSource
 
     /**
      * Set to true to report the status of a build's start and finish to your source provider. This option is valid only
-     * when your source provider is GitHub, GitHub Enterprise, or Bitbucket. If this is set and you use a different source
-     * provider, an `invalidInputException` is thrown.
+     * when your source provider is GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or Bitbucket. If this is set and
+     * you use a different source provider, an `invalidInputException` is thrown.
      *
      * To be able to report the build status to the source provider, the user associated with the source provider must have
      * write access to the repo. If the user does not have write access, the build status cannot be updated. For more
