@@ -9,11 +9,10 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 
-/**
- * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
- */
 class CloudWatchLogsHandler extends AbstractProcessingHandler
 {
     /**
@@ -117,6 +116,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->flushBuffer();
     }
 
+
+
     /**
      * {@inheritdoc}
      */
@@ -126,10 +127,21 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @param LogRecord|array $record
      */
-    protected function write(array $record): void
+    protected function write($record): void
     {
+        if ($record instanceof LogRecord) {
+            /**
+             * @psalm-suppress NoInterfaceProperties
+             */
+            $formatted = $record->formatted;
+            $record = array_merge($record->toArray(), ['formatted' => $formatted]);
+        }
+        if (!\is_array($record)) {
+            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
+        }
+
         $records = $this->formatRecords($record);
 
         foreach ($records as $record) {
@@ -186,8 +198,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * Event size in the batch can not be bigger than 256 KB
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/cloudwatch_limits_cwl.html.
      *
-     * @phpstan-param FormattedRecord $entry
-     *
      * @return list<array{message: string, timestamp: int|float}>
      */
     private function formatRecords(array $entry): array
@@ -209,10 +219,22 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * http://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html.
      *
-     * @param array{message: string, timestamp: int|float} $record
+     * @param \Monolog\LogRecord|array{message: string, timestamp: int|float} $record
      */
-    private function getMessageSize(array $record): int
+    private function getMessageSize($record): int
     {
+        if ($record instanceof LogRecord) {
+            /**
+             * @psalm-suppress NoInterfaceProperties
+             */
+            $formatted = $record->formatted;
+            $record = array_merge($record->toArray(), ['formatted' => $formatted]);
+        }
+
+        if (!\is_array($record)) {
+            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
+        }
+
         return \strlen($record['message']) + 26;
     }
 
