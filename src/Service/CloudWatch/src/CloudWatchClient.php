@@ -240,7 +240,7 @@ class CloudWatchClient extends AbstractApi
      * up to fifteen minutes for the metric to appear in calls to ListMetrics [^1].
      *
      * You can publish either individual data points in the `Value` field, or arrays of values and the number of times each
-     * value occurred during the period by using the `Values` and `Counts` fields in the `MetricDatum` structure. Using the
+     * value occurred during the period by using the `Values` and `Counts` fields in the `MetricData` structure. Using the
      * `Values` and `Counts` method enables you to publish up to 150 values per metric with one `PutMetricData` request, and
      * supports retrieving percentile statistics on this data.
      *
