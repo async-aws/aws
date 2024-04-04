@@ -174,7 +174,7 @@ final class UpdateFunctionConfigurationRequest extends Input
     /**
      * Container image configuration values [^1] that override the values in the container image Docker file.
      *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/images-parms.html
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms
      *
      * @var ImageConfig|null
      */
