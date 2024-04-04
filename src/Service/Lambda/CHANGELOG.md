@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add Ruby 3.3 (ruby3.3) support to AWS Lambda
+
 ### Changed
 
 - AWS enhancement: Documentation updates.

@@ -41,6 +41,7 @@ final class Runtime
     public const RUBY_2_5 = 'ruby2.5';
     public const RUBY_2_7 = 'ruby2.7';
     public const RUBY_3_2 = 'ruby3.2';
+    public const RUBY_3_3 = 'ruby3.3';
 
     public static function exists(string $value): bool
     {
@@ -82,6 +83,7 @@ final class Runtime
             self::RUBY_2_5 => true,
             self::RUBY_2_7 => true,
             self::RUBY_3_2 => true,
+            self::RUBY_3_3 => true,
         ][$value]);
     }
 }
