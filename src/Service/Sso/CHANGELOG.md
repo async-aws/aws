@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Added `ap-southeast-4` region
-- AWS api-change: TODO
+- AWS api-change: Added `ap-south-2` and `eu-south-2` regions
 
 ## 1.1.0
 
