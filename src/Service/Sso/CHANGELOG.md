@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `ap-southeast-4` region
+- AWS api-change: TODO
 
 ## 1.1.0
 
