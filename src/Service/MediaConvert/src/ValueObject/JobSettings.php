@@ -24,7 +24,8 @@ final class JobSettings
 
     /**
      * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
-     * include up to 8 different 3D LUTs.
+     * include up to 8 different 3D LUTs. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html.
      *
      * @var ColorConversion3DLUTSetting[]|null
      */
