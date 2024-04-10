@@ -53,7 +53,7 @@ final class ProjectSource
      * - For source code in an GitLab or self-managed GitLab repository, the HTTPS clone URL to the repository that contains
      *   the source and the buildspec file. You must connect your Amazon Web Services account to your GitLab account. Use
      *   the CodeBuild console to start creating a build project. When you use the console to connect (or reconnect) with
-     *   GitLab, on the Connections **Authorize application** page, choose **Authorize**. Then on the CodeStar Connections
+     *   GitLab, on the Connections **Authorize application** page, choose **Authorize**. Then on the CodeConnections
      *   **Create GitLab connection** page, choose **Connect to GitLab**. (After you have connected to your GitLab account,
      *   you do not need to finish creating the build project. You can leave the CodeBuild console.) To instruct CodeBuild
      *   to override the default connection and use this connection instead, set the `auth` object's `type` value to

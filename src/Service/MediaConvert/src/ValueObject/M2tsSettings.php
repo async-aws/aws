@@ -14,6 +14,7 @@ use AsyncAws\MediaConvert\Enum\M2tsForceTsVideoEbpOrder;
 use AsyncAws\MediaConvert\Enum\M2tsKlvMetadata;
 use AsyncAws\MediaConvert\Enum\M2tsNielsenId3;
 use AsyncAws\MediaConvert\Enum\M2tsPcrControl;
+use AsyncAws\MediaConvert\Enum\M2tsPreventBufferUnderflow;
 use AsyncAws\MediaConvert\Enum\M2tsRateMode;
 use AsyncAws\MediaConvert\Enum\M2tsScte35Source;
 use AsyncAws\MediaConvert\Enum\M2tsSegmentationMarkers;
@@ -251,6 +252,17 @@ final class M2tsSettings
     private $pmtPid;
 
     /**
+     * Specify whether MediaConvert automatically attempts to prevent decoder buffer underflows in your transport stream
+     * output. Use if you are seeing decoder buffer underflows in your output and are unable to increase your transport
+     * stream's bitrate. For most workflows: We recommend that you keep the default value, Disabled. To prevent decoder
+     * buffer underflows in your output, when possible: Choose Enabled. Note that if MediaConvert prevents a decoder buffer
+     * underflow in your output, output video quality is reduced and your job will take longer to complete.
+     *
+     * @var M2tsPreventBufferUnderflow::*|null
+     */
+    private $preventBufferUnderflow;
+
+    /**
      * Specify the packet identifier (PID) of the private metadata stream. Default is 503.
      *
      * @var int|null
@@ -400,6 +412,7 @@ final class M2tsSettings
      *   PcrPid?: null|int,
      *   PmtInterval?: null|int,
      *   PmtPid?: null|int,
+     *   PreventBufferUnderflow?: null|M2tsPreventBufferUnderflow::*,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
      *   PtsOffset?: null|int,
@@ -445,6 +458,7 @@ final class M2tsSettings
         $this->pcrPid = $input['PcrPid'] ?? null;
         $this->pmtInterval = $input['PmtInterval'] ?? null;
         $this->pmtPid = $input['PmtPid'] ?? null;
+        $this->preventBufferUnderflow = $input['PreventBufferUnderflow'] ?? null;
         $this->privateMetadataPid = $input['PrivateMetadataPid'] ?? null;
         $this->programNumber = $input['ProgramNumber'] ?? null;
         $this->ptsOffset = $input['PtsOffset'] ?? null;
@@ -490,6 +504,7 @@ final class M2tsSettings
      *   PcrPid?: null|int,
      *   PmtInterval?: null|int,
      *   PmtPid?: null|int,
+     *   PreventBufferUnderflow?: null|M2tsPreventBufferUnderflow::*,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
      *   PtsOffset?: null|int,
@@ -683,6 +698,14 @@ final class M2tsSettings
     public function getPmtPid(): ?int
     {
         return $this->pmtPid;
+    }
+
+    /**
+     * @return M2tsPreventBufferUnderflow::*|null
+     */
+    public function getPreventBufferUnderflow(): ?string
+    {
+        return $this->preventBufferUnderflow;
     }
 
     public function getPrivateMetadataPid(): ?int
@@ -899,6 +922,12 @@ final class M2tsSettings
         }
         if (null !== $v = $this->pmtPid) {
             $payload['pmtPid'] = $v;
+        }
+        if (null !== $v = $this->preventBufferUnderflow) {
+            if (!M2tsPreventBufferUnderflow::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "preventBufferUnderflow" for "%s". The value "%s" is not a valid "M2tsPreventBufferUnderflow".', __CLASS__, $v));
+            }
+            $payload['preventBufferUnderflow'] = $v;
         }
         if (null !== $v = $this->privateMetadataPid) {
             $payload['privateMetadataPid'] = $v;

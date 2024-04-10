@@ -81,6 +81,39 @@ final class BurninDestinationSettings
     private $fontColor;
 
     /**
+     * Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL. When
+     * you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     *
+     * @var string|null
+     */
+    private $fontFileBold;
+
+    /**
+     * Specify a bold italic TrueType font file to use when rendering your output captions.
+     * Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, a bold, and an italic font file.
+     *
+     * @var string|null
+     */
+    private $fontFileBoldItalic;
+
+    /**
+     * Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     *
+     * @var string|null
+     */
+    private $fontFileItalic;
+
+    /**
+     * Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     *
+     * @var string|null
+     */
+    private $fontFileRegular;
+
+    /**
      * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent.
      *
      * @var int|null
@@ -171,12 +204,13 @@ final class BurninDestinationSettings
     private $shadowYoffset;
 
     /**
-     * Set Style passthrough to ENABLED to use the available style, color, and position information from your input
-     * captions. MediaConvert uses default settings for any missing style and position information in your input captions.
-     * Set Style passthrough to DISABLED, or leave blank, to ignore the style and position information from your input
-     * captions and use default settings: white text with black outlining, bottom-center positioning, and automatic sizing.
-     * Whether you set Style passthrough to enabled or not, you can also choose to manually override any of the individual
-     * style and position settings.
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. Note that MediaConvert uses default settings for any missing style or position information in your input
+     * captions To ignore the style and position information from your input captions and use default settings: Leave blank
+     * or keep the default value, Disabled. Default settings include white text with black outlining, bottom-center
+     * positioning, and automatic sizing. Whether you set Style passthrough to enabled or not, you can also choose to
+     * manually override any of the individual style and position settings. You can also override any fonts by manually
+     * specifying custom font files.
      *
      * @var BurnInSubtitleStylePassthrough::*|null
      */
@@ -217,6 +251,10 @@ final class BurninDestinationSettings
      *   BackgroundOpacity?: null|int,
      *   FallbackFont?: null|BurninSubtitleFallbackFont::*,
      *   FontColor?: null|BurninSubtitleFontColor::*,
+     *   FontFileBold?: null|string,
+     *   FontFileBoldItalic?: null|string,
+     *   FontFileItalic?: null|string,
+     *   FontFileRegular?: null|string,
      *   FontOpacity?: null|int,
      *   FontResolution?: null|int,
      *   FontScript?: null|FontScript::*,
@@ -242,6 +280,10 @@ final class BurninDestinationSettings
         $this->backgroundOpacity = $input['BackgroundOpacity'] ?? null;
         $this->fallbackFont = $input['FallbackFont'] ?? null;
         $this->fontColor = $input['FontColor'] ?? null;
+        $this->fontFileBold = $input['FontFileBold'] ?? null;
+        $this->fontFileBoldItalic = $input['FontFileBoldItalic'] ?? null;
+        $this->fontFileItalic = $input['FontFileItalic'] ?? null;
+        $this->fontFileRegular = $input['FontFileRegular'] ?? null;
         $this->fontOpacity = $input['FontOpacity'] ?? null;
         $this->fontResolution = $input['FontResolution'] ?? null;
         $this->fontScript = $input['FontScript'] ?? null;
@@ -267,6 +309,10 @@ final class BurninDestinationSettings
      *   BackgroundOpacity?: null|int,
      *   FallbackFont?: null|BurninSubtitleFallbackFont::*,
      *   FontColor?: null|BurninSubtitleFontColor::*,
+     *   FontFileBold?: null|string,
+     *   FontFileBoldItalic?: null|string,
+     *   FontFileItalic?: null|string,
+     *   FontFileRegular?: null|string,
      *   FontOpacity?: null|int,
      *   FontResolution?: null|int,
      *   FontScript?: null|FontScript::*,
@@ -332,6 +378,26 @@ final class BurninDestinationSettings
     public function getFontColor(): ?string
     {
         return $this->fontColor;
+    }
+
+    public function getFontFileBold(): ?string
+    {
+        return $this->fontFileBold;
+    }
+
+    public function getFontFileBoldItalic(): ?string
+    {
+        return $this->fontFileBoldItalic;
+    }
+
+    public function getFontFileItalic(): ?string
+    {
+        return $this->fontFileItalic;
+    }
+
+    public function getFontFileRegular(): ?string
+    {
+        return $this->fontFileRegular;
     }
 
     public function getFontOpacity(): ?int
@@ -462,6 +528,18 @@ final class BurninDestinationSettings
                 throw new InvalidArgument(sprintf('Invalid parameter "fontColor" for "%s". The value "%s" is not a valid "BurninSubtitleFontColor".', __CLASS__, $v));
             }
             $payload['fontColor'] = $v;
+        }
+        if (null !== $v = $this->fontFileBold) {
+            $payload['fontFileBold'] = $v;
+        }
+        if (null !== $v = $this->fontFileBoldItalic) {
+            $payload['fontFileBoldItalic'] = $v;
+        }
+        if (null !== $v = $this->fontFileItalic) {
+            $payload['fontFileItalic'] = $v;
+        }
+        if (null !== $v = $this->fontFileRegular) {
+            $payload['fontFileRegular'] = $v;
         }
         if (null !== $v = $this->fontOpacity) {
             $payload['fontOpacity'] = $v;
