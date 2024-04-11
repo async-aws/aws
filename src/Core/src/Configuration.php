@@ -100,7 +100,7 @@ final class Configuration
     private $userData = [];
 
     /**
-     * @param array<self::OPTION_*, string|null> $options
+     * @param array<self::OPTION_*, string|\SensitiveParameterValue|null> $options
      */
     public static function create(array $options): self
     {
@@ -110,9 +110,10 @@ final class Configuration
 
         // Force each option to be string or null
         $options = array_map(static function ($value) {
-            if (class_exists('\\SensitiveParameterValue') && $value instanceof \SensitiveParameterValue) {
+            if (\PHP_VERSION_ID >= 80200 && $value instanceof \SensitiveParameterValue) {
                 return $value;
             }
+
             return null !== $value ? (string) $value : $value;
         }, $options);
 
