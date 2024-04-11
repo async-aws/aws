@@ -110,6 +110,9 @@ final class Configuration
 
         // Force each option to be string or null
         $options = array_map(static function ($value) {
+            if (class_exists('\\SensitiveParameterValue') && $value instanceof \SensitiveParameterValue) {
+                return $value;
+            }
             return null !== $value ? (string) $value : $value;
         }, $options);
 
