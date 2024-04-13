@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This feature supports the ability to specify a custom rotation period for automatic key rotations, the ability to perform on-demand key rotations, and visibility into your key material rotations.
+- AWS api-change: change property used for pagination.
 
 ### Changed
 
