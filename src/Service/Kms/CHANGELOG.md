@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: change property used for pagination.
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
