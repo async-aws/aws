@@ -31,8 +31,8 @@ class ListAliasesResponse extends Result implements \IteratorAggregate
 
     /**
      * A flag that indicates whether there are more items in the list. When this value is true, the list in this response is
-     * truncated. To get more items, pass the value of the `NextMarker` element in thisresponse to the `Marker` parameter in
-     * a subsequent request.
+     * truncated. To get more items, pass the value of the `NextMarker` element in this response to the `Marker` parameter
+     * in a subsequent request.
      *
      * @var bool|null
      */
@@ -63,7 +63,7 @@ class ListAliasesResponse extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextMarker) {
+            if ($page->truncated) {
                 $input->setMarker($page->nextMarker);
 
                 $this->registerPrefetch($nextPage = $client->listAliases($input));
