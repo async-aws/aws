@@ -15,8 +15,10 @@ final class GetParametersRequest extends Input
      *
      * To query by parameter label, use `"Name": "name:label"`. To query by parameter version, use `"Name": "name:version"`.
      *
-     * For more information about shared parameters, see Working with shared parameters [^1] in the *Amazon Web Services
-     * Systems Manager User Guide*.
+     * > The results for `GetParameters` requests are listed in alphabetical order in query responses.
+     *
+     * For information about shared parameters, see Working with shared parameters [^1] in the *Amazon Web Services Systems
+     * Manager User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html
      *
