@@ -54,18 +54,16 @@ final class GroupType
     private $precedence;
 
     /**
-     * The date and time, in ISO 8601 [^1] format, when the item was modified.
-     *
-     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format. Your
+     * SDK might render the output in a human-readable format like ISO 8601 or a Java `Date` object.
      *
      * @var \DateTimeImmutable|null
      */
     private $lastModifiedDate;
 
     /**
-     * The date and time, in ISO 8601 [^1] format, when the item was created.
-     *
-     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format. Your
+     * SDK might render the output in a human-readable format like ISO 8601 or a Java `Date` object.
      *
      * @var \DateTimeImmutable|null
      */

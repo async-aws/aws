@@ -1894,6 +1894,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UsernameExistsException
      * @throws TooManyRequestsException
      * @throws InternalErrorException
+     * @throws LimitExceededException
      * @throws InvalidSmsRoleAccessPolicyException
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws InvalidEmailRoleAccessPolicyException
@@ -1914,6 +1915,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UsernameExistsException' => UsernameExistsException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
