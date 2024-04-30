@@ -238,7 +238,7 @@ class MediaConvertClient extends AbstractApi
         switch ($region) {
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://subscribe.mediaconvert.cn-northwest-1.amazonaws.com.cn',
+                    'endpoint' => 'https://mediaconvert.cn-northwest-1.amazonaws.com.cn',
                     'signRegion' => 'cn-northwest-1',
                     'signService' => 'mediaconvert',
                     'signVersions' => ['v4'],
