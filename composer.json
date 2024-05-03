@@ -22,7 +22,7 @@
         "illuminate/queue": "^6.18.11 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "illuminate/support": "^6.18.13 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "matthiasnoback/symfony-config-test": "^4.1 || ^5.0",
-        "monolog/monolog": "^1.1 || ^2.0",
+        "monolog/monolog": "^1.1 || ^2.0 || ^3.0",
         "nette/php-generator": "^3.6 || ^4.1",
         "nette/utils": "^3.0 || ^4.0",
         "nikic/php-parser": "^4.0",

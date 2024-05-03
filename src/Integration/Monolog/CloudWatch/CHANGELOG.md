@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for `monolog/monolog` 3.0
+
 ## 1.1.0
 
 ### Added
