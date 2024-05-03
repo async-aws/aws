@@ -66,6 +66,13 @@ final class ReplicaDescription
     private $provisionedThroughputOverride;
 
     /**
+     * Overrides the maximum on-demand throughput settings for the specified replica table.
+     *
+     * @var OnDemandThroughputOverride|null
+     */
+    private $onDemandThroughputOverride;
+
+    /**
      * Replica-specific global secondary index settings.
      *
      * @var ReplicaGlobalSecondaryIndexDescription[]|null
@@ -93,6 +100,7 @@ final class ReplicaDescription
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      *   ReplicaTableClassSummary?: null|TableClassSummary|array,
@@ -106,6 +114,7 @@ final class ReplicaDescription
         $this->replicaStatusPercentProgress = $input['ReplicaStatusPercentProgress'] ?? null;
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->onDemandThroughputOverride = isset($input['OnDemandThroughputOverride']) ? OnDemandThroughputOverride::create($input['OnDemandThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->replicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
         $this->replicaTableClassSummary = isset($input['ReplicaTableClassSummary']) ? TableClassSummary::create($input['ReplicaTableClassSummary']) : null;
@@ -119,6 +128,7 @@ final class ReplicaDescription
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      *   ReplicaTableClassSummary?: null|TableClassSummary|array,
@@ -140,6 +150,11 @@ final class ReplicaDescription
     public function getKmsMasterKeyId(): ?string
     {
         return $this->kmsMasterKeyId;
+    }
+
+    public function getOnDemandThroughputOverride(): ?OnDemandThroughputOverride
+    {
+        return $this->onDemandThroughputOverride;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride

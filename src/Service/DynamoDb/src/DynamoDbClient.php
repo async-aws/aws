@@ -74,6 +74,7 @@ use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
+use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
@@ -279,6 +280,7 @@ class DynamoDbClient extends AbstractApi
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   ResourcePolicy?: null|string,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
@@ -996,6 +998,7 @@ class DynamoDbClient extends AbstractApi
      *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *

@@ -107,6 +107,14 @@ final class GlobalSecondaryIndexDescription
     private $indexArn;
 
     /**
+     * The maximum number of read and write units for the specified global secondary index. If you use this parameter, you
+     * must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     *
+     * @var OnDemandThroughput|null
+     */
+    private $onDemandThroughput;
+
+    /**
      * @param array{
      *   IndexName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
@@ -117,6 +125,7 @@ final class GlobalSecondaryIndexDescription
      *   IndexSizeBytes?: null|int,
      *   ItemCount?: null|int,
      *   IndexArn?: null|string,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * } $input
      */
     public function __construct(array $input)
@@ -130,6 +139,7 @@ final class GlobalSecondaryIndexDescription
         $this->indexSizeBytes = $input['IndexSizeBytes'] ?? null;
         $this->itemCount = $input['ItemCount'] ?? null;
         $this->indexArn = $input['IndexArn'] ?? null;
+        $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
     }
 
     /**
@@ -143,6 +153,7 @@ final class GlobalSecondaryIndexDescription
      *   IndexSizeBytes?: null|int,
      *   ItemCount?: null|int,
      *   IndexArn?: null|string,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * }|GlobalSecondaryIndexDescription $input
      */
     public static function create($input): self
@@ -189,6 +200,11 @@ final class GlobalSecondaryIndexDescription
     public function getKeySchema(): array
     {
         return $this->keySchema ?? [];
+    }
+
+    public function getOnDemandThroughput(): ?OnDemandThroughput
+    {
+        return $this->onDemandThroughput;
     }
 
     public function getProjection(): ?Projection

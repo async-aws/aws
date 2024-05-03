@@ -294,6 +294,14 @@ final class TableDescription
     private $deletionProtectionEnabled;
 
     /**
+     * The maximum number of read and write units for the specified on-demand table. If you use this parameter, you must
+     * specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     *
+     * @var OnDemandThroughput|null
+     */
+    private $onDemandThroughput;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: null|string,
@@ -318,6 +326,7 @@ final class TableDescription
      *   ArchivalSummary?: null|ArchivalSummary|array,
      *   TableClassSummary?: null|TableClassSummary|array,
      *   DeletionProtectionEnabled?: null|bool,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * } $input
      */
     public function __construct(array $input)
@@ -345,6 +354,7 @@ final class TableDescription
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
         $this->tableClassSummary = isset($input['TableClassSummary']) ? TableClassSummary::create($input['TableClassSummary']) : null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
+        $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
     }
 
     /**
@@ -372,6 +382,7 @@ final class TableDescription
      *   ArchivalSummary?: null|ArchivalSummary|array,
      *   TableClassSummary?: null|TableClassSummary|array,
      *   DeletionProtectionEnabled?: null|bool,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * }|TableDescription $input
      */
     public static function create($input): self
@@ -449,6 +460,11 @@ final class TableDescription
     public function getLocalSecondaryIndexes(): array
     {
         return $this->localSecondaryIndexes ?? [];
+    }
+
+    public function getOnDemandThroughput(): ?OnDemandThroughput
+    {
+        return $this->onDemandThroughput;
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughputDescription

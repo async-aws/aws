@@ -34,6 +34,13 @@ final class UpdateReplicationGroupMemberAction
     private $provisionedThroughputOverride;
 
     /**
+     * Overrides the maximum on-demand throughput for the replica table.
+     *
+     * @var OnDemandThroughputOverride|null
+     */
+    private $onDemandThroughputOverride;
+
+    /**
      * Replica-specific global secondary index settings.
      *
      * @var ReplicaGlobalSecondaryIndex[]|null
@@ -52,6 +59,7 @@ final class UpdateReplicationGroupMemberAction
      *   RegionName: string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndex|array>,
      *   TableClassOverride?: null|TableClass::*,
      * } $input
@@ -61,6 +69,7 @@ final class UpdateReplicationGroupMemberAction
         $this->regionName = $input['RegionName'] ?? $this->throwException(new InvalidArgument('Missing required field "RegionName".'));
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->onDemandThroughputOverride = isset($input['OnDemandThroughputOverride']) ? OnDemandThroughputOverride::create($input['OnDemandThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->tableClassOverride = $input['TableClassOverride'] ?? null;
     }
@@ -70,6 +79,7 @@ final class UpdateReplicationGroupMemberAction
      *   RegionName: string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndex|array>,
      *   TableClassOverride?: null|TableClass::*,
      * }|UpdateReplicationGroupMemberAction $input
@@ -90,6 +100,11 @@ final class UpdateReplicationGroupMemberAction
     public function getKmsMasterKeyId(): ?string
     {
         return $this->kmsMasterKeyId;
+    }
+
+    public function getOnDemandThroughputOverride(): ?OnDemandThroughputOverride
+    {
+        return $this->onDemandThroughputOverride;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
@@ -123,6 +138,9 @@ final class UpdateReplicationGroupMemberAction
         }
         if (null !== $v = $this->provisionedThroughputOverride) {
             $payload['ProvisionedThroughputOverride'] = $v->requestBody();
+        }
+        if (null !== $v = $this->onDemandThroughputOverride) {
+            $payload['OnDemandThroughputOverride'] = $v->requestBody();
         }
         if (null !== $v = $this->globalSecondaryIndexes) {
             $index = -1;

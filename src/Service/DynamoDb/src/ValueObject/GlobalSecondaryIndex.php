@@ -55,11 +55,20 @@ final class GlobalSecondaryIndex
     private $provisionedThroughput;
 
     /**
+     * The maximum number of read and write units for the specified global secondary index. If you use this parameter, you
+     * must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     *
+     * @var OnDemandThroughput|null
+     */
+    private $onDemandThroughput;
+
+    /**
      * @param array{
      *   IndexName: string,
      *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * } $input
      */
     public function __construct(array $input)
@@ -68,6 +77,7 @@ final class GlobalSecondaryIndex
         $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : $this->throwException(new InvalidArgument('Missing required field "KeySchema".'));
         $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : $this->throwException(new InvalidArgument('Missing required field "Projection".'));
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
     }
 
     /**
@@ -76,6 +86,7 @@ final class GlobalSecondaryIndex
      *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * }|GlobalSecondaryIndex $input
      */
     public static function create($input): self
@@ -94,6 +105,11 @@ final class GlobalSecondaryIndex
     public function getKeySchema(): array
     {
         return $this->keySchema;
+    }
+
+    public function getOnDemandThroughput(): ?OnDemandThroughput
+    {
+        return $this->onDemandThroughput;
     }
 
     public function getProjection(): Projection
@@ -127,6 +143,9 @@ final class GlobalSecondaryIndex
         $payload['Projection'] = $v->requestBody();
         if (null !== $v = $this->provisionedThroughput) {
             $payload['ProvisionedThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->onDemandThroughput) {
+            $payload['OnDemandThroughput'] = $v->requestBody();
         }
 
         return $payload;

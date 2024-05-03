@@ -15,6 +15,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
+use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
 use AsyncAws\DynamoDb\ValueObject\Projection;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
@@ -221,18 +222,25 @@ final class CreateTableInput extends Input
     /**
      * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
      *
-     * When you attach a resource-based policy while creating a table, the policy creation is *strongly consistent*.
+     * When you attach a resource-based policy while creating a table, the policy application is *strongly consistent*.
      *
      * The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
-     * calculating the size of a policy against this limit. You can’t request an increase for this limit. For a full list
-     * of all considerations that you should keep in mind while attaching a resource-based policy, see Resource-based policy
-     * considerations [^1].
+     * calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     * resource-based policies, see Resource-based policy considerations [^1].
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html
      *
      * @var string|null
      */
     private $resourcePolicy;
+
+    /**
+     * Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you use this
+     * parameter, you must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     *
+     * @var OnDemandThroughput|null
+     */
+    private $onDemandThroughput;
 
     /**
      * @param array{
@@ -249,6 +257,7 @@ final class CreateTableInput extends Input
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   ResourcePolicy?: null|string,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -267,6 +276,7 @@ final class CreateTableInput extends Input
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
         $this->resourcePolicy = $input['ResourcePolicy'] ?? null;
+        $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         parent::__construct($input);
     }
 
@@ -285,6 +295,7 @@ final class CreateTableInput extends Input
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   ResourcePolicy?: null|string,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      */
@@ -336,6 +347,11 @@ final class CreateTableInput extends Input
     public function getLocalSecondaryIndexes(): array
     {
         return $this->localSecondaryIndexes ?? [];
+    }
+
+    public function getOnDemandThroughput(): ?OnDemandThroughput
+    {
+        return $this->onDemandThroughput;
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
@@ -457,6 +473,13 @@ final class CreateTableInput extends Input
     public function setLocalSecondaryIndexes(array $value): self
     {
         $this->localSecondaryIndexes = $value;
+
+        return $this;
+    }
+
+    public function setOnDemandThroughput(?OnDemandThroughput $value): self
+    {
+        $this->onDemandThroughput = $value;
 
         return $this;
     }
@@ -595,6 +618,9 @@ final class CreateTableInput extends Input
         }
         if (null !== $v = $this->resourcePolicy) {
             $payload['ResourcePolicy'] = $v;
+        }
+        if (null !== $v = $this->onDemandThroughput) {
+            $payload['OnDemandThroughput'] = $v->requestBody();
         }
 
         return $payload;
