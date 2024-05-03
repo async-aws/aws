@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for Laravel 10 and 11
+
 ### Changed
 
 - Fix CS
