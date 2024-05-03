@@ -2,17 +2,10 @@
 
 ## NOT RELEASED
 
-## 1.0.0
-
-- Empty release
-
-## 0.1.3
-
 ### Added
 
 - AWS api-change: This release includes support for bringing your own fonts to use for burn-in or DVB-Sub captioning workflows.
 - AWS api-change: Change endpoint for `cn-northwest-1` region
-
 
 ## 1.1.0
 

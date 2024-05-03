@@ -4,12 +4,6 @@
 
 ### Added
 
-- AWS api-change: Release CodeBuild Reserved Capacity feature
-
-## 2.2.0
-
-### Added
-
 - AWS api-change: Supporting GitLab and GitLab Self Managed as source types in AWS CodeBuild.
 
 ### Changed

@@ -9,7 +9,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Level;
 use Monolog\Logger;
 use Monolog\LogRecord;
 
@@ -116,8 +115,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->flushBuffer();
     }
 
-
-
     /**
      * {@inheritdoc}
      */
@@ -131,27 +128,17 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     protected function write($record): void
     {
-        if ($record instanceof LogRecord) {
-            /**
-             * @psalm-suppress NoInterfaceProperties
-             */
-            $formatted = $record->formatted;
-            $record = array_merge($record->toArray(), ['formatted' => $formatted]);
-        }
-        if (!\is_array($record)) {
-            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
-        }
+        $entries = $this->formatRecords($record);
 
-        $records = $this->formatRecords($record);
-
-        foreach ($records as $record) {
-            if ($this->currentDataAmount + $this->getMessageSize($record) >= self::DATA_AMOUNT_LIMIT) {
+        foreach ($entries as $entry) {
+            $entrySize = $this->getEntrySize($entry);
+            if ($this->currentDataAmount + $entrySize >= self::DATA_AMOUNT_LIMIT) {
                 $this->flushBuffer();
             }
 
-            $this->currentDataAmount += $this->getMessageSize($record);
+            $this->currentDataAmount += $entrySize;
 
-            $this->buffer[] = $record;
+            $this->buffer[] = $entry;
 
             if (\count($this->buffer) >= $this->options['batchSize']) {
                 $this->flushBuffer();
@@ -198,12 +185,18 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * Event size in the batch can not be bigger than 256 KB
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/cloudwatch_limits_cwl.html.
      *
+     * @param LogRecord|array $record
+     *
      * @return list<array{message: string, timestamp: int|float}>
      */
-    private function formatRecords(array $entry): array
+    private function formatRecords($record): array
     {
-        $entries = str_split($entry['formatted'], self::EVENT_SIZE_LIMIT);
-        $timestamp = $entry['datetime']->format('U.u') * 1000;
+        if (!$record instanceof LogRecord && !\is_array($record)) {
+            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
+        }
+
+        $entries = str_split($record['formatted'], self::EVENT_SIZE_LIMIT);
+        $timestamp = $record['datetime']->format('U.u') * 1000;
         $records = [];
 
         foreach ($entries as $entry) {
@@ -219,23 +212,11 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * http://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html.
      *
-     * @param \Monolog\LogRecord|array{message: string, timestamp: int|float} $record
+     * @param array{message: string, timestamp: int|float} $entry
      */
-    private function getMessageSize($record): int
+    private function getEntrySize(array $entry): int
     {
-        if ($record instanceof LogRecord) {
-            /**
-             * @psalm-suppress NoInterfaceProperties
-             */
-            $formatted = $record->formatted;
-            $record = array_merge($record->toArray(), ['formatted' => $formatted]);
-        }
-
-        if (!\is_array($record)) {
-            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
-        }
-
-        return \strlen($record['message']) + 26;
+        return \strlen($entry['message']) + 26;
     }
 
     /**

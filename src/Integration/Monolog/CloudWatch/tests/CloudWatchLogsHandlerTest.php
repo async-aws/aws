@@ -7,7 +7,9 @@ use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -115,8 +117,7 @@ class CloudWatchLogsHandlerTest extends TestCase
         $records = [];
 
         for ($i = 1; $i <= 4; ++$i) {
-            $record = $this->getRecord(Logger::INFO, 'record' . $i);
-            $record['datetime'] = \DateTime::createFromFormat('U', time() + $i);
+            $record = $this->getRecord(Logger::INFO, 'record' . $i, [], \DateTimeImmutable::createFromFormat('U', time() + $i));
             $records[] = $record;
         }
 
@@ -138,17 +139,31 @@ class CloudWatchLogsHandlerTest extends TestCase
         ]);
     }
 
-    private function getRecord(int $level = Logger::WARNING, string $message = 'test', array $context = []): array
+    private function getRecord(int $level = Logger::WARNING, string $message = 'test', array $context = [], ?\DateTimeImmutable $datetime = null)
     {
-        return [
+        $data = [
             'message' => $message,
             'context' => $context,
             'level' => $level,
-            'level_name' => Logger::getLevelName($level),
             'channel' => 'test',
-            'datetime' => \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true))),
+            'datetime' => $datetime ?? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', microtime(true))),
             'extra' => [],
         ];
+
+        if (!class_exists(LogRecord::class)) {
+            $data['level_name'] = Logger::getLevelName($data['level']);
+
+            return $data;
+        }
+
+        return new LogRecord(
+            $data['datetime'],
+            $data['channel'],
+            Level::fromValue($data['level']),
+            $data['message'],
+            $data['context'],
+            $data['extra']
+        );
     }
 
     private function getMultipleRecords(): array

@@ -2,8 +2,6 @@
 
 ## NOT RELEASED
 
-## 1.2.0
-
 ### Added
 
 - AWS api-change: Added `us-isob-east-1` region.
