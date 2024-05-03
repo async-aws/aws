@@ -25,21 +25,32 @@ final class ReplicaGlobalSecondaryIndex
     private $provisionedThroughputOverride;
 
     /**
+     * Overrides the maximum on-demand throughput settings for the specified global secondary index in the specified replica
+     * table.
+     *
+     * @var OnDemandThroughputOverride|null
+     */
+    private $onDemandThroughputOverride;
+
+    /**
      * @param array{
      *   IndexName: string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->onDemandThroughputOverride = isset($input['OnDemandThroughputOverride']) ? OnDemandThroughputOverride::create($input['OnDemandThroughputOverride']) : null;
     }
 
     /**
      * @param array{
      *   IndexName: string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      * }|ReplicaGlobalSecondaryIndex $input
      */
     public static function create($input): self
@@ -50,6 +61,11 @@ final class ReplicaGlobalSecondaryIndex
     public function getIndexName(): string
     {
         return $this->indexName;
+    }
+
+    public function getOnDemandThroughputOverride(): ?OnDemandThroughputOverride
+    {
+        return $this->onDemandThroughputOverride;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
@@ -67,6 +83,9 @@ final class ReplicaGlobalSecondaryIndex
         $payload['IndexName'] = $v;
         if (null !== $v = $this->provisionedThroughputOverride) {
             $payload['ProvisionedThroughputOverride'] = $v->requestBody();
+        }
+        if (null !== $v = $this->onDemandThroughputOverride) {
+            $payload['OnDemandThroughputOverride'] = $v->requestBody();
         }
 
         return $payload;

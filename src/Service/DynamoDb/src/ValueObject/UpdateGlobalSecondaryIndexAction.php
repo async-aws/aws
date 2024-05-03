@@ -24,26 +24,37 @@ final class UpdateGlobalSecondaryIndexAction
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
      *
-     * @var ProvisionedThroughput
+     * @var ProvisionedThroughput|null
      */
     private $provisionedThroughput;
 
     /**
+     * Updates the maximum number of read and write units for the specified global secondary index. If you use this
+     * parameter, you must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     *
+     * @var OnDemandThroughput|null
+     */
+    private $onDemandThroughput;
+
+    /**
      * @param array{
      *   IndexName: string,
-     *   ProvisionedThroughput: ProvisionedThroughput|array,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
-        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : $this->throwException(new InvalidArgument('Missing required field "ProvisionedThroughput".'));
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
     }
 
     /**
      * @param array{
      *   IndexName: string,
-     *   ProvisionedThroughput: ProvisionedThroughput|array,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      * }|UpdateGlobalSecondaryIndexAction $input
      */
     public static function create($input): self
@@ -56,7 +67,12 @@ final class UpdateGlobalSecondaryIndexAction
         return $this->indexName;
     }
 
-    public function getProvisionedThroughput(): ProvisionedThroughput
+    public function getOnDemandThroughput(): ?OnDemandThroughput
+    {
+        return $this->onDemandThroughput;
+    }
+
+    public function getProvisionedThroughput(): ?ProvisionedThroughput
     {
         return $this->provisionedThroughput;
     }
@@ -69,8 +85,12 @@ final class UpdateGlobalSecondaryIndexAction
         $payload = [];
         $v = $this->indexName;
         $payload['IndexName'] = $v;
-        $v = $this->provisionedThroughput;
-        $payload['ProvisionedThroughput'] = $v->requestBody();
+        if (null !== $v = $this->provisionedThroughput) {
+            $payload['ProvisionedThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->onDemandThroughput) {
+            $payload['OnDemandThroughput'] = $v->requestBody();
+        }
 
         return $payload;
     }

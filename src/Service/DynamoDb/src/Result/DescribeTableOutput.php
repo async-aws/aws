@@ -10,6 +10,8 @@ use AsyncAws\DynamoDb\ValueObject\BillingModeSummary;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexDescription;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndexDescription;
+use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
+use AsyncAws\DynamoDb\ValueObject\OnDemandThroughputOverride;
 use AsyncAws\DynamoDb\ValueObject\Projection;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputDescription;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputOverride;
@@ -97,6 +99,7 @@ class DescribeTableOutput extends Result
             'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (int) $json['IndexSizeBytes'] : null,
             'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,
             'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
+            'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
         ]);
     }
 
@@ -175,6 +178,21 @@ class DescribeTableOutput extends Result
         return $items;
     }
 
+    private function populateResultOnDemandThroughput(array $json): OnDemandThroughput
+    {
+        return new OnDemandThroughput([
+            'MaxReadRequestUnits' => isset($json['MaxReadRequestUnits']) ? (int) $json['MaxReadRequestUnits'] : null,
+            'MaxWriteRequestUnits' => isset($json['MaxWriteRequestUnits']) ? (int) $json['MaxWriteRequestUnits'] : null,
+        ]);
+    }
+
+    private function populateResultOnDemandThroughputOverride(array $json): OnDemandThroughputOverride
+    {
+        return new OnDemandThroughputOverride([
+            'MaxReadRequestUnits' => isset($json['MaxReadRequestUnits']) ? (int) $json['MaxReadRequestUnits'] : null,
+        ]);
+    }
+
     private function populateResultProjection(array $json): Projection
     {
         return new Projection([
@@ -210,6 +228,7 @@ class DescribeTableOutput extends Result
             'ReplicaStatusPercentProgress' => isset($json['ReplicaStatusPercentProgress']) ? (string) $json['ReplicaStatusPercentProgress'] : null,
             'KMSMasterKeyId' => isset($json['KMSMasterKeyId']) ? (string) $json['KMSMasterKeyId'] : null,
             'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
+            'OnDemandThroughputOverride' => empty($json['OnDemandThroughputOverride']) ? null : $this->populateResultOnDemandThroughputOverride($json['OnDemandThroughputOverride']),
             'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($json['GlobalSecondaryIndexes']),
             'ReplicaInaccessibleDateTime' => (isset($json['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ReplicaInaccessibleDateTime'])))) ? $d : null,
             'ReplicaTableClassSummary' => empty($json['ReplicaTableClassSummary']) ? null : $this->populateResultTableClassSummary($json['ReplicaTableClassSummary']),
@@ -234,6 +253,7 @@ class DescribeTableOutput extends Result
         return new ReplicaGlobalSecondaryIndexDescription([
             'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
             'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
+            'OnDemandThroughputOverride' => empty($json['OnDemandThroughputOverride']) ? null : $this->populateResultOnDemandThroughputOverride($json['OnDemandThroughputOverride']),
         ]);
     }
 
@@ -312,6 +332,7 @@ class DescribeTableOutput extends Result
             'ArchivalSummary' => empty($json['ArchivalSummary']) ? null : $this->populateResultArchivalSummary($json['ArchivalSummary']),
             'TableClassSummary' => empty($json['TableClassSummary']) ? null : $this->populateResultTableClassSummary($json['TableClassSummary']),
             'DeletionProtectionEnabled' => isset($json['DeletionProtectionEnabled']) ? filter_var($json['DeletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
         ]);
     }
 }

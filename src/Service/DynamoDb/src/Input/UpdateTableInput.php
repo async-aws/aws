@@ -10,6 +10,7 @@ use AsyncAws\DynamoDb\Enum\BillingMode;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
+use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
@@ -124,6 +125,14 @@ final class UpdateTableInput extends Input
     private $deletionProtectionEnabled;
 
     /**
+     * Updates the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
+     * this parameter, you must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     *
+     * @var OnDemandThroughput|null
+     */
+    private $onDemandThroughput;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: string,
@@ -135,6 +144,7 @@ final class UpdateTableInput extends Input
      *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -150,6 +160,7 @@ final class UpdateTableInput extends Input
         $this->replicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
+        $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         parent::__construct($input);
     }
 
@@ -165,6 +176,7 @@ final class UpdateTableInput extends Input
      *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      */
@@ -200,6 +212,11 @@ final class UpdateTableInput extends Input
     public function getGlobalSecondaryIndexUpdates(): array
     {
         return $this->globalSecondaryIndexUpdates ?? [];
+    }
+
+    public function getOnDemandThroughput(): ?OnDemandThroughput
+    {
+        return $this->onDemandThroughput;
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
@@ -296,6 +313,13 @@ final class UpdateTableInput extends Input
     public function setGlobalSecondaryIndexUpdates(array $value): self
     {
         $this->globalSecondaryIndexUpdates = $value;
+
+        return $this;
+    }
+
+    public function setOnDemandThroughput(?OnDemandThroughput $value): self
+    {
+        $this->onDemandThroughput = $value;
 
         return $this;
     }
@@ -402,6 +426,9 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->deletionProtectionEnabled) {
             $payload['DeletionProtectionEnabled'] = (bool) $v;
+        }
+        if (null !== $v = $this->onDemandThroughput) {
+            $payload['OnDemandThroughput'] = $v->requestBody();
         }
 
         return $payload;

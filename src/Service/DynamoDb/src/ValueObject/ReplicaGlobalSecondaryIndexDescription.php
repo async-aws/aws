@@ -22,21 +22,31 @@ final class ReplicaGlobalSecondaryIndexDescription
     private $provisionedThroughputOverride;
 
     /**
+     * Overrides the maximum on-demand throughput for the specified global secondary index in the specified replica table.
+     *
+     * @var OnDemandThroughputOverride|null
+     */
+    private $onDemandThroughputOverride;
+
+    /**
      * @param array{
      *   IndexName?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->indexName = $input['IndexName'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->onDemandThroughputOverride = isset($input['OnDemandThroughputOverride']) ? OnDemandThroughputOverride::create($input['OnDemandThroughputOverride']) : null;
     }
 
     /**
      * @param array{
      *   IndexName?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
      * }|ReplicaGlobalSecondaryIndexDescription $input
      */
     public static function create($input): self
@@ -47,6 +57,11 @@ final class ReplicaGlobalSecondaryIndexDescription
     public function getIndexName(): ?string
     {
         return $this->indexName;
+    }
+
+    public function getOnDemandThroughputOverride(): ?OnDemandThroughputOverride
+    {
+        return $this->onDemandThroughputOverride;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
