@@ -37,8 +37,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand(name: 'generate', description: 'Create or update API client methods.', aliases: ['update'])]
 class GenerateCommand extends Command
 {
-    protected static $defaultName = 'generate';
-
     /**
      * @var array|null
      */
@@ -83,7 +81,7 @@ class GenerateCommand extends Command
         $this->composerWriter = $composerWriter;
         $this->unusedClassCleaner = $unusedClassCleaner;
 
-        parent::__construct();
+        parent::__construct('generate');
     }
 
     protected function configure(): void
