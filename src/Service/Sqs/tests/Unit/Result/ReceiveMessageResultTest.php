@@ -48,4 +48,29 @@ JSON
         self::assertArrayHasKey('ApproximateFirstReceiveTimestamp', $message->getAttributes());
         self::assertEquals('1250700979248', $message->getAttributes()['ApproximateFirstReceiveTimestamp']);
     }
+
+    public function testReceiveMessageEmptyArray()
+    {
+        $response = new SimpleMockedResponse(<<<JSON
+{
+    "Messages": []
+}
+JSON
+        );
+
+        $client = new MockHttpClient($response);
+        $result = new ReceiveMessageResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertCount(0, $result->getMessages());
+    }
+
+    public function testReceiveMessageEmptyStringLongPolling()
+    {
+        $response = new SimpleMockedResponse('');
+
+        $client = new MockHttpClient($response);
+        $result = new ReceiveMessageResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertCount(0, $result->getMessages());
+    }
 }

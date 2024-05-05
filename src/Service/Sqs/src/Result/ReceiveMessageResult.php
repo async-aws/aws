@@ -32,6 +32,12 @@ class ReceiveMessageResult extends Result
 
     protected function populateResult(Response $response): void
     {
+        if ('' === $response->getContent()) {
+            $this->messages = [];
+
+            return;
+        }
+
         $data = $response->toArray();
 
         $this->messages = empty($data['Messages']) ? [] : $this->populateResultMessageList($data['Messages']);
