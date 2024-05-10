@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Add LimitExceededException to SignUp errors
+- AWS api-change: Add EXTERNAL_PROVIDER enum value to UserStatusType.
 
 ### Changed
 

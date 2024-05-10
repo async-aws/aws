@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds MessageSystemAttributeNames to ReceiveMessageRequest to replace AttributeNames.
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
