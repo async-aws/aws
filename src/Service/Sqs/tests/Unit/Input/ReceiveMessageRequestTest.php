@@ -12,7 +12,7 @@ class ReceiveMessageRequestTest extends TestCase
     {
         $input = new ReceiveMessageRequest([
             'QueueUrl' => 'queueUrl',
-            'AttributeNames' => [MessageSystemAttributeName::MESSAGE_GROUP_ID, MessageSystemAttributeName::MESSAGE_DEDUPLICATION_ID],
+            'MessageSystemAttributeNames' => [MessageSystemAttributeName::MESSAGE_GROUP_ID, MessageSystemAttributeName::MESSAGE_DEDUPLICATION_ID],
             'MessageAttributeNames' => ['Attribute1'],
             'MaxNumberOfMessages' => 5,
             'VisibilityTimeout' => 15,
@@ -28,7 +28,7 @@ class ReceiveMessageRequestTest extends TestCase
 
             {
                 "QueueUrl": "queueUrl",
-                "AttributeNames": ["MessageGroupId", "MessageDeduplicationId"],
+                "MessageSystemAttributeNames": ["MessageGroupId", "MessageDeduplicationId"],
                 "MessageAttributeNames": ["Attribute1"],
                 "MaxNumberOfMessages": 5,
                 "VisibilityTimeout": 15,

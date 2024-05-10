@@ -27,6 +27,37 @@ final class ReceiveMessageRequest extends Input
     private $attributeNames;
 
     /**
+     * A list of attributes that need to be returned along with each message. These attributes include:
+     *
+     * - `All` – Returns all values.
+     * - `ApproximateFirstReceiveTimestamp` – Returns the time the message was first received from the queue (epoch time
+     *   [^1] in milliseconds).
+     * - `ApproximateReceiveCount` – Returns the number of times a message has been received across all queues but not
+     *   deleted.
+     * - `AWSTraceHeader` – Returns the X-Ray trace header string.
+     * - `SenderId`
+     *
+     *   - For a user, returns the user ID, for example `ABCDEFGHI1JKLMNOPQ23R`.
+     *   - For an IAM role, returns the IAM role ID, for example `ABCDE1F2GH3I4JK5LMNOP:i-a123b456`.
+     *
+     * - `SentTimestamp` – Returns the time the message was sent to the queue (epoch time [^2] in milliseconds).
+     * - `SqsManagedSseEnabled` – Enables server-side queue encryption using SQS owned encryption keys. Only one
+     *   server-side encryption option is supported per queue (for example, SSE-KMS [^3] or SSE-SQS [^4]).
+     * - `MessageDeduplicationId` – Returns the value provided by the producer that calls the `SendMessage` action.
+     * - `MessageGroupId` – Returns the value provided by the producer that calls the `SendMessage` action. Messages with
+     *   the same `MessageGroupId` are returned in sequence.
+     * - `SequenceNumber` – Returns the value provided by Amazon SQS.
+     *
+     * [^1]: http://en.wikipedia.org/wiki/Unix_time
+     * [^2]: http://en.wikipedia.org/wiki/Unix_time
+     * [^3]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html
+     * [^4]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html
+     *
+     * @var list<MessageSystemAttributeName::*>|null
+     */
+    private $messageSystemAttributeNames;
+
+    /**
      * The name of the message attribute, where *N* is the index.
      *
      * - The name can contain alphanumeric characters and the underscore (`_`), hyphen (`-`), and period (`.`).
@@ -62,7 +93,7 @@ final class ReceiveMessageRequest extends Input
     /**
      * The duration (in seconds) for which the call waits for a message to arrive in the queue before returning. If a
      * message is available, the call returns sooner than `WaitTimeSeconds`. If no messages are available and the wait time
-     * expires, the call returns successfully with an empty list of messages.
+     * expires, the call does not return a message list.
      *
      * ! To avoid HTTP errors, ensure that the HTTP response timeout for `ReceiveMessage` requests is longer than the
      * ! `WaitTimeSeconds` parameter. For example, with the Java SDK, you can set HTTP transport settings using the
@@ -86,8 +117,6 @@ final class ReceiveMessageRequest extends Input
      * - You can use `ReceiveRequestAttemptId` only for 5 minutes after a `ReceiveMessage` action.
      * - When you set `FifoQueue`, a caller of the `ReceiveMessage` action can provide a `ReceiveRequestAttemptId`
      *   explicitly.
-     * - If a caller of the `ReceiveMessage` action doesn't provide a `ReceiveRequestAttemptId`, Amazon SQS generates a
-     *   `ReceiveRequestAttemptId`.
      * - It is possible to retry the `ReceiveMessage` action with the same `ReceiveRequestAttemptId` if none of the messages
      *   have been modified (deleted or had their visibility changes).
      * - During a visibility timeout, subsequent calls with the same `ReceiveRequestAttemptId` return the same messages and
@@ -125,6 +154,7 @@ final class ReceiveMessageRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
+     *   MessageSystemAttributeNames?: null|array<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: null|string[],
      *   MaxNumberOfMessages?: null|int,
      *   VisibilityTimeout?: null|int,
@@ -137,6 +167,7 @@ final class ReceiveMessageRequest extends Input
     {
         $this->queueUrl = $input['QueueUrl'] ?? null;
         $this->attributeNames = $input['AttributeNames'] ?? null;
+        $this->messageSystemAttributeNames = $input['MessageSystemAttributeNames'] ?? null;
         $this->messageAttributeNames = $input['MessageAttributeNames'] ?? null;
         $this->maxNumberOfMessages = $input['MaxNumberOfMessages'] ?? null;
         $this->visibilityTimeout = $input['VisibilityTimeout'] ?? null;
@@ -149,6 +180,7 @@ final class ReceiveMessageRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
+     *   MessageSystemAttributeNames?: null|array<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: null|string[],
      *   MaxNumberOfMessages?: null|int,
      *   VisibilityTimeout?: null|int,
@@ -163,10 +195,14 @@ final class ReceiveMessageRequest extends Input
     }
 
     /**
+     * @deprecated
+     *
      * @return list<MessageSystemAttributeName::*>
      */
     public function getAttributeNames(): array
     {
+        @trigger_error(sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+
         return $this->attributeNames ?? [];
     }
 
@@ -181,6 +217,14 @@ final class ReceiveMessageRequest extends Input
     public function getMessageAttributeNames(): array
     {
         return $this->messageAttributeNames ?? [];
+    }
+
+    /**
+     * @return list<MessageSystemAttributeName::*>
+     */
+    public function getMessageSystemAttributeNames(): array
+    {
+        return $this->messageSystemAttributeNames ?? [];
     }
 
     public function getQueueUrl(): ?string
@@ -229,10 +273,13 @@ final class ReceiveMessageRequest extends Input
     }
 
     /**
+     * @deprecated
+     *
      * @param list<MessageSystemAttributeName::*> $value
      */
     public function setAttributeNames(array $value): self
     {
+        @trigger_error(sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->attributeNames = $value;
 
         return $this;
@@ -251,6 +298,16 @@ final class ReceiveMessageRequest extends Input
     public function setMessageAttributeNames(array $value): self
     {
         $this->messageAttributeNames = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param list<MessageSystemAttributeName::*> $value
+     */
+    public function setMessageSystemAttributeNames(array $value): self
+    {
+        $this->messageSystemAttributeNames = $value;
 
         return $this;
     }
@@ -291,6 +348,7 @@ final class ReceiveMessageRequest extends Input
         }
         $payload['QueueUrl'] = $v;
         if (null !== $v = $this->attributeNames) {
+            @trigger_error(sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             $index = -1;
             $payload['AttributeNames'] = [];
             foreach ($v as $listValue) {
@@ -299,6 +357,17 @@ final class ReceiveMessageRequest extends Input
                     throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['AttributeNames'][$index] = $listValue;
+            }
+        }
+        if (null !== $v = $this->messageSystemAttributeNames) {
+            $index = -1;
+            $payload['MessageSystemAttributeNames'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!MessageSystemAttributeName::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "MessageSystemAttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
+                }
+                $payload['MessageSystemAttributeNames'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->messageAttributeNames) {

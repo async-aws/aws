@@ -134,7 +134,7 @@ final class SendMessageRequest extends Input
      * - `ReceiveMessage` might return messages with multiple `MessageGroupId` values. For each `MessageGroupId`, the
      *   messages are sorted by time sent. The caller can't specify a `MessageGroupId`.
      *
-     * The length of `MessageGroupId` is 128 characters. Valid values: alphanumeric characters and punctuation
+     * The maximum length of `MessageGroupId` is 128 characters. Valid values: alphanumeric characters and punctuation
      * `(!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~)`.
      *
      * For best practices of using `MessageGroupId`, see Using the MessageGroupId Property [^1] in the *Amazon SQS Developer

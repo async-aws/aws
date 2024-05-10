@@ -632,6 +632,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
+     *   MessageSystemAttributeNames?: null|array<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: null|string[],
      *   MaxNumberOfMessages?: null|int,
      *   VisibilityTimeout?: null|int,
