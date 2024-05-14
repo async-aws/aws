@@ -19,7 +19,7 @@ class EventBridgeClient extends AbstractApi
      *
      * The maximum size for a PutEvents event entry is 256 KB. Entry size is calculated including the event and any
      * necessary characters and keys of the JSON representation of the event. To learn more, see Calculating PutEvents event
-     * entry size [^1] in the *Amazon EventBridge User Guide*
+     * entry size [^1] in the **Amazon EventBridge User Guide**
      *
      * PutEvents accepts the data in JSON format. For the JSON number (integer) data type, the constraints are: a minimum
      * value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807.
