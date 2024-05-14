@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.8.0
+
 ### Added
 
 - AWS api-change: Adds support for providing custom headers within SendEmail and SendBulkEmail for SESv2.

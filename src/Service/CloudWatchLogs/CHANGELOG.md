@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.2.0
+
 ### Added
 
 - AWS api-change: refine the list of available regions

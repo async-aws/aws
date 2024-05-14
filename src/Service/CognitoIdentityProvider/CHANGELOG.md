@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.8.0
+
 ### Added
 
 - AWS api-change: Add LimitExceededException to SignUp errors

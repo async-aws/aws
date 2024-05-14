@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - AWS api-change: This release includes support for bringing your own fonts to use for burn-in or DVB-Sub captioning workflows.
