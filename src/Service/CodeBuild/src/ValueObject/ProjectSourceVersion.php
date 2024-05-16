@@ -21,10 +21,11 @@ final class ProjectSourceVersion
      * The source version for the corresponding source identifier. If specified, must be one of:
      *
      * - For CodeCommit: the commit ID, branch, or Git tag to use.
-     * - For GitHub or GitLab: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
-     *   the source code you want to build. If a pull request ID is specified, it must use the format `pr/pull-request-ID`
-     *   (for example, `pr/25`). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the
+     * - For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source
+     *   code you want to build. If a pull request ID is specified, it must use the format `pr/pull-request-ID` (for
+     *   example, `pr/25`). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the
      *   default branch's HEAD commit ID is used.
+     * - For GitLab: the commit ID, branch, or Git tag to use.
      * - For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want
      *   to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      *   branch's HEAD commit ID is used.
