@@ -249,8 +249,8 @@ final class StartBuildInput extends Input
     private $privilegedModeOverride;
 
     /**
-     * The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the latest setting
-     * already defined in the build project.
+     * The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the latest
+     * setting already defined in the build project.
      *
      * @var int|null
      */
