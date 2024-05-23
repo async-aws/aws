@@ -3,6 +3,7 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\Capability;
+use AsyncAws\CloudFormation\Enum\DeletionMode;
 use AsyncAws\CloudFormation\Enum\DetailedStatus;
 use AsyncAws\CloudFormation\Enum\StackStatus;
 use AsyncAws\Core\Exception\InvalidArgument;
@@ -202,6 +203,16 @@ final class Stack
     private $retainExceptOnCreate;
 
     /**
+     * Specifies the deletion mode for the stack. Possible values are:
+     *
+     * - `STANDARD` - Use the standard behavior. Specifying this value is the same as not specifying this parameter.
+     * - `FORCE_DELETE_STACK` - Delete the stack if it's stuck in a `DELETE_FAILED` state due to resource deletion failure.
+     *
+     * @var DeletionMode::*|null
+     */
+    private $deletionMode;
+
+    /**
      * The detailed status of the resource or stack. If `CONFIGURATION_COMPLETE` is present, the resource or resource
      * configuration phase has completed and the stabilization of the resources is in progress. The stack sets
      * `CONFIGURATION_COMPLETE` when all of the resources in the stack have reached that event. For more information, see
@@ -238,6 +249,7 @@ final class Stack
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
      *   RetainExceptOnCreate?: null|bool,
+     *   DeletionMode?: null|DeletionMode::*,
      *   DetailedStatus?: null|DetailedStatus::*,
      * } $input
      */
@@ -266,6 +278,7 @@ final class Stack
         $this->rootId = $input['RootId'] ?? null;
         $this->driftInformation = isset($input['DriftInformation']) ? StackDriftInformation::create($input['DriftInformation']) : null;
         $this->retainExceptOnCreate = $input['RetainExceptOnCreate'] ?? null;
+        $this->deletionMode = $input['DeletionMode'] ?? null;
         $this->detailedStatus = $input['DetailedStatus'] ?? null;
     }
 
@@ -294,6 +307,7 @@ final class Stack
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
      *   RetainExceptOnCreate?: null|bool,
+     *   DeletionMode?: null|DeletionMode::*,
      *   DetailedStatus?: null|DetailedStatus::*,
      * }|Stack $input
      */
@@ -318,6 +332,14 @@ final class Stack
     public function getCreationTime(): \DateTimeImmutable
     {
         return $this->creationTime;
+    }
+
+    /**
+     * @return DeletionMode::*|null
+     */
+    public function getDeletionMode(): ?string
+    {
+        return $this->deletionMode;
     }
 
     public function getDeletionTime(): ?\DateTimeImmutable
