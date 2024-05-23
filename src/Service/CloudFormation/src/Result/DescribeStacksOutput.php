@@ -229,6 +229,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'LastCheckTimestamp' => ($v = $item->DriftInformation->LastCheckTimestamp) ? new \DateTimeImmutable((string) $v) : null,
                 ]),
                 'RetainExceptOnCreate' => ($v = $item->RetainExceptOnCreate) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+                'DeletionMode' => ($v = $item->DeletionMode) ? (string) $v : null,
                 'DetailedStatus' => ($v = $item->DetailedStatus) ? (string) $v : null,
             ]);
         }
