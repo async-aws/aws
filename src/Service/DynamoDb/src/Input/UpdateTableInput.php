@@ -46,12 +46,12 @@ final class UpdateTableInput extends Input
      * indexes over the past 30 minutes.
      *
      * - `PROVISIONED` - We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to
-     *   Provisioned Mode [^1].
+     *   Provisioned capacity mode [^1].
      * - `PAY_PER_REQUEST` - We recommend using `PAY_PER_REQUEST` for unpredictable workloads. `PAY_PER_REQUEST` sets the
-     *   billing mode to On-Demand Mode [^2].
+     *   billing mode to On-demand capacity mode [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual
-     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html
      *
      * @var BillingMode::*|null
      */
@@ -102,9 +102,7 @@ final class UpdateTableInput extends Input
     /**
      * A list of replica update actions (create, delete, or update) for the table.
      *
-     * > This property only applies to Version 2019.11.21 (Current) [^1] of global tables.
-     *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
+     * > For global tables, this property only applies to global tables using Version 2019.11.21 (Current version).
      *
      * @var ReplicationGroupUpdate[]|null
      */

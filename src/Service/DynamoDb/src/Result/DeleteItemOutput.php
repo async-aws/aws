@@ -26,9 +26,9 @@ class DeleteItemOutput extends Result
      * The capacity units consumed by the `DeleteItem` operation. The data returned includes the total provisioned
      * throughput consumed, along with statistics for the table and any indexes involved in the operation.
      * `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information,
-     * see Provisioned Throughput [^1] in the *Amazon DynamoDB Developer Guide*.
+     * see Provisioned capacity mode [^1] in the *Amazon DynamoDB Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html
      *
      * @var ConsumedCapacity|null
      */

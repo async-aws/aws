@@ -214,6 +214,8 @@ class DynamoDbClient extends AbstractApi
      * - There are more than 25 requests in the batch.
      * - Any individual item in a batch exceeds 400 KB.
      * - The total request size exceeds 16 MB.
+     * - Any individual items with keys exceeding the key length limits. For a partition key, the limit is 2048 bytes and
+     *   for a sort key, the limit is 1024 bytes.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
      * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#Programming.Errors.BatchOperations
@@ -362,7 +364,7 @@ class DynamoDbClient extends AbstractApi
      * specified table does not exist, DynamoDB returns a `ResourceNotFoundException`. If table is already in the `DELETING`
      * state, no error is returned.
      *
-     * ! This operation only applies to Version 2019.11.21 (Current) [^1] of global tables.
+     * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
      *
      * > DynamoDB might continue to accept data read and write operations, such as `GetItem` and `PutItem`, on a table in
      * > the `DELETING` state until the table deletion is complete.
@@ -373,8 +375,6 @@ class DynamoDbClient extends AbstractApi
      * `DISABLED` state, and the stream is automatically deleted after 24 hours.
      *
      * Use the `DescribeTable` action to check the status of the table.
-     *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deletetable
@@ -427,14 +427,12 @@ class DynamoDbClient extends AbstractApi
      * Returns information about the table, including the current status of the table, when it was created, the primary key
      * schema, and any indexes on the table.
      *
-     * ! This operation only applies to Version 2019.11.21 (Current) [^1] of global tables.
+     * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
      *
      * > If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a
      * > `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata
      * > for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable`
      * > request again.
-     *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
@@ -969,7 +967,7 @@ class DynamoDbClient extends AbstractApi
      * Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given
      * table.
      *
-     * ! This operation only applies to Version 2019.11.21 (Current) [^1] of global tables.
+     * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
      *
      * You can only perform one of the following operations at once:
      *
@@ -981,8 +979,6 @@ class DynamoDbClient extends AbstractApi
      * `UpdateTable` is an asynchronous operation; while it's executing, the table status changes from `ACTIVE` to
      * `UPDATING`. While it's `UPDATING`, you can't issue another `UpdateTable` request. When the table returns to the
      * `ACTIVE` state, the `UpdateTable` operation is complete.
-     *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
