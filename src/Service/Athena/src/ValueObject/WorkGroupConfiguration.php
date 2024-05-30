@@ -17,10 +17,7 @@ final class WorkGroupConfiguration
      * stored and the encryption option, if any, used for query and calculation results. To run the query, you must specify
      * the query results location using one of the ways: either in the workgroup using this setting, or for individual
      * queries (client-side), using ResultConfiguration$OutputLocation. If none of them is set, Athena issues an error that
-     * no output location is provided. For more information, see Working with query results, recent queries, and output
-     * files [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/athena/latest/ug/querying.html
+     * no output location is provided.
      *
      * @var ResultConfiguration|null
      */
