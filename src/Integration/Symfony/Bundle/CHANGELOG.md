@@ -2,7 +2,9 @@
 
 ## NOT RELEASED
 
-- The extension class now extends Symfony\Component\DependencyInjection\Extension\Extension
+### Changed
+
+- Replace deprecated Extension by  Symfony\Component\DependencyInjection\Extension\Extension
   instead of the deprecated Symfony\Component\HttpKernel\DependencyInjection\Extension class
 
 ## 1.12.1
