@@ -29,7 +29,8 @@ class PublishLayerVersionRequestTest extends TestCase
         // see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html
         $expected = '
             POST /2018-10-31/layers/demo/versions HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "Description": "small description",

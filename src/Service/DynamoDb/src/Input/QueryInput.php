@@ -536,6 +536,7 @@ final class QueryInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'DynamoDB_20120810.Query',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

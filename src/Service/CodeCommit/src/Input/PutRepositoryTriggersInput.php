@@ -79,6 +79,7 @@ final class PutRepositoryTriggersInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'CodeCommit_20150413.PutRepositoryTriggers',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

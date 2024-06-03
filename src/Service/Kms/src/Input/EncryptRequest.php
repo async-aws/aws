@@ -190,6 +190,7 @@ final class EncryptRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'TrentService.Encrypt',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

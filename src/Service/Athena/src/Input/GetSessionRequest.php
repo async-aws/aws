@@ -55,6 +55,7 @@ final class GetSessionRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.GetSession',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

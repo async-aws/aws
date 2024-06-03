@@ -105,6 +105,7 @@ final class MergeShardsInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'Kinesis_20131202.MergeShards',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

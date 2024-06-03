@@ -19,7 +19,8 @@ class ListThingsInThingGroupRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingsInThingGroup.html
         $expected = '
             GET /thing-groups/unit1/things?maxResults=20&nextToken=t0k3n&recursive=false HTTP/1.1
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

@@ -20,6 +20,7 @@ class AdminRemoveUserFromGroupRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-AMZ-Target: AWSCognitoIdentityProviderService.AdminRemoveUserFromGroup
+            Accept: application/json
 
             {
                 "UserPoolId": "us-east-test",

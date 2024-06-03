@@ -20,6 +20,7 @@ class ChangeMessageVisibilityRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.0
             x-amz-target: AmazonSQS.ChangeMessageVisibility
+            Accept: application/json
 
             {
                 "QueueUrl": "queueUrl",

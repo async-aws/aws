@@ -18,7 +18,8 @@ class ListVersionsByFunctionRequestTest extends TestCase
         // see example-1.json from SDK
         $expected = '
             GET /2015-03-31/functions/MyFunction/versions?Marker=xxyy&MaxItems=1337 HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
                 ';
 

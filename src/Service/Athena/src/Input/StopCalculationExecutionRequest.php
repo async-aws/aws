@@ -55,6 +55,7 @@ final class StopCalculationExecutionRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.StopCalculationExecution',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

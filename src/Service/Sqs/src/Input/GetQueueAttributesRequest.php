@@ -201,6 +201,7 @@ final class GetQueueAttributesRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'AmazonSQS.GetQueueAttributes',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

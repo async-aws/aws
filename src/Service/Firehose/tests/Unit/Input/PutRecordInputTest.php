@@ -22,6 +22,7 @@ class PutRecordInputTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: Firehose_20150804.PutRecord
+            Accept: application/json
 
             {
                 "DeliveryStreamName": "streamfoo",

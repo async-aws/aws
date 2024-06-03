@@ -17,7 +17,8 @@ class DeleteThingGroupRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingGroup.html
         $expected = '
             DELETE /thing-groups/unit1?expectedVersion=1337 HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

@@ -20,6 +20,7 @@ class ListQueryExecutionsInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: AmazonAthena.ListQueryExecutions
+Accept: application/json
 
 {
     "NextToken": "iad-9633",

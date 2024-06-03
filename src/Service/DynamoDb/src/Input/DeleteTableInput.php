@@ -58,6 +58,7 @@ final class DeleteTableInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'DynamoDB_20120810.DeleteTable',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

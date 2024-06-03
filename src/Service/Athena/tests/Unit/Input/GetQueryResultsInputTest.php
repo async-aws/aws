@@ -20,6 +20,7 @@ class GetQueryResultsInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: AmazonAthena.GetQueryResults
+Accept: application/json
 
 {
     "QueryExecutionId": "iad-145r55t-11446",

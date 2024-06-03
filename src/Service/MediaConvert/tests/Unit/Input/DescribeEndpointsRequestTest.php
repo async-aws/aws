@@ -19,7 +19,8 @@ class DescribeEndpointsRequestTest extends TestCase
         // see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_DescribeEndpoints.html
         $expected = '
             POST /2017-08-29/endpoints HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "maxResults": 1337,

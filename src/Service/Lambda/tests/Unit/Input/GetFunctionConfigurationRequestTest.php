@@ -17,7 +17,8 @@ class GetFunctionConfigurationRequestTest extends TestCase
         // see https://docs.aws.amazon.com/lambda/latest/APIReference/API_GetFunctionConfiguration.html
         $expected = '
             GET /2015-03-31/functions/test-func/configuration?Qualifier=change HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
         ';
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

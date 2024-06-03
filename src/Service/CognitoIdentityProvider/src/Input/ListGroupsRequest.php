@@ -86,6 +86,7 @@ final class ListGroupsRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.ListGroups',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

@@ -18,7 +18,8 @@ class UpdateThingShadowRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Data_Plane.html/API_UpdateThingShadow.html
         $expected = '
             POST /things/unit21_hvac/shadow?name=temperature HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "state": {

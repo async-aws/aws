@@ -124,7 +124,10 @@ final class ListJobsRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/json'];
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
 
         // Prepare query
         $query = [];

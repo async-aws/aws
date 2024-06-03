@@ -103,6 +103,7 @@ final class ListDatabasesInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.ListDatabases',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

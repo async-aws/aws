@@ -18,6 +18,7 @@ class GetCalculationExecutionStatusRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: AmazonAthena.GetCalculationExecutionStatus
+            Accept: application/json
 
             {
             "CalculationExecutionId": "125-5rte41"

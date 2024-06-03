@@ -91,6 +91,7 @@ final class AdminRemoveUserFromGroupRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.AdminRemoveUserFromGroup',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

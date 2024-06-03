@@ -16,7 +16,8 @@ class GetScheduleGroupInputTest extends TestCase
         // see https://docs.aws.amazon.com/scheduler/latest/APIReference/API_GetScheduleGroup.html
         $expected = '
             GET /schedule-groups/foo HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
                 ';
 

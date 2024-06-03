@@ -57,6 +57,7 @@ final class DeleteQueueRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'AmazonSQS.DeleteQueue',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

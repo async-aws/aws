@@ -20,7 +20,8 @@ class ListLayerVersionsRequestTest extends TestCase
 
         $expected = '
             GET /2018-10-31/layers/demo/versions?CompatibleRuntime=nodejs12.x HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
         ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

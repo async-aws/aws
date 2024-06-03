@@ -23,6 +23,7 @@ class PutParameterRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-Amz-Target: AmazonSSM.PutParameter
+            Accept: application/json
 
             {
                 "Overwrite": true,

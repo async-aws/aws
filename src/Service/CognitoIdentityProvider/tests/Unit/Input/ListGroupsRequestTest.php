@@ -20,6 +20,7 @@ class ListGroupsRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-Amz-Target: AWSCognitoIdentityProviderService.ListGroups
+            Accept: application/json
 
             {
                "UserPoolId": "us-east-1_1337oL33t",

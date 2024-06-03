@@ -20,6 +20,7 @@ class ChangePasswordRequestTest extends TestCase
                 POST / HTTP/1.0
                 Content-Type: application/x-amz-json-1.1
                 X-AMZ-Target: AWSCognitoIdentityProviderService.ChangePassword
+                Accept: application/json
 
                 {
                     "PreviousPassword": "/0zvOPBZhSRt:CC48wp%Jv\"MMo47xM",

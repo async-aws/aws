@@ -43,7 +43,8 @@ class CreateScheduleInputTest extends TestCase
         // see https://docs.aws.amazon.com/scheduler/latest/APIReference/API_CreateSchedule.html
         $expected = '
             POST /schedules/bar HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "ClientToken": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -55,13 +56,13 @@ class CreateScheduleInputTest extends TestCase
                 "ScheduleExpression": "at(2023-01-01T00:00:00)",
                 "ScheduleExpressionTimezone": "UTC",
                 "State": "ENABLED",
-                "Target": { 
+                "Target": {
                     "Arn": "arn:aws:sqs:us-east-1:111111111111:example",
-                    "DeadLetterConfig": { 
+                    "DeadLetterConfig": {
                         "Arn": "arn:aws:sqs:us-east-1:111111111111:dlq"
                     },
                     "Input": "payload",
-                    "RetryPolicy": { 
+                    "RetryPolicy": {
                         "MaximumEventAgeInSeconds": 86400,
                         "MaximumRetryAttempts": 185
                     },

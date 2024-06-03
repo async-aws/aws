@@ -1853,7 +1853,8 @@ class CreateJobRequestTest extends TestCase
         // see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_CreateJob.html
         $expected = '
             POST /2017-08-29/jobs HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "accelerationSettings": {

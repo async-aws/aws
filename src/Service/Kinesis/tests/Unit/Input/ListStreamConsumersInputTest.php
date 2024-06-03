@@ -18,6 +18,7 @@ class ListStreamConsumersInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: Kinesis_20131202.ListStreamConsumers
+Accept: application/json
 
 {
     "StreamARN": "xxx"

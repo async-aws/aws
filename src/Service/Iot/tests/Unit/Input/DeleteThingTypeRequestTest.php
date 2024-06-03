@@ -16,7 +16,8 @@ class DeleteThingTypeRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingType.html
         $expected = '
             DELETE /thing-types/hvac HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
             ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

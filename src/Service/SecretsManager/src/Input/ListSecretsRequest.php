@@ -126,6 +126,7 @@ final class ListSecretsRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'secretsmanager.ListSecrets',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

@@ -21,6 +21,7 @@ class VerifySoftwareTokenRequestTest extends TestCase
                 POST / HTTP/1.0
                 Content-Type: application/x-amz-json-1.1
                 X-AMZ-Target: AWSCognitoIdentityProviderService.VerifySoftwareToken
+                Accept: application/json
 
                 {
                     "AccessToken": "B85A977AE91F811E8B1577CCA22C8",

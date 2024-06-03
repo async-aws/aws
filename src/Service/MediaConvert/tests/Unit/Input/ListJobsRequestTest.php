@@ -22,7 +22,8 @@ class ListJobsRequestTest extends TestCase
         // see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_ListJobs.html
         $expected = '
             GET /2017-08-29/jobs?maxResults=1337&nextToken=fakeToken&order=ASCENDING&queue=fakeQueue&status=COMPLETE HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
                 ';
 

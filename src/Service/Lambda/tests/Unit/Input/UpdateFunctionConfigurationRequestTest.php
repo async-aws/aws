@@ -64,7 +64,8 @@ class UpdateFunctionConfigurationRequestTest extends TestCase
         // see https://docs.aws.amazon.com/lambda/latest/APIReference/API_UpdateFunctionConfiguration.html
         $expected = '
             PUT /2015-03-31/functions/test-func/configuration HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "DeadLetterConfig": {

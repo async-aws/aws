@@ -15,18 +15,19 @@ use AsyncAws\CodeGenerator\Definition\Operation;
  */
 class JsonRpcSerializer extends RestJsonSerializer
 {
-    public function getHeaders(Operation $operation): string
+    public function getHeaders(Operation $operation, bool $withPayload): string
     {
-        return strtr(<<<PHP
-[
-    'Content-Type' => 'application/x-amz-json-VERSION',
-    'X-Amz-Target' => 'TARGET',
-];
+        if (!$withPayload) {
+            return "['Accept' => 'application/json']";
+        }
 
-PHP
-            , [
-                'VERSION' => number_format($operation->getService()->getJsonVersion(), 1),
-                'TARGET' => sprintf('%s.%s', $operation->getService()->getTargetPrefix(), $operation->getName()),
-            ]);
+        return strtr("[
+            'Content-Type' => 'application/x-amz-json-VERSION',
+            'X-Amz-Target' => 'TARGET',
+            'Accept' => 'application/json',
+        ]", [
+            'VERSION' => number_format($operation->getService()->getJsonVersion(), 1),
+            'TARGET' => sprintf('%s.%s', $operation->getService()->getTargetPrefix(), $operation->getName()),
+        ]);
     }
 }

@@ -24,7 +24,8 @@ class PutTraceSegmentsRequestTest extends TestCase
         // see https://docs.aws.amazon.com/xray/latest/api/API_PutTraceSegments.html
         $expected = '
             POST /TraceSegments HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
             "TraceSegmentDocuments": [

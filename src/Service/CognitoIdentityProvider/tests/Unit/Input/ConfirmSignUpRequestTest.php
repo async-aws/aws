@@ -31,6 +31,7 @@ class ConfirmSignUpRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: AWSCognitoIdentityProviderService.ConfirmSignUp
+            Accept: application/json
 
             {
                 "ClientId": "client_12345",

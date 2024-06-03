@@ -54,6 +54,7 @@ final class StopQueryExecutionInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.StopQueryExecution',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

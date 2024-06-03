@@ -29,6 +29,7 @@ class StartSessionRequestTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: AmazonAthena.StartSession
+Accept: application/json
 
 {
     "Description": "iad international asyncAws",

@@ -55,6 +55,7 @@ final class GetWorkGroupInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.GetWorkGroup',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

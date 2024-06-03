@@ -262,6 +262,7 @@ final class UpdateTableInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'DynamoDB_20120810.UpdateTable',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

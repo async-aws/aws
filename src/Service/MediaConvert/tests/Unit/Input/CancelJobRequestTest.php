@@ -16,7 +16,8 @@ class CancelJobRequestTest extends TestCase
         // see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_CancelJob.html
         $expected = '
             DELETE /2017-08-29/jobs/ZJ1648461 HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
                 ';
 

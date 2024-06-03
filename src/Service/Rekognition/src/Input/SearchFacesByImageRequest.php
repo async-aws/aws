@@ -135,6 +135,7 @@ final class SearchFacesByImageRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'RekognitionService.SearchFacesByImage',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

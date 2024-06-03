@@ -16,7 +16,8 @@ class ListStreamsInputTest extends TestCase
         $expected = '
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
-X-Amz-Target: Kinesis_20131202.ListStreams
+x-amz-target: Kinesis_20131202.ListStreams
+Accept: application/json
 
 {}
 ';

@@ -19,6 +19,7 @@ class GetCommitInputTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: CodeCommit_20150413.GetCommit
+            Accept: application/json
 
             {
                 "commitId": "b58c341f3d493f7fc0b6b95a648a2e2397d0692f",

@@ -24,7 +24,8 @@ class AddLayerVersionPermissionRequestTest extends TestCase
 
         $expected = '
             POST /2018-10-31/layers/nodejs/versions/2/policy?RevisionId=123456 HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                "Action": "lambda:GetLayerVersion",

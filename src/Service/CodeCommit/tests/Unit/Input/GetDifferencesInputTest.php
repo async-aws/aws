@@ -24,6 +24,7 @@ class GetDifferencesInputTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: CodeCommit_20150413.GetDifferences
+            Accept: application/json
 
             {
             "MaxResults": 1337,

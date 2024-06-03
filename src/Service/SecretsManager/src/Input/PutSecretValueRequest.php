@@ -166,6 +166,7 @@ final class PutSecretValueRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'secretsmanager.PutSecretValue',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

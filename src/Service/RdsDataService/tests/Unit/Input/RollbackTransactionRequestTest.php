@@ -18,7 +18,8 @@ class RollbackTransactionRequestTest extends TestCase
         // see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_RollbackTransaction.html
         $expected = '
             POST /RollbackTransaction HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                "resourceArn": "arn:resource",

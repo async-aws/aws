@@ -166,6 +166,7 @@ final class ResendConfirmationCodeRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.ResendConfirmationCode',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

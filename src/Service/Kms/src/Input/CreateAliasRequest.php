@@ -99,6 +99,7 @@ final class CreateAliasRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'TrentService.CreateAlias',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

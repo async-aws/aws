@@ -22,7 +22,8 @@ class SearchPlaceIndexForTextRequestTest extends TestCase
         // see https://docs.aws.amazon.com/location/latest/APIReference/API_SearchPlaceIndexForText.html
         $expected = '
             POST /places/v0/indexes/IndexName/search/text HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
               "BiasPosition": [

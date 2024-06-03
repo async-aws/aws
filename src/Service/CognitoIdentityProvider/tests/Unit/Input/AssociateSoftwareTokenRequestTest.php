@@ -19,6 +19,7 @@ class AssociateSoftwareTokenRequestTest extends TestCase
                 POST / HTTP/1.0
                 Content-Type: application/x-amz-json-1.1
                 X-AMZ-Target: AWSCognitoIdentityProviderService.AssociateSoftwareToken
+                Accept: application/json
 
                 {
                     "AccessToken": "8D4TH59OFqfhIlRTlVZr4CCiJof7YYOF",

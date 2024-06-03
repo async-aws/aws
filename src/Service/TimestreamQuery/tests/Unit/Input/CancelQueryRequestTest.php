@@ -18,6 +18,7 @@ class CancelQueryRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.0
             x-amz-target: Timestream_20181101.CancelQuery
+            Accept: application/json
 
             {
                 "QueryId": "qwertyuiop"

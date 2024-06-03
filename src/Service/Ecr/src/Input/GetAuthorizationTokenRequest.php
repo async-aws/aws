@@ -60,6 +60,7 @@ final class GetAuthorizationTokenRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonEC2ContainerRegistry_V20150921.GetAuthorizationToken',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

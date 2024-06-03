@@ -19,7 +19,8 @@ class SplitShardInputTest extends TestCase
         $expected = '
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
-X-Amz-Target: Kinesis_20131202.SplitShard
+x-amz-target: Kinesis_20131202.SplitShard
+Accept: application/json
 
 {
   "StreamName": "exampleStreamName",

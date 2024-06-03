@@ -18,6 +18,7 @@ class DeleteRepositoryInputTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: CodeCommit_20150413.DeleteRepository
+            Accept: application/json
 
             {
             "repositoryName": "repo-i-no-longer-care-about"

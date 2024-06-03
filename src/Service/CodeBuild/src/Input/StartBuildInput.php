@@ -644,6 +644,7 @@ final class StartBuildInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'CodeBuild_20161006.StartBuild',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

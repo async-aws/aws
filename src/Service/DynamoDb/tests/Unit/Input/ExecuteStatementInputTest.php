@@ -23,7 +23,8 @@ class ExecuteStatementInputTest extends TestCase
         $expected = '
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.0
-X-AMZ-Target: DynamoDB_20120810.ExecuteStatement
+x-amz-target: DynamoDB_20120810.ExecuteStatement
+Accept: application/json
 
 {
     "Statement": "SELECT * FROM \"Music\" WHERE SongTitle = ?",

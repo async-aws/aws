@@ -18,6 +18,7 @@ class ListAliasesRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-AMZ-TARGET: TrentService.ListAliases
+            Accept: application/json
 
             {
                 "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",

@@ -43,7 +43,8 @@ class CalculateRouteMatrixRequestTest extends TestCase
         // see https://docs.aws.amazon.com/location/latest/APIReference/API_CalculateRouteMatrix.html
         $expected = '
             POST /routes/v0/calculators/CalculatorName/calculate/route-matrix HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
               "DepartNow": false,

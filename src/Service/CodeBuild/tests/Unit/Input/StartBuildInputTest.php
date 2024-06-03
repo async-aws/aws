@@ -149,6 +149,7 @@ class StartBuildInputTest extends TestCase
         POST / HTTP/1.0
         Content-Type: application/x-amz-json-1.1
         x-amz-target: CodeBuild_20161006.StartBuild
+        Accept: application/json
 
         {
             "artifactsOverride": {

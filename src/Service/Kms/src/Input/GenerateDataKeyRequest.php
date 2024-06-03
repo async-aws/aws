@@ -220,6 +220,7 @@ final class GenerateDataKeyRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'TrentService.GenerateDataKey',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

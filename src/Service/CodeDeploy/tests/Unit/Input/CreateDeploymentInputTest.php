@@ -79,6 +79,7 @@ class CreateDeploymentInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: CodeDeploy_20141006.CreateDeployment
+Accept: application/json
 
 {
     "applicationName": "application-name",

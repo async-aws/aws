@@ -89,7 +89,10 @@ final class GetRoleCredentialsRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/json'];
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
         if (null === $v = $this->accessToken) {
             throw new InvalidArgument(sprintf('Missing parameter "accessToken" for "%s". The value cannot be null.', __CLASS__));
         }

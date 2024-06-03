@@ -20,6 +20,7 @@ class GetSecretValueRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: secretsmanager.GetSecretValue
+            Accept: application/json
 
             {
                 "SecretId": "MyTestDatabaseSecret",
