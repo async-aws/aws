@@ -18,6 +18,7 @@ class GetCelebrityInfoRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: RekognitionService.GetCelebrityInfo
+            Accept: application/json
 
             {
             "Id": "1XJ5dK1a"

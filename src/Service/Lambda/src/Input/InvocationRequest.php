@@ -154,7 +154,10 @@ final class InvocationRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/json'];
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
         if (null !== $this->invocationType) {
             if (!InvocationType::exists($this->invocationType)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->invocationType));

@@ -58,6 +58,7 @@ final class GetDeploymentInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'CodeDeploy_20141006.GetDeployment',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

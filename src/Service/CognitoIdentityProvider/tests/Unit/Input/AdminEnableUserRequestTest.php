@@ -19,6 +19,7 @@ class AdminEnableUserRequestTest extends TestCase
                 POST / HTTP/1.0
                 Content-Type: application/x-amz-json-1.1
                 X-AMZ-Target: AWSCognitoIdentityProviderService.AdminEnableUser
+                Accept: application/json
 
                 {
                     "UserPoolId": "us-east-1_1337oL33t",

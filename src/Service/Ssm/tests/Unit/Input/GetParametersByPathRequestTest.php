@@ -19,6 +19,7 @@ class GetParametersByPathRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-Amz-Target: AmazonSSM.GetParametersByPath
+            Accept: application/json
 
             {
                 "Path": "/Branch312/Dev/",

@@ -20,6 +20,7 @@ class UpdateSecretRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: secretsmanager.UpdateSecret
+            Accept: application/json
 
             {
                 "ClientRequestToken": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",

@@ -77,6 +77,7 @@ final class AdminDisableUserRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.AdminDisableUser',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

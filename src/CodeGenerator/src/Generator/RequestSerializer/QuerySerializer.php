@@ -43,9 +43,13 @@ class QuerySerializer implements Serializer
         $this->requirementsRegistry = $requirementsRegistry;
     }
 
-    public function getHeaders(Operation $operation): string
+    public function getHeaders(Operation $operation, bool $withPayload): string
     {
-        return '["content-type" => "application/x-www-form-urlencoded"]';
+        if (!$withPayload) {
+            return '[]';
+        }
+
+        return "['content-type' => 'application/x-www-form-urlencoded']";
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): SerializerResultBody

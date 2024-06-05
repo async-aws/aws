@@ -261,6 +261,7 @@ final class CreateSecretRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'secretsmanager.CreateSecret',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

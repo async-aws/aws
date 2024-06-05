@@ -236,6 +236,7 @@ final class AdminInitiateAuthRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.AdminInitiateAuth',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

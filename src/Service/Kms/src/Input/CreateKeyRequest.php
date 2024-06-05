@@ -423,6 +423,7 @@ final class CreateKeyRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'TrentService.CreateKey',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

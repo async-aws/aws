@@ -71,6 +71,7 @@ class UpdateDataSourceRequestTest extends TestCase
         $expected = '
             POST /v1/apis/api123/datasources/dataSourceName HTTP/1.1
             Content-type: application/json
+            Accept: application/json
 
             {
                "description": "This is a description",

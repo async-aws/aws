@@ -152,6 +152,7 @@ final class TranslateTextRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSShineFrontendService_20170701.TranslateText',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

@@ -78,6 +78,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'AmazonSQS.ChangeMessageVisibilityBatch',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

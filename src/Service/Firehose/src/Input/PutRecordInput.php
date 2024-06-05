@@ -73,6 +73,7 @@ final class PutRecordInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'Firehose_20150804.PutRecord',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

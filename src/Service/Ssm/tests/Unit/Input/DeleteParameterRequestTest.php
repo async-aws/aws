@@ -18,6 +18,7 @@ class DeleteParameterRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-Amz-Target: AmazonSSM.DeleteParameter
+            Accept: application/json
 
             {
                 "Name": "EC2DevServerType"

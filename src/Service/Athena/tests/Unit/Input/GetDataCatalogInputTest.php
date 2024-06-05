@@ -18,6 +18,7 @@ class GetDataCatalogInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: AmazonAthena.GetDataCatalog
+Accept: application/json
 
 { "Name": "myDataCatalog" }
                 ';

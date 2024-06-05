@@ -19,6 +19,7 @@ class QueryRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.0
             x-amz-target: Timestream_20181101.Query
+            Accept: application/json
 
             {
                 "ClientToken": "qwertyuiop",

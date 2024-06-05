@@ -55,6 +55,7 @@ final class GetQueryExecutionInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.GetQueryExecution',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

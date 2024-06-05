@@ -124,6 +124,7 @@ final class ListStreamConsumersInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'Kinesis_20131202.ListStreamConsumers',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

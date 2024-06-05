@@ -19,7 +19,8 @@ class SearchPlaceIndexForPositionRequestTest extends TestCase
         // see https://docs.aws.amazon.com/location/latest/APIReference/API_SearchPlaceIndexForPosition.html
         $expected = '
             POST /places/v0/indexes/IndexName/search/position HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "Language": "en",

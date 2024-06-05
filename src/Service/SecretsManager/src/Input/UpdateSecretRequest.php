@@ -176,6 +176,7 @@ final class UpdateSecretRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'secretsmanager.UpdateSecret',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

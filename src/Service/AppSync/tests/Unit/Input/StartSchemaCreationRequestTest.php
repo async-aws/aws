@@ -20,6 +20,7 @@ class StartSchemaCreationRequestTest extends TestCase
         $expected = '
             POST /v1/apis/api123/schemacreation HTTP/1.1
             Content-type: application/json
+            Accept: application/json
 
             {
                "definition": "c2NoZW1hRGVmaW5pdGlvbg=="

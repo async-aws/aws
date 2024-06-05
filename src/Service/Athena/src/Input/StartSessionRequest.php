@@ -142,6 +142,7 @@ final class StartSessionRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonAthena.StartSession',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

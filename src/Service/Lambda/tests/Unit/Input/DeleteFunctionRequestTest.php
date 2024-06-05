@@ -17,7 +17,8 @@ class DeleteFunctionRequestTest extends TestCase
         // see example-1.json from SDK
         $expected = '
             DELETE /2015-03-31/functions/my-function?Qualifier=4711  HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

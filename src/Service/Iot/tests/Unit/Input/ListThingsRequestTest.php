@@ -21,7 +21,8 @@ class ListThingsRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThings.html
         $expected = '
             GET /things?attributeName=id&attributeValue=mYiD&maxResults=15&nextToken=4ft3r&thingTypeName=hvac&usePrefixAttributeValue=false HTTP/1.1
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

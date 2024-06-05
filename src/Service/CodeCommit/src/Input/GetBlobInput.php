@@ -75,6 +75,7 @@ final class GetBlobInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'CodeCommit_20150413.GetBlob',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

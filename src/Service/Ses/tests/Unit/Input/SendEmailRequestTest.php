@@ -45,7 +45,8 @@ class SendEmailRequestTest extends TestCase
         // see example-1.json from SDK
         $expected = '
             POST /v2/email/outbound-emails HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "FromEmailAddress": "jeremy@derusse.com",

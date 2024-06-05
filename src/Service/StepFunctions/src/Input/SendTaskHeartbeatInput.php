@@ -58,6 +58,7 @@ final class SendTaskHeartbeatInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'AWSStepFunctions.SendTaskHeartbeat',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

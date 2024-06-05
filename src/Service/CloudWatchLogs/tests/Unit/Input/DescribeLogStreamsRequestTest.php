@@ -23,6 +23,7 @@ class DescribeLogStreamsRequestTest extends TestCase
                     POST / HTTP/1.0
                     Content-Type: application/x-amz-json-1.1
                     X-AMZ-TARGET: Logs_20140328.DescribeLogStreams
+                    Accept: application/json
 
                     {
                         "logGroupName": "foo",

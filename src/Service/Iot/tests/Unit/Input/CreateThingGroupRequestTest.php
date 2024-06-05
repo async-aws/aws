@@ -31,7 +31,8 @@ class CreateThingGroupRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingGroup.html
         $expected = '
             POST /thing-groups/unit1 HTTP/1.1
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "parentGroupName": "building1",

@@ -24,7 +24,8 @@ class InvocationRequestTest extends TestCase
 
         $expected = '
             POST /2015-03-31/functions/MyFunction/invocations?Qualifier=1 HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
             x-amz-invocation-type: Event
             x-amz-log-type: Tail
             x-amz-client-context: MyApp

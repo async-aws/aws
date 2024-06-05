@@ -38,7 +38,8 @@ class ExecuteStatementRequestTest extends TestCase
         // see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_ExecuteStatement.html
         $expected = '
             POST /Execute HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                "continueAfterTimeout": false,

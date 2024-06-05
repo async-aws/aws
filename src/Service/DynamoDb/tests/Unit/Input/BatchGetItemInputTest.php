@@ -42,6 +42,7 @@ class BatchGetItemInputTest extends TestCase
     POST / HTTP/1.0
     Content-Type: application/x-amz-json-1.0
     x-amz-target: DynamoDB_20120810.BatchGetItem
+    Accept: application/json
 
 {
     "RequestItems": {

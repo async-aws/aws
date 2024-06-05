@@ -19,6 +19,7 @@ class CreateLogGroupRequestTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: Logs_20140328.CreateLogGroup
+Accept: application/json
 
 {
   "logGroupName": "my-log-group",

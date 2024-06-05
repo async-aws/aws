@@ -17,7 +17,8 @@ class DeleteScheduleGroupInputTest extends TestCase
         // see https://docs.aws.amazon.com/scheduler/latest/APIReference/API_DeleteScheduleGroup.html
         $expected = '
             DELETE /schedule-groups/foo?clientToken=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
                 ';
 

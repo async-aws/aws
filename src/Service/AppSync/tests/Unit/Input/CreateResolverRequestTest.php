@@ -43,6 +43,7 @@ class CreateResolverRequestTest extends TestCase
         $expected = '
             POST /v1/apis/apiId/types/foo/resolvers HTTP/1.1 200
             Content-type: application/json
+            Accept: application/json
 
             {
                 "cachingConfig": {

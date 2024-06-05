@@ -19,6 +19,7 @@ class AddTagsToStreamInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: Kinesis_20131202.AddTagsToStream
+Accept: application/json
 
 {
   "StreamName": "exampleStreamName",

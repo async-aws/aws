@@ -128,6 +128,7 @@ final class CreateGroupRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.CreateGroup',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

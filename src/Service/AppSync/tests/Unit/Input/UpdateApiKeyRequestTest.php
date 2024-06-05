@@ -20,6 +20,7 @@ class UpdateApiKeyRequestTest extends TestCase
         $expected = '
             POST /v1/apis/api123/apikeys/keyId HTTP/1.1
             Content-type: application/json
+            Accept: application/json
 
             {
                "description": "Description here",

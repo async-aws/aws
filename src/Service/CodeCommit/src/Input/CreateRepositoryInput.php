@@ -124,6 +124,7 @@ final class CreateRepositoryInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'CodeCommit_20150413.CreateRepository',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

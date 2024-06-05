@@ -21,6 +21,7 @@ class StartStreamEncryptionInputTest extends TestCase
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
 x-amz-target: Kinesis_20131202.StartStreamEncryption
+Accept: application/json
 
 {
     "StreamName": "exampleStreamName",

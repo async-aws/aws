@@ -55,6 +55,7 @@ final class DetectDominantLanguageRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'Comprehend_20171127.DetectDominantLanguage',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

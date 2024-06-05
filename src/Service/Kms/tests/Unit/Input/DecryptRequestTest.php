@@ -22,6 +22,7 @@ class DecryptRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             X-AMZ-TARGET: TrentService.Decrypt
+            Accept: application/json
 
             {
                 "CiphertextBlob": "YmluYXJ5LWNpcGhlcnRleHQtc3RyaW5n",

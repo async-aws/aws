@@ -16,7 +16,8 @@ class GetSchemaCreationStatusRequestTest extends TestCase
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_GetSchemaCreationStatus.html
         $expected = '
             GET /v1/apis/api123/schemacreation HTTP/1.1
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
         ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

@@ -247,6 +247,7 @@ final class CreateQueueRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'AmazonSQS.CreateQueue',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

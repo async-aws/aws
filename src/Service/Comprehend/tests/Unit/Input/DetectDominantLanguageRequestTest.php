@@ -18,6 +18,7 @@ class DetectDominantLanguageRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: Comprehend_20171127.DetectDominantLanguage
+            Accept: application/json
 
             {
                 "Text": "This is my example text"

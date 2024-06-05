@@ -27,5 +27,5 @@ interface Serializer
      */
     public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder;
 
-    public function getHeaders(Operation $operation): string;
+    public function getHeaders(Operation $operation, bool $withPayload): string;
 }

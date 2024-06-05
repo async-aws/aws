@@ -18,7 +18,8 @@ class ListThingTypesRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingTypes.html
         $expected = '
             GET /thing-types?maxResults=10&nextToken=n3x7&thingTypeName=hvac HTTP/1.1
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

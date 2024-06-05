@@ -165,6 +165,7 @@ final class ExecuteStatementInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'DynamoDB_20120810.ExecuteStatement',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

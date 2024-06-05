@@ -254,6 +254,7 @@ final class CreateDeploymentInput extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'CodeDeploy_20141006.CreateDeployment',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

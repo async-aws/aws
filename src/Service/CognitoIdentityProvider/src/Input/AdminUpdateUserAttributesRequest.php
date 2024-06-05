@@ -149,6 +149,7 @@ final class AdminUpdateUserAttributesRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.AdminUpdateUserAttributes',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

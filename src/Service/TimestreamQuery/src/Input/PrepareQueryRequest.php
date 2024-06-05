@@ -72,6 +72,7 @@ final class PrepareQueryRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'Timestream_20181101.PrepareQuery',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

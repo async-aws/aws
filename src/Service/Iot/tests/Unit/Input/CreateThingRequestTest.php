@@ -23,7 +23,8 @@ class CreateThingRequestTest extends TestCase
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing.html
         $expected = '
             POST /things/hvac-1 HTTP/1.0
-            Content-Type: application/json
+            Content-type: application/json
+            Accept: application/json
 
             {
                 "attributePayload": {

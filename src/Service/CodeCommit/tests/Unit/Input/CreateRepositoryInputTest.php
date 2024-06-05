@@ -20,6 +20,7 @@ class CreateRepositoryInputTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: CodeCommit_20150413.CreateRepository
+            Accept: application/json
 
             {
             "repositoryDescription": "this is the project that will finally make me rich!",

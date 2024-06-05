@@ -18,6 +18,7 @@ class StopCalculationExecutionRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: AmazonAthena.StopCalculationExecution
+            Accept: application/json
 
             {
             "CalculationExecutionId": "id14562"

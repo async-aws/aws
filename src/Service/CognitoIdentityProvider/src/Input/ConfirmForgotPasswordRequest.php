@@ -205,6 +205,7 @@ final class ConfirmForgotPasswordRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AWSCognitoIdentityProviderService.ConfirmForgotPassword',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

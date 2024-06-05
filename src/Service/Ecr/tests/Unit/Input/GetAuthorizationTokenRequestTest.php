@@ -16,6 +16,7 @@ class GetAuthorizationTokenRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
             x-amz-target: AmazonEC2ContainerRegistry_V20150921.GetAuthorizationToken
+            Accept: application/json
 
             {}
                 ';

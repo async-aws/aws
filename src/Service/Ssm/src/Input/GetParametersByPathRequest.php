@@ -148,6 +148,7 @@ final class GetParametersByPathRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'AmazonSSM.GetParametersByPath',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

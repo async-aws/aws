@@ -78,6 +78,7 @@ final class SendMessageBatchRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.0',
             'X-Amz-Target' => 'AmazonSQS.SendMessageBatch',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

@@ -21,6 +21,7 @@ class AddThingToThingGroupRequestTest extends TestCase
         $expected = '
             PUT /thing-groups/addThingToThingGroup HTTP/1.1
             Content-type: application/json
+            Accept: application/json
 
             {
             "overrideDynamicGroups": false,

@@ -112,6 +112,7 @@ final class PutLogEventsRequest extends Input
         $headers = [
             'Content-Type' => 'application/x-amz-json-1.1',
             'X-Amz-Target' => 'Logs_20140328.PutLogEvents',
+            'Accept' => 'application/json',
         ];
 
         // Prepare query

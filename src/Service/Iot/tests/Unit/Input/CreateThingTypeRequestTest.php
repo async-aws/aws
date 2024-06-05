@@ -27,6 +27,7 @@ class CreateThingTypeRequestTest extends TestCase
         $expected = '
             POST /thing-types/hvac HTTP/1.1
             Content-type: application/json
+            Accept: application/json
 
             {
                 "tags": [
