@@ -10,6 +10,13 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class SearchForTextResult
 {
     /**
+     * Details about the search result, such as its address and position.
+     *
+     * @var Place
+     */
+    private $place;
+
+    /**
      * The distance in meters of a great-circle arc between the bias position specified and the result. `Distance` will be
      * returned only if a bias position was specified in the query.
      *
@@ -19,23 +26,6 @@ final class SearchForTextResult
      * @var float|null
      */
     private $distance;
-
-    /**
-     * Details about the search result, such as its address and position.
-     *
-     * @var Place
-     */
-    private $place;
-
-    /**
-     * The unique identifier of the place. You can use this with the `GetPlace` operation to find the place again later.
-     *
-     * > For `SearchPlaceIndexForText` operations, the `PlaceId` is returned only by place indexes that use HERE or Grab as
-     * > a data provider.
-     *
-     * @var string|null
-     */
-    private $placeId;
 
     /**
      * The relative confidence in the match for a result among the results returned. For example, if more fields for an
@@ -49,27 +39,37 @@ final class SearchForTextResult
     private $relevance;
 
     /**
+     * The unique identifier of the place. You can use this with the `GetPlace` operation to find the place again later.
+     *
+     * > For `SearchPlaceIndexForText` operations, the `PlaceId` is returned only by place indexes that use HERE or Grab as
+     * > a data provider.
+     *
+     * @var string|null
+     */
+    private $placeId;
+
+    /**
      * @param array{
-     *   Distance?: null|float,
      *   Place: Place|array,
-     *   PlaceId?: null|string,
+     *   Distance?: null|float,
      *   Relevance?: null|float,
+     *   PlaceId?: null|string,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->distance = $input['Distance'] ?? null;
         $this->place = isset($input['Place']) ? Place::create($input['Place']) : $this->throwException(new InvalidArgument('Missing required field "Place".'));
-        $this->placeId = $input['PlaceId'] ?? null;
+        $this->distance = $input['Distance'] ?? null;
         $this->relevance = $input['Relevance'] ?? null;
+        $this->placeId = $input['PlaceId'] ?? null;
     }
 
     /**
      * @param array{
-     *   Distance?: null|float,
      *   Place: Place|array,
-     *   PlaceId?: null|string,
+     *   Distance?: null|float,
      *   Relevance?: null|float,
+     *   PlaceId?: null|string,
      * }|SearchForTextResult $input
      */
     public static function create($input): self

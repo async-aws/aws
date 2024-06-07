@@ -123,9 +123,9 @@ class CalculateRouteMatrixResponse extends Result
     {
         return new CalculateRouteMatrixSummary([
             'DataSource' => (string) $json['DataSource'],
-            'DistanceUnit' => (string) $json['DistanceUnit'],
-            'ErrorCount' => (int) $json['ErrorCount'],
             'RouteCount' => (int) $json['RouteCount'],
+            'ErrorCount' => (int) $json['ErrorCount'],
+            'DistanceUnit' => (string) $json['DistanceUnit'],
         ]);
     }
 

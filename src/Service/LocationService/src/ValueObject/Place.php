@@ -12,6 +12,19 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class Place
 {
     /**
+     * The full name and address of the point of interest such as a city, region, or country. For example, `123 Any Street,
+     * Any Town, USA`.
+     *
+     * @var string|null
+     */
+    private $label;
+
+    /**
+     * @var PlaceGeometry
+     */
+    private $geometry;
+
+    /**
      * The numerical portion of an address, such as a building number.
      *
      * @var string|null
@@ -19,16 +32,39 @@ final class Place
     private $addressNumber;
 
     /**
-     * The Amazon Location categories that describe this Place.
+     * The name for a street or a road to identify a location. For example, `Main Street`.
      *
-     * For more information about using categories, including a list of Amazon Location categories, see Categories and
-     * filtering [^1], in the *Amazon Location Service Developer Guide*.
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/category-filtering.html
-     *
-     * @var string[]|null
+     * @var string|null
      */
-    private $categories;
+    private $street;
+
+    /**
+     * The name of a community district. For example, `Downtown`.
+     *
+     * @var string|null
+     */
+    private $neighborhood;
+
+    /**
+     * A name for a local area, such as a city or town name. For example, `Toronto`.
+     *
+     * @var string|null
+     */
+    private $municipality;
+
+    /**
+     * A county, or an area that's part of a larger region. For example, `Metro Vancouver`.
+     *
+     * @var string|null
+     */
+    private $subRegion;
+
+    /**
+     * A name for an area or geographical division, such as a province or state name. For example, `British Columbia`.
+     *
+     * @var string|null
+     */
+    private $region;
 
     /**
      * A country/region specified using ISO 3166 [^1] 3-digit country/region code. For example, `CAN`.
@@ -40,9 +76,12 @@ final class Place
     private $country;
 
     /**
-     * @var PlaceGeometry
+     * A group of numbers and letters in a country-specific format, which accompanies the address for the purpose of
+     * identifying a location.
+     *
+     * @var string|null
      */
-    private $geometry;
+    private $postalCode;
 
     /**
      * `True` if the result is interpolated from other known places.
@@ -60,70 +99,43 @@ final class Place
     private $interpolated;
 
     /**
-     * The full name and address of the point of interest such as a city, region, or country. For example, `123 Any Street,
-     * Any Town, USA`.
+     * The time zone in which the `Place` is located. Returned only when using HERE or Grab as the selected partner.
      *
-     * @var string|null
+     * @var TimeZone|null
      */
-    private $label;
+    private $timeZone;
 
     /**
-     * A name for a local area, such as a city or town name. For example, `Toronto`.
+     * For addresses with a `UnitNumber`, the type of unit. For example, `Apartment`.
+     *
+     * > Returned only for a place index that uses Esri as a data provider.
      *
      * @var string|null
      */
-    private $municipality;
+    private $unitType;
 
     /**
-     * The name of a community district. For example, `Downtown`.
+     * For addresses with multiple units, the unit identifier. Can include numbers and letters, for example `3B` or `Unit
+     * 123`.
+     *
+     * > Returned only for a place index that uses Esri or Grab as a data provider. Is not returned for
+     * > `SearchPlaceIndexForPosition`.
      *
      * @var string|null
      */
-    private $neighborhood;
+    private $unitNumber;
 
     /**
-     * A group of numbers and letters in a country-specific format, which accompanies the address for the purpose of
-     * identifying a location.
+     * The Amazon Location categories that describe this Place.
      *
-     * @var string|null
+     * For more information about using categories, including a list of Amazon Location categories, see Categories and
+     * filtering [^1], in the *Amazon Location Service Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/category-filtering.html
+     *
+     * @var string[]|null
      */
-    private $postalCode;
-
-    /**
-     * A name for an area or geographical division, such as a province or state name. For example, `British Columbia`.
-     *
-     * @var string|null
-     */
-    private $region;
-
-    /**
-     * The name for a street or a road to identify a location. For example, `Main Street`.
-     *
-     * @var string|null
-     */
-    private $street;
-
-    /**
-     * An area that's part of a larger municipality. For example, `Blissville` is a submunicipality in the Queen County in
-     * New York.
-     *
-     * > This property is only returned for a place index that uses Esri as a data provider. The property is represented as
-     * > a `district`.
-     *
-     * For more information about data providers, see Amazon Location Service data providers [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
-     *
-     * @var string|null
-     */
-    private $subMunicipality;
-
-    /**
-     * A county, or an area that's part of a larger region. For example, `Metro Vancouver`.
-     *
-     * @var string|null
-     */
-    private $subRegion;
+    private $categories;
 
     /**
      * Categories from the data provider that describe the Place that are not mapped to any Amazon Location categories.
@@ -133,93 +145,77 @@ final class Place
     private $supplementalCategories;
 
     /**
-     * The time zone in which the `Place` is located. Returned only when using HERE or Grab as the selected partner.
+     * An area that's part of a larger municipality. For example, `Blissville ` is a submunicipality in the Queen County in
+     * New York.
      *
-     * @var TimeZone|null
-     */
-    private $timeZone;
-
-    /**
-     * For addresses with multiple units, the unit identifier. Can include numbers and letters, for example `3B` or `Unit
-     * 123`.
-     *
-     * > This property is returned only for a place index that uses Esri or Grab as a data provider. It is not returned for
-     * > `SearchPlaceIndexForPosition`.
+     * > This property supported by Esri and OpenData. The Esri property is `district`, and the OpenData property is
+     * > `borough`.
      *
      * @var string|null
      */
-    private $unitNumber;
-
-    /**
-     * For addresses with a `UnitNumber`, the type of unit. For example, `Apartment`.
-     *
-     * > This property is returned only for a place index that uses Esri as a data provider.
-     *
-     * @var string|null
-     */
-    private $unitType;
+    private $subMunicipality;
 
     /**
      * @param array{
-     *   AddressNumber?: null|string,
-     *   Categories?: null|string[],
-     *   Country?: null|string,
-     *   Geometry: PlaceGeometry|array,
-     *   Interpolated?: null|bool,
      *   Label?: null|string,
-     *   Municipality?: null|string,
-     *   Neighborhood?: null|string,
-     *   PostalCode?: null|string,
-     *   Region?: null|string,
+     *   Geometry: PlaceGeometry|array,
+     *   AddressNumber?: null|string,
      *   Street?: null|string,
-     *   SubMunicipality?: null|string,
+     *   Neighborhood?: null|string,
+     *   Municipality?: null|string,
      *   SubRegion?: null|string,
-     *   SupplementalCategories?: null|string[],
+     *   Region?: null|string,
+     *   Country?: null|string,
+     *   PostalCode?: null|string,
+     *   Interpolated?: null|bool,
      *   TimeZone?: null|TimeZone|array,
-     *   UnitNumber?: null|string,
      *   UnitType?: null|string,
+     *   UnitNumber?: null|string,
+     *   Categories?: null|string[],
+     *   SupplementalCategories?: null|string[],
+     *   SubMunicipality?: null|string,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->addressNumber = $input['AddressNumber'] ?? null;
-        $this->categories = $input['Categories'] ?? null;
-        $this->country = $input['Country'] ?? null;
-        $this->geometry = isset($input['Geometry']) ? PlaceGeometry::create($input['Geometry']) : $this->throwException(new InvalidArgument('Missing required field "Geometry".'));
-        $this->interpolated = $input['Interpolated'] ?? null;
         $this->label = $input['Label'] ?? null;
-        $this->municipality = $input['Municipality'] ?? null;
-        $this->neighborhood = $input['Neighborhood'] ?? null;
-        $this->postalCode = $input['PostalCode'] ?? null;
-        $this->region = $input['Region'] ?? null;
+        $this->geometry = isset($input['Geometry']) ? PlaceGeometry::create($input['Geometry']) : $this->throwException(new InvalidArgument('Missing required field "Geometry".'));
+        $this->addressNumber = $input['AddressNumber'] ?? null;
         $this->street = $input['Street'] ?? null;
-        $this->subMunicipality = $input['SubMunicipality'] ?? null;
+        $this->neighborhood = $input['Neighborhood'] ?? null;
+        $this->municipality = $input['Municipality'] ?? null;
         $this->subRegion = $input['SubRegion'] ?? null;
-        $this->supplementalCategories = $input['SupplementalCategories'] ?? null;
+        $this->region = $input['Region'] ?? null;
+        $this->country = $input['Country'] ?? null;
+        $this->postalCode = $input['PostalCode'] ?? null;
+        $this->interpolated = $input['Interpolated'] ?? null;
         $this->timeZone = isset($input['TimeZone']) ? TimeZone::create($input['TimeZone']) : null;
-        $this->unitNumber = $input['UnitNumber'] ?? null;
         $this->unitType = $input['UnitType'] ?? null;
+        $this->unitNumber = $input['UnitNumber'] ?? null;
+        $this->categories = $input['Categories'] ?? null;
+        $this->supplementalCategories = $input['SupplementalCategories'] ?? null;
+        $this->subMunicipality = $input['SubMunicipality'] ?? null;
     }
 
     /**
      * @param array{
-     *   AddressNumber?: null|string,
-     *   Categories?: null|string[],
-     *   Country?: null|string,
-     *   Geometry: PlaceGeometry|array,
-     *   Interpolated?: null|bool,
      *   Label?: null|string,
-     *   Municipality?: null|string,
-     *   Neighborhood?: null|string,
-     *   PostalCode?: null|string,
-     *   Region?: null|string,
+     *   Geometry: PlaceGeometry|array,
+     *   AddressNumber?: null|string,
      *   Street?: null|string,
-     *   SubMunicipality?: null|string,
+     *   Neighborhood?: null|string,
+     *   Municipality?: null|string,
      *   SubRegion?: null|string,
-     *   SupplementalCategories?: null|string[],
+     *   Region?: null|string,
+     *   Country?: null|string,
+     *   PostalCode?: null|string,
+     *   Interpolated?: null|bool,
      *   TimeZone?: null|TimeZone|array,
-     *   UnitNumber?: null|string,
      *   UnitType?: null|string,
+     *   UnitNumber?: null|string,
+     *   Categories?: null|string[],
+     *   SupplementalCategories?: null|string[],
+     *   SubMunicipality?: null|string,
      * }|Place $input
      */
     public static function create($input): self

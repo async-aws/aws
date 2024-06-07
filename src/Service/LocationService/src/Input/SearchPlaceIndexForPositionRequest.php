@@ -19,13 +19,27 @@ final class SearchPlaceIndexForPositionRequest extends Input
     private $indexName;
 
     /**
-     * The optional API key [^1] to authorize the request.
+     * Specifies the longitude and latitude of the position to query.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     * This parameter must contain a pair of numbers. The first number represents the X coordinate, or longitude; the second
+     * number represents the Y coordinate, or latitude.
      *
-     * @var string|null
+     * For example, `[-123.1174, 49.2847]` represents a position with longitude `-123.1174` and latitude `49.2847`.
+     *
+     * @required
+     *
+     * @var float[]|null
      */
-    private $key;
+    private $position;
+
+    /**
+     * An optional parameter. The maximum number of results returned per request.
+     *
+     * Default value: `50`
+     *
+     * @var int|null
+     */
+    private $maxResults;
 
     /**
      * The preferred language used to return results. The value must be a valid BCP 47 [^1] language tag, for example, `en`
@@ -50,55 +64,41 @@ final class SearchPlaceIndexForPositionRequest extends Input
     private $language;
 
     /**
-     * An optional parameter. The maximum number of results returned per request.
+     * The optional API key [^1] to authorize the request.
      *
-     * Default value: `50`
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
      *
-     * @var int|null
+     * @var string|null
      */
-    private $maxResults;
-
-    /**
-     * Specifies the longitude and latitude of the position to query.
-     *
-     * This parameter must contain a pair of numbers. The first number represents the X coordinate, or longitude; the second
-     * number represents the Y coordinate, or latitude.
-     *
-     * For example, `[-123.1174, 49.2847]` represents a position with longitude `-123.1174` and latitude `49.2847`.
-     *
-     * @required
-     *
-     * @var float[]|null
-     */
-    private $position;
+    private $key;
 
     /**
      * @param array{
      *   IndexName?: string,
-     *   Key?: null|string,
-     *   Language?: null|string,
-     *   MaxResults?: null|int,
      *   Position?: float[],
+     *   MaxResults?: null|int,
+     *   Language?: null|string,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->indexName = $input['IndexName'] ?? null;
-        $this->key = $input['Key'] ?? null;
-        $this->language = $input['Language'] ?? null;
-        $this->maxResults = $input['MaxResults'] ?? null;
         $this->position = $input['Position'] ?? null;
+        $this->maxResults = $input['MaxResults'] ?? null;
+        $this->language = $input['Language'] ?? null;
+        $this->key = $input['Key'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
      *   IndexName?: string,
-     *   Key?: null|string,
-     *   Language?: null|string,
-     *   MaxResults?: null|int,
      *   Position?: float[],
+     *   MaxResults?: null|int,
+     *   Language?: null|string,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input
      */
@@ -210,12 +210,6 @@ final class SearchPlaceIndexForPositionRequest extends Input
     {
         $payload = [];
 
-        if (null !== $v = $this->language) {
-            $payload['Language'] = $v;
-        }
-        if (null !== $v = $this->maxResults) {
-            $payload['MaxResults'] = $v;
-        }
         if (null === $v = $this->position) {
             throw new InvalidArgument(sprintf('Missing parameter "Position" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -225,6 +219,13 @@ final class SearchPlaceIndexForPositionRequest extends Input
         foreach ($v as $listValue) {
             ++$index;
             $payload['Position'][$index] = $listValue;
+        }
+
+        if (null !== $v = $this->maxResults) {
+            $payload['MaxResults'] = $v;
+        }
+        if (null !== $v = $this->language) {
+            $payload['Language'] = $v;
         }
 
         return $payload;

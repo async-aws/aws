@@ -10,6 +10,24 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class SearchPlaceIndexForTextRequest extends Input
 {
     /**
+     * The name of the place index resource you want to use for the search.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $indexName;
+
+    /**
+     * The address, name, city, or region to be used in the search in free-form text format. For example, `123 Any Street`.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $text;
+
+    /**
      * An optional parameter that indicates a preference for places that are closer to a specified position.
      *
      * If provided, this parameter must contain a pair of numbers. The first number represents the X coordinate, or
@@ -43,19 +61,6 @@ final class SearchPlaceIndexForTextRequest extends Input
     private $filterBbox;
 
     /**
-     * A list of one or more Amazon Location categories to filter the returned places. If you include more than one
-     * category, the results will include results that match *any* of the categories listed.
-     *
-     * For more information about using categories, including a list of Amazon Location categories, see Categories and
-     * filtering [^1], in the *Amazon Location Service Developer Guide*.
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/category-filtering.html
-     *
-     * @var string[]|null
-     */
-    private $filterCategories;
-
-    /**
      * An optional parameter that limits the search results by returning only places that are in a specified list of
      * countries.
      *
@@ -69,22 +74,13 @@ final class SearchPlaceIndexForTextRequest extends Input
     private $filterCountries;
 
     /**
-     * The name of the place index resource you want to use for the search.
+     * An optional parameter. The maximum number of results returned per request.
      *
-     * @required
+     * The default: `50`
      *
-     * @var string|null
+     * @var int|null
      */
-    private $indexName;
-
-    /**
-     * The optional API key [^1] to authorize the request.
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
-     *
-     * @var string|null
-     */
-    private $key;
+    private $maxResults;
 
     /**
      * The preferred language used to return results. The value must be a valid BCP 47 [^1] language tag, for example, `en`
@@ -109,62 +105,66 @@ final class SearchPlaceIndexForTextRequest extends Input
     private $language;
 
     /**
-     * An optional parameter. The maximum number of results returned per request.
+     * A list of one or more Amazon Location categories to filter the returned places. If you include more than one
+     * category, the results will include results that match *any* of the categories listed.
      *
-     * The default: `50`
+     * For more information about using categories, including a list of Amazon Location categories, see Categories and
+     * filtering [^1], in the *Amazon Location Service Developer Guide*.
      *
-     * @var int|null
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/category-filtering.html
+     *
+     * @var string[]|null
      */
-    private $maxResults;
+    private $filterCategories;
 
     /**
-     * The address, name, city, or region to be used in the search in free-form text format. For example, `123 Any Street`.
+     * The optional API key [^1] to authorize the request.
      *
-     * @required
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
      *
      * @var string|null
      */
-    private $text;
+    private $key;
 
     /**
      * @param array{
+     *   IndexName?: string,
+     *   Text?: string,
      *   BiasPosition?: null|float[],
      *   FilterBBox?: null|float[],
-     *   FilterCategories?: null|string[],
      *   FilterCountries?: null|string[],
-     *   IndexName?: string,
-     *   Key?: null|string,
-     *   Language?: null|string,
      *   MaxResults?: null|int,
-     *   Text?: string,
+     *   Language?: null|string,
+     *   FilterCategories?: null|string[],
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->text = $input['Text'] ?? null;
         $this->biasPosition = $input['BiasPosition'] ?? null;
         $this->filterBbox = $input['FilterBBox'] ?? null;
-        $this->filterCategories = $input['FilterCategories'] ?? null;
         $this->filterCountries = $input['FilterCountries'] ?? null;
-        $this->indexName = $input['IndexName'] ?? null;
-        $this->key = $input['Key'] ?? null;
-        $this->language = $input['Language'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
-        $this->text = $input['Text'] ?? null;
+        $this->language = $input['Language'] ?? null;
+        $this->filterCategories = $input['FilterCategories'] ?? null;
+        $this->key = $input['Key'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
+     *   IndexName?: string,
+     *   Text?: string,
      *   BiasPosition?: null|float[],
      *   FilterBBox?: null|float[],
-     *   FilterCategories?: null|string[],
      *   FilterCountries?: null|string[],
-     *   IndexName?: string,
-     *   Key?: null|string,
-     *   Language?: null|string,
      *   MaxResults?: null|int,
-     *   Text?: string,
+     *   Language?: null|string,
+     *   FilterCategories?: null|string[],
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input
      */
@@ -341,6 +341,11 @@ final class SearchPlaceIndexForTextRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
+
+        if (null === $v = $this->text) {
+            throw new InvalidArgument(sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Text'] = $v;
         if (null !== $v = $this->biasPosition) {
             $index = -1;
             $payload['BiasPosition'] = [];
@@ -357,14 +362,6 @@ final class SearchPlaceIndexForTextRequest extends Input
                 $payload['FilterBBox'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->filterCategories) {
-            $index = -1;
-            $payload['FilterCategories'] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                $payload['FilterCategories'][$index] = $listValue;
-            }
-        }
         if (null !== $v = $this->filterCountries) {
             $index = -1;
             $payload['FilterCountries'] = [];
@@ -373,17 +370,20 @@ final class SearchPlaceIndexForTextRequest extends Input
                 $payload['FilterCountries'][$index] = $listValue;
             }
         }
-
-        if (null !== $v = $this->language) {
-            $payload['Language'] = $v;
-        }
         if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
         }
-        if (null === $v = $this->text) {
-            throw new InvalidArgument(sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->language) {
+            $payload['Language'] = $v;
         }
-        $payload['Text'] = $v;
+        if (null !== $v = $this->filterCategories) {
+            $index = -1;
+            $payload['FilterCategories'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['FilterCategories'][$index] = $listValue;
+            }
+        }
 
         return $payload;
     }

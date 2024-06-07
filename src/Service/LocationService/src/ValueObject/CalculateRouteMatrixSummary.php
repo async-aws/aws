@@ -27,11 +27,12 @@ final class CalculateRouteMatrixSummary
     private $dataSource;
 
     /**
-     * The unit of measurement for route distances.
+     * The count of cells in the route matrix. Equal to the number of `DeparturePositions` multiplied by the number of
+     * `DestinationPositions`.
      *
-     * @var DistanceUnit::*
+     * @var int
      */
-    private $distanceUnit;
+    private $routeCount;
 
     /**
      * The count of error results in the route matrix. If this number is 0, all routes were calculated successfully.
@@ -41,35 +42,34 @@ final class CalculateRouteMatrixSummary
     private $errorCount;
 
     /**
-     * The count of cells in the route matrix. Equal to the number of `DeparturePositions` multiplied by the number of
-     * `DestinationPositions`.
+     * The unit of measurement for route distances.
      *
-     * @var int
+     * @var DistanceUnit::*
      */
-    private $routeCount;
+    private $distanceUnit;
 
     /**
      * @param array{
      *   DataSource: string,
-     *   DistanceUnit: DistanceUnit::*,
-     *   ErrorCount: int,
      *   RouteCount: int,
+     *   ErrorCount: int,
+     *   DistanceUnit: DistanceUnit::*,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->dataSource = $input['DataSource'] ?? $this->throwException(new InvalidArgument('Missing required field "DataSource".'));
-        $this->distanceUnit = $input['DistanceUnit'] ?? $this->throwException(new InvalidArgument('Missing required field "DistanceUnit".'));
-        $this->errorCount = $input['ErrorCount'] ?? $this->throwException(new InvalidArgument('Missing required field "ErrorCount".'));
         $this->routeCount = $input['RouteCount'] ?? $this->throwException(new InvalidArgument('Missing required field "RouteCount".'));
+        $this->errorCount = $input['ErrorCount'] ?? $this->throwException(new InvalidArgument('Missing required field "ErrorCount".'));
+        $this->distanceUnit = $input['DistanceUnit'] ?? $this->throwException(new InvalidArgument('Missing required field "DistanceUnit".'));
     }
 
     /**
      * @param array{
      *   DataSource: string,
-     *   DistanceUnit: DistanceUnit::*,
-     *   ErrorCount: int,
      *   RouteCount: int,
+     *   ErrorCount: int,
+     *   DistanceUnit: DistanceUnit::*,
      * }|CalculateRouteMatrixSummary $input
      */
     public static function create($input): self

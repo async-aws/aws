@@ -15,16 +15,6 @@ use AsyncAws\LocationService\ValueObject\CalculateRouteTruckModeOptions;
 final class CalculateRouteRequest extends Input
 {
     /**
-     * Specifies the desired time of arrival. Uses the given time to calculate the route. Otherwise, the best time of day to
-     * travel with the best traffic conditions is used to calculate the route.
-     *
-     * > ArrivalTime is not supported Esri.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $arrivalTime;
-
-    /**
      * The name of the route calculator resource that you want to use to calculate the route.
      *
      * @required
@@ -32,27 +22,6 @@ final class CalculateRouteRequest extends Input
      * @var string|null
      */
     private $calculatorName;
-
-    /**
-     * Specifies route preferences when traveling by `Car`, such as avoiding routes that use ferries or tolls.
-     *
-     * Requirements: `TravelMode` must be specified as `Car`.
-     *
-     * @var CalculateRouteCarModeOptions|null
-     */
-    private $carModeOptions;
-
-    /**
-     * Sets the time of departure as the current time. Uses the current time to calculate a route. Otherwise, the best time
-     * of day to travel with the best traffic conditions is used to calculate the route.
-     *
-     * Default Value: `false`
-     *
-     * Valid Values: `false` | `true`
-     *
-     * @var bool|null
-     */
-    private $departNow;
 
     /**
      * The start position for the route. Defined in World Geodetic System (WGS 84) [^1] format: `[longitude, latitude]`.
@@ -75,18 +44,6 @@ final class CalculateRouteRequest extends Input
     private $departurePosition;
 
     /**
-     * Specifies the desired time of departure. Uses the given time to calculate the route. Otherwise, the best time of day
-     * to travel with the best traffic conditions is used to calculate the route.
-     *
-     * - In ISO 8601 [^1] format: `YYYY-MM-DDThh:mm:ss.sssZ`. For example, `2020–07-2T12:15:20.000Z+01:00`
-     *
-     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $departureTime;
-
-    /**
      * The finish position for the route. Defined in World Geodetic System (WGS 84) [^1] format: `[longitude, latitude]`.
      *
      * - For example, `[-122.339, 47.615]`
@@ -106,40 +63,27 @@ final class CalculateRouteRequest extends Input
     private $destinationPosition;
 
     /**
-     * Set the unit system to specify the distance.
+     * Specifies an ordered list of up to 23 intermediate positions to include along a route between the departure position
+     * and destination position.
      *
-     * Default Value: `Kilometers`
+     * - For example, from the `DeparturePosition``[-123.115, 49.285]`, the route follows the order that the waypoint
+     *   positions are given `[[-122.757, 49.0021],[-122.349, 47.620]]`
      *
-     * @var DistanceUnit::*|null
+     * > If you specify a waypoint position that's not located on a road, Amazon Location moves the position to the nearest
+     * > road [^1].
+     * >
+     * > Specifying more than 23 waypoints returns a `400 ValidationException` error.
+     * >
+     * > If Esri is the provider for your route calculator, specifying a route that is longer than 400 km returns a `400
+     * > RoutesValidationException` error.
+     *
+     * Valid Values: `[-180 to 180,-90 to 90]`
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     *
+     * @var float[][]|null
      */
-    private $distanceUnit;
-
-    /**
-     * Set to include the geometry details in the result for each path between a pair of positions.
-     *
-     * Default Value: `false`
-     *
-     * Valid Values: `false` | `true`
-     *
-     * @var bool|null
-     */
-    private $includeLegGeometry;
-
-    /**
-     * The optional API key [^1] to authorize the request.
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
-     *
-     * @var string|null
-     */
-    private $key;
-
-    /**
-     * Specifies the distance to optimize for when calculating a route.
-     *
-     * @var OptimizationMode::*|null
-     */
-    private $optimizeFor;
+    private $waypointPositions;
 
     /**
      * Specifies the mode of transport when calculating a route. Used in estimating the speed of travel and road
@@ -166,6 +110,59 @@ final class CalculateRouteRequest extends Input
     private $travelMode;
 
     /**
+     * Specifies the desired time of departure. Uses the given time to calculate the route. Otherwise, the best time of day
+     * to travel with the best traffic conditions is used to calculate the route.
+     *
+     * - In ISO 8601 [^1] format: `YYYY-MM-DDThh:mm:ss.sssZ`. For example, `2020–07-2T12:15:20.000Z+01:00`
+     *
+     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $departureTime;
+
+    /**
+     * Sets the time of departure as the current time. Uses the current time to calculate a route. Otherwise, the best time
+     * of day to travel with the best traffic conditions is used to calculate the route.
+     *
+     * Default Value: `false`
+     *
+     * Valid Values: `false` | `true`
+     *
+     * @var bool|null
+     */
+    private $departNow;
+
+    /**
+     * Set the unit system to specify the distance.
+     *
+     * Default Value: `Kilometers`
+     *
+     * @var DistanceUnit::*|null
+     */
+    private $distanceUnit;
+
+    /**
+     * Set to include the geometry details in the result for each path between a pair of positions.
+     *
+     * Default Value: `false`
+     *
+     * Valid Values: `false` | `true`
+     *
+     * @var bool|null
+     */
+    private $includeLegGeometry;
+
+    /**
+     * Specifies route preferences when traveling by `Car`, such as avoiding routes that use ferries or tolls.
+     *
+     * Requirements: `TravelMode` must be specified as `Car`.
+     *
+     * @var CalculateRouteCarModeOptions|null
+     */
+    private $carModeOptions;
+
+    /**
      * Specifies route preferences when traveling by `Truck`, such as avoiding routes that use ferries or tolls, and truck
      * specifications to consider when choosing an optimal road.
      *
@@ -176,82 +173,85 @@ final class CalculateRouteRequest extends Input
     private $truckModeOptions;
 
     /**
-     * Specifies an ordered list of up to 23 intermediate positions to include along a route between the departure position
-     * and destination position.
+     * Specifies the desired time of arrival. Uses the given time to calculate the route. Otherwise, the best time of day to
+     * travel with the best traffic conditions is used to calculate the route.
      *
-     * - For example, from the `DeparturePosition``[-123.115, 49.285]`, the route follows the order that the waypoint
-     *   positions are given `[[-122.757, 49.0021],[-122.349, 47.620]]`
+     * > ArrivalTime is not supported Esri.
      *
-     * > If you specify a waypoint position that's not located on a road, Amazon Location moves the position to the nearest
-     * > road [^1].
-     * >
-     * > Specifying more than 23 waypoints returns a `400 ValidationException` error.
-     * >
-     * > If Esri is the provider for your route calculator, specifying a route that is longer than 400 km returns a `400
-     * > RoutesValidationException` error.
-     *
-     * Valid Values: `[-180 to 180,-90 to 90]`
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
-     *
-     * @var float[][]|null
+     * @var \DateTimeImmutable|null
      */
-    private $waypointPositions;
+    private $arrivalTime;
+
+    /**
+     * Specifies the distance to optimize for when calculating a route.
+     *
+     * @var OptimizationMode::*|null
+     */
+    private $optimizeFor;
+
+    /**
+     * The optional API key [^1] to authorize the request.
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     *
+     * @var string|null
+     */
+    private $key;
 
     /**
      * @param array{
-     *   ArrivalTime?: null|\DateTimeImmutable|string,
      *   CalculatorName?: string,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   DepartNow?: null|bool,
      *   DeparturePosition?: float[],
-     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPosition?: float[],
+     *   WaypointPositions?: null|array[],
+     *   TravelMode?: null|TravelMode::*,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
+     *   DepartNow?: null|bool,
      *   DistanceUnit?: null|DistanceUnit::*,
      *   IncludeLegGeometry?: null|bool,
-     *   Key?: null|string,
-     *   OptimizeFor?: null|OptimizationMode::*,
-     *   TravelMode?: null|TravelMode::*,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   WaypointPositions?: null|array[],
+     *   ArrivalTime?: null|\DateTimeImmutable|string,
+     *   OptimizeFor?: null|OptimizationMode::*,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->arrivalTime = !isset($input['ArrivalTime']) ? null : ($input['ArrivalTime'] instanceof \DateTimeImmutable ? $input['ArrivalTime'] : new \DateTimeImmutable($input['ArrivalTime']));
         $this->calculatorName = $input['CalculatorName'] ?? null;
-        $this->carModeOptions = isset($input['CarModeOptions']) ? CalculateRouteCarModeOptions::create($input['CarModeOptions']) : null;
-        $this->departNow = $input['DepartNow'] ?? null;
         $this->departurePosition = $input['DeparturePosition'] ?? null;
-        $this->departureTime = !isset($input['DepartureTime']) ? null : ($input['DepartureTime'] instanceof \DateTimeImmutable ? $input['DepartureTime'] : new \DateTimeImmutable($input['DepartureTime']));
         $this->destinationPosition = $input['DestinationPosition'] ?? null;
+        $this->waypointPositions = $input['WaypointPositions'] ?? null;
+        $this->travelMode = $input['TravelMode'] ?? null;
+        $this->departureTime = !isset($input['DepartureTime']) ? null : ($input['DepartureTime'] instanceof \DateTimeImmutable ? $input['DepartureTime'] : new \DateTimeImmutable($input['DepartureTime']));
+        $this->departNow = $input['DepartNow'] ?? null;
         $this->distanceUnit = $input['DistanceUnit'] ?? null;
         $this->includeLegGeometry = $input['IncludeLegGeometry'] ?? null;
-        $this->key = $input['Key'] ?? null;
-        $this->optimizeFor = $input['OptimizeFor'] ?? null;
-        $this->travelMode = $input['TravelMode'] ?? null;
+        $this->carModeOptions = isset($input['CarModeOptions']) ? CalculateRouteCarModeOptions::create($input['CarModeOptions']) : null;
         $this->truckModeOptions = isset($input['TruckModeOptions']) ? CalculateRouteTruckModeOptions::create($input['TruckModeOptions']) : null;
-        $this->waypointPositions = $input['WaypointPositions'] ?? null;
+        $this->arrivalTime = !isset($input['ArrivalTime']) ? null : ($input['ArrivalTime'] instanceof \DateTimeImmutable ? $input['ArrivalTime'] : new \DateTimeImmutable($input['ArrivalTime']));
+        $this->optimizeFor = $input['OptimizeFor'] ?? null;
+        $this->key = $input['Key'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   ArrivalTime?: null|\DateTimeImmutable|string,
      *   CalculatorName?: string,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   DepartNow?: null|bool,
      *   DeparturePosition?: float[],
-     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPosition?: float[],
+     *   WaypointPositions?: null|array[],
+     *   TravelMode?: null|TravelMode::*,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
+     *   DepartNow?: null|bool,
      *   DistanceUnit?: null|DistanceUnit::*,
      *   IncludeLegGeometry?: null|bool,
-     *   Key?: null|string,
-     *   OptimizeFor?: null|OptimizationMode::*,
-     *   TravelMode?: null|TravelMode::*,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   WaypointPositions?: null|array[],
+     *   ArrivalTime?: null|\DateTimeImmutable|string,
+     *   OptimizeFor?: null|OptimizationMode::*,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      */
@@ -500,16 +500,7 @@ final class CalculateRouteRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->arrivalTime) {
-            $payload['ArrivalTime'] = $v->format(\DateTimeInterface::ATOM);
-        }
 
-        if (null !== $v = $this->carModeOptions) {
-            $payload['CarModeOptions'] = $v->requestBody();
-        }
-        if (null !== $v = $this->departNow) {
-            $payload['DepartNow'] = (bool) $v;
-        }
         if (null === $v = $this->departurePosition) {
             throw new InvalidArgument(sprintf('Missing parameter "DeparturePosition" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -521,9 +512,6 @@ final class CalculateRouteRequest extends Input
             $payload['DeparturePosition'][$index] = $listValue;
         }
 
-        if (null !== $v = $this->departureTime) {
-            $payload['DepartureTime'] = $v->format(\DateTimeInterface::ATOM);
-        }
         if (null === $v = $this->destinationPosition) {
             throw new InvalidArgument(sprintf('Missing parameter "DestinationPosition" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -535,31 +523,6 @@ final class CalculateRouteRequest extends Input
             $payload['DestinationPosition'][$index] = $listValue;
         }
 
-        if (null !== $v = $this->distanceUnit) {
-            if (!DistanceUnit::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "DistanceUnit" for "%s". The value "%s" is not a valid "DistanceUnit".', __CLASS__, $v));
-            }
-            $payload['DistanceUnit'] = $v;
-        }
-        if (null !== $v = $this->includeLegGeometry) {
-            $payload['IncludeLegGeometry'] = (bool) $v;
-        }
-
-        if (null !== $v = $this->optimizeFor) {
-            if (!OptimizationMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "OptimizeFor" for "%s". The value "%s" is not a valid "OptimizationMode".', __CLASS__, $v));
-            }
-            $payload['OptimizeFor'] = $v;
-        }
-        if (null !== $v = $this->travelMode) {
-            if (!TravelMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
-            }
-            $payload['TravelMode'] = $v;
-        }
-        if (null !== $v = $this->truckModeOptions) {
-            $payload['TruckModeOptions'] = $v->requestBody();
-        }
         if (null !== $v = $this->waypointPositions) {
             $index = -1;
             $payload['WaypointPositions'] = [];
@@ -573,6 +536,42 @@ final class CalculateRouteRequest extends Input
                     $payload['WaypointPositions'][$index][$index1] = $listValue1;
                 }
             }
+        }
+        if (null !== $v = $this->travelMode) {
+            if (!TravelMode::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
+            }
+            $payload['TravelMode'] = $v;
+        }
+        if (null !== $v = $this->departureTime) {
+            $payload['DepartureTime'] = $v->format(\DateTimeInterface::ATOM);
+        }
+        if (null !== $v = $this->departNow) {
+            $payload['DepartNow'] = (bool) $v;
+        }
+        if (null !== $v = $this->distanceUnit) {
+            if (!DistanceUnit::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "DistanceUnit" for "%s". The value "%s" is not a valid "DistanceUnit".', __CLASS__, $v));
+            }
+            $payload['DistanceUnit'] = $v;
+        }
+        if (null !== $v = $this->includeLegGeometry) {
+            $payload['IncludeLegGeometry'] = (bool) $v;
+        }
+        if (null !== $v = $this->carModeOptions) {
+            $payload['CarModeOptions'] = $v->requestBody();
+        }
+        if (null !== $v = $this->truckModeOptions) {
+            $payload['TruckModeOptions'] = $v->requestBody();
+        }
+        if (null !== $v = $this->arrivalTime) {
+            $payload['ArrivalTime'] = $v->format(\DateTimeInterface::ATOM);
+        }
+        if (null !== $v = $this->optimizeFor) {
+            if (!OptimizationMode::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "OptimizeFor" for "%s". The value "%s" is not a valid "OptimizationMode".', __CLASS__, $v));
+            }
+            $payload['OptimizeFor'] = $v;
         }
 
         return $payload;

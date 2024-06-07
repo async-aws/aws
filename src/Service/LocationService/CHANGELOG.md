@@ -4,6 +4,7 @@
 
 ### Changed
 
+- AWS enhancement: Documentation updates.
 - Add `Accept: application/json` header in request to fix incompatibility with 3rd party providers
 
 ## 1.0.2
