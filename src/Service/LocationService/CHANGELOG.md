@@ -2,12 +2,9 @@
 
 ## NOT RELEASED
 
-### Added
-
-- AWS api-change: Added two new APIs, VerifyDevicePosition and ForecastGeofenceEvents. Added support for putting larger geofences up to 100,000 vertices with Geobuf fields.
-
 ### Changed
 
+- AWS enhancement: Documentation updates.
 - Add `Accept: application/json` header in request to fix incompatibility with 3rd party providers
 
 ## 1.0.2
