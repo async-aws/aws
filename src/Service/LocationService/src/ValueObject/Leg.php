@@ -25,6 +25,28 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class Leg
 {
     /**
+     * The starting position of the leg. Follows the format `[longitude,latitude]`.
+     *
+     * > If the `StartPosition` isn't located on a road, it's snapped to a nearby road [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     *
+     * @var float[]
+     */
+    private $startPosition;
+
+    /**
+     * The terminating position of the leg. Follows the format `[longitude,latitude]`.
+     *
+     * > If the `EndPosition` isn't located on a road, it's snapped to a nearby road [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/nap-to-nearby-road.html
+     *
+     * @var float[]
+     */
+    private $endPosition;
+
+    /**
      * The distance between the leg's `StartPosition` and `EndPosition` along a calculated route.
      *
      * - The default measurement is `Kilometers` unless the request specifies a `DistanceUnit` of `Miles`.
@@ -42,33 +64,11 @@ final class Leg
     private $durationSeconds;
 
     /**
-     * The terminating position of the leg. Follows the format `[longitude,latitude]`.
-     *
-     * > If the `EndPosition` isn't located on a road, it's snapped to a nearby road [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/nap-to-nearby-road.html
-     *
-     * @var float[]
-     */
-    private $endPosition;
-
-    /**
      * Contains the calculated route's path as a linestring geometry.
      *
      * @var LegGeometry|null
      */
     private $geometry;
-
-    /**
-     * The starting position of the leg. Follows the format `[longitude,latitude]`.
-     *
-     * > If the `StartPosition` isn't located on a road, it's snapped to a nearby road [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
-     *
-     * @var float[]
-     */
-    private $startPosition;
 
     /**
      * Contains a list of steps, which represent subsections of a leg. Each step provides instructions for how to move to
@@ -81,31 +81,31 @@ final class Leg
 
     /**
      * @param array{
+     *   StartPosition: float[],
+     *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   EndPosition: float[],
      *   Geometry?: null|LegGeometry|array,
-     *   StartPosition: float[],
      *   Steps: array<Step|array>,
      * } $input
      */
     public function __construct(array $input)
     {
+        $this->startPosition = $input['StartPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "StartPosition".'));
+        $this->endPosition = $input['EndPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "EndPosition".'));
         $this->distance = $input['Distance'] ?? $this->throwException(new InvalidArgument('Missing required field "Distance".'));
         $this->durationSeconds = $input['DurationSeconds'] ?? $this->throwException(new InvalidArgument('Missing required field "DurationSeconds".'));
-        $this->endPosition = $input['EndPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "EndPosition".'));
         $this->geometry = isset($input['Geometry']) ? LegGeometry::create($input['Geometry']) : null;
-        $this->startPosition = $input['StartPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "StartPosition".'));
         $this->steps = isset($input['Steps']) ? array_map([Step::class, 'create'], $input['Steps']) : $this->throwException(new InvalidArgument('Missing required field "Steps".'));
     }
 
     /**
      * @param array{
+     *   StartPosition: float[],
+     *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   EndPosition: float[],
      *   Geometry?: null|LegGeometry|array,
-     *   StartPosition: float[],
      *   Steps: array<Step|array>,
      * }|Leg $input
      */

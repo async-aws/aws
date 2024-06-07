@@ -10,6 +10,13 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class SearchPlaceIndexForTextSummary
 {
     /**
+     * The search text specified in the request.
+     *
+     * @var string
+     */
+    private $text;
+
+    /**
      * Contains the coordinates for the optional bias position specified in the request.
      *
      * This parameter contains a pair of numbers. The first number represents the X coordinate, or longitude; the second
@@ -22,22 +29,6 @@ final class SearchPlaceIndexForTextSummary
     private $biasPosition;
 
     /**
-     * The geospatial data provider attached to the place index resource specified in the request. Values can be one of the
-     * following:
-     *
-     * - Esri
-     * - Grab
-     * - Here
-     *
-     * For more information about data providers, see Amazon Location Service data providers [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
-     *
-     * @var string
-     */
-    private $dataSource;
-
-    /**
      * Contains the coordinates for the optional bounding box specified in the request.
      *
      * @var float[]|null
@@ -45,28 +36,11 @@ final class SearchPlaceIndexForTextSummary
     private $filterBbox;
 
     /**
-     * The optional category filter specified in the request.
-     *
-     * @var string[]|null
-     */
-    private $filterCategories;
-
-    /**
      * Contains the optional country filter specified in the request.
      *
      * @var string[]|null
      */
     private $filterCountries;
-
-    /**
-     * The preferred language used to return results. Matches the language in the request. The value is a valid BCP 47 [^1]
-     * language tag, for example, `en` for English.
-     *
-     * [^1]: https://tools.ietf.org/search/bcp47
-     *
-     * @var string|null
-     */
-    private $language;
 
     /**
      * Contains the optional result count limit specified in the request.
@@ -85,49 +59,75 @@ final class SearchPlaceIndexForTextSummary
     private $resultBbox;
 
     /**
-     * The search text specified in the request.
+     * The geospatial data provider attached to the place index resource specified in the request. Values can be one of the
+     * following:
+     *
+     * - Esri
+     * - Grab
+     * - Here
+     *
+     * For more information about data providers, see Amazon Location Service data providers [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
      *
      * @var string
      */
-    private $text;
+    private $dataSource;
+
+    /**
+     * The preferred language used to return results. Matches the language in the request. The value is a valid BCP 47 [^1]
+     * language tag, for example, `en` for English.
+     *
+     * [^1]: https://tools.ietf.org/search/bcp47
+     *
+     * @var string|null
+     */
+    private $language;
+
+    /**
+     * The optional category filter specified in the request.
+     *
+     * @var string[]|null
+     */
+    private $filterCategories;
 
     /**
      * @param array{
+     *   Text: string,
      *   BiasPosition?: null|float[],
-     *   DataSource: string,
      *   FilterBBox?: null|float[],
-     *   FilterCategories?: null|string[],
      *   FilterCountries?: null|string[],
-     *   Language?: null|string,
      *   MaxResults?: null|int,
      *   ResultBBox?: null|float[],
-     *   Text: string,
+     *   DataSource: string,
+     *   Language?: null|string,
+     *   FilterCategories?: null|string[],
      * } $input
      */
     public function __construct(array $input)
     {
+        $this->text = $input['Text'] ?? $this->throwException(new InvalidArgument('Missing required field "Text".'));
         $this->biasPosition = $input['BiasPosition'] ?? null;
-        $this->dataSource = $input['DataSource'] ?? $this->throwException(new InvalidArgument('Missing required field "DataSource".'));
         $this->filterBbox = $input['FilterBBox'] ?? null;
-        $this->filterCategories = $input['FilterCategories'] ?? null;
         $this->filterCountries = $input['FilterCountries'] ?? null;
-        $this->language = $input['Language'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->resultBbox = $input['ResultBBox'] ?? null;
-        $this->text = $input['Text'] ?? $this->throwException(new InvalidArgument('Missing required field "Text".'));
+        $this->dataSource = $input['DataSource'] ?? $this->throwException(new InvalidArgument('Missing required field "DataSource".'));
+        $this->language = $input['Language'] ?? null;
+        $this->filterCategories = $input['FilterCategories'] ?? null;
     }
 
     /**
      * @param array{
+     *   Text: string,
      *   BiasPosition?: null|float[],
-     *   DataSource: string,
      *   FilterBBox?: null|float[],
-     *   FilterCategories?: null|string[],
      *   FilterCountries?: null|string[],
-     *   Language?: null|string,
      *   MaxResults?: null|int,
      *   ResultBBox?: null|float[],
-     *   Text: string,
+     *   DataSource: string,
+     *   Language?: null|string,
+     *   FilterCategories?: null|string[],
      * }|SearchPlaceIndexForTextSummary $input
      */
     public static function create($input): self

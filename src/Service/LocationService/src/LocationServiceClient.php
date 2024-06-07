@@ -59,20 +59,20 @@ class LocationServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#calculateroute
      *
      * @param array{
-     *   ArrivalTime?: null|\DateTimeImmutable|string,
      *   CalculatorName: string,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   DepartNow?: null|bool,
      *   DeparturePosition: float[],
-     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPosition: float[],
+     *   WaypointPositions?: null|array[],
+     *   TravelMode?: null|TravelMode::*,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
+     *   DepartNow?: null|bool,
      *   DistanceUnit?: null|DistanceUnit::*,
      *   IncludeLegGeometry?: null|bool,
-     *   Key?: null|string,
-     *   OptimizeFor?: null|OptimizationMode::*,
-     *   TravelMode?: null|TravelMode::*,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   WaypointPositions?: null|array[],
+     *   ArrivalTime?: null|\DateTimeImmutable|string,
+     *   OptimizeFor?: null|OptimizationMode::*,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      *
@@ -133,15 +133,15 @@ class LocationServiceClient extends AbstractApi
      *
      * @param array{
      *   CalculatorName: string,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   DepartNow?: null|bool,
      *   DeparturePositions: array[],
-     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPositions: array[],
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   Key?: null|string,
      *   TravelMode?: null|TravelMode::*,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
+     *   DepartNow?: null|bool,
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|CalculateRouteMatrixRequest $input
      *
@@ -174,10 +174,10 @@ class LocationServiceClient extends AbstractApi
      *
      * @param array{
      *   IndexName: string,
-     *   Key?: null|string,
-     *   Language?: null|string,
-     *   MaxResults?: null|int,
      *   Position: float[],
+     *   MaxResults?: null|int,
+     *   Language?: null|string,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input
      *
@@ -217,15 +217,15 @@ class LocationServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#searchplaceindexfortext
      *
      * @param array{
+     *   IndexName: string,
+     *   Text: string,
      *   BiasPosition?: null|float[],
      *   FilterBBox?: null|float[],
-     *   FilterCategories?: null|string[],
      *   FilterCountries?: null|string[],
-     *   IndexName: string,
-     *   Key?: null|string,
-     *   Language?: null|string,
      *   MaxResults?: null|int,
-     *   Text: string,
+     *   Language?: null|string,
+     *   FilterCategories?: null|string[],
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input
      *

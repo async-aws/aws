@@ -23,28 +23,6 @@ final class CalculateRouteMatrixRequest extends Input
     private $calculatorName;
 
     /**
-     * Specifies route preferences when traveling by `Car`, such as avoiding routes that use ferries or tolls.
-     *
-     * Requirements: `TravelMode` must be specified as `Car`.
-     *
-     * @var CalculateRouteCarModeOptions|null
-     */
-    private $carModeOptions;
-
-    /**
-     * Sets the time of departure as the current time. Uses the current time to calculate the route matrix. You can't set
-     * both `DepartureTime` and `DepartNow`. If neither is set, the best time of day to travel with the best traffic
-     * conditions is used to calculate the route matrix.
-     *
-     * Default Value: `false`
-     *
-     * Valid Values: `false` | `true`
-     *
-     * @var bool|null
-     */
-    private $departNow;
-
-    /**
      * The list of departure (origin) positions for the route matrix. An array of points, each of which is itself a 2-value
      * array defined in WGS 84 [^1] format: `[longitude, latitude]`. For example, `[-123.115, 49.285]`.
      *
@@ -68,21 +46,6 @@ final class CalculateRouteMatrixRequest extends Input
     private $departurePositions;
 
     /**
-     * Specifies the desired time of departure. Uses the given time to calculate the route matrix. You can't set both
-     * `DepartureTime` and `DepartNow`. If neither is set, the best time of day to travel with the best traffic conditions
-     * is used to calculate the route matrix.
-     *
-     * > Setting a departure time in the past returns a `400 ValidationException` error.
-     *
-     * - In ISO 8601 [^1] format: `YYYY-MM-DDThh:mm:ss.sssZ`. For example, `2020–07-2T12:15:20.000Z+01:00`
-     *
-     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $departureTime;
-
-    /**
      * The list of destination positions for the route matrix. An array of points, each of which is itself a 2-value array
      * defined in WGS 84 [^1] format: `[longitude, latitude]`. For example, `[-122.339, 47.615]`.
      *
@@ -104,24 +67,6 @@ final class CalculateRouteMatrixRequest extends Input
      * @var float[][]|null
      */
     private $destinationPositions;
-
-    /**
-     * Set the unit system to specify the distance.
-     *
-     * Default Value: `Kilometers`
-     *
-     * @var DistanceUnit::*|null
-     */
-    private $distanceUnit;
-
-    /**
-     * The optional API key [^1] to authorize the request.
-     *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
-     *
-     * @var string|null
-     */
-    private $key;
 
     /**
      * Specifies the mode of transport when calculating a route. Used in estimating the speed of travel and road
@@ -148,6 +93,52 @@ final class CalculateRouteMatrixRequest extends Input
     private $travelMode;
 
     /**
+     * Specifies the desired time of departure. Uses the given time to calculate the route matrix. You can't set both
+     * `DepartureTime` and `DepartNow`. If neither is set, the best time of day to travel with the best traffic conditions
+     * is used to calculate the route matrix.
+     *
+     * > Setting a departure time in the past returns a `400 ValidationException` error.
+     *
+     * - In ISO 8601 [^1] format: `YYYY-MM-DDThh:mm:ss.sssZ`. For example, `2020–07-2T12:15:20.000Z+01:00`
+     *
+     * [^1]: https://www.iso.org/iso-8601-date-and-time-format.html
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $departureTime;
+
+    /**
+     * Sets the time of departure as the current time. Uses the current time to calculate the route matrix. You can't set
+     * both `DepartureTime` and `DepartNow`. If neither is set, the best time of day to travel with the best traffic
+     * conditions is used to calculate the route matrix.
+     *
+     * Default Value: `false`
+     *
+     * Valid Values: `false` | `true`
+     *
+     * @var bool|null
+     */
+    private $departNow;
+
+    /**
+     * Set the unit system to specify the distance.
+     *
+     * Default Value: `Kilometers`
+     *
+     * @var DistanceUnit::*|null
+     */
+    private $distanceUnit;
+
+    /**
+     * Specifies route preferences when traveling by `Car`, such as avoiding routes that use ferries or tolls.
+     *
+     * Requirements: `TravelMode` must be specified as `Car`.
+     *
+     * @var CalculateRouteCarModeOptions|null
+     */
+    private $carModeOptions;
+
+    /**
      * Specifies route preferences when traveling by `Truck`, such as avoiding routes that use ferries or tolls, and truck
      * specifications to consider when choosing an optimal road.
      *
@@ -158,47 +149,56 @@ final class CalculateRouteMatrixRequest extends Input
     private $truckModeOptions;
 
     /**
+     * The optional API key [^1] to authorize the request.
+     *
+     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     *
+     * @var string|null
+     */
+    private $key;
+
+    /**
      * @param array{
      *   CalculatorName?: string,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   DepartNow?: null|bool,
      *   DeparturePositions?: array[],
-     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPositions?: array[],
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   Key?: null|string,
      *   TravelMode?: null|TravelMode::*,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
+     *   DepartNow?: null|bool,
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->calculatorName = $input['CalculatorName'] ?? null;
-        $this->carModeOptions = isset($input['CarModeOptions']) ? CalculateRouteCarModeOptions::create($input['CarModeOptions']) : null;
-        $this->departNow = $input['DepartNow'] ?? null;
         $this->departurePositions = $input['DeparturePositions'] ?? null;
-        $this->departureTime = !isset($input['DepartureTime']) ? null : ($input['DepartureTime'] instanceof \DateTimeImmutable ? $input['DepartureTime'] : new \DateTimeImmutable($input['DepartureTime']));
         $this->destinationPositions = $input['DestinationPositions'] ?? null;
-        $this->distanceUnit = $input['DistanceUnit'] ?? null;
-        $this->key = $input['Key'] ?? null;
         $this->travelMode = $input['TravelMode'] ?? null;
+        $this->departureTime = !isset($input['DepartureTime']) ? null : ($input['DepartureTime'] instanceof \DateTimeImmutable ? $input['DepartureTime'] : new \DateTimeImmutable($input['DepartureTime']));
+        $this->departNow = $input['DepartNow'] ?? null;
+        $this->distanceUnit = $input['DistanceUnit'] ?? null;
+        $this->carModeOptions = isset($input['CarModeOptions']) ? CalculateRouteCarModeOptions::create($input['CarModeOptions']) : null;
         $this->truckModeOptions = isset($input['TruckModeOptions']) ? CalculateRouteTruckModeOptions::create($input['TruckModeOptions']) : null;
+        $this->key = $input['Key'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
      *   CalculatorName?: string,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   DepartNow?: null|bool,
      *   DeparturePositions?: array[],
-     *   DepartureTime?: null|\DateTimeImmutable|string,
      *   DestinationPositions?: array[],
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   Key?: null|string,
      *   TravelMode?: null|TravelMode::*,
+     *   DepartureTime?: null|\DateTimeImmutable|string,
+     *   DepartNow?: null|bool,
+     *   DistanceUnit?: null|DistanceUnit::*,
+     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
      *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
+     *   Key?: null|string,
      *   '@region'?: string|null,
      * }|CalculateRouteMatrixRequest $input
      */
@@ -388,12 +388,6 @@ final class CalculateRouteMatrixRequest extends Input
     {
         $payload = [];
 
-        if (null !== $v = $this->carModeOptions) {
-            $payload['CarModeOptions'] = $v->requestBody();
-        }
-        if (null !== $v = $this->departNow) {
-            $payload['DepartNow'] = (bool) $v;
-        }
         if (null === $v = $this->departurePositions) {
             throw new InvalidArgument(sprintf('Missing parameter "DeparturePositions" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -411,9 +405,6 @@ final class CalculateRouteMatrixRequest extends Input
             }
         }
 
-        if (null !== $v = $this->departureTime) {
-            $payload['DepartureTime'] = $v->format(\DateTimeInterface::ATOM);
-        }
         if (null === $v = $this->destinationPositions) {
             throw new InvalidArgument(sprintf('Missing parameter "DestinationPositions" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -431,18 +422,26 @@ final class CalculateRouteMatrixRequest extends Input
             }
         }
 
+        if (null !== $v = $this->travelMode) {
+            if (!TravelMode::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
+            }
+            $payload['TravelMode'] = $v;
+        }
+        if (null !== $v = $this->departureTime) {
+            $payload['DepartureTime'] = $v->format(\DateTimeInterface::ATOM);
+        }
+        if (null !== $v = $this->departNow) {
+            $payload['DepartNow'] = (bool) $v;
+        }
         if (null !== $v = $this->distanceUnit) {
             if (!DistanceUnit::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "DistanceUnit" for "%s". The value "%s" is not a valid "DistanceUnit".', __CLASS__, $v));
             }
             $payload['DistanceUnit'] = $v;
         }
-
-        if (null !== $v = $this->travelMode) {
-            if (!TravelMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
-            }
-            $payload['TravelMode'] = $v;
+        if (null !== $v = $this->carModeOptions) {
+            $payload['CarModeOptions'] = $v->requestBody();
         }
         if (null !== $v = $this->truckModeOptions) {
             $payload['TruckModeOptions'] = $v->requestBody();

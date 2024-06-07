@@ -13,20 +13,20 @@ use AsyncAws\LocationService\ValueObject\TimeZone;
 class SearchPlaceIndexForPositionResponse extends Result
 {
     /**
-     * Returns a list of Places closest to the specified position. Each result contains additional information about the
-     * Places returned.
-     *
-     * @var SearchForPositionResult[]
-     */
-    private $results;
-
-    /**
      * Contains a summary of the request. Echoes the input values for `Position`, `Language`, `MaxResults`, and the
      * `DataSource` of the place index.
      *
      * @var SearchPlaceIndexForPositionSummary
      */
     private $summary;
+
+    /**
+     * Returns a list of Places closest to the specified position. Each result contains additional information about the
+     * Places returned.
+     *
+     * @var SearchForPositionResult[]
+     */
+    private $results;
 
     /**
      * @return SearchForPositionResult[]
@@ -49,30 +49,30 @@ class SearchPlaceIndexForPositionResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->results = $this->populateResultSearchForPositionResultList($data['Results'] ?? []);
         $this->summary = $this->populateResultSearchPlaceIndexForPositionSummary($data['Summary']);
+        $this->results = $this->populateResultSearchForPositionResultList($data['Results'] ?? []);
     }
 
     private function populateResultPlace(array $json): Place
     {
         return new Place([
-            'AddressNumber' => isset($json['AddressNumber']) ? (string) $json['AddressNumber'] : null,
-            'Categories' => !isset($json['Categories']) ? null : $this->populateResultPlaceCategoryList($json['Categories']),
-            'Country' => isset($json['Country']) ? (string) $json['Country'] : null,
-            'Geometry' => $this->populateResultPlaceGeometry($json['Geometry']),
-            'Interpolated' => isset($json['Interpolated']) ? filter_var($json['Interpolated'], \FILTER_VALIDATE_BOOLEAN) : null,
             'Label' => isset($json['Label']) ? (string) $json['Label'] : null,
-            'Municipality' => isset($json['Municipality']) ? (string) $json['Municipality'] : null,
-            'Neighborhood' => isset($json['Neighborhood']) ? (string) $json['Neighborhood'] : null,
-            'PostalCode' => isset($json['PostalCode']) ? (string) $json['PostalCode'] : null,
-            'Region' => isset($json['Region']) ? (string) $json['Region'] : null,
+            'Geometry' => $this->populateResultPlaceGeometry($json['Geometry']),
+            'AddressNumber' => isset($json['AddressNumber']) ? (string) $json['AddressNumber'] : null,
             'Street' => isset($json['Street']) ? (string) $json['Street'] : null,
-            'SubMunicipality' => isset($json['SubMunicipality']) ? (string) $json['SubMunicipality'] : null,
+            'Neighborhood' => isset($json['Neighborhood']) ? (string) $json['Neighborhood'] : null,
+            'Municipality' => isset($json['Municipality']) ? (string) $json['Municipality'] : null,
             'SubRegion' => isset($json['SubRegion']) ? (string) $json['SubRegion'] : null,
-            'SupplementalCategories' => !isset($json['SupplementalCategories']) ? null : $this->populateResultPlaceSupplementalCategoryList($json['SupplementalCategories']),
+            'Region' => isset($json['Region']) ? (string) $json['Region'] : null,
+            'Country' => isset($json['Country']) ? (string) $json['Country'] : null,
+            'PostalCode' => isset($json['PostalCode']) ? (string) $json['PostalCode'] : null,
+            'Interpolated' => isset($json['Interpolated']) ? filter_var($json['Interpolated'], \FILTER_VALIDATE_BOOLEAN) : null,
             'TimeZone' => empty($json['TimeZone']) ? null : $this->populateResultTimeZone($json['TimeZone']),
-            'UnitNumber' => isset($json['UnitNumber']) ? (string) $json['UnitNumber'] : null,
             'UnitType' => isset($json['UnitType']) ? (string) $json['UnitType'] : null,
+            'UnitNumber' => isset($json['UnitNumber']) ? (string) $json['UnitNumber'] : null,
+            'Categories' => !isset($json['Categories']) ? null : $this->populateResultPlaceCategoryList($json['Categories']),
+            'SupplementalCategories' => !isset($json['SupplementalCategories']) ? null : $this->populateResultPlaceSupplementalCategoryList($json['SupplementalCategories']),
+            'SubMunicipality' => isset($json['SubMunicipality']) ? (string) $json['SubMunicipality'] : null,
         ]);
     }
 
@@ -134,8 +134,8 @@ class SearchPlaceIndexForPositionResponse extends Result
     private function populateResultSearchForPositionResult(array $json): SearchForPositionResult
     {
         return new SearchForPositionResult([
-            'Distance' => (float) $json['Distance'],
             'Place' => $this->populateResultPlace($json['Place']),
+            'Distance' => (float) $json['Distance'],
             'PlaceId' => isset($json['PlaceId']) ? (string) $json['PlaceId'] : null,
         ]);
     }
@@ -156,10 +156,10 @@ class SearchPlaceIndexForPositionResponse extends Result
     private function populateResultSearchPlaceIndexForPositionSummary(array $json): SearchPlaceIndexForPositionSummary
     {
         return new SearchPlaceIndexForPositionSummary([
+            'Position' => $this->populateResultPosition($json['Position']),
+            'MaxResults' => isset($json['MaxResults']) ? (int) $json['MaxResults'] : null,
             'DataSource' => (string) $json['DataSource'],
             'Language' => isset($json['Language']) ? (string) $json['Language'] : null,
-            'MaxResults' => isset($json['MaxResults']) ? (int) $json['MaxResults'] : null,
-            'Position' => $this->populateResultPosition($json['Position']),
         ]);
     }
 

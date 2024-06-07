@@ -680,12 +680,14 @@ class SqsClient extends AbstractApi
     /**
      * Delivers a message to the specified queue.
      *
-     * ! A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed:
+     * ! A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed. For more
+     * ! information, see the W3C specification for characters [^1].
      * !
      * ! `#x9` | `#xA` | `#xD` | `#x20` to `#xD7FF` | `#xE000` to `#xFFFD` | `#x10000` to `#x10FFFF`
      * !
-     * ! Any characters not included in this list will be rejected. For more information, see the W3C specification for
-     * ! characters [^1].
+     * ! Amazon SQS does not throw an exception or completely reject the message if it contains invalid characters. Instead,
+     * ! it replaces those invalid characters with `U+FFFD` before storing the message in the queue, as long as the message
+     * ! body contains at least one valid character.
      *
      * [^1]: http://www.w3.org/TR/REC-xml/#charsets
      *
@@ -751,12 +753,14 @@ class SqsClient extends AbstractApi
      * The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths of
      * all of the batched messages) are both 256 KiB (262,144 bytes).
      *
-     * ! A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed:
+     * ! A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed. For more
+     * ! information, see the W3C specification for characters [^1].
      * !
      * ! `#x9` | `#xA` | `#xD` | `#x20` to `#xD7FF` | `#xE000` to `#xFFFD` | `#x10000` to `#x10FFFF`
      * !
-     * ! Any characters not included in this list will be rejected. For more information, see the W3C specification for
-     * ! characters [^1].
+     * ! Amazon SQS does not throw an exception or completely reject the message if it contains invalid characters. Instead,
+     * ! it replaces those invalid characters with `U+FFFD` before storing the message in the queue, as long as the message
+     * ! body contains at least one valid character.
      *
      * If you don't specify the `DelaySeconds` parameter for an entry, Amazon SQS uses the default value for the queue.
      *

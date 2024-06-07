@@ -13,18 +13,18 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class ValidationException extends ClientException
 {
     /**
-     * The field where the invalid entry was detected.
-     *
-     * @var ValidationExceptionField[]
-     */
-    private $fieldList;
-
-    /**
      * A message with the reason for the validation exception error.
      *
      * @var ValidationExceptionReason::*
      */
     private $reason;
+
+    /**
+     * The field where the invalid entry was detected.
+     *
+     * @var ValidationExceptionField[]
+     */
+    private $fieldList;
 
     /**
      * @return ValidationExceptionField[]
@@ -46,15 +46,15 @@ final class ValidationException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->fieldList = $this->populateResultValidationExceptionFieldList($data['fieldList'] ?? []);
         $this->reason = (string) $data['reason'];
+        $this->fieldList = $this->populateResultValidationExceptionFieldList($data['fieldList'] ?? []);
     }
 
     private function populateResultValidationExceptionField(array $json): ValidationExceptionField
     {
         return new ValidationExceptionField([
-            'Message' => (string) $json['message'],
             'Name' => (string) $json['name'],
+            'Message' => (string) $json['message'],
         ]);
     }
 

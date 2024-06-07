@@ -90,22 +90,22 @@ class CalculateRouteResponse extends Result
     private function populateResultCalculateRouteSummary(array $json): CalculateRouteSummary
     {
         return new CalculateRouteSummary([
+            'RouteBBox' => $this->populateResultBoundingBox($json['RouteBBox']),
             'DataSource' => (string) $json['DataSource'],
             'Distance' => (float) $json['Distance'],
-            'DistanceUnit' => (string) $json['DistanceUnit'],
             'DurationSeconds' => (float) $json['DurationSeconds'],
-            'RouteBBox' => $this->populateResultBoundingBox($json['RouteBBox']),
+            'DistanceUnit' => (string) $json['DistanceUnit'],
         ]);
     }
 
     private function populateResultLeg(array $json): Leg
     {
         return new Leg([
+            'StartPosition' => $this->populateResultPosition($json['StartPosition']),
+            'EndPosition' => $this->populateResultPosition($json['EndPosition']),
             'Distance' => (float) $json['Distance'],
             'DurationSeconds' => (float) $json['DurationSeconds'],
-            'EndPosition' => $this->populateResultPosition($json['EndPosition']),
             'Geometry' => empty($json['Geometry']) ? null : $this->populateResultLegGeometry($json['Geometry']),
-            'StartPosition' => $this->populateResultPosition($json['StartPosition']),
             'Steps' => $this->populateResultStepList($json['Steps']),
         ]);
     }
@@ -162,11 +162,11 @@ class CalculateRouteResponse extends Result
     private function populateResultStep(array $json): Step
     {
         return new Step([
+            'StartPosition' => $this->populateResultPosition($json['StartPosition']),
+            'EndPosition' => $this->populateResultPosition($json['EndPosition']),
             'Distance' => (float) $json['Distance'],
             'DurationSeconds' => (float) $json['DurationSeconds'],
-            'EndPosition' => $this->populateResultPosition($json['EndPosition']),
             'GeometryOffset' => isset($json['GeometryOffset']) ? (int) $json['GeometryOffset'] : null,
-            'StartPosition' => $this->populateResultPosition($json['StartPosition']),
         ]);
     }
 

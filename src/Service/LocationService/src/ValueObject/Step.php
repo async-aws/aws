@@ -11,6 +11,22 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class Step
 {
     /**
+     * The starting position of a step. If the position is the first step in the leg, this position is the same as the start
+     * position of the leg.
+     *
+     * @var float[]
+     */
+    private $startPosition;
+
+    /**
+     * The end position of a step. If the position the last step in the leg, this position is the same as the end position
+     * of the leg.
+     *
+     * @var float[]
+     */
+    private $endPosition;
+
+    /**
      * The travel distance between the step's `StartPosition` and `EndPosition`.
      *
      * @var float
@@ -26,14 +42,6 @@ final class Step
     private $durationSeconds;
 
     /**
-     * The end position of a step. If the position the last step in the leg, this position is the same as the end position
-     * of the leg.
-     *
-     * @var float[]
-     */
-    private $endPosition;
-
-    /**
      * Represents the start position, or index, in a sequence of steps within the leg's line string geometry. For example,
      * the index of the first step in a leg geometry is `0`.
      *
@@ -44,38 +52,30 @@ final class Step
     private $geometryOffset;
 
     /**
-     * The starting position of a step. If the position is the first step in the leg, this position is the same as the start
-     * position of the leg.
-     *
-     * @var float[]
-     */
-    private $startPosition;
-
-    /**
      * @param array{
+     *   StartPosition: float[],
+     *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   EndPosition: float[],
      *   GeometryOffset?: null|int,
-     *   StartPosition: float[],
      * } $input
      */
     public function __construct(array $input)
     {
+        $this->startPosition = $input['StartPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "StartPosition".'));
+        $this->endPosition = $input['EndPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "EndPosition".'));
         $this->distance = $input['Distance'] ?? $this->throwException(new InvalidArgument('Missing required field "Distance".'));
         $this->durationSeconds = $input['DurationSeconds'] ?? $this->throwException(new InvalidArgument('Missing required field "DurationSeconds".'));
-        $this->endPosition = $input['EndPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "EndPosition".'));
         $this->geometryOffset = $input['GeometryOffset'] ?? null;
-        $this->startPosition = $input['StartPosition'] ?? $this->throwException(new InvalidArgument('Missing required field "StartPosition".'));
     }
 
     /**
      * @param array{
+     *   StartPosition: float[],
+     *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   EndPosition: float[],
      *   GeometryOffset?: null|int,
-     *   StartPosition: float[],
      * }|Step $input
      */
     public static function create($input): self

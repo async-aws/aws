@@ -12,17 +12,6 @@ use AsyncAws\LocationService\Enum\DimensionUnit;
 final class TruckDimensions
 {
     /**
-     * The height of the truck.
-     *
-     * - For example, `4.5`.
-     *
-     * > For routes calculated with a HERE resource, this value must be between 0 and 50 meters.
-     *
-     * @var float|null
-     */
-    private $height;
-
-    /**
      * The length of the truck.
      *
      * - For example, `15.5`.
@@ -34,13 +23,15 @@ final class TruckDimensions
     private $length;
 
     /**
-     * Specifies the unit of measurement for the truck dimensions.
+     * The height of the truck.
      *
-     * Default Value: `Meters`
+     * - For example, `4.5`.
      *
-     * @var DimensionUnit::*|null
+     * > For routes calculated with a HERE resource, this value must be between 0 and 50 meters.
+     *
+     * @var float|null
      */
-    private $unit;
+    private $height;
 
     /**
      * The width of the truck.
@@ -54,27 +45,36 @@ final class TruckDimensions
     private $width;
 
     /**
+     * Specifies the unit of measurement for the truck dimensions.
+     *
+     * Default Value: `Meters`
+     *
+     * @var DimensionUnit::*|null
+     */
+    private $unit;
+
+    /**
      * @param array{
-     *   Height?: null|float,
      *   Length?: null|float,
-     *   Unit?: null|DimensionUnit::*,
+     *   Height?: null|float,
      *   Width?: null|float,
+     *   Unit?: null|DimensionUnit::*,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->height = $input['Height'] ?? null;
         $this->length = $input['Length'] ?? null;
-        $this->unit = $input['Unit'] ?? null;
+        $this->height = $input['Height'] ?? null;
         $this->width = $input['Width'] ?? null;
+        $this->unit = $input['Unit'] ?? null;
     }
 
     /**
      * @param array{
-     *   Height?: null|float,
      *   Length?: null|float,
-     *   Unit?: null|DimensionUnit::*,
+     *   Height?: null|float,
      *   Width?: null|float,
+     *   Unit?: null|DimensionUnit::*,
      * }|TruckDimensions $input
      */
     public static function create($input): self
@@ -111,20 +111,20 @@ final class TruckDimensions
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->length) {
+            $payload['Length'] = $v;
+        }
         if (null !== $v = $this->height) {
             $payload['Height'] = $v;
         }
-        if (null !== $v = $this->length) {
-            $payload['Length'] = $v;
+        if (null !== $v = $this->width) {
+            $payload['Width'] = $v;
         }
         if (null !== $v = $this->unit) {
             if (!DimensionUnit::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "DimensionUnit".', __CLASS__, $v));
             }
             $payload['Unit'] = $v;
-        }
-        if (null !== $v = $this->width) {
-            $payload['Width'] = $v;
         }
 
         return $payload;

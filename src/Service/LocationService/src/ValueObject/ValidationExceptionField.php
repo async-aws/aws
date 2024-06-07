@@ -10,13 +10,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ValidationExceptionField
 {
     /**
-     * A message with the reason for the validation exception error.
-     *
-     * @var string
-     */
-    private $message;
-
-    /**
      * The field name where the invalid entry was detected.
      *
      * @var string
@@ -24,21 +17,28 @@ final class ValidationExceptionField
     private $name;
 
     /**
+     * A message with the reason for the validation exception error.
+     *
+     * @var string
+     */
+    private $message;
+
+    /**
      * @param array{
-     *   Message: string,
      *   Name: string,
+     *   Message: string,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->message = $input['Message'] ?? $this->throwException(new InvalidArgument('Missing required field "Message".'));
         $this->name = $input['Name'] ?? $this->throwException(new InvalidArgument('Missing required field "Name".'));
+        $this->message = $input['Message'] ?? $this->throwException(new InvalidArgument('Missing required field "Message".'));
     }
 
     /**
      * @param array{
-     *   Message: string,
      *   Name: string,
+     *   Message: string,
      * }|ValidationExceptionField $input
      */
     public static function create($input): self
