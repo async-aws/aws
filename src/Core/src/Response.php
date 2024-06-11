@@ -417,6 +417,8 @@ final class Response
 
             if ((null !== $awsCode = ($awsError ? $awsError->getCode() : null)) && isset($this->exceptionMapping[$awsCode])) {
                 $exceptionClass = $this->exceptionMapping[$awsCode];
+            } elseif (isset($this->exceptionMapping['http_status_code_' . $statusCode])) {
+                $exceptionClass = $this->exceptionMapping['http_status_code_' . $statusCode];
             } elseif (500 <= $statusCode) {
                 $exceptionClass = ServerException::class;
             } elseif (400 <= $statusCode) {

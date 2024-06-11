@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Exception NoSuchKeyException not fired for `HeadObject` request.
+
 ## 2.2.1
 
 ### Changed

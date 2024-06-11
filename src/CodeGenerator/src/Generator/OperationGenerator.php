@@ -198,6 +198,10 @@ class OperationGenerator
             $classBuilder->addUse($errorClass->getFqdn());
 
             $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
+            if ('HEAD' === $operation->getHttpMethod() && ($statusCode = $error->getStatusCode()) >= 400) {
+                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.22');
+                $mapping[] = sprintf('%s => %s::class,', var_export('http_status_code_' . $statusCode, true), $errorClass->getName());
+            }
         }
         if ($mapping) {
             $extra .= ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]";
