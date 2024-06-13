@@ -91,6 +91,9 @@ final class CreateSecretRequest extends Input
      *
      * This parameter is not available in the Secrets Manager console.
      *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
+     *
      * @var string|null
      */
     private $secretBinary;
@@ -104,6 +107,9 @@ final class CreateSecretRequest extends Input
      * If you create a secret by using the Secrets Manager console then Secrets Manager puts the protected secret text in
      * only the `SecretString` parameter. The Secrets Manager console stores the information as a JSON structure of
      * key/value pairs that a Lambda rotation function can parse.
+     *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
      *
      * @var string|null
      */

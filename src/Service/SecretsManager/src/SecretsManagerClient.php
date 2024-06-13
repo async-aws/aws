@@ -331,8 +331,8 @@ class SecretsManagerClient extends AbstractApi
      * new ones.
      *
      * Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in
-     * request parameters except `SecretBinary` or `SecretString` because it might be logged. For more information, see
-     * Logging Secrets Manager events with CloudTrail [^1].
+     * request parameters except `SecretBinary`, `SecretString`, or `RotationToken` because it might be logged. For more
+     * information, see Logging Secrets Manager events with CloudTrail [^1].
      *
      * **Required permissions: **`secretsmanager:PutSecretValue`. For more information, see IAM policy actions for Secrets
      * Manager [^2] and Authentication and access control in Secrets Manager [^3].
@@ -350,6 +350,7 @@ class SecretsManagerClient extends AbstractApi
      *   SecretBinary?: null|string,
      *   SecretString?: null|string,
      *   VersionStages?: null|string[],
+     *   RotationToken?: null|string,
      *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      *

@@ -63,6 +63,9 @@ final class PutSecretValueRequest extends Input
      *
      * You can't access this value from the Secrets Manager console.
      *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
+     *
      * @var string|null
      */
     private $secretBinary;
@@ -73,6 +76,9 @@ final class PutSecretValueRequest extends Input
      * You must include `SecretBinary` or `SecretString`, but not both.
      *
      * We recommend you create the secret string as JSON key/value pairs, as shown in the example.
+     *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
      *
      * @var string|null
      */
@@ -95,12 +101,28 @@ final class PutSecretValueRequest extends Input
     private $versionStages;
 
     /**
+     * A unique identifier that indicates the source of the request. For cross-account rotation (when you rotate a secret in
+     * one account by using a Lambda rotation function in another account) and the Lambda rotation function assumes an IAM
+     * role to call Secrets Manager, Secrets Manager validates the identity with the rotation token. For more information,
+     * see How rotation works [^1].
+     *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html
+     *
+     * @var string|null
+     */
+    private $rotationToken;
+
+    /**
      * @param array{
      *   SecretId?: string,
      *   ClientRequestToken?: null|string,
      *   SecretBinary?: null|string,
      *   SecretString?: null|string,
      *   VersionStages?: null|string[],
+     *   RotationToken?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -111,6 +133,7 @@ final class PutSecretValueRequest extends Input
         $this->secretBinary = $input['SecretBinary'] ?? null;
         $this->secretString = $input['SecretString'] ?? null;
         $this->versionStages = $input['VersionStages'] ?? null;
+        $this->rotationToken = $input['RotationToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -121,6 +144,7 @@ final class PutSecretValueRequest extends Input
      *   SecretBinary?: null|string,
      *   SecretString?: null|string,
      *   VersionStages?: null|string[],
+     *   RotationToken?: null|string,
      *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      */
@@ -132,6 +156,11 @@ final class PutSecretValueRequest extends Input
     public function getClientRequestToken(): ?string
     {
         return $this->clientRequestToken;
+    }
+
+    public function getRotationToken(): ?string
+    {
+        return $this->rotationToken;
     }
 
     public function getSecretBinary(): ?string
@@ -186,6 +215,13 @@ final class PutSecretValueRequest extends Input
     public function setClientRequestToken(?string $value): self
     {
         $this->clientRequestToken = $value;
+
+        return $this;
+    }
+
+    public function setRotationToken(?string $value): self
+    {
+        $this->rotationToken = $value;
 
         return $this;
     }
@@ -245,6 +281,9 @@ final class PutSecretValueRequest extends Input
                 ++$index;
                 $payload['VersionStages'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->rotationToken) {
+            $payload['RotationToken'] = $v;
         }
 
         return $payload;

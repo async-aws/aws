@@ -36,6 +36,9 @@ class GetSecretValueResponse extends Result
      * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as a
      * string, then this field is omitted. The secret value appears in `SecretString` instead.
      *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
+     *
      * @var string|null
      */
     private $secretBinary;
@@ -46,6 +49,9 @@ class GetSecretValueResponse extends Result
      *
      * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure of
      * key/value pairs.
+     *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
      *
      * @var string|null
      */
