@@ -7,6 +7,7 @@
 ### Added
 
 - Added support for `async-aws/dynamo-db` 2.0 and 3.0
+- Support locking by configuring `locking`, `max_lock_wait_time`, `min_lock_retry_microtime` & `max_lock_retry_microtime`
 
 ## 1.0.2
 
