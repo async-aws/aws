@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Introducing RotationToken parameter for PutSecretValue API
+
 ### Changed
 
 - Add `Accept: application/json` header in request to fix incompatibility with 3rd party providers

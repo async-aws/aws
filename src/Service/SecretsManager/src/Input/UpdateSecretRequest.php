@@ -85,6 +85,9 @@ final class UpdateSecretRequest extends Input
      *
      * You can't access this parameter in the Secrets Manager console.
      *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
+     *
      * @var string|null
      */
     private $secretBinary;
@@ -94,6 +97,9 @@ final class UpdateSecretRequest extends Input
      * key/value pairs for your secret value.
      *
      * Either `SecretBinary` or `SecretString` must have a value, but not both.
+     *
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
+     * If you create your own log entries, you must also avoid logging the information in this field.
      *
      * @var string|null
      */
