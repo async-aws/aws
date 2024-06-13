@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for exception based on response http status code only.
+
 ## 1.21.0
 
 ### Added

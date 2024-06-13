@@ -1630,6 +1630,7 @@ class S3Client extends AbstractApi
         $input = HeadObjectRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'NoSuchKey' => NoSuchKeyException::class,
+            'http_status_code_404' => NoSuchKeyException::class,
         ]]));
 
         return new HeadObjectOutput($response);
