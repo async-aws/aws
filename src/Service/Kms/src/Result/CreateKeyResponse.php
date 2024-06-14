@@ -5,6 +5,7 @@ namespace AsyncAws\Kms\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
+use AsyncAws\Kms\Enum\KeyAgreementAlgorithmSpec;
 use AsyncAws\Kms\Enum\MacAlgorithmSpec;
 use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\ValueObject\KeyMetadata;
@@ -51,6 +52,22 @@ class CreateKeyResponse extends Result
         return $items;
     }
 
+    /**
+     * @return list<KeyAgreementAlgorithmSpec::*>
+     */
+    private function populateResultKeyAgreementAlgorithmSpecList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
     private function populateResultKeyMetadata(array $json): KeyMetadata
     {
         return new KeyMetadata([
@@ -73,6 +90,7 @@ class CreateKeyResponse extends Result
             'KeySpec' => isset($json['KeySpec']) ? (string) $json['KeySpec'] : null,
             'EncryptionAlgorithms' => !isset($json['EncryptionAlgorithms']) ? null : $this->populateResultEncryptionAlgorithmSpecList($json['EncryptionAlgorithms']),
             'SigningAlgorithms' => !isset($json['SigningAlgorithms']) ? null : $this->populateResultSigningAlgorithmSpecList($json['SigningAlgorithms']),
+            'KeyAgreementAlgorithms' => !isset($json['KeyAgreementAlgorithms']) ? null : $this->populateResultKeyAgreementAlgorithmSpecList($json['KeyAgreementAlgorithms']),
             'MultiRegion' => isset($json['MultiRegion']) ? filter_var($json['MultiRegion'], \FILTER_VALIDATE_BOOLEAN) : null,
             'MultiRegionConfiguration' => empty($json['MultiRegionConfiguration']) ? null : $this->populateResultMultiRegionConfiguration($json['MultiRegionConfiguration']),
             'PendingDeletionWindowInDays' => isset($json['PendingDeletionWindowInDays']) ? (int) $json['PendingDeletionWindowInDays'] : null,
