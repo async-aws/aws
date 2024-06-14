@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\ExpirationModelType;
+use AsyncAws\Kms\Enum\KeyAgreementAlgorithmSpec;
 use AsyncAws\Kms\Enum\KeyManagerType;
 use AsyncAws\Kms\Enum\KeySpec;
 use AsyncAws\Kms\Enum\KeyState;
@@ -195,6 +196,13 @@ final class KeyMetadata
     private $signingAlgorithms;
 
     /**
+     * The key agreement algorithm used to derive a shared secret.
+     *
+     * @var list<KeyAgreementAlgorithmSpec::*>|null
+     */
+    private $keyAgreementAlgorithms;
+
+    /**
      * Indicates whether the KMS key is a multi-Region (`True`) or regional (`False`) key. This value is `True` for
      * multi-Region primary and replica keys and `False` for regional KMS keys.
      *
@@ -280,6 +288,7 @@ final class KeyMetadata
      *   KeySpec?: null|KeySpec::*,
      *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*>,
      *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*>,
+     *   KeyAgreementAlgorithms?: null|array<KeyAgreementAlgorithmSpec::*>,
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
@@ -308,6 +317,7 @@ final class KeyMetadata
         $this->keySpec = $input['KeySpec'] ?? null;
         $this->encryptionAlgorithms = $input['EncryptionAlgorithms'] ?? null;
         $this->signingAlgorithms = $input['SigningAlgorithms'] ?? null;
+        $this->keyAgreementAlgorithms = $input['KeyAgreementAlgorithms'] ?? null;
         $this->multiRegion = $input['MultiRegion'] ?? null;
         $this->multiRegionConfiguration = isset($input['MultiRegionConfiguration']) ? MultiRegionConfiguration::create($input['MultiRegionConfiguration']) : null;
         $this->pendingDeletionWindowInDays = $input['PendingDeletionWindowInDays'] ?? null;
@@ -336,6 +346,7 @@ final class KeyMetadata
      *   KeySpec?: null|KeySpec::*,
      *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*>,
      *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*>,
+     *   KeyAgreementAlgorithms?: null|array<KeyAgreementAlgorithmSpec::*>,
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
@@ -414,6 +425,14 @@ final class KeyMetadata
     public function getExpirationModel(): ?string
     {
         return $this->expirationModel;
+    }
+
+    /**
+     * @return list<KeyAgreementAlgorithmSpec::*>
+     */
+    public function getKeyAgreementAlgorithms(): array
+    {
+        return $this->keyAgreementAlgorithms ?? [];
     }
 
     public function getKeyId(): string

@@ -183,10 +183,13 @@ class KmsClient extends AbstractApi
      *
      *   Asymmetric KMS keys contain an RSA key pair, Elliptic Curve (ECC) key pair, or an SM2 key pair (China Regions
      *   only). The private key in an asymmetric KMS key never leaves KMS unencrypted. However, you can use the GetPublicKey
-     *   operation to download the public key so it can be used outside of KMS. KMS keys with RSA or SM2 key pairs can be
-     *   used to encrypt or decrypt data or sign and verify messages (but not both). KMS keys with ECC key pairs can be used
-     *   only to sign and verify messages. For information about asymmetric KMS keys, see Asymmetric KMS keys [^3] in the
-     *   *Key Management Service Developer Guide*.
+     *   operation to download the public key so it can be used outside of KMS. Each KMS key can have only one key usage.
+     *   KMS keys with RSA key pairs can be used to encrypt and decrypt data or sign and verify messages (but not both). KMS
+     *   keys with NIST-recommended ECC key pairs can be used to sign and verify messages or derive shared secrets (but not
+     *   both). KMS keys with `ECC_SECG_P256K1` can be used only to sign and verify messages. KMS keys with SM2 key pairs
+     *   (China Regions only) can be used to either encrypt and decrypt data, sign and verify messages, or derive shared
+     *   secrets (you must choose one key usage type). For information about asymmetric KMS keys, see Asymmetric KMS keys
+     *   [^3] in the *Key Management Service Developer Guide*.
      *
      * - `HMAC KMS key`:
      *
