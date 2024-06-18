@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes support for creating I-frame only video segments for DASH trick play.
+
 ### Changed
 
 - Add `Accept: application/json` header in request to fix incompatibility with 3rd party providers

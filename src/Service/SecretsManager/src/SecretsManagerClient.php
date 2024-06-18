@@ -70,8 +70,9 @@ class SecretsManagerClient extends AbstractApi
      * Logging Secrets Manager events with CloudTrail [^4].
      *
      * **Required permissions: **`secretsmanager:CreateSecret`. If you include tags in the secret, you also need
-     * `secretsmanager:TagResource`. For more information, see IAM policy actions for Secrets Manager [^5] and
-     * Authentication and access control in Secrets Manager [^6].
+     * `secretsmanager:TagResource`. To add replica Regions, you must also have `secretsmanager:ReplicateSecretToRegions`.
+     * For more information, see IAM policy actions for Secrets Manager [^5] and Authentication and access control in
+     * Secrets Manager [^6].
      *
      * To encrypt the secret with a KMS key other than `aws/secretsmanager`, you need `kms:GenerateDataKey` and
      * `kms:Decrypt` permission to the key.

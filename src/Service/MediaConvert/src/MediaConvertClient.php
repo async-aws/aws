@@ -115,7 +115,9 @@ class MediaConvertClient extends AbstractApi
     }
 
     /**
-     * Send an request with an empty body to the regional API endpoint to get your account API endpoint.
+     * Send a request with an empty body to the regional API endpoint to get your account API endpoint. Note that
+     * DescribeEndpoints is no longer required. We recommend that you send your requests directly to the regional endpoint
+     * instead.
      *
      * @see https://docs.aws.amazon.com/mediaconvert/latest/apireference/API_DescribeEndpoints.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#describeendpoints
