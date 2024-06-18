@@ -5,7 +5,6 @@
 ### Added
 
 - AWS api-change: This release includes support for creating I-frame only video segments for DASH trick play.
-- AWS api-change: This release adds the ability to search for historical job records within the management console using a search box and/or via the SDK/CLI with partial string matching search on input file name.
 
 ### Changed
 
