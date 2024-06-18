@@ -585,6 +585,7 @@ class GetJobResponse extends Result
             'BaseUrl' => isset($json['baseUrl']) ? (string) $json['baseUrl'] : null,
             'ClientCache' => isset($json['clientCache']) ? (string) $json['clientCache'] : null,
             'CodecSpecification' => isset($json['codecSpecification']) ? (string) $json['codecSpecification'] : null,
+            'DashIFrameTrickPlayNameModifier' => isset($json['dashIFrameTrickPlayNameModifier']) ? (string) $json['dashIFrameTrickPlayNameModifier'] : null,
             'DashManifestStyle' => isset($json['dashManifestStyle']) ? (string) $json['dashManifestStyle'] : null,
             'Destination' => isset($json['destination']) ? (string) $json['destination'] : null,
             'DestinationSettings' => empty($json['destinationSettings']) ? null : $this->populateResultDestinationSettings($json['destinationSettings']),
@@ -708,6 +709,7 @@ class GetJobResponse extends Result
             'AdditionalManifests' => !isset($json['additionalManifests']) ? null : $this->populateResult__listOfDashAdditionalManifest($json['additionalManifests']),
             'AudioChannelConfigSchemeIdUri' => isset($json['audioChannelConfigSchemeIdUri']) ? (string) $json['audioChannelConfigSchemeIdUri'] : null,
             'BaseUrl' => isset($json['baseUrl']) ? (string) $json['baseUrl'] : null,
+            'DashIFrameTrickPlayNameModifier' => isset($json['dashIFrameTrickPlayNameModifier']) ? (string) $json['dashIFrameTrickPlayNameModifier'] : null,
             'DashManifestStyle' => isset($json['dashManifestStyle']) ? (string) $json['dashManifestStyle'] : null,
             'Destination' => isset($json['destination']) ? (string) $json['destination'] : null,
             'DestinationSettings' => empty($json['destinationSettings']) ? null : $this->populateResultDestinationSettings($json['destinationSettings']),
@@ -1328,7 +1330,11 @@ class GetJobResponse extends Result
     private function populateResultInputVideoGenerator(array $json): InputVideoGenerator
     {
         return new InputVideoGenerator([
+            'Channels' => isset($json['channels']) ? (int) $json['channels'] : null,
             'Duration' => isset($json['duration']) ? (int) $json['duration'] : null,
+            'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
+            'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
+            'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
         ]);
     }
 

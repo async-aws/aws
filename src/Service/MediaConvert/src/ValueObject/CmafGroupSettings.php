@@ -61,6 +61,19 @@ final class CmafGroupSettings
     private $codecSpecification;
 
     /**
+     * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
+     * When specified, the I-frame only video segments are included within an additional AdaptationSet in your DASH output
+     * manifest. To generate I-frame only video segments: Enter a name as a text string, up to 256 character long. This name
+     * is appended to the end of this output group's base filename, that you specify as part of your destination URI, and
+     * used for the I-frame only video segment files. You may also include format identifiers. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html#using-settings-variables-with-streaming-outputs
+     * To not generate I-frame only video segments: Leave blank.
+     *
+     * @var string|null
+     */
+    private $dashIframeTrickPlayNameModifier;
+
+    /**
      * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline in each
      * video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the video AdaptationSet:
      * Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation that does not share a
@@ -276,6 +289,7 @@ final class CmafGroupSettings
      *   BaseUrl?: null|string,
      *   ClientCache?: null|CmafClientCache::*,
      *   CodecSpecification?: null|CmafCodecSpecification::*,
+     *   DashIFrameTrickPlayNameModifier?: null|string,
      *   DashManifestStyle?: null|DashManifestStyle::*,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
@@ -307,6 +321,7 @@ final class CmafGroupSettings
         $this->baseUrl = $input['BaseUrl'] ?? null;
         $this->clientCache = $input['ClientCache'] ?? null;
         $this->codecSpecification = $input['CodecSpecification'] ?? null;
+        $this->dashIframeTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
         $this->dashManifestStyle = $input['DashManifestStyle'] ?? null;
         $this->destination = $input['Destination'] ?? null;
         $this->destinationSettings = isset($input['DestinationSettings']) ? DestinationSettings::create($input['DestinationSettings']) : null;
@@ -338,6 +353,7 @@ final class CmafGroupSettings
      *   BaseUrl?: null|string,
      *   ClientCache?: null|CmafClientCache::*,
      *   CodecSpecification?: null|CmafCodecSpecification::*,
+     *   DashIFrameTrickPlayNameModifier?: null|string,
      *   DashManifestStyle?: null|DashManifestStyle::*,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
@@ -395,6 +411,11 @@ final class CmafGroupSettings
     public function getCodecSpecification(): ?string
     {
         return $this->codecSpecification;
+    }
+
+    public function getDashIframeTrickPlayNameModifier(): ?string
+    {
+        return $this->dashIframeTrickPlayNameModifier;
     }
 
     /**
@@ -585,6 +606,9 @@ final class CmafGroupSettings
                 throw new InvalidArgument(sprintf('Invalid parameter "codecSpecification" for "%s". The value "%s" is not a valid "CmafCodecSpecification".', __CLASS__, $v));
             }
             $payload['codecSpecification'] = $v;
+        }
+        if (null !== $v = $this->dashIframeTrickPlayNameModifier) {
+            $payload['dashIFrameTrickPlayNameModifier'] = $v;
         }
         if (null !== $v = $this->dashManifestStyle) {
             if (!DashManifestStyle::exists($v)) {

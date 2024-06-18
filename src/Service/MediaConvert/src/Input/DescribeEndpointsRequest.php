@@ -9,7 +9,9 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\MediaConvert\Enum\DescribeEndpointsMode;
 
 /**
- * Send an request with an empty body to the regional API endpoint to get your account API endpoint.
+ * Send a request with an empty body to the regional API endpoint to get your account API endpoint. Note that
+ * DescribeEndpoints is no longer required. We recommend that you send your requests directly to the regional endpoint
+ * instead.
  */
 final class DescribeEndpointsRequest extends Input
 {
