@@ -168,6 +168,7 @@ jobs:
       - name: Download dependencies
         run: |
           composer config minimum-stability ${{ matrix.minimum_stability }}
+          composer require --dev --no-update "phpunit/phpunit=9.6.*"
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run tests
