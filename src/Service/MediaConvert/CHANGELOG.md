@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
 ### Added
 
 - AWS api-change: This release includes support for creating I-frame only video segments for DASH trick play.

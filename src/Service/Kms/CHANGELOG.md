@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.5.0
+
 ### Added
 
 - AWS api-change: This feature allows customers to use their keys stored in KMS to derive a shared secret which can then be used to establish a secured channel for communication, provide proof of possession, or establish trust with other parties.

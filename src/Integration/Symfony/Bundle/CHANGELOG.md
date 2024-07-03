@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.12.2
+
 ### Changed
 
 - Replace deprecated Extension by  Symfony\Component\DependencyInjection\Extension\Extension
