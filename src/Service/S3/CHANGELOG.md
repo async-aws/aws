@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added response overrides to Head Object requests.
+
 ### Fixed
 
 - Exception NoSuchKeyException not fired for `HeadObject` request.

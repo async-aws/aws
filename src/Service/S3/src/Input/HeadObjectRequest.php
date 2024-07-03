@@ -139,6 +139,48 @@ final class HeadObjectRequest extends Input
     private $range;
 
     /**
+     * Sets the `Cache-Control` header of the response.
+     *
+     * @var string|null
+     */
+    private $responseCacheControl;
+
+    /**
+     * Sets the `Content-Disposition` header of the response.
+     *
+     * @var string|null
+     */
+    private $responseContentDisposition;
+
+    /**
+     * Sets the `Content-Encoding` header of the response.
+     *
+     * @var string|null
+     */
+    private $responseContentEncoding;
+
+    /**
+     * Sets the `Content-Language` header of the response.
+     *
+     * @var string|null
+     */
+    private $responseContentLanguage;
+
+    /**
+     * Sets the `Content-Type` header of the response.
+     *
+     * @var string|null
+     */
+    private $responseContentType;
+
+    /**
+     * Sets the `Expires` header of the response.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $responseExpires;
+
+    /**
      * Version ID used to reference a specific version of the object.
      *
      * > For directory buckets in this API operation, only the `null` value of the version ID is supported.
@@ -218,6 +260,12 @@ final class HeadObjectRequest extends Input
      *   IfUnmodifiedSince?: null|\DateTimeImmutable|string,
      *   Key?: string,
      *   Range?: null|string,
+     *   ResponseCacheControl?: null|string,
+     *   ResponseContentDisposition?: null|string,
+     *   ResponseContentEncoding?: null|string,
+     *   ResponseContentLanguage?: null|string,
+     *   ResponseContentType?: null|string,
+     *   ResponseExpires?: null|\DateTimeImmutable|string,
      *   VersionId?: null|string,
      *   SSECustomerAlgorithm?: null|string,
      *   SSECustomerKey?: null|string,
@@ -238,6 +286,12 @@ final class HeadObjectRequest extends Input
         $this->ifUnmodifiedSince = !isset($input['IfUnmodifiedSince']) ? null : ($input['IfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['IfUnmodifiedSince'] : new \DateTimeImmutable($input['IfUnmodifiedSince']));
         $this->key = $input['Key'] ?? null;
         $this->range = $input['Range'] ?? null;
+        $this->responseCacheControl = $input['ResponseCacheControl'] ?? null;
+        $this->responseContentDisposition = $input['ResponseContentDisposition'] ?? null;
+        $this->responseContentEncoding = $input['ResponseContentEncoding'] ?? null;
+        $this->responseContentLanguage = $input['ResponseContentLanguage'] ?? null;
+        $this->responseContentType = $input['ResponseContentType'] ?? null;
+        $this->responseExpires = !isset($input['ResponseExpires']) ? null : ($input['ResponseExpires'] instanceof \DateTimeImmutable ? $input['ResponseExpires'] : new \DateTimeImmutable($input['ResponseExpires']));
         $this->versionId = $input['VersionId'] ?? null;
         $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
@@ -258,6 +312,12 @@ final class HeadObjectRequest extends Input
      *   IfUnmodifiedSince?: null|\DateTimeImmutable|string,
      *   Key?: string,
      *   Range?: null|string,
+     *   ResponseCacheControl?: null|string,
+     *   ResponseContentDisposition?: null|string,
+     *   ResponseContentEncoding?: null|string,
+     *   ResponseContentLanguage?: null|string,
+     *   ResponseContentType?: null|string,
+     *   ResponseExpires?: null|\DateTimeImmutable|string,
      *   VersionId?: null|string,
      *   SSECustomerAlgorithm?: null|string,
      *   SSECustomerKey?: null|string,
@@ -335,6 +395,36 @@ final class HeadObjectRequest extends Input
         return $this->requestPayer;
     }
 
+    public function getResponseCacheControl(): ?string
+    {
+        return $this->responseCacheControl;
+    }
+
+    public function getResponseContentDisposition(): ?string
+    {
+        return $this->responseContentDisposition;
+    }
+
+    public function getResponseContentEncoding(): ?string
+    {
+        return $this->responseContentEncoding;
+    }
+
+    public function getResponseContentLanguage(): ?string
+    {
+        return $this->responseContentLanguage;
+    }
+
+    public function getResponseContentType(): ?string
+    {
+        return $this->responseContentType;
+    }
+
+    public function getResponseExpires(): ?\DateTimeImmutable
+    {
+        return $this->responseExpires;
+    }
+
     public function getSseCustomerAlgorithm(): ?string
     {
         return $this->sseCustomerAlgorithm;
@@ -404,6 +494,24 @@ final class HeadObjectRequest extends Input
 
         // Prepare query
         $query = [];
+        if (null !== $this->responseCacheControl) {
+            $query['response-cache-control'] = $this->responseCacheControl;
+        }
+        if (null !== $this->responseContentDisposition) {
+            $query['response-content-disposition'] = $this->responseContentDisposition;
+        }
+        if (null !== $this->responseContentEncoding) {
+            $query['response-content-encoding'] = $this->responseContentEncoding;
+        }
+        if (null !== $this->responseContentLanguage) {
+            $query['response-content-language'] = $this->responseContentLanguage;
+        }
+        if (null !== $this->responseContentType) {
+            $query['response-content-type'] = $this->responseContentType;
+        }
+        if (null !== $this->responseExpires) {
+            $query['response-expires'] = $this->responseExpires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+        }
         if (null !== $this->versionId) {
             $query['versionId'] = $this->versionId;
         }
@@ -509,6 +617,48 @@ final class HeadObjectRequest extends Input
     public function setRequestPayer(?string $value): self
     {
         $this->requestPayer = $value;
+
+        return $this;
+    }
+
+    public function setResponseCacheControl(?string $value): self
+    {
+        $this->responseCacheControl = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentDisposition(?string $value): self
+    {
+        $this->responseContentDisposition = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentEncoding(?string $value): self
+    {
+        $this->responseContentEncoding = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentLanguage(?string $value): self
+    {
+        $this->responseContentLanguage = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentType(?string $value): self
+    {
+        $this->responseContentType = $value;
+
+        return $this;
+    }
+
+    public function setResponseExpires(?\DateTimeImmutable $value): self
+    {
+        $this->responseExpires = $value;
 
         return $this;
     }
