@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.3.0
+
 ### Added
 
 - AWS api-change: Added response overrides to Head Object requests.

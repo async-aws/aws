@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.0
+
 ### Added
 
 - AWS api-change: Added DeletionMode FORCE_DELETE_STACK for deleting a stack that is stuck in DELETE_FAILED state due to resource deletion failure.

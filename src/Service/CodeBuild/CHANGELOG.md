@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.4.1
+
 ### Changed
 
 - Add `Accept: application/json` header in request to fix incompatibility with 3rd party providers
