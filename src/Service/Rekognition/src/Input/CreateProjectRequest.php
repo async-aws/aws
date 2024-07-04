@@ -36,10 +36,18 @@ final class CreateProjectRequest extends Input
     private $autoUpdate;
 
     /**
+     * A set of tags (key-value pairs) that you want to attach to the project.
+     *
+     * @var array<string, string>|null
+     */
+    private $tags;
+
+    /**
      * @param array{
      *   ProjectName?: string,
      *   Feature?: null|CustomizationFeature::*,
      *   AutoUpdate?: null|ProjectAutoUpdate::*,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -48,6 +56,7 @@ final class CreateProjectRequest extends Input
         $this->projectName = $input['ProjectName'] ?? null;
         $this->feature = $input['Feature'] ?? null;
         $this->autoUpdate = $input['AutoUpdate'] ?? null;
+        $this->tags = $input['Tags'] ?? null;
         parent::__construct($input);
     }
 
@@ -56,6 +65,7 @@ final class CreateProjectRequest extends Input
      *   ProjectName?: string,
      *   Feature?: null|CustomizationFeature::*,
      *   AutoUpdate?: null|ProjectAutoUpdate::*,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      */
@@ -83,6 +93,14 @@ final class CreateProjectRequest extends Input
     public function getProjectName(): ?string
     {
         return $this->projectName;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getTags(): array
+    {
+        return $this->tags ?? [];
     }
 
     /**
@@ -138,6 +156,16 @@ final class CreateProjectRequest extends Input
         return $this;
     }
 
+    /**
+     * @param array<string, string> $value
+     */
+    public function setTags(array $value): self
+    {
+        $this->tags = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -156,6 +184,16 @@ final class CreateProjectRequest extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "AutoUpdate" for "%s". The value "%s" is not a valid "ProjectAutoUpdate".', __CLASS__, $v));
             }
             $payload['AutoUpdate'] = $v;
+        }
+        if (null !== $v = $this->tags) {
+            if (empty($v)) {
+                $payload['Tags'] = new \stdClass();
+            } else {
+                $payload['Tags'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['Tags'][$name] = $mv;
+                }
+            }
         }
 
         return $payload;

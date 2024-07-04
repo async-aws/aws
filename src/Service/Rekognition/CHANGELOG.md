@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds support for tagging projects and datasets with the CreateProject and CreateDataset APIs.
+
 ## 1.2.1
 
 ### Changed
