@@ -115,6 +115,7 @@ class RekognitionClient extends AbstractApi
      *   ProjectName: string,
      *   Feature?: null|CustomizationFeature::*,
      *   AutoUpdate?: null|ProjectAutoUpdate::*,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      *
