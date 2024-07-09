@@ -91,6 +91,13 @@ class TranslateClient extends AbstractApi
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-west-1-fips':
+                return [
+                    'endpoint' => 'https://translate-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'translate',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-west-2-fips':
                 return [
                     'endpoint' => 'https://translate-fips.us-west-2.amazonaws.com',
