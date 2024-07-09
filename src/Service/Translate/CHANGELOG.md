@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `us-west-1-fips` region
 
 ## 1.0.2
 
