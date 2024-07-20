@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `ca-west-1` region
+
 ## 1.2.1
 
 ### Changed
