@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Adding support for paginators in AppSync list APIs
+
 ## 2.1.1
 
 ### Changed

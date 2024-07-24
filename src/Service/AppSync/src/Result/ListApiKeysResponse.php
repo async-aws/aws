@@ -2,11 +2,17 @@
 
 namespace AsyncAws\AppSync\Result;
 
+use AsyncAws\AppSync\AppSyncClient;
+use AsyncAws\AppSync\Input\ListApiKeysRequest;
 use AsyncAws\AppSync\ValueObject\ApiKey;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
-class ListApiKeysResponse extends Result
+/**
+ * @implements \IteratorAggregate<ApiKey>
+ */
+class ListApiKeysResponse extends Result implements \IteratorAggregate
 {
     /**
      * The `ApiKey` objects.
@@ -23,13 +29,57 @@ class ListApiKeysResponse extends Result
     private $nextToken;
 
     /**
-     * @return ApiKey[]
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<ApiKey>
      */
-    public function getApiKeys(): array
+    public function getApiKeys(bool $currentPageOnly = false): iterable
     {
-        $this->initialize();
+        if ($currentPageOnly) {
+            $this->initialize();
+            yield from $this->apiKeys;
 
-        return $this->apiKeys;
+            return;
+        }
+
+        $client = $this->awsClient;
+        if (!$client instanceof AppSyncClient) {
+            throw new InvalidArgument('missing client injected in paginated result');
+        }
+        if (!$this->input instanceof ListApiKeysRequest) {
+            throw new InvalidArgument('missing last request injected in paginated result');
+        }
+        $input = clone $this->input;
+        $page = $this;
+        while (true) {
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
+
+                $this->registerPrefetch($nextPage = $client->listApiKeys($input));
+            } else {
+                $nextPage = null;
+            }
+
+            yield from $page->apiKeys;
+
+            if (null === $nextPage) {
+                break;
+            }
+
+            $this->unregisterPrefetch($nextPage);
+            $page = $nextPage;
+        }
+    }
+
+    /**
+     * Iterates over apiKeys.
+     *
+     * @return \Traversable<ApiKey>
+     */
+    public function getIterator(): \Traversable
+    {
+        yield from $this->getApiKeys();
     }
 
     public function getNextToken(): ?string
