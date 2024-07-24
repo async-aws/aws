@@ -2,16 +2,22 @@
 
 namespace AsyncAws\AppSync\Result;
 
+use AsyncAws\AppSync\AppSyncClient;
+use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\LambdaConflictHandlerConfig;
 use AsyncAws\AppSync\ValueObject\PipelineConfig;
 use AsyncAws\AppSync\ValueObject\Resolver;
 use AsyncAws\AppSync\ValueObject\SyncConfig;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
-class ListResolversResponse extends Result
+/**
+ * @implements \IteratorAggregate<Resolver>
+ */
+class ListResolversResponse extends Result implements \IteratorAggregate
 {
     /**
      * The `Resolver` objects.
@@ -27,6 +33,16 @@ class ListResolversResponse extends Result
      */
     private $nextToken;
 
+    /**
+     * Iterates over resolvers.
+     *
+     * @return \Traversable<Resolver>
+     */
+    public function getIterator(): \Traversable
+    {
+        yield from $this->getResolvers();
+    }
+
     public function getNextToken(): ?string
     {
         $this->initialize();
@@ -35,13 +51,47 @@ class ListResolversResponse extends Result
     }
 
     /**
-     * @return Resolver[]
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<Resolver>
      */
-    public function getResolvers(): array
+    public function getResolvers(bool $currentPageOnly = false): iterable
     {
-        $this->initialize();
+        if ($currentPageOnly) {
+            $this->initialize();
+            yield from $this->resolvers;
 
-        return $this->resolvers;
+            return;
+        }
+
+        $client = $this->awsClient;
+        if (!$client instanceof AppSyncClient) {
+            throw new InvalidArgument('missing client injected in paginated result');
+        }
+        if (!$this->input instanceof ListResolversRequest) {
+            throw new InvalidArgument('missing last request injected in paginated result');
+        }
+        $input = clone $this->input;
+        $page = $this;
+        while (true) {
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
+
+                $this->registerPrefetch($nextPage = $client->listResolvers($input));
+            } else {
+                $nextPage = null;
+            }
+
+            yield from $page->resolvers;
+
+            if (null === $nextPage) {
+                break;
+            }
+
+            $this->unregisterPrefetch($nextPage);
+            $page = $nextPage;
+        }
     }
 
     protected function populateResult(Response $response): void

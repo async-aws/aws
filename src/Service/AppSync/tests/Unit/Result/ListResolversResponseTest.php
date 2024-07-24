@@ -51,8 +51,9 @@ class ListResolversResponseTest extends TestCase
 
         self::assertSame('token', $result->getnextToken());
 
-        self::assertCount(1, $result->getResolvers());
-        $resolver = $result->getResolvers()[0];
+        $resolvers = iterator_to_array($result->getResolvers(true));
+        self::assertCount(1, $resolvers);
+        $resolver = $resolvers[0];
 
         self::assertEquals('source', $resolver->getDataSourceName());
         self::assertEquals('field', $resolver->getFieldName());

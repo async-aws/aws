@@ -191,7 +191,7 @@ class AppSyncClient extends AbstractApi
             'InternalFailureException' => InternalFailureException::class,
         ]]));
 
-        return new ListApiKeysResponse($response);
+        return new ListApiKeysResponse($response, $this, $input);
     }
 
     /**
@@ -223,7 +223,7 @@ class AppSyncClient extends AbstractApi
             'InternalFailureException' => InternalFailureException::class,
         ]]));
 
-        return new ListResolversResponse($response);
+        return new ListResolversResponse($response, $this, $input);
     }
 
     /**
