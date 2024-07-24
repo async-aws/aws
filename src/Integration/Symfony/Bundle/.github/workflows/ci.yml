@@ -28,7 +28,8 @@ jobs:
       - name: Download dependencies
         run: |
           composer config minimum-stability dev
-          composer req symfony/phpunit-bridge --no-update
+          composer require "phpunit/phpunit=9.6.*" --dev --no-update
+          composer require "symfony/phpunit-bridge" --dev --no-update
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Run tests
