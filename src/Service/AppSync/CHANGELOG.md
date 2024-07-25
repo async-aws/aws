@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- The return type for the methods `getApiKeys` of `\AsyncAws\AppSync\Result\ListApiKeysResponse` uses `iterable` instead of `array` to provided paginated results.
+- The return type for the methods `getResolvers` of `\AsyncAws\AppSync\Result\ListResolversResponse` uses `iterable` instead of `array` to provided paginated results.
+
 ### Added
 
 - AWS api-change: Adding support for paginators in AppSync list APIs
