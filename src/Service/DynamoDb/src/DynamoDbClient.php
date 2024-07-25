@@ -176,8 +176,11 @@ class DynamoDbClient extends AbstractApi
      * `BatchWriteItem` in a loop. Each iteration would check for unprocessed items and submit a new `BatchWriteItem`
      * request with those unprocessed items until all items have been processed.
      *
-     * If *none* of the items can be processed due to insufficient provisioned throughput on all of the tables in the
-     * request, then `BatchWriteItem` returns a `ProvisionedThroughputExceededException`.
+     * For tables and indexes with provisioned capacity, if none of the items can be processed due to insufficient
+     * provisioned throughput on all of the tables in the request, then `BatchWriteItem` returns a
+     * `ProvisionedThroughputExceededException`. For all tables and indexes, if none of the items can be processed due to
+     * other throttling scenarios (such as exceeding partition level limits), then `BatchWriteItem` returns a
+     * `ThrottlingException`.
      *
      * ! If DynamoDB returns any unprocessed items, you should retry the batch operation on those items. However, *we
      * ! strongly recommend that you use an exponential backoff algorithm*. If you retry the batch operation immediately,
@@ -367,7 +370,7 @@ class DynamoDbClient extends AbstractApi
      * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
      *
      * > DynamoDB might continue to accept data read and write operations, such as `GetItem` and `PutItem`, on a table in
-     * > the `DELETING` state until the table deletion is complete.
+     * > the `DELETING` state until the table deletion is complete. For the full list of table states, see TableStatus [^1].
      *
      * When you delete a table, any indexes on that table are also deleted.
      *
@@ -375,6 +378,8 @@ class DynamoDbClient extends AbstractApi
      * `DISABLED` state, and the stream is automatically deleted after 24 hours.
      *
      * Use the `DescribeTable` action to check the status of the table.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html#DDB-Type-TableDescription-TableStatus
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deletetable

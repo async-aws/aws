@@ -45,7 +45,7 @@ class QueryOutput extends Result implements \IteratorAggregate
      *
      * If you did not use a filter in the request, then `ScannedCount` is the same as `Count`.
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count
      *
      * @var int|null
      */
