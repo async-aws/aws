@@ -54,7 +54,7 @@ final class CreateRepositoryInput extends Input
      *
      * If no key is specified, the default `aws/codecommit` Amazon Web Services managed key is used.
      *
-     * [^1]: https://docs.aws.amazon.com/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId
+     * [^1]: https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId
      *
      * @var string|null
      */
