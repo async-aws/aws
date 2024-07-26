@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `KmsAccessDeniedException`, `KmsInvalidStateException` and `KmsThrottlingException` exceptions
 
 ## 1.2.3
 
