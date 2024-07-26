@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `KmsAccessDeniedException`, `KmsInvalidStateException` and `KmsThrottlingException` exceptions
+
 ## 1.2.3
 
 ### Changed

@@ -41,6 +41,7 @@ use AsyncAws\CodeCommit\Exception\InvalidSystemTagUsageException;
 use AsyncAws\CodeCommit\Exception\InvalidTagsMapException;
 use AsyncAws\CodeCommit\Exception\MaximumBranchesExceededException;
 use AsyncAws\CodeCommit\Exception\MaximumRepositoryTriggersExceededException;
+use AsyncAws\CodeCommit\Exception\OperationNotAllowedException;
 use AsyncAws\CodeCommit\Exception\PathDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\RepositoryDoesNotExistException;
 use AsyncAws\CodeCommit\Exception\RepositoryLimitExceededException;
@@ -97,6 +98,7 @@ class CodeCommitClient extends AbstractApi
      * @throws InvalidRepositoryNameException
      * @throws InvalidRepositoryDescriptionException
      * @throws RepositoryLimitExceededException
+     * @throws OperationNotAllowedException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
@@ -118,6 +120,7 @@ class CodeCommitClient extends AbstractApi
             'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
             'InvalidRepositoryDescriptionException' => InvalidRepositoryDescriptionException::class,
             'RepositoryLimitExceededException' => RepositoryLimitExceededException::class,
+            'OperationNotAllowedException' => OperationNotAllowedException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,

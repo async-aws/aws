@@ -15,6 +15,9 @@ use AsyncAws\StepFunctions\Exception\InvalidExecutionInputException;
 use AsyncAws\StepFunctions\Exception\InvalidNameException;
 use AsyncAws\StepFunctions\Exception\InvalidOutputException;
 use AsyncAws\StepFunctions\Exception\InvalidTokenException;
+use AsyncAws\StepFunctions\Exception\KmsAccessDeniedException;
+use AsyncAws\StepFunctions\Exception\KmsInvalidStateException;
+use AsyncAws\StepFunctions\Exception\KmsThrottlingException;
 use AsyncAws\StepFunctions\Exception\StateMachineDeletingException;
 use AsyncAws\StepFunctions\Exception\StateMachineDoesNotExistException;
 use AsyncAws\StepFunctions\Exception\TaskDoesNotExistException;
@@ -37,6 +40,12 @@ class StepFunctionsClient extends AbstractApi
      * Used by activity workers, Task states using the callback [^1] pattern, and optionally Task states using the job run
      * [^2] pattern to report that the task identified by the `taskToken` failed.
      *
+     * For an execution with encryption enabled, Step Functions will encrypt the error and cause fields using the KMS key
+     * for the execution role.
+     *
+     * A caller can mark a task as fail without using any KMS permissions in the execution role if the caller provides a
+     * null value for both `error` and `cause` fields because no data needs to be encrypted.
+     *
      * [^1]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
      * [^2]: https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync
      *
@@ -53,6 +62,9 @@ class StepFunctionsClient extends AbstractApi
      * @throws TaskDoesNotExistException
      * @throws InvalidTokenException
      * @throws TaskTimedOutException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidStateException
+     * @throws KmsThrottlingException
      */
     public function sendTaskFailure($input): SendTaskFailureOutput
     {
@@ -61,6 +73,9 @@ class StepFunctionsClient extends AbstractApi
             'TaskDoesNotExist' => TaskDoesNotExistException::class,
             'InvalidToken' => InvalidTokenException::class,
             'TaskTimedOut' => TaskTimedOutException::class,
+            'KmsAccessDeniedException' => KmsAccessDeniedException::class,
+            'KmsInvalidStateException' => KmsInvalidStateException::class,
+            'KmsThrottlingException' => KmsThrottlingException::class,
         ]]));
 
         return new SendTaskFailureOutput($response);
@@ -127,6 +142,9 @@ class StepFunctionsClient extends AbstractApi
      * @throws InvalidOutputException
      * @throws InvalidTokenException
      * @throws TaskTimedOutException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidStateException
+     * @throws KmsThrottlingException
      */
     public function sendTaskSuccess($input): SendTaskSuccessOutput
     {
@@ -136,6 +154,9 @@ class StepFunctionsClient extends AbstractApi
             'InvalidOutput' => InvalidOutputException::class,
             'InvalidToken' => InvalidTokenException::class,
             'TaskTimedOut' => TaskTimedOutException::class,
+            'KmsAccessDeniedException' => KmsAccessDeniedException::class,
+            'KmsInvalidStateException' => KmsInvalidStateException::class,
+            'KmsThrottlingException' => KmsThrottlingException::class,
         ]]));
 
         return new SendTaskSuccessOutput($response);
@@ -203,6 +224,9 @@ class StepFunctionsClient extends AbstractApi
      * @throws StateMachineDoesNotExistException
      * @throws StateMachineDeletingException
      * @throws ValidationException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidStateException
+     * @throws KmsThrottlingException
      */
     public function startExecution($input): StartExecutionOutput
     {
@@ -216,6 +240,9 @@ class StepFunctionsClient extends AbstractApi
             'StateMachineDoesNotExist' => StateMachineDoesNotExistException::class,
             'StateMachineDeleting' => StateMachineDeletingException::class,
             'ValidationException' => ValidationException::class,
+            'KmsAccessDeniedException' => KmsAccessDeniedException::class,
+            'KmsInvalidStateException' => KmsInvalidStateException::class,
+            'KmsThrottlingException' => KmsThrottlingException::class,
         ]]));
 
         return new StartExecutionOutput($response);
@@ -225,6 +252,12 @@ class StepFunctionsClient extends AbstractApi
      * Stops an execution.
      *
      * This API action is not supported by `EXPRESS` state machines.
+     *
+     * For an execution with encryption enabled, Step Functions will encrypt the error and cause fields using the KMS key
+     * for the execution role.
+     *
+     * A caller can stop an execution without using any KMS permissions in the execution role if the caller provides a null
+     * value for both `error` and `cause` fields because no data needs to be encrypted.
      *
      * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_StopExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#stopexecution
@@ -239,6 +272,9 @@ class StepFunctionsClient extends AbstractApi
      * @throws ExecutionDoesNotExistException
      * @throws InvalidArnException
      * @throws ValidationException
+     * @throws KmsAccessDeniedException
+     * @throws KmsInvalidStateException
+     * @throws KmsThrottlingException
      */
     public function stopExecution($input): StopExecutionOutput
     {
@@ -247,6 +283,9 @@ class StepFunctionsClient extends AbstractApi
             'ExecutionDoesNotExist' => ExecutionDoesNotExistException::class,
             'InvalidArn' => InvalidArnException::class,
             'ValidationException' => ValidationException::class,
+            'KmsAccessDeniedException' => KmsAccessDeniedException::class,
+            'KmsInvalidStateException' => KmsInvalidStateException::class,
+            'KmsThrottlingException' => KmsThrottlingException::class,
         ]]));
 
         return new StopExecutionOutput($response);
