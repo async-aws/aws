@@ -520,7 +520,7 @@ final class Input
         $payload = [];
         if (null !== $v = $this->advancedInputFilter) {
             if (!AdvancedInputFilter::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "advancedInputFilter" for "%s". The value "%s" is not a valid "AdvancedInputFilter".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "advancedInputFilter" for "%s". The value "%s" is not a valid "AdvancedInputFilter".', __CLASS__, $v));
             }
             $payload['advancedInputFilter'] = $v;
         }
@@ -562,7 +562,7 @@ final class Input
         }
         if (null !== $v = $this->deblockFilter) {
             if (!InputDeblockFilter::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "deblockFilter" for "%s". The value "%s" is not a valid "InputDeblockFilter".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "deblockFilter" for "%s". The value "%s" is not a valid "InputDeblockFilter".', __CLASS__, $v));
             }
             $payload['deblockFilter'] = $v;
         }
@@ -571,7 +571,7 @@ final class Input
         }
         if (null !== $v = $this->denoiseFilter) {
             if (!InputDenoiseFilter::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "denoiseFilter" for "%s". The value "%s" is not a valid "InputDenoiseFilter".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "denoiseFilter" for "%s". The value "%s" is not a valid "InputDenoiseFilter".', __CLASS__, $v));
             }
             $payload['denoiseFilter'] = $v;
         }
@@ -583,7 +583,7 @@ final class Input
         }
         if (null !== $v = $this->filterEnable) {
             if (!InputFilterEnable::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "filterEnable" for "%s". The value "%s" is not a valid "InputFilterEnable".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "filterEnable" for "%s". The value "%s" is not a valid "InputFilterEnable".', __CLASS__, $v));
             }
             $payload['filterEnable'] = $v;
         }
@@ -603,7 +603,7 @@ final class Input
         }
         if (null !== $v = $this->inputScanType) {
             if (!InputScanType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "inputScanType" for "%s". The value "%s" is not a valid "InputScanType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "inputScanType" for "%s". The value "%s" is not a valid "InputScanType".', __CLASS__, $v));
             }
             $payload['inputScanType'] = $v;
         }
@@ -615,7 +615,7 @@ final class Input
         }
         if (null !== $v = $this->psiControl) {
             if (!InputPsiControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "psiControl" for "%s". The value "%s" is not a valid "InputPsiControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "psiControl" for "%s". The value "%s" is not a valid "InputPsiControl".', __CLASS__, $v));
             }
             $payload['psiControl'] = $v;
         }
@@ -629,7 +629,7 @@ final class Input
         }
         if (null !== $v = $this->timecodeSource) {
             if (!InputTimecodeSource::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "timecodeSource" for "%s". The value "%s" is not a valid "InputTimecodeSource".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "timecodeSource" for "%s". The value "%s" is not a valid "InputTimecodeSource".', __CLASS__, $v));
             }
             $payload['timecodeSource'] = $v;
         }

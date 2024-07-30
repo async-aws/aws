@@ -56,7 +56,7 @@ class SignerV4ForS3 extends SignerV4
         unset($s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY]);
 
         if (!empty($s3SignerOptions)) {
-            throw new InvalidArgument(sprintf('Invalid option(s) "%s" passed to "%s::%s". ', implode('", "', array_keys($s3SignerOptions)), __CLASS__, __METHOD__));
+            throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', implode('", "', array_keys($s3SignerOptions)), __CLASS__, __METHOD__));
         }
     }
 
@@ -139,13 +139,13 @@ class SignerV4ForS3 extends SignerV4
             foreach (FixedSizeStream::create($body, self::CHUNK_SIZE) as $chunk) {
                 $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, $chunk);
                 $context->setSignature($signature = $this->buildSignature($stringToSign, $signingKey));
-                yield sprintf("%s;chunk-signature=%s\r\n", dechex(\strlen($chunk)), $signature) . "$chunk\r\n";
+                yield \sprintf("%s;chunk-signature=%s\r\n", dechex(\strlen($chunk)), $signature) . "$chunk\r\n";
             }
 
             $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, '');
             $context->setSignature($signature = $this->buildSignature($stringToSign, $signingKey));
 
-            yield sprintf("%s;chunk-signature=%s\r\n\r\n", dechex(0), $signature);
+            yield \sprintf("%s;chunk-signature=%s\r\n\r\n", dechex(0), $signature);
         })($body)));
 
         $request->setBody($body);

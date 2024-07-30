@@ -65,10 +65,10 @@ class PaginationGenerator
     public function generate(Operation $operation): void
     {
         if (null === $pagination = $operation->getPagination()) {
-            throw new LogicException(sprintf('The operation "%s" does not have any pagination to generate', $operation->getName()));
+            throw new LogicException(\sprintf('The operation "%s" does not have any pagination to generate', $operation->getName()));
         }
         if (null === $output = $operation->getOutput()) {
-            throw new LogicException(sprintf('The operation "%s" does not have output for the pagination', $operation->getName()));
+            throw new LogicException(\sprintf('The operation "%s" does not have output for the pagination', $operation->getName()));
         }
 
         $this->generateOutputPagination($operation, $pagination, $output);
@@ -103,7 +103,7 @@ class PaginationGenerator
                 ]);
 
                 if (!$classBuilder->hasMethod($initialGetter)) {
-                    throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $initialGetter, $shape->getName()));
+                    throw new \RuntimeException(\sprintf('Unable to find the method "%s" in "%s"', $initialGetter, $shape->getName()));
                 }
             }
 
@@ -257,7 +257,7 @@ class PaginationGenerator
                 $page = $nextPage;
             }
         ', [
-            'PAGE_INITIALIZER' => $common ? sprintf('$page = %s;', $this->generateGetter('$page', $common, false)) : '',
+            'PAGE_INITIALIZER' => $common ? \sprintf('$page = %s;', $this->generateGetter('$page', $common, false)) : '',
             'CLIENT_CLASSNAME' => $clientClass->getName(),
             'INPUT_CLASSNAME' => $inputClass->getName(),
             'ITERATE_PROPERTIES_CODE' => $iterator,
@@ -277,7 +277,7 @@ class PaginationGenerator
                 $last = true;
             }
             if (!preg_match('/^[a-z]++$/i', $part)) {
-                throw new LogicException(sprintf('The part "%s" of the getter expression "%s" is n9ot yet supported', $part, $expression));
+                throw new LogicException(\sprintf('The part "%s" of the getter expression "%s" is n9ot yet supported', $part, $expression));
             }
 
             if (!$useGetter && $getter === $property) {

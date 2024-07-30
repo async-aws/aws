@@ -106,7 +106,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
             'Version' => isset($json['Version']) ? (int) $json['Version'] : null,
             'Selector' => isset($json['Selector']) ? (string) $json['Selector'] : null,
             'SourceResult' => isset($json['SourceResult']) ? (string) $json['SourceResult'] : null,
-            'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,
+            'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,
             'ARN' => isset($json['ARN']) ? (string) $json['ARN'] : null,
             'DataType' => isset($json['DataType']) ? (string) $json['DataType'] : null,
         ]);

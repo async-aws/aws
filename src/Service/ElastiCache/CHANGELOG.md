@@ -5,6 +5,7 @@
 ### Changed
 
 - AWS enhancement: Documentation updates.
+- Enable compiler optimization for the `sprintf` function.
 
 ## 1.2.2
 

@@ -122,7 +122,7 @@ final class TruckDimensions
         }
         if (null !== $v = $this->unit) {
             if (!DimensionUnit::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "DimensionUnit".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "DimensionUnit".', __CLASS__, $v));
             }
             $payload['Unit'] = $v;
         }

@@ -81,7 +81,7 @@ final class DescribeStackDriftDetectionStatusInput extends Input
     {
         $payload = [];
         if (null === $v = $this->stackDriftDetectionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "StackDriftDetectionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "StackDriftDetectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StackDriftDetectionId'] = $v;
 

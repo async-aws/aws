@@ -201,7 +201,7 @@ final class ReceiveMessageRequest extends Input
      */
     public function getAttributeNames(): array
     {
-        @trigger_error(sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->attributeNames ?? [];
     }
@@ -280,7 +280,7 @@ final class ReceiveMessageRequest extends Input
      */
     public function setAttributeNames(array $value): self
     {
-        @trigger_error(sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->attributeNames = $value;
 
         return $this;
@@ -345,17 +345,17 @@ final class ReceiveMessageRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
         if (null !== $v = $this->attributeNames) {
-            @trigger_error(sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+            @trigger_error(\sprintf('The property "AttributeNames" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             $index = -1;
             $payload['AttributeNames'] = [];
             foreach ($v as $listValue) {
                 ++$index;
                 if (!MessageSystemAttributeName::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['AttributeNames'][$index] = $listValue;
             }
@@ -366,7 +366,7 @@ final class ReceiveMessageRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!MessageSystemAttributeName::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "MessageSystemAttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "MessageSystemAttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['MessageSystemAttributeNames'][$index] = $listValue;
             }

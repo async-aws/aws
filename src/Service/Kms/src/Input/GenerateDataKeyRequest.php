@@ -299,7 +299,7 @@ final class GenerateDataKeyRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->keyId) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['KeyId'] = $v;
         if (null !== $v = $this->encryptionContext) {
@@ -317,7 +317,7 @@ final class GenerateDataKeyRequest extends Input
         }
         if (null !== $v = $this->keySpec) {
             if (!DataKeySpec::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "KeySpec" for "%s". The value "%s" is not a valid "DataKeySpec".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "KeySpec" for "%s". The value "%s" is not a valid "DataKeySpec".', __CLASS__, $v));
             }
             $payload['KeySpec'] = $v;
         }

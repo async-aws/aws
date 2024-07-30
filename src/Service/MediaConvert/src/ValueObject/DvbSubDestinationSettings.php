@@ -629,19 +629,19 @@ final class DvbSubDestinationSettings
         $payload = [];
         if (null !== $v = $this->alignment) {
             if (!DvbSubtitleAlignment::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "alignment" for "%s". The value "%s" is not a valid "DvbSubtitleAlignment".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "alignment" for "%s". The value "%s" is not a valid "DvbSubtitleAlignment".', __CLASS__, $v));
             }
             $payload['alignment'] = $v;
         }
         if (null !== $v = $this->applyFontColor) {
             if (!DvbSubtitleApplyFontColor::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "applyFontColor" for "%s". The value "%s" is not a valid "DvbSubtitleApplyFontColor".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "applyFontColor" for "%s". The value "%s" is not a valid "DvbSubtitleApplyFontColor".', __CLASS__, $v));
             }
             $payload['applyFontColor'] = $v;
         }
         if (null !== $v = $this->backgroundColor) {
             if (!DvbSubtitleBackgroundColor::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "backgroundColor" for "%s". The value "%s" is not a valid "DvbSubtitleBackgroundColor".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "backgroundColor" for "%s". The value "%s" is not a valid "DvbSubtitleBackgroundColor".', __CLASS__, $v));
             }
             $payload['backgroundColor'] = $v;
         }
@@ -650,7 +650,7 @@ final class DvbSubDestinationSettings
         }
         if (null !== $v = $this->ddsHandling) {
             if (!DvbddsHandling::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ddsHandling" for "%s". The value "%s" is not a valid "DvbddsHandling".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ddsHandling" for "%s". The value "%s" is not a valid "DvbddsHandling".', __CLASS__, $v));
             }
             $payload['ddsHandling'] = $v;
         }
@@ -662,13 +662,13 @@ final class DvbSubDestinationSettings
         }
         if (null !== $v = $this->fallbackFont) {
             if (!DvbSubSubtitleFallbackFont::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "fallbackFont" for "%s". The value "%s" is not a valid "DvbSubSubtitleFallbackFont".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "fallbackFont" for "%s". The value "%s" is not a valid "DvbSubSubtitleFallbackFont".', __CLASS__, $v));
             }
             $payload['fallbackFont'] = $v;
         }
         if (null !== $v = $this->fontColor) {
             if (!DvbSubtitleFontColor::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "fontColor" for "%s". The value "%s" is not a valid "DvbSubtitleFontColor".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "fontColor" for "%s". The value "%s" is not a valid "DvbSubtitleFontColor".', __CLASS__, $v));
             }
             $payload['fontColor'] = $v;
         }
@@ -692,7 +692,7 @@ final class DvbSubDestinationSettings
         }
         if (null !== $v = $this->fontScript) {
             if (!FontScript::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "fontScript" for "%s". The value "%s" is not a valid "FontScript".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "fontScript" for "%s". The value "%s" is not a valid "FontScript".', __CLASS__, $v));
             }
             $payload['fontScript'] = $v;
         }
@@ -707,7 +707,7 @@ final class DvbSubDestinationSettings
         }
         if (null !== $v = $this->outlineColor) {
             if (!DvbSubtitleOutlineColor::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "outlineColor" for "%s". The value "%s" is not a valid "DvbSubtitleOutlineColor".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "outlineColor" for "%s". The value "%s" is not a valid "DvbSubtitleOutlineColor".', __CLASS__, $v));
             }
             $payload['outlineColor'] = $v;
         }
@@ -716,7 +716,7 @@ final class DvbSubDestinationSettings
         }
         if (null !== $v = $this->shadowColor) {
             if (!DvbSubtitleShadowColor::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "shadowColor" for "%s". The value "%s" is not a valid "DvbSubtitleShadowColor".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "shadowColor" for "%s". The value "%s" is not a valid "DvbSubtitleShadowColor".', __CLASS__, $v));
             }
             $payload['shadowColor'] = $v;
         }
@@ -731,19 +731,19 @@ final class DvbSubDestinationSettings
         }
         if (null !== $v = $this->stylePassthrough) {
             if (!DvbSubtitleStylePassthrough::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "DvbSubtitleStylePassthrough".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "DvbSubtitleStylePassthrough".', __CLASS__, $v));
             }
             $payload['stylePassthrough'] = $v;
         }
         if (null !== $v = $this->subtitlingType) {
             if (!DvbSubtitlingType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "subtitlingType" for "%s". The value "%s" is not a valid "DvbSubtitlingType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "subtitlingType" for "%s". The value "%s" is not a valid "DvbSubtitlingType".', __CLASS__, $v));
             }
             $payload['subtitlingType'] = $v;
         }
         if (null !== $v = $this->teletextSpacing) {
             if (!DvbSubtitleTeletextSpacing::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "teletextSpacing" for "%s". The value "%s" is not a valid "DvbSubtitleTeletextSpacing".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "teletextSpacing" for "%s". The value "%s" is not a valid "DvbSubtitleTeletextSpacing".', __CLASS__, $v));
             }
             $payload['teletextSpacing'] = $v;
         }

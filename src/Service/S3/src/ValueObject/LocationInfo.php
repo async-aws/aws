@@ -77,7 +77,7 @@ final class LocationInfo
     {
         if (null !== $v = $this->type) {
             if (!LocationType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "LocationType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "LocationType".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Type', $v));
         }

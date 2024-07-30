@@ -83,7 +83,7 @@ final class GetNamedQueryInput extends Input
     {
         $payload = [];
         if (null === $v = $this->namedQueryId) {
-            throw new InvalidArgument(sprintf('Missing parameter "NamedQueryId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "NamedQueryId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['NamedQueryId'] = $v;
 

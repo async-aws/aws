@@ -246,7 +246,7 @@ final class DescribeLogStreamsRequest extends Input
         }
         if (null !== $v = $this->orderBy) {
             if (!OrderBy::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "orderBy" for "%s". The value "%s" is not a valid "OrderBy".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "orderBy" for "%s". The value "%s" is not a valid "OrderBy".', __CLASS__, $v));
             }
             $payload['orderBy'] = $v;
         }

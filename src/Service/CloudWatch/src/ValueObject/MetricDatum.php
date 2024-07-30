@@ -244,7 +244,7 @@ final class MetricDatum
         }
         if (null !== $v = $this->unit) {
             if (!StandardUnit::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "StandardUnit".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "StandardUnit".', __CLASS__, $v));
             }
             $payload['Unit'] = $v;
         }

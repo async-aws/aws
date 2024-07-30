@@ -110,7 +110,7 @@ class TestGenerator
 
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
+                throw new \InvalidArgumentException(\sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
         }
 
         $classBuilder->addMethod($methodName)
@@ -172,16 +172,16 @@ class TestGenerator
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
             case 'query':
-                $stub = sprintf('$response = new SimpleMockedResponse(%s);', var_export($this->arrayToXml($exampleOutput ?? ['change' => 'it']), true));
+                $stub = \sprintf('$response = new SimpleMockedResponse(%s);', var_export($this->arrayToXml($exampleOutput ?? ['change' => 'it']), true));
 
                 break;
             case 'rest-json':
             case 'json':
-                $stub = sprintf('$response = new SimpleMockedResponse(%s);', var_export(json_encode($exampleOutput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
+                $stub = \sprintf('$response = new SimpleMockedResponse(%s);', var_export(json_encode($exampleOutput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
 
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
+                throw new \InvalidArgumentException(\sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
         }
 
         if (null !== $operation->getPagination()) {
@@ -276,7 +276,7 @@ class TestGenerator
                     'INPUT_CLASS' => $className->getName(),
                     'INPUT_ARGUMENTS' => implode("\n", array_map(function (StructureMember $member) use ($classBuilder, $includeOptionalParameters, $recursion) {
                         if ($member->isRequired() || $includeOptionalParameters) {
-                            return sprintf(
+                            return \sprintf(
                                 '%s => %s,',
                                 var_export($member->getName(), true),
                                 $this->getInputCode($classBuilder, $member->getShape(), $includeOptionalParameters, $recursion)
@@ -309,7 +309,7 @@ class TestGenerator
                 return 'false';
         }
 
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+        throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
     private function generateClient(Operation $operation): void
@@ -367,14 +367,14 @@ class TestGenerator
 
             switch ($member->getShape()->getType()) {
                 case 'string':
-                    return sprintf('self::assertSame("changeIt", $result->%s());', $getterMethodName);
+                    return \sprintf('self::assertSame("changeIt", $result->%s());', $getterMethodName);
                 case 'boolean':
-                    return sprintf('self::assertFalse($result->%s());', $getterMethodName);
+                    return \sprintf('self::assertFalse($result->%s());', $getterMethodName);
                 case 'integer':
                 case 'long':
-                    return sprintf('self::assertSame(1337, $result->%s());', $getterMethodName);
+                    return \sprintf('self::assertSame(1337, $result->%s());', $getterMethodName);
                 default:
-                    return sprintf('// self::assertTODO(expected, $result->%s());', $getterMethodName);
+                    return \sprintf('// self::assertTODO(expected, $result->%s());', $getterMethodName);
             }
         }, $shape->getMembers()));
     }

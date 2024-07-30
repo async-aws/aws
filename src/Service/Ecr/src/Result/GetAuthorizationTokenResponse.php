@@ -36,7 +36,7 @@ class GetAuthorizationTokenResponse extends Result
     {
         return new AuthorizationData([
             'authorizationToken' => isset($json['authorizationToken']) ? (string) $json['authorizationToken'] : null,
-            'expiresAt' => (isset($json['expiresAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['expiresAt'])))) ? $d : null,
+            'expiresAt' => (isset($json['expiresAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['expiresAt'])))) ? $d : null,
             'proxyEndpoint' => isset($json['proxyEndpoint']) ? (string) $json['proxyEndpoint'] : null,
         ]);
     }

@@ -59,7 +59,7 @@ class ClientGenerator
         }
         $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
 
-        $supportedVersions = eval(sprintf('class A%s extends %s {
+        $supportedVersions = eval(\sprintf('class A%s extends %s {
             public function __construct() {}
             public function getVersion() {
                 return array_keys($this->getSignerFactories());
@@ -232,7 +232,7 @@ class ClientGenerator
                 $code = $regionConfig['code'];
                 $regions = $regionConfig['regions'];
                 foreach ($regions as $region) {
-                    $body .= sprintf("    case %s:\n", var_export($region, true));
+                    $body .= \sprintf("    case %s:\n", var_export($region, true));
                 }
                 $body .= $code;
             }
@@ -277,7 +277,7 @@ class ClientGenerator
 
                     break;
                 default:
-                    throw new \LogicException(sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
+                    throw new \LogicException(\sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
             }
         }
 

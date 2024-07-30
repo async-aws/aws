@@ -391,7 +391,7 @@ final class KeyMetadata
      */
     public function getCustomerMasterKeySpec(): ?string
     {
-        @trigger_error(sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->customerMasterKeySpec;
     }

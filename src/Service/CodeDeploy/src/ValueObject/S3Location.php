@@ -129,7 +129,7 @@ final class S3Location
         }
         if (null !== $v = $this->bundleType) {
             if (!BundleType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "bundleType" for "%s". The value "%s" is not a valid "BundleType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "bundleType" for "%s". The value "%s" is not a valid "BundleType".', __CLASS__, $v));
             }
             $payload['bundleType'] = $v;
         }

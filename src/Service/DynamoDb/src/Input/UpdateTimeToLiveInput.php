@@ -112,11 +112,11 @@ final class UpdateTimeToLiveInput extends Input
     {
         $payload = [];
         if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
         if (null === $v = $this->timeToLiveSpecification) {
-            throw new InvalidArgument(sprintf('Missing parameter "TimeToLiveSpecification" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TimeToLiveSpecification" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TimeToLiveSpecification'] = $v->requestBody();
 

@@ -135,7 +135,7 @@ final class SetUserMFAPreferenceRequest extends Input
             $payload['SoftwareTokenMfaSettings'] = $v->requestBody();
         }
         if (null === $v = $this->accessToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AccessToken'] = $v;
 

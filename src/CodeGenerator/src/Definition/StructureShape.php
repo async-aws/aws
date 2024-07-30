@@ -29,7 +29,7 @@ class StructureShape extends Shape
     public function getMember(string $name): StructureMember
     {
         if (!isset($this->data['members'][$name])) {
-            throw new \InvalidArgumentException(sprintf('The member "%s" does not exists.', $name));
+            throw new \InvalidArgumentException(\sprintf('The member "%s" does not exists.', $name));
         }
 
         return new StructureMember(

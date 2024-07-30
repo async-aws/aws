@@ -109,11 +109,11 @@ final class CreateServiceSpecificCredentialRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->userName) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;
         if (null === $v = $this->serviceName) {
-            throw new InvalidArgument(sprintf('Missing parameter "ServiceName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ServiceName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ServiceName'] = $v;
 

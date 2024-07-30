@@ -11,6 +11,10 @@
 
 - AWS api-change: Adding support for paginators in AppSync list APIs
 
+### Changed
+
+- Enable compiler optimization for the `sprintf` function.
+
 ## 2.1.1
 
 ### Changed

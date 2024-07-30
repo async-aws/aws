@@ -94,7 +94,7 @@ final class StartCalculationExecutionRequest extends Input
      */
     public function getCalculationConfiguration(): ?CalculationConfiguration
     {
-        @trigger_error(sprintf('The property "CalculationConfiguration" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "CalculationConfiguration" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->calculationConfiguration;
     }
@@ -150,7 +150,7 @@ final class StartCalculationExecutionRequest extends Input
      */
     public function setCalculationConfiguration(?CalculationConfiguration $value): self
     {
-        @trigger_error(sprintf('The property "CalculationConfiguration" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "CalculationConfiguration" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->calculationConfiguration = $value;
 
         return $this;
@@ -188,14 +188,14 @@ final class StartCalculationExecutionRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->sessionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "SessionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "SessionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SessionId'] = $v;
         if (null !== $v = $this->description) {
             $payload['Description'] = $v;
         }
         if (null !== $v = $this->calculationConfiguration) {
-            @trigger_error(sprintf('The property "CalculationConfiguration" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+            @trigger_error(\sprintf('The property "CalculationConfiguration" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             $payload['CalculationConfiguration'] = $v->requestBody();
         }
         if (null !== $v = $this->codeBlock) {

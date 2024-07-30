@@ -78,13 +78,13 @@ final class ResultSetOptions
         $payload = [];
         if (null !== $v = $this->decimalReturnType) {
             if (!DecimalReturnType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "decimalReturnType" for "%s". The value "%s" is not a valid "DecimalReturnType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "decimalReturnType" for "%s". The value "%s" is not a valid "DecimalReturnType".', __CLASS__, $v));
             }
             $payload['decimalReturnType'] = $v;
         }
         if (null !== $v = $this->longReturnType) {
             if (!LongReturnType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "longReturnType" for "%s". The value "%s" is not a valid "LongReturnType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "longReturnType" for "%s". The value "%s" is not a valid "LongReturnType".', __CLASS__, $v));
             }
             $payload['longReturnType'] = $v;
         }

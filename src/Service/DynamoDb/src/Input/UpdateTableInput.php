@@ -383,12 +383,12 @@ final class UpdateTableInput extends Input
             }
         }
         if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
         if (null !== $v = $this->billingMode) {
             if (!BillingMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
             }
             $payload['BillingMode'] = $v;
         }
@@ -419,7 +419,7 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->tableClass) {
             if (!TableClass::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
             }
             $payload['TableClass'] = $v;
         }

@@ -103,7 +103,7 @@ class CreateSecretResponse extends Result
             'KmsKeyId' => isset($json['KmsKeyId']) ? (string) $json['KmsKeyId'] : null,
             'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
             'StatusMessage' => isset($json['StatusMessage']) ? (string) $json['StatusMessage'] : null,
-            'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,
+            'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,
         ]);
     }
 }

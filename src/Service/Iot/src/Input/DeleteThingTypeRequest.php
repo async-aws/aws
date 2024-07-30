@@ -66,7 +66,7 @@ final class DeleteThingTypeRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->thingTypeName) {
-            throw new InvalidArgument(sprintf('Missing parameter "thingTypeName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "thingTypeName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['thingTypeName'] = $v;
         $uriString = '/thing-types/' . rawurlencode($uri['thingTypeName']);

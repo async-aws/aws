@@ -217,19 +217,19 @@ final class XavcHdProfileSettings
         $payload = [];
         if (null !== $v = $this->bitrateClass) {
             if (!XavcHdProfileBitrateClass::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "bitrateClass" for "%s". The value "%s" is not a valid "XavcHdProfileBitrateClass".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "bitrateClass" for "%s". The value "%s" is not a valid "XavcHdProfileBitrateClass".', __CLASS__, $v));
             }
             $payload['bitrateClass'] = $v;
         }
         if (null !== $v = $this->flickerAdaptiveQuantization) {
             if (!XavcFlickerAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "flickerAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcFlickerAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "flickerAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcFlickerAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['flickerAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->gopBreference) {
             if (!XavcGopBReference::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "XavcGopBReference".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "XavcGopBReference".', __CLASS__, $v));
             }
             $payload['gopBReference'] = $v;
         }
@@ -241,13 +241,13 @@ final class XavcHdProfileSettings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!XavcInterlaceMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "XavcInterlaceMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "XavcInterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!XavcHdProfileQualityTuningLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "XavcHdProfileQualityTuningLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "XavcHdProfileQualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;
         }
@@ -256,7 +256,7 @@ final class XavcHdProfileSettings
         }
         if (null !== $v = $this->telecine) {
             if (!XavcHdProfileTelecine::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "XavcHdProfileTelecine".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "XavcHdProfileTelecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }

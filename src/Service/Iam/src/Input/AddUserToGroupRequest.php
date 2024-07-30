@@ -112,11 +112,11 @@ final class AddUserToGroupRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->groupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "GroupName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "GroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['GroupName'] = $v;
         if (null === $v = $this->userName) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;
 

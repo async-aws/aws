@@ -474,19 +474,19 @@ final class PutParameterRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
         if (null !== $v = $this->description) {
             $payload['Description'] = $v;
         }
         if (null === $v = $this->value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Value'] = $v;
         if (null !== $v = $this->type) {
             if (!ParameterType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ParameterType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ParameterType".', __CLASS__, $v));
             }
             $payload['Type'] = $v;
         }
@@ -509,7 +509,7 @@ final class PutParameterRequest extends Input
         }
         if (null !== $v = $this->tier) {
             if (!ParameterTier::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Tier" for "%s". The value "%s" is not a valid "ParameterTier".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Tier" for "%s". The value "%s" is not a valid "ParameterTier".', __CLASS__, $v));
             }
             $payload['Tier'] = $v;
         }

@@ -101,14 +101,14 @@ final class UpdateThingShadowRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->thingName) {
-            throw new InvalidArgument(sprintf('Missing parameter "thingName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "thingName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['thingName'] = $v;
         $uriString = '/things/' . rawurlencode($uri['thingName']) . '/shadow';
 
         // Prepare Body
         if (null === $v = $this->payload) {
-            throw new InvalidArgument(sprintf('Missing parameter "payload" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "payload" for "%s". The value cannot be null.', __CLASS__));
         }
         $body = $v;
 

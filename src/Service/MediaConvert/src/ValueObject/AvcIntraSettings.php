@@ -253,7 +253,7 @@ final class AvcIntraSettings
         $payload = [];
         if (null !== $v = $this->avcIntraClass) {
             if (!AvcIntraClass::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "avcIntraClass" for "%s". The value "%s" is not a valid "AvcIntraClass".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "avcIntraClass" for "%s". The value "%s" is not a valid "AvcIntraClass".', __CLASS__, $v));
             }
             $payload['avcIntraClass'] = $v;
         }
@@ -262,13 +262,13 @@ final class AvcIntraSettings
         }
         if (null !== $v = $this->framerateControl) {
             if (!AvcIntraFramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "AvcIntraFramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "AvcIntraFramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!AvcIntraFramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "AvcIntraFramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "AvcIntraFramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -280,25 +280,25 @@ final class AvcIntraSettings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!AvcIntraInterlaceMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "AvcIntraInterlaceMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "AvcIntraInterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!AvcIntraScanTypeConversionMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "AvcIntraScanTypeConversionMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "AvcIntraScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!AvcIntraSlowPal::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "AvcIntraSlowPal".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "AvcIntraSlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!AvcIntraTelecine::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "AvcIntraTelecine".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "AvcIntraTelecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }

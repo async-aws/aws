@@ -280,12 +280,12 @@
   </file>
   <file src="src/Service/StepFunctions/src/Result/StartExecutionOutput.php">
     <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['startDate']))]]></code>
+      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['startDate']))]]></code>
     </PossiblyFalsePropertyAssignmentValue>
   </file>
   <file src="src/Service/StepFunctions/src/Result/StopExecutionOutput.php">
     <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['stopDate']))]]></code>
+      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['stopDate']))]]></code>
     </PossiblyFalsePropertyAssignmentValue>
   </file>
   <file src="src/Service/Sqs/src/Result/GetQueueAttributesResult.php">

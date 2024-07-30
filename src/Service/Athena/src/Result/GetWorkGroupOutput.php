@@ -101,7 +101,7 @@ class GetWorkGroupOutput extends Result
             'State' => isset($json['State']) ? (string) $json['State'] : null,
             'Configuration' => empty($json['Configuration']) ? null : $this->populateResultWorkGroupConfiguration($json['Configuration']),
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
-            'CreationTime' => (isset($json['CreationTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationTime'])))) ? $d : null,
+            'CreationTime' => (isset($json['CreationTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationTime'])))) ? $d : null,
             'IdentityCenterApplicationArn' => isset($json['IdentityCenterApplicationArn']) ? (string) $json['IdentityCenterApplicationArn'] : null,
         ]);
     }

@@ -156,7 +156,7 @@ final class EnableEnhancedMonitoringInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->shardLevelMetrics) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardLevelMetrics" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ShardLevelMetrics" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;
@@ -164,7 +164,7 @@ final class EnableEnhancedMonitoringInput extends Input
         foreach ($v as $listValue) {
             ++$index;
             if (!MetricsName::exists($listValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ShardLevelMetrics" for "%s". The value "%s" is not a valid "MetricsName".', __CLASS__, $listValue));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ShardLevelMetrics" for "%s". The value "%s" is not a valid "MetricsName".', __CLASS__, $listValue));
             }
             $payload['ShardLevelMetrics'][$index] = $listValue;
         }

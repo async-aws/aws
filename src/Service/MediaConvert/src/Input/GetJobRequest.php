@@ -66,7 +66,7 @@ final class GetJobRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['id'] = $v;
         $uriString = '/2017-08-29/jobs/' . rawurlencode($uri['id']);

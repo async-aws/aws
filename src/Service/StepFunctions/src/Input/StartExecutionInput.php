@@ -196,7 +196,7 @@ final class StartExecutionInput extends Input
     {
         $payload = [];
         if (null === $v = $this->stateMachineArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "stateMachineArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "stateMachineArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['stateMachineArn'] = $v;
         if (null !== $v = $this->name) {

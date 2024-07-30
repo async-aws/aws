@@ -423,6 +423,6 @@ class CloudWatchLogsClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CloudWatchLogs".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "CloudWatchLogs".', $region));
     }
 }

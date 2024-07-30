@@ -122,7 +122,7 @@ class RestJsonSerializer implements Serializer
             return strtr($body, [
                 'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                 'NAME' => $member->getName(),
-                'MEMBER_CODE' => $deprecation . $this->dumpArrayElement(sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
+                'MEMBER_CODE' => $deprecation . $this->dumpArrayElement(\sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
             ]);
         }, $shape->getMembers()));
 
@@ -197,7 +197,7 @@ class RestJsonSerializer implements Serializer
                 return $this->dumpArrayBlob($output, $input, $shape, $isRequired);
         }
 
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+        throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
     private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
@@ -229,7 +229,7 @@ class RestJsonSerializer implements Serializer
                     'INPUT' => $input,
                     'OUTPUT' => $output,
                     'COUNTER' => $cleanCounter ?: '',
-                    'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index' . $cleanCounter . ']', $output), '$listValue' . $cleanCounter, $contextProperty, $memberShape, true),
+                    'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(\sprintf('%s[$index' . $cleanCounter . ']', $output), '$listValue' . $cleanCounter, $contextProperty, $memberShape, true),
                 ]);
         } finally {
             --$counter;
@@ -309,7 +309,7 @@ if (empty(INPUT)) {
                     'INPUT' => $input,
                 ]);
             default:
-                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
+                throw new \RuntimeException(\sprintf('Timestamp format %s is not yet implemented', $format));
         }
     }
 

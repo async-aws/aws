@@ -54,7 +54,7 @@ final class F4vSettings
         $payload = [];
         if (null !== $v = $this->moovPlacement) {
             if (!F4vMoovPlacement::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "moovPlacement" for "%s". The value "%s" is not a valid "F4vMoovPlacement".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "moovPlacement" for "%s". The value "%s" is not a valid "F4vMoovPlacement".', __CLASS__, $v));
             }
             $payload['moovPlacement'] = $v;
         }

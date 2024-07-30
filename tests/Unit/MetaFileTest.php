@@ -23,8 +23,8 @@ class MetaFileTest extends TestCase
                 continue;
             }
 
-            self::assertTrue(\in_array(sprintf('src/Service/%s/src', $serviceName), $composer['autoload']['psr-4']), sprintf('Could not find "%s" in ./composer.json "autoload" section.', $serviceName));
-            self::assertTrue(\in_array(sprintf('src/Service/%s/tests', $serviceName), $composer['autoload-dev']['psr-4']), sprintf('Could not find "%s" in ./composer.json "autoload-dev" section.', $serviceName));
+            self::assertTrue(\in_array(\sprintf('src/Service/%s/src', $serviceName), $composer['autoload']['psr-4']), \sprintf('Could not find "%s" in ./composer.json "autoload" section.', $serviceName));
+            self::assertTrue(\in_array(\sprintf('src/Service/%s/tests', $serviceName), $composer['autoload-dev']['psr-4']), \sprintf('Could not find "%s" in ./composer.json "autoload-dev" section.', $serviceName));
         }
     }
 
@@ -36,7 +36,7 @@ class MetaFileTest extends TestCase
                 continue;
             }
 
-            self::assertTrue(false !== strpos($readme, $serviceData['package_name']), sprintf('There is no mention of "%s" in the README.md', $serviceData['package_name']));
+            self::assertTrue(false !== strpos($readme, $serviceData['package_name']), \sprintf('There is no mention of "%s" in the README.md', $serviceData['package_name']));
         }
     }
 }

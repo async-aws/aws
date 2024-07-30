@@ -35,7 +35,7 @@ class ExceptionTest extends TestCase
                 $snippet = substr($contents, $hasInvalidException, 60);
             }
 
-            self::assertFalse($hasInvalidException, sprintf('File "%s" must throw an exception implementing "%s". [..] %s [..]', $relativePath, Exception::class, $snippet));
+            self::assertFalse($hasInvalidException, \sprintf('File "%s" must throw an exception implementing "%s". [..] %s [..]', $relativePath, Exception::class, $snippet));
         }
     }
 }

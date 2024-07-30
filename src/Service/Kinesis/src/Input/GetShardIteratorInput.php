@@ -225,14 +225,14 @@ final class GetShardIteratorInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->shardId) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ShardId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ShardId'] = $v;
         if (null === $v = $this->shardIteratorType) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardIteratorType" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ShardIteratorType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ShardIteratorType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "ShardIteratorType" for "%s". The value "%s" is not a valid "ShardIteratorType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "ShardIteratorType" for "%s". The value "%s" is not a valid "ShardIteratorType".', __CLASS__, $v));
         }
         $payload['ShardIteratorType'] = $v;
         if (null !== $v = $this->startingSequenceNumber) {

@@ -114,7 +114,7 @@ class Waiter
             case self::STATE_PENDING:
                 break;
             default:
-                throw new LogicException(sprintf('Unexpected state "%s" from Waiter "%s".', $state, __CLASS__));
+                throw new LogicException(\sprintf('Unexpected state "%s" from Waiter "%s".', $state, __CLASS__));
         }
 
         return $state;

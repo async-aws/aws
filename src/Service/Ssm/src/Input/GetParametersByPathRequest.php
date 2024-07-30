@@ -214,7 +214,7 @@ final class GetParametersByPathRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->path) {
-            throw new InvalidArgument(sprintf('Missing parameter "Path" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Path" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Path'] = $v;
         if (null !== $v = $this->recursive) {

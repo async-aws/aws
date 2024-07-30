@@ -234,7 +234,7 @@ final class NielsenNonLinearWatermarkSettings
         $payload = [];
         if (null !== $v = $this->activeWatermarkProcess) {
             if (!NielsenActiveWatermarkProcessType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "activeWatermarkProcess" for "%s". The value "%s" is not a valid "NielsenActiveWatermarkProcessType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "activeWatermarkProcess" for "%s". The value "%s" is not a valid "NielsenActiveWatermarkProcessType".', __CLASS__, $v));
             }
             $payload['activeWatermarkProcess'] = $v;
         }
@@ -261,7 +261,7 @@ final class NielsenNonLinearWatermarkSettings
         }
         if (null !== $v = $this->sourceWatermarkStatus) {
             if (!NielsenSourceWatermarkStatusType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sourceWatermarkStatus" for "%s". The value "%s" is not a valid "NielsenSourceWatermarkStatusType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sourceWatermarkStatus" for "%s". The value "%s" is not a valid "NielsenSourceWatermarkStatusType".', __CLASS__, $v));
             }
             $payload['sourceWatermarkStatus'] = $v;
         }
@@ -270,7 +270,7 @@ final class NielsenNonLinearWatermarkSettings
         }
         if (null !== $v = $this->uniqueTicPerAudioTrack) {
             if (!NielsenUniqueTicPerAudioTrackType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "uniqueTicPerAudioTrack" for "%s". The value "%s" is not a valid "NielsenUniqueTicPerAudioTrackType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "uniqueTicPerAudioTrack" for "%s". The value "%s" is not a valid "NielsenUniqueTicPerAudioTrackType".', __CLASS__, $v));
             }
             $payload['uniqueTicPerAudioTrack'] = $v;
         }

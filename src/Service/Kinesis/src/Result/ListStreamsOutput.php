@@ -221,7 +221,7 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
             'StreamARN' => (string) $json['StreamARN'],
             'StreamStatus' => (string) $json['StreamStatus'],
             'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
-            'StreamCreationTimestamp' => (isset($json['StreamCreationTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['StreamCreationTimestamp'])))) ? $d : null,
+            'StreamCreationTimestamp' => (isset($json['StreamCreationTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StreamCreationTimestamp'])))) ? $d : null,
         ]);
     }
 

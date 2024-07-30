@@ -79,12 +79,12 @@ class Configuration implements ConfigurationInterface
         foreach ($clients as $name => $config) {
             if (\in_array($name, $awsServices)) {
                 if (isset($config['type']) && $name !== $config['type']) {
-                    throw new InvalidConfigurationException(sprintf('You cannot define a service named "%s" with type "%s". That is super confusing.', $name, $config['type']));
+                    throw new InvalidConfigurationException(\sprintf('You cannot define a service named "%s" with type "%s". That is super confusing.', $name, $config['type']));
                 }
                 $clients[$name]['type'] = $name;
             } elseif (!isset($config['type'])) {
                 if (!\in_array($name, $awsServices)) {
-                    throw new InvalidConfigurationException(sprintf('The "async_aws.client.%s" does not have a type. We were unable to guess what AWS service you want. Please add "aws.service.%s.type".', $name, $name));
+                    throw new InvalidConfigurationException(\sprintf('The "async_aws.client.%s" does not have a type. We were unable to guess what AWS service you want. Please add "aws.service.%s.type".', $name, $name));
                 }
 
                 $clients[$name]['type'] = $name;

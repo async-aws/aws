@@ -178,7 +178,7 @@ final class FilterLogEventsRequest extends Input
      */
     public function getInterleaved(): ?bool
     {
-        @trigger_error(sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->interleaved;
     }
@@ -271,7 +271,7 @@ final class FilterLogEventsRequest extends Input
      */
     public function setInterleaved(?bool $value): self
     {
-        @trigger_error(sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->interleaved = $value;
 
         return $this;
@@ -372,7 +372,7 @@ final class FilterLogEventsRequest extends Input
             $payload['limit'] = $v;
         }
         if (null !== $v = $this->interleaved) {
-            @trigger_error(sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+            @trigger_error(\sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             $payload['interleaved'] = (bool) $v;
         }
         if (null !== $v = $this->unmask) {

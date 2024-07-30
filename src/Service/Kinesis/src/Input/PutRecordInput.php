@@ -210,11 +210,11 @@ final class PutRecordInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->data) {
-            throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Data'] = base64_encode($v);
         if (null === $v = $this->partitionKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "PartitionKey" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "PartitionKey" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['PartitionKey'] = $v;
         if (null !== $v = $this->explicitHashKey) {

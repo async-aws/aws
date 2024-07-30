@@ -6,6 +6,7 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return (new PhpCsFixer\Config())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setCacheFile(__DIR__.'/.cache/php-cs-fixer/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
@@ -28,7 +29,7 @@ return (new PhpCsFixer\Config())
         'no_alias_functions' => true,
         'no_extra_blank_lines' => ['tokens' => [
             'attribute',
-            'break', 
+            'break',
             'case',
             'continue',
             'curly_brace_block',

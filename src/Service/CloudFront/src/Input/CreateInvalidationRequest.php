@@ -81,7 +81,7 @@ final class CreateInvalidationRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->distributionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "DistributionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "DistributionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['DistributionId'] = $v;
         $uriString = '/2019-03-26/distribution/' . rawurlencode($uri['DistributionId']) . '/invalidation';
@@ -114,7 +114,7 @@ final class CreateInvalidationRequest extends Input
     private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null === $v = $this->invalidationBatch) {
-            throw new InvalidArgument(sprintf('Missing parameter "InvalidationBatch" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "InvalidationBatch" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $node->appendChild($child = $document->createElement('InvalidationBatch'));

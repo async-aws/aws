@@ -126,7 +126,7 @@ final class DetectFacesRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->image) {
-            throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
         if (null !== $v = $this->attributes) {
@@ -135,7 +135,7 @@ final class DetectFacesRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Attribute::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "Attributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "Attributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
                 }
                 $payload['Attributes'][$index] = $listValue;
             }

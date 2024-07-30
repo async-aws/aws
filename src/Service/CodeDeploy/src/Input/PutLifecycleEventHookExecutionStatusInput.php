@@ -142,7 +142,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
         }
         if (null !== $v = $this->status) {
             if (!LifecycleEventStatus::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LifecycleEventStatus".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LifecycleEventStatus".', __CLASS__, $v));
             }
             $payload['status'] = $v;
         }

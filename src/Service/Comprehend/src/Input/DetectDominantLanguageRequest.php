@@ -83,7 +83,7 @@ final class DetectDominantLanguageRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->text) {
-            throw new InvalidArgument(sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Text'] = $v;
 

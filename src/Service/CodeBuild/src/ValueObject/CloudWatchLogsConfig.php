@@ -92,7 +92,7 @@ final class CloudWatchLogsConfig
         $payload = [];
         $v = $this->status;
         if (!LogsConfigStatusType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LogsConfigStatusType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LogsConfigStatusType".', __CLASS__, $v));
         }
         $payload['status'] = $v;
         if (null !== $v = $this->groupName) {

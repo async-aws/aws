@@ -696,7 +696,7 @@ final class Mpeg2Settings
         $payload = [];
         if (null !== $v = $this->adaptiveQuantization) {
             if (!Mpeg2AdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "Mpeg2AdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "Mpeg2AdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['adaptiveQuantization'] = $v;
         }
@@ -705,31 +705,31 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->codecLevel) {
             if (!Mpeg2CodecLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecLevel" for "%s". The value "%s" is not a valid "Mpeg2CodecLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecLevel" for "%s". The value "%s" is not a valid "Mpeg2CodecLevel".', __CLASS__, $v));
             }
             $payload['codecLevel'] = $v;
         }
         if (null !== $v = $this->codecProfile) {
             if (!Mpeg2CodecProfile::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "Mpeg2CodecProfile".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "Mpeg2CodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
         }
         if (null !== $v = $this->dynamicSubGop) {
             if (!Mpeg2DynamicSubGop::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "Mpeg2DynamicSubGop".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "Mpeg2DynamicSubGop".', __CLASS__, $v));
             }
             $payload['dynamicSubGop'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!Mpeg2FramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Mpeg2FramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Mpeg2FramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!Mpeg2FramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Mpeg2FramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Mpeg2FramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -747,7 +747,7 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->gopSizeUnits) {
             if (!Mpeg2GopSizeUnits::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "gopSizeUnits" for "%s". The value "%s" is not a valid "Mpeg2GopSizeUnits".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "gopSizeUnits" for "%s". The value "%s" is not a valid "Mpeg2GopSizeUnits".', __CLASS__, $v));
             }
             $payload['gopSizeUnits'] = $v;
         }
@@ -762,13 +762,13 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!Mpeg2InterlaceMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "Mpeg2InterlaceMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "Mpeg2InterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
         if (null !== $v = $this->intraDcPrecision) {
             if (!Mpeg2IntraDcPrecision::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "intraDcPrecision" for "%s". The value "%s" is not a valid "Mpeg2IntraDcPrecision".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "intraDcPrecision" for "%s". The value "%s" is not a valid "Mpeg2IntraDcPrecision".', __CLASS__, $v));
             }
             $payload['intraDcPrecision'] = $v;
         }
@@ -783,7 +783,7 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->parControl) {
             if (!Mpeg2ParControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "Mpeg2ParControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "Mpeg2ParControl".', __CLASS__, $v));
             }
             $payload['parControl'] = $v;
         }
@@ -795,31 +795,31 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!Mpeg2QualityTuningLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "Mpeg2QualityTuningLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "Mpeg2QualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;
         }
         if (null !== $v = $this->rateControlMode) {
             if (!Mpeg2RateControlMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Mpeg2RateControlMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Mpeg2RateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!Mpeg2ScanTypeConversionMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "Mpeg2ScanTypeConversionMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "Mpeg2ScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->sceneChangeDetect) {
             if (!Mpeg2SceneChangeDetect::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sceneChangeDetect" for "%s". The value "%s" is not a valid "Mpeg2SceneChangeDetect".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sceneChangeDetect" for "%s". The value "%s" is not a valid "Mpeg2SceneChangeDetect".', __CLASS__, $v));
             }
             $payload['sceneChangeDetect'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!Mpeg2SlowPal::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "Mpeg2SlowPal".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "Mpeg2SlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
@@ -828,25 +828,25 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->spatialAdaptiveQuantization) {
             if (!Mpeg2SpatialAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "Mpeg2SpatialAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "Mpeg2SpatialAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['spatialAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->syntax) {
             if (!Mpeg2Syntax::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "syntax" for "%s". The value "%s" is not a valid "Mpeg2Syntax".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "syntax" for "%s". The value "%s" is not a valid "Mpeg2Syntax".', __CLASS__, $v));
             }
             $payload['syntax'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!Mpeg2Telecine::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "Mpeg2Telecine".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "Mpeg2Telecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }
         if (null !== $v = $this->temporalAdaptiveQuantization) {
             if (!Mpeg2TemporalAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "Mpeg2TemporalAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "Mpeg2TemporalAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['temporalAdaptiveQuantization'] = $v;
         }

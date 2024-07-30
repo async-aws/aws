@@ -144,8 +144,8 @@ class ListThingTypesResponse extends Result implements \IteratorAggregate
     {
         return new ThingTypeMetadata([
             'deprecated' => isset($json['deprecated']) ? filter_var($json['deprecated'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'deprecationDate' => isset($json['deprecationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['deprecationDate']))) ? $d : null,
-            'creationDate' => isset($json['creationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['creationDate']))) ? $d : null,
+            'deprecationDate' => isset($json['deprecationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['deprecationDate']))) ? $d : null,
+            'creationDate' => isset($json['creationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationDate']))) ? $d : null,
         ]);
     }
 

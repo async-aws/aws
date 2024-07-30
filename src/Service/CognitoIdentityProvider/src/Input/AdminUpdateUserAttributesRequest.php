@@ -204,15 +204,15 @@ final class AdminUpdateUserAttributesRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->userPoolId) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
         if (null === $v = $this->username) {
-            throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
         if (null === $v = $this->userAttributes) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserAttributes" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserAttributes" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

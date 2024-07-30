@@ -112,11 +112,11 @@ final class DeleteUserPolicyRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->userName) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;
         if (null === $v = $this->policyName) {
-            throw new InvalidArgument(sprintf('Missing parameter "PolicyName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "PolicyName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['PolicyName'] = $v;
 

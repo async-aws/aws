@@ -597,13 +597,13 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->clientCache) {
             if (!CmafClientCache::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "clientCache" for "%s". The value "%s" is not a valid "CmafClientCache".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "clientCache" for "%s". The value "%s" is not a valid "CmafClientCache".', __CLASS__, $v));
             }
             $payload['clientCache'] = $v;
         }
         if (null !== $v = $this->codecSpecification) {
             if (!CmafCodecSpecification::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecSpecification" for "%s". The value "%s" is not a valid "CmafCodecSpecification".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecSpecification" for "%s". The value "%s" is not a valid "CmafCodecSpecification".', __CLASS__, $v));
             }
             $payload['codecSpecification'] = $v;
         }
@@ -612,7 +612,7 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->dashManifestStyle) {
             if (!DashManifestStyle::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "dashManifestStyle" for "%s". The value "%s" is not a valid "DashManifestStyle".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "dashManifestStyle" for "%s". The value "%s" is not a valid "DashManifestStyle".', __CLASS__, $v));
             }
             $payload['dashManifestStyle'] = $v;
         }
@@ -630,7 +630,7 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->imageBasedTrickPlay) {
             if (!CmafImageBasedTrickPlay::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "imageBasedTrickPlay" for "%s". The value "%s" is not a valid "CmafImageBasedTrickPlay".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "imageBasedTrickPlay" for "%s". The value "%s" is not a valid "CmafImageBasedTrickPlay".', __CLASS__, $v));
             }
             $payload['imageBasedTrickPlay'] = $v;
         }
@@ -639,13 +639,13 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->manifestCompression) {
             if (!CmafManifestCompression::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "manifestCompression" for "%s". The value "%s" is not a valid "CmafManifestCompression".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "manifestCompression" for "%s". The value "%s" is not a valid "CmafManifestCompression".', __CLASS__, $v));
             }
             $payload['manifestCompression'] = $v;
         }
         if (null !== $v = $this->manifestDurationFormat) {
             if (!CmafManifestDurationFormat::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "manifestDurationFormat" for "%s". The value "%s" is not a valid "CmafManifestDurationFormat".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "manifestDurationFormat" for "%s". The value "%s" is not a valid "CmafManifestDurationFormat".', __CLASS__, $v));
             }
             $payload['manifestDurationFormat'] = $v;
         }
@@ -657,25 +657,25 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->mpdManifestBandwidthType) {
             if (!CmafMpdManifestBandwidthType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "mpdManifestBandwidthType" for "%s". The value "%s" is not a valid "CmafMpdManifestBandwidthType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "mpdManifestBandwidthType" for "%s". The value "%s" is not a valid "CmafMpdManifestBandwidthType".', __CLASS__, $v));
             }
             $payload['mpdManifestBandwidthType'] = $v;
         }
         if (null !== $v = $this->mpdProfile) {
             if (!CmafMpdProfile::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "mpdProfile" for "%s". The value "%s" is not a valid "CmafMpdProfile".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "mpdProfile" for "%s". The value "%s" is not a valid "CmafMpdProfile".', __CLASS__, $v));
             }
             $payload['mpdProfile'] = $v;
         }
         if (null !== $v = $this->ptsOffsetHandlingForBframes) {
             if (!CmafPtsOffsetHandlingForBFrames::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ptsOffsetHandlingForBFrames" for "%s". The value "%s" is not a valid "CmafPtsOffsetHandlingForBFrames".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ptsOffsetHandlingForBFrames" for "%s". The value "%s" is not a valid "CmafPtsOffsetHandlingForBFrames".', __CLASS__, $v));
             }
             $payload['ptsOffsetHandlingForBFrames'] = $v;
         }
         if (null !== $v = $this->segmentControl) {
             if (!CmafSegmentControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "segmentControl" for "%s". The value "%s" is not a valid "CmafSegmentControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "segmentControl" for "%s". The value "%s" is not a valid "CmafSegmentControl".', __CLASS__, $v));
             }
             $payload['segmentControl'] = $v;
         }
@@ -684,43 +684,43 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->segmentLengthControl) {
             if (!CmafSegmentLengthControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "segmentLengthControl" for "%s". The value "%s" is not a valid "CmafSegmentLengthControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "segmentLengthControl" for "%s". The value "%s" is not a valid "CmafSegmentLengthControl".', __CLASS__, $v));
             }
             $payload['segmentLengthControl'] = $v;
         }
         if (null !== $v = $this->streamInfResolution) {
             if (!CmafStreamInfResolution::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "streamInfResolution" for "%s". The value "%s" is not a valid "CmafStreamInfResolution".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "streamInfResolution" for "%s". The value "%s" is not a valid "CmafStreamInfResolution".', __CLASS__, $v));
             }
             $payload['streamInfResolution'] = $v;
         }
         if (null !== $v = $this->targetDurationCompatibilityMode) {
             if (!CmafTargetDurationCompatibilityMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "targetDurationCompatibilityMode" for "%s". The value "%s" is not a valid "CmafTargetDurationCompatibilityMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "targetDurationCompatibilityMode" for "%s". The value "%s" is not a valid "CmafTargetDurationCompatibilityMode".', __CLASS__, $v));
             }
             $payload['targetDurationCompatibilityMode'] = $v;
         }
         if (null !== $v = $this->videoCompositionOffsets) {
             if (!CmafVideoCompositionOffsets::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "videoCompositionOffsets" for "%s". The value "%s" is not a valid "CmafVideoCompositionOffsets".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "videoCompositionOffsets" for "%s". The value "%s" is not a valid "CmafVideoCompositionOffsets".', __CLASS__, $v));
             }
             $payload['videoCompositionOffsets'] = $v;
         }
         if (null !== $v = $this->writeDashManifest) {
             if (!CmafWriteDASHManifest::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "writeDashManifest" for "%s". The value "%s" is not a valid "CmafWriteDASHManifest".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "writeDashManifest" for "%s". The value "%s" is not a valid "CmafWriteDASHManifest".', __CLASS__, $v));
             }
             $payload['writeDashManifest'] = $v;
         }
         if (null !== $v = $this->writeHlsManifest) {
             if (!CmafWriteHLSManifest::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "writeHlsManifest" for "%s". The value "%s" is not a valid "CmafWriteHLSManifest".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "writeHlsManifest" for "%s". The value "%s" is not a valid "CmafWriteHLSManifest".', __CLASS__, $v));
             }
             $payload['writeHlsManifest'] = $v;
         }
         if (null !== $v = $this->writeSegmentTimelineInRepresentation) {
             if (!CmafWriteSegmentTimelineInRepresentation::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "writeSegmentTimelineInRepresentation" for "%s". The value "%s" is not a valid "CmafWriteSegmentTimelineInRepresentation".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "writeSegmentTimelineInRepresentation" for "%s". The value "%s" is not a valid "CmafWriteSegmentTimelineInRepresentation".', __CLASS__, $v));
             }
             $payload['writeSegmentTimelineInRepresentation'] = $v;
         }

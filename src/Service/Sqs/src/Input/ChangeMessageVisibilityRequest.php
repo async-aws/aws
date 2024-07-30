@@ -134,15 +134,15 @@ final class ChangeMessageVisibilityRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
         if (null === $v = $this->receiptHandle) {
-            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ReceiptHandle'] = $v;
         if (null === $v = $this->visibilityTimeout) {
-            throw new InvalidArgument(sprintf('Missing parameter "VisibilityTimeout" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "VisibilityTimeout" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['VisibilityTimeout'] = $v;
 

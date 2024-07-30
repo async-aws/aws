@@ -331,14 +331,14 @@ final class RespondToAuthChallengeRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->clientId) {
-            throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
         if (null === $v = $this->challengeName) {
-            throw new InvalidArgument(sprintf('Missing parameter "ChallengeName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ChallengeName" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ChallengeNameType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "ChallengeName" for "%s". The value "%s" is not a valid "ChallengeNameType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "ChallengeName" for "%s". The value "%s" is not a valid "ChallengeNameType".', __CLASS__, $v));
         }
         $payload['ChallengeName'] = $v;
         if (null !== $v = $this->session) {

@@ -262,7 +262,7 @@ final class ProjectSource
         $payload = [];
         $v = $this->type;
         if (!SourceType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
         }
         $payload['type'] = $v;
         if (null !== $v = $this->location) {

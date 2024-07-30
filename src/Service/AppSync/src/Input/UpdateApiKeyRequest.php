@@ -111,11 +111,11 @@ final class UpdateApiKeyRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->apiId) {
-            throw new InvalidArgument(sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['apiId'] = $v;
         if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "id" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "id" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['id'] = $v;
         $uriString = '/v1/apis/' . rawurlencode($uri['apiId']) . '/apikeys/' . rawurlencode($uri['id']);

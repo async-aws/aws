@@ -55,7 +55,7 @@ final class TracingConfig
         $payload = [];
         if (null !== $v = $this->mode) {
             if (!TracingMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "TracingMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "TracingMode".', __CLASS__, $v));
             }
             $payload['Mode'] = $v;
         }

@@ -248,15 +248,15 @@ final class BatchExecuteStatementRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->resourceArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['resourceArn'] = $v;
         if (null === $v = $this->secretArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['secretArn'] = $v;
         if (null === $v = $this->sql) {
-            throw new InvalidArgument(sprintf('Missing parameter "sql" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "sql" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['sql'] = $v;
         if (null !== $v = $this->database) {

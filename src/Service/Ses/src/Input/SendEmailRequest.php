@@ -356,7 +356,7 @@ final class SendEmailRequest extends Input
             $payload['FeedbackForwardingEmailAddressIdentityArn'] = $v;
         }
         if (null === $v = $this->content) {
-            throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Content'] = $v->requestBody();
         if (null !== $v = $this->emailTags) {

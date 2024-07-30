@@ -31,7 +31,7 @@ final class SsoCacheFileLoader
      */
     public function loadSsoCacheFile(string $ssoStartUrl): array
     {
-        $filepath = sprintf('%s/.aws/sso/cache/%s.json', $this->getHomeDir(), sha1($ssoStartUrl));
+        $filepath = \sprintf('%s/.aws/sso/cache/%s.json', $this->getHomeDir(), sha1($ssoStartUrl));
 
         if (false === ($contents = @file_get_contents($filepath))) {
             $this->logger->warning('The sso cache file {path} is not readable.', ['path' => $filepath]);

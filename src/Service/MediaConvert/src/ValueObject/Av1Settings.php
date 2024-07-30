@@ -309,31 +309,31 @@ final class Av1Settings
         $payload = [];
         if (null !== $v = $this->adaptiveQuantization) {
             if (!Av1AdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "Av1AdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "Av1AdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['adaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->bitDepth) {
             if (!Av1BitDepth::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "bitDepth" for "%s". The value "%s" is not a valid "Av1BitDepth".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "bitDepth" for "%s". The value "%s" is not a valid "Av1BitDepth".', __CLASS__, $v));
             }
             $payload['bitDepth'] = $v;
         }
         if (null !== $v = $this->filmGrainSynthesis) {
             if (!Av1FilmGrainSynthesis::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "filmGrainSynthesis" for "%s". The value "%s" is not a valid "Av1FilmGrainSynthesis".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "filmGrainSynthesis" for "%s". The value "%s" is not a valid "Av1FilmGrainSynthesis".', __CLASS__, $v));
             }
             $payload['filmGrainSynthesis'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!Av1FramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Av1FramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Av1FramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!Av1FramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Av1FramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Av1FramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -357,7 +357,7 @@ final class Av1Settings
         }
         if (null !== $v = $this->rateControlMode) {
             if (!Av1RateControlMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Av1RateControlMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Av1RateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;
         }
@@ -366,7 +366,7 @@ final class Av1Settings
         }
         if (null !== $v = $this->spatialAdaptiveQuantization) {
             if (!Av1SpatialAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "Av1SpatialAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "Av1SpatialAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['spatialAdaptiveQuantization'] = $v;
         }

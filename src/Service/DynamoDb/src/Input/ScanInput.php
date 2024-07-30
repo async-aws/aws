@@ -633,7 +633,7 @@ final class ScanInput extends Input
     {
         $payload = [];
         if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
         if (null !== $v = $this->indexName) {
@@ -652,7 +652,7 @@ final class ScanInput extends Input
         }
         if (null !== $v = $this->select) {
             if (!Select::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Select" for "%s". The value "%s" is not a valid "Select".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Select" for "%s". The value "%s" is not a valid "Select".', __CLASS__, $v));
             }
             $payload['Select'] = $v;
         }
@@ -668,7 +668,7 @@ final class ScanInput extends Input
         }
         if (null !== $v = $this->conditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
             }
             $payload['ConditionalOperator'] = $v;
         }
@@ -684,7 +684,7 @@ final class ScanInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }

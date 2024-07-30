@@ -132,7 +132,7 @@ final class GetRecordsInput extends Input
     {
         $payload = [];
         if (null === $v = $this->shardIterator) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardIterator" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ShardIterator" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ShardIterator'] = $v;
         if (null !== $v = $this->limit) {

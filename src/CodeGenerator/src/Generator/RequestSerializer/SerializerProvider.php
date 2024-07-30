@@ -45,7 +45,7 @@ class SerializerProvider
             case 'json':
                 return new JsonRpcSerializer($this->namespaceRegistry, $this->requirementsRegistry);
             default:
-                throw new \LogicException(sprintf('Serializer for "%s" is not implemented yet', $definition->getProtocol()));
+                throw new \LogicException(\sprintf('Serializer for "%s" is not implemented yet', $definition->getProtocol()));
         }
     }
 }

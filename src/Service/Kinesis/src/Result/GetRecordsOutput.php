@@ -123,7 +123,7 @@ class GetRecordsOutput extends Result
     {
         return new Record([
             'SequenceNumber' => (string) $json['SequenceNumber'],
-            'ApproximateArrivalTimestamp' => (isset($json['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ApproximateArrivalTimestamp'])))) ? $d : null,
+            'ApproximateArrivalTimestamp' => (isset($json['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ApproximateArrivalTimestamp'])))) ? $d : null,
             'Data' => base64_decode((string) $json['Data']),
             'PartitionKey' => (string) $json['PartitionKey'],
             'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,

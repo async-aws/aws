@@ -83,7 +83,7 @@ final class DeleteProjectRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->projectArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "ProjectArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ProjectArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProjectArn'] = $v;
 

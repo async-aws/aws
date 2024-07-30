@@ -106,7 +106,7 @@ class WaiterGenerator
             $errorClass = $this->exceptionGenerator->generate($operation, $error);
             $classBuilder->addUse($errorClass->getFqdn());
 
-            $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
+            $mapping[] = \sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
         }
 
         $method = $classBuilder->addMethod(lcfirst(GeneratorHelper::normalizeName($waiter->getName())))
@@ -209,7 +209,7 @@ class WaiterGenerator
             case WaiterAcceptor::MATCHER_PATH:
                 return $this->getAcceptorPathBody($waiter, $acceptor);
             default:
-                throw new \RuntimeException(sprintf('Acceptor matcher "%s" is not yet implemented', $acceptor->getMatcher()));
+                throw new \RuntimeException(\sprintf('Acceptor matcher "%s" is not yet implemented', $acceptor->getMatcher()));
         }
     }
 
@@ -280,7 +280,7 @@ class WaiterGenerator
             case WaiterAcceptor::STATE_RETRY:
                 return 'STATE_PENDING';
             default:
-                throw new \RuntimeException(sprintf('Acceptor state "%s" is not yet implemented', $acceptor->getState()));
+                throw new \RuntimeException(\sprintf('Acceptor state "%s" is not yet implemented', $acceptor->getState()));
         }
     }
 }

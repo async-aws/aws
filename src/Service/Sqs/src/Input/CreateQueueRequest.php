@@ -295,7 +295,7 @@ final class CreateQueueRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueName) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueName'] = $v;
         if (null !== $v = $this->attributes) {
@@ -305,7 +305,7 @@ final class CreateQueueRequest extends Input
                 $payload['Attributes'] = [];
                 foreach ($v as $name => $mv) {
                     if (!QueueAttributeName::exists($name)) {
-                        throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $name));
+                        throw new InvalidArgument(\sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $name));
                     }
                     $payload['Attributes'][$name] = $mv;
                 }

@@ -173,7 +173,7 @@ final class ListStreamConsumersInput extends Input
     {
         $payload = [];
         if (null === $v = $this->streamArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "StreamARN" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "StreamARN" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StreamARN'] = $v;
         if (null !== $v = $this->nextToken) {

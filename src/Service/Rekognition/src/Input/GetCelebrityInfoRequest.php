@@ -84,7 +84,7 @@ final class GetCelebrityInfoRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Id'] = $v;
 

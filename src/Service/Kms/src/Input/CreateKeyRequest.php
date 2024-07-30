@@ -359,7 +359,7 @@ final class CreateKeyRequest extends Input
      */
     public function getCustomerMasterKeySpec(): ?string
     {
-        @trigger_error(sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->customerMasterKeySpec;
     }
@@ -463,7 +463,7 @@ final class CreateKeyRequest extends Input
      */
     public function setCustomerMasterKeySpec(?string $value): self
     {
-        @trigger_error(sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->customerMasterKeySpec = $value;
 
         return $this;
@@ -548,26 +548,26 @@ final class CreateKeyRequest extends Input
         }
         if (null !== $v = $this->keyUsage) {
             if (!KeyUsageType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "KeyUsage" for "%s". The value "%s" is not a valid "KeyUsageType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "KeyUsage" for "%s". The value "%s" is not a valid "KeyUsageType".', __CLASS__, $v));
             }
             $payload['KeyUsage'] = $v;
         }
         if (null !== $v = $this->customerMasterKeySpec) {
-            @trigger_error(sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+            @trigger_error(\sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             if (!CustomerMasterKeySpec::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CustomerMasterKeySpec" for "%s". The value "%s" is not a valid "CustomerMasterKeySpec".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "CustomerMasterKeySpec" for "%s". The value "%s" is not a valid "CustomerMasterKeySpec".', __CLASS__, $v));
             }
             $payload['CustomerMasterKeySpec'] = $v;
         }
         if (null !== $v = $this->keySpec) {
             if (!KeySpec::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "KeySpec" for "%s". The value "%s" is not a valid "KeySpec".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "KeySpec" for "%s". The value "%s" is not a valid "KeySpec".', __CLASS__, $v));
             }
             $payload['KeySpec'] = $v;
         }
         if (null !== $v = $this->origin) {
             if (!OriginType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Origin" for "%s". The value "%s" is not a valid "OriginType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Origin" for "%s". The value "%s" is not a valid "OriginType".', __CLASS__, $v));
             }
             $payload['Origin'] = $v;
         }

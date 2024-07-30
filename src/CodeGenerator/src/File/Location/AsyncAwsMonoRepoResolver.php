@@ -33,6 +33,6 @@ class AsyncAwsMonoRepoResolver implements DirectoryResolver
             array_unshift($parts, 'Service');
         }
 
-        return sprintf('%s/%s', $this->srcDirectory, implode('/', $parts));
+        return \sprintf('%s/%s', $this->srcDirectory, implode('/', $parts));
     }
 }

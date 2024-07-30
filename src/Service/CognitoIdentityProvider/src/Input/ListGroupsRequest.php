@@ -128,7 +128,7 @@ final class ListGroupsRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->userPoolId) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
         if (null !== $v = $this->limit) {

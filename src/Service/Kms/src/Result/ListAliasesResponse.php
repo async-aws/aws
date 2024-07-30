@@ -134,8 +134,8 @@ class ListAliasesResponse extends Result implements \IteratorAggregate
             'AliasName' => isset($json['AliasName']) ? (string) $json['AliasName'] : null,
             'AliasArn' => isset($json['AliasArn']) ? (string) $json['AliasArn'] : null,
             'TargetKeyId' => isset($json['TargetKeyId']) ? (string) $json['TargetKeyId'] : null,
-            'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
-            'LastUpdatedDate' => (isset($json['LastUpdatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastUpdatedDate'])))) ? $d : null,
+            'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
+            'LastUpdatedDate' => (isset($json['LastUpdatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdatedDate'])))) ? $d : null,
         ]);
     }
 }

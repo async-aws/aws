@@ -56,6 +56,6 @@ class DeleteSecretResponse extends Result
 
         $this->arn = isset($data['ARN']) ? (string) $data['ARN'] : null;
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
-        $this->deletionDate = (isset($data['DeletionDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['DeletionDate'])))) ? $d : null;
+        $this->deletionDate = (isset($data['DeletionDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['DeletionDate'])))) ? $d : null;
     }
 }

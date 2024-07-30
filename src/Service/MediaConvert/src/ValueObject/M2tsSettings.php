@@ -801,13 +801,13 @@ final class M2tsSettings
         $payload = [];
         if (null !== $v = $this->audioBufferModel) {
             if (!M2tsAudioBufferModel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "audioBufferModel" for "%s". The value "%s" is not a valid "M2tsAudioBufferModel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "audioBufferModel" for "%s". The value "%s" is not a valid "M2tsAudioBufferModel".', __CLASS__, $v));
             }
             $payload['audioBufferModel'] = $v;
         }
         if (null !== $v = $this->audioDuration) {
             if (!M2tsAudioDuration::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "M2tsAudioDuration".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "M2tsAudioDuration".', __CLASS__, $v));
             }
             $payload['audioDuration'] = $v;
         }
@@ -827,13 +827,13 @@ final class M2tsSettings
         }
         if (null !== $v = $this->bufferModel) {
             if (!M2tsBufferModel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "bufferModel" for "%s". The value "%s" is not a valid "M2tsBufferModel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "bufferModel" for "%s". The value "%s" is not a valid "M2tsBufferModel".', __CLASS__, $v));
             }
             $payload['bufferModel'] = $v;
         }
         if (null !== $v = $this->dataPtsControl) {
             if (!M2tsDataPtsControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "dataPTSControl" for "%s". The value "%s" is not a valid "M2tsDataPtsControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "dataPTSControl" for "%s". The value "%s" is not a valid "M2tsDataPtsControl".', __CLASS__, $v));
             }
             $payload['dataPTSControl'] = $v;
         }
@@ -859,25 +859,25 @@ final class M2tsSettings
         }
         if (null !== $v = $this->ebpAudioInterval) {
             if (!M2tsEbpAudioInterval::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ebpAudioInterval" for "%s". The value "%s" is not a valid "M2tsEbpAudioInterval".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ebpAudioInterval" for "%s". The value "%s" is not a valid "M2tsEbpAudioInterval".', __CLASS__, $v));
             }
             $payload['ebpAudioInterval'] = $v;
         }
         if (null !== $v = $this->ebpPlacement) {
             if (!M2tsEbpPlacement::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ebpPlacement" for "%s". The value "%s" is not a valid "M2tsEbpPlacement".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ebpPlacement" for "%s". The value "%s" is not a valid "M2tsEbpPlacement".', __CLASS__, $v));
             }
             $payload['ebpPlacement'] = $v;
         }
         if (null !== $v = $this->esRateInPes) {
             if (!M2tsEsRateInPes::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "esRateInPes" for "%s". The value "%s" is not a valid "M2tsEsRateInPes".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "esRateInPes" for "%s". The value "%s" is not a valid "M2tsEsRateInPes".', __CLASS__, $v));
             }
             $payload['esRateInPes'] = $v;
         }
         if (null !== $v = $this->forceTsVideoEbpOrder) {
             if (!M2tsForceTsVideoEbpOrder::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "forceTsVideoEbpOrder" for "%s". The value "%s" is not a valid "M2tsForceTsVideoEbpOrder".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "forceTsVideoEbpOrder" for "%s". The value "%s" is not a valid "M2tsForceTsVideoEbpOrder".', __CLASS__, $v));
             }
             $payload['forceTsVideoEbpOrder'] = $v;
         }
@@ -886,7 +886,7 @@ final class M2tsSettings
         }
         if (null !== $v = $this->klvMetadata) {
             if (!M2tsKlvMetadata::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "klvMetadata" for "%s". The value "%s" is not a valid "M2tsKlvMetadata".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "klvMetadata" for "%s". The value "%s" is not a valid "M2tsKlvMetadata".', __CLASS__, $v));
             }
             $payload['klvMetadata'] = $v;
         }
@@ -898,7 +898,7 @@ final class M2tsSettings
         }
         if (null !== $v = $this->nielsenId3) {
             if (!M2tsNielsenId3::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "nielsenId3" for "%s". The value "%s" is not a valid "M2tsNielsenId3".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "nielsenId3" for "%s". The value "%s" is not a valid "M2tsNielsenId3".', __CLASS__, $v));
             }
             $payload['nielsenId3'] = $v;
         }
@@ -910,7 +910,7 @@ final class M2tsSettings
         }
         if (null !== $v = $this->pcrControl) {
             if (!M2tsPcrControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "pcrControl" for "%s". The value "%s" is not a valid "M2tsPcrControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "pcrControl" for "%s". The value "%s" is not a valid "M2tsPcrControl".', __CLASS__, $v));
             }
             $payload['pcrControl'] = $v;
         }
@@ -925,7 +925,7 @@ final class M2tsSettings
         }
         if (null !== $v = $this->preventBufferUnderflow) {
             if (!M2tsPreventBufferUnderflow::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "preventBufferUnderflow" for "%s". The value "%s" is not a valid "M2tsPreventBufferUnderflow".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "preventBufferUnderflow" for "%s". The value "%s" is not a valid "M2tsPreventBufferUnderflow".', __CLASS__, $v));
             }
             $payload['preventBufferUnderflow'] = $v;
         }
@@ -940,13 +940,13 @@ final class M2tsSettings
         }
         if (null !== $v = $this->ptsOffsetMode) {
             if (!TsPtsOffset::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ptsOffsetMode" for "%s". The value "%s" is not a valid "TsPtsOffset".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ptsOffsetMode" for "%s". The value "%s" is not a valid "TsPtsOffset".', __CLASS__, $v));
             }
             $payload['ptsOffsetMode'] = $v;
         }
         if (null !== $v = $this->rateMode) {
             if (!M2tsRateMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "rateMode" for "%s". The value "%s" is not a valid "M2tsRateMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "rateMode" for "%s". The value "%s" is not a valid "M2tsRateMode".', __CLASS__, $v));
             }
             $payload['rateMode'] = $v;
         }
@@ -958,19 +958,19 @@ final class M2tsSettings
         }
         if (null !== $v = $this->scte35Source) {
             if (!M2tsScte35Source::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "M2tsScte35Source".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "M2tsScte35Source".', __CLASS__, $v));
             }
             $payload['scte35Source'] = $v;
         }
         if (null !== $v = $this->segmentationMarkers) {
             if (!M2tsSegmentationMarkers::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "segmentationMarkers" for "%s". The value "%s" is not a valid "M2tsSegmentationMarkers".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "segmentationMarkers" for "%s". The value "%s" is not a valid "M2tsSegmentationMarkers".', __CLASS__, $v));
             }
             $payload['segmentationMarkers'] = $v;
         }
         if (null !== $v = $this->segmentationStyle) {
             if (!M2tsSegmentationStyle::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "segmentationStyle" for "%s". The value "%s" is not a valid "M2tsSegmentationStyle".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "segmentationStyle" for "%s". The value "%s" is not a valid "M2tsSegmentationStyle".', __CLASS__, $v));
             }
             $payload['segmentationStyle'] = $v;
         }

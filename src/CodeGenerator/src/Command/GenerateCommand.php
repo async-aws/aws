@@ -217,7 +217,7 @@ class GenerateCommand extends Command
 
                 if (empty($config)) {
                     if (!isset($serviceEndpoints['_default'][$partition['partition']])) {
-                        $endpoint = strtr(sprintf('http%s://%s', \in_array('https', $protocols) ? 's' : '', $hostname), [
+                        $endpoint = strtr(\sprintf('http%s://%s', \in_array('https', $protocols) ? 's' : '', $hostname), [
                             '{service}' => $prefix,
                             '{region}' => '%region%',
                             '{dnsSuffix}' => $suffix,
@@ -232,7 +232,7 @@ class GenerateCommand extends Command
                         $serviceEndpoints['_default'][$partition['partition']]['regions'][] = $region;
                     }
                 } else {
-                    $endpoint = strtr(sprintf('http%s://%s', \in_array('https', $protocols) ? 's' : '', $hostname), [
+                    $endpoint = strtr(\sprintf('http%s://%s', \in_array('https', $protocols) ? 's' : '', $hostname), [
                         '{service}' => $prefix,
                         '{region}' => $region,
                         '{dnsSuffix}' => $suffix,
@@ -303,7 +303,7 @@ class GenerateCommand extends Command
 
         $managedOperations = array_unique(array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
         $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray, $manifest['services'][$serviceName]['hooks'] ?? [], $manifest['services'][$serviceName]['api-reference'] ?? null);
-        $serviceGenerator = $this->generator->service($namespace = $manifest['services'][$serviceName]['namespace'] ?? sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
+        $serviceGenerator = $this->generator->service($namespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
         $clientClass = $serviceGenerator->client()->generate($definition, $customErrorFactory);
 
@@ -313,7 +313,7 @@ class GenerateCommand extends Command
             } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
                 $serviceGenerator->waiter()->generate($waiter);
             } else {
-                $io->error(sprintf('Could not find service or waiter named "%s".', $operationName));
+                $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
 
                 return 1;
             }
@@ -351,7 +351,7 @@ class GenerateCommand extends Command
     {
         if ($inputServiceName) {
             if (!isset($manifest[$inputServiceName])) {
-                $io->error(sprintf('Could not find service named "%s".', $inputServiceName));
+                $io->error(\sprintf('Could not find service named "%s".', $inputServiceName));
 
                 return 1;
             }
@@ -384,19 +384,19 @@ class GenerateCommand extends Command
     {
         if ($inputOperationName) {
             if ($returnAll) {
-                $io->error(sprintf('Cannot use "--all" together with an operation. You passed "%s" as operation.', $inputOperationName));
+                $io->error(\sprintf('Cannot use "--all" together with an operation. You passed "%s" as operation.', $inputOperationName));
 
                 return 1;
             }
 
             if (!isset($definition['operations'][$inputOperationName]) && !isset($waiter['waiters'][$inputOperationName])) {
-                $io->error(sprintf('Could not find operation or waiter named "%s".', $inputOperationName));
+                $io->error(\sprintf('Could not find operation or waiter named "%s".', $inputOperationName));
 
                 return 1;
             }
 
             if (!\in_array($inputOperationName, $manifest['methods'])) {
-                $io->warning(sprintf('Operation named "%s" has never been generated.', $inputOperationName));
+                $io->warning(\sprintf('Operation named "%s" has never been generated.', $inputOperationName));
                 if (!$io->confirm('Do you want adding it?', true)) {
                     return 1;
                 }
@@ -434,10 +434,10 @@ class GenerateCommand extends Command
         $testPath = substr($srcPath, 0, strrpos($srcPath, '/src')) . '/tests';
 
         if (!is_dir($srcPath)) {
-            throw new \InvalidArgumentException(sprintf('The src dir "%s" does not exists', $srcPath));
+            throw new \InvalidArgumentException(\sprintf('The src dir "%s" does not exists', $srcPath));
         }
         if (!is_dir($testPath)) {
-            throw new \InvalidArgumentException(sprintf('The test dir "%s" does not exists', $testPath));
+            throw new \InvalidArgumentException(\sprintf('The test dir "%s" does not exists', $testPath));
         }
 
         // assert this
@@ -480,7 +480,7 @@ class GenerateCommand extends Command
         );
         $runner->fix();
         foreach ($e->getInvalidErrors() as $error) {
-            $io->error(sprintf('The generated file "%s" is invalid: %s', $error->getFilePath(), $error->getSource() ? $error->getSource()->getMessage() : 'unknown'));
+            $io->error(\sprintf('The generated file "%s" is invalid: %s', $error->getFilePath(), $error->getSource() ? $error->getSource()->getMessage() : 'unknown'));
         }
         if (empty($e->getInvalidErrors())) {
             $runner->fix();

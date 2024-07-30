@@ -37,8 +37,8 @@ class CreateGroupResponse extends Result
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'RoleArn' => isset($json['RoleArn']) ? (string) $json['RoleArn'] : null,
             'Precedence' => isset($json['Precedence']) ? (int) $json['Precedence'] : null,
-            'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,
-            'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
+            'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,
+            'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
         ]);
     }
 }

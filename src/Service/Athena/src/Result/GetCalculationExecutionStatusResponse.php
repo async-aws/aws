@@ -56,8 +56,8 @@ class GetCalculationExecutionStatusResponse extends Result
     private function populateResultCalculationStatus(array $json): CalculationStatus
     {
         return new CalculationStatus([
-            'SubmissionDateTime' => (isset($json['SubmissionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['SubmissionDateTime'])))) ? $d : null,
-            'CompletionDateTime' => (isset($json['CompletionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CompletionDateTime'])))) ? $d : null,
+            'SubmissionDateTime' => (isset($json['SubmissionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['SubmissionDateTime'])))) ? $d : null,
+            'CompletionDateTime' => (isset($json['CompletionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CompletionDateTime'])))) ? $d : null,
             'State' => isset($json['State']) ? (string) $json['State'] : null,
             'StateChangeReason' => isset($json['StateChangeReason']) ? (string) $json['StateChangeReason'] : null,
         ]);

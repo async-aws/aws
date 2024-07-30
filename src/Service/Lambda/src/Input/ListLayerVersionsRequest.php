@@ -135,7 +135,7 @@ final class ListLayerVersionsRequest extends Input
         $query = [];
         if (null !== $this->compatibleRuntime) {
             if (!Runtime::exists($this->compatibleRuntime)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->compatibleRuntime));
+                throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleRuntime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->compatibleRuntime));
             }
             $query['CompatibleRuntime'] = $this->compatibleRuntime;
         }
@@ -147,7 +147,7 @@ final class ListLayerVersionsRequest extends Input
         }
         if (null !== $this->compatibleArchitecture) {
             if (!Architecture::exists($this->compatibleArchitecture)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleArchitecture" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $this->compatibleArchitecture));
+                throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitecture" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $this->compatibleArchitecture));
             }
             $query['CompatibleArchitecture'] = $this->compatibleArchitecture;
         }
@@ -155,7 +155,7 @@ final class ListLayerVersionsRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->layerName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
         $uriString = '/2018-10-31/layers/' . rawurlencode($uri['LayerName']) . '/versions';

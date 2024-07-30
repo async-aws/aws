@@ -36,7 +36,7 @@ class RegisterStreamConsumerOutput extends Result
             'ConsumerName' => (string) $json['ConsumerName'],
             'ConsumerARN' => (string) $json['ConsumerARN'],
             'ConsumerStatus' => (string) $json['ConsumerStatus'],
-            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ConsumerCreationTimestamp'])),
+            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ConsumerCreationTimestamp'])),
         ]);
     }
 }

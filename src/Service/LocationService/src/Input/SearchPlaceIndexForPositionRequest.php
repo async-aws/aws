@@ -155,7 +155,7 @@ final class SearchPlaceIndexForPositionRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['IndexName'] = $v;
         $uriString = '/places/v0/indexes/' . rawurlencode($uri['IndexName']) . '/search/position';
@@ -211,7 +211,7 @@ final class SearchPlaceIndexForPositionRequest extends Input
         $payload = [];
 
         if (null === $v = $this->position) {
-            throw new InvalidArgument(sprintf('Missing parameter "Position" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Position" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

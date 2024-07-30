@@ -48,7 +48,7 @@ final class ResourceStream implements RequestStream
             return new self($content, $chunkSize);
         }
 
-        throw new InvalidArgument(sprintf('Expect content to be a "resource". "%s" given.', \is_object($content) ? \get_class($content) : \gettype($content)));
+        throw new InvalidArgument(\sprintf('Expect content to be a "resource". "%s" given.', \is_object($content) ? \get_class($content) : \gettype($content)));
     }
 
     public function length(): ?int

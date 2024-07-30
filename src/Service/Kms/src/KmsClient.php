@@ -1182,6 +1182,6 @@ class KmsClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Kms".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Kms".', $region));
     }
 }

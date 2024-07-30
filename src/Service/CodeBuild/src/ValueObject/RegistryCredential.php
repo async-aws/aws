@@ -80,7 +80,7 @@ final class RegistryCredential
         $payload['credential'] = $v;
         $v = $this->credentialProvider;
         if (!CredentialProviderType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "credentialProvider" for "%s". The value "%s" is not a valid "CredentialProviderType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "credentialProvider" for "%s". The value "%s" is not a valid "CredentialProviderType".', __CLASS__, $v));
         }
         $payload['credentialProvider'] = $v;
 

@@ -205,7 +205,7 @@ final class Record
         }
         if (null !== $v = $this->measureValueType) {
             if (!MeasureValueType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "MeasureValueType" for "%s". The value "%s" is not a valid "MeasureValueType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "MeasureValueType" for "%s". The value "%s" is not a valid "MeasureValueType".', __CLASS__, $v));
             }
             $payload['MeasureValueType'] = $v;
         }
@@ -214,7 +214,7 @@ final class Record
         }
         if (null !== $v = $this->timeUnit) {
             if (!TimeUnit::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "TimeUnit" for "%s". The value "%s" is not a valid "TimeUnit".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "TimeUnit" for "%s". The value "%s" is not a valid "TimeUnit".', __CLASS__, $v));
             }
             $payload['TimeUnit'] = $v;
         }

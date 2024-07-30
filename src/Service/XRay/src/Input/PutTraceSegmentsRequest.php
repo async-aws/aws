@@ -88,7 +88,7 @@ final class PutTraceSegmentsRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->traceSegmentDocuments) {
-            throw new InvalidArgument(sprintf('Missing parameter "TraceSegmentDocuments" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TraceSegmentDocuments" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

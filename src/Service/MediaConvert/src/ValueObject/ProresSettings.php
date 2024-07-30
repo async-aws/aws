@@ -314,25 +314,25 @@ final class ProresSettings
         $payload = [];
         if (null !== $v = $this->chromaSampling) {
             if (!ProresChromaSampling::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "chromaSampling" for "%s". The value "%s" is not a valid "ProresChromaSampling".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "chromaSampling" for "%s". The value "%s" is not a valid "ProresChromaSampling".', __CLASS__, $v));
             }
             $payload['chromaSampling'] = $v;
         }
         if (null !== $v = $this->codecProfile) {
             if (!ProresCodecProfile::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "ProresCodecProfile".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "ProresCodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!ProresFramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "ProresFramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "ProresFramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!ProresFramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "ProresFramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "ProresFramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -344,13 +344,13 @@ final class ProresSettings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!ProresInterlaceMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "ProresInterlaceMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "ProresInterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
         if (null !== $v = $this->parControl) {
             if (!ProresParControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "ProresParControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "ProresParControl".', __CLASS__, $v));
             }
             $payload['parControl'] = $v;
         }
@@ -362,19 +362,19 @@ final class ProresSettings
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!ProresScanTypeConversionMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "ProresScanTypeConversionMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "ProresScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!ProresSlowPal::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "ProresSlowPal".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "ProresSlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!ProresTelecine::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "ProresTelecine".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "ProresTelecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }

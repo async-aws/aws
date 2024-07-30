@@ -167,11 +167,11 @@ final class AddLayerVersionPermissionRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->layerName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
         if (null === $v = $this->versionNumber) {
-            throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "VersionNumber" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['VersionNumber'] = (string) $v;
         $uriString = '/2018-10-31/layers/' . rawurlencode($uri['LayerName']) . '/versions/' . rawurlencode($uri['VersionNumber']) . '/policy';
@@ -238,15 +238,15 @@ final class AddLayerVersionPermissionRequest extends Input
         $payload = [];
 
         if (null === $v = $this->statementId) {
-            throw new InvalidArgument(sprintf('Missing parameter "StatementId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "StatementId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StatementId'] = $v;
         if (null === $v = $this->action) {
-            throw new InvalidArgument(sprintf('Missing parameter "Action" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Action" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Action'] = $v;
         if (null === $v = $this->principal) {
-            throw new InvalidArgument(sprintf('Missing parameter "Principal" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Principal" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Principal'] = $v;
         if (null !== $v = $this->organizationId) {

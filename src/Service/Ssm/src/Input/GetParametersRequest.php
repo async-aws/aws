@@ -122,7 +122,7 @@ final class GetParametersRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->names) {
-            throw new InvalidArgument(sprintf('Missing parameter "Names" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Names" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

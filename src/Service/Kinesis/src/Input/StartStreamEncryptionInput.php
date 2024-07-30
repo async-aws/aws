@@ -170,14 +170,14 @@ final class StartStreamEncryptionInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->encryptionType) {
-            throw new InvalidArgument(sprintf('Missing parameter "EncryptionType" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "EncryptionType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!EncryptionType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "EncryptionType" for "%s". The value "%s" is not a valid "EncryptionType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "EncryptionType" for "%s". The value "%s" is not a valid "EncryptionType".', __CLASS__, $v));
         }
         $payload['EncryptionType'] = $v;
         if (null === $v = $this->keyId) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['KeyId'] = $v;
         if (null !== $v = $this->streamArn) {

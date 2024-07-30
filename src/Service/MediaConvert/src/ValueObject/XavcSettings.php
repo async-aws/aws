@@ -360,25 +360,25 @@ final class XavcSettings
         $payload = [];
         if (null !== $v = $this->adaptiveQuantization) {
             if (!XavcAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "XavcAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "XavcAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['adaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->entropyEncoding) {
             if (!XavcEntropyEncoding::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "entropyEncoding" for "%s". The value "%s" is not a valid "XavcEntropyEncoding".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "entropyEncoding" for "%s". The value "%s" is not a valid "XavcEntropyEncoding".', __CLASS__, $v));
             }
             $payload['entropyEncoding'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!XavcFramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "XavcFramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "XavcFramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!XavcFramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "XavcFramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "XavcFramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -390,13 +390,13 @@ final class XavcSettings
         }
         if (null !== $v = $this->profile) {
             if (!XavcProfile::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "profile" for "%s". The value "%s" is not a valid "XavcProfile".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "profile" for "%s". The value "%s" is not a valid "XavcProfile".', __CLASS__, $v));
             }
             $payload['profile'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!XavcSlowPal::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "XavcSlowPal".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "XavcSlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
@@ -405,13 +405,13 @@ final class XavcSettings
         }
         if (null !== $v = $this->spatialAdaptiveQuantization) {
             if (!XavcSpatialAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcSpatialAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcSpatialAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['spatialAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->temporalAdaptiveQuantization) {
             if (!XavcTemporalAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcTemporalAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcTemporalAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['temporalAdaptiveQuantization'] = $v;
         }

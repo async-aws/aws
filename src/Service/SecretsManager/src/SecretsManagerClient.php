@@ -560,6 +560,6 @@ class SecretsManagerClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "SecretsManager".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "SecretsManager".', $region));
     }
 }

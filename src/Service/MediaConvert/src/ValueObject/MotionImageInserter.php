@@ -159,7 +159,7 @@ final class MotionImageInserter
         }
         if (null !== $v = $this->insertionMode) {
             if (!MotionImageInsertionMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "insertionMode" for "%s". The value "%s" is not a valid "MotionImageInsertionMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "insertionMode" for "%s". The value "%s" is not a valid "MotionImageInsertionMode".', __CLASS__, $v));
             }
             $payload['insertionMode'] = $v;
         }
@@ -168,7 +168,7 @@ final class MotionImageInserter
         }
         if (null !== $v = $this->playback) {
             if (!MotionImagePlayback::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "playback" for "%s". The value "%s" is not a valid "MotionImagePlayback".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "playback" for "%s". The value "%s" is not a valid "MotionImagePlayback".', __CLASS__, $v));
             }
             $payload['playback'] = $v;
         }

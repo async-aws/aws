@@ -25,6 +25,6 @@ class StopExecutionOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->stopDate = /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['stopDate']));
+        $this->stopDate = /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['stopDate']));
     }
 }

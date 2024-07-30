@@ -62,7 +62,7 @@ final class AclConfiguration
         $payload = [];
         $v = $this->s3AclOption;
         if (!S3AclOption::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "S3AclOption" for "%s". The value "%s" is not a valid "S3AclOption".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "S3AclOption" for "%s". The value "%s" is not a valid "S3AclOption".', __CLASS__, $v));
         }
         $payload['S3AclOption'] = $v;
 

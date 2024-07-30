@@ -124,7 +124,7 @@ final class ColorConversion3DLUTSetting
         }
         if (null !== $v = $this->inputColorSpace) {
             if (!ColorSpace::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "inputColorSpace" for "%s". The value "%s" is not a valid "ColorSpace".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "inputColorSpace" for "%s". The value "%s" is not a valid "ColorSpace".', __CLASS__, $v));
             }
             $payload['inputColorSpace'] = $v;
         }
@@ -133,7 +133,7 @@ final class ColorConversion3DLUTSetting
         }
         if (null !== $v = $this->outputColorSpace) {
             if (!ColorSpace::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "outputColorSpace" for "%s". The value "%s" is not a valid "ColorSpace".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "outputColorSpace" for "%s". The value "%s" is not a valid "ColorSpace".', __CLASS__, $v));
             }
             $payload['outputColorSpace'] = $v;
         }

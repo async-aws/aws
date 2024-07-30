@@ -70,7 +70,7 @@ final class AuthorizationConfig
         $payload = [];
         $v = $this->authorizationType;
         if (!AuthorizationType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "authorizationType" for "%s". The value "%s" is not a valid "AuthorizationType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "authorizationType" for "%s". The value "%s" is not a valid "AuthorizationType".', __CLASS__, $v));
         }
         $payload['authorizationType'] = $v;
         if (null !== $v = $this->awsIamConfig) {

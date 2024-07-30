@@ -89,12 +89,12 @@ class RestJsonParser implements Parser
                         $this->PROPERTY_NAME = $v;
                     }', [
                     'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), false),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(\sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), false),
                 ]);
             } else {
                 $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                     'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), false),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(\sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), false),
                 ]);
             }
         }
@@ -151,7 +151,7 @@ class RestJsonParser implements Parser
 
                 break;
             default:
-                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
+                throw new \RuntimeException(\sprintf('Timestamp format %s is not yet implemented', $format));
         }
 
         if ($required) {
@@ -212,7 +212,7 @@ class RestJsonParser implements Parser
                 return $this->parseResponseTimestamp($shape, $input, $required);
         }
 
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+        throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
     private function parseResponseStructure(StructureShape $shape, string $input, bool $required): string
@@ -226,7 +226,7 @@ class RestJsonParser implements Parser
             foreach ($shape->getMembers() as $member) {
                 $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
                     'PROPERTY_NAME' => var_export($member->getName(), true),
-                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$json[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), true),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(\sprintf('$json[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), true),
                 ]);
             }
 
@@ -405,7 +405,7 @@ class RestJsonParser implements Parser
 
                 $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                     'MAP_KEY' => var_export($locationName, true),
-                    'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false, $inObject),
+                    'MAP_ACCESSOR' => $this->parseElement(\sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false, $inObject),
                 ]), $shape);
             }
         }

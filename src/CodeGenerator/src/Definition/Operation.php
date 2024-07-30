@@ -103,7 +103,7 @@ class Operation
             $shape = ($this->shapeLocator)($this->data['output']['shape'], null, ['resultWrapper' => $this->data['output']['resultWrapper'] ?? null]);
 
             if (!$shape instanceof StructureShape) {
-                throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure output.', $this->getName()));
+                throw new \InvalidArgumentException(\sprintf('The operation "%s" should have an Structure output.', $this->getName()));
             }
 
             return $shape;
@@ -124,7 +124,7 @@ class Operation
             }
             $shape = ($this->shapeLocator)($error['shape']);
             if (!$shape instanceof ExceptionShape) {
-                throw new \InvalidArgumentException(sprintf('The error "%s" of the operation "%s" should have an Exception shape.', $error['shape'], $this->getName()));
+                throw new \InvalidArgumentException(\sprintf('The error "%s" of the operation "%s" should have an Exception shape.', $error['shape'], $this->getName()));
             }
 
             $errors[$error['shape']] = $shape;
@@ -138,7 +138,7 @@ class Operation
         $shape = $this->getInputShape();
 
         if (!$shape instanceof StructureShape) {
-            throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure Input.', $this->getName()));
+            throw new \InvalidArgumentException(\sprintf('The operation "%s" should have an Structure Input.', $this->getName()));
         }
 
         return $shape;
@@ -172,7 +172,7 @@ class Operation
     public function getHttpMethod(): string
     {
         if (isset($this->data['input']['method'])) {
-            throw new \InvalidArgumentException(sprintf('The operation "%s" should have an HTTP Method.', $this->getName()));
+            throw new \InvalidArgumentException(\sprintf('The operation "%s" should have an HTTP Method.', $this->getName()));
         }
 
         return $this->data['http']['method'];
@@ -215,7 +215,7 @@ class Operation
         }
 
         return Shape::create(
-            sprintf('%sRequest', $this->getName()),
+            \sprintf('%sRequest', $this->getName()),
             ['type' => 'structure', 'required' => [], 'members' => []],
             $this->shapeLocator,
             function () {

@@ -197,11 +197,11 @@ final class ListTableMetadataInput extends Input
     {
         $payload = [];
         if (null === $v = $this->catalogName) {
-            throw new InvalidArgument(sprintf('Missing parameter "CatalogName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CatalogName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CatalogName'] = $v;
         if (null === $v = $this->databaseName) {
-            throw new InvalidArgument(sprintf('Missing parameter "DatabaseName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "DatabaseName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['DatabaseName'] = $v;
         if (null !== $v = $this->expression) {

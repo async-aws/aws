@@ -285,22 +285,22 @@ final class ConfirmForgotPasswordRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->clientId) {
-            throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
         if (null !== $v = $this->secretHash) {
             $payload['SecretHash'] = $v;
         }
         if (null === $v = $this->username) {
-            throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
         if (null === $v = $this->confirmationCode) {
-            throw new InvalidArgument(sprintf('Missing parameter "ConfirmationCode" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ConfirmationCode" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ConfirmationCode'] = $v;
         if (null === $v = $this->password) {
-            throw new InvalidArgument(sprintf('Missing parameter "Password" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Password" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Password'] = $v;
         if (null !== $v = $this->analyticsMetadata) {

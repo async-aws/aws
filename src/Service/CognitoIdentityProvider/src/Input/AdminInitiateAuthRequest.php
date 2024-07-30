@@ -315,18 +315,18 @@ final class AdminInitiateAuthRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->userPoolId) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
         if (null === $v = $this->clientId) {
-            throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
         if (null === $v = $this->authFlow) {
-            throw new InvalidArgument(sprintf('Missing parameter "AuthFlow" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "AuthFlow" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!AuthFlowType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "AuthFlow" for "%s". The value "%s" is not a valid "AuthFlowType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "AuthFlow" for "%s". The value "%s" is not a valid "AuthFlowType".', __CLASS__, $v));
         }
         $payload['AuthFlow'] = $v;
         if (null !== $v = $this->authParameters) {

@@ -63,7 +63,7 @@ final class DeleteHostedZoneRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Id" for "%s". The value cannot be null.', __CLASS__));
         }
         $v = preg_replace('#^(/hostedzone/|/change/|/delegationset/)#', '', $v);
         $uri['Id'] = $v;

@@ -134,11 +134,11 @@ final class CreateAliasRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->aliasName) {
-            throw new InvalidArgument(sprintf('Missing parameter "AliasName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "AliasName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AliasName'] = $v;
         if (null === $v = $this->targetKeyId) {
-            throw new InvalidArgument(sprintf('Missing parameter "TargetKeyId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TargetKeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TargetKeyId'] = $v;
 

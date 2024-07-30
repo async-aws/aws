@@ -29,6 +29,6 @@ class StreamFactory
             return ResourceStream::create($content, $preferredChunkSize);
         }
 
-        throw new InvalidArgument(sprintf('Unexpected content type "%s".', \is_object($content) ? \get_class($content) : \gettype($content)));
+        throw new InvalidArgument(\sprintf('Unexpected content type "%s".', \is_object($content) ? \get_class($content) : \gettype($content)));
     }
 }

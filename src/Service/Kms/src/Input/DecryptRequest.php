@@ -300,7 +300,7 @@ final class DecryptRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->ciphertextBlob) {
-            throw new InvalidArgument(sprintf('Missing parameter "CiphertextBlob" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CiphertextBlob" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CiphertextBlob'] = base64_encode($v);
         if (null !== $v = $this->encryptionContext) {
@@ -326,7 +326,7 @@ final class DecryptRequest extends Input
         }
         if (null !== $v = $this->encryptionAlgorithm) {
             if (!EncryptionAlgorithmSpec::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "EncryptionAlgorithm" for "%s". The value "%s" is not a valid "EncryptionAlgorithmSpec".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "EncryptionAlgorithm" for "%s". The value "%s" is not a valid "EncryptionAlgorithmSpec".', __CLASS__, $v));
             }
             $payload['EncryptionAlgorithm'] = $v;
         }

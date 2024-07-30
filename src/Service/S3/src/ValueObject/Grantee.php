@@ -137,7 +137,7 @@ final class Grantee
         }
         $v = $this->type;
         if (!Type::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
         }
         $node->setAttribute('xsi:type', $v);
         if (null !== $v = $this->uri) {

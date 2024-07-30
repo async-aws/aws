@@ -115,7 +115,7 @@ final class DeleteServiceSpecificCredentialRequest extends Input
             $payload['UserName'] = $v;
         }
         if (null === $v = $this->serviceSpecificCredentialId) {
-            throw new InvalidArgument(sprintf('Missing parameter "ServiceSpecificCredentialId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ServiceSpecificCredentialId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ServiceSpecificCredentialId'] = $v;
 

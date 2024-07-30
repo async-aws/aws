@@ -404,7 +404,7 @@ final class UpdateFunctionConfigurationRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->functionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['FunctionName'] = $v;
         $uriString = '/2015-03-31/functions/' . rawurlencode($uri['FunctionName']) . '/configuration';
@@ -586,7 +586,7 @@ final class UpdateFunctionConfigurationRequest extends Input
         }
         if (null !== $v = $this->runtime) {
             if (!Runtime::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Runtime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Runtime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $v));
             }
             $payload['Runtime'] = $v;
         }

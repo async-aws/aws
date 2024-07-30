@@ -116,7 +116,7 @@ final class PutEventsRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->entries) {
-            throw new InvalidArgument(sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

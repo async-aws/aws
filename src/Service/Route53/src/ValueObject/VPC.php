@@ -70,7 +70,7 @@ final class VPC
     {
         if (null !== $v = $this->vpcRegion) {
             if (!VPCRegion::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "VPCRegion" for "%s". The value "%s" is not a valid "VPCRegion".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "VPCRegion" for "%s". The value "%s" is not a valid "VPCRegion".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('VPCRegion', $v));
         }

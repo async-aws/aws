@@ -83,7 +83,7 @@ final class GetCalculationExecutionRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->calculationExecutionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "CalculationExecutionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CalculationExecutionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CalculationExecutionId'] = $v;
 

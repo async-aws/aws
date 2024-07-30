@@ -6,6 +6,10 @@
 
 - AWS api-change: This release adds support for tagging projects and datasets with the CreateProject and CreateDataset APIs.
 
+### Changed
+
+- Enable compiler optimization for the `sprintf` function.
+
 ## 1.2.1
 
 ### Changed

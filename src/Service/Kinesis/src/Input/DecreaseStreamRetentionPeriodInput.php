@@ -133,7 +133,7 @@ final class DecreaseStreamRetentionPeriodInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->retentionPeriodHours) {
-            throw new InvalidArgument(sprintf('Missing parameter "RetentionPeriodHours" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "RetentionPeriodHours" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RetentionPeriodHours'] = $v;
         if (null !== $v = $this->streamArn) {

@@ -355,7 +355,7 @@ final class CreateDeploymentInput extends Input
     {
         $payload = [];
         if (null === $v = $this->applicationName) {
-            throw new InvalidArgument(sprintf('Missing parameter "applicationName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "applicationName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['applicationName'] = $v;
         if (null !== $v = $this->deploymentGroupName) {
@@ -384,7 +384,7 @@ final class CreateDeploymentInput extends Input
         }
         if (null !== $v = $this->fileExistsBehavior) {
             if (!FileExistsBehavior::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "fileExistsBehavior" for "%s". The value "%s" is not a valid "FileExistsBehavior".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "fileExistsBehavior" for "%s". The value "%s" is not a valid "FileExistsBehavior".', __CLASS__, $v));
             }
             $payload['fileExistsBehavior'] = $v;
         }

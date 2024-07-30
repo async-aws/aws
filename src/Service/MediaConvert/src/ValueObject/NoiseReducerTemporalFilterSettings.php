@@ -131,13 +131,13 @@ final class NoiseReducerTemporalFilterSettings
         }
         if (null !== $v = $this->postTemporalSharpening) {
             if (!NoiseFilterPostTemporalSharpening::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "postTemporalSharpening" for "%s". The value "%s" is not a valid "NoiseFilterPostTemporalSharpening".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "postTemporalSharpening" for "%s". The value "%s" is not a valid "NoiseFilterPostTemporalSharpening".', __CLASS__, $v));
             }
             $payload['postTemporalSharpening'] = $v;
         }
         if (null !== $v = $this->postTemporalSharpeningStrength) {
             if (!NoiseFilterPostTemporalSharpeningStrength::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "postTemporalSharpeningStrength" for "%s". The value "%s" is not a valid "NoiseFilterPostTemporalSharpeningStrength".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "postTemporalSharpeningStrength" for "%s". The value "%s" is not a valid "NoiseFilterPostTemporalSharpeningStrength".', __CLASS__, $v));
             }
             $payload['postTemporalSharpeningStrength'] = $v;
         }

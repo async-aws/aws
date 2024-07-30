@@ -76,7 +76,7 @@ class DescribeStreamSummaryOutput extends Result
             'StreamStatus' => (string) $json['StreamStatus'],
             'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
             'RetentionPeriodHours' => (int) $json['RetentionPeriodHours'],
-            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['StreamCreationTimestamp'])),
+            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StreamCreationTimestamp'])),
             'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($json['EnhancedMonitoring']),
             'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,
             'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,

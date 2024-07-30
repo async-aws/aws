@@ -156,13 +156,13 @@ final class Mp4Settings
         $payload = [];
         if (null !== $v = $this->audioDuration) {
             if (!CmfcAudioDuration::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "CmfcAudioDuration".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "CmfcAudioDuration".', __CLASS__, $v));
             }
             $payload['audioDuration'] = $v;
         }
         if (null !== $v = $this->cslgAtom) {
             if (!Mp4CslgAtom::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "cslgAtom" for "%s". The value "%s" is not a valid "Mp4CslgAtom".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "cslgAtom" for "%s". The value "%s" is not a valid "Mp4CslgAtom".', __CLASS__, $v));
             }
             $payload['cslgAtom'] = $v;
         }
@@ -171,13 +171,13 @@ final class Mp4Settings
         }
         if (null !== $v = $this->freeSpaceBox) {
             if (!Mp4FreeSpaceBox::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "freeSpaceBox" for "%s". The value "%s" is not a valid "Mp4FreeSpaceBox".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "freeSpaceBox" for "%s". The value "%s" is not a valid "Mp4FreeSpaceBox".', __CLASS__, $v));
             }
             $payload['freeSpaceBox'] = $v;
         }
         if (null !== $v = $this->moovPlacement) {
             if (!Mp4MoovPlacement::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "moovPlacement" for "%s". The value "%s" is not a valid "Mp4MoovPlacement".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "moovPlacement" for "%s". The value "%s" is not a valid "Mp4MoovPlacement".', __CLASS__, $v));
             }
             $payload['moovPlacement'] = $v;
         }

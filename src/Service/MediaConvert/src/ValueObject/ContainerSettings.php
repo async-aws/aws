@@ -185,7 +185,7 @@ final class ContainerSettings
         }
         if (null !== $v = $this->container) {
             if (!ContainerType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "container" for "%s". The value "%s" is not a valid "ContainerType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "container" for "%s". The value "%s" is not a valid "ContainerType".', __CLASS__, $v));
             }
             $payload['container'] = $v;
         }

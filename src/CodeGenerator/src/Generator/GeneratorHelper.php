@@ -76,7 +76,7 @@ class GeneratorHelper
         if (preg_match('/[A-Z]{2,}/', $propertyName)) {
             $propertyName = strtr($propertyName, $ignored);
             if (preg_match('/[A-Z]{2,}/', $propertyName)) {
-                throw new \RuntimeException(sprintf('No camel case property "%s" is not yet implemented', $originalPropertyName));
+                throw new \RuntimeException(\sprintf('No camel case property "%s" is not yet implemented', $originalPropertyName));
             }
         }
 

@@ -275,25 +275,25 @@ final class VideoSelector
         $payload = [];
         if (null !== $v = $this->alphaBehavior) {
             if (!AlphaBehavior::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "alphaBehavior" for "%s". The value "%s" is not a valid "AlphaBehavior".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "alphaBehavior" for "%s". The value "%s" is not a valid "AlphaBehavior".', __CLASS__, $v));
             }
             $payload['alphaBehavior'] = $v;
         }
         if (null !== $v = $this->colorSpace) {
             if (!ColorSpace::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "colorSpace" for "%s". The value "%s" is not a valid "ColorSpace".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "colorSpace" for "%s". The value "%s" is not a valid "ColorSpace".', __CLASS__, $v));
             }
             $payload['colorSpace'] = $v;
         }
         if (null !== $v = $this->colorSpaceUsage) {
             if (!ColorSpaceUsage::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "colorSpaceUsage" for "%s". The value "%s" is not a valid "ColorSpaceUsage".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "colorSpaceUsage" for "%s". The value "%s" is not a valid "ColorSpaceUsage".', __CLASS__, $v));
             }
             $payload['colorSpaceUsage'] = $v;
         }
         if (null !== $v = $this->embeddedTimecodeOverride) {
             if (!EmbeddedTimecodeOverride::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "embeddedTimecodeOverride" for "%s". The value "%s" is not a valid "EmbeddedTimecodeOverride".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "embeddedTimecodeOverride" for "%s". The value "%s" is not a valid "EmbeddedTimecodeOverride".', __CLASS__, $v));
             }
             $payload['embeddedTimecodeOverride'] = $v;
         }
@@ -305,7 +305,7 @@ final class VideoSelector
         }
         if (null !== $v = $this->padVideo) {
             if (!PadVideo::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "padVideo" for "%s". The value "%s" is not a valid "PadVideo".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "padVideo" for "%s". The value "%s" is not a valid "PadVideo".', __CLASS__, $v));
             }
             $payload['padVideo'] = $v;
         }
@@ -317,13 +317,13 @@ final class VideoSelector
         }
         if (null !== $v = $this->rotate) {
             if (!InputRotate::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "rotate" for "%s". The value "%s" is not a valid "InputRotate".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "rotate" for "%s". The value "%s" is not a valid "InputRotate".', __CLASS__, $v));
             }
             $payload['rotate'] = $v;
         }
         if (null !== $v = $this->sampleRange) {
             if (!InputSampleRange::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sampleRange" for "%s". The value "%s" is not a valid "InputSampleRange".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sampleRange" for "%s". The value "%s" is not a valid "InputSampleRange".', __CLASS__, $v));
             }
             $payload['sampleRange'] = $v;
         }

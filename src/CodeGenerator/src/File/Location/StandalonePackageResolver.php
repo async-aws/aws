@@ -40,6 +40,6 @@ class StandalonePackageResolver implements DirectoryResolver
             array_unshift($parts, 'src');
         }
 
-        return sprintf('%s/%s', $this->rootDirectory, implode('/', $parts));
+        return \sprintf('%s/%s', $this->rootDirectory, implode('/', $parts));
     }
 }

@@ -212,6 +212,6 @@ class EcrClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Ecr".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Ecr".', $region));
     }
 }

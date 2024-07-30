@@ -113,7 +113,7 @@ final class DeleteAccessKeyRequest extends Input
             $payload['UserName'] = $v;
         }
         if (null === $v = $this->accessKeyId) {
-            throw new InvalidArgument(sprintf('Missing parameter "AccessKeyId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "AccessKeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AccessKeyId'] = $v;
 

@@ -650,7 +650,7 @@ final class HlsGroupSettings
             foreach ($v as $listValue) {
                 ++$index;
                 if (!HlsAdMarkers::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "adMarkers" for "%s". The value "%s" is not a valid "HlsAdMarkers".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "adMarkers" for "%s". The value "%s" is not a valid "HlsAdMarkers".', __CLASS__, $listValue));
                 }
                 $payload['adMarkers'][$index] = $listValue;
             }
@@ -665,7 +665,7 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->audioOnlyHeader) {
             if (!HlsAudioOnlyHeader::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "audioOnlyHeader" for "%s". The value "%s" is not a valid "HlsAudioOnlyHeader".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "audioOnlyHeader" for "%s". The value "%s" is not a valid "HlsAudioOnlyHeader".', __CLASS__, $v));
             }
             $payload['audioOnlyHeader'] = $v;
         }
@@ -682,25 +682,25 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->captionLanguageSetting) {
             if (!HlsCaptionLanguageSetting::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "captionLanguageSetting" for "%s". The value "%s" is not a valid "HlsCaptionLanguageSetting".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "captionLanguageSetting" for "%s". The value "%s" is not a valid "HlsCaptionLanguageSetting".', __CLASS__, $v));
             }
             $payload['captionLanguageSetting'] = $v;
         }
         if (null !== $v = $this->captionSegmentLengthControl) {
             if (!HlsCaptionSegmentLengthControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "captionSegmentLengthControl" for "%s". The value "%s" is not a valid "HlsCaptionSegmentLengthControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "captionSegmentLengthControl" for "%s". The value "%s" is not a valid "HlsCaptionSegmentLengthControl".', __CLASS__, $v));
             }
             $payload['captionSegmentLengthControl'] = $v;
         }
         if (null !== $v = $this->clientCache) {
             if (!HlsClientCache::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "clientCache" for "%s". The value "%s" is not a valid "HlsClientCache".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "clientCache" for "%s". The value "%s" is not a valid "HlsClientCache".', __CLASS__, $v));
             }
             $payload['clientCache'] = $v;
         }
         if (null !== $v = $this->codecSpecification) {
             if (!HlsCodecSpecification::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecSpecification" for "%s". The value "%s" is not a valid "HlsCodecSpecification".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecSpecification" for "%s". The value "%s" is not a valid "HlsCodecSpecification".', __CLASS__, $v));
             }
             $payload['codecSpecification'] = $v;
         }
@@ -712,7 +712,7 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->directoryStructure) {
             if (!HlsDirectoryStructure::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "directoryStructure" for "%s". The value "%s" is not a valid "HlsDirectoryStructure".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "directoryStructure" for "%s". The value "%s" is not a valid "HlsDirectoryStructure".', __CLASS__, $v));
             }
             $payload['directoryStructure'] = $v;
         }
@@ -721,7 +721,7 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->imageBasedTrickPlay) {
             if (!HlsImageBasedTrickPlay::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "imageBasedTrickPlay" for "%s". The value "%s" is not a valid "HlsImageBasedTrickPlay".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "imageBasedTrickPlay" for "%s". The value "%s" is not a valid "HlsImageBasedTrickPlay".', __CLASS__, $v));
             }
             $payload['imageBasedTrickPlay'] = $v;
         }
@@ -730,13 +730,13 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->manifestCompression) {
             if (!HlsManifestCompression::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "manifestCompression" for "%s". The value "%s" is not a valid "HlsManifestCompression".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "manifestCompression" for "%s". The value "%s" is not a valid "HlsManifestCompression".', __CLASS__, $v));
             }
             $payload['manifestCompression'] = $v;
         }
         if (null !== $v = $this->manifestDurationFormat) {
             if (!HlsManifestDurationFormat::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "manifestDurationFormat" for "%s". The value "%s" is not a valid "HlsManifestDurationFormat".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "manifestDurationFormat" for "%s". The value "%s" is not a valid "HlsManifestDurationFormat".', __CLASS__, $v));
             }
             $payload['manifestDurationFormat'] = $v;
         }
@@ -748,13 +748,13 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->outputSelection) {
             if (!HlsOutputSelection::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "outputSelection" for "%s". The value "%s" is not a valid "HlsOutputSelection".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "outputSelection" for "%s". The value "%s" is not a valid "HlsOutputSelection".', __CLASS__, $v));
             }
             $payload['outputSelection'] = $v;
         }
         if (null !== $v = $this->programDateTime) {
             if (!HlsProgramDateTime::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "programDateTime" for "%s". The value "%s" is not a valid "HlsProgramDateTime".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "programDateTime" for "%s". The value "%s" is not a valid "HlsProgramDateTime".', __CLASS__, $v));
             }
             $payload['programDateTime'] = $v;
         }
@@ -763,13 +763,13 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->progressiveWriteHlsManifest) {
             if (!HlsProgressiveWriteHlsManifest::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "progressiveWriteHlsManifest" for "%s". The value "%s" is not a valid "HlsProgressiveWriteHlsManifest".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "progressiveWriteHlsManifest" for "%s". The value "%s" is not a valid "HlsProgressiveWriteHlsManifest".', __CLASS__, $v));
             }
             $payload['progressiveWriteHlsManifest'] = $v;
         }
         if (null !== $v = $this->segmentControl) {
             if (!HlsSegmentControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "segmentControl" for "%s". The value "%s" is not a valid "HlsSegmentControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "segmentControl" for "%s". The value "%s" is not a valid "HlsSegmentControl".', __CLASS__, $v));
             }
             $payload['segmentControl'] = $v;
         }
@@ -778,7 +778,7 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->segmentLengthControl) {
             if (!HlsSegmentLengthControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "segmentLengthControl" for "%s". The value "%s" is not a valid "HlsSegmentLengthControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "segmentLengthControl" for "%s". The value "%s" is not a valid "HlsSegmentLengthControl".', __CLASS__, $v));
             }
             $payload['segmentLengthControl'] = $v;
         }
@@ -787,19 +787,19 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->streamInfResolution) {
             if (!HlsStreamInfResolution::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "streamInfResolution" for "%s". The value "%s" is not a valid "HlsStreamInfResolution".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "streamInfResolution" for "%s". The value "%s" is not a valid "HlsStreamInfResolution".', __CLASS__, $v));
             }
             $payload['streamInfResolution'] = $v;
         }
         if (null !== $v = $this->targetDurationCompatibilityMode) {
             if (!HlsTargetDurationCompatibilityMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "targetDurationCompatibilityMode" for "%s". The value "%s" is not a valid "HlsTargetDurationCompatibilityMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "targetDurationCompatibilityMode" for "%s". The value "%s" is not a valid "HlsTargetDurationCompatibilityMode".', __CLASS__, $v));
             }
             $payload['targetDurationCompatibilityMode'] = $v;
         }
         if (null !== $v = $this->timedMetadataId3Frame) {
             if (!HlsTimedMetadataId3Frame::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "timedMetadataId3Frame" for "%s". The value "%s" is not a valid "HlsTimedMetadataId3Frame".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "timedMetadataId3Frame" for "%s". The value "%s" is not a valid "HlsTimedMetadataId3Frame".', __CLASS__, $v));
             }
             $payload['timedMetadataId3Frame'] = $v;
         }

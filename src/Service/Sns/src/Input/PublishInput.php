@@ -343,7 +343,7 @@ final class PublishInput extends Input
             $payload['PhoneNumber'] = $v;
         }
         if (null === $v = $this->message) {
-            throw new InvalidArgument(sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Message'] = $v;
         if (null !== $v = $this->subject) {

@@ -22,7 +22,7 @@ class SimpleS3Client extends S3Client
 {
     public function getUrl(string $bucket, string $key): string
     {
-        $uri = sprintf('/%s/%s', urlencode($bucket), str_replace('%2F', '/', rawurlencode($key)));
+        $uri = \sprintf('/%s/%s', urlencode($bucket), str_replace('%2F', '/', rawurlencode($key)));
 
         return $this->getEndpoint($uri, [], null);
     }

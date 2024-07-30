@@ -280,13 +280,13 @@ final class Vp8Settings
         }
         if (null !== $v = $this->framerateControl) {
             if (!Vp8FramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Vp8FramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Vp8FramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!Vp8FramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Vp8FramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Vp8FramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -307,7 +307,7 @@ final class Vp8Settings
         }
         if (null !== $v = $this->parControl) {
             if (!Vp8ParControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "Vp8ParControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "Vp8ParControl".', __CLASS__, $v));
             }
             $payload['parControl'] = $v;
         }
@@ -319,13 +319,13 @@ final class Vp8Settings
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!Vp8QualityTuningLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "Vp8QualityTuningLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "Vp8QualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;
         }
         if (null !== $v = $this->rateControlMode) {
             if (!Vp8RateControlMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Vp8RateControlMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Vp8RateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;
         }

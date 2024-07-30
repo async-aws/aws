@@ -211,7 +211,7 @@ final class TranslateTextRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->text) {
-            throw new InvalidArgument(sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Text'] = $v;
         if (null !== $v = $this->terminologyNames) {
@@ -223,11 +223,11 @@ final class TranslateTextRequest extends Input
             }
         }
         if (null === $v = $this->sourceLanguageCode) {
-            throw new InvalidArgument(sprintf('Missing parameter "SourceLanguageCode" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "SourceLanguageCode" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SourceLanguageCode'] = $v;
         if (null === $v = $this->targetLanguageCode) {
-            throw new InvalidArgument(sprintf('Missing parameter "TargetLanguageCode" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TargetLanguageCode" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TargetLanguageCode'] = $v;
         if (null !== $v = $this->settings) {
