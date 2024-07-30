@@ -50,7 +50,7 @@ final class DescribeCacheClustersMessage extends Input
 
     /**
      * An optional flag that can be included in the `DescribeCacheCluster` request to show only nodes (API/CLI: clusters)
-     * that are not members of a replication group. In practice, this mean Memcached and single node Redis clusters.
+     * that are not members of a replication group. In practice, this mean Memcached and single node Redis OSS clusters.
      *
      * @var bool|null
      */

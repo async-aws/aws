@@ -13,8 +13,8 @@ final class PendingModifiedValues
     /**
      * The new number of cache nodes for the cluster.
      *
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1 and
-     * 40.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between 1
+     * and 40.
      *
      * @var int|null
      */
