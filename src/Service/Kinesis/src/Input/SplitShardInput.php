@@ -161,11 +161,11 @@ final class SplitShardInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->shardToSplit) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardToSplit" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ShardToSplit" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ShardToSplit'] = $v;
         if (null === $v = $this->newStartingHashKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "NewStartingHashKey" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "NewStartingHashKey" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['NewStartingHashKey'] = $v;
         if (null !== $v = $this->streamArn) {

@@ -238,11 +238,11 @@ final class IndexFacesRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->collectionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CollectionId'] = $v;
         if (null === $v = $this->image) {
-            throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
         if (null !== $v = $this->externalImageId) {
@@ -254,7 +254,7 @@ final class IndexFacesRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Attribute::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "DetectionAttributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "DetectionAttributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
                 }
                 $payload['DetectionAttributes'][$index] = $listValue;
             }
@@ -264,7 +264,7 @@ final class IndexFacesRequest extends Input
         }
         if (null !== $v = $this->qualityFilter) {
             if (!QualityFilter::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "QualityFilter" for "%s". The value "%s" is not a valid "QualityFilter".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "QualityFilter" for "%s". The value "%s" is not a valid "QualityFilter".', __CLASS__, $v));
             }
             $payload['QualityFilter'] = $v;
         }

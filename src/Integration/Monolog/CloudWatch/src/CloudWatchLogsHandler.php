@@ -192,7 +192,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private function formatRecords($record): array
     {
         if (!$record instanceof LogRecord && !\is_array($record)) {
-            throw new InvalidArgument(sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
+            throw new InvalidArgument(\sprintf('Argument 1 passed to %s must be of the type array or LogRecord, %s given', __METHOD__, \gettype($record)));
         }
 
         $entries = str_split($record['formatted'], self::EVENT_SIZE_LIMIT);

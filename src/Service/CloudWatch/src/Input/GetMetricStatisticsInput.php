@@ -334,11 +334,11 @@ final class GetMetricStatisticsInput extends Input
     {
         $payload = [];
         if (null === $v = $this->namespace) {
-            throw new InvalidArgument(sprintf('Missing parameter "Namespace" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Namespace" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Namespace'] = $v;
         if (null === $v = $this->metricName) {
-            throw new InvalidArgument(sprintf('Missing parameter "MetricName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "MetricName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['MetricName'] = $v;
         if (null !== $v = $this->dimensions) {
@@ -351,15 +351,15 @@ final class GetMetricStatisticsInput extends Input
             }
         }
         if (null === $v = $this->startTime) {
-            throw new InvalidArgument(sprintf('Missing parameter "StartTime" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "StartTime" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StartTime'] = $v->format(\DateTimeInterface::ATOM);
         if (null === $v = $this->endTime) {
-            throw new InvalidArgument(sprintf('Missing parameter "EndTime" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "EndTime" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['EndTime'] = $v->format(\DateTimeInterface::ATOM);
         if (null === $v = $this->period) {
-            throw new InvalidArgument(sprintf('Missing parameter "Period" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Period" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Period'] = $v;
         if (null !== $v = $this->statistics) {
@@ -367,7 +367,7 @@ final class GetMetricStatisticsInput extends Input
             foreach ($v as $mapValue) {
                 ++$index;
                 if (!Statistic::exists($mapValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "Statistics.member" for "%s". The value "%s" is not a valid "Statistic".', __CLASS__, $mapValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "Statistics.member" for "%s". The value "%s" is not a valid "Statistic".', __CLASS__, $mapValue));
                 }
                 $payload["Statistics.member.$index"] = $mapValue;
             }
@@ -381,7 +381,7 @@ final class GetMetricStatisticsInput extends Input
         }
         if (null !== $v = $this->unit) {
             if (!StandardUnit::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "StandardUnit".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "StandardUnit".', __CLASS__, $v));
             }
             $payload['Unit'] = $v;
         }

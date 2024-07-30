@@ -127,7 +127,7 @@ final class StopExecutionInput extends Input
     {
         $payload = [];
         if (null === $v = $this->executionArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "executionArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "executionArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['executionArn'] = $v;
         if (null !== $v = $this->error) {

@@ -82,7 +82,7 @@ final class GetScheduleInput extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Name'] = $v;
         $uriString = '/schedules/' . rawurlencode($uri['Name']);

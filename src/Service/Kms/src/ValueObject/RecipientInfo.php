@@ -75,7 +75,7 @@ final class RecipientInfo
         $payload = [];
         if (null !== $v = $this->keyEncryptionAlgorithm) {
             if (!KeyEncryptionMechanism::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "KeyEncryptionAlgorithm" for "%s". The value "%s" is not a valid "KeyEncryptionMechanism".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "KeyEncryptionAlgorithm" for "%s". The value "%s" is not a valid "KeyEncryptionMechanism".', __CLASS__, $v));
             }
             $payload['KeyEncryptionAlgorithm'] = $v;
         }

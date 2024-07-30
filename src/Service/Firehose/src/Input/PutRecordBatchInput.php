@@ -114,11 +114,11 @@ final class PutRecordBatchInput extends Input
     {
         $payload = [];
         if (null === $v = $this->deliveryStreamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "DeliveryStreamName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "DeliveryStreamName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['DeliveryStreamName'] = $v;
         if (null === $v = $this->records) {
-            throw new InvalidArgument(sprintf('Missing parameter "Records" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Records" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

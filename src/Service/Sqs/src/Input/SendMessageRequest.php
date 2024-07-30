@@ -329,11 +329,11 @@ final class SendMessageRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
         if (null === $v = $this->messageBody) {
-            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "MessageBody" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['MessageBody'] = $v;
         if (null !== $v = $this->delaySeconds) {
@@ -356,7 +356,7 @@ final class SendMessageRequest extends Input
                 $payload['MessageSystemAttributes'] = [];
                 foreach ($v as $name => $mv) {
                     if (!MessageSystemAttributeNameForSends::exists($name)) {
-                        throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $name));
+                        throw new InvalidArgument(\sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $name));
                     }
                     $payload['MessageSystemAttributes'][$name] = $mv->requestBody();
                 }

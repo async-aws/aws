@@ -659,6 +659,6 @@ class LambdaClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Lambda".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Lambda".', $region));
     }
 }

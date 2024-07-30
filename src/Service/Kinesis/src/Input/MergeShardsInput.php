@@ -157,11 +157,11 @@ final class MergeShardsInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->shardToMerge) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardToMerge" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ShardToMerge" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ShardToMerge'] = $v;
         if (null === $v = $this->adjacentShardToMerge) {
-            throw new InvalidArgument(sprintf('Missing parameter "AdjacentShardToMerge" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "AdjacentShardToMerge" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AdjacentShardToMerge'] = $v;
         if (null !== $v = $this->streamArn) {

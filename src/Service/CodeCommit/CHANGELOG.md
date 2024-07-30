@@ -6,6 +6,10 @@
 
 - AWS api-change: CreateRepository API now throws OperationNotAllowedException when the account has been restricted from creating a repository.
 
+### Changed
+
+- Enable compiler optimization for the `sprintf` function.
+
 ## 1.1.2
 
 ### Changed

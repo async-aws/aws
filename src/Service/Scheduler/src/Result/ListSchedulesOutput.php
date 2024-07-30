@@ -115,9 +115,9 @@ class ListSchedulesOutput extends Result implements \IteratorAggregate
     {
         return new ScheduleSummary([
             'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
-            'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate']))) ? $d : null,
+            'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate']))) ? $d : null,
             'GroupName' => isset($json['GroupName']) ? (string) $json['GroupName'] : null,
-            'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
+            'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
             'State' => isset($json['State']) ? (string) $json['State'] : null,
             'Target' => empty($json['Target']) ? null : $this->populateResultTargetSummary($json['Target']),

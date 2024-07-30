@@ -113,13 +113,13 @@ class TypeGenerator
             }
 
             if ($nullable) {
-                $body[] = sprintf('  %s?: %s,', $phpdocMemberName, 'null|' . $param);
+                $body[] = \sprintf('  %s?: %s,', $phpdocMemberName, 'null|' . $param);
             } elseif ($allNullable) {
                 // For input objects, the constructor allows to omit all members to set them later. But when provided,
                 // they should respect the nullability of the member.
-                $body[] = sprintf('  %s?: %s,', $phpdocMemberName, $param);
+                $body[] = \sprintf('  %s?: %s,', $phpdocMemberName, $param);
             } else {
-                $body[] = sprintf('  %s: %s,', $phpdocMemberName, $param);
+                $body[] = \sprintf('  %s: %s,', $phpdocMemberName, $param);
             }
         }
         $body = array_merge($body, $extra);
@@ -199,7 +199,7 @@ class TypeGenerator
             case 'timestamp':
                 return '\DateTimeImmutable';
             default:
-                throw new \RuntimeException(sprintf('Type %s is not yet implemented', $parameterType));
+                throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $parameterType));
         }
     }
 }

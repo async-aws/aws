@@ -56,7 +56,7 @@ final class FixedSizeStream implements RequestStream
         $chunk = '';
         foreach ($this->content as $buffer) {
             if (!\is_string($buffer)) {
-                throw new InvalidArgument(sprintf('The return value of content callback must be a string, %s returned.', \is_object($buffer) ? \get_class($buffer) : \gettype($buffer)));
+                throw new InvalidArgument(\sprintf('The return value of content callback must be a string, %s returned.', \is_object($buffer) ? \get_class($buffer) : \gettype($buffer)));
             }
 
             $chunk .= $nextBytes = substr($buffer, 0, $this->chunkSize - \strlen($chunk));

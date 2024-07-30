@@ -289,15 +289,15 @@ final class UpdateResolverRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->apiId) {
-            throw new InvalidArgument(sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['apiId'] = $v;
         if (null === $v = $this->typeName) {
-            throw new InvalidArgument(sprintf('Missing parameter "typeName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "typeName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['typeName'] = $v;
         if (null === $v = $this->fieldName) {
-            throw new InvalidArgument(sprintf('Missing parameter "fieldName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "fieldName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['fieldName'] = $v;
         $uriString = '/v1/apis/' . rawurlencode($uri['apiId']) . '/types/' . rawurlencode($uri['typeName']) . '/resolvers/' . rawurlencode($uri['fieldName']);
@@ -429,7 +429,7 @@ final class UpdateResolverRequest extends Input
         }
         if (null !== $v = $this->kind) {
             if (!ResolverKind::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "kind" for "%s". The value "%s" is not a valid "ResolverKind".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "kind" for "%s". The value "%s" is not a valid "ResolverKind".', __CLASS__, $v));
             }
             $payload['kind'] = $v;
         }
@@ -453,7 +453,7 @@ final class UpdateResolverRequest extends Input
         }
         if (null !== $v = $this->metricsConfig) {
             if (!ResolverLevelMetricsConfig::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "ResolverLevelMetricsConfig".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "ResolverLevelMetricsConfig".', __CLASS__, $v));
             }
             $payload['metricsConfig'] = $v;
         }

@@ -61,7 +61,7 @@ class ResultGenerator
     public function generate(Operation $operation): ClassName
     {
         if (null === $output = $operation->getOutput()) {
-            throw new \LogicException(sprintf('The operation "%s" does not have any output to generate', $operation->getName()));
+            throw new \LogicException(\sprintf('The operation "%s" does not have any output to generate', $operation->getName()));
         }
 
         return $this->generateResultClass($output, $operation);

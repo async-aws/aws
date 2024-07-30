@@ -109,7 +109,7 @@ final class ListVersionsByFunctionRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->functionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['FunctionName'] = $v;
         $uriString = '/2015-03-31/functions/' . rawurlencode($uri['FunctionName']) . '/versions';

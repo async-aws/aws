@@ -58,7 +58,7 @@ final class HumanLoopDataAttributes
             foreach ($v as $listValue) {
                 ++$index;
                 if (!ContentClassifier::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "ContentClassifiers" for "%s". The value "%s" is not a valid "ContentClassifier".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "ContentClassifiers" for "%s". The value "%s" is not a valid "ContentClassifier".', __CLASS__, $listValue));
                 }
                 $payload['ContentClassifiers'][$index] = $listValue;
             }

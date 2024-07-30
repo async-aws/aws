@@ -244,7 +244,7 @@ final class ExecuteStatementInput extends Input
     {
         $payload = [];
         if (null === $v = $this->statement) {
-            throw new InvalidArgument(sprintf('Missing parameter "Statement" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Statement" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Statement'] = $v;
         if (null !== $v = $this->parameters) {
@@ -263,7 +263,7 @@ final class ExecuteStatementInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
@@ -272,7 +272,7 @@ final class ExecuteStatementInput extends Input
         }
         if (null !== $v = $this->returnValuesOnConditionCheckFailure) {
             if (!ReturnValuesOnConditionCheckFailure::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
             }
             $payload['ReturnValuesOnConditionCheckFailure'] = $v;
         }

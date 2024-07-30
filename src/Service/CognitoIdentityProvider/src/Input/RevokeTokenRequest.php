@@ -129,11 +129,11 @@ final class RevokeTokenRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->token) {
-            throw new InvalidArgument(sprintf('Missing parameter "Token" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Token" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Token'] = $v;
         if (null === $v = $this->clientId) {
-            throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
         if (null !== $v = $this->clientSecret) {

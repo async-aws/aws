@@ -81,7 +81,7 @@ final class DeleteEndpointInput extends Input
     {
         $payload = [];
         if (null === $v = $this->endpointArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "EndpointArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "EndpointArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['EndpointArn'] = $v;
 

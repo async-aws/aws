@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `us-west-1-fips` region
 
+### Changed
+
+- Enable compiler optimization for the `sprintf` function.
+
 ## 1.0.2
 
 ### Changed

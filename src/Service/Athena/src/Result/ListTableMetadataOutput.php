@@ -138,8 +138,8 @@ class ListTableMetadataOutput extends Result implements \IteratorAggregate
     {
         return new TableMetadata([
             'Name' => (string) $json['Name'],
-            'CreateTime' => (isset($json['CreateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreateTime'])))) ? $d : null,
-            'LastAccessTime' => (isset($json['LastAccessTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastAccessTime'])))) ? $d : null,
+            'CreateTime' => (isset($json['CreateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreateTime'])))) ? $d : null,
+            'LastAccessTime' => (isset($json['LastAccessTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastAccessTime'])))) ? $d : null,
             'TableType' => isset($json['TableType']) ? (string) $json['TableType'] : null,
             'Columns' => !isset($json['Columns']) ? null : $this->populateResultColumnList($json['Columns']),
             'PartitionKeys' => !isset($json['PartitionKeys']) ? null : $this->populateResultColumnList($json['PartitionKeys']),

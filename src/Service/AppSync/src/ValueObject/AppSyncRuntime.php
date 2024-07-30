@@ -70,7 +70,7 @@ final class AppSyncRuntime
         $payload = [];
         $v = $this->name;
         if (!RuntimeName::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "name" for "%s". The value "%s" is not a valid "RuntimeName".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "name" for "%s". The value "%s" is not a valid "RuntimeName".', __CLASS__, $v));
         }
         $payload['name'] = $v;
         $v = $this->runtimeVersion;

@@ -762,7 +762,7 @@ final class CreateMultipartUploadRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->acl) {
             if (!ObjectCannedACL::exists($this->acl)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
             $headers['x-amz-acl'] = $this->acl;
         }
@@ -798,13 +798,13 @@ final class CreateMultipartUploadRequest extends Input
         }
         if (null !== $this->serverSideEncryption) {
             if (!ServerSideEncryption::exists($this->serverSideEncryption)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" for "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->serverSideEncryption));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ServerSideEncryption" for "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->serverSideEncryption));
             }
             $headers['x-amz-server-side-encryption'] = $this->serverSideEncryption;
         }
         if (null !== $this->storageClass) {
             if (!StorageClass::exists($this->storageClass)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" for "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->storageClass));
+                throw new InvalidArgument(\sprintf('Invalid parameter "StorageClass" for "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->storageClass));
             }
             $headers['x-amz-storage-class'] = $this->storageClass;
         }
@@ -831,7 +831,7 @@ final class CreateMultipartUploadRequest extends Input
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
+                throw new InvalidArgument(\sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
         }
@@ -840,7 +840,7 @@ final class CreateMultipartUploadRequest extends Input
         }
         if (null !== $this->objectLockMode) {
             if (!ObjectLockMode::exists($this->objectLockMode)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" for "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->objectLockMode));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ObjectLockMode" for "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->objectLockMode));
             }
             $headers['x-amz-object-lock-mode'] = $this->objectLockMode;
         }
@@ -849,7 +849,7 @@ final class CreateMultipartUploadRequest extends Input
         }
         if (null !== $this->objectLockLegalHoldStatus) {
             if (!ObjectLockLegalHoldStatus::exists($this->objectLockLegalHoldStatus)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->objectLockLegalHoldStatus));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->objectLockLegalHoldStatus));
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->objectLockLegalHoldStatus;
         }
@@ -858,7 +858,7 @@ final class CreateMultipartUploadRequest extends Input
         }
         if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-checksum-algorithm'] = $this->checksumAlgorithm;
         }
@@ -874,11 +874,11 @@ final class CreateMultipartUploadRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
         if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
         $uriString = '/' . rawurlencode($uri['Bucket']) . '/' . str_replace('%2F', '/', rawurlencode($uri['Key'])) . '?uploads';

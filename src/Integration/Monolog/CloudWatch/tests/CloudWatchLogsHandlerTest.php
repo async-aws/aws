@@ -146,7 +146,7 @@ class CloudWatchLogsHandlerTest extends TestCase
             'context' => $context,
             'level' => $level,
             'channel' => 'test',
-            'datetime' => $datetime ?? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', microtime(true))),
+            'datetime' => $datetime ?? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', microtime(true))),
             'extra' => [],
         ];
 

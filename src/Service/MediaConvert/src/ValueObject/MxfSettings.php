@@ -96,13 +96,13 @@ final class MxfSettings
         $payload = [];
         if (null !== $v = $this->afdSignaling) {
             if (!MxfAfdSignaling::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "afdSignaling" for "%s". The value "%s" is not a valid "MxfAfdSignaling".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "afdSignaling" for "%s". The value "%s" is not a valid "MxfAfdSignaling".', __CLASS__, $v));
             }
             $payload['afdSignaling'] = $v;
         }
         if (null !== $v = $this->profile) {
             if (!MxfProfile::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "profile" for "%s". The value "%s" is not a valid "MxfProfile".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "profile" for "%s". The value "%s" is not a valid "MxfProfile".', __CLASS__, $v));
             }
             $payload['profile'] = $v;
         }

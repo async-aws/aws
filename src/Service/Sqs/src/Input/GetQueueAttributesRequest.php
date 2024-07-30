@@ -239,7 +239,7 @@ final class GetQueueAttributesRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
         if (null !== $v = $this->attributeNames) {
@@ -248,7 +248,7 @@ final class GetQueueAttributesRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!QueueAttributeName::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['AttributeNames'][$index] = $listValue;
             }

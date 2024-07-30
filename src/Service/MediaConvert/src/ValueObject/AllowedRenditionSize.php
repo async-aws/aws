@@ -91,7 +91,7 @@ final class AllowedRenditionSize
         }
         if (null !== $v = $this->required) {
             if (!RequiredFlag::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "required" for "%s". The value "%s" is not a valid "RequiredFlag".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "required" for "%s". The value "%s" is not a valid "RequiredFlag".', __CLASS__, $v));
             }
             $payload['required'] = $v;
         }

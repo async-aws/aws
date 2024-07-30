@@ -51,7 +51,7 @@ class ParserProvider
             case 'json':
                 return new JsonRpcParser($this->namespaceRegistry, $this->requirementsRegistry, $this->typeGenerator);
             default:
-                throw new \LogicException(sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
+                throw new \LogicException(\sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
         }
     }
 }

@@ -198,7 +198,7 @@ class QuerySerializer implements Serializer
                 return $this->dumpArrayBlob($output, $input, $shape);
         }
 
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+        throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
     private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
@@ -239,8 +239,8 @@ class QuerySerializer implements Serializer
             [
                 'INPUT' => $input,
                 'VALIDATE_ENUM' => $validateEnum,
-                'OUTPUT_KEY' => sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
+                'OUTPUT_KEY' => \sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
+                'MEMBER_CODE' => $this->dumpArrayElement(\sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
             ]);
     }
 
@@ -257,7 +257,7 @@ class QuerySerializer implements Serializer
         ',
             [
                 'INPUT' => $input,
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.$index', $output), '$mapValue', $contextProperty, $memberShape),
+                'MEMBER_CODE' => $this->dumpArrayElement(\sprintf('%s.$index', $output), '$mapValue', $contextProperty, $memberShape),
             ]);
     }
 
@@ -302,7 +302,7 @@ class QuerySerializer implements Serializer
                     'INPUT' => $input,
                 ]);
             default:
-                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
+                throw new \RuntimeException(\sprintf('Timestamp format %s is not yet implemented', $format));
         }
     }
 

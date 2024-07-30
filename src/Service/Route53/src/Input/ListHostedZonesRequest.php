@@ -127,7 +127,7 @@ final class ListHostedZonesRequest extends Input
         }
         if (null !== $this->hostedZoneType) {
             if (!HostedZoneType::exists($this->hostedZoneType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "HostedZoneType" for "%s". The value "%s" is not a valid "HostedZoneType".', __CLASS__, $this->hostedZoneType));
+                throw new InvalidArgument(\sprintf('Invalid parameter "HostedZoneType" for "%s". The value "%s" is not a valid "HostedZoneType".', __CLASS__, $this->hostedZoneType));
             }
             $query['hostedzonetype'] = $this->hostedZoneType;
         }

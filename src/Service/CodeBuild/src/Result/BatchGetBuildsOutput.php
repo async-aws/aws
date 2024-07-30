@@ -78,8 +78,8 @@ class BatchGetBuildsOutput extends Result
             'id' => isset($json['id']) ? (string) $json['id'] : null,
             'arn' => isset($json['arn']) ? (string) $json['arn'] : null,
             'buildNumber' => isset($json['buildNumber']) ? (int) $json['buildNumber'] : null,
-            'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])))) ? $d : null,
-            'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['endTime'])))) ? $d : null,
+            'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['startTime'])))) ? $d : null,
+            'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['endTime'])))) ? $d : null,
             'currentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
             'buildStatus' => isset($json['buildStatus']) ? (string) $json['buildStatus'] : null,
             'sourceVersion' => isset($json['sourceVersion']) ? (string) $json['sourceVersion'] : null,
@@ -157,8 +157,8 @@ class BatchGetBuildsOutput extends Result
         return new BuildPhase([
             'phaseType' => isset($json['phaseType']) ? (string) $json['phaseType'] : null,
             'phaseStatus' => isset($json['phaseStatus']) ? (string) $json['phaseStatus'] : null,
-            'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])))) ? $d : null,
-            'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['endTime'])))) ? $d : null,
+            'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['startTime'])))) ? $d : null,
+            'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['endTime'])))) ? $d : null,
             'durationInSeconds' => isset($json['durationInSeconds']) ? (int) $json['durationInSeconds'] : null,
             'contexts' => !isset($json['contexts']) ? null : $this->populateResultPhaseContexts($json['contexts']),
         ]);

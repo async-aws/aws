@@ -206,10 +206,10 @@ class GetSessionResponse extends Result
     private function populateResultSessionStatus(array $json): SessionStatus
     {
         return new SessionStatus([
-            'StartDateTime' => (isset($json['StartDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['StartDateTime'])))) ? $d : null,
-            'LastModifiedDateTime' => (isset($json['LastModifiedDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModifiedDateTime'])))) ? $d : null,
-            'EndDateTime' => (isset($json['EndDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['EndDateTime'])))) ? $d : null,
-            'IdleSinceDateTime' => (isset($json['IdleSinceDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['IdleSinceDateTime'])))) ? $d : null,
+            'StartDateTime' => (isset($json['StartDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StartDateTime'])))) ? $d : null,
+            'LastModifiedDateTime' => (isset($json['LastModifiedDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModifiedDateTime'])))) ? $d : null,
+            'EndDateTime' => (isset($json['EndDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['EndDateTime'])))) ? $d : null,
+            'IdleSinceDateTime' => (isset($json['IdleSinceDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['IdleSinceDateTime'])))) ? $d : null,
             'State' => isset($json['State']) ? (string) $json['State'] : null,
             'StateChangeReason' => isset($json['StateChangeReason']) ? (string) $json['StateChangeReason'] : null,
         ]);

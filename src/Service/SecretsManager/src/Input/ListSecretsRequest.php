@@ -206,7 +206,7 @@ final class ListSecretsRequest extends Input
         }
         if (null !== $v = $this->sortOrder) {
             if (!SortOrderType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "SortOrder" for "%s". The value "%s" is not a valid "SortOrderType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "SortOrder" for "%s". The value "%s" is not a valid "SortOrderType".', __CLASS__, $v));
             }
             $payload['SortOrder'] = $v;
         }

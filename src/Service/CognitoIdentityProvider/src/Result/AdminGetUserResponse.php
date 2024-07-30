@@ -169,8 +169,8 @@ class AdminGetUserResponse extends Result
 
         $this->username = (string) $data['Username'];
         $this->userAttributes = empty($data['UserAttributes']) ? [] : $this->populateResultAttributeListType($data['UserAttributes']);
-        $this->userCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
-        $this->userLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
+        $this->userCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
+        $this->userLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
         $this->enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->userStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
         $this->mfaOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);

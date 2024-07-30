@@ -112,19 +112,19 @@ final class LoggingConfig
         $payload = [];
         if (null !== $v = $this->logFormat) {
             if (!LogFormat::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "LogFormat" for "%s". The value "%s" is not a valid "LogFormat".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "LogFormat" for "%s". The value "%s" is not a valid "LogFormat".', __CLASS__, $v));
             }
             $payload['LogFormat'] = $v;
         }
         if (null !== $v = $this->applicationLogLevel) {
             if (!ApplicationLogLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ApplicationLogLevel" for "%s". The value "%s" is not a valid "ApplicationLogLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ApplicationLogLevel" for "%s". The value "%s" is not a valid "ApplicationLogLevel".', __CLASS__, $v));
             }
             $payload['ApplicationLogLevel'] = $v;
         }
         if (null !== $v = $this->systemLogLevel) {
             if (!SystemLogLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "SystemLogLevel" for "%s". The value "%s" is not a valid "SystemLogLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "SystemLogLevel" for "%s". The value "%s" is not a valid "SystemLogLevel".', __CLASS__, $v));
             }
             $payload['SystemLogLevel'] = $v;
         }

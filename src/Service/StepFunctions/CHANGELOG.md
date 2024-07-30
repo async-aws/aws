@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `KmsAccessDeniedException`, `KmsInvalidStateException` and `KmsThrottlingException` exceptions
 
+### Changed
+
+- Enable compiler optimization for the `sprintf` function.
+
 ## 1.2.3
 
 ### Changed

@@ -176,7 +176,7 @@ final class BatchWriteItemInput extends Input
     {
         $payload = [];
         if (null === $v = $this->requestItems) {
-            throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
         if (empty($v)) {
@@ -194,13 +194,13 @@ final class BatchWriteItemInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
         if (null !== $v = $this->returnItemCollectionMetrics) {
             if (!ReturnItemCollectionMetrics::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
             }
             $payload['ReturnItemCollectionMetrics'] = $v;
         }

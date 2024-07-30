@@ -221,7 +221,7 @@ class PopulatorGenerator
 
                     break;
                 default:
-                    throw new \RuntimeException(sprintf('Type %s is not yet implemented', $memberShape->getType()));
+                    throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $memberShape->getType()));
             }
         }
 

@@ -199,7 +199,7 @@ class RestXmlParser implements Parser
                 return $this->parseXmlResponseTimestamp($shape, $input, $required);
         }
 
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+        throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
     private function parseXmlResponseStructure(StructureShape $shape, string $input, bool $required): string
@@ -277,7 +277,7 @@ class RestXmlParser implements Parser
 
                 break;
             default:
-                throw new \RuntimeException(sprintf('Timestamp format %s is not yet implemented', $format));
+                throw new \RuntimeException(\sprintf('Timestamp format %s is not yet implemented', $format));
         }
 
         if (!$required) {

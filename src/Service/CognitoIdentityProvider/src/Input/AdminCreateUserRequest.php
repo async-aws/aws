@@ -379,11 +379,11 @@ final class AdminCreateUserRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->userPoolId) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
         if (null === $v = $this->username) {
-            throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
         if (null !== $v = $this->userAttributes) {
@@ -410,7 +410,7 @@ final class AdminCreateUserRequest extends Input
         }
         if (null !== $v = $this->messageAction) {
             if (!MessageActionType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "MessageAction" for "%s". The value "%s" is not a valid "MessageActionType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "MessageAction" for "%s". The value "%s" is not a valid "MessageActionType".', __CLASS__, $v));
             }
             $payload['MessageAction'] = $v;
         }
@@ -420,7 +420,7 @@ final class AdminCreateUserRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!DeliveryMediumType::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "DesiredDeliveryMediums" for "%s". The value "%s" is not a valid "DeliveryMediumType".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "DesiredDeliveryMediums" for "%s". The value "%s" is not a valid "DeliveryMediumType".', __CLASS__, $listValue));
                 }
                 $payload['DesiredDeliveryMediums'][$index] = $listValue;
             }

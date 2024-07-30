@@ -108,11 +108,11 @@ final class PutRecordInput extends Input
     {
         $payload = [];
         if (null === $v = $this->deliveryStreamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "DeliveryStreamName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "DeliveryStreamName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['DeliveryStreamName'] = $v;
         if (null === $v = $this->record) {
-            throw new InvalidArgument(sprintf('Missing parameter "Record" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Record" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Record'] = $v->requestBody();
 

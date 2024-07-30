@@ -153,7 +153,7 @@ final class ListResourceRecordSetsRequest extends Input
         }
         if (null !== $this->startRecordType) {
             if (!RRType::exists($this->startRecordType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StartRecordType" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $this->startRecordType));
+                throw new InvalidArgument(\sprintf('Invalid parameter "StartRecordType" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $this->startRecordType));
             }
             $query['type'] = $this->startRecordType;
         }
@@ -167,7 +167,7 @@ final class ListResourceRecordSetsRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->hostedZoneId) {
-            throw new InvalidArgument(sprintf('Missing parameter "HostedZoneId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "HostedZoneId" for "%s". The value cannot be null.', __CLASS__));
         }
         $v = preg_replace('#^(/hostedzone/|/change/|/delegationset/)#', '', $v);
         $uri['Id'] = $v;

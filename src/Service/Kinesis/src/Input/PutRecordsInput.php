@@ -137,7 +137,7 @@ final class PutRecordsInput extends Input
     {
         $payload = [];
         if (null === $v = $this->records) {
-            throw new InvalidArgument(sprintf('Missing parameter "Records" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Records" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

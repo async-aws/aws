@@ -81,7 +81,7 @@ final class UnsubscribeInput extends Input
     {
         $payload = [];
         if (null === $v = $this->subscriptionArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "SubscriptionArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "SubscriptionArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SubscriptionArn'] = $v;
 

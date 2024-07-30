@@ -81,7 +81,7 @@ final class DeleteThingGroupRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->thingGroupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "thingGroupName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "thingGroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['thingGroupName'] = $v;
         $uriString = '/thing-groups/' . rawurlencode($uri['thingGroupName']);

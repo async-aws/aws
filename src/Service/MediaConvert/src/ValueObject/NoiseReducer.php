@@ -104,7 +104,7 @@ final class NoiseReducer
         $payload = [];
         if (null !== $v = $this->filter) {
             if (!NoiseReducerFilter::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "filter" for "%s". The value "%s" is not a valid "NoiseReducerFilter".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "filter" for "%s". The value "%s" is not a valid "NoiseReducerFilter".', __CLASS__, $v));
             }
             $payload['filter'] = $v;
         }

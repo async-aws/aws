@@ -183,7 +183,7 @@ final class CreateUserRequest extends Input
             $payload['Path'] = $v;
         }
         if (null === $v = $this->userName) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;
         if (null !== $v = $this->permissionsBoundary) {

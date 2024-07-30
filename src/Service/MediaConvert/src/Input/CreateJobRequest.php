@@ -422,7 +422,7 @@ final class CreateJobRequest extends Input1
         }
         if (null !== $v = $this->billingTagsSource) {
             if (!BillingTagsSource::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "billingTagsSource" for "%s". The value "%s" is not a valid "BillingTagsSource".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "billingTagsSource" for "%s". The value "%s" is not a valid "BillingTagsSource".', __CLASS__, $v));
             }
             $payload['billingTagsSource'] = $v;
         }
@@ -448,22 +448,22 @@ final class CreateJobRequest extends Input1
             $payload['queue'] = $v;
         }
         if (null === $v = $this->role) {
-            throw new InvalidArgument(sprintf('Missing parameter "Role" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Role" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['role'] = $v;
         if (null === $v = $this->settings) {
-            throw new InvalidArgument(sprintf('Missing parameter "Settings" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Settings" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['settings'] = $v->requestBody();
         if (null !== $v = $this->simulateReservedQueue) {
             if (!SimulateReservedQueue::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "simulateReservedQueue" for "%s". The value "%s" is not a valid "SimulateReservedQueue".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "simulateReservedQueue" for "%s". The value "%s" is not a valid "SimulateReservedQueue".', __CLASS__, $v));
             }
             $payload['simulateReservedQueue'] = $v;
         }
         if (null !== $v = $this->statusUpdateInterval) {
             if (!StatusUpdateInterval::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "statusUpdateInterval" for "%s". The value "%s" is not a valid "StatusUpdateInterval".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "statusUpdateInterval" for "%s". The value "%s" is not a valid "StatusUpdateInterval".', __CLASS__, $v));
             }
             $payload['statusUpdateInterval'] = $v;
         }

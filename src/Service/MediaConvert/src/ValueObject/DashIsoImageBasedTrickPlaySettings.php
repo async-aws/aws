@@ -135,7 +135,7 @@ final class DashIsoImageBasedTrickPlaySettings
         $payload = [];
         if (null !== $v = $this->intervalCadence) {
             if (!DashIsoIntervalCadence::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "intervalCadence" for "%s". The value "%s" is not a valid "DashIsoIntervalCadence".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "intervalCadence" for "%s". The value "%s" is not a valid "DashIsoIntervalCadence".', __CLASS__, $v));
             }
             $payload['intervalCadence'] = $v;
         }

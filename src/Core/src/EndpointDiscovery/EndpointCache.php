@@ -95,7 +95,7 @@ class EndpointCache
 
         // parse_url() will correctly parse full URIs with schemes
         if (isset($parsed['host'])) {
-            return rtrim(sprintf(
+            return rtrim(\sprintf(
                 '%s://%s/%s',
                 $parsed['scheme'] ?? 'https',
                 $parsed['host'],
@@ -113,7 +113,7 @@ class EndpointCache
                 $parsed['path'] = '';
             }
 
-            return rtrim(sprintf(
+            return rtrim(\sprintf(
                 '%s://%s/%s',
                 $parsed['scheme'] ?? 'https',
                 $parsed['host'],
@@ -121,6 +121,6 @@ class EndpointCache
             ), '/');
         }
 
-        throw new LogicException(sprintf('The supplied endpoint "%s" is invalid.', $address));
+        throw new LogicException(\sprintf('The supplied endpoint "%s" is invalid.', $address));
     }
 }

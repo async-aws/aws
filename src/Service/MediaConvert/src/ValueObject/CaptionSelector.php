@@ -95,7 +95,7 @@ final class CaptionSelector
         }
         if (null !== $v = $this->languageCode) {
             if (!LanguageCode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "languageCode" for "%s". The value "%s" is not a valid "LanguageCode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "languageCode" for "%s". The value "%s" is not a valid "LanguageCode".', __CLASS__, $v));
             }
             $payload['languageCode'] = $v;
         }

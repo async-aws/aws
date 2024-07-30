@@ -208,11 +208,11 @@ final class StartSessionRequest extends Input
             $payload['Description'] = $v;
         }
         if (null === $v = $this->workGroup) {
-            throw new InvalidArgument(sprintf('Missing parameter "WorkGroup" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "WorkGroup" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['WorkGroup'] = $v;
         if (null === $v = $this->engineConfiguration) {
-            throw new InvalidArgument(sprintf('Missing parameter "EngineConfiguration" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "EngineConfiguration" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['EngineConfiguration'] = $v->requestBody();
         if (null !== $v = $this->notebookVersion) {

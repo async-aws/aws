@@ -52,7 +52,7 @@ class DescribeTableOutput extends Result
     private function populateResultArchivalSummary(array $json): ArchivalSummary
     {
         return new ArchivalSummary([
-            'ArchivalDateTime' => (isset($json['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ArchivalDateTime'])))) ? $d : null,
+            'ArchivalDateTime' => (isset($json['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ArchivalDateTime'])))) ? $d : null,
             'ArchivalReason' => isset($json['ArchivalReason']) ? (string) $json['ArchivalReason'] : null,
             'ArchivalBackupArn' => isset($json['ArchivalBackupArn']) ? (string) $json['ArchivalBackupArn'] : null,
         ]);
@@ -83,7 +83,7 @@ class DescribeTableOutput extends Result
     {
         return new BillingModeSummary([
             'BillingMode' => isset($json['BillingMode']) ? (string) $json['BillingMode'] : null,
-            'LastUpdateToPayPerRequestDateTime' => (isset($json['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
+            'LastUpdateToPayPerRequestDateTime' => (isset($json['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
         ]);
     }
 
@@ -204,8 +204,8 @@ class DescribeTableOutput extends Result
     private function populateResultProvisionedThroughputDescription(array $json): ProvisionedThroughputDescription
     {
         return new ProvisionedThroughputDescription([
-            'LastIncreaseDateTime' => (isset($json['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastIncreaseDateTime'])))) ? $d : null,
-            'LastDecreaseDateTime' => (isset($json['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastDecreaseDateTime'])))) ? $d : null,
+            'LastIncreaseDateTime' => (isset($json['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastIncreaseDateTime'])))) ? $d : null,
+            'LastDecreaseDateTime' => (isset($json['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastDecreaseDateTime'])))) ? $d : null,
             'NumberOfDecreasesToday' => isset($json['NumberOfDecreasesToday']) ? (int) $json['NumberOfDecreasesToday'] : null,
             'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (int) $json['ReadCapacityUnits'] : null,
             'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (int) $json['WriteCapacityUnits'] : null,
@@ -230,7 +230,7 @@ class DescribeTableOutput extends Result
             'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
             'OnDemandThroughputOverride' => empty($json['OnDemandThroughputOverride']) ? null : $this->populateResultOnDemandThroughputOverride($json['OnDemandThroughputOverride']),
             'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($json['GlobalSecondaryIndexes']),
-            'ReplicaInaccessibleDateTime' => (isset($json['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ReplicaInaccessibleDateTime'])))) ? $d : null,
+            'ReplicaInaccessibleDateTime' => (isset($json['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ReplicaInaccessibleDateTime'])))) ? $d : null,
             'ReplicaTableClassSummary' => empty($json['ReplicaTableClassSummary']) ? null : $this->populateResultTableClassSummary($json['ReplicaTableClassSummary']),
         ]);
     }
@@ -275,7 +275,7 @@ class DescribeTableOutput extends Result
         return new RestoreSummary([
             'SourceBackupArn' => isset($json['SourceBackupArn']) ? (string) $json['SourceBackupArn'] : null,
             'SourceTableArn' => isset($json['SourceTableArn']) ? (string) $json['SourceTableArn'] : null,
-            'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['RestoreDateTime'])),
+            'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['RestoreDateTime'])),
             'RestoreInProgress' => filter_var($json['RestoreInProgress'], \FILTER_VALIDATE_BOOLEAN),
         ]);
     }
@@ -286,7 +286,7 @@ class DescribeTableOutput extends Result
             'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
             'SSEType' => isset($json['SSEType']) ? (string) $json['SSEType'] : null,
             'KMSMasterKeyArn' => isset($json['KMSMasterKeyArn']) ? (string) $json['KMSMasterKeyArn'] : null,
-            'InaccessibleEncryptionDateTime' => (isset($json['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['InaccessibleEncryptionDateTime'])))) ? $d : null,
+            'InaccessibleEncryptionDateTime' => (isset($json['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['InaccessibleEncryptionDateTime'])))) ? $d : null,
         ]);
     }
 
@@ -302,7 +302,7 @@ class DescribeTableOutput extends Result
     {
         return new TableClassSummary([
             'TableClass' => isset($json['TableClass']) ? (string) $json['TableClass'] : null,
-            'LastUpdateDateTime' => (isset($json['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastUpdateDateTime'])))) ? $d : null,
+            'LastUpdateDateTime' => (isset($json['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateDateTime'])))) ? $d : null,
         ]);
     }
 
@@ -313,7 +313,7 @@ class DescribeTableOutput extends Result
             'TableName' => isset($json['TableName']) ? (string) $json['TableName'] : null,
             'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
             'TableStatus' => isset($json['TableStatus']) ? (string) $json['TableStatus'] : null,
-            'CreationDateTime' => (isset($json['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDateTime'])))) ? $d : null,
+            'CreationDateTime' => (isset($json['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDateTime'])))) ? $d : null,
             'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
             'TableSizeBytes' => isset($json['TableSizeBytes']) ? (int) $json['TableSizeBytes'] : null,
             'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,

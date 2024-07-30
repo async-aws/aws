@@ -97,7 +97,7 @@ final class MeasureValue
         $payload['Value'] = $v;
         $v = $this->type;
         if (!MeasureValueType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "MeasureValueType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "MeasureValueType".', __CLASS__, $v));
         }
         $payload['Type'] = $v;
 

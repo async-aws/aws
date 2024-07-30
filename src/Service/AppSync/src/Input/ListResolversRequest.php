@@ -117,11 +117,11 @@ final class ListResolversRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->apiId) {
-            throw new InvalidArgument(sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['apiId'] = $v;
         if (null === $v = $this->typeName) {
-            throw new InvalidArgument(sprintf('Missing parameter "typeName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "typeName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['typeName'] = $v;
         $uriString = '/v1/apis/' . rawurlencode($uri['apiId']) . '/types/' . rawurlencode($uri['typeName']) . '/resolvers';

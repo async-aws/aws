@@ -116,11 +116,11 @@ final class SendMessageBatchRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
         if (null === $v = $this->entries) {
-            throw new InvalidArgument(sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

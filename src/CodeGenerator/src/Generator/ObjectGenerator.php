@@ -354,7 +354,7 @@ class ObjectGenerator
                 continue;
             }
 
-            throw new \LogicException(sprintf('Missing Endpoint property "%s" in "%s" object', $key, $shape->getName()));
+            throw new \LogicException(\sprintf('Missing Endpoint property "%s" in "%s" object', $key, $shape->getName()));
         }
     }
 }

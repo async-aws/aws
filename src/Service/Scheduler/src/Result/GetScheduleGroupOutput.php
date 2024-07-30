@@ -86,8 +86,8 @@ class GetScheduleGroupOutput extends Result
         $data = $response->toArray();
 
         $this->arn = isset($data['Arn']) ? (string) $data['Arn'] : null;
-        $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['CreationDate']))) ? $d : null;
-        $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
+        $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreationDate']))) ? $d : null;
+        $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
         $this->state = isset($data['State']) ? (string) $data['State'] : null;
     }

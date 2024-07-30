@@ -110,11 +110,11 @@ final class GetBlobInput extends Input
     {
         $payload = [];
         if (null === $v = $this->repositoryName) {
-            throw new InvalidArgument(sprintf('Missing parameter "repositoryName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "repositoryName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['repositoryName'] = $v;
         if (null === $v = $this->blobId) {
-            throw new InvalidArgument(sprintf('Missing parameter "blobId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "blobId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['blobId'] = $v;
 

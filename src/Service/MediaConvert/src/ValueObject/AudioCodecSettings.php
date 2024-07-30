@@ -237,7 +237,7 @@ final class AudioCodecSettings
         }
         if (null !== $v = $this->codec) {
             if (!AudioCodec::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codec" for "%s". The value "%s" is not a valid "AudioCodec".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codec" for "%s". The value "%s" is not a valid "AudioCodec".', __CLASS__, $v));
             }
             $payload['codec'] = $v;
         }

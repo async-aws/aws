@@ -134,15 +134,15 @@ final class ChangePasswordRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->previousPassword) {
-            throw new InvalidArgument(sprintf('Missing parameter "PreviousPassword" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "PreviousPassword" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['PreviousPassword'] = $v;
         if (null === $v = $this->proposedPassword) {
-            throw new InvalidArgument(sprintf('Missing parameter "ProposedPassword" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ProposedPassword" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProposedPassword'] = $v;
         if (null === $v = $this->accessToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AccessToken'] = $v;
 

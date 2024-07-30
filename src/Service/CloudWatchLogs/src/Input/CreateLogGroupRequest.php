@@ -185,7 +185,7 @@ final class CreateLogGroupRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->logGroupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logGroupName'] = $v;
         if (null !== $v = $this->kmsKeyId) {
@@ -203,7 +203,7 @@ final class CreateLogGroupRequest extends Input
         }
         if (null !== $v = $this->logGroupClass) {
             if (!LogGroupClass::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "logGroupClass" for "%s". The value "%s" is not a valid "LogGroupClass".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "logGroupClass" for "%s". The value "%s" is not a valid "LogGroupClass".', __CLASS__, $v));
             }
             $payload['logGroupClass'] = $v;
         }

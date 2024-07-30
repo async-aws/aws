@@ -83,7 +83,7 @@ class SimpleMockedResponse extends MockResponse
     {
         $flat = [];
         foreach ($this->headers as $name => $value) {
-            $flat[] = sprintf('%s: %s', $name, implode(';', $value));
+            $flat[] = \sprintf('%s: %s', $name, implode(';', $value));
         }
 
         return $flat;

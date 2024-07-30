@@ -144,13 +144,13 @@ final class CmafEncryptionSettings
         }
         if (null !== $v = $this->encryptionMethod) {
             if (!CmafEncryptionType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "encryptionMethod" for "%s". The value "%s" is not a valid "CmafEncryptionType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "encryptionMethod" for "%s". The value "%s" is not a valid "CmafEncryptionType".', __CLASS__, $v));
             }
             $payload['encryptionMethod'] = $v;
         }
         if (null !== $v = $this->initializationVectorInManifest) {
             if (!CmafInitializationVectorInManifest::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "initializationVectorInManifest" for "%s". The value "%s" is not a valid "CmafInitializationVectorInManifest".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "initializationVectorInManifest" for "%s". The value "%s" is not a valid "CmafInitializationVectorInManifest".', __CLASS__, $v));
             }
             $payload['initializationVectorInManifest'] = $v;
         }
@@ -162,7 +162,7 @@ final class CmafEncryptionSettings
         }
         if (null !== $v = $this->type) {
             if (!CmafKeyProviderType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "CmafKeyProviderType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "CmafKeyProviderType".', __CLASS__, $v));
             }
             $payload['type'] = $v;
         }

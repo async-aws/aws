@@ -85,7 +85,7 @@ final class DeleteParameterRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
 

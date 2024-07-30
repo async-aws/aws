@@ -255,7 +255,7 @@ final class ColorCorrector
         }
         if (null !== $v = $this->colorSpaceConversion) {
             if (!ColorSpaceConversion::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "colorSpaceConversion" for "%s". The value "%s" is not a valid "ColorSpaceConversion".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "colorSpaceConversion" for "%s". The value "%s" is not a valid "ColorSpaceConversion".', __CLASS__, $v));
             }
             $payload['colorSpaceConversion'] = $v;
         }
@@ -267,7 +267,7 @@ final class ColorCorrector
         }
         if (null !== $v = $this->hdrToSdrToneMapper) {
             if (!HDRToSDRToneMapper::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "hdrToSdrToneMapper" for "%s". The value "%s" is not a valid "HDRToSDRToneMapper".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "hdrToSdrToneMapper" for "%s". The value "%s" is not a valid "HDRToSDRToneMapper".', __CLASS__, $v));
             }
             $payload['hdrToSdrToneMapper'] = $v;
         }
@@ -279,7 +279,7 @@ final class ColorCorrector
         }
         if (null !== $v = $this->sampleRangeConversion) {
             if (!SampleRangeConversion::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sampleRangeConversion" for "%s". The value "%s" is not a valid "SampleRangeConversion".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sampleRangeConversion" for "%s". The value "%s" is not a valid "SampleRangeConversion".', __CLASS__, $v));
             }
             $payload['sampleRangeConversion'] = $v;
         }

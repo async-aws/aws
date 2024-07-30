@@ -274,16 +274,16 @@ final class SignRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->keyId) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['KeyId'] = $v;
         if (null === $v = $this->message) {
-            throw new InvalidArgument(sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Message'] = base64_encode($v);
         if (null !== $v = $this->messageType) {
             if (!MessageType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "MessageType" for "%s". The value "%s" is not a valid "MessageType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "MessageType" for "%s". The value "%s" is not a valid "MessageType".', __CLASS__, $v));
             }
             $payload['MessageType'] = $v;
         }
@@ -296,10 +296,10 @@ final class SignRequest extends Input
             }
         }
         if (null === $v = $this->signingAlgorithm) {
-            throw new InvalidArgument(sprintf('Missing parameter "SigningAlgorithm" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "SigningAlgorithm" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!SigningAlgorithmSpec::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "SigningAlgorithm" for "%s". The value "%s" is not a valid "SigningAlgorithmSpec".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "SigningAlgorithm" for "%s". The value "%s" is not a valid "SigningAlgorithmSpec".', __CLASS__, $v));
         }
         $payload['SigningAlgorithm'] = $v;
         if (null !== $v = $this->dryRun) {

@@ -76,13 +76,13 @@ final class ExtendedDataServices
         $payload = [];
         if (null !== $v = $this->copyProtectionAction) {
             if (!CopyProtectionAction::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "copyProtectionAction" for "%s". The value "%s" is not a valid "CopyProtectionAction".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "copyProtectionAction" for "%s". The value "%s" is not a valid "CopyProtectionAction".', __CLASS__, $v));
             }
             $payload['copyProtectionAction'] = $v;
         }
         if (null !== $v = $this->vchipAction) {
             if (!VchipAction::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "vchipAction" for "%s". The value "%s" is not a valid "VchipAction".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "vchipAction" for "%s". The value "%s" is not a valid "VchipAction".', __CLASS__, $v));
             }
             $payload['vchipAction'] = $v;
         }

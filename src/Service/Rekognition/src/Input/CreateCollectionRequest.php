@@ -111,7 +111,7 @@ final class CreateCollectionRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->collectionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CollectionId'] = $v;
         if (null !== $v = $this->tags) {

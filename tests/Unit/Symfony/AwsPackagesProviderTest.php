@@ -16,7 +16,7 @@ class AwsPackagesProviderTest extends TestCase
 
         foreach (ServiceProvider::getAwsServices() as $serviceData) {
             $name = $serviceData['snake_case'];
-            self::assertTrue(\in_array($name, $packages), sprintf('The "%s" service should exist in "%s"', $name, AwsPackagesProvider::class));
+            self::assertTrue(\in_array($name, $packages), \sprintf('The "%s" service should exist in "%s"', $name, AwsPackagesProvider::class));
         }
     }
 }

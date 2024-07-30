@@ -349,7 +349,7 @@ class InputGenerator
         $memberShape = $member->getShape();
         if ($memberShape instanceof ListShape) {
             if ('header' !== $requestPart) {
-                throw new \InvalidArgumentException(sprintf('ListShape in request part "%s" is not yet implemented', $requestPart));
+                throw new \InvalidArgumentException(\sprintf('ListShape in request part "%s" is not yet implemented', $requestPart));
             }
 
             $bodyCode = '
@@ -451,7 +451,7 @@ class InputGenerator
             $memberShape = $member->getShape();
             $inputElement = '$this->' . GeneratorHelper::normalizeName($member->getName());
             if (!$memberShape instanceof MapShape) {
-                throw new \InvalidArgumentException(sprintf('Headers only supports MapShape. "%s" given', $memberShape->getType()));
+                throw new \InvalidArgumentException(\sprintf('Headers only supports MapShape. "%s" given', $memberShape->getType()));
             }
             $mapValueShape = $memberShape->getValue()->getShape();
             $keyValueShape = $memberShape->getKey()->getShape();
@@ -504,12 +504,12 @@ class InputGenerator
         } else {
             $body['body'] = '$body = "";';
             if (null !== $inputShape->getPayload()) {
-                throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
+                throw new \LogicException(\sprintf('Unexpected body in operation "%s"', $operation->getName()));
             }
 
             foreach ($inputShape->getMembers() as $member) {
                 if (null === $member->getLocation()) {
-                    throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
+                    throw new \LogicException(\sprintf('Unexpected body in operation "%s"', $operation->getName()));
                 }
             }
         }
@@ -566,7 +566,7 @@ PHP
     private function stringify(string $variable, Member $member, string $part): string
     {
         if ('header' !== $part && 'querystring' !== $part && 'uri' !== $part) {
-            throw new \InvalidArgumentException(sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring" or "uri". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
+            throw new \InvalidArgumentException(\sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring" or "uri". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
         }
 
         $shape = $member->getShape();
@@ -596,7 +596,7 @@ PHP
                 return '(string) ' . $variable;
         }
 
-        throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
+        throw new \InvalidArgumentException(\sprintf('Type "%s" is not yet implemented', $shape->getType()));
     }
 
     /**

@@ -113,11 +113,11 @@ final class PutMetricDataInput extends Input
     {
         $payload = [];
         if (null === $v = $this->namespace) {
-            throw new InvalidArgument(sprintf('Missing parameter "Namespace" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Namespace" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Namespace'] = $v;
         if (null === $v = $this->metricData) {
-            throw new InvalidArgument(sprintf('Missing parameter "MetricData" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "MetricData" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = 0;

@@ -180,7 +180,7 @@ final class CaptionSourceSettings
         }
         if (null !== $v = $this->sourceType) {
             if (!CaptionSourceType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sourceType" for "%s". The value "%s" is not a valid "CaptionSourceType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sourceType" for "%s". The value "%s" is not a valid "CaptionSourceType".', __CLASS__, $v));
             }
             $payload['sourceType'] = $v;
         }

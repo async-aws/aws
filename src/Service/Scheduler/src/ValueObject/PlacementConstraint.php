@@ -76,7 +76,7 @@ final class PlacementConstraint
         }
         if (null !== $v = $this->type) {
             if (!PlacementConstraintType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "PlacementConstraintType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "PlacementConstraintType".', __CLASS__, $v));
             }
             $payload['type'] = $v;
         }

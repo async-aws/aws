@@ -164,15 +164,15 @@ final class PutLogEventsRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->logGroupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logGroupName'] = $v;
         if (null === $v = $this->logStreamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logStreamName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "logStreamName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logStreamName'] = $v;
         if (null === $v = $this->logEvents) {
-            throw new InvalidArgument(sprintf('Missing parameter "logEvents" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "logEvents" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

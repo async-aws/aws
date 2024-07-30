@@ -76,7 +76,7 @@ final class StreamSpecification
         $payload['StreamEnabled'] = (bool) $v;
         if (null !== $v = $this->streamViewType) {
             if (!StreamViewType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StreamViewType" for "%s". The value "%s" is not a valid "StreamViewType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "StreamViewType" for "%s". The value "%s" is not a valid "StreamViewType".', __CLASS__, $v));
             }
             $payload['StreamViewType'] = $v;
         }

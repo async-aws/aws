@@ -74,7 +74,7 @@ class AsyncAwsExtension extends Extension
         foreach ($config['clients'] as $name => $data) {
             $client = $availableServices[$data['type']]['class'];
             if (!class_exists($client)) {
-                throw new InvalidConfigurationException(sprintf('You have configured "async_aws.%s" but the "%s" package is not installed. Try running "composer require %s"', $name, $data['type'], $availableServices[$data['type']]['package']));
+                throw new InvalidConfigurationException(\sprintf('You have configured "async_aws.%s" but the "%s" package is not installed. Try running "composer require %s"', $name, $data['type'], $availableServices[$data['type']]['package']));
             }
 
             $serviceConfig = array_merge($defaultConfig, $data);
@@ -200,7 +200,7 @@ class AsyncAwsExtension extends Extension
             $logger,
         ]);
         $definition->addTag('monolog.logger', ['channel' => 'async_aws']);
-        $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
+        $container->setDefinition(\sprintf('async_aws.client.%s', $name), $definition);
     }
 
     /**
@@ -230,15 +230,15 @@ class AsyncAwsExtension extends Extension
 
         $availableServices = AwsPackagesProvider::getAllServices();
         if (!class_exists($className = $availableServices['ssm']['class'])) {
-            throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets" but the "%s" package is not installed. Try running "composer require %s"', 'ssm', $availableServices['ssm']['package']));
+            throw new InvalidConfigurationException(\sprintf('You have enabled "async_aws.secrets" but the "%s" package is not installed. Try running "composer require %s"', 'ssm', $availableServices['ssm']['package']));
         }
 
         if (null !== $client = $config['secrets']['client']) {
             if (!isset($config['clients'][$client])) {
-                throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" does not exists. Available clients are "%s"', $client, implode(', ', array_keys($config['clients']))));
+                throw new InvalidConfigurationException(\sprintf('The client "%s" configured in "async_aws.secrets" does not exists. Available clients are "%s"', $client, implode(', ', array_keys($config['clients']))));
             }
             if ('ssm' !== $config['clients'][$client]['type']) {
-                throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" is not a SSM client.', $client));
+                throw new InvalidConfigurationException(\sprintf('The client "%s" configured in "async_aws.secrets" is not a SSM client.', $client));
             }
         } else {
             if (!isset($config['clients']['ssm'])) {
@@ -289,7 +289,7 @@ class AsyncAwsExtension extends Extension
                 continue;
             }
 
-            $serviceId = sprintf('async_aws.client.%s', $name);
+            $serviceId = \sprintf('async_aws.client.%s', $name);
             if (isset($awsServices[$name])) {
                 $container->setAlias($client, $serviceId);
 

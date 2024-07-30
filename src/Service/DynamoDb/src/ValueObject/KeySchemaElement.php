@@ -88,7 +88,7 @@ final class KeySchemaElement
         $payload['AttributeName'] = $v;
         $v = $this->keyType;
         if (!KeyType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "KeyType" for "%s". The value "%s" is not a valid "KeyType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "KeyType" for "%s". The value "%s" is not a valid "KeyType".', __CLASS__, $v));
         }
         $payload['KeyType'] = $v;
 

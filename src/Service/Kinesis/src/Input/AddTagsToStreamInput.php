@@ -139,7 +139,7 @@ final class AddTagsToStreamInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->tags) {
-            throw new InvalidArgument(sprintf('Missing parameter "Tags" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Tags" for "%s". The value cannot be null.', __CLASS__));
         }
 
         if (empty($v)) {

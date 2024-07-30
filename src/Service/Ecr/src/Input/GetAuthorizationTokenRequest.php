@@ -46,7 +46,7 @@ final class GetAuthorizationTokenRequest extends Input
      */
     public function getRegistryIds(): array
     {
-        @trigger_error(sprintf('The property "registryIds" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "registryIds" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->registryIds ?? [];
     }
@@ -84,7 +84,7 @@ final class GetAuthorizationTokenRequest extends Input
      */
     public function setRegistryIds(array $value): self
     {
-        @trigger_error(sprintf('The property "registryIds" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+        @trigger_error(\sprintf('The property "registryIds" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->registryIds = $value;
 
         return $this;
@@ -94,7 +94,7 @@ final class GetAuthorizationTokenRequest extends Input
     {
         $payload = [];
         if (null !== $v = $this->registryIds) {
-            @trigger_error(sprintf('The property "registryIds" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+            @trigger_error(\sprintf('The property "registryIds" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             $index = -1;
             $payload['registryIds'] = [];
             foreach ($v as $listValue) {

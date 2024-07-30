@@ -82,7 +82,7 @@ final class ChangeResourceRecordSetsRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->hostedZoneId) {
-            throw new InvalidArgument(sprintf('Missing parameter "HostedZoneId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "HostedZoneId" for "%s". The value cannot be null.', __CLASS__));
         }
         $v = preg_replace('#^(/hostedzone/|/change/|/delegationset/)#', '', $v);
         $uri['Id'] = $v;
@@ -118,7 +118,7 @@ final class ChangeResourceRecordSetsRequest extends Input
     private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null === $v = $this->changeBatch) {
-            throw new InvalidArgument(sprintf('Missing parameter "ChangeBatch" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ChangeBatch" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $node->appendChild($child = $document->createElement('ChangeBatch'));

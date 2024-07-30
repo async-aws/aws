@@ -799,6 +799,6 @@ class AthenaClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Athena".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Athena".', $region));
     }
 }

@@ -142,7 +142,7 @@ final class DescribeEndpointsRequest extends Input
         }
         if (null !== $v = $this->mode) {
             if (!DescribeEndpointsMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "mode" for "%s". The value "%s" is not a valid "DescribeEndpointsMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "mode" for "%s". The value "%s" is not a valid "DescribeEndpointsMode".', __CLASS__, $v));
             }
             $payload['mode'] = $v;
         }

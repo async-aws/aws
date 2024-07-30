@@ -107,6 +107,6 @@ class SsoClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sso".', $region));
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Sso".', $region));
     }
 }

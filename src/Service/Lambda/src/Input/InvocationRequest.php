@@ -160,13 +160,13 @@ final class InvocationRequest extends Input
         ];
         if (null !== $this->invocationType) {
             if (!InvocationType::exists($this->invocationType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->invocationType));
+                throw new InvalidArgument(\sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->invocationType));
             }
             $headers['X-Amz-Invocation-Type'] = $this->invocationType;
         }
         if (null !== $this->logType) {
             if (!LogType::exists($this->logType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "LogType" for "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->logType));
+                throw new InvalidArgument(\sprintf('Invalid parameter "LogType" for "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->logType));
             }
             $headers['X-Amz-Log-Type'] = $this->logType;
         }
@@ -183,7 +183,7 @@ final class InvocationRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->functionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['FunctionName'] = $v;
         $uriString = '/2015-03-31/functions/' . rawurlencode($uri['FunctionName']) . '/invocations';

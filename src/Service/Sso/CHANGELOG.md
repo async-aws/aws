@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `ca-west-1` region
 
+### Changed
+
+- Enable compiler optimization for the `sprintf` function.
+
 ## 1.2.1
 
 ### Changed

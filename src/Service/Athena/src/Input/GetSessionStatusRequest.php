@@ -83,7 +83,7 @@ final class GetSessionStatusRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->sessionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "SessionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "SessionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SessionId'] = $v;
 

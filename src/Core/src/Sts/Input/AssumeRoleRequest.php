@@ -491,11 +491,11 @@ final class AssumeRoleRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->roleArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RoleArn'] = $v;
         if (null === $v = $this->roleSessionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RoleSessionName'] = $v;
         if (null !== $v = $this->policyArns) {

@@ -913,7 +913,7 @@ final class StartBuildInput extends Input
     {
         $payload = [];
         if (null === $v = $this->projectName) {
-            throw new InvalidArgument(sprintf('Missing parameter "projectName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "projectName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['projectName'] = $v;
         if (null !== $v = $this->secondarySourcesOverride) {
@@ -956,7 +956,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->sourceTypeOverride) {
             if (!SourceType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sourceTypeOverride" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sourceTypeOverride" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
             }
             $payload['sourceTypeOverride'] = $v;
         }
@@ -986,7 +986,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->environmentTypeOverride) {
             if (!EnvironmentType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "environmentTypeOverride" for "%s". The value "%s" is not a valid "EnvironmentType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "environmentTypeOverride" for "%s". The value "%s" is not a valid "EnvironmentType".', __CLASS__, $v));
             }
             $payload['environmentTypeOverride'] = $v;
         }
@@ -995,7 +995,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->computeTypeOverride) {
             if (!ComputeType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "computeTypeOverride" for "%s". The value "%s" is not a valid "ComputeType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "computeTypeOverride" for "%s". The value "%s" is not a valid "ComputeType".', __CLASS__, $v));
             }
             $payload['computeTypeOverride'] = $v;
         }
@@ -1031,7 +1031,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->imagePullCredentialsTypeOverride) {
             if (!ImagePullCredentialsType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "imagePullCredentialsTypeOverride" for "%s". The value "%s" is not a valid "ImagePullCredentialsType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "imagePullCredentialsTypeOverride" for "%s". The value "%s" is not a valid "ImagePullCredentialsType".', __CLASS__, $v));
             }
             $payload['imagePullCredentialsTypeOverride'] = $v;
         }

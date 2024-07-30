@@ -134,7 +134,7 @@ class GetSecretValueResponse extends Result
         $this->secretBinary = isset($data['SecretBinary']) ? base64_decode((string) $data['SecretBinary']) : null;
         $this->secretString = isset($data['SecretString']) ? (string) $data['SecretString'] : null;
         $this->versionStages = empty($data['VersionStages']) ? [] : $this->populateResultSecretVersionStagesType($data['VersionStages']);
-        $this->createdDate = (isset($data['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['CreatedDate'])))) ? $d : null;
+        $this->createdDate = (isset($data['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreatedDate'])))) ? $d : null;
     }
 
     /**

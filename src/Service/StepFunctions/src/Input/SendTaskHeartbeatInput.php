@@ -86,7 +86,7 @@ final class SendTaskHeartbeatInput extends Input
     {
         $payload = [];
         if (null === $v = $this->taskToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "taskToken" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "taskToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['taskToken'] = $v;
 

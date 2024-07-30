@@ -85,7 +85,7 @@ final class PurgeQueueRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
 

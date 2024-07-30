@@ -122,17 +122,17 @@ final class InstanceProvider implements CredentialProvider
             $content = json_decode($content, true, 512, \JSON_BIGINT_AS_STRING | (\PHP_VERSION_ID >= 70300 ? \JSON_THROW_ON_ERROR : 0));
         } catch (\JsonException $e) {
             /** @psalm-suppress all */
-            throw new JsonException(sprintf('%s for "%s".', $e->getMessage(), $response->getInfo('url')), $e->getCode());
+            throw new JsonException(\sprintf('%s for "%s".', $e->getMessage(), $response->getInfo('url')), $e->getCode());
         }
 
         if (\PHP_VERSION_ID < 70300 && \JSON_ERROR_NONE !== json_last_error()) {
             /** @psalm-suppress InvalidArgument */
-            throw new JsonException(sprintf('%s for "%s".', json_last_error_msg(), $response->getInfo('url')), json_last_error());
+            throw new JsonException(\sprintf('%s for "%s".', json_last_error_msg(), $response->getInfo('url')), json_last_error());
         }
 
         if (!\is_array($content)) {
             /** @psalm-suppress InvalidArgument */
-            throw new JsonException(sprintf('JSON content was expected to decode to an array, %s returned for "%s".', \gettype($content), $response->getInfo('url')));
+            throw new JsonException(\sprintf('JSON content was expected to decode to an array, %s returned for "%s".', \gettype($content), $response->getInfo('url')));
         }
 
         return $content;

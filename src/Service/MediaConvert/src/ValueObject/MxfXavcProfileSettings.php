@@ -75,7 +75,7 @@ final class MxfXavcProfileSettings
         $payload = [];
         if (null !== $v = $this->durationMode) {
             if (!MxfXavcDurationMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "durationMode" for "%s". The value "%s" is not a valid "MxfXavcDurationMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "durationMode" for "%s". The value "%s" is not a valid "MxfXavcDurationMode".', __CLASS__, $v));
             }
             $payload['durationMode'] = $v;
         }

@@ -142,7 +142,7 @@ final class GetSecretValueRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->secretId) {
-            throw new InvalidArgument(sprintf('Missing parameter "SecretId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "SecretId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SecretId'] = $v;
         if (null !== $v = $this->versionId) {

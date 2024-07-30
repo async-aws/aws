@@ -77,13 +77,13 @@ final class AdvancedInputFilterSettings
         $payload = [];
         if (null !== $v = $this->addTexture) {
             if (!AdvancedInputFilterAddTexture::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "addTexture" for "%s". The value "%s" is not a valid "AdvancedInputFilterAddTexture".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "addTexture" for "%s". The value "%s" is not a valid "AdvancedInputFilterAddTexture".', __CLASS__, $v));
             }
             $payload['addTexture'] = $v;
         }
         if (null !== $v = $this->sharpening) {
             if (!AdvancedInputFilterSharpen::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sharpening" for "%s". The value "%s" is not a valid "AdvancedInputFilterSharpen".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sharpening" for "%s". The value "%s" is not a valid "AdvancedInputFilterSharpen".', __CLASS__, $v));
             }
             $payload['sharpening'] = $v;
         }

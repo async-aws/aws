@@ -139,7 +139,7 @@ final class RemoveTagsFromStreamInput extends Input
             $payload['StreamName'] = $v;
         }
         if (null === $v = $this->tagKeys) {
-            throw new InvalidArgument(sprintf('Missing parameter "TagKeys" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TagKeys" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;

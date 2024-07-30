@@ -136,7 +136,7 @@ final class ListSchedulesInput extends Input
         }
         if (null !== $this->state) {
             if (!ScheduleState::exists($this->state)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $this->state));
+                throw new InvalidArgument(\sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $this->state));
             }
             $query['State'] = $this->state;
         }

@@ -266,7 +266,7 @@ final class GetMetricDataInput extends Input
     {
         $payload = [];
         if (null === $v = $this->metricDataQueries) {
-            throw new InvalidArgument(sprintf('Missing parameter "MetricDataQueries" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "MetricDataQueries" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = 0;
@@ -278,11 +278,11 @@ final class GetMetricDataInput extends Input
         }
 
         if (null === $v = $this->startTime) {
-            throw new InvalidArgument(sprintf('Missing parameter "StartTime" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "StartTime" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StartTime'] = $v->format(\DateTimeInterface::ATOM);
         if (null === $v = $this->endTime) {
-            throw new InvalidArgument(sprintf('Missing parameter "EndTime" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "EndTime" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['EndTime'] = $v->format(\DateTimeInterface::ATOM);
         if (null !== $v = $this->nextToken) {
@@ -290,7 +290,7 @@ final class GetMetricDataInput extends Input
         }
         if (null !== $v = $this->scanBy) {
             if (!ScanBy::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ScanBy" for "%s". The value "%s" is not a valid "ScanBy".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ScanBy" for "%s". The value "%s" is not a valid "ScanBy".', __CLASS__, $v));
             }
             $payload['ScanBy'] = $v;
         }

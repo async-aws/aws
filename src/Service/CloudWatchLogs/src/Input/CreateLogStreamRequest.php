@@ -107,11 +107,11 @@ final class CreateLogStreamRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->logGroupName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "logGroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logGroupName'] = $v;
         if (null === $v = $this->logStreamName) {
-            throw new InvalidArgument(sprintf('Missing parameter "logStreamName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "logStreamName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logStreamName'] = $v;
 

@@ -567,7 +567,7 @@ final class ResourceRecordSet
         $node->appendChild($document->createElement('Name', $v));
         $v = $this->type;
         if (!RRType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $v));
         }
         $node->appendChild($document->createElement('Type', $v));
         if (null !== $v = $this->setIdentifier) {
@@ -578,7 +578,7 @@ final class ResourceRecordSet
         }
         if (null !== $v = $this->region) {
             if (!ResourceRecordSetRegion::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Region" for "%s". The value "%s" is not a valid "ResourceRecordSetRegion".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Region" for "%s". The value "%s" is not a valid "ResourceRecordSetRegion".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Region', $v));
         }
@@ -589,7 +589,7 @@ final class ResourceRecordSet
         }
         if (null !== $v = $this->failover) {
             if (!ResourceRecordSetFailover::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Failover" for "%s". The value "%s" is not a valid "ResourceRecordSetFailover".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Failover" for "%s". The value "%s" is not a valid "ResourceRecordSetFailover".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Failover', $v));
         }

@@ -183,7 +183,7 @@ final class ConditionCheck
         }
         if (null !== $v = $this->returnValuesOnConditionCheckFailure) {
             if (!ReturnValuesOnConditionCheckFailure::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
             }
             $payload['ReturnValuesOnConditionCheckFailure'] = $v;
         }

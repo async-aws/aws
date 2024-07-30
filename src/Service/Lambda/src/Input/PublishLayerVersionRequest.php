@@ -162,7 +162,7 @@ final class PublishLayerVersionRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->layerName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
         $uriString = '/2018-10-31/layers/' . rawurlencode($uri['LayerName']) . '/versions';
@@ -231,7 +231,7 @@ final class PublishLayerVersionRequest extends Input
             $payload['Description'] = $v;
         }
         if (null === $v = $this->content) {
-            throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Content'] = $v->requestBody();
         if (null !== $v = $this->compatibleRuntimes) {
@@ -240,7 +240,7 @@ final class PublishLayerVersionRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Runtime::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleRuntimes" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $listValue));
                 }
                 $payload['CompatibleRuntimes'][$index] = $listValue;
             }
@@ -254,7 +254,7 @@ final class PublishLayerVersionRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Architecture::exists($listValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "CompatibleArchitectures" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $listValue));
+                    throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitectures" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $listValue));
                 }
                 $payload['CompatibleArchitectures'][$index] = $listValue;
             }

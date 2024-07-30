@@ -161,11 +161,11 @@ final class CreatePlatformEndpointInput extends Input
     {
         $payload = [];
         if (null === $v = $this->platformApplicationArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "PlatformApplicationArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "PlatformApplicationArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['PlatformApplicationArn'] = $v;
         if (null === $v = $this->token) {
-            throw new InvalidArgument(sprintf('Missing parameter "Token" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Token" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Token'] = $v;
         if (null !== $v = $this->customUserData) {

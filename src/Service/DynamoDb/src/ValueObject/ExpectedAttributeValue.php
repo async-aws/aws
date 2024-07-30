@@ -249,7 +249,7 @@ final class ExpectedAttributeValue
         }
         if (null !== $v = $this->comparisonOperator) {
             if (!ComparisonOperator::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ComparisonOperator" for "%s". The value "%s" is not a valid "ComparisonOperator".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ComparisonOperator" for "%s". The value "%s" is not a valid "ComparisonOperator".', __CLASS__, $v));
             }
             $payload['ComparisonOperator'] = $v;
         }

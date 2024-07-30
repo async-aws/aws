@@ -108,7 +108,7 @@ final class GetQueueUrlRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queueName) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueName'] = $v;
         if (null !== $v = $this->queueOwnerAwsAccountId) {

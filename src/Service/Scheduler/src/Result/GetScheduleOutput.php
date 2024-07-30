@@ -272,17 +272,17 @@ class GetScheduleOutput extends Result
 
         $this->actionAfterCompletion = isset($data['ActionAfterCompletion']) ? (string) $data['ActionAfterCompletion'] : null;
         $this->arn = isset($data['Arn']) ? (string) $data['Arn'] : null;
-        $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['CreationDate']))) ? $d : null;
+        $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreationDate']))) ? $d : null;
         $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
-        $this->endDate = isset($data['EndDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['EndDate']))) ? $d : null;
+        $this->endDate = isset($data['EndDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['EndDate']))) ? $d : null;
         $this->flexibleTimeWindow = empty($data['FlexibleTimeWindow']) ? null : $this->populateResultFlexibleTimeWindow($data['FlexibleTimeWindow']);
         $this->groupName = isset($data['GroupName']) ? (string) $data['GroupName'] : null;
         $this->kmsKeyArn = isset($data['KmsKeyArn']) ? (string) $data['KmsKeyArn'] : null;
-        $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
+        $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
         $this->scheduleExpression = isset($data['ScheduleExpression']) ? (string) $data['ScheduleExpression'] : null;
         $this->scheduleExpressionTimezone = isset($data['ScheduleExpressionTimezone']) ? (string) $data['ScheduleExpressionTimezone'] : null;
-        $this->startDate = isset($data['StartDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['StartDate']))) ? $d : null;
+        $this->startDate = isset($data['StartDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['StartDate']))) ? $d : null;
         $this->state = isset($data['State']) ? (string) $data['State'] : null;
         $this->target = empty($data['Target']) ? null : $this->populateResultTarget($data['Target']);
     }

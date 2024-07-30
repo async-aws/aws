@@ -202,7 +202,7 @@ class ServiceDefinition
             return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation_main' => $documentationMain, '_documentation_member' => $documentationMember] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());
         }
 
-        throw new \InvalidArgumentException(sprintf('The shape "%s" does not exist.', $name));
+        throw new \InvalidArgumentException(\sprintf('The shape "%s" does not exist.', $name));
     }
 
     /**
@@ -240,7 +240,7 @@ class ServiceDefinition
             $operation = $definition->getOperation($name);
 
             if (null === $operation) {
-                throw new \InvalidArgumentException(sprintf('The operation "%s" is not defined.', $name));
+                throw new \InvalidArgumentException(\sprintf('The operation "%s" is not defined.', $name));
             }
 
             return $operation;

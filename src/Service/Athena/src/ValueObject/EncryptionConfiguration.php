@@ -73,7 +73,7 @@ final class EncryptionConfiguration
         $payload = [];
         $v = $this->encryptionOption;
         if (!EncryptionOption::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "EncryptionOption" for "%s". The value "%s" is not a valid "EncryptionOption".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "EncryptionOption" for "%s". The value "%s" is not a valid "EncryptionOption".', __CLASS__, $v));
         }
         $payload['EncryptionOption'] = $v;
         if (null !== $v = $this->kmsKey) {

@@ -250,7 +250,7 @@ final class ListMetricsInput extends Input
         }
         if (null !== $v = $this->recentlyActive) {
             if (!RecentlyActive::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RecentlyActive" for "%s". The value "%s" is not a valid "RecentlyActive".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "RecentlyActive" for "%s". The value "%s" is not a valid "RecentlyActive".', __CLASS__, $v));
             }
             $payload['RecentlyActive'] = $v;
         }

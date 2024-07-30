@@ -287,7 +287,7 @@ final class CreateScheduleInput extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Name'] = $v;
         $uriString = '/schedules/' . rawurlencode($uri['Name']);
@@ -402,7 +402,7 @@ final class CreateScheduleInput extends Input
         $payload = [];
         if (null !== $v = $this->actionAfterCompletion) {
             if (!ActionAfterCompletion::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ActionAfterCompletion" for "%s". The value "%s" is not a valid "ActionAfterCompletion".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ActionAfterCompletion" for "%s". The value "%s" is not a valid "ActionAfterCompletion".', __CLASS__, $v));
             }
             $payload['ActionAfterCompletion'] = $v;
         }
@@ -417,7 +417,7 @@ final class CreateScheduleInput extends Input
             $payload['EndDate'] = $v->getTimestamp();
         }
         if (null === $v = $this->flexibleTimeWindow) {
-            throw new InvalidArgument(sprintf('Missing parameter "FlexibleTimeWindow" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "FlexibleTimeWindow" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['FlexibleTimeWindow'] = $v->requestBody();
         if (null !== $v = $this->groupName) {
@@ -428,7 +428,7 @@ final class CreateScheduleInput extends Input
         }
 
         if (null === $v = $this->scheduleExpression) {
-            throw new InvalidArgument(sprintf('Missing parameter "ScheduleExpression" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ScheduleExpression" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ScheduleExpression'] = $v;
         if (null !== $v = $this->scheduleExpressionTimezone) {
@@ -439,12 +439,12 @@ final class CreateScheduleInput extends Input
         }
         if (null !== $v = $this->state) {
             if (!ScheduleState::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $v));
             }
             $payload['State'] = $v;
         }
         if (null === $v = $this->target) {
-            throw new InvalidArgument(sprintf('Missing parameter "Target" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Target" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Target'] = $v->requestBody();
 

@@ -83,7 +83,7 @@ final class CancelQueryRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->queryId) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueryId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueryId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueryId'] = $v;
 

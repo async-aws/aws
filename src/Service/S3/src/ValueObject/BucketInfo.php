@@ -76,13 +76,13 @@ final class BucketInfo
     {
         if (null !== $v = $this->dataRedundancy) {
             if (!DataRedundancy::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "DataRedundancy" for "%s". The value "%s" is not a valid "DataRedundancy".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "DataRedundancy" for "%s". The value "%s" is not a valid "DataRedundancy".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('DataRedundancy', $v));
         }
         if (null !== $v = $this->type) {
             if (!BucketType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "BucketType".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "BucketType".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Type', $v));
         }

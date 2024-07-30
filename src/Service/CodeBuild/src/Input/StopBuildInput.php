@@ -83,7 +83,7 @@ final class StopBuildInput extends Input
     {
         $payload = [];
         if (null === $v = $this->id) {
-            throw new InvalidArgument(sprintf('Missing parameter "id" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "id" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['id'] = $v;
 

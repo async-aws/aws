@@ -924,7 +924,7 @@ final class H264Settings
         $payload = [];
         if (null !== $v = $this->adaptiveQuantization) {
             if (!H264AdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "H264AdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "H264AdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['adaptiveQuantization'] = $v;
         }
@@ -936,55 +936,55 @@ final class H264Settings
         }
         if (null !== $v = $this->codecLevel) {
             if (!H264CodecLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecLevel" for "%s". The value "%s" is not a valid "H264CodecLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecLevel" for "%s". The value "%s" is not a valid "H264CodecLevel".', __CLASS__, $v));
             }
             $payload['codecLevel'] = $v;
         }
         if (null !== $v = $this->codecProfile) {
             if (!H264CodecProfile::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "H264CodecProfile".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "H264CodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
         }
         if (null !== $v = $this->dynamicSubGop) {
             if (!H264DynamicSubGop::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "H264DynamicSubGop".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "H264DynamicSubGop".', __CLASS__, $v));
             }
             $payload['dynamicSubGop'] = $v;
         }
         if (null !== $v = $this->endOfStreamMarkers) {
             if (!H264EndOfStreamMarkers::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "endOfStreamMarkers" for "%s". The value "%s" is not a valid "H264EndOfStreamMarkers".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "endOfStreamMarkers" for "%s". The value "%s" is not a valid "H264EndOfStreamMarkers".', __CLASS__, $v));
             }
             $payload['endOfStreamMarkers'] = $v;
         }
         if (null !== $v = $this->entropyEncoding) {
             if (!H264EntropyEncoding::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "entropyEncoding" for "%s". The value "%s" is not a valid "H264EntropyEncoding".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "entropyEncoding" for "%s". The value "%s" is not a valid "H264EntropyEncoding".', __CLASS__, $v));
             }
             $payload['entropyEncoding'] = $v;
         }
         if (null !== $v = $this->fieldEncoding) {
             if (!H264FieldEncoding::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "fieldEncoding" for "%s". The value "%s" is not a valid "H264FieldEncoding".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "fieldEncoding" for "%s". The value "%s" is not a valid "H264FieldEncoding".', __CLASS__, $v));
             }
             $payload['fieldEncoding'] = $v;
         }
         if (null !== $v = $this->flickerAdaptiveQuantization) {
             if (!H264FlickerAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "flickerAdaptiveQuantization" for "%s". The value "%s" is not a valid "H264FlickerAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "flickerAdaptiveQuantization" for "%s". The value "%s" is not a valid "H264FlickerAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['flickerAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!H264FramerateControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "H264FramerateControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "H264FramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!H264FramerateConversionAlgorithm::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "H264FramerateConversionAlgorithm".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "H264FramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
         }
@@ -996,7 +996,7 @@ final class H264Settings
         }
         if (null !== $v = $this->gopBreference) {
             if (!H264GopBReference::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "H264GopBReference".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "H264GopBReference".', __CLASS__, $v));
             }
             $payload['gopBReference'] = $v;
         }
@@ -1008,7 +1008,7 @@ final class H264Settings
         }
         if (null !== $v = $this->gopSizeUnits) {
             if (!H264GopSizeUnits::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "gopSizeUnits" for "%s". The value "%s" is not a valid "H264GopSizeUnits".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "gopSizeUnits" for "%s". The value "%s" is not a valid "H264GopSizeUnits".', __CLASS__, $v));
             }
             $payload['gopSizeUnits'] = $v;
         }
@@ -1023,7 +1023,7 @@ final class H264Settings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!H264InterlaceMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "H264InterlaceMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "H264InterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
@@ -1041,7 +1041,7 @@ final class H264Settings
         }
         if (null !== $v = $this->parControl) {
             if (!H264ParControl::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "H264ParControl".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "H264ParControl".', __CLASS__, $v));
             }
             $payload['parControl'] = $v;
         }
@@ -1053,7 +1053,7 @@ final class H264Settings
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!H264QualityTuningLevel::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "H264QualityTuningLevel".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "H264QualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;
         }
@@ -1062,25 +1062,25 @@ final class H264Settings
         }
         if (null !== $v = $this->rateControlMode) {
             if (!H264RateControlMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "H264RateControlMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "H264RateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;
         }
         if (null !== $v = $this->repeatPps) {
             if (!H264RepeatPps::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "repeatPps" for "%s". The value "%s" is not a valid "H264RepeatPps".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "repeatPps" for "%s". The value "%s" is not a valid "H264RepeatPps".', __CLASS__, $v));
             }
             $payload['repeatPps'] = $v;
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!H264ScanTypeConversionMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "H264ScanTypeConversionMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "H264ScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->sceneChangeDetect) {
             if (!H264SceneChangeDetect::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "sceneChangeDetect" for "%s". The value "%s" is not a valid "H264SceneChangeDetect".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "sceneChangeDetect" for "%s". The value "%s" is not a valid "H264SceneChangeDetect".', __CLASS__, $v));
             }
             $payload['sceneChangeDetect'] = $v;
         }
@@ -1089,7 +1089,7 @@ final class H264Settings
         }
         if (null !== $v = $this->slowPal) {
             if (!H264SlowPal::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "H264SlowPal".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "H264SlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
@@ -1098,31 +1098,31 @@ final class H264Settings
         }
         if (null !== $v = $this->spatialAdaptiveQuantization) {
             if (!H264SpatialAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "H264SpatialAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "H264SpatialAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['spatialAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->syntax) {
             if (!H264Syntax::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "syntax" for "%s". The value "%s" is not a valid "H264Syntax".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "syntax" for "%s". The value "%s" is not a valid "H264Syntax".', __CLASS__, $v));
             }
             $payload['syntax'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!H264Telecine::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "H264Telecine".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "H264Telecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }
         if (null !== $v = $this->temporalAdaptiveQuantization) {
             if (!H264TemporalAdaptiveQuantization::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "H264TemporalAdaptiveQuantization".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "H264TemporalAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['temporalAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->unregisteredSeiTimecode) {
             if (!H264UnregisteredSeiTimecode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "unregisteredSeiTimecode" for "%s". The value "%s" is not a valid "H264UnregisteredSeiTimecode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "unregisteredSeiTimecode" for "%s". The value "%s" is not a valid "H264UnregisteredSeiTimecode".', __CLASS__, $v));
             }
             $payload['unregisteredSeiTimecode'] = $v;
         }

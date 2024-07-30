@@ -270,11 +270,11 @@ final class UpdateDataSourceRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->apiId) {
-            throw new InvalidArgument(sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "apiId" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['apiId'] = $v;
         if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "name" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['name'] = $v;
         $uriString = '/v1/apis/' . rawurlencode($uri['apiId']) . '/datasources/' . rawurlencode($uri['name']);
@@ -392,10 +392,10 @@ final class UpdateDataSourceRequest extends Input
             $payload['description'] = $v;
         }
         if (null === $v = $this->type) {
-            throw new InvalidArgument(sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!DataSourceType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "DataSourceType".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "DataSourceType".', __CLASS__, $v));
         }
         $payload['type'] = $v;
         if (null !== $v = $this->serviceRoleArn) {
@@ -424,7 +424,7 @@ final class UpdateDataSourceRequest extends Input
         }
         if (null !== $v = $this->metricsConfig) {
             if (!DataSourceLevelMetricsConfig::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "DataSourceLevelMetricsConfig".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "DataSourceLevelMetricsConfig".', __CLASS__, $v));
             }
             $payload['metricsConfig'] = $v;
         }

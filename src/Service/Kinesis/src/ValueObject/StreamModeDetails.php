@@ -55,7 +55,7 @@ final class StreamModeDetails
         $payload = [];
         $v = $this->streamMode;
         if (!StreamMode::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "StreamMode" for "%s". The value "%s" is not a valid "StreamMode".', __CLASS__, $v));
+            throw new InvalidArgument(\sprintf('Invalid parameter "StreamMode" for "%s". The value "%s" is not a valid "StreamMode".', __CLASS__, $v));
         }
         $payload['StreamMode'] = $v;
 

@@ -111,11 +111,11 @@ final class SendTaskSuccessInput extends Input
     {
         $payload = [];
         if (null === $v = $this->taskToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "taskToken" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "taskToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['taskToken'] = $v;
         if (null === $v = $this->output) {
-            throw new InvalidArgument(sprintf('Missing parameter "output" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "output" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['output'] = $v;
 

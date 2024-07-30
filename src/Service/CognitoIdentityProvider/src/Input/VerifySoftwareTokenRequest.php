@@ -157,7 +157,7 @@ final class VerifySoftwareTokenRequest extends Input
             $payload['Session'] = $v;
         }
         if (null === $v = $this->userCode) {
-            throw new InvalidArgument(sprintf('Missing parameter "UserCode" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "UserCode" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserCode'] = $v;
         if (null !== $v = $this->friendlyDeviceName) {

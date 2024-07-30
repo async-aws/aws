@@ -103,7 +103,7 @@ final class ListSubscriptionsByTopicInput extends Input
     {
         $payload = [];
         if (null === $v = $this->topicArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "TopicArn" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TopicArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TopicArn'] = $v;
         if (null !== $v = $this->nextToken) {

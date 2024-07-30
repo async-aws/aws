@@ -151,7 +151,7 @@ class SignerV4 implements Signer
         if ($isPresign) {
             $request->setQueryAttribute('X-Amz-Signature', $signature);
         } else {
-            $request->setHeader('authorization', sprintf(
+            $request->setHeader('authorization', \sprintf(
                 '%s Credential=%s/%s, SignedHeaders=%s, Signature=%s',
                 self::ALGORITHM_REQUEST,
                 $credentials->getAccessKeyId(),
@@ -176,7 +176,7 @@ class SignerV4 implements Signer
     private function sanitizeHostForHeader(Request $request): void
     {
         if (false === $parsedUrl = parse_url($request->getEndpoint())) {
-            throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $request->getEndpoint()));
+            throw new InvalidArgument(\sprintf('The endpoint "%s" is invalid.', $request->getEndpoint()));
         }
 
         if (!isset($parsedUrl['host'])) {

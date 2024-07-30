@@ -48,7 +48,7 @@ class ClassWriter
         $className = $className->getName();
         $directory = $this->resolveDirectory($namespace);
 
-        $filename = sprintf('%s/%s.php', $directory, $className);
+        $filename = \sprintf('%s/%s.php', $directory, $className);
 
         $this->fileDumper->dump($filename, $content);
     }
@@ -58,7 +58,7 @@ class ClassWriter
         $directory = $this->directoryResolver->resolveDirectory($namespace);
         if (!is_dir($directory)) {
             if (false === mkdir($directory, 0777, true)) {
-                throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
+                throw new \RuntimeException(\sprintf('Could not create directory "%s"', $directory));
             }
         }
 

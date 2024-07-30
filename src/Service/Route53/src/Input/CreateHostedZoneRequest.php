@@ -209,7 +209,7 @@ final class CreateHostedZoneRequest extends Input
     private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null === $v = $this->name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('Name', $v));
         if (null !== $v = $this->vpc) {
@@ -218,7 +218,7 @@ final class CreateHostedZoneRequest extends Input
             $v->requestBody($child, $document);
         }
         if (null === $v = $this->callerReference) {
-            throw new InvalidArgument(sprintf('Missing parameter "CallerReference" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CallerReference" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('CallerReference', $v));
         if (null !== $v = $this->hostedZoneConfig) {

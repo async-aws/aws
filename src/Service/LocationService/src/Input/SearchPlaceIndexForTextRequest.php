@@ -250,7 +250,7 @@ final class SearchPlaceIndexForTextRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->indexName) {
-            throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['IndexName'] = $v;
         $uriString = '/places/v0/indexes/' . rawurlencode($uri['IndexName']) . '/search/text';
@@ -343,7 +343,7 @@ final class SearchPlaceIndexForTextRequest extends Input
         $payload = [];
 
         if (null === $v = $this->text) {
-            throw new InvalidArgument(sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Text" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Text'] = $v;
         if (null !== $v = $this->biasPosition) {

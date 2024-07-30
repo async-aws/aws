@@ -368,7 +368,7 @@ final class CalculateRouteRequest extends Input
         // Prepare URI
         $uri = [];
         if (null === $v = $this->calculatorName) {
-            throw new InvalidArgument(sprintf('Missing parameter "CalculatorName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "CalculatorName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['CalculatorName'] = $v;
         $uriString = '/routes/v0/calculators/' . rawurlencode($uri['CalculatorName']) . '/calculate/route';
@@ -502,7 +502,7 @@ final class CalculateRouteRequest extends Input
         $payload = [];
 
         if (null === $v = $this->departurePosition) {
-            throw new InvalidArgument(sprintf('Missing parameter "DeparturePosition" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "DeparturePosition" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;
@@ -513,7 +513,7 @@ final class CalculateRouteRequest extends Input
         }
 
         if (null === $v = $this->destinationPosition) {
-            throw new InvalidArgument(sprintf('Missing parameter "DestinationPosition" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "DestinationPosition" for "%s". The value cannot be null.', __CLASS__));
         }
 
         $index = -1;
@@ -539,7 +539,7 @@ final class CalculateRouteRequest extends Input
         }
         if (null !== $v = $this->travelMode) {
             if (!TravelMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
             }
             $payload['TravelMode'] = $v;
         }
@@ -551,7 +551,7 @@ final class CalculateRouteRequest extends Input
         }
         if (null !== $v = $this->distanceUnit) {
             if (!DistanceUnit::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "DistanceUnit" for "%s". The value "%s" is not a valid "DistanceUnit".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "DistanceUnit" for "%s". The value "%s" is not a valid "DistanceUnit".', __CLASS__, $v));
             }
             $payload['DistanceUnit'] = $v;
         }
@@ -569,7 +569,7 @@ final class CalculateRouteRequest extends Input
         }
         if (null !== $v = $this->optimizeFor) {
             if (!OptimizationMode::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "OptimizeFor" for "%s". The value "%s" is not a valid "OptimizationMode".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "OptimizeFor" for "%s". The value "%s" is not a valid "OptimizationMode".', __CLASS__, $v));
             }
             $payload['OptimizeFor'] = $v;
         }

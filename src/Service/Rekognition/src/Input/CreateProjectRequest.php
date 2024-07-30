@@ -170,18 +170,18 @@ final class CreateProjectRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->projectName) {
-            throw new InvalidArgument(sprintf('Missing parameter "ProjectName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "ProjectName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProjectName'] = $v;
         if (null !== $v = $this->feature) {
             if (!CustomizationFeature::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Feature" for "%s". The value "%s" is not a valid "CustomizationFeature".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Feature" for "%s". The value "%s" is not a valid "CustomizationFeature".', __CLASS__, $v));
             }
             $payload['Feature'] = $v;
         }
         if (null !== $v = $this->autoUpdate) {
             if (!ProjectAutoUpdate::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "AutoUpdate" for "%s". The value "%s" is not a valid "ProjectAutoUpdate".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "AutoUpdate" for "%s". The value "%s" is not a valid "ProjectAutoUpdate".', __CLASS__, $v));
             }
             $payload['AutoUpdate'] = $v;
         }

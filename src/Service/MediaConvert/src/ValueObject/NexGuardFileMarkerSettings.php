@@ -117,7 +117,7 @@ final class NexGuardFileMarkerSettings
         }
         if (null !== $v = $this->strength) {
             if (!WatermarkingStrength::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "strength" for "%s". The value "%s" is not a valid "WatermarkingStrength".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "strength" for "%s". The value "%s" is not a valid "WatermarkingStrength".', __CLASS__, $v));
             }
             $payload['strength'] = $v;
         }

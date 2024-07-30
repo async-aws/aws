@@ -194,7 +194,7 @@ final class Request
         $parsed = parse_url($endpoint);
 
         if (false === $parsed || !isset($parsed['scheme'], $parsed['host'])) {
-            throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $endpoint));
+            throw new InvalidArgument(\sprintf('The endpoint "%s" is invalid.', $endpoint));
         }
 
         $this->parsed = ['scheme' => $parsed['scheme'], 'host' => $parsed['host'], 'port' => $parsed['port'] ?? null];

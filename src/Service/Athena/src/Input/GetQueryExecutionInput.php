@@ -83,7 +83,7 @@ final class GetQueryExecutionInput extends Input
     {
         $payload = [];
         if (null === $v = $this->queryExecutionId) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueryExecutionId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "QueryExecutionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueryExecutionId'] = $v;
 

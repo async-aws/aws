@@ -127,19 +127,19 @@ final class TranslationSettings
         $payload = [];
         if (null !== $v = $this->formality) {
             if (!Formality::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Formality" for "%s". The value "%s" is not a valid "Formality".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Formality" for "%s". The value "%s" is not a valid "Formality".', __CLASS__, $v));
             }
             $payload['Formality'] = $v;
         }
         if (null !== $v = $this->profanity) {
             if (!Profanity::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Profanity" for "%s". The value "%s" is not a valid "Profanity".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Profanity" for "%s". The value "%s" is not a valid "Profanity".', __CLASS__, $v));
             }
             $payload['Profanity'] = $v;
         }
         if (null !== $v = $this->brevity) {
             if (!Brevity::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Brevity" for "%s". The value "%s" is not a valid "Brevity".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "Brevity" for "%s". The value "%s" is not a valid "Brevity".', __CLASS__, $v));
             }
             $payload['Brevity'] = $v;
         }

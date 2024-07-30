@@ -147,7 +147,7 @@ final class RepositoryTrigger
         foreach ($v as $listValue) {
             ++$index;
             if (!RepositoryTriggerEventEnum::exists($listValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "events" for "%s". The value "%s" is not a valid "RepositoryTriggerEventEnum".', __CLASS__, $listValue));
+                throw new InvalidArgument(\sprintf('Invalid parameter "events" for "%s". The value "%s" is not a valid "RepositoryTriggerEventEnum".', __CLASS__, $listValue));
             }
             $payload['events'][$index] = $listValue;
         }

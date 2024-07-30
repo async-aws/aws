@@ -83,7 +83,7 @@ final class GetWorkGroupInput extends Input
     {
         $payload = [];
         if (null === $v = $this->workGroup) {
-            throw new InvalidArgument(sprintf('Missing parameter "WorkGroup" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "WorkGroup" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['WorkGroup'] = $v;
 

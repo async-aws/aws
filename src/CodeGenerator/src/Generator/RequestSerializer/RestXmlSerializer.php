@@ -174,7 +174,7 @@ class RestXmlSerializer implements Serializer
                 return $this->dumpXmlShapeBoolean($member, $output, $input);
         }
 
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+        throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
     private function dumpXmlShapeStructure(Member $member, StructureShape $shape, string $output, string $input): string

@@ -160,7 +160,7 @@ final class DetectModerationLabelsRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->image) {
-            throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
         if (null !== $v = $this->minConfidence) {

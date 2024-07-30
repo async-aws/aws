@@ -83,6 +83,6 @@ final class Credentials implements CredentialProvider
             $expireDate = (new \DateTimeImmutable())->add($reference->diff($expireDate));
         }
 
-        return $expireDate->sub(new \DateInterval(sprintf('PT%dS', self::EXPIRATION_DRIFT)));
+        return $expireDate->sub(new \DateInterval(\sprintf('PT%dS', self::EXPIRATION_DRIFT)));
     }
 }

@@ -250,7 +250,7 @@ final class VideoCodecSettings
         }
         if (null !== $v = $this->codec) {
             if (!VideoCodec::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "codec" for "%s". The value "%s" is not a valid "VideoCodec".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "codec" for "%s". The value "%s" is not a valid "VideoCodec".', __CLASS__, $v));
             }
             $payload['codec'] = $v;
         }

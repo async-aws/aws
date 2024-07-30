@@ -119,7 +119,7 @@ final class VideoOverlayInput
         }
         if (null !== $v = $this->timecodeSource) {
             if (!InputTimecodeSource::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "timecodeSource" for "%s". The value "%s" is not a valid "InputTimecodeSource".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "timecodeSource" for "%s". The value "%s" is not a valid "InputTimecodeSource".', __CLASS__, $v));
             }
             $payload['timecodeSource'] = $v;
         }

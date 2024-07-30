@@ -117,7 +117,7 @@ final class TimecodeConfig
         }
         if (null !== $v = $this->source) {
             if (!TimecodeSource::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "source" for "%s". The value "%s" is not a valid "TimecodeSource".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "source" for "%s". The value "%s" is not a valid "TimecodeSource".', __CLASS__, $v));
             }
             $payload['source'] = $v;
         }

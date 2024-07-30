@@ -472,11 +472,11 @@ final class DeleteItemInput extends Input
     {
         $payload = [];
         if (null === $v = $this->tableName) {
-            throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
         if (null === $v = $this->key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
         if (empty($v)) {
@@ -499,25 +499,25 @@ final class DeleteItemInput extends Input
         }
         if (null !== $v = $this->conditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
             }
             $payload['ConditionalOperator'] = $v;
         }
         if (null !== $v = $this->returnValues) {
             if (!ReturnValue::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnValues" for "%s". The value "%s" is not a valid "ReturnValue".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnValues" for "%s". The value "%s" is not a valid "ReturnValue".', __CLASS__, $v));
             }
             $payload['ReturnValues'] = $v;
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
         if (null !== $v = $this->returnItemCollectionMetrics) {
             if (!ReturnItemCollectionMetrics::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
             }
             $payload['ReturnItemCollectionMetrics'] = $v;
         }
@@ -546,7 +546,7 @@ final class DeleteItemInput extends Input
         }
         if (null !== $v = $this->returnValuesOnConditionCheckFailure) {
             if (!ReturnValuesOnConditionCheckFailure::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
             }
             $payload['ReturnValuesOnConditionCheckFailure'] = $v;
         }

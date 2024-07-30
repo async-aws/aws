@@ -94,18 +94,18 @@ final class GetRoleCredentialsRequest extends Input
             'Accept' => 'application/json',
         ];
         if (null === $v = $this->accessToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "accessToken" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "accessToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $headers['x-amz-sso_bearer_token'] = $v;
 
         // Prepare query
         $query = [];
         if (null === $v = $this->roleName) {
-            throw new InvalidArgument(sprintf('Missing parameter "roleName" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "roleName" for "%s". The value cannot be null.', __CLASS__));
         }
         $query['role_name'] = $v;
         if (null === $v = $this->accountId) {
-            throw new InvalidArgument(sprintf('Missing parameter "accountId" for "%s". The value cannot be null.', __CLASS__));
+            throw new InvalidArgument(\sprintf('Missing parameter "accountId" for "%s". The value cannot be null.', __CLASS__));
         }
         $query['account_id'] = $v;
 
