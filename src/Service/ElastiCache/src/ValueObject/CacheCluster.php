@@ -50,9 +50,9 @@ final class CacheCluster
      *
      *     > For region availability, see Supported Node Types [^1]
      *
-     *     **M6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
-     *     onward): `cache.m6g.large`, `cache.m6g.xlarge`, `cache.m6g.2xlarge`, `cache.m6g.4xlarge`, `cache.m6g.8xlarge`,
-     *     `cache.m6g.12xlarge`, `cache.m6g.16xlarge`
+     *     **M6g node types** (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     *     1.5.16 onward): `cache.m6g.large`, `cache.m6g.xlarge`, `cache.m6g.2xlarge`, `cache.m6g.4xlarge`,
+     *     `cache.m6g.8xlarge`, `cache.m6g.12xlarge`, `cache.m6g.16xlarge`
      *
      *     **M5 node types:**`cache.m5.large`, `cache.m5.xlarge`, `cache.m5.2xlarge`, `cache.m5.4xlarge`,
      *     `cache.m5.12xlarge`, `cache.m5.24xlarge`
@@ -60,7 +60,7 @@ final class CacheCluster
      *     **M4 node types:**`cache.m4.large`, `cache.m4.xlarge`, `cache.m4.2xlarge`, `cache.m4.4xlarge`,
      *     `cache.m4.10xlarge`
      *
-     *     **T4g node types** (available only for Redis engine version 5.0.6 onward and Memcached engine version 1.5.16
+     *     **T4g node types** (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version 1.5.16
      *     onward): `cache.t4g.micro`, `cache.t4g.small`, `cache.t4g.medium`
      *
      *     **T3 node types:**`cache.t3.micro`, `cache.t3.small`, `cache.t3.medium`
@@ -91,9 +91,9 @@ final class CacheCluster
      *
      *     > For region availability, see Supported Node Types [^2]
      *
-     *     **R6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
-     *     onward): `cache.r6g.large`, `cache.r6g.xlarge`, `cache.r6g.2xlarge`, `cache.r6g.4xlarge`, `cache.r6g.8xlarge`,
-     *     `cache.r6g.12xlarge`, `cache.r6g.16xlarge`
+     *     **R6g node types** (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     *     1.5.16 onward): `cache.r6g.large`, `cache.r6g.xlarge`, `cache.r6g.2xlarge`, `cache.r6g.4xlarge`,
+     *     `cache.r6g.8xlarge`, `cache.r6g.12xlarge`, `cache.r6g.16xlarge`
      *
      *     **R5 node types:**`cache.r5.large`, `cache.r5.xlarge`, `cache.r5.2xlarge`, `cache.r5.4xlarge`,
      *     `cache.r5.12xlarge`, `cache.r5.24xlarge`
@@ -111,9 +111,10 @@ final class CacheCluster
      * **Additional node type info**
      *
      * - All current generation instance types are created in Amazon VPC by default.
-     * - Redis append-only files (AOF) are not supported for T1 or T2 instances.
-     * - Redis Multi-AZ with automatic failover is not supported on T1 instances.
-     * - Redis configuration variables `appendonly` and `appendfsync` are not supported on Redis version 2.8.22 and later.
+     * - Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
+     * - Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
+     * - Redis OSS configuration variables `appendonly` and `appendfsync` are not supported on Redis OSS version 2.8.22 and
+     *   later.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
      * [^2]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
@@ -147,8 +148,8 @@ final class CacheCluster
     /**
      * The number of cache nodes in the cluster.
      *
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1 and
-     * 40.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between 1
+     * and 40.
      *
      * @var int|null
      */
@@ -238,8 +239,8 @@ final class CacheCluster
     private $cacheNodes;
 
     /**
-     *  If you are running Redis engine version 6.0 or later, set this parameter to yes if you want to opt-in to the next
-     * auto minor version upgrade campaign. This parameter is disabled for previous versions. .
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. .
      *
      * @var bool|null
      */
@@ -280,7 +281,7 @@ final class CacheCluster
     private $snapshotWindow;
 
     /**
-     * A flag that enables using an `AuthToken` (password) when issuing Redis commands.
+     * A flag that enables using an `AuthToken` (password) when issuing Redis OSS commands.
      *
      * Default: `false`
      *
@@ -298,8 +299,8 @@ final class CacheCluster
     /**
      * A flag that enables in-transit encryption when set to `true`.
      *
-     * **Required:** Only available when creating a replication group in an Amazon VPC using redis version `3.2.6`, `4.x` or
-     * later.
+     * **Required:** Only available when creating a replication group in an Amazon VPC using Redis OSS version `3.2.6`,
+     * `4.x` or later.
      *
      * Default: `false`
      *
@@ -313,8 +314,8 @@ final class CacheCluster
      * You cannot modify the value of `AtRestEncryptionEnabled` after the cluster is created. To enable at-rest encryption
      * on a cluster you must set `AtRestEncryptionEnabled` to `true` when you create a cluster.
      *
-     * **Required:** Only available when creating a replication group in an Amazon VPC using redis version `3.2.6`, `4.x` or
-     * later.
+     * **Required:** Only available when creating a replication group in an Amazon VPC using Redis OSS version `3.2.6`,
+     * `4.x` or later.
      *
      * Default: `false`
      *
@@ -344,8 +345,8 @@ final class CacheCluster
     private $logDeliveryConfigurations;
 
     /**
-     * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Redis engine version 6.2 onward
-     * or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
+     * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Redis OSS engine version 6.2
+     * onward or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
@@ -354,7 +355,7 @@ final class CacheCluster
     private $networkType;
 
     /**
-     * The network type associated with the cluster, either `ipv4` | `ipv6`. IPv6 is supported for workloads using Redis
+     * The network type associated with the cluster, either `ipv4` | `ipv6`. IPv6 is supported for workloads using Redis OSS
      * engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
