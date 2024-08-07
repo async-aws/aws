@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `PasswordHistoryPolicyViolationException` exception.
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.

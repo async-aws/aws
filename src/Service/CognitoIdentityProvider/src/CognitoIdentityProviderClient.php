@@ -25,6 +25,7 @@ use AsyncAws\CognitoIdentityProvider\Exception\InvalidUserPoolConfigurationExcep
 use AsyncAws\CognitoIdentityProvider\Exception\LimitExceededException;
 use AsyncAws\CognitoIdentityProvider\Exception\MFAMethodNotFoundException;
 use AsyncAws\CognitoIdentityProvider\Exception\NotAuthorizedException;
+use AsyncAws\CognitoIdentityProvider\Exception\PasswordHistoryPolicyViolationException;
 use AsyncAws\CognitoIdentityProvider\Exception\PasswordResetRequiredException;
 use AsyncAws\CognitoIdentityProvider\Exception\PreconditionNotMetException;
 use AsyncAws\CognitoIdentityProvider\Exception\ResourceNotFoundException;
@@ -160,14 +161,12 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * This IAM-authenticated API operation provides a code that Amazon Cognito sent to your user when they signed up in
-     * your user pool. After your user enters their code, they confirm ownership of the email address or phone number that
-     * they provided, and their user account becomes active. Depending on your user pool configuration, your users will
-     * receive their confirmation code in an email or SMS message.
+     * This IAM-authenticated API operation confirms user sign-up as an administrator. Unlike ConfirmSignUp [^1], your IAM
+     * credentials authorize user account confirmation. No confirmation code is required.
      *
-     * Local users who signed up in your user pool are the only type of user who can confirm sign-up with a code. Users who
-     * federate through an external identity provider (IdP) have already been confirmed by their IdP. Administrator-created
-     * users confirm their accounts when they respond to their invitation email message and choose a password.
+     * This request sets a user account active in a user pool that requires confirmation of new user accounts [^2] before
+     * they can sign in. You can configure your user pool to not send confirmation codes to new users and instead confirm
+     * them with this API operation on the back end.
      *
      * > Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this
      * > operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM
@@ -175,12 +174,14 @@ class CognitoIdentityProviderClient extends AbstractApi
      * >
      * > **Learn more**
      * >
-     * > - Signing Amazon Web Services API Requests [^1]
-     * > - Using the Amazon Cognito user pools API and user pool endpoints [^2]
+     * > - Signing Amazon Web Services API Requests [^3]
+     * > - Using the Amazon Cognito user pools API and user pool endpoints [^4]
      * >
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
-     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#signing-up-users-in-your-app-and-confirming-them-as-admin
+     * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminConfirmSignUp.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminconfirmsignup
@@ -783,6 +784,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws TooManyRequestsException
      * @throws InvalidParameterException
      * @throws InvalidPasswordException
+     * @throws PasswordHistoryPolicyViolationException
      */
     public function adminSetUserPassword($input): AdminSetUserPasswordResponse
     {
@@ -795,6 +797,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'TooManyRequestsException' => TooManyRequestsException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidPasswordException' => InvalidPasswordException::class,
+            'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
         ]]));
 
         return new AdminSetUserPasswordResponse($response);
@@ -954,7 +957,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * > Amazon Cognito disassociates an existing software token when you verify the new token in a VerifySoftwareToken [^1]
      * > API request. If you don't verify the software token and your user pool doesn't require MFA, the user can then
      * > authenticate with user name and password credentials alone. If your user pool requires TOTP MFA, Amazon Cognito
-     * > generates an `MFA_SETUP` or `SOFTWARE_TOKEN_SETUP` challenge each time your user signs. Complete setup with
+     * > generates an `MFA_SETUP` or `SOFTWARE_TOKEN_SETUP` challenge each time your user signs in. Complete setup with
      * > `AssociateSoftwareToken` and `VerifySoftwareToken`.
      * >
      * > After you set up software token MFA for your user, Amazon Cognito generates a `SOFTWARE_TOKEN_MFA` challenge when
@@ -1027,6 +1030,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws InvalidParameterException
      * @throws InvalidPasswordException
+     * @throws PasswordHistoryPolicyViolationException
      * @throws NotAuthorizedException
      * @throws TooManyRequestsException
      * @throws LimitExceededException
@@ -1043,6 +1047,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidPasswordException' => InvalidPasswordException::class,
+            'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'LimitExceededException' => LimitExceededException::class,
@@ -1086,6 +1091,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserLambdaValidationException
      * @throws InvalidParameterException
      * @throws InvalidPasswordException
+     * @throws PasswordHistoryPolicyViolationException
      * @throws NotAuthorizedException
      * @throws CodeMismatchException
      * @throws ExpiredCodeException
@@ -1107,6 +1113,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UserLambdaValidationException' => UserLambdaValidationException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidPasswordException' => InvalidPasswordException::class,
+            'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
             'CodeMismatchException' => CodeMismatchException::class,
             'ExpiredCodeException' => ExpiredCodeException::class,
@@ -1698,6 +1705,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UnexpectedLambdaException
      * @throws UserLambdaValidationException
      * @throws InvalidPasswordException
+     * @throws PasswordHistoryPolicyViolationException
      * @throws InvalidLambdaResponseException
      * @throws TooManyRequestsException
      * @throws InvalidUserPoolConfigurationException
@@ -1724,6 +1732,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
             'UserLambdaValidationException' => UserLambdaValidationException::class,
             'InvalidPasswordException' => InvalidPasswordException::class,
+            'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
