@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Advanced security feature updates to include password history and log export for Cognito user pools.
+- AWS api-change: Added `PasswordHistoryPolicyViolationException` exception.
 
 ### Changed
 
