@@ -26,7 +26,7 @@ class SignUpResponse extends Result
     private $codeDeliveryDetails;
 
     /**
-     * The UUID of the authenticated user. This isn't the same as `username`.
+     * The 128-bit ID of the authenticated user. This isn't the same as `username`.
      *
      * @var string
      */

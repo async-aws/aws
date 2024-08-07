@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Advanced security feature updates to include password history and log export for Cognito user pools.
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.
