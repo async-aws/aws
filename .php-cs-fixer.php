@@ -6,7 +6,7 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return (new PhpCsFixer\Config())
-    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect(null, 300))
     ->setCacheFile(__DIR__.'/.cache/php-cs-fixer/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
