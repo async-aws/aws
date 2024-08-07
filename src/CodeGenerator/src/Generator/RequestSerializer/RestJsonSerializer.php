@@ -43,16 +43,26 @@ class RestJsonSerializer implements Serializer
         $this->requirementsRegistry = $requirementsRegistry;
     }
 
-    public function getHeaders(Operation $operation, bool $withPayload): string
+    public function getHeaders(Operation $operation, bool $requestPayload, bool $responsePayload): string
     {
-        if (!$withPayload) {
-            return "['Accept' => 'application/json']";
+        $headers = [];
+        if ($requestPayload) {
+            $headers[] = "'Content-Type' => 'application/json'";
+        }
+        if ($responsePayload) {
+            $headers[] = "'Accept' => 'application/json'";
         }
 
-        return "[
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-        ]";
+        switch (count($headers)) {
+            case 0:
+                return '[]';
+            case 1:
+                return '['.$headers[0].']';
+            default:
+                return '[
+                    '.implode(",\n", $headers).'
+                ]';
+        }
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): SerializerResultBody

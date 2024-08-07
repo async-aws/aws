@@ -388,11 +388,9 @@ class InputGenerator
     {
         $serializer = $this->serializer->get($operation->getService());
 
-        if ((null !== $payloadProperty = $inputShape->getPayload()) && $inputShape->getMember($payloadProperty)->isStreaming()) {
-            $body['header'] = '$headers = ' . $serializer->getHeaders($operation, false) . ';' . "\n";
-        } else {
-            $body['header'] = '$headers = ' . $serializer->getHeaders($operation, true) . ';' . "\n";
-        }
+        $requestPayload = (null === $payloadProperty = $inputShape->getPayload()) || !$inputShape->getMember($payloadProperty)->isStreaming();
+        $bodyPayload = $operation->getOutput() !== null;
+        $body['header'] = '$headers = ' . $serializer->getHeaders($operation, $requestPayload, $bodyPayload) . ';' . "\n";
 
         $body['querystring'] = '$query = [];' . "\n";
 

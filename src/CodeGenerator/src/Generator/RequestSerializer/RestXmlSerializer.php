@@ -40,9 +40,9 @@ class RestXmlSerializer implements Serializer
         $this->requirementsRegistry = $requirementsRegistry;
     }
 
-    public function getHeaders(Operation $operation, bool $withPayload): string
+    public function getHeaders(Operation $operation, bool $requestPayload, bool $responsePayload): string
     {
-        if (!$withPayload) {
+        if (!$requestPayload) {
             return '[]';
         }
 
