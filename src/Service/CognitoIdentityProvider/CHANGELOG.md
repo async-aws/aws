@@ -9,6 +9,7 @@
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.
+- AWS enhancement: Documentation updates.
 
 ## 1.8.1
 
