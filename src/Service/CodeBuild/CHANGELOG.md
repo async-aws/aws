@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: AWS CodeBuild now supports using Secrets Manager to store git credentials and using multiple source credentials in a single project.
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.
