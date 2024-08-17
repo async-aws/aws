@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Amazon Simple Storage Service / Features : Adds support for pagination in the S3 ListBuckets API.
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.

@@ -109,10 +109,15 @@ class S3Client extends AbstractApi
      * To verify that all parts have been removed and prevent getting charged for the part storage, you should call the
      * ListParts [^1] API operation and ensure that the parts list is empty.
      *
-     * > **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal endpoint.
-     * > These endpoints support virtual-hosted-style requests in the format
-     * > `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not supported.
-     * > For more information, see Regional and Zonal endpoints [^2] in the *Amazon S3 User Guide*.
+     * > - **Directory buckets** - If multipart uploads in a directory bucket are in progress, you can't delete the bucket
+     * >   until all the in-progress multipart uploads are aborted or completed. To delete these in-progress multipart
+     * >   uploads, use the `ListMultipartUploads` operation to list the in-progress multipart uploads in the bucket and use
+     * >   the `AbortMultupartUpload` operation to abort all the in-progress multipart uploads.
+     * > - **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal
+     * >   endpoint. These endpoints support virtual-hosted-style requests in the format
+     * >   `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
+     * >   supported. For more information, see Regional and Zonal endpoints [^2] in the *Amazon S3 User Guide*.
+     * >
      *
      * - `Permissions`:
      *
@@ -354,10 +359,15 @@ class S3Client extends AbstractApi
      * You can copy individual objects between general purpose buckets, between directory buckets, and between general
      * purpose buckets and directory buckets.
      *
-     * > **Directory buckets ** - For directory buckets, you must make requests for this API operation to the Zonal
-     * > endpoint. These endpoints support virtual-hosted-style requests in the format
-     * > `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not supported.
-     * > For more information, see Regional and Zonal endpoints [^2] in the *Amazon S3 User Guide*.
+     * > - Amazon S3 supports copy operations using Multi-Region Access Points only as a destination when using the
+     * >   Multi-Region Access Point ARN.
+     * > - **Directory buckets ** - For directory buckets, you must make requests for this API operation to the Zonal
+     * >   endpoint. These endpoints support virtual-hosted-style requests in the format
+     * >   `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
+     * >   supported. For more information, see Regional and Zonal endpoints [^2] in the *Amazon S3 User Guide*.
+     * > - VPC endpoints don't support cross-Region requests (including copies). If you're using VPC endpoints, your source
+     * >   and destination buckets should be in the same Amazon Web Services Region as your VPC endpoint.
+     * >
      *
      * Both the Region that you want to copy the object from and the Region that you want to copy the object to must be
      * enabled for your account. For more information about how to enable a Region for your account, see Enable or disable a
@@ -1510,23 +1520,19 @@ class S3Client extends AbstractApi
      * The `HEAD` operation retrieves metadata from an object without returning the object itself. This operation is useful
      * if you're interested only in an object's metadata.
      *
-     * A `HEAD` request has the same options as a `GET` operation on an object. The response is identical to the `GET`
-     * response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns
-     * a generic code, such as `400 Bad Request`, `403 Forbidden`, `404 Not Found`, `405 Method Not Allowed`, `412
-     * Precondition Failed`, or `304 Not Modified`. It's not possible to retrieve the exact exception of these error codes.
+     * > A `HEAD` request has the same options as a `GET` operation on an object. The response is identical to the `GET`
+     * > response except that there is no response body. Because of this, if the `HEAD` request generates an error, it
+     * > returns a generic code, such as `400 Bad Request`, `403 Forbidden`, `404 Not Found`, `405 Method Not Allowed`, `412
+     * > Precondition Failed`, or `304 Not Modified`. It's not possible to retrieve the exact exception of these error
+     * > codes.
      *
      * Request headers are limited to 8 KB in size. For more information, see Common Request Headers [^1].
-     *
-     * > **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal endpoint.
-     * > These endpoints support virtual-hosted-style requests in the format
-     * > `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not supported.
-     * > For more information, see Regional and Zonal endpoints [^2] in the *Amazon S3 User Guide*.
      *
      * - `Permissions`:
      *
      *   - **General purpose bucket permissions** - To use `HEAD`, you must have the `s3:GetObject` permission. You need the
      *     relevant read object (or version) permission for this operation. For more information, see Actions, resources,
-     *     and condition keys for Amazon S3 [^3] in the *Amazon S3 User Guide*.
+     *     and condition keys for Amazon S3 [^2] in the *Amazon S3 User Guide*.
      *
      *     If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the
      *     `s3:ListBucket` permission.
@@ -1537,13 +1543,13 @@ class S3Client extends AbstractApi
      *       error.
      *
      *   - **Directory bucket permissions** - To grant access to this API operation on a directory bucket, we recommend that
-     *     you use the `CreateSession` [^4] API operation for session-based authorization. Specifically, you grant the
+     *     you use the `CreateSession` [^3] API operation for session-based authorization. Specifically, you grant the
      *     `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy.
      *     Then, you make the `CreateSession` API call on the bucket to obtain a session token. With the session token in
      *     your request header, you can make API requests to this operation. After the session token expires, you make
      *     another `CreateSession` API call to generate a new session token for use. Amazon Web Services CLI or SDKs create
      *     session and refresh the session token automatically to avoid service interruptions when a session expires. For
-     *     more information about authorization, see `CreateSession` [^5].
+     *     more information about authorization, see `CreateSession` [^4].
      *
      * - `Encryption`:
      *
@@ -1563,7 +1569,7 @@ class S3Client extends AbstractApi
      *   - `x-amz-server-side-encryption-customer-key`
      *   - `x-amz-server-side-encryption-customer-key-MD5`
      *
-     *   For more information about SSE-C, see Server-Side Encryption (Using Customer-Provided Encryption Keys) [^6] in the
+     *   For more information about SSE-C, see Server-Side Encryption (Using Customer-Provided Encryption Keys) [^5] in the
      *   *Amazon S3 User Guide*.
      *
      *   > **Directory bucket permissions** - For directory buckets, only server-side encryption with Amazon S3 managed keys
@@ -1586,17 +1592,23 @@ class S3Client extends AbstractApi
      *
      *   **Directory buckets ** - The HTTP Host header syntax is `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`.
      *
+     *   > For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints
+     *   > support virtual-hosted-style requests in the format
+     *   > `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
+     *   > supported. For more information, see Regional and Zonal endpoints [^6] in the *Amazon S3 User Guide*.
+     *
+     *
      * The following actions are related to `HeadObject`:
      *
      * - GetObject [^7]
      * - GetObjectAttributes [^8]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
      *
@@ -1657,6 +1669,8 @@ class S3Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listbuckets
      *
      * @param array{
+     *   MaxBuckets?: null|int,
+     *   ContinuationToken?: null|string,
      *   '@region'?: string|null,
      * }|ListBucketsRequest $input
      */
@@ -1665,7 +1679,7 @@ class S3Client extends AbstractApi
         $input = ListBucketsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListBuckets', 'region' => $input->getRegion()]));
 
-        return new ListBucketsOutput($response);
+        return new ListBucketsOutput($response, $this, $input);
     }
 
     /**
@@ -1673,7 +1687,9 @@ class S3Client extends AbstractApi
      * that has been initiated by the `CreateMultipartUpload` request, but has not yet been completed or aborted.
      *
      * > **Directory buckets** - If multipart uploads in a directory bucket are in progress, you can't delete the bucket
-     * > until all the in-progress multipart uploads are aborted or completed.
+     * > until all the in-progress multipart uploads are aborted or completed. To delete these in-progress multipart
+     * > uploads, use the `ListMultipartUploads` operation to list the in-progress multipart uploads in the bucket and use
+     * > the `AbortMultupartUpload` operation to abort all the in-progress multipart uploads.
      *
      * The `ListMultipartUploads` operation returns a maximum of 1,000 multipart uploads in the response. The limit of 1,000
      * multipart uploads is also the default value. You can further limit the number of uploads in a response by specifying
@@ -1829,10 +1845,15 @@ class S3Client extends AbstractApi
      * information about listing objects, see Listing object keys programmatically [^1] in the *Amazon S3 User Guide*. To
      * get a list of your buckets, see ListBuckets [^2].
      *
-     * > **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal endpoint.
-     * > These endpoints support virtual-hosted-style requests in the format
-     * > `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not supported.
-     * > For more information, see Regional and Zonal endpoints [^3] in the *Amazon S3 User Guide*.
+     * > - **General purpose bucket** - For general purpose buckets, `ListObjectsV2` doesn't return prefixes that are
+     * >   related only to in-progress multipart uploads.
+     * > - **Directory buckets** - For directory buckets, `ListObjectsV2` response includes the prefixes that are related
+     * >   only to in-progress multipart uploads.
+     * > - **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal
+     * >   endpoint. These endpoints support virtual-hosted-style requests in the format
+     * >   `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
+     * >   supported. For more information, see Regional and Zonal endpoints [^3] in the *Amazon S3 User Guide*.
+     * >
      *
      * - `Permissions`:
      *
