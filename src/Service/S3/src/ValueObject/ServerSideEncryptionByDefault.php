@@ -12,6 +12,10 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
  * account the first time that you add an object encrypted with SSE-KMS to a bucket. By default, Amazon S3 uses this KMS
  * key for SSE-KMS. For more information, see PUT Bucket encryption [^1] in the *Amazon S3 API Reference*.
  *
+ * > If you're specifying a customer managed KMS key, we recommend using a fully qualified KMS key ARN. If you use a KMS
+ * > key alias instead, then KMS resolves the key within the requester’s account. This behavior can result in data
+ * > that's encrypted with a KMS key that belongs to the requester, and not the bucket owner.
+ *
  * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTencryption.html
  */
 final class ServerSideEncryptionByDefault
