@@ -581,7 +581,7 @@ class S3ClientTest extends TestCase
         self::assertSame('FakeS3', $result->getOwner()->getDisplayName());
         $buckets = array_map(static function (Bucket $bucket): string {
             return $bucket->getName();
-        }, $result->getBuckets());
+        }, iterator_to_array($result->getBuckets(true)));
 
         self::assertContains('test-list', $buckets);
     }

@@ -28,9 +28,10 @@ class ListBucketsOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListBucketsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new S3Client(), new ListBucketsRequest([]));
 
-        self::assertCount(1, $result->getBuckets());
+        $buckets = iterator_to_array($result->getBuckets(true));
+        self::assertCount(1, $buckets);
 
-        $firstBucket = $result->getBuckets()[0];
+        $firstBucket = $buckets[0];
 
         self::assertInstanceOf(Bucket::class, $firstBucket);
         self::assertSame('examplebucket', $firstBucket->getName());
