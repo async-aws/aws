@@ -12,11 +12,14 @@ use AsyncAws\Lambda\Enum\Runtime;
 final class ListLayerVersionsRequest extends Input
 {
     /**
-     * A runtime identifier. For example, `java21`.
+     * A runtime identifier.
      *
-     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^1].
+     * The following list includes deprecated runtimes. For more information, see Runtime use after deprecation [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+     * For a list of all currently supported runtimes, see Supported runtimes [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported
      *
      * @var Runtime::*|null
      */
