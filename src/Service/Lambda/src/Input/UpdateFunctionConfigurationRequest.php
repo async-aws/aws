@@ -102,11 +102,16 @@ final class UpdateFunctionConfigurationRequest extends Input
 
     /**
      * The identifier of the function's runtime [^1]. Runtime is required if the deployment package is a .zip file archive.
+     * Specifying a runtime results in an error if you're deploying a function using a container image.
      *
-     * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^2].
+     * The following list includes deprecated runtimes. Lambda blocks creating new functions and updating existing functions
+     * shortly after each runtime is deprecated. For more information, see Runtime use after deprecation [^2].
+     *
+     * For a list of all currently supported runtimes, see Supported runtimes [^3].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
-     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels
+     * [^3]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported
      *
      * @var Runtime::*|null
      */
