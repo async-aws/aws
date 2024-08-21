@@ -244,8 +244,10 @@ final class HeadObjectRequest extends Input
     /**
      * To retrieve the checksum, this parameter must be enabled.
      *
-     * In addition, if you enable `ChecksumMode` and the object is encrypted with Amazon Web Services Key Management Service
-     * (Amazon Web Services KMS), you must have permission to use the `kms:Decrypt` action for the request to succeed.
+     * In addition, if you enable checksum mode and the object is uploaded with a checksum [^1] and encrypted with an Key
+     * Management Service (KMS) key, you must have permission to use the `kms:Decrypt` action to retrieve the checksum.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_Checksum.html
      *
      * @var ChecksumMode::*|null
      */
