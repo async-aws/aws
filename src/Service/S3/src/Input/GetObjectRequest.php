@@ -290,6 +290,11 @@ final class GetObjectRequest extends Input
     /**
      * To retrieve the checksum, this mode must be enabled.
      *
+     * In addition, if you enable checksum mode and the object is uploaded with a checksum [^1] and encrypted with an Key
+     * Management Service (KMS) key, you must have permission to use the `kms:Decrypt` action to retrieve the checksum.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_Checksum.html
+     *
      * @var ChecksumMode::*|null
      */
     private $checksumMode;
