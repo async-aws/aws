@@ -130,9 +130,9 @@ class LambdaClient extends AbstractApi
      * Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all
      * versions and aliases are deleted. This doesn't require the user to have explicit permissions for DeleteAlias.
      *
-     * To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping. For Amazon Web Services
-     * and resources that invoke your function directly, delete the trigger in the service where you originally configured
-     * it.
+     * To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping. For Amazon Web
+     * Servicesservices and resources that invoke your function directly, delete the trigger in the service where you
+     * originally configured it.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_DeleteFunction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#deletefunction
@@ -485,7 +485,7 @@ class LambdaClient extends AbstractApi
      * the configuration of a published version, only the unpublished version.
      *
      * To configure function concurrency, use PutFunctionConcurrency. To grant invoke permissions to an Amazon Web Services
-     * account or Amazon Web Service, use AddPermission.
+     * account or Amazon Web Servicesservice, use AddPermission.
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html
      *
