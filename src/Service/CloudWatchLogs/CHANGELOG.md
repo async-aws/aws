@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `ap-southeast-5` region
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.

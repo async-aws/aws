@@ -316,6 +316,7 @@ class CloudWatchLogsClient extends AbstractApi
             case 'ap-southeast-2':
             case 'ap-southeast-3':
             case 'ap-southeast-4':
+            case 'ap-southeast-5':
             case 'ca-central-1':
             case 'ca-west-1':
             case 'eu-central-1':

@@ -6,6 +6,7 @@
 
 - AWS api-change: Amazon Simple Storage Service / Features : Adds support for pagination in the S3 ListBuckets API.
 - AWS api-change: Amazon Simple Storage Service / Features : Add support for conditional writes for PutObject and CompleteMultipartUpload APIs.
+- AWS api-change: Added `ap-southeast-5` region
 
 ### Changed
 
