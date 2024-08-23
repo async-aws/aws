@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `ap-southeast-5` and `ap-southeast-5-fips` regions
 
 ### Changed
 
