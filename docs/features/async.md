@@ -204,3 +204,24 @@ Name 5: 3s
 Name 0: 4s
 Name 1: 4s
 ```
+
+Note that if you do not need to use the result of the HTTP calls, you can skip `Result::wait()`. For example:
+
+```php
+use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\Lambda\Input\InvocationRequest;
+
+function foo() {
+    $lambda = new LambdaClient();
+
+    $results = [];
+    for ($i = 0; $i < 10; ++$i) {
+        $results[] = $lambda->invoke(new InvocationRequest([
+            'FunctionName' => 'app-dev-hello_world',
+            'Payload' => "{\"name\": $i}",
+        ]));
+    }
+}
+```
+
+By holding all results in the `$results` array, we prevent destructing each response immediately. When `$results` is destructed (at the end of the function), all pending HTTP requests will be awaited.
