@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatchLogs\Input;
 
+use AsyncAws\CloudWatchLogs\ValueObject\Entity;
 use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
@@ -49,11 +50,19 @@ final class PutLogEventsRequest extends Input
     private $sequenceToken;
 
     /**
+     * Reserved for future use.
+     *
+     * @var Entity|null
+     */
+    private $entity;
+
+    /**
      * @param array{
      *   logGroupName?: string,
      *   logStreamName?: string,
      *   logEvents?: array<InputLogEvent|array>,
      *   sequenceToken?: null|string,
+     *   entity?: null|Entity|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,6 +72,7 @@ final class PutLogEventsRequest extends Input
         $this->logStreamName = $input['logStreamName'] ?? null;
         $this->logEvents = isset($input['logEvents']) ? array_map([InputLogEvent::class, 'create'], $input['logEvents']) : null;
         $this->sequenceToken = $input['sequenceToken'] ?? null;
+        $this->entity = isset($input['entity']) ? Entity::create($input['entity']) : null;
         parent::__construct($input);
     }
 
@@ -72,12 +82,18 @@ final class PutLogEventsRequest extends Input
      *   logStreamName?: string,
      *   logEvents?: array<InputLogEvent|array>,
      *   sequenceToken?: null|string,
+     *   entity?: null|Entity|array,
      *   '@region'?: string|null,
      * }|PutLogEventsRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getEntity(): ?Entity
+    {
+        return $this->entity;
     }
 
     /**
@@ -127,6 +143,13 @@ final class PutLogEventsRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setEntity(?Entity $value): self
+    {
+        $this->entity = $value;
+
+        return $this;
     }
 
     /**
@@ -184,6 +207,9 @@ final class PutLogEventsRequest extends Input
 
         if (null !== $v = $this->sequenceToken) {
             $payload['sequenceToken'] = $v;
+        }
+        if (null !== $v = $this->entity) {
+            $payload['entity'] = $v->requestBody();
         }
 
         return $payload;
