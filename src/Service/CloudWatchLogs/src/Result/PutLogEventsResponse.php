@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatchLogs\Result;
 
+use AsyncAws\CloudWatchLogs\ValueObject\RejectedEntityInfo;
 use AsyncAws\CloudWatchLogs\ValueObject\RejectedLogEventsInfo;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
@@ -28,11 +29,25 @@ class PutLogEventsResponse extends Result
      */
     private $rejectedLogEventsInfo;
 
+    /**
+     * Reserved for future use.
+     *
+     * @var RejectedEntityInfo|null
+     */
+    private $rejectedEntityInfo;
+
     public function getNextSequenceToken(): ?string
     {
         $this->initialize();
 
         return $this->nextSequenceToken;
+    }
+
+    public function getRejectedEntityInfo(): ?RejectedEntityInfo
+    {
+        $this->initialize();
+
+        return $this->rejectedEntityInfo;
     }
 
     public function getRejectedLogEventsInfo(): ?RejectedLogEventsInfo
@@ -48,6 +63,14 @@ class PutLogEventsResponse extends Result
 
         $this->nextSequenceToken = isset($data['nextSequenceToken']) ? (string) $data['nextSequenceToken'] : null;
         $this->rejectedLogEventsInfo = empty($data['rejectedLogEventsInfo']) ? null : $this->populateResultRejectedLogEventsInfo($data['rejectedLogEventsInfo']);
+        $this->rejectedEntityInfo = empty($data['rejectedEntityInfo']) ? null : $this->populateResultRejectedEntityInfo($data['rejectedEntityInfo']);
+    }
+
+    private function populateResultRejectedEntityInfo(array $json): RejectedEntityInfo
+    {
+        return new RejectedEntityInfo([
+            'errorType' => (string) $json['errorType'],
+        ]);
     }
 
     private function populateResultRejectedLogEventsInfo(array $json): RejectedLogEventsInfo

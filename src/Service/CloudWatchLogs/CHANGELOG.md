@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `ap-southeast-5` region
+- AWS api-change: This release introduces a new optional parameter: Entity, in PutLogEvents request
 
 ### Changed
 

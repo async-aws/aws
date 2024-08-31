@@ -21,6 +21,7 @@ use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\FilterLogEventsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
+use AsyncAws\CloudWatchLogs\ValueObject\Entity;
 use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
@@ -268,6 +269,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   logStreamName: string,
      *   logEvents: array<InputLogEvent|array>,
      *   sequenceToken?: null|string,
+     *   entity?: null|Entity|array,
      *   '@region'?: string|null,
      * }|PutLogEventsRequest $input
      *

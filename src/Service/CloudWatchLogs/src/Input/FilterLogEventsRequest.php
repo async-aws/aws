@@ -30,7 +30,7 @@ final class FilterLogEventsRequest extends Input
     /**
      * Filters the results to only logs from the log streams in this list.
      *
-     * If you specify a value for both `logStreamNamePrefix` and `logStreamNames`, the action returns an
+     * If you specify a value for both `logStreamNames` and `logStreamNamePrefix`, the action returns an
      * `InvalidParameterException` error.
      *
      * @var string[]|null
@@ -40,9 +40,8 @@ final class FilterLogEventsRequest extends Input
     /**
      * Filters the results to include only events from log streams that have names starting with this prefix.
      *
-     * If you specify a value for both `logStreamNamePrefix` and `logStreamNames`, but the value for `logStreamNamePrefix`
-     * does not match any log stream names specified in `logStreamNames`, the action returns an `InvalidParameterException`
-     * error.
+     * If you specify a value for both `logStreamNamePrefix` and `logStreamNames`, the action returns an
+     * `InvalidParameterException` error.
      *
      * @var string|null
      */
