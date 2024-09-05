@@ -30,7 +30,7 @@ class PutLogEventsResponse extends Result
     private $rejectedLogEventsInfo;
 
     /**
-     * Reserved for future use.
+     * Reserved for internal use.
      *
      * @var RejectedEntityInfo|null
      */
