@@ -3,19 +3,19 @@
 namespace AsyncAws\CloudWatchLogs\ValueObject;
 
 /**
- * Reserved for future use.
+ * Reserved for internal use.
  */
 final class Entity
 {
     /**
-     * Reserved for future use.
+     * Reserved for internal use.
      *
      * @var array<string, string>|null
      */
     private $keyAttributes;
 
     /**
-     * Reserved for future use.
+     * Reserved for internal use.
      *
      * @var array<string, string>|null
      */

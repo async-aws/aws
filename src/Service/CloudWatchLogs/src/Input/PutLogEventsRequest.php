@@ -50,7 +50,7 @@ final class PutLogEventsRequest extends Input
     private $sequenceToken;
 
     /**
-     * Reserved for future use.
+     * Reserved for internal use.
      *
      * @var Entity|null
      */

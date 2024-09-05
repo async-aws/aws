@@ -6,12 +6,12 @@ use AsyncAws\CloudWatchLogs\Enum\EntityRejectionErrorType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Reserved for future use.
+ * Reserved for internal use.
  */
 final class RejectedEntityInfo
 {
     /**
-     * Reserved for future use.
+     * Reserved for internal use.
      *
      * @var EntityRejectionErrorType::*
      */
