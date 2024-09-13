@@ -3,24 +3,25 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The type used for enabling SMS multi-factor authentication (MFA) at the user level. Phone numbers don't need to be
- * verified to be used for SMS MFA. If an MFA type is activated for a user, the user will be prompted for MFA during all
- * sign-in attempts, unless device tracking is turned on and the device has been trusted. If you would like MFA to be
- * applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on
- * Adaptive Authentication for the user pool.
+ * User preferences for multi-factor authentication with email messages. Activates or deactivates email MFA and sets it
+ * as the preferred MFA method when multiple methods are available. To activate this setting, advanced security features
+ * [^1] must be active in your user pool.
+ *
+ * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html
  */
-final class SMSMfaSettingsType
+final class EmailMfaSettingsType
 {
     /**
-     * Specifies whether SMS message MFA is activated. If an MFA type is activated for a user, the user will be prompted for
-     * MFA during all sign-in attempts, unless device tracking is turned on and the device has been trusted.
+     * Specifies whether email message MFA is active for a user. When the value of this parameter is `Enabled`, the user
+     * will be prompted for MFA during all sign-in attempts, unless device tracking is turned on and the device has been
+     * trusted.
      *
      * @var bool|null
      */
     private $enabled;
 
     /**
-     * Specifies whether SMS is the preferred MFA method.
+     * Specifies whether email message MFA is the user's preferred method.
      *
      * @var bool|null
      */
@@ -42,7 +43,7 @@ final class SMSMfaSettingsType
      * @param array{
      *   Enabled?: null|bool,
      *   PreferredMfa?: null|bool,
-     * }|SMSMfaSettingsType $input
+     * }|EmailMfaSettingsType $input
      */
     public static function create($input): self
     {

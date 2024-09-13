@@ -80,6 +80,7 @@ class MediaConvertClient extends AbstractApi
      *   BillingTagsSource?: null|BillingTagsSource::*,
      *   ClientRequestToken?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
+     *   JobEngineVersion?: null|string,
      *   JobTemplate?: null|string,
      *   Priority?: null|int,
      *   Queue?: null|string,

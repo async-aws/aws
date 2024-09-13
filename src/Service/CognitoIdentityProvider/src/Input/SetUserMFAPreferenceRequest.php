@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Input;
 
+use AsyncAws\CognitoIdentityProvider\ValueObject\EmailMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
 use AsyncAws\Core\Exception\InvalidArgument;
@@ -12,18 +13,31 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class SetUserMFAPreferenceRequest extends Input
 {
     /**
-     * The SMS text message multi-factor authentication (MFA) settings.
+     * User preferences for SMS message MFA. Activates or deactivates SMS MFA and sets it as the preferred MFA method when
+     * multiple methods are available.
      *
      * @var SMSMfaSettingsType|null
      */
     private $smsMfaSettings;
 
     /**
-     * The time-based one-time password (TOTP) software token MFA settings.
+     * User preferences for time-based one-time password (TOTP) MFA. Activates or deactivates TOTP MFA and sets it as the
+     * preferred MFA method when multiple methods are available.
      *
      * @var SoftwareTokenMfaSettingsType|null
      */
     private $softwareTokenMfaSettings;
+
+    /**
+     * User preferences for email message MFA. Activates or deactivates email MFA and sets it as the preferred MFA method
+     * when multiple methods are available. To activate this setting, advanced security features [^1] must be active in your
+     * user pool.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html
+     *
+     * @var EmailMfaSettingsType|null
+     */
+    private $emailMfaSettings;
 
     /**
      * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
@@ -38,6 +52,7 @@ final class SetUserMFAPreferenceRequest extends Input
      * @param array{
      *   SMSMfaSettings?: null|SMSMfaSettingsType|array,
      *   SoftwareTokenMfaSettings?: null|SoftwareTokenMfaSettingsType|array,
+     *   EmailMfaSettings?: null|EmailMfaSettingsType|array,
      *   AccessToken?: string,
      *   '@region'?: string|null,
      * } $input
@@ -46,6 +61,7 @@ final class SetUserMFAPreferenceRequest extends Input
     {
         $this->smsMfaSettings = isset($input['SMSMfaSettings']) ? SMSMfaSettingsType::create($input['SMSMfaSettings']) : null;
         $this->softwareTokenMfaSettings = isset($input['SoftwareTokenMfaSettings']) ? SoftwareTokenMfaSettingsType::create($input['SoftwareTokenMfaSettings']) : null;
+        $this->emailMfaSettings = isset($input['EmailMfaSettings']) ? EmailMfaSettingsType::create($input['EmailMfaSettings']) : null;
         $this->accessToken = $input['AccessToken'] ?? null;
         parent::__construct($input);
     }
@@ -54,6 +70,7 @@ final class SetUserMFAPreferenceRequest extends Input
      * @param array{
      *   SMSMfaSettings?: null|SMSMfaSettingsType|array,
      *   SoftwareTokenMfaSettings?: null|SoftwareTokenMfaSettingsType|array,
+     *   EmailMfaSettings?: null|EmailMfaSettingsType|array,
      *   AccessToken?: string,
      *   '@region'?: string|null,
      * }|SetUserMFAPreferenceRequest $input
@@ -66,6 +83,11 @@ final class SetUserMFAPreferenceRequest extends Input
     public function getAccessToken(): ?string
     {
         return $this->accessToken;
+    }
+
+    public function getEmailMfaSettings(): ?EmailMfaSettingsType
+    {
+        return $this->emailMfaSettings;
     }
 
     public function getSmsMfaSettings(): ?SMSMfaSettingsType
@@ -111,6 +133,13 @@ final class SetUserMFAPreferenceRequest extends Input
         return $this;
     }
 
+    public function setEmailMfaSettings(?EmailMfaSettingsType $value): self
+    {
+        $this->emailMfaSettings = $value;
+
+        return $this;
+    }
+
     public function setSmsMfaSettings(?SMSMfaSettingsType $value): self
     {
         $this->smsMfaSettings = $value;
@@ -133,6 +162,9 @@ final class SetUserMFAPreferenceRequest extends Input
         }
         if (null !== $v = $this->softwareTokenMfaSettings) {
             $payload['SoftwareTokenMfaSettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->emailMfaSettings) {
+            $payload['EmailMfaSettings'] = $v->requestBody();
         }
         if (null === $v = $this->accessToken) {
             throw new InvalidArgument(\sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));

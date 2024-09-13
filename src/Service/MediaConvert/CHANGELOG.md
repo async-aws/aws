@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes support for dynamic video overlay workflows, including picture-in-picture and squeezeback
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.

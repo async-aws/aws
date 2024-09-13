@@ -21,7 +21,8 @@ class InitiateAuthResponse extends Result
      *
      * > All of the following challenges require `USERNAME` and `SECRET_HASH` (if applicable) in the parameters.
      *
-     * - `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`, delivered via SMS.
+     * - `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`that your user pool delivered in an SMS message.
+     * - `EMAIL_OTP`: Next challenge is to supply an `EMAIL_OTP_CODE` that your user pool delivered in an email message.
      * - `PASSWORD_VERIFIER`: Next challenge is to supply `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and
      *   `TIMESTAMP` after the client-side SRP calculations.
      * - `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass

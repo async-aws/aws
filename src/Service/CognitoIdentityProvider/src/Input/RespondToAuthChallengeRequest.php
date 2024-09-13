@@ -55,8 +55,15 @@ final class RespondToAuthChallengeRequest extends Input
      *
      * - `SMS_MFA`:
      *
-     *   `"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}`
+     *   `"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[code]", "USERNAME": "[username]"}`
+     * - `EMAIL_OTP`:
+     *
+     *   `"ChallengeName": "EMAIL_OTP", "ChallengeResponses": {"EMAIL_OTP_CODE": "[code]", "USERNAME": "[username]"}`
      * - `PASSWORD_VERIFIER`:
+     *
+     *   This challenge response is part of the SRP flow. Amazon Cognito requires that your application respond to this
+     *   challenge within a few seconds. When the response time exceeds this period, your user pool returns a
+     *   `NotAuthorizedException` error.
      *
      *   `"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]",
      *   "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}`

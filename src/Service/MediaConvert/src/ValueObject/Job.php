@@ -105,6 +105,24 @@ final class Job
     private $id;
 
     /**
+     * The Job engine version that you requested for your job. Valid versions are in a YYYY-MM-DD format.
+     *
+     * @var string|null
+     */
+    private $jobEngineVersionRequested;
+
+    /**
+     * The Job engine version that your job used. Job engine versions are in a YYYY-MM-DD format. When you request an
+     * expired version, the response for this property will be empty. Requests to create jobs with an expired version result
+     * in a regular job, as if no specific Job engine version was requested. When you request an invalid version, the
+     * response for this property will be empty. Requests to create jobs with an invalid version result in a 400 error
+     * message, and no job is created.
+     *
+     * @var string|null
+     */
+    private $jobEngineVersionUsed;
+
+    /**
      * An estimate of how far your job has progressed. This estimate is shown as a percentage of the total time from when
      * your job leaves its queue to when your output files appear in your output Amazon S3 bucket. AWS Elemental
      * MediaConvert provides jobPercentComplete in CloudWatch STATUS_UPDATE events and in the response to GetJob and
@@ -242,6 +260,8 @@ final class Job
      *   ErrorMessage?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
      *   Id?: null|string,
+     *   JobEngineVersionRequested?: null|string,
+     *   JobEngineVersionUsed?: null|string,
      *   JobPercentComplete?: null|int,
      *   JobTemplate?: null|string,
      *   Messages?: null|JobMessages|array,
@@ -273,6 +293,8 @@ final class Job
         $this->errorMessage = $input['ErrorMessage'] ?? null;
         $this->hopDestinations = isset($input['HopDestinations']) ? array_map([HopDestination::class, 'create'], $input['HopDestinations']) : null;
         $this->id = $input['Id'] ?? null;
+        $this->jobEngineVersionRequested = $input['JobEngineVersionRequested'] ?? null;
+        $this->jobEngineVersionUsed = $input['JobEngineVersionUsed'] ?? null;
         $this->jobPercentComplete = $input['JobPercentComplete'] ?? null;
         $this->jobTemplate = $input['JobTemplate'] ?? null;
         $this->messages = isset($input['Messages']) ? JobMessages::create($input['Messages']) : null;
@@ -304,6 +326,8 @@ final class Job
      *   ErrorMessage?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
      *   Id?: null|string,
+     *   JobEngineVersionRequested?: null|string,
+     *   JobEngineVersionUsed?: null|string,
      *   JobPercentComplete?: null|int,
      *   JobTemplate?: null|string,
      *   Messages?: null|JobMessages|array,
@@ -392,6 +416,16 @@ final class Job
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function getJobEngineVersionRequested(): ?string
+    {
+        return $this->jobEngineVersionRequested;
+    }
+
+    public function getJobEngineVersionUsed(): ?string
+    {
+        return $this->jobEngineVersionUsed;
     }
 
     public function getJobPercentComplete(): ?int

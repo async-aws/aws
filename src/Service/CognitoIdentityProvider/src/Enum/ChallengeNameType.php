@@ -8,6 +8,7 @@ final class ChallengeNameType
     public const CUSTOM_CHALLENGE = 'CUSTOM_CHALLENGE';
     public const DEVICE_PASSWORD_VERIFIER = 'DEVICE_PASSWORD_VERIFIER';
     public const DEVICE_SRP_AUTH = 'DEVICE_SRP_AUTH';
+    public const EMAIL_OTP = 'EMAIL_OTP';
     public const MFA_SETUP = 'MFA_SETUP';
     public const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
     public const PASSWORD_VERIFIER = 'PASSWORD_VERIFIER';
@@ -22,6 +23,7 @@ final class ChallengeNameType
             self::CUSTOM_CHALLENGE => true,
             self::DEVICE_PASSWORD_VERIFIER => true,
             self::DEVICE_SRP_AUTH => true,
+            self::EMAIL_OTP => true,
             self::MFA_SETUP => true,
             self::NEW_PASSWORD_REQUIRED => true,
             self::PASSWORD_VERIFIER => true,

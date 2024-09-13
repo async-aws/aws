@@ -19,9 +19,10 @@ class AdminInitiateAuthResponse extends Result
      *
      * - `MFA_SETUP`: If MFA is required, users who don't have at least one of the MFA methods set up are presented with an
      *   `MFA_SETUP` challenge. The user must set up at least one MFA type to continue to authenticate.
-     * - `SELECT_MFA_TYPE`: Selects the MFA type. Valid MFA options are `SMS_MFA` for text SMS MFA, and `SOFTWARE_TOKEN_MFA`
-     *   for time-based one-time password (TOTP) software token MFA.
-     * - `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`, delivered via SMS.
+     * - `SELECT_MFA_TYPE`: Selects the MFA type. Valid MFA options are `SMS_MFA` for SMS message MFA, `EMAIL_OTP` for email
+     *   message MFA, and `SOFTWARE_TOKEN_MFA` for time-based one-time password (TOTP) software token MFA.
+     * - `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`that your user pool delivered in an SMS message.
+     * - `EMAIL_OTP`: Next challenge is to supply an `EMAIL_OTP_CODE` that your user pool delivered in an email message.
      * - `PASSWORD_VERIFIER`: Next challenge is to supply `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and
      *   `TIMESTAMP` after the client-side SRP calculations.
      * - `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass

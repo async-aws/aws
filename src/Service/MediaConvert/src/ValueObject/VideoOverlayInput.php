@@ -12,8 +12,8 @@ use AsyncAws\MediaConvert\Enum\InputTimecodeSource;
 final class VideoOverlayInput
 {
     /**
-     * Specify the input file S3, HTTP, or HTTPS URI for your video overlay. For consistency in color and formatting in your
-     * output video image, we recommend that you specify a video with similar characteristics as the underlying input video.
+     * Specify the input file S3, HTTP, or HTTPS URL for your video overlay.
+     * To specify one or more Transitions for your base input video instead: Leave blank.
      *
      * @var string|null
      */
