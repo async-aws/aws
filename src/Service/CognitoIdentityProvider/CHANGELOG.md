@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `PasswordHistoryPolicyViolationException` exception.
+- AWS api-change: Added email MFA option to user pools with advanced security features.
 
 ### Changed
 

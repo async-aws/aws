@@ -58,6 +58,15 @@ final class CreateJobRequest extends Input1
     private $hopDestinations;
 
     /**
+     * Use Job engine versions to run jobs for your production workflow on one version, while you test and validate the
+     * latest version. To specify a Job engine version: Enter a date in a YYYY-MM-DD format. For a list of valid Job engine
+     * versions, submit a ListVersions request. To not specify a Job engine version: Leave blank.
+     *
+     * @var string|null
+     */
+    private $jobEngineVersion;
+
+    /**
      * Optional. When you create a job, you can either specify a job template or specify the transcoding settings
      * individually.
      *
@@ -144,6 +153,7 @@ final class CreateJobRequest extends Input1
      *   BillingTagsSource?: null|BillingTagsSource::*,
      *   ClientRequestToken?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
+     *   JobEngineVersion?: null|string,
      *   JobTemplate?: null|string,
      *   Priority?: null|int,
      *   Queue?: null|string,
@@ -162,6 +172,7 @@ final class CreateJobRequest extends Input1
         $this->billingTagsSource = $input['BillingTagsSource'] ?? null;
         $this->clientRequestToken = $input['ClientRequestToken'] ?? null;
         $this->hopDestinations = isset($input['HopDestinations']) ? array_map([HopDestination::class, 'create'], $input['HopDestinations']) : null;
+        $this->jobEngineVersion = $input['JobEngineVersion'] ?? null;
         $this->jobTemplate = $input['JobTemplate'] ?? null;
         $this->priority = $input['Priority'] ?? null;
         $this->queue = $input['Queue'] ?? null;
@@ -180,6 +191,7 @@ final class CreateJobRequest extends Input1
      *   BillingTagsSource?: null|BillingTagsSource::*,
      *   ClientRequestToken?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
+     *   JobEngineVersion?: null|string,
      *   JobTemplate?: null|string,
      *   Priority?: null|int,
      *   Queue?: null|string,
@@ -221,6 +233,11 @@ final class CreateJobRequest extends Input1
     public function getHopDestinations(): array
     {
         return $this->hopDestinations ?? [];
+    }
+
+    public function getJobEngineVersion(): ?string
+    {
+        return $this->jobEngineVersion;
     }
 
     public function getJobTemplate(): ?string
@@ -339,6 +356,13 @@ final class CreateJobRequest extends Input1
         return $this;
     }
 
+    public function setJobEngineVersion(?string $value): self
+    {
+        $this->jobEngineVersion = $value;
+
+        return $this;
+    }
+
     public function setJobTemplate(?string $value): self
     {
         $this->jobTemplate = $value;
@@ -437,6 +461,9 @@ final class CreateJobRequest extends Input1
                 ++$index;
                 $payload['hopDestinations'][$index] = $listValue->requestBody();
             }
+        }
+        if (null !== $v = $this->jobEngineVersion) {
+            $payload['jobEngineVersion'] = $v;
         }
         if (null !== $v = $this->jobTemplate) {
             $payload['jobTemplate'] = $v;

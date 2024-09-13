@@ -11,12 +11,15 @@ namespace AsyncAws\MediaConvert\Enum;
  * align the audio track length with STTS duration. Track-level correction does not affect pitch, and is recommended for
  * tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a variable amount to align
  * audio frames with STTS timestamps. No corrections are made to already-aligned frames. Frame-level correction may
- * affect the pitch of corrected frames, and is recommended for atonal audio content such as speech or percussion.
+ * affect the pitch of corrected frames, and is recommended for atonal audio content such as speech or percussion. *
+ * Force: Apply audio duration correction, either Track or Frame depending on your input, regardless of the accuracy of
+ * your input's STTS table. Your output audio and video may not be aligned or it may contain audio artifacts.
  */
 final class AudioDurationCorrection
 {
     public const AUTO = 'AUTO';
     public const DISABLED = 'DISABLED';
+    public const FORCE = 'FORCE';
     public const FRAME = 'FRAME';
     public const TRACK = 'TRACK';
 
@@ -25,6 +28,7 @@ final class AudioDurationCorrection
         return isset([
             self::AUTO => true,
             self::DISABLED => true,
+            self::FORCE => true,
             self::FRAME => true,
             self::TRACK => true,
         ][$value]);

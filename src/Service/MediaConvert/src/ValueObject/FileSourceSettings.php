@@ -3,6 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\CaptionSourceByteRateLimit;
 use AsyncAws\MediaConvert\Enum\CaptionSourceConvertPaintOnToPopOn;
 use AsyncAws\MediaConvert\Enum\FileSourceConvert608To708;
 use AsyncAws\MediaConvert\Enum\FileSourceTimeDeltaUnits;
@@ -14,6 +15,18 @@ use AsyncAws\MediaConvert\Enum\FileSourceTimeDeltaUnits;
  */
 final class FileSourceSettings
 {
+    /**
+     * Choose whether to limit the byte rate at which your SCC input captions are inserted into your output. To not limit
+     * the caption rate: We recommend that you keep the default value, Disabled. MediaConvert inserts captions in your
+     * output according to the byte rates listed in the EIA-608 specification, typically 2 or 3 caption bytes per frame
+     * depending on your output frame rate. To limit your output caption rate: Choose Enabled. Choose this option if your
+     * downstream systems require a maximum of 2 caption bytes per frame. Note that this setting has no effect when your
+     * output frame rate is 30 or 60.
+     *
+     * @var CaptionSourceByteRateLimit::*|null
+     */
+    private $byteRateLimit;
+
     /**
      * Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose
      * Upconvert, MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608
@@ -76,6 +89,7 @@ final class FileSourceSettings
 
     /**
      * @param array{
+     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
      *   Convert608To708?: null|FileSourceConvert608To708::*,
      *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
      *   Framerate?: null|CaptionSourceFramerate|array,
@@ -86,6 +100,7 @@ final class FileSourceSettings
      */
     public function __construct(array $input)
     {
+        $this->byteRateLimit = $input['ByteRateLimit'] ?? null;
         $this->convert608To708 = $input['Convert608To708'] ?? null;
         $this->convertPaintToPop = $input['ConvertPaintToPop'] ?? null;
         $this->framerate = isset($input['Framerate']) ? CaptionSourceFramerate::create($input['Framerate']) : null;
@@ -96,6 +111,7 @@ final class FileSourceSettings
 
     /**
      * @param array{
+     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
      *   Convert608To708?: null|FileSourceConvert608To708::*,
      *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
      *   Framerate?: null|CaptionSourceFramerate|array,
@@ -107,6 +123,14 @@ final class FileSourceSettings
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return CaptionSourceByteRateLimit::*|null
+     */
+    public function getByteRateLimit(): ?string
+    {
+        return $this->byteRateLimit;
     }
 
     /**
@@ -154,6 +178,12 @@ final class FileSourceSettings
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->byteRateLimit) {
+            if (!CaptionSourceByteRateLimit::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "byteRateLimit" for "%s". The value "%s" is not a valid "CaptionSourceByteRateLimit".', __CLASS__, $v));
+            }
+            $payload['byteRateLimit'] = $v;
+        }
         if (null !== $v = $this->convert608To708) {
             if (!FileSourceConvert608To708::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "convert608To708" for "%s". The value "%s" is not a valid "FileSourceConvert608To708".', __CLASS__, $v));

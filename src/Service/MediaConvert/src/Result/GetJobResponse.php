@@ -161,6 +161,8 @@ use AsyncAws\MediaConvert\ValueObject\VideoDetail;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlay;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlayInput;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlayInputClipping;
+use AsyncAws\MediaConvert\ValueObject\VideoOverlayPosition;
+use AsyncAws\MediaConvert\ValueObject\VideoOverlayTransition;
 use AsyncAws\MediaConvert\ValueObject\VideoPreprocessor;
 use AsyncAws\MediaConvert\ValueObject\VideoSelector;
 use AsyncAws\MediaConvert\ValueObject\VorbisSettings;
@@ -964,6 +966,7 @@ class GetJobResponse extends Result
     private function populateResultFileSourceSettings(array $json): FileSourceSettings
     {
         return new FileSourceSettings([
+            'ByteRateLimit' => isset($json['byteRateLimit']) ? (string) $json['byteRateLimit'] : null,
             'Convert608To708' => isset($json['convert608To708']) ? (string) $json['convert608To708'] : null,
             'ConvertPaintToPop' => isset($json['convertPaintToPop']) ? (string) $json['convertPaintToPop'] : null,
             'Framerate' => empty($json['framerate']) ? null : $this->populateResultCaptionSourceFramerate($json['framerate']),
@@ -1045,6 +1048,7 @@ class GetJobResponse extends Result
             'QvbrSettings' => empty($json['qvbrSettings']) ? null : $this->populateResultH264QvbrSettings($json['qvbrSettings']),
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
             'RepeatPps' => isset($json['repeatPps']) ? (string) $json['repeatPps'] : null,
+            'SaliencyAwareEncoding' => isset($json['saliencyAwareEncoding']) ? (string) $json['saliencyAwareEncoding'] : null,
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (string) $json['scanTypeConversionMode'] : null,
             'SceneChangeDetect' => isset($json['sceneChangeDetect']) ? (string) $json['sceneChangeDetect'] : null,
             'Slices' => isset($json['slices']) ? (int) $json['slices'] : null,
@@ -1369,6 +1373,8 @@ class GetJobResponse extends Result
             'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
             'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
             'Id' => isset($json['id']) ? (string) $json['id'] : null,
+            'JobEngineVersionRequested' => isset($json['jobEngineVersionRequested']) ? (string) $json['jobEngineVersionRequested'] : null,
+            'JobEngineVersionUsed' => isset($json['jobEngineVersionUsed']) ? (string) $json['jobEngineVersionUsed'] : null,
             'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
             'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
             'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
@@ -2126,8 +2132,11 @@ class GetJobResponse extends Result
     {
         return new VideoOverlay([
             'EndTimecode' => isset($json['endTimecode']) ? (string) $json['endTimecode'] : null,
+            'InitialPosition' => empty($json['initialPosition']) ? null : $this->populateResultVideoOverlayPosition($json['initialPosition']),
             'Input' => empty($json['input']) ? null : $this->populateResultVideoOverlayInput($json['input']),
+            'Playback' => isset($json['playback']) ? (string) $json['playback'] : null,
             'StartTimecode' => isset($json['startTimecode']) ? (string) $json['startTimecode'] : null,
+            'Transitions' => !isset($json['transitions']) ? null : $this->populateResult__listOfVideoOverlayTransition($json['transitions']),
         ]);
     }
 
@@ -2144,6 +2153,26 @@ class GetJobResponse extends Result
     private function populateResultVideoOverlayInputClipping(array $json): VideoOverlayInputClipping
     {
         return new VideoOverlayInputClipping([
+            'EndTimecode' => isset($json['endTimecode']) ? (string) $json['endTimecode'] : null,
+            'StartTimecode' => isset($json['startTimecode']) ? (string) $json['startTimecode'] : null,
+        ]);
+    }
+
+    private function populateResultVideoOverlayPosition(array $json): VideoOverlayPosition
+    {
+        return new VideoOverlayPosition([
+            'Height' => isset($json['height']) ? (int) $json['height'] : null,
+            'Unit' => isset($json['unit']) ? (string) $json['unit'] : null,
+            'Width' => isset($json['width']) ? (int) $json['width'] : null,
+            'XPosition' => isset($json['xPosition']) ? (int) $json['xPosition'] : null,
+            'YPosition' => isset($json['yPosition']) ? (int) $json['yPosition'] : null,
+        ]);
+    }
+
+    private function populateResultVideoOverlayTransition(array $json): VideoOverlayTransition
+    {
+        return new VideoOverlayTransition([
+            'EndPosition' => empty($json['endPosition']) ? null : $this->populateResultVideoOverlayPosition($json['endPosition']),
             'EndTimecode' => isset($json['endTimecode']) ? (string) $json['endTimecode'] : null,
             'StartTimecode' => isset($json['startTimecode']) ? (string) $json['startTimecode'] : null,
         ]);
@@ -2689,6 +2718,19 @@ class GetJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultVideoOverlayInputClipping($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return VideoOverlayTransition[]
+     */
+    private function populateResult__listOfVideoOverlayTransition(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultVideoOverlayTransition($item);
         }
 
         return $items;

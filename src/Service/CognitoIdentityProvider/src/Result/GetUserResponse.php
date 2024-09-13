@@ -45,7 +45,7 @@ class GetUserResponse extends Result
     private $preferredMfaSetting;
 
     /**
-     * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA` and
+     * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA`, `EMAIL_OTP`, and
      * `SOFTWARE_TOKEN_MFA`.
      *
      * @var string[]

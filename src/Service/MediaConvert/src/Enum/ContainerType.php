@@ -17,6 +17,7 @@ final class ContainerType
     public const MP4 = 'MP4';
     public const MPD = 'MPD';
     public const MXF = 'MXF';
+    public const OGG = 'OGG';
     public const RAW = 'RAW';
     public const WEBM = 'WEBM';
     public const Y4M = 'Y4M';
@@ -33,6 +34,7 @@ final class ContainerType
             self::MP4 => true,
             self::MPD => true,
             self::MXF => true,
+            self::OGG => true,
             self::RAW => true,
             self::WEBM => true,
             self::Y4M => true,
