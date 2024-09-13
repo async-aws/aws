@@ -1,0 +1,5 @@
+async_aws:
+    credential_provider: AsyncAws\Core\Credentials\InstanceProvider
+    credential_provider_cache: null
+services:
+    AsyncAws\Core\Credentials\InstanceProvider: ~

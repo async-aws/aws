@@ -1,0 +1,8 @@
+framework:
+    cache:
+        pools:
+            test:
+                adapter: cache.adapter.apcu
+
+async_aws:
+    credential_provider_cache: test
