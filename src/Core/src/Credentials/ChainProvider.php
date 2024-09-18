@@ -41,7 +41,7 @@ final class ChainProvider implements CredentialProvider, ResetInterface
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        $key = spl_object_hash($configuration);
+        $key = sha1(serialize($configuration));
         if (\array_key_exists($key, $this->lastSuccessfulProvider)) {
             if (null === $provider = $this->lastSuccessfulProvider[$key]) {
                 return null;
