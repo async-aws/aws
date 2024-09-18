@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace AsyncAws\Symfony\Bundle\Tests\Functional;
 
+use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Credentials\CacheProvider;
+use AsyncAws\Core\Credentials\InstanceProvider;
+use AsyncAws\Core\Credentials\SymfonyCacheProvider;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
@@ -14,6 +18,7 @@ use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Nyholm\BundleTest\TestKernel;
 use Symfony\Bundle\FrameworkBundle\EventListener\ConsoleProfilerListener;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -150,6 +155,95 @@ class BundleInitializationTest extends KernelTestCase
         $container = self::$kernel->getContainer();
         $x = $container->get(S3Client::class);
         self::assertSame('./docker/dynamodb/credentials', $x->getConfiguration()->get('sharedCredentialsFile'));
+    }
+
+    public function testIssue1758Empty()
+    {
+        $this->bootWithConfig([
+            'issue-1758/empty.yaml',
+        ]);
+
+        self::assertServiceExists('async_aws.client.s3', S3Client::class);
+        self::assertServiceExists('async_aws.credential', CacheProvider::class);
+        self::assertServiceExists('async_aws.credential.memory', CacheProvider::class);
+        self::assertServiceExists('async_aws.credential.cache', SymfonyCacheProvider::class);
+    }
+
+    public function testIssue1758Cache()
+    {
+        $this->bootWithConfig([
+            'issue-1758/cache.yaml',
+        ]);
+
+        self::assertServiceExists('async_aws.client.s3', S3Client::class);
+        self::assertServiceExists('async_aws.credential', CacheProvider::class);
+        self::assertServiceExists('async_aws.credential.memory', CacheProvider::class);
+        self::assertServiceExists('async_aws.credential.cache', SymfonyCacheProvider::class);
+
+        $container = self::$kernel->getContainer();
+        $cache = $container->get('async_aws.credential.cache');
+
+        $r = new \ReflectionObject($cache);
+        $p = $r->getProperty('cache');
+        $p->setAccessible(true);
+
+        $adapter = $p->getValue($cache);
+        self::assertInstanceOf(ApcuAdapter::class, $adapter);
+    }
+
+    public function testIssue1758Provider()
+    {
+        $this->bootWithConfig([
+            'issue-1758/provider.yaml',
+        ]);
+
+        self::assertServiceExists('async_aws.client.s3', S3Client::class);
+
+        $container = self::$kernel->getContainer();
+        $client = $container->get(S3Client::class);
+
+        $r = new \ReflectionClass(AbstractApi::class);
+        $p = $r->getProperty('credentialProvider');
+        $p->setAccessible(true);
+
+        $credentialProvider = $p->getValue($client);
+        self::assertInstanceOf(InstanceProvider::class, $credentialProvider);
+    }
+
+    public function testIssue1758ProviderAndCache()
+    {
+        $this->bootWithConfig([
+            'issue-1758/provider_cache.yaml',
+        ]);
+
+        self::assertServiceExists('async_aws.client.s3', S3Client::class);
+        self::assertServiceExists(InstanceProvider::class . '.memory', CacheProvider::class);
+        self::assertServiceExists(InstanceProvider::class . '.cache', SymfonyCacheProvider::class);
+
+        $container = self::$kernel->getContainer();
+        $client = $container->get(S3Client::class);
+
+        $r = new \ReflectionClass(AbstractApi::class);
+        $p = $r->getProperty('credentialProvider');
+        $p->setAccessible(true);
+
+        $credentialProvider = $p->getValue($client);
+        self::assertInstanceOf(CacheProvider::class, $credentialProvider);
+
+        $cache = $container->get(InstanceProvider::class . '.cache');
+
+        $r = new \ReflectionObject($cache);
+        $p = $r->getProperty('cache');
+        $p->setAccessible(true);
+
+        $adapter = $p->getValue($cache);
+        self::assertInstanceOf(ApcuAdapter::class, $adapter);
+
+        $p = $r->getProperty('decorated');
+        $p->setAccessible(true);
+
+        $decorated = $p->getValue($cache);
+        self::assertInstanceOf(InstanceProvider::class, $decorated);
     }
 
     protected static function getKernelClass(): string

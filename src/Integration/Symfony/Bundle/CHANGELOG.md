@@ -6,6 +6,10 @@
 
 - Enable compiler optimization for the `sprintf` function.
 
+### Fixed
+
+- Fix bundle configuration with both `credential_provider` and `credential_provider_cache`.
+
 ## 1.12.2
 
 ### Changed

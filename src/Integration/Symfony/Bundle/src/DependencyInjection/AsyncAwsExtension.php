@@ -164,32 +164,34 @@ class AsyncAwsExtension extends Extension
             }
         }
 
-        // If no credential provider is specified, lets configured a credentials provider with cache.
-        $hasCacheClasses = class_exists(SymfonyCacheProvider::class) && interface_exists(CacheInterface::class);
         $credentialServiceId = $config['credential_provider'];
-        if (null === $credentialServiceId && null !== $config['credential_provider_cache'] && $hasCacheClasses) {
+        $credentialProviderCache = class_exists(SymfonyCacheProvider::class) && interface_exists(CacheInterface::class) ? $config['credential_provider_cache'] : null;
+
+        if (null === $credentialServiceId) {
             $credentialServiceId = 'async_aws.credential';
             if (!$container->hasDefinition($credentialServiceId)) {
                 $container->register($credentialServiceId, CredentialProvider::class)
                     ->setFactory([ChainProvider::class, 'createDefaultChain'])
                     ->setArguments([$httpClient, $logger])
                     ->addTag('monolog.logger', ['channel' => 'async_aws']);
-
-                $container->register('async_aws.credential.cache', SymfonyCacheProvider::class)
-                    ->setDecoratedService($credentialServiceId)
-                    ->setArguments([
-                        new Reference('async_aws.credential.cache.inner'),
-                        new Reference($config['credential_provider_cache']),
-                        $logger,
-                    ])
-                    ->addTag('monolog.logger', ['channel' => 'async_aws']);
-
-                $container->register('async_aws.credential.memory', CacheProvider::class)
-                    ->setDecoratedService($credentialServiceId)
-                    ->setArguments([
-                        new Reference('async_aws.credential.memory.inner'),
-                    ]);
             }
+        }
+
+        if (null !== $credentialProviderCache) {
+            $container->register($credentialServiceId . '.cache', SymfonyCacheProvider::class)
+                ->setDecoratedService($credentialServiceId)
+                ->setArguments([
+                    new Reference($credentialServiceId . '.cache.inner'),
+                    new Reference($credentialProviderCache),
+                    $logger,
+                ])
+                ->addTag('monolog.logger', ['channel' => 'async_aws']);
+
+            $container->register($credentialServiceId . '.memory', CacheProvider::class)
+                ->setDecoratedService($credentialServiceId)
+                ->setArguments([
+                    new Reference($credentialServiceId . '.memory.inner'),
+                ]);
         }
 
         $definition = new Definition($clientClass);
