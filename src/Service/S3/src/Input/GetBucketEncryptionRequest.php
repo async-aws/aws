@@ -12,6 +12,14 @@ final class GetBucketEncryptionRequest extends Input
     /**
      * The name of the bucket from which the server-side encryption configuration is retrieved.
      *
+     * **Directory buckets ** - When you use this operation with a directory bucket, you must use path-style requests in the
+     * format `https://s3express-control.*region_code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
+     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must also follow the
+     * format `*bucket_base_name*--*az_id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`). For information
+     * about bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
+     *
      * @required
      *
      * @var string|null
@@ -21,6 +29,9 @@ final class GetBucketEncryptionRequest extends Input
     /**
      * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
      * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
+     *
+     * > For directory buckets, this header is not supported in this API operation. If you specify this header, the request
+     * > fails with the HTTP status code `501 Not Implemented`.
      *
      * @var string|null
      */

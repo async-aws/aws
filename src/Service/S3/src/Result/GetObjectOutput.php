@@ -212,10 +212,7 @@ class GetObjectOutput extends Result
     private $websiteRedirectLocation;
 
     /**
-     * The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`,
-     * `aws:kms:dsse`).
-     *
-     * > For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
+     * The server-side encryption algorithm used when you store this object in Amazon S3.
      *
      * @var ServerSideEncryption::*|null
      */
@@ -249,10 +246,7 @@ class GetObjectOutput extends Result
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was
-     * used for the object.
-     *
-     * > This functionality is not supported for directory buckets.
+     * If present, indicates the ID of the KMS key that was used for object encryption.
      *
      * @var string|null
      */
@@ -261,8 +255,6 @@ class GetObjectOutput extends Result
     /**
      * Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys
      * (SSE-KMS).
-     *
-     * > This functionality is not supported for directory buckets.
      *
      * @var bool|null
      */
