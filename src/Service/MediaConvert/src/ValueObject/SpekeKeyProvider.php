@@ -17,6 +17,15 @@ final class SpekeKeyProvider
     private $certificateArn;
 
     /**
+     * Specify the SPEKE version, either v1.0 or v2.0, that MediaConvert uses when encrypting your output. For more
+     * information, see: https://docs.aws.amazon.com/speke/latest/documentation/speke-api-specification.html To use SPEKE
+     * v1.0: Leave blank. To use SPEKE v2.0: Specify a SPEKE v2.0 video preset and a SPEKE v2.0 audio preset.
+     *
+     * @var EncryptionContractConfiguration|null
+     */
+    private $encryptionContractConfiguration;
+
+    /**
      * Specify the resource ID that your SPEKE-compliant key provider uses to identify this content.
      *
      * @var string|null
@@ -43,6 +52,7 @@ final class SpekeKeyProvider
     /**
      * @param array{
      *   CertificateArn?: null|string,
+     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
      *   ResourceId?: null|string,
      *   SystemIds?: null|string[],
      *   Url?: null|string,
@@ -51,6 +61,7 @@ final class SpekeKeyProvider
     public function __construct(array $input)
     {
         $this->certificateArn = $input['CertificateArn'] ?? null;
+        $this->encryptionContractConfiguration = isset($input['EncryptionContractConfiguration']) ? EncryptionContractConfiguration::create($input['EncryptionContractConfiguration']) : null;
         $this->resourceId = $input['ResourceId'] ?? null;
         $this->systemIds = $input['SystemIds'] ?? null;
         $this->url = $input['Url'] ?? null;
@@ -59,6 +70,7 @@ final class SpekeKeyProvider
     /**
      * @param array{
      *   CertificateArn?: null|string,
+     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
      *   ResourceId?: null|string,
      *   SystemIds?: null|string[],
      *   Url?: null|string,
@@ -72,6 +84,11 @@ final class SpekeKeyProvider
     public function getCertificateArn(): ?string
     {
         return $this->certificateArn;
+    }
+
+    public function getEncryptionContractConfiguration(): ?EncryptionContractConfiguration
+    {
+        return $this->encryptionContractConfiguration;
     }
 
     public function getResourceId(): ?string
@@ -100,6 +117,9 @@ final class SpekeKeyProvider
         $payload = [];
         if (null !== $v = $this->certificateArn) {
             $payload['certificateArn'] = $v;
+        }
+        if (null !== $v = $this->encryptionContractConfiguration) {
+            $payload['encryptionContractConfiguration'] = $v->requestBody();
         }
         if (null !== $v = $this->resourceId) {
             $payload['resourceId'] = $v;
