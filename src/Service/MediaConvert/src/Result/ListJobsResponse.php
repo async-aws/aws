@@ -65,6 +65,7 @@ use AsyncAws\MediaConvert\ValueObject\Eac3AtmosSettings;
 use AsyncAws\MediaConvert\ValueObject\Eac3Settings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedSourceSettings;
+use AsyncAws\MediaConvert\ValueObject\EncryptionContractConfiguration;
 use AsyncAws\MediaConvert\ValueObject\EsamManifestConfirmConditionNotification;
 use AsyncAws\MediaConvert\ValueObject\EsamSettings;
 use AsyncAws\MediaConvert\ValueObject\EsamSignalProcessingNotification;
@@ -981,6 +982,14 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'Source608ChannelNumber' => isset($json['source608ChannelNumber']) ? (int) $json['source608ChannelNumber'] : null,
             'Source608TrackNumber' => isset($json['source608TrackNumber']) ? (int) $json['source608TrackNumber'] : null,
             'TerminateCaptions' => isset($json['terminateCaptions']) ? (string) $json['terminateCaptions'] : null,
+        ]);
+    }
+
+    private function populateResultEncryptionContractConfiguration(array $json): EncryptionContractConfiguration
+    {
+        return new EncryptionContractConfiguration([
+            'SpekeAudioPreset' => isset($json['spekeAudioPreset']) ? (string) $json['spekeAudioPreset'] : null,
+            'SpekeVideoPreset' => isset($json['spekeVideoPreset']) ? (string) $json['spekeVideoPreset'] : null,
         ]);
     }
 
@@ -2019,6 +2028,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     {
         return new SpekeKeyProvider([
             'CertificateArn' => isset($json['certificateArn']) ? (string) $json['certificateArn'] : null,
+            'EncryptionContractConfiguration' => empty($json['encryptionContractConfiguration']) ? null : $this->populateResultEncryptionContractConfiguration($json['encryptionContractConfiguration']),
             'ResourceId' => isset($json['resourceId']) ? (string) $json['resourceId'] : null,
             'SystemIds' => !isset($json['systemIds']) ? null : $this->populateResult__listOf__stringPattern09aFAF809aFAF409aFAF409aFAF409aFAF12($json['systemIds']),
             'Url' => isset($json['url']) ? (string) $json['url'] : null,
@@ -2030,6 +2040,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         return new SpekeKeyProviderCmaf([
             'CertificateArn' => isset($json['certificateArn']) ? (string) $json['certificateArn'] : null,
             'DashSignaledSystemIds' => !isset($json['dashSignaledSystemIds']) ? null : $this->populateResult__listOf__stringMin36Max36Pattern09aFAF809aFAF409aFAF409aFAF409aFAF12($json['dashSignaledSystemIds']),
+            'EncryptionContractConfiguration' => empty($json['encryptionContractConfiguration']) ? null : $this->populateResultEncryptionContractConfiguration($json['encryptionContractConfiguration']),
             'HlsSignaledSystemIds' => !isset($json['hlsSignaledSystemIds']) ? null : $this->populateResult__listOf__stringMin36Max36Pattern09aFAF809aFAF409aFAF409aFAF409aFAF12($json['hlsSignaledSystemIds']),
             'ResourceId' => isset($json['resourceId']) ? (string) $json['resourceId'] : null,
             'Url' => isset($json['url']) ? (string) $json['url'] : null,

@@ -26,6 +26,15 @@ final class SpekeKeyProviderCmaf
     private $dashSignaledSystemIds;
 
     /**
+     * Specify the SPEKE version, either v1.0 or v2.0, that MediaConvert uses when encrypting your output. For more
+     * information, see: https://docs.aws.amazon.com/speke/latest/documentation/speke-api-specification.html To use SPEKE
+     * v1.0: Leave blank. To use SPEKE v2.0: Specify a SPEKE v2.0 video preset and a SPEKE v2.0 audio preset.
+     *
+     * @var EncryptionContractConfiguration|null
+     */
+    private $encryptionContractConfiguration;
+
+    /**
      * Specify the DRM system ID that you want signaled in the HLS manifest that MediaConvert creates as part of this CMAF
      * package. The HLS manifest can currently signal only one system ID. For more information, see
      * https://dashif.org/identifiers/content_protection/.
@@ -53,6 +62,7 @@ final class SpekeKeyProviderCmaf
      * @param array{
      *   CertificateArn?: null|string,
      *   DashSignaledSystemIds?: null|string[],
+     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
      *   HlsSignaledSystemIds?: null|string[],
      *   ResourceId?: null|string,
      *   Url?: null|string,
@@ -62,6 +72,7 @@ final class SpekeKeyProviderCmaf
     {
         $this->certificateArn = $input['CertificateArn'] ?? null;
         $this->dashSignaledSystemIds = $input['DashSignaledSystemIds'] ?? null;
+        $this->encryptionContractConfiguration = isset($input['EncryptionContractConfiguration']) ? EncryptionContractConfiguration::create($input['EncryptionContractConfiguration']) : null;
         $this->hlsSignaledSystemIds = $input['HlsSignaledSystemIds'] ?? null;
         $this->resourceId = $input['ResourceId'] ?? null;
         $this->url = $input['Url'] ?? null;
@@ -71,6 +82,7 @@ final class SpekeKeyProviderCmaf
      * @param array{
      *   CertificateArn?: null|string,
      *   DashSignaledSystemIds?: null|string[],
+     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
      *   HlsSignaledSystemIds?: null|string[],
      *   ResourceId?: null|string,
      *   Url?: null|string,
@@ -92,6 +104,11 @@ final class SpekeKeyProviderCmaf
     public function getDashSignaledSystemIds(): array
     {
         return $this->dashSignaledSystemIds ?? [];
+    }
+
+    public function getEncryptionContractConfiguration(): ?EncryptionContractConfiguration
+    {
+        return $this->encryptionContractConfiguration;
     }
 
     /**
@@ -128,6 +145,9 @@ final class SpekeKeyProviderCmaf
                 ++$index;
                 $payload['dashSignaledSystemIds'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->encryptionContractConfiguration) {
+            $payload['encryptionContractConfiguration'] = $v->requestBody();
         }
         if (null !== $v = $this->hlsSignaledSystemIds) {
             $index = -1;

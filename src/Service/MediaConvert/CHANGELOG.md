@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: This release includes support for dynamic video overlay workflows, including picture-in-picture and squeezeback
+- AWS api-change: This release provides support for additional DRM configurations per SPEKE Version 2.0.
 
 ### Changed
 
