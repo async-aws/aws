@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `fips-ca-central-1` and `fips-ca-west-1` regions.
+- AWS api-change: List/Get/Update/Delete/CreateDataCatalog now integrate with AWS Glue connections. Users can create a Glue connection through Athena or use a Glue connection to define their Athena federated parameters.
 
 ### Changed
 
