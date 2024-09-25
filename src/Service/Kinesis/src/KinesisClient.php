@@ -151,6 +151,11 @@ class KinesisClient extends AbstractApi
      *
      * CreateStream has a limit of five transactions per second per account.
      *
+     * You can add tags to the stream when making a `CreateStream` request by setting the `Tags` parameter. If you pass
+     * `Tags` parameter, in addition to having `kinesis:createStream` permission, you must also have
+     * `kinesis:addTagsToStream` permission for the stream that will be created. Tags will take effect from the `CREATING`
+     * status of the stream.
+     *
      * [^1]: https://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html
      * [^2]: https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html
      *
@@ -161,6 +166,7 @@ class KinesisClient extends AbstractApi
      *   StreamName: string,
      *   ShardCount?: null|int,
      *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      *
@@ -1166,13 +1172,13 @@ class KinesisClient extends AbstractApi
      *
      * You can register up to 20 consumers per stream. A given consumer can only be registered with one stream at a time.
      *
-     * For an example of how to use this operations, see Enhanced Fan-Out Using the Kinesis Data Streams API [^1].
+     * For an example of how to use this operation, see Enhanced Fan-Out Using the Kinesis Data Streams API [^1].
      *
      * The use of this operation has a limit of five transactions per second per account. Also, only 5 consumers can be
      * created simultaneously. In other words, you cannot have more than 5 consumers in a `CREATING` status at the same
      * time. Registering a 6th consumer while there are 5 in a `CREATING` status results in a `LimitExceededException`.
      *
-     * [^1]: /streams/latest/dev/building-enhanced-consumers-api.html
+     * [^1]: https://docs.aws.amazon.com/streams/latest/dev/building-enhanced-consumers-api.html
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_RegisterStreamConsumer.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#registerstreamconsumer
