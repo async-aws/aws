@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes support to add tags when creating a stream
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.

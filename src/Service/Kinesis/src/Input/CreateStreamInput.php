@@ -42,10 +42,18 @@ final class CreateStreamInput extends Input
     private $streamModeDetails;
 
     /**
+     * A set of up to 10 key-value pairs to use to create the tags.
+     *
+     * @var array<string, string>|null
+     */
+    private $tags;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   ShardCount?: null|int,
      *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -54,6 +62,7 @@ final class CreateStreamInput extends Input
         $this->streamName = $input['StreamName'] ?? null;
         $this->shardCount = $input['ShardCount'] ?? null;
         $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
+        $this->tags = $input['Tags'] ?? null;
         parent::__construct($input);
     }
 
@@ -62,6 +71,7 @@ final class CreateStreamInput extends Input
      *   StreamName?: string,
      *   ShardCount?: null|int,
      *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      */
@@ -83,6 +93,14 @@ final class CreateStreamInput extends Input
     public function getStreamName(): ?string
     {
         return $this->streamName;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getTags(): array
+    {
+        return $this->tags ?? [];
     }
 
     /**
@@ -132,6 +150,16 @@ final class CreateStreamInput extends Input
         return $this;
     }
 
+    /**
+     * @param array<string, string> $value
+     */
+    public function setTags(array $value): self
+    {
+        $this->tags = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -144,6 +172,16 @@ final class CreateStreamInput extends Input
         }
         if (null !== $v = $this->streamModeDetails) {
             $payload['StreamModeDetails'] = $v->requestBody();
+        }
+        if (null !== $v = $this->tags) {
+            if (empty($v)) {
+                $payload['Tags'] = new \stdClass();
+            } else {
+                $payload['Tags'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['Tags'][$name] = $mv;
+                }
+            }
         }
 
         return $payload;
