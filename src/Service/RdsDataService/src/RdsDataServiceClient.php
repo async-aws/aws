@@ -114,8 +114,8 @@ class RdsDataServiceClient extends AbstractApi
      * > A transaction times out if no calls use its transaction ID in three minutes. If a transaction times out before it's
      * > committed, it's rolled back automatically.
      * >
-     * > DDL statements inside a transaction cause an implicit commit. We recommend that you run each DDL statement in a
-     * > separate `ExecuteStatement` call with `continueAfterTimeout` enabled.
+     * > For Aurora MySQL, DDL statements inside a transaction cause an implicit commit. We recommend that you run each
+     * > MySQL DDL statement in a separate `ExecuteStatement` call with `continueAfterTimeout` enabled.
      *
      * @see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_BeginTransaction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#begintransaction
