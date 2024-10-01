@@ -12,8 +12,8 @@ class AddPermissionRequestTest extends TestCase
         $input = new AddPermissionRequest([
             'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/177715257436/MyQueue/',
             'Label' => 'MyLabel',
-            'AWSAccountIds' => ["177715257436", "111111111111"],
-            'Actions' => ["SendMessage", "ReceiveMessage"],
+            'AWSAccountIds' => ['177715257436', '111111111111'],
+            'Actions' => ['SendMessage', 'ReceiveMessage'],
         ]);
 
         // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_AddPermission.html
