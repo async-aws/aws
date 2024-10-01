@@ -5,6 +5,7 @@
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.
+- Add AddPermission endpoint
 
 ## 2.1.1
 
