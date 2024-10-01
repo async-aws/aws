@@ -5,6 +5,7 @@ namespace AsyncAws\Sqs\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Input\AddPermissionRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -25,6 +26,21 @@ use AsyncAws\Sqs\ValueObject\SendMessageBatchRequestEntry;
 
 class SqsClientTest extends TestCase
 {
+    public function testAddPermission(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AddPermissionRequest([
+            'QueueUrl' => 'change me',
+            'Label' => 'change me',
+            'AWSAccountIds' => ['change me'],
+            'Actions' => ['change me'],
+        ]);
+        $result = $client->addPermission($input);
+
+        $result->resolve();
+    }
+
     public function testChangeMessageVisibility()
     {
         $sqs = $this->getClient();

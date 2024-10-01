@@ -38,6 +38,7 @@ use AsyncAws\Sqs\Exception\ReceiptHandleIsInvalidException;
 use AsyncAws\Sqs\Exception\RequestThrottledException;
 use AsyncAws\Sqs\Exception\TooManyEntriesInBatchRequestException;
 use AsyncAws\Sqs\Exception\UnsupportedOperationException;
+use AsyncAws\Sqs\Input\AddPermissionRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -69,6 +70,63 @@ use AsyncAws\Sqs\ValueObject\SendMessageBatchRequestEntry;
 
 class SqsClient extends AbstractApi
 {
+    /**
+     * Adds a permission to a queue for a specific principal [^1]. This allows sharing access to the queue.
+     *
+     * When you create a queue, you have full control access rights for the queue. Only you, the owner of the queue, can
+     * grant or deny permissions to the queue. For more information about these permissions, see Allow Developers to Write
+     * Messages to a Shared Queue [^2] in the *Amazon SQS Developer Guide*.
+     *
+     * > - `AddPermission` generates a policy for you. You can use `SetQueueAttributes` to upload your policy. For more
+     * >   information, see Using Custom Policies with the Amazon SQS Access Policy Language [^3] in the *Amazon SQS
+     * >   Developer Guide*.
+     * > - An Amazon SQS policy can have a maximum of seven actions per statement.
+     * > - To remove the ability to change queue permissions, you must deny permission to the `AddPermission`,
+     * >   `RemovePermission`, and `SetQueueAttributes` actions in your IAM policy.
+     * > - Amazon SQS `AddPermission` does not support adding a non-account principal.
+     * >
+     *
+     * > Cross-account permissions don't apply to this action. For more information, see Grant cross-account permissions to
+     * > a role and a username [^4] in the *Amazon SQS Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#P
+     * [^2]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-writing-an-sqs-policy.html#write-messages-to-shared-queue
+     * [^3]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-creating-custom-policies.html
+     * [^4]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_AddPermission.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#addpermission
+     *
+     * @param array{
+     *   QueueUrl: string,
+     *   Label: string,
+     *   AWSAccountIds: string[],
+     *   Actions: string[],
+     *   '@region'?: string|null,
+     * }|AddPermissionRequest $input
+     *
+     * @throws OverLimitException
+     * @throws RequestThrottledException
+     * @throws QueueDoesNotExistException
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws UnsupportedOperationException
+     */
+    public function addPermission($input): Result
+    {
+        $input = AddPermissionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddPermission', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'OverLimit' => OverLimitException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
     /**
      * Changes the visibility timeout of a specified message in a queue to a new value. The default visibility timeout for a
      * message is 30 seconds. The minimum is 0 seconds. The maximum is 12 hours. For more information, see Visibility
