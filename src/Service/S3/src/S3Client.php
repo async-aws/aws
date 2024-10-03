@@ -1601,7 +1601,9 @@ class S3Client extends AbstractApi
      *
      *   - **General purpose bucket permissions** - To use `HEAD`, you must have the `s3:GetObject` permission. You need the
      *     relevant read object (or version) permission for this operation. For more information, see Actions, resources,
-     *     and condition keys for Amazon S3 [^2] in the *Amazon S3 User Guide*.
+     *     and condition keys for Amazon S3 [^2] in the *Amazon S3 User Guide*. For more information about the permissions
+     *     to S3 API operations by S3 resource types, see Required permissions for Amazon S3 API operations [^3] in the
+     *     *Amazon S3 User Guide*.
      *
      *     If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the
      *     `s3:ListBucket` permission.
@@ -1612,13 +1614,13 @@ class S3Client extends AbstractApi
      *       error.
      *
      *   - **Directory bucket permissions** - To grant access to this API operation on a directory bucket, we recommend that
-     *     you use the `CreateSession` [^3] API operation for session-based authorization. Specifically, you grant the
+     *     you use the `CreateSession` [^4] API operation for session-based authorization. Specifically, you grant the
      *     `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy.
      *     Then, you make the `CreateSession` API call on the bucket to obtain a session token. With the session token in
      *     your request header, you can make API requests to this operation. After the session token expires, you make
      *     another `CreateSession` API call to generate a new session token for use. Amazon Web Services CLI or SDKs create
      *     session and refresh the session token automatically to avoid service interruptions when a session expires. For
-     *     more information about authorization, see `CreateSession` [^4].
+     *     more information about authorization, see `CreateSession` [^5].
      *
      *     If you enable `x-amz-checksum-mode` in the request and the object is encrypted with Amazon Web Services Key
      *     Management Service (Amazon Web Services KMS), you must also have the `kms:GenerateDataKey` and `kms:Decrypt`
@@ -1643,12 +1645,12 @@ class S3Client extends AbstractApi
      *   - `x-amz-server-side-encryption-customer-key`
      *   - `x-amz-server-side-encryption-customer-key-MD5`
      *
-     *   For more information about SSE-C, see Server-Side Encryption (Using Customer-Provided Encryption Keys) [^5] in the
+     *   For more information about SSE-C, see Server-Side Encryption (Using Customer-Provided Encryption Keys) [^6] in the
      *   *Amazon S3 User Guide*.
      *
      *   > **Directory bucket ** - For directory buckets, there are only two supported options for server-side encryption:
      *   > SSE-S3 and SSE-KMS. SSE-C isn't supported. For more information, see Protecting data with server-side encryption
-     *   > [^6] in the *Amazon S3 User Guide*.
+     *   > [^7] in the *Amazon S3 User Guide*.
      *
      * - `Versioning`:
      *
@@ -1670,23 +1672,24 @@ class S3Client extends AbstractApi
      *   > For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints
      *   > support virtual-hosted-style requests in the format
      *   > `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
-     *   > supported. For more information, see Regional and Zonal endpoints [^7] in the *Amazon S3 User Guide*.
+     *   > supported. For more information, see Regional and Zonal endpoints [^8] in the *Amazon S3 User Guide*.
      *
      *
      * The following actions are related to `HeadObject`:
      *
-     * - GetObject [^8]
-     * - GetObjectAttributes [^9]
+     * - GetObject [^9]
+     * - GetObjectAttributes [^10]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
+     * [^3]: /AmazonS3/latest/userguide/using-with-s3-policy-actions.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html
