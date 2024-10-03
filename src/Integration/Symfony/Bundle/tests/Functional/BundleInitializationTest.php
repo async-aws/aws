@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\EventListener\ConsoleProfilerListener;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\DependencyInjection\Attribute\WhenNot;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class BundleInitializationTest extends KernelTestCase
@@ -279,6 +280,9 @@ class BundleInitializationTest extends KernelTestCase
             }
 
             // hack to assert the version of the bundle
+            if (class_exists(WhenNot::class)) {
+                $kernel->addTestConfig(__DIR__ . '/Resources/config/base_sf72.yaml');
+            }
             if (class_exists(ConsoleProfilerListener::class)) {
                 $kernel->addTestConfig(__DIR__ . '/Resources/config/base_sf64.yaml');
             }

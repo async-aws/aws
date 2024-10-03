@@ -1,0 +1,6 @@
+framework:
+    trusted_hosts: ''
+    trusted_proxies: ''
+    trusted_headers: ''
+    trust_x_sendfile_type_header: true
+
