@@ -623,6 +623,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sqs/2012-11-05/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference",
             "methods": [
+                "AddPermission",
                 "ChangeMessageVisibility",
                 "ChangeMessageVisibilityBatch",
                 "CreateQueue",

@@ -5,6 +5,7 @@ namespace AsyncAws\Sqs\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Sqs\Input\AddPermissionRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -35,6 +36,22 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class SqsClientTest extends TestCase
 {
+    public function testAddPermission(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AddPermissionRequest([
+            'QueueUrl' => 'change me',
+            'Label' => 'change me',
+            'AWSAccountIds' => ['change me'],
+            'Actions' => ['change me'],
+        ]);
+        $result = $client->addPermission($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testChangeMessageVisibility(): void
     {
         $client = new SqsClient([], new NullProvider(), new MockHttpClient());
