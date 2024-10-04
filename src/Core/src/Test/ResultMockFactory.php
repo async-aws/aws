@@ -285,6 +285,10 @@ class ResultMockFactory
         $property->setAccessible(true);
         $property->setValue($response, true);
 
+        $property = $reflectionClass->getProperty('httpResponse');
+        $property->setAccessible(true);
+        $property->setValue($response, new SimpleMockedResponse());
+
         return $response;
     }
 }
