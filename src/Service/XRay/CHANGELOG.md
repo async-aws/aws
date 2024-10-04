@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `us-isob-east-1` region
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.

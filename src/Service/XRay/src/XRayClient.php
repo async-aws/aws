@@ -134,6 +134,13 @@ class XRayClient extends AbstractApi
                     'signService' => 'xray',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://xray.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [
