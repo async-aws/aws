@@ -143,7 +143,9 @@ function generateReleaseCommands(string $changelogPath, string $version): void
         throw new \Exception(sprintf('The "%s" composer file does not contains the "name" section', $composerPath));
     }
 
-    $repo = $composer['name'];
+    $repo = strtr($composer['name'], [
+        'async-aws/async-aws-bundle' => 'async-aws/symfony-bundle',
+    ]);
     $command = sprintf('gh release create %s --title "Release %s" --notes "See [change log](CHANGELOG.md) for changes." --latest --target master --repo %s', $version, $version, $repo);
     dump($command);
 }
