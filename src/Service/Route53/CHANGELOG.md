@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.4.0
+
 ### Added
 
 - AWS api-change: Amazon Route 53 now supports the Asia Pacific (Malaysia) Region (ap-southeast-5) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.

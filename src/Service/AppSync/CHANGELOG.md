@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.0
+
 ### BC-BREAK
 
 - The return type for the methods `getApiKeys` of `\AsyncAws\AppSync\Result\ListApiKeysResponse` uses `iterable` instead of `array` to provided paginated results.

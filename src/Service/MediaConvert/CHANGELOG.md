@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.4.0
+
 ### Added
 
 - AWS api-change: This release includes support for dynamic video overlay workflows, including picture-in-picture and squeezeback

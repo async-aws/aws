@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - AWS api-change: CreateRepository API now throws OperationNotAllowedException when the account has been restricted from creating a repository.

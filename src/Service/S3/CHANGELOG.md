@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.4.0
+
 ### Added
 
 - AWS api-change: Amazon Simple Storage Service / Features : Adds support for pagination in the S3 ListBuckets API.
