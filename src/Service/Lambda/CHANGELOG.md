@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.6.0
+
 ### Added
 
 - AWS api-change: Added `ap-southeast-5` region

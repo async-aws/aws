@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.6.0
+
 ### Added
 
 - AWS api-change: Added `ap-southeast-5` and `ap-southeast-5-fips` regions

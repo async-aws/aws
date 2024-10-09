@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.2.1
+
 ### Changed
 
 - Enable compiler optimization for the `sprintf` function.
