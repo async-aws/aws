@@ -4,7 +4,7 @@ namespace AsyncAws\ElastiCache\ValueObject;
 
 /**
  * Represents an individual cache node within a cluster. Each cache node runs its own instance of the cluster's
- * protocol-compliant caching software - either Memcached or Redis OSS.
+ * protocol-compliant caching software - either Memcached, Valkey or Redis OSS.
  *
  * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide more
  * memory and computational power at lower cost when compared to their equivalent previous generation counterparts.
@@ -79,10 +79,10 @@ namespace AsyncAws\ElastiCache\ValueObject;
  * **Additional node type info**
  *
  * - All current generation instance types are created in Amazon VPC by default.
- * - Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
- * - Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
- * - Redis OSS configuration variables `appendonly` and `appendfsync` are not supported on Redis OSS version 2.8.22 and
- *   later.
+ * - Valkey or Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
+ * - Valkey or Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
+ * - The configuration variables `appendonly` and `appendfsync` are not supported on Valkey, or on Redis OSS version
+ *   2.8.22 and later.
  *
  * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
  * [^2]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion

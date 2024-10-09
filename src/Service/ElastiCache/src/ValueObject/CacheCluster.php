@@ -111,10 +111,10 @@ final class CacheCluster
      * **Additional node type info**
      *
      * - All current generation instance types are created in Amazon VPC by default.
-     * - Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
-     * - Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
-     * - Redis OSS configuration variables `appendonly` and `appendfsync` are not supported on Redis OSS version 2.8.22 and
-     *   later.
+     * - Valkey or Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
+     * - Valkey or Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
+     * - The configuration variables `appendonly` and `appendfsync` are not supported on Valkey, or on Redis OSS version
+     *   2.8.22 and later.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
      * [^2]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
@@ -148,8 +148,8 @@ final class CacheCluster
     /**
      * The number of cache nodes in the cluster.
      *
-     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 40.
+     * For clusters running Valkey or Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     * between 1 and 40.
      *
      * @var int|null
      */
@@ -239,8 +239,8 @@ final class CacheCluster
     private $cacheNodes;
 
     /**
-     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
-     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. .
+     *  If you are running Valkey or Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     * to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. .
      *
      * @var bool|null
      */
@@ -281,7 +281,7 @@ final class CacheCluster
     private $snapshotWindow;
 
     /**
-     * A flag that enables using an `AuthToken` (password) when issuing Redis OSS commands.
+     * A flag that enables using an `AuthToken` (password) when issuing Valkey or Redis OSS commands.
      *
      * Default: `false`
      *
@@ -345,8 +345,9 @@ final class CacheCluster
     private $logDeliveryConfigurations;
 
     /**
-     * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Redis OSS engine version 6.2
-     * onward or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
+     * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS
+     * engine version 6.2 and above or Memcached engine version 1.6.6 and above on all instances built on the Nitro system
+     * [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
@@ -355,8 +356,9 @@ final class CacheCluster
     private $networkType;
 
     /**
-     * The network type associated with the cluster, either `ipv4` | `ipv6`. IPv6 is supported for workloads using Redis OSS
-     * engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the Nitro system [^1].
+     * The network type associated with the cluster, either `ipv4` | `ipv6`. IPv6 is supported for workloads using Valkey
+     * 7.2 and above, Redis OSS engine version 6.2 and above or Memcached engine version 1.6.6 and above on all instances
+     * built on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
