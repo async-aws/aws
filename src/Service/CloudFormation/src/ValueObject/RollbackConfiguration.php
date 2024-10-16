@@ -8,7 +8,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
  *
  * Rollback triggers enable you to have CloudFormation monitor the state of your application during stack creation and
  * updating, and to roll back that operation if the application breaches the threshold of any of the alarms you've
- * specified. For more information, see Monitor and Roll Back Stack Operations [^1].
+ * specified. For more information, see Roll back your CloudFormation stack on alarm breach with rollback triggers [^1].
  *
  * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-rollback-triggers.html
  */

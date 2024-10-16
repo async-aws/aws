@@ -21,8 +21,8 @@ class CloudFormationClient extends AbstractApi
      * Returns information about a stack drift detection operation. A stack drift detection operation detects whether a
      * stack's actual configuration differs, or has *drifted*, from its expected configuration, as defined in the stack
      * template and any values specified as template parameters. A stack is considered to have drifted if one or more of its
-     * resources have drifted. For more information about stack and resource drift, see Detecting Unregulated Configuration
-     * Changes to Stacks and Resources [^1].
+     * resources have drifted. For more information about stack and resource drift, see Detect unmanaged configuration
+     * changes to stacks and resources with drift detection [^1].
      *
      * Use DetectStackDrift to initiate a stack drift detection operation. `DetectStackDrift` returns a
      * `StackDriftDetectionId` you can use to monitor the progress of the operation using
@@ -49,7 +49,7 @@ class CloudFormationClient extends AbstractApi
 
     /**
      * Returns all stack related events for a specified stack in reverse chronological order. For more information about a
-     * stack's event history, see CloudFormation stack creation events [^1] in the *CloudFormation User Guide*.
+     * stack's event history, see Understand CloudFormation stack creation events [^1] in the *CloudFormation User Guide*.
      *
      * > You can list events for stacks that have failed to create or have been deleted by specifying the unique stack
      * > identifier (stack ID).
@@ -75,8 +75,8 @@ class CloudFormationClient extends AbstractApi
 
     /**
      * Returns the description for the specified stack; if no stack name was specified, then it returns the description for
-     * all the stacks created. For more information about a stack's event history, see CloudFormation stack creation events
-     * [^1] in the *CloudFormation User Guide*.
+     * all the stacks created. For more information about a stack's event history, see Understand CloudFormation stack
+     * creation events [^1] in the *CloudFormation User Guide*.
      *
      * > If the stack doesn't exist, a `ValidationError` is returned.
      *
