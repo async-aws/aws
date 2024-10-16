@@ -12,7 +12,7 @@ final class Tag
 {
     /**
      * *Required*. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned
-     * by Amazon Web Services (Amazon Web Services) have the reserved prefix: `aws:`.
+     * by Amazon Web Services have the reserved prefix: `aws:`.
      *
      * @var string
      */

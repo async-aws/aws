@@ -130,8 +130,8 @@ final class Stack
     private $outputs;
 
     /**
-     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that's associated with the stack.
-     * During a stack operation, CloudFormation uses this role's credentials to make calls on your behalf.
+     * The Amazon Resource Name (ARN) of an IAM role that's associated with the stack. During a stack operation,
+     * CloudFormation uses this role's credentials to make calls on your behalf.
      *
      * @var string|null
      */
@@ -148,7 +148,8 @@ final class Stack
      * Whether termination protection is enabled for the stack.
      *
      * For nested stacks [^1], termination protection is set on the root stack and can't be changed directly on the nested
-     * stack. For more information, see Protecting a Stack From Being Deleted [^2] in the *CloudFormation User Guide*.
+     * stack. For more information, see Protect a CloudFormation stack from being deleted [^2] in the *CloudFormation User
+     * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      * [^2]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html
@@ -161,7 +162,8 @@ final class Stack
      * For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack.
      * For the first level of nested stacks, the root stack is also the parent stack.
      *
-     * For more information, see Working with Nested Stacks [^1] in the *CloudFormation User Guide*.
+     * For more information, see Embed stacks within other stacks using nested stacks [^1] in the *CloudFormation User
+     * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      *
@@ -173,7 +175,8 @@ final class Stack
      * For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the
      * nested stack ultimately belongs.
      *
-     * For more information, see Working with Nested Stacks [^1] in the *CloudFormation User Guide*.
+     * For more information, see Embed stacks within other stacks using nested stacks [^1] in the *CloudFormation User
+     * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      *
@@ -183,8 +186,8 @@ final class Stack
 
     /**
      * Information about whether a stack's actual configuration differs, or has *drifted*, from its expected configuration,
-     * as defined in the stack template and any values specified as template parameters. For more information, see Detecting
-     * Unregulated Configuration Changes to Stacks and Resources [^1].
+     * as defined in the stack template and any values specified as template parameters. For more information, see Detect
+     * unmanaged configuration changes to stacks and resources with drift detection [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
      *
@@ -216,7 +219,7 @@ final class Stack
      * The detailed status of the resource or stack. If `CONFIGURATION_COMPLETE` is present, the resource or resource
      * configuration phase has completed and the stabilization of the resources is in progress. The stack sets
      * `CONFIGURATION_COMPLETE` when all of the resources in the stack have reached that event. For more information, see
-     * CloudFormation stack deployment [^1] in the *CloudFormation User Guide*.
+     * Understand CloudFormation stack creation events [^1] in the *CloudFormation User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html
      *

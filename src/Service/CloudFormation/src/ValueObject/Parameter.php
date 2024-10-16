@@ -31,10 +31,11 @@ final class Parameter
     private $usePreviousValue;
 
     /**
-     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for SSM [^1] parameter
-     * types in the template.
+     * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for Systems
+     * Manager parameter types in the template. For more information, see Use CloudFormation-supplied parameter types [^1]
+     * in the *CloudFormation User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-supplied-parameter-types.html
      *
      * @var string|null
      */
