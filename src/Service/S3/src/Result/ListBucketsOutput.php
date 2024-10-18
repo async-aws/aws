@@ -39,6 +39,15 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
     private $continuationToken;
 
     /**
+     * If `Prefix` was sent with the request, it is included in the response.
+     *
+     * All bucket names in the response begin with the specified bucket name prefix.
+     *
+     * @var string|null
+     */
+    private $prefix;
+
+    /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
      *
      * @return iterable<Bucket>
@@ -106,6 +115,13 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
         return $this->owner;
     }
 
+    public function getPrefix(): ?string
+    {
+        $this->initialize();
+
+        return $this->prefix;
+    }
+
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
@@ -115,6 +131,7 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
         $this->continuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
+        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
     }
 
     /**
@@ -127,6 +144,7 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
             $items[] = new Bucket([
                 'Name' => ($v = $item->Name) ? (string) $v : null,
                 'CreationDate' => ($v = $item->CreationDate) ? new \DateTimeImmutable((string) $v) : null,
+                'BucketRegion' => ($v = $item->BucketRegion) ? (string) $v : null,
             ]);
         }
 

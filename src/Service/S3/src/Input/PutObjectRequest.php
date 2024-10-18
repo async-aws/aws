@@ -140,14 +140,14 @@ final class PutObjectRequest extends Input
      * optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about
      * REST request authentication, see REST Authentication [^1].
      *
-     * > The `Content-MD5` header is required for any request to upload an object with a retention period configured using
-     * > Amazon S3 Object Lock. For more information about Amazon S3 Object Lock, see Amazon S3 Object Lock Overview [^2] in
-     * > the *Amazon S3 User Guide*.
+     * > The `Content-MD5` or `x-amz-sdk-checksum-algorithm` header is required for any request to upload an object with a
+     * > retention period configured using Amazon S3 Object Lock. For more information, see Uploading objects to an Object
+     * > Lock enabled bucket [^2] in the *Amazon S3 User Guide*.
      *
      * > This functionality is not supported for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-managing.html#object-lock-put-object
      *
      * @var string|null
      */
@@ -183,10 +183,15 @@ final class PutObjectRequest extends Input
      * algorithm you set through `x-amz-sdk-checksum-algorithm`, Amazon S3 ignores any provided `ChecksumAlgorithm`
      * parameter and uses the checksum algorithm that matches the provided value in `x-amz-checksum-*algorithm*`.
      *
-     * > For directory buckets, when you use Amazon Web Services SDKs, `CRC32` is the default checksum algorithm that's used
-     * > for performance.
+     * > The `Content-MD5` or `x-amz-sdk-checksum-algorithm` header is required for any request to upload an object with a
+     * > retention period configured using Amazon S3 Object Lock. For more information, see Uploading objects to an Object
+     * > Lock enabled bucket [^2] in the *Amazon S3 User Guide*.
+     *
+     * For directory buckets, when you use Amazon Web Services SDKs, `CRC32` is the default checksum algorithm that's used
+     * for performance.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-managing.html#object-lock-put-object
      *
      * @var ChecksumAlgorithm::*|null
      */
@@ -452,12 +457,14 @@ final class PutObjectRequest extends Input
      * `x-amz-server-side-encryption-aws-kms-key-id`, Amazon S3 uses the Amazon Web Services managed key (`aws/s3`) to
      * protect the data.
      *
-     * **Directory buckets** - If you specify `x-amz-server-side-encryption` with `aws:kms`, you must specify the `
-     * x-amz-server-side-encryption-aws-kms-key-id` header with the ID (Key ID or Key ARN) of the KMS symmetric encryption
-     * customer managed key to use. Otherwise, you get an HTTP `400 Bad Request` error. Only use the key ID or key ARN. The
-     * key alias format of the KMS key isn't supported. Your SSE-KMS configuration can only support 1 customer managed key
-     * [^1] per directory bucket for the lifetime of the bucket. Amazon Web Services managed key [^2] (`aws/s3`) isn't
-     * supported.
+     * **Directory buckets** - If you specify `x-amz-server-side-encryption` with `aws:kms`, the `
+     * x-amz-server-side-encryption-aws-kms-key-id` header is implicitly assigned the ID of the KMS symmetric encryption
+     * customer managed key that's configured for your directory bucket's default encryption setting. If you want to specify
+     * the ` x-amz-server-side-encryption-aws-kms-key-id` header explicitly, you can only specify it with the ID (Key ID or
+     * Key ARN) of the KMS customer managed key that's configured for your directory bucket's default encryption setting.
+     * Otherwise, you get an HTTP `400 Bad Request` error. Only use the key ID or key ARN. The key alias format of the KMS
+     * key isn't supported. Your SSE-KMS configuration can only support 1 customer managed key [^1] per directory bucket for
+     * the lifetime of the bucket. The Amazon Web Services managed key [^2] (`aws/s3`) isn't supported.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk
