@@ -401,8 +401,8 @@ final class CopyObjectRequest extends Input
      *   server-side encryption [^2] in the *Amazon S3 User Guide*. For more information about the encryption overriding
      *   behaviors in directory buckets, see Specifying server-side encryption with KMS for new object uploads [^3].
      * - To encrypt new object copies to a directory bucket with SSE-KMS, we recommend you specify SSE-KMS as the directory
-     *   bucket's default encryption configuration with a KMS key (specifically, a customer managed key [^4]). Amazon Web
-     *   Services managed key [^5] (`aws/s3`) isn't supported. Your SSE-KMS configuration can only support 1 customer
+     *   bucket's default encryption configuration with a KMS key (specifically, a customer managed key [^4]). The Amazon
+     *   Web Services managed key [^5] (`aws/s3`) isn't supported. Your SSE-KMS configuration can only support 1 customer
      *   managed key [^6] per directory bucket for the lifetime of the bucket. After you specify a customer managed key for
      *   SSE-KMS, you can't override the customer managed key for the bucket's SSE-KMS configuration. Then, when you perform
      *   a `CopyObject` operation and want to specify server-side encryption settings for new object copies with SSE-KMS in
@@ -505,12 +505,14 @@ final class CopyObjectRequest extends Input
      * any of the officially supported Amazon Web Services SDKs and Amazon Web Services CLI, see Specifying the Signature
      * Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
      *
-     * **Directory buckets** - If you specify `x-amz-server-side-encryption` with `aws:kms`, you must specify the `
-     * x-amz-server-side-encryption-aws-kms-key-id` header with the ID (Key ID or Key ARN) of the KMS symmetric encryption
-     * customer managed key to use. Otherwise, you get an HTTP `400 Bad Request` error. Only use the key ID or key ARN. The
-     * key alias format of the KMS key isn't supported. Your SSE-KMS configuration can only support 1 customer managed key
-     * [^2] per directory bucket for the lifetime of the bucket. Amazon Web Services managed key [^3] (`aws/s3`) isn't
-     * supported.
+     * **Directory buckets** - If you specify `x-amz-server-side-encryption` with `aws:kms`, the `
+     * x-amz-server-side-encryption-aws-kms-key-id` header is implicitly assigned the ID of the KMS symmetric encryption
+     * customer managed key that's configured for your directory bucket's default encryption setting. If you want to specify
+     * the ` x-amz-server-side-encryption-aws-kms-key-id` header explicitly, you can only specify it with the ID (Key ID or
+     * Key ARN) of the KMS customer managed key that's configured for your directory bucket's default encryption setting.
+     * Otherwise, you get an HTTP `400 Bad Request` error. Only use the key ID or key ARN. The key alias format of the KMS
+     * key isn't supported. Your SSE-KMS configuration can only support 1 customer managed key [^2] per directory bucket for
+     * the lifetime of the bucket. The Amazon Web Services managed key [^3] (`aws/s3`) isn't supported.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk

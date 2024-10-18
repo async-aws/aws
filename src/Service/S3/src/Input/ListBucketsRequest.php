@@ -30,9 +30,34 @@ final class ListBucketsRequest extends Input
     private $continuationToken;
 
     /**
+     * Limits the response to bucket names that begin with the specified bucket name prefix.
+     *
+     * @var string|null
+     */
+    private $prefix;
+
+    /**
+     * Limits the response to buckets that are located in the specified Amazon Web Services Region. The Amazon Web Services
+     * Region must be expressed according to the Amazon Web Services Region code, such as `us-west-2` for the US West
+     * (Oregon) Region. For a list of the valid values for all of the Amazon Web Services Regions, see Regions and Endpoints
+     * [^1].
+     *
+     * > Requests made to a Regional endpoint that is different from the `bucket-region` parameter are not supported. For
+     * > example, if you want to limit the response to your buckets in Region `us-west-2`, the request must be made to an
+     * > endpoint in Region `us-west-2`.
+     *
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+     *
+     * @var string|null
+     */
+    private $bucketRegion;
+
+    /**
      * @param array{
      *   MaxBuckets?: null|int,
      *   ContinuationToken?: null|string,
+     *   Prefix?: null|string,
+     *   BucketRegion?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -40,6 +65,8 @@ final class ListBucketsRequest extends Input
     {
         $this->maxBuckets = $input['MaxBuckets'] ?? null;
         $this->continuationToken = $input['ContinuationToken'] ?? null;
+        $this->prefix = $input['Prefix'] ?? null;
+        $this->bucketRegion = $input['BucketRegion'] ?? null;
         parent::__construct($input);
     }
 
@@ -47,12 +74,19 @@ final class ListBucketsRequest extends Input
      * @param array{
      *   MaxBuckets?: null|int,
      *   ContinuationToken?: null|string,
+     *   Prefix?: null|string,
+     *   BucketRegion?: null|string,
      *   '@region'?: string|null,
      * }|ListBucketsRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getBucketRegion(): ?string
+    {
+        return $this->bucketRegion;
     }
 
     public function getContinuationToken(): ?string
@@ -63,6 +97,11 @@ final class ListBucketsRequest extends Input
     public function getMaxBuckets(): ?int
     {
         return $this->maxBuckets;
+    }
+
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
     }
 
     /**
@@ -81,6 +120,12 @@ final class ListBucketsRequest extends Input
         if (null !== $this->continuationToken) {
             $query['continuation-token'] = $this->continuationToken;
         }
+        if (null !== $this->prefix) {
+            $query['prefix'] = $this->prefix;
+        }
+        if (null !== $this->bucketRegion) {
+            $query['bucket-region'] = $this->bucketRegion;
+        }
 
         // Prepare URI
         $uriString = '/';
@@ -90,6 +135,13 @@ final class ListBucketsRequest extends Input
 
         // Return the Request
         return new Request('GET', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setBucketRegion(?string $value): self
+    {
+        $this->bucketRegion = $value;
+
+        return $this;
     }
 
     public function setContinuationToken(?string $value): self
@@ -102,6 +154,13 @@ final class ListBucketsRequest extends Input
     public function setMaxBuckets(?int $value): self
     {
         $this->maxBuckets = $value;
+
+        return $this;
+    }
+
+    public function setPrefix(?string $value): self
+    {
+        $this->prefix = $value;
 
         return $this;
     }
