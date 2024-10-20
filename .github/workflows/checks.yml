@@ -97,7 +97,7 @@ jobs:
             echo "###################################################"
             echo ""
 
-            git diff src
+            git diff -- src
 
             exit 1
           fi
