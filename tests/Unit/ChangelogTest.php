@@ -198,8 +198,8 @@ class ChangelogTest extends TestCase
         });
 
         $output = array_merge(
-            self::call('git diff --numstat HEAD src/'),
-            self::call('git diff --numstat ' . $branches[0] . '...HEAD src/')
+            self::call('git diff --numstat HEAD -- src/'),
+            self::call('git diff --numstat ' . $branches[0] . '...HEAD -- src/')
         );
 
         $changedServices = [];
@@ -250,7 +250,7 @@ class ChangelogTest extends TestCase
 
             $isCommentOnly = true;
             foreach ($changedFiles as $changedFile) {
-                $changedLines = self::call('git diff --no-color -U0 ' . escapeshellarg($changesService['base'] . $changedFile));
+                $changedLines = self::call('git diff --no-color -U0 -- ' . escapeshellarg($changesService['base'] . $changedFile));
                 foreach ($changedLines as $changedLine) {
                     if (!$changedLine) {
                         continue;

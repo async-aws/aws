@@ -65,7 +65,7 @@ if ($return !== 0) {
 /**
  * Check if something changed
  */
-$output = call('git diff --numstat  src/');
+$output = call('git diff --numstat  -- src/');
 
 if (empty($output)) {
     console_log('Nothing changed.');
@@ -98,7 +98,7 @@ foreach ($output as $line) {
         continue;
     }
 
-    $fileChanges = call('git diff --no-color -U0 '.escapeshellarg($file));
+    $fileChanges = call('git diff --no-color -U0 -- '.escapeshellarg($file));
     foreach ($fileChanges as $lineChange) {
         if (!$lineChange) {
             continue;
