@@ -19,7 +19,7 @@ use AsyncAws\Core\Result;
 class GetQueryResultsOutput extends Result implements \IteratorAggregate
 {
     /**
-     * The number of rows inserted with a `CREATE TABLE AS SELECT` statement.
+     * The number of rows inserted with a `CREATE TABLE AS SELECT`, `INSERT INTO`, or `UPDATE` statement.
      *
      * @var int|null
      */

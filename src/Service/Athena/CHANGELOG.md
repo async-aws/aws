@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Removing FEDERATED from Create/List/Delete/GetDataCatalog API
+
 ## 2.3.0
 
 ### Added
