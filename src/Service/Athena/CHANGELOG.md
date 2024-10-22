@@ -2,7 +2,7 @@
 
 ## NOT RELEASED
 
-### BC Break
+### BC-BREAK
 
 - AWS api-change: Removing FEDERATED from Create/List/Delete/GetDataCatalog API
 
