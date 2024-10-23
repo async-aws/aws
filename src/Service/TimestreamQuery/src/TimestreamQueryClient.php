@@ -22,6 +22,7 @@ use AsyncAws\TimestreamQuery\Result\CancelQueryResponse;
 use AsyncAws\TimestreamQuery\Result\DescribeEndpointsResponse;
 use AsyncAws\TimestreamQuery\Result\PrepareQueryResponse;
 use AsyncAws\TimestreamQuery\Result\QueryResponse;
+use AsyncAws\TimestreamQuery\ValueObject\QueryInsights;
 
 class TimestreamQueryClient extends AbstractApi
 {
@@ -135,9 +136,16 @@ class TimestreamQueryClient extends AbstractApi
     }
 
     /**
-     * `Query` is a synchronous operation that enables you to run a query against your Amazon Timestream data. `Query` will
-     * time out after 60 seconds. You must update the default timeout in the SDK to support a timeout of 60 seconds. See the
-     * code sample [^1] for details.
+     * `Query` is a synchronous operation that enables you to run a query against your Amazon Timestream data.
+     *
+     * If you enabled `QueryInsights`, this API also returns insights and metrics related to the query that you executed.
+     * `QueryInsights` helps with performance tuning of your query.
+     *
+     * > The maximum number of `Query` API requests you're allowed to make with `QueryInsights` enabled is 1 query per
+     * > second (QPS). If you exceed this query rate, it might result in throttling.
+     *
+     * `Query` will time out after 60 seconds. You must update the default timeout in the SDK to support a timeout of 60
+     * seconds. See the code sample [^1] for details.
      *
      * Your query request will fail in the following cases:
      *
@@ -162,6 +170,7 @@ class TimestreamQueryClient extends AbstractApi
      *   ClientToken?: null|string,
      *   NextToken?: null|string,
      *   MaxRows?: null|int,
+     *   QueryInsights?: null|QueryInsights|array,
      *   '@region'?: string|null,
      * }|QueryRequest $input
      *

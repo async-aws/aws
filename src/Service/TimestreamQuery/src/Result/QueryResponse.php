@@ -9,7 +9,12 @@ use AsyncAws\TimestreamQuery\Input\QueryRequest;
 use AsyncAws\TimestreamQuery\TimestreamQueryClient;
 use AsyncAws\TimestreamQuery\ValueObject\ColumnInfo;
 use AsyncAws\TimestreamQuery\ValueObject\Datum;
+use AsyncAws\TimestreamQuery\ValueObject\QueryInsightsResponse;
+use AsyncAws\TimestreamQuery\ValueObject\QuerySpatialCoverage;
+use AsyncAws\TimestreamQuery\ValueObject\QuerySpatialCoverageMax;
 use AsyncAws\TimestreamQuery\ValueObject\QueryStatus;
+use AsyncAws\TimestreamQuery\ValueObject\QueryTemporalRange;
+use AsyncAws\TimestreamQuery\ValueObject\QueryTemporalRangeMax;
 use AsyncAws\TimestreamQuery\ValueObject\Row;
 use AsyncAws\TimestreamQuery\ValueObject\TimeSeriesDataPoint;
 use AsyncAws\TimestreamQuery\ValueObject\Type;
@@ -55,6 +60,13 @@ class QueryResponse extends Result implements \IteratorAggregate
     private $queryStatus;
 
     /**
+     * Encapsulates `QueryInsights` containing insights and metrics related to the query that you executed.
+     *
+     * @var QueryInsightsResponse|null
+     */
+    private $queryInsightsResponse;
+
+    /**
      * @return ColumnInfo[]
      */
     public function getColumnInfo(): array
@@ -86,6 +98,13 @@ class QueryResponse extends Result implements \IteratorAggregate
         $this->initialize();
 
         return $this->queryId;
+    }
+
+    public function getQueryInsightsResponse(): ?QueryInsightsResponse
+    {
+        $this->initialize();
+
+        return $this->queryInsightsResponse;
     }
 
     public function getQueryStatus(): ?QueryStatus
@@ -148,6 +167,7 @@ class QueryResponse extends Result implements \IteratorAggregate
         $this->rows = $this->populateResultRowList($data['Rows'] ?? []);
         $this->columnInfo = $this->populateResultColumnInfoList($data['ColumnInfo'] ?? []);
         $this->queryStatus = empty($data['QueryStatus']) ? null : $this->populateResultQueryStatus($data['QueryStatus']);
+        $this->queryInsightsResponse = empty($data['QueryInsightsResponse']) ? null : $this->populateResultQueryInsightsResponse($data['QueryInsightsResponse']);
     }
 
     private function populateResultColumnInfo(array $json): ColumnInfo
@@ -195,12 +215,73 @@ class QueryResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
+    private function populateResultPartitionKeyList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    private function populateResultQueryInsightsResponse(array $json): QueryInsightsResponse
+    {
+        return new QueryInsightsResponse([
+            'QuerySpatialCoverage' => empty($json['QuerySpatialCoverage']) ? null : $this->populateResultQuerySpatialCoverage($json['QuerySpatialCoverage']),
+            'QueryTemporalRange' => empty($json['QueryTemporalRange']) ? null : $this->populateResultQueryTemporalRange($json['QueryTemporalRange']),
+            'QueryTableCount' => isset($json['QueryTableCount']) ? (int) $json['QueryTableCount'] : null,
+            'OutputRows' => isset($json['OutputRows']) ? (int) $json['OutputRows'] : null,
+            'OutputBytes' => isset($json['OutputBytes']) ? (int) $json['OutputBytes'] : null,
+            'UnloadPartitionCount' => isset($json['UnloadPartitionCount']) ? (int) $json['UnloadPartitionCount'] : null,
+            'UnloadWrittenRows' => isset($json['UnloadWrittenRows']) ? (int) $json['UnloadWrittenRows'] : null,
+            'UnloadWrittenBytes' => isset($json['UnloadWrittenBytes']) ? (int) $json['UnloadWrittenBytes'] : null,
+        ]);
+    }
+
+    private function populateResultQuerySpatialCoverage(array $json): QuerySpatialCoverage
+    {
+        return new QuerySpatialCoverage([
+            'Max' => empty($json['Max']) ? null : $this->populateResultQuerySpatialCoverageMax($json['Max']),
+        ]);
+    }
+
+    private function populateResultQuerySpatialCoverageMax(array $json): QuerySpatialCoverageMax
+    {
+        return new QuerySpatialCoverageMax([
+            'Value' => isset($json['Value']) ? (float) $json['Value'] : null,
+            'TableArn' => isset($json['TableArn']) ? (string) $json['TableArn'] : null,
+            'PartitionKey' => !isset($json['PartitionKey']) ? null : $this->populateResultPartitionKeyList($json['PartitionKey']),
+        ]);
+    }
+
     private function populateResultQueryStatus(array $json): QueryStatus
     {
         return new QueryStatus([
             'ProgressPercentage' => isset($json['ProgressPercentage']) ? (float) $json['ProgressPercentage'] : null,
             'CumulativeBytesScanned' => isset($json['CumulativeBytesScanned']) ? (int) $json['CumulativeBytesScanned'] : null,
             'CumulativeBytesMetered' => isset($json['CumulativeBytesMetered']) ? (int) $json['CumulativeBytesMetered'] : null,
+        ]);
+    }
+
+    private function populateResultQueryTemporalRange(array $json): QueryTemporalRange
+    {
+        return new QueryTemporalRange([
+            'Max' => empty($json['Max']) ? null : $this->populateResultQueryTemporalRangeMax($json['Max']),
+        ]);
+    }
+
+    private function populateResultQueryTemporalRangeMax(array $json): QueryTemporalRangeMax
+    {
+        return new QueryTemporalRangeMax([
+            'Value' => isset($json['Value']) ? (int) $json['Value'] : null,
+            'TableArn' => isset($json['TableArn']) ? (string) $json['TableArn'] : null,
         ]);
     }
 

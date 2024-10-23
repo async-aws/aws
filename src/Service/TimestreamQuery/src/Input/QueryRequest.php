@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\TimestreamQuery\ValueObject\QueryInsights;
 
 final class QueryRequest extends Input
 {
@@ -79,11 +80,22 @@ final class QueryRequest extends Input
     private $maxRows;
 
     /**
+     * Encapsulates settings for enabling `QueryInsights`.
+     *
+     * Enabling `QueryInsights` returns insights and metrics in addition to query results for the query that you executed.
+     * You can use `QueryInsights` to tune your query performance.
+     *
+     * @var QueryInsights|null
+     */
+    private $queryInsights;
+
+    /**
      * @param array{
      *   QueryString?: string,
      *   ClientToken?: null|string,
      *   NextToken?: null|string,
      *   MaxRows?: null|int,
+     *   QueryInsights?: null|QueryInsights|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -93,6 +105,7 @@ final class QueryRequest extends Input
         $this->clientToken = $input['ClientToken'] ?? null;
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxRows = $input['MaxRows'] ?? null;
+        $this->queryInsights = isset($input['QueryInsights']) ? QueryInsights::create($input['QueryInsights']) : null;
         parent::__construct($input);
     }
 
@@ -102,6 +115,7 @@ final class QueryRequest extends Input
      *   ClientToken?: null|string,
      *   NextToken?: null|string,
      *   MaxRows?: null|int,
+     *   QueryInsights?: null|QueryInsights|array,
      *   '@region'?: string|null,
      * }|QueryRequest $input
      */
@@ -123,6 +137,11 @@ final class QueryRequest extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    public function getQueryInsights(): ?QueryInsights
+    {
+        return $this->queryInsights;
     }
 
     public function getQueryString(): ?string
@@ -177,6 +196,13 @@ final class QueryRequest extends Input
         return $this;
     }
 
+    public function setQueryInsights(?QueryInsights $value): self
+    {
+        $this->queryInsights = $value;
+
+        return $this;
+    }
+
     public function setQueryString(?string $value): self
     {
         $this->queryString = $value;
@@ -200,6 +226,9 @@ final class QueryRequest extends Input
         }
         if (null !== $v = $this->maxRows) {
             $payload['MaxRows'] = $v;
+        }
+        if (null !== $v = $this->queryInsights) {
+            $payload['QueryInsights'] = $v->requestBody();
         }
 
         return $payload;
