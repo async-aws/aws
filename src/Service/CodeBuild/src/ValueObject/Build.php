@@ -283,6 +283,13 @@ final class Build
     private $buildBatchArn;
 
     /**
+     * Information about the auto-retry configuration for the build.
+     *
+     * @var AutoRetryConfig|null
+     */
+    private $autoRetryConfig;
+
+    /**
      * @param array{
      *   id?: null|string,
      *   arn?: null|string,
@@ -316,6 +323,7 @@ final class Build
      *   fileSystemLocations?: null|array<ProjectFileSystemLocation|array>,
      *   debugSession?: null|DebugSession|array,
      *   buildBatchArn?: null|string,
+     *   autoRetryConfig?: null|AutoRetryConfig|array,
      * } $input
      */
     public function __construct(array $input)
@@ -352,6 +360,7 @@ final class Build
         $this->fileSystemLocations = isset($input['fileSystemLocations']) ? array_map([ProjectFileSystemLocation::class, 'create'], $input['fileSystemLocations']) : null;
         $this->debugSession = isset($input['debugSession']) ? DebugSession::create($input['debugSession']) : null;
         $this->buildBatchArn = $input['buildBatchArn'] ?? null;
+        $this->autoRetryConfig = isset($input['autoRetryConfig']) ? AutoRetryConfig::create($input['autoRetryConfig']) : null;
     }
 
     /**
@@ -388,6 +397,7 @@ final class Build
      *   fileSystemLocations?: null|array<ProjectFileSystemLocation|array>,
      *   debugSession?: null|DebugSession|array,
      *   buildBatchArn?: null|string,
+     *   autoRetryConfig?: null|AutoRetryConfig|array,
      * }|Build $input
      */
     public static function create($input): self
@@ -403,6 +413,11 @@ final class Build
     public function getArtifacts(): ?BuildArtifacts
     {
         return $this->artifacts;
+    }
+
+    public function getAutoRetryConfig(): ?AutoRetryConfig
+    {
+        return $this->autoRetryConfig;
     }
 
     public function getBuildBatchArn(): ?string

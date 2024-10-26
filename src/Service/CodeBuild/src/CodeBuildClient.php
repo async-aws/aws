@@ -101,6 +101,7 @@ class CodeBuildClient extends AbstractApi
      *   imagePullCredentialsTypeOverride?: null|ImagePullCredentialsType::*,
      *   debugSessionEnabled?: null|bool,
      *   fleetOverride?: null|ProjectFleet|array,
+     *   autoRetryLimitOverride?: null|int,
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      *

@@ -3,6 +3,7 @@
 namespace AsyncAws\CodeBuild\Result;
 
 use AsyncAws\CodeBuild\Enum\CacheMode;
+use AsyncAws\CodeBuild\ValueObject\AutoRetryConfig;
 use AsyncAws\CodeBuild\ValueObject\Build;
 use AsyncAws\CodeBuild\ValueObject\BuildArtifacts;
 use AsyncAws\CodeBuild\ValueObject\BuildPhase;
@@ -72,6 +73,16 @@ class BatchGetBuildsOutput extends Result
         $this->buildsNotFound = empty($data['buildsNotFound']) ? [] : $this->populateResultBuildIds($data['buildsNotFound']);
     }
 
+    private function populateResultAutoRetryConfig(array $json): AutoRetryConfig
+    {
+        return new AutoRetryConfig([
+            'autoRetryLimit' => isset($json['autoRetryLimit']) ? (int) $json['autoRetryLimit'] : null,
+            'autoRetryNumber' => isset($json['autoRetryNumber']) ? (int) $json['autoRetryNumber'] : null,
+            'nextAutoRetry' => isset($json['nextAutoRetry']) ? (string) $json['nextAutoRetry'] : null,
+            'previousAutoRetry' => isset($json['previousAutoRetry']) ? (string) $json['previousAutoRetry'] : null,
+        ]);
+    }
+
     private function populateResultBuild(array $json): Build
     {
         return new Build([
@@ -107,6 +118,7 @@ class BatchGetBuildsOutput extends Result
             'fileSystemLocations' => !isset($json['fileSystemLocations']) ? null : $this->populateResultProjectFileSystemLocations($json['fileSystemLocations']),
             'debugSession' => empty($json['debugSession']) ? null : $this->populateResultDebugSession($json['debugSession']),
             'buildBatchArn' => isset($json['buildBatchArn']) ? (string) $json['buildBatchArn'] : null,
+            'autoRetryConfig' => empty($json['autoRetryConfig']) ? null : $this->populateResultAutoRetryConfig($json['autoRetryConfig']),
         ]);
     }
 
