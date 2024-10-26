@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: AWS CodeBuild now supports automatically retrying failed builds
+
 ## 2.5.0
 
 ### Added

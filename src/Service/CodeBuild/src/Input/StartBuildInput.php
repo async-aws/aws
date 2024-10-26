@@ -336,6 +336,14 @@ final class StartBuildInput extends Input
     private $fleetOverride;
 
     /**
+     * The maximum number of additional automatic retries after a failed build. For example, if the auto-retry limit is set
+     * to 2, CodeBuild will call the `RetryBuild` API to automatically retry your build for up to 2 additional times.
+     *
+     * @var int|null
+     */
+    private $autoRetryLimitOverride;
+
+    /**
      * @param array{
      *   projectName?: string,
      *   secondarySourcesOverride?: null|array<ProjectSource|array>,
@@ -369,6 +377,7 @@ final class StartBuildInput extends Input
      *   imagePullCredentialsTypeOverride?: null|ImagePullCredentialsType::*,
      *   debugSessionEnabled?: null|bool,
      *   fleetOverride?: null|ProjectFleet|array,
+     *   autoRetryLimitOverride?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -406,6 +415,7 @@ final class StartBuildInput extends Input
         $this->imagePullCredentialsTypeOverride = $input['imagePullCredentialsTypeOverride'] ?? null;
         $this->debugSessionEnabled = $input['debugSessionEnabled'] ?? null;
         $this->fleetOverride = isset($input['fleetOverride']) ? ProjectFleet::create($input['fleetOverride']) : null;
+        $this->autoRetryLimitOverride = $input['autoRetryLimitOverride'] ?? null;
         parent::__construct($input);
     }
 
@@ -443,6 +453,7 @@ final class StartBuildInput extends Input
      *   imagePullCredentialsTypeOverride?: null|ImagePullCredentialsType::*,
      *   debugSessionEnabled?: null|bool,
      *   fleetOverride?: null|ProjectFleet|array,
+     *   autoRetryLimitOverride?: null|int,
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      */
@@ -454,6 +465,11 @@ final class StartBuildInput extends Input
     public function getArtifactsOverride(): ?ProjectArtifacts
     {
         return $this->artifactsOverride;
+    }
+
+    public function getAutoRetryLimitOverride(): ?int
+    {
+        return $this->autoRetryLimitOverride;
     }
 
     public function getBuildStatusConfigOverride(): ?BuildStatusConfig
@@ -664,6 +680,13 @@ final class StartBuildInput extends Input
     public function setArtifactsOverride(?ProjectArtifacts $value): self
     {
         $this->artifactsOverride = $value;
+
+        return $this;
+    }
+
+    public function setAutoRetryLimitOverride(?int $value): self
+    {
+        $this->autoRetryLimitOverride = $value;
 
         return $this;
     }
@@ -1040,6 +1063,9 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->fleetOverride) {
             $payload['fleetOverride'] = $v->requestBody();
+        }
+        if (null !== $v = $this->autoRetryLimitOverride) {
+            $payload['autoRetryLimitOverride'] = $v;
         }
 
         return $payload;
