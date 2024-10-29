@@ -109,6 +109,14 @@ See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developer
 Enable the endpoint discovery when the operation support it
 See [Endpoint discovery](https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoint-discovery.html) for more information.
 
+### podIdentityCredentialsFullUri
+
+Full Uri to the endpoint of the Pod Identity agent, which should already be injected by the Pod Identity agent when using the [PodIdentity Provider](/authentication/pod-identity.md)
+
+### podIdentityAuthorizationTokenFile
+
+Path to the file that contains the Pod Identity access token, which should already be injected by the Pod Identity agent when using the [PodIdentity Provider](/authentication/pod-identity.md)
+
 ## S3 specific Configuration reference
 
 ### pathStyleEndpoint

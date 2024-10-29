@@ -211,6 +211,9 @@ menu:
             ecs-container:
                 text: ECS container metadata
                 url: /authentication/ecs-container.html
+            pod-identity:
+                text: ECS container metadata
+                url: /authentication/pod-identity.html
             environment:
                 text: Environment variables
                 url: /authentication/environment.html
