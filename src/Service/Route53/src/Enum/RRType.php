@@ -9,6 +9,7 @@ final class RRType
     public const CAA = 'CAA';
     public const CNAME = 'CNAME';
     public const DS = 'DS';
+    public const HTTPS = 'HTTPS';
     public const MX = 'MX';
     public const NAPTR = 'NAPTR';
     public const NS = 'NS';
@@ -16,6 +17,9 @@ final class RRType
     public const SOA = 'SOA';
     public const SPF = 'SPF';
     public const SRV = 'SRV';
+    public const SSHFP = 'SSHFP';
+    public const SVCB = 'SVCB';
+    public const TLSA = 'TLSA';
     public const TXT = 'TXT';
 
     public static function exists(string $value): bool
@@ -26,6 +30,7 @@ final class RRType
             self::CAA => true,
             self::CNAME => true,
             self::DS => true,
+            self::HTTPS => true,
             self::MX => true,
             self::NAPTR => true,
             self::NS => true,
@@ -33,6 +38,9 @@ final class RRType
             self::SOA => true,
             self::SPF => true,
             self::SRV => true,
+            self::SSHFP => true,
+            self::SVCB => true,
+            self::TLSA => true,
             self::TXT => true,
         ][$value]);
     }
