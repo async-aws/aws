@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds support for TLSA, SSHFP, SVCB, and HTTPS record types.
+
 ## 2.4.0
 
 ### Added
