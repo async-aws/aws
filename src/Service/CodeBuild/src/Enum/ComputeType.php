@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class ComputeType
 {
+    public const ATTRIBUTE_BASED_COMPUTE = 'ATTRIBUTE_BASED_COMPUTE';
     public const BUILD_GENERAL1_2XLARGE = 'BUILD_GENERAL1_2XLARGE';
     public const BUILD_GENERAL1_LARGE = 'BUILD_GENERAL1_LARGE';
     public const BUILD_GENERAL1_MEDIUM = 'BUILD_GENERAL1_MEDIUM';
@@ -18,6 +19,7 @@ final class ComputeType
     public static function exists(string $value): bool
     {
         return isset([
+            self::ATTRIBUTE_BASED_COMPUTE => true,
             self::BUILD_GENERAL1_2XLARGE => true,
             self::BUILD_GENERAL1_LARGE => true,
             self::BUILD_GENERAL1_MEDIUM => true,
