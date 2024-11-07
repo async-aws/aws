@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: AWS CodeBuild now supports automatically retrying failed builds
+- AWS api-change: AWS CodeBuild now adds additional compute types for reserved capacity fleet.
 
 ## 2.5.0
 

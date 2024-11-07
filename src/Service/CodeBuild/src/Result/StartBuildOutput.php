@@ -9,6 +9,7 @@ use AsyncAws\CodeBuild\ValueObject\BuildArtifacts;
 use AsyncAws\CodeBuild\ValueObject\BuildPhase;
 use AsyncAws\CodeBuild\ValueObject\BuildStatusConfig;
 use AsyncAws\CodeBuild\ValueObject\CloudWatchLogsConfig;
+use AsyncAws\CodeBuild\ValueObject\ComputeConfiguration;
 use AsyncAws\CodeBuild\ValueObject\DebugSession;
 use AsyncAws\CodeBuild\ValueObject\EnvironmentVariable;
 use AsyncAws\CodeBuild\ValueObject\ExportedEnvironmentVariable;
@@ -185,6 +186,16 @@ class StartBuildOutput extends Result
         ]);
     }
 
+    private function populateResultComputeConfiguration(array $json): ComputeConfiguration
+    {
+        return new ComputeConfiguration([
+            'vCpu' => isset($json['vCpu']) ? (int) $json['vCpu'] : null,
+            'memory' => isset($json['memory']) ? (int) $json['memory'] : null,
+            'disk' => isset($json['disk']) ? (int) $json['disk'] : null,
+            'machineType' => isset($json['machineType']) ? (string) $json['machineType'] : null,
+        ]);
+    }
+
     private function populateResultDebugSession(array $json): DebugSession
     {
         return new DebugSession([
@@ -317,6 +328,7 @@ class StartBuildOutput extends Result
             'type' => (string) $json['type'],
             'image' => (string) $json['image'],
             'computeType' => (string) $json['computeType'],
+            'computeConfiguration' => empty($json['computeConfiguration']) ? null : $this->populateResultComputeConfiguration($json['computeConfiguration']),
             'fleet' => empty($json['fleet']) ? null : $this->populateResultProjectFleet($json['fleet']),
             'environmentVariables' => !isset($json['environmentVariables']) ? null : $this->populateResultEnvironmentVariables($json['environmentVariables']),
             'privilegedMode' => isset($json['privilegedMode']) ? filter_var($json['privilegedMode'], \FILTER_VALIDATE_BOOLEAN) : null,
