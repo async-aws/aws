@@ -11,7 +11,7 @@ use AsyncAws\Firehose\ValueObject\Record;
 final class PutRecordInput extends Input
 {
     /**
-     * The name of the delivery stream.
+     * The name of the Firehose stream.
      *
      * @required
      *

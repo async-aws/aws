@@ -128,15 +128,25 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $deadLetterConfig;
 
     /**
-     * The ARN of the Key Management Service (KMS) customer managed key that's used to encrypt your function's environment
-     * variables [^1]. When Lambda SnapStart [^2] is activated, Lambda also uses this key is to encrypt your function's
-     * snapshot. If you deploy your function using a container image, Lambda also uses this key to encrypt your function
-     * when it's deployed. Note that this is not the same key that's used to protect your container image in the Amazon
-     * Elastic Container Registry (Amazon ECR). If you don't provide a customer managed key, Lambda uses a default service
-     * key.
+     * The ARN of the Key Management Service (KMS) customer managed key that's used to encrypt the following resources:
+     *
+     * - The function's environment variables [^1].
+     * - The function's Lambda SnapStart [^2] snapshots.
+     * - When used with `SourceKMSKeyArn`, the unzipped version of the .zip deployment package that's used for function
+     *   invocations. For more information, see Specifying a customer managed key for Lambda [^3].
+     * - The optimized version of the container image that's used for function invocations. Note that this is not the same
+     *   key that's used to protect your container image in the Amazon Elastic Container Registry (Amazon ECR). For more
+     *   information, see Function lifecycle [^4].
+     *
+     * If you don't provide a customer managed key, Lambda uses an Amazon Web Services owned key [^5] or an Amazon Web
+     * Services managed key [^6].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html
+     * [^3]: https://docs.aws.amazon.com/lambda/latest/dg/encrypt-zip-package.html#enable-zip-custom-encryption
+     * [^4]: https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-lifecycle
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk
+     * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk
      *
      * @var string|null
      */

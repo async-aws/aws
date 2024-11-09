@@ -5,7 +5,7 @@ namespace AsyncAws\Firehose\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 
 /**
- * Firehose throws this exception when an attempt to put records or to start or stop delivery stream encryption fails.
+ * Firehose throws this exception when an attempt to put records or to start or stop Firehose stream encryption fails.
  * This happens when the KMS service throws one of the following exception types: `AccessDeniedException`,
  * `InvalidStateException`, `DisabledException`, or `NotFoundException`.
  */
