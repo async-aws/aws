@@ -23,7 +23,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Initialize tests
         run: make initialize
