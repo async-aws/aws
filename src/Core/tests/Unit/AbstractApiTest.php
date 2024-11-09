@@ -87,7 +87,7 @@ class DummyApi extends AbstractApi
 
     protected function discoverEndpoints(?string $region): array
     {
-        return [new class() implements EndpointInterface {
+        return [new class implements EndpointInterface {
             public function getAddress(): string
             {
                 return 'https://foobar.discovered.amazonaws.com';
