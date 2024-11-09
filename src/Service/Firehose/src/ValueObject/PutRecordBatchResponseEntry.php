@@ -4,7 +4,7 @@ namespace AsyncAws\Firehose\ValueObject;
 
 /**
  * Contains the result for an individual record from a PutRecordBatch request. If the record is successfully added to
- * your delivery stream, it receives a record ID. If the record fails to be added to your delivery stream, the result
+ * your Firehose stream, it receives a record ID. If the record fails to be added to your Firehose stream, the result
  * includes an error code and an error message.
  */
 final class PutRecordBatchResponseEntry
