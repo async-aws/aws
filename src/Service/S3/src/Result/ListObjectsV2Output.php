@@ -175,7 +175,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextContinuationToken) {
+            if (null !== $page->nextContinuationToken) {
                 $input->setContinuationToken($page->nextContinuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
@@ -219,7 +219,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextContinuationToken) {
+            if (null !== $page->nextContinuationToken) {
                 $input->setContinuationToken($page->nextContinuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
@@ -287,7 +287,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextContinuationToken) {
+            if (null !== $page->nextContinuationToken) {
                 $input->setContinuationToken($page->nextContinuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
@@ -366,18 +366,18 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->contents = !$data->Contents ? [] : $this->populateResultObjectList($data->Contents);
-        $this->name = ($v = $data->Name) ? (string) $v : null;
-        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
-        $this->delimiter = ($v = $data->Delimiter) ? (string) $v : null;
-        $this->maxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
-        $this->commonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
-        $this->encodingType = ($v = $data->EncodingType) ? (string) $v : null;
-        $this->keyCount = ($v = $data->KeyCount) ? (int) (string) $v : null;
-        $this->continuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
-        $this->nextContinuationToken = ($v = $data->NextContinuationToken) ? (string) $v : null;
-        $this->startAfter = ($v = $data->StartAfter) ? (string) $v : null;
+        $this->isTruncated = (null !== $v = $data->IsTruncated[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->contents = (0 === ($v = $data->Contents)->count()) ? [] : $this->populateResultObjectList($v);
+        $this->name = (null !== $v = $data->Name[0]) ? (string) $v : null;
+        $this->prefix = (null !== $v = $data->Prefix[0]) ? (string) $v : null;
+        $this->delimiter = (null !== $v = $data->Delimiter[0]) ? (string) $v : null;
+        $this->maxKeys = (null !== $v = $data->MaxKeys[0]) ? (int) (string) $v : null;
+        $this->commonPrefixes = (0 === ($v = $data->CommonPrefixes)->count()) ? [] : $this->populateResultCommonPrefixList($v);
+        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (string) $v : null;
+        $this->keyCount = (null !== $v = $data->KeyCount[0]) ? (int) (string) $v : null;
+        $this->continuationToken = (null !== $v = $data->ContinuationToken[0]) ? (string) $v : null;
+        $this->nextContinuationToken = (null !== $v = $data->NextContinuationToken[0]) ? (string) $v : null;
+        $this->startAfter = (null !== $v = $data->StartAfter[0]) ? (string) $v : null;
     }
 
     /**
@@ -387,13 +387,17 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
+    }
+
+    private function populateResultCommonPrefix(\SimpleXMLElement $xml): CommonPrefix
+    {
+        return new CommonPrefix([
+            'Prefix' => (null !== $v = $xml->Prefix[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -403,12 +407,24 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new CommonPrefix([
-                'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultCommonPrefix($item);
         }
 
         return $items;
+    }
+
+    private function populateResultObject(\SimpleXMLElement $xml): AwsObject
+    {
+        return new AwsObject([
+            'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
+            'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
+            'ChecksumAlgorithm' => (0 === ($v = $xml->ChecksumAlgorithm)->count()) ? null : $this->populateResultChecksumAlgorithmList($v),
+            'Size' => (null !== $v = $xml->Size[0]) ? (int) (string) $v : null,
+            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (string) $v : null,
+            'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),
+            'RestoreStatus' => 0 === $xml->RestoreStatus->count() ? null : $this->populateResultRestoreStatus($xml->RestoreStatus),
+        ]);
     }
 
     /**
@@ -418,24 +434,25 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new AwsObject([
-                'Key' => ($v = $item->Key) ? (string) $v : null,
-                'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-                'ETag' => ($v = $item->ETag) ? (string) $v : null,
-                'ChecksumAlgorithm' => !$item->ChecksumAlgorithm ? null : $this->populateResultChecksumAlgorithmList($item->ChecksumAlgorithm),
-                'Size' => ($v = $item->Size) ? (int) (string) $v : null,
-                'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
-                'Owner' => !$item->Owner ? null : new Owner([
-                    'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
-                    'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
-                ]),
-                'RestoreStatus' => !$item->RestoreStatus ? null : new RestoreStatus([
-                    'IsRestoreInProgress' => ($v = $item->RestoreStatus->IsRestoreInProgress) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                    'RestoreExpiryDate' => ($v = $item->RestoreStatus->RestoreExpiryDate) ? new \DateTimeImmutable((string) $v) : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultObject($item);
         }
 
         return $items;
+    }
+
+    private function populateResultOwner(\SimpleXMLElement $xml): Owner
+    {
+        return new Owner([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultRestoreStatus(\SimpleXMLElement $xml): RestoreStatus
+    {
+        return new RestoreStatus([
+            'IsRestoreInProgress' => (null !== $v = $xml->IsRestoreInProgress[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'RestoreExpiryDate' => (null !== $v = $xml->RestoreExpiryDate[0]) ? new \DateTimeImmutable((string) $v) : null,
+        ]);
     }
 }

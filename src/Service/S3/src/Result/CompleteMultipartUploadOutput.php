@@ -260,13 +260,13 @@ class CompleteMultipartUploadOutput extends Result
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->location = ($v = $data->Location) ? (string) $v : null;
-        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->key = ($v = $data->Key) ? (string) $v : null;
-        $this->etag = ($v = $data->ETag) ? (string) $v : null;
-        $this->checksumCrc32 = ($v = $data->ChecksumCRC32) ? (string) $v : null;
-        $this->checksumCrc32C = ($v = $data->ChecksumCRC32C) ? (string) $v : null;
-        $this->checksumSha1 = ($v = $data->ChecksumSHA1) ? (string) $v : null;
-        $this->checksumSha256 = ($v = $data->ChecksumSHA256) ? (string) $v : null;
+        $this->location = (null !== $v = $data->Location[0]) ? (string) $v : null;
+        $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;
+        $this->key = (null !== $v = $data->Key[0]) ? (string) $v : null;
+        $this->etag = (null !== $v = $data->ETag[0]) ? (string) $v : null;
+        $this->checksumCrc32 = (null !== $v = $data->ChecksumCRC32[0]) ? (string) $v : null;
+        $this->checksumCrc32C = (null !== $v = $data->ChecksumCRC32C[0]) ? (string) $v : null;
+        $this->checksumSha1 = (null !== $v = $data->ChecksumSHA1[0]) ? (string) $v : null;
+        $this->checksumSha256 = (null !== $v = $data->ChecksumSHA256[0]) ? (string) $v : null;
     }
 }

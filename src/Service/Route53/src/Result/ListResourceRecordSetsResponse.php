@@ -176,10 +176,82 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
         $data = new \SimpleXMLElement($response->getContent());
         $this->resourceRecordSets = $this->populateResultResourceRecordSets($data->ResourceRecordSets);
         $this->isTruncated = filter_var((string) $data->IsTruncated, \FILTER_VALIDATE_BOOLEAN);
-        $this->nextRecordName = ($v = $data->NextRecordName) ? (string) $v : null;
-        $this->nextRecordType = ($v = $data->NextRecordType) ? (string) $v : null;
-        $this->nextRecordIdentifier = ($v = $data->NextRecordIdentifier) ? (string) $v : null;
+        $this->nextRecordName = (null !== $v = $data->NextRecordName[0]) ? (string) $v : null;
+        $this->nextRecordType = (null !== $v = $data->NextRecordType[0]) ? (string) $v : null;
+        $this->nextRecordIdentifier = (null !== $v = $data->NextRecordIdentifier[0]) ? (string) $v : null;
         $this->maxItems = (string) $data->MaxItems;
+    }
+
+    private function populateResultAliasTarget(\SimpleXMLElement $xml): AliasTarget
+    {
+        return new AliasTarget([
+            'HostedZoneId' => (string) $xml->HostedZoneId,
+            'DNSName' => (string) $xml->DNSName,
+            'EvaluateTargetHealth' => filter_var((string) $xml->EvaluateTargetHealth, \FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
+
+    private function populateResultCidrRoutingConfig(\SimpleXMLElement $xml): CidrRoutingConfig
+    {
+        return new CidrRoutingConfig([
+            'CollectionId' => (string) $xml->CollectionId,
+            'LocationName' => (string) $xml->LocationName,
+        ]);
+    }
+
+    private function populateResultCoordinates(\SimpleXMLElement $xml): Coordinates
+    {
+        return new Coordinates([
+            'Latitude' => (string) $xml->Latitude,
+            'Longitude' => (string) $xml->Longitude,
+        ]);
+    }
+
+    private function populateResultGeoLocation(\SimpleXMLElement $xml): GeoLocation
+    {
+        return new GeoLocation([
+            'ContinentCode' => (null !== $v = $xml->ContinentCode[0]) ? (string) $v : null,
+            'CountryCode' => (null !== $v = $xml->CountryCode[0]) ? (string) $v : null,
+            'SubdivisionCode' => (null !== $v = $xml->SubdivisionCode[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultGeoProximityLocation(\SimpleXMLElement $xml): GeoProximityLocation
+    {
+        return new GeoProximityLocation([
+            'AWSRegion' => (null !== $v = $xml->AWSRegion[0]) ? (string) $v : null,
+            'LocalZoneGroup' => (null !== $v = $xml->LocalZoneGroup[0]) ? (string) $v : null,
+            'Coordinates' => 0 === $xml->Coordinates->count() ? null : $this->populateResultCoordinates($xml->Coordinates),
+            'Bias' => (null !== $v = $xml->Bias[0]) ? (int) (string) $v : null,
+        ]);
+    }
+
+    private function populateResultResourceRecord(\SimpleXMLElement $xml): ResourceRecord
+    {
+        return new ResourceRecord([
+            'Value' => (string) $xml->Value,
+        ]);
+    }
+
+    private function populateResultResourceRecordSet(\SimpleXMLElement $xml): ResourceRecordSet
+    {
+        return new ResourceRecordSet([
+            'Name' => (string) $xml->Name,
+            'Type' => (string) $xml->Type,
+            'SetIdentifier' => (null !== $v = $xml->SetIdentifier[0]) ? (string) $v : null,
+            'Weight' => (null !== $v = $xml->Weight[0]) ? (int) (string) $v : null,
+            'Region' => (null !== $v = $xml->Region[0]) ? (string) $v : null,
+            'GeoLocation' => 0 === $xml->GeoLocation->count() ? null : $this->populateResultGeoLocation($xml->GeoLocation),
+            'Failover' => (null !== $v = $xml->Failover[0]) ? (string) $v : null,
+            'MultiValueAnswer' => (null !== $v = $xml->MultiValueAnswer[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'TTL' => (null !== $v = $xml->TTL[0]) ? (int) (string) $v : null,
+            'ResourceRecords' => (0 === ($v = $xml->ResourceRecords)->count()) ? null : $this->populateResultResourceRecords($v),
+            'AliasTarget' => 0 === $xml->AliasTarget->count() ? null : $this->populateResultAliasTarget($xml->AliasTarget),
+            'HealthCheckId' => (null !== $v = $xml->HealthCheckId[0]) ? (string) $v : null,
+            'TrafficPolicyInstanceId' => (null !== $v = $xml->TrafficPolicyInstanceId[0]) ? (string) $v : null,
+            'CidrRoutingConfig' => 0 === $xml->CidrRoutingConfig->count() ? null : $this->populateResultCidrRoutingConfig($xml->CidrRoutingConfig),
+            'GeoProximityLocation' => 0 === $xml->GeoProximityLocation->count() ? null : $this->populateResultGeoProximityLocation($xml->GeoProximityLocation),
+        ]);
     }
 
     /**
@@ -189,42 +261,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
     {
         $items = [];
         foreach ($xml->ResourceRecordSet as $item) {
-            $items[] = new ResourceRecordSet([
-                'Name' => (string) $item->Name,
-                'Type' => (string) $item->Type,
-                'SetIdentifier' => ($v = $item->SetIdentifier) ? (string) $v : null,
-                'Weight' => ($v = $item->Weight) ? (int) (string) $v : null,
-                'Region' => ($v = $item->Region) ? (string) $v : null,
-                'GeoLocation' => !$item->GeoLocation ? null : new GeoLocation([
-                    'ContinentCode' => ($v = $item->GeoLocation->ContinentCode) ? (string) $v : null,
-                    'CountryCode' => ($v = $item->GeoLocation->CountryCode) ? (string) $v : null,
-                    'SubdivisionCode' => ($v = $item->GeoLocation->SubdivisionCode) ? (string) $v : null,
-                ]),
-                'Failover' => ($v = $item->Failover) ? (string) $v : null,
-                'MultiValueAnswer' => ($v = $item->MultiValueAnswer) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'TTL' => ($v = $item->TTL) ? (int) (string) $v : null,
-                'ResourceRecords' => !$item->ResourceRecords ? null : $this->populateResultResourceRecords($item->ResourceRecords),
-                'AliasTarget' => !$item->AliasTarget ? null : new AliasTarget([
-                    'HostedZoneId' => (string) $item->AliasTarget->HostedZoneId,
-                    'DNSName' => (string) $item->AliasTarget->DNSName,
-                    'EvaluateTargetHealth' => filter_var((string) $item->AliasTarget->EvaluateTargetHealth, \FILTER_VALIDATE_BOOLEAN),
-                ]),
-                'HealthCheckId' => ($v = $item->HealthCheckId) ? (string) $v : null,
-                'TrafficPolicyInstanceId' => ($v = $item->TrafficPolicyInstanceId) ? (string) $v : null,
-                'CidrRoutingConfig' => !$item->CidrRoutingConfig ? null : new CidrRoutingConfig([
-                    'CollectionId' => (string) $item->CidrRoutingConfig->CollectionId,
-                    'LocationName' => (string) $item->CidrRoutingConfig->LocationName,
-                ]),
-                'GeoProximityLocation' => !$item->GeoProximityLocation ? null : new GeoProximityLocation([
-                    'AWSRegion' => ($v = $item->GeoProximityLocation->AWSRegion) ? (string) $v : null,
-                    'LocalZoneGroup' => ($v = $item->GeoProximityLocation->LocalZoneGroup) ? (string) $v : null,
-                    'Coordinates' => !$item->GeoProximityLocation->Coordinates ? null : new Coordinates([
-                        'Latitude' => (string) $item->GeoProximityLocation->Coordinates->Latitude,
-                        'Longitude' => (string) $item->GeoProximityLocation->Coordinates->Longitude,
-                    ]),
-                    'Bias' => ($v = $item->GeoProximityLocation->Bias) ? (int) (string) $v : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultResourceRecordSet($item);
         }
 
         return $items;
@@ -237,9 +274,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
     {
         $items = [];
         foreach ($xml->ResourceRecord as $item) {
-            $items[] = new ResourceRecord([
-                'Value' => (string) $item->Value,
-            ]);
+            $items[] = $this->populateResultResourceRecord($item);
         }
 
         return $items;

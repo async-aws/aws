@@ -147,8 +147,28 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
         $this->hostedZones = $this->populateResultHostedZones($data->HostedZones);
         $this->marker = (string) $data->Marker;
         $this->isTruncated = filter_var((string) $data->IsTruncated, \FILTER_VALIDATE_BOOLEAN);
-        $this->nextMarker = ($v = $data->NextMarker) ? (string) $v : null;
+        $this->nextMarker = (null !== $v = $data->NextMarker[0]) ? (string) $v : null;
         $this->maxItems = (string) $data->MaxItems;
+    }
+
+    private function populateResultHostedZone(\SimpleXMLElement $xml): HostedZone
+    {
+        return new HostedZone([
+            'Id' => (string) $xml->Id,
+            'Name' => (string) $xml->Name,
+            'CallerReference' => (string) $xml->CallerReference,
+            'Config' => 0 === $xml->Config->count() ? null : $this->populateResultHostedZoneConfig($xml->Config),
+            'ResourceRecordSetCount' => (null !== $v = $xml->ResourceRecordSetCount[0]) ? (int) (string) $v : null,
+            'LinkedService' => 0 === $xml->LinkedService->count() ? null : $this->populateResultLinkedService($xml->LinkedService),
+        ]);
+    }
+
+    private function populateResultHostedZoneConfig(\SimpleXMLElement $xml): HostedZoneConfig
+    {
+        return new HostedZoneConfig([
+            'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
+            'PrivateZone' => (null !== $v = $xml->PrivateZone[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
     }
 
     /**
@@ -158,22 +178,17 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->HostedZone as $item) {
-            $items[] = new HostedZone([
-                'Id' => (string) $item->Id,
-                'Name' => (string) $item->Name,
-                'CallerReference' => (string) $item->CallerReference,
-                'Config' => !$item->Config ? null : new HostedZoneConfig([
-                    'Comment' => ($v = $item->Config->Comment) ? (string) $v : null,
-                    'PrivateZone' => ($v = $item->Config->PrivateZone) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                ]),
-                'ResourceRecordSetCount' => ($v = $item->ResourceRecordSetCount) ? (int) (string) $v : null,
-                'LinkedService' => !$item->LinkedService ? null : new LinkedService([
-                    'ServicePrincipal' => ($v = $item->LinkedService->ServicePrincipal) ? (string) $v : null,
-                    'Description' => ($v = $item->LinkedService->Description) ? (string) $v : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultHostedZone($item);
         }
 
         return $items;
+    }
+
+    private function populateResultLinkedService(\SimpleXMLElement $xml): LinkedService
+    {
+        return new LinkedService([
+            'ServicePrincipal' => (null !== $v = $xml->ServicePrincipal[0]) ? (string) $v : null,
+            'Description' => (null !== $v = $xml->Description[0]) ? (string) $v : null,
+        ]);
     }
 }

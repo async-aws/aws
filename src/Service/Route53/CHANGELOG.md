@@ -6,6 +6,10 @@
 
 - AWS api-change: This release adds support for TLSA, SSHFP, SVCB, and HTTPS record types.
 
+### Changed
+
+- use strict comparison `null !==` instead of `!`
+
 ## 2.4.0
 
 ### Added

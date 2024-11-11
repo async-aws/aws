@@ -31,6 +31,6 @@ class SubscribeResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->SubscribeResult;
 
-        $this->subscriptionArn = ($v = $data->SubscriptionArn) ? (string) $v : null;
+        $this->subscriptionArn = (null !== $v = $data->SubscriptionArn[0]) ? (string) $v : null;
     }
 }

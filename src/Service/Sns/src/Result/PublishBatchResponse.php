@@ -48,8 +48,18 @@ class PublishBatchResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->PublishBatchResult;
 
-        $this->successful = !$data->Successful ? [] : $this->populateResultPublishBatchResultEntryList($data->Successful);
-        $this->failed = !$data->Failed ? [] : $this->populateResultBatchResultErrorEntryList($data->Failed);
+        $this->successful = (0 === ($v = $data->Successful)->count()) ? [] : $this->populateResultPublishBatchResultEntryList($v);
+        $this->failed = (0 === ($v = $data->Failed)->count()) ? [] : $this->populateResultBatchResultErrorEntryList($v);
+    }
+
+    private function populateResultBatchResultErrorEntry(\SimpleXMLElement $xml): BatchResultErrorEntry
+    {
+        return new BatchResultErrorEntry([
+            'Id' => (string) $xml->Id,
+            'Code' => (string) $xml->Code,
+            'Message' => (null !== $v = $xml->Message[0]) ? (string) $v : null,
+            'SenderFault' => filter_var((string) $xml->SenderFault, \FILTER_VALIDATE_BOOLEAN),
+        ]);
     }
 
     /**
@@ -59,15 +69,19 @@ class PublishBatchResponse extends Result
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new BatchResultErrorEntry([
-                'Id' => (string) $item->Id,
-                'Code' => (string) $item->Code,
-                'Message' => ($v = $item->Message) ? (string) $v : null,
-                'SenderFault' => filter_var((string) $item->SenderFault, \FILTER_VALIDATE_BOOLEAN),
-            ]);
+            $items[] = $this->populateResultBatchResultErrorEntry($item);
         }
 
         return $items;
+    }
+
+    private function populateResultPublishBatchResultEntry(\SimpleXMLElement $xml): PublishBatchResultEntry
+    {
+        return new PublishBatchResultEntry([
+            'Id' => (null !== $v = $xml->Id[0]) ? (string) $v : null,
+            'MessageId' => (null !== $v = $xml->MessageId[0]) ? (string) $v : null,
+            'SequenceNumber' => (null !== $v = $xml->SequenceNumber[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -77,11 +91,7 @@ class PublishBatchResponse extends Result
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new PublishBatchResultEntry([
-                'Id' => ($v = $item->Id) ? (string) $v : null,
-                'MessageId' => ($v = $item->MessageId) ? (string) $v : null,
-                'SequenceNumber' => ($v = $item->SequenceNumber) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultPublishBatchResultEntry($item);
         }
 
         return $items;

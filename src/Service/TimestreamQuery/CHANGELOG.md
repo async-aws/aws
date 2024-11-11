@@ -6,6 +6,10 @@
 
 - AWS api-change: This release adds support for Query Insights, a feature that provides details of query execution, enabling users to identify areas for improvement to optimize their queries, resulting in improved query performance and lower query costs.
 
+### Changed
+
+- use strict comparison `null !==` instead of `!`
+
 ## 2.0.4
 
 ### Changed

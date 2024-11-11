@@ -6,6 +6,10 @@
 
 - AWS api-change: Add support for the new optional bucket-region and prefix query parameters in the ListBuckets API. For ListBuckets requests that express pagination, Amazon S3 will now return both the bucket names and associated AWS regions in the response.
 
+### Changed
+
+- use strict comparison `null !==` instead of `!`
+
 ## 2.4.0
 
 ### Added

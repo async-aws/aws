@@ -8,6 +8,7 @@
 
 ### Changed
 
+- use strict comparison `null !==` instead of `!`
 - Fix CS
 
 ## 1.22.1

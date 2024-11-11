@@ -69,7 +69,7 @@ class ListThingsInThingGroupResponse extends Result implements \IteratorAggregat
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listThingsInThingGroup($input));

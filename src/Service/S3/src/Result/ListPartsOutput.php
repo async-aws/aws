@@ -316,24 +316,48 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->key = ($v = $data->Key) ? (string) $v : null;
-        $this->uploadId = ($v = $data->UploadId) ? (string) $v : null;
-        $this->partNumberMarker = ($v = $data->PartNumberMarker) ? (int) (string) $v : null;
-        $this->nextPartNumberMarker = ($v = $data->NextPartNumberMarker) ? (int) (string) $v : null;
-        $this->maxParts = ($v = $data->MaxParts) ? (int) (string) $v : null;
-        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->parts = !$data->Part ? [] : $this->populateResultParts($data->Part);
-        $this->initiator = !$data->Initiator ? null : new Initiator([
-            'ID' => ($v = $data->Initiator->ID) ? (string) $v : null,
-            'DisplayName' => ($v = $data->Initiator->DisplayName) ? (string) $v : null,
+        $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;
+        $this->key = (null !== $v = $data->Key[0]) ? (string) $v : null;
+        $this->uploadId = (null !== $v = $data->UploadId[0]) ? (string) $v : null;
+        $this->partNumberMarker = (null !== $v = $data->PartNumberMarker[0]) ? (int) (string) $v : null;
+        $this->nextPartNumberMarker = (null !== $v = $data->NextPartNumberMarker[0]) ? (int) (string) $v : null;
+        $this->maxParts = (null !== $v = $data->MaxParts[0]) ? (int) (string) $v : null;
+        $this->isTruncated = (null !== $v = $data->IsTruncated[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->parts = (0 === ($v = $data->Part)->count()) ? [] : $this->populateResultParts($v);
+        $this->initiator = 0 === $data->Initiator->count() ? null : $this->populateResultInitiator($data->Initiator);
+        $this->owner = 0 === $data->Owner->count() ? null : $this->populateResultOwner($data->Owner);
+        $this->storageClass = (null !== $v = $data->StorageClass[0]) ? (string) $v : null;
+        $this->checksumAlgorithm = (null !== $v = $data->ChecksumAlgorithm[0]) ? (string) $v : null;
+    }
+
+    private function populateResultInitiator(\SimpleXMLElement $xml): Initiator
+    {
+        return new Initiator([
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
         ]);
-        $this->owner = !$data->Owner ? null : new Owner([
-            'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
-            'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
+    }
+
+    private function populateResultOwner(\SimpleXMLElement $xml): Owner
+    {
+        return new Owner([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
         ]);
-        $this->storageClass = ($v = $data->StorageClass) ? (string) $v : null;
-        $this->checksumAlgorithm = ($v = $data->ChecksumAlgorithm) ? (string) $v : null;
+    }
+
+    private function populateResultPart(\SimpleXMLElement $xml): Part
+    {
+        return new Part([
+            'PartNumber' => (null !== $v = $xml->PartNumber[0]) ? (int) (string) $v : null,
+            'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
+            'Size' => (null !== $v = $xml->Size[0]) ? (int) (string) $v : null,
+            'ChecksumCRC32' => (null !== $v = $xml->ChecksumCRC32[0]) ? (string) $v : null,
+            'ChecksumCRC32C' => (null !== $v = $xml->ChecksumCRC32C[0]) ? (string) $v : null,
+            'ChecksumSHA1' => (null !== $v = $xml->ChecksumSHA1[0]) ? (string) $v : null,
+            'ChecksumSHA256' => (null !== $v = $xml->ChecksumSHA256[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -343,16 +367,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new Part([
-                'PartNumber' => ($v = $item->PartNumber) ? (int) (string) $v : null,
-                'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-                'ETag' => ($v = $item->ETag) ? (string) $v : null,
-                'Size' => ($v = $item->Size) ? (int) (string) $v : null,
-                'ChecksumCRC32' => ($v = $item->ChecksumCRC32) ? (string) $v : null,
-                'ChecksumCRC32C' => ($v = $item->ChecksumCRC32C) ? (string) $v : null,
-                'ChecksumSHA1' => ($v = $item->ChecksumSHA1) ? (string) $v : null,
-                'ChecksumSHA256' => ($v = $item->ChecksumSHA256) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultPart($item);
         }
 
         return $items;

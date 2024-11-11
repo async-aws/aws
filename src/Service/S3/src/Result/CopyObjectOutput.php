@@ -199,13 +199,18 @@ class CopyObjectOutput extends Result
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->copyObjectResult = new CopyObjectResult([
-            'ETag' => ($v = $data->ETag) ? (string) $v : null,
-            'LastModified' => ($v = $data->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-            'ChecksumCRC32' => ($v = $data->ChecksumCRC32) ? (string) $v : null,
-            'ChecksumCRC32C' => ($v = $data->ChecksumCRC32C) ? (string) $v : null,
-            'ChecksumSHA1' => ($v = $data->ChecksumSHA1) ? (string) $v : null,
-            'ChecksumSHA256' => ($v = $data->ChecksumSHA256) ? (string) $v : null,
+        $this->copyObjectResult = $this->populateResultCopyObjectResult($data);
+    }
+
+    private function populateResultCopyObjectResult(\SimpleXMLElement $xml): CopyObjectResult
+    {
+        return new CopyObjectResult([
+            'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
+            'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'ChecksumCRC32' => (null !== $v = $xml->ChecksumCRC32[0]) ? (string) $v : null,
+            'ChecksumCRC32C' => (null !== $v = $xml->ChecksumCRC32C[0]) ? (string) $v : null,
+            'ChecksumSHA1' => (null !== $v = $xml->ChecksumSHA1[0]) ? (string) $v : null,
+            'ChecksumSHA256' => (null !== $v = $xml->ChecksumSHA256[0]) ? (string) $v : null,
         ]);
     }
 }

@@ -47,18 +47,22 @@ class GetUserResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetUserResult;
 
-        $this->user = new User([
-            'Path' => (string) $data->User->Path,
-            'UserName' => (string) $data->User->UserName,
-            'UserId' => (string) $data->User->UserId,
-            'Arn' => (string) $data->User->Arn,
-            'CreateDate' => new \DateTimeImmutable((string) $data->User->CreateDate),
-            'PasswordLastUsed' => ($v = $data->User->PasswordLastUsed) ? new \DateTimeImmutable((string) $v) : null,
-            'PermissionsBoundary' => !$data->User->PermissionsBoundary ? null : new AttachedPermissionsBoundary([
-                'PermissionsBoundaryType' => ($v = $data->User->PermissionsBoundary->PermissionsBoundaryType) ? (string) $v : null,
-                'PermissionsBoundaryArn' => ($v = $data->User->PermissionsBoundary->PermissionsBoundaryArn) ? (string) $v : null,
-            ]),
-            'Tags' => !$data->User->Tags ? null : $this->populateResultTagListType($data->User->Tags),
+        $this->user = $this->populateResultUser($data->User);
+    }
+
+    private function populateResultAttachedPermissionsBoundary(\SimpleXMLElement $xml): AttachedPermissionsBoundary
+    {
+        return new AttachedPermissionsBoundary([
+            'PermissionsBoundaryType' => (null !== $v = $xml->PermissionsBoundaryType[0]) ? (string) $v : null,
+            'PermissionsBoundaryArn' => (null !== $v = $xml->PermissionsBoundaryArn[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultTag(\SimpleXMLElement $xml): Tag
+    {
+        return new Tag([
+            'Key' => (string) $xml->Key,
+            'Value' => (string) $xml->Value,
         ]);
     }
 
@@ -69,12 +73,23 @@ class GetUserResponse extends Result
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Tag([
-                'Key' => (string) $item->Key,
-                'Value' => (string) $item->Value,
-            ]);
+            $items[] = $this->populateResultTag($item);
         }
 
         return $items;
+    }
+
+    private function populateResultUser(\SimpleXMLElement $xml): User
+    {
+        return new User([
+            'Path' => (string) $xml->Path,
+            'UserName' => (string) $xml->UserName,
+            'UserId' => (string) $xml->UserId,
+            'Arn' => (string) $xml->Arn,
+            'CreateDate' => new \DateTimeImmutable((string) $xml->CreateDate),
+            'PasswordLastUsed' => (null !== $v = $xml->PasswordLastUsed[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'PermissionsBoundary' => 0 === $xml->PermissionsBoundary->count() ? null : $this->populateResultAttachedPermissionsBoundary($xml->PermissionsBoundary),
+            'Tags' => (0 === ($v = $xml->Tags)->count()) ? null : $this->populateResultTagListType($v),
+        ]);
     }
 }

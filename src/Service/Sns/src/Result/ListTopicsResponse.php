@@ -73,7 +73,7 @@ class ListTopicsResponse extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listTopics($input));
@@ -97,8 +97,15 @@ class ListTopicsResponse extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListTopicsResult;
 
-        $this->topics = !$data->Topics ? [] : $this->populateResultTopicsList($data->Topics);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->topics = (0 === ($v = $data->Topics)->count()) ? [] : $this->populateResultTopicsList($v);
+        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
+    }
+
+    private function populateResultTopic(\SimpleXMLElement $xml): Topic
+    {
+        return new Topic([
+            'TopicArn' => (null !== $v = $xml->TopicArn[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -108,9 +115,7 @@ class ListTopicsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Topic([
-                'TopicArn' => ($v = $item->TopicArn) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultTopic($item);
         }
 
         return $items;

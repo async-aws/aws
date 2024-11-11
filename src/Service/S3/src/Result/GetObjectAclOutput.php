@@ -64,11 +64,27 @@ class GetObjectAclOutput extends Result
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->owner = !$data->Owner ? null : new Owner([
-            'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
-            'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
+        $this->owner = 0 === $data->Owner->count() ? null : $this->populateResultOwner($data->Owner);
+        $this->grants = (0 === ($v = $data->AccessControlList)->count()) ? [] : $this->populateResultGrants($v);
+    }
+
+    private function populateResultGrant(\SimpleXMLElement $xml): Grant
+    {
+        return new Grant([
+            'Grantee' => 0 === $xml->Grantee->count() ? null : $this->populateResultGrantee($xml->Grantee),
+            'Permission' => (null !== $v = $xml->Permission[0]) ? (string) $v : null,
         ]);
-        $this->grants = !$data->AccessControlList ? [] : $this->populateResultGrants($data->AccessControlList);
+    }
+
+    private function populateResultGrantee(\SimpleXMLElement $xml): Grantee
+    {
+        return new Grantee([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'EmailAddress' => (null !== $v = $xml->EmailAddress[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+            'Type' => (string) ($xml->attributes('xsi', true)['type'][0] ?? null),
+            'URI' => (null !== $v = $xml->URI[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -78,18 +94,17 @@ class GetObjectAclOutput extends Result
     {
         $items = [];
         foreach ($xml->Grant as $item) {
-            $items[] = new Grant([
-                'Grantee' => !$item->Grantee ? null : new Grantee([
-                    'DisplayName' => ($v = $item->Grantee->DisplayName) ? (string) $v : null,
-                    'EmailAddress' => ($v = $item->Grantee->EmailAddress) ? (string) $v : null,
-                    'ID' => ($v = $item->Grantee->ID) ? (string) $v : null,
-                    'Type' => (string) ($item->Grantee->attributes('xsi', true)['type'][0] ?? null),
-                    'URI' => ($v = $item->Grantee->URI) ? (string) $v : null,
-                ]),
-                'Permission' => ($v = $item->Permission) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultGrant($item);
         }
 
         return $items;
+    }
+
+    private function populateResultOwner(\SimpleXMLElement $xml): Owner
+    {
+        return new Owner([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+        ]);
     }
 }

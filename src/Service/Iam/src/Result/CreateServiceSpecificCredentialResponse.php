@@ -30,14 +30,19 @@ class CreateServiceSpecificCredentialResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateServiceSpecificCredentialResult;
 
-        $this->serviceSpecificCredential = !$data->ServiceSpecificCredential ? null : new ServiceSpecificCredential([
-            'CreateDate' => new \DateTimeImmutable((string) $data->ServiceSpecificCredential->CreateDate),
-            'ServiceName' => (string) $data->ServiceSpecificCredential->ServiceName,
-            'ServiceUserName' => (string) $data->ServiceSpecificCredential->ServiceUserName,
-            'ServicePassword' => (string) $data->ServiceSpecificCredential->ServicePassword,
-            'ServiceSpecificCredentialId' => (string) $data->ServiceSpecificCredential->ServiceSpecificCredentialId,
-            'UserName' => (string) $data->ServiceSpecificCredential->UserName,
-            'Status' => (string) $data->ServiceSpecificCredential->Status,
+        $this->serviceSpecificCredential = 0 === $data->ServiceSpecificCredential->count() ? null : $this->populateResultServiceSpecificCredential($data->ServiceSpecificCredential);
+    }
+
+    private function populateResultServiceSpecificCredential(\SimpleXMLElement $xml): ServiceSpecificCredential
+    {
+        return new ServiceSpecificCredential([
+            'CreateDate' => new \DateTimeImmutable((string) $xml->CreateDate),
+            'ServiceName' => (string) $xml->ServiceName,
+            'ServiceUserName' => (string) $xml->ServiceUserName,
+            'ServicePassword' => (string) $xml->ServicePassword,
+            'ServiceSpecificCredentialId' => (string) $xml->ServiceSpecificCredentialId,
+            'UserName' => (string) $xml->UserName,
+            'Status' => (string) $xml->Status,
         ]);
     }
 }

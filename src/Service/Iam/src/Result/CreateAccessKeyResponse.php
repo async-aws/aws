@@ -30,12 +30,17 @@ class CreateAccessKeyResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateAccessKeyResult;
 
-        $this->accessKey = new AccessKey([
-            'UserName' => (string) $data->AccessKey->UserName,
-            'AccessKeyId' => (string) $data->AccessKey->AccessKeyId,
-            'Status' => (string) $data->AccessKey->Status,
-            'SecretAccessKey' => (string) $data->AccessKey->SecretAccessKey,
-            'CreateDate' => ($v = $data->AccessKey->CreateDate) ? new \DateTimeImmutable((string) $v) : null,
+        $this->accessKey = $this->populateResultAccessKey($data->AccessKey);
+    }
+
+    private function populateResultAccessKey(\SimpleXMLElement $xml): AccessKey
+    {
+        return new AccessKey([
+            'UserName' => (string) $xml->UserName,
+            'AccessKeyId' => (string) $xml->AccessKeyId,
+            'Status' => (string) $xml->Status,
+            'SecretAccessKey' => (string) $xml->SecretAccessKey,
+            'CreateDate' => (null !== $v = $xml->CreateDate[0]) ? new \DateTimeImmutable((string) $v) : null,
         ]);
     }
 }

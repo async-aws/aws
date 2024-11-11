@@ -33,11 +33,16 @@ class ChangeResourceRecordSetsResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
-        $this->changeInfo = new ChangeInfo([
-            'Id' => (string) $data->ChangeInfo->Id,
-            'Status' => (string) $data->ChangeInfo->Status,
-            'SubmittedAt' => new \DateTimeImmutable((string) $data->ChangeInfo->SubmittedAt),
-            'Comment' => ($v = $data->ChangeInfo->Comment) ? (string) $v : null,
+        $this->changeInfo = $this->populateResultChangeInfo($data->ChangeInfo);
+    }
+
+    private function populateResultChangeInfo(\SimpleXMLElement $xml): ChangeInfo
+    {
+        return new ChangeInfo([
+            'Id' => (string) $xml->Id,
+            'Status' => (string) $xml->Status,
+            'SubmittedAt' => new \DateTimeImmutable((string) $xml->SubmittedAt),
+            'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
         ]);
     }
 }

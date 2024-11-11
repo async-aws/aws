@@ -48,17 +48,24 @@ class CreateInvalidationResult extends Result
         $this->location = $headers['location'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->invalidation = new Invalidation([
-            'Id' => (string) $data->Id,
-            'Status' => (string) $data->Status,
-            'CreateTime' => new \DateTimeImmutable((string) $data->CreateTime),
-            'InvalidationBatch' => new InvalidationBatch([
-                'Paths' => new Paths([
-                    'Quantity' => (int) (string) $data->InvalidationBatch->Paths->Quantity,
-                    'Items' => !$data->InvalidationBatch->Paths->Items ? null : $this->populateResultPathList($data->InvalidationBatch->Paths->Items),
-                ]),
-                'CallerReference' => (string) $data->InvalidationBatch->CallerReference,
-            ]),
+        $this->invalidation = $this->populateResultInvalidation($data);
+    }
+
+    private function populateResultInvalidation(\SimpleXMLElement $xml): Invalidation
+    {
+        return new Invalidation([
+            'Id' => (string) $xml->Id,
+            'Status' => (string) $xml->Status,
+            'CreateTime' => new \DateTimeImmutable((string) $xml->CreateTime),
+            'InvalidationBatch' => $this->populateResultInvalidationBatch($xml->InvalidationBatch),
+        ]);
+    }
+
+    private function populateResultInvalidationBatch(\SimpleXMLElement $xml): InvalidationBatch
+    {
+        return new InvalidationBatch([
+            'Paths' => $this->populateResultPaths($xml->Paths),
+            'CallerReference' => (string) $xml->CallerReference,
         ]);
     }
 
@@ -69,12 +76,17 @@ class CreateInvalidationResult extends Result
     {
         $items = [];
         foreach ($xml->Path as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
+    }
+
+    private function populateResultPaths(\SimpleXMLElement $xml): Paths
+    {
+        return new Paths([
+            'Quantity' => (int) (string) $xml->Quantity,
+            'Items' => (0 === ($v = $xml->Items)->count()) ? null : $this->populateResultPathList($v),
+        ]);
     }
 }

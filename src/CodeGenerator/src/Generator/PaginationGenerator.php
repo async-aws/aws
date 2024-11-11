@@ -207,7 +207,9 @@ class PaginationGenerator
         if (!$moreResult) {
             $moreCondition = '';
             foreach ($outputToken as $property) {
-                $moreCondition .= $this->generateGetter('$page', $property, (bool) $common);
+                $moreCondition .= 'null !== ' . $this->generateGetter('$page', $property, (bool) $common);
+
+                break;
             }
         } else {
             $moreCondition = $this->generateGetter('$page', $moreResult, (bool) $common);

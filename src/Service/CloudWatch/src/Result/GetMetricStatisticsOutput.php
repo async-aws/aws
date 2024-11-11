@@ -44,8 +44,22 @@ class GetMetricStatisticsOutput extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetMetricStatisticsResult;
 
-        $this->label = ($v = $data->Label) ? (string) $v : null;
-        $this->datapoints = !$data->Datapoints ? [] : $this->populateResultDatapoints($data->Datapoints);
+        $this->label = (null !== $v = $data->Label[0]) ? (string) $v : null;
+        $this->datapoints = (0 === ($v = $data->Datapoints)->count()) ? [] : $this->populateResultDatapoints($v);
+    }
+
+    private function populateResultDatapoint(\SimpleXMLElement $xml): Datapoint
+    {
+        return new Datapoint([
+            'Timestamp' => (null !== $v = $xml->Timestamp[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'SampleCount' => (null !== $v = $xml->SampleCount[0]) ? (float) (string) $v : null,
+            'Average' => (null !== $v = $xml->Average[0]) ? (float) (string) $v : null,
+            'Sum' => (null !== $v = $xml->Sum[0]) ? (float) (string) $v : null,
+            'Minimum' => (null !== $v = $xml->Minimum[0]) ? (float) (string) $v : null,
+            'Maximum' => (null !== $v = $xml->Maximum[0]) ? (float) (string) $v : null,
+            'Unit' => (null !== $v = $xml->Unit[0]) ? (string) $v : null,
+            'ExtendedStatistics' => (0 === ($v = $xml->ExtendedStatistics)->count()) ? null : $this->populateResultDatapointValueMap($v),
+        ]);
     }
 
     /**
@@ -69,16 +83,7 @@ class GetMetricStatisticsOutput extends Result
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Datapoint([
-                'Timestamp' => ($v = $item->Timestamp) ? new \DateTimeImmutable((string) $v) : null,
-                'SampleCount' => ($v = $item->SampleCount) ? (float) (string) $v : null,
-                'Average' => ($v = $item->Average) ? (float) (string) $v : null,
-                'Sum' => ($v = $item->Sum) ? (float) (string) $v : null,
-                'Minimum' => ($v = $item->Minimum) ? (float) (string) $v : null,
-                'Maximum' => ($v = $item->Maximum) ? (float) (string) $v : null,
-                'Unit' => ($v = $item->Unit) ? (string) $v : null,
-                'ExtendedStatistics' => !$item->ExtendedStatistics ? null : $this->populateResultDatapointValueMap($item->ExtendedStatistics),
-            ]);
+            $items[] = $this->populateResultDatapoint($item);
         }
 
         return $items;

@@ -50,6 +50,11 @@ class RestXmlParser implements Parser
      */
     private $imports = [];
 
+    /**
+     * @var array<string, true>
+     */
+    private $generatedFunctions = [];
+
     public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, TypeGenerator $typeGenerator)
     {
         $this->namespaceRegistry = $namespaceRegistry;
@@ -61,6 +66,7 @@ class RestXmlParser implements Parser
     {
         $properties = [];
         $this->functions = [];
+        $this->generatedFunctions = [];
         $this->imports = [];
         if (null !== $payload = $shape->getPayload()) {
             $member = $shape->getMember($payload);
@@ -80,19 +86,10 @@ class RestXmlParser implements Parser
                     continue;
                 }
 
-                if (!$member->isNullable() && !$member->isRequired()) {
-                    $properties[] = strtr('if (null !== $v = (PROPERTY_ACCESSOR)) {
-                        $this->PROPERTY_NAME = $v;
-                    }', [
-                        'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                        'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired(), false),
-                    ]);
-                } else {
-                    $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                        'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                        'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired(), false),
-                    ]);
-                }
+                $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired(), false),
+                ]);
             }
         }
 
@@ -204,20 +201,35 @@ class RestXmlParser implements Parser
 
     private function parseXmlResponseStructure(StructureShape $shape, string $input, bool $required): string
     {
-        $properties = [];
-        foreach ($shape->getMembers() as $member) {
-            $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
-                'PROPERTY_NAME' => var_export($member->getName(), true),
-                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor($input, $member), $member->getShape(), $member->isRequired(), true),
-            ]);
+        $functionName = 'populateResult' . ucfirst($shape->getName());
+        if (!isset($this->generatedFunctions[$functionName])) {
+            // prevent recursion
+            $this->generatedFunctions[$functionName] = true;
+
+            $properties = [];
+            foreach ($shape->getMembers() as $member) {
+                $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
+                    'PROPERTY_NAME' => var_export($member->getName(), true),
+                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$xml', $member), $member->getShape(), $member->isRequired(), true),
+                ]);
+            }
+
+            $body = 'return new CLASS_NAME([
+                PROPERTIES
+            ]);';
+
+            $className = $this->namespaceRegistry->getObject($shape);
+            $this->imports[] = $className;
+
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
+                'CLASS_NAME' => $className->getName(),
+                'PROPERTIES' => implode("\n", $properties),
+            ]), $shape);
         }
 
-        return strtr('REQUIRED new CLASS_NAME([
-            PROPERTIES
-        ])', [
-            'REQUIRED' => $required ? '' : '!' . $input . ' ? null : ',
-            'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
-            'PROPERTIES' => implode("\n", $properties),
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '0 === INPUT->count() ? null : $this->FUNCTION_NAME(INPUT)', [
+            'INPUT' => $input,
+            'FUNCTION_NAME' => $functionName,
         ]);
     }
 
@@ -227,7 +239,7 @@ class RestXmlParser implements Parser
             return strtr('(string) INPUT', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? (string) $v : null', ['INPUT' => $input]);
+        return strtr('(null !== $v = INPUT[0]) ? (string) $v : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseInteger(string $input, bool $required): string
@@ -236,7 +248,7 @@ class RestXmlParser implements Parser
             return strtr('(int) (string) INPUT', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? (int) (string) $v : null', ['INPUT' => $input]);
+        return strtr('(null !== $v = INPUT[0]) ? (int) (string) $v : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseFloat(string $input, bool $required): string
@@ -245,7 +257,7 @@ class RestXmlParser implements Parser
             return strtr('(float) (string) INPUT', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? (float) (string) $v : null', ['INPUT' => $input]);
+        return strtr('(null !== $v = INPUT[0]) ? (float) (string) $v : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseBool(string $input, bool $required): string
@@ -256,7 +268,7 @@ class RestXmlParser implements Parser
             return strtr('filter_var((string) INPUT, FILTER_VALIDATE_BOOLEAN)', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? filter_var((string) $v, FILTER_VALIDATE_BOOLEAN) : null', ['INPUT' => $input]);
+        return strtr('(null !== $v = INPUT[0]) ? filter_var((string) $v, FILTER_VALIDATE_BOOLEAN) : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseBlob(string $input, bool $required): string
@@ -265,7 +277,7 @@ class RestXmlParser implements Parser
             return strtr('base64_decode((string) INPUT)', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? base64_decode((string) $v) : null', ['INPUT' => $input]);
+        return strtr('(null !== $v = INPUT[0]) ? base64_decode((string) $v) : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseTimestamp(Shape $shape, string $input, bool $required): string
@@ -281,7 +293,7 @@ class RestXmlParser implements Parser
         }
 
         if (!$required) {
-            $body = '($v = INPUT) ? ' . strtr($body, ['INPUT' => '$v']) . ' : null';
+            $body = '(null !== $v = INPUT[0]) ? ' . strtr($body, ['INPUT' => '$v']) . ' : null';
         }
 
         return strtr($body, ['INPUT' => $input]);
@@ -289,39 +301,44 @@ class RestXmlParser implements Parser
 
     private function parseXmlResponseList(ListShape $shape, string $input, bool $required, bool $inObject): string
     {
-        $shapeMember = $shape->getMember();
-        if ($shapeMember->getShape() instanceof StructureShape) {
-            $listAccessorRequired = true;
-            $body = '
-                $items = [];
-                foreach (INPUT_PROPERTY as $item) {
-                   $items[] = LIST_ACCESSOR;
-                }
+        $functionName = 'populateResult' . ucfirst($shape->getName());
+        if (!isset($this->generatedFunctions[$functionName])) {
+            // prevent recursion
+            $this->generatedFunctions[$functionName] = true;
 
-                return $items;
-            ';
-        } else {
-            $listAccessorRequired = false;
-            $body = '
-                $items = [];
-                foreach (INPUT_PROPERTY as $item) {
-                    $a = LIST_ACCESSOR;
-                    if (null !== $a) {
-                        $items[] = $a;
+            $shapeMember = $shape->getMember();
+            if ($shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
+                $listAccessorRequired = false;
+                $body = '
+                    $items = [];
+                    foreach (INPUT_PROPERTY as $item) {
+                        $a = LIST_ACCESSOR;
+                        if (null !== $a) {
+                            $items[] = $a;
+                        }
                     }
-                }
 
-                return $items;
-            ';
+                    return $items;
+                ';
+            } else {
+                $listAccessorRequired = true;
+                $body = '
+                    $items = [];
+                    foreach (INPUT_PROPERTY as $item) {
+                       $items[] = LIST_ACCESSOR;
+                    }
+
+                    return $items;
+                ';
+            }
+
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
+                'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired, $inObject),
+                'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
+            ]), $shape);
         }
 
-        $functionName = 'populateResult' . ucfirst($shape->getName());
-        $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired, $inObject),
-            'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
-        ]), $shape);
-
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '(0 === ($v = INPUT)->count()) ? EMPTY : $this->FUNCTION_NAME($v)', [
             'EMPTY' => !$inObject ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
@@ -330,26 +347,31 @@ class RestXmlParser implements Parser
 
     private function parseXmlResponseMap(MapShape $shape, string $input, bool $required, bool $inObject): string
     {
-        $shapeValue = $shape->getValue();
-        $body = '
-            $items = [];
-            foreach (INPUT as $item) {
-                $a = $item->MAP_VALUE;
-                $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
-            }
-
-            return $items;
-        ';
-
         $functionName = 'populateResult' . ucfirst($shape->getName());
-        $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-            'INPUT' => $shape->isFlattened() ? '$xml' : '$xml->entry',
-            'MAP_KEY' => $shape->getKey()->getLocationName() ?? 'key',
-            'MAP_VALUE' => $shape->getValue()->getLocationName() ?? 'value',
-            'MAP_ACCESSOR' => $this->parseXmlElement('$a', $shapeValue->getShape(), true, $inObject),
-        ]), $shape);
+        if (!isset($this->generatedFunctions[$functionName])) {
+            // prevent recursion
+            $this->generatedFunctions[$functionName] = true;
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            $shapeValue = $shape->getValue();
+            $body = '
+                $items = [];
+                foreach (INPUT as $item) {
+                    $a = $item->MAP_VALUE;
+                    $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
+                }
+
+                return $items;
+            ';
+
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
+                'INPUT' => $shape->isFlattened() ? '$xml' : '$xml->entry',
+                'MAP_KEY' => $shape->getKey()->getLocationName() ?? 'key',
+                'MAP_VALUE' => $shape->getValue()->getLocationName() ?? 'value',
+                'MAP_ACCESSOR' => $this->parseXmlElement('$a', $shapeValue->getShape(), true, $inObject),
+            ]), $shape);
+        }
+
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '(0 === ($v = INPUT)->count()) ? EMPTY : $this->FUNCTION_NAME($v)', [
             'EMPTY' => !$inObject ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
@@ -368,6 +390,7 @@ class RestXmlParser implements Parser
 
         [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
         $method
+            ->setReturnType($returnType)
             ->setComment('@return ' . $parameterType);
         $this->imports = array_merge($this->imports, $memberClassNames);
 
