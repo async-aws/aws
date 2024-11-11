@@ -1,8 +1,6 @@
 parameters:
     level: 6
     treatPhpDocTypesAsCertain: false
-    checkMissingCallableSignature: true
-    checkMissingIterableValueType: false
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
@@ -13,5 +11,6 @@ parameters:
         - src/**/tests/*
 
     ignoreErrors:
+        - identifier: missingType.iterableValue
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
         - '#^Dead catch - JsonException is never thrown in the try block\.$#'
