@@ -6,6 +6,10 @@
 
 - Added support for EKS Pod Identity
 
+### Changed
+
+- Fix CS
+
 ## 1.22.1
 
 ### Changed

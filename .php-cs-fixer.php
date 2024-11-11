@@ -63,6 +63,7 @@ return (new PhpCsFixer\Config())
         'short_scalar_cast' => true,
         'single_trait_insert_per_statement' => true,
         'ternary_to_null_coalescing' => true,
+        'trailing_comma_in_multiline' => false,
         'visibility_required' => true,
     ])
     ->setFinder($finder)
