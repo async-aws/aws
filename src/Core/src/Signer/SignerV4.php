@@ -330,6 +330,7 @@ class SignerV4 implements Signer
                 continue;
             }
 
+            // @phpstan-ignore argument.unresolvableType
             sort($values);
             foreach ($values as $value) {
                 $encodedQuery[] = rawurlencode($key) . '=' . rawurlencode($value);

@@ -366,12 +366,10 @@ class RestXmlParser implements Parser
                 ->setType(\SimpleXMLElement::class)
         ;
 
-        if (null !== $shape) {
-            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
-            $method
-                ->setComment('@return ' . $parameterType);
-            $this->imports = array_merge($this->imports, $memberClassNames);
-        }
+        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
+        $method
+            ->setComment('@return ' . $parameterType);
+        $this->imports = array_merge($this->imports, $memberClassNames);
 
         return $method;
     }

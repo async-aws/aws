@@ -102,7 +102,7 @@ class TestGenerator
 
                 break;
             case 'query':
-                $stub = substr(var_export($exampleInput ? (\is_array($exampleInput) ? http_build_query($exampleInput, '', '&', \PHP_QUERY_RFC3986) : $exampleInput) : "
+                $stub = substr(var_export($exampleInput ? http_build_query($exampleInput, '', '&', \PHP_QUERY_RFC3986) : "
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
 ", true), 1, -1);

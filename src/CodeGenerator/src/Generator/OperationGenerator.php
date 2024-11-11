@@ -116,9 +116,8 @@ class OperationGenerator
             $method->addComment('@see ' . $documentation);
         }
         $method->addComment('@see ' . $operation->getApiReferenceDocumentationUrl());
-        if (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
-            $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . strtolower($operation->getName()));
-        }
+        $prefix = $operation->getService()->getEndpointPrefix();
+        $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . strtolower($operation->getName()));
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  \'@region\'?: string|null,']);
         $method->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
