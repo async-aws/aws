@@ -53,7 +53,7 @@ jobs:
           .github/workflows/bin/refresh
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           push-to-fork: async-aws-bot/aws
@@ -66,3 +66,4 @@ jobs:
 
             This PR contains the new definition for Services.
           branch: bot-code-update
+          delete-branch: true
