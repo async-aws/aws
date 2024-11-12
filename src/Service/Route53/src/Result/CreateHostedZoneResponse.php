@@ -93,34 +93,28 @@ class CreateHostedZoneResponse extends Result
         $this->location = $headers['location'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->hostedZone = new HostedZone([
-            'Id' => (string) $data->HostedZone->Id,
-            'Name' => (string) $data->HostedZone->Name,
-            'CallerReference' => (string) $data->HostedZone->CallerReference,
-            'Config' => !$data->HostedZone->Config ? null : new HostedZoneConfig([
-                'Comment' => ($v = $data->HostedZone->Config->Comment) ? (string) $v : null,
-                'PrivateZone' => ($v = $data->HostedZone->Config->PrivateZone) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-            ]),
-            'ResourceRecordSetCount' => ($v = $data->HostedZone->ResourceRecordSetCount) ? (int) (string) $v : null,
-            'LinkedService' => !$data->HostedZone->LinkedService ? null : new LinkedService([
-                'ServicePrincipal' => ($v = $data->HostedZone->LinkedService->ServicePrincipal) ? (string) $v : null,
-                'Description' => ($v = $data->HostedZone->LinkedService->Description) ? (string) $v : null,
-            ]),
+        $this->hostedZone = $this->populateResultHostedZone($data->HostedZone);
+        $this->changeInfo = $this->populateResultChangeInfo($data->ChangeInfo);
+        $this->delegationSet = $this->populateResultDelegationSet($data->DelegationSet);
+        $this->vpc = 0 === $data->VPC->count() ? null : $this->populateResultVPC($data->VPC);
+    }
+
+    private function populateResultChangeInfo(\SimpleXMLElement $xml): ChangeInfo
+    {
+        return new ChangeInfo([
+            'Id' => (string) $xml->Id,
+            'Status' => (string) $xml->Status,
+            'SubmittedAt' => new \DateTimeImmutable((string) $xml->SubmittedAt),
+            'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
         ]);
-        $this->changeInfo = new ChangeInfo([
-            'Id' => (string) $data->ChangeInfo->Id,
-            'Status' => (string) $data->ChangeInfo->Status,
-            'SubmittedAt' => new \DateTimeImmutable((string) $data->ChangeInfo->SubmittedAt),
-            'Comment' => ($v = $data->ChangeInfo->Comment) ? (string) $v : null,
-        ]);
-        $this->delegationSet = new DelegationSet([
-            'Id' => ($v = $data->DelegationSet->Id) ? (string) $v : null,
-            'CallerReference' => ($v = $data->DelegationSet->CallerReference) ? (string) $v : null,
-            'NameServers' => $this->populateResultDelegationSetNameServers($data->DelegationSet->NameServers),
-        ]);
-        $this->vpc = !$data->VPC ? null : new VPC([
-            'VPCRegion' => ($v = $data->VPC->VPCRegion) ? (string) $v : null,
-            'VPCId' => ($v = $data->VPC->VPCId) ? (string) $v : null,
+    }
+
+    private function populateResultDelegationSet(\SimpleXMLElement $xml): DelegationSet
+    {
+        return new DelegationSet([
+            'Id' => (null !== $v = $xml->Id[0]) ? (string) $v : null,
+            'CallerReference' => (null !== $v = $xml->CallerReference[0]) ? (string) $v : null,
+            'NameServers' => $this->populateResultDelegationSetNameServers($xml->NameServers),
         ]);
     }
 
@@ -131,12 +125,45 @@ class CreateHostedZoneResponse extends Result
     {
         $items = [];
         foreach ($xml->NameServer as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
+    }
+
+    private function populateResultHostedZone(\SimpleXMLElement $xml): HostedZone
+    {
+        return new HostedZone([
+            'Id' => (string) $xml->Id,
+            'Name' => (string) $xml->Name,
+            'CallerReference' => (string) $xml->CallerReference,
+            'Config' => 0 === $xml->Config->count() ? null : $this->populateResultHostedZoneConfig($xml->Config),
+            'ResourceRecordSetCount' => (null !== $v = $xml->ResourceRecordSetCount[0]) ? (int) (string) $v : null,
+            'LinkedService' => 0 === $xml->LinkedService->count() ? null : $this->populateResultLinkedService($xml->LinkedService),
+        ]);
+    }
+
+    private function populateResultHostedZoneConfig(\SimpleXMLElement $xml): HostedZoneConfig
+    {
+        return new HostedZoneConfig([
+            'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
+            'PrivateZone' => (null !== $v = $xml->PrivateZone[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
+    }
+
+    private function populateResultLinkedService(\SimpleXMLElement $xml): LinkedService
+    {
+        return new LinkedService([
+            'ServicePrincipal' => (null !== $v = $xml->ServicePrincipal[0]) ? (string) $v : null,
+            'Description' => (null !== $v = $xml->Description[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultVPC(\SimpleXMLElement $xml): VPC
+    {
+        return new VPC([
+            'VPCRegion' => (null !== $v = $xml->VPCRegion[0]) ? (string) $v : null,
+            'VPCId' => (null !== $v = $xml->VPCId[0]) ? (string) $v : null,
+        ]);
     }
 }

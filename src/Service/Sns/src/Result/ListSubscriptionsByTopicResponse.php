@@ -73,7 +73,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listSubscriptionsByTopic($input));
@@ -97,8 +97,19 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListSubscriptionsByTopicResult;
 
-        $this->subscriptions = !$data->Subscriptions ? [] : $this->populateResultSubscriptionsList($data->Subscriptions);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->subscriptions = (0 === ($v = $data->Subscriptions)->count()) ? [] : $this->populateResultSubscriptionsList($v);
+        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
+    }
+
+    private function populateResultSubscription(\SimpleXMLElement $xml): Subscription
+    {
+        return new Subscription([
+            'SubscriptionArn' => (null !== $v = $xml->SubscriptionArn[0]) ? (string) $v : null,
+            'Owner' => (null !== $v = $xml->Owner[0]) ? (string) $v : null,
+            'Protocol' => (null !== $v = $xml->Protocol[0]) ? (string) $v : null,
+            'Endpoint' => (null !== $v = $xml->Endpoint[0]) ? (string) $v : null,
+            'TopicArn' => (null !== $v = $xml->TopicArn[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -108,13 +119,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Subscription([
-                'SubscriptionArn' => ($v = $item->SubscriptionArn) ? (string) $v : null,
-                'Owner' => ($v = $item->Owner) ? (string) $v : null,
-                'Protocol' => ($v = $item->Protocol) ? (string) $v : null,
-                'Endpoint' => ($v = $item->Endpoint) ? (string) $v : null,
-                'TopicArn' => ($v = $item->TopicArn) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultSubscription($item);
         }
 
         return $items;

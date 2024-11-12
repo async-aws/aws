@@ -59,7 +59,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->getMetricData($input));
@@ -104,7 +104,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->getMetricData($input));
@@ -148,7 +148,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->getMetricData($input));
@@ -179,9 +179,9 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetMetricDataResult;
 
-        $this->metricDataResults = !$data->MetricDataResults ? [] : $this->populateResultMetricDataResults($data->MetricDataResults);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
-        $this->messages = !$data->Messages ? [] : $this->populateResultMetricDataResultMessages($data->Messages);
+        $this->metricDataResults = (0 === ($v = $data->MetricDataResults)->count()) ? [] : $this->populateResultMetricDataResults($v);
+        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
+        $this->messages = (0 === ($v = $data->Messages)->count()) ? [] : $this->populateResultMetricDataResultMessages($v);
     }
 
     /**
@@ -191,13 +191,30 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $a = ($v = $item) ? (float) (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (float) (string) $item;
         }
 
         return $items;
+    }
+
+    private function populateResultMessageData(\SimpleXMLElement $xml): MessageData
+    {
+        return new MessageData([
+            'Code' => (null !== $v = $xml->Code[0]) ? (string) $v : null,
+            'Value' => (null !== $v = $xml->Value[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultMetricDataResult(\SimpleXMLElement $xml): MetricDataResult
+    {
+        return new MetricDataResult([
+            'Id' => (null !== $v = $xml->Id[0]) ? (string) $v : null,
+            'Label' => (null !== $v = $xml->Label[0]) ? (string) $v : null,
+            'Timestamps' => (0 === ($v = $xml->Timestamps)->count()) ? null : $this->populateResultTimestamps($v),
+            'Values' => (0 === ($v = $xml->Values)->count()) ? null : $this->populateResultDatapointValues($v),
+            'StatusCode' => (null !== $v = $xml->StatusCode[0]) ? (string) $v : null,
+            'Messages' => (0 === ($v = $xml->Messages)->count()) ? null : $this->populateResultMetricDataResultMessages($v),
+        ]);
     }
 
     /**
@@ -207,10 +224,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new MessageData([
-                'Code' => ($v = $item->Code) ? (string) $v : null,
-                'Value' => ($v = $item->Value) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultMessageData($item);
         }
 
         return $items;
@@ -223,14 +237,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new MetricDataResult([
-                'Id' => ($v = $item->Id) ? (string) $v : null,
-                'Label' => ($v = $item->Label) ? (string) $v : null,
-                'Timestamps' => !$item->Timestamps ? null : $this->populateResultTimestamps($item->Timestamps),
-                'Values' => !$item->Values ? null : $this->populateResultDatapointValues($item->Values),
-                'StatusCode' => ($v = $item->StatusCode) ? (string) $v : null,
-                'Messages' => !$item->Messages ? null : $this->populateResultMetricDataResultMessages($item->Messages),
-            ]);
+            $items[] = $this->populateResultMetricDataResult($item);
         }
 
         return $items;
@@ -243,10 +250,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $a = ($v = $item) ? new \DateTimeImmutable((string) $v) : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = new \DateTimeImmutable((string) $item);
         }
 
         return $items;

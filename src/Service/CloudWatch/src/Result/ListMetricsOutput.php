@@ -57,7 +57,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listMetrics($input));
@@ -102,7 +102,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listMetrics($input));
@@ -153,7 +153,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listMetrics($input));
@@ -177,9 +177,17 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListMetricsResult;
 
-        $this->metrics = !$data->Metrics ? [] : $this->populateResultMetrics($data->Metrics);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
-        $this->owningAccounts = !$data->OwningAccounts ? [] : $this->populateResultOwningAccounts($data->OwningAccounts);
+        $this->metrics = (0 === ($v = $data->Metrics)->count()) ? [] : $this->populateResultMetrics($v);
+        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
+        $this->owningAccounts = (0 === ($v = $data->OwningAccounts)->count()) ? [] : $this->populateResultOwningAccounts($v);
+    }
+
+    private function populateResultDimension(\SimpleXMLElement $xml): Dimension
+    {
+        return new Dimension([
+            'Name' => (string) $xml->Name,
+            'Value' => (string) $xml->Value,
+        ]);
     }
 
     /**
@@ -189,13 +197,19 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Dimension([
-                'Name' => (string) $item->Name,
-                'Value' => (string) $item->Value,
-            ]);
+            $items[] = $this->populateResultDimension($item);
         }
 
         return $items;
+    }
+
+    private function populateResultMetric(\SimpleXMLElement $xml): Metric
+    {
+        return new Metric([
+            'Namespace' => (null !== $v = $xml->Namespace[0]) ? (string) $v : null,
+            'MetricName' => (null !== $v = $xml->MetricName[0]) ? (string) $v : null,
+            'Dimensions' => (0 === ($v = $xml->Dimensions)->count()) ? null : $this->populateResultDimensions($v),
+        ]);
     }
 
     /**
@@ -205,11 +219,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Metric([
-                'Namespace' => ($v = $item->Namespace) ? (string) $v : null,
-                'MetricName' => ($v = $item->MetricName) ? (string) $v : null,
-                'Dimensions' => !$item->Dimensions ? null : $this->populateResultDimensions($item->Dimensions),
-            ]);
+            $items[] = $this->populateResultMetric($item);
         }
 
         return $items;
@@ -222,10 +232,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;

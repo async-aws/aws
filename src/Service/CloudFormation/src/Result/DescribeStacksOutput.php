@@ -80,7 +80,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->describeStacks($input));
@@ -104,8 +104,8 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStacksResult;
 
-        $this->stacks = !$data->Stacks ? [] : $this->populateResultStacks($data->Stacks);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->stacks = (0 === ($v = $data->Stacks)->count()) ? [] : $this->populateResultStacks($v);
+        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
     }
 
     /**
@@ -115,10 +115,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
@@ -131,13 +128,20 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
+    }
+
+    private function populateResultOutput(\SimpleXMLElement $xml): Output
+    {
+        return new Output([
+            'OutputKey' => (null !== $v = $xml->OutputKey[0]) ? (string) $v : null,
+            'OutputValue' => (null !== $v = $xml->OutputValue[0]) ? (string) $v : null,
+            'Description' => (null !== $v = $xml->Description[0]) ? (string) $v : null,
+            'ExportName' => (null !== $v = $xml->ExportName[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -147,15 +151,20 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Output([
-                'OutputKey' => ($v = $item->OutputKey) ? (string) $v : null,
-                'OutputValue' => ($v = $item->OutputValue) ? (string) $v : null,
-                'Description' => ($v = $item->Description) ? (string) $v : null,
-                'ExportName' => ($v = $item->ExportName) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultOutput($item);
         }
 
         return $items;
+    }
+
+    private function populateResultParameter(\SimpleXMLElement $xml): Parameter
+    {
+        return new Parameter([
+            'ParameterKey' => (null !== $v = $xml->ParameterKey[0]) ? (string) $v : null,
+            'ParameterValue' => (null !== $v = $xml->ParameterValue[0]) ? (string) $v : null,
+            'UsePreviousValue' => (null !== $v = $xml->UsePreviousValue[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'ResolvedValue' => (null !== $v = $xml->ResolvedValue[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -165,15 +174,26 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Parameter([
-                'ParameterKey' => ($v = $item->ParameterKey) ? (string) $v : null,
-                'ParameterValue' => ($v = $item->ParameterValue) ? (string) $v : null,
-                'UsePreviousValue' => ($v = $item->UsePreviousValue) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'ResolvedValue' => ($v = $item->ResolvedValue) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultParameter($item);
         }
 
         return $items;
+    }
+
+    private function populateResultRollbackConfiguration(\SimpleXMLElement $xml): RollbackConfiguration
+    {
+        return new RollbackConfiguration([
+            'RollbackTriggers' => (0 === ($v = $xml->RollbackTriggers)->count()) ? null : $this->populateResultRollbackTriggers($v),
+            'MonitoringTimeInMinutes' => (null !== $v = $xml->MonitoringTimeInMinutes[0]) ? (int) (string) $v : null,
+        ]);
+    }
+
+    private function populateResultRollbackTrigger(\SimpleXMLElement $xml): RollbackTrigger
+    {
+        return new RollbackTrigger([
+            'Arn' => (string) $xml->Arn,
+            'Type' => (string) $xml->Type,
+        ]);
     }
 
     /**
@@ -183,13 +203,49 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new RollbackTrigger([
-                'Arn' => (string) $item->Arn,
-                'Type' => (string) $item->Type,
-            ]);
+            $items[] = $this->populateResultRollbackTrigger($item);
         }
 
         return $items;
+    }
+
+    private function populateResultStack(\SimpleXMLElement $xml): Stack
+    {
+        return new Stack([
+            'StackId' => (null !== $v = $xml->StackId[0]) ? (string) $v : null,
+            'StackName' => (string) $xml->StackName,
+            'ChangeSetId' => (null !== $v = $xml->ChangeSetId[0]) ? (string) $v : null,
+            'Description' => (null !== $v = $xml->Description[0]) ? (string) $v : null,
+            'Parameters' => (0 === ($v = $xml->Parameters)->count()) ? null : $this->populateResultParameters($v),
+            'CreationTime' => new \DateTimeImmutable((string) $xml->CreationTime),
+            'DeletionTime' => (null !== $v = $xml->DeletionTime[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'LastUpdatedTime' => (null !== $v = $xml->LastUpdatedTime[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'RollbackConfiguration' => 0 === $xml->RollbackConfiguration->count() ? null : $this->populateResultRollbackConfiguration($xml->RollbackConfiguration),
+            'StackStatus' => (string) $xml->StackStatus,
+            'StackStatusReason' => (null !== $v = $xml->StackStatusReason[0]) ? (string) $v : null,
+            'DisableRollback' => (null !== $v = $xml->DisableRollback[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'NotificationARNs' => (0 === ($v = $xml->NotificationARNs)->count()) ? null : $this->populateResultNotificationARNs($v),
+            'TimeoutInMinutes' => (null !== $v = $xml->TimeoutInMinutes[0]) ? (int) (string) $v : null,
+            'Capabilities' => (0 === ($v = $xml->Capabilities)->count()) ? null : $this->populateResultCapabilities($v),
+            'Outputs' => (0 === ($v = $xml->Outputs)->count()) ? null : $this->populateResultOutputs($v),
+            'RoleARN' => (null !== $v = $xml->RoleARN[0]) ? (string) $v : null,
+            'Tags' => (0 === ($v = $xml->Tags)->count()) ? null : $this->populateResultTags($v),
+            'EnableTerminationProtection' => (null !== $v = $xml->EnableTerminationProtection[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'ParentId' => (null !== $v = $xml->ParentId[0]) ? (string) $v : null,
+            'RootId' => (null !== $v = $xml->RootId[0]) ? (string) $v : null,
+            'DriftInformation' => 0 === $xml->DriftInformation->count() ? null : $this->populateResultStackDriftInformation($xml->DriftInformation),
+            'RetainExceptOnCreate' => (null !== $v = $xml->RetainExceptOnCreate[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'DeletionMode' => (null !== $v = $xml->DeletionMode[0]) ? (string) $v : null,
+            'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultStackDriftInformation(\SimpleXMLElement $xml): StackDriftInformation
+    {
+        return new StackDriftInformation([
+            'StackDriftStatus' => (string) $xml->StackDriftStatus,
+            'LastCheckTimestamp' => (null !== $v = $xml->LastCheckTimestamp[0]) ? new \DateTimeImmutable((string) $v) : null,
+        ]);
     }
 
     /**
@@ -199,42 +255,18 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Stack([
-                'StackId' => ($v = $item->StackId) ? (string) $v : null,
-                'StackName' => (string) $item->StackName,
-                'ChangeSetId' => ($v = $item->ChangeSetId) ? (string) $v : null,
-                'Description' => ($v = $item->Description) ? (string) $v : null,
-                'Parameters' => !$item->Parameters ? null : $this->populateResultParameters($item->Parameters),
-                'CreationTime' => new \DateTimeImmutable((string) $item->CreationTime),
-                'DeletionTime' => ($v = $item->DeletionTime) ? new \DateTimeImmutable((string) $v) : null,
-                'LastUpdatedTime' => ($v = $item->LastUpdatedTime) ? new \DateTimeImmutable((string) $v) : null,
-                'RollbackConfiguration' => !$item->RollbackConfiguration ? null : new RollbackConfiguration([
-                    'RollbackTriggers' => !$item->RollbackConfiguration->RollbackTriggers ? null : $this->populateResultRollbackTriggers($item->RollbackConfiguration->RollbackTriggers),
-                    'MonitoringTimeInMinutes' => ($v = $item->RollbackConfiguration->MonitoringTimeInMinutes) ? (int) (string) $v : null,
-                ]),
-                'StackStatus' => (string) $item->StackStatus,
-                'StackStatusReason' => ($v = $item->StackStatusReason) ? (string) $v : null,
-                'DisableRollback' => ($v = $item->DisableRollback) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'NotificationARNs' => !$item->NotificationARNs ? null : $this->populateResultNotificationARNs($item->NotificationARNs),
-                'TimeoutInMinutes' => ($v = $item->TimeoutInMinutes) ? (int) (string) $v : null,
-                'Capabilities' => !$item->Capabilities ? null : $this->populateResultCapabilities($item->Capabilities),
-                'Outputs' => !$item->Outputs ? null : $this->populateResultOutputs($item->Outputs),
-                'RoleARN' => ($v = $item->RoleARN) ? (string) $v : null,
-                'Tags' => !$item->Tags ? null : $this->populateResultTags($item->Tags),
-                'EnableTerminationProtection' => ($v = $item->EnableTerminationProtection) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'ParentId' => ($v = $item->ParentId) ? (string) $v : null,
-                'RootId' => ($v = $item->RootId) ? (string) $v : null,
-                'DriftInformation' => !$item->DriftInformation ? null : new StackDriftInformation([
-                    'StackDriftStatus' => (string) $item->DriftInformation->StackDriftStatus,
-                    'LastCheckTimestamp' => ($v = $item->DriftInformation->LastCheckTimestamp) ? new \DateTimeImmutable((string) $v) : null,
-                ]),
-                'RetainExceptOnCreate' => ($v = $item->RetainExceptOnCreate) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'DeletionMode' => ($v = $item->DeletionMode) ? (string) $v : null,
-                'DetailedStatus' => ($v = $item->DetailedStatus) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultStack($item);
         }
 
         return $items;
+    }
+
+    private function populateResultTag(\SimpleXMLElement $xml): Tag
+    {
+        return new Tag([
+            'Key' => (string) $xml->Key,
+            'Value' => (string) $xml->Value,
+        ]);
     }
 
     /**
@@ -244,10 +276,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Tag([
-                'Key' => (string) $item->Key,
-                'Value' => (string) $item->Value,
-            ]);
+            $items[] = $this->populateResultTag($item);
         }
 
         return $items;

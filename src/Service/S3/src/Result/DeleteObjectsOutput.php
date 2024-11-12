@@ -67,8 +67,18 @@ class DeleteObjectsOutput extends Result
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->deleted = !$data->Deleted ? [] : $this->populateResultDeletedObjects($data->Deleted);
-        $this->errors = !$data->Error ? [] : $this->populateResultErrors($data->Error);
+        $this->deleted = (0 === ($v = $data->Deleted)->count()) ? [] : $this->populateResultDeletedObjects($v);
+        $this->errors = (0 === ($v = $data->Error)->count()) ? [] : $this->populateResultErrors($v);
+    }
+
+    private function populateResultDeletedObject(\SimpleXMLElement $xml): DeletedObject
+    {
+        return new DeletedObject([
+            'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
+            'VersionId' => (null !== $v = $xml->VersionId[0]) ? (string) $v : null,
+            'DeleteMarker' => (null !== $v = $xml->DeleteMarker[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'DeleteMarkerVersionId' => (null !== $v = $xml->DeleteMarkerVersionId[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -78,15 +88,20 @@ class DeleteObjectsOutput extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new DeletedObject([
-                'Key' => ($v = $item->Key) ? (string) $v : null,
-                'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                'DeleteMarker' => ($v = $item->DeleteMarker) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'DeleteMarkerVersionId' => ($v = $item->DeleteMarkerVersionId) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultDeletedObject($item);
         }
 
         return $items;
+    }
+
+    private function populateResultError(\SimpleXMLElement $xml): Error
+    {
+        return new Error([
+            'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
+            'VersionId' => (null !== $v = $xml->VersionId[0]) ? (string) $v : null,
+            'Code' => (null !== $v = $xml->Code[0]) ? (string) $v : null,
+            'Message' => (null !== $v = $xml->Message[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -96,12 +111,7 @@ class DeleteObjectsOutput extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new Error([
-                'Key' => ($v = $item->Key) ? (string) $v : null,
-                'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                'Code' => ($v = $item->Code) ? (string) $v : null,
-                'Message' => ($v = $item->Message) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultError($item);
         }
 
         return $items;

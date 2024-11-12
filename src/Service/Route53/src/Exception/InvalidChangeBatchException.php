@@ -30,7 +30,7 @@ final class InvalidChangeBatchException extends ClientException
         if (0 < $data->Error->count()) {
             $data = $data->Error;
         }
-        $this->messages = !$data->messages ? [] : $this->populateResultErrorMessages($data->messages);
+        $this->messages = (0 === ($v = $data->messages)->count()) ? [] : $this->populateResultErrorMessages($v);
     }
 
     /**
@@ -40,10 +40,7 @@ final class InvalidChangeBatchException extends ClientException
     {
         $items = [];
         foreach ($xml->Message as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;

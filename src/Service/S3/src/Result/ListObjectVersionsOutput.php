@@ -399,19 +399,19 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->keyMarker = ($v = $data->KeyMarker) ? (string) $v : null;
-        $this->versionIdMarker = ($v = $data->VersionIdMarker) ? (string) $v : null;
-        $this->nextKeyMarker = ($v = $data->NextKeyMarker) ? (string) $v : null;
-        $this->nextVersionIdMarker = ($v = $data->NextVersionIdMarker) ? (string) $v : null;
-        $this->versions = !$data->Version ? [] : $this->populateResultObjectVersionList($data->Version);
-        $this->deleteMarkers = !$data->DeleteMarker ? [] : $this->populateResultDeleteMarkers($data->DeleteMarker);
-        $this->name = ($v = $data->Name) ? (string) $v : null;
-        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
-        $this->delimiter = ($v = $data->Delimiter) ? (string) $v : null;
-        $this->maxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
-        $this->commonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
-        $this->encodingType = ($v = $data->EncodingType) ? (string) $v : null;
+        $this->isTruncated = (null !== $v = $data->IsTruncated[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->keyMarker = (null !== $v = $data->KeyMarker[0]) ? (string) $v : null;
+        $this->versionIdMarker = (null !== $v = $data->VersionIdMarker[0]) ? (string) $v : null;
+        $this->nextKeyMarker = (null !== $v = $data->NextKeyMarker[0]) ? (string) $v : null;
+        $this->nextVersionIdMarker = (null !== $v = $data->NextVersionIdMarker[0]) ? (string) $v : null;
+        $this->versions = (0 === ($v = $data->Version)->count()) ? [] : $this->populateResultObjectVersionList($v);
+        $this->deleteMarkers = (0 === ($v = $data->DeleteMarker)->count()) ? [] : $this->populateResultDeleteMarkers($v);
+        $this->name = (null !== $v = $data->Name[0]) ? (string) $v : null;
+        $this->prefix = (null !== $v = $data->Prefix[0]) ? (string) $v : null;
+        $this->delimiter = (null !== $v = $data->Delimiter[0]) ? (string) $v : null;
+        $this->maxKeys = (null !== $v = $data->MaxKeys[0]) ? (int) (string) $v : null;
+        $this->commonPrefixes = (0 === ($v = $data->CommonPrefixes)->count()) ? [] : $this->populateResultCommonPrefixList($v);
+        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (string) $v : null;
     }
 
     /**
@@ -421,13 +421,17 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
+    }
+
+    private function populateResultCommonPrefix(\SimpleXMLElement $xml): CommonPrefix
+    {
+        return new CommonPrefix([
+            'Prefix' => (null !== $v = $xml->Prefix[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -437,12 +441,21 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new CommonPrefix([
-                'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultCommonPrefix($item);
         }
 
         return $items;
+    }
+
+    private function populateResultDeleteMarkerEntry(\SimpleXMLElement $xml): DeleteMarkerEntry
+    {
+        return new DeleteMarkerEntry([
+            'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),
+            'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
+            'VersionId' => (null !== $v = $xml->VersionId[0]) ? (string) $v : null,
+            'IsLatest' => (null !== $v = $xml->IsLatest[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
+        ]);
     }
 
     /**
@@ -452,19 +465,26 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new DeleteMarkerEntry([
-                'Owner' => !$item->Owner ? null : new Owner([
-                    'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
-                    'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
-                ]),
-                'Key' => ($v = $item->Key) ? (string) $v : null,
-                'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                'IsLatest' => ($v = $item->IsLatest) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-            ]);
+            $items[] = $this->populateResultDeleteMarkerEntry($item);
         }
 
         return $items;
+    }
+
+    private function populateResultObjectVersion(\SimpleXMLElement $xml): ObjectVersion
+    {
+        return new ObjectVersion([
+            'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
+            'ChecksumAlgorithm' => (0 === ($v = $xml->ChecksumAlgorithm)->count()) ? null : $this->populateResultChecksumAlgorithmList($v),
+            'Size' => (null !== $v = $xml->Size[0]) ? (int) (string) $v : null,
+            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (string) $v : null,
+            'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
+            'VersionId' => (null !== $v = $xml->VersionId[0]) ? (string) $v : null,
+            'IsLatest' => (null !== $v = $xml->IsLatest[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),
+            'RestoreStatus' => 0 === $xml->RestoreStatus->count() ? null : $this->populateResultRestoreStatus($xml->RestoreStatus),
+        ]);
     }
 
     /**
@@ -474,26 +494,25 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new ObjectVersion([
-                'ETag' => ($v = $item->ETag) ? (string) $v : null,
-                'ChecksumAlgorithm' => !$item->ChecksumAlgorithm ? null : $this->populateResultChecksumAlgorithmList($item->ChecksumAlgorithm),
-                'Size' => ($v = $item->Size) ? (int) (string) $v : null,
-                'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
-                'Key' => ($v = $item->Key) ? (string) $v : null,
-                'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                'IsLatest' => ($v = $item->IsLatest) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-                'Owner' => !$item->Owner ? null : new Owner([
-                    'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
-                    'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
-                ]),
-                'RestoreStatus' => !$item->RestoreStatus ? null : new RestoreStatus([
-                    'IsRestoreInProgress' => ($v = $item->RestoreStatus->IsRestoreInProgress) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                    'RestoreExpiryDate' => ($v = $item->RestoreStatus->RestoreExpiryDate) ? new \DateTimeImmutable((string) $v) : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultObjectVersion($item);
         }
 
         return $items;
+    }
+
+    private function populateResultOwner(\SimpleXMLElement $xml): Owner
+    {
+        return new Owner([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultRestoreStatus(\SimpleXMLElement $xml): RestoreStatus
+    {
+        return new RestoreStatus([
+            'IsRestoreInProgress' => (null !== $v = $xml->IsRestoreInProgress[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'RestoreExpiryDate' => (null !== $v = $xml->RestoreExpiryDate[0]) ? new \DateTimeImmutable((string) $v) : null,
+        ]);
     }
 }

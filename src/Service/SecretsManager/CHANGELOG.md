@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- use strict comparison `null !==` instead of `!`
+
 ## 2.4.0
 
 ### Added

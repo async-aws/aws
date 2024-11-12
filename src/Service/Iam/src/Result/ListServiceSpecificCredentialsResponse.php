@@ -30,7 +30,19 @@ class ListServiceSpecificCredentialsResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListServiceSpecificCredentialsResult;
 
-        $this->serviceSpecificCredentials = !$data->ServiceSpecificCredentials ? [] : $this->populateResultServiceSpecificCredentialsListType($data->ServiceSpecificCredentials);
+        $this->serviceSpecificCredentials = (0 === ($v = $data->ServiceSpecificCredentials)->count()) ? [] : $this->populateResultServiceSpecificCredentialsListType($v);
+    }
+
+    private function populateResultServiceSpecificCredentialMetadata(\SimpleXMLElement $xml): ServiceSpecificCredentialMetadata
+    {
+        return new ServiceSpecificCredentialMetadata([
+            'UserName' => (string) $xml->UserName,
+            'Status' => (string) $xml->Status,
+            'ServiceUserName' => (string) $xml->ServiceUserName,
+            'CreateDate' => new \DateTimeImmutable((string) $xml->CreateDate),
+            'ServiceSpecificCredentialId' => (string) $xml->ServiceSpecificCredentialId,
+            'ServiceName' => (string) $xml->ServiceName,
+        ]);
     }
 
     /**
@@ -40,14 +52,7 @@ class ListServiceSpecificCredentialsResponse extends Result
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new ServiceSpecificCredentialMetadata([
-                'UserName' => (string) $item->UserName,
-                'Status' => (string) $item->Status,
-                'ServiceUserName' => (string) $item->ServiceUserName,
-                'CreateDate' => new \DateTimeImmutable((string) $item->CreateDate),
-                'ServiceSpecificCredentialId' => (string) $item->ServiceSpecificCredentialId,
-                'ServiceName' => (string) $item->ServiceName,
-            ]);
+            $items[] = $this->populateResultServiceSpecificCredentialMetadata($item);
         }
 
         return $items;

@@ -79,7 +79,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->lastEvaluatedTableName) {
+            if (null !== $page->lastEvaluatedTableName) {
                 $input->setExclusiveStartTableName($page->lastEvaluatedTableName);
 
                 $this->registerPrefetch($nextPage = $client->listTables($input));

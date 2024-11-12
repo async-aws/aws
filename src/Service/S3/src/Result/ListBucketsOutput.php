@@ -72,7 +72,7 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->continuationToken) {
+            if (null !== $page->continuationToken) {
                 $input->setContinuationToken($page->continuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listBuckets($input));
@@ -125,13 +125,19 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
-        $this->buckets = !$data->Buckets ? [] : $this->populateResultBuckets($data->Buckets);
-        $this->owner = !$data->Owner ? null : new Owner([
-            'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
-            'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
+        $this->buckets = (0 === ($v = $data->Buckets)->count()) ? [] : $this->populateResultBuckets($v);
+        $this->owner = 0 === $data->Owner->count() ? null : $this->populateResultOwner($data->Owner);
+        $this->continuationToken = (null !== $v = $data->ContinuationToken[0]) ? (string) $v : null;
+        $this->prefix = (null !== $v = $data->Prefix[0]) ? (string) $v : null;
+    }
+
+    private function populateResultBucket(\SimpleXMLElement $xml): Bucket
+    {
+        return new Bucket([
+            'Name' => (null !== $v = $xml->Name[0]) ? (string) $v : null,
+            'CreationDate' => (null !== $v = $xml->CreationDate[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'BucketRegion' => (null !== $v = $xml->BucketRegion[0]) ? (string) $v : null,
         ]);
-        $this->continuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
-        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
     }
 
     /**
@@ -141,13 +147,17 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->Bucket as $item) {
-            $items[] = new Bucket([
-                'Name' => ($v = $item->Name) ? (string) $v : null,
-                'CreationDate' => ($v = $item->CreationDate) ? new \DateTimeImmutable((string) $v) : null,
-                'BucketRegion' => ($v = $item->BucketRegion) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultBucket($item);
         }
 
         return $items;
+    }
+
+    private function populateResultOwner(\SimpleXMLElement $xml): Owner
+    {
+        return new Owner([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+        ]);
     }
 }

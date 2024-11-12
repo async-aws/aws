@@ -29,6 +29,6 @@ class CreateEndpointResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreatePlatformEndpointResult;
 
-        $this->endpointArn = ($v = $data->EndpointArn) ? (string) $v : null;
+        $this->endpointArn = (null !== $v = $data->EndpointArn[0]) ? (string) $v : null;
     }
 }

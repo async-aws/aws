@@ -117,8 +117,24 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         $data = $data->ListUsersResult;
 
         $this->users = $this->populateResultUserListType($data->Users);
-        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->marker = ($v = $data->Marker) ? (string) $v : null;
+        $this->isTruncated = (null !== $v = $data->IsTruncated[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->marker = (null !== $v = $data->Marker[0]) ? (string) $v : null;
+    }
+
+    private function populateResultAttachedPermissionsBoundary(\SimpleXMLElement $xml): AttachedPermissionsBoundary
+    {
+        return new AttachedPermissionsBoundary([
+            'PermissionsBoundaryType' => (null !== $v = $xml->PermissionsBoundaryType[0]) ? (string) $v : null,
+            'PermissionsBoundaryArn' => (null !== $v = $xml->PermissionsBoundaryArn[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultTag(\SimpleXMLElement $xml): Tag
+    {
+        return new Tag([
+            'Key' => (string) $xml->Key,
+            'Value' => (string) $xml->Value,
+        ]);
     }
 
     /**
@@ -128,13 +144,24 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new Tag([
-                'Key' => (string) $item->Key,
-                'Value' => (string) $item->Value,
-            ]);
+            $items[] = $this->populateResultTag($item);
         }
 
         return $items;
+    }
+
+    private function populateResultUser(\SimpleXMLElement $xml): User
+    {
+        return new User([
+            'Path' => (string) $xml->Path,
+            'UserName' => (string) $xml->UserName,
+            'UserId' => (string) $xml->UserId,
+            'Arn' => (string) $xml->Arn,
+            'CreateDate' => new \DateTimeImmutable((string) $xml->CreateDate),
+            'PasswordLastUsed' => (null !== $v = $xml->PasswordLastUsed[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'PermissionsBoundary' => 0 === $xml->PermissionsBoundary->count() ? null : $this->populateResultAttachedPermissionsBoundary($xml->PermissionsBoundary),
+            'Tags' => (0 === ($v = $xml->Tags)->count()) ? null : $this->populateResultTagListType($v),
+        ]);
     }
 
     /**
@@ -144,19 +171,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new User([
-                'Path' => (string) $item->Path,
-                'UserName' => (string) $item->UserName,
-                'UserId' => (string) $item->UserId,
-                'Arn' => (string) $item->Arn,
-                'CreateDate' => new \DateTimeImmutable((string) $item->CreateDate),
-                'PasswordLastUsed' => ($v = $item->PasswordLastUsed) ? new \DateTimeImmutable((string) $v) : null,
-                'PermissionsBoundary' => !$item->PermissionsBoundary ? null : new AttachedPermissionsBoundary([
-                    'PermissionsBoundaryType' => ($v = $item->PermissionsBoundary->PermissionsBoundaryType) ? (string) $v : null,
-                    'PermissionsBoundaryArn' => ($v = $item->PermissionsBoundary->PermissionsBoundaryArn) ? (string) $v : null,
-                ]),
-                'Tags' => !$item->Tags ? null : $this->populateResultTagListType($item->Tags),
-            ]);
+            $items[] = $this->populateResultUser($item);
         }
 
         return $items;

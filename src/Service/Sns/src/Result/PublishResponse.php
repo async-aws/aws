@@ -48,7 +48,7 @@ class PublishResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->PublishResult;
 
-        $this->messageId = ($v = $data->MessageId) ? (string) $v : null;
-        $this->sequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
+        $this->messageId = (null !== $v = $data->MessageId[0]) ? (string) $v : null;
+        $this->sequenceNumber = (null !== $v = $data->SequenceNumber[0]) ? (string) $v : null;
     }
 }

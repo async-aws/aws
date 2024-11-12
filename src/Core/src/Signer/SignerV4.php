@@ -317,7 +317,7 @@ class SignerV4 implements Signer
         $query = $request->getQuery();
 
         unset($query['X-Amz-Signature']);
-        if (!$query) {
+        if (empty($query)) {
             return '';
         }
 

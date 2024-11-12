@@ -73,7 +73,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->nextToken) {
+            if (null !== $page->nextToken) {
                 $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->describeStackEvents($input));
@@ -97,8 +97,31 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStackEventsResult;
 
-        $this->stackEvents = !$data->StackEvents ? [] : $this->populateResultStackEvents($data->StackEvents);
-        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->stackEvents = (0 === ($v = $data->StackEvents)->count()) ? [] : $this->populateResultStackEvents($v);
+        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
+    }
+
+    private function populateResultStackEvent(\SimpleXMLElement $xml): StackEvent
+    {
+        return new StackEvent([
+            'StackId' => (string) $xml->StackId,
+            'EventId' => (string) $xml->EventId,
+            'StackName' => (string) $xml->StackName,
+            'LogicalResourceId' => (null !== $v = $xml->LogicalResourceId[0]) ? (string) $v : null,
+            'PhysicalResourceId' => (null !== $v = $xml->PhysicalResourceId[0]) ? (string) $v : null,
+            'ResourceType' => (null !== $v = $xml->ResourceType[0]) ? (string) $v : null,
+            'Timestamp' => new \DateTimeImmutable((string) $xml->Timestamp),
+            'ResourceStatus' => (null !== $v = $xml->ResourceStatus[0]) ? (string) $v : null,
+            'ResourceStatusReason' => (null !== $v = $xml->ResourceStatusReason[0]) ? (string) $v : null,
+            'ResourceProperties' => (null !== $v = $xml->ResourceProperties[0]) ? (string) $v : null,
+            'ClientRequestToken' => (null !== $v = $xml->ClientRequestToken[0]) ? (string) $v : null,
+            'HookType' => (null !== $v = $xml->HookType[0]) ? (string) $v : null,
+            'HookStatus' => (null !== $v = $xml->HookStatus[0]) ? (string) $v : null,
+            'HookStatusReason' => (null !== $v = $xml->HookStatusReason[0]) ? (string) $v : null,
+            'HookInvocationPoint' => (null !== $v = $xml->HookInvocationPoint[0]) ? (string) $v : null,
+            'HookFailureMode' => (null !== $v = $xml->HookFailureMode[0]) ? (string) $v : null,
+            'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -108,25 +131,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new StackEvent([
-                'StackId' => (string) $item->StackId,
-                'EventId' => (string) $item->EventId,
-                'StackName' => (string) $item->StackName,
-                'LogicalResourceId' => ($v = $item->LogicalResourceId) ? (string) $v : null,
-                'PhysicalResourceId' => ($v = $item->PhysicalResourceId) ? (string) $v : null,
-                'ResourceType' => ($v = $item->ResourceType) ? (string) $v : null,
-                'Timestamp' => new \DateTimeImmutable((string) $item->Timestamp),
-                'ResourceStatus' => ($v = $item->ResourceStatus) ? (string) $v : null,
-                'ResourceStatusReason' => ($v = $item->ResourceStatusReason) ? (string) $v : null,
-                'ResourceProperties' => ($v = $item->ResourceProperties) ? (string) $v : null,
-                'ClientRequestToken' => ($v = $item->ClientRequestToken) ? (string) $v : null,
-                'HookType' => ($v = $item->HookType) ? (string) $v : null,
-                'HookStatus' => ($v = $item->HookStatus) ? (string) $v : null,
-                'HookStatusReason' => ($v = $item->HookStatusReason) ? (string) $v : null,
-                'HookInvocationPoint' => ($v = $item->HookInvocationPoint) ? (string) $v : null,
-                'HookFailureMode' => ($v = $item->HookFailureMode) ? (string) $v : null,
-                'DetailedStatus' => ($v = $item->DetailedStatus) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultStackEvent($item);
         }
 
         return $items;

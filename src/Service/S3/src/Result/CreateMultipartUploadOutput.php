@@ -239,8 +239,8 @@ class CreateMultipartUploadOutput extends Result
         $this->checksumAlgorithm = $headers['x-amz-checksum-algorithm'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->key = ($v = $data->Key) ? (string) $v : null;
-        $this->uploadId = ($v = $data->UploadId) ? (string) $v : null;
+        $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;
+        $this->key = (null !== $v = $data->Key[0]) ? (string) $v : null;
+        $this->uploadId = (null !== $v = $data->UploadId[0]) ? (string) $v : null;
     }
 }

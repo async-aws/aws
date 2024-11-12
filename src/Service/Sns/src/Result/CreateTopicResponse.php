@@ -29,6 +29,6 @@ class CreateTopicResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateTopicResult;
 
-        $this->topicArn = ($v = $data->TopicArn) ? (string) $v : null;
+        $this->topicArn = (null !== $v = $data->TopicArn[0]) ? (string) $v : null;
     }
 }

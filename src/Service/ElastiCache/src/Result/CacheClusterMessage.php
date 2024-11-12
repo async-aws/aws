@@ -67,7 +67,7 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->marker) {
+            if (null !== $page->marker) {
                 $input->setMarker($page->marker);
 
                 $this->registerPrefetch($nextPage = $client->describeCacheClusters($input));
@@ -108,8 +108,47 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeCacheClustersResult;
 
-        $this->marker = ($v = $data->Marker) ? (string) $v : null;
-        $this->cacheClusters = !$data->CacheClusters ? [] : $this->populateResultCacheClusterList($data->CacheClusters);
+        $this->marker = (null !== $v = $data->Marker[0]) ? (string) $v : null;
+        $this->cacheClusters = (0 === ($v = $data->CacheClusters)->count()) ? [] : $this->populateResultCacheClusterList($v);
+    }
+
+    private function populateResultCacheCluster(\SimpleXMLElement $xml): CacheCluster
+    {
+        return new CacheCluster([
+            'CacheClusterId' => (null !== $v = $xml->CacheClusterId[0]) ? (string) $v : null,
+            'ConfigurationEndpoint' => 0 === $xml->ConfigurationEndpoint->count() ? null : $this->populateResultEndpoint($xml->ConfigurationEndpoint),
+            'ClientDownloadLandingPage' => (null !== $v = $xml->ClientDownloadLandingPage[0]) ? (string) $v : null,
+            'CacheNodeType' => (null !== $v = $xml->CacheNodeType[0]) ? (string) $v : null,
+            'Engine' => (null !== $v = $xml->Engine[0]) ? (string) $v : null,
+            'EngineVersion' => (null !== $v = $xml->EngineVersion[0]) ? (string) $v : null,
+            'CacheClusterStatus' => (null !== $v = $xml->CacheClusterStatus[0]) ? (string) $v : null,
+            'NumCacheNodes' => (null !== $v = $xml->NumCacheNodes[0]) ? (int) (string) $v : null,
+            'PreferredAvailabilityZone' => (null !== $v = $xml->PreferredAvailabilityZone[0]) ? (string) $v : null,
+            'PreferredOutpostArn' => (null !== $v = $xml->PreferredOutpostArn[0]) ? (string) $v : null,
+            'CacheClusterCreateTime' => (null !== $v = $xml->CacheClusterCreateTime[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'PreferredMaintenanceWindow' => (null !== $v = $xml->PreferredMaintenanceWindow[0]) ? (string) $v : null,
+            'PendingModifiedValues' => 0 === $xml->PendingModifiedValues->count() ? null : $this->populateResultPendingModifiedValues($xml->PendingModifiedValues),
+            'NotificationConfiguration' => 0 === $xml->NotificationConfiguration->count() ? null : $this->populateResultNotificationConfiguration($xml->NotificationConfiguration),
+            'CacheSecurityGroups' => (0 === ($v = $xml->CacheSecurityGroups)->count()) ? null : $this->populateResultCacheSecurityGroupMembershipList($v),
+            'CacheParameterGroup' => 0 === $xml->CacheParameterGroup->count() ? null : $this->populateResultCacheParameterGroupStatus($xml->CacheParameterGroup),
+            'CacheSubnetGroupName' => (null !== $v = $xml->CacheSubnetGroupName[0]) ? (string) $v : null,
+            'CacheNodes' => (0 === ($v = $xml->CacheNodes)->count()) ? null : $this->populateResultCacheNodeList($v),
+            'AutoMinorVersionUpgrade' => (null !== $v = $xml->AutoMinorVersionUpgrade[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'SecurityGroups' => (0 === ($v = $xml->SecurityGroups)->count()) ? null : $this->populateResultSecurityGroupMembershipList($v),
+            'ReplicationGroupId' => (null !== $v = $xml->ReplicationGroupId[0]) ? (string) $v : null,
+            'SnapshotRetentionLimit' => (null !== $v = $xml->SnapshotRetentionLimit[0]) ? (int) (string) $v : null,
+            'SnapshotWindow' => (null !== $v = $xml->SnapshotWindow[0]) ? (string) $v : null,
+            'AuthTokenEnabled' => (null !== $v = $xml->AuthTokenEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'AuthTokenLastModifiedDate' => (null !== $v = $xml->AuthTokenLastModifiedDate[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'TransitEncryptionEnabled' => (null !== $v = $xml->TransitEncryptionEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'AtRestEncryptionEnabled' => (null !== $v = $xml->AtRestEncryptionEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'ARN' => (null !== $v = $xml->ARN[0]) ? (string) $v : null,
+            'ReplicationGroupLogDeliveryEnabled' => (null !== $v = $xml->ReplicationGroupLogDeliveryEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'LogDeliveryConfigurations' => (0 === ($v = $xml->LogDeliveryConfigurations)->count()) ? null : $this->populateResultLogDeliveryConfigurationList($v),
+            'NetworkType' => (null !== $v = $xml->NetworkType[0]) ? (string) $v : null,
+            'IpDiscovery' => (null !== $v = $xml->IpDiscovery[0]) ? (string) $v : null,
+            'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -119,63 +158,24 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->CacheCluster as $item) {
-            $items[] = new CacheCluster([
-                'CacheClusterId' => ($v = $item->CacheClusterId) ? (string) $v : null,
-                'ConfigurationEndpoint' => !$item->ConfigurationEndpoint ? null : new Endpoint([
-                    'Address' => ($v = $item->ConfigurationEndpoint->Address) ? (string) $v : null,
-                    'Port' => ($v = $item->ConfigurationEndpoint->Port) ? (int) (string) $v : null,
-                ]),
-                'ClientDownloadLandingPage' => ($v = $item->ClientDownloadLandingPage) ? (string) $v : null,
-                'CacheNodeType' => ($v = $item->CacheNodeType) ? (string) $v : null,
-                'Engine' => ($v = $item->Engine) ? (string) $v : null,
-                'EngineVersion' => ($v = $item->EngineVersion) ? (string) $v : null,
-                'CacheClusterStatus' => ($v = $item->CacheClusterStatus) ? (string) $v : null,
-                'NumCacheNodes' => ($v = $item->NumCacheNodes) ? (int) (string) $v : null,
-                'PreferredAvailabilityZone' => ($v = $item->PreferredAvailabilityZone) ? (string) $v : null,
-                'PreferredOutpostArn' => ($v = $item->PreferredOutpostArn) ? (string) $v : null,
-                'CacheClusterCreateTime' => ($v = $item->CacheClusterCreateTime) ? new \DateTimeImmutable((string) $v) : null,
-                'PreferredMaintenanceWindow' => ($v = $item->PreferredMaintenanceWindow) ? (string) $v : null,
-                'PendingModifiedValues' => !$item->PendingModifiedValues ? null : new PendingModifiedValues([
-                    'NumCacheNodes' => ($v = $item->PendingModifiedValues->NumCacheNodes) ? (int) (string) $v : null,
-                    'CacheNodeIdsToRemove' => !$item->PendingModifiedValues->CacheNodeIdsToRemove ? null : $this->populateResultCacheNodeIdsList($item->PendingModifiedValues->CacheNodeIdsToRemove),
-                    'EngineVersion' => ($v = $item->PendingModifiedValues->EngineVersion) ? (string) $v : null,
-                    'CacheNodeType' => ($v = $item->PendingModifiedValues->CacheNodeType) ? (string) $v : null,
-                    'AuthTokenStatus' => ($v = $item->PendingModifiedValues->AuthTokenStatus) ? (string) $v : null,
-                    'LogDeliveryConfigurations' => !$item->PendingModifiedValues->LogDeliveryConfigurations ? null : $this->populateResultPendingLogDeliveryConfigurationList($item->PendingModifiedValues->LogDeliveryConfigurations),
-                    'TransitEncryptionEnabled' => ($v = $item->PendingModifiedValues->TransitEncryptionEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                    'TransitEncryptionMode' => ($v = $item->PendingModifiedValues->TransitEncryptionMode) ? (string) $v : null,
-                ]),
-                'NotificationConfiguration' => !$item->NotificationConfiguration ? null : new NotificationConfiguration([
-                    'TopicArn' => ($v = $item->NotificationConfiguration->TopicArn) ? (string) $v : null,
-                    'TopicStatus' => ($v = $item->NotificationConfiguration->TopicStatus) ? (string) $v : null,
-                ]),
-                'CacheSecurityGroups' => !$item->CacheSecurityGroups ? null : $this->populateResultCacheSecurityGroupMembershipList($item->CacheSecurityGroups),
-                'CacheParameterGroup' => !$item->CacheParameterGroup ? null : new CacheParameterGroupStatus([
-                    'CacheParameterGroupName' => ($v = $item->CacheParameterGroup->CacheParameterGroupName) ? (string) $v : null,
-                    'ParameterApplyStatus' => ($v = $item->CacheParameterGroup->ParameterApplyStatus) ? (string) $v : null,
-                    'CacheNodeIdsToReboot' => !$item->CacheParameterGroup->CacheNodeIdsToReboot ? null : $this->populateResultCacheNodeIdsList($item->CacheParameterGroup->CacheNodeIdsToReboot),
-                ]),
-                'CacheSubnetGroupName' => ($v = $item->CacheSubnetGroupName) ? (string) $v : null,
-                'CacheNodes' => !$item->CacheNodes ? null : $this->populateResultCacheNodeList($item->CacheNodes),
-                'AutoMinorVersionUpgrade' => ($v = $item->AutoMinorVersionUpgrade) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'SecurityGroups' => !$item->SecurityGroups ? null : $this->populateResultSecurityGroupMembershipList($item->SecurityGroups),
-                'ReplicationGroupId' => ($v = $item->ReplicationGroupId) ? (string) $v : null,
-                'SnapshotRetentionLimit' => ($v = $item->SnapshotRetentionLimit) ? (int) (string) $v : null,
-                'SnapshotWindow' => ($v = $item->SnapshotWindow) ? (string) $v : null,
-                'AuthTokenEnabled' => ($v = $item->AuthTokenEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'AuthTokenLastModifiedDate' => ($v = $item->AuthTokenLastModifiedDate) ? new \DateTimeImmutable((string) $v) : null,
-                'TransitEncryptionEnabled' => ($v = $item->TransitEncryptionEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'AtRestEncryptionEnabled' => ($v = $item->AtRestEncryptionEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'ARN' => ($v = $item->ARN) ? (string) $v : null,
-                'ReplicationGroupLogDeliveryEnabled' => ($v = $item->ReplicationGroupLogDeliveryEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'LogDeliveryConfigurations' => !$item->LogDeliveryConfigurations ? null : $this->populateResultLogDeliveryConfigurationList($item->LogDeliveryConfigurations),
-                'NetworkType' => ($v = $item->NetworkType) ? (string) $v : null,
-                'IpDiscovery' => ($v = $item->IpDiscovery) ? (string) $v : null,
-                'TransitEncryptionMode' => ($v = $item->TransitEncryptionMode) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultCacheCluster($item);
         }
 
         return $items;
+    }
+
+    private function populateResultCacheNode(\SimpleXMLElement $xml): CacheNode
+    {
+        return new CacheNode([
+            'CacheNodeId' => (null !== $v = $xml->CacheNodeId[0]) ? (string) $v : null,
+            'CacheNodeStatus' => (null !== $v = $xml->CacheNodeStatus[0]) ? (string) $v : null,
+            'CacheNodeCreateTime' => (null !== $v = $xml->CacheNodeCreateTime[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'Endpoint' => 0 === $xml->Endpoint->count() ? null : $this->populateResultEndpoint($xml->Endpoint),
+            'ParameterGroupStatus' => (null !== $v = $xml->ParameterGroupStatus[0]) ? (string) $v : null,
+            'SourceCacheNodeId' => (null !== $v = $xml->SourceCacheNodeId[0]) ? (string) $v : null,
+            'CustomerAvailabilityZone' => (null !== $v = $xml->CustomerAvailabilityZone[0]) ? (string) $v : null,
+            'CustomerOutpostArn' => (null !== $v = $xml->CustomerOutpostArn[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -185,10 +185,7 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->CacheNodeId as $item) {
-            $a = ($v = $item) ? (string) $v : null;
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = (string) $item;
         }
 
         return $items;
@@ -201,22 +198,27 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->CacheNode as $item) {
-            $items[] = new CacheNode([
-                'CacheNodeId' => ($v = $item->CacheNodeId) ? (string) $v : null,
-                'CacheNodeStatus' => ($v = $item->CacheNodeStatus) ? (string) $v : null,
-                'CacheNodeCreateTime' => ($v = $item->CacheNodeCreateTime) ? new \DateTimeImmutable((string) $v) : null,
-                'Endpoint' => !$item->Endpoint ? null : new Endpoint([
-                    'Address' => ($v = $item->Endpoint->Address) ? (string) $v : null,
-                    'Port' => ($v = $item->Endpoint->Port) ? (int) (string) $v : null,
-                ]),
-                'ParameterGroupStatus' => ($v = $item->ParameterGroupStatus) ? (string) $v : null,
-                'SourceCacheNodeId' => ($v = $item->SourceCacheNodeId) ? (string) $v : null,
-                'CustomerAvailabilityZone' => ($v = $item->CustomerAvailabilityZone) ? (string) $v : null,
-                'CustomerOutpostArn' => ($v = $item->CustomerOutpostArn) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultCacheNode($item);
         }
 
         return $items;
+    }
+
+    private function populateResultCacheParameterGroupStatus(\SimpleXMLElement $xml): CacheParameterGroupStatus
+    {
+        return new CacheParameterGroupStatus([
+            'CacheParameterGroupName' => (null !== $v = $xml->CacheParameterGroupName[0]) ? (string) $v : null,
+            'ParameterApplyStatus' => (null !== $v = $xml->ParameterApplyStatus[0]) ? (string) $v : null,
+            'CacheNodeIdsToReboot' => (0 === ($v = $xml->CacheNodeIdsToReboot)->count()) ? null : $this->populateResultCacheNodeIdsList($v),
+        ]);
+    }
+
+    private function populateResultCacheSecurityGroupMembership(\SimpleXMLElement $xml): CacheSecurityGroupMembership
+    {
+        return new CacheSecurityGroupMembership([
+            'CacheSecurityGroupName' => (null !== $v = $xml->CacheSecurityGroupName[0]) ? (string) $v : null,
+            'Status' => (null !== $v = $xml->Status[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -226,13 +228,52 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->CacheSecurityGroup as $item) {
-            $items[] = new CacheSecurityGroupMembership([
-                'CacheSecurityGroupName' => ($v = $item->CacheSecurityGroupName) ? (string) $v : null,
-                'Status' => ($v = $item->Status) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultCacheSecurityGroupMembership($item);
         }
 
         return $items;
+    }
+
+    private function populateResultCloudWatchLogsDestinationDetails(\SimpleXMLElement $xml): CloudWatchLogsDestinationDetails
+    {
+        return new CloudWatchLogsDestinationDetails([
+            'LogGroup' => (null !== $v = $xml->LogGroup[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultDestinationDetails(\SimpleXMLElement $xml): DestinationDetails
+    {
+        return new DestinationDetails([
+            'CloudWatchLogsDetails' => 0 === $xml->CloudWatchLogsDetails->count() ? null : $this->populateResultCloudWatchLogsDestinationDetails($xml->CloudWatchLogsDetails),
+            'KinesisFirehoseDetails' => 0 === $xml->KinesisFirehoseDetails->count() ? null : $this->populateResultKinesisFirehoseDestinationDetails($xml->KinesisFirehoseDetails),
+        ]);
+    }
+
+    private function populateResultEndpoint(\SimpleXMLElement $xml): Endpoint
+    {
+        return new Endpoint([
+            'Address' => (null !== $v = $xml->Address[0]) ? (string) $v : null,
+            'Port' => (null !== $v = $xml->Port[0]) ? (int) (string) $v : null,
+        ]);
+    }
+
+    private function populateResultKinesisFirehoseDestinationDetails(\SimpleXMLElement $xml): KinesisFirehoseDestinationDetails
+    {
+        return new KinesisFirehoseDestinationDetails([
+            'DeliveryStream' => (null !== $v = $xml->DeliveryStream[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultLogDeliveryConfiguration(\SimpleXMLElement $xml): LogDeliveryConfiguration
+    {
+        return new LogDeliveryConfiguration([
+            'LogType' => (null !== $v = $xml->LogType[0]) ? (string) $v : null,
+            'DestinationType' => (null !== $v = $xml->DestinationType[0]) ? (string) $v : null,
+            'DestinationDetails' => 0 === $xml->DestinationDetails->count() ? null : $this->populateResultDestinationDetails($xml->DestinationDetails),
+            'LogFormat' => (null !== $v = $xml->LogFormat[0]) ? (string) $v : null,
+            'Status' => (null !== $v = $xml->Status[0]) ? (string) $v : null,
+            'Message' => (null !== $v = $xml->Message[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -242,24 +283,28 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->LogDeliveryConfiguration as $item) {
-            $items[] = new LogDeliveryConfiguration([
-                'LogType' => ($v = $item->LogType) ? (string) $v : null,
-                'DestinationType' => ($v = $item->DestinationType) ? (string) $v : null,
-                'DestinationDetails' => !$item->DestinationDetails ? null : new DestinationDetails([
-                    'CloudWatchLogsDetails' => !$item->DestinationDetails->CloudWatchLogsDetails ? null : new CloudWatchLogsDestinationDetails([
-                        'LogGroup' => ($v = $item->DestinationDetails->CloudWatchLogsDetails->LogGroup) ? (string) $v : null,
-                    ]),
-                    'KinesisFirehoseDetails' => !$item->DestinationDetails->KinesisFirehoseDetails ? null : new KinesisFirehoseDestinationDetails([
-                        'DeliveryStream' => ($v = $item->DestinationDetails->KinesisFirehoseDetails->DeliveryStream) ? (string) $v : null,
-                    ]),
-                ]),
-                'LogFormat' => ($v = $item->LogFormat) ? (string) $v : null,
-                'Status' => ($v = $item->Status) ? (string) $v : null,
-                'Message' => ($v = $item->Message) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultLogDeliveryConfiguration($item);
         }
 
         return $items;
+    }
+
+    private function populateResultNotificationConfiguration(\SimpleXMLElement $xml): NotificationConfiguration
+    {
+        return new NotificationConfiguration([
+            'TopicArn' => (null !== $v = $xml->TopicArn[0]) ? (string) $v : null,
+            'TopicStatus' => (null !== $v = $xml->TopicStatus[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultPendingLogDeliveryConfiguration(\SimpleXMLElement $xml): PendingLogDeliveryConfiguration
+    {
+        return new PendingLogDeliveryConfiguration([
+            'LogType' => (null !== $v = $xml->LogType[0]) ? (string) $v : null,
+            'DestinationType' => (null !== $v = $xml->DestinationType[0]) ? (string) $v : null,
+            'DestinationDetails' => 0 === $xml->DestinationDetails->count() ? null : $this->populateResultDestinationDetails($xml->DestinationDetails),
+            'LogFormat' => (null !== $v = $xml->LogFormat[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -269,22 +314,32 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new PendingLogDeliveryConfiguration([
-                'LogType' => ($v = $item->LogType) ? (string) $v : null,
-                'DestinationType' => ($v = $item->DestinationType) ? (string) $v : null,
-                'DestinationDetails' => !$item->DestinationDetails ? null : new DestinationDetails([
-                    'CloudWatchLogsDetails' => !$item->DestinationDetails->CloudWatchLogsDetails ? null : new CloudWatchLogsDestinationDetails([
-                        'LogGroup' => ($v = $item->DestinationDetails->CloudWatchLogsDetails->LogGroup) ? (string) $v : null,
-                    ]),
-                    'KinesisFirehoseDetails' => !$item->DestinationDetails->KinesisFirehoseDetails ? null : new KinesisFirehoseDestinationDetails([
-                        'DeliveryStream' => ($v = $item->DestinationDetails->KinesisFirehoseDetails->DeliveryStream) ? (string) $v : null,
-                    ]),
-                ]),
-                'LogFormat' => ($v = $item->LogFormat) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultPendingLogDeliveryConfiguration($item);
         }
 
         return $items;
+    }
+
+    private function populateResultPendingModifiedValues(\SimpleXMLElement $xml): PendingModifiedValues
+    {
+        return new PendingModifiedValues([
+            'NumCacheNodes' => (null !== $v = $xml->NumCacheNodes[0]) ? (int) (string) $v : null,
+            'CacheNodeIdsToRemove' => (0 === ($v = $xml->CacheNodeIdsToRemove)->count()) ? null : $this->populateResultCacheNodeIdsList($v),
+            'EngineVersion' => (null !== $v = $xml->EngineVersion[0]) ? (string) $v : null,
+            'CacheNodeType' => (null !== $v = $xml->CacheNodeType[0]) ? (string) $v : null,
+            'AuthTokenStatus' => (null !== $v = $xml->AuthTokenStatus[0]) ? (string) $v : null,
+            'LogDeliveryConfigurations' => (0 === ($v = $xml->LogDeliveryConfigurations)->count()) ? null : $this->populateResultPendingLogDeliveryConfigurationList($v),
+            'TransitEncryptionEnabled' => (null !== $v = $xml->TransitEncryptionEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultSecurityGroupMembership(\SimpleXMLElement $xml): SecurityGroupMembership
+    {
+        return new SecurityGroupMembership([
+            'SecurityGroupId' => (null !== $v = $xml->SecurityGroupId[0]) ? (string) $v : null,
+            'Status' => (null !== $v = $xml->Status[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -294,10 +349,7 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = new SecurityGroupMembership([
-                'SecurityGroupId' => ($v = $item->SecurityGroupId) ? (string) $v : null,
-                'Status' => ($v = $item->Status) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultSecurityGroupMembership($item);
         }
 
         return $items;

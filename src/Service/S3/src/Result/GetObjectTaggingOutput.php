@@ -49,6 +49,14 @@ class GetObjectTaggingOutput extends Result
         $this->tagSet = $this->populateResultTagSet($data->TagSet);
     }
 
+    private function populateResultTag(\SimpleXMLElement $xml): Tag
+    {
+        return new Tag([
+            'Key' => (string) $xml->Key,
+            'Value' => (string) $xml->Value,
+        ]);
+    }
+
     /**
      * @return Tag[]
      */
@@ -56,10 +64,7 @@ class GetObjectTaggingOutput extends Result
     {
         $items = [];
         foreach ($xml->Tag as $item) {
-            $items[] = new Tag([
-                'Key' => (string) $item->Key,
-                'Value' => (string) $item->Value,
-            ]);
+            $items[] = $this->populateResultTag($item);
         }
 
         return $items;

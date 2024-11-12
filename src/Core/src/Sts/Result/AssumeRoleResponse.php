@@ -94,17 +94,27 @@ class AssumeRoleResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->AssumeRoleResult;
 
-        $this->credentials = !$data->Credentials ? null : new Credentials([
-            'AccessKeyId' => (string) $data->Credentials->AccessKeyId,
-            'SecretAccessKey' => (string) $data->Credentials->SecretAccessKey,
-            'SessionToken' => (string) $data->Credentials->SessionToken,
-            'Expiration' => new \DateTimeImmutable((string) $data->Credentials->Expiration),
+        $this->credentials = 0 === $data->Credentials->count() ? null : $this->populateResultCredentials($data->Credentials);
+        $this->assumedRoleUser = 0 === $data->AssumedRoleUser->count() ? null : $this->populateResultAssumedRoleUser($data->AssumedRoleUser);
+        $this->packedPolicySize = (null !== $v = $data->PackedPolicySize[0]) ? (int) (string) $v : null;
+        $this->sourceIdentity = (null !== $v = $data->SourceIdentity[0]) ? (string) $v : null;
+    }
+
+    private function populateResultAssumedRoleUser(\SimpleXMLElement $xml): AssumedRoleUser
+    {
+        return new AssumedRoleUser([
+            'AssumedRoleId' => (string) $xml->AssumedRoleId,
+            'Arn' => (string) $xml->Arn,
         ]);
-        $this->assumedRoleUser = !$data->AssumedRoleUser ? null : new AssumedRoleUser([
-            'AssumedRoleId' => (string) $data->AssumedRoleUser->AssumedRoleId,
-            'Arn' => (string) $data->AssumedRoleUser->Arn,
+    }
+
+    private function populateResultCredentials(\SimpleXMLElement $xml): Credentials
+    {
+        return new Credentials([
+            'AccessKeyId' => (string) $xml->AccessKeyId,
+            'SecretAccessKey' => (string) $xml->SecretAccessKey,
+            'SessionToken' => (string) $xml->SessionToken,
+            'Expiration' => new \DateTimeImmutable((string) $xml->Expiration),
         ]);
-        $this->packedPolicySize = ($v = $data->PackedPolicySize) ? (int) (string) $v : null;
-        $this->sourceIdentity = ($v = $data->SourceIdentity) ? (string) $v : null;
     }
 }

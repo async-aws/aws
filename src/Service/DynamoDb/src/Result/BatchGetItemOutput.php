@@ -83,7 +83,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if ($page->unprocessedKeys) {
+            if (null !== $page->unprocessedKeys) {
                 $input->setRequestItems($page->unprocessedKeys);
 
                 $this->registerPrefetch($nextPage = $client->batchGetItem($input));

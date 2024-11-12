@@ -357,18 +357,25 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->keyMarker = ($v = $data->KeyMarker) ? (string) $v : null;
-        $this->uploadIdMarker = ($v = $data->UploadIdMarker) ? (string) $v : null;
-        $this->nextKeyMarker = ($v = $data->NextKeyMarker) ? (string) $v : null;
-        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
-        $this->delimiter = ($v = $data->Delimiter) ? (string) $v : null;
-        $this->nextUploadIdMarker = ($v = $data->NextUploadIdMarker) ? (string) $v : null;
-        $this->maxUploads = ($v = $data->MaxUploads) ? (int) (string) $v : null;
-        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->uploads = !$data->Upload ? [] : $this->populateResultMultipartUploadList($data->Upload);
-        $this->commonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
-        $this->encodingType = ($v = $data->EncodingType) ? (string) $v : null;
+        $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;
+        $this->keyMarker = (null !== $v = $data->KeyMarker[0]) ? (string) $v : null;
+        $this->uploadIdMarker = (null !== $v = $data->UploadIdMarker[0]) ? (string) $v : null;
+        $this->nextKeyMarker = (null !== $v = $data->NextKeyMarker[0]) ? (string) $v : null;
+        $this->prefix = (null !== $v = $data->Prefix[0]) ? (string) $v : null;
+        $this->delimiter = (null !== $v = $data->Delimiter[0]) ? (string) $v : null;
+        $this->nextUploadIdMarker = (null !== $v = $data->NextUploadIdMarker[0]) ? (string) $v : null;
+        $this->maxUploads = (null !== $v = $data->MaxUploads[0]) ? (int) (string) $v : null;
+        $this->isTruncated = (null !== $v = $data->IsTruncated[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->uploads = (0 === ($v = $data->Upload)->count()) ? [] : $this->populateResultMultipartUploadList($v);
+        $this->commonPrefixes = (0 === ($v = $data->CommonPrefixes)->count()) ? [] : $this->populateResultCommonPrefixList($v);
+        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (string) $v : null;
+    }
+
+    private function populateResultCommonPrefix(\SimpleXMLElement $xml): CommonPrefix
+    {
+        return new CommonPrefix([
+            'Prefix' => (null !== $v = $xml->Prefix[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -378,12 +385,31 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new CommonPrefix([
-                'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultCommonPrefix($item);
         }
 
         return $items;
+    }
+
+    private function populateResultInitiator(\SimpleXMLElement $xml): Initiator
+    {
+        return new Initiator([
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultMultipartUpload(\SimpleXMLElement $xml): MultipartUpload
+    {
+        return new MultipartUpload([
+            'UploadId' => (null !== $v = $xml->UploadId[0]) ? (string) $v : null,
+            'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
+            'Initiated' => (null !== $v = $xml->Initiated[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (string) $v : null,
+            'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),
+            'Initiator' => 0 === $xml->Initiator->count() ? null : $this->populateResultInitiator($xml->Initiator),
+            'ChecksumAlgorithm' => (null !== $v = $xml->ChecksumAlgorithm[0]) ? (string) $v : null,
+        ]);
     }
 
     /**
@@ -393,23 +419,17 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = new MultipartUpload([
-                'UploadId' => ($v = $item->UploadId) ? (string) $v : null,
-                'Key' => ($v = $item->Key) ? (string) $v : null,
-                'Initiated' => ($v = $item->Initiated) ? new \DateTimeImmutable((string) $v) : null,
-                'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
-                'Owner' => !$item->Owner ? null : new Owner([
-                    'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
-                    'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
-                ]),
-                'Initiator' => !$item->Initiator ? null : new Initiator([
-                    'ID' => ($v = $item->Initiator->ID) ? (string) $v : null,
-                    'DisplayName' => ($v = $item->Initiator->DisplayName) ? (string) $v : null,
-                ]),
-                'ChecksumAlgorithm' => ($v = $item->ChecksumAlgorithm) ? (string) $v : null,
-            ]);
+            $items[] = $this->populateResultMultipartUpload($item);
         }
 
         return $items;
+    }
+
+    private function populateResultOwner(\SimpleXMLElement $xml): Owner
+    {
+        return new Owner([
+            'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
+            'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
+        ]);
     }
 }
