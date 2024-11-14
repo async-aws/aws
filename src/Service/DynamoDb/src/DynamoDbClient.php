@@ -82,6 +82,7 @@ use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 use AsyncAws\DynamoDb\ValueObject\TransactWriteItem;
+use AsyncAws\DynamoDb\ValueObject\WarmThroughput;
 
 class DynamoDbClient extends AbstractApi
 {
@@ -284,6 +285,7 @@ class DynamoDbClient extends AbstractApi
      *   Tags?: null|array<Tag|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   WarmThroughput?: null|WarmThroughput|array,
      *   ResourcePolicy?: null|string,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
@@ -1000,6 +1002,7 @@ class DynamoDbClient extends AbstractApi
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *

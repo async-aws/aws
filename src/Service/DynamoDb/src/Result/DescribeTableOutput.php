@@ -8,6 +8,7 @@ use AsyncAws\DynamoDb\ValueObject\ArchivalSummary;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\BillingModeSummary;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexDescription;
+use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexWarmThroughputDescription;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndexDescription;
 use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
@@ -22,6 +23,7 @@ use AsyncAws\DynamoDb\ValueObject\SSEDescription;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\TableClassSummary;
 use AsyncAws\DynamoDb\ValueObject\TableDescription;
+use AsyncAws\DynamoDb\ValueObject\TableWarmThroughputDescription;
 
 /**
  * Represents the output of a `DescribeTable` operation.
@@ -100,6 +102,7 @@ class DescribeTableOutput extends Result
             'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,
             'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
             'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
+            'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultGlobalSecondaryIndexWarmThroughputDescription($json['WarmThroughput']),
         ]);
     }
 
@@ -114,6 +117,15 @@ class DescribeTableOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultGlobalSecondaryIndexWarmThroughputDescription(array $json): GlobalSecondaryIndexWarmThroughputDescription
+    {
+        return new GlobalSecondaryIndexWarmThroughputDescription([
+            'ReadUnitsPerSecond' => isset($json['ReadUnitsPerSecond']) ? (int) $json['ReadUnitsPerSecond'] : null,
+            'WriteUnitsPerSecond' => isset($json['WriteUnitsPerSecond']) ? (int) $json['WriteUnitsPerSecond'] : null,
+            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+        ]);
     }
 
     /**
@@ -229,6 +241,7 @@ class DescribeTableOutput extends Result
             'KMSMasterKeyId' => isset($json['KMSMasterKeyId']) ? (string) $json['KMSMasterKeyId'] : null,
             'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
             'OnDemandThroughputOverride' => empty($json['OnDemandThroughputOverride']) ? null : $this->populateResultOnDemandThroughputOverride($json['OnDemandThroughputOverride']),
+            'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultTableWarmThroughputDescription($json['WarmThroughput']),
             'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($json['GlobalSecondaryIndexes']),
             'ReplicaInaccessibleDateTime' => (isset($json['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ReplicaInaccessibleDateTime'])))) ? $d : null,
             'ReplicaTableClassSummary' => empty($json['ReplicaTableClassSummary']) ? null : $this->populateResultTableClassSummary($json['ReplicaTableClassSummary']),
@@ -254,6 +267,7 @@ class DescribeTableOutput extends Result
             'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
             'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
             'OnDemandThroughputOverride' => empty($json['OnDemandThroughputOverride']) ? null : $this->populateResultOnDemandThroughputOverride($json['OnDemandThroughputOverride']),
+            'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultGlobalSecondaryIndexWarmThroughputDescription($json['WarmThroughput']),
         ]);
     }
 
@@ -333,6 +347,16 @@ class DescribeTableOutput extends Result
             'TableClassSummary' => empty($json['TableClassSummary']) ? null : $this->populateResultTableClassSummary($json['TableClassSummary']),
             'DeletionProtectionEnabled' => isset($json['DeletionProtectionEnabled']) ? filter_var($json['DeletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
+            'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultTableWarmThroughputDescription($json['WarmThroughput']),
+        ]);
+    }
+
+    private function populateResultTableWarmThroughputDescription(array $json): TableWarmThroughputDescription
+    {
+        return new TableWarmThroughputDescription([
+            'ReadUnitsPerSecond' => isset($json['ReadUnitsPerSecond']) ? (int) $json['ReadUnitsPerSecond'] : null,
+            'WriteUnitsPerSecond' => isset($json['WriteUnitsPerSecond']) ? (int) $json['WriteUnitsPerSecond'] : null,
+            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
         ]);
     }
 }

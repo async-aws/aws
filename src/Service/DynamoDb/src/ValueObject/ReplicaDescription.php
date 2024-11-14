@@ -73,6 +73,13 @@ final class ReplicaDescription
     private $onDemandThroughputOverride;
 
     /**
+     * Represents the warm throughput value for this replica.
+     *
+     * @var TableWarmThroughputDescription|null
+     */
+    private $warmThroughput;
+
+    /**
      * Replica-specific global secondary index settings.
      *
      * @var ReplicaGlobalSecondaryIndexDescription[]|null
@@ -101,6 +108,7 @@ final class ReplicaDescription
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
+     *   WarmThroughput?: null|TableWarmThroughputDescription|array,
      *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      *   ReplicaTableClassSummary?: null|TableClassSummary|array,
@@ -115,6 +123,7 @@ final class ReplicaDescription
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->onDemandThroughputOverride = isset($input['OnDemandThroughputOverride']) ? OnDemandThroughputOverride::create($input['OnDemandThroughputOverride']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? TableWarmThroughputDescription::create($input['WarmThroughput']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->replicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
         $this->replicaTableClassSummary = isset($input['ReplicaTableClassSummary']) ? TableClassSummary::create($input['ReplicaTableClassSummary']) : null;
@@ -129,6 +138,7 @@ final class ReplicaDescription
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
+     *   WarmThroughput?: null|TableWarmThroughputDescription|array,
      *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      *   ReplicaTableClassSummary?: null|TableClassSummary|array,
@@ -193,5 +203,10 @@ final class ReplicaDescription
     public function getReplicaTableClassSummary(): ?TableClassSummary
     {
         return $this->replicaTableClassSummary;
+    }
+
+    public function getWarmThroughput(): ?TableWarmThroughputDescription
+    {
+        return $this->warmThroughput;
     }
 }

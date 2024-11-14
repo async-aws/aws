@@ -37,10 +37,19 @@ final class UpdateGlobalSecondaryIndexAction
     private $onDemandThroughput;
 
     /**
+     * Represents the warm throughput value of the new provisioned throughput settings to be applied to a global secondary
+     * index.
+     *
+     * @var WarmThroughput|null
+     */
+    private $warmThroughput;
+
+    /**
      * @param array{
      *   IndexName: string,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      * } $input
      */
     public function __construct(array $input)
@@ -48,6 +57,7 @@ final class UpdateGlobalSecondaryIndexAction
         $this->indexName = $input['IndexName'] ?? $this->throwException(new InvalidArgument('Missing required field "IndexName".'));
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
     }
 
     /**
@@ -55,6 +65,7 @@ final class UpdateGlobalSecondaryIndexAction
      *   IndexName: string,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      * }|UpdateGlobalSecondaryIndexAction $input
      */
     public static function create($input): self
@@ -77,6 +88,11 @@ final class UpdateGlobalSecondaryIndexAction
         return $this->provisionedThroughput;
     }
 
+    public function getWarmThroughput(): ?WarmThroughput
+    {
+        return $this->warmThroughput;
+    }
+
     /**
      * @internal
      */
@@ -90,6 +106,9 @@ final class UpdateGlobalSecondaryIndexAction
         }
         if (null !== $v = $this->onDemandThroughput) {
             $payload['OnDemandThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->warmThroughput) {
+            $payload['WarmThroughput'] = $v->requestBody();
         }
 
         return $payload;
