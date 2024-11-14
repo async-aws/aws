@@ -52,12 +52,21 @@ final class CreateGlobalSecondaryIndexAction
     private $onDemandThroughput;
 
     /**
+     * Represents the warm throughput value (in read units per second and write units per second) when creating a secondary
+     * index.
+     *
+     * @var WarmThroughput|null
+     */
+    private $warmThroughput;
+
+    /**
      * @param array{
      *   IndexName: string,
      *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      * } $input
      */
     public function __construct(array $input)
@@ -67,6 +76,7 @@ final class CreateGlobalSecondaryIndexAction
         $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : $this->throwException(new InvalidArgument('Missing required field "Projection".'));
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
     }
 
     /**
@@ -76,6 +86,7 @@ final class CreateGlobalSecondaryIndexAction
      *   Projection: Projection|array,
      *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      * }|CreateGlobalSecondaryIndexAction $input
      */
     public static function create($input): self
@@ -111,6 +122,11 @@ final class CreateGlobalSecondaryIndexAction
         return $this->provisionedThroughput;
     }
 
+    public function getWarmThroughput(): ?WarmThroughput
+    {
+        return $this->warmThroughput;
+    }
+
     /**
      * @internal
      */
@@ -135,6 +151,9 @@ final class CreateGlobalSecondaryIndexAction
         }
         if (null !== $v = $this->onDemandThroughput) {
             $payload['OnDemandThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->warmThroughput) {
+            $payload['WarmThroughput'] = $v->requestBody();
         }
 
         return $payload;

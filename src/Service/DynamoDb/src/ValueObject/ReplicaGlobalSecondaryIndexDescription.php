@@ -29,10 +29,18 @@ final class ReplicaGlobalSecondaryIndexDescription
     private $onDemandThroughputOverride;
 
     /**
+     * Represents the warm throughput of the global secondary index for this replica.
+     *
+     * @var GlobalSecondaryIndexWarmThroughputDescription|null
+     */
+    private $warmThroughput;
+
+    /**
      * @param array{
      *   IndexName?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
+     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
      * } $input
      */
     public function __construct(array $input)
@@ -40,6 +48,7 @@ final class ReplicaGlobalSecondaryIndexDescription
         $this->indexName = $input['IndexName'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->onDemandThroughputOverride = isset($input['OnDemandThroughputOverride']) ? OnDemandThroughputOverride::create($input['OnDemandThroughputOverride']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? GlobalSecondaryIndexWarmThroughputDescription::create($input['WarmThroughput']) : null;
     }
 
     /**
@@ -47,6 +56,7 @@ final class ReplicaGlobalSecondaryIndexDescription
      *   IndexName?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
+     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
      * }|ReplicaGlobalSecondaryIndexDescription $input
      */
     public static function create($input): self
@@ -67,5 +77,10 @@ final class ReplicaGlobalSecondaryIndexDescription
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
     {
         return $this->provisionedThroughputOverride;
+    }
+
+    public function getWarmThroughput(): ?GlobalSecondaryIndexWarmThroughputDescription
+    {
+        return $this->warmThroughput;
     }
 }

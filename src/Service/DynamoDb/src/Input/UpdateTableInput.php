@@ -15,6 +15,7 @@ use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
+use AsyncAws\DynamoDb\ValueObject\WarmThroughput;
 
 /**
  * Represents the input of an `UpdateTable` operation.
@@ -131,6 +132,13 @@ final class UpdateTableInput extends Input
     private $onDemandThroughput;
 
     /**
+     * Represents the warm throughput (in read units per second and write units per second) for updating a table.
+     *
+     * @var WarmThroughput|null
+     */
+    private $warmThroughput;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: string,
@@ -143,6 +151,7 @@ final class UpdateTableInput extends Input
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
      * } $input
      */
@@ -159,6 +168,7 @@ final class UpdateTableInput extends Input
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         parent::__construct($input);
     }
 
@@ -175,6 +185,7 @@ final class UpdateTableInput extends Input
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      */
@@ -251,6 +262,11 @@ final class UpdateTableInput extends Input
     public function getTableName(): ?string
     {
         return $this->tableName;
+    }
+
+    public function getWarmThroughput(): ?WarmThroughput
+    {
+        return $this->warmThroughput;
     }
 
     /**
@@ -371,6 +387,13 @@ final class UpdateTableInput extends Input
         return $this;
     }
 
+    public function setWarmThroughput(?WarmThroughput $value): self
+    {
+        $this->warmThroughput = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -428,6 +451,9 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->onDemandThroughput) {
             $payload['OnDemandThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->warmThroughput) {
+            $payload['WarmThroughput'] = $v->requestBody();
         }
 
         return $payload;

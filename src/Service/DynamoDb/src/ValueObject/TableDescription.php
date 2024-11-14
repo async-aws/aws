@@ -302,6 +302,13 @@ final class TableDescription
     private $onDemandThroughput;
 
     /**
+     * Describes the warm throughput value of the base table.
+     *
+     * @var TableWarmThroughputDescription|null
+     */
+    private $warmThroughput;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: null|string,
@@ -327,6 +334,7 @@ final class TableDescription
      *   TableClassSummary?: null|TableClassSummary|array,
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|TableWarmThroughputDescription|array,
      * } $input
      */
     public function __construct(array $input)
@@ -355,6 +363,7 @@ final class TableDescription
         $this->tableClassSummary = isset($input['TableClassSummary']) ? TableClassSummary::create($input['TableClassSummary']) : null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? TableWarmThroughputDescription::create($input['WarmThroughput']) : null;
     }
 
     /**
@@ -383,6 +392,7 @@ final class TableDescription
      *   TableClassSummary?: null|TableClassSummary|array,
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|TableWarmThroughputDescription|array,
      * }|TableDescription $input
      */
     public static function create($input): self
@@ -526,5 +536,10 @@ final class TableDescription
     public function getTableStatus(): ?string
     {
         return $this->tableStatus;
+    }
+
+    public function getWarmThroughput(): ?TableWarmThroughputDescription
+    {
+        return $this->warmThroughput;
     }
 }

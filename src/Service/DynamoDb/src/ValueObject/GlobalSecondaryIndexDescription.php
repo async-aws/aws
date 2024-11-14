@@ -115,6 +115,14 @@ final class GlobalSecondaryIndexDescription
     private $onDemandThroughput;
 
     /**
+     * Represents the warm throughput value (in read units per second and write units per second) for the specified
+     * secondary index.
+     *
+     * @var GlobalSecondaryIndexWarmThroughputDescription|null
+     */
+    private $warmThroughput;
+
+    /**
      * @param array{
      *   IndexName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
@@ -126,6 +134,7 @@ final class GlobalSecondaryIndexDescription
      *   ItemCount?: null|int,
      *   IndexArn?: null|string,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
      * } $input
      */
     public function __construct(array $input)
@@ -140,6 +149,7 @@ final class GlobalSecondaryIndexDescription
         $this->itemCount = $input['ItemCount'] ?? null;
         $this->indexArn = $input['IndexArn'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? GlobalSecondaryIndexWarmThroughputDescription::create($input['WarmThroughput']) : null;
     }
 
     /**
@@ -154,6 +164,7 @@ final class GlobalSecondaryIndexDescription
      *   ItemCount?: null|int,
      *   IndexArn?: null|string,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
      * }|GlobalSecondaryIndexDescription $input
      */
     public static function create($input): self
@@ -215,5 +226,10 @@ final class GlobalSecondaryIndexDescription
     public function getProvisionedThroughput(): ?ProvisionedThroughputDescription
     {
         return $this->provisionedThroughput;
+    }
+
+    public function getWarmThroughput(): ?GlobalSecondaryIndexWarmThroughputDescription
+    {
+        return $this->warmThroughput;
     }
 }

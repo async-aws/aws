@@ -21,6 +21,7 @@ use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
+use AsyncAws\DynamoDb\ValueObject\WarmThroughput;
 
 /**
  * Represents the input of a `CreateTable` operation.
@@ -220,6 +221,13 @@ final class CreateTableInput extends Input
     private $deletionProtectionEnabled;
 
     /**
+     * Represents the warm throughput (in read units per second and write units per second) for creating a table.
+     *
+     * @var WarmThroughput|null
+     */
+    private $warmThroughput;
+
+    /**
      * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
      *
      * When you attach a resource-based policy while creating a table, the policy application is *strongly consistent*.
@@ -259,6 +267,7 @@ final class CreateTableInput extends Input
      *   Tags?: null|array<Tag|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   WarmThroughput?: null|WarmThroughput|array,
      *   ResourcePolicy?: null|string,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
@@ -278,6 +287,7 @@ final class CreateTableInput extends Input
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         $this->resourcePolicy = $input['ResourcePolicy'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         parent::__construct($input);
@@ -297,6 +307,7 @@ final class CreateTableInput extends Input
      *   Tags?: null|array<Tag|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   WarmThroughput?: null|WarmThroughput|array,
      *   ResourcePolicy?: null|string,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   '@region'?: string|null,
@@ -396,6 +407,11 @@ final class CreateTableInput extends Input
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    public function getWarmThroughput(): ?WarmThroughput
+    {
+        return $this->warmThroughput;
     }
 
     /**
@@ -543,6 +559,13 @@ final class CreateTableInput extends Input
         return $this;
     }
 
+    public function setWarmThroughput(?WarmThroughput $value): self
+    {
+        $this->warmThroughput = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -619,6 +642,9 @@ final class CreateTableInput extends Input
         }
         if (null !== $v = $this->deletionProtectionEnabled) {
             $payload['DeletionProtectionEnabled'] = (bool) $v;
+        }
+        if (null !== $v = $this->warmThroughput) {
+            $payload['WarmThroughput'] = $v->requestBody();
         }
         if (null !== $v = $this->resourcePolicy) {
             $payload['ResourcePolicy'] = $v;
