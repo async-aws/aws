@@ -112,7 +112,7 @@ class S3Client extends AbstractApi
      * > - **Directory buckets** - If multipart uploads in a directory bucket are in progress, you can't delete the bucket
      * >   until all the in-progress multipart uploads are aborted or completed. To delete these in-progress multipart
      * >   uploads, use the `ListMultipartUploads` operation to list the in-progress multipart uploads in the bucket and use
-     * >   the `AbortMultupartUpload` operation to abort all the in-progress multipart uploads.
+     * >   the `AbortMultipartUpload` operation to abort all the in-progress multipart uploads.
      * > - **Directory buckets** - For directory buckets, you must make requests for this API operation to the Zonal
      * >   endpoint. These endpoints support virtual-hosted-style requests in the format
      * >   `https://*bucket_name*.s3express-*az_id*.*region*.amazonaws.com/*key-name*`. Path-style requests are not
@@ -1716,6 +1716,12 @@ class S3Client extends AbstractApi
      *
      * For information about Amazon S3 buckets, see Creating, configuring, and working with Amazon S3 buckets [^1].
      *
+     * ! We strongly recommend using only paginated requests. Unpaginated requests are only supported for Amazon Web
+     * ! Services accounts set to the default general purpose bucket quota of 10,000. If you have an approved general
+     * ! purpose bucket quota above 10,000, you must send paginated requests to list your account’s buckets. All
+     * ! unpaginated ListBuckets requests will be rejected for Amazon Web Services accounts with a general purpose bucket
+     * ! quota greater than 10,000.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html
@@ -1745,7 +1751,7 @@ class S3Client extends AbstractApi
      * > **Directory buckets** - If multipart uploads in a directory bucket are in progress, you can't delete the bucket
      * > until all the in-progress multipart uploads are aborted or completed. To delete these in-progress multipart
      * > uploads, use the `ListMultipartUploads` operation to list the in-progress multipart uploads in the bucket and use
-     * > the `AbortMultupartUpload` operation to abort all the in-progress multipart uploads.
+     * > the `AbortMultipartUpload` operation to abort all the in-progress multipart uploads.
      *
      * The `ListMultipartUploads` operation returns a maximum of 1,000 multipart uploads in the response. The limit of 1,000
      * multipart uploads is also the default value. You can further limit the number of uploads in a response by specifying

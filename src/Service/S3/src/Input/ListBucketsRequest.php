@@ -25,6 +25,10 @@ final class ListBucketsRequest extends Input
      *
      * Required: No.
      *
+     * > If you specify the `bucket-region`, `prefix`, or `continuation-token` query parameters without using `max-buckets`
+     * > to set the maximum number of buckets returned in the response, Amazon S3 applies a default page size of 10,000 and
+     * > provides a continuation token if there are more buckets.
+     *
      * @var string|null
      */
     private $continuationToken;
