@@ -10,6 +10,7 @@
 
 - use strict comparison `null !==` instead of `!`
 - Fix CS
+- AWS enhancement: Documentation updates.
 
 ## 1.22.1
 

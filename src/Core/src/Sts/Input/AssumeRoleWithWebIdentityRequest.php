@@ -13,6 +13,16 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     /**
      * The Amazon Resource Name (ARN) of the role that the caller is assuming.
      *
+     * > Additional considerations apply to Amazon Cognito identity pools that assume cross-account IAM roles [^1]. The
+     * > trust policies of these roles must accept the `cognito-identity.amazonaws.com` service principal and must contain
+     * > the `cognito-identity.amazonaws.com:aud` condition key to restrict role assumption to users from your intended
+     * > identity pools. A policy that trusts Amazon Cognito identity pools without this condition creates a risk that a
+     * > user from an unintended identity pool can assume the role. For more information, see Trust policies for IAM roles
+     * > in Basic (Classic) authentication [^2] in the *Amazon Cognito Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html#trust-policies
+     *
      * @required
      *
      * @var string|null
@@ -25,8 +35,15 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      * associated with that user. This session name is included as part of the ARN and assumed role ID in the
      * `AssumedRoleUser` response element.
      *
+     * For security purposes, administrators can view this field in CloudTrail logs [^1] to help identify who performed an
+     * action in Amazon Web Services. Your administrator might require that you specify your user name as the session name
+     * when you assume the role. For more information, see `sts:RoleSessionName` [^2].
+     *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
      * characters with no spaces. You can also include underscores or any of the following characters: =,.@-
+     *
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html#cloudtrail-integration_signin-tempcreds
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#ck_rolesessionname
      *
      * @required
      *
@@ -37,7 +54,8 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     /**
      * The OAuth 2.0 access token or OpenID Connect ID token that is provided by the identity provider. Your application
      * must get this token by authenticating the user who is using your application with a web identity provider before the
-     * application makes an `AssumeRoleWithWebIdentity` call. Only tokens with RSA algorithms (RS256) are supported.
+     * application makes an `AssumeRoleWithWebIdentity` call. Timestamps in the token must be formatted as either an integer
+     * or a long integer. Only tokens with RSA algorithms (RS256) are supported.
      *
      * @required
      *
@@ -97,12 +115,15 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      * policy characters can be any ASCII character from the space character to the end of the valid character list (\u0020
      * through \u00FF). It can also include the tab (\u0009), linefeed (\u000A), and carriage return (\u000D) characters.
      *
+     * For more information about role session permissions, see Session policies [^2].
+     *
      * > An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session
      * > tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your
      * > plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close
      * > the policies and tags for your request are to the upper size limit.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
      *
      * @var string|null
      */

@@ -29,8 +29,8 @@ class StsClient extends AbstractApi
      * Returns a set of temporary security credentials that you can use to access Amazon Web Services resources. These
      * temporary credentials consist of an access key ID, a secret access key, and a security token. Typically, you use
      * `AssumeRole` within your account or for cross-account access. For a comparison of `AssumeRole` with other API
-     * operations that produce temporary credentials, see Requesting Temporary Security Credentials [^1] and Comparing the
-     * Amazon Web Services STS API operations [^2] in the *IAM User Guide*.
+     * operations that produce temporary credentials, see Requesting Temporary Security Credentials [^1] and Compare STS
+     * credentials [^2] in the *IAM User Guide*.
      *
      * **Permissions**
      *
@@ -38,14 +38,14 @@ class StsClient extends AbstractApi
      * service with the following exception: You cannot call the Amazon Web Services STS `GetFederationToken` or
      * `GetSessionToken` API operations.
      *
-     * (Optional) You can pass inline or managed session policies [^3] to this operation. You can pass a single JSON policy
+     * (Optional) You can pass inline or managed session policies to this operation. You can pass a single JSON policy
      * document to use as an inline session policy. You can also specify up to 10 managed policy Amazon Resource Names
      * (ARNs) to use as managed session policies. The plaintext that you use for both inline and managed session policies
      * can't exceed 2,048 characters. Passing policies to this operation returns new temporary credentials. The resulting
      * session's permissions are the intersection of the role's identity-based policy and the session policies. You can use
      * the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that
      * owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based
-     * policy of the role that is being assumed. For more information, see Session Policies [^4] in the *IAM User Guide*.
+     * policy of the role that is being assumed. For more information, see Session Policies [^3] in the *IAM User Guide*.
      *
      * When you create a role, you create two policies: a role trust policy that specifies *who* can assume the role, and a
      * permissions policy that specifies *what* can be done with the role. You specify the trusted principal that is allowed
@@ -67,19 +67,19 @@ class StsClient extends AbstractApi
      *
      * You can do either because the role’s trust policy acts as an IAM resource-based policy. When a resource-based
      * policy grants access to a principal in the same account, no additional identity-based policy is required. For more
-     * information about trust policies and resource-based policies, see IAM Policies [^5] in the *IAM User Guide*.
+     * information about trust policies and resource-based policies, see IAM Policies [^4] in the *IAM User Guide*.
      *
      * **Tags**
      *
      * (Optional) You can pass tag key-value pairs to your session. These tags are called session tags. For more information
-     * about session tags, see Passing Session Tags in STS [^6] in the *IAM User Guide*.
+     * about session tags, see Passing Session Tags in STS [^5] in the *IAM User Guide*.
      *
      * An administrator must grant you the permissions necessary to pass session tags. The administrator can also create
      * granular permissions to allow you to pass only specific session tags. For more information, see Tutorial: Using Tags
-     * for Attribute-Based Access Control [^7] in the *IAM User Guide*.
+     * for Attribute-Based Access Control [^6] in the *IAM User Guide*.
      *
      * You can set the session tags as transitive. Transitive tags persist during role chaining. For more information, see
-     * Chaining Roles with Session Tags [^8] in the *IAM User Guide*.
+     * Chaining Roles with Session Tags [^7] in the *IAM User Guide*.
      *
      * **Using MFA with AssumeRole**
      *
@@ -91,21 +91,20 @@ class StsClient extends AbstractApi
      *
      * `"Condition": {"Bool": {"aws:MultiFactorAuthPresent": true}}`
      *
-     * For more information, see Configuring MFA-Protected API Access [^9] in the *IAM User Guide* guide.
+     * For more information, see Configuring MFA-Protected API Access [^8] in the *IAM User Guide* guide.
      *
      * To use MFA with `AssumeRole`, you pass values for the `SerialNumber` and `TokenCode` parameters. The `SerialNumber`
      * value identifies the user's hardware or virtual MFA device. The `TokenCode` is the time-based one-time password
      * (TOTP) that the MFA device produces.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
-     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_sts-comparison.html
      * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
-     * [^4]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
-     * [^5]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html
-     * [^6]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
-     * [^7]: https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html
-     * [^8]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_role-chaining
-     * [^9]: https://docs.aws.amazon.com/IAM/latest/UserGuide/MFAProtectedAPI.html
+     * [^4]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html
+     * [^5]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
+     * [^6]: https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html
+     * [^7]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_role-chaining
+     * [^8]: https://docs.aws.amazon.com/IAM/latest/UserGuide/MFAProtectedAPI.html
      *
      * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerole
@@ -162,7 +161,7 @@ class StsClient extends AbstractApi
      * server-based proxy services that use long-term Amazon Web Services credentials. Instead, the identity of the caller
      * is validated by using a token from the web identity provider. For a comparison of `AssumeRoleWithWebIdentity` with
      * the other API operations that produce temporary credentials, see Requesting Temporary Security Credentials [^5] and
-     * Comparing the Amazon Web Services STS API operations [^6] in the *IAM User Guide*.
+     * Compare STS credentials [^6] in the *IAM User Guide*.
      *
      * The temporary security credentials returned by this API consist of an access key ID, a secret access key, and a
      * security token. Applications can use these temporary security credentials to sign calls to Amazon Web Services
@@ -173,8 +172,8 @@ class StsClient extends AbstractApi
      * By default, the temporary security credentials created by `AssumeRoleWithWebIdentity` last for one hour. However, you
      * can use the optional `DurationSeconds` parameter to specify the duration of your session. You can provide a value
      * from 900 seconds (15 minutes) up to the maximum session duration setting for the role. This setting can have a value
-     * from 1 hour to 12 hours. To learn how to view the maximum value for your role, see View the Maximum Session Duration
-     * Setting for a Role [^7] in the *IAM User Guide*. The maximum session duration limit applies when you use the
+     * from 1 hour to 12 hours. To learn how to view the maximum value for your role, see Update the maximum session
+     * duration for a role [^7] in the *IAM User Guide*. The maximum session duration limit applies when you use the
      * `AssumeRole*` API operations or the `assume-role*` CLI commands. However the limit does not apply when you use those
      * operations to create a console URL. For more information, see Using IAM Roles [^8] in the *IAM User Guide*.
      *
@@ -230,27 +229,22 @@ class StsClient extends AbstractApi
      * ! (PII) in this field. For example, you could instead use a GUID or a pairwise identifier, as suggested in the OIDC
      * ! specification [^16].
      *
-     * For more information about how to use web identity federation and the `AssumeRoleWithWebIdentity` API, see the
-     * following resources:
+     * For more information about how to use OIDC federation and the `AssumeRoleWithWebIdentity` API, see the following
+     * resources:
      *
      * - Using Web Identity Federation API Operations for Mobile Apps [^17] and Federation Through a Web-based Identity
      *   Provider [^18].
-     * - Web Identity Federation Playground [^19]. Walk through the process of authenticating through Login with Amazon,
-     *   Facebook, or Google, getting temporary security credentials, and then using those credentials to make a request to
-     *   Amazon Web Services.
-     * - Amazon Web Services SDK for iOS Developer Guide [^20] and Amazon Web Services SDK for Android Developer Guide
-     *   [^21]. These toolkits contain sample apps that show how to invoke the identity providers. The toolkits then show
+     * - Amazon Web Services SDK for iOS Developer Guide [^19] and Amazon Web Services SDK for Android Developer Guide
+     *   [^20]. These toolkits contain sample apps that show how to invoke the identity providers. The toolkits then show
      *   how to use the information from these providers to get and use temporary security credentials.
-     * - Web Identity Federation with Mobile Applications [^22]. This article discusses web identity federation and shows an
-     *   example of how to use web identity federation to get access to content in Amazon S3.
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html
      * [^2]: http://aws.amazon.com/sdkforios/
      * [^3]: http://aws.amazon.com/sdkforandroid/
      * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html
      * [^5]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
-     * [^6]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison
-     * [^7]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session
+     * [^6]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_sts-comparison.html
+     * [^7]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_update-role-settings.html#id_roles_update-session-duration
      * [^8]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html
      * [^9]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
      * [^10]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
@@ -262,10 +256,8 @@ class StsClient extends AbstractApi
      * [^16]: http://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes
      * [^17]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_manual.html
      * [^18]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_assumerolewithwebidentity
-     * [^19]: https://aws.amazon.com/blogs/aws/the-aws-web-identity-federation-playground/
-     * [^20]: http://aws.amazon.com/sdkforios/
-     * [^21]: http://aws.amazon.com/sdkforandroid/
-     * [^22]: http://aws.amazon.com/articles/web-identity-federation-with-mobile-applications
+     * [^19]: http://aws.amazon.com/sdkforios/
+     * [^20]: http://aws.amazon.com/sdkforandroid/
      *
      * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerolewithwebidentity

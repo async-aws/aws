@@ -30,8 +30,15 @@ final class AssumeRoleRequest extends Input
      * subsequent cross-account API requests that use the temporary security credentials will expose the role session name
      * to the external account in their CloudTrail logs.
      *
+     * For security purposes, administrators can view this field in CloudTrail logs [^1] to help identify who performed an
+     * action in Amazon Web Services. Your administrator might require that you specify your user name as the session name
+     * when you assume the role. For more information, see `sts:RoleSessionName` [^2].
+     *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
      * characters with no spaces. You can also include underscores or any of the following characters: =,.@-
+     *
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html#cloudtrail-integration_signin-tempcreds
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#ck_rolesessionname
      *
      * @required
      *
@@ -83,7 +90,10 @@ final class AssumeRoleRequest extends Input
      * > plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close
      * > the policies and tags for your request are to the upper size limit.
      *
+     * For more information about role session permissions, see Session policies [^2].
+     *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
      *
      * @var string|null
      */
@@ -101,7 +111,7 @@ final class AssumeRoleRequest extends Input
      * the `DurationSeconds` parameter. You can specify a parameter value of up to 43200 seconds (12 hours), depending on
      * the maximum session duration setting for your role. However, if you assume a role using role chaining and provide a
      * `DurationSeconds` parameter value greater than one hour, the operation fails. To learn how to view the maximum value
-     * for your role, see View the Maximum Session Duration Setting for a Role [^1] in the *IAM User Guide*.
+     * for your role, see Update the maximum session duration for a role [^1].
      *
      * By default, the value is set to `3600` seconds.
      *
@@ -110,7 +120,7 @@ final class AssumeRoleRequest extends Input
      * > parameter that specifies the maximum length of the console session. For more information, see Creating a URL that
      * > Enables Federated Users to Access the Amazon Web Services Management Console [^2] in the *IAM User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_update-role-settings.html#id_roles_update-session-duration
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html
      *
      * @var int|null
@@ -156,8 +166,7 @@ final class AssumeRoleRequest extends Input
      * corresponding key and value passes to subsequent sessions in a role chain. For more information, see Chaining Roles
      * with Session Tags [^1] in the *IAM User Guide*.
      *
-     * This parameter is optional. When you set session tags as transitive, the session policy and session tags packed
-     * binary limit is not affected.
+     * This parameter is optional. The transitive status of a session tag does not impact its packed binary size.
      *
      * If you choose not to specify a transitive tag key, then no tags are passed from this session to any subsequent
      * sessions.
@@ -211,19 +220,22 @@ final class AssumeRoleRequest extends Input
     private $tokenCode;
 
     /**
-     * The source identity specified by the principal that is calling the `AssumeRole` operation.
+     * The source identity specified by the principal that is calling the `AssumeRole` operation. The source identity value
+     * persists across chained role [^1] sessions.
      *
      * You can require users to specify a source identity when they assume a role. You do this by using the
-     * `sts:SourceIdentity` condition key in a role trust policy. You can use source identity information in CloudTrail logs
-     * to determine who took actions with a role. You can use the `aws:SourceIdentity` condition key to further control
+     * `sts:SourceIdentity` [^2] condition key in a role trust policy. You can use source identity information in CloudTrail
+     * logs to determine who took actions with a role. You can use the `aws:SourceIdentity` condition key to further control
      * access to Amazon Web Services resources based on the value of source identity. For more information about using
-     * source identity, see Monitor and control actions taken with assumed roles [^1] in the *IAM User Guide*.
+     * source identity, see Monitor and control actions taken with assumed roles [^3] in the *IAM User Guide*.
      *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
      * characters with no spaces. You can also include underscores or any of the following characters: =,.@-. You cannot use
      * a value that begins with the text `aws:`. This prefix is reserved for Amazon Web Services internal use.
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#iam-term-role-chaining
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceidentity
+     * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html
      *
      * @var string|null
      */

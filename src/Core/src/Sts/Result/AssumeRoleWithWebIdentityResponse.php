@@ -85,7 +85,7 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
      * characters with no spaces. You can also include underscores or any of the following characters: =,.@-
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts#iam-term-role-chaining
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#id_roles_terms-and-concepts
      * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html
      * [^3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html
      *

@@ -9,6 +9,7 @@
 ### Changed
 
 - use strict comparison `null !==` instead of `!`
+- AWS enhancement: Documentation updates.
 
 ## 2.4.0
 
