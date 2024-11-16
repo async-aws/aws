@@ -20,6 +20,7 @@ use AsyncAws\CloudWatch\Result\GetMetricStatisticsOutput;
 use AsyncAws\CloudWatch\Result\ListMetricsOutput;
 use AsyncAws\CloudWatch\ValueObject\Dimension;
 use AsyncAws\CloudWatch\ValueObject\DimensionFilter;
+use AsyncAws\CloudWatch\ValueObject\EntityMetricData;
 use AsyncAws\CloudWatch\ValueObject\LabelOptions;
 use AsyncAws\CloudWatch\ValueObject\MetricDataQuery;
 use AsyncAws\CloudWatch\ValueObject\MetricDatum;
@@ -235,17 +236,23 @@ class CloudWatchClient extends AbstractApi
     }
 
     /**
-     * Publishes metric data points to Amazon CloudWatch. CloudWatch associates the data points with the specified metric.
-     * If the specified metric does not exist, CloudWatch creates the metric. When CloudWatch creates a metric, it can take
-     * up to fifteen minutes for the metric to appear in calls to ListMetrics [^1].
+     * Publishes metric data to Amazon CloudWatch. CloudWatch associates the data with the specified metric. If the
+     * specified metric does not exist, CloudWatch creates the metric. When CloudWatch creates a metric, it can take up to
+     * fifteen minutes for the metric to appear in calls to ListMetrics [^1].
      *
-     * You can publish either individual data points in the `Value` field, or arrays of values and the number of times each
-     * value occurred during the period by using the `Values` and `Counts` fields in the `MetricData` structure. Using the
+     * You can publish metrics with associated entity data (so that related telemetry can be found and viewed together), or
+     * publish metric data by itself. To send entity data with your metrics, use the `EntityMetricData` parameter. To send
+     * metrics without entity data, use the `MetricData` parameter. The `EntityMetricData` structure includes `MetricData`
+     * structures for the metric data.
+     *
+     * You can publish either individual values in the `Value` field, or arrays of values and the number of times each value
+     * occurred during the period by using the `Values` and `Counts` fields in the `MetricData` structure. Using the
      * `Values` and `Counts` method enables you to publish up to 150 values per metric with one `PutMetricData` request, and
      * supports retrieving percentile statistics on this data.
      *
      * Each `PutMetricData` request is limited to 1 MB in size for HTTP POST requests. You can send a payload compressed by
-     * gzip. Each request is also limited to no more than 1000 different metrics.
+     * gzip. Each request is also limited to no more than 1000 different metrics (across both the `MetricData` and
+     * `EntityMetricData` properties).
      *
      * Although the `Value` parameter accepts numbers of type `Double`, CloudWatch rejects values that are either too small
      * or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN,
@@ -260,7 +267,7 @@ class CloudWatchClient extends AbstractApi
      *
      * Data points with time stamps from 24 hours ago or longer can take at least 48 hours to become available for
      * GetMetricData [^3] or GetMetricStatistics [^4] from the time they are submitted. Data points with time stamps between
-     * 3 and 24 hours ago can take as much as 2 hours to become available for for GetMetricData [^5] or GetMetricStatistics
+     * 3 and 24 hours ago can take as much as 2 hours to become available for GetMetricData [^5] or GetMetricStatistics
      * [^6].
      *
      * CloudWatch needs raw data points to calculate percentile statistics. If you publish data using a statistic set
@@ -281,7 +288,9 @@ class CloudWatchClient extends AbstractApi
      *
      * @param array{
      *   Namespace: string,
-     *   MetricData: array<MetricDatum|array>,
+     *   MetricData?: null|array<MetricDatum|array>,
+     *   EntityMetricData?: null|array<EntityMetricData|array>,
+     *   StrictEntityValidation?: null|bool,
      *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      *

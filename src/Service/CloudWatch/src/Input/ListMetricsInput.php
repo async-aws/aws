@@ -44,7 +44,7 @@ final class ListMetricsInput extends Input
      * parameter with a value of `PT3H`. This is the only valid value for this parameter.
      *
      * The results that are returned are an approximation of the value you specify. There is a low probability that the
-     * returned results include metrics with last published data as much as 40 minutes more than the specified time
+     * returned results include metrics with last published data as much as 50 minutes more than the specified time
      * interval.
      *
      * @var RecentlyActive::*|null

@@ -23,26 +23,41 @@ final class ThingTypeProperties
     private $searchableAttributes;
 
     /**
+     * The configuration to add user-defined properties to enrich MQTT 5 messages.
+     *
+     * @var Mqtt5Configuration|null
+     */
+    private $mqtt5Configuration;
+
+    /**
      * @param array{
      *   thingTypeDescription?: null|string,
      *   searchableAttributes?: null|string[],
+     *   mqtt5Configuration?: null|Mqtt5Configuration|array,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->thingTypeDescription = $input['thingTypeDescription'] ?? null;
         $this->searchableAttributes = $input['searchableAttributes'] ?? null;
+        $this->mqtt5Configuration = isset($input['mqtt5Configuration']) ? Mqtt5Configuration::create($input['mqtt5Configuration']) : null;
     }
 
     /**
      * @param array{
      *   thingTypeDescription?: null|string,
      *   searchableAttributes?: null|string[],
+     *   mqtt5Configuration?: null|Mqtt5Configuration|array,
      * }|ThingTypeProperties $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getMqtt5Configuration(): ?Mqtt5Configuration
+    {
+        return $this->mqtt5Configuration;
     }
 
     /**
@@ -74,6 +89,9 @@ final class ThingTypeProperties
                 ++$index;
                 $payload['searchableAttributes'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->mqtt5Configuration) {
+            $payload['mqtt5Configuration'] = $v->requestBody();
         }
 
         return $payload;

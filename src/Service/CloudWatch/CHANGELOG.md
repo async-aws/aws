@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Adds support for adding related Entity information to metrics ingested through PutMetricData.
+
 ### Changed
 
 - use strict comparison `null !==` instead of `!`
