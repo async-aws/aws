@@ -7,6 +7,8 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Iot\Input\ListThingTypesRequest;
 use AsyncAws\Iot\IotClient;
+use AsyncAws\Iot\ValueObject\Mqtt5Configuration;
+use AsyncAws\Iot\ValueObject\PropagatingAttribute;
 use AsyncAws\Iot\ValueObject\ThingTypeDefinition;
 use AsyncAws\Iot\ValueObject\ThingTypeMetadata;
 use AsyncAws\Iot\ValueObject\ThingTypeProperties;
@@ -101,6 +103,35 @@ class ListThingTypesResponse extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 
+    private function populateResultMqtt5Configuration(array $json): Mqtt5Configuration
+    {
+        return new Mqtt5Configuration([
+            'propagatingAttributes' => !isset($json['propagatingAttributes']) ? null : $this->populateResultPropagatingAttributeList($json['propagatingAttributes']),
+        ]);
+    }
+
+    private function populateResultPropagatingAttribute(array $json): PropagatingAttribute
+    {
+        return new PropagatingAttribute([
+            'userPropertyKey' => isset($json['userPropertyKey']) ? (string) $json['userPropertyKey'] : null,
+            'thingAttribute' => isset($json['thingAttribute']) ? (string) $json['thingAttribute'] : null,
+            'connectionAttribute' => isset($json['connectionAttribute']) ? (string) $json['connectionAttribute'] : null,
+        ]);
+    }
+
+    /**
+     * @return PropagatingAttribute[]
+     */
+    private function populateResultPropagatingAttributeList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultPropagatingAttribute($item);
+        }
+
+        return $items;
+    }
+
     /**
      * @return string[]
      */
@@ -154,6 +185,7 @@ class ListThingTypesResponse extends Result implements \IteratorAggregate
         return new ThingTypeProperties([
             'thingTypeDescription' => isset($json['thingTypeDescription']) ? (string) $json['thingTypeDescription'] : null,
             'searchableAttributes' => !isset($json['searchableAttributes']) ? null : $this->populateResultSearchableAttributes($json['searchableAttributes']),
+            'mqtt5Configuration' => empty($json['mqtt5Configuration']) ? null : $this->populateResultMqtt5Configuration($json['mqtt5Configuration']),
         ]);
     }
 }
