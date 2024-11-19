@@ -12,6 +12,7 @@ use AsyncAws\RdsDataService\Exception\AccessDeniedException;
 use AsyncAws\RdsDataService\Exception\BadRequestException;
 use AsyncAws\RdsDataService\Exception\DatabaseErrorException;
 use AsyncAws\RdsDataService\Exception\DatabaseNotFoundException;
+use AsyncAws\RdsDataService\Exception\DatabaseResumingException;
 use AsyncAws\RdsDataService\Exception\DatabaseUnavailableException;
 use AsyncAws\RdsDataService\Exception\ForbiddenException;
 use AsyncAws\RdsDataService\Exception\HttpEndpointNotEnabledException;
@@ -72,6 +73,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws SecretsErrorException
      * @throws HttpEndpointNotEnabledException
      * @throws DatabaseErrorException
+     * @throws DatabaseResumingException
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
@@ -90,6 +92,7 @@ class RdsDataServiceClient extends AbstractApi
             'SecretsErrorException' => SecretsErrorException::class,
             'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseResumingException' => DatabaseResumingException::class,
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
@@ -131,6 +134,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws SecretsErrorException
      * @throws HttpEndpointNotEnabledException
      * @throws DatabaseErrorException
+     * @throws DatabaseResumingException
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
@@ -149,6 +153,7 @@ class RdsDataServiceClient extends AbstractApi
             'SecretsErrorException' => SecretsErrorException::class,
             'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseResumingException' => DatabaseResumingException::class,
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
@@ -244,6 +249,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws SecretsErrorException
      * @throws HttpEndpointNotEnabledException
      * @throws DatabaseErrorException
+     * @throws DatabaseResumingException
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
@@ -263,6 +269,7 @@ class RdsDataServiceClient extends AbstractApi
             'SecretsErrorException' => SecretsErrorException::class,
             'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseResumingException' => DatabaseResumingException::class,
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
