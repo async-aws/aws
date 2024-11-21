@@ -5,7 +5,7 @@ namespace AsyncAws\TimestreamQuery\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 
 /**
- * The service was unable to fully process this request because of an internal server error.
+ * An internal server error occurred while processing the request.
  */
 final class InternalServerException extends ClientException
 {

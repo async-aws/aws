@@ -139,13 +139,14 @@ class TimestreamQueryClient extends AbstractApi
      * `Query` is a synchronous operation that enables you to run a query against your Amazon Timestream data.
      *
      * If you enabled `QueryInsights`, this API also returns insights and metrics related to the query that you executed.
-     * `QueryInsights` helps with performance tuning of your query.
+     * `QueryInsights` helps with performance tuning of your query. For more information about `QueryInsights`, see Using
+     * query insights to optimize queries in Amazon Timestream [^1].
      *
      * > The maximum number of `Query` API requests you're allowed to make with `QueryInsights` enabled is 1 query per
      * > second (QPS). If you exceed this query rate, it might result in throttling.
      *
      * `Query` will time out after 60 seconds. You must update the default timeout in the SDK to support a timeout of 60
-     * seconds. See the code sample [^1] for details.
+     * seconds. See the code sample [^2] for details.
      *
      * Your query request will fail in the following cases:
      *
@@ -160,7 +161,8 @@ class TimestreamQueryClient extends AbstractApi
      *   the result reader do not have the same query string in the query requests, the query will fail with an `Invalid
      *   pagination token` error.
      *
-     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.run-query.html
+     * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/using-query-insights.html
+     * [^2]: https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.run-query.html
      *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Query.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#query
