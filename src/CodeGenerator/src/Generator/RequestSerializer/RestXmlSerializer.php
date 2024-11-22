@@ -172,6 +172,8 @@ class RestXmlSerializer implements Serializer
                 return $this->dumpXmlShapeNumeric($member, $output, $input);
             case 'boolean':
                 return $this->dumpXmlShapeBoolean($member, $output, $input);
+            case 'timestamp':
+                return $this->dumpXmlShapeTimestamp($member, $output, $input);
         }
 
         throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
@@ -302,5 +304,37 @@ class RestXmlSerializer implements Serializer
             'OUTPUT' => $output,
             'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
         ]);
+    }
+
+    private function dumpXmlShapeTimestamp(Member $member, string $output, string $input): string
+    {
+        $format = $member->getShape()->get('timestampFormat') ?? 'iso8601';
+        switch ($format) {
+            case 'iso8601':
+                $format = 'ATOM';
+
+                break;
+            case 'rfc822':
+                $format = 'RFC822';
+
+                break;
+            default:
+                throw new \RuntimeException(\sprintf('Timestamp format %s is not yet implemented', $format));
+        }
+
+        if ($member instanceof StructureMember && $member->isXmlAttribute()) {
+            $body = 'OUTPUT->setAttribute(NODE_NAME, INPUT->format(\DateTimeInterface::FORMAT));';
+        } else {
+            $body = 'OUTPUT->appendChild($document->createElement(NODE_NAME, INPUT->format(\DateTimeInterface::FORMAT)));';
+        }
+
+        $replacements = [
+            'INPUT' => $input,
+            'OUTPUT' => $output,
+            'FORMAT' => $format,
+            'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+        ];
+
+        return strtr($body, $replacements);
     }
 }
