@@ -76,12 +76,25 @@ final class AbortMultipartUploadRequest extends Input
     private $expectedBucketOwner;
 
     /**
+     * If present, this header aborts an in progress multipart upload only if it was initiated on the provided timestamp. If
+     * the initiated timestamp of the multipart upload does not match the provided value, the operation returns a `412
+     * Precondition Failed` error. If the initiated timestamp matches or if the multipart upload doesn’t exist, the
+     * operation returns a `204 Success (No Content)` response.
+     *
+     * > This functionality is only supported for directory buckets.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $ifMatchInitiatedTime;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
      *   UploadId?: string,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatchInitiatedTime?: null|\DateTimeImmutable|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -92,6 +105,7 @@ final class AbortMultipartUploadRequest extends Input
         $this->uploadId = $input['UploadId'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->ifMatchInitiatedTime = !isset($input['IfMatchInitiatedTime']) ? null : ($input['IfMatchInitiatedTime'] instanceof \DateTimeImmutable ? $input['IfMatchInitiatedTime'] : new \DateTimeImmutable($input['IfMatchInitiatedTime']));
         parent::__construct($input);
     }
 
@@ -102,6 +116,7 @@ final class AbortMultipartUploadRequest extends Input
      *   UploadId?: string,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatchInitiatedTime?: null|\DateTimeImmutable|string,
      *   '@region'?: string|null,
      * }|AbortMultipartUploadRequest $input
      */
@@ -118,6 +133,11 @@ final class AbortMultipartUploadRequest extends Input
     public function getExpectedBucketOwner(): ?string
     {
         return $this->expectedBucketOwner;
+    }
+
+    public function getIfMatchInitiatedTime(): ?\DateTimeImmutable
+    {
+        return $this->ifMatchInitiatedTime;
     }
 
     public function getKey(): ?string
@@ -153,6 +173,9 @@ final class AbortMultipartUploadRequest extends Input
         }
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
+        }
+        if (null !== $this->ifMatchInitiatedTime) {
+            $headers['x-amz-if-match-initiated-time'] = $this->ifMatchInitiatedTime->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
 
         // Prepare query
@@ -191,6 +214,13 @@ final class AbortMultipartUploadRequest extends Input
     public function setExpectedBucketOwner(?string $value): self
     {
         $this->expectedBucketOwner = $value;
+
+        return $this;
+    }
+
+    public function setIfMatchInitiatedTime(?\DateTimeImmutable $value): self
+    {
+        $this->ifMatchInitiatedTime = $value;
 
         return $this;
     }

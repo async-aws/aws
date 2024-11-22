@@ -158,6 +158,16 @@ class PutObjectOutput extends Result
     private $bucketKeyEnabled;
 
     /**
+     * The size of the object in bytes. This will only be present if you append to an object.
+     *
+     * > This functionality is only supported for objects in the Amazon S3 Express One Zone storage class in directory
+     * > buckets.
+     *
+     * @var int|null
+     */
+    private $size;
+
+    /**
      * @var RequestCharged::*|null
      */
     private $requestCharged;
@@ -231,6 +241,13 @@ class PutObjectOutput extends Result
         return $this->serverSideEncryption;
     }
 
+    public function getSize(): ?int
+    {
+        $this->initialize();
+
+        return $this->size;
+    }
+
     public function getSseCustomerAlgorithm(): ?string
     {
         $this->initialize();
@@ -283,6 +300,7 @@ class PutObjectOutput extends Result
         $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
         $this->sseKmsEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->size = isset($headers['x-amz-object-size'][0]) ? (int) $headers['x-amz-object-size'][0] : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
     }
 }

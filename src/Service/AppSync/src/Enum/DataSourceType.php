@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class DataSourceType
 {
+    public const AMAZON_BEDROCK_RUNTIME = 'AMAZON_BEDROCK_RUNTIME';
     public const AMAZON_DYNAMODB = 'AMAZON_DYNAMODB';
     public const AMAZON_ELASTICSEARCH = 'AMAZON_ELASTICSEARCH';
     public const AMAZON_EVENTBRIDGE = 'AMAZON_EVENTBRIDGE';
@@ -16,6 +17,7 @@ final class DataSourceType
     public static function exists(string $value): bool
     {
         return isset([
+            self::AMAZON_BEDROCK_RUNTIME => true,
             self::AMAZON_DYNAMODB => true,
             self::AMAZON_ELASTICSEARCH => true,
             self::AMAZON_EVENTBRIDGE => true,

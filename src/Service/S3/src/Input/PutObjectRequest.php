@@ -324,6 +324,17 @@ final class PutObjectRequest extends Input
     private $key;
 
     /**
+     * Specifies the offset for appending data to existing objects in bytes. The offset must be equal to the size of the
+     * existing object being appended to. If no object exists, setting this header to 0 will create a new object.
+     *
+     * > This functionality is only supported for objects in the Amazon S3 Express One Zone storage class in directory
+     * > buckets.
+     *
+     * @var int|null
+     */
+    private $writeOffsetBytes;
+
+    /**
      * A map of metadata to store with the object in S3.
      *
      * @var array<string, string>|null
@@ -592,6 +603,7 @@ final class PutObjectRequest extends Input
      *   GrantReadACP?: null|string,
      *   GrantWriteACP?: null|string,
      *   Key?: string,
+     *   WriteOffsetBytes?: null|int,
      *   Metadata?: null|array<string, string>,
      *   ServerSideEncryption?: null|ServerSideEncryption::*,
      *   StorageClass?: null|StorageClass::*,
@@ -635,6 +647,7 @@ final class PutObjectRequest extends Input
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
         $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->key = $input['Key'] ?? null;
+        $this->writeOffsetBytes = $input['WriteOffsetBytes'] ?? null;
         $this->metadata = $input['Metadata'] ?? null;
         $this->serverSideEncryption = $input['ServerSideEncryption'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
@@ -678,6 +691,7 @@ final class PutObjectRequest extends Input
      *   GrantReadACP?: null|string,
      *   GrantWriteACP?: null|string,
      *   Key?: string,
+     *   WriteOffsetBytes?: null|int,
      *   Metadata?: null|array<string, string>,
      *   ServerSideEncryption?: null|ServerSideEncryption::*,
      *   StorageClass?: null|StorageClass::*,
@@ -919,6 +933,11 @@ final class PutObjectRequest extends Input
         return $this->websiteRedirectLocation;
     }
 
+    public function getWriteOffsetBytes(): ?int
+    {
+        return $this->writeOffsetBytes;
+    }
+
     /**
      * @internal
      */
@@ -988,6 +1007,9 @@ final class PutObjectRequest extends Input
         }
         if (null !== $this->grantWriteAcp) {
             $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
+        }
+        if (null !== $this->writeOffsetBytes) {
+            $headers['x-amz-write-offset-bytes'] = (string) $this->writeOffsetBytes;
         }
         if (null !== $this->serverSideEncryption) {
             if (!ServerSideEncryption::exists($this->serverSideEncryption)) {
@@ -1366,6 +1388,13 @@ final class PutObjectRequest extends Input
     public function setWebsiteRedirectLocation(?string $value): self
     {
         $this->websiteRedirectLocation = $value;
+
+        return $this;
+    }
+
+    public function setWriteOffsetBytes(?int $value): self
+    {
+        $this->writeOffsetBytes = $value;
 
         return $this;
     }

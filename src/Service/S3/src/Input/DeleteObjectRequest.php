@@ -97,6 +97,46 @@ final class DeleteObjectRequest extends Input
     private $expectedBucketOwner;
 
     /**
+     * The `If-Match` header field makes the request method conditional on ETags. If the ETag value does not match, the
+     * operation returns a `412 Precondition Failed` error. If the ETag matches or if the object doesn't exist, the
+     * operation will return a `204 Success (No Content) response`.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * > This functionality is only supported for directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/https:/tools.ietf.org/html/rfc7232
+     *
+     * @var string|null
+     */
+    private $ifMatch;
+
+    /**
+     * If present, the object is deleted only if its modification times matches the provided `Timestamp`. If the `Timestamp`
+     * values do not match, the operation returns a `412 Precondition Failed` error. If the `Timestamp` matches or if the
+     * object doesn’t exist, the operation returns a `204 Success (No Content)` response.
+     *
+     * > This functionality is only supported for directory buckets.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $ifMatchLastModifiedTime;
+
+    /**
+     * If present, the object is deleted only if its size matches the provided size in bytes. If the `Size` value does not
+     * match, the operation returns a `412 Precondition Failed` error. If the `Size` matches or if the object doesn’t
+     * exist, the operation returns a `204 Success (No Content)` response.
+     *
+     * > This functionality is only supported for directory buckets.
+     *
+     * ! You can use the `If-Match`, `x-amz-if-match-last-modified-time` and `x-amz-if-match-size` conditional headers in
+     * ! conjunction with each-other or individually.
+     *
+     * @var int|null
+     */
+    private $ifMatchSize;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
@@ -105,6 +145,9 @@ final class DeleteObjectRequest extends Input
      *   RequestPayer?: null|RequestPayer::*,
      *   BypassGovernanceRetention?: null|bool,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatch?: null|string,
+     *   IfMatchLastModifiedTime?: null|\DateTimeImmutable|string,
+     *   IfMatchSize?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -117,6 +160,9 @@ final class DeleteObjectRequest extends Input
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->bypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->ifMatch = $input['IfMatch'] ?? null;
+        $this->ifMatchLastModifiedTime = !isset($input['IfMatchLastModifiedTime']) ? null : ($input['IfMatchLastModifiedTime'] instanceof \DateTimeImmutable ? $input['IfMatchLastModifiedTime'] : new \DateTimeImmutable($input['IfMatchLastModifiedTime']));
+        $this->ifMatchSize = $input['IfMatchSize'] ?? null;
         parent::__construct($input);
     }
 
@@ -129,6 +175,9 @@ final class DeleteObjectRequest extends Input
      *   RequestPayer?: null|RequestPayer::*,
      *   BypassGovernanceRetention?: null|bool,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatch?: null|string,
+     *   IfMatchLastModifiedTime?: null|\DateTimeImmutable|string,
+     *   IfMatchSize?: null|int,
      *   '@region'?: string|null,
      * }|DeleteObjectRequest $input
      */
@@ -150,6 +199,21 @@ final class DeleteObjectRequest extends Input
     public function getExpectedBucketOwner(): ?string
     {
         return $this->expectedBucketOwner;
+    }
+
+    public function getIfMatch(): ?string
+    {
+        return $this->ifMatch;
+    }
+
+    public function getIfMatchLastModifiedTime(): ?\DateTimeImmutable
+    {
+        return $this->ifMatchLastModifiedTime;
+    }
+
+    public function getIfMatchSize(): ?int
+    {
+        return $this->ifMatchSize;
     }
 
     public function getKey(): ?string
@@ -197,6 +261,15 @@ final class DeleteObjectRequest extends Input
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
+        if (null !== $this->ifMatch) {
+            $headers['If-Match'] = $this->ifMatch;
+        }
+        if (null !== $this->ifMatchLastModifiedTime) {
+            $headers['x-amz-if-match-last-modified-time'] = $this->ifMatchLastModifiedTime->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+        }
+        if (null !== $this->ifMatchSize) {
+            $headers['x-amz-if-match-size'] = (string) $this->ifMatchSize;
+        }
 
         // Prepare query
         $query = [];
@@ -240,6 +313,27 @@ final class DeleteObjectRequest extends Input
     public function setExpectedBucketOwner(?string $value): self
     {
         $this->expectedBucketOwner = $value;
+
+        return $this;
+    }
+
+    public function setIfMatch(?string $value): self
+    {
+        $this->ifMatch = $value;
+
+        return $this;
+    }
+
+    public function setIfMatchLastModifiedTime(?\DateTimeImmutable $value): self
+    {
+        $this->ifMatchLastModifiedTime = $value;
+
+        return $this;
+    }
+
+    public function setIfMatchSize(?int $value): self
+    {
+        $this->ifMatchSize = $value;
 
         return $this;
     }

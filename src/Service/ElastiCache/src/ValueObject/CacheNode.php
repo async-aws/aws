@@ -84,8 +84,8 @@ namespace AsyncAws\ElastiCache\ValueObject;
  * - The configuration variables `appendonly` and `appendfsync` are not supported on Valkey, or on Redis OSS version
  *   2.8.22 and later.
  *
- * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
- * [^2]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
+ * [^1]: https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
+ * [^2]: https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion
  */
 final class CacheNode
 {

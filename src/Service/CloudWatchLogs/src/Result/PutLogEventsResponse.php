@@ -30,7 +30,9 @@ class PutLogEventsResponse extends Result
     private $rejectedLogEventsInfo;
 
     /**
-     * Reserved for internal use.
+     * Information about why the entity is rejected when calling `PutLogEvents`. Only returned when the entity is rejected.
+     *
+     * > When the entity is rejected, the events may still be accepted.
      *
      * @var RejectedEntityInfo|null
      */
