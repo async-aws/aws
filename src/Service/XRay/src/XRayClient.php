@@ -15,12 +15,11 @@ use AsyncAws\XRay\Result\PutTraceSegmentsResult;
 class XRayClient extends AbstractApi
 {
     /**
-     * Uploads segment documents to Amazon Web Services X-Ray. The X-Ray SDK [^1] generates segment documents and sends them
-     * to the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress
+     * Uploads segment documents to Amazon Web Services X-Ray. A segment document can be a completed segment, an in-progress
      * segment, or an array of subsegments.
      *
      * Segments must include the following fields. For the full segment document schema, see Amazon Web Services X-Ray
-     * Segment Documents [^2] in the *Amazon Web Services X-Ray Developer Guide*.
+     * Segment Documents [^1] in the *Amazon Web Services X-Ray Developer Guide*.
      *
      * **Required segment document fields**
      *
@@ -37,8 +36,8 @@ class XRayClient extends AbstractApi
      *   serve, to trace that the request was received. When the response is sent, send the complete segment to overwrite
      *   the in-progress segment.
      *
-     * A `trace_id` consists of three numbers separated by hyphens. For example, 1-58406520-a006649127e371903a2de979. This
-     * includes:
+     * A `trace_id` consists of three numbers separated by hyphens. For example, 1-58406520-a006649127e371903a2de979. For
+     * trace IDs created by an X-Ray SDK, or by Amazon Web Services services integrated with X-Ray, a trace ID includes:
      *
      * **Trace ID Format**
      *
@@ -47,8 +46,14 @@ class XRayClient extends AbstractApi
      *   2016 PST in epoch time is `1480615200` seconds, or `58406520` in hexadecimal.
      * - A 96-bit identifier for the trace, globally unique, in 24 hexadecimal digits.
      *
-     * [^1]: https://docs.aws.amazon.com/xray/index.html
-     * [^2]: https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html
+     * > Trace IDs created via OpenTelemetry have a different format based on the W3C Trace Context specification [^2]. A
+     * > W3C trace ID must be formatted in the X-Ray trace ID format when sending to X-Ray. For example, a W3C trace ID
+     * > `4efaaf4d1e8720b39541901950019ee5` should be formatted as `1-4efaaf4d-1e8720b39541901950019ee5` when sending to
+     * > X-Ray. While X-Ray trace IDs include the original request timestamp in Unix epoch time, this is not required or
+     * > validated.
+     *
+     * [^1]: https://docs.aws.amazon.com/xray/latest/devguide/aws-xray-interface-api.html#xray-api-segmentdocuments.html
+     * [^2]: https://www.w3.org/TR/trace-context/
      *
      * @see https://docs.aws.amazon.com/xray/latest/api/API_PutTraceSegments.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-xray-2016-04-12.html#puttracesegments

@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add support for the Amazon Bedrock Runtime.
+
 ### Changed
 
 - use strict comparison `null !==` instead of `!`

@@ -6,12 +6,13 @@ use AsyncAws\CloudWatchLogs\Enum\EntityRejectionErrorType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Reserved for internal use.
+ * If an entity is rejected when a `PutLogEvents` request was made, this includes details about the reason for the
+ * rejection.
  */
 final class RejectedEntityInfo
 {
     /**
-     * Reserved for internal use.
+     * The type of error that caused the rejection of the entity when calling `PutLogEvents`.
      *
      * @var EntityRejectionErrorType::*
      */

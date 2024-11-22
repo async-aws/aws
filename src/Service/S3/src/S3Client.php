@@ -24,11 +24,15 @@ use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Enum\TaggingDirective;
 use AsyncAws\S3\Exception\BucketAlreadyExistsException;
 use AsyncAws\S3\Exception\BucketAlreadyOwnedByYouException;
+use AsyncAws\S3\Exception\EncryptionTypeMismatchException;
 use AsyncAws\S3\Exception\InvalidObjectStateException;
+use AsyncAws\S3\Exception\InvalidRequestException;
+use AsyncAws\S3\Exception\InvalidWriteOffsetException;
 use AsyncAws\S3\Exception\NoSuchBucketException;
 use AsyncAws\S3\Exception\NoSuchKeyException;
 use AsyncAws\S3\Exception\NoSuchUploadException;
 use AsyncAws\S3\Exception\ObjectNotInActiveTierErrorException;
+use AsyncAws\S3\Exception\TooManyPartsException;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
@@ -165,6 +169,7 @@ class S3Client extends AbstractApi
      *   UploadId: string,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatchInitiatedTime?: null|\DateTimeImmutable|string,
      *   '@region'?: string|null,
      * }|AbortMultipartUploadRequest $input
      *
@@ -938,7 +943,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Deletes the `cors` configuration information set for the bucket.
      *
@@ -1039,6 +1044,9 @@ class S3Client extends AbstractApi
      *   RequestPayer?: null|RequestPayer::*,
      *   BypassGovernanceRetention?: null|bool,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatch?: null|string,
+     *   IfMatchLastModifiedTime?: null|\DateTimeImmutable|string,
+     *   IfMatchSize?: null|int,
      *   '@region'?: string|null,
      * }|DeleteObjectRequest $input
      */
@@ -1051,7 +1059,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Removes the entire tag set from the specified object. For more information about managing object tags, see Object
      * Tagging [^1].
@@ -1193,7 +1201,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Returns the Cross-Origin Resource Sharing (CORS) configuration information set for the bucket.
      *
@@ -1460,7 +1468,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Returns the access control list (ACL) of an object. To use this operation, you must have `s3:GetObjectAcl`
      * permissions or `READ_ACP` access to the object. For more information, see Mapping of ACL permissions and access
@@ -1515,7 +1523,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Returns the tag-set of an object. You send the GET request against the tagging subresource associated with the
      * object.
@@ -1634,7 +1642,7 @@ class S3Client extends AbstractApi
      *   - If the specified version is a delete marker, the response returns a `405 Method Not Allowed` error and the
      *     `Last-Modified: timestamp` response header.
      *
-     *   > - **Directory buckets** - Delete marker is not supported by directory buckets.
+     *   > - **Directory buckets** - Delete marker is not supported for directory buckets.
      *   > - **Directory buckets** - S3 Versioning isn't enabled and supported for directory buckets. For this API
      *   >   operation, only the `null` value of the version ID is supported by directory buckets. You can only specify
      *   >   `null` to the `versionId` query parameter in the request.
@@ -1709,18 +1717,18 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
-     * Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have
-     * the `s3:ListAllMyBuckets` permission.
+     * Returns a list of all buckets owned by the authenticated sender of the request. To grant IAM permission to use this
+     * operation, you must add the `s3:ListAllMyBuckets` policy action.
      *
      * For information about Amazon S3 buckets, see Creating, configuring, and working with Amazon S3 buckets [^1].
      *
-     * ! We strongly recommend using only paginated requests. Unpaginated requests are only supported for Amazon Web
-     * ! Services accounts set to the default general purpose bucket quota of 10,000. If you have an approved general
-     * ! purpose bucket quota above 10,000, you must send paginated requests to list your account’s buckets. All
-     * ! unpaginated ListBuckets requests will be rejected for Amazon Web Services accounts with a general purpose bucket
-     * ! quota greater than 10,000.
+     * ! We strongly recommend using only paginated `ListBuckets` requests. Unpaginated `ListBuckets` requests are only
+     * ! supported for Amazon Web Services accounts set to the default general purpose bucket quota of 10,000. If you have
+     * ! an approved general purpose bucket quota above 10,000, you must send paginated `ListBuckets` requests to list your
+     * ! account’s buckets. All unpaginated `ListBuckets` requests will be rejected for Amazon Web Services accounts with
+     * ! a general purpose bucket quota greater than 10,000.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      *
@@ -1849,7 +1857,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection
      * criteria to return metadata about a subset of all the object versions.
@@ -2162,7 +2170,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Sets the `cors` configuration for your bucket. If the configuration exists, Amazon S3 replaces it.
      *
@@ -2222,7 +2230,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Enables notifications of specified events for a bucket. For more information about event notifications, see
      * Configuring Event Notifications [^1].
@@ -2293,7 +2301,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Sets the tags for a bucket.
      *
@@ -2465,6 +2473,7 @@ class S3Client extends AbstractApi
      *   GrantReadACP?: null|string,
      *   GrantWriteACP?: null|string,
      *   Key: string,
+     *   WriteOffsetBytes?: null|int,
      *   Metadata?: null|array<string, string>,
      *   ServerSideEncryption?: null|ServerSideEncryption::*,
      *   StorageClass?: null|StorageClass::*,
@@ -2483,17 +2492,27 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: null|string,
      *   '@region'?: string|null,
      * }|PutObjectRequest $input
+     *
+     * @throws InvalidRequestException
+     * @throws InvalidWriteOffsetException
+     * @throws TooManyPartsException
+     * @throws EncryptionTypeMismatchException
      */
     public function putObject($input): PutObjectOutput
     {
         $input = PutObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObject', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidRequest' => InvalidRequestException::class,
+            'InvalidWriteOffset' => InvalidWriteOffsetException::class,
+            'TooManyParts' => TooManyPartsException::class,
+            'EncryptionTypeMismatch' => EncryptionTypeMismatchException::class,
+        ]]));
 
         return new PutObjectOutput($response);
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3
      * bucket. You must have the `WRITE_ACP` permission to set the ACL of an object. For more information, see What
@@ -2647,7 +2666,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * > This operation is not supported by directory buckets.
+     * > This operation is not supported for directory buckets.
      *
      * Sets the supplied tag-set to an object that already exists in a bucket. A tag is a key-value pair. For more
      * information, see Object Tagging [^1].

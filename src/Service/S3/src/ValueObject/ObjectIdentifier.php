@@ -31,21 +31,58 @@ final class ObjectIdentifier
     private $versionId;
 
     /**
+     * An entity tag (ETag) is an identifier assigned by a web server to a specific version of a resource found at a URL.
+     * This header field makes the request method conditional on `ETags`.
+     *
+     * > Entity tags (ETags) for S3 Express One Zone are random alphanumeric strings unique to the object.
+     *
+     * @var string|null
+     */
+    private $etag;
+
+    /**
+     * If present, the objects are deleted only if its modification times matches the provided `Timestamp`.
+     *
+     * > This functionality is only supported for directory buckets.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $lastModifiedTime;
+
+    /**
+     * If present, the objects are deleted only if its size matches the provided size in bytes.
+     *
+     * > This functionality is only supported for directory buckets.
+     *
+     * @var int|null
+     */
+    private $size;
+
+    /**
      * @param array{
      *   Key: string,
      *   VersionId?: null|string,
+     *   ETag?: null|string,
+     *   LastModifiedTime?: null|\DateTimeImmutable,
+     *   Size?: null|int,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->key = $input['Key'] ?? $this->throwException(new InvalidArgument('Missing required field "Key".'));
         $this->versionId = $input['VersionId'] ?? null;
+        $this->etag = $input['ETag'] ?? null;
+        $this->lastModifiedTime = $input['LastModifiedTime'] ?? null;
+        $this->size = $input['Size'] ?? null;
     }
 
     /**
      * @param array{
      *   Key: string,
      *   VersionId?: null|string,
+     *   ETag?: null|string,
+     *   LastModifiedTime?: null|\DateTimeImmutable,
+     *   Size?: null|int,
      * }|ObjectIdentifier $input
      */
     public static function create($input): self
@@ -53,9 +90,24 @@ final class ObjectIdentifier
         return $input instanceof self ? $input : new self($input);
     }
 
+    public function getEtag(): ?string
+    {
+        return $this->etag;
+    }
+
     public function getKey(): string
     {
         return $this->key;
+    }
+
+    public function getLastModifiedTime(): ?\DateTimeImmutable
+    {
+        return $this->lastModifiedTime;
+    }
+
+    public function getSize(): ?int
+    {
+        return $this->size;
     }
 
     public function getVersionId(): ?string
@@ -72,6 +124,15 @@ final class ObjectIdentifier
         $node->appendChild($document->createElement('Key', $v));
         if (null !== $v = $this->versionId) {
             $node->appendChild($document->createElement('VersionId', $v));
+        }
+        if (null !== $v = $this->etag) {
+            $node->appendChild($document->createElement('ETag', $v));
+        }
+        if (null !== $v = $this->lastModifiedTime) {
+            $node->appendChild($document->createElement('LastModifiedTime', $v->format(\DateTimeInterface::RFC822)));
+        }
+        if (null !== $v = $this->size) {
+            $node->appendChild($document->createElement('Size', (string) $v));
         }
     }
 
