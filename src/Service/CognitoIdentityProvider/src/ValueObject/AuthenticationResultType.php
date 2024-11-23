@@ -3,12 +3,21 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The authentication result.
+ * The object that your application receives after authentication. Contains tokens and information for device
+ * authentication.
+ *
+ * This data type is a response parameter of authentication operations like InitiateAuth [^1], AdminInitiateAuth [^2],
+ * RespondToAuthChallenge [^3], and AdminRespondToAuthChallenge [^4].
+ *
+ * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+ * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html
+ * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
+ * [^4]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html
  */
 final class AuthenticationResultType
 {
     /**
-     * A valid access token that Amazon Cognito issued to the user who you want to authenticate.
+     * Your user's access token.
      *
      * @var string|null
      */
@@ -22,21 +31,21 @@ final class AuthenticationResultType
     private $expiresIn;
 
     /**
-     * The token type.
+     * The intended use of the token, for example `Bearer`.
      *
      * @var string|null
      */
     private $tokenType;
 
     /**
-     * The refresh token.
+     * Your user's refresh token.
      *
      * @var string|null
      */
     private $refreshToken;
 
     /**
-     * The ID token.
+     * Your user's ID token.
      *
      * @var string|null
      */

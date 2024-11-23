@@ -5,6 +5,7 @@
 ### Changed
 
 - use strict comparison `null !==` instead of `!`
+- AWS enhancement: Documentation updates.
 
 ## 1.7.4
 

@@ -106,6 +106,14 @@ final class ConfirmSignUpRequest extends Input
     private $clientMetadata;
 
     /**
+     * The optional session ID from a `SignUp` API request. You can sign in a user directly from the sign-up process with
+     * the `USER_AUTH` authentication flow.
+     *
+     * @var string|null
+     */
+    private $session;
+
+    /**
      * @param array{
      *   ClientId?: string,
      *   SecretHash?: null|string,
@@ -115,6 +123,7 @@ final class ConfirmSignUpRequest extends Input
      *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
      *   UserContextData?: null|UserContextDataType|array,
      *   ClientMetadata?: null|array<string, string>,
+     *   Session?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -128,6 +137,7 @@ final class ConfirmSignUpRequest extends Input
         $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
         $this->userContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
         $this->clientMetadata = $input['ClientMetadata'] ?? null;
+        $this->session = $input['Session'] ?? null;
         parent::__construct($input);
     }
 
@@ -141,6 +151,7 @@ final class ConfirmSignUpRequest extends Input
      *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
      *   UserContextData?: null|UserContextDataType|array,
      *   ClientMetadata?: null|array<string, string>,
+     *   Session?: null|string,
      *   '@region'?: string|null,
      * }|ConfirmSignUpRequest $input
      */
@@ -180,6 +191,11 @@ final class ConfirmSignUpRequest extends Input
     public function getSecretHash(): ?string
     {
         return $this->secretHash;
+    }
+
+    public function getSession(): ?string
+    {
+        return $this->session;
     }
 
     public function getUserContextData(): ?UserContextDataType
@@ -263,6 +279,13 @@ final class ConfirmSignUpRequest extends Input
         return $this;
     }
 
+    public function setSession(?string $value): self
+    {
+        $this->session = $value;
+
+        return $this;
+    }
+
     public function setUserContextData(?UserContextDataType $value): self
     {
         $this->userContextData = $value;
@@ -313,6 +336,9 @@ final class ConfirmSignUpRequest extends Input
                     $payload['ClientMetadata'][$name] = $mv;
                 }
             }
+        }
+        if (null !== $v = $this->session) {
+            $payload['Session'] = $v;
         }
 
         return $payload;

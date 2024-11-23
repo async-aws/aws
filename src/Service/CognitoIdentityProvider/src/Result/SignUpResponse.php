@@ -32,11 +32,26 @@ class SignUpResponse extends Result
      */
     private $userSub;
 
+    /**
+     * A session Id that you can pass to `ConfirmSignUp` when you want to immediately sign in your user with the `USER_AUTH`
+     * flow after they complete sign-up.
+     *
+     * @var string|null
+     */
+    private $session;
+
     public function getCodeDeliveryDetails(): ?CodeDeliveryDetailsType
     {
         $this->initialize();
 
         return $this->codeDeliveryDetails;
+    }
+
+    public function getSession(): ?string
+    {
+        $this->initialize();
+
+        return $this->session;
     }
 
     public function getUserConfirmed(): bool
@@ -60,6 +75,7 @@ class SignUpResponse extends Result
         $this->userConfirmed = filter_var($data['UserConfirmed'], \FILTER_VALIDATE_BOOLEAN);
         $this->codeDeliveryDetails = empty($data['CodeDeliveryDetails']) ? null : $this->populateResultCodeDeliveryDetailsType($data['CodeDeliveryDetails']);
         $this->userSub = (string) $data['UserSub'];
+        $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
     }
 
     private function populateResultCodeDeliveryDetailsType(array $json): CodeDeliveryDetailsType

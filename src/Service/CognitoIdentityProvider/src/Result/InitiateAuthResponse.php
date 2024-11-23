@@ -21,6 +21,14 @@ class InitiateAuthResponse extends Result
      *
      * > All of the following challenges require `USERNAME` and `SECRET_HASH` (if applicable) in the parameters.
      *
+     * - `WEB_AUTHN`: Respond to the challenge with the results of a successful authentication with a passkey, or webauthN,
+     *   factor. These are typically biometric devices or security keys.
+     * - `PASSWORD`: Respond with `USER_PASSWORD_AUTH` parameters: `USERNAME` (required), `PASSWORD` (required),
+     *   `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+     * - `PASSWORD_SRP`: Respond with `USER_SRP_AUTH` parameters: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH`
+     *   (required if the app client is configured with a client secret), `DEVICE_KEY`.
+     * - `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an `ANSWER` that matches one of the challenge
+     *   types in the `AvailableChallenges` response parameter.
      * - `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`that your user pool delivered in an SMS message.
      * - `EMAIL_OTP`: Next challenge is to supply an `EMAIL_OTP_CODE` that your user pool delivered in an email message.
      * - `PASSWORD_VERIFIER`: Next challenge is to supply `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and
@@ -35,6 +43,12 @@ class InitiateAuthResponse extends Result
      *   Respond to this challenge with `NEW_PASSWORD` and any required attributes that Amazon Cognito returned in the
      *   `requiredAttributes` parameter. You can also set values for attributes that aren't required by your user pool and
      *   that your app client can write. For more information, see RespondToAuthChallenge [^1].
+     *
+     *   Amazon Cognito only returns this challenge for users who have temporary passwords. Because of this, and because in
+     *   some cases you can create users who don't have values for required attributes, take care to collect and submit
+     *   required-attribute values for all users who don't have passwords. You can create a user in the Amazon Cognito
+     *   console without, for example, a required `birthdate` attribute. The API response from Amazon Cognito won't prompt
+     *   you to submit a birthdate for the user if they don't have a password.
      *
      *   > In a `NEW_PASSWORD_REQUIRED` challenge response, you can't modify a required attribute that already has a value.
      *   > In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes`
@@ -56,8 +70,8 @@ class InitiateAuthResponse extends Result
 
     /**
      * The session that should pass both ways in challenge-response calls to the service. If the caller must pass another
-     * challenge, they return a session with other challenge parameters. This session should be passed as it is to the next
-     * `RespondToAuthChallenge` API call.
+     * challenge, they return a session with other challenge parameters. Include this session identifier in a
+     * `RespondToAuthChallenge` API request.
      *
      * @var string|null
      */
@@ -67,7 +81,7 @@ class InitiateAuthResponse extends Result
      * The challenge parameters. These are returned in the `InitiateAuth` response if you must pass another challenge. The
      * responses in this parameter should be used to compute inputs to the next call (`RespondToAuthChallenge`).
      *
-     * All challenges require `USERNAME` and `SECRET_HASH` (if applicable).
+     * All challenges require `USERNAME`. They also require `SECRET_HASH` if your app client has a client secret.
      *
      * @var array<string, string>
      */
@@ -82,11 +96,30 @@ class InitiateAuthResponse extends Result
      */
     private $authenticationResult;
 
+    /**
+     * This response parameter prompts a user to select from multiple available challenges that they can complete
+     * authentication with. For example, they might be able to continue with passwordless authentication or with a one-time
+     * password from an SMS message.
+     *
+     * @var list<ChallengeNameType::*>
+     */
+    private $availableChallenges;
+
     public function getAuthenticationResult(): ?AuthenticationResultType
     {
         $this->initialize();
 
         return $this->authenticationResult;
+    }
+
+    /**
+     * @return list<ChallengeNameType::*>
+     */
+    public function getAvailableChallenges(): array
+    {
+        $this->initialize();
+
+        return $this->availableChallenges;
     }
 
     /**
@@ -124,6 +157,7 @@ class InitiateAuthResponse extends Result
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
         $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
         $this->authenticationResult = empty($data['AuthenticationResult']) ? null : $this->populateResultAuthenticationResultType($data['AuthenticationResult']);
+        $this->availableChallenges = empty($data['AvailableChallenges']) ? [] : $this->populateResultAvailableChallengeListType($data['AvailableChallenges']);
     }
 
     private function populateResultAuthenticationResultType(array $json): AuthenticationResultType
@@ -136,6 +170,22 @@ class InitiateAuthResponse extends Result
             'IdToken' => isset($json['IdToken']) ? (string) $json['IdToken'] : null,
             'NewDeviceMetadata' => empty($json['NewDeviceMetadata']) ? null : $this->populateResultNewDeviceMetadataType($json['NewDeviceMetadata']),
         ]);
+    }
+
+    /**
+     * @return list<ChallengeNameType::*>
+     */
+    private function populateResultAvailableChallengeListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     /**
