@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.7.0
+
 ### Added
 
 - AWS api-change: Add Python 3.13 (python3.13) support to AWS Lambda

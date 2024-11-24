@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.2.0
+
 ### Added
 
 - AWS api-change: Add support for the automatic pause/resume feature of Aurora Serverless v2.

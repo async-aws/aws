@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.10.0
+
 ### Added
 
 - AWS api-change: Add support for users to sign up and sign in without passwords, using email and SMS OTPs and Passkeys. Add support for Passkeys based on WebAuthn. Add support for enhanced branding customization for hosted authentication pages with Amazon Cognito Managed Login. Add feature tiers with new pricing.

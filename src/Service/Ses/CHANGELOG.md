@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.9.0
+
 ### Added
 
 - AWS api-change: This release enables customers to provide the email template content in the SESv2 SendEmail and SendBulkEmail APIs instead of the name or the ARN of a stored email template.

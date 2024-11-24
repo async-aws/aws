@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.1.0
+
 ### Added
 
 - AWS api-change: This release adds support for Query Insights, a feature that provides details of query execution, enabling users to identify areas for improvement to optimize their queries, resulting in improved query performance and lower query costs.

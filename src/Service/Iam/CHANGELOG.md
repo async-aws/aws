@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.5.4
+
 ### Changed
 
 - use strict comparison `null !==` instead of `!`

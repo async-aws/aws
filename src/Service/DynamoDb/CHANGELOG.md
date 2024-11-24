@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.3.0
+
 ### Added
 
 - AWS api-change: This release includes supports the new WarmThroughput feature for DynamoDB. You can now provide an optional WarmThroughput attribute for CreateTable or UpdateTable APIs to pre-warm your table or global secondary index. You can also use DescribeTable to see the latest WarmThroughput value.

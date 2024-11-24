@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.23.0
+
 ### Added
 
 - Added support for EKS Pod Identity
