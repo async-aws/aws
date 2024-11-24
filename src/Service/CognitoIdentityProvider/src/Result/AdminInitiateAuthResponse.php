@@ -17,6 +17,14 @@ class AdminInitiateAuthResponse extends Result
      * The name of the challenge that you're responding to with this call. This is returned in the `AdminInitiateAuth`
      * response if you must pass another challenge.
      *
+     * - `WEB_AUTHN`: Respond to the challenge with the results of a successful authentication with a passkey, or webauthN,
+     *   factor. These are typically biometric devices or security keys.
+     * - `PASSWORD`: Respond with `USER_PASSWORD_AUTH` parameters: `USERNAME` (required), `PASSWORD` (required),
+     *   `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+     * - `PASSWORD_SRP`: Respond with `USER_SRP_AUTH` parameters: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH`
+     *   (required if the app client is configured with a client secret), `DEVICE_KEY`.
+     * - `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an `ANSWER` that matches one of the challenge
+     *   types in the `AvailableChallenges` response parameter.
      * - `MFA_SETUP`: If MFA is required, users who don't have at least one of the MFA methods set up are presented with an
      *   `MFA_SETUP` challenge. The user must set up at least one MFA type to continue to authenticate.
      * - `SELECT_MFA_TYPE`: Selects the MFA type. Valid MFA options are `SMS_MFA` for SMS message MFA, `EMAIL_OTP` for email
@@ -36,6 +44,12 @@ class AdminInitiateAuthResponse extends Result
      *   to this challenge with `NEW_PASSWORD` and any required attributes that Amazon Cognito returned in the
      *   `requiredAttributes` parameter. You can also set values for attributes that aren't required by your user pool and
      *   that your app client can write. For more information, see AdminRespondToAuthChallenge [^1].
+     *
+     *   Amazon Cognito only returns this challenge for users who have temporary passwords. Because of this, and because in
+     *   some cases you can create users who don't have values for required attributes, take care to collect and submit
+     *   required-attribute values for all users who don't have passwords. You can create a user in the Amazon Cognito
+     *   console without, for example, a required `birthdate` attribute. The API response from Amazon Cognito won't prompt
+     *   you to submit a birthdate for the user if they don't have a password.
      *
      *   > In a `NEW_PASSWORD_REQUIRED` challenge response, you can't modify a required attribute that already has a value.
      *   > In `AdminRespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the

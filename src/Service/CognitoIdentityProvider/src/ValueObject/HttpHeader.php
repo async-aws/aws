@@ -3,7 +3,13 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The HTTP header.
+ * The HTTP header in the `ContextData` parameter.
+ *
+ * This data type is a request parameter of server-side authentication operations like AdminInitiateAuth [^1] and
+ * AdminRespondToAuthChallenge [^2].
+ *
+ * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html
+ * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html
  */
 final class HttpHeader
 {

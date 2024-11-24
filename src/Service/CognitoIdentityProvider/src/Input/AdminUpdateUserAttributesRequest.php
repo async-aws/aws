@@ -43,10 +43,10 @@ final class AdminUpdateUserAttributesRequest extends Input
      * responds to a verification message to verify the new value, Amazon Cognito updates the attribute value. Your user can
      * sign in and receive messages with the original attribute value until they verify the new value.
      *
-     * To update the value of an attribute that requires verification in the same API request, include the `email_verified`
-     * or `phone_number_verified` attribute, with a value of `true`. If you set the `email_verified` or
-     * `phone_number_verified` value for an `email` or `phone_number` attribute that requires verification to `true`, Amazon
-     * Cognito doesn’t send a verification message to your user.
+     * To skip the verification message and update the value of an attribute that requires verification in the same API
+     * request, include the `email_verified` or `phone_number_verified` attribute, with a value of `true`. If you set the
+     * `email_verified` or `phone_number_verified` value for an `email` or `phone_number` attribute that requires
+     * verification to `true`, Amazon Cognito doesn’t send a verification message to your user.
      *
      * @required
      *

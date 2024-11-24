@@ -34,24 +34,48 @@ final class AdminInitiateAuthRequest extends Input
     private $clientId;
 
     /**
-     * The authentication flow for this call to run. The API action will depend on this value. For example:
+     * The authentication flow that you want to initiate. The `AuthParameters` that you must submit are linked to the flow
+     * that you submit. For example:
      *
-     * - `REFRESH_TOKEN_AUTH` will take in a valid refresh token and return new tokens.
-     * - `USER_SRP_AUTH` will take in `USERNAME` and `SRP_A` and return the Secure Remote Password (SRP) protocol variables
-     *   to be used for next challenge execution.
-     * - `ADMIN_USER_PASSWORD_AUTH` will take in `USERNAME` and `PASSWORD` and return the next challenge or tokens.
+     * - `USER_AUTH`: Request a preferred authentication type or review available authentication types. From the offered
+     *   authentication types, select one in a challenge response and then authenticate with that method in an additional
+     *   challenge response.
+     * - `REFRESH_TOKEN_AUTH`: Receive new ID and access tokens when you pass a `REFRESH_TOKEN` parameter with a valid
+     *   refresh token as the value.
+     * - `USER_SRP_AUTH`: Receive secure remote password (SRP) variables for the next challenge, `PASSWORD_VERIFIER`, when
+     *   you pass `USERNAME` and `SRP_A` parameters..
+     * - `ADMIN_USER_PASSWORD_AUTH`: Receive new tokens or the next challenge, for example `SOFTWARE_TOKEN_MFA`, when you
+     *   pass `USERNAME` and `PASSWORD` parameters.
      *
-     * Valid values include:
+     * Valid values include the following:
      *
-     * - `USER_SRP_AUTH`: Authentication flow for the Secure Remote Password (SRP) protocol.
-     * - `REFRESH_TOKEN_AUTH`/`REFRESH_TOKEN`: Authentication flow for refreshing the access token and ID token by supplying
-     *   a valid refresh token.
-     * - `CUSTOM_AUTH`: Custom authentication flow.
-     * - `ADMIN_NO_SRP_AUTH`: Non-SRP authentication flow; you can pass in the USERNAME and PASSWORD directly if the flow is
-     *   enabled for calling the app client.
-     * - `ADMIN_USER_PASSWORD_AUTH`: Admin-based user password authentication. This replaces the `ADMIN_NO_SRP_AUTH`
-     *   authentication flow. In this flow, Amazon Cognito receives the password in the request instead of using the SRP
-     *   process to verify passwords.
+     * - `USER_AUTH`:
+     *
+     *   The entry point for sign-in with passwords, one-time passwords, biometric devices, and security keys.
+     * - `USER_SRP_AUTH`:
+     *
+     *   Username-password authentication with the Secure Remote Password (SRP) protocol. For more information, see Use SRP
+     *   password verification in custom authentication flow [^1].
+     * - `REFRESH_TOKEN_AUTH and REFRESH_TOKEN`:
+     *
+     *   Provide a valid refresh token and receive new ID and access tokens. For more information, see Using the refresh
+     *   token [^2].
+     * - `CUSTOM_AUTH`:
+     *
+     *   Custom authentication with Lambda triggers. For more information, see Custom authentication challenge Lambda
+     *   triggers [^3].
+     * - `ADMIN_USER_PASSWORD_AUTH`:
+     *
+     *   Username-password authentication with the password sent directly in the request. For more information, see Admin
+     *   authentication flow [^4].
+     *
+     * `USER_PASSWORD_AUTH` is a flow type of InitiateAuth [^5] and isn't valid for AdminInitiateAuth.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#Using-SRP-password-verification-in-custom-authentication-flow
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-refresh-token.html
+     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html
+     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#Built-in-authentication-flow-and-challenges
+     * [^5]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      *
      * @required
      *
@@ -63,6 +87,9 @@ final class AdminInitiateAuthRequest extends Input
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required
      * values depend on the value of `AuthFlow`:
      *
+     * - For `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If you don't provide a value for
+     *   `PREFERRED_CHALLENGE`, Amazon Cognito responds with the `AvailableChallenges` parameter that specifies the
+     *   available sign-in methods.
      * - For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is
      *   configured with a client secret), `DEVICE_KEY`.
      * - For `ADMIN_USER_PASSWORD_AUTH`: `USERNAME` (required), `PASSWORD` (required), `SECRET_HASH` (required if the app
@@ -107,6 +134,8 @@ final class AdminInitiateAuthRequest extends Input
      * - Pre token generation
      * - Create auth challenge
      * - Define auth challenge
+     * - Custom email sender
+     * - Custom SMS sender
      *
      * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
      * Guide*.
@@ -143,6 +172,14 @@ final class AdminInitiateAuthRequest extends Input
     private $contextData;
 
     /**
+     * The optional session ID from a `ConfirmSignUp` API request. You can sign in a user directly from the sign-up process
+     * with the `USER_AUTH` authentication flow.
+     *
+     * @var string|null
+     */
+    private $session;
+
+    /**
      * @param array{
      *   UserPoolId?: string,
      *   ClientId?: string,
@@ -151,6 +188,7 @@ final class AdminInitiateAuthRequest extends Input
      *   ClientMetadata?: null|array<string, string>,
      *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
      *   ContextData?: null|ContextDataType|array,
+     *   Session?: null|string,
      *   '@region'?: string|null,
      * } $input
      */
@@ -163,6 +201,7 @@ final class AdminInitiateAuthRequest extends Input
         $this->clientMetadata = $input['ClientMetadata'] ?? null;
         $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
         $this->contextData = isset($input['ContextData']) ? ContextDataType::create($input['ContextData']) : null;
+        $this->session = $input['Session'] ?? null;
         parent::__construct($input);
     }
 
@@ -175,6 +214,7 @@ final class AdminInitiateAuthRequest extends Input
      *   ClientMetadata?: null|array<string, string>,
      *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
      *   ContextData?: null|ContextDataType|array,
+     *   Session?: null|string,
      *   '@region'?: string|null,
      * }|AdminInitiateAuthRequest $input
      */
@@ -220,6 +260,11 @@ final class AdminInitiateAuthRequest extends Input
     public function getContextData(): ?ContextDataType
     {
         return $this->contextData;
+    }
+
+    public function getSession(): ?string
+    {
+        return $this->session;
     }
 
     public function getUserPoolId(): ?string
@@ -304,6 +349,13 @@ final class AdminInitiateAuthRequest extends Input
         return $this;
     }
 
+    public function setSession(?string $value): self
+    {
+        $this->session = $value;
+
+        return $this;
+    }
+
     public function setUserPoolId(?string $value): self
     {
         $this->userPoolId = $value;
@@ -354,6 +406,9 @@ final class AdminInitiateAuthRequest extends Input
         }
         if (null !== $v = $this->contextData) {
             $payload['ContextData'] = $v->requestBody();
+        }
+        if (null !== $v = $this->session) {
+            $payload['Session'] = $v;
         }
 
         return $payload;

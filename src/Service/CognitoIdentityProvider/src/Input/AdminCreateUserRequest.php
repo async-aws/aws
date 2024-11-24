@@ -11,7 +11,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 /**
- * Represents the request to create a user in the specified user pool.
+ * Creates a new user in the specified user pool.
  */
 final class AdminCreateUserRequest extends Input
 {
@@ -55,6 +55,10 @@ final class AdminCreateUserRequest extends Input
      * this in your call to AdminCreateUser or in the **Users** tab of the Amazon Cognito console for managing your user
      * pools.
      *
+     * You must also provide an email address or phone number when you expect the user to do passwordless sign-in with an
+     * email or SMS OTP. These attributes must be provided when passwordless options are the only available, or when you
+     * don't submit a `TemporaryPassword`.
+     *
      * In your call to `AdminCreateUser`, you can set the `email_verified` attribute to `True`, and you can set the
      * `phone_number_verified` attribute to `True`. You can also do this by calling AdminUpdateUserAttributes [^1].
      *
@@ -92,14 +96,24 @@ final class AdminCreateUserRequest extends Input
      * The user's temporary password. This password must conform to the password policy that you specified when you created
      * the user pool.
      *
+     * The exception to the requirement for a password is when your user pool supports passwordless sign-in with email or
+     * SMS OTPs. To create a user with no password, omit this parameter or submit a blank value. You can only create a
+     * passwordless user when passwordless sign-in is available. See the SignInPolicyType [^1] property of CreateUserPool
+     * [^2] and UpdateUserPool [^3].
+     *
      * The temporary password is valid only once. To complete the Admin Create User flow, the user must enter the temporary
      * password in the sign-in page, along with a new password to be used in all future sign-ins.
      *
-     * This parameter isn't required. If you don't specify a value, Amazon Cognito generates one for you.
+     * If you don't specify a value, Amazon Cognito generates one for you unless you have passwordless options active for
+     * your user pool.
      *
      * The temporary password can only be used until the user account expiration limit that you set for your user pool. To
      * reset the account after that time limit, you must call `AdminCreateUser` again and specify `RESEND` for the
      * `MessageAction` parameter.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignInPolicyType.html
+     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html
+     * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html
      *
      * @var string|null
      */

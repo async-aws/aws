@@ -5,7 +5,13 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Contextual user data type used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+ * Contextual user data used for evaluating the risk of an authentication event by user pool threat protection.
+ *
+ * This data type is a request parameter of server-side authentication operations like AdminInitiateAuth [^1] and
+ * AdminRespondToAuthChallenge [^2].
+ *
+ * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html
+ * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html
  */
 final class ContextDataType
 {
@@ -17,21 +23,21 @@ final class ContextDataType
     private $ipAddress;
 
     /**
-     * Your server endpoint where this API is invoked.
+     * The name of your application's service endpoint.
      *
      * @var string
      */
     private $serverName;
 
     /**
-     * Your server path where this API is invoked.
+     * The path of your application's service endpoint.
      *
      * @var string
      */
     private $serverPath;
 
     /**
-     * HttpHeaders received on your server in same order.
+     * The HTTP headers from your user's authentication request.
      *
      * @var HttpHeader[]
      */

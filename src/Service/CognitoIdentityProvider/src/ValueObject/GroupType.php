@@ -3,7 +3,18 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The group type.
+ * A user pool group. Contains details about the group and the way that it contributes to IAM role decisions with
+ * identity pools. Identity pools can make decisions about the IAM role to assign based on groups: users get credentials
+ * for the role associated with their highest-priority group.
+ *
+ * This data type is a response parameter of AdminListGroupsForUser [^1], CreateGroup [^2], GetGroup [^3], ListGroups
+ * [^4], and UpdateGroup [^5].
+ *
+ * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminListGroupsForUser.html
+ * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html
+ * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetGroup.html
+ * [^4]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListGroups.html
+ * [^5]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateGroup.html
  */
 final class GroupType
 {
@@ -15,21 +26,22 @@ final class GroupType
     private $groupName;
 
     /**
-     * The user pool ID for the user pool.
+     * The ID of the user pool that contains the group.
      *
      * @var string|null
      */
     private $userPoolId;
 
     /**
-     * A string containing the description of the group.
+     * A friendly description of the group.
      *
      * @var string|null
      */
     private $description;
 
     /**
-     * The role Amazon Resource Name (ARN) for the group.
+     * The ARN of the IAM role associated with the group. If a group has the highest priority of a user's groups, users who
+     * authenticate with an identity pool get credentials for the `RoleArn` that's associated with the group.
      *
      * @var string|null
      */
@@ -47,7 +59,7 @@ final class GroupType
      * in tokens for users in each group. If the two groups have different role ARNs, the `cognito:preferred_role` claim
      * isn't set in users' tokens.
      *
-     * The default `Precedence` value is null.
+     * The default `Precedence` value is `null`.
      *
      * @var int|null
      */

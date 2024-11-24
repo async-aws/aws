@@ -52,13 +52,41 @@ final class RespondToAuthChallengeRequest extends Input
      * parameters.
      *
      * ! You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
+     * ! Include a `DEVICE_KEY` for device authentication.
      *
-     * - `SMS_MFA`:
+     * - `SELECT_CHALLENGE`:
      *
-     *   `"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[code]", "USERNAME": "[username]"}`
+     *   `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": { "USERNAME": "[username]", "ANSWER": "[Challenge
+     *   name]"}`
+     *
+     *   Available challenges are `PASSWORD`, `PASSWORD_SRP`, `EMAIL_OTP`, `SMS_OTP`, and `WEB_AUTHN`.
+     *
+     *   Complete authentication in the `SELECT_CHALLENGE` response for `PASSWORD`, `PASSWORD_SRP`, and `WEB_AUTHN`:
+     *
+     *   - `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": { "ANSWER": "WEB_AUTHN", "USERNAME": "[username]",
+     *     "CREDENTIAL": "[AuthenticationResponseJSON]"}`
+     *
+     *     See AuthenticationResponseJSON [^1].
+     *   - `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": { "ANSWER": "PASSWORD", "USERNAME": "[username]",
+     *     "PASSWORD": "[password]"}`
+     *   - `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": { "ANSWER": "PASSWORD_SRP", "USERNAME": "[username]",
+     *     "SRP_A": "[SRP_A]"}`
+     *
+     *   For `SMS_OTP` and `EMAIL_OTP`, respond with the username and answer. Your user pool will send a code for the user
+     *   to submit in the next challenge response.
+     *
+     *   - `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": { "ANSWER": "SMS_OTP", "USERNAME": "[username]"}`
+     *   - `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": { "ANSWER": "EMAIL_OTP", "USERNAME": "[username]"}`
+     *
+     * - `SMS_OTP`:
+     *
+     *   `"ChallengeName": "SMS_OTP", "ChallengeResponses": {"SMS_OTP_CODE": "[code]", "USERNAME": "[username]"}`
      * - `EMAIL_OTP`:
      *
      *   `"ChallengeName": "EMAIL_OTP", "ChallengeResponses": {"EMAIL_OTP_CODE": "[code]", "USERNAME": "[username]"}`
+     * - `SMS_MFA`:
+     *
+     *   `"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[code]", "USERNAME": "[username]"}`
      * - `PASSWORD_VERIFIER`:
      *
      *   This challenge response is part of the SRP flow. Amazon Cognito requires that your application respond to this
@@ -110,11 +138,12 @@ final class RespondToAuthChallengeRequest extends Input
      *   `"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or
      *   SOFTWARE_TOKEN_MFA]"}`
      *
-     * For more information about `SECRET_HASH`, see Computing secret hash values [^1]. For information about `DEVICE_KEY`,
-     * see Working with user devices in your user pool [^2].
+     * For more information about `SECRET_HASH`, see Computing secret hash values [^2]. For information about `DEVICE_KEY`,
+     * see Working with user devices in your user pool [^3].
      *
-     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash
-     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html
+     * [^1]: https://www.w3.org/TR/webauthn-3/#dictdef-authenticationresponsejson
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash
+     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html
      *
      * @var array<string, string>|null
      */

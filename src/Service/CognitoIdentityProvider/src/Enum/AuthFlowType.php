@@ -9,6 +9,7 @@ final class AuthFlowType
     public const CUSTOM_AUTH = 'CUSTOM_AUTH';
     public const REFRESH_TOKEN = 'REFRESH_TOKEN';
     public const REFRESH_TOKEN_AUTH = 'REFRESH_TOKEN_AUTH';
+    public const USER_AUTH = 'USER_AUTH';
     public const USER_PASSWORD_AUTH = 'USER_PASSWORD_AUTH';
     public const USER_SRP_AUTH = 'USER_SRP_AUTH';
 
@@ -20,6 +21,7 @@ final class AuthFlowType
             self::CUSTOM_AUTH => true,
             self::REFRESH_TOKEN => true,
             self::REFRESH_TOKEN_AUTH => true,
+            self::USER_AUTH => true,
             self::USER_PASSWORD_AUTH => true,
             self::USER_SRP_AUTH => true,
         ][$value]);

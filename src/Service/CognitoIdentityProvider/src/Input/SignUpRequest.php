@@ -45,7 +45,14 @@ final class SignUpRequest extends Input
     /**
      * The password of the user you want to register.
      *
-     * @required
+     * Users can sign up without a password when your user pool supports passwordless sign-in with email or SMS OTPs. To
+     * create a user with no password, omit this parameter or submit a blank value. You can only create a passwordless user
+     * when passwordless sign-in is available. See the SignInPolicyType [^1] property of CreateUserPool [^2] and
+     * UpdateUserPool [^3].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignInPolicyType.html
+     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html
+     * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html
      *
      * @var string|null
      */
@@ -126,7 +133,7 @@ final class SignUpRequest extends Input
      *   ClientId?: string,
      *   SecretHash?: null|string,
      *   Username?: string,
-     *   Password?: string,
+     *   Password?: null|string,
      *   UserAttributes?: null|array<AttributeType|array>,
      *   ValidationData?: null|array<AttributeType|array>,
      *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
@@ -154,7 +161,7 @@ final class SignUpRequest extends Input
      *   ClientId?: string,
      *   SecretHash?: null|string,
      *   Username?: string,
-     *   Password?: string,
+     *   Password?: null|string,
      *   UserAttributes?: null|array<AttributeType|array>,
      *   ValidationData?: null|array<AttributeType|array>,
      *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
@@ -334,10 +341,9 @@ final class SignUpRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null === $v = $this->password) {
-            throw new InvalidArgument(\sprintf('Missing parameter "Password" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->password) {
+            $payload['Password'] = $v;
         }
-        $payload['Password'] = $v;
         if (null !== $v = $this->userAttributes) {
             $index = -1;
             $payload['UserAttributes'] = [];

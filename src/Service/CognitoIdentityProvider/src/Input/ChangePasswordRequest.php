@@ -13,9 +13,8 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ChangePasswordRequest extends Input
 {
     /**
-     * The old password.
-     *
-     * @required
+     * The user's previous password. Required if the user has a password. If the user has no password and only signs in with
+     * passwordless authentication options, you can omit this parameter.
      *
      * @var string|null
      */
@@ -41,7 +40,7 @@ final class ChangePasswordRequest extends Input
 
     /**
      * @param array{
-     *   PreviousPassword?: string,
+     *   PreviousPassword?: null|string,
      *   ProposedPassword?: string,
      *   AccessToken?: string,
      *   '@region'?: string|null,
@@ -57,7 +56,7 @@ final class ChangePasswordRequest extends Input
 
     /**
      * @param array{
-     *   PreviousPassword?: string,
+     *   PreviousPassword?: null|string,
      *   ProposedPassword?: string,
      *   AccessToken?: string,
      *   '@region'?: string|null,
@@ -133,10 +132,9 @@ final class ChangePasswordRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->previousPassword) {
-            throw new InvalidArgument(\sprintf('Missing parameter "PreviousPassword" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->previousPassword) {
+            $payload['PreviousPassword'] = $v;
         }
-        $payload['PreviousPassword'] = $v;
         if (null === $v = $this->proposedPassword) {
             throw new InvalidArgument(\sprintf('Missing parameter "ProposedPassword" for "%s". The value cannot be null.', __CLASS__));
         }

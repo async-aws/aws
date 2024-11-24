@@ -5,6 +5,12 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 /**
  * Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an
  * unexpected event by Amazon Cognito advanced security.
+ *
+ * This data type is a request parameter of public-client authentication operations like InitiateAuth [^1] and
+ * RespondToAuthChallenge [^2].
+ *
+ * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+ * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
  */
 final class UserContextDataType
 {
