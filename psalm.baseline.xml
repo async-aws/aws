@@ -312,4 +312,12 @@
       <code><![CDATA[list<Architecture::*>]]></code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Result/InitiateAuthResponse.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$items]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<ChallengeNameType::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
 </files>
