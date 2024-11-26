@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.3.1
+
 ### Changed
 
 - fix pagination when next token is an array
