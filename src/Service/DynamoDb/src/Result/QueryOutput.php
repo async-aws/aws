@@ -116,7 +116,7 @@ class QueryOutput extends Result implements \IteratorAggregate
         $page = $this;
         while (true) {
             $page->initialize();
-            if (null !== $page->lastEvaluatedKey) {
+            if ([] !== $page->lastEvaluatedKey) {
                 $input->setExclusiveStartKey($page->lastEvaluatedKey);
 
                 $this->registerPrefetch($nextPage = $client->query($input));

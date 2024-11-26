@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
+use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Pagination;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
@@ -165,7 +167,7 @@ class PaginationGenerator
                         'PROPERTY_NAME' => GeneratorHelper::normalizeName($resultKey),
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
                             strtr('yield from $page->PROPERTY_ACCESSOR;', ['PROPERTY_ACCESSOR' => GeneratorHelper::normalizeName($resultKey)]),
-                            $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation
+                            $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation, $shape
                         ),
                     ]));
             }
@@ -182,7 +184,7 @@ class PaginationGenerator
                 'PROPERTY_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($resultKeys[0])),
             ]);
         } else {
-            $body = $this->generateOutputPaginationLoader($iteratorBody, $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation);
+            $body = $this->generateOutputPaginationLoader($iteratorBody, $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation, $shape);
         }
 
         $classBuilder->addMethod('getIterator')
@@ -197,22 +199,39 @@ class PaginationGenerator
     /**
      * @param string[] $outputToken
      */
-    private function generateOutputPaginationLoader(string $iterator, string $common, string $moreResult, array $outputToken, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation): string
+    private function generateOutputPaginationLoader(string $iterator, string $common, string $moreResult, array $outputToken, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation, StructureShape $shape): string
     {
         if (empty($outputToken)) {
             return strtr($iterator, ['$page->' => '$this->']);
         }
 
         $inputToken = $pagination->getInputToken();
+        $moreCondition = '';
+        $moreShape = null;
         if (!$moreResult) {
-            $moreCondition = '';
             foreach ($outputToken as $property) {
-                $moreCondition .= 'null !== ' . $this->generateGetter('$page', $property, (bool) $common);
+                $moreResult = $property;
+                $moreShape = $shape->getMember($moreResult)->getShape();
 
                 break;
             }
         } else {
-            $moreCondition = $this->generateGetter('$page', $moreResult, (bool) $common);
+            if ($common) {
+                $shape = $shape->getMember($common)->getShape();
+            }
+            if ($shape instanceof StructureShape) {
+                $moreShape = $shape->getMember($moreResult)->getShape();
+            }
+        }
+
+        if ($moreResult) {
+            if ($moreShape instanceof ListShape || $moreShape instanceof MapShape) {
+                $moreCondition .= '[] !== ' . $this->generateGetter('$page', $moreResult, (bool) $common);
+            } elseif ($moreShape instanceof Shape && 'boolean' === $moreShape->getType()) {
+                $moreCondition .= $this->generateGetter('$page', $moreResult, (bool) $common);
+            } else {
+                $moreCondition .= 'null !== ' . $this->generateGetter('$page', $moreResult, (bool) $common);
+            }
         }
         $setter = '';
         foreach ($inputToken as $index => $property) {
