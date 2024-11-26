@@ -128,6 +128,26 @@ final class CompleteMultipartUploadRequest extends Input
     private $expectedBucketOwner;
 
     /**
+     * Uploads the object only if the ETag (entity tag) value provided during the WRITE operation matches the ETag of the
+     * object in S3. If the ETag values do not match, the operation returns a `412 Precondition Failed` error.
+     *
+     * If a conflicting operation occurs during the upload S3 returns a `409 ConditionalRequestConflict` response. On a 409
+     * failure you should fetch the object's ETag, re-initiate the multipart upload with `CreateMultipartUpload`, and
+     * re-upload each part.
+     *
+     * Expects the ETag value as a string.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1], or Conditional requests [^2] in the *Amazon S3
+     * User Guide*.
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-requests.html
+     *
+     * @var string|null
+     */
+    private $ifMatch;
+
+    /**
      * Uploads the object only if the object key name does not already exist in the bucket specified. Otherwise, Amazon S3
      * returns a `412 Precondition Failed` error.
      *
@@ -197,6 +217,7 @@ final class CompleteMultipartUploadRequest extends Input
      *   ChecksumSHA256?: null|string,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatch?: null|string,
      *   IfNoneMatch?: null|string,
      *   SSECustomerAlgorithm?: null|string,
      *   SSECustomerKey?: null|string,
@@ -216,6 +237,7 @@ final class CompleteMultipartUploadRequest extends Input
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->ifMatch = $input['IfMatch'] ?? null;
         $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
         $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
@@ -235,6 +257,7 @@ final class CompleteMultipartUploadRequest extends Input
      *   ChecksumSHA256?: null|string,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
+     *   IfMatch?: null|string,
      *   IfNoneMatch?: null|string,
      *   SSECustomerAlgorithm?: null|string,
      *   SSECustomerKey?: null|string,
@@ -275,6 +298,11 @@ final class CompleteMultipartUploadRequest extends Input
     public function getExpectedBucketOwner(): ?string
     {
         return $this->expectedBucketOwner;
+    }
+
+    public function getIfMatch(): ?string
+    {
+        return $this->ifMatch;
     }
 
     public function getIfNoneMatch(): ?string
@@ -347,6 +375,9 @@ final class CompleteMultipartUploadRequest extends Input
         }
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
+        }
+        if (null !== $this->ifMatch) {
+            $headers['If-Match'] = $this->ifMatch;
         }
         if (null !== $this->ifNoneMatch) {
             $headers['If-None-Match'] = $this->ifNoneMatch;
@@ -429,6 +460,13 @@ final class CompleteMultipartUploadRequest extends Input
     public function setExpectedBucketOwner(?string $value): self
     {
         $this->expectedBucketOwner = $value;
+
+        return $this;
+    }
+
+    public function setIfMatch(?string $value): self
+    {
+        $this->ifMatch = $value;
 
         return $this;
     }

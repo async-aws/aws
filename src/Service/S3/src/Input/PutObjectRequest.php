@@ -252,6 +252,25 @@ final class PutObjectRequest extends Input
     private $expires;
 
     /**
+     * Uploads the object only if the ETag (entity tag) value provided during the WRITE operation matches the ETag of the
+     * object in S3. If the ETag values do not match, the operation returns a `412 Precondition Failed` error.
+     *
+     * If a conflicting operation occurs during the upload S3 returns a `409 ConditionalRequestConflict` response. On a 409
+     * failure you should fetch the object's ETag and retry the upload.
+     *
+     * Expects the ETag value as a string.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1], or Conditional requests [^2] in the *Amazon S3
+     * User Guide*.
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-requests.html
+     *
+     * @var string|null
+     */
+    private $ifMatch;
+
+    /**
      * Uploads the object only if the object key name does not already exist in the bucket specified. Otherwise, Amazon S3
      * returns a `412 Precondition Failed` error.
      *
@@ -597,6 +616,7 @@ final class PutObjectRequest extends Input
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Expires?: null|\DateTimeImmutable|string,
+     *   IfMatch?: null|string,
      *   IfNoneMatch?: null|string,
      *   GrantFullControl?: null|string,
      *   GrantRead?: null|string,
@@ -641,6 +661,7 @@ final class PutObjectRequest extends Input
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
         $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->ifMatch = $input['IfMatch'] ?? null;
         $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
@@ -685,6 +706,7 @@ final class PutObjectRequest extends Input
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Expires?: null|\DateTimeImmutable|string,
+     *   IfMatch?: null|string,
      *   IfNoneMatch?: null|string,
      *   GrantFullControl?: null|string,
      *   GrantRead?: null|string,
@@ -833,6 +855,11 @@ final class PutObjectRequest extends Input
     public function getGrantWriteAcp(): ?string
     {
         return $this->grantWriteAcp;
+    }
+
+    public function getIfMatch(): ?string
+    {
+        return $this->ifMatch;
     }
 
     public function getIfNoneMatch(): ?string
@@ -992,6 +1019,9 @@ final class PutObjectRequest extends Input
         }
         if (null !== $this->expires) {
             $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+        }
+        if (null !== $this->ifMatch) {
+            $headers['If-Match'] = $this->ifMatch;
         }
         if (null !== $this->ifNoneMatch) {
             $headers['If-None-Match'] = $this->ifNoneMatch;
@@ -1258,6 +1288,13 @@ final class PutObjectRequest extends Input
     public function setGrantWriteAcp(?string $value): self
     {
         $this->grantWriteAcp = $value;
+
+        return $this;
+    }
+
+    public function setIfMatch(?string $value): self
+    {
+        $this->ifMatch = $value;
 
         return $this;
     }
