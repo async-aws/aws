@@ -13,10 +13,11 @@ final class GetBucketEncryptionRequest extends Input
      * The name of the bucket from which the server-side encryption configuration is retrieved.
      *
      * **Directory buckets ** - When you use this operation with a directory bucket, you must use path-style requests in the
-     * format `https://s3express-control.*region_code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
-     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must also follow the
-     * format `*bucket_base_name*--*az_id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`). For information
-     * about bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*
+     * format `https://s3express-control.*region-code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
+     * supported. Directory bucket names must be unique in the chosen Zone (Availability Zone or Local Zone). Bucket names
+     * must also follow the format `*bucket-base-name*--*zone-id*--x-s3` (for example,
+     * `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`). For information about bucket naming restrictions, see Directory bucket
+     * naming rules [^1] in the *Amazon S3 User Guide*
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
      *

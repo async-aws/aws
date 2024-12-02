@@ -20,7 +20,8 @@ class CopyObjectOutput extends Result
     /**
      * If the object expiration is configured, the response includes this header.
      *
-     * > This functionality is not supported for directory buckets.
+     * > Object expiration information is not returned in directory buckets and this header returns the value
+     * > "`NotImplemented`" in all responses for directory buckets.
      *
      * @var string|null
      */

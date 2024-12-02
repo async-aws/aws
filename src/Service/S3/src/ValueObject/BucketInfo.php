@@ -17,7 +17,7 @@ use AsyncAws\S3\Enum\DataRedundancy;
 final class BucketInfo
 {
     /**
-     * The number of Availability Zone that's used for redundancy for the bucket.
+     * The number of Zone (Availability Zone or Local Zone) that's used for redundancy for the bucket.
      *
      * @var DataRedundancy::*|null
      */

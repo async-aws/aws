@@ -8,8 +8,8 @@ use AsyncAws\S3\Enum\LocationType;
 /**
  * Specifies the location where the bucket will be created.
  *
- * For directory buckets, the location type is Availability Zone. For more information about directory buckets, see
- * Directory buckets [^1] in the *Amazon S3 User Guide*.
+ * For directory buckets, the location type is Availability Zone or Local Zone. For more information about directory
+ * buckets, see Directory buckets [^1] in the *Amazon S3 User Guide*.
  *
  * > This functionality is only supported by directory buckets.
  *
@@ -27,8 +27,8 @@ final class LocationInfo
     /**
      * The name of the location where the bucket will be created.
      *
-     * For directory buckets, the name of the location is the AZ ID of the Availability Zone where the bucket will be
-     * created. An example AZ ID value is `usw2-az1`.
+     * For directory buckets, the name of the location is the Zone ID of the Availability Zone (AZ) or Local Zone (LZ) where
+     * the bucket will be created. An example AZ ID value is `usw2-az1`.
      *
      * @var string|null
      */

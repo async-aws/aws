@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Amazon S3 introduces support for AWS Dedicated Local Zones
+
 ## 2.6.0
 
 ### Added
