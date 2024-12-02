@@ -56,10 +56,11 @@ final class PutObjectRequest extends Input
      * The bucket name to which the PUT action was initiated.
      *
      * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
-     * requests in the format `*Bucket_name*.s3express-*az_id*.*region*.amazonaws.com`. Path-style requests are not
-     * supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format
-     * `*bucket_base_name*--*az-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`). For information about
-     * bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User Guide*.
+     * requests in the format `*Bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com`. Path-style requests are not
+     * supported. Directory bucket names must be unique in the chosen Zone (Availability Zone or Local Zone). Bucket names
+     * must follow the format `*bucket-base-name*--*zone-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`).
+     * For information about bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User
+     * Guide*.
      *
      * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
      * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests

@@ -24,7 +24,7 @@ class EventBridgeClient extends AbstractApi
      * PutEvents accepts the data in JSON format. For the JSON number (integer) data type, the constraints are: a minimum
      * value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807.
      *
-     * > PutEvents will only process nested JSON up to 1100 levels deep.
+     * > PutEvents will only process nested JSON up to 1000 levels deep.
      *
      * [^1]: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-putevent-size.html
      *

@@ -14,7 +14,8 @@ class PutObjectOutput extends Result
      * Guide*, the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide
      * information about object expiration. The value of the `rule-id` is URL-encoded.
      *
-     * > This functionality is not supported for directory buckets.
+     * > Object expiration information is not returned in directory buckets and this header returns the value
+     * > "`NotImplemented`" in all responses for directory buckets.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
      *

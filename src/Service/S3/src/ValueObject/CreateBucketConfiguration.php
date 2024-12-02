@@ -29,9 +29,14 @@ final class CreateBucketConfiguration
     /**
      * Specifies the location where the bucket will be created.
      *
-     * For directory buckets, the location type is Availability Zone.
+     * **Directory buckets ** - The location type is Availability Zone or Local Zone. When the location type is Local Zone,
+     * your Local Zone must be in opt-in status. Otherwise, you get an HTTP `400 Bad Request` error with the error code
+     * `Access denied`. To learn more about opt-in Local Zones, see Opt-in Dedicated Local Zones [^1]in the *Amazon S3 User
+     * Guide*.
      *
      * > This functionality is only supported by directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/opt-in-directory-bucket-lz.html
      *
      * @var LocationInfo|null
      */
