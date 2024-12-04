@@ -348,6 +348,7 @@ class CreateTableOutput extends Result
             'DeletionProtectionEnabled' => isset($json['DeletionProtectionEnabled']) ? filter_var($json['DeletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
             'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultTableWarmThroughputDescription($json['WarmThroughput']),
+            'MultiRegionConsistency' => isset($json['MultiRegionConsistency']) ? (string) $json['MultiRegionConsistency'] : null,
         ]);
     }
 

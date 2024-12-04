@@ -19,7 +19,7 @@ final class Entity
      * For details about how to use the key attributes to specify an entity, see How to add related information to telemetry
      * [^1] in the *CloudWatch User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/adding-your-own-related-telemetry.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html
      *
      * @var array<string, string>|null
      */
@@ -32,7 +32,7 @@ final class Entity
      * For details about how to use the attributes, see How to add related information to telemetry [^1] in the *CloudWatch
      * User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/adding-your-own-related-telemetry.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html
      *
      * @var array<string, string>|null
      */

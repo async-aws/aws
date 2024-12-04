@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
@@ -124,6 +125,30 @@ final class UpdateTableInput extends Input
     private $deletionProtectionEnabled;
 
     /**
+     * Specifies the consistency mode for a new global table. This parameter is only valid when you create a global table by
+     * specifying one or more Create [^1] actions in the ReplicaUpdates [^2] action list.
+     *
+     * You can specify one of the following consistency modes:
+     *
+     * - `EVENTUAL`: Configures a new global table for multi-Region eventual consistency. This is the default consistency
+     *   mode for global tables.
+     * - `STRONG`: Configures a new global table for multi-Region strong consistency (preview).
+     *
+     *   > Multi-Region strong consistency (MRSC) is a new DynamoDB global tables capability currently available in preview
+     *   > mode. For more information, see Global tables multi-Region strong consistency [^3].
+     *
+     *
+     * If you don't specify this parameter, the global table consistency mode defaults to `EVENTUAL`.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicationGroupUpdate.html#DDB-Type-ReplicationGroupUpdate-Create
+     * [^2]: https://docs.aws.amazon.com/https:/docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#DDB-UpdateTable-request-ReplicaUpdates
+     * [^3]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PreviewFeatures.html#multi-region-strong-consistency-gt
+     *
+     * @var MultiRegionConsistency::*|null
+     */
+    private $multiRegionConsistency;
+
+    /**
      * Updates the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
      * this parameter, you must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
      *
@@ -150,6 +175,7 @@ final class UpdateTableInput extends Input
      *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
@@ -167,6 +193,7 @@ final class UpdateTableInput extends Input
         $this->replicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
+        $this->multiRegionConsistency = $input['MultiRegionConsistency'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         parent::__construct($input);
@@ -184,6 +211,7 @@ final class UpdateTableInput extends Input
      *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
@@ -221,6 +249,14 @@ final class UpdateTableInput extends Input
     public function getGlobalSecondaryIndexUpdates(): array
     {
         return $this->globalSecondaryIndexUpdates ?? [];
+    }
+
+    /**
+     * @return MultiRegionConsistency::*|null
+     */
+    public function getMultiRegionConsistency(): ?string
+    {
+        return $this->multiRegionConsistency;
     }
 
     public function getOnDemandThroughput(): ?OnDemandThroughput
@@ -328,6 +364,16 @@ final class UpdateTableInput extends Input
     public function setGlobalSecondaryIndexUpdates(array $value): self
     {
         $this->globalSecondaryIndexUpdates = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param MultiRegionConsistency::*|null $value
+     */
+    public function setMultiRegionConsistency(?string $value): self
+    {
+        $this->multiRegionConsistency = $value;
 
         return $this;
     }
@@ -448,6 +494,12 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->deletionProtectionEnabled) {
             $payload['DeletionProtectionEnabled'] = (bool) $v;
+        }
+        if (null !== $v = $this->multiRegionConsistency) {
+            if (!MultiRegionConsistency::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "MultiRegionConsistency" for "%s". The value "%s" is not a valid "MultiRegionConsistency".', __CLASS__, $v));
+            }
+            $payload['MultiRegionConsistency'] = $v;
         }
         if (null !== $v = $this->onDemandThroughput) {
             $payload['OnDemandThroughput'] = $v->requestBody();
