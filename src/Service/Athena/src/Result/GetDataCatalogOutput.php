@@ -36,6 +36,9 @@ class GetDataCatalogOutput extends Result
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'Type' => (string) $json['Type'],
             'Parameters' => !isset($json['Parameters']) ? null : $this->populateResultParametersMap($json['Parameters']),
+            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+            'ConnectionType' => isset($json['ConnectionType']) ? (string) $json['ConnectionType'] : null,
+            'Error' => isset($json['Error']) ? (string) $json['Error'] : null,
         ]);
     }
 

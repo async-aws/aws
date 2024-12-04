@@ -9,6 +9,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\DynamoDb\Enum\BillingMode;
 use AsyncAws\DynamoDb\Enum\ConditionalOperator;
+use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
 use AsyncAws\DynamoDb\Enum\ReturnValue;
@@ -22,6 +23,7 @@ use AsyncAws\DynamoDb\Exception\InternalServerErrorException;
 use AsyncAws\DynamoDb\Exception\ItemCollectionSizeLimitExceededException;
 use AsyncAws\DynamoDb\Exception\LimitExceededException;
 use AsyncAws\DynamoDb\Exception\ProvisionedThroughputExceededException;
+use AsyncAws\DynamoDb\Exception\ReplicatedWriteConflictException;
 use AsyncAws\DynamoDb\Exception\RequestLimitExceededException;
 use AsyncAws\DynamoDb\Exception\ResourceInUseException;
 use AsyncAws\DynamoDb\Exception\ResourceNotFoundException;
@@ -345,6 +347,7 @@ class DynamoDbClient extends AbstractApi
      * @throws TransactionConflictException
      * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ReplicatedWriteConflictException
      */
     public function deleteItem($input): DeleteItemOutput
     {
@@ -357,6 +360,7 @@ class DynamoDbClient extends AbstractApi
             'TransactionConflictException' => TransactionConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new DeleteItemOutput($response);
@@ -630,6 +634,7 @@ class DynamoDbClient extends AbstractApi
      * @throws TransactionConflictException
      * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ReplicatedWriteConflictException
      */
     public function putItem($input): PutItemOutput
     {
@@ -642,6 +647,7 @@ class DynamoDbClient extends AbstractApi
             'TransactionConflictException' => TransactionConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new PutItemOutput($response);
@@ -953,6 +959,7 @@ class DynamoDbClient extends AbstractApi
      * @throws TransactionConflictException
      * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ReplicatedWriteConflictException
      */
     public function updateItem($input): UpdateItemOutput
     {
@@ -965,6 +972,7 @@ class DynamoDbClient extends AbstractApi
             'TransactionConflictException' => TransactionConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateItemOutput($response);
@@ -1001,6 +1009,7 @@ class DynamoDbClient extends AbstractApi
      *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,

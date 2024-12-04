@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\TableStatus;
 
 /**
@@ -309,6 +310,24 @@ final class TableDescription
     private $warmThroughput;
 
     /**
+     * Indicates one of the following consistency modes for a global table:
+     *
+     * - `EVENTUAL`: Indicates that the global table is configured for multi-Region eventual consistency.
+     * - `STRONG`: Indicates that the global table is configured for multi-Region strong consistency (preview).
+     *
+     *   > Multi-Region strong consistency (MRSC) is a new DynamoDB global tables capability currently available in preview
+     *   > mode. For more information, see Global tables multi-Region strong consistency [^1].
+     *
+     *
+     * If you don't specify this field, the global table consistency mode defaults to `EVENTUAL`.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PreviewFeatures.html#multi-region-strong-consistency-gt
+     *
+     * @var MultiRegionConsistency::*|null
+     */
+    private $multiRegionConsistency;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: null|string,
@@ -335,6 +354,7 @@ final class TableDescription
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|TableWarmThroughputDescription|array,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
      * } $input
      */
     public function __construct(array $input)
@@ -364,6 +384,7 @@ final class TableDescription
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? TableWarmThroughputDescription::create($input['WarmThroughput']) : null;
+        $this->multiRegionConsistency = $input['MultiRegionConsistency'] ?? null;
     }
 
     /**
@@ -393,6 +414,7 @@ final class TableDescription
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|TableWarmThroughputDescription|array,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
      * }|TableDescription $input
      */
     public static function create($input): self
@@ -470,6 +492,14 @@ final class TableDescription
     public function getLocalSecondaryIndexes(): array
     {
         return $this->localSecondaryIndexes ?? [];
+    }
+
+    /**
+     * @return MultiRegionConsistency::*|null
+     */
+    public function getMultiRegionConsistency(): ?string
+    {
+        return $this->multiRegionConsistency;
     }
 
     public function getOnDemandThroughput(): ?OnDemandThroughput
