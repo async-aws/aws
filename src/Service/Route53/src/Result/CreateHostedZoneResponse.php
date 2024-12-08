@@ -90,7 +90,7 @@ class CreateHostedZoneResponse extends Result
     {
         $headers = $response->getHeaders();
 
-        $this->location = $headers['location'][0] ?? null;
+        $this->location = $headers['location'][0];
 
         $data = new \SimpleXMLElement($response->getContent());
         $this->hostedZone = $this->populateResultHostedZone($data->HostedZone);
