@@ -39,6 +39,7 @@ final class DataSource
      * - **AMAZON_ELASTICSEARCH**: The data source is an Amazon OpenSearch Service domain.
      * - **AMAZON_OPENSEARCH_SERVICE**: The data source is an Amazon OpenSearch Service domain.
      * - **AMAZON_EVENTBRIDGE**: The data source is an Amazon EventBridge configuration.
+     * - **AMAZON_BEDROCK_RUNTIME**: The data source is the Amazon Bedrock runtime.
      * - **NONE**: There is no data source. Use this type when you want to invoke a GraphQL operation without connecting to
      *   a data source, such as when you're performing data transformation with resolvers or invoking a subscription from a
      *   mutation.
