@@ -21,7 +21,7 @@ final class ChangePasswordRequest extends Input
     private $previousPassword;
 
     /**
-     * The new password.
+     * A new password that you prompted the user to enter in your application.
      *
      * @required
      *

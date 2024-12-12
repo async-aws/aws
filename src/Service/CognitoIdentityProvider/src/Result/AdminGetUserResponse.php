@@ -21,14 +21,15 @@ class AdminGetUserResponse extends Result
     private $username;
 
     /**
-     * An array of name-value pairs representing user attributes.
+     * An array of name-value pairs of user attributes and their values, for example `"email": "testuser@example.com"`.
      *
      * @var AttributeType[]
      */
     private $userAttributes;
 
     /**
-     * The date the user was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format. Your
+     * SDK might render the output in a human-readable format like ISO 8601 or a Java `Date` object.
      *
      * @var \DateTimeImmutable|null
      */
@@ -43,14 +44,18 @@ class AdminGetUserResponse extends Result
     private $userLastModifiedDate;
 
     /**
-     * Indicates that the status is `enabled`.
+     * Indicates whether the user is activated for sign-in. The AdminDisableUser [^1] and AdminEnableUser [^2] API
+     * operations deactivate and activate user sign-in, respectively.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDisableUser.html
+     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminEnableUser.html
      *
      * @var bool|null
      */
     private $enabled;
 
     /**
-     * The user status. Can be one of the following:
+     * The user's status. Can be one of the following:
      *
      * - UNCONFIRMED - User has been created but not confirmed.
      * - CONFIRMED - User has been confirmed.
@@ -59,6 +64,7 @@ class AdminGetUserResponse extends Result
      *   in.
      * - FORCE_CHANGE_PASSWORD - The user is confirmed and the user can sign in using a temporary password, but on first
      *   sign-in, the user must change their password to a new value before doing anything else.
+     * - EXTERNAL_PROVIDER - The user signed in with a third-party identity provider.
      *
      * @var UserStatusType::*|null
      */
@@ -74,7 +80,7 @@ class AdminGetUserResponse extends Result
     private $mfaOptions;
 
     /**
-     * The user's preferred MFA setting.
+     * The user's preferred MFA. Users can prefer SMS message, email message, or TOTP MFA.
      *
      * @var string|null
      */
@@ -82,7 +88,11 @@ class AdminGetUserResponse extends Result
 
     /**
      * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA`, `EMAIL_OTP`, and
-     * `SOFTWARE_TOKEN_MFA`.
+     * `SOFTWARE_TOKEN_MFA`. You can change the MFA preference for users who have more than one available MFA factor with
+     * AdminSetUserMFAPreference [^1] or SetUserMFAPreference [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserMFAPreference.html
+     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html
      *
      * @var string[]
      */

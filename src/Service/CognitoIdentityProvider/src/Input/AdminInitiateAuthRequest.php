@@ -16,7 +16,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminInitiateAuthRequest extends Input
 {
     /**
-     * The ID of the Amazon Cognito user pool.
+     * The ID of the user pool where the user wants to sign in.
      *
      * @required
      *
@@ -25,7 +25,7 @@ final class AdminInitiateAuthRequest extends Input
     private $userPoolId;
 
     /**
-     * The app client ID.
+     * The ID of the app client where the user wants to sign in.
      *
      * @required
      *
@@ -34,8 +34,8 @@ final class AdminInitiateAuthRequest extends Input
     private $clientId;
 
     /**
-     * The authentication flow that you want to initiate. The `AuthParameters` that you must submit are linked to the flow
-     * that you submit. For example:
+     * The authentication flow that you want to initiate. Each `AuthFlow` has linked `AuthParameters` that you must submit.
+     * The following are some example flows and their parameters.
      *
      * - `USER_AUTH`: Request a preferred authentication type or review available authentication types. From the offered
      *   authentication types, select one in a challenge response and then authenticate with that method in an additional
@@ -47,11 +47,11 @@ final class AdminInitiateAuthRequest extends Input
      * - `ADMIN_USER_PASSWORD_AUTH`: Receive new tokens or the next challenge, for example `SOFTWARE_TOKEN_MFA`, when you
      *   pass `USERNAME` and `PASSWORD` parameters.
      *
-     * Valid values include the following:
+     * *All flows*
      *
      * - `USER_AUTH`:
      *
-     *   The entry point for sign-in with passwords, one-time passwords, biometric devices, and security keys.
+     *   The entry point for sign-in with passwords, one-time passwords, and WebAuthN authenticators.
      * - `USER_SRP_AUTH`:
      *
      *   Username-password authentication with the Secure Remote Password (SRP) protocol. For more information, see Use SRP
@@ -140,13 +140,13 @@ final class AdminInitiateAuthRequest extends Input
      * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
      * Guide*.
      *
-     * > When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >
-     * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
-     * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * > - Store the `ClientMetadata` value. This data is available only to Lambda triggers that are assigned to a user pool
+     * >   to support custom workflows. If your user pool configuration doesn't include triggers, the `ClientMetadata`
      * >   parameter serves no purpose.
-     * > - Validate the ClientMetadata value.
-     * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * > - Validate the `ClientMetadata` value.
+     * > - Encrypt the `ClientMetadata` value. Don't send sensitive information in this parameter.
      * >
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
@@ -156,7 +156,7 @@ final class AdminInitiateAuthRequest extends Input
     private $clientMetadata;
 
     /**
-     * The analytics metadata for collecting Amazon Pinpoint metrics for `AdminInitiateAuth` calls.
+     * The analytics metadata for collecting Amazon Pinpoint metrics.
      *
      * @var AnalyticsMetadataType|null
      */
@@ -167,13 +167,18 @@ final class AdminInitiateAuthRequest extends Input
      * advanced security evaluates the risk of an authentication event based on the context that your app generates and
      * passes to Amazon Cognito when it makes API requests.
      *
+     * For more information, see Collecting data for threat protection in applications [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-viewing-threat-protection-app.html
+     *
      * @var ContextDataType|null
      */
     private $contextData;
 
     /**
      * The optional session ID from a `ConfirmSignUp` API request. You can sign in a user directly from the sign-up process
-     * with the `USER_AUTH` authentication flow.
+     * with an `AuthFlow` of `USER_AUTH` and `AuthParameters` of `EMAIL_OTP` or `SMS_OTP`, depending on how your user pool
+     * sent the confirmation-code message.
      *
      * @var string|null
      */

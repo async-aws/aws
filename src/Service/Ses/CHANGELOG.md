@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Introduces support for multi-region endpoint.
+- AWS api-change: Introduces support for creating DEED (Deterministic Easy-DKIM) identities.
+
 ## 1.9.0
 
 ### Added

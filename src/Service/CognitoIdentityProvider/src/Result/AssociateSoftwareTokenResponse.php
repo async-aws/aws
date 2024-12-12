@@ -8,15 +8,17 @@ use AsyncAws\Core\Result;
 class AssociateSoftwareTokenResponse extends Result
 {
     /**
-     * A unique generated shared secret code that is used in the TOTP algorithm to generate a one-time code.
+     * A unique generated shared secret code that is used by the TOTP algorithm to generate a one-time code.
      *
      * @var string|null
      */
     private $secretCode;
 
     /**
-     * The session that should be passed both ways in challenge-response calls to the service. This allows authentication of
-     * the user as part of the MFA setup process.
+     * The session identifier that maintains the state of authentication requests and challenge responses. This session ID
+     * is valid for the next request in this flow, VerifySoftwareToken [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html
      *
      * @var string|null
      */

@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ListUsersRequest extends Input
 {
     /**
-     * The user pool ID for the user pool on which the search should be performed.
+     * The ID of the user pool on which the search should be performed.
      *
      * @required
      *

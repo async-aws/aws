@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminDisableUserRequest extends Input
 {
     /**
-     * The user pool ID for the user pool where you want to disable the user.
+     * The ID of the user pool where you want to disable the user.
      *
      * @required
      *

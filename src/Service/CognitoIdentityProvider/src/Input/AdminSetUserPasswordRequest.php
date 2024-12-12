@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminSetUserPasswordRequest extends Input
 {
     /**
-     * The user pool ID for the user pool where you want to set the user's password.
+     * The ID of the user pool where you want to set the user's password.
      *
      * @required
      *
@@ -30,7 +30,9 @@ final class AdminSetUserPasswordRequest extends Input
     private $username;
 
     /**
-     * The password for the user.
+     * The new temporary or permanent password that you want to set for the user. You can't remove the password for a user
+     * who already has a password so that they can only sign in with passwordless methods. In this scenario, you must create
+     * a new user without a password.
      *
      * @required
      *
@@ -39,7 +41,8 @@ final class AdminSetUserPasswordRequest extends Input
     private $password;
 
     /**
-     * `True` if the password is permanent, `False` if it is temporary.
+     * Set to `true` to set a password that the user can immediately sign in with. Set to `false` to set a temporary
+     * password that the user must change on their next sign-in.
      *
      * @var bool|null
      */
