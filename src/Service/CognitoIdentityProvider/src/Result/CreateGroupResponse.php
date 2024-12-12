@@ -9,7 +9,7 @@ use AsyncAws\Core\Result;
 class CreateGroupResponse extends Result
 {
     /**
-     * The group object for the group.
+     * The response object for a created group.
      *
      * @var GroupType|null
      */

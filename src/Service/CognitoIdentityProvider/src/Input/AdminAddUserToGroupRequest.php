@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminAddUserToGroupRequest extends Input
 {
     /**
-     * The user pool ID for the user pool.
+     * The ID of the user pool that contains the group that you want to add the user to.
      *
      * @required
      *

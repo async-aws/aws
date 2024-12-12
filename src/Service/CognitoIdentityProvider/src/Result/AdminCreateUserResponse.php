@@ -14,7 +14,7 @@ use AsyncAws\Core\Result;
 class AdminCreateUserResponse extends Result
 {
     /**
-     * The newly created user.
+     * The new user's profile details.
      *
      * @var UserType|null
      */

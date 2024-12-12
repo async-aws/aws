@@ -72,10 +72,10 @@ class AdminInitiateAuthResponse extends Result
     private $challengeName;
 
     /**
-     * The session that should be passed both ways in challenge-response calls to the service. If `AdminInitiateAuth` or
-     * `AdminRespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session
-     * with other challenge parameters. This session should be passed as it is to the next `AdminRespondToAuthChallenge` API
-     * call.
+     * The session that must be passed to challenge-response requests. If an `AdminInitiateAuth` or
+     * `AdminRespondToAuthChallenge` API request determines that the caller must pass another challenge, Amazon Cognito
+     * returns a session ID and the parameters of the next challenge. Pass this session Id in the `Session` parameter of
+     * `AdminRespondToAuthChallenge`.
      *
      * @var string|null
      */
@@ -97,9 +97,9 @@ class AdminInitiateAuthResponse extends Result
     private $challengeParameters;
 
     /**
-     * The result of the authentication response. This is only returned if the caller doesn't need to pass another
-     * challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`,
-     * `ChallengeParameters`, and `Session` are returned.
+     * The outcome of successful authentication. This is only returned if the user pool has no additional challenges to
+     * return. If Amazon Cognito returns another challenge, the response includes `ChallengeName`, `ChallengeParameters`,
+     * and `Session` so that your user can answer the challenge.
      *
      * @var AuthenticationResultType|null
      */

@@ -161,6 +161,10 @@ final class RespondToAuthChallengeRequest extends Input
      * advanced security evaluates the risk of an authentication event based on the context that your app generates and
      * passes to Amazon Cognito when it makes API requests.
      *
+     * For more information, see Collecting data for threat protection in applications [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-viewing-threat-protection-app.html
+     *
      * @var UserContextDataType|null
      */
     private $userContextData;
@@ -179,13 +183,13 @@ final class RespondToAuthChallengeRequest extends Input
      * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
      * Guide*.
      *
-     * > When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >
-     * > - Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
-     * >   to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * > - Store the `ClientMetadata` value. This data is available only to Lambda triggers that are assigned to a user pool
+     * >   to support custom workflows. If your user pool configuration doesn't include triggers, the `ClientMetadata`
      * >   parameter serves no purpose.
-     * > - Validate the ClientMetadata value.
-     * > - Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * > - Validate the `ClientMetadata` value.
+     * > - Encrypt the `ClientMetadata` value. Don't send sensitive information in this parameter.
      * >
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html

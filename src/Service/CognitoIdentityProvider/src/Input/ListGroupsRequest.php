@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ListGroupsRequest extends Input
 {
     /**
-     * The user pool ID for the user pool.
+     * The ID of the user pool.
      *
      * @required
      *

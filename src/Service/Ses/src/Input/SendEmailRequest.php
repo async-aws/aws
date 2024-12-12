@@ -115,6 +115,13 @@ final class SendEmailRequest extends Input
     private $configurationSetName;
 
     /**
+     * The ID of the multi-region endpoint (global-endpoint).
+     *
+     * @var string|null
+     */
+    private $endpointId;
+
+    /**
      * An object used to specify a list or topic to which an email belongs, which will be used when a contact chooses to
      * unsubscribe.
      *
@@ -133,6 +140,7 @@ final class SendEmailRequest extends Input
      *   Content?: EmailContent|array,
      *   EmailTags?: null|array<MessageTag|array>,
      *   ConfigurationSetName?: null|string,
+     *   EndpointId?: null|string,
      *   ListManagementOptions?: null|ListManagementOptions|array,
      *   '@region'?: string|null,
      * } $input
@@ -148,6 +156,7 @@ final class SendEmailRequest extends Input
         $this->content = isset($input['Content']) ? EmailContent::create($input['Content']) : null;
         $this->emailTags = isset($input['EmailTags']) ? array_map([MessageTag::class, 'create'], $input['EmailTags']) : null;
         $this->configurationSetName = $input['ConfigurationSetName'] ?? null;
+        $this->endpointId = $input['EndpointId'] ?? null;
         $this->listManagementOptions = isset($input['ListManagementOptions']) ? ListManagementOptions::create($input['ListManagementOptions']) : null;
         parent::__construct($input);
     }
@@ -163,6 +172,7 @@ final class SendEmailRequest extends Input
      *   Content?: EmailContent|array,
      *   EmailTags?: null|array<MessageTag|array>,
      *   ConfigurationSetName?: null|string,
+     *   EndpointId?: null|string,
      *   ListManagementOptions?: null|ListManagementOptions|array,
      *   '@region'?: string|null,
      * }|SendEmailRequest $input
@@ -193,6 +203,11 @@ final class SendEmailRequest extends Input
     public function getEmailTags(): array
     {
         return $this->emailTags ?? [];
+    }
+
+    public function getEndpointId(): ?string
+    {
+        return $this->endpointId;
     }
 
     public function getFeedbackForwardingEmailAddress(): ?string
@@ -284,6 +299,13 @@ final class SendEmailRequest extends Input
         return $this;
     }
 
+    public function setEndpointId(?string $value): self
+    {
+        $this->endpointId = $value;
+
+        return $this;
+    }
+
     public function setFeedbackForwardingEmailAddress(?string $value): self
     {
         $this->feedbackForwardingEmailAddress = $value;
@@ -369,6 +391,9 @@ final class SendEmailRequest extends Input
         }
         if (null !== $v = $this->configurationSetName) {
             $payload['ConfigurationSetName'] = $v;
+        }
+        if (null !== $v = $this->endpointId) {
+            $payload['EndpointId'] = $v;
         }
         if (null !== $v = $this->listManagementOptions) {
             $payload['ListManagementOptions'] = $v->requestBody();

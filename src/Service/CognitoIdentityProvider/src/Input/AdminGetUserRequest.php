@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminGetUserRequest extends Input
 {
     /**
-     * The user pool ID for the user pool where you want to get information about the user.
+     * The ID of the user pool where you want to get information about the user.
      *
      * @required
      *

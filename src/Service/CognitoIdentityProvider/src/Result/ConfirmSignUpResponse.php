@@ -11,9 +11,9 @@ use AsyncAws\Core\Result;
 class ConfirmSignUpResponse extends Result
 {
     /**
-     * You can automatically sign users in with the one-time password that they provided in a successful `ConfirmSignUp`
-     * request. To do this, pass the `Session` parameter from the `ConfirmSignUp` response in the `Session` parameter of an
-     * InitiateAuth [^1] or AdminInitiateAuth [^2] request.
+     * A session identifier that you can use to immediately sign in the confirmed user. You can automatically sign users in
+     * with the one-time password that they provided in a successful `ConfirmSignUp` request. To do this, pass the `Session`
+     * parameter from this response in the `Session` parameter of an InitiateAuth [^1] or AdminInitiateAuth [^2] request.
      *
      * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html

@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class CreateGroupRequest extends Input
 {
     /**
-     * The name of the group. Must be unique.
+     * A name for the group. This name must be unique in your user pool.
      *
      * @required
      *
@@ -19,7 +19,7 @@ final class CreateGroupRequest extends Input
     private $groupName;
 
     /**
-     * The user pool ID for the user pool.
+     * The ID of the user pool where you want to create a user group.
      *
      * @required
      *
@@ -28,14 +28,17 @@ final class CreateGroupRequest extends Input
     private $userPoolId;
 
     /**
-     * A string containing the description of the group.
+     * A description of the group that you're creating.
      *
      * @var string|null
      */
     private $description;
 
     /**
-     * The role Amazon Resource Name (ARN) for the group.
+     * The Amazon Resource Name (ARN) for the IAM role that you want to associate with the group. A group role primarily
+     * declares a preferred role for the credentials that you get from an identity pool. Amazon Cognito ID tokens have a
+     * `cognito:preferred_role` claim that presents the highest-precedence group that a user belongs to. Both ID and access
+     * tokens also contain a `cognito:groups` claim that list all the groups that a user is a member of.
      *
      * @var string|null
      */

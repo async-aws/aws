@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminRemoveUserFromGroupRequest extends Input
 {
     /**
-     * The user pool ID for the user pool.
+     * The ID of the user pool that contains the group and the user that you want to remove.
      *
      * @required
      *
@@ -30,7 +30,7 @@ final class AdminRemoveUserFromGroupRequest extends Input
     private $username;
 
     /**
-     * The group name.
+     * The name of the group that you want to remove the user from, for example `MyTestGroup`.
      *
      * @required
      *

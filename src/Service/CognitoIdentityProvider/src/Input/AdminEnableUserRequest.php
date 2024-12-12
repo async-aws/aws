@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminEnableUserRequest extends Input
 {
     /**
-     * The user pool ID for the user pool where you want to enable the user.
+     * The ID of the user pool where you want to activate sign-in for the user.
      *
      * @required
      *

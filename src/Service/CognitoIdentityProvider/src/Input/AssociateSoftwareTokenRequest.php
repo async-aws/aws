@@ -9,15 +9,17 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AssociateSoftwareTokenRequest extends Input
 {
     /**
-     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate. You can
+     * provide either an access token or a session ID in the request.
      *
      * @var string|null
      */
     private $accessToken;
 
     /**
-     * The session that should be passed both ways in challenge-response calls to the service. This allows authentication of
-     * the user as part of the MFA setup process.
+     * The session identifier that maintains the state of authentication requests and challenge responses. In
+     * `AssociateSoftwareToken`, this is the session ID from a successful sign-in. You can provide either an access token or
+     * a session ID in the request.
      *
      * @var string|null
      */

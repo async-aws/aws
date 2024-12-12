@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AdminUserGlobalSignOutRequest extends Input
 {
     /**
-     * The user pool ID.
+     * The ID of the user pool where you want to sign out a user.
      *
      * @required
      *
