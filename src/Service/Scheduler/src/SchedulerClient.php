@@ -368,6 +368,24 @@ class SchedulerClient extends AbstractApi
             $region = Configuration::DEFAULT_REGION;
         }
 
+        switch ($region) {
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://scheduler.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'scheduler',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://scheduler.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 'scheduler',
+                    'signVersions' => ['v4'],
+                ];
+        }
+
         return [
             'endpoint' => "https://scheduler.$region.amazonaws.com",
             'signRegion' => $region,
