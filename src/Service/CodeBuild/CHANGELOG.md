@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `us-iso-east-1` and `us-iso-west-1` regions.
 
 ## 2.6.0
 
