@@ -9,6 +9,7 @@ use AsyncAws\MediaConvert\Enum\ColorMetadata;
 use AsyncAws\MediaConvert\Enum\DropFrameTimecode;
 use AsyncAws\MediaConvert\Enum\RespondToAfd;
 use AsyncAws\MediaConvert\Enum\ScalingBehavior;
+use AsyncAws\MediaConvert\Enum\TimecodeTrack;
 use AsyncAws\MediaConvert\Enum\VideoTimecodeInsertion;
 
 /**
@@ -65,7 +66,7 @@ final class VideoDescription
     /**
      * Applies only to 29.97 fps outputs. When this feature is enabled, the service will use drop-frame timecode on outputs.
      * If it is not possible to use drop-frame timecode, the system will fall back to non-drop-frame. This setting is
-     * enabled by default when Timecode insertion is enabled.
+     * enabled by default when Timecode insertion or Timecode track is enabled.
      *
      * @var DropFrameTimecode::*|null
      */
@@ -139,6 +140,16 @@ final class VideoDescription
     private $timecodeInsertion;
 
     /**
+     * To include a timecode track in your MP4 output: Choose Enabled. MediaConvert writes the timecode track in the Null
+     * Media Header box (NMHD), without any timecode text formatting information. You can also specify dropframe or
+     * non-dropframe timecode under the Drop Frame Timecode setting. To not include a timecode track: Keep the default
+     * value, Disabled.
+     *
+     * @var TimecodeTrack::*|null
+     */
+    private $timecodeTrack;
+
+    /**
      * Find additional transcoding features under Preprocessors. Enable the features at each output individually. These
      * features are disabled by default.
      *
@@ -170,6 +181,7 @@ final class VideoDescription
      *   ScalingBehavior?: null|ScalingBehavior::*,
      *   Sharpness?: null|int,
      *   TimecodeInsertion?: null|VideoTimecodeInsertion::*,
+     *   TimecodeTrack?: null|TimecodeTrack::*,
      *   VideoPreprocessors?: null|VideoPreprocessor|array,
      *   Width?: null|int,
      * } $input
@@ -189,6 +201,7 @@ final class VideoDescription
         $this->scalingBehavior = $input['ScalingBehavior'] ?? null;
         $this->sharpness = $input['Sharpness'] ?? null;
         $this->timecodeInsertion = $input['TimecodeInsertion'] ?? null;
+        $this->timecodeTrack = $input['TimecodeTrack'] ?? null;
         $this->videoPreprocessors = isset($input['VideoPreprocessors']) ? VideoPreprocessor::create($input['VideoPreprocessors']) : null;
         $this->width = $input['Width'] ?? null;
     }
@@ -208,6 +221,7 @@ final class VideoDescription
      *   ScalingBehavior?: null|ScalingBehavior::*,
      *   Sharpness?: null|int,
      *   TimecodeInsertion?: null|VideoTimecodeInsertion::*,
+     *   TimecodeTrack?: null|TimecodeTrack::*,
      *   VideoPreprocessors?: null|VideoPreprocessor|array,
      *   Width?: null|int,
      * }|VideoDescription $input
@@ -303,6 +317,14 @@ final class VideoDescription
         return $this->timecodeInsertion;
     }
 
+    /**
+     * @return TimecodeTrack::*|null
+     */
+    public function getTimecodeTrack(): ?string
+    {
+        return $this->timecodeTrack;
+    }
+
     public function getVideoPreprocessors(): ?VideoPreprocessor
     {
         return $this->videoPreprocessors;
@@ -378,6 +400,12 @@ final class VideoDescription
                 throw new InvalidArgument(\sprintf('Invalid parameter "timecodeInsertion" for "%s". The value "%s" is not a valid "VideoTimecodeInsertion".', __CLASS__, $v));
             }
             $payload['timecodeInsertion'] = $v;
+        }
+        if (null !== $v = $this->timecodeTrack) {
+            if (!TimecodeTrack::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "timecodeTrack" for "%s". The value "%s" is not a valid "TimecodeTrack".', __CLASS__, $v));
+            }
+            $payload['timecodeTrack'] = $v;
         }
         if (null !== $v = $this->videoPreprocessors) {
             $payload['videoPreprocessors'] = $v->requestBody();
