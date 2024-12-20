@@ -13,6 +13,7 @@ use AsyncAws\MediaConvert\Enum\BurninSubtitleShadowColor;
 use AsyncAws\MediaConvert\Enum\BurnInSubtitleStylePassthrough;
 use AsyncAws\MediaConvert\Enum\BurninSubtitleTeletextSpacing;
 use AsyncAws\MediaConvert\Enum\FontScript;
+use AsyncAws\MediaConvert\Enum\RemoveRubyReserveAttributes;
 
 /**
  * Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly on your
@@ -169,6 +170,16 @@ final class BurninDestinationSettings
     private $outlineSize;
 
     /**
+     * Optionally remove any tts:rubyReserve attributes present in your input, that do  not have a tts:ruby attribute in the
+     * same element, from your output. Use if your vertical Japanese output captions have alignment issues. To remove ruby
+     * reserve attributes when present: Choose Enabled. To not remove any ruby reserve attributes: Keep the default value,
+     * Disabled.
+     *
+     * @var RemoveRubyReserveAttributes::*|null
+     */
+    private $removeRubyReserveAttributes;
+
+    /**
      * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to enabled
      * to use the shadow color data from your input captions, if present.
      *
@@ -262,6 +273,7 @@ final class BurninDestinationSettings
      *   HexFontColor?: null|string,
      *   OutlineColor?: null|BurninSubtitleOutlineColor::*,
      *   OutlineSize?: null|int,
+     *   RemoveRubyReserveAttributes?: null|RemoveRubyReserveAttributes::*,
      *   ShadowColor?: null|BurninSubtitleShadowColor::*,
      *   ShadowOpacity?: null|int,
      *   ShadowXOffset?: null|int,
@@ -291,6 +303,7 @@ final class BurninDestinationSettings
         $this->hexFontColor = $input['HexFontColor'] ?? null;
         $this->outlineColor = $input['OutlineColor'] ?? null;
         $this->outlineSize = $input['OutlineSize'] ?? null;
+        $this->removeRubyReserveAttributes = $input['RemoveRubyReserveAttributes'] ?? null;
         $this->shadowColor = $input['ShadowColor'] ?? null;
         $this->shadowOpacity = $input['ShadowOpacity'] ?? null;
         $this->shadowXoffset = $input['ShadowXOffset'] ?? null;
@@ -320,6 +333,7 @@ final class BurninDestinationSettings
      *   HexFontColor?: null|string,
      *   OutlineColor?: null|BurninSubtitleOutlineColor::*,
      *   OutlineSize?: null|int,
+     *   RemoveRubyReserveAttributes?: null|RemoveRubyReserveAttributes::*,
      *   ShadowColor?: null|BurninSubtitleShadowColor::*,
      *   ShadowOpacity?: null|int,
      *   ShadowXOffset?: null|int,
@@ -439,6 +453,14 @@ final class BurninDestinationSettings
     public function getOutlineSize(): ?int
     {
         return $this->outlineSize;
+    }
+
+    /**
+     * @return RemoveRubyReserveAttributes::*|null
+     */
+    public function getRemoveRubyReserveAttributes(): ?string
+    {
+        return $this->removeRubyReserveAttributes;
     }
 
     /**
@@ -567,6 +589,12 @@ final class BurninDestinationSettings
         }
         if (null !== $v = $this->outlineSize) {
             $payload['outlineSize'] = $v;
+        }
+        if (null !== $v = $this->removeRubyReserveAttributes) {
+            if (!RemoveRubyReserveAttributes::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "removeRubyReserveAttributes" for "%s". The value "%s" is not a valid "RemoveRubyReserveAttributes".', __CLASS__, $v));
+            }
+            $payload['removeRubyReserveAttributes'] = $v;
         }
         if (null !== $v = $this->shadowColor) {
             if (!BurninSubtitleShadowColor::exists($v)) {

@@ -542,6 +542,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'HexFontColor' => isset($json['hexFontColor']) ? (string) $json['hexFontColor'] : null,
             'OutlineColor' => isset($json['outlineColor']) ? (string) $json['outlineColor'] : null,
             'OutlineSize' => isset($json['outlineSize']) ? (int) $json['outlineSize'] : null,
+            'RemoveRubyReserveAttributes' => isset($json['removeRubyReserveAttributes']) ? (string) $json['removeRubyReserveAttributes'] : null,
             'ShadowColor' => isset($json['shadowColor']) ? (string) $json['shadowColor'] : null,
             'ShadowOpacity' => isset($json['shadowOpacity']) ? (int) $json['shadowOpacity'] : null,
             'ShadowXOffset' => isset($json['shadowXOffset']) ? (int) $json['shadowXOffset'] : null,
@@ -2193,6 +2194,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'ScalingBehavior' => isset($json['scalingBehavior']) ? (string) $json['scalingBehavior'] : null,
             'Sharpness' => isset($json['sharpness']) ? (int) $json['sharpness'] : null,
             'TimecodeInsertion' => isset($json['timecodeInsertion']) ? (string) $json['timecodeInsertion'] : null,
+            'TimecodeTrack' => isset($json['timecodeTrack']) ? (string) $json['timecodeTrack'] : null,
             'VideoPreprocessors' => empty($json['videoPreprocessors']) ? null : $this->populateResultVideoPreprocessor($json['videoPreprocessors']),
             'Width' => isset($json['width']) ? (int) $json['width'] : null,
         ]);
