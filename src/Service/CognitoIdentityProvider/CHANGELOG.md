@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: use explicit defined regions
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
