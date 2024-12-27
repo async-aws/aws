@@ -74,6 +74,32 @@ class EcrClient extends AbstractApi
             case 'ap-southeast-5':
             case 'ca-central-1':
             case 'ca-west-1':
+            case 'dkr-af-south-1':
+            case 'dkr-ap-east-1':
+            case 'dkr-ap-northeast-1':
+            case 'dkr-ap-northeast-2':
+            case 'dkr-ap-northeast-3':
+            case 'dkr-ap-south-1':
+            case 'dkr-ap-south-2':
+            case 'dkr-ap-southeast-1':
+            case 'dkr-ap-southeast-2':
+            case 'dkr-ap-southeast-3':
+            case 'dkr-ap-southeast-4':
+            case 'dkr-ap-southeast-5':
+            case 'dkr-ca-central-1':
+            case 'dkr-ca-west-1':
+            case 'dkr-eu-central-1':
+            case 'dkr-eu-central-2':
+            case 'dkr-eu-north-1':
+            case 'dkr-eu-south-1':
+            case 'dkr-eu-south-2':
+            case 'dkr-eu-west-1':
+            case 'dkr-eu-west-2':
+            case 'dkr-eu-west-3':
+            case 'dkr-il-central-1':
+            case 'dkr-me-central-1':
+            case 'dkr-me-south-1':
+            case 'dkr-sa-east-1':
             case 'eu-central-1':
             case 'eu-central-2':
             case 'eu-north-1':
@@ -100,6 +126,8 @@ class EcrClient extends AbstractApi
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
+            case 'dkr-cn-north-1':
+            case 'dkr-cn-northwest-1':
                 return [
                     'endpoint' => "https://api.ecr.$region.amazonaws.com.cn",
                     'signRegion' => $region,

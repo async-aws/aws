@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add support for Dualstack Endpoints
+
 ## 1.7.0
 
 ### Added
