@@ -5,7 +5,7 @@ namespace AsyncAws\Sqs\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 
 /**
- * The specified queue doesn't exist.
+ * Ensure that the `QueueUrl` is correct and that the queue has not been deleted.
  */
 final class QueueDoesNotExistException extends ClientException
 {

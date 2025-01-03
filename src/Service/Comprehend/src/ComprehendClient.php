@@ -92,6 +92,13 @@ class ComprehendClient extends AbstractApi
                     'signService' => 'comprehend',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-iso-east-1':
+                return [
+                    'endpoint' => 'https://comprehend-fips.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 'comprehend',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [

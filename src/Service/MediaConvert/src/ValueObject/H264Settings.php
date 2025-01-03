@@ -29,6 +29,7 @@ use AsyncAws\MediaConvert\Enum\H264Syntax;
 use AsyncAws\MediaConvert\Enum\H264Telecine;
 use AsyncAws\MediaConvert\Enum\H264TemporalAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H264UnregisteredSeiTimecode;
+use AsyncAws\MediaConvert\Enum\H264WriteMp4PackagingType;
 
 /**
  * Required when you set Codec to the value H_264.
@@ -495,6 +496,17 @@ final class H264Settings
     private $unregisteredSeiTimecode;
 
     /**
+     * Specify how SPS and PPS NAL units are written in your output MP4 container, according to ISO/IEC 14496-15. If the
+     * location of these parameters doesn't matter in your workflow: Keep the default value, AVC1. MediaConvert writes SPS
+     * and PPS NAL units in the sample description ('stsd') box (but not into samples directly). To write SPS and PPS NAL
+     * units directly into samples (but not in the 'stsd' box): Choose AVC3. When you do, note that your output might not
+     * play properly with some downstream systems or players.
+     *
+     * @var H264WriteMp4PackagingType::*|null
+     */
+    private $writeMp4PackagingType;
+
+    /**
      * @param array{
      *   AdaptiveQuantization?: null|H264AdaptiveQuantization::*,
      *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
@@ -540,6 +552,7 @@ final class H264Settings
      *   Telecine?: null|H264Telecine::*,
      *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*,
      *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*,
+     *   WriteMp4PackagingType?: null|H264WriteMp4PackagingType::*,
      * } $input
      */
     public function __construct(array $input)
@@ -588,6 +601,7 @@ final class H264Settings
         $this->telecine = $input['Telecine'] ?? null;
         $this->temporalAdaptiveQuantization = $input['TemporalAdaptiveQuantization'] ?? null;
         $this->unregisteredSeiTimecode = $input['UnregisteredSeiTimecode'] ?? null;
+        $this->writeMp4PackagingType = $input['WriteMp4PackagingType'] ?? null;
     }
 
     /**
@@ -636,6 +650,7 @@ final class H264Settings
      *   Telecine?: null|H264Telecine::*,
      *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*,
      *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*,
+     *   WriteMp4PackagingType?: null|H264WriteMp4PackagingType::*,
      * }|H264Settings $input
      */
     public static function create($input): self
@@ -942,6 +957,14 @@ final class H264Settings
     }
 
     /**
+     * @return H264WriteMp4PackagingType::*|null
+     */
+    public function getWriteMp4PackagingType(): ?string
+    {
+        return $this->writeMp4PackagingType;
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -1156,6 +1179,12 @@ final class H264Settings
                 throw new InvalidArgument(\sprintf('Invalid parameter "unregisteredSeiTimecode" for "%s". The value "%s" is not a valid "H264UnregisteredSeiTimecode".', __CLASS__, $v));
             }
             $payload['unregisteredSeiTimecode'] = $v;
+        }
+        if (null !== $v = $this->writeMp4PackagingType) {
+            if (!H264WriteMp4PackagingType::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "writeMp4PackagingType" for "%s". The value "%s" is not a valid "H264WriteMp4PackagingType".', __CLASS__, $v));
+            }
+            $payload['writeMp4PackagingType'] = $v;
         }
 
         return $payload;
