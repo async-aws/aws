@@ -7,13 +7,11 @@ use AsyncAws\Core\Exception\Http\ClientException;
 /**
  * The request was denied due to request throttling.
  *
- * - The rate of requests per second exceeds the Amazon Web Services KMS request quota for an account and Region.
- * - A burst or sustained high rate of requests to change the state of the same KMS key. This condition is often known
- *   as a "hot key."
- * - Requests for operations on KMS keys in a Amazon Web Services CloudHSM key store might be throttled at a
- *   lower-than-expected rate when the Amazon Web Services CloudHSM cluster associated with the Amazon Web Services
- *   CloudHSM key store is processing numerous commands, including those unrelated to the Amazon Web Services CloudHSM
- *   key store.
+ * - Exceeds the permitted request rate for the queue or for the recipient of the request.
+ * - Ensure that the request rate is within the Amazon SQS limits for sending messages. For more information, see Amazon
+ *   SQS quotas [^1] in the *Amazon SQS Developer Guide*.
+ *
+ * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-quotas.html#quotas-requests
  */
 final class RequestThrottledException extends ClientException
 {

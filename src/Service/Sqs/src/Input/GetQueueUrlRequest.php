@@ -7,13 +7,14 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Retrieves the URL of an existing queue based on its name and, optionally, the Amazon Web Services account ID.
+ */
 final class GetQueueUrlRequest extends Input
 {
     /**
-     * The name of the queue whose URL must be fetched. Maximum 80 characters. Valid values: alphanumeric characters,
-     * hyphens (`-`), and underscores (`_`).
-     *
-     * Queue URLs and names are case-sensitive.
+     * (Required) The name of the queue for which you want to fetch the URL. The name can be up to 80 characters long and
+     * can include alphanumeric characters, hyphens (-), and underscores (_). Queue URLs and names are case-sensitive.
      *
      * @required
      *
@@ -22,7 +23,8 @@ final class GetQueueUrlRequest extends Input
     private $queueName;
 
     /**
-     * The Amazon Web Services account ID of the account that created the queue.
+     * (Optional) The Amazon Web Services account ID of the account that created the queue. This is only required when you
+     * are attempting to access a queue owned by another Amazon Web Services account.
      *
      * @var string|null
      */

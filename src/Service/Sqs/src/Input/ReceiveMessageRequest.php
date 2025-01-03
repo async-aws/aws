@@ -8,6 +8,9 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 
+/**
+ * Retrieves one or more messages from a specified queue.
+ */
 final class ReceiveMessageRequest extends Input
 {
     /**
@@ -84,7 +87,27 @@ final class ReceiveMessageRequest extends Input
 
     /**
      * The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being
-     * retrieved by a `ReceiveMessage` request.
+     * retrieved by a `ReceiveMessage` request. If not specified, the default visibility timeout for the queue is used,
+     * which is 30 seconds.
+     *
+     * Understanding `VisibilityTimeout`:
+     *
+     * - When a message is received from a queue, it becomes temporarily invisible to other consumers for the duration of
+     *   the visibility timeout. This prevents multiple consumers from processing the same message simultaneously. If the
+     *   message is not deleted or its visibility timeout is not extended before the timeout expires, it becomes visible
+     *   again and can be retrieved by other consumers.
+     * - Setting an appropriate visibility timeout is crucial. If it's too short, the message might become visible again
+     *   before processing is complete, leading to duplicate processing. If it's too long, it delays the reprocessing of
+     *   messages if the initial processing fails.
+     * - You can adjust the visibility timeout using the `--visibility-timeout` parameter in the `receive-message` command
+     *   to match the processing time required by your application.
+     * - A message that isn't deleted or a message whose visibility isn't extended before the visibility timeout expires
+     *   counts as a failed receive. Depending on the configuration of the queue, the message might be sent to the
+     *   dead-letter queue.
+     *
+     * For more information, see Visibility Timeout [^1] in the *Amazon SQS Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html
      *
      * @var int|null
      */
@@ -93,7 +116,8 @@ final class ReceiveMessageRequest extends Input
     /**
      * The duration (in seconds) for which the call waits for a message to arrive in the queue before returning. If a
      * message is available, the call returns sooner than `WaitTimeSeconds`. If no messages are available and the wait time
-     * expires, the call does not return a message list.
+     * expires, the call does not return a message list. If you are using the Java SDK, it returns a
+     * `ReceiveMessageResponse` object, which has a empty list instead of a Null object.
      *
      * ! To avoid HTTP errors, ensure that the HTTP response timeout for `ReceiveMessage` requests is longer than the
      * ! `WaitTimeSeconds` parameter. For example, with the Java SDK, you can set HTTP transport settings using the

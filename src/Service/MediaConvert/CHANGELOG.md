@@ -6,6 +6,7 @@
 
 - AWS api-change: This release adds support for inserting timecode tracks into MP4 container outputs.
 - AWS api-change: use regionalized endpoints
+- AWS api-change: This release adds support for the AVC3 codec and fixes an alignment issue with Japanese vertical captions.
 
 ## 1.4.1
 

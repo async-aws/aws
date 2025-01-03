@@ -157,7 +157,7 @@ class SqsClient extends AbstractApi
      * from the queue after they're processed. You can also increase the number of queues you use to process your messages.
      * To request a limit increase, file a support request [^2].
      *
-     * For FIFO queues, there can be a maximum of 20,000 in flight messages (received from a queue by a consumer, but not
+     * For FIFO queues, there can be a maximum of 120,000 in flight messages (received from a queue by a consumer, but not
      * yet deleted from the queue). If you reach this limit, Amazon SQS returns no error messages.
      *
      * ! If you attempt to set the `VisibilityTimeout` to a value greater than the maximum time left, Amazon SQS returns an
@@ -268,20 +268,25 @@ class SqsClient extends AbstractApi
      *
      * > After you create a queue, you must wait at least one second after the queue is created to be able to use the queue.
      *
-     * To get the queue URL, use the `GetQueueUrl` action. `GetQueueUrl` requires only the `QueueName` parameter. be aware
-     * of existing queue names:
+     * To retrieve the URL of a queue, use the `GetQueueUrl` [^3] action. This action only requires the `QueueName` [^4]
+     * parameter.
      *
-     * - If you provide the name of an existing queue along with the exact names and values of all the queue's attributes,
-     *   `CreateQueue` returns the queue URL for the existing queue.
-     * - If the queue name, attribute names, or attribute values don't match an existing queue, `CreateQueue` returns an
-     *   error.
+     * When creating queues, keep the following points in mind:
+     *
+     * - If you specify the name of an existing queue and provide the exact same names and values for all its attributes,
+     *   the `CreateQueue` [^5] action will return the URL of the existing queue instead of creating a new one.
+     * - If you attempt to create a queue with a name that already exists but with different attribute names or values, the
+     *   `CreateQueue` action will return an error. This ensures that existing queues are not inadvertently altered.
      *
      * > Cross-account permissions don't apply to this action. For more information, see Grant cross-account permissions to
-     * > a role and a username [^3] in the *Amazon SQS Developer Guide*.
+     * > a role and a username [^6] in the *Amazon SQS Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-moving
      * [^2]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/limits-queues.html
-     * [^3]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name
+     * [^3]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueUrl.html
+     * [^4]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html#API_CreateQueue_RequestSyntax
+     * [^5]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html
+     * [^6]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#createqueue
@@ -325,10 +330,11 @@ class SqsClient extends AbstractApi
      * a queue even if a visibility timeout setting causes the message to be locked by another consumer. Amazon SQS
      * automatically deletes messages left in a queue longer than the retention period configured for the queue.
      *
-     * > The `ReceiptHandle` is associated with a *specific instance* of receiving a message. If you receive a message more
-     * > than once, the `ReceiptHandle` is different each time you receive a message. When you use the `DeleteMessage`
-     * > action, you must provide the most recently received `ReceiptHandle` for the message (otherwise, the request
-     * > succeeds, but the message will not be deleted).
+     * > Each time you receive a message, meaning when a consumer retrieves a message from the queue, it comes with a unique
+     * > `ReceiptHandle`. If you receive the same message more than once, you will get a different `ReceiptHandle` each
+     * > time. When you want to delete a message using the `DeleteMessage` action, you must use the `ReceiptHandle` from the
+     * > most recent time you received the message. If you use an old `ReceiptHandle`, the request will succeed, but the
+     * > message might not be deleted.
      * >
      * > For standard queues, it is possible to receive a message even after you delete it. This might happen on rare
      * > occasions if one of the servers which stores a copy of the message is unavailable when you send the request to
@@ -499,12 +505,13 @@ class SqsClient extends AbstractApi
     }
 
     /**
-     * Returns the URL of an existing Amazon SQS queue.
+     * The `GetQueueUrl` API returns the URL of an existing Amazon SQS queue. This is useful when you know the queue's name
+     * but need to retrieve its URL for further operations.
      *
-     * To access a queue that belongs to another AWS account, use the `QueueOwnerAWSAccountId` parameter to specify the
-     * account ID of the queue's owner. The queue's owner must grant you permission to access the queue. For more
-     * information about shared queue access, see `AddPermission` or see Allow Developers to Write Messages to a Shared
-     * Queue [^1] in the *Amazon SQS Developer Guide*.
+     * To access a queue owned by another Amazon Web Services account, use the `QueueOwnerAWSAccountId` parameter to specify
+     * the account ID of the queue's owner. Note that the queue owner must grant you the necessary permissions to access the
+     * queue. For more information about accessing shared queues, see the `AddPermission` API or Allow developers to write
+     * messages to a shared queue [^1] in the *Amazon SQS Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-writing-an-sqs-policy.html#write-messages-to-shared-queue
      *
@@ -650,8 +657,8 @@ class SqsClient extends AbstractApi
      * long-poll support. For more information, see Amazon SQS Long Polling [^1] in the *Amazon SQS Developer Guide*.
      *
      * Short poll is the default behavior where a weighted random set of machines is sampled on a `ReceiveMessage` call.
-     * Thus, only the messages on the sampled machines are returned. If the number of messages in the queue is small (fewer
-     * than 1,000), you most likely get fewer messages than you requested per `ReceiveMessage` call. If the number of
+     * Therefore, only the messages on the sampled machines are returned. If the number of messages in the queue is small
+     * (fewer than 1,000), you most likely get fewer messages than you requested per `ReceiveMessage` call. If the number of
      * messages in the queue is extremely small, you might not receive any messages in a particular `ReceiveMessage`
      * response. If this happens, repeat the request.
      *
@@ -669,12 +676,7 @@ class SqsClient extends AbstractApi
      *
      * You can provide the `VisibilityTimeout` parameter in your request. The parameter is applied to the messages that
      * Amazon SQS returns in the response. If you don't include the parameter, the overall visibility timeout for the queue
-     * is used for the returned messages. For more information, see Visibility Timeout [^4] in the *Amazon SQS Developer
-     * Guide*.
-     *
-     * A message that isn't deleted or a message whose visibility isn't extended before the visibility timeout expires
-     * counts as a failed receive. Depending on the configuration of the queue, the message might be sent to the dead-letter
-     * queue.
+     * is used for the returned messages. The default visibility timeout for a queue is 30 seconds.
      *
      * > In the future, new attributes might be added. If you write code that calls this action, we recommend that you
      * > structure your code so that it can handle new attributes gracefully.
@@ -682,7 +684,6 @@ class SqsClient extends AbstractApi
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html
      * [^2]: https://www.ietf.org/rfc/rfc1321.txt
      * [^3]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html
-     * [^4]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#receivemessage

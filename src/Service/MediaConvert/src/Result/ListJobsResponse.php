@@ -1136,6 +1136,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'Telecine' => isset($json['telecine']) ? (string) $json['telecine'] : null,
             'TemporalAdaptiveQuantization' => isset($json['temporalAdaptiveQuantization']) ? (string) $json['temporalAdaptiveQuantization'] : null,
             'UnregisteredSeiTimecode' => isset($json['unregisteredSeiTimecode']) ? (string) $json['unregisteredSeiTimecode'] : null,
+            'WriteMp4PackagingType' => isset($json['writeMp4PackagingType']) ? (string) $json['writeMp4PackagingType'] : null,
         ]);
     }
 
