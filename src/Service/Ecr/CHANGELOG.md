@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Add support for Dualstack Endpoints
+- AWS api-change: TODO
 
 ## 1.7.0
 
