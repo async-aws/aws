@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Add support for Dualstack Endpoints
-- AWS api-change: TODO
+- AWS api-change: fix dkr- regions endpoint
 
 ## 1.7.0
 
