@@ -47,14 +47,18 @@ use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
+use AsyncAws\Kms\Input\GetPublicKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\Input\SignRequest;
+use AsyncAws\Kms\Input\VerifyRequest;
 use AsyncAws\Kms\Result\CreateKeyResponse;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
+use AsyncAws\Kms\Result\GetPublicKeyResponse;
 use AsyncAws\Kms\Result\ListAliasesResponse;
 use AsyncAws\Kms\Result\SignResponse;
+use AsyncAws\Kms\Result\VerifyResponse;
 use AsyncAws\Kms\ValueObject\RecipientInfo;
 use AsyncAws\Kms\ValueObject\Tag;
 
@@ -869,9 +873,66 @@ class KmsClient extends AbstractApi
         return new SignResponse($response);
     }
 
+    /**
+     * @param array{
+     *   KeyId: string,
+     *   Message: string,
+     *   Signature: string,
+     *   MessageType?: null|MessageType::*,
+     *   GrantTokens?: null|string[],
+     *   SigningAlgorithm: SigningAlgorithmSpec::*,
+     *   DryRun?: null|bool,
+     *   '@region'?: string|null,
+     * }|VerifyResponse $input
+     */
+    public function verify($input): VerifyResponse
+    {
+        $input = VerifyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext([
+            'operation' => 'Verify',
+            'region' => $input->getRegion(),
+            'exceptionMapping' => [
+                'NotFoundException' => NotFoundException::class,
+                'DisabledException' => DisabledException::class,
+                'KeyUnavailableException' => KeyUnavailableException::class,
+                'DependencyTimeoutException' => DependencyTimeoutException::class,
+                'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+                'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+                'KMSInternalException' => KMSInternalException::class,
+                'KMSInvalidStateException' => KMSInvalidStateException::class,
+                'DryRunOperationException' => DryRunOperationException::class,
+            ],
+        ]));
+
+        return new VerifyResponse($response);
+    }
+
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
     {
         return new JsonRpcAwsErrorFactory();
+    }
+
+
+    public function getPublicKey($input): GetPublicKeyResponse
+    {
+        $input = GetPublicKeyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext([
+            'operation' => 'GetPublicKey',
+            'region' => $input->getRegion(),
+            'exceptionMapping' => [
+                'NotFoundException' => NotFoundException::class,
+                'DisabledException' => DisabledException::class,
+                'KeyUnavailableException' => KeyUnavailableException::class,
+                'DependencyTimeoutException' => DependencyTimeoutException::class,
+                'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+                'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+                'KMSInternalException' => KMSInternalException::class,
+                'KMSInvalidStateException' => KMSInvalidStateException::class,
+                'DryRunOperationException' => DryRunOperationException::class,
+            ],
+        ]));
+
+        return new GetPublicKeyResponse($response);
     }
 
     protected function getEndpointMetadata(?string $region): array
