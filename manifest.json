@@ -383,8 +383,10 @@
                 "Decrypt",
                 "Encrypt",
                 "GenerateDataKey",
+                "GetPublicKey",
                 "ListAliases",
-                "Sign"
+                "Sign",
+                "Verify"
             ]
         },
         "Lambda": {

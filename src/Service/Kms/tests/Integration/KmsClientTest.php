@@ -15,8 +15,10 @@ use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
+use AsyncAws\Kms\Input\GetPublicKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\Input\SignRequest;
+use AsyncAws\Kms\Input\VerifyRequest;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Kms\ValueObject\Tag;
 
@@ -114,6 +116,27 @@ class KmsClientTest extends TestCase
         self::assertStringStartsWith('Karn:aws:kms:', $result->getCiphertextBlob());
     }
 
+    public function testGetPublicKey(): void
+    {
+        $client = $this->getClient();
+        $key = $client->createKey([
+            'KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT, 
+            'KeySpec' => KeySpec::RSA_4096,
+        ]);
+
+        $input = new GetPublicKeyRequest([
+            'KeyId' => $key->getKeyMetadata()->getArn()
+        ]);
+        $result = $client->getPublicKey($input);
+
+        $result->resolve();
+
+        static::assertStringStartsWith("-----BEGIN PUBLIC KEY-----", $result->getPublicKey());
+        self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
+        self::assertSame(KeySpec::RSA_4096, $result->getKeySpec());
+        self::assertSame(KeyUsageType::ENCRYPT_DECRYPT, $result->getKeyUsage());
+    }
+
     public function testListAliases(): void
     {
         $client = $this->getClient();
@@ -157,6 +180,39 @@ class KmsClientTest extends TestCase
 
         self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
         self::assertSame('RSASSA_PSS_SHA_512', $result->getSigningAlgorithm());
+    }
+
+    public function testVerify(): void
+    {
+        $client = $this->getClient();
+        $key = $client->createKey([
+            'KeyUsage' => KeyUsageType::SIGN_VERIFY,
+            'KeySpec' => KeySpec::RSA_4096,
+        ]);
+
+        $input = new SignRequest([
+            'KeyId' => $key->getKeyMetadata()->getKeyId(),
+            'Message' => '<message to be signed>',
+            'MessageType' => MessageType::RAW,
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
+        ]);
+        $result = $client->sign($input);
+
+        $input = new VerifyRequest([
+            'KeyId' => $key->getKeyMetadata()->getArn(),
+            'Message' => '<message to be signed>',
+            'MessageType' => MessageType::RAW,
+            'Signature' => $result->getSignature(),
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
+            'DryRun' => false,
+        ]);
+        $result = $client->verify($input);
+
+        $result->resolve();
+
+        self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
+        self::asserttrue($result->getSignatureValid());
+        self::assertSame(SigningAlgorithmSpec::RSASSA_PSS_SHA_512, $result->getSigningAlgorithm());
     }
 
     private function getClient(): KmsClient

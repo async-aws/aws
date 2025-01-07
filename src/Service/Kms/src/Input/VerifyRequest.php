@@ -8,14 +8,12 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Kms\Enum\MessageType;
 use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
-use function sprintf;
 
 final class VerifyRequest extends Input
 {
     /**
-     * Identifies an asymmetric KMS key. KMS uses the private key in the asymmetric KMS key to sign the message. The
-     * `KeyUsage` type of the KMS key must be `SIGN_VERIFY`. To find the `KeyUsage` of a KMS key, use the DescribeKey
-     * operation.
+     * Identifies the asymmetric KMS key that will be used to verify the signature. This must be the same KMS key that was
+     * used to generate the signature. If you specify a different KMS key, the signature verification fails.
      *
      * To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix it with
      * `"alias/"`. To specify a KMS key in a different Amazon Web Services account, you must use the key ARN or alias ARN.
@@ -30,16 +28,20 @@ final class VerifyRequest extends Input
      * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey. To get the alias name and alias ARN, use
      * ListAliases.
      *
+     * @required
+     *
      * @var string|null
      */
     private $keyId;
 
     /**
-     * Specifies the message or message digest to sign. Messages can be 0-4096 bytes. To sign a larger message, provide a
-     * message digest.
+     * Specifies the message that was signed. You can submit a raw message of up to 4096 bytes, or a hash digest of the
+     * message. If you submit a digest, use the `MessageType` parameter with a value of `DIGEST`.
      *
-     * If you provide a message digest, use the `DIGEST` value of `MessageType` to prevent the digest from being hashed
-     * again while signing.
+     * If the message specified here is different from the message that was signed, the signature verification fails. A
+     * message and its hash digest are considered to be the same message.
+     *
+     * @required
      *
      * @var string|null
      */
@@ -53,15 +55,16 @@ final class VerifyRequest extends Input
      * When the value is `DIGEST`, KMS skips the hashing step in the signing algorithm.
      *
      * ! Use the `DIGEST` value only when the value of the `Message` parameter is a message digest. If you use the `DIGEST`
-     * ! value with an unhashed message, the security of the signing operation can be compromised.
+     * ! value with an unhashed message, the security of the verification operation can be compromised.
      *
      * When the value of `MessageType`is `DIGEST`, the length of the `Message` value must match the length of hashed
      * messages for the specified signing algorithm.
      *
      * You can submit a message digest and omit the `MessageType` or specify `RAW` so the digest is hashed again while
-     * signing. However, this can cause verification failures when verifying with a system that assumes a single hash.
+     * signing. However, if the signed message is hashed once while signing, but twice while verifying, verification fails,
+     * even when the message hasn't changed.
      *
-     * The hashing algorithm in that `Sign` uses is based on the `SigningAlgorithm` value.
+     * The hashing algorithm in that `Verify` uses is based on the `SigningAlgorithm` value.
      *
      * - Signing algorithms that end in SHA_256 use the SHA_256 hashing algorithm.
      * - Signing algorithms that end in SHA_384 use the SHA_384 hashing algorithm.
@@ -73,6 +76,25 @@ final class VerifyRequest extends Input
      * @var MessageType::*|null
      */
     private $messageType;
+
+    /**
+     * The signature that the `Sign` operation generated.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $signature;
+
+    /**
+     * The signing algorithm that was used to sign the message. If you submit a different algorithm, the signature
+     * verification fails.
+     *
+     * @required
+     *
+     * @var SigningAlgorithmSpec::*|null
+     */
+    private $signingAlgorithm;
 
     /**
      * A list of grant tokens.
@@ -89,17 +111,6 @@ final class VerifyRequest extends Input
     private $grantTokens;
 
     /**
-     * Specifies the signing algorithm to use when signing the message.
-     *
-     * Choose an algorithm that is compatible with the type and size of the specified asymmetric KMS key. When signing with
-     * RSA key pairs, RSASSA-PSS algorithms are preferred. We include RSASSA-PKCS1-v1_5 algorithms for compatibility with
-     * existing applications.
-     *
-     * @var SigningAlgorithmSpec::*|null
-     */
-    private $signingAlgorithm;
-
-    /**
      * Checks if your request will succeed. `DryRun` is an optional parameter.
      *
      * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
@@ -111,16 +122,14 @@ final class VerifyRequest extends Input
      */
     private $dryRun;
 
-    private $signature;
-
     /**
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
-     *   Signature?: string,
      *   MessageType?: null|MessageType::*,
-     *   GrantTokens?: null|string[],
+     *   Signature?: string,
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
+     *   GrantTokens?: null|string[],
      *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * } $input
@@ -130,9 +139,9 @@ final class VerifyRequest extends Input
         $this->keyId = $input['KeyId'] ?? null;
         $this->message = $input['Message'] ?? null;
         $this->messageType = $input['MessageType'] ?? null;
-        $this->grantTokens = $input['GrantTokens'] ?? null;
         $this->signature = $input['Signature'] ?? null;
         $this->signingAlgorithm = $input['SigningAlgorithm'] ?? null;
+        $this->grantTokens = $input['GrantTokens'] ?? null;
         $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
@@ -141,10 +150,10 @@ final class VerifyRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
-     *   Signature?: string,
      *   MessageType?: null|MessageType::*,
-     *   GrantTokens?: null|string[],
+     *   Signature?: string,
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
+     *   GrantTokens?: null|string[],
      *   DryRun?: null|bool,
      *   '@region'?: string|null,
      * }|VerifyRequest $input
@@ -177,17 +186,17 @@ final class VerifyRequest extends Input
         return $this->message;
     }
 
-    public function getSignature(): ?string
-    {
-        return $this->signature;
-    }
-
     /**
      * @return MessageType::*|null
      */
     public function getMessageType(): ?string
     {
         return $this->messageType;
+    }
+
+    public function getSignature(): ?string
+    {
+        return $this->signature;
     }
 
     /**
@@ -265,6 +274,13 @@ final class VerifyRequest extends Input
         return $this;
     }
 
+    public function setSignature(?string $value): self
+    {
+        $this->signature = $value;
+
+        return $this;
+    }
+
     /**
      * @param SigningAlgorithmSpec::*|null $value
      */
@@ -279,36 +295,30 @@ final class VerifyRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->keyId) {
-            throw new InvalidArgument(sprintf(
-                'Missing parameter "KeyId" for "%s". The value cannot be null.',
-                self::class
-            ));
+            throw new InvalidArgument(\sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['KeyId'] = $v;
         if (null === $v = $this->message) {
-            throw new InvalidArgument(sprintf(
-                'Missing parameter "Message" for "%s". The value cannot be null.',
-                self::class
-            ));
+            throw new InvalidArgument(\sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Message'] = base64_encode($v);
-        if (null === $v = $this->signature) {
-            throw new InvalidArgument(sprintf(
-                'Missing parameter "Signature" for "%s". The value cannot be null.',
-                self::class
-            ));
-        }
-        $payload['Signature'] = base64_encode($v);
         if (null !== $v = $this->messageType) {
-            if (! MessageType::exists($v)) {
-                throw new InvalidArgument(sprintf(
-                    'Invalid parameter "MessageType" for "%s". The value "%s" is not a valid "MessageType".',
-                    self::class,
-                    $v
-                ));
+            if (!MessageType::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "MessageType" for "%s". The value "%s" is not a valid "MessageType".', __CLASS__, $v));
             }
             $payload['MessageType'] = $v;
         }
+        if (null === $v = $this->signature) {
+            throw new InvalidArgument(\sprintf('Missing parameter "Signature" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Signature'] = base64_encode($v);
+        if (null === $v = $this->signingAlgorithm) {
+            throw new InvalidArgument(\sprintf('Missing parameter "SigningAlgorithm" for "%s". The value cannot be null.', __CLASS__));
+        }
+        if (!SigningAlgorithmSpec::exists($v)) {
+            throw new InvalidArgument(\sprintf('Invalid parameter "SigningAlgorithm" for "%s". The value "%s" is not a valid "SigningAlgorithmSpec".', __CLASS__, $v));
+        }
+        $payload['SigningAlgorithm'] = $v;
         if (null !== $v = $this->grantTokens) {
             $index = -1;
             $payload['GrantTokens'] = [];
@@ -317,20 +327,6 @@ final class VerifyRequest extends Input
                 $payload['GrantTokens'][$index] = $listValue;
             }
         }
-        if (null === $v = $this->signingAlgorithm) {
-            throw new InvalidArgument(sprintf(
-                'Missing parameter "SigningAlgorithm" for "%s". The value cannot be null.',
-                self::class
-            ));
-        }
-        if (! SigningAlgorithmSpec::exists($v)) {
-            throw new InvalidArgument(sprintf(
-                'Invalid parameter "SigningAlgorithm" for "%s". The value "%s" is not a valid "SigningAlgorithmSpec".',
-                self::class,
-                $v
-            ));
-        }
-        $payload['SigningAlgorithm'] = $v;
         if (null !== $v = $this->dryRun) {
             $payload['DryRun'] = (bool) $v;
         }

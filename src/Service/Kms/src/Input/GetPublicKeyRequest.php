@@ -6,14 +6,11 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use function sprintf;
 
 final class GetPublicKeyRequest extends Input
 {
     /**
-     * Identifies an asymmetric KMS key. KMS uses the private key in the asymmetric KMS key to sign the message. The
-     * `KeyUsage` type of the KMS key must be `SIGN_VERIFY`. To find the `KeyUsage` of a KMS key, use the DescribeKey
-     * operation.
+     * Identifies the asymmetric KMS key that includes the public key.
      *
      * To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix it with
      * `"alias/"`. To specify a KMS key in a different Amazon Web Services account, you must use the key ARN or alias ARN.
@@ -27,6 +24,8 @@ final class GetPublicKeyRequest extends Input
      *
      * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey. To get the alias name and alias ARN, use
      * ListAliases.
+     *
+     * @required
      *
      * @var string|null
      */
@@ -50,6 +49,7 @@ final class GetPublicKeyRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   GrantTokens?: null|string[],
+     *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
@@ -62,7 +62,8 @@ final class GetPublicKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   GrantTokens?: null|string[]
+     *   GrantTokens?: null|string[],
+     *   '@region'?: string|null,
      * }|GetPublicKeyRequest $input
      */
     public static function create($input): self
@@ -130,10 +131,7 @@ final class GetPublicKeyRequest extends Input
     {
         $payload = [];
         if (null === $v = $this->keyId) {
-            throw new InvalidArgument(sprintf(
-                'Missing parameter "KeyId" for "%s". The value cannot be null.',
-                self::class
-            ));
+            throw new InvalidArgument(\sprintf('Missing parameter "KeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['KeyId'] = $v;
         if (null !== $v = $this->grantTokens) {
@@ -144,6 +142,7 @@ final class GetPublicKeyRequest extends Input
                 $payload['GrantTokens'][$index] = $listValue;
             }
         }
+
         return $payload;
     }
 }
