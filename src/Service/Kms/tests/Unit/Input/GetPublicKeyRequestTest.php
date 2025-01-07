@@ -10,7 +10,7 @@ class GetPublicKeyRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new GetPublicKeyRequest([
-            'KeyId' => 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+            'KeyId' => 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321',
         ]);
 
         // see example-1.json from SDK

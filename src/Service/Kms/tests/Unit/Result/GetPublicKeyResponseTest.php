@@ -37,7 +37,7 @@ class GetPublicKeyResponseTest extends TestCase
         $result = new GetPublicKeyResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321', $result->getKeyId());
-        
+
         $pubkey =
             "-----BEGIN PUBLIC KEY-----\n" .
             "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyP/BlKX04RLmV8Q2VTSg\n" .
@@ -49,14 +49,14 @@ class GetPublicKeyResponseTest extends TestCase
             "+QIDAQAB\n" .
             "-----END PUBLIC KEY-----\n";
 
-        static::assertSame($pubkey, $result->getPublicKey());
+        self::assertSame($pubkey, $result->getPublicKey());
 
         self::assertSame('RSA_4096', $result->getKeySpec());
-        self::assertSame('ENCRYPT_DECRYPT', $result->getKeyUsage());        
-        self::assertContains("RSAES_OAEP_SHA_1", $result->getEncryptionAlgorithms());
-        self::assertContains("RSAES_OAEP_SHA_256", $result->getEncryptionAlgorithms());
-        self::assertContains("RSASSA_PSS_SHA_384", $result->getSigningAlgorithms());
-        self::assertContains("ECDSA_SHA_256", $result->getSigningAlgorithms());
-        self::assertContains("ECDH", $result->getKeyAgreementAlgorithms());
+        self::assertSame('ENCRYPT_DECRYPT', $result->getKeyUsage());
+        self::assertContains('RSAES_OAEP_SHA_1', $result->getEncryptionAlgorithms());
+        self::assertContains('RSAES_OAEP_SHA_256', $result->getEncryptionAlgorithms());
+        self::assertContains('RSASSA_PSS_SHA_384', $result->getSigningAlgorithms());
+        self::assertContains('ECDSA_SHA_256', $result->getSigningAlgorithms());
+        self::assertContains('ECDH', $result->getKeyAgreementAlgorithms());
     }
 }

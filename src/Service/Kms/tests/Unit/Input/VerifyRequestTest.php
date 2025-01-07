@@ -13,8 +13,8 @@ class VerifyRequestTest extends TestCase
     {
         $input = new VerifyRequest([
             'KeyId' => 'alias/ECC_signing_key',
-            'Message' => "<message to be verified>",
-            'MessageType' => MessageType::RAW,            
+            'Message' => '<message to be verified>',
+            'MessageType' => MessageType::RAW,
             'SigningAlgorithm' => SigningAlgorithmSpec::ECDSA_SHA_384,
             'Signature' => '<binary data>',
             'DryRun' => false,

@@ -120,18 +120,18 @@ class KmsClientTest extends TestCase
     {
         $client = $this->getClient();
         $key = $client->createKey([
-            'KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT, 
+            'KeyUsage' => KeyUsageType::ENCRYPT_DECRYPT,
             'KeySpec' => KeySpec::RSA_4096,
         ]);
 
         $input = new GetPublicKeyRequest([
-            'KeyId' => $key->getKeyMetadata()->getArn()
+            'KeyId' => $key->getKeyMetadata()->getArn(),
         ]);
         $result = $client->getPublicKey($input);
 
         $result->resolve();
 
-        static::assertStringStartsWith("-----BEGIN PUBLIC KEY-----", $result->getPublicKey());
+        self::assertStringStartsWith('-----BEGIN PUBLIC KEY-----', $result->getPublicKey());
         self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
         self::assertSame(KeySpec::RSA_4096, $result->getKeySpec());
         self::assertSame(KeyUsageType::ENCRYPT_DECRYPT, $result->getKeyUsage());

@@ -143,7 +143,7 @@ class KmsClientTest extends TestCase
             'KeyId' => 'signing_key',
             'Message' => '<message to be signed>',
             'Signature' => 'change me',
-            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512
+            'SigningAlgorithm' => SigningAlgorithmSpec::RSASSA_PSS_SHA_512,
         ]);
         $result = $client->verify($input);
 
