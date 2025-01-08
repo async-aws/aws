@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+### Added
+
 - Added getPublicKey and verify operation
 
 ## 1.6.0

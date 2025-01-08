@@ -184,8 +184,6 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @psalm-suppress MoreSpecificReturnType
-     *
      * @return list<EncryptionAlgorithmSpec::*>
      */
     private function populateResultEncryptionAlgorithmSpecList(array $json): array
@@ -198,15 +196,10 @@ class GetPublicKeyResponse extends Result
             }
         }
 
-        /**
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return $items;
     }
 
     /**
-     * @psalm-suppress MoreSpecificReturnType
-     *
      * @return list<KeyAgreementAlgorithmSpec::*>
      */
     private function populateResultKeyAgreementAlgorithmSpecList(array $json): array
@@ -219,15 +212,10 @@ class GetPublicKeyResponse extends Result
             }
         }
 
-        /**
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return $items;
     }
 
     /**
-     * @psalm-suppress MoreSpecificReturnType
-     *
      * @return list<SigningAlgorithmSpec::*>
      */
     private function populateResultSigningAlgorithmSpecList(array $json): array
@@ -240,9 +228,6 @@ class GetPublicKeyResponse extends Result
             }
         }
 
-        /**
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return $items;
     }
 }
