@@ -184,7 +184,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * list<string>
+     * @return list<string>
      */
     private function populateResultEncryptionAlgorithmSpecList(array $json): array
     {
@@ -216,7 +216,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * list<string>
+     * @return list<string>
      */
     private function populateResultSigningAlgorithmSpecList(array $json): array
     {
