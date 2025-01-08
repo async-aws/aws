@@ -33,6 +33,7 @@ use AsyncAws\Kms\Exception\InvalidKeyUsageException;
 use AsyncAws\Kms\Exception\InvalidMarkerException;
 use AsyncAws\Kms\Exception\KeyUnavailableException;
 use AsyncAws\Kms\Exception\KMSInternalException;
+use AsyncAws\Kms\Exception\KMSInvalidSignatureException;
 use AsyncAws\Kms\Exception\KMSInvalidStateException;
 use AsyncAws\Kms\Exception\LimitExceededException;
 use AsyncAws\Kms\Exception\MalformedPolicyDocumentException;
@@ -47,14 +48,18 @@ use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
+use AsyncAws\Kms\Input\GetPublicKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\Input\SignRequest;
+use AsyncAws\Kms\Input\VerifyRequest;
 use AsyncAws\Kms\Result\CreateKeyResponse;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
+use AsyncAws\Kms\Result\GetPublicKeyResponse;
 use AsyncAws\Kms\Result\ListAliasesResponse;
 use AsyncAws\Kms\Result\SignResponse;
+use AsyncAws\Kms\Result\VerifyResponse;
 use AsyncAws\Kms\ValueObject\RecipientInfo;
 use AsyncAws\Kms\ValueObject\Tag;
 
@@ -711,6 +716,96 @@ class KmsClient extends AbstractApi
     }
 
     /**
+     * Returns the public key of an asymmetric KMS key. Unlike the private key of a asymmetric KMS key, which never leaves
+     * KMS unencrypted, callers with `kms:GetPublicKey` permission can download the public key of an asymmetric KMS key. You
+     * can share the public key to allow others to encrypt messages and verify signatures outside of KMS. For information
+     * about asymmetric KMS keys, see Asymmetric KMS keys [^1] in the *Key Management Service Developer Guide*.
+     *
+     * You do not need to download the public key. Instead, you can use the public key within KMS by calling the Encrypt,
+     * ReEncrypt, or Verify operations with the identifier of an asymmetric KMS key. When you use the public key within KMS,
+     * you benefit from the authentication, authorization, and logging that are part of every KMS operation. You also reduce
+     * of risk of encrypting data that cannot be decrypted. These features are not effective outside of KMS.
+     *
+     * To help you use the public key safely outside of KMS, `GetPublicKey` returns important information about the public
+     * key in the response, including:
+     *
+     * - KeySpec [^2]: The type of key material in the public key, such as `RSA_4096` or `ECC_NIST_P521`.
+     * - KeyUsage [^3]: Whether the key is used for encryption, signing, or deriving a shared secret.
+     * - EncryptionAlgorithms [^4] or SigningAlgorithms [^5]: A list of the encryption algorithms or the signing algorithms
+     *   for the key.
+     *
+     * Although KMS cannot enforce these restrictions on external operations, it is crucial that you use this information to
+     * prevent the public key from being used improperly. For example, you can prevent a public signing key from being used
+     * encrypt data, or prevent a public key from being used with an encryption algorithm that is not supported by KMS. You
+     * can also avoid errors, such as using the wrong signing algorithm in a verification operation.
+     *
+     * To verify a signature outside of KMS with an SM2 public key (China Regions only), you must specify the distinguishing
+     * ID. By default, KMS uses `1234567812345678` as the distinguishing ID. For more information, see Offline verification
+     * with SM2 key pairs [^6].
+     *
+     * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
+     * keys [^7] in the *Key Management Service Developer Guide*.
+     *
+     * **Cross-account use**: Yes. To perform this operation with a KMS key in a different Amazon Web Services account,
+     * specify the key ARN or alias ARN in the value of the `KeyId` parameter.
+     *
+     * **Required permissions**: kms:GetPublicKey [^8] (key policy)
+     *
+     * **Related operations**: CreateKey
+     *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^9].
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
+     * [^2]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-KeySpec
+     * [^3]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-KeyUsage
+     * [^4]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-EncryptionAlgorithms
+     * [^5]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-SigningAlgorithms
+     * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html#key-spec-sm-offline-verification
+     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
+     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getpublickey
+     *
+     * @param array{
+     *   KeyId: string,
+     *   GrantTokens?: null|string[],
+     *   '@region'?: string|null,
+     * }|GetPublicKeyRequest $input
+     *
+     * @throws NotFoundException
+     * @throws DisabledException
+     * @throws KeyUnavailableException
+     * @throws DependencyTimeoutException
+     * @throws UnsupportedOperationException
+     * @throws InvalidArnException
+     * @throws InvalidGrantTokenException
+     * @throws InvalidKeyUsageException
+     * @throws KMSInternalException
+     * @throws KMSInvalidStateException
+     */
+    public function getPublicKey($input): GetPublicKeyResponse
+    {
+        $input = GetPublicKeyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetPublicKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NotFoundException' => NotFoundException::class,
+            'DisabledException' => DisabledException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'UnsupportedOperationException' => UnsupportedOperationException::class,
+            'InvalidArnException' => InvalidArnException::class,
+            'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'KMSInvalidStateException' => KMSInvalidStateException::class,
+        ]]));
+
+        return new GetPublicKeyResponse($response);
+    }
+
+    /**
      * Gets a list of aliases in the caller's Amazon Web Services account and region. For more information about aliases,
      * see CreateAlias.
      *
@@ -867,6 +962,95 @@ class KmsClient extends AbstractApi
         ]]));
 
         return new SignResponse($response);
+    }
+
+    /**
+     * Verifies a digital signature that was generated by the Sign operation.
+     *
+     * Verification confirms that an authorized user signed the message with the specified KMS key and signing algorithm,
+     * and the message hasn't changed since it was signed. If the signature is verified, the value of the `SignatureValid`
+     * field in the response is `True`. If the signature verification fails, the `Verify` operation fails with an
+     * `KMSInvalidSignatureException` exception.
+     *
+     * A digital signature is generated by using the private key in an asymmetric KMS key. The signature is verified by
+     * using the public key in the same asymmetric KMS key. For information about asymmetric KMS keys, see Asymmetric KMS
+     * keys [^1] in the *Key Management Service Developer Guide*.
+     *
+     * To use the `Verify` operation, specify the same asymmetric KMS key, message, and signing algorithm that were used to
+     * produce the signature. The message type does not need to be the same as the one used for signing, but it must
+     * indicate whether the value of the `Message` parameter should be hashed as part of the verification process.
+     *
+     * You can also verify the digital signature by using the public key of the KMS key outside of KMS. Use the GetPublicKey
+     * operation to download the public key in the asymmetric KMS key and then use the public key to verify the signature
+     * outside of KMS. The advantage of using the `Verify` operation is that it is performed within KMS. As a result, it's
+     * easy to call, the operation is performed within the FIPS boundary, it is logged in CloudTrail, and you can use key
+     * policy and IAM policy to determine who is authorized to use the KMS key to verify signatures.
+     *
+     * To verify a signature outside of KMS with an SM2 public key (China Regions only), you must specify the distinguishing
+     * ID. By default, KMS uses `1234567812345678` as the distinguishing ID. For more information, see Offline verification
+     * with SM2 key pairs [^2].
+     *
+     * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
+     * keys [^3] in the *Key Management Service Developer Guide*.
+     *
+     * **Cross-account use**: Yes. To perform this operation with a KMS key in a different Amazon Web Services account,
+     * specify the key ARN or alias ARN in the value of the `KeyId` parameter.
+     *
+     * **Required permissions**: kms:Verify [^4] (key policy)
+     *
+     * **Related operations**: Sign
+     *
+     * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
+     * consistency [^5].
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html#key-spec-sm-offline-verification
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#verify
+     *
+     * @param array{
+     *   KeyId: string,
+     *   Message: string,
+     *   MessageType?: null|MessageType::*,
+     *   Signature: string,
+     *   SigningAlgorithm: SigningAlgorithmSpec::*,
+     *   GrantTokens?: null|string[],
+     *   DryRun?: null|bool,
+     *   '@region'?: string|null,
+     * }|VerifyRequest $input
+     *
+     * @throws NotFoundException
+     * @throws DisabledException
+     * @throws KeyUnavailableException
+     * @throws DependencyTimeoutException
+     * @throws InvalidKeyUsageException
+     * @throws InvalidGrantTokenException
+     * @throws KMSInternalException
+     * @throws KMSInvalidStateException
+     * @throws KMSInvalidSignatureException
+     * @throws DryRunOperationException
+     */
+    public function verify($input): VerifyResponse
+    {
+        $input = VerifyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Verify', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NotFoundException' => NotFoundException::class,
+            'DisabledException' => DisabledException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'KMSInvalidSignatureException' => KMSInvalidSignatureException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
+        ]]));
+
+        return new VerifyResponse($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
