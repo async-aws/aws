@@ -131,7 +131,7 @@ class KmsClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertStringStartsWith('-----BEGIN PUBLIC KEY-----', $result->getPublicKey());
+        self::assertSame(550, \strlen($result->getPublicKey()));
         self::assertSame($key->getKeyMetadata()->getArn(), $result->getKeyId());
         self::assertSame(KeySpec::RSA_4096, $result->getKeySpec());
         self::assertSame(KeyUsageType::ENCRYPT_DECRYPT, $result->getKeyUsage());
