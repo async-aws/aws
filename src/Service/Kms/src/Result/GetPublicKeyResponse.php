@@ -184,7 +184,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<EncryptionAlgorithmSpec::*>
+     * list<string>
      */
     private function populateResultEncryptionAlgorithmSpecList(array $json): array
     {
@@ -200,7 +200,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<KeyAgreementAlgorithmSpec::*>
+     * @return list<string>
      */
     private function populateResultKeyAgreementAlgorithmSpecList(array $json): array
     {
@@ -216,7 +216,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<SigningAlgorithmSpec::*>
+     * list<string>
      */
     private function populateResultSigningAlgorithmSpecList(array $json): array
     {
