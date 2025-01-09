@@ -5,6 +5,7 @@
 ### Added
 
 - Added getPublicKey and verify operation
+- AWS api-change: TODO
 
 ## 1.6.0
 
