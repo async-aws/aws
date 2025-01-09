@@ -502,6 +502,7 @@ class SecretsManagerClient extends AbstractApi
             case 'ap-southeast-3':
             case 'ap-southeast-4':
             case 'ap-southeast-5':
+            case 'ap-southeast-7':
             case 'ca-central-1':
             case 'ca-central-1-fips':
             case 'ca-west-1':
