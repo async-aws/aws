@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `ap-southeast-7` region
 
 ## 2.7.0
 
