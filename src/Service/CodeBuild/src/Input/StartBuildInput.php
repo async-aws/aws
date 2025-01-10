@@ -177,7 +177,8 @@ final class StartBuildInput extends Input
 
     /**
      * Set to true to report to your source provider the status of a build's start and completion. If you use this option
-     * with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an `invalidInputException` is thrown.
+     * with a source provider other than GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or Bitbucket, an
+     * `invalidInputException` is thrown.
      *
      * To be able to report the build status to the source provider, the user associated with the source provider must have
      * write access to the repo. If the user does not have write access, the build status cannot be updated. For more
