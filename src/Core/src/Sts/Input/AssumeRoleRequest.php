@@ -230,8 +230,8 @@ final class AssumeRoleRequest extends Input
      * source identity, see Monitor and control actions taken with assumed roles [^3] in the *IAM User Guide*.
      *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
-     * characters with no spaces. You can also include underscores or any of the following characters: =,.@-. You cannot use
-     * a value that begins with the text `aws:`. This prefix is reserved for Amazon Web Services internal use.
+     * characters with no spaces. You can also include underscores or any of the following characters: +=,.@-. You cannot
+     * use a value that begins with the text `aws:`. This prefix is reserved for Amazon Web Services internal use.
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#iam-term-role-chaining
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceidentity
