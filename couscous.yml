@@ -136,6 +136,9 @@ menu:
             sso:
                 text: SSO
                 url: /clients/sso.html
+            sso-oidc:
+                text: SSOOIDC
+                url: /clients/sso-oidc.html
             sts:
                 text: STS
                 url: /clients/sts.html

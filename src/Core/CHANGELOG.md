@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for SsoOidc
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
