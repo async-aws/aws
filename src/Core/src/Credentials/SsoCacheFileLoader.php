@@ -10,6 +10,8 @@ use Psr\Log\NullLogger;
 
 /**
  * Load and parse AWS SSO cache file.
+ *
+ * @internal
  */
 final class SsoCacheFileLoader
 {

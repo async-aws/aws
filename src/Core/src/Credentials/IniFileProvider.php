@@ -93,14 +93,24 @@ final class IniFileProvider implements CredentialProvider
             return $this->getCredentialsFromRole($profilesData, $profileData, $profile, $circularCollector);
         }
 
-        if (isset($profileData[IniFileLoader::KEY_SSO_START_URL])) {
-            if (class_exists(SsoClient::class)) {
-                return $this->getCredentialsFromLegacySso($profileData, $profile);
+        if (isset($profileData[IniFileLoader::KEY_SSO_SESSION])) {
+            if (!class_exists(SsoClient::class)) {
+                $this->logger->warning('The profile "{profile}" contains SSO session config but the "async-aws/sso" package is not installed. Try running "composer require async-aws/sso".', ['profile' => $profile]);
+
+                return null;
             }
 
-            $this->logger->warning('The profile "{profile}" contains SSO (legacy) config but the "async-aws/sso" package is not installed. Try running "composer require async-aws/sso".', ['profile' => $profile]);
+            return $this->getCredentialsFromSsoSession($profilesData, $profileData, $profile);
+        }
 
-            return null;
+        if (isset($profileData[IniFileLoader::KEY_SSO_START_URL])) {
+            if (class_exists(SsoClient::class)) {
+                $this->logger->warning('The profile "{profile}" contains SSO (legacy) config but the "async-aws/sso" package is not installed. Try running "composer require async-aws/sso".', ['profile' => $profile]);
+
+                return null;
+            }
+
+            return $this->getCredentialsFromLegacySso($profileData, $profile);
         }
 
         $this->logger->info('No credentials found for profile "{profile}".', ['profile' => $profile]);
@@ -159,6 +169,44 @@ final class IniFileProvider implements CredentialProvider
     }
 
     /**
+     * @param array<string, array<string, string>> $profilesData
+     * @param array<string, string>                $profileData
+     */
+    private function getCredentialsFromSsoSession(array $profilesData, array $profileData, string $profile): ?Credentials
+    {
+        if (!isset($profileData[IniFileLoader::KEY_SSO_SESSION])) {
+            $this->logger->warning('Profile "{profile}" does not contains required SSO session config.', ['profile' => $profile]);
+
+            return null;
+        }
+
+        $sessionName = $profileData[IniFileLoader::KEY_SSO_SESSION];
+        if (!isset($profilesData['sso-session ' . $sessionName])) {
+            $this->logger->warning('Profile "{profile}" refers to a the "{session}" sso-session that is not present in the configuration file.', ['profile' => $profile, 'session' => $sessionName]);
+
+            return null;
+        }
+
+        $sessionData = $profilesData['sso-session ' . $sessionName];
+        if (!isset(
+            $sessionData[IniFileLoader::KEY_SSO_START_URL],
+            $sessionData[IniFileLoader::KEY_SSO_REGION]
+        )) {
+            $this->logger->warning('SSO Session "{session}" does not contains required SSO config.', ['session' => $sessionName]);
+
+            return null;
+        }
+
+        $ssoTokenProvider = new SsoTokenProvider($this->httpClient, $this->logger);
+        $token = $ssoTokenProvider->getToken($sessionName, $sessionData);
+        if (null === $token) {
+            return null;
+        }
+
+        return $this->getCredentialsFromSsoToken($profileData, $sessionData[IniFileLoader::KEY_SSO_REGION], $profile, $token);
+    }
+
+    /**
      * @param array<string, string> $profileData
      */
     private function getCredentialsFromLegacySso(array $profileData, string $profile): ?Credentials
@@ -181,13 +229,18 @@ final class IniFileProvider implements CredentialProvider
             return null;
         }
 
+        return $this->getCredentialsFromSsoToken($profileData, $profileData[IniFileLoader::KEY_SSO_REGION], $profile, $tokenData[SsoCacheFileLoader::KEY_ACCESS_TOKEN]);
+    }
+
+    private function getCredentialsFromSsoToken(array $profileData, string $ssoRegion, string $profile, string $accessToken): ?Credentials
+    {
         $ssoClient = new SsoClient(
-            ['region' => $profileData[IniFileLoader::KEY_SSO_REGION]],
+            ['region' => $ssoRegion],
             new NullProvider(), // no credentials required as we provide an access token via the role credentials request
             $this->httpClient
         );
         $result = $ssoClient->getRoleCredentials([
-            'accessToken' => $tokenData[SsoCacheFileLoader::KEY_ACCESS_TOKEN],
+            'accessToken' => $accessToken,
             'accountId' => $profileData[IniFileLoader::KEY_SSO_ACCOUNT_ID],
             'roleName' => $profileData[IniFileLoader::KEY_SSO_ROLE_NAME],
         ]);
