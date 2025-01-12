@@ -2,8 +2,6 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-use AsyncAws\DynamoDb\ValueObject\AttributeValue as AttributeValue1;
-
 /**
  * Represents the data for an attribute.
  *
@@ -133,8 +131,8 @@ final class AttributeValue
         $this->ss = $input['SS'] ?? null;
         $this->ns = $input['NS'] ?? null;
         $this->bs = $input['BS'] ?? null;
-        $this->m = isset($input['M']) ? array_map([AttributeValue1::class, 'create'], $input['M']) : null;
-        $this->l = isset($input['L']) ? array_map([AttributeValue1::class, 'create'], $input['L']) : null;
+        $this->m = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : null;
+        $this->l = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : null;
         $this->null = $input['NULL'] ?? null;
         $this->bool = $input['BOOL'] ?? null;
     }
