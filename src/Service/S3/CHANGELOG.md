@@ -9,6 +9,7 @@
 
 ### Changed
 
+- Avoid usage of `alias` when use statement refers to self
 - AWS enhancement: Documentation updates.
 
 ## 2.6.0

@@ -50,6 +50,10 @@ class ClassBuilder
 
     public function addUse(string $name): self
     {
+        if ($name === $this->className->getFqdn()) {
+            return $this;
+        }
+
         $this->namespace->addUse($name);
 
         return $this;

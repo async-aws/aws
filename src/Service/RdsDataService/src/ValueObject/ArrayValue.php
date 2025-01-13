@@ -2,8 +2,6 @@
 
 namespace AsyncAws\RdsDataService\ValueObject;
 
-use AsyncAws\RdsDataService\ValueObject\ArrayValue as ArrayValue1;
-
 /**
  * Contains an array.
  */
@@ -59,7 +57,7 @@ final class ArrayValue
         $this->longValues = $input['longValues'] ?? null;
         $this->doubleValues = $input['doubleValues'] ?? null;
         $this->stringValues = $input['stringValues'] ?? null;
-        $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue1::class, 'create'], $input['arrayValues']) : null;
+        $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue::class, 'create'], $input['arrayValues']) : null;
     }
 
     /**
