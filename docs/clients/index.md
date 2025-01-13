@@ -150,7 +150,7 @@ for more information.
 | [Comprehend](./comprehend.md)               | [async-aws/comprehend](https://packagist.org/packages/async-aws/comprehend)                               |
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)                                 |
 | [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)                                             |
-| [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cache](https://packagist.org/packages/async-aws/elasti-cache)                            |
+| [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cache](https://packagist.org/packages/async-aws/elasti-cache)                           |
 | [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)                           |
 | [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)                               |
 | [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)                                             |
@@ -172,6 +172,7 @@ for more information.
 | [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)                                             |
 | [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)                                             |
 | [SSO](./sso.md)                             | [async-aws/sso](https://packagist.org/packages/async-aws/sso)                                             |
+| [SSOOIDC](./sso-oidc.md)                    | [async-aws/sso-oidc](https://packagist.org/packages/async-aws/sso-oidc)                                   |
 | [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)                                           |
 | [StepFunctions](./step-functions.md)        | [async-aws/step-functions](https://packagist.org/packages/async-aws/step-functions)                       |
 | [TimestreamQuery](./timestream-query.md)    | [async-aws/timestream-query](https://packagist.org/packages/async-aws/timestream-query)                   |

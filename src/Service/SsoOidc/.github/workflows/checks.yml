@@ -1,0 +1,38 @@
+name: BC Check
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  roave-bc-check:
+    name: Roave BC Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Modify composer.json
+        run: |
+          sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+          cat composer.json
+
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAws Bot"
+          git commit -am "Allow unstable dependencies"
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+
+      - name: Install roave/backward-compatibility-check
+        run: composer require --dev roave/backward-compatibility-check
+
+      - name: Roave BC Check
+        run: vendor/bin/roave-backward-compatibility-check

@@ -158,6 +158,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Sso\SsoClient::class,
                 'package' => 'async-aws/sso',
             ],
+            'sso_oidc' => [
+                'class' => \AsyncAws\SsoOidc\SsoOidcClient::class,
+                'package' => 'async-aws/sso-oidc',
+            ],
             'sts' => [
                 'class' => \AsyncAws\Core\Sts\StsClient::class,
                 'package' => 'async-aws/core',
