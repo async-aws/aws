@@ -6,6 +6,7 @@
 
 - Added getPublicKey and verify operation
 - AWS api-change: Added `ap-southeast-7` and `ap-southeast-7-fips` regions
+- AWS api-change: Added `mx-central-1` and `mx-central-1-fips` regions
 
 ## 1.6.0
 

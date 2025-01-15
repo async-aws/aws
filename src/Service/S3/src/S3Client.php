@@ -3223,6 +3223,7 @@ class S3Client extends AbstractApi
             case 'il-central-1':
             case 'me-central-1':
             case 'me-south-1':
+            case 'mx-central-1':
             case 'sa-east-1':
             case 'us-east-1':
             case 'us-east-2':

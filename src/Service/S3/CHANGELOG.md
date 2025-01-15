@@ -6,6 +6,7 @@
 
 - AWS api-change: Amazon S3 introduces support for AWS Dedicated Local Zones
 - AWS api-change: Added `ap-southeast-7` region
+- AWS api-change: Added `mx-central-1` region
 
 ### Changed
 
