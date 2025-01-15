@@ -5,7 +5,10 @@ namespace AsyncAws\Ses\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Ses\Input\GetSuppressedDestinationRequest;
 use AsyncAws\Ses\Input\SendEmailRequest;
+use AsyncAws\Ses\Result\GetSuppressedDestinationResponse;
 use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Ses\ValueObject\Body;
@@ -15,13 +18,25 @@ use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\RawMessage;
 use AsyncAws\Ses\ValueObject\Template;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class SesClientTest extends TestCase
 {
+    public function testGetSuppressedDestination(): void
+    {
+        $client = new SesClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetSuppressedDestinationRequest([
+            'EmailAddress' => 'test@example.org',
+        ]);
+        $result = $client->getSuppressedDestination($input);
+
+        self::assertInstanceOf(GetSuppressedDestinationResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testSendEmail(): void
     {
         $client = new SesClient([], new NullProvider(), new MockHttpClient());

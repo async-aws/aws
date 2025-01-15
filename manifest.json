@@ -592,6 +592,8 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/email/2010-12-01/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/ses/latest/APIReference-V2",
             "methods": [
+                "DeleteSuppressedDestination",
+                "GetSuppressedDestination",
                 "SendEmail"
             ],
             "alternative-names": [

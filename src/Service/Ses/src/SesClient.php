@@ -15,7 +15,11 @@ use AsyncAws\Ses\Exception\MessageRejectedException;
 use AsyncAws\Ses\Exception\NotFoundException;
 use AsyncAws\Ses\Exception\SendingPausedException;
 use AsyncAws\Ses\Exception\TooManyRequestsException;
+use AsyncAws\Ses\Input\DeleteSuppressedDestinationRequest;
+use AsyncAws\Ses\Input\GetSuppressedDestinationRequest;
 use AsyncAws\Ses\Input\SendEmailRequest;
+use AsyncAws\Ses\Result\DeleteSuppressedDestinationResponse;
+use AsyncAws\Ses\Result\GetSuppressedDestinationResponse;
 use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
@@ -24,6 +28,60 @@ use AsyncAws\Ses\ValueObject\MessageTag;
 
 class SesClient extends AbstractApi
 {
+    /**
+     * Removes an email address from the suppression list for your account.
+     *
+     * @see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_DeleteSuppressedDestination.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#deletesuppresseddestination
+     *
+     * @param array{
+     *   EmailAddress: string,
+     *   '@region'?: string|null,
+     * }|DeleteSuppressedDestinationRequest $input
+     *
+     * @throws NotFoundException
+     * @throws BadRequestException
+     * @throws TooManyRequestsException
+     */
+    public function deleteSuppressedDestination($input): DeleteSuppressedDestinationResponse
+    {
+        $input = DeleteSuppressedDestinationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteSuppressedDestination', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NotFoundException' => NotFoundException::class,
+            'BadRequestException' => BadRequestException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new DeleteSuppressedDestinationResponse($response);
+    }
+
+    /**
+     * Retrieves information about a specific email address that's on the suppression list for your account.
+     *
+     * @see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_GetSuppressedDestination.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#getsuppresseddestination
+     *
+     * @param array{
+     *   EmailAddress: string,
+     *   '@region'?: string|null,
+     * }|GetSuppressedDestinationRequest $input
+     *
+     * @throws BadRequestException
+     * @throws TooManyRequestsException
+     * @throws NotFoundException
+     */
+    public function getSuppressedDestination($input): GetSuppressedDestinationResponse
+    {
+        $input = GetSuppressedDestinationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetSuppressedDestination', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotFoundException' => NotFoundException::class,
+        ]]));
+
+        return new GetSuppressedDestinationResponse($response);
+    }
+
     /**
      * Sends an email message. You can use the Amazon SES API v2 to send the following types of messages:
      *
