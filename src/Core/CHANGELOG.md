@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.24.1
+
+### Fixed
+
+- Better detection and error messages for when SSO is used but required packages are not installed.
+
 ## 1.24.0
 
 ### Added
