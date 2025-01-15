@@ -1091,6 +1091,7 @@ class KmsClient extends AbstractApi
             case 'il-central-1':
             case 'me-central-1':
             case 'me-south-1':
+            case 'mx-central-1':
             case 'sa-east-1':
             case 'us-east-1':
             case 'us-east-2':
@@ -1299,6 +1300,13 @@ class KmsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://kms-fips.me-south-1.amazonaws.com',
                     'signRegion' => 'me-south-1',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
+            case 'mx-central-1-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.mx-central-1.amazonaws.com',
+                    'signRegion' => 'mx-central-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];

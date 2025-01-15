@@ -6,6 +6,7 @@
 
 - Added getPublicKey and verify operation
 - AWS api-change: Added `ap-southeast-7` and `ap-southeast-7-fips` regions
+- AWS api-change: TODO
 
 ## 1.6.0
 

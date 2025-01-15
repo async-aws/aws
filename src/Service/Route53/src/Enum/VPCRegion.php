@@ -32,6 +32,7 @@ final class VPCRegion
     public const IL_CENTRAL_1 = 'il-central-1';
     public const ME_CENTRAL_1 = 'me-central-1';
     public const ME_SOUTH_1 = 'me-south-1';
+    public const MX_CENTRAL_1 = 'mx-central-1';
     public const SA_EAST_1 = 'sa-east-1';
     public const US_EAST_1 = 'us-east-1';
     public const US_EAST_2 = 'us-east-2';
@@ -74,6 +75,7 @@ final class VPCRegion
             self::IL_CENTRAL_1 => true,
             self::ME_CENTRAL_1 => true,
             self::ME_SOUTH_1 => true,
+            self::MX_CENTRAL_1 => true,
             self::SA_EAST_1 => true,
             self::US_EAST_1 => true,
             self::US_EAST_2 => true,
