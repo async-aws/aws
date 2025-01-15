@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.3.0
+
 ### Added
 
 - AWS enhancement: In-flight message typo fix from 20k to 120k.

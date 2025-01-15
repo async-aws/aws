@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.4.0
+
 ### Added
 
 - AWS api-change: This change adds support for global tables with multi-Region strong consistency (in preview). The UpdateTable API now supports a new attribute MultiRegionConsistency to set consistency when creating global tables. The DescribeTable output now optionally includes the MultiRegionConsistency attribute.

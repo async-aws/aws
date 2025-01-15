@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.7.0
+
 ### Added
 
 - AWS api-change: Added `us-iso-east-1` and `us-iso-west-1` regions.

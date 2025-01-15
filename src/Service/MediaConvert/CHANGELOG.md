@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.5.0
+
 ### Added
 
 - AWS api-change: This release adds support for inserting timecode tracks into MP4 container outputs.

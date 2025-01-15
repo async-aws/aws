@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.10.0
+
 ### Added
 
 - AWS api-change: Introduces support for multi-region endpoint.

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.4.0
+
 ### Added
 
 - AWS api-change: Added `ap-southeast-7` region

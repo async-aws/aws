@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.1.0
+
 ### Added
 
 - AWS api-change: Add FEDERATED type to CreateDataCatalog. This creates Athena Data Catalog, AWS Lambda connector, and AWS Glue connection. Create/DeleteDataCatalog returns DataCatalog. Add Status, ConnectionType, and Error to DataCatalog and DataCatalogSummary. Add DeleteCatalogOnly to delete Athena Catalog only.

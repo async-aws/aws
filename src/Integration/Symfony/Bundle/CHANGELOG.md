@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.13.0
+
 ### Added
 
 - Support for SSOOIDC

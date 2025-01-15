@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.2.1
+
 ### Changed
 
 - Avoid usage of `alias` when use statement refers to self
