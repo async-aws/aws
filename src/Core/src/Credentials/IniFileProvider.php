@@ -104,7 +104,7 @@ final class IniFileProvider implements CredentialProvider
         }
 
         if (isset($profileData[IniFileLoader::KEY_SSO_START_URL])) {
-            if (class_exists(SsoClient::class)) {
+            if (!class_exists(SsoClient::class)) {
                 $this->logger->warning('The profile "{profile}" contains SSO (legacy) config but the "async-aws/sso" package is not installed. Try running "composer require async-aws/sso".', ['profile' => $profile]);
 
                 return null;
