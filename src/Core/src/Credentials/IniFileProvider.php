@@ -8,6 +8,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\Sso\SsoClient;
+use AsyncAws\SsoOidc\SsoOidcClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -94,8 +95,8 @@ final class IniFileProvider implements CredentialProvider
         }
 
         if (isset($profileData[IniFileLoader::KEY_SSO_SESSION])) {
-            if (!class_exists(SsoClient::class)) {
-                $this->logger->warning('The profile "{profile}" contains SSO session config but the "async-aws/sso" package is not installed. Try running "composer require async-aws/sso".', ['profile' => $profile]);
+            if (!class_exists(SsoClient::class) || !class_exists(SsoOidcClient::class)) {
+                $this->logger->warning('The profile "{profile}" contains SSO session config but the required packages ("async-aws/sso" and "async-aws/sso-oidc") are not installed. Try running "composer require async-aws/sso async-aws/sso-oidc".', ['profile' => $profile]);
 
                 return null;
             }
@@ -104,7 +105,7 @@ final class IniFileProvider implements CredentialProvider
         }
 
         if (isset($profileData[IniFileLoader::KEY_SSO_START_URL])) {
-            if (class_exists(SsoClient::class)) {
+            if (!class_exists(SsoClient::class)) {
                 $this->logger->warning('The profile "{profile}" contains SSO (legacy) config but the "async-aws/sso" package is not installed. Try running "composer require async-aws/sso".', ['profile' => $profile]);
 
                 return null;
