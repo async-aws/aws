@@ -23,6 +23,7 @@ final class IniFileLoader
     public const KEY_ROLE_SESSION_NAME = 'role_session_name';
     public const KEY_SOURCE_PROFILE = 'source_profile';
     public const KEY_WEB_IDENTITY_TOKEN_FILE = 'web_identity_token_file';
+    public const KEY_SSO_SESSION = 'sso_session';
     public const KEY_SSO_START_URL = 'sso_start_url';
     public const KEY_SSO_REGION = 'sso_region';
     public const KEY_SSO_ACCOUNT_ID = 'sso_account_id';

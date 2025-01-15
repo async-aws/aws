@@ -5,6 +5,7 @@
 ### Added
 
 - Support for SsoOidc
+- Support for SSO authentication
 
 ### Changed
 
