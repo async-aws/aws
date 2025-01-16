@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -146,6 +147,18 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      */
     private $checksumAlgorithm;
 
+    /**
+     * The checksum type, which determines how part-level checksums are combined to create an object-level checksum for
+     * multipart objects. You can use this header response to verify that the checksum type that is received is the same
+     * checksum type that was specified in `CreateMultipartUpload` request. For more information, see Checking object
+     * integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
+
     public function getAbortDate(): ?\DateTimeImmutable
     {
         $this->initialize();
@@ -175,6 +188,16 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->initialize();
 
         return $this->checksumAlgorithm;
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumType;
     }
 
     public function getInitiator(): ?Initiator
@@ -328,6 +351,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->owner = 0 === $data->Owner->count() ? null : $this->populateResultOwner($data->Owner);
         $this->storageClass = (null !== $v = $data->StorageClass[0]) ? (string) $v : null;
         $this->checksumAlgorithm = (null !== $v = $data->ChecksumAlgorithm[0]) ? (string) $v : null;
+        $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (string) $v : null;
     }
 
     private function populateResultInitiator(\SimpleXMLElement $xml): Initiator
@@ -355,6 +379,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
             'Size' => (null !== $v = $xml->Size[0]) ? (int) (string) $v : null,
             'ChecksumCRC32' => (null !== $v = $xml->ChecksumCRC32[0]) ? (string) $v : null,
             'ChecksumCRC32C' => (null !== $v = $xml->ChecksumCRC32C[0]) ? (string) $v : null,
+            'ChecksumCRC64NVME' => (null !== $v = $xml->ChecksumCRC64NVME[0]) ? (string) $v : null,
             'ChecksumSHA1' => (null !== $v = $xml->ChecksumSHA1[0]) ? (string) $v : null,
             'ChecksumSHA256' => (null !== $v = $xml->ChecksumSHA256[0]) ? (string) $v : null,
         ]);

@@ -409,6 +409,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
             'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),
             'Initiator' => 0 === $xml->Initiator->count() ? null : $this->populateResultInitiator($xml->Initiator),
             'ChecksumAlgorithm' => (null !== $v = $xml->ChecksumAlgorithm[0]) ? (string) $v : null,
+            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (string) $v : null,
         ]);
     }
 

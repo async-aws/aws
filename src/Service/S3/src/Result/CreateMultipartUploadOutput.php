@@ -5,6 +5,7 @@ namespace AsyncAws\S3\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 
@@ -97,7 +98,7 @@ class CreateMultipartUploadOutput extends Result
 
     /**
      * If present, indicates the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this
-     * header is a Base64-encoded string of a UTF-8 encoded JSON, which contains the encryption context as key-value pairs.
+     * header is a Base64 encoded string of a UTF-8 encoded JSON, which contains the encryption context as key-value pairs.
      *
      * @var string|null
      */
@@ -122,6 +123,16 @@ class CreateMultipartUploadOutput extends Result
      * @var ChecksumAlgorithm::*|null
      */
     private $checksumAlgorithm;
+
+    /**
+     * Indicates the checksum type that you want Amazon S3 to use to calculate the object’s checksum value. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
 
     public function getAbortDate(): ?\DateTimeImmutable
     {
@@ -159,6 +170,16 @@ class CreateMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->checksumAlgorithm;
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumType;
     }
 
     public function getKey(): ?string
@@ -237,6 +258,7 @@ class CreateMultipartUploadOutput extends Result
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
         $this->checksumAlgorithm = $headers['x-amz-checksum-algorithm'][0] ?? null;
+        $this->checksumType = $headers['x-amz-checksum-type'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
         $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;

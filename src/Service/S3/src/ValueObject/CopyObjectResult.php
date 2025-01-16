@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+use AsyncAws\S3\Enum\ChecksumType;
+
 /**
  * Container for all response elements.
  */
@@ -22,8 +24,18 @@ final class CopyObjectResult
     private $lastModified;
 
     /**
-     * The base64-encoded, 32-bit CRC-32 checksum of the object. This will only be present if it was uploaded with the
-     * object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The checksum type that is used to calculate the object’s checksum value. For more information, see Checking object
+     * integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
+
+    /**
+     * The Base64 encoded, 32-bit `CRC-32` checksum of the object. This checksum is only present if the object was uploaded
+     * with the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -32,8 +44,8 @@ final class CopyObjectResult
     private $checksumCrc32;
 
     /**
-     * The base64-encoded, 32-bit CRC-32C checksum of the object. This will only be present if it was uploaded with the
-     * object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC-32C` checksum of the object. This will only be present if the object was uploaded
+     * with the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -42,8 +54,20 @@ final class CopyObjectResult
     private $checksumCrc32C;
 
     /**
-     * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. This checksum is present if the object being copied
+     * was uploaded with the `CRC-64NVME` checksum algorithm, or if the object was uploaded without a checksum (and Amazon
+     * S3 added the default checksum, `CRC-64NVME`, to the uploaded object). For more information, see Checking object
+     * integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc64Nvme;
+
+    /**
+     * The Base64 encoded, 160-bit `SHA-1` digest of the object. This will only be present if the object was uploaded with
+     * the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -52,8 +76,8 @@ final class CopyObjectResult
     private $checksumSha1;
 
     /**
-     * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
-     * object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 256-bit `SHA-256` digest of the object. This will only be present if the object was uploaded with
+     * the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -65,8 +89,10 @@ final class CopyObjectResult
      * @param array{
      *   ETag?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
+     *   ChecksumType?: null|ChecksumType::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      * } $input
@@ -75,8 +101,10 @@ final class CopyObjectResult
     {
         $this->etag = $input['ETag'] ?? null;
         $this->lastModified = $input['LastModified'] ?? null;
+        $this->checksumType = $input['ChecksumType'] ?? null;
         $this->checksumCrc32 = $input['ChecksumCRC32'] ?? null;
         $this->checksumCrc32C = $input['ChecksumCRC32C'] ?? null;
+        $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
     }
@@ -85,8 +113,10 @@ final class CopyObjectResult
      * @param array{
      *   ETag?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
+     *   ChecksumType?: null|ChecksumType::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      * }|CopyObjectResult $input
@@ -106,6 +136,11 @@ final class CopyObjectResult
         return $this->checksumCrc32C;
     }
 
+    public function getChecksumCrc64Nvme(): ?string
+    {
+        return $this->checksumCrc64Nvme;
+    }
+
     public function getChecksumSha1(): ?string
     {
         return $this->checksumSha1;
@@ -114,6 +149,14 @@ final class CopyObjectResult
     public function getChecksumSha256(): ?string
     {
         return $this->checksumSha256;
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        return $this->checksumType;
     }
 
     public function getEtag(): ?string

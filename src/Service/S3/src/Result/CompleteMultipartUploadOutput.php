@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 
@@ -57,11 +58,11 @@ class CompleteMultipartUploadOutput extends Result
     private $etag;
 
     /**
-     * The base64-encoded, 32-bit CRC-32 checksum of the object. This will only be present if it was uploaded with the
-     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
-     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
-     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
-     * [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC-32 checksum` of the object. This checksum is only be present if the checksum was
+     * uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this
+     * value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values
+     * of each individual part. For more information about how checksums are calculated with multipart uploads, see Checking
+     * object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -70,11 +71,11 @@ class CompleteMultipartUploadOutput extends Result
     private $checksumCrc32;
 
     /**
-     * The base64-encoded, 32-bit CRC-32C checksum of the object. This will only be present if it was uploaded with the
-     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
-     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
-     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
-     * [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC-32C` checksum of the object. This checksum is only present if the checksum was
+     * uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this
+     * value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values
+     * of each individual part. For more information about how checksums are calculated with multipart uploads, see Checking
+     * object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -83,11 +84,23 @@ class CompleteMultipartUploadOutput extends Result
     private $checksumCrc32C;
 
     /**
-     * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * When you use the API operation on an object that was uploaded using multipart uploads, this value may not be a direct
-     * checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part.
-     * For more information about how checksums are calculated with multipart uploads, see Checking object integrity [^1] in
-     * the *Amazon S3 User Guide*.
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. The
+     * `CRC-64NVME` checksum is always a full object checksum. For more information, see Checking object integrity in the
+     * Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc64Nvme;
+
+    /**
+     * The Base64 encoded, 160-bit `SHA-1` digest of the object. This will only be present if the object was uploaded with
+     * the object. When you use the API operation on an object that was uploaded using multipart uploads, this value may not
+     * be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each
+     * individual part. For more information about how checksums are calculated with multipart uploads, see Checking object
+     * integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
@@ -96,17 +109,29 @@ class CompleteMultipartUploadOutput extends Result
     private $checksumSha1;
 
     /**
-     * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
-     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
-     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
-     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
-     * [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 256-bit `SHA-256` digest of the object. This will only be present if the object was uploaded with
+     * the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not
+     * be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each
+     * individual part. For more information about how checksums are calculated with multipart uploads, see Checking object
+     * integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
      *
      * @var string|null
      */
     private $checksumSha256;
+
+    /**
+     * The checksum type, which determines how part-level checksums are combined to create an object-level checksum for
+     * multipart objects. You can use this header as a data integrity check to verify that the checksum type that is
+     * received is the same checksum type that was specified during the `CreateMultipartUpload` request. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
@@ -172,6 +197,13 @@ class CompleteMultipartUploadOutput extends Result
         return $this->checksumCrc32C;
     }
 
+    public function getChecksumCrc64Nvme(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumCrc64Nvme;
+    }
+
     public function getChecksumSha1(): ?string
     {
         $this->initialize();
@@ -184,6 +216,16 @@ class CompleteMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->checksumSha256;
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumType;
     }
 
     public function getEtag(): ?string
@@ -266,7 +308,9 @@ class CompleteMultipartUploadOutput extends Result
         $this->etag = (null !== $v = $data->ETag[0]) ? (string) $v : null;
         $this->checksumCrc32 = (null !== $v = $data->ChecksumCRC32[0]) ? (string) $v : null;
         $this->checksumCrc32C = (null !== $v = $data->ChecksumCRC32C[0]) ? (string) $v : null;
+        $this->checksumCrc64Nvme = (null !== $v = $data->ChecksumCRC64NVME[0]) ? (string) $v : null;
         $this->checksumSha1 = (null !== $v = $data->ChecksumSHA1[0]) ? (string) $v : null;
         $this->checksumSha256 = (null !== $v = $data->ChecksumSHA256[0]) ? (string) $v : null;
+        $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (string) $v : null;
     }
 }

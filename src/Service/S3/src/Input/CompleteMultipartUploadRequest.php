@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 
@@ -73,7 +74,7 @@ final class CompleteMultipartUploadRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32 checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -84,7 +85,7 @@ final class CompleteMultipartUploadRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32C checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32C` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -95,8 +96,20 @@ final class CompleteMultipartUploadRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 160-bit SHA-1 digest of the object. For more information,
-     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. The
+     * `CRC-64NVME` checksum is always a full object checksum. For more information, see Checking object integrity in the
+     * Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc64Nvme;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 160-bit `SHA-1` digest of the object. For more
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -106,7 +119,7 @@ final class CompleteMultipartUploadRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 256-bit `SHA-256` digest of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -114,6 +127,25 @@ final class CompleteMultipartUploadRequest extends Input
      * @var string|null
      */
     private $checksumSha256;
+
+    /**
+     * This header specifies the checksum type of the object, which determines how part-level checksums are combined to
+     * create an object-level checksum for multipart objects. You can use this header as a data integrity check to verify
+     * that the checksum type that is received is the same checksum that was specified. If the checksum type doesn’t match
+     * the checksum type that was specified for the object during the `CreateMultipartUpload` request, it’ll result in a
+     * `BadDigest` error. For more information, see Checking object integrity in the Amazon S3 User Guide.
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
+
+    /**
+     * The expected total object size of the multipart upload request. If there’s a mismatch between the specified object
+     * size value and the actual object size value, it results in an `HTTP 400 InvalidRequest` error.
+     *
+     * @var int|null
+     */
+    private $mpuObjectSize;
 
     /**
      * @var RequestPayer::*|null
@@ -214,8 +246,11 @@ final class CompleteMultipartUploadRequest extends Input
      *   UploadId?: string,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
+     *   ChecksumType?: null|ChecksumType::*,
+     *   MpuObjectSize?: null|int,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
      *   IfMatch?: null|string,
@@ -234,8 +269,11 @@ final class CompleteMultipartUploadRequest extends Input
         $this->uploadId = $input['UploadId'] ?? null;
         $this->checksumCrc32 = $input['ChecksumCRC32'] ?? null;
         $this->checksumCrc32C = $input['ChecksumCRC32C'] ?? null;
+        $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
+        $this->checksumType = $input['ChecksumType'] ?? null;
+        $this->mpuObjectSize = $input['MpuObjectSize'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         $this->ifMatch = $input['IfMatch'] ?? null;
@@ -254,8 +292,11 @@ final class CompleteMultipartUploadRequest extends Input
      *   UploadId?: string,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
+     *   ChecksumType?: null|ChecksumType::*,
+     *   MpuObjectSize?: null|int,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
      *   IfMatch?: null|string,
@@ -286,6 +327,11 @@ final class CompleteMultipartUploadRequest extends Input
         return $this->checksumCrc32C;
     }
 
+    public function getChecksumCrc64Nvme(): ?string
+    {
+        return $this->checksumCrc64Nvme;
+    }
+
     public function getChecksumSha1(): ?string
     {
         return $this->checksumSha1;
@@ -294,6 +340,14 @@ final class CompleteMultipartUploadRequest extends Input
     public function getChecksumSha256(): ?string
     {
         return $this->checksumSha256;
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        return $this->checksumType;
     }
 
     public function getExpectedBucketOwner(): ?string
@@ -314,6 +368,11 @@ final class CompleteMultipartUploadRequest extends Input
     public function getKey(): ?string
     {
         return $this->key;
+    }
+
+    public function getMpuObjectSize(): ?int
+    {
+        return $this->mpuObjectSize;
     }
 
     public function getMultipartUpload(): ?CompletedMultipartUpload
@@ -362,11 +421,23 @@ final class CompleteMultipartUploadRequest extends Input
         if (null !== $this->checksumCrc32C) {
             $headers['x-amz-checksum-crc32c'] = $this->checksumCrc32C;
         }
+        if (null !== $this->checksumCrc64Nvme) {
+            $headers['x-amz-checksum-crc64nvme'] = $this->checksumCrc64Nvme;
+        }
         if (null !== $this->checksumSha1) {
             $headers['x-amz-checksum-sha1'] = $this->checksumSha1;
         }
         if (null !== $this->checksumSha256) {
             $headers['x-amz-checksum-sha256'] = $this->checksumSha256;
+        }
+        if (null !== $this->checksumType) {
+            if (!ChecksumType::exists($this->checksumType)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "ChecksumType" for "%s". The value "%s" is not a valid "ChecksumType".', __CLASS__, $this->checksumType));
+            }
+            $headers['x-amz-checksum-type'] = $this->checksumType;
+        }
+        if (null !== $this->mpuObjectSize) {
+            $headers['x-amz-mp-object-size'] = (string) $this->mpuObjectSize;
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
@@ -444,6 +515,13 @@ final class CompleteMultipartUploadRequest extends Input
         return $this;
     }
 
+    public function setChecksumCrc64Nvme(?string $value): self
+    {
+        $this->checksumCrc64Nvme = $value;
+
+        return $this;
+    }
+
     public function setChecksumSha1(?string $value): self
     {
         $this->checksumSha1 = $value;
@@ -454,6 +532,16 @@ final class CompleteMultipartUploadRequest extends Input
     public function setChecksumSha256(?string $value): self
     {
         $this->checksumSha256 = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumType::*|null $value
+     */
+    public function setChecksumType(?string $value): self
+    {
+        $this->checksumType = $value;
 
         return $this;
     }
@@ -482,6 +570,13 @@ final class CompleteMultipartUploadRequest extends Input
     public function setKey(?string $value): self
     {
         $this->key = $value;
+
+        return $this;
+    }
+
+    public function setMpuObjectSize(?int $value): self
+    {
+        $this->mpuObjectSize = $value;
 
         return $this;
     }
