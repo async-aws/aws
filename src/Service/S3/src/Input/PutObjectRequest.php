@@ -136,10 +136,10 @@ final class PutObjectRequest extends Input
     private $contentLength;
 
     /**
-     * The base64-encoded 128-bit MD5 digest of the message (without the headers) according to RFC 1864. This header can be
-     * used as a message integrity check to verify that the data is the same data that was originally sent. Although it is
-     * optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about
-     * REST request authentication, see REST Authentication [^1].
+     * The Base64 encoded 128-bit `MD5` digest of the message (without the headers) according to RFC 1864. This header can
+     * be used as a message integrity check to verify that the data is the same data that was originally sent. Although it
+     * is optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information
+     * about REST request authentication, see REST Authentication [^1].
      *
      * > The `Content-MD5` or `x-amz-sdk-checksum-algorithm` header is required for any request to upload an object with a
      * > retention period configured using Amazon S3 Object Lock. For more information, see Uploading objects to an Object
@@ -173,16 +173,16 @@ final class PutObjectRequest extends Input
      * For the `x-amz-checksum-*algorithm*` header, replace `*algorithm*` with the supported algorithm from the following
      * list:
      *
-     * - `CRC32`
-     * - `CRC32C`
-     * - `SHA1`
-     * - `SHA256`
+     * - `CRC-32`
+     * - `CRC-32C`
+     * - `CRC-64NVME`
+     * - `SHA-1`
+     * - `SHA-256`
      *
      * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * If the individual checksum value you provide through `x-amz-checksum-*algorithm*` doesn't match the checksum
-     * algorithm you set through `x-amz-sdk-checksum-algorithm`, Amazon S3 ignores any provided `ChecksumAlgorithm`
-     * parameter and uses the checksum algorithm that matches the provided value in `x-amz-checksum-*algorithm*`.
+     * algorithm you set through `x-amz-sdk-checksum-algorithm`, Amazon S3 fails the request with a `BadDigest` error.
      *
      * > The `Content-MD5` or `x-amz-sdk-checksum-algorithm` header is required for any request to upload an object with a
      * > retention period configured using Amazon S3 Object Lock. For more information, see Uploading objects to an Object
@@ -200,7 +200,7 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32 checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -211,7 +211,7 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32C checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32C` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -222,8 +222,20 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 160-bit SHA-1 digest of the object. For more information,
-     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. The
+     * `CRC-64NVME` checksum is always a full object checksum. For more information, see Checking object integrity in the
+     * Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc64Nvme;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 160-bit `SHA-1` digest of the object. For more
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -233,7 +245,7 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 256-bit `SHA-256` digest of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -506,7 +518,7 @@ final class PutObjectRequest extends Input
 
     /**
      * Specifies the Amazon Web Services KMS Encryption Context as an additional encryption context to use for object
-     * encryption. The value of this header is a Base64-encoded string of a UTF-8 encoded JSON, which contains the
+     * encryption. The value of this header is a Base64 encoded string of a UTF-8 encoded JSON, which contains the
      * encryption context as key-value pairs. This value is stored as object metadata and automatically gets passed on to
      * Amazon Web Services KMS for future `GetObject` operations on this object.
      *
@@ -614,6 +626,7 @@ final class PutObjectRequest extends Input
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Expires?: null|\DateTimeImmutable|string,
@@ -659,6 +672,7 @@ final class PutObjectRequest extends Input
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->checksumCrc32 = $input['ChecksumCRC32'] ?? null;
         $this->checksumCrc32C = $input['ChecksumCRC32C'] ?? null;
+        $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
         $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
@@ -704,6 +718,7 @@ final class PutObjectRequest extends Input
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Expires?: null|\DateTimeImmutable|string,
@@ -786,6 +801,11 @@ final class PutObjectRequest extends Input
     public function getChecksumCrc32C(): ?string
     {
         return $this->checksumCrc32C;
+    }
+
+    public function getChecksumCrc64Nvme(): ?string
+    {
+        return $this->checksumCrc64Nvme;
     }
 
     public function getChecksumSha1(): ?string
@@ -1012,6 +1032,9 @@ final class PutObjectRequest extends Input
         if (null !== $this->checksumCrc32C) {
             $headers['x-amz-checksum-crc32c'] = $this->checksumCrc32C;
         }
+        if (null !== $this->checksumCrc64Nvme) {
+            $headers['x-amz-checksum-crc64nvme'] = $this->checksumCrc64Nvme;
+        }
         if (null !== $this->checksumSha1) {
             $headers['x-amz-checksum-sha1'] = $this->checksumSha1;
         }
@@ -1191,6 +1214,13 @@ final class PutObjectRequest extends Input
     public function setChecksumCrc32C(?string $value): self
     {
         $this->checksumCrc32C = $value;
+
+        return $this;
+    }
+
+    public function setChecksumCrc64Nvme(?string $value): self
+    {
+        $this->checksumCrc64Nvme = $value;
 
         return $this;
     }

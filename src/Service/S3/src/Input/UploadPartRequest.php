@@ -61,7 +61,7 @@ final class UploadPartRequest extends Input
     private $contentLength;
 
     /**
-     * The base64-encoded 128-bit MD5 digest of the part data. This parameter is auto-populated when using the command from
+     * The Base64 encoded 128-bit MD5 digest of the part data. This parameter is auto-populated when using the command from
      * the CLI. This parameter is required if object lock parameters are specified.
      *
      * > This functionality is not supported for directory buckets.
@@ -89,7 +89,7 @@ final class UploadPartRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32 checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -100,7 +100,7 @@ final class UploadPartRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32C checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32C` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -111,8 +111,19 @@ final class UploadPartRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 160-bit SHA-1 digest of the object. For more information,
-     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC-64NVME` checksum of the part. For more
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc64Nvme;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 160-bit `SHA-1` digest of the object. For more
+     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -122,7 +133,7 @@ final class UploadPartRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 256-bit `SHA-256` digest of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -211,6 +222,7 @@ final class UploadPartRequest extends Input
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Key?: string,
@@ -233,6 +245,7 @@ final class UploadPartRequest extends Input
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->checksumCrc32 = $input['ChecksumCRC32'] ?? null;
         $this->checksumCrc32C = $input['ChecksumCRC32C'] ?? null;
+        $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
         $this->key = $input['Key'] ?? null;
@@ -255,6 +268,7 @@ final class UploadPartRequest extends Input
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Key?: string,
@@ -302,6 +316,11 @@ final class UploadPartRequest extends Input
     public function getChecksumCrc32C(): ?string
     {
         return $this->checksumCrc32C;
+    }
+
+    public function getChecksumCrc64Nvme(): ?string
+    {
+        return $this->checksumCrc64Nvme;
     }
 
     public function getChecksumSha1(): ?string
@@ -391,6 +410,9 @@ final class UploadPartRequest extends Input
         }
         if (null !== $this->checksumCrc32C) {
             $headers['x-amz-checksum-crc32c'] = $this->checksumCrc32C;
+        }
+        if (null !== $this->checksumCrc64Nvme) {
+            $headers['x-amz-checksum-crc64nvme'] = $this->checksumCrc64Nvme;
         }
         if (null !== $this->checksumSha1) {
             $headers['x-amz-checksum-sha1'] = $this->checksumSha1;
@@ -484,6 +506,13 @@ final class UploadPartRequest extends Input
     public function setChecksumCrc32C(?string $value): self
     {
         $this->checksumCrc32C = $value;
+
+        return $this;
+    }
+
+    public function setChecksumCrc64Nvme(?string $value): self
+    {
+        $this->checksumCrc64Nvme = $value;
 
         return $this;
     }

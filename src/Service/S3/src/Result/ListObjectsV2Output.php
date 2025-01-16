@@ -420,6 +420,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
             'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
             'ChecksumAlgorithm' => (0 === ($v = $xml->ChecksumAlgorithm)->count()) ? null : $this->populateResultChecksumAlgorithmList($v),
+            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (string) $v : null,
             'Size' => (null !== $v = $xml->Size[0]) ? (int) (string) $v : null,
             'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (string) $v : null,
             'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),

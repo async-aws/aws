@@ -11,6 +11,7 @@ use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\BucketCannedACL;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ChecksumMode;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\MetadataDirective;
 use AsyncAws\S3\Enum\ObjectCannedACL;
@@ -122,7 +123,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^2] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^3] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^3] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Permissions`:
@@ -152,7 +153,7 @@ class S3Client extends AbstractApi
      * - ListMultipartUploads [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
@@ -262,7 +263,7 @@ class S3Client extends AbstractApi
      * > `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * > directory buckets in Availability Zones [^5] in the *Amazon S3 User Guide*. For more information about endpoints in
-     * > Local Zones, see Concepts for directory buckets in Local Zones [^6] in the *Amazon S3 User Guide*.
+     * > Local Zones, see Available Local Zone for directory buckets [^6] in the *Amazon S3 User Guide*.
      *
      * - `Permissions`:
      *
@@ -328,7 +329,7 @@ class S3Client extends AbstractApi
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ErrorBestPractices.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_Checksum.html
@@ -351,8 +352,11 @@ class S3Client extends AbstractApi
      *   UploadId: string,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
+     *   ChecksumType?: null|ChecksumType::*,
+     *   MpuObjectSize?: null|int,
      *   RequestPayer?: null|RequestPayer::*,
      *   ExpectedBucketOwner?: null|string,
      *   IfMatch?: null|string,
@@ -389,7 +393,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^2] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^3] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^3] in the *Amazon S3 User Guide*.
      * > - VPC endpoints don't support cross-Region requests (including copies). If you're using VPC endpoints, your source
      * >   and destination buckets should be in the same Amazon Web Services Region as your VPC endpoint.
      * >
@@ -485,7 +489,7 @@ class S3Client extends AbstractApi
      * - GetObject [^12]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^4]: https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-regions.html#manage-acct-regions-enable-standalone
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html
@@ -579,7 +583,7 @@ class S3Client extends AbstractApi
      * >   `https://s3express-control.*region-code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^4] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^5] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^5] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Permissions`:
@@ -641,7 +645,7 @@ class S3Client extends AbstractApi
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateBucket.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
@@ -707,7 +711,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^4] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^5] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^5] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Request signing`:
@@ -836,7 +840,7 @@ class S3Client extends AbstractApi
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html#mpuAndPermissions
@@ -897,6 +901,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: null|string,
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   ChecksumType?: null|ChecksumType::*,
      *   '@region'?: string|null,
      * }|CreateMultipartUploadRequest $input
      */
@@ -919,7 +924,7 @@ class S3Client extends AbstractApi
      * >   `https://s3express-control.*region-code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^1] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^2] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^2] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Permissions`:
@@ -941,7 +946,7 @@ class S3Client extends AbstractApi
      * - CreateBucket [^4]
      * - DeleteObject [^5]
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
@@ -1025,7 +1030,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^3] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^4] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^4] in the *Amazon S3 User Guide*.
      * >
      *
      * To remove a specific version, you must use the `versionId` query parameter. Using this query parameter permanently
@@ -1075,7 +1080,7 @@ class S3Client extends AbstractApi
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectVersions.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectsfromVersioningSuspendedBuckets.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectDELETE.html#ExampleVersionObjectDelete
@@ -1166,7 +1171,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^1] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^2] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^2] in the *Amazon S3 User Guide*.
      * >
      *
      * The operation supports two modes for the response: verbose and quiet. By default, the operation uses verbose mode in
@@ -1222,7 +1227,7 @@ class S3Client extends AbstractApi
      * - ListParts [^9]
      * - AbortMultipartUpload [^10]
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html#MultiFactorAuthenticationDelete
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
@@ -1379,7 +1384,7 @@ class S3Client extends AbstractApi
      * `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for directory
      * buckets in Availability Zones [^2] in the *Amazon S3 User Guide*. For more information about endpoints in Local
-     * Zones, see Concepts for directory buckets in Local Zones [^3] in the *Amazon S3 User Guide*.
+     * Zones, see Available Local Zone for directory buckets [^3] in the *Amazon S3 User Guide*.
      *
      * - `Permissions`:
      *
@@ -1473,7 +1478,7 @@ class S3Client extends AbstractApi
      * - GetObjectAcl [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingSpecifyBucket
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
@@ -1718,7 +1723,7 @@ class S3Client extends AbstractApi
      *   > `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      *   > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      *   > directory buckets in Availability Zones [^8] in the *Amazon S3 User Guide*. For more information about endpoints
-     *   > in Local Zones, see Concepts for directory buckets in Local Zones [^9] in the *Amazon S3 User Guide*.
+     *   > in Local Zones, see Available Local Zone for directory buckets [^9] in the *Amazon S3 User Guide*.
      *
      *
      * The following actions are related to `HeadObject`:
@@ -1733,7 +1738,7 @@ class S3Client extends AbstractApi
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
@@ -1846,7 +1851,7 @@ class S3Client extends AbstractApi
      * > `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * > directory buckets in Availability Zones [^2] in the *Amazon S3 User Guide*. For more information about endpoints in
-     * > Local Zones, see Concepts for directory buckets in Local Zones [^3] in the *Amazon S3 User Guide*.
+     * > Local Zones, see Available Local Zone for directory buckets [^3] in the *Amazon S3 User Guide*.
      *
      * - `Permissions`:
      *
@@ -1888,7 +1893,7 @@ class S3Client extends AbstractApi
      * - AbortMultipartUpload [^11]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
@@ -1992,7 +1997,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^3] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^4] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^4] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Permissions`:
@@ -2034,7 +2039,7 @@ class S3Client extends AbstractApi
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ListingKeysUsingAPIs.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
@@ -2096,7 +2101,7 @@ class S3Client extends AbstractApi
      * > `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * > directory buckets in Availability Zones [^3] in the *Amazon S3 User Guide*. For more information about endpoints in
-     * > Local Zones, see Concepts for directory buckets in Local Zones [^4] in the *Amazon S3 User Guide*.
+     * > Local Zones, see Available Local Zone for directory buckets [^4] in the *Amazon S3 User Guide*.
      *
      * - `Permissions`:
      *
@@ -2131,7 +2136,7 @@ class S3Client extends AbstractApi
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
@@ -2453,7 +2458,7 @@ class S3Client extends AbstractApi
      * >   `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * >   directory buckets in Availability Zones [^1] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^2] in the *Amazon S3 User Guide*.
+     * >   in Local Zones, see Available Local Zone for directory buckets [^2] in the *Amazon S3 User Guide*.
      * >
      *
      * Amazon S3 is a distributed system. If it receives multiple write requests for the same object simultaneously, it
@@ -2516,7 +2521,7 @@ class S3Client extends AbstractApi
      * - CopyObject [^8]
      * - DeleteObject [^9]
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/AddingObjectstoVersioningEnabledBuckets.html
@@ -2544,6 +2549,7 @@ class S3Client extends AbstractApi
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Expires?: null|\DateTimeImmutable|string,
@@ -2838,7 +2844,7 @@ class S3Client extends AbstractApi
      * > `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * > directory buckets in Availability Zones [^5] in the *Amazon S3 User Guide*. For more information about endpoints in
-     * > Local Zones, see Concepts for directory buckets in Local Zones [^6] in the *Amazon S3 User Guide*.
+     * > Local Zones, see Available Local Zone for directory buckets [^6] in the *Amazon S3 User Guide*.
      *
      * - `Permissions`:
      *
@@ -2932,7 +2938,7 @@ class S3Client extends AbstractApi
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html
@@ -2960,6 +2966,7 @@ class S3Client extends AbstractApi
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      *   Key: string,
@@ -3004,7 +3011,7 @@ class S3Client extends AbstractApi
      * > `https://*bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests are not
      * > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
      * > directory buckets in Availability Zones [^5] in the *Amazon S3 User Guide*. For more information about endpoints in
-     * > Local Zones, see Concepts for directory buckets in Local Zones [^6] in the *Amazon S3 User Guide*.
+     * > Local Zones, see Available Local Zone for directory buckets [^6] in the *Amazon S3 User Guide*.
      *
      * - `Authentication and authorization`:
      *
@@ -3105,7 +3112,7 @@ class S3Client extends AbstractApi
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html

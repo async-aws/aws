@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\ObjectVersionStorageClass;
 
 /**
@@ -23,6 +24,16 @@ final class ObjectVersion
      * @var list<ChecksumAlgorithm::*>|null
      */
     private $checksumAlgorithm;
+
+    /**
+     * The checksum type that is used to calculate the object’s checksum value. For more information, see Checking object
+     * integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
 
     /**
      * Size in bytes of the object.
@@ -88,6 +99,7 @@ final class ObjectVersion
      * @param array{
      *   ETag?: null|string,
      *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
+     *   ChecksumType?: null|ChecksumType::*,
      *   Size?: null|int,
      *   StorageClass?: null|ObjectVersionStorageClass::*,
      *   Key?: null|string,
@@ -102,6 +114,7 @@ final class ObjectVersion
     {
         $this->etag = $input['ETag'] ?? null;
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
+        $this->checksumType = $input['ChecksumType'] ?? null;
         $this->size = $input['Size'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
         $this->key = $input['Key'] ?? null;
@@ -116,6 +129,7 @@ final class ObjectVersion
      * @param array{
      *   ETag?: null|string,
      *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
+     *   ChecksumType?: null|ChecksumType::*,
      *   Size?: null|int,
      *   StorageClass?: null|ObjectVersionStorageClass::*,
      *   Key?: null|string,
@@ -137,6 +151,14 @@ final class ObjectVersion
     public function getChecksumAlgorithm(): array
     {
         return $this->checksumAlgorithm ?? [];
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        return $this->checksumType;
     }
 
     public function getEtag(): ?string

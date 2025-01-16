@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
@@ -435,7 +436,7 @@ final class CreateMultipartUploadRequest extends Input
 
     /**
      * Specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a
-     * Base64-encoded string of a UTF-8 encoded JSON, which contains the encryption context as key-value pairs.
+     * Base64 encoded string of a UTF-8 encoded JSON, which contains the encryption context as key-value pairs.
      *
      * **Directory buckets** - You can optionally provide an explicit encryption context value. The value must match the
      * default encryption context - the bucket Amazon Resource Name (ARN). An additional encryption context value is not
@@ -528,6 +529,16 @@ final class CreateMultipartUploadRequest extends Input
     private $checksumAlgorithm;
 
     /**
+     * Indicates the checksum type that you want Amazon S3 to use to calculate the object’s checksum value. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumType::*|null
+     */
+    private $checksumType;
+
+    /**
      * @param array{
      *   ACL?: null|ObjectCannedACL::*,
      *   Bucket?: string,
@@ -559,6 +570,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: null|string,
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   ChecksumType?: null|ChecksumType::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -594,6 +606,7 @@ final class CreateMultipartUploadRequest extends Input
         $this->objectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
+        $this->checksumType = $input['ChecksumType'] ?? null;
         parent::__construct($input);
     }
 
@@ -629,6 +642,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: null|string,
      *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   ChecksumType?: null|ChecksumType::*,
      *   '@region'?: string|null,
      * }|CreateMultipartUploadRequest $input
      */
@@ -666,6 +680,14 @@ final class CreateMultipartUploadRequest extends Input
     public function getChecksumAlgorithm(): ?string
     {
         return $this->checksumAlgorithm;
+    }
+
+    /**
+     * @return ChecksumType::*|null
+     */
+    public function getChecksumType(): ?string
+    {
+        return $this->checksumType;
     }
 
     public function getContentDisposition(): ?string
@@ -920,6 +942,12 @@ final class CreateMultipartUploadRequest extends Input
             }
             $headers['x-amz-checksum-algorithm'] = $this->checksumAlgorithm;
         }
+        if (null !== $this->checksumType) {
+            if (!ChecksumType::exists($this->checksumType)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "ChecksumType" for "%s". The value "%s" is not a valid "ChecksumType".', __CLASS__, $this->checksumType));
+            }
+            $headers['x-amz-checksum-type'] = $this->checksumType;
+        }
         if (null !== $this->metadata) {
             foreach ($this->metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
@@ -985,6 +1013,16 @@ final class CreateMultipartUploadRequest extends Input
     public function setChecksumAlgorithm(?string $value): self
     {
         $this->checksumAlgorithm = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumType::*|null $value
+     */
+    public function setChecksumType(?string $value): self
+    {
+        $this->checksumType = $value;
 
         return $this;
     }

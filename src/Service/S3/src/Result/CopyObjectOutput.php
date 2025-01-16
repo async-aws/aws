@@ -82,7 +82,7 @@ class CopyObjectOutput extends Result
 
     /**
      * If present, indicates the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this
-     * header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+     * header is a Base64 encoded UTF-8 string holding JSON with the encryption context key-value pairs.
      *
      * @var string|null
      */
@@ -208,8 +208,10 @@ class CopyObjectOutput extends Result
         return new CopyObjectResult([
             'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
             'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (string) $v : null,
             'ChecksumCRC32' => (null !== $v = $xml->ChecksumCRC32[0]) ? (string) $v : null,
             'ChecksumCRC32C' => (null !== $v = $xml->ChecksumCRC32C[0]) ? (string) $v : null,
+            'ChecksumCRC64NVME' => (null !== $v = $xml->ChecksumCRC64NVME[0]) ? (string) $v : null,
             'ChecksumSHA1' => (null !== $v = $xml->ChecksumSHA1[0]) ? (string) $v : null,
             'ChecksumSHA256' => (null !== $v = $xml->ChecksumSHA256[0]) ? (string) $v : null,
         ]);

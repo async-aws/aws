@@ -36,9 +36,9 @@ final class Part
     private $size;
 
     /**
-     * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 32-bit CRC-32 checksum of the object. For more
-     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC-32` checksum of the part. This checksum is present if the object was uploaded with
+     * the `CRC-32` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon S3 User
+     * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -47,35 +47,43 @@ final class Part
     private $checksumCrc32;
 
     /**
-     * The base64-encoded, 32-bit CRC-32C checksum of the object. This will only be present if it was uploaded with the
-     * object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a
-     * direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual
-     * part. For more information about how checksums are calculated with multipart uploads, see Checking object integrity
-     * [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC-32C` checksum of the part. This checksum is present if the object was uploaded with
+     * the `CRC-32C` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon S3 User
+     * Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumCrc32C;
 
     /**
-     * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
-     * When you use the API operation on an object that was uploaded using multipart uploads, this value may not be a direct
-     * checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part.
-     * For more information about how checksums are calculated with multipart uploads, see Checking object integrity [^1] in
-     * the *Amazon S3 User Guide*.
+     * The Base64 encoded, 64-bit `CRC-64NVME` checksum of the part. This checksum is present if the multipart upload
+     * request was created with the `CRC-64NVME` checksum algorithm, or if the object was uploaded without a checksum (and
+     * Amazon S3 added the default checksum, `CRC-64NVME`, to the uploaded object). For more information, see Checking
+     * object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc64Nvme;
+
+    /**
+     * The Base64 encoded, 160-bit `SHA-1` checksum of the part. This checksum is present if the object was uploaded with
+     * the `SHA-1` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon S3 User
+     * Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumSha1;
 
     /**
-     * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
-     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 256-bit `SHA-256` checksum of the part. This checksum is present if the object was uploaded with
+     * the `SHA-256` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon S3 User
+     * Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -91,6 +99,7 @@ final class Part
      *   Size?: null|int,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      * } $input
@@ -103,6 +112,7 @@ final class Part
         $this->size = $input['Size'] ?? null;
         $this->checksumCrc32 = $input['ChecksumCRC32'] ?? null;
         $this->checksumCrc32C = $input['ChecksumCRC32C'] ?? null;
+        $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
     }
@@ -115,6 +125,7 @@ final class Part
      *   Size?: null|int,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
+     *   ChecksumCRC64NVME?: null|string,
      *   ChecksumSHA1?: null|string,
      *   ChecksumSHA256?: null|string,
      * }|Part $input
@@ -132,6 +143,11 @@ final class Part
     public function getChecksumCrc32C(): ?string
     {
         return $this->checksumCrc32C;
+    }
+
+    public function getChecksumCrc64Nvme(): ?string
+    {
+        return $this->checksumCrc64Nvme;
     }
 
     public function getChecksumSha1(): ?string

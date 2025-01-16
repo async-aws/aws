@@ -33,7 +33,7 @@ final class PutBucketCorsRequest extends Input
     private $corsConfiguration;
 
     /**
-     * The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify
+     * The Base64 encoded 128-bit `MD5` digest of the data. This header must be used as a message integrity check to verify
      * that the request body was not corrupted in transit. For more information, go to RFC 1864. [^1].
      *
      * For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field
