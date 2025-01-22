@@ -138,7 +138,7 @@ class CloudWatchLogsClient extends AbstractApi
      * You can specify the log group to search by using either `logGroupIdentifier` or `logGroupName`. You must include one
      * of these two parameters, but you can't include both.
      *
-     * This operation has a limit of five transactions per second, after which transactions are throttled.
+     * This operation has a limit of 25 transactions per second, after which transactions are throttled.
      *
      * If you are using CloudWatch cross-account observability, you can use this operation in a monitoring account and view
      * data from the linked source accounts. For more information, see CloudWatch cross-account observability [^1].
