@@ -159,7 +159,7 @@ class SsmClient extends AbstractApi
     }
 
     /**
-     * Retrieve information about one or more parameters in a specific hierarchy.
+     * Retrieve information about one or more parameters under a specified level in a hierarchy.
      *
      * Request results are returned on a best-effort basis. If you specify `MaxResults` in the request, the response
      * includes information up to the limit specified. The number of items returned, however, can be between zero and the

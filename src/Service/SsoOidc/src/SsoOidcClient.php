@@ -26,7 +26,7 @@ class SsoOidcClient extends AbstractApi
 {
     /**
      * Creates and returns access and refresh tokens for clients that are authenticated using client secrets. The access
-     * token can be used to fetch short-term credentials for the assigned AWS accounts or to access application APIs using
+     * token can be used to fetch short-lived credentials for the assigned AWS accounts or to access application APIs using
      * `bearer` authentication.
      *
      * @see https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html
