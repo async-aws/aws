@@ -29,14 +29,14 @@ final class CreateTokenRequest extends Input
     private $clientSecret;
 
     /**
-     * Supports the following OAuth grant types: Device Code and Refresh Token. Specify either of the following values,
-     * depending on the grant type that you want:
+     * Supports the following OAuth grant types: Authorization Code, Device Code, and Refresh Token. Specify one of the
+     * following values, depending on the grant type that you want:
+     *
+     * * Authorization Code - `authorization_code`
      *
      * * Device Code - `urn:ietf:params:oauth:grant-type:device_code`
      *
      * * Refresh Token - `refresh_token`
-     *
-     * For information about how to obtain the device code, see the StartDeviceAuthorization topic.
      *
      * @required
      *
@@ -45,7 +45,7 @@ final class CreateTokenRequest extends Input
     private $grantType;
 
     /**
-     * Used only when calling this API for the Device Code grant type. This short-term code is used to identify this
+     * Used only when calling this API for the Device Code grant type. This short-lived code is used to identify this
      * authorization request. This comes from the result of the StartDeviceAuthorization API.
      *
      * @var string|null
@@ -53,15 +53,15 @@ final class CreateTokenRequest extends Input
     private $deviceCode;
 
     /**
-     * Used only when calling this API for the Authorization Code grant type. The short-term code is used to identify this
-     * authorization request. This grant type is currently unsupported for the CreateToken API.
+     * Used only when calling this API for the Authorization Code grant type. The short-lived code is used to identify this
+     * authorization request.
      *
      * @var string|null
      */
     private $code;
 
     /**
-     * Used only when calling this API for the Refresh Token grant type. This token is used to refresh short-term tokens,
+     * Used only when calling this API for the Refresh Token grant type. This token is used to refresh short-lived tokens,
      * such as the access token, that might expire.
      *
      * For more information about the features and limitations of the current IAM Identity Center OIDC implementation, see

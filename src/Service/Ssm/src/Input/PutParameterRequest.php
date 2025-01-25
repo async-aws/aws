@@ -61,8 +61,8 @@ final class PutParameterRequest extends Input
      * The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB. Advanced
      * parameters have a value limit of 8 KB.
      *
-     * > Parameters can't be referenced or nested in the values of other parameters. You can't include `{{}}` or
-     * > `{{ssm:*parameter-name*}}` in a parameter value.
+     * > Parameters can't be referenced or nested in the values of other parameters. You can't include values wrapped in
+     * > double brackets `{{}}` or `{{ssm:*parameter-name*}}` in a parameter value.
      *
      * @required
      *
@@ -187,8 +187,8 @@ final class PutParameterRequest extends Input
     private $tier;
 
     /**
-     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
-     * Amazon Web Services Systems Manager supports the following policy types:
+     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a tool in Amazon
+     * Web Services Systems Manager supports the following policy types:
      *
      * Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify the
      * expiration date. You can update the expiration date and time by updating the policy. Updating the *parameter* doesn't
