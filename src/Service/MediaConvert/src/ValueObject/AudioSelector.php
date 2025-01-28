@@ -48,7 +48,7 @@ final class AudioSelector
     private $defaultSelection;
 
     /**
-     * Specifies audio data from an external file source.
+     * Specify the S3, HTTP, or HTTPS URL for your external audio file input.
      *
      * @var string|null
      */
@@ -66,14 +66,18 @@ final class AudioSelector
     private $hlsRenditionGroupSettings;
 
     /**
-     * Selects a specific language code from within an audio source.
+     * Specify the language to select from your audio input. In the MediaConvert console choose from a list of languages. In
+     * your JSON job settings choose from an ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
      *
      * @var LanguageCode::*|null
      */
     private $languageCode;
 
     /**
-     * Specifies a time delta in milliseconds to offset the audio from the input video.
+     * Specify a time delta, in milliseconds, to offset the audio from the input video.
+     * To specify no offset: Keep the default value, 0.
+     * To specify an offset: Enter an integer from -2147483648 to 2147483647.
      *
      * @var int|null
      */

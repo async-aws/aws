@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds support for dynamic audio configuration and the ability to disable the deblocking filter for h265 encodes.
+
 ## 1.5.0
 
 ### Added
