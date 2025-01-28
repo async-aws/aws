@@ -58,6 +58,7 @@ use AsyncAws\MediaConvert\ValueObject\DvbSdtSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbSubDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbSubSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbTdtSettings;
+use AsyncAws\MediaConvert\ValueObject\DynamicAudioSelector;
 use AsyncAws\MediaConvert\ValueObject\Eac3AtmosSettings;
 use AsyncAws\MediaConvert\ValueObject\Eac3Settings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedDestinationSettings;
@@ -851,6 +852,17 @@ class GetJobResponse extends Result
         ]);
     }
 
+    private function populateResultDynamicAudioSelector(array $json): DynamicAudioSelector
+    {
+        return new DynamicAudioSelector([
+            'AudioDurationCorrection' => isset($json['audioDurationCorrection']) ? (string) $json['audioDurationCorrection'] : null,
+            'ExternalAudioFileInput' => isset($json['externalAudioFileInput']) ? (string) $json['externalAudioFileInput'] : null,
+            'LanguageCode' => isset($json['languageCode']) ? (string) $json['languageCode'] : null,
+            'Offset' => isset($json['offset']) ? (int) $json['offset'] : null,
+            'SelectorType' => isset($json['selectorType']) ? (string) $json['selectorType'] : null,
+        ]);
+    }
+
     private function populateResultEac3AtmosSettings(array $json): Eac3AtmosSettings
     {
         return new Eac3AtmosSettings([
@@ -1091,6 +1103,7 @@ class GetJobResponse extends Result
             'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
             'CodecLevel' => isset($json['codecLevel']) ? (string) $json['codecLevel'] : null,
             'CodecProfile' => isset($json['codecProfile']) ? (string) $json['codecProfile'] : null,
+            'Deblocking' => isset($json['deblocking']) ? (string) $json['deblocking'] : null,
             'DynamicSubGop' => isset($json['dynamicSubGop']) ? (string) $json['dynamicSubGop'] : null,
             'EndOfStreamMarkers' => isset($json['endOfStreamMarkers']) ? (string) $json['endOfStreamMarkers'] : null,
             'FlickerAdaptiveQuantization' => isset($json['flickerAdaptiveQuantization']) ? (string) $json['flickerAdaptiveQuantization'] : null,
@@ -1306,6 +1319,7 @@ class GetJobResponse extends Result
             'DecryptionSettings' => empty($json['decryptionSettings']) ? null : $this->populateResultInputDecryptionSettings($json['decryptionSettings']),
             'DenoiseFilter' => isset($json['denoiseFilter']) ? (string) $json['denoiseFilter'] : null,
             'DolbyVisionMetadataXml' => isset($json['dolbyVisionMetadataXml']) ? (string) $json['dolbyVisionMetadataXml'] : null,
+            'DynamicAudioSelectors' => !isset($json['dynamicAudioSelectors']) ? null : $this->populateResult__mapOfDynamicAudioSelector($json['dynamicAudioSelectors']),
             'FileInput' => isset($json['fileInput']) ? (string) $json['fileInput'] : null,
             'FilterEnable' => isset($json['filterEnable']) ? (string) $json['filterEnable'] : null,
             'FilterStrength' => isset($json['filterStrength']) ? (int) $json['filterStrength'] : null,
@@ -2941,6 +2955,19 @@ class GetJobResponse extends Result
         $items = [];
         foreach ($json as $name => $value) {
             $items[(string) $name] = $this->populateResultCaptionSelector($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, DynamicAudioSelector>
+     */
+    private function populateResult__mapOfDynamicAudioSelector(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultDynamicAudioSelector($value);
         }
 
         return $items;

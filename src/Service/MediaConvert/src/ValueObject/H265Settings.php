@@ -7,6 +7,7 @@ use AsyncAws\MediaConvert\Enum\H265AdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H265AlternateTransferFunctionSei;
 use AsyncAws\MediaConvert\Enum\H265CodecLevel;
 use AsyncAws\MediaConvert\Enum\H265CodecProfile;
+use AsyncAws\MediaConvert\Enum\H265Deblocking;
 use AsyncAws\MediaConvert\Enum\H265DynamicSubGop;
 use AsyncAws\MediaConvert\Enum\H265EndOfStreamMarkers;
 use AsyncAws\MediaConvert\Enum\H265FlickerAdaptiveQuantization;
@@ -87,6 +88,16 @@ final class H265Settings
      * @var H265CodecProfile::*|null
      */
     private $codecProfile;
+
+    /**
+     * Use Deblocking to improve the video quality of your output by smoothing the edges of macroblock artifacts created
+     * during video compression. To reduce blocking artifacts at block boundaries, and improve overall video quality: Keep
+     * the default value, Enabled. To not apply any deblocking: Choose Disabled. Visible block edge artifacts might appear
+     * in the output, especially at lower bitrates.
+     *
+     * @var H265Deblocking::*|null
+     */
+    private $deblocking;
 
     /**
      * Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on your input
@@ -475,6 +486,7 @@ final class H265Settings
      *   Bitrate?: null|int,
      *   CodecLevel?: null|H265CodecLevel::*,
      *   CodecProfile?: null|H265CodecProfile::*,
+     *   Deblocking?: null|H265Deblocking::*,
      *   DynamicSubGop?: null|H265DynamicSubGop::*,
      *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*,
      *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
@@ -522,6 +534,7 @@ final class H265Settings
         $this->bitrate = $input['Bitrate'] ?? null;
         $this->codecLevel = $input['CodecLevel'] ?? null;
         $this->codecProfile = $input['CodecProfile'] ?? null;
+        $this->deblocking = $input['Deblocking'] ?? null;
         $this->dynamicSubGop = $input['DynamicSubGop'] ?? null;
         $this->endOfStreamMarkers = $input['EndOfStreamMarkers'] ?? null;
         $this->flickerAdaptiveQuantization = $input['FlickerAdaptiveQuantization'] ?? null;
@@ -569,6 +582,7 @@ final class H265Settings
      *   Bitrate?: null|int,
      *   CodecLevel?: null|H265CodecLevel::*,
      *   CodecProfile?: null|H265CodecProfile::*,
+     *   Deblocking?: null|H265Deblocking::*,
      *   DynamicSubGop?: null|H265DynamicSubGop::*,
      *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*,
      *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
@@ -653,6 +667,14 @@ final class H265Settings
     public function getCodecProfile(): ?string
     {
         return $this->codecProfile;
+    }
+
+    /**
+     * @return H265Deblocking::*|null
+     */
+    public function getDeblocking(): ?string
+    {
+        return $this->deblocking;
     }
 
     /**
@@ -941,6 +963,12 @@ final class H265Settings
                 throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "H265CodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
+        }
+        if (null !== $v = $this->deblocking) {
+            if (!H265Deblocking::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "deblocking" for "%s". The value "%s" is not a valid "H265Deblocking".', __CLASS__, $v));
+            }
+            $payload['deblocking'] = $v;
         }
         if (null !== $v = $this->dynamicSubGop) {
             if (!H265DynamicSubGop::exists($v)) {

@@ -111,6 +111,17 @@ final class Input
     private $dolbyVisionMetadataXml;
 
     /**
+     * Use Dynamic audio selectors when you do not know the track layout of your source when you submit your job, but want
+     * to select multiple audio tracks. When you include an audio track in your output and specify this Dynamic audio
+     * selector as the Audio source, MediaConvert creates an output audio track for each dynamically selected track. Note
+     * that when you include a Dynamic audio selector for two or more inputs, each input must have the same number of audio
+     * tracks and audio channels.
+     *
+     * @var array<string, DynamicAudioSelector>|null
+     */
+    private $dynamicAudioSelectors;
+
+    /**
      * Specify the source file for your transcoding job. You can use multiple inputs in a single job. The service
      * concatenates these inputs, in the order that you specify them in the job, to create the outputs. If your input format
      * is IMF, specify your input by providing the path to your CPL. For example, "s3://bucket/vf/cpl.xml". If the CPL is in
@@ -268,6 +279,7 @@ final class Input
      *   DecryptionSettings?: null|InputDecryptionSettings|array,
      *   DenoiseFilter?: null|InputDenoiseFilter::*,
      *   DolbyVisionMetadataXml?: null|string,
+     *   DynamicAudioSelectors?: null|array<string, DynamicAudioSelector|array>,
      *   FileInput?: null|string,
      *   FilterEnable?: null|InputFilterEnable::*,
      *   FilterStrength?: null|int,
@@ -297,6 +309,7 @@ final class Input
         $this->decryptionSettings = isset($input['DecryptionSettings']) ? InputDecryptionSettings::create($input['DecryptionSettings']) : null;
         $this->denoiseFilter = $input['DenoiseFilter'] ?? null;
         $this->dolbyVisionMetadataXml = $input['DolbyVisionMetadataXml'] ?? null;
+        $this->dynamicAudioSelectors = isset($input['DynamicAudioSelectors']) ? array_map([DynamicAudioSelector::class, 'create'], $input['DynamicAudioSelectors']) : null;
         $this->fileInput = $input['FileInput'] ?? null;
         $this->filterEnable = $input['FilterEnable'] ?? null;
         $this->filterStrength = $input['FilterStrength'] ?? null;
@@ -326,6 +339,7 @@ final class Input
      *   DecryptionSettings?: null|InputDecryptionSettings|array,
      *   DenoiseFilter?: null|InputDenoiseFilter::*,
      *   DolbyVisionMetadataXml?: null|string,
+     *   DynamicAudioSelectors?: null|array<string, DynamicAudioSelector|array>,
      *   FileInput?: null|string,
      *   FilterEnable?: null|InputFilterEnable::*,
      *   FilterStrength?: null|int,
@@ -414,6 +428,14 @@ final class Input
     public function getDolbyVisionMetadataXml(): ?string
     {
         return $this->dolbyVisionMetadataXml;
+    }
+
+    /**
+     * @return array<string, DynamicAudioSelector>
+     */
+    public function getDynamicAudioSelectors(): array
+    {
+        return $this->dynamicAudioSelectors ?? [];
     }
 
     public function getFileInput(): ?string
@@ -577,6 +599,16 @@ final class Input
         }
         if (null !== $v = $this->dolbyVisionMetadataXml) {
             $payload['dolbyVisionMetadataXml'] = $v;
+        }
+        if (null !== $v = $this->dynamicAudioSelectors) {
+            if (empty($v)) {
+                $payload['dynamicAudioSelectors'] = new \stdClass();
+            } else {
+                $payload['dynamicAudioSelectors'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['dynamicAudioSelectors'][$name] = $mv->requestBody();
+                }
+            }
         }
         if (null !== $v = $this->fileInput) {
             $payload['fileInput'] = $v;
