@@ -898,6 +898,20 @@ class SqsClient extends AbstractApi
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-ca-central-1':
+                return [
+                    'endpoint' => 'https://sqs-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-ca-west-1':
+                return [
+                    'endpoint' => 'https://sqs-fips.ca-west-1.amazonaws.com',
+                    'signRegion' => 'ca-west-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://sqs-fips.us-east-1.amazonaws.com',
