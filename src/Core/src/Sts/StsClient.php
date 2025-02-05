@@ -397,6 +397,14 @@ class StsClient extends AbstractApi
                     'signService' => 'sts',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://sts.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'sts',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://sts.us-isob-east-1.sc2s.sgov.gov',

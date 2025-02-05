@@ -1106,10 +1106,10 @@ class KmsClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'ProdFips':
-            case 'us-isob-east-1-fips':
+            case 'us-isof-east-1-fips':
                 return [
-                    'endpoint' => 'https://kms-fips.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
+                    'endpoint' => 'https://kms-fips.us-isof-east-1.csp.hci.ic.gov',
+                    'signRegion' => 'us-isof-east-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -1367,6 +1367,14 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://kms.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://kms.us-isob-east-1.sc2s.sgov.gov',
@@ -1385,6 +1393,20 @@ class KmsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://kms-fips.us-iso-west-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-west-1',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isob-east-1-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isof-south-1-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.us-isof-south-1.csp.hci.ic.gov',
+                    'signRegion' => 'us-isof-south-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];

@@ -127,6 +127,14 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://elasticache.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://elasticache.us-isob-east-1.sc2s.sgov.gov',

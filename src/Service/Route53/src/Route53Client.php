@@ -544,6 +544,14 @@ class Route53Client extends AbstractApi
                     'signService' => 'route53',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => 'https://route53.csp.hci.ic.gov',
+                    'signRegion' => 'us-isof-south-1',
+                    'signService' => 'route53',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://route53.sc2s.sgov.gov',

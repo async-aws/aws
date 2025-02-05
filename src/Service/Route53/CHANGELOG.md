@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: TODO
+
 ## 2.6.0
 
 ### Added

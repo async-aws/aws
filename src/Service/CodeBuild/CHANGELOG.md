@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added support for CodeBuild self-hosted Buildkite runner builds
+
 ## 2.7.0
 
 ### Added

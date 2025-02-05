@@ -284,6 +284,14 @@ class CodeDeployClient extends AbstractApi
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://codedeploy.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'codedeploy',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://codedeploy.us-isob-east-1.sc2s.sgov.gov',

@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: This change enhances integrity protections for new SDK requests to S3. S3 SDKs now support the CRC64NVME checksum algorithm, full object checksums for multipart S3 objects, and new default integrity protections for S3 requests.
+- AWS api-change: TODO
 
 ## 2.7.0
 
