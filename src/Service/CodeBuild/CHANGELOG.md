@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
+
 ## 2.7.0
 
 ### Added

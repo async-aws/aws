@@ -766,6 +766,14 @@ class RekognitionClient extends AbstractApi
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://rekognition.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [

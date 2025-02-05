@@ -805,6 +805,14 @@ class AthenaClient extends AbstractApi
                     'signService' => 'athena',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://athena.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'athena',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => 'https://athena.us-iso-east-1.c2s.ic.gov',

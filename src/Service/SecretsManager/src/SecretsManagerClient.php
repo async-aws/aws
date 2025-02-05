@@ -554,6 +554,14 @@ class SecretsManagerClient extends AbstractApi
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isof-east-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => "https://secretsmanager.$region.csp.hci.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://secretsmanager.us-isob-east-1.sc2s.sgov.gov',
