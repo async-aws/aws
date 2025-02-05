@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `us-isof-east-1` , `us-isof-south-1`, `us-isof-east-1-fips` and `us-isof-south-1-fips` regions
 
 ## 1.7.0
 

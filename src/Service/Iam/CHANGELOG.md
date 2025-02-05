@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release adds support for accepting encrypted SAML assertions. Customers can now configure their identity provider to encrypt the SAML assertions it sends to IAM.
+- AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
 
 ## 1.5.4
 

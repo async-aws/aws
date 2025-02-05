@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
 
 ## 1.2.0
 

@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Added support for CodeBuild self-hosted Buildkite runner builds
+- AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
 
 ## 2.7.0
 

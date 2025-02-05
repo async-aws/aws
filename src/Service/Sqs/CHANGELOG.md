@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Added `fips-ca-central-1` and `fips-ca-west-1` regions
-- AWS api-change: TODO
+- AWS api-change: Added `us-isof-east-1`  and `us-isof-south-1` regions
 
 ## 2.3.0
 
