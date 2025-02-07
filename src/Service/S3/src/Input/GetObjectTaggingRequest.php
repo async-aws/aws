@@ -20,11 +20,11 @@ final class GetObjectTaggingRequest extends Input
      * through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more
      * information about access point ARNs, see Using access points [^1] in the *Amazon S3 User Guide*.
      *
-     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
-     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * **S3 on Outposts** - When you use this action with S3 on Outposts, you must direct requests to the S3 on Outposts
+     * hostname. The S3 on Outposts hostname takes the form
      * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
-     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
-     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^2] in the *Amazon S3 User Guide*.
+     * Outposts, the destination bucket must be the Outposts access point ARN or the access point alias. For more
+     * information about S3 on Outposts, see What is S3 on Outposts? [^2] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html

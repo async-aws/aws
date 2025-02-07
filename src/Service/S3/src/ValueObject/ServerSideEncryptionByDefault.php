@@ -15,7 +15,7 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
  * >   time that you add an object encrypted with SSE-KMS to a bucket. By default, Amazon S3 uses this KMS key for
  * >   SSE-KMS.
  * > - **Directory buckets** - Your SSE-KMS configuration can only support 1 customer managed key [^2] per directory
- * >   bucket for the lifetime of the bucket. The Amazon Web Services managed key [^3] (`aws/s3`) isn't supported.
+ * >   bucket's lifetime. The Amazon Web Services managed key [^3] (`aws/s3`) isn't supported.
  * > - **Directory buckets** - For directory buckets, there are only two supported options for server-side encryption:
  * >   SSE-S3 and SSE-KMS.
  * >

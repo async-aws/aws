@@ -69,7 +69,10 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     private $versions;
 
     /**
-     * Container for an object that is a delete marker.
+     * Container for an object that is a delete marker. To learn more about delete markers, see Working with delete markers
+     * [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeleteMarker.html
      *
      * @var DeleteMarkerEntry[]
      */

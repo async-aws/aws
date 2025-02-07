@@ -11,6 +11,12 @@ final class ResourceStatus
     public const DELETE_FAILED = 'DELETE_FAILED';
     public const DELETE_IN_PROGRESS = 'DELETE_IN_PROGRESS';
     public const DELETE_SKIPPED = 'DELETE_SKIPPED';
+    public const EXPORT_COMPLETE = 'EXPORT_COMPLETE';
+    public const EXPORT_FAILED = 'EXPORT_FAILED';
+    public const EXPORT_IN_PROGRESS = 'EXPORT_IN_PROGRESS';
+    public const EXPORT_ROLLBACK_COMPLETE = 'EXPORT_ROLLBACK_COMPLETE';
+    public const EXPORT_ROLLBACK_FAILED = 'EXPORT_ROLLBACK_FAILED';
+    public const EXPORT_ROLLBACK_IN_PROGRESS = 'EXPORT_ROLLBACK_IN_PROGRESS';
     public const IMPORT_COMPLETE = 'IMPORT_COMPLETE';
     public const IMPORT_FAILED = 'IMPORT_FAILED';
     public const IMPORT_IN_PROGRESS = 'IMPORT_IN_PROGRESS';
@@ -37,6 +43,12 @@ final class ResourceStatus
             self::DELETE_FAILED => true,
             self::DELETE_IN_PROGRESS => true,
             self::DELETE_SKIPPED => true,
+            self::EXPORT_COMPLETE => true,
+            self::EXPORT_FAILED => true,
+            self::EXPORT_IN_PROGRESS => true,
+            self::EXPORT_ROLLBACK_COMPLETE => true,
+            self::EXPORT_ROLLBACK_FAILED => true,
+            self::EXPORT_ROLLBACK_IN_PROGRESS => true,
             self::IMPORT_COMPLETE => true,
             self::IMPORT_FAILED => true,
             self::IMPORT_IN_PROGRESS => true,

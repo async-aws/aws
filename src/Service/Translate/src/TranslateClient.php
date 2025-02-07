@@ -127,6 +127,13 @@ class TranslateClient extends AbstractApi
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-iso-east-1-fips':
+                return [
+                    'endpoint' => 'https://translate-fips.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 'translate',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [
