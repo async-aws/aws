@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
+- AWS api-change: Added `ResourceStatus` constants for new StackRefactor apis.
 
 ## 1.7.2
 

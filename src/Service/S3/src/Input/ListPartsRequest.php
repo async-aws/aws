@@ -16,9 +16,9 @@ final class ListPartsRequest extends Input
      * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
      * requests in the format `*Bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com`. Path-style requests are not
      * supported. Directory bucket names must be unique in the chosen Zone (Availability Zone or Local Zone). Bucket names
-     * must follow the format `*bucket-base-name*--*zone-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`).
-     * For information about bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User
-     * Guide*.
+     * must follow the format `*bucket-base-name*--*zone-id*--x-s3` (for example,
+     * `*amzn-s3-demo-bucket*--*usw2-az1*--x-s3`). For information about bucket naming restrictions, see Directory bucket
+     * naming rules [^1] in the *Amazon S3 User Guide*.
      *
      * **Access points** - When you use this action with an access point, you must provide the alias of the access point in
      * place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests
@@ -29,11 +29,11 @@ final class ListPartsRequest extends Input
      *
      * > Access points and Object Lambda access points are not supported by directory buckets.
      *
-     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
-     * Outposts hostname. The S3 on Outposts hostname takes the form
+     * **S3 on Outposts** - When you use this action with S3 on Outposts, you must direct requests to the S3 on Outposts
+     * hostname. The S3 on Outposts hostname takes the form
      * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
-     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
-     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     * Outposts, the destination bucket must be the Outposts access point ARN or the access point alias. For more
+     * information about S3 on Outposts, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html

@@ -8,7 +8,7 @@ namespace AsyncAws\S3\ValueObject;
 final class DeleteMarkerEntry
 {
     /**
-     * The account that created the delete marker.>.
+     * The account that created the delete marker.
      *
      * @var Owner|null
      */

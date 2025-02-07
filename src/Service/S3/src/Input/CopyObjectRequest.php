@@ -50,9 +50,9 @@ final class CopyObjectRequest extends Input
      * **Directory buckets** - When you use this operation with a directory bucket, you must use virtual-hosted-style
      * requests in the format `*Bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com`. Path-style requests are not
      * supported. Directory bucket names must be unique in the chosen Zone (Availability Zone or Local Zone). Bucket names
-     * must follow the format `*bucket-base-name*--*zone-id*--x-s3` (for example, `*DOC-EXAMPLE-BUCKET*--*usw2-az1*--x-s3`).
-     * For information about bucket naming restrictions, see Directory bucket naming rules [^1] in the *Amazon S3 User
-     * Guide*.
+     * must follow the format `*bucket-base-name*--*zone-id*--x-s3` (for example,
+     * `*amzn-s3-demo-bucket*--*usw2-az1*--x-s3`). For information about bucket naming restrictions, see Directory bucket
+     * naming rules [^1] in the *Amazon S3 User Guide*.
      *
      * > Copying objects across different Amazon Web Services Regions isn't supported when the source or destination bucket
      * > is in Amazon Web Services Local Zones. The source and destination buckets must have the same parent Amazon Web
@@ -67,11 +67,14 @@ final class CopyObjectRequest extends Input
      *
      * > Access points and Object Lambda access points are not supported by directory buckets.
      *
-     * **S3 on Outposts** - When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on
-     * Outposts hostname. The S3 on Outposts hostname takes the form
-     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. When you use this action with S3 on
-     * Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name.
-     * For more information about S3 on Outposts ARNs, see What is S3 on Outposts? [^3] in the *Amazon S3 User Guide*.
+     * **S3 on Outposts** - When you use this action with S3 on Outposts, you must use the Outpost bucket access point ARN
+     * or the access point alias for the destination bucket. You can only copy objects within the same Outpost bucket. It's
+     * not supported to copy objects across different Amazon Web Services Outposts, between buckets on the same Outposts, or
+     * between Outposts buckets and any other bucket types. For more information about S3 on Outposts, see What is S3 on
+     * Outposts? [^3] in the *S3 on Outposts guide*. When you use this action with S3 on Outposts through the REST API, you
+     * must direct requests to the S3 on Outposts hostname, in the format
+     * `*AccessPointName*-*AccountId*.*outpostID*.s3-outposts.*Region*.amazonaws.com`. The hostname isn't required when you
+     * use the Amazon Web Services CLI or SDKs.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
@@ -510,14 +513,12 @@ final class CopyObjectRequest extends Input
      * any of the officially supported Amazon Web Services SDKs and Amazon Web Services CLI, see Specifying the Signature
      * Version in Request Authentication [^1] in the *Amazon S3 User Guide*.
      *
-     * **Directory buckets** - If you specify `x-amz-server-side-encryption` with `aws:kms`, the `
-     * x-amz-server-side-encryption-aws-kms-key-id` header is implicitly assigned the ID of the KMS symmetric encryption
-     * customer managed key that's configured for your directory bucket's default encryption setting. If you want to specify
-     * the ` x-amz-server-side-encryption-aws-kms-key-id` header explicitly, you can only specify it with the ID (Key ID or
-     * Key ARN) of the KMS customer managed key that's configured for your directory bucket's default encryption setting.
-     * Otherwise, you get an HTTP `400 Bad Request` error. Only use the key ID or key ARN. The key alias format of the KMS
-     * key isn't supported. Your SSE-KMS configuration can only support 1 customer managed key [^2] per directory bucket for
-     * the lifetime of the bucket. The Amazon Web Services managed key [^3] (`aws/s3`) isn't supported.
+     * **Directory buckets** - To encrypt data using SSE-KMS, it's recommended to specify the `x-amz-server-side-encryption`
+     * header to `aws:kms`. Then, the `x-amz-server-side-encryption-aws-kms-key-id` header implicitly uses the bucket's
+     * default KMS customer managed key ID. If you want to explicitly set the ` x-amz-server-side-encryption-aws-kms-key-id`
+     * header, it must match the bucket's default customer managed key (using key ID or ARN, not alias). Your SSE-KMS
+     * configuration can only support 1 customer managed key [^2] per directory bucket's lifetime. The Amazon Web Services
+     * managed key [^3] (`aws/s3`) isn't supported. Incorrect key specification results in an HTTP `400 Bad Request` error.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk

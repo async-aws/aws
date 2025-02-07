@@ -57,6 +57,13 @@ class ComprehendClient extends AbstractApi
         }
 
         switch ($region) {
+            case 'fips-ca-central-1':
+                return [
+                    'endpoint' => 'https://comprehend-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'comprehend',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://comprehend-fips.us-east-1.amazonaws.com',

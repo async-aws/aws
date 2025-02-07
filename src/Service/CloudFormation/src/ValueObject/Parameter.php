@@ -32,8 +32,8 @@ final class Parameter
 
     /**
      * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for Systems
-     * Manager parameter types in the template. For more information, see Use CloudFormation-supplied parameter types [^1]
-     * in the *CloudFormation User Guide*.
+     * Manager parameter types in the template. For more information, see Specify existing resources at runtime with
+     * CloudFormation-supplied parameter types [^1] in the *CloudFormation User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-supplied-parameter-types.html
      *

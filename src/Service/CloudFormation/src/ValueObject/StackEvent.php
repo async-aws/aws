@@ -125,7 +125,7 @@ final class StackEvent
     private $hookStatusReason;
 
     /**
-     * Invocation points are points in provisioning logic where hooks are initiated.
+     * Invocation points are points in provisioning logic where Hooks are initiated.
      *
      * @var HookInvocationPoint::*|null
      */
