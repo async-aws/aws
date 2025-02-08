@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: This release adds support for dynamic audio configuration and the ability to disable the deblocking filter for h265 encodes.
+- AWS api-change: This release adds support for Animated GIF output, forced chroma sample positioning metadata, and Extensible Wave Container format
 
 ## 1.5.0
 

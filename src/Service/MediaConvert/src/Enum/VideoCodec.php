@@ -10,6 +10,7 @@ final class VideoCodec
     public const AV1 = 'AV1';
     public const AVC_INTRA = 'AVC_INTRA';
     public const FRAME_CAPTURE = 'FRAME_CAPTURE';
+    public const GIF = 'GIF';
     public const H_264 = 'H_264';
     public const H_265 = 'H_265';
     public const MPEG2 = 'MPEG2';
@@ -27,6 +28,7 @@ final class VideoCodec
             self::AV1 => true,
             self::AVC_INTRA => true,
             self::FRAME_CAPTURE => true,
+            self::GIF => true,
             self::H_264 => true,
             self::H_265 => true,
             self::MPEG2 => true,

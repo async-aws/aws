@@ -77,6 +77,7 @@ use AsyncAws\MediaConvert\ValueObject\FileSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\FlacSettings;
 use AsyncAws\MediaConvert\ValueObject\ForceIncludeRenditionSize;
 use AsyncAws\MediaConvert\ValueObject\FrameCaptureSettings;
+use AsyncAws\MediaConvert\ValueObject\GifSettings;
 use AsyncAws\MediaConvert\ValueObject\H264QvbrSettings;
 use AsyncAws\MediaConvert\ValueObject\H264Settings;
 use AsyncAws\MediaConvert\ValueObject\H265QvbrSettings;
@@ -1089,6 +1090,16 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
             'MaxCaptures' => isset($json['maxCaptures']) ? (int) $json['maxCaptures'] : null,
             'Quality' => isset($json['quality']) ? (int) $json['quality'] : null,
+        ]);
+    }
+
+    private function populateResultGifSettings(array $json): GifSettings
+    {
+        return new GifSettings([
+            'FramerateControl' => isset($json['framerateControl']) ? (string) $json['framerateControl'] : null,
+            'FramerateConversionAlgorithm' => isset($json['framerateConversionAlgorithm']) ? (string) $json['framerateConversionAlgorithm'] : null,
+            'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
+            'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
         ]);
     }
 
@@ -2181,6 +2192,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'AvcIntraSettings' => empty($json['avcIntraSettings']) ? null : $this->populateResultAvcIntraSettings($json['avcIntraSettings']),
             'Codec' => isset($json['codec']) ? (string) $json['codec'] : null,
             'FrameCaptureSettings' => empty($json['frameCaptureSettings']) ? null : $this->populateResultFrameCaptureSettings($json['frameCaptureSettings']),
+            'GifSettings' => empty($json['gifSettings']) ? null : $this->populateResultGifSettings($json['gifSettings']),
             'H264Settings' => empty($json['h264Settings']) ? null : $this->populateResultH264Settings($json['h264Settings']),
             'H265Settings' => empty($json['h265Settings']) ? null : $this->populateResultH265Settings($json['h265Settings']),
             'Mpeg2Settings' => empty($json['mpeg2Settings']) ? null : $this->populateResultMpeg2Settings($json['mpeg2Settings']),
@@ -2198,6 +2210,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         return new VideoDescription([
             'AfdSignaling' => isset($json['afdSignaling']) ? (string) $json['afdSignaling'] : null,
             'AntiAlias' => isset($json['antiAlias']) ? (string) $json['antiAlias'] : null,
+            'ChromaPositionMode' => isset($json['chromaPositionMode']) ? (string) $json['chromaPositionMode'] : null,
             'CodecSettings' => empty($json['codecSettings']) ? null : $this->populateResultVideoCodecSettings($json['codecSettings']),
             'ColorMetadata' => isset($json['colorMetadata']) ? (string) $json['colorMetadata'] : null,
             'Crop' => empty($json['crop']) ? null : $this->populateResultRectangle($json['crop']),
