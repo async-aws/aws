@@ -10,6 +10,7 @@ final class ContainerType
 {
     public const CMFC = 'CMFC';
     public const F4V = 'F4V';
+    public const GIF = 'GIF';
     public const ISMV = 'ISMV';
     public const M2TS = 'M2TS';
     public const M3U8 = 'M3U8';
@@ -27,6 +28,7 @@ final class ContainerType
         return isset([
             self::CMFC => true,
             self::F4V => true,
+            self::GIF => true,
             self::ISMV => true,
             self::M2TS => true,
             self::M3U8 => true,

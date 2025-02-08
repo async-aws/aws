@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\AfdSignaling;
 use AsyncAws\MediaConvert\Enum\AntiAlias;
+use AsyncAws\MediaConvert\Enum\ChromaPositionMode;
 use AsyncAws\MediaConvert\Enum\ColorMetadata;
 use AsyncAws\MediaConvert\Enum\DropFrameTimecode;
 use AsyncAws\MediaConvert\Enum\RespondToAfd;
@@ -37,12 +38,21 @@ final class VideoDescription
     private $antiAlias;
 
     /**
+     * Specify the chroma sample positioning metadata for your H.264 or H.265 output. To have MediaConvert automatically
+     * determine chroma positioning: We recommend that you keep the default value, Auto. To specify center positioning:
+     * Choose Force center. To specify top left positioning: Choose Force top left.
+     *
+     * @var ChromaPositionMode::*|null
+     */
+    private $chromaPositionMode;
+
+    /**
      * Video codec settings contains the group of settings related to video encoding. The settings in this group vary
      * depending on the value that you choose for Video codec. For each codec enum that you choose, define the corresponding
      * settings object. The following lists the codec enum, settings object pairs. * AV1, Av1Settings * AVC_INTRA,
-     * AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * H_264, H264Settings * H_265, H265Settings * MPEG2,
-     * Mpeg2Settings * PRORES, ProresSettings * UNCOMPRESSED, UncompressedSettings * VC3, Vc3Settings * VP8, Vp8Settings *
-     * VP9, Vp9Settings * XAVC, XavcSettings.
+     * AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * GIF, GifSettings * H_264, H264Settings * H_265, H265Settings
+     * * MPEG2, Mpeg2Settings * PRORES, ProresSettings * UNCOMPRESSED, UncompressedSettings * VC3, Vc3Settings * VP8,
+     * Vp8Settings * VP9, Vp9Settings * XAVC, XavcSettings.
      *
      * @var VideoCodecSettings|null
      */
@@ -170,6 +180,7 @@ final class VideoDescription
      * @param array{
      *   AfdSignaling?: null|AfdSignaling::*,
      *   AntiAlias?: null|AntiAlias::*,
+     *   ChromaPositionMode?: null|ChromaPositionMode::*,
      *   CodecSettings?: null|VideoCodecSettings|array,
      *   ColorMetadata?: null|ColorMetadata::*,
      *   Crop?: null|Rectangle|array,
@@ -190,6 +201,7 @@ final class VideoDescription
     {
         $this->afdSignaling = $input['AfdSignaling'] ?? null;
         $this->antiAlias = $input['AntiAlias'] ?? null;
+        $this->chromaPositionMode = $input['ChromaPositionMode'] ?? null;
         $this->codecSettings = isset($input['CodecSettings']) ? VideoCodecSettings::create($input['CodecSettings']) : null;
         $this->colorMetadata = $input['ColorMetadata'] ?? null;
         $this->crop = isset($input['Crop']) ? Rectangle::create($input['Crop']) : null;
@@ -210,6 +222,7 @@ final class VideoDescription
      * @param array{
      *   AfdSignaling?: null|AfdSignaling::*,
      *   AntiAlias?: null|AntiAlias::*,
+     *   ChromaPositionMode?: null|ChromaPositionMode::*,
      *   CodecSettings?: null|VideoCodecSettings|array,
      *   ColorMetadata?: null|ColorMetadata::*,
      *   Crop?: null|Rectangle|array,
@@ -245,6 +258,14 @@ final class VideoDescription
     public function getAntiAlias(): ?string
     {
         return $this->antiAlias;
+    }
+
+    /**
+     * @return ChromaPositionMode::*|null
+     */
+    public function getChromaPositionMode(): ?string
+    {
+        return $this->chromaPositionMode;
     }
 
     public function getCodecSettings(): ?VideoCodecSettings
@@ -352,6 +373,12 @@ final class VideoDescription
                 throw new InvalidArgument(\sprintf('Invalid parameter "antiAlias" for "%s". The value "%s" is not a valid "AntiAlias".', __CLASS__, $v));
             }
             $payload['antiAlias'] = $v;
+        }
+        if (null !== $v = $this->chromaPositionMode) {
+            if (!ChromaPositionMode::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "chromaPositionMode" for "%s". The value "%s" is not a valid "ChromaPositionMode".', __CLASS__, $v));
+            }
+            $payload['chromaPositionMode'] = $v;
         }
         if (null !== $v = $this->codecSettings) {
             $payload['codecSettings'] = $v->requestBody();

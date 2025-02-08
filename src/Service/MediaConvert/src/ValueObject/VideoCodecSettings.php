@@ -9,9 +9,9 @@ use AsyncAws\MediaConvert\Enum\VideoCodec;
  * Video codec settings contains the group of settings related to video encoding. The settings in this group vary
  * depending on the value that you choose for Video codec. For each codec enum that you choose, define the corresponding
  * settings object. The following lists the codec enum, settings object pairs. * AV1, Av1Settings * AVC_INTRA,
- * AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * H_264, H264Settings * H_265, H265Settings * MPEG2,
- * Mpeg2Settings * PRORES, ProresSettings * UNCOMPRESSED, UncompressedSettings * VC3, Vc3Settings * VP8, Vp8Settings *
- * VP9, Vp9Settings * XAVC, XavcSettings.
+ * AvcIntraSettings * FRAME_CAPTURE, FrameCaptureSettings * GIF, GifSettings * H_264, H264Settings * H_265, H265Settings
+ * * MPEG2, Mpeg2Settings * PRORES, ProresSettings * UNCOMPRESSED, UncompressedSettings * VC3, Vc3Settings * VP8,
+ * Vp8Settings * VP9, Vp9Settings * XAVC, XavcSettings.
  */
 final class VideoCodecSettings
 {
@@ -48,6 +48,13 @@ final class VideoCodecSettings
      * @var FrameCaptureSettings|null
      */
     private $frameCaptureSettings;
+
+    /**
+     * Required when you set (Codec) under (VideoDescription)>(CodecSettings) to the value GIF.
+     *
+     * @var GifSettings|null
+     */
+    private $gifSettings;
 
     /**
      * Required when you set Codec to the value H_264.
@@ -118,6 +125,7 @@ final class VideoCodecSettings
      *   AvcIntraSettings?: null|AvcIntraSettings|array,
      *   Codec?: null|VideoCodec::*,
      *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
+     *   GifSettings?: null|GifSettings|array,
      *   H264Settings?: null|H264Settings|array,
      *   H265Settings?: null|H265Settings|array,
      *   Mpeg2Settings?: null|Mpeg2Settings|array,
@@ -135,6 +143,7 @@ final class VideoCodecSettings
         $this->avcIntraSettings = isset($input['AvcIntraSettings']) ? AvcIntraSettings::create($input['AvcIntraSettings']) : null;
         $this->codec = $input['Codec'] ?? null;
         $this->frameCaptureSettings = isset($input['FrameCaptureSettings']) ? FrameCaptureSettings::create($input['FrameCaptureSettings']) : null;
+        $this->gifSettings = isset($input['GifSettings']) ? GifSettings::create($input['GifSettings']) : null;
         $this->h264Settings = isset($input['H264Settings']) ? H264Settings::create($input['H264Settings']) : null;
         $this->h265Settings = isset($input['H265Settings']) ? H265Settings::create($input['H265Settings']) : null;
         $this->mpeg2Settings = isset($input['Mpeg2Settings']) ? Mpeg2Settings::create($input['Mpeg2Settings']) : null;
@@ -152,6 +161,7 @@ final class VideoCodecSettings
      *   AvcIntraSettings?: null|AvcIntraSettings|array,
      *   Codec?: null|VideoCodec::*,
      *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
+     *   GifSettings?: null|GifSettings|array,
      *   H264Settings?: null|H264Settings|array,
      *   H265Settings?: null|H265Settings|array,
      *   Mpeg2Settings?: null|Mpeg2Settings|array,
@@ -189,6 +199,11 @@ final class VideoCodecSettings
     public function getFrameCaptureSettings(): ?FrameCaptureSettings
     {
         return $this->frameCaptureSettings;
+    }
+
+    public function getGifSettings(): ?GifSettings
+    {
+        return $this->gifSettings;
     }
 
     public function getH264Settings(): ?H264Settings
@@ -256,6 +271,9 @@ final class VideoCodecSettings
         }
         if (null !== $v = $this->frameCaptureSettings) {
             $payload['frameCaptureSettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->gifSettings) {
+            $payload['gifSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->h264Settings) {
             $payload['h264Settings'] = $v->requestBody();
