@@ -1161,14 +1161,14 @@ class DynamoDbClient extends AbstractApi
                 ];
             case 'us-gov-east-1-fips':
                 return [
-                    'endpoint' => 'https://dynamodb.us-gov-east-1.amazonaws.com',
+                    'endpoint' => 'https://dynamodb-fips.us-gov-east-1.amazonaws.com',
                     'signRegion' => 'us-gov-east-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
             case 'us-gov-west-1-fips':
                 return [
-                    'endpoint' => 'https://dynamodb.us-gov-west-1.amazonaws.com',
+                    'endpoint' => 'https://dynamodb-fips.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
