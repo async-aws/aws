@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Add support for Stop DB feature.
+- AWS api-change: Addded InvalidResourceStateException.
 
 ## 2.2.1
 
