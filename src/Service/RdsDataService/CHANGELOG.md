@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add support for Stop DB feature.
+
 ## 2.2.1
 
 ### Changed

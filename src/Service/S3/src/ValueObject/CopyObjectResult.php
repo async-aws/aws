@@ -34,7 +34,7 @@ final class CopyObjectResult
     private $checksumType;
 
     /**
-     * The Base64 encoded, 32-bit `CRC-32` checksum of the object. This checksum is only present if the object was uploaded
+     * The Base64 encoded, 32-bit `CRC32` checksum of the object. This checksum is only present if the object was uploaded
      * with the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -44,8 +44,8 @@ final class CopyObjectResult
     private $checksumCrc32;
 
     /**
-     * The Base64 encoded, 32-bit `CRC-32C` checksum of the object. This will only be present if the object was uploaded
-     * with the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC32C` checksum of the object. This will only be present if the object was uploaded with
+     * the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -54,10 +54,10 @@ final class CopyObjectResult
     private $checksumCrc32C;
 
     /**
-     * The Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. This checksum is present if the object being copied
-     * was uploaded with the `CRC-64NVME` checksum algorithm, or if the object was uploaded without a checksum (and Amazon
-     * S3 added the default checksum, `CRC-64NVME`, to the uploaded object). For more information, see Checking object
-     * integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 64-bit `CRC64NVME` checksum of the object. This checksum is present if the object being copied
+     * was uploaded with the `CRC64NVME` checksum algorithm, or if the object was uploaded without a checksum (and Amazon S3
+     * added the default checksum, `CRC64NVME`, to the uploaded object). For more information, see Checking object integrity
+     * [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -66,7 +66,7 @@ final class CopyObjectResult
     private $checksumCrc64Nvme;
 
     /**
-     * The Base64 encoded, 160-bit `SHA-1` digest of the object. This will only be present if the object was uploaded with
+     * The Base64 encoded, 160-bit `SHA1` digest of the object. This will only be present if the object was uploaded with
      * the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -76,7 +76,7 @@ final class CopyObjectResult
     private $checksumSha1;
 
     /**
-     * The Base64 encoded, 256-bit `SHA-256` digest of the object. This will only be present if the object was uploaded with
+     * The Base64 encoded, 256-bit `SHA256` digest of the object. This will only be present if the object was uploaded with
      * the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html

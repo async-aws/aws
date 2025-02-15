@@ -17,6 +17,7 @@ use AsyncAws\RdsDataService\Exception\DatabaseUnavailableException;
 use AsyncAws\RdsDataService\Exception\ForbiddenException;
 use AsyncAws\RdsDataService\Exception\HttpEndpointNotEnabledException;
 use AsyncAws\RdsDataService\Exception\InternalServerErrorException;
+use AsyncAws\RdsDataService\Exception\InvalidResourceStateException;
 use AsyncAws\RdsDataService\Exception\InvalidSecretException;
 use AsyncAws\RdsDataService\Exception\NotFoundException;
 use AsyncAws\RdsDataService\Exception\SecretsErrorException;
@@ -77,6 +78,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
+     * @throws InvalidResourceStateException
      * @throws ServiceUnavailableErrorException
      * @throws ForbiddenException
      * @throws DatabaseNotFoundException
@@ -96,6 +98,7 @@ class RdsDataServiceClient extends AbstractApi
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
             'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
             'ForbiddenException' => ForbiddenException::class,
             'DatabaseNotFoundException' => DatabaseNotFoundException::class,
@@ -138,6 +141,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
+     * @throws InvalidResourceStateException
      * @throws ServiceUnavailableErrorException
      * @throws ForbiddenException
      * @throws DatabaseNotFoundException
@@ -157,6 +161,7 @@ class RdsDataServiceClient extends AbstractApi
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
             'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
             'ForbiddenException' => ForbiddenException::class,
             'DatabaseNotFoundException' => DatabaseNotFoundException::class,
@@ -188,6 +193,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
+     * @throws InvalidResourceStateException
      * @throws ServiceUnavailableErrorException
      * @throws ForbiddenException
      * @throws DatabaseNotFoundException
@@ -207,6 +213,7 @@ class RdsDataServiceClient extends AbstractApi
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
             'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
             'ForbiddenException' => ForbiddenException::class,
             'DatabaseNotFoundException' => DatabaseNotFoundException::class,
@@ -253,6 +260,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
+     * @throws InvalidResourceStateException
      * @throws ServiceUnavailableErrorException
      * @throws ForbiddenException
      * @throws DatabaseNotFoundException
@@ -273,6 +281,7 @@ class RdsDataServiceClient extends AbstractApi
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
             'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
             'ForbiddenException' => ForbiddenException::class,
             'DatabaseNotFoundException' => DatabaseNotFoundException::class,
@@ -305,6 +314,7 @@ class RdsDataServiceClient extends AbstractApi
      * @throws DatabaseUnavailableException
      * @throws TransactionNotFoundException
      * @throws InvalidSecretException
+     * @throws InvalidResourceStateException
      * @throws ServiceUnavailableErrorException
      * @throws ForbiddenException
      * @throws DatabaseNotFoundException
@@ -324,6 +334,7 @@ class RdsDataServiceClient extends AbstractApi
             'DatabaseUnavailableException' => DatabaseUnavailableException::class,
             'TransactionNotFoundException' => TransactionNotFoundException::class,
             'InvalidSecretException' => InvalidSecretException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
             'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
             'ForbiddenException' => ForbiddenException::class,
             'DatabaseNotFoundException' => DatabaseNotFoundException::class,

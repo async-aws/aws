@@ -107,11 +107,11 @@ final class DeleteObjectsRequest extends Input
      * For the `x-amz-checksum-*algorithm*` header, replace `*algorithm*` with the supported algorithm from the following
      * list:
      *
-     * - `CRC-32`
-     * - `CRC-32C`
-     * - `CRC-64NVME`
-     * - `SHA-1`
-     * - `SHA-256`
+     * - `CRC32`
+     * - `CRC32C`
+     * - `CRC64NVME`
+     * - `SHA1`
+     * - `SHA256`
      *
      * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *

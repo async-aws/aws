@@ -93,7 +93,7 @@ class HeadObjectOutput extends Result
     private $contentLength;
 
     /**
-     * The Base64 encoded, 32-bit `CRC-32 checksum` of the object. This checksum is only be present if the checksum was
+     * The Base64 encoded, 32-bit `CRC32 checksum` of the object. This checksum is only be present if the checksum was
      * uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this
      * value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values
      * of each individual part. For more information about how checksums are calculated with multipart uploads, see Checking
@@ -106,7 +106,7 @@ class HeadObjectOutput extends Result
     private $checksumCrc32;
 
     /**
-     * The Base64 encoded, 32-bit `CRC-32C` checksum of the object. This checksum is only present if the checksum was
+     * The Base64 encoded, 32-bit `CRC32C` checksum of the object. This checksum is only present if the checksum was
      * uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this
      * value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values
      * of each individual part. For more information about how checksums are calculated with multipart uploads, see Checking
@@ -119,8 +119,8 @@ class HeadObjectOutput extends Result
     private $checksumCrc32C;
 
     /**
-     * The Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. For more information, see Checking object integrity
-     * in the Amazon S3 User Guide [^1].
+     * The Base64 encoded, 64-bit `CRC64NVME` checksum of the object. For more information, see Checking object integrity in
+     * the Amazon S3 User Guide [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -129,7 +129,7 @@ class HeadObjectOutput extends Result
     private $checksumCrc64Nvme;
 
     /**
-     * The Base64 encoded, 160-bit `SHA-1` digest of the object. This will only be present if the object was uploaded with
+     * The Base64 encoded, 160-bit `SHA1` digest of the object. This will only be present if the object was uploaded with
      * the object. When you use the API operation on an object that was uploaded using multipart uploads, this value may not
      * be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each
      * individual part. For more information about how checksums are calculated with multipart uploads, see Checking object
@@ -142,7 +142,7 @@ class HeadObjectOutput extends Result
     private $checksumSha1;
 
     /**
-     * The Base64 encoded, 256-bit `SHA-256` digest of the object. This will only be present if the object was uploaded with
+     * The Base64 encoded, 256-bit `SHA256` digest of the object. This will only be present if the object was uploaded with
      * the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not
      * be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each
      * individual part. For more information about how checksums are calculated with multipart uploads, see Checking object
@@ -229,6 +229,13 @@ class HeadObjectOutput extends Result
      * @var string|null
      */
     private $contentType;
+
+    /**
+     * The portion of the object returned in the response for a `GET` request.
+     *
+     * @var string|null
+     */
+    private $contentRange;
 
     /**
      * The date and time at which the object is no longer cacheable.
@@ -498,6 +505,13 @@ class HeadObjectOutput extends Result
         return $this->contentLength;
     }
 
+    public function getContentRange(): ?string
+    {
+        $this->initialize();
+
+        return $this->contentRange;
+    }
+
     public function getContentType(): ?string
     {
         $this->initialize();
@@ -698,6 +712,7 @@ class HeadObjectOutput extends Result
         $this->contentEncoding = $headers['content-encoding'][0] ?? null;
         $this->contentLanguage = $headers['content-language'][0] ?? null;
         $this->contentType = $headers['content-type'][0] ?? null;
+        $this->contentRange = $headers['content-range'][0] ?? null;
         $this->expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
         $this->websiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;

@@ -173,11 +173,11 @@ final class PutObjectRequest extends Input
      * For the `x-amz-checksum-*algorithm*` header, replace `*algorithm*` with the supported algorithm from the following
      * list:
      *
-     * - `CRC-32`
-     * - `CRC-32C`
-     * - `CRC-64NVME`
-     * - `SHA-1`
-     * - `SHA-256`
+     * - `CRC32`
+     * - `CRC32C`
+     * - `CRC64NVME`
+     * - `SHA1`
+     * - `SHA256`
      *
      * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
@@ -200,7 +200,7 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32` checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC32` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -211,7 +211,7 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC-32C` checksum of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 32-bit `CRC32C` checksum of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -222,9 +222,9 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC-64NVME` checksum of the object. The
-     * `CRC-64NVME` checksum is always a full object checksum. For more information, see Checking object integrity in the
-     * Amazon S3 User Guide [^1].
+     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC64NVME` checksum of the object. The `CRC64NVME`
+     * checksum is always a full object checksum. For more information, see Checking object integrity in the Amazon S3 User
+     * Guide [^1].
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -234,8 +234,8 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the Base64 encoded, 160-bit `SHA-1` digest of the object. For more
-     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * originally sent. This header specifies the Base64 encoded, 160-bit `SHA1` digest of the object. For more information,
+     * see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -245,7 +245,7 @@ final class PutObjectRequest extends Input
 
     /**
      * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the Base64 encoded, 256-bit `SHA-256` digest of the object. For more
+     * originally sent. This header specifies the Base64 encoded, 256-bit `SHA256` digest of the object. For more
      * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
