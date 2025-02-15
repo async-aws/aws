@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Addded InvalidResourceStateException.
+
 ## 2.2.1
 
 ### Changed
