@@ -8,6 +8,7 @@ final class ValidationExceptionReason
     public const FIELD_VALIDATION_FAILED = 'FieldValidationFailed';
     public const MISSING = 'Missing';
     public const OTHER = 'Other';
+    public const UNKNOWN_FIELD = 'UnknownField';
     public const UNKNOWN_OPERATION = 'UnknownOperation';
 
     public static function exists(string $value): bool
@@ -17,6 +18,7 @@ final class ValidationExceptionReason
             self::FIELD_VALIDATION_FAILED => true,
             self::MISSING => true,
             self::OTHER => true,
+            self::UNKNOWN_FIELD => true,
             self::UNKNOWN_OPERATION => true,
         ][$value]);
     }

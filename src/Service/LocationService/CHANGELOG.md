@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `UNKNOWN_FIELD` constant in `ValidationExceptionReason`
+
 ## 1.0.4
 
 ### Changed
