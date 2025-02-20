@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Adds support for larger property maps for tracking and geofence positions changes. It increases the maximum number of items from 3 to 4, and the maximum value length from 40 to 150.
+- AWS api-change: Added `UNKNOWN_FIELD` constant in `ValidationExceptionReason`
 
 ## 1.0.4
 
