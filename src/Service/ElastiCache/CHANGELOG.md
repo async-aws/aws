@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 1.2.4
 
 ### Changed

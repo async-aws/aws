@@ -346,8 +346,7 @@ final class CacheCluster
 
     /**
      * Must be either `ipv4` | `ipv6` | `dual_stack`. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS
-     * engine version 6.2 and above or Memcached engine version 1.6.6 and above on all instances built on the Nitro system
-     * [^1].
+     * engine version 6.2 7.1 or Memcached engine version 1.6.6 and above on all instances built on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
@@ -357,8 +356,8 @@ final class CacheCluster
 
     /**
      * The network type associated with the cluster, either `ipv4` | `ipv6`. IPv6 is supported for workloads using Valkey
-     * 7.2 and above, Redis OSS engine version 6.2 and above or Memcached engine version 1.6.6 and above on all instances
-     * built on the Nitro system [^1].
+     * 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built
+     * on the Nitro system [^1].
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
