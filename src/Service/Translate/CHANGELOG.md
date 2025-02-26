@@ -7,6 +7,7 @@
 - AWS api-change: Added `us-isof-east-1`  and `us-isof-south-1` regions
 - AWS api-change: Added `us-iso-east-1-fips` region
 - ```
+- AWS api-change: Define list of supported region
 
 ## 1.1.0
 
