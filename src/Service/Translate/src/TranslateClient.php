@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Translate\Exception\DetectedLanguageLowConfidenceException;
 use AsyncAws\Translate\Exception\InternalServerException;
@@ -77,6 +78,29 @@ class TranslateClient extends AbstractApi
         }
 
         switch ($region) {
+            case 'ap-east-1':
+            case 'ap-northeast-1':
+            case 'ap-northeast-2':
+            case 'ap-south-1':
+            case 'ap-southeast-1':
+            case 'ap-southeast-2':
+            case 'ca-central-1':
+            case 'eu-central-1':
+            case 'eu-north-1':
+            case 'eu-west-1':
+            case 'eu-west-2':
+            case 'eu-west-3':
+            case 'us-east-1':
+            case 'us-east-2':
+            case 'us-gov-west-1':
+            case 'us-west-1':
+            case 'us-west-2':
+                return [
+                    'endpoint' => "https://translate.$region.amazonaws.com",
+                    'signRegion' => $region,
+                    'signService' => 'translate',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://translate-fips.us-east-1.amazonaws.com',
@@ -136,11 +160,6 @@ class TranslateClient extends AbstractApi
                 ];
         }
 
-        return [
-            'endpoint' => "https://translate.$region.amazonaws.com",
-            'signRegion' => $region,
-            'signService' => 'translate',
-            'signVersions' => ['v4'],
-        ];
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Translate".', $region));
     }
 }
