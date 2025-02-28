@@ -1,0 +1,32 @@
+{
+    "name": "async-aws/bedrock-runtime",
+    "description": "BedrockRuntime client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "bedrock-runtime"
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "async-aws/core": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\BedrockRuntime\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\BedrockRuntime\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
