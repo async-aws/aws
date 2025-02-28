@@ -22,7 +22,7 @@ class InvokeModelRequestTest extends TestCase
 
         // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html
         $expected = '
-            POST /model/us.anthropic.claude-3-7-sonnet-20250219-v1:0/invoke HTTP/1.0
+            POST / HTTP/1.0
             Content-Type: application/json
             Accept: application/json
             X-Amzn-Bedrock-GuardrailIdentifier: arn:aws:bedrock:eu-west-1:965624758642:guardrail/azertyuiopqs

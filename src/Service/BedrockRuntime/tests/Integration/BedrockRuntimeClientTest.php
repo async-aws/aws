@@ -34,7 +34,7 @@ class BedrockRuntimeClientTest extends TestCase
 
     private function getClient(): BedrockRuntimeClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('There is no docker image available for CodeDeploy.');
 
         return new BedrockRuntimeClient([
             'endpoint' => 'http://localhost',

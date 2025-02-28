@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-isof-east-1` and `us-isof-south-1` regions
+- Support for BedrockRuntime
 
 ## 1.24.1
 

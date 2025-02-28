@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+- Support for BedrockRuntime
+
 ## 1.13.0
 
 ### Added
