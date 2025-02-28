@@ -10,10 +10,10 @@ package: async-aws/bedrock-runtime
 ### InvokeModel
 
 ```php
-use AsyncAws\BedrockRuntime\BedrockClient;
+use AsyncAws\BedrockRuntime\BedrockRuntimeClient;
 use AsyncAws\BedrockRuntime\Input\InvokeModelRequest;
 
-$bedrockRuntime = new AsyncAws\BedrockRuntime\BedrockClient();
+$bedrockRuntime = new BedrockRuntimeClient();
 
 $body = [
     'anthropic_version' => 'bedrock-2023-05-31',
