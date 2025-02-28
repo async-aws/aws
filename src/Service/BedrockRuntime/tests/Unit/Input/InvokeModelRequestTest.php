@@ -22,7 +22,7 @@ class InvokeModelRequestTest extends TestCase
             'performanceConfigLatency' => 'change me',
         ]);
 
-        // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Amazon_Bedrock_Runtime.html/API_InvokeModel.html
+        // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/json

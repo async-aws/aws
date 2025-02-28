@@ -45,7 +45,7 @@ class BedrockRuntimeClient extends AbstractApi
      * [^3]: https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html#security_iam_id-based-policy-examples-deny-inference
      * [^4]: https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html
      *
-     * @see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Amazon_Bedrock_Runtime.html/API_InvokeModel.html
+     * @see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-bedrock-runtime-2023-09-30.html#invokemodel
      *
      * @param array{

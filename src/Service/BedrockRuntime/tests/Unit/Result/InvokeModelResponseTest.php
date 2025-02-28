@@ -15,7 +15,7 @@ class InvokeModelResponseTest extends TestCase
     {
         self::fail('Not implemented');
 
-        // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Amazon_Bedrock_Runtime.html/API_InvokeModel.html
+        // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html
         $response = new SimpleMockedResponse('{
             "change": "it"
         }');

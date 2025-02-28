@@ -72,7 +72,7 @@
             "endpoint-tests": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/endpoint-tests-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/examples-1.json",
             "smoke": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/smoke.json",
-            "api-reference": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Amazon_Bedrock_Runtime.html",
+            "api-reference": "https://docs.aws.amazon.com/bedrock/latest/APIReference",
             "methods": [
                 "InvokeModel"
             ]
