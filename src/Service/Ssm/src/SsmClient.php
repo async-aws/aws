@@ -203,7 +203,7 @@ class SsmClient extends AbstractApi
     }
 
     /**
-     * Add a parameter to the system.
+     * Create or update a parameter in Parameter Store.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#putparameter
