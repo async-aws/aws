@@ -13,7 +13,7 @@ use AsyncAws\Ssm\ValueObject\Tag;
 final class PutParameterRequest extends Input
 {
     /**
-     * The fully qualified name of the parameter that you want to add to the system.
+     * The fully qualified name of the parameter that you want to create or update.
      *
      * > You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
      *
@@ -71,7 +71,7 @@ final class PutParameterRequest extends Input
     private $value;
 
     /**
-     * The type of parameter that you want to add to the system.
+     * The type of parameter that you want to create.
      *
      * > `SecureString` isn't currently supported for CloudFormation templates.
      *
@@ -89,8 +89,8 @@ final class PutParameterRequest extends Input
      * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for better
      * security. Required for parameters that use the `SecureString` data type.
      *
-     * If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services account which
-     * is not as secure as using a custom key.
+     * If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services account,
+     * which is not as secure as using a custom key.
      *
      * - To use a custom KMS key, choose the `SecureString` data type with the `Key ID` parameter.
      *
