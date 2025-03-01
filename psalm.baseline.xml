@@ -246,11 +246,6 @@
       <code><![CDATA[list<Reason::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/Route53/src/Result/CreateHostedZoneResponse.php">
-    <PossiblyNullPropertyAssignmentValue>
-      <code><![CDATA[$headers['location'][0] ?? null]]></code>
-    </PossiblyNullPropertyAssignmentValue>
-  </file>
   <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -331,5 +326,5 @@
       <code><![CDATA[list<KeyAgreementAlgorithmSpec::*>]]></code>
       <code><![CDATA[list<SigningAlgorithmSpec::*>]]></code>
     </MoreSpecificReturnType>
-  </file>  
+  </file>
 </files>

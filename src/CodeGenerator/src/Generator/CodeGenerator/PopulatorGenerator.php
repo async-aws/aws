@@ -190,39 +190,39 @@ class PopulatorGenerator
             $memberShape = $member->getShape();
             switch ($memberShape->getType()) {
                 case 'timestamp':
-                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? new \DateTimeImmutable($headers["LOCATION_NAME"][0]) : null;' . "\n", [
-                        'PROPERTY_NAME' => $propertyName,
-                        'LOCATION_NAME' => $locationName,
-                    ]);
+                    $propertyValue = 'new \DateTimeImmutable($headers["LOCATION_NAME"][0])';
 
                     break;
                 case 'integer':
                 case 'long':
-                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? (int) $headers["LOCATION_NAME"][0] : null;' . "\n", [
-                        'PROPERTY_NAME' => $propertyName,
-                        'LOCATION_NAME' => $locationName,
-                    ]);
+                    $propertyValue = '(int) $headers["LOCATION_NAME"][0]';
 
                     break;
                 case 'boolean':
                     $this->requirementsRegistry->addRequirement('ext-filter');
 
-                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER_VALIDATE_BOOLEAN) : null;' . "\n", [
-                        'PROPERTY_NAME' => $propertyName,
-                        'LOCATION_NAME' => $locationName,
-                    ]);
+                    $propertyValue = 'filter_var($headers["LOCATION_NAME"][0], FILTER_VALIDATE_BOOLEAN)';
 
                     break;
                 case 'string':
-                    $body .= strtr('$this->PROPERTY_NAME = $headers["LOCATION_NAME"][0] ?? null;' . "\n", [
-                        'PROPERTY_NAME' => $propertyName,
-                        'LOCATION_NAME' => $locationName,
-                    ]);
+                    $propertyValue = '$headers["LOCATION_NAME"][0]';
 
                     break;
                 default:
                     throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $memberShape->getType()));
             }
+            if (!$member->isRequired()) {
+                if ('$headers["LOCATION_NAME"][0]' === $propertyValue) {
+                    $propertyValue .= '?? null';
+                } else {
+                    $propertyValue = 'isset($headers["LOCATION_NAME"][0]) ? ' . $propertyValue . ' : null';
+                }
+            }
+
+            $body .= strtr('$this->PROPERTY_NAME = ' . $propertyValue . ';' . "\n", [
+                'PROPERTY_NAME' => $propertyName,
+                'LOCATION_NAME' => $locationName,
+            ]);
         }
 
         // This will catch arbitrary values that exists in undefined "headers"
