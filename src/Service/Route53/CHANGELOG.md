@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `us-isof-east-1`  and `us-isof-south-1` regions
 
+### Changed
+
+- trust AWS's API response: And not check if required headers are present
+
 ## 2.6.0
 
 ### Added
