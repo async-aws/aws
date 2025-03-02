@@ -60,7 +60,7 @@ class InvokeModelResponse extends Result
     {
         $headers = $response->getHeaders();
 
-        $this->contentType = $headers['content-type'][0] ?? null;
+        $this->contentType = $headers['content-type'][0];
         $this->performanceConfigLatency = $headers['x-amzn-bedrock-performanceconfig-latency'][0] ?? null;
 
         $this->body = $response->getContent();
