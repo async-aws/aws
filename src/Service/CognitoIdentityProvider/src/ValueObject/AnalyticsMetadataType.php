@@ -11,14 +11,7 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
  * resources for use with Amazon Cognito user pools, see Using Amazon Pinpoint analytics with Amazon Cognito user pools
  * [^1].
  *
- * This data type is a request parameter of authentication operations like InitiateAuth [^2], AdminInitiateAuth [^3],
- * RespondToAuthChallenge [^4], and AdminRespondToAuthChallenge [^5].
- *
  * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html
- * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
- * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html
- * [^4]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
- * [^5]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html
  */
 final class AnalyticsMetadataType
 {

@@ -6,11 +6,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The name and value of a user attribute.
- *
- * This data type is a request parameter of AdminUpdateUserAttributes [^1] and UpdateUserAttributes [^2].
- *
- * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateUserAttributes.html
- * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserAttributes.html
  */
 final class AttributeType
 {

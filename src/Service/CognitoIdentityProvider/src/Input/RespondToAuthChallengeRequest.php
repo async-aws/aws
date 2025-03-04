@@ -16,7 +16,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class RespondToAuthChallengeRequest extends Input
 {
     /**
-     * The app client ID.
+     * The ID of the app client where the user is signing in.
      *
      * @required
      *
@@ -25,11 +25,59 @@ final class RespondToAuthChallengeRequest extends Input
     private $clientId;
 
     /**
-     * The challenge name. For more information, see InitiateAuth [^1].
+     * The name of the challenge that you are responding to.
      *
-     * `ADMIN_NO_SRP_AUTH` isn't a valid value.
+     * > You can't respond to an `ADMIN_NO_SRP_AUTH` challenge with this operation.
      *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+     * Possible challenges include the following:
+     *
+     * > All of the following challenges require `USERNAME` and, when the app client has a client secret, `SECRET_HASH` in
+     * > the parameters.
+     *
+     * - `WEB_AUTHN`: Respond to the challenge with the results of a successful authentication with a WebAuthn
+     *   authenticator, or passkey. Examples of WebAuthn authenticators include biometric devices and security keys.
+     * - `PASSWORD`: Respond with `USER_PASSWORD_AUTH` parameters: `USERNAME` (required), `PASSWORD` (required),
+     *   `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+     * - `PASSWORD_SRP`: Respond with `USER_SRP_AUTH` parameters: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH`
+     *   (required if the app client is configured with a client secret), `DEVICE_KEY`.
+     * - `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an `ANSWER` that matches one of the challenge
+     *   types in the `AvailableChallenges` response parameter.
+     * - `SMS_MFA`: Respond with an `SMS_MFA_CODE` that your user pool delivered in an SMS message.
+     * - `EMAIL_OTP`: Respond with an `EMAIL_OTP_CODE` that your user pool delivered in an email message.
+     * - `PASSWORD_VERIFIER`: Respond with `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP` after
+     *   client-side SRP calculations.
+     * - `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass
+     *   another challenge before tokens are issued. The parameters of the challenge are determined by your Lambda function.
+     * - `DEVICE_SRP_AUTH`: Respond with the initial parameters of device SRP authentication. For more information, see
+     *   Signing in with a device [^1].
+     * - `DEVICE_PASSWORD_VERIFIER`: Respond with `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP`
+     *   after client-side SRP calculations. For more information, see Signing in with a device [^2].
+     * - `NEW_PASSWORD_REQUIRED`: For users who are required to change their passwords after successful first login. Respond
+     *   to this challenge with `NEW_PASSWORD` and any required attributes that Amazon Cognito returned in the
+     *   `requiredAttributes` parameter. You can also set values for attributes that aren't required by your user pool and
+     *   that your app client can write.
+     *
+     *   Amazon Cognito only returns this challenge for users who have temporary passwords. When you create passwordless
+     *   users, you must provide values for all required attributes.
+     *
+     *   > In a `NEW_PASSWORD_REQUIRED` challenge response, you can't modify a required attribute that already has a value.
+     *   > In `AdminRespondToAuthChallenge` or `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito
+     *   > returned in the `requiredAttributes` parameter, then use the `AdminUpdateUserAttributes` or
+     *   > `UpdateUserAttributes` API operation to modify the value of any additional attributes.
+     *
+     * - `MFA_SETUP`: For users who are required to setup an MFA factor before they can sign in. The MFA types activated for
+     *   the user pool will be listed in the challenge parameters `MFAS_CAN_SETUP` value.
+     *
+     *   To set up time-based one-time password (TOTP) MFA, use the session returned in this challenge from `InitiateAuth`
+     *   or `AdminInitiateAuth` as an input to `AssociateSoftwareToken`. Then, use the session returned by
+     *   `VerifySoftwareToken` as an input to `RespondToAuthChallenge` or `AdminRespondToAuthChallenge` with challenge name
+     *   `MFA_SETUP` to complete sign-in.
+     *
+     *   To set up SMS or email MFA, collect a `phone_number` or `email` attribute for the user. Then restart the
+     *   authentication flow with an `InitiateAuth` or `AdminInitiateAuth` request.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device
      *
      * @required
      *
@@ -38,9 +86,10 @@ final class RespondToAuthChallengeRequest extends Input
     private $challengeName;
 
     /**
-     * The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or
-     * `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with
-     * other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+     * The session identifier that maintains the state of authentication requests and challenge responses. If an
+     * `AdminInitiateAuth` or `AdminRespondToAuthChallenge` API request results in a determination that your application
+     * must pass another challenge, Amazon Cognito returns a session with other challenge parameters. Send this session
+     * identifier, unmodified, to the next `AdminRespondToAuthChallenge` request.
      *
      * @var string|null
      */
@@ -113,8 +162,9 @@ final class RespondToAuthChallengeRequest extends Input
      *   attributes that aren't required by your user pool.
      *
      *   > In a `NEW_PASSWORD_REQUIRED` challenge response, you can't modify a required attribute that already has a value.
-     *   > In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes`
-     *   > parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
+     *   > In `AdminRespondToAuthChallenge` or `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito
+     *   > returned in the `requiredAttributes` parameter, then use the `AdminUpdateUserAttributes` or
+     *   > `UpdateUserAttributes` API operation to modify the value of any additional attributes.
      *
      * - `SOFTWARE_TOKEN_MFA`:
      *
@@ -141,7 +191,7 @@ final class RespondToAuthChallengeRequest extends Input
      * For more information about `SECRET_HASH`, see Computing secret hash values [^2]. For information about `DEVICE_KEY`,
      * see Working with user devices in your user pool [^3].
      *
-     * [^1]: https://www.w3.org/TR/webauthn-3/#dictdef-authenticationresponsejson
+     * [^1]: https://www.w3.org/TR/WebAuthn-3/#dictdef-authenticationresponsejson
      * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash
      * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html
      *
@@ -150,16 +200,18 @@ final class RespondToAuthChallengeRequest extends Input
     private $challengeResponses;
 
     /**
-     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `RespondToAuthChallenge` calls.
+     * Information that supports analytics outcomes with Amazon Pinpoint, including the user's endpoint ID. The endpoint ID
+     * is a destination for Amazon Pinpoint push notifications, for example a device identifier, email address, or phone
+     * number.
      *
      * @var AnalyticsMetadataType|null
      */
     private $analyticsMetadata;
 
     /**
-     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
-     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
-     * passes to Amazon Cognito when it makes API requests.
+     * Contextual data about your user session like the device fingerprint, IP address, or location. Amazon Cognito threat
+     * protection evaluates the risk of an authentication event based on the context that your app generates and passes to
+     * Amazon Cognito when it makes API requests.
      *
      * For more information, see Collecting data for threat protection in applications [^1].
      *
@@ -180,8 +232,7 @@ final class RespondToAuthChallengeRequest extends Input
      * ClientMetadata parameter in your RespondToAuthChallenge request. In your function code in Lambda, you can process the
      * `clientMetadata` value to enhance your workflow for your specific needs.
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >

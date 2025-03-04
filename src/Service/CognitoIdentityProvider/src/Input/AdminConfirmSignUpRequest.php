@@ -22,9 +22,9 @@ final class AdminConfirmSignUpRequest extends Input
     private $userPoolId;
 
     /**
-     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
-     * username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this
-     * value must be the `sub` of a local user or the username of a user from a third-party IdP.
+     * The name of the user that you want to query or modify. The value of this parameter is typically your user's username,
+     * but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value
+     * must be the `sub` of a local user or the username of a user from a third-party IdP.
      *
      * @required
      *
@@ -41,8 +41,7 @@ final class AdminConfirmSignUpRequest extends Input
      * you assigned to the ClientMetadata parameter in your AdminConfirmSignUp request. In your function code in Lambda, you
      * can process the ClientMetadata value to enhance your workflow for your specific needs.
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >

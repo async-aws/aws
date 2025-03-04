@@ -19,7 +19,7 @@ final class RevokeTokenRequest extends Input
     private $token;
 
     /**
-     * The client ID for the token that you want to revoke.
+     * The ID of the app client where the token that you want to revoke was issued.
      *
      * @required
      *
@@ -28,7 +28,7 @@ final class RevokeTokenRequest extends Input
     private $clientId;
 
     /**
-     * The secret for the client ID. This is required only if the client ID has a secret.
+     * The client secret of the requested app client, if the client has a secret.
      *
      * @var string|null
      */

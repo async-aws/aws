@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ListGroupsRequest extends Input
 {
     /**
-     * The ID of the user pool.
+     * The ID of the user pool where you want to list user groups.
      *
      * @required
      *
@@ -19,15 +19,17 @@ final class ListGroupsRequest extends Input
     private $userPoolId;
 
     /**
-     * The limit of the request to list groups.
+     * The maximum number of groups that you want Amazon Cognito to return in the response.
      *
      * @var int|null
      */
     private $limit;
 
     /**
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next set of
-     * items in the list.
+     * This API operation returns a limited number of results. The pagination token is an identifier that you can present in
+     * an additional API request with the same parameters. When you include the pagination token, Amazon Cognito returns the
+     * next set of items after the current list. Subsequent requests return a new pagination token. By use of this token,
+     * you can paginate through the full list of items.
      *
      * @var string|null
      */

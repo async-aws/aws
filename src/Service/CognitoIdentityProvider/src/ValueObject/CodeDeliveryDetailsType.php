@@ -6,12 +6,6 @@ use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 
 /**
  * The delivery details for an email or SMS message that Amazon Cognito sent for authentication or verification.
- *
- * This data type is a response parameter of operations that send a code for user profile confirmation, verification, or
- * management, for example ForgotPassword [^1] and SignUp [^2].
- *
- * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
- * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
  */
 final class CodeDeliveryDetailsType
 {

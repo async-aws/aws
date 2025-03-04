@@ -15,7 +15,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ForgotPasswordRequest extends Input
 {
     /**
-     * The ID of the client associated with the user pool.
+     * The ID of the user pool app client associated with the current signed-in user.
      *
      * @required
      *
@@ -34,9 +34,9 @@ final class ForgotPasswordRequest extends Input
     private $secretHash;
 
     /**
-     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
-     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
-     * passes to Amazon Cognito when it makes API requests.
+     * Contextual data about your user session like the device fingerprint, IP address, or location. Amazon Cognito threat
+     * protection evaluates the risk of an authentication event based on the context that your app generates and passes to
+     * Amazon Cognito when it makes API requests.
      *
      * For more information, see Collecting data for threat protection in applications [^1].
      *
@@ -47,9 +47,9 @@ final class ForgotPasswordRequest extends Input
     private $userContextData;
 
     /**
-     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
-     * username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this
-     * value must be the `sub` of a local user or the username of a user from a third-party IdP.
+     * The name of the user that you want to query or modify. The value of this parameter is typically your user's username,
+     * but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value
+     * must be the `sub` of a local user or the username of a user from a third-party IdP.
      *
      * @required
      *
@@ -58,7 +58,9 @@ final class ForgotPasswordRequest extends Input
     private $username;
 
     /**
-     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `ForgotPassword` calls.
+     * Information that supports analytics outcomes with Amazon Pinpoint, including the user's endpoint ID. The endpoint ID
+     * is a destination for Amazon Pinpoint push notifications, for example a device identifier, email address, or phone
+     * number.
      *
      * @var AnalyticsMetadataType|null
      */
@@ -74,8 +76,7 @@ final class ForgotPasswordRequest extends Input
      * assigned to the ClientMetadata parameter in your ForgotPassword request. In your function code in Lambda, you can
      * process the `clientMetadata` value to enhance your workflow for your specific needs.
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >

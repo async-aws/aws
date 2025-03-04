@@ -6,11 +6,6 @@ use AsyncAws\CognitoIdentityProvider\Enum\UserStatusType;
 
 /**
  * A user profile in a Amazon Cognito user pool.
- *
- * This data type is a response parameter to AdminCreateUser [^1] and ListUsers [^2].
- *
- * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
- * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUsers.html
  */
 final class UserType
 {

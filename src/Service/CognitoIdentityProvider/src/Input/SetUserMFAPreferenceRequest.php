@@ -30,17 +30,18 @@ final class SetUserMFAPreferenceRequest extends Input
 
     /**
      * User preferences for email message MFA. Activates or deactivates email MFA and sets it as the preferred MFA method
-     * when multiple methods are available. To activate this setting, advanced security features [^1] must be active in your
-     * user pool.
+     * when multiple methods are available. To activate this setting, your user pool must be in the Essentials tier [^1] or
+     * higher.
      *
-     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html
      *
      * @var EmailMfaSettingsType|null
      */
     private $emailMfaSettings;
 
     /**
-     * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
+     * A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for
+     * `aws.cognito.signin.user.admin`.
      *
      * @required
      *

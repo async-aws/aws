@@ -12,21 +12,26 @@ use AsyncAws\Core\Result;
 class SignUpResponse extends Result
 {
     /**
-     * A response from the server indicating that a user registration has been confirmed.
+     * Indicates whether the user was automatically confirmed. You can auto-confirm users with a pre sign-up Lambda trigger
+     * [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html
      *
      * @var bool
      */
     private $userConfirmed;
 
     /**
-     * The code delivery details returned by the server response to the user registration request.
+     * In user pools that automatically verify and confirm new users, Amazon Cognito sends users a message with a code or
+     * link that confirms ownership of the phone number or email address that they entered. The `CodeDeliveryDetails` object
+     * is information about the delivery destination for that link or code.
      *
      * @var CodeDeliveryDetailsType|null
      */
     private $codeDeliveryDetails;
 
     /**
-     * The 128-bit ID of the authenticated user. This isn't the same as `username`.
+     * The unique identifier of the new user, for example `a1b2c3d4-5678-90ab-cdef-EXAMPLE11111`.
      *
      * @var string
      */

@@ -4,14 +4,10 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
  * User preferences for multi-factor authentication with email messages. Activates or deactivates email MFA and sets it
- * as the preferred MFA method when multiple methods are available. To activate this setting, advanced security features
- * [^1] must be active in your user pool.
+ * as the preferred MFA method when multiple methods are available. To activate this setting, your user pool must be in
+ * the Essentials tier [^1] or higher.
  *
- * This data type is a request parameter of SetUserMFAPreference [^2] and AdminSetUserMFAPreference [^3].
- *
- * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html
- * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html
- * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserMFAPreference.html
+ * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html
  */
 final class EmailMfaSettingsType
 {

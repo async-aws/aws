@@ -9,14 +9,16 @@ use AsyncAws\Core\Result;
 class VerifySoftwareTokenResponse extends Result
 {
     /**
-     * The status of the verify software token.
+     * Amazon Cognito can accept or reject the code that you provide. This response parameter indicates the success of TOTP
+     * verification. Some reasons that this operation might return an error are clock skew on the user's device and
+     * excessive retries.
      *
      * @var VerifySoftwareTokenResponseType::*|null
      */
     private $status;
 
     /**
-     * The session that should be passed both ways in challenge-response calls to the service.
+     * This session ID satisfies an `MFA_SETUP` challenge. Supply the session ID in your challenge response.
      *
      * @var string|null
      */

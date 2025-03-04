@@ -9,8 +9,10 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class AssociateSoftwareTokenRequest extends Input
 {
     /**
-     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate. You can
-     * provide either an access token or a session ID in the request.
+     * A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for
+     * `aws.cognito.signin.user.admin`.
+     *
+     * You can provide either an access token or a session ID in the request.
      *
      * @var string|null
      */

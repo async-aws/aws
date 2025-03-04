@@ -15,10 +15,7 @@ class AssociateSoftwareTokenResponse extends Result
     private $secretCode;
 
     /**
-     * The session identifier that maintains the state of authentication requests and challenge responses. This session ID
-     * is valid for the next request in this flow, VerifySoftwareToken [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html
+     * The session identifier that maintains the state of authentication requests and challenge responses.
      *
      * @var string|null
      */
