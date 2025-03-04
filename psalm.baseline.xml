@@ -315,6 +315,14 @@
       <code><![CDATA[list<ChallengeNameType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Result/AdminInitiateAuthResponse.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$items]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<ChallengeNameType::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/Kms/src/Result/GetPublicKeyResponse.php">
     <LessSpecificReturnStatement>
       <code><![CDATA[$items]]></code>

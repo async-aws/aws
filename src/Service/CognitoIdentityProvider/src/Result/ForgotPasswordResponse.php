@@ -12,7 +12,7 @@ use AsyncAws\Core\Result;
 class ForgotPasswordResponse extends Result
 {
     /**
-     * The code delivery details returned by the server in response to the request to reset a password.
+     * Information about the phone number or email address that Amazon Cognito sent the password-recovery code to.
      *
      * @var CodeDeliveryDetailsType|null
      */

@@ -13,7 +13,7 @@ use AsyncAws\Core\Result;
 class GetUserResponse extends Result
 {
     /**
-     * The username of the user that you requested.
+     * The name of the user that you requested.
      *
      * @var string
      */
@@ -22,7 +22,7 @@ class GetUserResponse extends Result
     /**
      * An array of name-value pairs representing user attributes.
      *
-     * For custom attributes, you must prepend the `custom:` prefix to the attribute name.
+     * Custom attributes are prepended with the `custom:` prefix.
      *
      * @var AttributeType[]
      */
@@ -38,7 +38,7 @@ class GetUserResponse extends Result
     private $mfaOptions;
 
     /**
-     * The user's preferred MFA setting.
+     * The user's preferred MFA. Users can prefer SMS message, email message, or TOTP MFA.
      *
      * @var string|null
      */

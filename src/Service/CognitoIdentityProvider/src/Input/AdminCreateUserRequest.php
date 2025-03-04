@@ -59,17 +59,19 @@ final class AdminCreateUserRequest extends Input
      * email or SMS OTP. These attributes must be provided when passwordless options are the only available, or when you
      * don't submit a `TemporaryPassword`.
      *
-     * In your call to `AdminCreateUser`, you can set the `email_verified` attribute to `True`, and you can set the
-     * `phone_number_verified` attribute to `True`. You can also do this by calling AdminUpdateUserAttributes [^1].
+     * In your `AdminCreateUser` request, you can set the `email_verified` and `phone_number_verified` attributes to `true`.
+     * The following conditions apply:
      *
-     * - **email**: The email address of the user to whom the message that contains the code and username will be sent.
-     *   Required if the `email_verified` attribute is set to `True`, or if `"EMAIL"` is specified in the
-     *   `DesiredDeliveryMediums` parameter.
-     * - **phone_number**: The phone number of the user to whom the message that contains the code and username will be
-     *   sent. Required if the `phone_number_verified` attribute is set to `True`, or if `"SMS"` is specified in the
-     *   `DesiredDeliveryMediums` parameter.
+     * - `email`:
      *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateUserAttributes.html
+     *   The email address where you want the user to receive their confirmation code and username. You must provide a value
+     *   for the `email` when you want to set `email_verified` to `true`, or if you set `EMAIL` in the
+     *   `DesiredDeliveryMediums` parameter.
+     * - `phone_number`:
+     *
+     *   The phone number where you want the user to receive their confirmation code and username. You must provide a value
+     *   for the `email` when you want to set `phone_number` to `true`, or if you set `SMS` in the `DesiredDeliveryMediums`
+     *   parameter.
      *
      * @var AttributeType[]|null
      */
@@ -79,10 +81,9 @@ final class AdminCreateUserRequest extends Input
      * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of key-value
      * pairs are for custom validation of information that you collect from your users but don't need to retain.
      *
-     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
-     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
-     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they sign
-     * up from within your network.
+     * Your Lambda function can analyze this additional data and act on it. Your function can automatically confirm and
+     * verify select users or perform external API operations like logging user attributes and validation data to Amazon
+     * CloudWatch Logs.
      *
      * For more information about the pre sign-up Lambda trigger, see Pre sign-up Lambda trigger [^1].
      *
@@ -98,8 +99,7 @@ final class AdminCreateUserRequest extends Input
      *
      * The exception to the requirement for a password is when your user pool supports passwordless sign-in with email or
      * SMS OTPs. To create a user with no password, omit this parameter or submit a blank value. You can only create a
-     * passwordless user when passwordless sign-in is available. See the SignInPolicyType [^1] property of CreateUserPool
-     * [^2] and UpdateUserPool [^3].
+     * passwordless user when passwordless sign-in is available.
      *
      * The temporary password is valid only once. To complete the Admin Create User flow, the user must enter the temporary
      * password in the sign-in page, along with a new password to be used in all future sign-ins.
@@ -110,10 +110,6 @@ final class AdminCreateUserRequest extends Input
      * The temporary password can only be used until the user account expiration limit that you set for your user pool. To
      * reset the account after that time limit, you must call `AdminCreateUser` again and specify `RESEND` for the
      * `MessageAction` parameter.
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignInPolicyType.html
-     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html
-     * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html
      *
      * @var string|null
      */
@@ -161,8 +157,7 @@ final class AdminCreateUserRequest extends Input
      * AdminCreateUser request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your
      * workflow for your specific needs.
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >

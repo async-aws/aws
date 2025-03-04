@@ -16,8 +16,8 @@ final class ConfirmForgotPasswordRequest extends Input
 {
     /**
      * The ID of the app client where the user wants to reset their password. This parameter is an identifier of the client
-     * application that users are resetting their password from, but this operation resets users' passwords for all app
-     * clients in the user pool.
+     * application that users are resetting their password from, but this operation resets users' irrespective of the app
+     * clients they sign in to.
      *
      * @required
      *
@@ -36,9 +36,9 @@ final class ConfirmForgotPasswordRequest extends Input
     private $secretHash;
 
     /**
-     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
-     * username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this
-     * value must be the `sub` of a local user or the username of a user from a third-party IdP.
+     * The name of the user that you want to query or modify. The value of this parameter is typically your user's username,
+     * but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value
+     * must be the `sub` of a local user or the username of a user from a third-party IdP.
      *
      * @required
      *
@@ -47,11 +47,7 @@ final class ConfirmForgotPasswordRequest extends Input
     private $username;
 
     /**
-     * The confirmation code that your user pool sent in response to an AdminResetUserPassword [^1] or a ForgotPassword [^2]
-     * request.
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminResetUserPassword.html
-     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
+     * The confirmation code that your user pool delivered when your user requested to reset their password.
      *
      * @required
      *
@@ -69,16 +65,18 @@ final class ConfirmForgotPasswordRequest extends Input
     private $password;
 
     /**
-     * The Amazon Pinpoint analytics metadata for collecting metrics for `ConfirmForgotPassword` calls.
+     * Information that supports analytics outcomes with Amazon Pinpoint, including the user's endpoint ID. The endpoint ID
+     * is a destination for Amazon Pinpoint push notifications, for example a device identifier, email address, or phone
+     * number.
      *
      * @var AnalyticsMetadataType|null
      */
     private $analyticsMetadata;
 
     /**
-     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
-     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
-     * passes to Amazon Cognito when it makes API requests.
+     * Contextual data about your user session like the device fingerprint, IP address, or location. Amazon Cognito threat
+     * protection evaluates the risk of an authentication event based on the context that your app generates and passes to
+     * Amazon Cognito when it makes API requests.
      *
      * For more information, see Collecting data for threat protection in applications [^1].
      *
@@ -98,8 +96,7 @@ final class ConfirmForgotPasswordRequest extends Input
      * parameter in your ConfirmForgotPassword request. In your function code in Lambda, you can process the
      * `clientMetadata` value to enhance your workflow for your specific needs.
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >

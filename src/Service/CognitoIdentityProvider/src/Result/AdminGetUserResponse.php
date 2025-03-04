@@ -44,11 +44,7 @@ class AdminGetUserResponse extends Result
     private $userLastModifiedDate;
 
     /**
-     * Indicates whether the user is activated for sign-in. The AdminDisableUser [^1] and AdminEnableUser [^2] API
-     * operations deactivate and activate user sign-in, respectively.
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDisableUser.html
-     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminEnableUser.html
+     * Indicates whether the user is activated for sign-in.
      *
      * @var bool|null
      */
@@ -88,11 +84,7 @@ class AdminGetUserResponse extends Result
 
     /**
      * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA`, `EMAIL_OTP`, and
-     * `SOFTWARE_TOKEN_MFA`. You can change the MFA preference for users who have more than one available MFA factor with
-     * AdminSetUserMFAPreference [^1] or SetUserMFAPreference [^2].
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserMFAPreference.html
-     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html
+     * `SOFTWARE_TOKEN_MFA`.
      *
      * @var string[]
      */

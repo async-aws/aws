@@ -35,47 +35,37 @@ final class AdminInitiateAuthRequest extends Input
 
     /**
      * The authentication flow that you want to initiate. Each `AuthFlow` has linked `AuthParameters` that you must submit.
-     * The following are some example flows and their parameters.
-     *
-     * - `USER_AUTH`: Request a preferred authentication type or review available authentication types. From the offered
-     *   authentication types, select one in a challenge response and then authenticate with that method in an additional
-     *   challenge response.
-     * - `REFRESH_TOKEN_AUTH`: Receive new ID and access tokens when you pass a `REFRESH_TOKEN` parameter with a valid
-     *   refresh token as the value.
-     * - `USER_SRP_AUTH`: Receive secure remote password (SRP) variables for the next challenge, `PASSWORD_VERIFIER`, when
-     *   you pass `USERNAME` and `SRP_A` parameters..
-     * - `ADMIN_USER_PASSWORD_AUTH`: Receive new tokens or the next challenge, for example `SOFTWARE_TOKEN_MFA`, when you
-     *   pass `USERNAME` and `PASSWORD` parameters.
-     *
-     * *All flows*
+     * The following are some example flows.
      *
      * - `USER_AUTH`:
      *
-     *   The entry point for sign-in with passwords, one-time passwords, and WebAuthN authenticators.
+     *   The entry point for choice-based authentication [^1] with passwords, one-time passwords, and WebAuthn
+     *   authenticators. Request a preferred authentication type or review available authentication types. From the offered
+     *   authentication types, select one in a challenge response and then authenticate with that method in an additional
+     *   challenge response. To activate this setting, your user pool must be in the Essentials tier [^2] or higher.
      * - `USER_SRP_AUTH`:
      *
      *   Username-password authentication with the Secure Remote Password (SRP) protocol. For more information, see Use SRP
-     *   password verification in custom authentication flow [^1].
+     *   password verification in custom authentication flow [^3].
      * - `REFRESH_TOKEN_AUTH and REFRESH_TOKEN`:
      *
-     *   Provide a valid refresh token and receive new ID and access tokens. For more information, see Using the refresh
-     *   token [^2].
+     *   Receive new ID and access tokens when you pass a `REFRESH_TOKEN` parameter with a valid refresh token as the value.
+     *   For more information, see Using the refresh token [^4].
      * - `CUSTOM_AUTH`:
      *
      *   Custom authentication with Lambda triggers. For more information, see Custom authentication challenge Lambda
-     *   triggers [^3].
+     *   triggers [^5].
      * - `ADMIN_USER_PASSWORD_AUTH`:
      *
-     *   Username-password authentication with the password sent directly in the request. For more information, see Admin
-     *   authentication flow [^4].
+     *   Server-side username-password authentication with the password sent directly in the request. For more information
+     *   about client-side and server-side authentication, see SDK authorization models [^6].
      *
-     * `USER_PASSWORD_AUTH` is a flow type of InitiateAuth [^5] and isn't valid for AdminInitiateAuth.
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#Using-SRP-password-verification-in-custom-authentication-flow
-     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-refresh-token.html
-     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html
-     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#Built-in-authentication-flow-and-challenges
-     * [^5]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice
+     * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html
+     * [^3]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#Using-SRP-password-verification-in-custom-authentication-flow
+     * [^4]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-refresh-token.html
+     * [^5]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html
+     * [^6]: https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-public-server-side.html
      *
      * @required
      *
@@ -85,7 +75,7 @@ final class AdminInitiateAuthRequest extends Input
 
     /**
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required
-     * values depend on the value of `AuthFlow`:
+     * values depend on the value of `AuthFlow` for example:
      *
      * - For `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If you don't provide a value for
      *   `PREFERRED_CHALLENGE`, Amazon Cognito responds with the `AvailableChallenges` parameter that specifies the
@@ -137,8 +127,7 @@ final class AdminInitiateAuthRequest extends Input
      * - Custom email sender
      * - Custom SMS sender
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >
@@ -156,16 +145,18 @@ final class AdminInitiateAuthRequest extends Input
     private $clientMetadata;
 
     /**
-     * The analytics metadata for collecting Amazon Pinpoint metrics.
+     * Information that supports analytics outcomes with Amazon Pinpoint, including the user's endpoint ID. The endpoint ID
+     * is a destination for Amazon Pinpoint push notifications, for example a device identifier, email address, or phone
+     * number.
      *
      * @var AnalyticsMetadataType|null
      */
     private $analyticsMetadata;
 
     /**
-     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
-     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
-     * passes to Amazon Cognito when it makes API requests.
+     * Contextual data about your user session like the device fingerprint, IP address, or location. Amazon Cognito threat
+     * protection evaluates the risk of an authentication event based on the context that your app generates and passes to
+     * Amazon Cognito when it makes API requests.
      *
      * For more information, see Collecting data for threat protection in applications [^1].
      *

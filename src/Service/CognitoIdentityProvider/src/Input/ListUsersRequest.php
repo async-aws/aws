@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ListUsersRequest extends Input
 {
     /**
-     * The ID of the user pool on which the search should be performed.
+     * The ID of the user pool where you want to display or search for users.
      *
      * @required
      *
@@ -36,7 +36,7 @@ final class ListUsersRequest extends Input
     private $attributesToGet;
 
     /**
-     * Maximum number of users to be returned.
+     * The maximum number of users that you want Amazon Cognito to return in the response.
      *
      * @var int|null
      */

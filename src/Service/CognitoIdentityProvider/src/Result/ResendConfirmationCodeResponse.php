@@ -12,7 +12,7 @@ use AsyncAws\Core\Result;
 class ResendConfirmationCodeResponse extends Result
 {
     /**
-     * The code delivery details returned by the server in response to the request to resend the confirmation code.
+     * Information about the phone number or email address that Amazon Cognito sent the confirmation code to.
      *
      * @var CodeDeliveryDetailsType|null
      */

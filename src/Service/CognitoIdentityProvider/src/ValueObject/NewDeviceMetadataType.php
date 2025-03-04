@@ -7,14 +7,7 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
  * a user signs in with an unrecognized device. Amazon Cognito presents a new device key that you can use to set up
  * device authentication [^1] in a "Remember me on this device" authentication model.
  *
- * This data type is a response parameter of authentication operations like InitiateAuth [^2], AdminInitiateAuth [^3],
- * RespondToAuthChallenge [^4], and AdminRespondToAuthChallenge [^5].
- *
  * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html
- * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
- * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html
- * [^4]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
- * [^5]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html
  */
 final class NewDeviceMetadataType
 {

@@ -10,23 +10,22 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class VerifySoftwareTokenRequest extends Input
 {
     /**
-     * A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
+     * A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for
+     * `aws.cognito.signin.user.admin`.
      *
      * @var string|null
      */
     private $accessToken;
 
     /**
-     * The session that should be passed both ways in challenge-response calls to the service.
+     * The session ID from an `AssociateSoftwareToken` request.
      *
      * @var string|null
      */
     private $session;
 
     /**
-     * The one- time password computed using the secret code returned by AssociateSoftwareToken [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html
+     * A TOTP that the user generated in their configured authenticator app.
      *
      * @required
      *
@@ -35,7 +34,7 @@ final class VerifySoftwareTokenRequest extends Input
     private $userCode;
 
     /**
-     * The friendly device name.
+     * A friendly name for the device that's running the TOTP authenticator.
      *
      * @var string|null
      */

@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added the capacity to return available challenges in admin authentication and to set version 3 of the pre token generation event for M2M ATC.
+
 ## 1.11.0
 
 ### Added

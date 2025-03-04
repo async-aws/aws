@@ -13,7 +13,8 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetUserRequest extends Input
 {
     /**
-     * A non-expired access token for the user whose information you want to query.
+     * A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for
+     * `aws.cognito.signin.user.admin`.
      *
      * @required
      *

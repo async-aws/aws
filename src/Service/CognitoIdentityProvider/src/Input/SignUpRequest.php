@@ -16,7 +16,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class SignUpRequest extends Input
 {
     /**
-     * The ID of the client associated with the user pool.
+     * The ID of the app client where the user wants to sign up.
      *
      * @required
      *
@@ -45,16 +45,13 @@ final class SignUpRequest extends Input
     private $username;
 
     /**
-     * The password of the user you want to register.
+     * The user's proposed password. The password must comply with the password requirements [^1] of your user pool.
      *
      * Users can sign up without a password when your user pool supports passwordless sign-in with email or SMS OTPs. To
      * create a user with no password, omit this parameter or submit a blank value. You can only create a passwordless user
-     * when passwordless sign-in is available. See the SignInPolicyType [^1] property of CreateUserPool [^2] and
-     * UpdateUserPool [^3].
+     * when passwordless sign-in is available.
      *
-     * [^1]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignInPolicyType.html
-     * [^2]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html
-     * [^3]: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/managing-users-passwords.html
      *
      * @var string|null
      */
@@ -63,7 +60,7 @@ final class SignUpRequest extends Input
     /**
      * An array of name-value pairs representing user attributes.
      *
-     * For custom attributes, you must prepend the `custom:` prefix to the attribute name.
+     * For custom attributes, include a `custom:` prefix in the attribute name, for example `custom:department`.
      *
      * @var AttributeType[]|null
      */
@@ -73,10 +70,9 @@ final class SignUpRequest extends Input
      * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of key-value
      * pairs are for custom validation of information that you collect from your users but don't need to retain.
      *
-     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
-     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
-     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they sign
-     * up from within your network.
+     * Your Lambda function can analyze this additional data and act on it. Your function can automatically confirm and
+     * verify select users or perform external API operations like logging user attributes and validation data to Amazon
+     * CloudWatch Logs.
      *
      * For more information about the pre sign-up Lambda trigger, see Pre sign-up Lambda trigger [^1].
      *
@@ -87,16 +83,18 @@ final class SignUpRequest extends Input
     private $validationData;
 
     /**
-     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `SignUp` calls.
+     * Information that supports analytics outcomes with Amazon Pinpoint, including the user's endpoint ID. The endpoint ID
+     * is a destination for Amazon Pinpoint push notifications, for example a device identifier, email address, or phone
+     * number.
      *
      * @var AnalyticsMetadataType|null
      */
     private $analyticsMetadata;
 
     /**
-     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
-     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
-     * passes to Amazon Cognito when it makes API requests.
+     * Contextual data about your user session like the device fingerprint, IP address, or location. Amazon Cognito threat
+     * protection evaluates the risk of an authentication event based on the context that your app generates and passes to
+     * Amazon Cognito when it makes API requests.
      *
      * For more information, see Collecting data for threat protection in applications [^1].
      *
@@ -116,8 +114,7 @@ final class SignUpRequest extends Input
      * assigned to the ClientMetadata parameter in your SignUp request. In your function code in Lambda, you can process the
      * `clientMetadata` value to enhance your workflow for your specific needs.
      *
-     * For more information, see Customizing user pool Workflows with Lambda Triggers [^1] in the *Amazon Cognito Developer
-     * Guide*.
+     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >
