@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.11.0
+
 ### Added
 
 - Added support for `getSuppressedDestination` and `deleteSuppressedDestination` to manage SESv2 suppression list entries.
