@@ -64,6 +64,16 @@
                 ]
             }
         },
+        "BedrockRuntime": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/bedrock/latest/APIReference",
+            "methods": [
+                "InvokeModel"
+            ]
+        },
         "CloudFormation": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/docs-2.json",

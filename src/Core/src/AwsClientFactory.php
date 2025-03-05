@@ -6,6 +6,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\AppSync\AppSyncClient;
 use AsyncAws\Athena\AthenaClient;
+use AsyncAws\BedrockRuntime\BedrockRuntimeClient;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFront\CloudFrontClient;
 use AsyncAws\CloudWatch\CloudWatchClient;
@@ -113,6 +114,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new AppSyncClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function bedrockRuntime(): BedrockRuntimeClient
+    {
+        if (!class_exists(BedrockRuntimeClient::class)) {
+            throw MissingDependency::create('async-aws/bedrock-runtime', 'BedrockRuntime');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new BedrockRuntimeClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
