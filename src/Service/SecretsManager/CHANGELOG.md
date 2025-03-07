@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Fix `fips` and `isob` regions name
 
 ## 2.6.0
 
