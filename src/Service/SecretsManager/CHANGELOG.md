@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Fix `fips` and `isob` regions name
+
 ## 2.6.0
 
 ### Added
