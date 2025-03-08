@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `ap-southeast-5` and `us-gov-east-1` regions
 
 ## 1.12.0
 
