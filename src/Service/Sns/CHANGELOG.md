@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Make supported regions explicit
 
 ## 1.8.0
 
