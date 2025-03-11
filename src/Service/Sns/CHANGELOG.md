@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Make supported regions explicit
+
 ## 1.8.0
 
 ### Added
