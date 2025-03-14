@@ -34,6 +34,8 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
     /**
      * The token to use when requesting the next set of items. The token expires after 24 hours.
      *
+     * If the results don't include a `nextToken`, then pagination is finished.
+     *
      * @var string|null
      */
     private $nextToken;
