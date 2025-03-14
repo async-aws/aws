@@ -73,14 +73,12 @@ class ConverseRequestTest extends TestCase
                     'toolUse' => new ToolUseBlock([
                         'toolUseId' => 'change me',
                         'name' => 'change me',
-                        'input' => new Document([
-                        ]),
+                        'input' => new Document(),
                     ]),
                     'toolResult' => new ToolResultBlock([
                         'toolUseId' => 'change me',
                         'content' => [new ToolResultContentBlock([
-                            'json' => new Document([
-                            ]),
+                            'json' => new Document(),
                             'text' => 'change me',
                             'image' => new ImageBlock([
                                 'format' => 'png',
@@ -156,16 +154,13 @@ class ConverseRequestTest extends TestCase
                         'name' => 'change me',
                         'description' => 'change me',
                         'inputSchema' => new ToolInputSchema([
-                            'json' => new Document([
-                            ]),
+                            'json' => new Document(),
                         ]),
                     ]),
                 ])],
                 'toolChoice' => new ToolChoice([
-                    'auto' => new AutoToolChoice([
-                    ]),
-                    'any' => new AnyToolChoice([
-                    ]),
+                    'auto' => new AutoToolChoice(),
+                    'any' => new AnyToolChoice(),
                     'tool' => new SpecificToolChoice([
                         'name' => 'change me',
                     ]),
@@ -176,8 +171,7 @@ class ConverseRequestTest extends TestCase
                 'guardrailVersion' => 'change me',
                 'trace' => 'enabled',
             ]),
-            'additionalModelRequestFields' => new Document([
-            ]),
+            'additionalModelRequestFields' => new Document(),
             'promptVariables' => ['change me' => new PromptVariableValues([
                 'text' => 'change me',
             ])],
