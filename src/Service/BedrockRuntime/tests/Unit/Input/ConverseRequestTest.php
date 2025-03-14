@@ -192,6 +192,7 @@ class ConverseRequestTest extends TestCase
         $expected = '
             POST /model/us.anthropic.claude-3-7-sonnet-20250219-v1%3A0/converse HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
             {
    "messages":[
