@@ -71,6 +71,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/bedrock/latest/APIReference",
             "methods": [
+                "Converse",
                 "InvokeModel"
             ]
         },
