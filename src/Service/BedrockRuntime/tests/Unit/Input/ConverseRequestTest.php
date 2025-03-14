@@ -190,7 +190,7 @@ class ConverseRequestTest extends TestCase
 
         // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Converse.html
         $expected = '
-            POST / HTTP/1.0
+            POST /model/us.anthropic.claude-3-7-sonnet-20250219-v1%3A0/converse HTTP/1.0
             Content-Type: application/json
 
             {
