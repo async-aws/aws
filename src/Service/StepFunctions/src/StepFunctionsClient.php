@@ -311,6 +311,20 @@ class StepFunctionsClient extends AbstractApi
                     'signService' => 'states',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-ca-central-1':
+                return [
+                    'endpoint' => 'https://states-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'states',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-ca-west-1':
+                return [
+                    'endpoint' => 'https://states-fips.ca-west-1.amazonaws.com',
+                    'signRegion' => 'ca-west-1',
+                    'signService' => 'states',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://states-fips.us-east-1.amazonaws.com',
@@ -372,6 +386,27 @@ class StepFunctionsClient extends AbstractApi
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://states.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 'states',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-iso-east-1':
+                return [
+                    'endpoint' => 'https://states-fips.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 'states',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-iso-west-1':
+                return [
+                    'endpoint' => 'https://states-fips.us-iso-west-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-west-1',
+                    'signService' => 'states',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-isob-east-1':
+                return [
+                    'endpoint' => 'https://states-fips.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
                     'signService' => 'states',
                     'signVersions' => ['v4'],
