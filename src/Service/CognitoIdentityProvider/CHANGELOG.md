@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `ap-southeast-5` and `us-gov-east-1` regions
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 1.12.0
 
 ### Added
