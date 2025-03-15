@@ -65,13 +65,13 @@ final class AdminCreateUserRequest extends Input
      * - `email`:
      *
      *   The email address where you want the user to receive their confirmation code and username. You must provide a value
-     *   for the `email` when you want to set `email_verified` to `true`, or if you set `EMAIL` in the
-     *   `DesiredDeliveryMediums` parameter.
+     *   for `email` when you want to set `email_verified` to `true`, or if you set `EMAIL` in the `DesiredDeliveryMediums`
+     *   parameter.
      * - `phone_number`:
      *
      *   The phone number where you want the user to receive their confirmation code and username. You must provide a value
-     *   for the `email` when you want to set `phone_number` to `true`, or if you set `SMS` in the `DesiredDeliveryMediums`
-     *   parameter.
+     *   for `phone_number` when you want to set `phone_number_verified` to `true`, or if you set `SMS` in the
+     *   `DesiredDeliveryMediums` parameter.
      *
      * @var AttributeType[]|null
      */
