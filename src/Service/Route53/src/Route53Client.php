@@ -431,6 +431,9 @@ class Route53Client extends AbstractApi
      *   The results begin with the first resource record set in the list whose name is greater than or equal to `Name`, and
      *   whose type is greater than or equal to `Type`.
      *
+     *   > Type is only used to sort between records with the same record Name.
+     *
+     *
      * **Resource record sets that are PENDING**
      *
      * This action returns the most current version of the records. This includes records that are `PENDING`, and that are

@@ -69,6 +69,15 @@ final class M2tsSettings
     private $audioPids;
 
     /**
+     * Manually specify the difference in PTS offset that will be applied to the audio track, in seconds or milliseconds,
+     * when you set PTS offset to Seconds or Milliseconds. Enter an integer from -10000 to 10000. Leave blank to keep the
+     * default value 0.
+     *
+     * @var int|null
+     */
+    private $audioPtsOffsetDelta;
+
+    /**
      * Specify the output bitrate of the transport stream in bits per second. Setting to 0 lets the muxer automatically
      * determine the appropriate bitrate. Other common values are 3750000, 7500000, and 15000000.
      *
@@ -290,7 +299,7 @@ final class M2tsSettings
      * automatically determine the initial PTS offset: Keep the default value, Auto. We recommend that you choose Auto for
      * the widest player compatibility. The initial PTS will be at least two seconds and vary depending on your output's
      * bitrate, HRD buffer size and HRD buffer initial fill percentage. To manually specify an initial PTS offset: Choose
-     * Seconds. Then specify the number of seconds with PTS offset.
+     * Seconds or Milliseconds. Then specify the number of seconds or milliseconds with PTS offset.
      *
      * @var TsPtsOffset::*|null
      */
@@ -389,6 +398,7 @@ final class M2tsSettings
      *   AudioDuration?: null|M2tsAudioDuration::*,
      *   AudioFramesPerPes?: null|int,
      *   AudioPids?: null|int[],
+     *   AudioPtsOffsetDelta?: null|int,
      *   Bitrate?: null|int,
      *   BufferModel?: null|M2tsBufferModel::*,
      *   DataPTSControl?: null|M2tsDataPtsControl::*,
@@ -435,6 +445,7 @@ final class M2tsSettings
         $this->audioDuration = $input['AudioDuration'] ?? null;
         $this->audioFramesPerPes = $input['AudioFramesPerPes'] ?? null;
         $this->audioPids = $input['AudioPids'] ?? null;
+        $this->audioPtsOffsetDelta = $input['AudioPtsOffsetDelta'] ?? null;
         $this->bitrate = $input['Bitrate'] ?? null;
         $this->bufferModel = $input['BufferModel'] ?? null;
         $this->dataPtsControl = $input['DataPTSControl'] ?? null;
@@ -481,6 +492,7 @@ final class M2tsSettings
      *   AudioDuration?: null|M2tsAudioDuration::*,
      *   AudioFramesPerPes?: null|int,
      *   AudioPids?: null|int[],
+     *   AudioPtsOffsetDelta?: null|int,
      *   Bitrate?: null|int,
      *   BufferModel?: null|M2tsBufferModel::*,
      *   DataPTSControl?: null|M2tsDataPtsControl::*,
@@ -553,6 +565,11 @@ final class M2tsSettings
     public function getAudioPids(): array
     {
         return $this->audioPids ?? [];
+    }
+
+    public function getAudioPtsOffsetDelta(): ?int
+    {
+        return $this->audioPtsOffsetDelta;
     }
 
     public function getBitrate(): ?int
@@ -821,6 +838,9 @@ final class M2tsSettings
                 ++$index;
                 $payload['audioPids'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->audioPtsOffsetDelta) {
+            $payload['audioPtsOffsetDelta'] = $v;
         }
         if (null !== $v = $this->bitrate) {
             $payload['bitrate'] = $v;
