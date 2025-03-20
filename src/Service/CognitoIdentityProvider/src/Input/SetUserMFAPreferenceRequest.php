@@ -22,7 +22,8 @@ final class SetUserMFAPreferenceRequest extends Input
 
     /**
      * User preferences for time-based one-time password (TOTP) MFA. Activates or deactivates TOTP MFA and sets it as the
-     * preferred MFA method when multiple methods are available.
+     * preferred MFA method when multiple methods are available. Users must register a TOTP authenticator before they set
+     * this as their preferred MFA method.
      *
      * @var SoftwareTokenMfaSettingsType|null
      */

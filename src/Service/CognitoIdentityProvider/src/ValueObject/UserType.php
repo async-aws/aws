@@ -49,14 +49,15 @@ final class UserType
     /**
      * The user status. This can be one of the following:
      *
-     * - UNCONFIRMED - User has been created but not confirmed.
-     * - CONFIRMED - User has been confirmed.
-     * - EXTERNAL_PROVIDER - User signed in with a third-party IdP.
-     * - UNKNOWN - User status isn't known.
-     * - RESET_REQUIRED - User is confirmed, but the user must request a code and reset their password before they can sign
+     * - `UNCONFIRMED`: User has been created but not confirmed.
+     * - `CONFIRMED`: User has been confirmed.
+     * - `EXTERNAL_PROVIDER`: User signed in with a third-party IdP.
+     * - `RESET_REQUIRED`: User is confirmed, but the user must request a code and reset their password before they can sign
      *   in.
-     * - FORCE_CHANGE_PASSWORD - The user is confirmed and the user can sign in using a temporary password, but on first
+     * - `FORCE_CHANGE_PASSWORD`: The user is confirmed and the user can sign in using a temporary password, but on first
      *   sign-in, the user must change their password to a new value before doing anything else.
+     *
+     * The statuses `ARCHIVED`, `UNKNOWN`, and `COMPROMISED` are no longer used.
      *
      * @var UserStatusType::*|null
      */

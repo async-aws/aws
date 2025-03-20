@@ -33,8 +33,8 @@ final class SpekeKeyProvider
     private $resourceId;
 
     /**
-     * Relates to SPEKE implementation. DRM system identifiers. DASH output groups support a max of two system ids. Other
-     * group types support one system id. See
+     * Relates to SPEKE implementation. DRM system identifiers. DASH output groups support a max of two system ids. HLS
+     * output groups support a max of 3 system ids. Other group types support one system id. See
      * https://dashif.org/identifiers/content_protection/ for more details.
      *
      * @var string[]|null

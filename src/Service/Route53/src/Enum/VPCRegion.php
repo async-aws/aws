@@ -39,6 +39,8 @@ final class VPCRegion
     public const US_GOV_EAST_1 = 'us-gov-east-1';
     public const US_GOV_WEST_1 = 'us-gov-west-1';
     public const US_ISOB_EAST_1 = 'us-isob-east-1';
+    public const US_ISOF_EAST_1 = 'us-isof-east-1';
+    public const US_ISOF_SOUTH_1 = 'us-isof-south-1';
     public const US_ISO_EAST_1 = 'us-iso-east-1';
     public const US_ISO_WEST_1 = 'us-iso-west-1';
     public const US_WEST_1 = 'us-west-1';
@@ -82,6 +84,8 @@ final class VPCRegion
             self::US_GOV_EAST_1 => true,
             self::US_GOV_WEST_1 => true,
             self::US_ISOB_EAST_1 => true,
+            self::US_ISOF_EAST_1 => true,
+            self::US_ISOF_SOUTH_1 => true,
             self::US_ISO_EAST_1 => true,
             self::US_ISO_WEST_1 => true,
             self::US_WEST_1 => true,
