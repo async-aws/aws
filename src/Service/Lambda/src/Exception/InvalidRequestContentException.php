@@ -6,7 +6,8 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request body could not be parsed as JSON.
+ * The request body could not be parsed as JSON, or a request header is invalid. For example, the 'x-amzn-RequestId'
+ * header is not a valid UUID string.
  */
 final class InvalidRequestContentException extends ClientException
 {
