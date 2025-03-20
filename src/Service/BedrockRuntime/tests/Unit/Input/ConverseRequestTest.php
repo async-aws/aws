@@ -221,17 +221,13 @@ class ConverseRequestTest extends TestCase
                "toolUse":{
                   "toolUseId":"change me",
                   "name":"change me",
-                  "input":[
-
-                  ]
+                  "input":[]
                },
                "toolResult":{
                   "toolUseId":"change me",
                   "content":[
                      {
-                        "json":[
-
-                        ],
+                        "json":[],
                         "text":"change me",
                         "image":{
                            "format":"png",
@@ -319,20 +315,14 @@ class ConverseRequestTest extends TestCase
                "name":"change me",
                "description":"change me",
                "inputSchema":{
-                  "json":[
-
-                  ]
+                  "json":[]
                }
             }
          }
       ],
       "toolChoice":{
-         "auto":[
-
-         ],
-         "any":[
-
-         ],
+         "auto":[],
+         "any":[],
          "tool":{
             "name":"change me"
          }
@@ -343,9 +333,7 @@ class ConverseRequestTest extends TestCase
       "guardrailVersion":"change me",
       "trace":"enabled"
    },
-   "additionalModelRequestFields":[
-
-   ],
+   "additionalModelRequestFields":[],
    "promptVariables":{
       "change me":{
          "text":"change me"
