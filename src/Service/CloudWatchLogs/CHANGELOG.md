@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Current declaration of rrgions
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
