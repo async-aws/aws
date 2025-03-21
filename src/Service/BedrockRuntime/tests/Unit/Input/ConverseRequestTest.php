@@ -1,10 +1,8 @@
 <?php
 
-namespace AsyncAws\BedrockRuntime\Tests\Integration;
+namespace AsyncAws\BedrockRuntime\Tests\Unit\Input;
 
-use AsyncAws\BedrockRuntime\BedrockRuntimeClient;
 use AsyncAws\BedrockRuntime\Input\ConverseRequest;
-use AsyncAws\BedrockRuntime\Input\InvokeModelRequest;
 use AsyncAws\BedrockRuntime\ValueObject\AnyToolChoice;
 use AsyncAws\BedrockRuntime\ValueObject\AutoToolChoice;
 use AsyncAws\BedrockRuntime\ValueObject\ContentBlock;
@@ -37,36 +35,33 @@ use AsyncAws\BedrockRuntime\ValueObject\ToolSpecification;
 use AsyncAws\BedrockRuntime\ValueObject\ToolUseBlock;
 use AsyncAws\BedrockRuntime\ValueObject\VideoBlock;
 use AsyncAws\BedrockRuntime\ValueObject\VideoSource;
-use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 
-class BedrockRuntimeClientTest extends TestCase
+class ConverseRequestTest extends TestCase
 {
-    public function testConverse(): void
+    public function testRequest(): void
     {
-        $client = $this->getClient();
-
         $input = new ConverseRequest([
-            'modelId' => 'change me',
+            'modelId' => 'us.anthropic.claude-3-7-sonnet-20250219-v1:0',
             'messages' => [new Message([
-                'role' => 'change me',
+                'role' => 'user',
                 'content' => [new ContentBlock([
                     'text' => 'change me',
                     'image' => new ImageBlock([
-                        'format' => 'change me',
+                        'format' => 'png',
                         'source' => new ImageSource([
                             'bytes' => 'change me',
                         ]),
                     ]),
                     'document' => new DocumentBlock([
-                        'format' => 'change me',
+                        'format' => 'pdf',
                         'name' => 'change me',
                         'source' => new DocumentSource([
                             'bytes' => 'change me',
                         ]),
                     ]),
                     'video' => new VideoBlock([
-                        'format' => 'change me',
+                        'format' => 'mkv',
                         'source' => new VideoSource([
                             'bytes' => 'change me',
                             's3Location' => new S3Location([
@@ -78,30 +73,28 @@ class BedrockRuntimeClientTest extends TestCase
                     'toolUse' => new ToolUseBlock([
                         'toolUseId' => 'change me',
                         'name' => 'change me',
-                        'input' => new Document([
-                        ]),
+                        'input' => new Document(),
                     ]),
                     'toolResult' => new ToolResultBlock([
                         'toolUseId' => 'change me',
                         'content' => [new ToolResultContentBlock([
-                            'json' => new Document([
-                            ]),
+                            'json' => new Document(),
                             'text' => 'change me',
                             'image' => new ImageBlock([
-                                'format' => 'change me',
+                                'format' => 'png',
                                 'source' => new ImageSource([
                                     'bytes' => 'change me',
                                 ]),
                             ]),
                             'document' => new DocumentBlock([
-                                'format' => 'change me',
+                                'format' => 'pdf',
                                 'name' => 'change me',
                                 'source' => new DocumentSource([
                                     'bytes' => 'change me',
                                 ]),
                             ]),
                             'video' => new VideoBlock([
-                                'format' => 'change me',
+                                'format' => 'mkv',
                                 'source' => new VideoSource([
                                     'bytes' => 'change me',
                                     's3Location' => new S3Location([
@@ -111,15 +104,15 @@ class BedrockRuntimeClientTest extends TestCase
                                 ]),
                             ]),
                         ])],
-                        'status' => 'change me',
+                        'status' => 'success',
                     ]),
                     'guardContent' => new GuardrailConverseContentBlock([
                         'text' => new GuardrailConverseTextBlock([
                             'text' => 'change me',
-                            'qualifiers' => ['change me'],
+                            'qualifiers' => ['grounding_source'],
                         ]),
                         'image' => new GuardrailConverseImageBlock([
-                            'format' => 'change me',
+                            'format' => 'png',
                             'source' => new GuardrailConverseImageSource([
                                 'bytes' => 'change me',
                             ]),
@@ -139,10 +132,10 @@ class BedrockRuntimeClientTest extends TestCase
                 'guardContent' => new GuardrailConverseContentBlock([
                     'text' => new GuardrailConverseTextBlock([
                         'text' => 'change me',
-                        'qualifiers' => ['change me'],
+                        'qualifiers' => ['grounding_source'],
                     ]),
                     'image' => new GuardrailConverseImageBlock([
-                        'format' => 'change me',
+                        'format' => 'png',
                         'source' => new GuardrailConverseImageSource([
                             'bytes' => 'change me',
                         ]),
@@ -161,16 +154,13 @@ class BedrockRuntimeClientTest extends TestCase
                         'name' => 'change me',
                         'description' => 'change me',
                         'inputSchema' => new ToolInputSchema([
-                            'json' => new Document([
-                            ]),
+                            'json' => new Document(),
                         ]),
                     ]),
                 ])],
                 'toolChoice' => new ToolChoice([
-                    'auto' => new AutoToolChoice([
-                    ]),
-                    'any' => new AnyToolChoice([
-                    ]),
+                    'auto' => new AutoToolChoice(),
+                    'any' => new AnyToolChoice(),
                     'tool' => new SpecificToolChoice([
                         'name' => 'change me',
                     ]),
@@ -179,61 +169,188 @@ class BedrockRuntimeClientTest extends TestCase
             'guardrailConfig' => new GuardrailConfiguration([
                 'guardrailIdentifier' => 'change me',
                 'guardrailVersion' => 'change me',
-                'trace' => 'change me',
+                'trace' => 'enabled',
             ]),
-            'additionalModelRequestFields' => new Document([
-            ]),
+            'additionalModelRequestFields' => new Document(),
             'promptVariables' => ['change me' => new PromptVariableValues([
                 'text' => 'change me',
             ])],
             'additionalModelResponseFieldPaths' => ['change me'],
             'requestMetadata' => ['change me' => 'change me'],
             'performanceConfig' => new PerformanceConfiguration([
-                'latency' => 'change me',
+                'latency' => 'standard',
             ]),
         ]);
-        $result = $client->converse($input);
 
-        $result->resolve();
+        // see https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Converse.html
+        $expected = '
+            POST /model/us.anthropic.claude-3-7-sonnet-20250219-v1%3A0/converse HTTP/1.0
+            Content-Type: application/json
+            Accept: application/json
 
-        // self::assertTODO(expected, $result->getOutput());
-        self::assertSame('changeIt', $result->getStopReason());
-        // self::assertTODO(expected, $result->getUsage());
-        // self::assertTODO(expected, $result->getMetrics());
-        // self::assertTODO(expected, $result->getAdditionalModelResponseFields());
-        // self::assertTODO(expected, $result->getTrace());
-        // self::assertTODO(expected, $result->getPerformanceConfig());
-    }
+            {
+   "messages":[
+      {
+         "role":"user",
+         "content":[
+            {
+               "text":"change me",
+               "image":{
+                  "format":"png",
+                  "source":{
+                     "bytes":"Y2hhbmdlIG1l"
+                  }
+               },
+               "document":{
+                  "format":"pdf",
+                  "name":"change me",
+                  "source":{
+                     "bytes":"Y2hhbmdlIG1l"
+                  }
+               },
+               "video":{
+                  "format":"mkv",
+                  "source":{
+                     "bytes":"Y2hhbmdlIG1l",
+                     "s3Location":{
+                        "uri":"change me",
+                        "bucketOwner":"change me"
+                     }
+                  }
+               },
+               "toolUse":{
+                  "toolUseId":"change me",
+                  "name":"change me",
+                  "input":[]
+               },
+               "toolResult":{
+                  "toolUseId":"change me",
+                  "content":[
+                     {
+                        "json":[],
+                        "text":"change me",
+                        "image":{
+                           "format":"png",
+                           "source":{
+                              "bytes":"Y2hhbmdlIG1l"
+                           }
+                        },
+                        "document":{
+                           "format":"pdf",
+                           "name":"change me",
+                           "source":{
+                              "bytes":"Y2hhbmdlIG1l"
+                           }
+                        },
+                        "video":{
+                           "format":"mkv",
+                           "source":{
+                              "bytes":"Y2hhbmdlIG1l",
+                              "s3Location":{
+                                 "uri":"change me",
+                                 "bucketOwner":"change me"
+                              }
+                           }
+                        }
+                     }
+                  ],
+                  "status":"success"
+               },
+               "guardContent":{
+                  "text":{
+                     "text":"change me",
+                     "qualifiers":[
+                        "grounding_source"
+                     ]
+                  },
+                  "image":{
+                     "format":"png",
+                     "source":{
+                        "bytes":"Y2hhbmdlIG1l"
+                     }
+                  }
+               },
+               "reasoningContent":{
+                  "reasoningText":{
+                     "text":"change me",
+                     "signature":"change me"
+                  },
+                  "redactedContent":"Y2hhbmdlIG1l"
+               }
+            }
+         ]
+      }
+   ],
+   "system":[
+      {
+         "text":"change me",
+         "guardContent":{
+            "text":{
+               "text":"change me",
+               "qualifiers":[
+                  "grounding_source"
+               ]
+            },
+            "image":{
+               "format":"png",
+               "source":{
+                  "bytes":"Y2hhbmdlIG1l"
+               }
+            }
+         }
+      }
+   ],
+   "inferenceConfig":{
+      "maxTokens":1337,
+      "temperature":1337,
+      "topP":1337,
+      "stopSequences":[
+         "change me"
+      ]
+   },
+   "toolConfig":{
+      "tools":[
+         {
+            "toolSpec":{
+               "name":"change me",
+               "description":"change me",
+               "inputSchema":{
+                  "json":[]
+               }
+            }
+         }
+      ],
+      "toolChoice":{
+         "auto":[],
+         "any":[],
+         "tool":{
+            "name":"change me"
+         }
+      }
+   },
+   "guardrailConfig":{
+      "guardrailIdentifier":"change me",
+      "guardrailVersion":"change me",
+      "trace":"enabled"
+   },
+   "additionalModelRequestFields":[],
+   "promptVariables":{
+      "change me":{
+         "text":"change me"
+      }
+   },
+   "additionalModelResponseFieldPaths":[
+      "change me"
+   ],
+   "requestMetadata":{
+      "change me":"change me"
+   },
+   "performanceConfig":{
+      "latency":"standard"
+   }
+}
+                ';
 
-    public function testInvokeModel(): void
-    {
-        $client = $this->getClient();
-
-        $input = new InvokeModelRequest([
-            'body' => 'change me',
-            'contentType' => 'change me',
-            'accept' => 'change me',
-            'modelId' => 'change me',
-            'trace' => 'change me',
-            'guardrailIdentifier' => 'change me',
-            'guardrailVersion' => 'change me',
-            'performanceConfigLatency' => 'change me',
-        ]);
-        $result = $client->invokeModel($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getBody());
-        self::assertSame('changeIt', $result->getContentType());
-        self::assertSame('changeIt', $result->getPerformanceConfigLatency());
-    }
-
-    private function getClient(): BedrockRuntimeClient
-    {
-        self::markTestSkipped('There is no docker image available for BedrockRuntime.');
-
-        return new BedrockRuntimeClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }
