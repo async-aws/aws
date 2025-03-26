@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: rewrite declaration of regions
 
 ## 2.4.0
 
