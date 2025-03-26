@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: rewrite declaration of regions
+
 ## 2.4.0
 
 ### Added
