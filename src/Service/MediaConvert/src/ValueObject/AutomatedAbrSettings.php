@@ -20,6 +20,16 @@ final class AutomatedAbrSettings
     private $maxAbrBitrate;
 
     /**
+     * Optional. Specify the QVBR quality level to use for all renditions in your automated ABR stack. To have MediaConvert
+     * automatically determine the quality level: Leave blank. To manually specify a quality level: Enter an integer from 1
+     * to 10. MediaConvert will use a quality level up to the value that you specify, depending on your source. For more
+     * information about QVBR quality levels, see: https://docs.aws.amazon.com/mediaconvert/latest/ug/qvbr-guidelines.html.
+     *
+     * @var float|null
+     */
+    private $maxQualityLevel;
+
+    /**
      * Optional. The maximum number of renditions that MediaConvert will create in your automated ABR stack. The number of
      * renditions is determined automatically, based on analysis of each job, but will never exceed this limit. When you set
      * this to Auto in the console, which is equivalent to excluding it from your JSON job specification, MediaConvert
@@ -50,6 +60,7 @@ final class AutomatedAbrSettings
     /**
      * @param array{
      *   MaxAbrBitrate?: null|int,
+     *   MaxQualityLevel?: null|float,
      *   MaxRenditions?: null|int,
      *   MinAbrBitrate?: null|int,
      *   Rules?: null|array<AutomatedAbrRule|array>,
@@ -58,6 +69,7 @@ final class AutomatedAbrSettings
     public function __construct(array $input)
     {
         $this->maxAbrBitrate = $input['MaxAbrBitrate'] ?? null;
+        $this->maxQualityLevel = $input['MaxQualityLevel'] ?? null;
         $this->maxRenditions = $input['MaxRenditions'] ?? null;
         $this->minAbrBitrate = $input['MinAbrBitrate'] ?? null;
         $this->rules = isset($input['Rules']) ? array_map([AutomatedAbrRule::class, 'create'], $input['Rules']) : null;
@@ -66,6 +78,7 @@ final class AutomatedAbrSettings
     /**
      * @param array{
      *   MaxAbrBitrate?: null|int,
+     *   MaxQualityLevel?: null|float,
      *   MaxRenditions?: null|int,
      *   MinAbrBitrate?: null|int,
      *   Rules?: null|array<AutomatedAbrRule|array>,
@@ -79,6 +92,11 @@ final class AutomatedAbrSettings
     public function getMaxAbrBitrate(): ?int
     {
         return $this->maxAbrBitrate;
+    }
+
+    public function getMaxQualityLevel(): ?float
+    {
+        return $this->maxQualityLevel;
     }
 
     public function getMaxRenditions(): ?int
@@ -107,6 +125,9 @@ final class AutomatedAbrSettings
         $payload = [];
         if (null !== $v = $this->maxAbrBitrate) {
             $payload['maxAbrBitrate'] = $v;
+        }
+        if (null !== $v = $this->maxQualityLevel) {
+            $payload['maxQualityLevel'] = $v;
         }
         if (null !== $v = $this->maxRenditions) {
             $payload['maxRenditions'] = $v;
