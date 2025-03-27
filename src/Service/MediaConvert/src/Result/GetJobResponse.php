@@ -378,6 +378,7 @@ class GetJobResponse extends Result
     {
         return new AutomatedAbrSettings([
             'MaxAbrBitrate' => isset($json['maxAbrBitrate']) ? (int) $json['maxAbrBitrate'] : null,
+            'MaxQualityLevel' => isset($json['maxQualityLevel']) ? (float) $json['maxQualityLevel'] : null,
             'MaxRenditions' => isset($json['maxRenditions']) ? (int) $json['maxRenditions'] : null,
             'MinAbrBitrate' => isset($json['minAbrBitrate']) ? (int) $json['minAbrBitrate'] : null,
             'Rules' => !isset($json['rules']) ? null : $this->populateResult__listOfAutomatedAbrRule($json['rules']),
