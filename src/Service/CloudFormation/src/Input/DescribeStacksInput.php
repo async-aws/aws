@@ -28,8 +28,6 @@ final class DescribeStacksInput extends Input
      * - Running stacks: You can specify either the stack's name or its unique stack ID.
      * - Deleted stacks: You must specify the unique stack ID.
      *
-     * Default: There is no default value.
-     *
      * @var string|null
      */
     private $stackName;

@@ -921,8 +921,6 @@ class SqsClient extends AbstractApi
             case 'sa-east-1':
             case 'us-east-1':
             case 'us-east-2':
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
             case 'us-west-1':
             case 'us-west-2':
                 return [
@@ -981,26 +979,59 @@ class SqsClient extends AbstractApi
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-gov-east-1':
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://sqs.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-west-1':
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://sqs.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-iso-east-1':
             case 'us-iso-east-1':
+                return [
+                    'endpoint' => 'https://sqs.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-iso-west-1':
             case 'us-iso-west-1':
                 return [
-                    'endpoint' => "https://sqs.$region.c2s.ic.gov",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://sqs.us-iso-west-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-west-1',
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-isof-east-1':
-            case 'us-isof-south-1':
-                return [
-                    'endpoint' => "https://sqs.$region.csp.hci.ic.gov",
-                    'signRegion' => $region,
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
+            case 'fips-us-isob-east-1':
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://sqs.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-isof-east-1':
+            case 'us-isof-east-1':
+                return [
+                    'endpoint' => 'https://sqs.us-isof-east-1.csp.hci.ic.gov',
+                    'signRegion' => 'us-isof-east-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-isof-south-1':
+            case 'us-isof-south-1':
+                return [
+                    'endpoint' => 'https://sqs.us-isof-south-1.csp.hci.ic.gov',
+                    'signRegion' => 'us-isof-south-1',
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
