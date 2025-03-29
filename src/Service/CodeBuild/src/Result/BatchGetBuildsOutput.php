@@ -353,6 +353,7 @@ class BatchGetBuildsOutput extends Result
             'type' => (string) $json['type'],
             'location' => isset($json['location']) ? (string) $json['location'] : null,
             'modes' => !isset($json['modes']) ? null : $this->populateResultProjectCacheModes($json['modes']),
+            'cacheNamespace' => isset($json['cacheNamespace']) ? (string) $json['cacheNamespace'] : null,
         ]);
     }
 

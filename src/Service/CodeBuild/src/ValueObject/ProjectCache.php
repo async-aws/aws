@@ -69,10 +69,21 @@ final class ProjectCache
     private $modes;
 
     /**
+     * Defines the scope of the cache. You can use this namespace to share a cache across multiple projects. For more
+     * information, see Cache sharing between projects [^1] in the *CodeBuild User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/caching-s3.html#caching-s3-sharing
+     *
+     * @var string|null
+     */
+    private $cacheNamespace;
+
+    /**
      * @param array{
      *   type: CacheType::*,
      *   location?: null|string,
      *   modes?: null|array<CacheMode::*>,
+     *   cacheNamespace?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -80,6 +91,7 @@ final class ProjectCache
         $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->location = $input['location'] ?? null;
         $this->modes = $input['modes'] ?? null;
+        $this->cacheNamespace = $input['cacheNamespace'] ?? null;
     }
 
     /**
@@ -87,11 +99,17 @@ final class ProjectCache
      *   type: CacheType::*,
      *   location?: null|string,
      *   modes?: null|array<CacheMode::*>,
+     *   cacheNamespace?: null|string,
      * }|ProjectCache $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getCacheNamespace(): ?string
+    {
+        return $this->cacheNamespace;
     }
 
     public function getLocation(): ?string
@@ -139,6 +157,9 @@ final class ProjectCache
                 }
                 $payload['modes'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->cacheNamespace) {
+            $payload['cacheNamespace'] = $v;
         }
 
         return $payload;
