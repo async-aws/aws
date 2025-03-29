@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds support for cacheNamespace in ProjectCache
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
