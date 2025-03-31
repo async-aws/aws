@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.6.0
+
 ### Added
 
 - AWS api-change: Current declaration of rrgions

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.8.0
+
 ### Added
 
 - AWS api-change: Amazon Route 53 now supports the iso-f regions for private DNS Amazon VPCs and cloudwatch healthchecks.

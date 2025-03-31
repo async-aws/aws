@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.0
+
 ### Added
 
 - AWS api-change: This release adds support for AVC passthrough, the ability to specify PTS offset without padding, and an A/V segment matching feature.
