@@ -71,8 +71,8 @@ final class AwsObject
     /**
      * The class of storage used to store the object.
      *
-     * > **Directory buckets** - Only the S3 Express One Zone storage class is supported by directory buckets to store
-     * > objects.
+     * > **Directory buckets** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class) in
+     * > Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
      * @var ObjectStorageClass::*|null
      */
@@ -92,8 +92,9 @@ final class AwsObject
      * retrieved. For more information about these storage classes and how to work with archived objects, see Working with
      * archived objects [^1] in the *Amazon S3 User Guide*.
      *
-     * > This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported
-     * > by directory buckets to store objects.
+     * > This functionality is not supported for directory buckets. Directory buckets only support `EXPRESS_ONEZONE` (the S3
+     * > Express One Zone storage class) in Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage
+     * > class) in Dedicated Local Zones.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html
      *

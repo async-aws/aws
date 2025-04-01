@@ -128,8 +128,8 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     /**
      * The class of storage used to store the uploaded object.
      *
-     * > **Directory buckets** - Only the S3 Express One Zone storage class is supported by directory buckets to store
-     * > objects.
+     * > **Directory buckets** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class) in
+     * > Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
      * @var StorageClass::*|null
      */

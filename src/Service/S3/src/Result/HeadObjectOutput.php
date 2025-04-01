@@ -59,8 +59,9 @@ class HeadObjectOutput extends Result
      *
      * For more information about archiving objects, see Transitioning Objects: General Considerations [^2].
      *
-     * > This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported
-     * > by directory buckets to store objects.
+     * > This functionality is not supported for directory buckets. Directory buckets only support `EXPRESS_ONEZONE` (the S3
+     * > Express One Zone storage class) in Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage
+     * > class) in Dedicated Local Zones.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-transition-general-considerations
@@ -310,8 +311,8 @@ class HeadObjectOutput extends Result
      *
      * For more information, see Storage Classes [^1].
      *
-     * > **Directory buckets ** - Only the S3 Express One Zone storage class is supported by directory buckets to store
-     * > objects.
+     * > **Directory buckets ** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class)
+     * > in Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
