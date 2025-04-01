@@ -1432,9 +1432,10 @@ class S3Client extends AbstractApi
      *   this operation returns an `InvalidObjectState` error. For information about restoring archived objects, see
      *   Restoring Archived Objects [^8] in the *Amazon S3 User Guide*.
      *
-     *   **Directory buckets ** - For directory buckets, only the S3 Express One Zone storage class is supported to store
-     *   newly created objects. Unsupported storage class values won't write a destination object and will respond with the
-     *   HTTP status code `400 Bad Request`.
+     *   **Directory buckets ** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class)
+     *   in Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
+     *   Unsupported storage class values won't write a destination object and will respond with the HTTP status code `400
+     *   Bad Request`.
      * - `Encryption`:
      *
      *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for the `GetObject` requests,
