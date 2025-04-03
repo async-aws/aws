@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds support for environment type WINDOWS_SERVER_2022_CONTAINER in ProjectEnvironment
+
 ## 2.9.0
 
 ### Added
