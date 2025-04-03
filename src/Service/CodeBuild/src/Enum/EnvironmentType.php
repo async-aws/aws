@@ -15,6 +15,7 @@ final class EnvironmentType
     public const WINDOWS_CONTAINER = 'WINDOWS_CONTAINER';
     public const WINDOWS_EC2 = 'WINDOWS_EC2';
     public const WINDOWS_SERVER_2019_CONTAINER = 'WINDOWS_SERVER_2019_CONTAINER';
+    public const WINDOWS_SERVER_2022_CONTAINER = 'WINDOWS_SERVER_2022_CONTAINER';
 
     public static function exists(string $value): bool
     {
@@ -30,6 +31,7 @@ final class EnvironmentType
             self::WINDOWS_CONTAINER => true,
             self::WINDOWS_EC2 => true,
             self::WINDOWS_SERVER_2019_CONTAINER => true,
+            self::WINDOWS_SERVER_2022_CONTAINER => true,
         ][$value]);
     }
 }
