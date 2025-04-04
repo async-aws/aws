@@ -36,6 +36,8 @@ final class ResourceRecordSetRegion
     public const SA_EAST_1 = 'sa-east-1';
     public const US_EAST_1 = 'us-east-1';
     public const US_EAST_2 = 'us-east-2';
+    public const US_GOV_EAST_1 = 'us-gov-east-1';
+    public const US_GOV_WEST_1 = 'us-gov-west-1';
     public const US_WEST_1 = 'us-west-1';
     public const US_WEST_2 = 'us-west-2';
 
@@ -74,6 +76,8 @@ final class ResourceRecordSetRegion
             self::SA_EAST_1 => true,
             self::US_EAST_1 => true,
             self::US_EAST_2 => true,
+            self::US_GOV_EAST_1 => true,
+            self::US_GOV_WEST_1 => true,
             self::US_WEST_1 => true,
             self::US_WEST_2 => true,
         ][$value]);

@@ -52,12 +52,20 @@ final class Template
     private $headers;
 
     /**
+     * The List of attachments to include in your email. All recipients will receive the same attachments.
+     *
+     * @var Attachment[]|null
+     */
+    private $attachments;
+
+    /**
      * @param array{
      *   TemplateName?: null|string,
      *   TemplateArn?: null|string,
      *   TemplateContent?: null|EmailTemplateContent|array,
      *   TemplateData?: null|string,
      *   Headers?: null|array<MessageHeader|array>,
+     *   Attachments?: null|array<Attachment|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -67,6 +75,7 @@ final class Template
         $this->templateContent = isset($input['TemplateContent']) ? EmailTemplateContent::create($input['TemplateContent']) : null;
         $this->templateData = $input['TemplateData'] ?? null;
         $this->headers = isset($input['Headers']) ? array_map([MessageHeader::class, 'create'], $input['Headers']) : null;
+        $this->attachments = isset($input['Attachments']) ? array_map([Attachment::class, 'create'], $input['Attachments']) : null;
     }
 
     /**
@@ -76,11 +85,20 @@ final class Template
      *   TemplateContent?: null|EmailTemplateContent|array,
      *   TemplateData?: null|string,
      *   Headers?: null|array<MessageHeader|array>,
+     *   Attachments?: null|array<Attachment|array>,
      * }|Template $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return Attachment[]
+     */
+    public function getAttachments(): array
+    {
+        return $this->attachments ?? [];
     }
 
     /**
@@ -135,6 +153,14 @@ final class Template
             foreach ($v as $listValue) {
                 ++$index;
                 $payload['Headers'][$index] = $listValue->requestBody();
+            }
+        }
+        if (null !== $v = $this->attachments) {
+            $index = -1;
+            $payload['Attachments'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Attachments'][$index] = $listValue->requestBody();
             }
         }
 
