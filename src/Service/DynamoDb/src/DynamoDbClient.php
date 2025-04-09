@@ -143,19 +143,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|BatchGetItemInput $input
      *
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function batchGetItem($input): BatchGetItemOutput
     {
         $input = BatchGetItemInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchGetItem', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new BatchGetItemOutput($response, $this, $input);
@@ -236,21 +236,21 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|BatchWriteItemInput $input
      *
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws ItemCollectionSizeLimitExceededException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ItemCollectionSizeLimitExceededException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function batchWriteItem($input): BatchWriteItemOutput
     {
         $input = BatchWriteItemInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchWriteItem', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new BatchWriteItemOutput($response);
@@ -293,17 +293,17 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
-     * @throws ResourceInUseException
-     * @throws LimitExceededException
      * @throws InternalServerErrorException
+     * @throws LimitExceededException
+     * @throws ResourceInUseException
      */
     public function createTable($input): CreateTableOutput
     {
         $input = CreateTableInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceInUseException' => ResourceInUseException::class,
-            'LimitExceededException' => LimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new CreateTableOutput($response);
@@ -341,26 +341,26 @@ class DynamoDbClient extends AbstractApi
      * }|DeleteItemInput $input
      *
      * @throws ConditionalCheckFailedException
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws ItemCollectionSizeLimitExceededException
-     * @throws TransactionConflictException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ItemCollectionSizeLimitExceededException
+     * @throws ProvisionedThroughputExceededException
      * @throws ReplicatedWriteConflictException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
+     * @throws TransactionConflictException
      */
     public function deleteItem($input): DeleteItemOutput
     {
         $input = DeleteItemInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteItem', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ConditionalCheckFailedException' => ConditionalCheckFailedException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
-            'TransactionConflictException' => TransactionConflictException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new DeleteItemOutput($response);
@@ -395,19 +395,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteTableInput $input
      *
+     * @throws InternalServerErrorException
+     * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InternalServerErrorException
      */
     public function deleteTable($input): DeleteTableOutput
     {
         $input = DeleteTableInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InternalServerError' => InternalServerErrorException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new DeleteTableOutput($response);
@@ -453,15 +453,15 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DescribeTableInput $input
      *
-     * @throws ResourceNotFoundException
      * @throws InternalServerErrorException
+     * @throws ResourceNotFoundException
      */
     public function describeTable($input): DescribeTableOutput
     {
         $input = DescribeTableInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new DescribeTableOutput($response);
@@ -495,26 +495,26 @@ class DynamoDbClient extends AbstractApi
      * }|ExecuteStatementInput $input
      *
      * @throws ConditionalCheckFailedException
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws ItemCollectionSizeLimitExceededException
-     * @throws TransactionConflictException
-     * @throws RequestLimitExceededException
-     * @throws InternalServerErrorException
      * @throws DuplicateItemException
+     * @throws InternalServerErrorException
+     * @throws ItemCollectionSizeLimitExceededException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
+     * @throws TransactionConflictException
      */
     public function executeStatement($input): ExecuteStatementOutput
     {
         $input = ExecuteStatementInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ConditionalCheckFailedException' => ConditionalCheckFailedException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
-            'TransactionConflictException' => TransactionConflictException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
-            'InternalServerError' => InternalServerErrorException::class,
             'DuplicateItemException' => DuplicateItemException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TransactionConflictException' => TransactionConflictException::class,
         ]]));
 
         return new ExecuteStatementOutput($response);
@@ -542,19 +542,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetItemInput $input
      *
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function getItem($input): GetItemOutput
     {
         $input = GetItemInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetItem', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new GetItemOutput($response);
@@ -628,26 +628,26 @@ class DynamoDbClient extends AbstractApi
      * }|PutItemInput $input
      *
      * @throws ConditionalCheckFailedException
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws ItemCollectionSizeLimitExceededException
-     * @throws TransactionConflictException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ItemCollectionSizeLimitExceededException
+     * @throws ProvisionedThroughputExceededException
      * @throws ReplicatedWriteConflictException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
+     * @throws TransactionConflictException
      */
     public function putItem($input): PutItemOutput
     {
         $input = PutItemInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutItem', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ConditionalCheckFailedException' => ConditionalCheckFailedException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
-            'TransactionConflictException' => TransactionConflictException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new PutItemOutput($response);
@@ -719,19 +719,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|QueryInput $input
      *
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function query($input): QueryOutput
     {
         $input = QueryInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Query', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new QueryOutput($response, $this, $input);
@@ -796,19 +796,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ScanInput $input
      *
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function scan($input): ScanOutput
     {
         $input = ScanInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Scan', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new ScanOutput($response, $this, $input);
@@ -826,8 +826,8 @@ class DynamoDbClient extends AbstractApi
     {
         $input = DescribeTableInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new TableExistsWaiter($response, $this, $input);
@@ -845,8 +845,8 @@ class DynamoDbClient extends AbstractApi
     {
         $input = DescribeTableInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new TableNotExistsWaiter($response, $this, $input);
@@ -899,25 +899,25 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|TransactWriteItemsInput $input
      *
+     * @throws IdempotentParameterMismatchException
+     * @throws InternalServerErrorException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
      * @throws TransactionCanceledException
      * @throws TransactionInProgressException
-     * @throws IdempotentParameterMismatchException
-     * @throws ProvisionedThroughputExceededException
-     * @throws RequestLimitExceededException
-     * @throws InternalServerErrorException
      */
     public function transactWriteItems($input): TransactWriteItemsOutput
     {
         $input = TransactWriteItemsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'TransactWriteItems', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'IdempotentParameterMismatchException' => IdempotentParameterMismatchException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TransactionCanceledException' => TransactionCanceledException::class,
             'TransactionInProgressException' => TransactionInProgressException::class,
-            'IdempotentParameterMismatchException' => IdempotentParameterMismatchException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
-            'InternalServerError' => InternalServerErrorException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new TransactWriteItemsOutput($response);
@@ -953,26 +953,26 @@ class DynamoDbClient extends AbstractApi
      * }|UpdateItemInput $input
      *
      * @throws ConditionalCheckFailedException
-     * @throws ProvisionedThroughputExceededException
-     * @throws ResourceNotFoundException
-     * @throws ItemCollectionSizeLimitExceededException
-     * @throws TransactionConflictException
-     * @throws RequestLimitExceededException
      * @throws InternalServerErrorException
+     * @throws ItemCollectionSizeLimitExceededException
+     * @throws ProvisionedThroughputExceededException
      * @throws ReplicatedWriteConflictException
+     * @throws RequestLimitExceededException
+     * @throws ResourceNotFoundException
+     * @throws TransactionConflictException
      */
     public function updateItem($input): UpdateItemOutput
     {
         $input = UpdateItemInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateItem', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ConditionalCheckFailedException' => ConditionalCheckFailedException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
-            'TransactionConflictException' => TransactionConflictException::class,
-            'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateItemOutput($response);
@@ -1015,19 +1015,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *
+     * @throws InternalServerErrorException
+     * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InternalServerErrorException
      */
     public function updateTable($input): UpdateTableOutput
     {
         $input = UpdateTableInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InternalServerError' => InternalServerErrorException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateTableOutput($response);
@@ -1067,19 +1067,19 @@ class DynamoDbClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateTimeToLiveInput $input
      *
+     * @throws InternalServerErrorException
+     * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InternalServerErrorException
      */
     public function updateTimeToLive($input): UpdateTimeToLiveOutput
     {
         $input = UpdateTimeToLiveInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateTimeToLive', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InternalServerError' => InternalServerErrorException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateTimeToLiveOutput($response);

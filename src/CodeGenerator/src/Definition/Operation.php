@@ -130,6 +130,8 @@ class Operation
             $errors[$error['shape']] = $shape;
         }
 
+        ksort($errors);
+
         return array_values($errors);
     }
 

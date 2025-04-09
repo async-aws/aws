@@ -48,22 +48,22 @@ class MediaConvertClient extends AbstractApi
      * }|CancelJobRequest $input
      *
      * @throws BadRequestException
-     * @throws InternalServerErrorException
+     * @throws ConflictException
      * @throws ForbiddenException
+     * @throws InternalServerErrorException
      * @throws NotFoundException
      * @throws TooManyRequestsException
-     * @throws ConflictException
      */
     public function cancelJob($input): CancelJobResponse
     {
         $input = CancelJobRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CancelJob', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
-            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ConflictException' => ConflictException::class,
             'ForbiddenException' => ForbiddenException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
-            'ConflictException' => ConflictException::class,
         ]]));
 
         return new CancelJobResponse($response);
@@ -95,22 +95,22 @@ class MediaConvertClient extends AbstractApi
      * }|CreateJobRequest $input
      *
      * @throws BadRequestException
-     * @throws InternalServerErrorException
+     * @throws ConflictException
      * @throws ForbiddenException
+     * @throws InternalServerErrorException
      * @throws NotFoundException
      * @throws TooManyRequestsException
-     * @throws ConflictException
      */
     public function createJob($input): CreateJobResponse
     {
         $input = CreateJobRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateJob', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
-            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ConflictException' => ConflictException::class,
             'ForbiddenException' => ForbiddenException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
-            'ConflictException' => ConflictException::class,
         ]]));
 
         return new CreateJobResponse($response);
@@ -132,11 +132,11 @@ class MediaConvertClient extends AbstractApi
      * }|DescribeEndpointsRequest $input
      *
      * @throws BadRequestException
-     * @throws InternalServerErrorException
+     * @throws ConflictException
      * @throws ForbiddenException
+     * @throws InternalServerErrorException
      * @throws NotFoundException
      * @throws TooManyRequestsException
-     * @throws ConflictException
      *
      * @deprecated
      */
@@ -146,11 +146,11 @@ class MediaConvertClient extends AbstractApi
         $input = DescribeEndpointsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
-            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ConflictException' => ConflictException::class,
             'ForbiddenException' => ForbiddenException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
-            'ConflictException' => ConflictException::class,
         ]]));
 
         return new DescribeEndpointsResponse($response, $this, $input);
@@ -168,22 +168,22 @@ class MediaConvertClient extends AbstractApi
      * }|GetJobRequest $input
      *
      * @throws BadRequestException
-     * @throws InternalServerErrorException
+     * @throws ConflictException
      * @throws ForbiddenException
+     * @throws InternalServerErrorException
      * @throws NotFoundException
      * @throws TooManyRequestsException
-     * @throws ConflictException
      */
     public function getJob($input): GetJobResponse
     {
         $input = GetJobRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetJob', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
-            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ConflictException' => ConflictException::class,
             'ForbiddenException' => ForbiddenException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
-            'ConflictException' => ConflictException::class,
         ]]));
 
         return new GetJobResponse($response);
@@ -207,22 +207,22 @@ class MediaConvertClient extends AbstractApi
      * }|ListJobsRequest $input
      *
      * @throws BadRequestException
-     * @throws InternalServerErrorException
+     * @throws ConflictException
      * @throws ForbiddenException
+     * @throws InternalServerErrorException
      * @throws NotFoundException
      * @throws TooManyRequestsException
-     * @throws ConflictException
      */
     public function listJobs($input = []): ListJobsResponse
     {
         $input = ListJobsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListJobs', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
-            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ConflictException' => ConflictException::class,
             'ForbiddenException' => ForbiddenException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
-            'ConflictException' => ConflictException::class,
         ]]));
 
         return new ListJobsResponse($response, $this, $input);

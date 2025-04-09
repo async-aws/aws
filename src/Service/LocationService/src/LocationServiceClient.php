@@ -76,21 +76,21 @@ class LocationServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      *
+     * @throws AccessDeniedException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
-     * @throws ValidationException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function calculateRoute($input): CalculateRouteResponse
     {
         $input = CalculateRouteRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CalculateRoute', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
-            'ValidationException' => ValidationException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new CalculateRouteResponse($response);
@@ -145,21 +145,21 @@ class LocationServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CalculateRouteMatrixRequest $input
      *
+     * @throws AccessDeniedException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
-     * @throws ValidationException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function calculateRouteMatrix($input): CalculateRouteMatrixResponse
     {
         $input = CalculateRouteMatrixRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CalculateRouteMatrix', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
-            'ValidationException' => ValidationException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new CalculateRouteMatrixResponse($response);
@@ -181,21 +181,21 @@ class LocationServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input
      *
+     * @throws AccessDeniedException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
-     * @throws ValidationException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function searchPlaceIndexForPosition($input): SearchPlaceIndexForPositionResponse
     {
         $input = SearchPlaceIndexForPositionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SearchPlaceIndexForPosition', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
-            'ValidationException' => ValidationException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new SearchPlaceIndexForPositionResponse($response);
@@ -229,21 +229,21 @@ class LocationServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input
      *
+     * @throws AccessDeniedException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
-     * @throws ValidationException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function searchPlaceIndexForText($input): SearchPlaceIndexForTextResponse
     {
         $input = SearchPlaceIndexForTextRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SearchPlaceIndexForText', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
-            'ValidationException' => ValidationException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new SearchPlaceIndexForTextResponse($response);

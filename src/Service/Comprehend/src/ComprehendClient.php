@@ -29,17 +29,17 @@ class ComprehendClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DetectDominantLanguageRequest $input
      *
+     * @throws InternalServerException
      * @throws InvalidRequestException
      * @throws TextSizeLimitExceededException
-     * @throws InternalServerException
      */
     public function detectDominantLanguage($input): DetectDominantLanguageResponse
     {
         $input = DetectDominantLanguageRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DetectDominantLanguage', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerException' => InternalServerException::class,
             'InvalidRequestException' => InvalidRequestException::class,
             'TextSizeLimitExceededException' => TextSizeLimitExceededException::class,
-            'InternalServerException' => InternalServerException::class,
         ]]));
 
         return new DetectDominantLanguageResponse($response);

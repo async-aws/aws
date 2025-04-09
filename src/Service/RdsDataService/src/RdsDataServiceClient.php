@@ -71,41 +71,41 @@ class RdsDataServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|BatchExecuteStatementRequest $input
      *
-     * @throws SecretsErrorException
-     * @throws HttpEndpointNotEnabledException
-     * @throws DatabaseErrorException
-     * @throws DatabaseResumingException
-     * @throws DatabaseUnavailableException
-     * @throws TransactionNotFoundException
-     * @throws InvalidSecretException
-     * @throws InvalidResourceStateException
-     * @throws ServiceUnavailableErrorException
-     * @throws ForbiddenException
-     * @throws DatabaseNotFoundException
      * @throws AccessDeniedException
      * @throws BadRequestException
-     * @throws StatementTimeoutException
+     * @throws DatabaseErrorException
+     * @throws DatabaseNotFoundException
+     * @throws DatabaseResumingException
+     * @throws DatabaseUnavailableException
+     * @throws ForbiddenException
+     * @throws HttpEndpointNotEnabledException
      * @throws InternalServerErrorException
+     * @throws InvalidResourceStateException
+     * @throws InvalidSecretException
+     * @throws SecretsErrorException
+     * @throws ServiceUnavailableErrorException
+     * @throws StatementTimeoutException
+     * @throws TransactionNotFoundException
      */
     public function batchExecuteStatement($input): BatchExecuteStatementResponse
     {
         $input = BatchExecuteStatementRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'SecretsErrorException' => SecretsErrorException::class,
-            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
-            'DatabaseErrorException' => DatabaseErrorException::class,
-            'DatabaseResumingException' => DatabaseResumingException::class,
-            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
-            'TransactionNotFoundException' => TransactionNotFoundException::class,
-            'InvalidSecretException' => InvalidSecretException::class,
-            'InvalidResourceStateException' => InvalidResourceStateException::class,
-            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
-            'ForbiddenException' => ForbiddenException::class,
-            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
-            'StatementTimeoutException' => StatementTimeoutException::class,
+            'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
+            'DatabaseResumingException' => DatabaseResumingException::class,
+            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
+            'InvalidSecretException' => InvalidSecretException::class,
+            'SecretsErrorException' => SecretsErrorException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'TransactionNotFoundException' => TransactionNotFoundException::class,
         ]]));
 
         return new BatchExecuteStatementResponse($response);
@@ -134,41 +134,41 @@ class RdsDataServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|BeginTransactionRequest $input
      *
-     * @throws SecretsErrorException
-     * @throws HttpEndpointNotEnabledException
-     * @throws DatabaseErrorException
-     * @throws DatabaseResumingException
-     * @throws DatabaseUnavailableException
-     * @throws TransactionNotFoundException
-     * @throws InvalidSecretException
-     * @throws InvalidResourceStateException
-     * @throws ServiceUnavailableErrorException
-     * @throws ForbiddenException
-     * @throws DatabaseNotFoundException
      * @throws AccessDeniedException
      * @throws BadRequestException
-     * @throws StatementTimeoutException
+     * @throws DatabaseErrorException
+     * @throws DatabaseNotFoundException
+     * @throws DatabaseResumingException
+     * @throws DatabaseUnavailableException
+     * @throws ForbiddenException
+     * @throws HttpEndpointNotEnabledException
      * @throws InternalServerErrorException
+     * @throws InvalidResourceStateException
+     * @throws InvalidSecretException
+     * @throws SecretsErrorException
+     * @throws ServiceUnavailableErrorException
+     * @throws StatementTimeoutException
+     * @throws TransactionNotFoundException
      */
     public function beginTransaction($input): BeginTransactionResponse
     {
         $input = BeginTransactionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BeginTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'SecretsErrorException' => SecretsErrorException::class,
-            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
-            'DatabaseErrorException' => DatabaseErrorException::class,
-            'DatabaseResumingException' => DatabaseResumingException::class,
-            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
-            'TransactionNotFoundException' => TransactionNotFoundException::class,
-            'InvalidSecretException' => InvalidSecretException::class,
-            'InvalidResourceStateException' => InvalidResourceStateException::class,
-            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
-            'ForbiddenException' => ForbiddenException::class,
-            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
-            'StatementTimeoutException' => StatementTimeoutException::class,
+            'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
+            'DatabaseResumingException' => DatabaseResumingException::class,
+            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
+            'InvalidSecretException' => InvalidSecretException::class,
+            'SecretsErrorException' => SecretsErrorException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'TransactionNotFoundException' => TransactionNotFoundException::class,
         ]]));
 
         return new BeginTransactionResponse($response);
@@ -187,41 +187,41 @@ class RdsDataServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CommitTransactionRequest $input
      *
-     * @throws SecretsErrorException
-     * @throws HttpEndpointNotEnabledException
-     * @throws DatabaseErrorException
-     * @throws DatabaseUnavailableException
-     * @throws TransactionNotFoundException
-     * @throws InvalidSecretException
-     * @throws InvalidResourceStateException
-     * @throws ServiceUnavailableErrorException
-     * @throws ForbiddenException
-     * @throws DatabaseNotFoundException
      * @throws AccessDeniedException
      * @throws BadRequestException
-     * @throws StatementTimeoutException
+     * @throws DatabaseErrorException
+     * @throws DatabaseNotFoundException
+     * @throws DatabaseUnavailableException
+     * @throws ForbiddenException
+     * @throws HttpEndpointNotEnabledException
      * @throws InternalServerErrorException
+     * @throws InvalidResourceStateException
+     * @throws InvalidSecretException
      * @throws NotFoundException
+     * @throws SecretsErrorException
+     * @throws ServiceUnavailableErrorException
+     * @throws StatementTimeoutException
+     * @throws TransactionNotFoundException
      */
     public function commitTransaction($input): CommitTransactionResponse
     {
         $input = CommitTransactionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CommitTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'SecretsErrorException' => SecretsErrorException::class,
-            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
-            'DatabaseErrorException' => DatabaseErrorException::class,
-            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
-            'TransactionNotFoundException' => TransactionNotFoundException::class,
-            'InvalidSecretException' => InvalidSecretException::class,
-            'InvalidResourceStateException' => InvalidResourceStateException::class,
-            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
-            'ForbiddenException' => ForbiddenException::class,
-            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
-            'StatementTimeoutException' => StatementTimeoutException::class,
+            'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
+            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
+            'InvalidSecretException' => InvalidSecretException::class,
             'NotFoundException' => NotFoundException::class,
+            'SecretsErrorException' => SecretsErrorException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'TransactionNotFoundException' => TransactionNotFoundException::class,
         ]]));
 
         return new CommitTransactionResponse($response);
@@ -253,42 +253,42 @@ class RdsDataServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ExecuteStatementRequest $input
      *
-     * @throws SecretsErrorException
-     * @throws HttpEndpointNotEnabledException
-     * @throws DatabaseErrorException
-     * @throws DatabaseResumingException
-     * @throws DatabaseUnavailableException
-     * @throws TransactionNotFoundException
-     * @throws InvalidSecretException
-     * @throws InvalidResourceStateException
-     * @throws ServiceUnavailableErrorException
-     * @throws ForbiddenException
-     * @throws DatabaseNotFoundException
      * @throws AccessDeniedException
      * @throws BadRequestException
-     * @throws StatementTimeoutException
+     * @throws DatabaseErrorException
+     * @throws DatabaseNotFoundException
+     * @throws DatabaseResumingException
+     * @throws DatabaseUnavailableException
+     * @throws ForbiddenException
+     * @throws HttpEndpointNotEnabledException
      * @throws InternalServerErrorException
+     * @throws InvalidResourceStateException
+     * @throws InvalidSecretException
+     * @throws SecretsErrorException
+     * @throws ServiceUnavailableErrorException
+     * @throws StatementTimeoutException
+     * @throws TransactionNotFoundException
      * @throws UnsupportedResultException
      */
     public function executeStatement($input): ExecuteStatementResponse
     {
         $input = ExecuteStatementRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'SecretsErrorException' => SecretsErrorException::class,
-            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
-            'DatabaseErrorException' => DatabaseErrorException::class,
-            'DatabaseResumingException' => DatabaseResumingException::class,
-            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
-            'TransactionNotFoundException' => TransactionNotFoundException::class,
-            'InvalidSecretException' => InvalidSecretException::class,
-            'InvalidResourceStateException' => InvalidResourceStateException::class,
-            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
-            'ForbiddenException' => ForbiddenException::class,
-            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
-            'StatementTimeoutException' => StatementTimeoutException::class,
+            'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
+            'DatabaseResumingException' => DatabaseResumingException::class,
+            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
+            'InvalidSecretException' => InvalidSecretException::class,
+            'SecretsErrorException' => SecretsErrorException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'TransactionNotFoundException' => TransactionNotFoundException::class,
             'UnsupportedResultException' => UnsupportedResultException::class,
         ]]));
 
@@ -308,41 +308,41 @@ class RdsDataServiceClient extends AbstractApi
      *   '@region'?: string|null,
      * }|RollbackTransactionRequest $input
      *
-     * @throws SecretsErrorException
-     * @throws HttpEndpointNotEnabledException
-     * @throws DatabaseErrorException
-     * @throws DatabaseUnavailableException
-     * @throws TransactionNotFoundException
-     * @throws InvalidSecretException
-     * @throws InvalidResourceStateException
-     * @throws ServiceUnavailableErrorException
-     * @throws ForbiddenException
-     * @throws DatabaseNotFoundException
      * @throws AccessDeniedException
      * @throws BadRequestException
-     * @throws StatementTimeoutException
+     * @throws DatabaseErrorException
+     * @throws DatabaseNotFoundException
+     * @throws DatabaseUnavailableException
+     * @throws ForbiddenException
+     * @throws HttpEndpointNotEnabledException
      * @throws InternalServerErrorException
+     * @throws InvalidResourceStateException
+     * @throws InvalidSecretException
      * @throws NotFoundException
+     * @throws SecretsErrorException
+     * @throws ServiceUnavailableErrorException
+     * @throws StatementTimeoutException
+     * @throws TransactionNotFoundException
      */
     public function rollbackTransaction($input): RollbackTransactionResponse
     {
         $input = RollbackTransactionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RollbackTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'SecretsErrorException' => SecretsErrorException::class,
-            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
-            'DatabaseErrorException' => DatabaseErrorException::class,
-            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
-            'TransactionNotFoundException' => TransactionNotFoundException::class,
-            'InvalidSecretException' => InvalidSecretException::class,
-            'InvalidResourceStateException' => InvalidResourceStateException::class,
-            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
-            'ForbiddenException' => ForbiddenException::class,
-            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
-            'StatementTimeoutException' => StatementTimeoutException::class,
+            'DatabaseErrorException' => DatabaseErrorException::class,
+            'DatabaseNotFoundException' => DatabaseNotFoundException::class,
+            'DatabaseUnavailableException' => DatabaseUnavailableException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'HttpEndpointNotEnabledException' => HttpEndpointNotEnabledException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
+            'InvalidResourceStateException' => InvalidResourceStateException::class,
+            'InvalidSecretException' => InvalidSecretException::class,
             'NotFoundException' => NotFoundException::class,
+            'SecretsErrorException' => SecretsErrorException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'TransactionNotFoundException' => TransactionNotFoundException::class,
         ]]));
 
         return new RollbackTransactionResponse($response);

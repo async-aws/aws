@@ -45,33 +45,33 @@ class SsoOidcClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateTokenRequest $input
      *
-     * @throws InvalidRequestException
-     * @throws InvalidClientException
-     * @throws InvalidGrantException
-     * @throws UnauthorizedClientException
-     * @throws UnsupportedGrantTypeException
-     * @throws InvalidScopeException
-     * @throws AuthorizationPendingException
-     * @throws SlowDownException
      * @throws AccessDeniedException
+     * @throws AuthorizationPendingException
      * @throws ExpiredTokenException
      * @throws InternalServerException
+     * @throws InvalidClientException
+     * @throws InvalidGrantException
+     * @throws InvalidRequestException
+     * @throws InvalidScopeException
+     * @throws SlowDownException
+     * @throws UnauthorizedClientException
+     * @throws UnsupportedGrantTypeException
      */
     public function createToken($input): CreateTokenResponse
     {
         $input = CreateTokenRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateToken', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
-            'InvalidClientException' => InvalidClientException::class,
-            'InvalidGrantException' => InvalidGrantException::class,
-            'UnauthorizedClientException' => UnauthorizedClientException::class,
-            'UnsupportedGrantTypeException' => UnsupportedGrantTypeException::class,
-            'InvalidScopeException' => InvalidScopeException::class,
-            'AuthorizationPendingException' => AuthorizationPendingException::class,
-            'SlowDownException' => SlowDownException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'AuthorizationPendingException' => AuthorizationPendingException::class,
             'ExpiredTokenException' => ExpiredTokenException::class,
             'InternalServerException' => InternalServerException::class,
+            'InvalidClientException' => InvalidClientException::class,
+            'InvalidGrantException' => InvalidGrantException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
+            'InvalidScopeException' => InvalidScopeException::class,
+            'SlowDownException' => SlowDownException::class,
+            'UnauthorizedClientException' => UnauthorizedClientException::class,
+            'UnsupportedGrantTypeException' => UnsupportedGrantTypeException::class,
         ]]));
 
         return new CreateTokenResponse($response);

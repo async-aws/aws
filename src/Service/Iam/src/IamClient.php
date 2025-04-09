@@ -53,16 +53,16 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AddUserToGroupRequest $input
      *
-     * @throws NoSuchEntityException
      * @throws LimitExceededException
+     * @throws NoSuchEntityException
      * @throws ServiceFailureException
      */
     public function addUserToGroup($input): Result
     {
         $input = AddUserToGroupRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddUserToGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchEntity' => NoSuchEntityException::class,
             'LimitExceeded' => LimitExceededException::class,
+            'NoSuchEntity' => NoSuchEntityException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 
@@ -95,16 +95,16 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateAccessKeyRequest $input
      *
-     * @throws NoSuchEntityException
      * @throws LimitExceededException
+     * @throws NoSuchEntityException
      * @throws ServiceFailureException
      */
     public function createAccessKey($input = []): CreateAccessKeyResponse
     {
         $input = CreateAccessKeyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateAccessKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchEntity' => NoSuchEntityException::class,
             'LimitExceeded' => LimitExceededException::class,
+            'NoSuchEntity' => NoSuchEntityException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 
@@ -170,22 +170,22 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateUserRequest $input
      *
-     * @throws LimitExceededException
-     * @throws EntityAlreadyExistsException
-     * @throws NoSuchEntityException
-     * @throws InvalidInputException
      * @throws ConcurrentModificationException
+     * @throws EntityAlreadyExistsException
+     * @throws InvalidInputException
+     * @throws LimitExceededException
+     * @throws NoSuchEntityException
      * @throws ServiceFailureException
      */
     public function createUser($input): CreateUserResponse
     {
         $input = CreateUserRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'LimitExceeded' => LimitExceededException::class,
-            'EntityAlreadyExists' => EntityAlreadyExistsException::class,
-            'NoSuchEntity' => NoSuchEntityException::class,
-            'InvalidInput' => InvalidInputException::class,
             'ConcurrentModification' => ConcurrentModificationException::class,
+            'EntityAlreadyExists' => EntityAlreadyExistsException::class,
+            'InvalidInput' => InvalidInputException::class,
+            'LimitExceeded' => LimitExceededException::class,
+            'NoSuchEntity' => NoSuchEntityException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 
@@ -209,16 +209,16 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteAccessKeyRequest $input
      *
-     * @throws NoSuchEntityException
      * @throws LimitExceededException
+     * @throws NoSuchEntityException
      * @throws ServiceFailureException
      */
     public function deleteAccessKey($input): Result
     {
         $input = DeleteAccessKeyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteAccessKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchEntity' => NoSuchEntityException::class,
             'LimitExceeded' => LimitExceededException::class,
+            'NoSuchEntity' => NoSuchEntityException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 
@@ -274,20 +274,20 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteUserRequest $input
      *
+     * @throws ConcurrentModificationException
+     * @throws DeleteConflictException
      * @throws LimitExceededException
      * @throws NoSuchEntityException
-     * @throws DeleteConflictException
-     * @throws ConcurrentModificationException
      * @throws ServiceFailureException
      */
     public function deleteUser($input): Result
     {
         $input = DeleteUserRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ConcurrentModification' => ConcurrentModificationException::class,
+            'DeleteConflict' => DeleteConflictException::class,
             'LimitExceeded' => LimitExceededException::class,
             'NoSuchEntity' => NoSuchEntityException::class,
-            'DeleteConflict' => DeleteConflictException::class,
-            'ConcurrentModification' => ConcurrentModificationException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 
@@ -311,16 +311,16 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteUserPolicyRequest $input
      *
-     * @throws NoSuchEntityException
      * @throws LimitExceededException
+     * @throws NoSuchEntityException
      * @throws ServiceFailureException
      */
     public function deleteUserPolicy($input): Result
     {
         $input = DeleteUserPolicyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteUserPolicy', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchEntity' => NoSuchEntityException::class,
             'LimitExceeded' => LimitExceededException::class,
+            'NoSuchEntity' => NoSuchEntityException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 
@@ -494,22 +494,22 @@ class IamClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateUserRequest $input
      *
-     * @throws NoSuchEntityException
-     * @throws LimitExceededException
+     * @throws ConcurrentModificationException
      * @throws EntityAlreadyExistsException
      * @throws EntityTemporarilyUnmodifiableException
-     * @throws ConcurrentModificationException
+     * @throws LimitExceededException
+     * @throws NoSuchEntityException
      * @throws ServiceFailureException
      */
     public function updateUser($input): Result
     {
         $input = UpdateUserRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchEntity' => NoSuchEntityException::class,
-            'LimitExceeded' => LimitExceededException::class,
+            'ConcurrentModification' => ConcurrentModificationException::class,
             'EntityAlreadyExists' => EntityAlreadyExistsException::class,
             'EntityTemporarilyUnmodifiable' => EntityTemporarilyUnmodifiableException::class,
-            'ConcurrentModification' => ConcurrentModificationException::class,
+            'LimitExceeded' => LimitExceededException::class,
+            'NoSuchEntity' => NoSuchEntityException::class,
             'ServiceFailure' => ServiceFailureException::class,
         ]]));
 

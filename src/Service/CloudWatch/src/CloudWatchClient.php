@@ -165,19 +165,19 @@ class CloudWatchClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetMetricStatisticsInput $input
      *
+     * @throws InternalServiceFaultException
+     * @throws InvalidParameterCombinationException
      * @throws InvalidParameterValueException
      * @throws MissingRequiredParameterException
-     * @throws InvalidParameterCombinationException
-     * @throws InternalServiceFaultException
      */
     public function getMetricStatistics($input): GetMetricStatisticsOutput
     {
         $input = GetMetricStatisticsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetMetricStatistics', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServiceError' => InternalServiceFaultException::class,
+            'InvalidParameterCombination' => InvalidParameterCombinationException::class,
             'InvalidParameterValue' => InvalidParameterValueException::class,
             'MissingParameter' => MissingRequiredParameterException::class,
-            'InvalidParameterCombination' => InvalidParameterCombinationException::class,
-            'InternalServiceError' => InternalServiceFaultException::class,
         ]]));
 
         return new GetMetricStatisticsOutput($response);
@@ -294,19 +294,19 @@ class CloudWatchClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      *
+     * @throws InternalServiceFaultException
+     * @throws InvalidParameterCombinationException
      * @throws InvalidParameterValueException
      * @throws MissingRequiredParameterException
-     * @throws InvalidParameterCombinationException
-     * @throws InternalServiceFaultException
      */
     public function putMetricData($input): Result
     {
         $input = PutMetricDataInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutMetricData', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServiceError' => InternalServiceFaultException::class,
+            'InvalidParameterCombination' => InvalidParameterCombinationException::class,
             'InvalidParameterValue' => InvalidParameterValueException::class,
             'MissingParameter' => MissingRequiredParameterException::class,
-            'InvalidParameterCombination' => InvalidParameterCombinationException::class,
-            'InternalServiceError' => InternalServiceFaultException::class,
         ]]));
 
         return new Result($response);

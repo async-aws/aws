@@ -40,27 +40,27 @@ class TranslateClient extends AbstractApi
      *   '@region'?: string|null,
      * }|TranslateTextRequest $input
      *
+     * @throws DetectedLanguageLowConfidenceException
+     * @throws InternalServerException
      * @throws InvalidRequestException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
      * @throws TextSizeLimitExceededException
      * @throws TooManyRequestsException
      * @throws UnsupportedLanguagePairException
-     * @throws DetectedLanguageLowConfidenceException
-     * @throws ResourceNotFoundException
-     * @throws InternalServerException
-     * @throws ServiceUnavailableException
      */
     public function translateText($input): TranslateTextResponse
     {
         $input = TranslateTextRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'TranslateText', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DetectedLanguageLowConfidenceException' => DetectedLanguageLowConfidenceException::class,
+            'InternalServerException' => InternalServerException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'TextSizeLimitExceededException' => TextSizeLimitExceededException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnsupportedLanguagePairException' => UnsupportedLanguagePairException::class,
-            'DetectedLanguageLowConfidenceException' => DetectedLanguageLowConfidenceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InternalServerException' => InternalServerException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 
         return new TranslateTextResponse($response);

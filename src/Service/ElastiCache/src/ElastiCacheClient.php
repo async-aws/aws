@@ -48,16 +48,16 @@ class ElastiCacheClient extends AbstractApi
      * }|DescribeCacheClustersMessage $input
      *
      * @throws CacheClusterNotFoundFaultException
-     * @throws InvalidParameterValueException
      * @throws InvalidParameterCombinationException
+     * @throws InvalidParameterValueException
      */
     public function describeCacheClusters($input = []): CacheClusterMessage
     {
         $input = DescribeCacheClustersMessage::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeCacheClusters', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'CacheClusterNotFound' => CacheClusterNotFoundFaultException::class,
-            'InvalidParameterValue' => InvalidParameterValueException::class,
             'InvalidParameterCombination' => InvalidParameterCombinationException::class,
+            'InvalidParameterValue' => InvalidParameterValueException::class,
         ]]));
 
         return new CacheClusterMessage($response, $this, $input);

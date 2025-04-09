@@ -7,6 +7,10 @@
 - AWS api-change: This release adds support for environment type WINDOWS_SERVER_2022_CONTAINER in ProjectEnvironment
 - AWS api-change: Added `us-isob-east-1` region.
 
+### Changed
+
+- Sort exception alphabetically.
+
 ## 2.9.0
 
 ### Added

@@ -78,21 +78,21 @@ class AppSyncClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateResolverRequest $input
      *
+     * @throws BadRequestException
      * @throws ConcurrentModificationException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
-     * @throws BadRequestException
      */
     public function createResolver($input): CreateResolverResponse
     {
         $input = CreateResolverRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateResolver', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
             'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'BadRequestException' => BadRequestException::class,
         ]]));
 
         return new CreateResolverResponse($response);
@@ -111,21 +111,21 @@ class AppSyncClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteResolverRequest $input
      *
+     * @throws BadRequestException
      * @throws ConcurrentModificationException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
-     * @throws BadRequestException
      */
     public function deleteResolver($input): DeleteResolverResponse
     {
         $input = DeleteResolverRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteResolver', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
             'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'BadRequestException' => BadRequestException::class,
         ]]));
 
         return new DeleteResolverResponse($response);
@@ -143,18 +143,18 @@ class AppSyncClient extends AbstractApi
      * }|GetSchemaCreationStatusRequest $input
      *
      * @throws BadRequestException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
      */
     public function getSchemaCreationStatus($input): GetSchemaCreationStatusResponse
     {
         $input = GetSchemaCreationStatusRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetSchemaCreationStatus', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new GetSchemaCreationStatusResponse($response);
@@ -178,18 +178,18 @@ class AppSyncClient extends AbstractApi
      * }|ListApiKeysRequest $input
      *
      * @throws BadRequestException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
      */
     public function listApiKeys($input): ListApiKeysResponse
     {
         $input = ListApiKeysRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListApiKeys', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new ListApiKeysResponse($response, $this, $input);
@@ -210,18 +210,18 @@ class AppSyncClient extends AbstractApi
      * }|ListResolversRequest $input
      *
      * @throws BadRequestException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
      */
     public function listResolvers($input): ListResolversResponse
     {
         $input = ListResolversRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListResolvers', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new ListResolversResponse($response, $this, $input);
@@ -243,9 +243,9 @@ class AppSyncClient extends AbstractApi
      *
      * @throws BadRequestException
      * @throws ConcurrentModificationException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
      */
     public function startSchemaCreation($input): StartSchemaCreationResponse
     {
@@ -253,9 +253,9 @@ class AppSyncClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StartSchemaCreation', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
             'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new StartSchemaCreationResponse($response);
@@ -275,23 +275,23 @@ class AppSyncClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateApiKeyRequest $input
      *
+     * @throws ApiKeyValidityOutOfBoundsException
      * @throws BadRequestException
+     * @throws InternalFailureException
+     * @throws LimitExceededException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws LimitExceededException
-     * @throws InternalFailureException
-     * @throws ApiKeyValidityOutOfBoundsException
      */
     public function updateApiKey($input): UpdateApiKeyResponse
     {
         $input = UpdateApiKeyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateApiKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ApiKeyValidityOutOfBoundsException' => ApiKeyValidityOutOfBoundsException::class,
             'BadRequestException' => BadRequestException::class,
+            'InternalFailureException' => InternalFailureException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'ApiKeyValidityOutOfBoundsException' => ApiKeyValidityOutOfBoundsException::class,
         ]]));
 
         return new UpdateApiKeyResponse($response);
@@ -322,9 +322,9 @@ class AppSyncClient extends AbstractApi
      *
      * @throws BadRequestException
      * @throws ConcurrentModificationException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
      */
     public function updateDataSource($input): UpdateDataSourceResponse
     {
@@ -332,9 +332,9 @@ class AppSyncClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateDataSource', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
             'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new UpdateDataSourceResponse($response);
@@ -364,21 +364,21 @@ class AppSyncClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateResolverRequest $input
      *
+     * @throws BadRequestException
      * @throws ConcurrentModificationException
+     * @throws InternalFailureException
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalFailureException
-     * @throws BadRequestException
      */
     public function updateResolver($input): UpdateResolverResponse
     {
         $input = UpdateResolverRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateResolver', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
             'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'NotFoundException' => NotFoundException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'BadRequestException' => BadRequestException::class,
         ]]));
 
         return new UpdateResolverResponse($response);

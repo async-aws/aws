@@ -31,18 +31,18 @@ class SsoClient extends AbstractApi
      * }|GetRoleCredentialsRequest $input
      *
      * @throws InvalidRequestException
-     * @throws UnauthorizedException
-     * @throws TooManyRequestsException
      * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
      */
     public function getRoleCredentials($input): GetRoleCredentialsResponse
     {
         $input = GetRoleCredentialsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetRoleCredentials', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidRequestException' => InvalidRequestException::class,
-            'UnauthorizedException' => UnauthorizedException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'UnauthorizedException' => UnauthorizedException::class,
         ]]));
 
         return new GetRoleCredentialsResponse($response);

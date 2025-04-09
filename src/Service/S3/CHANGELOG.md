@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Sort exception alphabetically.
 - AWS enhancement: Documentation updates.
 
 ## 2.8.0

@@ -6,6 +6,10 @@
 
 - AWS api-change: This release enables customers to provide attachments in the SESv2 SendEmail and SendBulkEmail APIs.
 
+### Changed
+
+- Sort exception alphabetically.
+
 ## 1.11.0
 
 ### Added

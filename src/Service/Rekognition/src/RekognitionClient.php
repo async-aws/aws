@@ -77,25 +77,25 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateCollectionRequest $input
      *
-     * @throws InvalidParameterException
      * @throws AccessDeniedException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidParameterException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceAlreadyExistsException
      * @throws ServiceQuotaExceededException
+     * @throws ThrottlingException
      */
     public function createCollection($input): CreateCollectionResponse
     {
         $input = CreateCollectionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateCollection', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameterException' => InvalidParameterException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
             'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new CreateCollectionResponse($response);
@@ -119,25 +119,25 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      *
-     * @throws ResourceInUseException
-     * @throws LimitExceededException
-     * @throws InvalidParameterException
      * @throws AccessDeniedException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidParameterException
+     * @throws LimitExceededException
      * @throws ProvisionedThroughputExceededException
+     * @throws ResourceInUseException
+     * @throws ThrottlingException
      */
     public function createProject($input): CreateProjectResponse
     {
         $input = CreateProjectRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateProject', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceInUseException' => ResourceInUseException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new CreateProjectResponse($response);
@@ -159,23 +159,23 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteCollectionRequest $input
      *
-     * @throws InvalidParameterException
      * @throws AccessDeniedException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidParameterException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function deleteCollection($input): DeleteCollectionResponse
     {
         $input = DeleteCollectionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteCollection', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameterException' => InvalidParameterException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new DeleteCollectionResponse($response);
@@ -199,25 +199,25 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteProjectRequest $input
      *
-     * @throws ResourceInUseException
-     * @throws ResourceNotFoundException
-     * @throws InvalidParameterException
      * @throws AccessDeniedException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidParameterException
      * @throws ProvisionedThroughputExceededException
+     * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function deleteProject($input): DeleteProjectResponse
     {
         $input = DeleteProjectRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteProject', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceInUseException' => ResourceInUseException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new DeleteProjectResponse($response);
@@ -251,27 +251,27 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DetectFacesRequest $input
      *
-     * @throws InvalidS3ObjectException
-     * @throws InvalidParameterException
-     * @throws ImageTooLargeException
      * @throws AccessDeniedException
+     * @throws ImageTooLargeException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
-     * @throws ProvisionedThroughputExceededException
      * @throws InvalidImageFormatException
+     * @throws InvalidParameterException
+     * @throws InvalidS3ObjectException
+     * @throws ProvisionedThroughputExceededException
+     * @throws ThrottlingException
      */
     public function detectFaces($input): DetectFacesResponse
     {
         $input = DetectFacesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DetectFaces', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
-            'ImageTooLargeException' => ImageTooLargeException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new DetectFacesResponse($response);
@@ -305,33 +305,33 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      *
-     * @throws InvalidS3ObjectException
-     * @throws InvalidParameterException
-     * @throws ImageTooLargeException
      * @throws AccessDeniedException
-     * @throws InternalServerErrorException
-     * @throws ThrottlingException
-     * @throws ProvisionedThroughputExceededException
-     * @throws InvalidImageFormatException
      * @throws HumanLoopQuotaExceededException
+     * @throws ImageTooLargeException
+     * @throws InternalServerErrorException
+     * @throws InvalidImageFormatException
+     * @throws InvalidParameterException
+     * @throws InvalidS3ObjectException
+     * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
      * @throws ResourceNotReadyException
+     * @throws ThrottlingException
      */
     public function detectModerationLabels($input): DetectModerationLabelsResponse
     {
         $input = DetectModerationLabelsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DetectModerationLabels', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
-            'ImageTooLargeException' => ImageTooLargeException::class,
             'AccessDeniedException' => AccessDeniedException::class,
-            'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'InvalidImageFormatException' => InvalidImageFormatException::class,
             'HumanLoopQuotaExceededException' => HumanLoopQuotaExceededException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ResourceNotReadyException' => ResourceNotReadyException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new DetectModerationLabelsResponse($response);
@@ -354,23 +354,23 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetCelebrityInfoRequest $input
      *
-     * @throws InvalidParameterException
      * @throws AccessDeniedException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidParameterException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function getCelebrityInfo($input): GetCelebrityInfoResponse
     {
         $input = GetCelebrityInfoRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCelebrityInfo', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameterException' => InvalidParameterException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new GetCelebrityInfoResponse($response);
@@ -460,31 +460,31 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|IndexFacesRequest $input
      *
-     * @throws InvalidS3ObjectException
-     * @throws InvalidParameterException
-     * @throws ImageTooLargeException
      * @throws AccessDeniedException
+     * @throws ImageTooLargeException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidImageFormatException
+     * @throws InvalidParameterException
+     * @throws InvalidS3ObjectException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
-     * @throws InvalidImageFormatException
      * @throws ServiceQuotaExceededException
+     * @throws ThrottlingException
      */
     public function indexFaces($input): IndexFacesResponse
     {
         $input = IndexFacesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'IndexFaces', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
-            'ImageTooLargeException' => ImageTooLargeException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidImageFormatException' => InvalidImageFormatException::class,
             'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new IndexFacesResponse($response);
@@ -507,25 +507,25 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListCollectionsRequest $input
      *
-     * @throws InvalidParameterException
      * @throws AccessDeniedException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
-     * @throws ProvisionedThroughputExceededException
      * @throws InvalidPaginationTokenException
+     * @throws InvalidParameterException
+     * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function listCollections($input = []): ListCollectionsResponse
     {
         $input = ListCollectionsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListCollections', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameterException' => InvalidParameterException::class,
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'InvalidPaginationTokenException' => InvalidPaginationTokenException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new ListCollectionsResponse($response, $this, $input);
@@ -564,27 +564,27 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|RecognizeCelebritiesRequest $input
      *
-     * @throws InvalidS3ObjectException
-     * @throws InvalidParameterException
-     * @throws InvalidImageFormatException
-     * @throws ImageTooLargeException
      * @throws AccessDeniedException
+     * @throws ImageTooLargeException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidImageFormatException
+     * @throws InvalidParameterException
+     * @throws InvalidS3ObjectException
      * @throws ProvisionedThroughputExceededException
+     * @throws ThrottlingException
      */
     public function recognizeCelebrities($input): RecognizeCelebritiesResponse
     {
         $input = RecognizeCelebritiesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RecognizeCelebrities', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
-            'InvalidImageFormatException' => InvalidImageFormatException::class,
-            'ImageTooLargeException' => ImageTooLargeException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new RecognizeCelebritiesResponse($response);
@@ -636,29 +636,29 @@ class RekognitionClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SearchFacesByImageRequest $input
      *
-     * @throws InvalidS3ObjectException
-     * @throws InvalidParameterException
-     * @throws ImageTooLargeException
      * @throws AccessDeniedException
+     * @throws ImageTooLargeException
      * @throws InternalServerErrorException
-     * @throws ThrottlingException
+     * @throws InvalidImageFormatException
+     * @throws InvalidParameterException
+     * @throws InvalidS3ObjectException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
-     * @throws InvalidImageFormatException
+     * @throws ThrottlingException
      */
     public function searchFacesByImage($input): SearchFacesByImageResponse
     {
         $input = SearchFacesByImageRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SearchFacesByImage', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
-            'ImageTooLargeException' => ImageTooLargeException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
             'InternalServerError' => InternalServerErrorException::class,
-            'ThrottlingException' => ThrottlingException::class,
+            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new SearchFacesByImageResponse($response);

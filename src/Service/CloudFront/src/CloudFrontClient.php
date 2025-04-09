@@ -32,24 +32,24 @@ class CloudFrontClient extends AbstractApi
      * }|CreateInvalidationRequest $input
      *
      * @throws AccessDeniedException
-     * @throws MissingBodyException
-     * @throws InvalidArgumentException
-     * @throws NoSuchDistributionException
      * @throws BatchTooLargeException
-     * @throws TooManyInvalidationsInProgressException
      * @throws InconsistentQuantitiesException
+     * @throws InvalidArgumentException
+     * @throws MissingBodyException
+     * @throws NoSuchDistributionException
+     * @throws TooManyInvalidationsInProgressException
      */
     public function createInvalidation($input): CreateInvalidationResult
     {
         $input = CreateInvalidationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDenied' => AccessDeniedException::class,
-            'MissingBody' => MissingBodyException::class,
-            'InvalidArgument' => InvalidArgumentException::class,
-            'NoSuchDistribution' => NoSuchDistributionException::class,
             'BatchTooLarge' => BatchTooLargeException::class,
-            'TooManyInvalidationsInProgress' => TooManyInvalidationsInProgressException::class,
             'InconsistentQuantities' => InconsistentQuantitiesException::class,
+            'InvalidArgument' => InvalidArgumentException::class,
+            'MissingBody' => MissingBodyException::class,
+            'NoSuchDistribution' => NoSuchDistributionException::class,
+            'TooManyInvalidationsInProgress' => TooManyInvalidationsInProgressException::class,
         ]]));
 
         return new CreateInvalidationResult($response);

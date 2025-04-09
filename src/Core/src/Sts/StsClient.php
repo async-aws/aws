@@ -125,19 +125,19 @@ class StsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AssumeRoleRequest $input
      *
+     * @throws ExpiredTokenException
      * @throws MalformedPolicyDocumentException
      * @throws PackedPolicyTooLargeException
      * @throws RegionDisabledException
-     * @throws ExpiredTokenException
      */
     public function assumeRole($input): AssumeRoleResponse
     {
         $input = AssumeRoleRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRole', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ExpiredTokenException' => ExpiredTokenException::class,
             'MalformedPolicyDocument' => MalformedPolicyDocumentException::class,
             'PackedPolicyTooLarge' => PackedPolicyTooLargeException::class,
             'RegionDisabledException' => RegionDisabledException::class,
-            'ExpiredTokenException' => ExpiredTokenException::class,
         ]]));
 
         return new AssumeRoleResponse($response);
@@ -273,24 +273,24 @@ class StsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AssumeRoleWithWebIdentityRequest $input
      *
+     * @throws ExpiredTokenException
+     * @throws IDPCommunicationErrorException
+     * @throws IDPRejectedClaimException
+     * @throws InvalidIdentityTokenException
      * @throws MalformedPolicyDocumentException
      * @throws PackedPolicyTooLargeException
-     * @throws IDPRejectedClaimException
-     * @throws IDPCommunicationErrorException
-     * @throws InvalidIdentityTokenException
-     * @throws ExpiredTokenException
      * @throws RegionDisabledException
      */
     public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
     {
         $input = AssumeRoleWithWebIdentityRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ExpiredTokenException' => ExpiredTokenException::class,
+            'IDPCommunicationError' => IDPCommunicationErrorException::class,
+            'IDPRejectedClaim' => IDPRejectedClaimException::class,
+            'InvalidIdentityToken' => InvalidIdentityTokenException::class,
             'MalformedPolicyDocument' => MalformedPolicyDocumentException::class,
             'PackedPolicyTooLarge' => PackedPolicyTooLargeException::class,
-            'IDPRejectedClaim' => IDPRejectedClaimException::class,
-            'IDPCommunicationError' => IDPCommunicationErrorException::class,
-            'InvalidIdentityToken' => InvalidIdentityTokenException::class,
-            'ExpiredTokenException' => ExpiredTokenException::class,
             'RegionDisabledException' => RegionDisabledException::class,
         ]]));
 

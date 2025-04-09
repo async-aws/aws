@@ -124,25 +124,25 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateAliasRequest $input
      *
-     * @throws DependencyTimeoutException
      * @throws AlreadyExistsException
-     * @throws NotFoundException
+     * @throws DependencyTimeoutException
      * @throws InvalidAliasNameException
      * @throws KMSInternalException
-     * @throws LimitExceededException
      * @throws KMSInvalidStateException
+     * @throws LimitExceededException
+     * @throws NotFoundException
      */
     public function createAlias($input): Result
     {
         $input = CreateAliasRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateAlias', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'DependencyTimeoutException' => DependencyTimeoutException::class,
             'AlreadyExistsException' => AlreadyExistsException::class,
-            'NotFoundException' => NotFoundException::class,
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
             'InvalidAliasNameException' => InvalidAliasNameException::class,
             'KMSInternalException' => KMSInternalException::class,
-            'LimitExceededException' => LimitExceededException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'NotFoundException' => NotFoundException::class,
         ]]));
 
         return new Result($response);
@@ -324,36 +324,36 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateKeyRequest $input
      *
-     * @throws MalformedPolicyDocumentException
+     * @throws CloudHsmClusterInvalidConfigurationException
+     * @throws CustomKeyStoreInvalidStateException
+     * @throws CustomKeyStoreNotFoundException
      * @throws DependencyTimeoutException
      * @throws InvalidArnException
-     * @throws UnsupportedOperationException
      * @throws KMSInternalException
      * @throws LimitExceededException
+     * @throws MalformedPolicyDocumentException
      * @throws TagException
-     * @throws CustomKeyStoreNotFoundException
-     * @throws CustomKeyStoreInvalidStateException
-     * @throws CloudHsmClusterInvalidConfigurationException
-     * @throws XksKeyInvalidConfigurationException
+     * @throws UnsupportedOperationException
      * @throws XksKeyAlreadyInUseException
+     * @throws XksKeyInvalidConfigurationException
      * @throws XksKeyNotFoundException
      */
     public function createKey($input = []): CreateKeyResponse
     {
         $input = CreateKeyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
+            'CloudHsmClusterInvalidConfigurationException' => CloudHsmClusterInvalidConfigurationException::class,
+            'CustomKeyStoreInvalidStateException' => CustomKeyStoreInvalidStateException::class,
+            'CustomKeyStoreNotFoundException' => CustomKeyStoreNotFoundException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
             'InvalidArnException' => InvalidArnException::class,
-            'UnsupportedOperationException' => UnsupportedOperationException::class,
             'KMSInternalException' => KMSInternalException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
             'TagException' => TagException::class,
-            'CustomKeyStoreNotFoundException' => CustomKeyStoreNotFoundException::class,
-            'CustomKeyStoreInvalidStateException' => CustomKeyStoreInvalidStateException::class,
-            'CloudHsmClusterInvalidConfigurationException' => CloudHsmClusterInvalidConfigurationException::class,
-            'XksKeyInvalidConfigurationException' => XksKeyInvalidConfigurationException::class,
+            'UnsupportedOperationException' => UnsupportedOperationException::class,
             'XksKeyAlreadyInUseException' => XksKeyAlreadyInUseException::class,
+            'XksKeyInvalidConfigurationException' => XksKeyInvalidConfigurationException::class,
             'XksKeyNotFoundException' => XksKeyNotFoundException::class,
         ]]));
 
@@ -444,33 +444,33 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      *
-     * @throws NotFoundException
-     * @throws DisabledException
-     * @throws InvalidCiphertextException
-     * @throws KeyUnavailableException
-     * @throws IncorrectKeyException
-     * @throws InvalidKeyUsageException
      * @throws DependencyTimeoutException
+     * @throws DisabledException
+     * @throws DryRunOperationException
+     * @throws IncorrectKeyException
+     * @throws InvalidCiphertextException
      * @throws InvalidGrantTokenException
+     * @throws InvalidKeyUsageException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
-     * @throws DryRunOperationException
+     * @throws KeyUnavailableException
+     * @throws NotFoundException
      */
     public function decrypt($input): DecryptResponse
     {
         $input = DecryptRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Decrypt', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
-            'DisabledException' => DisabledException::class,
-            'InvalidCiphertextException' => InvalidCiphertextException::class,
-            'KeyUnavailableException' => KeyUnavailableException::class,
-            'IncorrectKeyException' => IncorrectKeyException::class,
-            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'DisabledException' => DisabledException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
+            'IncorrectKeyException' => IncorrectKeyException::class,
+            'InvalidCiphertextException' => InvalidCiphertextException::class,
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'DryRunOperationException' => DryRunOperationException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'NotFoundException' => NotFoundException::class,
         ]]));
 
         return new DecryptResponse($response);
@@ -562,29 +562,29 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|EncryptRequest $input
      *
-     * @throws NotFoundException
-     * @throws DisabledException
-     * @throws KeyUnavailableException
      * @throws DependencyTimeoutException
-     * @throws InvalidKeyUsageException
+     * @throws DisabledException
+     * @throws DryRunOperationException
      * @throws InvalidGrantTokenException
+     * @throws InvalidKeyUsageException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
-     * @throws DryRunOperationException
+     * @throws KeyUnavailableException
+     * @throws NotFoundException
      */
     public function encrypt($input): EncryptResponse
     {
         $input = EncryptRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Encrypt', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
-            'DisabledException' => DisabledException::class,
-            'KeyUnavailableException' => KeyUnavailableException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
-            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'DisabledException' => DisabledException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'DryRunOperationException' => DryRunOperationException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'NotFoundException' => NotFoundException::class,
         ]]));
 
         return new EncryptResponse($response);
@@ -687,29 +687,29 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      *
-     * @throws NotFoundException
-     * @throws DisabledException
-     * @throws KeyUnavailableException
      * @throws DependencyTimeoutException
-     * @throws InvalidKeyUsageException
+     * @throws DisabledException
+     * @throws DryRunOperationException
      * @throws InvalidGrantTokenException
+     * @throws InvalidKeyUsageException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
-     * @throws DryRunOperationException
+     * @throws KeyUnavailableException
+     * @throws NotFoundException
      */
     public function generateDataKey($input): GenerateDataKeyResponse
     {
         $input = GenerateDataKeyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GenerateDataKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
-            'DisabledException' => DisabledException::class,
-            'KeyUnavailableException' => KeyUnavailableException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
-            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'DisabledException' => DisabledException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'DryRunOperationException' => DryRunOperationException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'NotFoundException' => NotFoundException::class,
         ]]));
 
         return new GenerateDataKeyResponse($response);
@@ -775,31 +775,31 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetPublicKeyRequest $input
      *
-     * @throws NotFoundException
-     * @throws DisabledException
-     * @throws KeyUnavailableException
      * @throws DependencyTimeoutException
-     * @throws UnsupportedOperationException
+     * @throws DisabledException
      * @throws InvalidArnException
      * @throws InvalidGrantTokenException
      * @throws InvalidKeyUsageException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
+     * @throws KeyUnavailableException
+     * @throws NotFoundException
+     * @throws UnsupportedOperationException
      */
     public function getPublicKey($input): GetPublicKeyResponse
     {
         $input = GetPublicKeyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetPublicKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
-            'DisabledException' => DisabledException::class,
-            'KeyUnavailableException' => KeyUnavailableException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
-            'UnsupportedOperationException' => UnsupportedOperationException::class,
+            'DisabledException' => DisabledException::class,
             'InvalidArnException' => InvalidArnException::class,
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
             'InvalidKeyUsageException' => InvalidKeyUsageException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'NotFoundException' => NotFoundException::class,
+            'UnsupportedOperationException' => UnsupportedOperationException::class,
         ]]));
 
         return new GetPublicKeyResponse($response);
@@ -852,9 +852,9 @@ class KmsClient extends AbstractApi
      * }|ListAliasesRequest $input
      *
      * @throws DependencyTimeoutException
+     * @throws InvalidArnException
      * @throws InvalidMarkerException
      * @throws KMSInternalException
-     * @throws InvalidArnException
      * @throws NotFoundException
      */
     public function listAliases($input = []): ListAliasesResponse
@@ -862,9 +862,9 @@ class KmsClient extends AbstractApi
         $input = ListAliasesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListAliases', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'InvalidArnException' => InvalidArnException::class,
             'InvalidMarkerException' => InvalidMarkerException::class,
             'KMSInternalException' => KMSInternalException::class,
-            'InvalidArnException' => InvalidArnException::class,
             'NotFoundException' => NotFoundException::class,
         ]]));
 
@@ -936,29 +936,29 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SignRequest $input
      *
-     * @throws NotFoundException
-     * @throws DisabledException
-     * @throws KeyUnavailableException
      * @throws DependencyTimeoutException
-     * @throws InvalidKeyUsageException
+     * @throws DisabledException
+     * @throws DryRunOperationException
      * @throws InvalidGrantTokenException
+     * @throws InvalidKeyUsageException
      * @throws KMSInternalException
      * @throws KMSInvalidStateException
-     * @throws DryRunOperationException
+     * @throws KeyUnavailableException
+     * @throws NotFoundException
      */
     public function sign($input): SignResponse
     {
         $input = SignRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Sign', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
-            'DisabledException' => DisabledException::class,
-            'KeyUnavailableException' => KeyUnavailableException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
-            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'DisabledException' => DisabledException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
             'KMSInternalException' => KMSInternalException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'DryRunOperationException' => DryRunOperationException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'NotFoundException' => NotFoundException::class,
         ]]));
 
         return new SignResponse($response);
@@ -1023,31 +1023,31 @@ class KmsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|VerifyRequest $input
      *
-     * @throws NotFoundException
-     * @throws DisabledException
-     * @throws KeyUnavailableException
      * @throws DependencyTimeoutException
-     * @throws InvalidKeyUsageException
-     * @throws InvalidGrantTokenException
-     * @throws KMSInternalException
-     * @throws KMSInvalidStateException
-     * @throws KMSInvalidSignatureException
+     * @throws DisabledException
      * @throws DryRunOperationException
+     * @throws InvalidGrantTokenException
+     * @throws InvalidKeyUsageException
+     * @throws KMSInternalException
+     * @throws KMSInvalidSignatureException
+     * @throws KMSInvalidStateException
+     * @throws KeyUnavailableException
+     * @throws NotFoundException
      */
     public function verify($input): VerifyResponse
     {
         $input = VerifyRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Verify', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
-            'DisabledException' => DisabledException::class,
-            'KeyUnavailableException' => KeyUnavailableException::class,
             'DependencyTimeoutException' => DependencyTimeoutException::class,
-            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
-            'InvalidGrantTokenException' => InvalidGrantTokenException::class,
-            'KMSInternalException' => KMSInternalException::class,
-            'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'KMSInvalidSignatureException' => KMSInvalidSignatureException::class,
+            'DisabledException' => DisabledException::class,
             'DryRunOperationException' => DryRunOperationException::class,
+            'InvalidGrantTokenException' => InvalidGrantTokenException::class,
+            'InvalidKeyUsageException' => InvalidKeyUsageException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'KMSInvalidSignatureException' => KMSInvalidSignatureException::class,
+            'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'KeyUnavailableException' => KeyUnavailableException::class,
+            'NotFoundException' => NotFoundException::class,
         ]]));
 
         return new VerifyResponse($response);

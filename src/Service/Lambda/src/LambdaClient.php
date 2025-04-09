@@ -102,25 +102,25 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AddLayerVersionPermissionRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
-     * @throws ResourceConflictException
-     * @throws TooManyRequestsException
      * @throws InvalidParameterValueException
      * @throws PolicyLengthExceededException
      * @throws PreconditionFailedException
+     * @throws ResourceConflictException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
      */
     public function addLayerVersionPermission($input): AddLayerVersionPermissionResponse
     {
         $input = AddLayerVersionPermissionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddLayerVersionPermission', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ResourceConflictException' => ResourceConflictException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
             'InvalidParameterValueException' => InvalidParameterValueException::class,
             'PolicyLengthExceededException' => PolicyLengthExceededException::class,
             'PreconditionFailedException' => PreconditionFailedException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new AddLayerVersionPermissionResponse($response);
@@ -143,21 +143,21 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteFunctionRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
-     * @throws TooManyRequestsException
      * @throws InvalidParameterValueException
      * @throws ResourceConflictException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
      */
     public function deleteFunction($input): Result
     {
         $input = DeleteFunctionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteFunction', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
             'InvalidParameterValueException' => InvalidParameterValueException::class,
             'ResourceConflictException' => ResourceConflictException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new Result($response);
@@ -178,19 +178,19 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetFunctionConfigurationRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
-     * @throws TooManyRequestsException
      * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
      */
     public function getFunctionConfiguration($input): FunctionConfiguration
     {
         $input = GetFunctionConfigurationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetFunctionConfiguration', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
             'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new FunctionConfiguration($response);
@@ -251,71 +251,71 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
-     * @throws InvalidRequestContentException
-     * @throws RequestTooLargeException
-     * @throws UnsupportedMediaTypeException
-     * @throws TooManyRequestsException
-     * @throws InvalidParameterValueException
+     * @throws EC2AccessDeniedException
+     * @throws EC2ThrottledException
      * @throws EC2UnexpectedException
-     * @throws SubnetIPAddressLimitReachedException
-     * @throws ENILimitReachedException
+     * @throws EFSIOException
      * @throws EFSMountConnectivityException
      * @throws EFSMountFailureException
      * @throws EFSMountTimeoutException
-     * @throws EFSIOException
-     * @throws SnapStartException
-     * @throws SnapStartTimeoutException
-     * @throws SnapStartNotReadyException
-     * @throws EC2ThrottledException
-     * @throws EC2AccessDeniedException
-     * @throws InvalidSubnetIDException
+     * @throws ENILimitReachedException
+     * @throws InvalidParameterValueException
+     * @throws InvalidRequestContentException
+     * @throws InvalidRuntimeException
      * @throws InvalidSecurityGroupIDException
+     * @throws InvalidSubnetIDException
      * @throws InvalidZipFileException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
-     * @throws KMSAccessDeniedException
      * @throws KMSNotFoundException
-     * @throws InvalidRuntimeException
-     * @throws ResourceConflictException
-     * @throws ResourceNotReadyException
      * @throws RecursiveInvocationException
+     * @throws RequestTooLargeException
+     * @throws ResourceConflictException
+     * @throws ResourceNotFoundException
+     * @throws ResourceNotReadyException
+     * @throws ServiceException
+     * @throws SnapStartException
+     * @throws SnapStartNotReadyException
+     * @throws SnapStartTimeoutException
+     * @throws SubnetIPAddressLimitReachedException
+     * @throws TooManyRequestsException
+     * @throws UnsupportedMediaTypeException
      */
     public function invoke($input): InvocationResponse
     {
         $input = InvocationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Invoke', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidRequestContentException' => InvalidRequestContentException::class,
-            'RequestTooLargeException' => RequestTooLargeException::class,
-            'UnsupportedMediaTypeException' => UnsupportedMediaTypeException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
-            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'EC2AccessDeniedException' => EC2AccessDeniedException::class,
+            'EC2ThrottledException' => EC2ThrottledException::class,
             'EC2UnexpectedException' => EC2UnexpectedException::class,
-            'SubnetIPAddressLimitReachedException' => SubnetIPAddressLimitReachedException::class,
-            'ENILimitReachedException' => ENILimitReachedException::class,
+            'EFSIOException' => EFSIOException::class,
             'EFSMountConnectivityException' => EFSMountConnectivityException::class,
             'EFSMountFailureException' => EFSMountFailureException::class,
             'EFSMountTimeoutException' => EFSMountTimeoutException::class,
-            'EFSIOException' => EFSIOException::class,
-            'SnapStartException' => SnapStartException::class,
-            'SnapStartTimeoutException' => SnapStartTimeoutException::class,
-            'SnapStartNotReadyException' => SnapStartNotReadyException::class,
-            'EC2ThrottledException' => EC2ThrottledException::class,
-            'EC2AccessDeniedException' => EC2AccessDeniedException::class,
-            'InvalidSubnetIDException' => InvalidSubnetIDException::class,
+            'ENILimitReachedException' => ENILimitReachedException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'InvalidRequestContentException' => InvalidRequestContentException::class,
+            'InvalidRuntimeException' => InvalidRuntimeException::class,
             'InvalidSecurityGroupIDException' => InvalidSecurityGroupIDException::class,
+            'InvalidSubnetIDException' => InvalidSubnetIDException::class,
             'InvalidZipFileException' => InvalidZipFileException::class,
+            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
-            'InvalidRuntimeException' => InvalidRuntimeException::class,
-            'ResourceConflictException' => ResourceConflictException::class,
-            'ResourceNotReadyException' => ResourceNotReadyException::class,
             'RecursiveInvocationException' => RecursiveInvocationException::class,
+            'RequestTooLargeException' => RequestTooLargeException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ResourceNotReadyException' => ResourceNotReadyException::class,
+            'ServiceException' => ServiceException::class,
+            'SnapStartException' => SnapStartException::class,
+            'SnapStartNotReadyException' => SnapStartNotReadyException::class,
+            'SnapStartTimeoutException' => SnapStartTimeoutException::class,
+            'SubnetIPAddressLimitReachedException' => SubnetIPAddressLimitReachedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'UnsupportedMediaTypeException' => UnsupportedMediaTypeException::class,
         ]]));
 
         return new InvocationResponse($response);
@@ -343,17 +343,17 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListFunctionsRequest $input
      *
+     * @throws InvalidParameterValueException
      * @throws ServiceException
      * @throws TooManyRequestsException
-     * @throws InvalidParameterValueException
      */
     public function listFunctions($input = []): ListFunctionsResponse
     {
         $input = ListFunctionsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListFunctions', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
             'ServiceException' => ServiceException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
-            'InvalidParameterValueException' => InvalidParameterValueException::class,
         ]]));
 
         return new ListFunctionsResponse($response, $this, $input);
@@ -379,18 +379,18 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      *
-     * @throws ServiceException
      * @throws InvalidParameterValueException
      * @throws ResourceNotFoundException
+     * @throws ServiceException
      * @throws TooManyRequestsException
      */
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
         $input = ListLayerVersionsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListLayerVersions', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
             'InvalidParameterValueException' => InvalidParameterValueException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -413,18 +413,18 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListVersionsByFunctionRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
      * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
      * @throws TooManyRequestsException
      */
     public function listVersionsByFunction($input): ListVersionsByFunctionResponse
     {
         $input = ListVersionsByFunctionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListVersionsByFunction', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -452,21 +452,21 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
-     * @throws TooManyRequestsException
-     * @throws InvalidParameterValueException
      * @throws CodeStorageExceededException
+     * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
      */
     public function publishLayerVersion($input): PublishLayerVersionResponse
     {
         $input = PublishLayerVersionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PublishLayerVersion', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
-            'InvalidParameterValueException' => InvalidParameterValueException::class,
             'CodeStorageExceededException' => CodeStorageExceededException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new PublishLayerVersionResponse($response);
@@ -515,29 +515,29 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      *
-     * @throws ServiceException
-     * @throws ResourceNotFoundException
-     * @throws InvalidParameterValueException
-     * @throws TooManyRequestsException
-     * @throws ResourceConflictException
-     * @throws PreconditionFailedException
+     * @throws CodeSigningConfigNotFoundException
      * @throws CodeVerificationFailedException
      * @throws InvalidCodeSignatureException
-     * @throws CodeSigningConfigNotFoundException
+     * @throws InvalidParameterValueException
+     * @throws PreconditionFailedException
+     * @throws ResourceConflictException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
      */
     public function updateFunctionConfiguration($input): FunctionConfiguration
     {
         $input = UpdateFunctionConfigurationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateFunctionConfiguration', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceException' => ServiceException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidParameterValueException' => InvalidParameterValueException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
-            'ResourceConflictException' => ResourceConflictException::class,
-            'PreconditionFailedException' => PreconditionFailedException::class,
+            'CodeSigningConfigNotFoundException' => CodeSigningConfigNotFoundException::class,
             'CodeVerificationFailedException' => CodeVerificationFailedException::class,
             'InvalidCodeSignatureException' => InvalidCodeSignatureException::class,
-            'CodeSigningConfigNotFoundException' => CodeSigningConfigNotFoundException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'PreconditionFailedException' => PreconditionFailedException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new FunctionConfiguration($response);

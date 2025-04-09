@@ -62,23 +62,23 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateScheduleInput $input
      *
-     * @throws ServiceQuotaExceededException
-     * @throws ValidationException
-     * @throws InternalServerException
      * @throws ConflictException
+     * @throws InternalServerException
      * @throws ResourceNotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function createSchedule($input): CreateScheduleOutput
     {
         $input = CreateScheduleInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateSchedule', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
-            'ValidationException' => ValidationException::class,
-            'InternalServerException' => InternalServerException::class,
             'ConflictException' => ConflictException::class,
+            'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new CreateScheduleOutput($response);
@@ -97,21 +97,21 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateScheduleGroupInput $input
      *
-     * @throws ServiceQuotaExceededException
-     * @throws ValidationException
-     * @throws InternalServerException
      * @throws ConflictException
+     * @throws InternalServerException
+     * @throws ServiceQuotaExceededException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function createScheduleGroup($input): CreateScheduleGroupOutput
     {
         $input = CreateScheduleGroupInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateScheduleGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
-            'ValidationException' => ValidationException::class,
-            'InternalServerException' => InternalServerException::class,
             'ConflictException' => ConflictException::class,
+            'InternalServerException' => InternalServerException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new CreateScheduleGroupOutput($response);
@@ -130,21 +130,21 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteScheduleInput $input
      *
-     * @throws ValidationException
-     * @throws InternalServerException
      * @throws ConflictException
+     * @throws InternalServerException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function deleteSchedule($input): DeleteScheduleOutput
     {
         $input = DeleteScheduleInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteSchedule', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
-            'InternalServerException' => InternalServerException::class,
             'ConflictException' => ConflictException::class,
+            'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new DeleteScheduleOutput($response);
@@ -168,21 +168,21 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteScheduleGroupInput $input
      *
-     * @throws ValidationException
-     * @throws InternalServerException
      * @throws ConflictException
+     * @throws InternalServerException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function deleteScheduleGroup($input): DeleteScheduleGroupOutput
     {
         $input = DeleteScheduleGroupInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteScheduleGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
-            'InternalServerException' => InternalServerException::class,
             'ConflictException' => ConflictException::class,
+            'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new DeleteScheduleGroupOutput($response);
@@ -200,19 +200,19 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetScheduleInput $input
      *
-     * @throws ValidationException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function getSchedule($input): GetScheduleOutput
     {
         $input = GetScheduleInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetSchedule', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new GetScheduleOutput($response);
@@ -229,19 +229,19 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetScheduleGroupInput $input
      *
-     * @throws ValidationException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function getScheduleGroup($input): GetScheduleGroupOutput
     {
         $input = GetScheduleGroupInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetScheduleGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new GetScheduleGroupOutput($response);
@@ -260,17 +260,17 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListScheduleGroupsInput $input
      *
-     * @throws ValidationException
      * @throws InternalServerException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function listScheduleGroups($input = []): ListScheduleGroupsOutput
     {
         $input = ListScheduleGroupsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListScheduleGroups', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
             'InternalServerException' => InternalServerException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new ListScheduleGroupsOutput($response, $this, $input);
@@ -291,19 +291,19 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListSchedulesInput $input
      *
-     * @throws ValidationException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function listSchedules($input = []): ListSchedulesOutput
     {
         $input = ListSchedulesInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListSchedules', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new ListSchedulesOutput($response, $this, $input);
@@ -337,21 +337,21 @@ class SchedulerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateScheduleInput $input
      *
-     * @throws ValidationException
-     * @throws InternalServerException
      * @throws ConflictException
+     * @throws InternalServerException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function updateSchedule($input): UpdateScheduleOutput
     {
         $input = UpdateScheduleInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateSchedule', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ValidationException' => ValidationException::class,
-            'InternalServerException' => InternalServerException::class,
             'ConflictException' => ConflictException::class,
+            'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new UpdateScheduleOutput($response);
