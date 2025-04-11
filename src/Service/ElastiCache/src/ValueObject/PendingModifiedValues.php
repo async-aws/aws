@@ -71,6 +71,13 @@ final class PendingModifiedValues
     private $transitEncryptionMode;
 
     /**
+     * The scaling configuration changes that are pending for the Memcached cluster.
+     *
+     * @var ScaleConfig|null
+     */
+    private $scaleConfig;
+
+    /**
      * @param array{
      *   NumCacheNodes?: null|int,
      *   CacheNodeIdsToRemove?: null|string[],
@@ -80,6 +87,7 @@ final class PendingModifiedValues
      *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
      *   TransitEncryptionEnabled?: null|bool,
      *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     *   ScaleConfig?: null|ScaleConfig|array,
      * } $input
      */
     public function __construct(array $input)
@@ -92,6 +100,7 @@ final class PendingModifiedValues
         $this->logDeliveryConfigurations = isset($input['LogDeliveryConfigurations']) ? array_map([PendingLogDeliveryConfiguration::class, 'create'], $input['LogDeliveryConfigurations']) : null;
         $this->transitEncryptionEnabled = $input['TransitEncryptionEnabled'] ?? null;
         $this->transitEncryptionMode = $input['TransitEncryptionMode'] ?? null;
+        $this->scaleConfig = isset($input['ScaleConfig']) ? ScaleConfig::create($input['ScaleConfig']) : null;
     }
 
     /**
@@ -104,6 +113,7 @@ final class PendingModifiedValues
      *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
      *   TransitEncryptionEnabled?: null|bool,
      *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     *   ScaleConfig?: null|ScaleConfig|array,
      * }|PendingModifiedValues $input
      */
     public static function create($input): self
@@ -148,6 +158,11 @@ final class PendingModifiedValues
     public function getNumCacheNodes(): ?int
     {
         return $this->numCacheNodes;
+    }
+
+    public function getScaleConfig(): ?ScaleConfig
+    {
+        return $this->scaleConfig;
     }
 
     public function getTransitEncryptionEnabled(): ?bool

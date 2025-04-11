@@ -19,6 +19,7 @@ use AsyncAws\ElastiCache\ValueObject\LogDeliveryConfiguration;
 use AsyncAws\ElastiCache\ValueObject\NotificationConfiguration;
 use AsyncAws\ElastiCache\ValueObject\PendingLogDeliveryConfiguration;
 use AsyncAws\ElastiCache\ValueObject\PendingModifiedValues;
+use AsyncAws\ElastiCache\ValueObject\ScaleConfig;
 use AsyncAws\ElastiCache\ValueObject\SecurityGroupMembership;
 
 /**
@@ -331,6 +332,15 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
             'LogDeliveryConfigurations' => (0 === ($v = $xml->LogDeliveryConfigurations)->count()) ? null : $this->populateResultPendingLogDeliveryConfigurationList($v),
             'TransitEncryptionEnabled' => (null !== $v = $xml->TransitEncryptionEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (string) $v : null,
+            'ScaleConfig' => 0 === $xml->ScaleConfig->count() ? null : $this->populateResultScaleConfig($xml->ScaleConfig),
+        ]);
+    }
+
+    private function populateResultScaleConfig(\SimpleXMLElement $xml): ScaleConfig
+    {
+        return new ScaleConfig([
+            'ScalePercentage' => (null !== $v = $xml->ScalePercentage[0]) ? (int) (string) $v : null,
+            'ScaleIntervalMinutes' => (null !== $v = $xml->ScaleIntervalMinutes[0]) ? (int) (string) $v : null,
         ]);
     }
 

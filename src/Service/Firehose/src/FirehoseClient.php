@@ -263,6 +263,13 @@ class FirehoseClient extends AbstractApi
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://firehose.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'firehose',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://firehose.us-isob-east-1.sc2s.sgov.gov',

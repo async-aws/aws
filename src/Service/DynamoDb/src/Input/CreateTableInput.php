@@ -107,7 +107,9 @@ final class CreateTableInput extends Input
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
      *     The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must
      *     not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct
-     *     attributes when determining the total.
+     *     attributes when determining the total. This limit only applies when you specify the ProjectionType of `INCLUDE`.
+     *     You still can specify the ProjectionType of `ALL` to project all attributes from the source table, even if the
+     *     table has more than 100 attributes.
      *
      * @var LocalSecondaryIndex[]|null
      */
@@ -133,7 +135,9 @@ final class CreateTableInput extends Input
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
      *     The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must
      *     not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct
-     *     attributes when determining the total.
+     *     attributes when determining the total. This limit only applies when you specify the ProjectionType of `INCLUDE`.
+     *     You still can specify the ProjectionType of `ALL` to project all attributes from the source table, even if the
+     *     table has more than 100 attributes.
      *
      * - `ProvisionedThroughput` - The provisioned throughput settings for the global secondary index, consisting of read
      *   and write capacity units.
@@ -146,13 +150,13 @@ final class CreateTableInput extends Input
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed
      * later.
      *
-     * - `PROVISIONED` - We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to
-     *   Provisioned capacity mode [^1].
-     * - `PAY_PER_REQUEST` - We recommend using `PAY_PER_REQUEST` for unpredictable workloads. `PAY_PER_REQUEST` sets the
-     *   billing mode to On-demand capacity mode [^2].
+     * - `PAY_PER_REQUEST` - We recommend using `PAY_PER_REQUEST` for most DynamoDB workloads. `PAY_PER_REQUEST` sets the
+     *   billing mode to On-demand capacity mode [^1].
+     * - `PROVISIONED` - We recommend using `PROVISIONED` for steady workloads with predictable growth where capacity
+     *   requirements can be reliably forecasted. `PROVISIONED` sets the billing mode to Provisioned capacity mode [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html
-     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html
      *
      * @var BillingMode::*|null
      */

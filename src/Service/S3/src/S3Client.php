@@ -3350,6 +3350,13 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://s3.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://s3.us-isob-east-1.sc2s.sgov.gov',

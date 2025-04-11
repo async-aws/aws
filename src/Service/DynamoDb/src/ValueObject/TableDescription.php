@@ -150,7 +150,9 @@ final class TableDescription
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
      *     The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must
      *     not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct
-     *     attributes when determining the total.
+     *     attributes when determining the total. This limit only applies when you specify the ProjectionType of `INCLUDE`.
+     *     You still can specify the ProjectionType of `ALL` to project all attributes from the source table, even if the
+     *     table has more than 100 attributes.
      *
      * - `IndexSizeBytes` - Represents the total size of the index, in bytes. DynamoDB updates this value approximately
      *   every six hours. Recent changes might not be reflected in this value.
@@ -203,7 +205,9 @@ final class TableDescription
      *   - `NonKeyAttributes` - A list of one or more non-key attribute names that are projected into the secondary index.
      *     The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must
      *     not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct
-     *     attributes when determining the total.
+     *     attributes when determining the total. This limit only applies when you specify the ProjectionType of `INCLUDE`.
+     *     You still can specify the ProjectionType of `ALL` to project all attributes from the source table, even if the
+     *     table has more than 100 attributes.
      *
      * - `ProvisionedThroughput` - The provisioned throughput settings for the global secondary index, consisting of read
      *   and write capacity units, along with data about increases and decreases.

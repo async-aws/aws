@@ -995,6 +995,13 @@ class SqsClient extends AbstractApi
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://sqs.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-iso-east-1':
             case 'us-iso-east-1':
                 return [
