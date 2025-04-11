@@ -4,7 +4,8 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS enhancement: Documentation update for secondary indexes and Create_Table.
+- AWS api-change: Added `eu-isoe-west-1` region
 
 ### Changed
 
