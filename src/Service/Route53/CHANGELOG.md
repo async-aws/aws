@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added us-gov-east-1 and us-gov-west-1 as valid Latency Based Routing regions for change-resource-record-sets.
+- AWS api-change: Added `eu-isoe-west-1` region
 
 ### Changed
 

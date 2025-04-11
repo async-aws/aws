@@ -7,7 +7,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * A condition specified in the operation could not be evaluated.
+ * A condition specified in the operation failed to be evaluated.
  */
 final class ConditionalCheckFailedException extends ClientException
 {

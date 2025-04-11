@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `eu-isoe-west-1` and `eu-isoe-west-1-fips` regions
+
 ### Changed
 
 - Sort exception alphabetically.

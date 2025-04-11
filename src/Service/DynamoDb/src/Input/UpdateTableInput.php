@@ -47,13 +47,13 @@ final class UpdateTableInput extends Input
      * capacity values are estimated based on the consumed read and write capacity of your table and global secondary
      * indexes over the past 30 minutes.
      *
-     * - `PROVISIONED` - We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to
-     *   Provisioned capacity mode [^1].
-     * - `PAY_PER_REQUEST` - We recommend using `PAY_PER_REQUEST` for unpredictable workloads. `PAY_PER_REQUEST` sets the
-     *   billing mode to On-demand capacity mode [^2].
+     * - `PAY_PER_REQUEST` - We recommend using `PAY_PER_REQUEST` for most DynamoDB workloads. `PAY_PER_REQUEST` sets the
+     *   billing mode to On-demand capacity mode [^1].
+     * - `PROVISIONED` - We recommend using `PROVISIONED` for steady workloads with predictable growth where capacity
+     *   requirements can be reliably forecasted. `PROVISIONED` sets the billing mode to Provisioned capacity mode [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html
-     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html
      *
      * @var BillingMode::*|null
      */
@@ -141,7 +141,7 @@ final class UpdateTableInput extends Input
      * If you don't specify this parameter, the global table consistency mode defaults to `EVENTUAL`.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicationGroupUpdate.html#DDB-Type-ReplicationGroupUpdate-Create
-     * [^2]: https://docs.aws.amazon.com/https:/docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#DDB-UpdateTable-request-ReplicaUpdates
+     * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#DDB-UpdateTable-request-ReplicaUpdates
      * [^3]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PreviewFeatures.html#multi-region-strong-consistency-gt
      *
      * @var MultiRegionConsistency::*|null

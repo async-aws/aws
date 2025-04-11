@@ -1375,10 +1375,24 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://kms.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://kms.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-isoe-west-1-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];

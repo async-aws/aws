@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add support for ScaleConfig
+- AWS api-change: Added `eu-isoe-west-1` region
+
 ### Changed
 
 - Sort exception alphabetically.
