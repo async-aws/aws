@@ -86,18 +86,18 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreatePlatformEndpointInput $input
      *
-     * @throws InvalidParameterException
-     * @throws InternalErrorException
      * @throws AuthorizationErrorException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
      * @throws NotFoundException
      */
     public function createPlatformEndpoint($input): CreateEndpointResponse
     {
         $input = CreatePlatformEndpointInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreatePlatformEndpoint', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'InternalError' => InternalErrorException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
             'NotFound' => NotFoundException::class,
         ]]));
 
@@ -123,29 +123,29 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateTopicInput $input
      *
-     * @throws InvalidParameterException
-     * @throws TopicLimitExceededException
-     * @throws InternalErrorException
      * @throws AuthorizationErrorException
-     * @throws InvalidSecurityException
-     * @throws TagLimitExceededException
-     * @throws StaleTagException
-     * @throws TagPolicyException
      * @throws ConcurrentAccessException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
+     * @throws InvalidSecurityException
+     * @throws StaleTagException
+     * @throws TagLimitExceededException
+     * @throws TagPolicyException
+     * @throws TopicLimitExceededException
      */
     public function createTopic($input): CreateTopicResponse
     {
         $input = CreateTopicInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateTopic', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'TopicLimitExceeded' => TopicLimitExceededException::class,
-            'InternalError' => InternalErrorException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
-            'InvalidSecurity' => InvalidSecurityException::class,
-            'TagLimitExceeded' => TagLimitExceededException::class,
-            'StaleTag' => StaleTagException::class,
-            'TagPolicy' => TagPolicyException::class,
             'ConcurrentAccess' => ConcurrentAccessException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'StaleTag' => StaleTagException::class,
+            'TagLimitExceeded' => TagLimitExceededException::class,
+            'TagPolicy' => TagPolicyException::class,
+            'TopicLimitExceeded' => TopicLimitExceededException::class,
         ]]));
 
         return new CreateTopicResponse($response);
@@ -168,17 +168,17 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteEndpointInput $input
      *
-     * @throws InvalidParameterException
-     * @throws InternalErrorException
      * @throws AuthorizationErrorException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
      */
     public function deleteEndpoint($input): Result
     {
         $input = DeleteEndpointInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteEndpoint', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'InternalError' => InternalErrorException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
         ]]));
 
         return new Result($response);
@@ -197,27 +197,27 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteTopicInput $input
      *
+     * @throws AuthorizationErrorException
+     * @throws ConcurrentAccessException
+     * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws InvalidStateException
-     * @throws InternalErrorException
-     * @throws AuthorizationErrorException
      * @throws NotFoundException
      * @throws StaleTagException
      * @throws TagPolicyException
-     * @throws ConcurrentAccessException
      */
     public function deleteTopic($input): Result
     {
         $input = DeleteTopicInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteTopic', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AuthorizationError' => AuthorizationErrorException::class,
+            'ConcurrentAccess' => ConcurrentAccessException::class,
+            'InternalError' => InternalErrorException::class,
             'InvalidParameter' => InvalidParameterException::class,
             'InvalidState' => InvalidStateException::class,
-            'InternalError' => InternalErrorException::class,
-            'AuthorizationError' => AuthorizationErrorException::class,
             'NotFound' => NotFoundException::class,
             'StaleTag' => StaleTagException::class,
             'TagPolicy' => TagPolicyException::class,
-            'ConcurrentAccess' => ConcurrentAccessException::class,
         ]]));
 
         return new Result($response);
@@ -239,19 +239,19 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListSubscriptionsByTopicInput $input
      *
-     * @throws InvalidParameterException
-     * @throws InternalErrorException
-     * @throws NotFoundException
      * @throws AuthorizationErrorException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
+     * @throws NotFoundException
      */
     public function listSubscriptionsByTopic($input): ListSubscriptionsByTopicResponse
     {
         $input = ListSubscriptionsByTopicInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListSubscriptionsByTopic', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'InternalError' => InternalErrorException::class,
-            'NotFound' => NotFoundException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
+            'NotFound' => NotFoundException::class,
         ]]));
 
         return new ListSubscriptionsByTopicResponse($response, $this, $input);
@@ -272,17 +272,17 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListTopicsInput $input
      *
-     * @throws InvalidParameterException
-     * @throws InternalErrorException
      * @throws AuthorizationErrorException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
      */
     public function listTopics($input = []): ListTopicsResponse
     {
         $input = ListTopicsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTopics', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'InternalError' => InternalErrorException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
         ]]));
 
         return new ListTopicsResponse($response, $this, $input);
@@ -324,40 +324,40 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PublishInput $input
      *
+     * @throws AuthorizationErrorException
+     * @throws EndpointDisabledException
+     * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws InvalidParameterValueException
-     * @throws InternalErrorException
-     * @throws NotFoundException
-     * @throws EndpointDisabledException
-     * @throws PlatformApplicationDisabledException
-     * @throws AuthorizationErrorException
+     * @throws InvalidSecurityException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
-     * @throws KMSAccessDeniedException
-     * @throws InvalidSecurityException
+     * @throws NotFoundException
+     * @throws PlatformApplicationDisabledException
      * @throws ValidationException
      */
     public function publish($input): PublishResponse
     {
         $input = PublishInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Publish', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AuthorizationError' => AuthorizationErrorException::class,
+            'EndpointDisabled' => EndpointDisabledException::class,
+            'InternalError' => InternalErrorException::class,
             'InvalidParameter' => InvalidParameterException::class,
             'ParameterValueInvalid' => InvalidParameterValueException::class,
-            'InternalError' => InternalErrorException::class,
-            'NotFound' => NotFoundException::class,
-            'EndpointDisabled' => EndpointDisabledException::class,
-            'PlatformApplicationDisabled' => PlatformApplicationDisabledException::class,
-            'AuthorizationError' => AuthorizationErrorException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'KMSAccessDenied' => KMSAccessDeniedException::class,
             'KMSDisabled' => KMSDisabledException::class,
             'KMSInvalidState' => KMSInvalidStateException::class,
             'KMSNotFound' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottling' => KMSThrottlingException::class,
-            'KMSAccessDenied' => KMSAccessDeniedException::class,
-            'InvalidSecurity' => InvalidSecurityException::class,
+            'NotFound' => NotFoundException::class,
+            'PlatformApplicationDisabled' => PlatformApplicationDisabledException::class,
             'ValidationException' => ValidationException::class,
         ]]));
 
@@ -398,50 +398,50 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PublishBatchInput $input
      *
-     * @throws InvalidParameterException
-     * @throws InvalidParameterValueException
-     * @throws InternalErrorException
-     * @throws NotFoundException
-     * @throws EndpointDisabledException
-     * @throws PlatformApplicationDisabledException
      * @throws AuthorizationErrorException
      * @throws BatchEntryIdsNotDistinctException
      * @throws BatchRequestTooLongException
      * @throws EmptyBatchRequestException
+     * @throws EndpointDisabledException
+     * @throws InternalErrorException
      * @throws InvalidBatchEntryIdException
-     * @throws TooManyEntriesInBatchRequestException
+     * @throws InvalidParameterException
+     * @throws InvalidParameterValueException
+     * @throws InvalidSecurityException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
-     * @throws KMSAccessDeniedException
-     * @throws InvalidSecurityException
+     * @throws NotFoundException
+     * @throws PlatformApplicationDisabledException
+     * @throws TooManyEntriesInBatchRequestException
      * @throws ValidationException
      */
     public function publishBatch($input): PublishBatchResponse
     {
         $input = PublishBatchInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PublishBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'ParameterValueInvalid' => InvalidParameterValueException::class,
-            'InternalError' => InternalErrorException::class,
-            'NotFound' => NotFoundException::class,
-            'EndpointDisabled' => EndpointDisabledException::class,
-            'PlatformApplicationDisabled' => PlatformApplicationDisabledException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
             'BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
             'BatchRequestTooLong' => BatchRequestTooLongException::class,
             'EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'EndpointDisabled' => EndpointDisabledException::class,
+            'InternalError' => InternalErrorException::class,
             'InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
-            'TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'InvalidParameter' => InvalidParameterException::class,
+            'ParameterValueInvalid' => InvalidParameterValueException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'KMSAccessDenied' => KMSAccessDeniedException::class,
             'KMSDisabled' => KMSDisabledException::class,
             'KMSInvalidState' => KMSInvalidStateException::class,
             'KMSNotFound' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottling' => KMSThrottlingException::class,
-            'KMSAccessDenied' => KMSAccessDeniedException::class,
-            'InvalidSecurity' => InvalidSecurityException::class,
+            'NotFound' => NotFoundException::class,
+            'PlatformApplicationDisabled' => PlatformApplicationDisabledException::class,
+            'TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
             'ValidationException' => ValidationException::class,
         ]]));
 
@@ -470,27 +470,27 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SubscribeInput $input
      *
-     * @throws SubscriptionLimitExceededException
-     * @throws FilterPolicyLimitExceededException
-     * @throws ReplayLimitExceededException
-     * @throws InvalidParameterException
-     * @throws InternalErrorException
-     * @throws NotFoundException
      * @throws AuthorizationErrorException
+     * @throws FilterPolicyLimitExceededException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
      * @throws InvalidSecurityException
+     * @throws NotFoundException
+     * @throws ReplayLimitExceededException
+     * @throws SubscriptionLimitExceededException
      */
     public function subscribe($input): SubscribeResponse
     {
         $input = SubscribeInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Subscribe', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'SubscriptionLimitExceeded' => SubscriptionLimitExceededException::class,
-            'FilterPolicyLimitExceeded' => FilterPolicyLimitExceededException::class,
-            'ReplayLimitExceeded' => ReplayLimitExceededException::class,
-            'InvalidParameter' => InvalidParameterException::class,
-            'InternalError' => InternalErrorException::class,
-            'NotFound' => NotFoundException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
+            'FilterPolicyLimitExceeded' => FilterPolicyLimitExceededException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
             'InvalidSecurity' => InvalidSecurityException::class,
+            'NotFound' => NotFoundException::class,
+            'ReplayLimitExceeded' => ReplayLimitExceededException::class,
+            'SubscriptionLimitExceeded' => SubscriptionLimitExceededException::class,
         ]]));
 
         return new SubscribeResponse($response);
@@ -516,21 +516,21 @@ class SnsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UnsubscribeInput $input
      *
-     * @throws InvalidParameterException
-     * @throws InternalErrorException
      * @throws AuthorizationErrorException
-     * @throws NotFoundException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
      * @throws InvalidSecurityException
+     * @throws NotFoundException
      */
     public function unsubscribe($input): Result
     {
         $input = UnsubscribeInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Unsubscribe', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameter' => InvalidParameterException::class,
-            'InternalError' => InternalErrorException::class,
             'AuthorizationError' => AuthorizationErrorException::class,
-            'NotFound' => NotFoundException::class,
+            'InternalError' => InternalErrorException::class,
+            'InvalidParameter' => InvalidParameterException::class,
             'InvalidSecurity' => InvalidSecurityException::class,
+            'NotFound' => NotFoundException::class,
         ]]));
 
         return new Result($response);

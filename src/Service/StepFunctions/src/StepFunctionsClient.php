@@ -59,23 +59,23 @@ class StepFunctionsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SendTaskFailureInput $input
      *
-     * @throws TaskDoesNotExistException
      * @throws InvalidTokenException
-     * @throws TaskTimedOutException
      * @throws KmsAccessDeniedException
      * @throws KmsInvalidStateException
      * @throws KmsThrottlingException
+     * @throws TaskDoesNotExistException
+     * @throws TaskTimedOutException
      */
     public function sendTaskFailure($input): SendTaskFailureOutput
     {
         $input = SendTaskFailureInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendTaskFailure', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'TaskDoesNotExist' => TaskDoesNotExistException::class,
             'InvalidToken' => InvalidTokenException::class,
-            'TaskTimedOut' => TaskTimedOutException::class,
             'KmsAccessDeniedException' => KmsAccessDeniedException::class,
             'KmsInvalidStateException' => KmsInvalidStateException::class,
             'KmsThrottlingException' => KmsThrottlingException::class,
+            'TaskDoesNotExist' => TaskDoesNotExistException::class,
+            'TaskTimedOut' => TaskTimedOutException::class,
         ]]));
 
         return new SendTaskFailureOutput($response);
@@ -106,16 +106,16 @@ class StepFunctionsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SendTaskHeartbeatInput $input
      *
-     * @throws TaskDoesNotExistException
      * @throws InvalidTokenException
+     * @throws TaskDoesNotExistException
      * @throws TaskTimedOutException
      */
     public function sendTaskHeartbeat($input): SendTaskHeartbeatOutput
     {
         $input = SendTaskHeartbeatInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendTaskHeartbeat', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'TaskDoesNotExist' => TaskDoesNotExistException::class,
             'InvalidToken' => InvalidTokenException::class,
+            'TaskDoesNotExist' => TaskDoesNotExistException::class,
             'TaskTimedOut' => TaskTimedOutException::class,
         ]]));
 
@@ -138,25 +138,25 @@ class StepFunctionsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SendTaskSuccessInput $input
      *
-     * @throws TaskDoesNotExistException
      * @throws InvalidOutputException
      * @throws InvalidTokenException
-     * @throws TaskTimedOutException
      * @throws KmsAccessDeniedException
      * @throws KmsInvalidStateException
      * @throws KmsThrottlingException
+     * @throws TaskDoesNotExistException
+     * @throws TaskTimedOutException
      */
     public function sendTaskSuccess($input): SendTaskSuccessOutput
     {
         $input = SendTaskSuccessInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendTaskSuccess', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'TaskDoesNotExist' => TaskDoesNotExistException::class,
             'InvalidOutput' => InvalidOutputException::class,
             'InvalidToken' => InvalidTokenException::class,
-            'TaskTimedOut' => TaskTimedOutException::class,
             'KmsAccessDeniedException' => KmsAccessDeniedException::class,
             'KmsInvalidStateException' => KmsInvalidStateException::class,
             'KmsThrottlingException' => KmsThrottlingException::class,
+            'TaskDoesNotExist' => TaskDoesNotExistException::class,
+            'TaskTimedOut' => TaskTimedOutException::class,
         ]]));
 
         return new SendTaskSuccessOutput($response);
@@ -216,33 +216,33 @@ class StepFunctionsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|StartExecutionInput $input
      *
-     * @throws ExecutionLimitExceededException
      * @throws ExecutionAlreadyExistsException
+     * @throws ExecutionLimitExceededException
      * @throws InvalidArnException
      * @throws InvalidExecutionInputException
      * @throws InvalidNameException
-     * @throws StateMachineDoesNotExistException
-     * @throws StateMachineDeletingException
-     * @throws ValidationException
      * @throws KmsAccessDeniedException
      * @throws KmsInvalidStateException
      * @throws KmsThrottlingException
+     * @throws StateMachineDeletingException
+     * @throws StateMachineDoesNotExistException
+     * @throws ValidationException
      */
     public function startExecution($input): StartExecutionOutput
     {
         $input = StartExecutionInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StartExecution', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ExecutionLimitExceeded' => ExecutionLimitExceededException::class,
             'ExecutionAlreadyExists' => ExecutionAlreadyExistsException::class,
+            'ExecutionLimitExceeded' => ExecutionLimitExceededException::class,
             'InvalidArn' => InvalidArnException::class,
             'InvalidExecutionInput' => InvalidExecutionInputException::class,
             'InvalidName' => InvalidNameException::class,
-            'StateMachineDoesNotExist' => StateMachineDoesNotExistException::class,
-            'StateMachineDeleting' => StateMachineDeletingException::class,
-            'ValidationException' => ValidationException::class,
             'KmsAccessDeniedException' => KmsAccessDeniedException::class,
             'KmsInvalidStateException' => KmsInvalidStateException::class,
             'KmsThrottlingException' => KmsThrottlingException::class,
+            'StateMachineDeleting' => StateMachineDeletingException::class,
+            'StateMachineDoesNotExist' => StateMachineDoesNotExistException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new StartExecutionOutput($response);
@@ -271,10 +271,10 @@ class StepFunctionsClient extends AbstractApi
      *
      * @throws ExecutionDoesNotExistException
      * @throws InvalidArnException
-     * @throws ValidationException
      * @throws KmsAccessDeniedException
      * @throws KmsInvalidStateException
      * @throws KmsThrottlingException
+     * @throws ValidationException
      */
     public function stopExecution($input): StopExecutionOutput
     {
@@ -282,10 +282,10 @@ class StepFunctionsClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StopExecution', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ExecutionDoesNotExist' => ExecutionDoesNotExistException::class,
             'InvalidArn' => InvalidArnException::class,
-            'ValidationException' => ValidationException::class,
             'KmsAccessDeniedException' => KmsAccessDeniedException::class,
             'KmsInvalidStateException' => KmsInvalidStateException::class,
             'KmsThrottlingException' => KmsThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new StopExecutionOutput($response);

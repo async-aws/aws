@@ -93,45 +93,45 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateRepositoryInput $input
      *
-     * @throws RepositoryNameExistsException
-     * @throws RepositoryNameRequiredException
-     * @throws InvalidRepositoryNameException
-     * @throws InvalidRepositoryDescriptionException
-     * @throws RepositoryLimitExceededException
-     * @throws OperationNotAllowedException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
-     * @throws EncryptionKeyNotFoundException
-     * @throws EncryptionKeyUnavailableException
      * @throws EncryptionKeyInvalidIdException
      * @throws EncryptionKeyInvalidUsageException
-     * @throws InvalidTagsMapException
-     * @throws TooManyTagsException
+     * @throws EncryptionKeyNotFoundException
+     * @throws EncryptionKeyUnavailableException
+     * @throws InvalidRepositoryDescriptionException
+     * @throws InvalidRepositoryNameException
      * @throws InvalidSystemTagUsageException
+     * @throws InvalidTagsMapException
+     * @throws OperationNotAllowedException
+     * @throws RepositoryLimitExceededException
+     * @throws RepositoryNameExistsException
+     * @throws RepositoryNameRequiredException
      * @throws TagPolicyException
+     * @throws TooManyTagsException
      */
     public function createRepository($input): CreateRepositoryOutput
     {
         $input = CreateRepositoryInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateRepository', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryNameExistsException' => RepositoryNameExistsException::class,
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
-            'InvalidRepositoryDescriptionException' => InvalidRepositoryDescriptionException::class,
-            'RepositoryLimitExceededException' => RepositoryLimitExceededException::class,
-            'OperationNotAllowedException' => OperationNotAllowedException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
-            'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
-            'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
             'EncryptionKeyInvalidIdException' => EncryptionKeyInvalidIdException::class,
             'EncryptionKeyInvalidUsageException' => EncryptionKeyInvalidUsageException::class,
-            'InvalidTagsMapException' => InvalidTagsMapException::class,
-            'TooManyTagsException' => TooManyTagsException::class,
+            'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
+            'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidRepositoryDescriptionException' => InvalidRepositoryDescriptionException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
             'InvalidSystemTagUsageException' => InvalidSystemTagUsageException::class,
+            'InvalidTagsMapException' => InvalidTagsMapException::class,
+            'OperationNotAllowedException' => OperationNotAllowedException::class,
+            'RepositoryLimitExceededException' => RepositoryLimitExceededException::class,
+            'RepositoryNameExistsException' => RepositoryNameExistsException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
             'TagPolicyException' => TagPolicyException::class,
+            'TooManyTagsException' => TooManyTagsException::class,
         ]]));
 
         return new CreateRepositoryOutput($response);
@@ -151,25 +151,25 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteRepositoryInput $input
      *
-     * @throws RepositoryNameRequiredException
-     * @throws InvalidRepositoryNameException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
+     * @throws InvalidRepositoryNameException
+     * @throws RepositoryNameRequiredException
      */
     public function deleteRepository($input): DeleteRepositoryOutput
     {
         $input = DeleteRepositoryInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteRepository', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
         ]]));
 
         return new DeleteRepositoryOutput($response);
@@ -187,35 +187,35 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetBlobInput $input
      *
-     * @throws RepositoryNameRequiredException
-     * @throws InvalidRepositoryNameException
-     * @throws RepositoryDoesNotExistException
-     * @throws BlobIdRequiredException
-     * @throws InvalidBlobIdException
      * @throws BlobIdDoesNotExistException
+     * @throws BlobIdRequiredException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
      * @throws FileTooLargeException
+     * @throws InvalidBlobIdException
+     * @throws InvalidRepositoryNameException
+     * @throws RepositoryDoesNotExistException
+     * @throws RepositoryNameRequiredException
      */
     public function getBlob($input): GetBlobOutput
     {
         $input = GetBlobInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBlob', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
-            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
-            'BlobIdRequiredException' => BlobIdRequiredException::class,
-            'InvalidBlobIdException' => InvalidBlobIdException::class,
             'BlobIdDoesNotExistException' => BlobIdDoesNotExistException::class,
+            'BlobIdRequiredException' => BlobIdRequiredException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
             'FileTooLargeException' => FileTooLargeException::class,
+            'InvalidBlobIdException' => InvalidBlobIdException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
         ]]));
 
         return new GetBlobOutput($response);
@@ -233,33 +233,33 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetBranchInput $input
      *
-     * @throws RepositoryNameRequiredException
-     * @throws RepositoryDoesNotExistException
-     * @throws InvalidRepositoryNameException
-     * @throws BranchNameRequiredException
-     * @throws InvalidBranchNameException
      * @throws BranchDoesNotExistException
+     * @throws BranchNameRequiredException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
+     * @throws InvalidBranchNameException
+     * @throws InvalidRepositoryNameException
+     * @throws RepositoryDoesNotExistException
+     * @throws RepositoryNameRequiredException
      */
     public function getBranch($input = []): GetBranchOutput
     {
         $input = GetBranchInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBranch', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
-            'BranchNameRequiredException' => BranchNameRequiredException::class,
-            'InvalidBranchNameException' => InvalidBranchNameException::class,
             'BranchDoesNotExistException' => BranchDoesNotExistException::class,
+            'BranchNameRequiredException' => BranchNameRequiredException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidBranchNameException' => InvalidBranchNameException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
         ]]));
 
         return new GetBranchOutput($response);
@@ -277,33 +277,33 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetCommitInput $input
      *
-     * @throws RepositoryNameRequiredException
-     * @throws InvalidRepositoryNameException
-     * @throws RepositoryDoesNotExistException
-     * @throws CommitIdRequiredException
-     * @throws InvalidCommitIdException
      * @throws CommitIdDoesNotExistException
+     * @throws CommitIdRequiredException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
+     * @throws InvalidCommitIdException
+     * @throws InvalidRepositoryNameException
+     * @throws RepositoryDoesNotExistException
+     * @throws RepositoryNameRequiredException
      */
     public function getCommit($input): GetCommitOutput
     {
         $input = GetCommitInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCommit', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
-            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
-            'CommitIdRequiredException' => CommitIdRequiredException::class,
-            'InvalidCommitIdException' => InvalidCommitIdException::class,
             'CommitIdDoesNotExistException' => CommitIdDoesNotExistException::class,
+            'CommitIdRequiredException' => CommitIdRequiredException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidCommitIdException' => InvalidCommitIdException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
         ]]));
 
         return new GetCommitOutput($response);
@@ -327,43 +327,43 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetDifferencesInput $input
      *
-     * @throws RepositoryNameRequiredException
-     * @throws RepositoryDoesNotExistException
-     * @throws InvalidRepositoryNameException
-     * @throws InvalidContinuationTokenException
-     * @throws InvalidMaxResultsException
-     * @throws InvalidCommitIdException
-     * @throws CommitRequiredException
-     * @throws InvalidCommitException
      * @throws CommitDoesNotExistException
-     * @throws InvalidPathException
-     * @throws PathDoesNotExistException
+     * @throws CommitRequiredException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
+     * @throws InvalidCommitException
+     * @throws InvalidCommitIdException
+     * @throws InvalidContinuationTokenException
+     * @throws InvalidMaxResultsException
+     * @throws InvalidPathException
+     * @throws InvalidRepositoryNameException
+     * @throws PathDoesNotExistException
+     * @throws RepositoryDoesNotExistException
+     * @throws RepositoryNameRequiredException
      */
     public function getDifferences($input): GetDifferencesOutput
     {
         $input = GetDifferencesInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetDifferences', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
-            'InvalidContinuationTokenException' => InvalidContinuationTokenException::class,
-            'InvalidMaxResultsException' => InvalidMaxResultsException::class,
-            'InvalidCommitIdException' => InvalidCommitIdException::class,
-            'CommitRequiredException' => CommitRequiredException::class,
-            'InvalidCommitException' => InvalidCommitException::class,
             'CommitDoesNotExistException' => CommitDoesNotExistException::class,
-            'InvalidPathException' => InvalidPathException::class,
-            'PathDoesNotExistException' => PathDoesNotExistException::class,
+            'CommitRequiredException' => CommitRequiredException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidCommitException' => InvalidCommitException::class,
+            'InvalidCommitIdException' => InvalidCommitIdException::class,
+            'InvalidContinuationTokenException' => InvalidContinuationTokenException::class,
+            'InvalidMaxResultsException' => InvalidMaxResultsException::class,
+            'InvalidPathException' => InvalidPathException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'PathDoesNotExistException' => PathDoesNotExistException::class,
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
         ]]));
 
         return new GetDifferencesOutput($response, $this, $input);
@@ -382,17 +382,17 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListRepositoriesInput $input
      *
-     * @throws InvalidSortByException
-     * @throws InvalidOrderException
      * @throws InvalidContinuationTokenException
+     * @throws InvalidOrderException
+     * @throws InvalidSortByException
      */
     public function listRepositories($input = []): ListRepositoriesOutput
     {
         $input = ListRepositoriesInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListRepositories', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidSortByException' => InvalidSortByException::class,
-            'InvalidOrderException' => InvalidOrderException::class,
             'InvalidContinuationTokenException' => InvalidContinuationTokenException::class,
+            'InvalidOrderException' => InvalidOrderException::class,
+            'InvalidSortByException' => InvalidSortByException::class,
         ]]));
 
         return new ListRepositoriesOutput($response, $this, $input);
@@ -410,53 +410,53 @@ class CodeCommitClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutRepositoryTriggersInput $input
      *
-     * @throws RepositoryDoesNotExistException
-     * @throws RepositoryNameRequiredException
-     * @throws InvalidRepositoryNameException
-     * @throws RepositoryTriggersListRequiredException
-     * @throws MaximumRepositoryTriggersExceededException
-     * @throws InvalidRepositoryTriggerNameException
-     * @throws InvalidRepositoryTriggerDestinationArnException
-     * @throws InvalidRepositoryTriggerRegionException
-     * @throws InvalidRepositoryTriggerCustomDataException
-     * @throws MaximumBranchesExceededException
-     * @throws InvalidRepositoryTriggerBranchNameException
-     * @throws InvalidRepositoryTriggerEventsException
-     * @throws RepositoryTriggerNameRequiredException
-     * @throws RepositoryTriggerDestinationArnRequiredException
-     * @throws RepositoryTriggerBranchNameListRequiredException
-     * @throws RepositoryTriggerEventsListRequiredException
      * @throws EncryptionIntegrityChecksFailedException
      * @throws EncryptionKeyAccessDeniedException
      * @throws EncryptionKeyDisabledException
      * @throws EncryptionKeyNotFoundException
      * @throws EncryptionKeyUnavailableException
+     * @throws InvalidRepositoryNameException
+     * @throws InvalidRepositoryTriggerBranchNameException
+     * @throws InvalidRepositoryTriggerCustomDataException
+     * @throws InvalidRepositoryTriggerDestinationArnException
+     * @throws InvalidRepositoryTriggerEventsException
+     * @throws InvalidRepositoryTriggerNameException
+     * @throws InvalidRepositoryTriggerRegionException
+     * @throws MaximumBranchesExceededException
+     * @throws MaximumRepositoryTriggersExceededException
+     * @throws RepositoryDoesNotExistException
+     * @throws RepositoryNameRequiredException
+     * @throws RepositoryTriggerBranchNameListRequiredException
+     * @throws RepositoryTriggerDestinationArnRequiredException
+     * @throws RepositoryTriggerEventsListRequiredException
+     * @throws RepositoryTriggerNameRequiredException
+     * @throws RepositoryTriggersListRequiredException
      */
     public function putRepositoryTriggers($input): PutRepositoryTriggersOutput
     {
         $input = PutRepositoryTriggersInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRepositoryTriggers', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
-            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
-            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
-            'RepositoryTriggersListRequiredException' => RepositoryTriggersListRequiredException::class,
-            'MaximumRepositoryTriggersExceededException' => MaximumRepositoryTriggersExceededException::class,
-            'InvalidRepositoryTriggerNameException' => InvalidRepositoryTriggerNameException::class,
-            'InvalidRepositoryTriggerDestinationArnException' => InvalidRepositoryTriggerDestinationArnException::class,
-            'InvalidRepositoryTriggerRegionException' => InvalidRepositoryTriggerRegionException::class,
-            'InvalidRepositoryTriggerCustomDataException' => InvalidRepositoryTriggerCustomDataException::class,
-            'MaximumBranchesExceededException' => MaximumBranchesExceededException::class,
-            'InvalidRepositoryTriggerBranchNameException' => InvalidRepositoryTriggerBranchNameException::class,
-            'InvalidRepositoryTriggerEventsException' => InvalidRepositoryTriggerEventsException::class,
-            'RepositoryTriggerNameRequiredException' => RepositoryTriggerNameRequiredException::class,
-            'RepositoryTriggerDestinationArnRequiredException' => RepositoryTriggerDestinationArnRequiredException::class,
-            'RepositoryTriggerBranchNameListRequiredException' => RepositoryTriggerBranchNameListRequiredException::class,
-            'RepositoryTriggerEventsListRequiredException' => RepositoryTriggerEventsListRequiredException::class,
             'EncryptionIntegrityChecksFailedException' => EncryptionIntegrityChecksFailedException::class,
             'EncryptionKeyAccessDeniedException' => EncryptionKeyAccessDeniedException::class,
             'EncryptionKeyDisabledException' => EncryptionKeyDisabledException::class,
             'EncryptionKeyNotFoundException' => EncryptionKeyNotFoundException::class,
             'EncryptionKeyUnavailableException' => EncryptionKeyUnavailableException::class,
+            'InvalidRepositoryNameException' => InvalidRepositoryNameException::class,
+            'InvalidRepositoryTriggerBranchNameException' => InvalidRepositoryTriggerBranchNameException::class,
+            'InvalidRepositoryTriggerCustomDataException' => InvalidRepositoryTriggerCustomDataException::class,
+            'InvalidRepositoryTriggerDestinationArnException' => InvalidRepositoryTriggerDestinationArnException::class,
+            'InvalidRepositoryTriggerEventsException' => InvalidRepositoryTriggerEventsException::class,
+            'InvalidRepositoryTriggerNameException' => InvalidRepositoryTriggerNameException::class,
+            'InvalidRepositoryTriggerRegionException' => InvalidRepositoryTriggerRegionException::class,
+            'MaximumBranchesExceededException' => MaximumBranchesExceededException::class,
+            'MaximumRepositoryTriggersExceededException' => MaximumRepositoryTriggersExceededException::class,
+            'RepositoryDoesNotExistException' => RepositoryDoesNotExistException::class,
+            'RepositoryNameRequiredException' => RepositoryNameRequiredException::class,
+            'RepositoryTriggerBranchNameListRequiredException' => RepositoryTriggerBranchNameListRequiredException::class,
+            'RepositoryTriggerDestinationArnRequiredException' => RepositoryTriggerDestinationArnRequiredException::class,
+            'RepositoryTriggerEventsListRequiredException' => RepositoryTriggerEventsListRequiredException::class,
+            'RepositoryTriggerNameRequiredException' => RepositoryTriggerNameRequiredException::class,
+            'RepositoryTriggersListRequiredException' => RepositoryTriggersListRequiredException::class,
         ]]));
 
         return new PutRepositoryTriggersOutput($response);

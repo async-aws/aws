@@ -39,16 +39,16 @@ class SesClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteSuppressedDestinationRequest $input
      *
-     * @throws NotFoundException
      * @throws BadRequestException
+     * @throws NotFoundException
      * @throws TooManyRequestsException
      */
     public function deleteSuppressedDestination($input): DeleteSuppressedDestinationResponse
     {
         $input = DeleteSuppressedDestinationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteSuppressedDestination', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NotFoundException' => NotFoundException::class,
             'BadRequestException' => BadRequestException::class,
+            'NotFoundException' => NotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -67,16 +67,16 @@ class SesClient extends AbstractApi
      * }|GetSuppressedDestinationRequest $input
      *
      * @throws BadRequestException
-     * @throws TooManyRequestsException
      * @throws NotFoundException
+     * @throws TooManyRequestsException
      */
     public function getSuppressedDestination($input): GetSuppressedDestinationResponse
     {
         $input = GetSuppressedDestinationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetSuppressedDestination', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'BadRequestException' => BadRequestException::class,
-            'TooManyRequestsException' => TooManyRequestsException::class,
             'NotFoundException' => NotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new GetSuppressedDestinationResponse($response);
@@ -111,27 +111,27 @@ class SesClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SendEmailRequest $input
      *
-     * @throws TooManyRequestsException
-     * @throws LimitExceededException
      * @throws AccountSuspendedException
-     * @throws SendingPausedException
-     * @throws MessageRejectedException
-     * @throws MailFromDomainNotVerifiedException
-     * @throws NotFoundException
      * @throws BadRequestException
+     * @throws LimitExceededException
+     * @throws MailFromDomainNotVerifiedException
+     * @throws MessageRejectedException
+     * @throws NotFoundException
+     * @throws SendingPausedException
+     * @throws TooManyRequestsException
      */
     public function sendEmail($input): SendEmailResponse
     {
         $input = SendEmailRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendEmail', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'TooManyRequestsException' => TooManyRequestsException::class,
-            'LimitExceededException' => LimitExceededException::class,
             'AccountSuspendedException' => AccountSuspendedException::class,
-            'SendingPausedException' => SendingPausedException::class,
-            'MessageRejected' => MessageRejectedException::class,
-            'MailFromDomainNotVerifiedException' => MailFromDomainNotVerifiedException::class,
-            'NotFoundException' => NotFoundException::class,
             'BadRequestException' => BadRequestException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'MailFromDomainNotVerifiedException' => MailFromDomainNotVerifiedException::class,
+            'MessageRejected' => MessageRejectedException::class,
+            'NotFoundException' => NotFoundException::class,
+            'SendingPausedException' => SendingPausedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
         return new SendEmailResponse($response);

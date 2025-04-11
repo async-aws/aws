@@ -34,15 +34,15 @@ class EcrClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetAuthorizationTokenRequest $input
      *
-     * @throws ServerException
      * @throws InvalidParameterException
+     * @throws ServerException
      */
     public function getAuthorizationToken($input = []): GetAuthorizationTokenResponse
     {
         $input = GetAuthorizationTokenRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetAuthorizationToken', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ServerException' => ServerException::class,
             'InvalidParameterException' => InvalidParameterException::class,
+            'ServerException' => ServerException::class,
         ]]));
 
         return new GetAuthorizationTokenResponse($response);

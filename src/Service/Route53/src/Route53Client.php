@@ -122,20 +122,20 @@ class Route53Client extends AbstractApi
      *   '@region'?: string|null,
      * }|ChangeResourceRecordSetsRequest $input
      *
-     * @throws NoSuchHostedZoneException
-     * @throws NoSuchHealthCheckException
      * @throws InvalidChangeBatchException
      * @throws InvalidInputException
+     * @throws NoSuchHealthCheckException
+     * @throws NoSuchHostedZoneException
      * @throws PriorRequestNotCompleteException
      */
     public function changeResourceRecordSets($input): ChangeResourceRecordSetsResponse
     {
         $input = ChangeResourceRecordSetsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeResourceRecordSets', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchHostedZone' => NoSuchHostedZoneException::class,
-            'NoSuchHealthCheck' => NoSuchHealthCheckException::class,
             'InvalidChangeBatch' => InvalidChangeBatchException::class,
             'InvalidInput' => InvalidInputException::class,
+            'NoSuchHealthCheck' => NoSuchHealthCheckException::class,
+            'NoSuchHostedZone' => NoSuchHostedZoneException::class,
             'PriorRequestNotComplete' => PriorRequestNotCompleteException::class,
         ]]));
 
@@ -201,29 +201,29 @@ class Route53Client extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateHostedZoneRequest $input
      *
-     * @throws InvalidDomainNameException
-     * @throws HostedZoneAlreadyExistsException
-     * @throws TooManyHostedZonesException
-     * @throws InvalidVPCIdException
-     * @throws InvalidInputException
-     * @throws DelegationSetNotAvailableException
      * @throws ConflictingDomainExistsException
-     * @throws NoSuchDelegationSetException
+     * @throws DelegationSetNotAvailableException
      * @throws DelegationSetNotReusableException
+     * @throws HostedZoneAlreadyExistsException
+     * @throws InvalidDomainNameException
+     * @throws InvalidInputException
+     * @throws InvalidVPCIdException
+     * @throws NoSuchDelegationSetException
+     * @throws TooManyHostedZonesException
      */
     public function createHostedZone($input): CreateHostedZoneResponse
     {
         $input = CreateHostedZoneRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateHostedZone', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidDomainName' => InvalidDomainNameException::class,
-            'HostedZoneAlreadyExists' => HostedZoneAlreadyExistsException::class,
-            'TooManyHostedZones' => TooManyHostedZonesException::class,
-            'InvalidVPCId' => InvalidVPCIdException::class,
-            'InvalidInput' => InvalidInputException::class,
-            'DelegationSetNotAvailable' => DelegationSetNotAvailableException::class,
             'ConflictingDomainExists' => ConflictingDomainExistsException::class,
-            'NoSuchDelegationSet' => NoSuchDelegationSetException::class,
+            'DelegationSetNotAvailable' => DelegationSetNotAvailableException::class,
             'DelegationSetNotReusable' => DelegationSetNotReusableException::class,
+            'HostedZoneAlreadyExists' => HostedZoneAlreadyExistsException::class,
+            'InvalidDomainName' => InvalidDomainNameException::class,
+            'InvalidInput' => InvalidInputException::class,
+            'InvalidVPCId' => InvalidVPCIdException::class,
+            'NoSuchDelegationSet' => NoSuchDelegationSetException::class,
+            'TooManyHostedZones' => TooManyHostedZonesException::class,
         ]]));
 
         return new CreateHostedZoneResponse($response);
@@ -277,21 +277,21 @@ class Route53Client extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteHostedZoneRequest $input
      *
-     * @throws NoSuchHostedZoneException
      * @throws HostedZoneNotEmptyException
-     * @throws PriorRequestNotCompleteException
-     * @throws InvalidInputException
      * @throws InvalidDomainNameException
+     * @throws InvalidInputException
+     * @throws NoSuchHostedZoneException
+     * @throws PriorRequestNotCompleteException
      */
     public function deleteHostedZone($input): DeleteHostedZoneResponse
     {
         $input = DeleteHostedZoneRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteHostedZone', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchHostedZone' => NoSuchHostedZoneException::class,
             'HostedZoneNotEmpty' => HostedZoneNotEmptyException::class,
-            'PriorRequestNotComplete' => PriorRequestNotCompleteException::class,
-            'InvalidInput' => InvalidInputException::class,
             'InvalidDomainName' => InvalidDomainNameException::class,
+            'InvalidInput' => InvalidInputException::class,
+            'NoSuchHostedZone' => NoSuchHostedZoneException::class,
+            'PriorRequestNotComplete' => PriorRequestNotCompleteException::class,
         ]]));
 
         return new DeleteHostedZoneResponse($response);
@@ -315,17 +315,17 @@ class Route53Client extends AbstractApi
      *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      *
+     * @throws DelegationSetNotReusableException
      * @throws InvalidInputException
      * @throws NoSuchDelegationSetException
-     * @throws DelegationSetNotReusableException
      */
     public function listHostedZones($input = []): ListHostedZonesResponse
     {
         $input = ListHostedZonesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListHostedZones', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DelegationSetNotReusable' => DelegationSetNotReusableException::class,
             'InvalidInput' => InvalidInputException::class,
             'NoSuchDelegationSet' => NoSuchDelegationSetException::class,
-            'DelegationSetNotReusable' => DelegationSetNotReusableException::class,
         ]]));
 
         return new ListHostedZonesResponse($response, $this, $input);
@@ -382,15 +382,15 @@ class Route53Client extends AbstractApi
      *   '@region'?: string|null,
      * }|ListHostedZonesByNameRequest $input
      *
-     * @throws InvalidInputException
      * @throws InvalidDomainNameException
+     * @throws InvalidInputException
      */
     public function listHostedZonesByName($input = []): ListHostedZonesByNameResponse
     {
         $input = ListHostedZonesByNameRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListHostedZonesByName', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidInput' => InvalidInputException::class,
             'InvalidDomainName' => InvalidDomainNameException::class,
+            'InvalidInput' => InvalidInputException::class,
         ]]));
 
         return new ListHostedZonesByNameResponse($response);
@@ -465,15 +465,15 @@ class Route53Client extends AbstractApi
      *   '@region'?: string|null,
      * }|ListResourceRecordSetsRequest $input
      *
-     * @throws NoSuchHostedZoneException
      * @throws InvalidInputException
+     * @throws NoSuchHostedZoneException
      */
     public function listResourceRecordSets($input): ListResourceRecordSetsResponse
     {
         $input = ListResourceRecordSetsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListResourceRecordSets', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchHostedZone' => NoSuchHostedZoneException::class,
             'InvalidInput' => InvalidInputException::class,
+            'NoSuchHostedZone' => NoSuchHostedZoneException::class,
         ]]));
 
         return new ListResourceRecordSetsResponse($response, $this, $input);
@@ -491,8 +491,8 @@ class Route53Client extends AbstractApi
     {
         $input = GetChangeRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetChange', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchChange' => NoSuchChangeException::class,
             'InvalidInput' => InvalidInputException::class,
+            'NoSuchChange' => NoSuchChangeException::class,
         ]]));
 
         return new ResourceRecordSetsChangedWaiter($response, $this, $input);

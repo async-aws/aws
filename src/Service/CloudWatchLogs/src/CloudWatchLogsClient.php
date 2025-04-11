@@ -71,9 +71,9 @@ class CloudWatchLogsClient extends AbstractApi
      * }|CreateLogGroupRequest $input
      *
      * @throws InvalidParameterException
-     * @throws ResourceAlreadyExistsException
      * @throws LimitExceededException
      * @throws OperationAbortedException
+     * @throws ResourceAlreadyExistsException
      * @throws ServiceUnavailableException
      */
     public function createLogGroup($input): Result
@@ -81,9 +81,9 @@ class CloudWatchLogsClient extends AbstractApi
         $input = CreateLogGroupRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateLogGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidParameterException' => InvalidParameterException::class,
-            'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
             'LimitExceededException' => LimitExceededException::class,
             'OperationAbortedException' => OperationAbortedException::class,
+            'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 
@@ -291,9 +291,9 @@ class CloudWatchLogsClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutLogEventsRequest $input
      *
+     * @throws DataAlreadyAcceptedException
      * @throws InvalidParameterException
      * @throws InvalidSequenceTokenException
-     * @throws DataAlreadyAcceptedException
      * @throws ResourceNotFoundException
      * @throws ServiceUnavailableException
      * @throws UnrecognizedClientException
@@ -302,9 +302,9 @@ class CloudWatchLogsClient extends AbstractApi
     {
         $input = PutLogEventsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLogEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DataAlreadyAcceptedException' => DataAlreadyAcceptedException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidSequenceTokenException' => InvalidSequenceTokenException::class,
-            'DataAlreadyAcceptedException' => DataAlreadyAcceptedException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
             'UnrecognizedClientException' => UnrecognizedClientException::class,

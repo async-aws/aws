@@ -1524,15 +1524,15 @@ class S3Client extends AbstractApi
      *   '@region'?: string|null,
      * }|GetObjectRequest $input
      *
-     * @throws NoSuchKeyException
      * @throws InvalidObjectStateException
+     * @throws NoSuchKeyException
      */
     public function getObject($input): GetObjectOutput
     {
         $input = GetObjectRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'NoSuchKey' => NoSuchKeyException::class,
             'InvalidObjectState' => InvalidObjectStateException::class,
+            'NoSuchKey' => NoSuchKeyException::class,
         ]]));
 
         return new GetObjectOutput($response);
@@ -2599,19 +2599,19 @@ class S3Client extends AbstractApi
      *   '@region'?: string|null,
      * }|PutObjectRequest $input
      *
+     * @throws EncryptionTypeMismatchException
      * @throws InvalidRequestException
      * @throws InvalidWriteOffsetException
      * @throws TooManyPartsException
-     * @throws EncryptionTypeMismatchException
      */
     public function putObject($input): PutObjectOutput
     {
         $input = PutObjectRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'EncryptionTypeMismatch' => EncryptionTypeMismatchException::class,
             'InvalidRequest' => InvalidRequestException::class,
             'InvalidWriteOffset' => InvalidWriteOffsetException::class,
             'TooManyParts' => TooManyPartsException::class,
-            'EncryptionTypeMismatch' => EncryptionTypeMismatchException::class,
         ]]));
 
         return new PutObjectOutput($response);

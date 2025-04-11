@@ -76,63 +76,63 @@ class CodeDeployClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
      *
-     * @throws ApplicationNameRequiredException
-     * @throws InvalidApplicationNameException
-     * @throws ApplicationDoesNotExistException
-     * @throws DeploymentGroupNameRequiredException
-     * @throws InvalidDeploymentGroupNameException
-     * @throws DeploymentGroupDoesNotExistException
-     * @throws RevisionRequiredException
-     * @throws RevisionDoesNotExistException
-     * @throws InvalidRevisionException
-     * @throws InvalidDeploymentConfigNameException
-     * @throws DeploymentConfigDoesNotExistException
-     * @throws DescriptionTooLongException
-     * @throws DeploymentLimitExceededException
-     * @throws InvalidTargetInstancesException
-     * @throws InvalidAlarmConfigException
      * @throws AlarmsLimitExceededException
+     * @throws ApplicationDoesNotExistException
+     * @throws ApplicationNameRequiredException
+     * @throws DeploymentConfigDoesNotExistException
+     * @throws DeploymentGroupDoesNotExistException
+     * @throws DeploymentGroupNameRequiredException
+     * @throws DeploymentLimitExceededException
+     * @throws DescriptionTooLongException
+     * @throws InvalidAlarmConfigException
+     * @throws InvalidApplicationNameException
      * @throws InvalidAutoRollbackConfigException
-     * @throws InvalidLoadBalancerInfoException
-     * @throws InvalidFileExistsBehaviorException
-     * @throws InvalidRoleException
      * @throws InvalidAutoScalingGroupException
-     * @throws ThrottlingException
-     * @throws InvalidUpdateOutdatedInstancesOnlyValueException
-     * @throws InvalidIgnoreApplicationStopFailuresValueException
+     * @throws InvalidDeploymentConfigNameException
+     * @throws InvalidDeploymentGroupNameException
+     * @throws InvalidFileExistsBehaviorException
      * @throws InvalidGitHubAccountTokenException
+     * @throws InvalidIgnoreApplicationStopFailuresValueException
+     * @throws InvalidLoadBalancerInfoException
+     * @throws InvalidRevisionException
+     * @throws InvalidRoleException
+     * @throws InvalidTargetInstancesException
      * @throws InvalidTrafficRoutingConfigurationException
+     * @throws InvalidUpdateOutdatedInstancesOnlyValueException
+     * @throws RevisionDoesNotExistException
+     * @throws RevisionRequiredException
+     * @throws ThrottlingException
      */
     public function createDeployment($input): CreateDeploymentOutput
     {
         $input = CreateDeploymentInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateDeployment', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ApplicationNameRequiredException' => ApplicationNameRequiredException::class,
-            'InvalidApplicationNameException' => InvalidApplicationNameException::class,
-            'ApplicationDoesNotExistException' => ApplicationDoesNotExistException::class,
-            'DeploymentGroupNameRequiredException' => DeploymentGroupNameRequiredException::class,
-            'InvalidDeploymentGroupNameException' => InvalidDeploymentGroupNameException::class,
-            'DeploymentGroupDoesNotExistException' => DeploymentGroupDoesNotExistException::class,
-            'RevisionRequiredException' => RevisionRequiredException::class,
-            'RevisionDoesNotExistException' => RevisionDoesNotExistException::class,
-            'InvalidRevisionException' => InvalidRevisionException::class,
-            'InvalidDeploymentConfigNameException' => InvalidDeploymentConfigNameException::class,
-            'DeploymentConfigDoesNotExistException' => DeploymentConfigDoesNotExistException::class,
-            'DescriptionTooLongException' => DescriptionTooLongException::class,
-            'DeploymentLimitExceededException' => DeploymentLimitExceededException::class,
-            'InvalidTargetInstancesException' => InvalidTargetInstancesException::class,
-            'InvalidAlarmConfigException' => InvalidAlarmConfigException::class,
             'AlarmsLimitExceededException' => AlarmsLimitExceededException::class,
+            'ApplicationDoesNotExistException' => ApplicationDoesNotExistException::class,
+            'ApplicationNameRequiredException' => ApplicationNameRequiredException::class,
+            'DeploymentConfigDoesNotExistException' => DeploymentConfigDoesNotExistException::class,
+            'DeploymentGroupDoesNotExistException' => DeploymentGroupDoesNotExistException::class,
+            'DeploymentGroupNameRequiredException' => DeploymentGroupNameRequiredException::class,
+            'DeploymentLimitExceededException' => DeploymentLimitExceededException::class,
+            'DescriptionTooLongException' => DescriptionTooLongException::class,
+            'InvalidAlarmConfigException' => InvalidAlarmConfigException::class,
+            'InvalidApplicationNameException' => InvalidApplicationNameException::class,
             'InvalidAutoRollbackConfigException' => InvalidAutoRollbackConfigException::class,
-            'InvalidLoadBalancerInfoException' => InvalidLoadBalancerInfoException::class,
-            'InvalidFileExistsBehaviorException' => InvalidFileExistsBehaviorException::class,
-            'InvalidRoleException' => InvalidRoleException::class,
             'InvalidAutoScalingGroupException' => InvalidAutoScalingGroupException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'InvalidUpdateOutdatedInstancesOnlyValueException' => InvalidUpdateOutdatedInstancesOnlyValueException::class,
-            'InvalidIgnoreApplicationStopFailuresValueException' => InvalidIgnoreApplicationStopFailuresValueException::class,
+            'InvalidDeploymentConfigNameException' => InvalidDeploymentConfigNameException::class,
+            'InvalidDeploymentGroupNameException' => InvalidDeploymentGroupNameException::class,
+            'InvalidFileExistsBehaviorException' => InvalidFileExistsBehaviorException::class,
             'InvalidGitHubAccountTokenException' => InvalidGitHubAccountTokenException::class,
+            'InvalidIgnoreApplicationStopFailuresValueException' => InvalidIgnoreApplicationStopFailuresValueException::class,
+            'InvalidLoadBalancerInfoException' => InvalidLoadBalancerInfoException::class,
+            'InvalidRevisionException' => InvalidRevisionException::class,
+            'InvalidRoleException' => InvalidRoleException::class,
+            'InvalidTargetInstancesException' => InvalidTargetInstancesException::class,
             'InvalidTrafficRoutingConfigurationException' => InvalidTrafficRoutingConfigurationException::class,
+            'InvalidUpdateOutdatedInstancesOnlyValueException' => InvalidUpdateOutdatedInstancesOnlyValueException::class,
+            'RevisionDoesNotExistException' => RevisionDoesNotExistException::class,
+            'RevisionRequiredException' => RevisionRequiredException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new CreateDeploymentOutput($response);
@@ -153,17 +153,17 @@ class CodeDeployClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetDeploymentInput $input
      *
+     * @throws DeploymentDoesNotExistException
      * @throws DeploymentIdRequiredException
      * @throws InvalidDeploymentIdException
-     * @throws DeploymentDoesNotExistException
      */
     public function getDeployment($input): GetDeploymentOutput
     {
         $input = GetDeploymentInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetDeployment', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DeploymentDoesNotExistException' => DeploymentDoesNotExistException::class,
             'DeploymentIdRequiredException' => DeploymentIdRequiredException::class,
             'InvalidDeploymentIdException' => InvalidDeploymentIdException::class,
-            'DeploymentDoesNotExistException' => DeploymentDoesNotExistException::class,
         ]]));
 
         return new GetDeploymentOutput($response);
@@ -190,24 +190,24 @@ class CodeDeployClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      *
-     * @throws InvalidLifecycleEventHookExecutionStatusException
-     * @throws InvalidLifecycleEventHookExecutionIdException
-     * @throws LifecycleEventAlreadyCompletedException
-     * @throws DeploymentIdRequiredException
      * @throws DeploymentDoesNotExistException
+     * @throws DeploymentIdRequiredException
      * @throws InvalidDeploymentIdException
+     * @throws InvalidLifecycleEventHookExecutionIdException
+     * @throws InvalidLifecycleEventHookExecutionStatusException
+     * @throws LifecycleEventAlreadyCompletedException
      * @throws UnsupportedActionForDeploymentTypeException
      */
     public function putLifecycleEventHookExecutionStatus($input = []): PutLifecycleEventHookExecutionStatusOutput
     {
         $input = PutLifecycleEventHookExecutionStatusInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLifecycleEventHookExecutionStatus', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidLifecycleEventHookExecutionStatusException' => InvalidLifecycleEventHookExecutionStatusException::class,
-            'InvalidLifecycleEventHookExecutionIdException' => InvalidLifecycleEventHookExecutionIdException::class,
-            'LifecycleEventAlreadyCompletedException' => LifecycleEventAlreadyCompletedException::class,
-            'DeploymentIdRequiredException' => DeploymentIdRequiredException::class,
             'DeploymentDoesNotExistException' => DeploymentDoesNotExistException::class,
+            'DeploymentIdRequiredException' => DeploymentIdRequiredException::class,
             'InvalidDeploymentIdException' => InvalidDeploymentIdException::class,
+            'InvalidLifecycleEventHookExecutionIdException' => InvalidLifecycleEventHookExecutionIdException::class,
+            'InvalidLifecycleEventHookExecutionStatusException' => InvalidLifecycleEventHookExecutionStatusException::class,
+            'LifecycleEventAlreadyCompletedException' => LifecycleEventAlreadyCompletedException::class,
             'UnsupportedActionForDeploymentTypeException' => UnsupportedActionForDeploymentTypeException::class,
         ]]));
 

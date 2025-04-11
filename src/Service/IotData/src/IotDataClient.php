@@ -43,26 +43,26 @@ class IotDataClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetThingShadowRequest $input
      *
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws MethodNotAllowedException
      * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
-     * @throws MethodNotAllowedException
      * @throws UnsupportedDocumentEncodingException
      */
     public function getThingShadow($input): GetThingShadowResponse
     {
         $input = GetThingShadowRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetThingShadow', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'MethodNotAllowedException' => MethodNotAllowedException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'MethodNotAllowedException' => MethodNotAllowedException::class,
             'UnsupportedDocumentEncodingException' => UnsupportedDocumentEncodingException::class,
         ]]));
 
@@ -90,13 +90,13 @@ class IotDataClient extends AbstractApi
      * }|UpdateThingShadowRequest $input
      *
      * @throws ConflictException
-     * @throws RequestEntityTooLargeException
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws MethodNotAllowedException
+     * @throws RequestEntityTooLargeException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
-     * @throws MethodNotAllowedException
      * @throws UnsupportedDocumentEncodingException
      */
     public function updateThingShadow($input): UpdateThingShadowResponse
@@ -104,13 +104,13 @@ class IotDataClient extends AbstractApi
         $input = UpdateThingShadowRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateThingShadow', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ConflictException' => ConflictException::class,
-            'RequestEntityTooLargeException' => RequestEntityTooLargeException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'MethodNotAllowedException' => MethodNotAllowedException::class,
+            'RequestEntityTooLargeException' => RequestEntityTooLargeException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'MethodNotAllowedException' => MethodNotAllowedException::class,
             'UnsupportedDocumentEncodingException' => UnsupportedDocumentEncodingException::class,
         ]]));
 

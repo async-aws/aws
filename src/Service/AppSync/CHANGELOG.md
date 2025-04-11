@@ -6,6 +6,10 @@
 
 - AWS api-change: Rework regions configuration
 
+### Changed
+
+- Sort exception alphabetically.
+
 ## 3.1.1
 
 ### Changed

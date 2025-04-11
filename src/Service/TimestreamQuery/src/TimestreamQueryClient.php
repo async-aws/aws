@@ -44,9 +44,9 @@ class TimestreamQueryClient extends AbstractApi
      *
      * @throws AccessDeniedException
      * @throws InternalServerException
+     * @throws InvalidEndpointException
      * @throws ThrottlingException
      * @throws ValidationException
-     * @throws InvalidEndpointException
      */
     public function cancelQuery($input): CancelQueryResponse
     {
@@ -54,9 +54,9 @@ class TimestreamQueryClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CancelQuery', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
+            'InvalidEndpointException' => InvalidEndpointException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
-            'InvalidEndpointException' => InvalidEndpointException::class,
         ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new CancelQueryResponse($response);
@@ -87,16 +87,16 @@ class TimestreamQueryClient extends AbstractApi
      * }|DescribeEndpointsRequest $input
      *
      * @throws InternalServerException
-     * @throws ValidationException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function describeEndpoints($input = []): DescribeEndpointsResponse
     {
         $input = DescribeEndpointsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InternalServerException' => InternalServerException::class,
-            'ValidationException' => ValidationException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new DescribeEndpointsResponse($response);
@@ -117,9 +117,9 @@ class TimestreamQueryClient extends AbstractApi
      *
      * @throws AccessDeniedException
      * @throws InternalServerException
+     * @throws InvalidEndpointException
      * @throws ThrottlingException
      * @throws ValidationException
-     * @throws InvalidEndpointException
      */
     public function prepareQuery($input): PrepareQueryResponse
     {
@@ -127,9 +127,9 @@ class TimestreamQueryClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PrepareQuery', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
+            'InvalidEndpointException' => InvalidEndpointException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
-            'InvalidEndpointException' => InvalidEndpointException::class,
         ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new PrepareQueryResponse($response);
@@ -179,10 +179,10 @@ class TimestreamQueryClient extends AbstractApi
      * @throws AccessDeniedException
      * @throws ConflictException
      * @throws InternalServerException
+     * @throws InvalidEndpointException
      * @throws QueryExecutionException
      * @throws ThrottlingException
      * @throws ValidationException
-     * @throws InvalidEndpointException
      */
     public function query($input): QueryResponse
     {
@@ -191,10 +191,10 @@ class TimestreamQueryClient extends AbstractApi
             'AccessDeniedException' => AccessDeniedException::class,
             'ConflictException' => ConflictException::class,
             'InternalServerException' => InternalServerException::class,
+            'InvalidEndpointException' => InvalidEndpointException::class,
             'QueryExecutionException' => QueryExecutionException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
-            'InvalidEndpointException' => InvalidEndpointException::class,
         ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new QueryResponse($response, $this, $input);

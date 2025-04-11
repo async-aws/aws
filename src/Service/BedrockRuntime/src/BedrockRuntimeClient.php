@@ -61,30 +61,30 @@ class BedrockRuntimeClient extends AbstractApi
      * }|InvokeModelRequest $input
      *
      * @throws AccessDeniedException
-     * @throws ResourceNotFoundException
-     * @throws ThrottlingException
-     * @throws ModelTimeoutException
      * @throws InternalServerException
-     * @throws ServiceUnavailableException
-     * @throws ValidationException
-     * @throws ModelNotReadyException
-     * @throws ServiceQuotaExceededException
      * @throws ModelErrorException
+     * @throws ModelNotReadyException
+     * @throws ModelTimeoutException
+     * @throws ResourceNotFoundException
+     * @throws ServiceQuotaExceededException
+     * @throws ServiceUnavailableException
+     * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function invokeModel($input): InvokeModelResponse
     {
         $input = InvokeModelRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'InvokeModel', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'ModelTimeoutException' => ModelTimeoutException::class,
             'InternalServerException' => InternalServerException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'ValidationException' => ValidationException::class,
-            'ModelNotReadyException' => ModelNotReadyException::class,
-            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'ModelErrorException' => ModelErrorException::class,
+            'ModelNotReadyException' => ModelNotReadyException::class,
+            'ModelTimeoutException' => ModelTimeoutException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+            'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new InvokeModelResponse($response);

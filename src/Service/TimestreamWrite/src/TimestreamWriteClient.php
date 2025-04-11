@@ -47,16 +47,16 @@ class TimestreamWriteClient extends AbstractApi
      * }|DescribeEndpointsRequest $input
      *
      * @throws InternalServerException
-     * @throws ValidationException
      * @throws ThrottlingException
+     * @throws ValidationException
      */
     public function describeEndpoints($input = []): DescribeEndpointsResponse
     {
         $input = DescribeEndpointsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InternalServerException' => InternalServerException::class,
-            'ValidationException' => ValidationException::class,
             'ThrottlingException' => ThrottlingException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new DescribeEndpointsResponse($response);
@@ -110,25 +110,25 @@ class TimestreamWriteClient extends AbstractApi
      *   '@region'?: string|null,
      * }|WriteRecordsRequest $input
      *
+     * @throws AccessDeniedException
      * @throws InternalServerException
+     * @throws InvalidEndpointException
+     * @throws RejectedRecordsException
+     * @throws ResourceNotFoundException
      * @throws ThrottlingException
      * @throws ValidationException
-     * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
-     * @throws RejectedRecordsException
-     * @throws InvalidEndpointException
      */
     public function writeRecords($input): WriteRecordsResponse
     {
         $input = WriteRecordsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'WriteRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
+            'InvalidEndpointException' => InvalidEndpointException::class,
+            'RejectedRecordsException' => RejectedRecordsException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
-            'RejectedRecordsException' => RejectedRecordsException::class,
-            'InvalidEndpointException' => InvalidEndpointException::class,
         ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new WriteRecordsResponse($response);

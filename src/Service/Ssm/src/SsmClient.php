@@ -144,15 +144,15 @@ class SsmClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetParametersRequest $input
      *
-     * @throws InvalidKeyIdException
      * @throws InternalServerErrorException
+     * @throws InvalidKeyIdException
      */
     public function getParameters($input): GetParametersResult
     {
         $input = GetParametersRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParameters', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidKeyId' => InvalidKeyIdException::class,
             'InternalServerError' => InternalServerErrorException::class,
+            'InvalidKeyId' => InvalidKeyIdException::class,
         ]]));
 
         return new GetParametersResult($response);
@@ -223,41 +223,41 @@ class SsmClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutParameterRequest $input
      *
-     * @throws InternalServerErrorException
-     * @throws InvalidKeyIdException
-     * @throws ParameterLimitExceededException
-     * @throws TooManyUpdatesException
-     * @throws ParameterAlreadyExistsException
      * @throws HierarchyLevelLimitExceededException
      * @throws HierarchyTypeMismatchException
+     * @throws IncompatiblePolicyException
+     * @throws InternalServerErrorException
      * @throws InvalidAllowedPatternException
+     * @throws InvalidKeyIdException
+     * @throws InvalidPolicyAttributeException
+     * @throws InvalidPolicyTypeException
+     * @throws ParameterAlreadyExistsException
+     * @throws ParameterLimitExceededException
      * @throws ParameterMaxVersionLimitExceededException
      * @throws ParameterPatternMismatchException
-     * @throws UnsupportedParameterTypeException
      * @throws PoliciesLimitExceededException
-     * @throws InvalidPolicyTypeException
-     * @throws InvalidPolicyAttributeException
-     * @throws IncompatiblePolicyException
+     * @throws TooManyUpdatesException
+     * @throws UnsupportedParameterTypeException
      */
     public function putParameter($input): PutParameterResult
     {
         $input = PutParameterRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutParameter', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InternalServerError' => InternalServerErrorException::class,
-            'InvalidKeyId' => InvalidKeyIdException::class,
-            'ParameterLimitExceeded' => ParameterLimitExceededException::class,
-            'TooManyUpdates' => TooManyUpdatesException::class,
-            'ParameterAlreadyExists' => ParameterAlreadyExistsException::class,
             'HierarchyLevelLimitExceededException' => HierarchyLevelLimitExceededException::class,
             'HierarchyTypeMismatchException' => HierarchyTypeMismatchException::class,
+            'IncompatiblePolicyException' => IncompatiblePolicyException::class,
+            'InternalServerError' => InternalServerErrorException::class,
             'InvalidAllowedPatternException' => InvalidAllowedPatternException::class,
+            'InvalidKeyId' => InvalidKeyIdException::class,
+            'InvalidPolicyAttributeException' => InvalidPolicyAttributeException::class,
+            'InvalidPolicyTypeException' => InvalidPolicyTypeException::class,
+            'ParameterAlreadyExists' => ParameterAlreadyExistsException::class,
+            'ParameterLimitExceeded' => ParameterLimitExceededException::class,
             'ParameterMaxVersionLimitExceeded' => ParameterMaxVersionLimitExceededException::class,
             'ParameterPatternMismatchException' => ParameterPatternMismatchException::class,
-            'UnsupportedParameterType' => UnsupportedParameterTypeException::class,
             'PoliciesLimitExceededException' => PoliciesLimitExceededException::class,
-            'InvalidPolicyTypeException' => InvalidPolicyTypeException::class,
-            'InvalidPolicyAttributeException' => InvalidPolicyAttributeException::class,
-            'IncompatiblePolicyException' => IncompatiblePolicyException::class,
+            'TooManyUpdates' => TooManyUpdatesException::class,
+            'UnsupportedParameterType' => UnsupportedParameterTypeException::class,
         ]]));
 
         return new PutParameterResult($response);

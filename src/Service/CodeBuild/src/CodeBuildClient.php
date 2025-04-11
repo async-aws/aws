@@ -105,17 +105,17 @@ class CodeBuildClient extends AbstractApi
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      *
+     * @throws AccountLimitExceededException
      * @throws InvalidInputException
      * @throws ResourceNotFoundException
-     * @throws AccountLimitExceededException
      */
     public function startBuild($input): StartBuildOutput
     {
         $input = StartBuildInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StartBuild', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccountLimitExceededException' => AccountLimitExceededException::class,
             'InvalidInputException' => InvalidInputException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccountLimitExceededException' => AccountLimitExceededException::class,
         ]]));
 
         return new StartBuildOutput($response);

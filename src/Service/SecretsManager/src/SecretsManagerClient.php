@@ -105,31 +105,31 @@ class SecretsManagerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      *
+     * @throws DecryptionFailureException
+     * @throws EncryptionFailureException
+     * @throws InternalServiceErrorException
      * @throws InvalidParameterException
      * @throws InvalidRequestException
      * @throws LimitExceededException
-     * @throws EncryptionFailureException
+     * @throws MalformedPolicyDocumentException
+     * @throws PreconditionNotMetException
      * @throws ResourceExistsException
      * @throws ResourceNotFoundException
-     * @throws MalformedPolicyDocumentException
-     * @throws InternalServiceErrorException
-     * @throws PreconditionNotMetException
-     * @throws DecryptionFailureException
      */
     public function createSecret($input): CreateSecretResponse
     {
         $input = CreateSecretRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateSecret', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DecryptionFailure' => DecryptionFailureException::class,
+            'EncryptionFailure' => EncryptionFailureException::class,
+            'InternalServiceError' => InternalServiceErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidRequestException' => InvalidRequestException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'EncryptionFailure' => EncryptionFailureException::class,
+            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
+            'PreconditionNotMetException' => PreconditionNotMetException::class,
             'ResourceExistsException' => ResourceExistsException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
-            'InternalServiceError' => InternalServiceErrorException::class,
-            'PreconditionNotMetException' => PreconditionNotMetException::class,
-            'DecryptionFailure' => DecryptionFailureException::class,
         ]]));
 
         return new CreateSecretResponse($response);
@@ -184,19 +184,19 @@ class SecretsManagerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteSecretRequest $input
      *
-     * @throws ResourceNotFoundException
+     * @throws InternalServiceErrorException
      * @throws InvalidParameterException
      * @throws InvalidRequestException
-     * @throws InternalServiceErrorException
+     * @throws ResourceNotFoundException
      */
     public function deleteSecret($input): DeleteSecretResponse
     {
         $input = DeleteSecretRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteSecret', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InternalServiceError' => InternalServiceErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidRequestException' => InvalidRequestException::class,
-            'InternalServiceError' => InternalServiceErrorException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new DeleteSecretResponse($response);
@@ -239,21 +239,21 @@ class SecretsManagerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetSecretValueRequest $input
      *
-     * @throws ResourceNotFoundException
-     * @throws InvalidParameterException
-     * @throws InvalidRequestException
      * @throws DecryptionFailureException
      * @throws InternalServiceErrorException
+     * @throws InvalidParameterException
+     * @throws InvalidRequestException
+     * @throws ResourceNotFoundException
      */
     public function getSecretValue($input): GetSecretValueResponse
     {
         $input = GetSecretValueRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetSecretValue', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidParameterException' => InvalidParameterException::class,
-            'InvalidRequestException' => InvalidRequestException::class,
             'DecryptionFailure' => DecryptionFailureException::class,
             'InternalServiceError' => InternalServiceErrorException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new GetSecretValueResponse($response);
@@ -296,19 +296,19 @@ class SecretsManagerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input
      *
+     * @throws InternalServiceErrorException
+     * @throws InvalidNextTokenException
      * @throws InvalidParameterException
      * @throws InvalidRequestException
-     * @throws InvalidNextTokenException
-     * @throws InternalServiceErrorException
      */
     public function listSecrets($input = []): ListSecretsResponse
     {
         $input = ListSecretsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListSecrets', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServiceError' => InternalServiceErrorException::class,
+            'InvalidNextTokenException' => InvalidNextTokenException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidRequestException' => InvalidRequestException::class,
-            'InvalidNextTokenException' => InvalidNextTokenException::class,
-            'InternalServiceError' => InternalServiceErrorException::class,
         ]]));
 
         return new ListSecretsResponse($response, $this, $input);
@@ -365,27 +365,27 @@ class SecretsManagerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      *
+     * @throws DecryptionFailureException
+     * @throws EncryptionFailureException
+     * @throws InternalServiceErrorException
      * @throws InvalidParameterException
      * @throws InvalidRequestException
      * @throws LimitExceededException
-     * @throws EncryptionFailureException
      * @throws ResourceExistsException
      * @throws ResourceNotFoundException
-     * @throws InternalServiceErrorException
-     * @throws DecryptionFailureException
      */
     public function putSecretValue($input): PutSecretValueResponse
     {
         $input = PutSecretValueRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutSecretValue', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DecryptionFailure' => DecryptionFailureException::class,
+            'EncryptionFailure' => EncryptionFailureException::class,
+            'InternalServiceError' => InternalServiceErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidRequestException' => InvalidRequestException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'EncryptionFailure' => EncryptionFailureException::class,
             'ResourceExistsException' => ResourceExistsException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InternalServiceError' => InternalServiceErrorException::class,
-            'DecryptionFailure' => DecryptionFailureException::class,
         ]]));
 
         return new PutSecretValueResponse($response);
@@ -448,31 +448,31 @@ class SecretsManagerClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateSecretRequest $input
      *
+     * @throws DecryptionFailureException
+     * @throws EncryptionFailureException
+     * @throws InternalServiceErrorException
      * @throws InvalidParameterException
      * @throws InvalidRequestException
      * @throws LimitExceededException
-     * @throws EncryptionFailureException
+     * @throws MalformedPolicyDocumentException
+     * @throws PreconditionNotMetException
      * @throws ResourceExistsException
      * @throws ResourceNotFoundException
-     * @throws MalformedPolicyDocumentException
-     * @throws InternalServiceErrorException
-     * @throws PreconditionNotMetException
-     * @throws DecryptionFailureException
      */
     public function updateSecret($input): UpdateSecretResponse
     {
         $input = UpdateSecretRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateSecret', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DecryptionFailure' => DecryptionFailureException::class,
+            'EncryptionFailure' => EncryptionFailureException::class,
+            'InternalServiceError' => InternalServiceErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidRequestException' => InvalidRequestException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'EncryptionFailure' => EncryptionFailureException::class,
+            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
+            'PreconditionNotMetException' => PreconditionNotMetException::class,
             'ResourceExistsException' => ResourceExistsException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
-            'InternalServiceError' => InternalServiceErrorException::class,
-            'PreconditionNotMetException' => PreconditionNotMetException::class,
-            'DecryptionFailure' => DecryptionFailureException::class,
         ]]));
 
         return new UpdateSecretResponse($response);

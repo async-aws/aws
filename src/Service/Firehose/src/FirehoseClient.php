@@ -74,20 +74,20 @@ class FirehoseClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      *
-     * @throws ResourceNotFoundException
      * @throws InvalidArgumentException
      * @throws InvalidKMSResourceException
      * @throws InvalidSourceException
+     * @throws ResourceNotFoundException
      * @throws ServiceUnavailableException
      */
     public function putRecord($input): PutRecordOutput
     {
         $input = PutRecordInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecord', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'InvalidKMSResourceException' => InvalidKMSResourceException::class,
             'InvalidSourceException' => InvalidSourceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 
@@ -165,20 +165,20 @@ class FirehoseClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutRecordBatchInput $input
      *
-     * @throws ResourceNotFoundException
      * @throws InvalidArgumentException
      * @throws InvalidKMSResourceException
      * @throws InvalidSourceException
+     * @throws ResourceNotFoundException
      * @throws ServiceUnavailableException
      */
     public function putRecordBatch($input): PutRecordBatchOutput
     {
         $input = PutRecordBatchInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecordBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'InvalidKMSResourceException' => InvalidKMSResourceException::class,
             'InvalidSourceException' => InvalidSourceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ServiceUnavailableException' => ServiceUnavailableException::class,
         ]]));
 

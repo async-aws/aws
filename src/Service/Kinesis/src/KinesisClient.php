@@ -98,21 +98,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AddTagsToStreamInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws ResourceInUseException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
-     * @throws AccessDeniedException
+     * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
      */
     public function addTagsToStream($input): Result
     {
         $input = AddTagsToStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddTagsToStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ResourceInUseException' => ResourceInUseException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new Result($response);
@@ -170,17 +170,17 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      *
-     * @throws ResourceInUseException
-     * @throws LimitExceededException
      * @throws InvalidArgumentException
+     * @throws LimitExceededException
+     * @throws ResourceInUseException
      */
     public function createStream($input): Result
     {
         $input = CreateStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceInUseException' => ResourceInUseException::class,
-            'LimitExceededException' => LimitExceededException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
         ]]));
 
         return new Result($response);
@@ -206,21 +206,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DecreaseStreamRetentionPeriodInput $input
      *
+     * @throws AccessDeniedException
+     * @throws InvalidArgumentException
+     * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InvalidArgumentException
-     * @throws AccessDeniedException
      */
     public function decreaseStreamRetentionPeriod($input): Result
     {
         $input = DecreaseStreamRetentionPeriodInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DecreaseStreamRetentionPeriod', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -257,21 +257,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteStreamInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
+     * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceInUseException
-     * @throws InvalidArgumentException
-     * @throws AccessDeniedException
+     * @throws ResourceNotFoundException
      */
     public function deleteStream($input = []): Result
     {
         $input = DeleteStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new Result($response);
@@ -296,17 +296,17 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeregisterStreamConsumerInput $input
      *
+     * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceNotFoundException
-     * @throws InvalidArgumentException
      */
     public function deregisterStreamConsumer($input = []): Result
     {
         $input = DeregisterStreamConsumerInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeregisterStreamConsumer', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
         ]]));
 
         return new Result($response);
@@ -375,19 +375,19 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DescribeStreamInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InvalidArgumentException
      * @throws AccessDeniedException
+     * @throws InvalidArgumentException
+     * @throws LimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function describeStream($input = []): DescribeStreamOutput
     {
         $input = DescribeStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new DescribeStreamOutput($response, $this, $input);
@@ -414,17 +414,17 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DescribeStreamConsumerInput $input
      *
+     * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceNotFoundException
-     * @throws InvalidArgumentException
      */
     public function describeStreamConsumer($input = []): DescribeStreamConsumerOutput
     {
         $input = DescribeStreamConsumerInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStreamConsumer', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
         ]]));
 
         return new DescribeStreamConsumerOutput($response);
@@ -450,19 +450,19 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DescribeStreamSummaryInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InvalidArgumentException
      * @throws AccessDeniedException
+     * @throws InvalidArgumentException
+     * @throws LimitExceededException
+     * @throws ResourceNotFoundException
      */
     public function describeStreamSummary($input = []): DescribeStreamSummaryOutput
     {
         $input = DescribeStreamSummaryInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStreamSummary', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new DescribeStreamSummaryOutput($response);
@@ -484,21 +484,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DisableEnhancedMonitoringInput $input
      *
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
      */
     public function disableEnhancedMonitoring($input): EnhancedMonitoringOutput
     {
         $input = DisableEnhancedMonitoringInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DisableEnhancedMonitoring', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new EnhancedMonitoringOutput($response);
@@ -520,21 +520,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|EnableEnhancedMonitoringInput $input
      *
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
      */
     public function enableEnhancedMonitoring($input): EnhancedMonitoringOutput
     {
         $input = EnableEnhancedMonitoringInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'EnableEnhancedMonitoring', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new EnhancedMonitoringOutput($response);
@@ -601,33 +601,33 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetRecordsInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws InvalidArgumentException
-     * @throws ProvisionedThroughputExceededException
+     * @throws AccessDeniedException
      * @throws ExpiredIteratorException
+     * @throws InvalidArgumentException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
-     * @throws KMSAccessDeniedException
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
-     * @throws AccessDeniedException
+     * @throws ProvisionedThroughputExceededException
+     * @throws ResourceNotFoundException
      */
     public function getRecords($input): GetRecordsOutput
     {
         $input = GetRecordsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'ExpiredIteratorException' => ExpiredIteratorException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new GetRecordsOutput($response);
@@ -682,19 +682,19 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|GetShardIteratorInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws ProvisionedThroughputExceededException
-     * @throws AccessDeniedException
+     * @throws ResourceNotFoundException
      */
     public function getShardIterator($input): GetShardIteratorOutput
     {
         $input = GetShardIteratorInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetShardIterator', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new GetShardIteratorOutput($response);
@@ -723,21 +723,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|IncreaseStreamRetentionPeriodInput $input
      *
+     * @throws AccessDeniedException
+     * @throws InvalidArgumentException
+     * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws LimitExceededException
-     * @throws InvalidArgumentException
-     * @throws AccessDeniedException
      */
     public function increaseStreamRetentionPeriod($input): Result
     {
         $input = IncreaseStreamRetentionPeriodInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'IncreaseStreamRetentionPeriod', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -774,23 +774,23 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListShardsInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
+     * @throws ExpiredNextTokenException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
-     * @throws ExpiredNextTokenException
      * @throws ResourceInUseException
-     * @throws AccessDeniedException
+     * @throws ResourceNotFoundException
      */
     public function listShards($input = []): ListShardsOutput
     {
         $input = ListShardsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListShards', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
+            'ExpiredNextTokenException' => ExpiredNextTokenException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'ExpiredNextTokenException' => ExpiredNextTokenException::class,
             'ResourceInUseException' => ResourceInUseException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new ListShardsOutput($response);
@@ -813,21 +813,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListStreamConsumersInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws ExpiredNextTokenException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
-     * @throws ExpiredNextTokenException
      * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
      */
     public function listStreamConsumers($input): ListStreamConsumersOutput
     {
         $input = ListStreamConsumersInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListStreamConsumers', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ExpiredNextTokenException' => ExpiredNextTokenException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'ExpiredNextTokenException' => ExpiredNextTokenException::class,
             'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new ListStreamConsumersOutput($response, $this, $input);
@@ -858,17 +858,17 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListStreamsInput $input
      *
-     * @throws LimitExceededException
      * @throws ExpiredNextTokenException
      * @throws InvalidArgumentException
+     * @throws LimitExceededException
      */
     public function listStreams($input = []): ListStreamsOutput
     {
         $input = ListStreamsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListStreams', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'LimitExceededException' => LimitExceededException::class,
             'ExpiredNextTokenException' => ExpiredNextTokenException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
         ]]));
 
         return new ListStreamsOutput($response, $this, $input);
@@ -892,19 +892,19 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListTagsForStreamInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
-     * @throws AccessDeniedException
+     * @throws ResourceNotFoundException
      */
     public function listTagsForStream($input = []): ListTagsForStreamOutput
     {
         $input = ListTagsForStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTagsForStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new ListTagsForStreamOutput($response);
@@ -958,23 +958,23 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|MergeShardsInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws ResourceInUseException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
      * @throws ValidationException
-     * @throws AccessDeniedException
      */
     public function mergeShards($input): Result
     {
         $input = MergeShardsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'MergeShards', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ResourceInUseException' => ResourceInUseException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ValidationException' => ValidationException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -1036,31 +1036,31 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
-     * @throws ProvisionedThroughputExceededException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
-     * @throws KMSAccessDeniedException
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
-     * @throws AccessDeniedException
+     * @throws ProvisionedThroughputExceededException
+     * @throws ResourceNotFoundException
      */
     public function putRecord($input): PutRecordOutput
     {
         $input = PutRecordInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecord', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new PutRecordOutput($response);
@@ -1134,31 +1134,31 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|PutRecordsInput $input
      *
-     * @throws ResourceNotFoundException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
-     * @throws ProvisionedThroughputExceededException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
-     * @throws KMSAccessDeniedException
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
-     * @throws AccessDeniedException
+     * @throws ProvisionedThroughputExceededException
+     * @throws ResourceNotFoundException
      */
     public function putRecords($input): PutRecordsOutput
     {
         $input = PutRecordsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
-            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new PutRecordsOutput($response);
@@ -1228,21 +1228,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|RemoveTagsFromStreamInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws ResourceInUseException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
-     * @throws AccessDeniedException
+     * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
      */
     public function removeTagsFromStream($input): Result
     {
         $input = RemoveTagsFromStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RemoveTagsFromStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ResourceInUseException' => ResourceInUseException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new Result($response);
@@ -1304,23 +1304,23 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|SplitShardInput $input
      *
-     * @throws ResourceNotFoundException
-     * @throws ResourceInUseException
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
      * @throws ValidationException
-     * @throws AccessDeniedException
      */
     public function splitShard($input): Result
     {
         $input = SplitShardInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SplitShard', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'ResourceInUseException' => ResourceInUseException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ValidationException' => ValidationException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -1356,33 +1356,33 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|StartStreamEncryptionInput $input
      *
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
-     * @throws LimitExceededException
-     * @throws ResourceInUseException
-     * @throws ResourceNotFoundException
+     * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
-     * @throws KMSAccessDeniedException
      * @throws KMSNotFoundException
      * @throws KMSOptInRequiredException
      * @throws KMSThrottlingException
-     * @throws AccessDeniedException
+     * @throws LimitExceededException
+     * @throws ResourceInUseException
+     * @throws ResourceNotFoundException
      */
     public function startStreamEncryption($input): Result
     {
         $input = StartStreamEncryptionInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StartStreamEncryption', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'ResourceInUseException' => ResourceInUseException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
-            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
             'KMSOptInRequired' => KMSOptInRequiredException::class,
             'KMSThrottlingException' => KMSThrottlingException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceInUseException' => ResourceInUseException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new Result($response);
@@ -1417,21 +1417,21 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|StopStreamEncryptionInput $input
      *
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
-     * @throws AccessDeniedException
      */
     public function stopStreamEncryption($input): Result
     {
         $input = StopStreamEncryptionInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StopStreamEncryption', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new Result($response);
@@ -1452,10 +1452,10 @@ class KinesisClient extends AbstractApi
     {
         $input = DescribeStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new StreamExistsWaiter($response, $this, $input);
@@ -1476,10 +1476,10 @@ class KinesisClient extends AbstractApi
     {
         $input = DescribeStreamInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'LimitExceededException' => LimitExceededException::class,
-            'InvalidArgumentException' => InvalidArgumentException::class,
             'AccessDeniedException' => AccessDeniedException::class,
+            'InvalidArgumentException' => InvalidArgumentException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
         ]]));
 
         return new StreamNotExistsWaiter($response, $this, $input);
@@ -1533,23 +1533,23 @@ class KinesisClient extends AbstractApi
      *   '@region'?: string|null,
      * }|UpdateShardCountInput $input
      *
+     * @throws AccessDeniedException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
      * @throws ValidationException
-     * @throws AccessDeniedException
      */
     public function updateShardCount($input): UpdateShardCountOutput
     {
         $input = UpdateShardCountInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateShardCount', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ValidationException' => ValidationException::class,
-            'AccessDeniedException' => AccessDeniedException::class,
         ]]));
 
         return new UpdateShardCountOutput($response);

@@ -65,19 +65,19 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AddThingToThingGroupRequest $input
      *
-     * @throws InvalidRequestException
-     * @throws ThrottlingException
      * @throws InternalFailureException
+     * @throws InvalidRequestException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function addThingToThingGroup($input = []): AddThingToThingGroupResponse
     {
         $input = AddThingToThingGroupRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddThingToThingGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
-            'ThrottlingException' => ThrottlingException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ]]));
 
         return new AddThingToThingGroupResponse($response);
@@ -106,25 +106,25 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateThingRequest $input
      *
-     * @throws InvalidRequestException
-     * @throws ThrottlingException
-     * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
      * @throws InternalFailureException
+     * @throws InvalidRequestException
      * @throws ResourceAlreadyExistsException
      * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
+     * @throws ThrottlingException
+     * @throws UnauthorizedException
      */
     public function createThing($input): CreateThingResponse
     {
         $input = CreateThingRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateThing', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
             'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+            'ThrottlingException' => ThrottlingException::class,
+            'UnauthorizedException' => UnauthorizedException::class,
         ]]));
 
         return new CreateThingResponse($response);
@@ -154,19 +154,19 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateThingGroupRequest $input
      *
+     * @throws InternalFailureException
      * @throws InvalidRequestException
      * @throws ResourceAlreadyExistsException
      * @throws ThrottlingException
-     * @throws InternalFailureException
      */
     public function createThingGroup($input): CreateThingGroupResponse
     {
         $input = CreateThingGroupRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateThingGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
             'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
             'ThrottlingException' => ThrottlingException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new CreateThingGroupResponse($response);
@@ -191,23 +191,23 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|CreateThingTypeRequest $input
      *
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws ResourceAlreadyExistsException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
-     * @throws ResourceAlreadyExistsException
      */
     public function createThingType($input): CreateThingTypeResponse
     {
         $input = CreateThingTypeRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateThingType', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
         ]]));
 
         return new CreateThingTypeResponse($response);
@@ -230,25 +230,25 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteThingRequest $input
      *
-     * @throws ResourceNotFoundException
-     * @throws VersionConflictException
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
+     * @throws VersionConflictException
      */
     public function deleteThing($input): DeleteThingResponse
     {
         $input = DeleteThingRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteThing', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-            'VersionConflictException' => VersionConflictException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
+            'VersionConflictException' => VersionConflictException::class,
         ]]));
 
         return new DeleteThingResponse($response);
@@ -270,19 +270,19 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteThingGroupRequest $input
      *
-     * @throws InvalidRequestException
-     * @throws VersionConflictException
-     * @throws ThrottlingException
      * @throws InternalFailureException
+     * @throws InvalidRequestException
+     * @throws ThrottlingException
+     * @throws VersionConflictException
      */
     public function deleteThingGroup($input): DeleteThingGroupResponse
     {
         $input = DeleteThingGroupRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteThingGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
-            'VersionConflictException' => VersionConflictException::class,
-            'ThrottlingException' => ThrottlingException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
+            'ThrottlingException' => ThrottlingException::class,
+            'VersionConflictException' => VersionConflictException::class,
         ]]));
 
         return new DeleteThingGroupResponse($response);
@@ -306,23 +306,23 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|DeleteThingTypeRequest $input
      *
-     * @throws ResourceNotFoundException
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
      */
     public function deleteThingType($input): DeleteThingTypeResponse
     {
         $input = DeleteThingTypeRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteThingType', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new DeleteThingTypeResponse($response);
@@ -347,8 +347,8 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListThingGroupsRequest $input
      *
-     * @throws InvalidRequestException
      * @throws InternalFailureException
+     * @throws InvalidRequestException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
      */
@@ -356,8 +356,8 @@ class IotClient extends AbstractApi
     {
         $input = ListThingGroupsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListThingGroups', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
         ]]));
@@ -382,8 +382,8 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListThingGroupsForThingRequest $input
      *
-     * @throws InvalidRequestException
      * @throws InternalFailureException
+     * @throws InvalidRequestException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
      */
@@ -391,8 +391,8 @@ class IotClient extends AbstractApi
     {
         $input = ListThingGroupsForThingRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListThingGroupsForThing', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
         ]]));
@@ -417,21 +417,21 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListThingTypesRequest $input
      *
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
      */
     public function listThingTypes($input = []): ListThingTypesResponse
     {
         $input = ListThingTypesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListThingTypes', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new ListThingTypesResponse($response, $this, $input);
@@ -464,21 +464,21 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListThingsRequest $input
      *
+     * @throws InternalFailureException
      * @throws InvalidRequestException
+     * @throws ServiceUnavailableException
      * @throws ThrottlingException
      * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
      */
     public function listThings($input = []): ListThingsResponse
     {
         $input = ListThingsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListThings', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidRequestException' => InvalidRequestException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
             'ThrottlingException' => ThrottlingException::class,
             'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
         ]]));
 
         return new ListThingsResponse($response, $this, $input);
@@ -502,8 +502,8 @@ class IotClient extends AbstractApi
      *   '@region'?: string|null,
      * }|ListThingsInThingGroupRequest $input
      *
-     * @throws InvalidRequestException
      * @throws InternalFailureException
+     * @throws InvalidRequestException
      * @throws ResourceNotFoundException
      * @throws ThrottlingException
      */
@@ -511,8 +511,8 @@ class IotClient extends AbstractApi
     {
         $input = ListThingsInThingGroupRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListThingsInThingGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
             'InternalFailureException' => InternalFailureException::class,
+            'InvalidRequestException' => InvalidRequestException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ThrottlingException' => ThrottlingException::class,
         ]]));
