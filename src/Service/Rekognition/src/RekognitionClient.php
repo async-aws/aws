@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Rekognition\Enum\Attribute;
 use AsyncAws\Rekognition\Enum\CustomizationFeature;
@@ -676,6 +677,28 @@ class RekognitionClient extends AbstractApi
         }
 
         switch ($region) {
+            case 'ap-northeast-1':
+            case 'ap-northeast-2':
+            case 'ap-south-1':
+            case 'ap-southeast-1':
+            case 'ap-southeast-2':
+            case 'ca-central-1':
+            case 'eu-central-1':
+            case 'eu-south-2':
+            case 'eu-west-1':
+            case 'eu-west-2':
+            case 'il-central-1':
+            case 'us-east-1':
+            case 'us-east-2':
+            case 'us-gov-west-1':
+            case 'us-west-1':
+            case 'us-west-2':
+                return [
+                    'endpoint' => "https://rekognition.$region.amazonaws.com",
+                    'signRegion' => $region,
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
             case 'rekognition.ca-central-1':
                 return [
                     'endpoint' => 'https://rekognition.rekognition.ca-central-1.amazonaws.com',
@@ -776,11 +799,6 @@ class RekognitionClient extends AbstractApi
                 ];
         }
 
-        return [
-            'endpoint' => "https://rekognition.$region.amazonaws.com",
-            'signRegion' => $region,
-            'signService' => 'rekognition',
-            'signVersions' => ['v4'],
-        ];
+        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "Rekognition".', $region));
     }
 }

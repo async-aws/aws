@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: rework regions definition
+
 ### Changed
 
 - Sort exception alphabetically.

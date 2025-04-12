@@ -131,6 +131,8 @@ class DynamoDbClient extends AbstractApi
      * minimum read capacity units according to the type of read. For more information, see Working with Tables [^2] in the
      * *Amazon DynamoDB Developer Guide*.
      *
+     * > `BatchGetItem` will result in a `ValidationException` if the same key is specified multiple times.
+     *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#BatchOperations
      * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations
      *
