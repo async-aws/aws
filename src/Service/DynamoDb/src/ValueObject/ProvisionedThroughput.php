@@ -5,8 +5,8 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Represents the provisioned throughput settings for a specified table or index. The settings can be modified using the
- * `UpdateTable` operation.
+ * Represents the provisioned throughput settings for the specified global secondary index. You must use
+ * `ProvisionedThroughput` or `OnDemandThroughput` based on your table’s capacity mode.
  *
  * For current minimum and maximum provisioned throughput values, see Service, Account, and Table Quotas [^1] in the
  * *Amazon DynamoDB Developer Guide*.

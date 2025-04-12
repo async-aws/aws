@@ -10,6 +10,7 @@
 ### Changed
 
 - Sort exception alphabetically.
+- AWS enhancement: Documentation updates.
 
 ## 3.5.0
 

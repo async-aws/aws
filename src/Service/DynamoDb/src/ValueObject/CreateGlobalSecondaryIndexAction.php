@@ -45,7 +45,8 @@ final class CreateGlobalSecondaryIndexAction
 
     /**
      * The maximum number of read and write units for the global secondary index being created. If you use this parameter,
-     * you must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both.
+     * you must specify `MaxReadRequestUnits`, `MaxWriteRequestUnits`, or both. You must use either `OnDemand Throughput` or
+     * `ProvisionedThroughput` based on your table's capacity mode.
      *
      * @var OnDemandThroughput|null
      */

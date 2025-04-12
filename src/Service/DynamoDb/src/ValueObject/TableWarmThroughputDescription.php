@@ -5,7 +5,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\DynamoDb\Enum\TableStatus;
 
 /**
- * Represents the warm throughput value (in read units per second and write units per second) of the base table.
+ * Represents the warm throughput value (in read units per second and write units per second) of the table. Warm
+ * throughput is applicable for DynamoDB Standard-IA tables and specifies the minimum provisioned capacity maintained
+ * for immediate data access.
  */
 final class TableWarmThroughputDescription
 {
@@ -24,7 +26,7 @@ final class TableWarmThroughputDescription
     private $writeUnitsPerSecond;
 
     /**
-     * Represents warm throughput value of the base table..
+     * Represents warm throughput value of the base table.
      *
      * @var TableStatus::*|null
      */
