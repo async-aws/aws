@@ -12,6 +12,10 @@
 - Sort exception alphabetically.
 - AWS enhancement: Documentation updates.
 
+### Fixed
+
+- Fix the lowest bound for the `symfony/polyfill-uuid` requirement
+
 ## 3.5.0
 
 ### Added

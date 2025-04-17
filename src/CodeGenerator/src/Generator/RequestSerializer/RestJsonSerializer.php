@@ -89,7 +89,7 @@ class RestJsonSerializer implements Serializer
             }
             $shape = $member->getShape();
             if ($member->isIdempotencyToken()) {
-                $this->requirementsRegistry->addRequirement('symfony/polyfill-uuid', '^1.0');
+                $this->requirementsRegistry->addRequirement('symfony/polyfill-uuid', '^1.13.1');
                 $body = 'if (null === $v = $this->PROPERTY) {
                     $v = uuid_create(UUID_TYPE_RANDOM);
                 }

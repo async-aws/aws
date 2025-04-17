@@ -15,7 +15,7 @@
         "ext-filter": "*",
         "ext-json": "*",
         "async-aws/core": "^1.9",
-        "symfony/polyfill-uuid": "^1.0"
+        "symfony/polyfill-uuid": "^1.13.1"
     },
     "autoload": {
         "psr-4": {
