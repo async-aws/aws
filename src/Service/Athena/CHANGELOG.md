@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Added `eu-isoe-west-1` region
-- AWS api-change: TODO
+- AWS api-change: rewrite declaration of regions
 
 ## 3.2.0
 
