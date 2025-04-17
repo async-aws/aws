@@ -97,7 +97,7 @@ class RestXmlParser implements Parser
             return new ParserResult('');
         }
 
-        $this->requirementsRegistry->addRequirement('ext-SimpleXML');
+        $this->requirementsRegistry->addRequirement('ext-simplexml');
 
         $body = '$data = new \SimpleXMLElement($response->getContent(' . ($throwOnError ? '' : 'false') . '));';
         if (!$throwOnError) {

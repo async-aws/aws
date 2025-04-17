@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `eu-isoe-west-1` region
 
+### Changed
+
+- Normalize the composer requirements
+
 ## 1.8.1
 
 ### Changed

@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Normalize the composer requirements
 - Sort exception alphabetically.
 - AWS enhancement: Documentation updates.
 
