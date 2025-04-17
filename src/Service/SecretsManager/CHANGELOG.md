@@ -10,6 +10,10 @@
 
 - Sort exception alphabetically.
 
+### Fixed
+
+- Fix the lowest bound for the `symfony/polyfill-uuid` requirement
+
 ## 2.7.0
 
 ### Added

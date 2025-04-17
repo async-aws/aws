@@ -7,6 +7,10 @@
 - AWS api-change: Added `eu-isoe-west-1` region
 - AWS api-change: rewrite declaration of regions
 
+### Fixed
+
+- Fix the lowest bound for the `symfony/polyfill-uuid` requirement
+
 ## 3.2.0
 
 ### Added
