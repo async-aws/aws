@@ -572,6 +572,13 @@ class SecretsManagerClient extends AbstractApi
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://secretsmanager.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "SecretsManager".', $region));

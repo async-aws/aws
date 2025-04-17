@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: added `eu-isoe-west-1` region
+
 ### Changed
 
 - Sort exception alphabetically.
