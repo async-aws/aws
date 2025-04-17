@@ -172,9 +172,8 @@ class ChangelogTest extends TestCase
             ->in(\dirname(__DIR__, 2) . '/src')
             ->name('CHANGELOG.md');
 
-        /** @var \SplFileInfo $file */
         foreach ($finder as $file) {
-            yield [$file->getRealPath()];
+            yield $file->getRelativePath() => [$file->getRealPath()];
         }
     }
 
