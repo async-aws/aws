@@ -5,11 +5,11 @@
     "type": "project",
     "require": {
         "php": "^7.2.5 || ^8.0",
-        "ext-SimpleXML": "*",
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-hash": "*",
         "ext-json": "*",
+        "ext-simplexml": "*",
         "psr/log": "^1.0 || ^2.0 || ^3.0",
         "symfony/http-client": "^4.4.16 || ^5.1.7 || ^6.0 || ^7.0",
         "symfony/http-client-contracts": "^1.0 || ^2.0 || ^3.0",

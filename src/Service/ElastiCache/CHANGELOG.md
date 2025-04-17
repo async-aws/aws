@@ -9,6 +9,7 @@
 
 ### Changed
 
+- Normalize the composer requirements
 - Sort exception alphabetically.
 
 ## 1.3.0

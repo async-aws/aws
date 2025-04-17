@@ -12,10 +12,10 @@
     ],
     "require": {
         "php": "^7.2.5 || ^8.0",
-        "ext-SimpleXML": "*",
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-hash": "*",
+        "ext-simplexml": "*",
         "async-aws/core": "^1.22"
     },
     "autoload": {

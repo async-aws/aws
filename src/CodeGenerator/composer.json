@@ -5,9 +5,9 @@
     "type": "library",
     "require": {
         "php": "^8.2",
-        "ext-SimpleXML": "*",
         "ext-dom": "*",
         "ext-json": "*",
+        "ext-simplexml": "*",
         "friendsofphp/php-cs-fixer": "~3.60.0",
         "nette/php-generator": "^3.6 || ^4.1",
         "nette/utils": "^3.0 || ^4.0",

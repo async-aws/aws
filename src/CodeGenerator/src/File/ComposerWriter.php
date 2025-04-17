@@ -36,7 +36,8 @@ class ComposerWriter
             unset(
                 $content['require']['ext-json'],
                 $content['require']['ext-dom'],
-                $content['require']['ext-SimpleXML'],
+                $content['require']['ext-SimpleXML'], // Older versions of the code generator were using that case. We keep cleaning it to avoid garbage.
+                $content['require']['ext-simplexml'],
                 $content['require']['ext-filter'],
                 $content['require']['async-aws/core'],
                 $content['require']['symfony/polyfill-uuid'],
