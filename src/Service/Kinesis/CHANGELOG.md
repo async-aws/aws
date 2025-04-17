@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: added `eu-isoe-west-1` region
 
 ### Changed
 
