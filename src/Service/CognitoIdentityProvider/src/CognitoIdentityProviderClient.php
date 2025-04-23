@@ -586,6 +586,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
+     * @throws UnsupportedOperationException
      * @throws UserLambdaValidationException
      * @throws UserNotConfirmedException
      * @throws UserNotFoundException
@@ -607,6 +608,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UnsupportedOperationException' => UnsupportedOperationException::class,
             'UserLambdaValidationException' => UserLambdaValidationException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -1462,6 +1464,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
+     * @throws UnsupportedOperationException
      * @throws UserLambdaValidationException
      * @throws UserNotConfirmedException
      * @throws UserNotFoundException
@@ -1483,6 +1486,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UnsupportedOperationException' => UnsupportedOperationException::class,
             'UserLambdaValidationException' => UserLambdaValidationException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'UserNotFoundException' => UserNotFoundException::class,
