@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds refresh token rotation.
+
 ### Changed
 
 - Sort exception alphabetically.
