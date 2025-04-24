@@ -6,7 +6,7 @@ use AsyncAws\CodeBuild\Enum\MachineType;
 
 /**
  * Contains compute attributes. These attributes only need be specified when your project's or fleet's `computeType` is
- * set to `ATTRIBUTE_BASED_COMPUTE`.
+ * set to `ATTRIBUTE_BASED_COMPUTE` or `CUSTOM_INSTANCE_TYPE`.
  */
 final class ComputeConfiguration
 {
@@ -39,11 +39,19 @@ final class ComputeConfiguration
     private $machineType;
 
     /**
+     * The EC2 instance type to be launched in your fleet.
+     *
+     * @var string|null
+     */
+    private $instanceType;
+
+    /**
      * @param array{
      *   vCpu?: null|int,
      *   memory?: null|int,
      *   disk?: null|int,
      *   machineType?: null|MachineType::*,
+     *   instanceType?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -52,6 +60,7 @@ final class ComputeConfiguration
         $this->memory = $input['memory'] ?? null;
         $this->disk = $input['disk'] ?? null;
         $this->machineType = $input['machineType'] ?? null;
+        $this->instanceType = $input['instanceType'] ?? null;
     }
 
     /**
@@ -60,6 +69,7 @@ final class ComputeConfiguration
      *   memory?: null|int,
      *   disk?: null|int,
      *   machineType?: null|MachineType::*,
+     *   instanceType?: null|string,
      * }|ComputeConfiguration $input
      */
     public static function create($input): self
@@ -70,6 +80,11 @@ final class ComputeConfiguration
     public function getDisk(): ?int
     {
         return $this->disk;
+    }
+
+    public function getInstanceType(): ?string
+    {
+        return $this->instanceType;
     }
 
     /**

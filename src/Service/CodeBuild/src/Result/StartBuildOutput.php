@@ -193,6 +193,7 @@ class StartBuildOutput extends Result
             'memory' => isset($json['memory']) ? (int) $json['memory'] : null,
             'disk' => isset($json['disk']) ? (int) $json['disk'] : null,
             'machineType' => isset($json['machineType']) ? (string) $json['machineType'] : null,
+            'instanceType' => isset($json['instanceType']) ? (string) $json['instanceType'] : null,
         ]);
     }
 

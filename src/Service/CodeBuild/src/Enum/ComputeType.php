@@ -15,6 +15,7 @@ final class ComputeType
     public const BUILD_LAMBDA_2GB = 'BUILD_LAMBDA_2GB';
     public const BUILD_LAMBDA_4GB = 'BUILD_LAMBDA_4GB';
     public const BUILD_LAMBDA_8GB = 'BUILD_LAMBDA_8GB';
+    public const CUSTOM_INSTANCE_TYPE = 'CUSTOM_INSTANCE_TYPE';
 
     public static function exists(string $value): bool
     {
@@ -30,6 +31,7 @@ final class ComputeType
             self::BUILD_LAMBDA_2GB => true,
             self::BUILD_LAMBDA_4GB => true,
             self::BUILD_LAMBDA_8GB => true,
+            self::CUSTOM_INSTANCE_TYPE => true,
         ][$value]);
     }
 }
