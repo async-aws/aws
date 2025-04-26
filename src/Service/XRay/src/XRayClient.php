@@ -139,6 +139,14 @@ class XRayClient extends AbstractApi
                     'signService' => 'xray',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://xray.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
