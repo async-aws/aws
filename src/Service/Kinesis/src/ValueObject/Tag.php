@@ -5,7 +5,7 @@ namespace AsyncAws\Kinesis\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Metadata assigned to the stream, consisting of a key-value pair.
+ * Metadata assigned to the stream or consumer, consisting of a key-value pair.
  */
 final class Tag
 {

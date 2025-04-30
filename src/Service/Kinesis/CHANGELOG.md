@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: added `eu-isoe-west-1` region
+- AWS api-change: Amazon KDS now supports tagging and attribute-based access control (ABAC) for enhanced fan-out consumers.
 
 ### Changed
 

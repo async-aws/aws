@@ -42,7 +42,7 @@ final class CreateStreamInput extends Input
     private $streamModeDetails;
 
     /**
-     * A set of up to 10 key-value pairs to use to create the tags.
+     * A set of up to 50 key-value pairs to use to create the tags. A tag consists of a required key and an optional value.
      *
      * @var array<string, string>|null
      */

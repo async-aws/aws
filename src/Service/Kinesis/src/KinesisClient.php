@@ -15,6 +15,7 @@ use AsyncAws\Kinesis\Enum\ShardIteratorType;
 use AsyncAws\Kinesis\Exception\AccessDeniedException;
 use AsyncAws\Kinesis\Exception\ExpiredIteratorException;
 use AsyncAws\Kinesis\Exception\ExpiredNextTokenException;
+use AsyncAws\Kinesis\Exception\InternalFailureException;
 use AsyncAws\Kinesis\Exception\InvalidArgumentException;
 use AsyncAws\Kinesis\Exception\KMSAccessDeniedException;
 use AsyncAws\Kinesis\Exception\KMSDisabledException;
@@ -151,10 +152,11 @@ class KinesisClient extends AbstractApi
      *
      * CreateStream has a limit of five transactions per second per account.
      *
-     * You can add tags to the stream when making a `CreateStream` request by setting the `Tags` parameter. If you pass
-     * `Tags` parameter, in addition to having `kinesis:createStream` permission, you must also have
-     * `kinesis:addTagsToStream` permission for the stream that will be created. Tags will take effect from the `CREATING`
-     * status of the stream.
+     * You can add tags to the stream when making a `CreateStream` request by setting the `Tags` parameter. If you pass the
+     * `Tags` parameter, in addition to having the `kinesis:CreateStream` permission, you must also have the
+     * `kinesis:AddTagsToStream` permission for the stream that will be created. The `kinesis:TagResource` permission
+     * won’t work to tag streams on creation. Tags will take effect from the `CREATING` status of the stream, but you
+     * can't make any updates to the tags until the stream is in `ACTIVE` state.
      *
      * [^1]: https://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html
      * [^2]: https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html
@@ -603,6 +605,7 @@ class KinesisClient extends AbstractApi
      *
      * @throws AccessDeniedException
      * @throws ExpiredIteratorException
+     * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
@@ -619,6 +622,7 @@ class KinesisClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
             'ExpiredIteratorException' => ExpiredIteratorException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
@@ -683,6 +687,7 @@ class KinesisClient extends AbstractApi
      * }|GetShardIteratorInput $input
      *
      * @throws AccessDeniedException
+     * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceNotFoundException
@@ -692,6 +697,7 @@ class KinesisClient extends AbstractApi
         $input = GetShardIteratorInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetShardIterator', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
@@ -1037,6 +1043,7 @@ class KinesisClient extends AbstractApi
      * }|PutRecordInput $input
      *
      * @throws AccessDeniedException
+     * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
@@ -1052,6 +1059,7 @@ class KinesisClient extends AbstractApi
         $input = PutRecordInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecord', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
@@ -1135,6 +1143,7 @@ class KinesisClient extends AbstractApi
      * }|PutRecordsInput $input
      *
      * @throws AccessDeniedException
+     * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws KMSAccessDeniedException
      * @throws KMSDisabledException
@@ -1150,6 +1159,7 @@ class KinesisClient extends AbstractApi
         $input = PutRecordsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'KMSAccessDeniedException' => KMSAccessDeniedException::class,
             'KMSDisabledException' => KMSDisabledException::class,
@@ -1170,6 +1180,11 @@ class KinesisClient extends AbstractApi
      * every shard you subscribe to. This rate is unaffected by the total number of consumers that read from the same
      * stream.
      *
+     * You can add tags to the registered consumer when making a `RegisterStreamConsumer` request by setting the `Tags`
+     * parameter. If you pass the `Tags` parameter, in addition to having the `kinesis:RegisterStreamConsumer` permission,
+     * you must also have the `kinesis:TagResource` permission for the consumer that will be registered. Tags will take
+     * effect from the `CREATING` status of the consumer.
+     *
      * You can register up to 20 consumers per stream. A given consumer can only be registered with one stream at a time.
      *
      * For an example of how to use this operation, see Enhanced Fan-Out Using the Kinesis Data Streams API [^1].
@@ -1186,6 +1201,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamARN: string,
      *   ConsumerName: string,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|RegisterStreamConsumerInput $input
      *
