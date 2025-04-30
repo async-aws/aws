@@ -32,9 +32,17 @@ final class RegisterStreamConsumerInput extends Input
     private $consumerName;
 
     /**
+     * A set of up to 50 key-value pairs. A tag consists of a required key and an optional value.
+     *
+     * @var array<string, string>|null
+     */
+    private $tags;
+
+    /**
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * } $input
      */
@@ -42,6 +50,7 @@ final class RegisterStreamConsumerInput extends Input
     {
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->consumerName = $input['ConsumerName'] ?? null;
+        $this->tags = $input['Tags'] ?? null;
         parent::__construct($input);
     }
 
@@ -49,6 +58,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
+     *   Tags?: null|array<string, string>,
      *   '@region'?: string|null,
      * }|RegisterStreamConsumerInput $input
      */
@@ -65,6 +75,14 @@ final class RegisterStreamConsumerInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getTags(): array
+    {
+        return $this->tags ?? [];
     }
 
     /**
@@ -107,6 +125,16 @@ final class RegisterStreamConsumerInput extends Input
         return $this;
     }
 
+    /**
+     * @param array<string, string> $value
+     */
+    public function setTags(array $value): self
+    {
+        $this->tags = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -118,6 +146,16 @@ final class RegisterStreamConsumerInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "ConsumerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ConsumerName'] = $v;
+        if (null !== $v = $this->tags) {
+            if (empty($v)) {
+                $payload['Tags'] = new \stdClass();
+            } else {
+                $payload['Tags'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['Tags'][$name] = $mv;
+                }
+            }
+        }
 
         return $payload;
     }
