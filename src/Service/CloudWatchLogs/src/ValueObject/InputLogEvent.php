@@ -18,7 +18,7 @@ final class InputLogEvent
     private $timestamp;
 
     /**
-     * The raw event message. Each log event can be no larger than 256 KB.
+     * The raw event message. Each log event can be no larger than 1 MB.
      *
      * @var string
      */
