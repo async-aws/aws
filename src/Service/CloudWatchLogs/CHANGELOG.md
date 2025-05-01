@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `eu-isoe-west-1` region
+- AWS api-change: CloudWatch Logs supports "DELIVERY" log class. This log class is used only for delivering AWS Lambda logs to Amazon S3 or Amazon Data Firehose.
 
 ### Changed
 

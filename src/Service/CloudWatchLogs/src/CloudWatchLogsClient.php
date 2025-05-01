@@ -268,7 +268,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   Tools for PowerShell and the Amazon Web Services SDK for .NET, the timestamp is specified in .NET format:
      *   `yyyy-mm-ddThh:mm:ss`. For example, `2017-09-15T13:45:30`.)
      * - A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.
-     * - Each log event can be no larger than 256 KB.
+     * - Each log event can be no larger than 1 MB.
      * - The maximum number of log events in a batch is 10,000.
      * -
      * - ! The quota of five requests per second per log stream has been removed. Instead, `PutLogEvents` actions are
