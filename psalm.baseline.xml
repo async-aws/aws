@@ -207,11 +207,13 @@
       <code>$items</code>
       <code>$items</code>
       <code>$items</code>
+      <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
+      <code><![CDATA[list<FrameMetricType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/GetJobResponse.php">
@@ -219,11 +221,13 @@
       <code>$items</code>
       <code>$items</code>
       <code>$items</code>
+      <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
+      <code><![CDATA[list<FrameMetricType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/ListJobsResponse.php">
@@ -231,11 +235,13 @@
       <code>$items</code>
       <code>$items</code>
       <code>$items</code>
+      <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
+      <code><![CDATA[list<FrameMetricType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Rekognition/src/Result/IndexFacesResponse.php">
