@@ -12,6 +12,7 @@ use AsyncAws\MediaConvert\Enum\StatusUpdateInterval;
 use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
+use AsyncAws\MediaConvert\ValueObject\Output;
 
 /**
  * Send your create job request with your job settings and IAM role. Optionally, include user metadata and the ARN for
@@ -29,10 +30,8 @@ final class CreateJobRequest extends Input1
     private $accelerationSettings;
 
     /**
-     * Optional. Choose a tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert
-     * costs on any billing report that you set up. Any transcoding outputs that don't have an associated tag will appear in
-     * your billing report unsorted. If you don't choose a valid value for this field, your job outputs will appear on the
-     * billing report unsorted.
+     * Optionally choose a Billing tags source that AWS Billing and Cost Management will use to display tags for individual
+     * output costs on any billing report that you set up. Leave blank to use the default value, Job.
      *
      * @var BillingTagsSource::*|null
      */

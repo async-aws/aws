@@ -10,6 +10,7 @@ use AsyncAws\MediaConvert\Enum\Av1FramerateControl;
 use AsyncAws\MediaConvert\Enum\Av1FramerateConversionAlgorithm;
 use AsyncAws\MediaConvert\Enum\Av1RateControlMode;
 use AsyncAws\MediaConvert\Enum\Av1SpatialAdaptiveQuantization;
+use AsyncAws\MediaConvert\Enum\FrameMetricType;
 
 /**
  * Required when you set Codec, under VideoDescription>CodecSettings to the value AV1.
@@ -114,6 +115,24 @@ final class Av1Settings
     private $numberBframesBetweenReferenceFrames;
 
     /**
+     * Optionally choose one or more per frame metric reports to generate along with your output. You can use these metrics
+     * to analyze your video output according to one or more commonly used image quality metrics. You can specify per frame
+     * metrics for output groups or for individual outputs. When you do, MediaConvert writes a CSV (Comma-Separated Values)
+     * file to your S3 output destination, named after the video, video codec, and metric type. For example:
+     * video_h264_PSNR.csv Jobs that generate per frame metrics will take longer to complete, depending on the resolution
+     * and complexity of your output. For example, some 4K jobs might take up to twice as long to complete. Note that when
+     * analyzing the video quality of your output, or when comparing the video quality of multiple different outputs, we
+     * generally also recommend a detailed visual review in a controlled environment. You can choose from the following per
+     * frame metrics: * PSNR: Peak Signal-to-Noise Ratio * SSIM: Structural Similarity Index Measure * MS_SSIM: Multi-Scale
+     * Similarity Index Measure * PSNR_HVS: Peak Signal-to-Noise Ratio, Human Visual System * VMAF: Video Multi-Method
+     * Assessment Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the
+     * QVBR rate control mode.
+     *
+     * @var list<FrameMetricType::*>|null
+     */
+    private $perFrameMetrics;
+
+    /**
      * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
      * QVBR for Rate control mode.
      *
@@ -166,6 +185,7 @@ final class Av1Settings
      *   GopSize?: null|float,
      *   MaxBitrate?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
      *   QvbrSettings?: null|Av1QvbrSettings|array,
      *   RateControlMode?: null|Av1RateControlMode::*,
      *   Slices?: null|int,
@@ -184,6 +204,7 @@ final class Av1Settings
         $this->gopSize = $input['GopSize'] ?? null;
         $this->maxBitrate = $input['MaxBitrate'] ?? null;
         $this->numberBframesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
+        $this->perFrameMetrics = $input['PerFrameMetrics'] ?? null;
         $this->qvbrSettings = isset($input['QvbrSettings']) ? Av1QvbrSettings::create($input['QvbrSettings']) : null;
         $this->rateControlMode = $input['RateControlMode'] ?? null;
         $this->slices = $input['Slices'] ?? null;
@@ -202,6 +223,7 @@ final class Av1Settings
      *   GopSize?: null|float,
      *   MaxBitrate?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
      *   QvbrSettings?: null|Av1QvbrSettings|array,
      *   RateControlMode?: null|Av1RateControlMode::*,
      *   Slices?: null|int,
@@ -276,6 +298,14 @@ final class Av1Settings
     public function getNumberBframesBetweenReferenceFrames(): ?int
     {
         return $this->numberBframesBetweenReferenceFrames;
+    }
+
+    /**
+     * @return list<FrameMetricType::*>
+     */
+    public function getPerFrameMetrics(): array
+    {
+        return $this->perFrameMetrics ?? [];
     }
 
     public function getQvbrSettings(): ?Av1QvbrSettings
@@ -354,6 +384,17 @@ final class Av1Settings
         }
         if (null !== $v = $this->numberBframesBetweenReferenceFrames) {
             $payload['numberBFramesBetweenReferenceFrames'] = $v;
+        }
+        if (null !== $v = $this->perFrameMetrics) {
+            $index = -1;
+            $payload['perFrameMetrics'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!FrameMetricType::exists($listValue)) {
+                    throw new InvalidArgument(\sprintf('Invalid parameter "perFrameMetrics" for "%s". The value "%s" is not a valid "FrameMetricType".', __CLASS__, $listValue));
+                }
+                $payload['perFrameMetrics'][$index] = $listValue;
+            }
         }
         if (null !== $v = $this->qvbrSettings) {
             $payload['qvbrSettings'] = $v->requestBody();

@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\MediaConvert\Enum\AudioChannelTag;
+use AsyncAws\MediaConvert\Enum\FrameMetricType;
 use AsyncAws\MediaConvert\Enum\HlsAdMarkers;
 use AsyncAws\MediaConvert\Enum\TeletextPageType;
 use AsyncAws\MediaConvert\ValueObject\AacSettings;
@@ -413,6 +414,7 @@ class CreateJobResponse extends Result
             'GopSize' => isset($json['gopSize']) ? (float) $json['gopSize'] : null,
             'MaxBitrate' => isset($json['maxBitrate']) ? (int) $json['maxBitrate'] : null,
             'NumberBFramesBetweenReferenceFrames' => isset($json['numberBFramesBetweenReferenceFrames']) ? (int) $json['numberBFramesBetweenReferenceFrames'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'QvbrSettings' => empty($json['qvbrSettings']) ? null : $this->populateResultAv1QvbrSettings($json['qvbrSettings']),
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
             'Slices' => isset($json['slices']) ? (int) $json['slices'] : null,
@@ -437,6 +439,7 @@ class CreateJobResponse extends Result
             'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
             'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
             'InterlaceMode' => isset($json['interlaceMode']) ? (string) $json['interlaceMode'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (string) $json['scanTypeConversionMode'] : null,
             'SlowPal' => isset($json['slowPal']) ? (string) $json['slowPal'] : null,
             'Telecine' => isset($json['telecine']) ? (string) $json['telecine'] : null,
@@ -1078,6 +1081,7 @@ class CreateJobResponse extends Result
             'ParControl' => isset($json['parControl']) ? (string) $json['parControl'] : null,
             'ParDenominator' => isset($json['parDenominator']) ? (int) $json['parDenominator'] : null,
             'ParNumerator' => isset($json['parNumerator']) ? (int) $json['parNumerator'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'QualityTuningLevel' => isset($json['qualityTuningLevel']) ? (string) $json['qualityTuningLevel'] : null,
             'QvbrSettings' => empty($json['qvbrSettings']) ? null : $this->populateResultH264QvbrSettings($json['qvbrSettings']),
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
@@ -1138,6 +1142,7 @@ class CreateJobResponse extends Result
             'ParControl' => isset($json['parControl']) ? (string) $json['parControl'] : null,
             'ParDenominator' => isset($json['parDenominator']) ? (int) $json['parDenominator'] : null,
             'ParNumerator' => isset($json['parNumerator']) ? (int) $json['parNumerator'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'QualityTuningLevel' => isset($json['qualityTuningLevel']) ? (string) $json['qualityTuningLevel'] : null,
             'QvbrSettings' => empty($json['qvbrSettings']) ? null : $this->populateResultH265QvbrSettings($json['qvbrSettings']),
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
@@ -1692,6 +1697,7 @@ class CreateJobResponse extends Result
             'ParControl' => isset($json['parControl']) ? (string) $json['parControl'] : null,
             'ParDenominator' => isset($json['parDenominator']) ? (int) $json['parDenominator'] : null,
             'ParNumerator' => isset($json['parNumerator']) ? (int) $json['parNumerator'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'QualityTuningLevel' => isset($json['qualityTuningLevel']) ? (string) $json['qualityTuningLevel'] : null,
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (string) $json['scanTypeConversionMode'] : null,
@@ -1888,6 +1894,7 @@ class CreateJobResponse extends Result
             'FileGroupSettings' => empty($json['fileGroupSettings']) ? null : $this->populateResultFileGroupSettings($json['fileGroupSettings']),
             'HlsGroupSettings' => empty($json['hlsGroupSettings']) ? null : $this->populateResultHlsGroupSettings($json['hlsGroupSettings']),
             'MsSmoothGroupSettings' => empty($json['msSmoothGroupSettings']) ? null : $this->populateResultMsSmoothGroupSettings($json['msSmoothGroupSettings']),
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'Type' => isset($json['type']) ? (string) $json['type'] : null,
         ]);
     }
@@ -1919,6 +1926,7 @@ class CreateJobResponse extends Result
             'ParControl' => isset($json['parControl']) ? (string) $json['parControl'] : null,
             'ParDenominator' => isset($json['parDenominator']) ? (int) $json['parDenominator'] : null,
             'ParNumerator' => isset($json['parNumerator']) ? (int) $json['parNumerator'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (string) $json['scanTypeConversionMode'] : null,
             'SlowPal' => isset($json['slowPal']) ? (string) $json['slowPal'] : null,
             'Telecine' => isset($json['telecine']) ? (string) $json['telecine'] : null,
@@ -2394,6 +2402,7 @@ class CreateJobResponse extends Result
             'FramerateConversionAlgorithm' => isset($json['framerateConversionAlgorithm']) ? (string) $json['framerateConversionAlgorithm'] : null,
             'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
             'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
+            'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'Profile' => isset($json['profile']) ? (string) $json['profile'] : null,
             'SlowPal' => isset($json['slowPal']) ? (string) $json['slowPal'] : null,
             'Softness' => isset($json['softness']) ? (int) $json['softness'] : null,
@@ -2522,6 +2531,22 @@ class CreateJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultForceIncludeRenditionSize($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return list<FrameMetricType::*>
+     */
+    private function populateResult__listOfFrameMetricType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;

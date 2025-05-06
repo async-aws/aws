@@ -3,6 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\FrameMetricType;
 use AsyncAws\MediaConvert\Enum\Mpeg2AdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\Mpeg2CodecLevel;
 use AsyncAws\MediaConvert\Enum\Mpeg2CodecProfile;
@@ -247,6 +248,24 @@ final class Mpeg2Settings
     private $parNumerator;
 
     /**
+     * Optionally choose one or more per frame metric reports to generate along with your output. You can use these metrics
+     * to analyze your video output according to one or more commonly used image quality metrics. You can specify per frame
+     * metrics for output groups or for individual outputs. When you do, MediaConvert writes a CSV (Comma-Separated Values)
+     * file to your S3 output destination, named after the video, video codec, and metric type. For example:
+     * video_h264_PSNR.csv Jobs that generate per frame metrics will take longer to complete, depending on the resolution
+     * and complexity of your output. For example, some 4K jobs might take up to twice as long to complete. Note that when
+     * analyzing the video quality of your output, or when comparing the video quality of multiple different outputs, we
+     * generally also recommend a detailed visual review in a controlled environment. You can choose from the following per
+     * frame metrics: * PSNR: Peak Signal-to-Noise Ratio * SSIM: Structural Similarity Index Measure * MS_SSIM: Multi-Scale
+     * Similarity Index Measure * PSNR_HVS: Peak Signal-to-Noise Ratio, Human Visual System * VMAF: Video Multi-Method
+     * Assessment Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the
+     * QVBR rate control mode.
+     *
+     * @var list<FrameMetricType::*>|null
+     */
+    private $perFrameMetrics;
+
+    /**
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, single-pass encoding.
      *
@@ -379,6 +398,7 @@ final class Mpeg2Settings
      *   ParControl?: null|Mpeg2ParControl::*,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
      *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*,
      *   RateControlMode?: null|Mpeg2RateControlMode::*,
      *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*,
@@ -416,6 +436,7 @@ final class Mpeg2Settings
         $this->parControl = $input['ParControl'] ?? null;
         $this->parDenominator = $input['ParDenominator'] ?? null;
         $this->parNumerator = $input['ParNumerator'] ?? null;
+        $this->perFrameMetrics = $input['PerFrameMetrics'] ?? null;
         $this->qualityTuningLevel = $input['QualityTuningLevel'] ?? null;
         $this->rateControlMode = $input['RateControlMode'] ?? null;
         $this->scanTypeConversionMode = $input['ScanTypeConversionMode'] ?? null;
@@ -453,6 +474,7 @@ final class Mpeg2Settings
      *   ParControl?: null|Mpeg2ParControl::*,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
      *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*,
      *   RateControlMode?: null|Mpeg2RateControlMode::*,
      *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*,
@@ -613,6 +635,14 @@ final class Mpeg2Settings
     public function getParNumerator(): ?int
     {
         return $this->parNumerator;
+    }
+
+    /**
+     * @return list<FrameMetricType::*>
+     */
+    public function getPerFrameMetrics(): array
+    {
+        return $this->perFrameMetrics ?? [];
     }
 
     /**
@@ -796,6 +826,17 @@ final class Mpeg2Settings
         }
         if (null !== $v = $this->parNumerator) {
             $payload['parNumerator'] = $v;
+        }
+        if (null !== $v = $this->perFrameMetrics) {
+            $index = -1;
+            $payload['perFrameMetrics'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!FrameMetricType::exists($listValue)) {
+                    throw new InvalidArgument(\sprintf('Invalid parameter "perFrameMetrics" for "%s". The value "%s" is not a valid "FrameMetricType".', __CLASS__, $listValue));
+                }
+                $payload['perFrameMetrics'][$index] = $listValue;
+            }
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!Mpeg2QualityTuningLevel::exists($v)) {
