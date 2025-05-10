@@ -26,7 +26,7 @@ final class QueryExecution
     /**
      * The type of query statement that was run. `DDL` indicates DDL query statements. `DML` indicates DML (Data
      * Manipulation Language) query statements, such as `CREATE TABLE AS SELECT`. `UTILITY` indicates query statements other
-     * than DDL and DML, such as `SHOW CREATE TABLE`, or `DESCRIBE TABLE`.
+     * than DDL and DML, such as `SHOW CREATE TABLE`, `EXPLAIN`, `DESCRIBE`, or `SHOW TABLES`.
      *
      * @var StatementType::*|null
      */
