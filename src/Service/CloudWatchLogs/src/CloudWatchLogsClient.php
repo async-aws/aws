@@ -196,24 +196,21 @@ class CloudWatchLogsClient extends AbstractApi
      * nextToken in a subsequent `FilterLogEvents` operation. If the results don't include a `nextToken`, then pagination is
      * finished.
      *
-     * > If you set `startFromHead` to `true` and you don’t include `endTime` in your request, you can end up in a
-     * > situation where the pagination doesn't terminate. This can happen when the new log events are being added to the
-     * > target log streams faster than they are being read. This situation is a good use case for the CloudWatch Logs Live
-     * > Tail [^1] feature.
+     * Specifying the `limit` parameter only guarantees that a single page doesn't return more log events than the specified
+     * limit, but it might return fewer events than the limit. This is the expected API behavior.
      *
      * The returned log events are sorted by event timestamp, the timestamp when the event was ingested by CloudWatch Logs,
      * and the ID of the `PutLogEvents` request.
      *
      * If you are using CloudWatch cross-account observability, you can use this operation in a monitoring account and view
-     * data from the linked source accounts. For more information, see CloudWatch cross-account observability [^2].
+     * data from the linked source accounts. For more information, see CloudWatch cross-account observability [^1].
      *
-     * > If you are using log transformation [^3], the `FilterLogEvents` operation returns only the original versions of log
-     * > events, before they were transformed. To view the transformed versions, you must use a CloudWatch Logs query. [^4]
+     * > If you are using log transformation [^2], the `FilterLogEvents` operation returns only the original versions of log
+     * > events, before they were transformed. To view the transformed versions, you must use a CloudWatch Logs query. [^3]
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatchLogs_LiveTail.html
-     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html
-     * [^3]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html
-     * [^4]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html
+     * [^3]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html
      *
      * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_FilterLogEvents.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#filterlogevents
