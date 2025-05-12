@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.0.5
+
 ### Changed
 
 - Sort exception alphabetically.

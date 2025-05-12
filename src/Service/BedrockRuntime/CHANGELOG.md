@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
 ### Added
 
 - AWS api-change: New options for how to handle harmful content detected by Amazon Bedrock Guardrails.

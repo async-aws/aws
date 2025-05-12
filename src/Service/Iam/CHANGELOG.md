@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.6.1
+
 ### Changed
 
 - Normalize the composer requirements

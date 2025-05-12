@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.8.0
+
 ### Added
 
 - AWS api-change: added `eu-isoe-west-1` region

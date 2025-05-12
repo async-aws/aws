@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.14.0
+
 ### Added
 
 - AWS api-change: methods `adminGetUser`, `adminInitiateAuth`, `getUser` and `initiateAuth` might throw an `UnsupportedOperationException`.

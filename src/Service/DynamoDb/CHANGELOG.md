@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.6.0
+
 ### Added
 
 - AWS enhancement: Documentation update for secondary indexes and Create_Table.

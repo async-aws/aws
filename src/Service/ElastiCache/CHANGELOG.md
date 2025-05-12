@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.4.0
+
 ### Added
 
 - AWS api-change: Add support for ScaleConfig
