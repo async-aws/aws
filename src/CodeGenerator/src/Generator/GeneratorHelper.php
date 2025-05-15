@@ -42,6 +42,7 @@ class GeneratorHelper
             'KMS' => 'Kms',
             'ARN' => 'Arn',
             'VPC' => 'Vpc',
+            'STL' => 'Stl',
             'TTL' => 'Ttl',
             'DNS' => 'Dns',
             'MFA' => 'Mfa',
