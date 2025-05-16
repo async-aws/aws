@@ -175,6 +175,13 @@ final class ProjectEnvironment
     private $imagePullCredentialsType;
 
     /**
+     * A DockerServer object to use for this build project.
+     *
+     * @var DockerServer|null
+     */
+    private $dockerServer;
+
+    /**
      * @param array{
      *   type: EnvironmentType::*,
      *   image: string,
@@ -186,6 +193,7 @@ final class ProjectEnvironment
      *   certificate?: null|string,
      *   registryCredential?: null|RegistryCredential|array,
      *   imagePullCredentialsType?: null|ImagePullCredentialsType::*,
+     *   dockerServer?: null|DockerServer|array,
      * } $input
      */
     public function __construct(array $input)
@@ -200,6 +208,7 @@ final class ProjectEnvironment
         $this->certificate = $input['certificate'] ?? null;
         $this->registryCredential = isset($input['registryCredential']) ? RegistryCredential::create($input['registryCredential']) : null;
         $this->imagePullCredentialsType = $input['imagePullCredentialsType'] ?? null;
+        $this->dockerServer = isset($input['dockerServer']) ? DockerServer::create($input['dockerServer']) : null;
     }
 
     /**
@@ -214,6 +223,7 @@ final class ProjectEnvironment
      *   certificate?: null|string,
      *   registryCredential?: null|RegistryCredential|array,
      *   imagePullCredentialsType?: null|ImagePullCredentialsType::*,
+     *   dockerServer?: null|DockerServer|array,
      * }|ProjectEnvironment $input
      */
     public static function create($input): self
@@ -237,6 +247,11 @@ final class ProjectEnvironment
     public function getComputeType(): string
     {
         return $this->computeType;
+    }
+
+    public function getDockerServer(): ?DockerServer
+    {
+        return $this->dockerServer;
     }
 
     /**

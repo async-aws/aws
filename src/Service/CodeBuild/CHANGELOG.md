@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: AWS CodeBuild now supports Docker Server capability
+
 ## 2.10.0
 
 ### Added

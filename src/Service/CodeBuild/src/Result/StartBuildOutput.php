@@ -11,6 +11,8 @@ use AsyncAws\CodeBuild\ValueObject\BuildStatusConfig;
 use AsyncAws\CodeBuild\ValueObject\CloudWatchLogsConfig;
 use AsyncAws\CodeBuild\ValueObject\ComputeConfiguration;
 use AsyncAws\CodeBuild\ValueObject\DebugSession;
+use AsyncAws\CodeBuild\ValueObject\DockerServer;
+use AsyncAws\CodeBuild\ValueObject\DockerServerStatus;
 use AsyncAws\CodeBuild\ValueObject\EnvironmentVariable;
 use AsyncAws\CodeBuild\ValueObject\ExportedEnvironmentVariable;
 use AsyncAws\CodeBuild\ValueObject\GitSubmodulesConfig;
@@ -205,6 +207,23 @@ class StartBuildOutput extends Result
         ]);
     }
 
+    private function populateResultDockerServer(array $json): DockerServer
+    {
+        return new DockerServer([
+            'computeType' => (string) $json['computeType'],
+            'securityGroupIds' => !isset($json['securityGroupIds']) ? null : $this->populateResultSecurityGroupIds($json['securityGroupIds']),
+            'status' => empty($json['status']) ? null : $this->populateResultDockerServerStatus($json['status']),
+        ]);
+    }
+
+    private function populateResultDockerServerStatus(array $json): DockerServerStatus
+    {
+        return new DockerServerStatus([
+            'status' => isset($json['status']) ? (string) $json['status'] : null,
+            'message' => isset($json['message']) ? (string) $json['message'] : null,
+        ]);
+    }
+
     private function populateResultEnvironmentVariable(array $json): EnvironmentVariable
     {
         return new EnvironmentVariable([
@@ -337,6 +356,7 @@ class StartBuildOutput extends Result
             'certificate' => isset($json['certificate']) ? (string) $json['certificate'] : null,
             'registryCredential' => empty($json['registryCredential']) ? null : $this->populateResultRegistryCredential($json['registryCredential']),
             'imagePullCredentialsType' => isset($json['imagePullCredentialsType']) ? (string) $json['imagePullCredentialsType'] : null,
+            'dockerServer' => empty($json['dockerServer']) ? null : $this->populateResultDockerServer($json['dockerServer']),
         ]);
     }
 

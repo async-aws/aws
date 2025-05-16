@@ -166,6 +166,7 @@ use AsyncAws\MediaConvert\ValueObject\VideoCodecSettings;
 use AsyncAws\MediaConvert\ValueObject\VideoDescription;
 use AsyncAws\MediaConvert\ValueObject\VideoDetail;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlay;
+use AsyncAws\MediaConvert\ValueObject\VideoOverlayCrop;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlayInput;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlayInputClipping;
 use AsyncAws\MediaConvert\ValueObject\VideoOverlayPosition;
@@ -1067,6 +1068,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'SourceFile' => isset($json['sourceFile']) ? (string) $json['sourceFile'] : null,
             'TimeDelta' => isset($json['timeDelta']) ? (int) $json['timeDelta'] : null,
             'TimeDeltaUnits' => isset($json['timeDeltaUnits']) ? (string) $json['timeDeltaUnits'] : null,
+            'UpconvertSTLToTeletext' => isset($json['upconvertSTLToTeletext']) ? (string) $json['upconvertSTLToTeletext'] : null,
         ]);
     }
 
@@ -2250,12 +2252,24 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     private function populateResultVideoOverlay(array $json): VideoOverlay
     {
         return new VideoOverlay([
+            'Crop' => empty($json['crop']) ? null : $this->populateResultVideoOverlayCrop($json['crop']),
             'EndTimecode' => isset($json['endTimecode']) ? (string) $json['endTimecode'] : null,
             'InitialPosition' => empty($json['initialPosition']) ? null : $this->populateResultVideoOverlayPosition($json['initialPosition']),
             'Input' => empty($json['input']) ? null : $this->populateResultVideoOverlayInput($json['input']),
             'Playback' => isset($json['playback']) ? (string) $json['playback'] : null,
             'StartTimecode' => isset($json['startTimecode']) ? (string) $json['startTimecode'] : null,
             'Transitions' => !isset($json['transitions']) ? null : $this->populateResult__listOfVideoOverlayTransition($json['transitions']),
+        ]);
+    }
+
+    private function populateResultVideoOverlayCrop(array $json): VideoOverlayCrop
+    {
+        return new VideoOverlayCrop([
+            'Height' => isset($json['height']) ? (int) $json['height'] : null,
+            'Unit' => isset($json['unit']) ? (string) $json['unit'] : null,
+            'Width' => isset($json['width']) ? (int) $json['width'] : null,
+            'X' => isset($json['x']) ? (int) $json['x'] : null,
+            'Y' => isset($json['y']) ? (int) $json['y'] : null,
         ]);
     }
 

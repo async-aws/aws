@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This update enables cropping for video overlays and adds a new STL to Teletext upconversion toggle to preserve styling.
+
 ## 1.8.0
 
 ### Added
