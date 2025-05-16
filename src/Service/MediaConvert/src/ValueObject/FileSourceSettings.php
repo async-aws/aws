@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\CaptionSourceByteRateLimit;
 use AsyncAws\MediaConvert\Enum\CaptionSourceConvertPaintOnToPopOn;
+use AsyncAws\MediaConvert\Enum\CaptionSourceUpconvertSTLToTeletext;
 use AsyncAws\MediaConvert\Enum\FileSourceConvert608To708;
 use AsyncAws\MediaConvert\Enum\FileSourceTimeDeltaUnits;
 
@@ -88,6 +89,15 @@ final class FileSourceSettings
     private $timeDeltaUnits;
 
     /**
+     * Specify whether this set of input captions appears in your outputs in both STL and Teletext format. If you choose
+     * Upconvert, MediaConvert includes the captions data in two ways: it passes the STL data through using the Teletext
+     * compatibility bytes fields of the Teletext wrapper, and it also translates the STL data into Teletext.
+     *
+     * @var CaptionSourceUpconvertSTLToTeletext::*|null
+     */
+    private $upconvertStlToTeletext;
+
+    /**
      * @param array{
      *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
      *   Convert608To708?: null|FileSourceConvert608To708::*,
@@ -96,6 +106,7 @@ final class FileSourceSettings
      *   SourceFile?: null|string,
      *   TimeDelta?: null|int,
      *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
+     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*,
      * } $input
      */
     public function __construct(array $input)
@@ -107,6 +118,7 @@ final class FileSourceSettings
         $this->sourceFile = $input['SourceFile'] ?? null;
         $this->timeDelta = $input['TimeDelta'] ?? null;
         $this->timeDeltaUnits = $input['TimeDeltaUnits'] ?? null;
+        $this->upconvertStlToTeletext = $input['UpconvertSTLToTeletext'] ?? null;
     }
 
     /**
@@ -118,6 +130,7 @@ final class FileSourceSettings
      *   SourceFile?: null|string,
      *   TimeDelta?: null|int,
      *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
+     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*,
      * }|FileSourceSettings $input
      */
     public static function create($input): self
@@ -173,6 +186,14 @@ final class FileSourceSettings
     }
 
     /**
+     * @return CaptionSourceUpconvertSTLToTeletext::*|null
+     */
+    public function getUpconvertStlToTeletext(): ?string
+    {
+        return $this->upconvertStlToTeletext;
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -210,6 +231,12 @@ final class FileSourceSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "timeDeltaUnits" for "%s". The value "%s" is not a valid "FileSourceTimeDeltaUnits".', __CLASS__, $v));
             }
             $payload['timeDeltaUnits'] = $v;
+        }
+        if (null !== $v = $this->upconvertStlToTeletext) {
+            if (!CaptionSourceUpconvertSTLToTeletext::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "upconvertSTLToTeletext" for "%s". The value "%s" is not a valid "CaptionSourceUpconvertSTLToTeletext".', __CLASS__, $v));
+            }
+            $payload['upconvertSTLToTeletext'] = $v;
         }
 
         return $payload;

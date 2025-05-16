@@ -12,6 +12,14 @@ use AsyncAws\MediaConvert\Enum\VideoOverlayPlayBackMode;
 final class VideoOverlay
 {
     /**
+     * Specify a rectangle of content to crop and use from your video overlay's input video. When you do, MediaConvert uses
+     * the cropped dimensions that you specify under X offset, Y offset, Width, and Height.
+     *
+     * @var VideoOverlayCrop|null
+     */
+    private $crop;
+
+    /**
      * Enter the end timecode in the base input video for this overlay. Your overlay will be active through this frame. To
      * display your video overlay for the duration of the base input video: Leave blank. Use the format HH:MM:SS:FF or
      * HH:MM:SS;FF, where HH is the hour, MM is the minute, SS isthe second, and FF is the frame number. When entering this
@@ -72,6 +80,7 @@ final class VideoOverlay
 
     /**
      * @param array{
+     *   Crop?: null|VideoOverlayCrop|array,
      *   EndTimecode?: null|string,
      *   InitialPosition?: null|VideoOverlayPosition|array,
      *   Input?: null|VideoOverlayInput|array,
@@ -82,6 +91,7 @@ final class VideoOverlay
      */
     public function __construct(array $input)
     {
+        $this->crop = isset($input['Crop']) ? VideoOverlayCrop::create($input['Crop']) : null;
         $this->endTimecode = $input['EndTimecode'] ?? null;
         $this->initialPosition = isset($input['InitialPosition']) ? VideoOverlayPosition::create($input['InitialPosition']) : null;
         $this->input = isset($input['Input']) ? VideoOverlayInput::create($input['Input']) : null;
@@ -92,6 +102,7 @@ final class VideoOverlay
 
     /**
      * @param array{
+     *   Crop?: null|VideoOverlayCrop|array,
      *   EndTimecode?: null|string,
      *   InitialPosition?: null|VideoOverlayPosition|array,
      *   Input?: null|VideoOverlayInput|array,
@@ -103,6 +114,11 @@ final class VideoOverlay
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getCrop(): ?VideoOverlayCrop
+    {
+        return $this->crop;
     }
 
     public function getEndTimecode(): ?string
@@ -147,6 +163,9 @@ final class VideoOverlay
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->crop) {
+            $payload['crop'] = $v->requestBody();
+        }
         if (null !== $v = $this->endTimecode) {
             $payload['endTimecode'] = $v;
         }
