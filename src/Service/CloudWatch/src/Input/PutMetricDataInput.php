@@ -70,7 +70,7 @@ final class PutMetricDataInput extends Input
      *
      * This parameter is *required* when `EntityMetricData` is included.
      *
-     * [^1]: https://docs.aws.amazon.com/adding-your-own-related-telemetry.html
+     * [^1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html
      *
      * @var bool|null
      */

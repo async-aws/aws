@@ -26,7 +26,8 @@ final class ListMetricsInput extends Input
     private $metricName;
 
     /**
-     * The dimensions to filter against. Only the dimensions that match exactly will be returned.
+     * The dimensions to filter against. Only the dimension with names that match exactly will be returned. If you specify
+     * one dimension name and a metric has that dimension and also other dimensions, it will be returned.
      *
      * @var DimensionFilter[]|null
      */
