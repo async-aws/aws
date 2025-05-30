@@ -164,7 +164,6 @@ class S3Client extends AbstractApi
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadAbort.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#abortmultipartupload
      *
@@ -341,7 +340,6 @@ class S3Client extends AbstractApi
      * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadComplete.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#completemultipartupload
      *
@@ -506,7 +504,6 @@ class S3Client extends AbstractApi
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#copyobject
      *
@@ -662,7 +659,6 @@ class S3Client extends AbstractApi
      * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createbucket
      *
@@ -871,7 +867,6 @@ class S3Client extends AbstractApi
      * [^27]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^28]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createmultipartupload
      *
@@ -957,7 +952,6 @@ class S3Client extends AbstractApi
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETE.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deletebucket
      *
@@ -994,7 +988,6 @@ class S3Client extends AbstractApi
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTOPTIONSobject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEcors.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deletebucketcors
      *
@@ -1094,7 +1087,6 @@ class S3Client extends AbstractApi
      * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deleteobject
      *
@@ -1243,7 +1235,6 @@ class S3Client extends AbstractApi
      * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/multiobjectdeleteapi.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deleteobjects
      *
@@ -1294,7 +1285,6 @@ class S3Client extends AbstractApi
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETcors.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketcors
      *
@@ -1495,7 +1485,6 @@ class S3Client extends AbstractApi
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getobject
      *
@@ -1568,7 +1557,6 @@ class S3Client extends AbstractApi
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
      * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getobjectacl
      *
@@ -1749,7 +1737,6 @@ class S3Client extends AbstractApi
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#headobject
      *
@@ -1807,7 +1794,6 @@ class S3Client extends AbstractApi
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listbuckets
      *
@@ -1910,7 +1896,6 @@ class S3Client extends AbstractApi
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListMPUpload.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listmultipartuploads
      *
@@ -1961,7 +1946,6 @@ class S3Client extends AbstractApi
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETVersion.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectVersions.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listobjectversions
      *
@@ -2154,7 +2138,6 @@ class S3Client extends AbstractApi
      * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html
      * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listparts
      *
@@ -2295,7 +2278,6 @@ class S3Client extends AbstractApi
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTOPTIONSobject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTcors.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbucketcors
      *
@@ -2430,7 +2412,6 @@ class S3Client extends AbstractApi
      * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTtagging.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbuckettagging
      *
@@ -2550,7 +2531,6 @@ class S3Client extends AbstractApi
      * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobject
      *
@@ -2737,7 +2717,6 @@ class S3Client extends AbstractApi
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
      * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobjectacl
      *
@@ -2973,7 +2952,6 @@ class S3Client extends AbstractApi
      * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPart.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpart
      *
@@ -3150,7 +3128,6 @@ class S3Client extends AbstractApi
      * [^21]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^22]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPartCopy.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpartcopy
      *

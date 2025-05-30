@@ -32,9 +32,8 @@ final class CreateBucketConfiguration
      * Specifies the location where the bucket will be created.
      *
      * **Directory buckets ** - The location type is Availability Zone or Local Zone. To use the Local Zone location type,
-     * your account must be enabled for Dedicated Local Zones. Otherwise, you get an HTTP `403 Forbidden` error with the
-     * error code `AccessDenied`. To learn more, see Enable accounts for Dedicated Local Zones [^1] in the *Amazon S3 User
-     * Guide*.
+     * your account must be enabled for Local Zones. Otherwise, you get an HTTP `403 Forbidden` error with the error code
+     * `AccessDenied`. To learn more, see Enable accounts for Local Zones [^1] in the *Amazon S3 User Guide*.
      *
      * > This functionality is only supported by directory buckets.
      *
