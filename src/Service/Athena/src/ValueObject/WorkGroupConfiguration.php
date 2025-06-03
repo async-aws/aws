@@ -24,6 +24,14 @@ final class WorkGroupConfiguration
     private $resultConfiguration;
 
     /**
+     * The configuration for storing results in Athena owned storage, which includes whether this feature is enabled;
+     * whether encryption configuration, if any, is used for encrypting query results.
+     *
+     * @var ManagedQueryResultsConfiguration|null
+     */
+    private $managedQueryResultsConfiguration;
+
+    /**
      * If set to "true", the settings for the workgroup override client-side settings. If set to "false", client-side
      * settings are used. For more information, see Workgroup Settings Override Client-Side Settings [^1].
      *
@@ -121,6 +129,7 @@ final class WorkGroupConfiguration
     /**
      * @param array{
      *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
      *   EnforceWorkGroupConfiguration?: null|bool,
      *   PublishCloudWatchMetricsEnabled?: null|bool,
      *   BytesScannedCutoffPerQuery?: null|int,
@@ -137,6 +146,7 @@ final class WorkGroupConfiguration
     public function __construct(array $input)
     {
         $this->resultConfiguration = isset($input['ResultConfiguration']) ? ResultConfiguration::create($input['ResultConfiguration']) : null;
+        $this->managedQueryResultsConfiguration = isset($input['ManagedQueryResultsConfiguration']) ? ManagedQueryResultsConfiguration::create($input['ManagedQueryResultsConfiguration']) : null;
         $this->enforceWorkGroupConfiguration = $input['EnforceWorkGroupConfiguration'] ?? null;
         $this->publishCloudWatchMetricsEnabled = $input['PublishCloudWatchMetricsEnabled'] ?? null;
         $this->bytesScannedCutoffPerQuery = $input['BytesScannedCutoffPerQuery'] ?? null;
@@ -153,6 +163,7 @@ final class WorkGroupConfiguration
     /**
      * @param array{
      *   ResultConfiguration?: null|ResultConfiguration|array,
+     *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
      *   EnforceWorkGroupConfiguration?: null|bool,
      *   PublishCloudWatchMetricsEnabled?: null|bool,
      *   BytesScannedCutoffPerQuery?: null|int,
@@ -209,6 +220,11 @@ final class WorkGroupConfiguration
     public function getIdentityCenterConfiguration(): ?IdentityCenterConfiguration
     {
         return $this->identityCenterConfiguration;
+    }
+
+    public function getManagedQueryResultsConfiguration(): ?ManagedQueryResultsConfiguration
+    {
+        return $this->managedQueryResultsConfiguration;
     }
 
     public function getPublishCloudWatchMetricsEnabled(): ?bool

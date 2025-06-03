@@ -7,6 +7,8 @@ use AsyncAws\Athena\ValueObject\CustomerContentEncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EngineVersion;
 use AsyncAws\Athena\ValueObject\IdentityCenterConfiguration;
+use AsyncAws\Athena\ValueObject\ManagedQueryResultsConfiguration;
+use AsyncAws\Athena\ValueObject\ManagedQueryResultsEncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\QueryResultsS3AccessGrantsConfiguration;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
 use AsyncAws\Athena\ValueObject\WorkGroup;
@@ -75,6 +77,21 @@ class GetWorkGroupOutput extends Result
         ]);
     }
 
+    private function populateResultManagedQueryResultsConfiguration(array $json): ManagedQueryResultsConfiguration
+    {
+        return new ManagedQueryResultsConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'EncryptionConfiguration' => empty($json['EncryptionConfiguration']) ? null : $this->populateResultManagedQueryResultsEncryptionConfiguration($json['EncryptionConfiguration']),
+        ]);
+    }
+
+    private function populateResultManagedQueryResultsEncryptionConfiguration(array $json): ManagedQueryResultsEncryptionConfiguration
+    {
+        return new ManagedQueryResultsEncryptionConfiguration([
+            'KmsKey' => (string) $json['KmsKey'],
+        ]);
+    }
+
     private function populateResultQueryResultsS3AccessGrantsConfiguration(array $json): QueryResultsS3AccessGrantsConfiguration
     {
         return new QueryResultsS3AccessGrantsConfiguration([
@@ -110,6 +127,7 @@ class GetWorkGroupOutput extends Result
     {
         return new WorkGroupConfiguration([
             'ResultConfiguration' => empty($json['ResultConfiguration']) ? null : $this->populateResultResultConfiguration($json['ResultConfiguration']),
+            'ManagedQueryResultsConfiguration' => empty($json['ManagedQueryResultsConfiguration']) ? null : $this->populateResultManagedQueryResultsConfiguration($json['ManagedQueryResultsConfiguration']),
             'EnforceWorkGroupConfiguration' => isset($json['EnforceWorkGroupConfiguration']) ? filter_var($json['EnforceWorkGroupConfiguration'], \FILTER_VALIDATE_BOOLEAN) : null,
             'PublishCloudWatchMetricsEnabled' => isset($json['PublishCloudWatchMetricsEnabled']) ? filter_var($json['PublishCloudWatchMetricsEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'BytesScannedCutoffPerQuery' => isset($json['BytesScannedCutoffPerQuery']) ? (int) $json['BytesScannedCutoffPerQuery'] : null,
