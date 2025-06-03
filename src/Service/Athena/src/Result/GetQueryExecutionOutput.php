@@ -6,6 +6,8 @@ use AsyncAws\Athena\ValueObject\AclConfiguration;
 use AsyncAws\Athena\ValueObject\AthenaError;
 use AsyncAws\Athena\ValueObject\EncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EngineVersion;
+use AsyncAws\Athena\ValueObject\ManagedQueryResultsConfiguration;
+use AsyncAws\Athena\ValueObject\ManagedQueryResultsEncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\QueryExecution;
 use AsyncAws\Athena\ValueObject\QueryExecutionContext;
 use AsyncAws\Athena\ValueObject\QueryExecutionStatistics;
@@ -90,12 +92,28 @@ class GetQueryExecutionOutput extends Result
         return $items;
     }
 
+    private function populateResultManagedQueryResultsConfiguration(array $json): ManagedQueryResultsConfiguration
+    {
+        return new ManagedQueryResultsConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'EncryptionConfiguration' => empty($json['EncryptionConfiguration']) ? null : $this->populateResultManagedQueryResultsEncryptionConfiguration($json['EncryptionConfiguration']),
+        ]);
+    }
+
+    private function populateResultManagedQueryResultsEncryptionConfiguration(array $json): ManagedQueryResultsEncryptionConfiguration
+    {
+        return new ManagedQueryResultsEncryptionConfiguration([
+            'KmsKey' => (string) $json['KmsKey'],
+        ]);
+    }
+
     private function populateResultQueryExecution(array $json): QueryExecution
     {
         return new QueryExecution([
             'QueryExecutionId' => isset($json['QueryExecutionId']) ? (string) $json['QueryExecutionId'] : null,
             'Query' => isset($json['Query']) ? (string) $json['Query'] : null,
             'StatementType' => isset($json['StatementType']) ? (string) $json['StatementType'] : null,
+            'ManagedQueryResultsConfiguration' => empty($json['ManagedQueryResultsConfiguration']) ? null : $this->populateResultManagedQueryResultsConfiguration($json['ManagedQueryResultsConfiguration']),
             'ResultConfiguration' => empty($json['ResultConfiguration']) ? null : $this->populateResultResultConfiguration($json['ResultConfiguration']),
             'ResultReuseConfiguration' => empty($json['ResultReuseConfiguration']) ? null : $this->populateResultResultReuseConfiguration($json['ResultReuseConfiguration']),
             'QueryExecutionContext' => empty($json['QueryExecutionContext']) ? null : $this->populateResultQueryExecutionContext($json['QueryExecutionContext']),

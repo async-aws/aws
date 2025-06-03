@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena\Input;
 
+use AsyncAws\Athena\Enum\QueryResultType;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -35,10 +36,20 @@ final class GetQueryResultsInput extends Input
     private $maxResults;
 
     /**
+     * When you set this to `DATA_ROWS` or empty, `GetQueryResults` returns the query results in rows. If set to
+     * `DATA_MANIFEST`, it returns the manifest file in rows. Only the query types `CREATE TABLE AS SELECT`, `UNLOAD`, and
+     * `INSERT` can generate a manifest file. If you use `DATA_MANIFEST` for other query types, the query will fail.
+     *
+     * @var QueryResultType::*|null
+     */
+    private $queryResultType;
+
+    /**
      * @param array{
      *   QueryExecutionId?: string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   QueryResultType?: null|QueryResultType::*,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,6 +58,7 @@ final class GetQueryResultsInput extends Input
         $this->queryExecutionId = $input['QueryExecutionId'] ?? null;
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
+        $this->queryResultType = $input['QueryResultType'] ?? null;
         parent::__construct($input);
     }
 
@@ -55,6 +67,7 @@ final class GetQueryResultsInput extends Input
      *   QueryExecutionId?: string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   QueryResultType?: null|QueryResultType::*,
      *   '@region'?: string|null,
      * }|GetQueryResultsInput $input
      */
@@ -76,6 +89,14 @@ final class GetQueryResultsInput extends Input
     public function getQueryExecutionId(): ?string
     {
         return $this->queryExecutionId;
+    }
+
+    /**
+     * @return QueryResultType::*|null
+     */
+    public function getQueryResultType(): ?string
+    {
+        return $this->queryResultType;
     }
 
     /**
@@ -125,6 +146,16 @@ final class GetQueryResultsInput extends Input
         return $this;
     }
 
+    /**
+     * @param QueryResultType::*|null $value
+     */
+    public function setQueryResultType(?string $value): self
+    {
+        $this->queryResultType = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -137,6 +168,12 @@ final class GetQueryResultsInput extends Input
         }
         if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
+        }
+        if (null !== $v = $this->queryResultType) {
+            if (!QueryResultType::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "QueryResultType" for "%s". The value "%s" is not a valid "QueryResultType".', __CLASS__, $v));
+            }
+            $payload['QueryResultType'] = $v;
         }
 
         return $payload;

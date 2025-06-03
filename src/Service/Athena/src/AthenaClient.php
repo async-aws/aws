@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena;
 
+use AsyncAws\Athena\Enum\QueryResultType;
 use AsyncAws\Athena\Exception\InternalServerException;
 use AsyncAws\Athena\Exception\InvalidRequestException;
 use AsyncAws\Athena\Exception\MetadataException;
@@ -246,6 +247,7 @@ class AthenaClient extends AbstractApi
      *   QueryExecutionId: string,
      *   NextToken?: null|string,
      *   MaxResults?: null|int,
+     *   QueryResultType?: null|QueryResultType::*,
      *   '@region'?: string|null,
      * }|GetQueryResultsInput $input
      *
@@ -785,6 +787,13 @@ class AthenaClient extends AbstractApi
                 return [
                     'endpoint' => 'https://athena.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
+                    'signService' => 'athena',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://athena.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'athena',
                     'signVersions' => ['v4'],
                 ];
