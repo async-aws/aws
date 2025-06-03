@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.4.0
+
 ### Added
 
 - AWS api-change: Add support for the managed query result in the workgroup APIs. The managed query result configuration enables users to store query results to Athena owned storage.
