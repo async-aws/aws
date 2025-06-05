@@ -1648,11 +1648,14 @@ class GetJobResponse extends Result
     {
         return new Mp4Settings([
             'AudioDuration' => isset($json['audioDuration']) ? (string) $json['audioDuration'] : null,
+            'C2paManifest' => isset($json['c2paManifest']) ? (string) $json['c2paManifest'] : null,
+            'CertificateSecret' => isset($json['certificateSecret']) ? (string) $json['certificateSecret'] : null,
             'CslgAtom' => isset($json['cslgAtom']) ? (string) $json['cslgAtom'] : null,
             'CttsVersion' => isset($json['cttsVersion']) ? (int) $json['cttsVersion'] : null,
             'FreeSpaceBox' => isset($json['freeSpaceBox']) ? (string) $json['freeSpaceBox'] : null,
             'MoovPlacement' => isset($json['moovPlacement']) ? (string) $json['moovPlacement'] : null,
             'Mp4MajorBrand' => isset($json['mp4MajorBrand']) ? (string) $json['mp4MajorBrand'] : null,
+            'SigningKmsKey' => isset($json['signingKmsKey']) ? (string) $json['signingKmsKey'] : null,
         ]);
     }
 
