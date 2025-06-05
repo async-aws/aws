@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes support for embedding and signing C2PA content credentials in MP4 outputs.
+
 ## 1.9.0
 
 ### Added

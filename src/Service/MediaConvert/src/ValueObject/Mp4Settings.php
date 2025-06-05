@@ -4,6 +4,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\CmfcAudioDuration;
+use AsyncAws\MediaConvert\Enum\Mp4C2paManifest;
 use AsyncAws\MediaConvert\Enum\Mp4CslgAtom;
 use AsyncAws\MediaConvert\Enum\Mp4FreeSpaceBox;
 use AsyncAws\MediaConvert\Enum\Mp4MoovPlacement;
@@ -29,6 +30,25 @@ final class Mp4Settings
      * @var CmfcAudioDuration::*|null
      */
     private $audioDuration;
+
+    /**
+     * When enabled, a C2PA compliant manifest will be generated, signed and embeded in the output. For more information on
+     * C2PA, see https://c2pa.org/specifications/specifications/2.1/index.html.
+     *
+     * @var Mp4C2paManifest::*|null
+     */
+    private $c2paManifest;
+
+    /**
+     * Specify the name or ARN of the AWS Secrets Manager secret that contains your C2PA public certificate chain in PEM
+     * format. Provide a valid secret name or ARN. Note that your MediaConvert service role must allow access to this
+     * secret. The public certificate chain is added to the COSE header (x5chain) for signature validation. Include the
+     * signer's certificate and all intermediate certificates. Do not include the root certificate. For details on COSE,
+     * see: https://opensource.contentauthenticity.org/docs/manifest/signing-manifests.
+     *
+     * @var string|null
+     */
+    private $certificateSecret;
 
     /**
      * When enabled, file composition times will start at zero, composition times in the 'ctts' (composition time to sample)
@@ -72,33 +92,50 @@ final class Mp4Settings
     private $mp4MajorBrand;
 
     /**
+     * Specify the ID or ARN of the AWS KMS key used to sign the C2PA manifest in your MP4 output. Provide a valid KMS key
+     * ARN. Note that your MediaConvert service role must allow access to this key.
+     *
+     * @var string|null
+     */
+    private $signingKmsKey;
+
+    /**
      * @param array{
      *   AudioDuration?: null|CmfcAudioDuration::*,
+     *   C2paManifest?: null|Mp4C2paManifest::*,
+     *   CertificateSecret?: null|string,
      *   CslgAtom?: null|Mp4CslgAtom::*,
      *   CttsVersion?: null|int,
      *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
      *   MoovPlacement?: null|Mp4MoovPlacement::*,
      *   Mp4MajorBrand?: null|string,
+     *   SigningKmsKey?: null|string,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->audioDuration = $input['AudioDuration'] ?? null;
+        $this->c2paManifest = $input['C2paManifest'] ?? null;
+        $this->certificateSecret = $input['CertificateSecret'] ?? null;
         $this->cslgAtom = $input['CslgAtom'] ?? null;
         $this->cttsVersion = $input['CttsVersion'] ?? null;
         $this->freeSpaceBox = $input['FreeSpaceBox'] ?? null;
         $this->moovPlacement = $input['MoovPlacement'] ?? null;
         $this->mp4MajorBrand = $input['Mp4MajorBrand'] ?? null;
+        $this->signingKmsKey = $input['SigningKmsKey'] ?? null;
     }
 
     /**
      * @param array{
      *   AudioDuration?: null|CmfcAudioDuration::*,
+     *   C2paManifest?: null|Mp4C2paManifest::*,
+     *   CertificateSecret?: null|string,
      *   CslgAtom?: null|Mp4CslgAtom::*,
      *   CttsVersion?: null|int,
      *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
      *   MoovPlacement?: null|Mp4MoovPlacement::*,
      *   Mp4MajorBrand?: null|string,
+     *   SigningKmsKey?: null|string,
      * }|Mp4Settings $input
      */
     public static function create($input): self
@@ -112,6 +149,19 @@ final class Mp4Settings
     public function getAudioDuration(): ?string
     {
         return $this->audioDuration;
+    }
+
+    /**
+     * @return Mp4C2paManifest::*|null
+     */
+    public function getC2paManifest(): ?string
+    {
+        return $this->c2paManifest;
+    }
+
+    public function getCertificateSecret(): ?string
+    {
+        return $this->certificateSecret;
     }
 
     /**
@@ -148,6 +198,11 @@ final class Mp4Settings
         return $this->mp4MajorBrand;
     }
 
+    public function getSigningKmsKey(): ?string
+    {
+        return $this->signingKmsKey;
+    }
+
     /**
      * @internal
      */
@@ -159,6 +214,15 @@ final class Mp4Settings
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "CmfcAudioDuration".', __CLASS__, $v));
             }
             $payload['audioDuration'] = $v;
+        }
+        if (null !== $v = $this->c2paManifest) {
+            if (!Mp4C2paManifest::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "c2paManifest" for "%s". The value "%s" is not a valid "Mp4C2paManifest".', __CLASS__, $v));
+            }
+            $payload['c2paManifest'] = $v;
+        }
+        if (null !== $v = $this->certificateSecret) {
+            $payload['certificateSecret'] = $v;
         }
         if (null !== $v = $this->cslgAtom) {
             if (!Mp4CslgAtom::exists($v)) {
@@ -183,6 +247,9 @@ final class Mp4Settings
         }
         if (null !== $v = $this->mp4MajorBrand) {
             $payload['mp4MajorBrand'] = $v;
+        }
+        if (null !== $v = $this->signingKmsKey) {
+            $payload['signingKmsKey'] = $v;
         }
 
         return $payload;
