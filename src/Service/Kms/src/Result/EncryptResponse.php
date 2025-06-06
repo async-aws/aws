@@ -32,6 +32,14 @@ class EncryptResponse extends Result
      */
     private $encryptionAlgorithm;
 
+    /**
+     * The identifier of the key material used to encrypt the ciphertext. This field is present only when the operation uses
+     * a symmetric encryption KMS key.
+     *
+     * @var string|null
+     */
+    private $keyMaterialId;
+
     public function getCiphertextBlob(): ?string
     {
         $this->initialize();
@@ -56,6 +64,13 @@ class EncryptResponse extends Result
         return $this->keyId;
     }
 
+    public function getKeyMaterialId(): ?string
+    {
+        $this->initialize();
+
+        return $this->keyMaterialId;
+    }
+
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
@@ -63,5 +78,6 @@ class EncryptResponse extends Result
         $this->ciphertextBlob = isset($data['CiphertextBlob']) ? base64_decode((string) $data['CiphertextBlob']) : null;
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
         $this->encryptionAlgorithm = isset($data['EncryptionAlgorithm']) ? (string) $data['EncryptionAlgorithm'] : null;
+        $this->keyMaterialId = isset($data['KeyMaterialId']) ? (string) $data['KeyMaterialId'] : null;
     }
 }

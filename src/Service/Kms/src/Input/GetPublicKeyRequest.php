@@ -39,7 +39,7 @@ final class GetPublicKeyRequest extends Input
      * Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/using-grant-token.html
      *
      * @var string[]|null
      */

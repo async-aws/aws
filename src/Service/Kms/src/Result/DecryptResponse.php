@@ -48,6 +48,14 @@ class DecryptResponse extends Result
      */
     private $ciphertextForRecipient;
 
+    /**
+     * The identifier of the key material used to decrypt the ciphertext. This field is present only when the operation uses
+     * a symmetric encryption KMS key.
+     *
+     * @var string|null
+     */
+    private $keyMaterialId;
+
     public function getCiphertextForRecipient(): ?string
     {
         $this->initialize();
@@ -72,6 +80,13 @@ class DecryptResponse extends Result
         return $this->keyId;
     }
 
+    public function getKeyMaterialId(): ?string
+    {
+        $this->initialize();
+
+        return $this->keyMaterialId;
+    }
+
     public function getPlaintext(): ?string
     {
         $this->initialize();
@@ -87,5 +102,6 @@ class DecryptResponse extends Result
         $this->plaintext = isset($data['Plaintext']) ? base64_decode((string) $data['Plaintext']) : null;
         $this->encryptionAlgorithm = isset($data['EncryptionAlgorithm']) ? (string) $data['EncryptionAlgorithm'] : null;
         $this->ciphertextForRecipient = isset($data['CiphertextForRecipient']) ? base64_decode((string) $data['CiphertextForRecipient']) : null;
+        $this->keyMaterialId = isset($data['KeyMaterialId']) ? (string) $data['KeyMaterialId'] : null;
     }
 }

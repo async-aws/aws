@@ -96,6 +96,7 @@ class CreateKeyResponse extends Result
             'PendingDeletionWindowInDays' => isset($json['PendingDeletionWindowInDays']) ? (int) $json['PendingDeletionWindowInDays'] : null,
             'MacAlgorithms' => !isset($json['MacAlgorithms']) ? null : $this->populateResultMacAlgorithmSpecList($json['MacAlgorithms']),
             'XksKeyConfiguration' => empty($json['XksKeyConfiguration']) ? null : $this->populateResultXksKeyConfigurationType($json['XksKeyConfiguration']),
+            'CurrentKeyMaterialId' => isset($json['CurrentKeyMaterialId']) ? (string) $json['CurrentKeyMaterialId'] : null,
         ]);
     }
 

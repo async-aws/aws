@@ -33,7 +33,7 @@ final class CreateAliasRequest extends Input
      *
      * A valid key ID is required. If you supply a null or empty string value, this operation returns an error.
      *
-     * For help finding the key ID and ARN, see Finding the Key ID and ARN [^2] in the **Key Management Service Developer
+     * For help finding the key ID and ARN, see Find the key ID and key ARN [^2] in the **Key Management Service Developer
      * Guide**.
      *
      * Specify the key ID or key ARN of the KMS key.
@@ -46,7 +46,7 @@ final class CreateAliasRequest extends Input
      * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html
      *
      * @required
      *
