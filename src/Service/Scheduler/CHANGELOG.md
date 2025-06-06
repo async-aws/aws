@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `cn-north-1` and `cn-northwest-1` regions
 
 ## 1.4.0
 
