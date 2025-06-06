@@ -70,7 +70,7 @@ final class KeyMetadata
     /**
      * The cryptographic operations [^1] for which you can use the KMS key.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations
      *
      * @var KeyUsageType::*|null
      */
@@ -101,9 +101,10 @@ final class KeyMetadata
     private $deletionDate;
 
     /**
-     * The time at which the imported key material expires. When the key material expires, KMS deletes the key material and
-     * the KMS key becomes unusable. This value is present only for KMS keys whose `Origin` is `EXTERNAL` and whose
-     * `ExpirationModel` is `KEY_MATERIAL_EXPIRES`, otherwise this value is omitted.
+     * The earliest time at which any imported key material permanently associated with this KMS key expires. When a key
+     * material expires, KMS deletes the key material and the KMS key becomes unusable. This value is present only for KMS
+     * keys whose `Origin` is `EXTERNAL` and the `ExpirationModel` is `KEY_MATERIAL_EXPIRES`, otherwise this value is
+     * omitted.
      *
      * @var \DateTimeImmutable|null
      */
@@ -122,7 +123,7 @@ final class KeyMetadata
      * A unique identifier for the custom key store [^1] that contains the KMS key. This field is present only when the KMS
      * key is created in a custom key store.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html
      *
      * @var string|null
      */
@@ -133,7 +134,7 @@ final class KeyMetadata
      * an CloudHSM custom key store [^1], KMS creates the key material for the KMS key in the associated CloudHSM cluster.
      * This field is present only when the KMS key is created in an CloudHSM key store.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html
      *
      * @var string|null
      */
@@ -268,6 +269,16 @@ final class KeyMetadata
     private $xksKeyConfiguration;
 
     /**
+     * Identifies the current key material. This value is present for symmetric encryption keys with `AWS_KMS` origin and
+     * single-Region, symmetric encryption keys with `EXTERNAL` origin. These KMS keys support automatic or on-demand key
+     * rotation and can have multiple key materials associated with them. KMS uses the current key material for both
+     * encryption and decryption, and the non-current key material for decryption operations only.
+     *
+     * @var string|null
+     */
+    private $currentKeyMaterialId;
+
+    /**
      * @param array{
      *   AWSAccountId?: null|string,
      *   KeyId: string,
@@ -294,6 +305,7 @@ final class KeyMetadata
      *   PendingDeletionWindowInDays?: null|int,
      *   MacAlgorithms?: null|array<MacAlgorithmSpec::*>,
      *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
+     *   CurrentKeyMaterialId?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -323,6 +335,7 @@ final class KeyMetadata
         $this->pendingDeletionWindowInDays = $input['PendingDeletionWindowInDays'] ?? null;
         $this->macAlgorithms = $input['MacAlgorithms'] ?? null;
         $this->xksKeyConfiguration = isset($input['XksKeyConfiguration']) ? XksKeyConfigurationType::create($input['XksKeyConfiguration']) : null;
+        $this->currentKeyMaterialId = $input['CurrentKeyMaterialId'] ?? null;
     }
 
     /**
@@ -352,6 +365,7 @@ final class KeyMetadata
      *   PendingDeletionWindowInDays?: null|int,
      *   MacAlgorithms?: null|array<MacAlgorithmSpec::*>,
      *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
+     *   CurrentKeyMaterialId?: null|string,
      * }|KeyMetadata $input
      */
     public static function create($input): self
@@ -377,6 +391,11 @@ final class KeyMetadata
     public function getCreationDate(): ?\DateTimeImmutable
     {
         return $this->creationDate;
+    }
+
+    public function getCurrentKeyMaterialId(): ?string
+    {
+        return $this->currentKeyMaterialId;
     }
 
     public function getCustomKeyStoreId(): ?string

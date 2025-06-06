@@ -71,7 +71,7 @@ final class SignRequest extends Input
      * - Signing algorithms that end in SHA_512 use the SHA_512 hashing algorithm.
      * - SM2DSA uses the SM3 hashing algorithm. For details, see Offline verification with SM2 key pairs [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html#key-spec-sm-offline-verification
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/offline-operations.html#key-spec-sm-offline-verification
      *
      * @var MessageType::*|null
      */
@@ -85,7 +85,7 @@ final class SignRequest extends Input
      * Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/using-grant-token.html
      *
      * @var string[]|null
      */
@@ -107,10 +107,10 @@ final class SignRequest extends Input
     /**
      * Checks if your request will succeed. `DryRun` is an optional parameter.
      *
-     * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
+     * To learn more about how to use this parameter, see Testing your permissions [^1] in the *Key Management Service
      * Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/testing-permissions.html
      *
      * @var bool|null
      */

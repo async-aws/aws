@@ -28,18 +28,27 @@ final class CreateKeyRequest extends Input
      *   KMS. For more information, see Changes that I make are not always immediately visible [^2] in the *Amazon Web
      *   Services Identity and Access Management User Guide*.
      *
+     * > If either of the required `Resource` or `Action` elements are missing from a key policy statement, the policy
+     * > statement has no effect. When a key policy statement is missing one of these elements, the KMS console correctly
+     * > reports an error, but the `CreateKey` and `PutKeyPolicy` API requests succeed, even though the policy statement is
+     * > ineffective.
+     * >
+     * > For more information on required key policy elements, see Elements in a key policy [^3] in the *Key Management
+     * > Service Developer Guide*.
+     *
      * If you do not provide a key policy, KMS attaches a default key policy to the KMS key. For more information, see
-     * Default key policy [^3] in the *Key Management Service Developer Guide*.
+     * Default key policy [^4] in the *Key Management Service Developer Guide*.
      *
-     * The key policy size quota is 32 kilobytes (32768 bytes).
+     * > If the key policy exceeds the length constraint, KMS returns a `LimitExceededException`.
      *
-     * For help writing and formatting a JSON policy document, see the IAM JSON Policy Reference [^4] in the **Identity and
+     * For help writing and formatting a JSON policy document, see the IAM JSON Policy Reference [^5] in the **Identity and
      * Access Management User Guide**.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-default.html#prevent-unmanageable-key
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency
-     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default
-     * [^4]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-overview.html#key-policy-elements
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-default.html
+     * [^5]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html
      *
      * @var string|null
      */
@@ -73,7 +82,7 @@ final class CreateKeyRequest extends Input
      * - For asymmetric KMS keys with SM2 key pairs (China Regions only), specify `ENCRYPT_DECRYPT`, `SIGN_VERIFY`, or
      *   `KEY_AGREEMENT`.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations
      *
      * @var KeyUsageType::*|null
      */
@@ -92,16 +101,16 @@ final class CreateKeyRequest extends Input
     /**
      * Specifies the type of KMS key to create. The default value, `SYMMETRIC_DEFAULT`, creates a KMS key with a 256-bit
      * AES-GCM key that is used for encryption and decryption, except in China Regions, where it creates a 128-bit symmetric
-     * key that uses SM4 encryption. For help choosing a key spec for your KMS key, see Choosing a KMS key type [^1] in the
-     * **Key Management Service Developer Guide**.
+     * key that uses SM4 encryption. For a detailed description of all supported key specs, see Key spec reference [^1] in
+     * the **Key Management Service Developer Guide**.
      *
      * The `KeySpec` determines whether the KMS key contains a symmetric key or an asymmetric key pair. It also determines
      * the algorithms that the KMS key supports. You can't change the `KeySpec` after the KMS key is created. To further
      * restrict the algorithms that can be used with the KMS key, use a condition key in its key policy or IAM policy. For
-     * more information, see kms:EncryptionAlgorithm [^2], kms:MacAlgorithm [^3] or kms:Signing Algorithm [^4] in the **Key
-     * Management Service Developer Guide**.
+     * more information, see kms:EncryptionAlgorithm [^2], kms:MacAlgorithm [^3], kms:KeyAgreementAlgorithm [^4], or
+     * kms:SigningAlgorithm [^5] in the **Key Management Service Developer Guide**.
      *
-     * ! Amazon Web Services services that are integrated with KMS [^5] use symmetric encryption KMS keys to protect your
+     * ! Amazon Web Services services that are integrated with KMS [^6] use symmetric encryption KMS keys to protect your
      * ! data. These services do not support asymmetric KMS keys or HMAC KMS keys.
      *
      * KMS supports the following key specs for KMS keys:
@@ -137,11 +146,12 @@ final class CreateKeyRequest extends Input
      *
      *   - `SM2` (China Regions only)
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-types.html#symm-asymm-choose
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-encryption-algorithm
-     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-mac-algorithm
-     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-signing-algorithm
-     * [^5]: http://aws.amazon.com/kms/features/#AWS_Service_Integration
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symm-asymm-choose-key-spec.html
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-encryption-algorithm
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-mac-algorithm
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-key-agreement-algorithm
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-signing-algorithm
+     * [^6]: http://aws.amazon.com/kms/features/#AWS_Service_Integration
      *
      * @var KeySpec::*|null
      */
@@ -183,7 +193,7 @@ final class CreateKeyRequest extends Input
      * associated CloudHSM cluster and associates it with the KMS key. When you create a KMS key in an external key store,
      * you must use the `XksKeyId` parameter to specify an external key that serves as key material for the KMS key.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html
      *
      * @var string|null
      */
@@ -224,8 +234,8 @@ final class CreateKeyRequest extends Input
      * an existing tag key with a different tag value, KMS replaces the current tag value with the specified one.
      *
      * When you add tags to an Amazon Web Services resource, Amazon Web Services generates a cost allocation report with
-     * usage and costs aggregated by tags. Tags can also be used to control access to a KMS key. For details, see Tagging
-     * Keys [^3].
+     * usage and costs aggregated by tags. Tags can also be used to control access to a KMS key. For details, see Tags in
+     * KMS [^3].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/abac.html
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
@@ -282,7 +292,7 @@ final class CreateKeyRequest extends Input
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-xks-proxy
-     * [^4]: https://docs.aws.amazon.com/create-xks-keys.html#xks-key-requirements
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/create-xks-keys.html#xks-key-requirements
      * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-double-encryption
      *
      * @var string|null

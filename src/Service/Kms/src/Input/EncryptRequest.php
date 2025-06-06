@@ -58,8 +58,8 @@ final class EncryptRequest extends Input
      *
      * For more information, see Encryption context [^2] in the *Key Management Service Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html
      *
      * @var array<string, string>|null
      */
@@ -73,7 +73,7 @@ final class EncryptRequest extends Input
      * Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/using-grant-token.html
      *
      * @var string[]|null
      */
@@ -95,10 +95,10 @@ final class EncryptRequest extends Input
     /**
      * Checks if your request will succeed. `DryRun` is an optional parameter.
      *
-     * To learn more about how to use this parameter, see Testing your KMS API calls [^1] in the *Key Management Service
+     * To learn more about how to use this parameter, see Testing your permissions [^1] in the *Key Management Service
      * Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/testing-permissions.html
      *
      * @var bool|null
      */

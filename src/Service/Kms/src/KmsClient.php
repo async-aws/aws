@@ -81,7 +81,7 @@ class KmsClient extends AbstractApi
      * can't create an alias without a KMS key.
      *
      * The alias must be unique in the account and Region, but you can have aliases with the same name in different Regions.
-     * For detailed information about aliases, see Using aliases [^3] in the *Key Management Service Developer Guide*.
+     * For detailed information about aliases, see Aliases in KMS [^3] in the *Key Management Service Developer Guide*.
      *
      * This operation does not return a response. To get the alias that you created, use the ListAliases operation.
      *
@@ -107,13 +107,13 @@ class KmsClient extends AbstractApi
      * consistency [^8].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/abac.html
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html#alias-access
-     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/alias-access.html
+     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createalias
@@ -155,7 +155,6 @@ class KmsClient extends AbstractApi
      *
      * A KMS key is a logical representation of a cryptographic key. In addition to the key material used in cryptographic
      * operations, a KMS key includes metadata, such as the key ID, key policy, creation date, description, and key state.
-     * For details, see Managing keys [^2] in the *Key Management Service Developer Guide*
      *
      * Use the parameters of `CreateKey` to specify the type of KMS key, the source of its key material, its key policy,
      * description, tags, and other properties.
@@ -194,7 +193,7 @@ class KmsClient extends AbstractApi
      *   both). KMS keys with `ECC_SECG_P256K1` can be used only to sign and verify messages. KMS keys with SM2 key pairs
      *   (China Regions only) can be used to either encrypt and decrypt data, sign and verify messages, or derive shared
      *   secrets (you must choose one key usage type). For information about asymmetric KMS keys, see Asymmetric KMS keys
-     *   [^3] in the *Key Management Service Developer Guide*.
+     *   [^2] in the *Key Management Service Developer Guide*.
      *
      * - `HMAC KMS key`:
      *
@@ -221,14 +220,14 @@ class KmsClient extends AbstractApi
      *   different Amazon Web Services Regions. Because these KMS keys have the same key ID, key material, and other
      *   metadata, you can use them interchangeably to encrypt data in one Amazon Web Services Region and decrypt it in a
      *   different Amazon Web Services Region without re-encrypting the data or making a cross-Region call. For more
-     *   information about multi-Region keys, see Multi-Region keys in KMS [^4] in the *Key Management Service Developer
+     *   information about multi-Region keys, see Multi-Region keys in KMS [^3] in the *Key Management Service Developer
      *   Guide*.
      *
      * - To import your own key material into a KMS key, begin by creating a KMS key with no key material. To do this, use
      *   the `Origin` parameter of `CreateKey` with a value of `EXTERNAL`. Next, use GetParametersForImport operation to get
      *   a public key and import token. Use the wrapping public key to encrypt your key material. Then, use
      *   ImportKeyMaterial with your import token to import the key material. For step-by-step instructions, see Importing
-     *   Key Material [^5] in the **Key Management Service Developer Guide**.
+     *   Key Material [^4] in the **Key Management Service Developer Guide**.
      *
      *   You can import key material into KMS keys of all supported KMS key types: symmetric encryption KMS keys, HMAC KMS
      *   keys, asymmetric encryption KMS keys, and asymmetric signing KMS keys. You can also create multi-Region keys with
@@ -236,17 +235,17 @@ class KmsClient extends AbstractApi
      *
      *   To create a multi-Region primary key with imported key material, use the `Origin` parameter of `CreateKey` with a
      *   value of `EXTERNAL` and the `MultiRegion` parameter with a value of `True`. To create replicas of the multi-Region
-     *   primary key, use the ReplicateKey operation. For instructions, see Importing key material into multi-Region keys
-     *   [^6]. For more information about multi-Region keys, see Multi-Region keys in KMS [^7] in the *Key Management
-     *   Service Developer Guide*.
+     *   primary key, use the ReplicateKey operation. For instructions, see Importing key material step 1 [^5]. For more
+     *   information about multi-Region keys, see Multi-Region keys in KMS [^6] in the *Key Management Service Developer
+     *   Guide*.
      *
      * - `Custom key store`:
      *
-     *   A custom key store [^8] lets you protect your Amazon Web Services resources using keys in a backing key store that
+     *   A custom key store [^7] lets you protect your Amazon Web Services resources using keys in a backing key store that
      *   you own and manage. When you request a cryptographic operation with a KMS key in a custom key store, the operation
      *   is performed in the backing key store using its cryptographic keys.
      *
-     *   KMS supports CloudHSM key stores [^9] backed by an CloudHSM cluster and external key stores [^10] backed by an
+     *   KMS supports CloudHSM key stores [^8] backed by an CloudHSM cluster and external key stores [^9] backed by an
      *   external key manager outside of Amazon Web Services. When you create a KMS key in an CloudHSM key store, KMS
      *   generates an encryption key in the CloudHSM cluster and associates it with the KMS key. When you create a KMS key
      *   in an external key store, you specify an existing encryption key in the external key manager.
@@ -262,11 +261,11 @@ class KmsClient extends AbstractApi
      *   `SYMMETRIC_DEFAULT`, and the default `KeyUsage` value, `ENCRYPT_DECRYPT` to create a symmetric encryption key. No
      *   other key type is supported in a custom key store.
      *
-     *   To create a KMS key in an CloudHSM key store [^11], use the `Origin` parameter with a value of `AWS_CLOUDHSM`. The
+     *   To create a KMS key in an CloudHSM key store [^10], use the `Origin` parameter with a value of `AWS_CLOUDHSM`. The
      *   CloudHSM cluster that is associated with the custom key store must have at least two active HSMs in different
      *   Availability Zones in the Amazon Web Services Region.
      *
-     *   To create a KMS key in an external key store [^12], use the `Origin` parameter with a value of `EXTERNAL_KEY_STORE`
+     *   To create a KMS key in an external key store [^11], use the `Origin` parameter with a value of `EXTERNAL_KEY_STORE`
      *   and an `XksKeyId` parameter that identifies an existing external key.
      *
      *   > Some external key managers provide a simpler method for creating a KMS key in an external key store. For details,
@@ -276,8 +275,8 @@ class KmsClient extends AbstractApi
      * **Cross-account use**: No. You cannot use this operation to create a KMS key in a different Amazon Web Services
      * account.
      *
-     * **Required permissions**: kms:CreateKey [^13] (IAM policy). To use the `Tags` parameter, kms:TagResource [^14] (IAM
-     * policy). For examples and information about related permissions, see Allow a user to create KMS keys [^15] in the
+     * **Required permissions**: kms:CreateKey [^12] (IAM policy). To use the `Tags` parameter, kms:TagResource [^13] (IAM
+     * policy). For examples and information about related permissions, see Allow a user to create KMS keys [^14] in the
      * *Key Management Service Developer Guide*.
      *
      * **Related operations:**
@@ -287,24 +286,23 @@ class KmsClient extends AbstractApi
      * - ScheduleKeyDeletion
      *
      * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
-     * consistency [^16].
+     * consistency [^15].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms-keys
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html
-     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
-     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html
-     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html
-     * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-import.html
-     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html
-     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html
-     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-cloudhsm.html
-     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html
-     * [^11]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-cloudhsm.html
-     * [^12]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys-create-cmk.html
+     * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html
+     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html
+     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-cloudhsm.html
+     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/create-cmk-keystore.html
+     * [^11]: https://docs.aws.amazon.com/kms/latest/developerguide/create-xks-keys.html
+     * [^12]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^13]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^14]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^15]: https://docs.aws.amazon.com/kms/latest/developerguide/iam-policies.html#iam-policy-example-create-key
-     * [^16]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^14]: https://docs.aws.amazon.com/kms/latest/developerguide/customer-managed-policies.html#iam-policy-example-create-key
+     * [^15]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey
@@ -388,11 +386,11 @@ class KmsClient extends AbstractApi
      * that you intend.
      *
      * Whenever possible, use key policies to give users permission to call the `Decrypt` operation on a particular KMS key,
-     * instead of using &IAM; policies. Otherwise, you might create an &IAM; policy that gives the user `Decrypt`
-     * permission on all KMS keys. This user could decrypt ciphertext that was encrypted by KMS keys in other accounts if
-     * the key policy for the cross-account KMS key permits it. If you must use an IAM policy for `Decrypt` permissions,
-     * limit the user to particular KMS keys or particular trusted accounts. For details, see Best practices for IAM
-     * policies [^4] in the *Key Management Service Developer Guide*.
+     * instead of using IAM policies. Otherwise, you might create an IAM policy that gives the user `Decrypt` permission on
+     * all KMS keys. This user could decrypt ciphertext that was encrypted by KMS keys in other accounts if the key policy
+     * for the cross-account KMS key permits it. If you must use an IAM policy for `Decrypt` permissions, limit the user to
+     * particular KMS keys or particular trusted accounts. For details, see Best practices for IAM policies [^4] in the *Key
+     * Management Service Developer Guide*.
      *
      * `Decrypt` also supports Amazon Web Services Nitro Enclaves [^5], which provide an isolated compute environment in
      * Amazon EC2. To call `Decrypt` for a Nitro enclave, use the Amazon Web Services Nitro Enclaves SDK [^6] or any Amazon
@@ -428,7 +426,7 @@ class KmsClient extends AbstractApi
      * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
      * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt
@@ -544,10 +542,10 @@ class KmsClient extends AbstractApi
      * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
      * consistency [^4].
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt
@@ -662,7 +660,7 @@ class KmsClient extends AbstractApi
      * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
      * consistency [^10].
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html
      * [^2]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave.html
      * [^3]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
@@ -671,7 +669,7 @@ class KmsClient extends AbstractApi
      * [^7]: https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/
      * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html
      * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey
@@ -731,8 +729,8 @@ class KmsClient extends AbstractApi
      *
      * - KeySpec [^2]: The type of key material in the public key, such as `RSA_4096` or `ECC_NIST_P521`.
      * - KeyUsage [^3]: Whether the key is used for encryption, signing, or deriving a shared secret.
-     * - EncryptionAlgorithms [^4] or SigningAlgorithms [^5]: A list of the encryption algorithms or the signing algorithms
-     *   for the key.
+     * - EncryptionAlgorithms [^4], KeyAgreementAlgorithms [^5], or SigningAlgorithms [^6]: A list of the encryption
+     *   algorithms, key agreement algorithms, or signing algorithms for the key.
      *
      * Although KMS cannot enforce these restrictions on external operations, it is crucial that you use this information to
      * prevent the public key from being used improperly. For example, you can prevent a public signing key from being used
@@ -741,30 +739,31 @@ class KmsClient extends AbstractApi
      *
      * To verify a signature outside of KMS with an SM2 public key (China Regions only), you must specify the distinguishing
      * ID. By default, KMS uses `1234567812345678` as the distinguishing ID. For more information, see Offline verification
-     * with SM2 key pairs [^6].
+     * with SM2 key pairs [^7].
      *
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
-     * keys [^7] in the *Key Management Service Developer Guide*.
+     * keys [^8] in the *Key Management Service Developer Guide*.
      *
      * **Cross-account use**: Yes. To perform this operation with a KMS key in a different Amazon Web Services account,
      * specify the key ARN or alias ARN in the value of the `KeyId` parameter.
      *
-     * **Required permissions**: kms:GetPublicKey [^8] (key policy)
+     * **Required permissions**: kms:GetPublicKey [^9] (key policy)
      *
      * **Related operations**: CreateKey
      *
      * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
-     * consistency [^9].
+     * consistency [^10].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
      * [^2]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-KeySpec
      * [^3]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-KeyUsage
      * [^4]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-EncryptionAlgorithms
-     * [^5]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-SigningAlgorithms
-     * [^6]: https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html#key-spec-sm-offline-verification
-     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
-     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^5]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-KeyAgreementAlgorithms
+     * [^6]: https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html#KMS-GetPublicKey-response-SigningAlgorithms
+     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/offline-operations.html#key-spec-sm-offline-verification
+     * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
+     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getpublickey
@@ -836,10 +835,10 @@ class KmsClient extends AbstractApi
      * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
      * consistency [^4].
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#aliases-limit
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/resource-limits.html#aliases-per-key
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html#alias-access
-     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/alias-access.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listaliases
@@ -921,7 +920,7 @@ class KmsClient extends AbstractApi
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#sign
@@ -1004,10 +1003,10 @@ class KmsClient extends AbstractApi
      * consistency [^5].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
-     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html#key-spec-sm-offline-verification
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/offline-operations.html#key-spec-sm-offline-verification
      * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/programming-eventual-consistency.html
+     * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#verify

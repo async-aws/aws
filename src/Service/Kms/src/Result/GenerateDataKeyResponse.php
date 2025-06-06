@@ -50,6 +50,13 @@ class GenerateDataKeyResponse extends Result
      */
     private $ciphertextForRecipient;
 
+    /**
+     * The identifier of the key material used to encrypt the data key.
+     *
+     * @var string|null
+     */
+    private $keyMaterialId;
+
     public function getCiphertextBlob(): ?string
     {
         $this->initialize();
@@ -71,6 +78,13 @@ class GenerateDataKeyResponse extends Result
         return $this->keyId;
     }
 
+    public function getKeyMaterialId(): ?string
+    {
+        $this->initialize();
+
+        return $this->keyMaterialId;
+    }
+
     public function getPlaintext(): ?string
     {
         $this->initialize();
@@ -86,5 +100,6 @@ class GenerateDataKeyResponse extends Result
         $this->plaintext = isset($data['Plaintext']) ? base64_decode((string) $data['Plaintext']) : null;
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
         $this->ciphertextForRecipient = isset($data['CiphertextForRecipient']) ? base64_decode((string) $data['CiphertextForRecipient']) : null;
+        $this->keyMaterialId = isset($data['KeyMaterialId']) ? (string) $data['KeyMaterialId'] : null;
     }
 }

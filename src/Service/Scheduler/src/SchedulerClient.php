@@ -369,6 +369,14 @@ class SchedulerClient extends AbstractApi
         }
 
         switch ($region) {
+            case 'cn-north-1':
+            case 'cn-northwest-1':
+                return [
+                    'endpoint' => "https://scheduler.$region.amazonaws.com.cn",
+                    'signRegion' => $region,
+                    'signService' => 'scheduler',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
