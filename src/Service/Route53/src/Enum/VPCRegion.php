@@ -6,6 +6,7 @@ final class VPCRegion
 {
     public const AF_SOUTH_1 = 'af-south-1';
     public const AP_EAST_1 = 'ap-east-1';
+    public const AP_EAST_2 = 'ap-east-2';
     public const AP_NORTHEAST_1 = 'ap-northeast-1';
     public const AP_NORTHEAST_2 = 'ap-northeast-2';
     public const AP_NORTHEAST_3 = 'ap-northeast-3';
@@ -51,6 +52,7 @@ final class VPCRegion
         return isset([
             self::AF_SOUTH_1 => true,
             self::AP_EAST_1 => true,
+            self::AP_EAST_2 => true,
             self::AP_NORTHEAST_1 => true,
             self::AP_NORTHEAST_2 => true,
             self::AP_NORTHEAST_3 => true,
