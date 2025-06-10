@@ -51,7 +51,8 @@ class GenerateDataKeyResponse extends Result
     private $ciphertextForRecipient;
 
     /**
-     * The identifier of the key material used to encrypt the data key.
+     * The identifier of the key material used to encrypt the data key. This field is omitted if the request includes the
+     * `Recipient` parameter.
      *
      * @var string|null
      */

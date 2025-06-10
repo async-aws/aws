@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: AWS KMS announces the support for on-demand rotation of symmetric-encryption KMS keys with imported key material (EXTERNAL origin).
+- AWS api-change: Rework regions configuration
 
 ## 1.9.0
 
