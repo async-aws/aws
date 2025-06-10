@@ -50,7 +50,7 @@ class DecryptResponse extends Result
 
     /**
      * The identifier of the key material used to decrypt the ciphertext. This field is present only when the operation uses
-     * a symmetric encryption KMS key.
+     * a symmetric encryption KMS key. This field is omitted if the request includes the `Recipient` parameter.
      *
      * @var string|null
      */
