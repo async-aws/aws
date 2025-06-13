@@ -78,7 +78,8 @@ final class CreateKeyRequest extends Input
      * - For HMAC KMS keys (symmetric), specify `GENERATE_VERIFY_MAC`.
      * - For asymmetric KMS keys with RSA key pairs, specify `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
      * - For asymmetric KMS keys with NIST-recommended elliptic curve key pairs, specify `SIGN_VERIFY` or `KEY_AGREEMENT`.
-     * - For asymmetric KMS keys with `ECC_SECG_P256K1` key pairs specify `SIGN_VERIFY`.
+     * - For asymmetric KMS keys with `ECC_SECG_P256K1` key pairs, specify `SIGN_VERIFY`.
+     * - For asymmetric KMS keys with ML-DSA key pairs, specify `SIGN_VERIFY`.
      * - For asymmetric KMS keys with SM2 key pairs (China Regions only), specify `ENCRYPT_DECRYPT`, `SIGN_VERIFY`, or
      *   `KEY_AGREEMENT`.
      *
@@ -141,6 +142,12 @@ final class CreateKeyRequest extends Input
      * - Other asymmetric elliptic curve key pairs (signing and verification)
      *
      *   - `ECC_SECG_P256K1` (secp256k1), commonly used for cryptocurrencies.
+     *
+     * - Asymmetric ML-DSA key pairs (signing and verification)
+     *
+     *   - `ML_DSA_44`
+     *   - `ML_DSA_65`
+     *   - `ML_DSA_87`
      *
      * - SM2 key pairs (encryption and decryption -or- signing and verification -or- deriving shared secrets)
      *

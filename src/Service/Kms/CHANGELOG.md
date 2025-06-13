@@ -6,6 +6,7 @@
 
 - AWS api-change: AWS KMS announces the support for on-demand rotation of symmetric-encryption KMS keys with imported key material (EXTERNAL origin).
 - AWS api-change: Rework regions configuration
+- AWS api-change: AWS KMS announces the support of ML-DSA key pairs that creates post-quantum safe digital signatures.
 
 ## 1.9.0
 

@@ -184,15 +184,16 @@ class KmsClient extends AbstractApi
      *   Then, use the `KeyUsage` parameter to determine whether the KMS key will be used to encrypt and decrypt or sign and
      *   verify. You can't change these properties after the KMS key is created.
      *
-     *   Asymmetric KMS keys contain an RSA key pair, Elliptic Curve (ECC) key pair, or an SM2 key pair (China Regions
-     *   only). The private key in an asymmetric KMS key never leaves KMS unencrypted. However, you can use the GetPublicKey
-     *   operation to download the public key so it can be used outside of KMS. Each KMS key can have only one key usage.
-     *   KMS keys with RSA key pairs can be used to encrypt and decrypt data or sign and verify messages (but not both). KMS
-     *   keys with NIST-recommended ECC key pairs can be used to sign and verify messages or derive shared secrets (but not
-     *   both). KMS keys with `ECC_SECG_P256K1` can be used only to sign and verify messages. KMS keys with SM2 key pairs
-     *   (China Regions only) can be used to either encrypt and decrypt data, sign and verify messages, or derive shared
-     *   secrets (you must choose one key usage type). For information about asymmetric KMS keys, see Asymmetric KMS keys
-     *   [^2] in the *Key Management Service Developer Guide*.
+     *   Asymmetric KMS keys contain an RSA key pair, Elliptic Curve (ECC) key pair, ML-DSA key pair or an SM2 key pair
+     *   (China Regions only). The private key in an asymmetric KMS key never leaves KMS unencrypted. However, you can use
+     *   the GetPublicKey operation to download the public key so it can be used outside of KMS. Each KMS key can have only
+     *   one key usage. KMS keys with RSA key pairs can be used to encrypt and decrypt data or sign and verify messages (but
+     *   not both). KMS keys with NIST-recommended ECC key pairs can be used to sign and verify messages or derive shared
+     *   secrets (but not both). KMS keys with `ECC_SECG_P256K1` can be used only to sign and verify messages. KMS keys with
+     *   ML-DSA key pairs can be used to sign and verify messages. KMS keys with SM2 key pairs (China Regions only) can be
+     *   used to either encrypt and decrypt data, sign and verify messages, or derive shared secrets (you must choose one
+     *   key usage type). For information about asymmetric KMS keys, see Asymmetric KMS keys [^2] in the *Key Management
+     *   Service Developer Guide*.
      *
      * - `HMAC KMS key`:
      *
@@ -875,10 +876,10 @@ class KmsClient extends AbstractApi
      * outside of KMS. For information about asymmetric KMS keys, see Asymmetric KMS keys [^2] in the *Key Management
      * Service Developer Guide*.
      *
-     * Digital signatures are generated and verified by using asymmetric key pair, such as an RSA or ECC pair that is
-     * represented by an asymmetric KMS key. The key owner (or an authorized user) uses their private key to sign a message.
-     * Anyone with the public key can verify that the message was signed with that particular private key and that the
-     * message hasn't changed since it was signed.
+     * Digital signatures are generated and verified by using asymmetric key pair, such as an RSA, ECC, or ML-DSA pair that
+     * is represented by an asymmetric KMS key. The key owner (or an authorized user) uses their private key to sign a
+     * message. Anyone with the public key can verify that the message was signed with that particular private key and that
+     * the message hasn't changed since it was signed.
      *
      * To use the `Sign` operation, provide the following information:
      *
@@ -887,8 +888,8 @@ class KmsClient extends AbstractApi
      *   key.
      * - Use the `Message` parameter to specify the message or message digest to sign. You can submit messages of up to 4096
      *   bytes. To sign a larger message, generate a hash digest of the message, and then provide the hash digest in the
-     *   `Message` parameter. To indicate whether the message is a full message or a digest, use the `MessageType`
-     *   parameter.
+     *   `Message` parameter. To indicate whether the message is a full message, a digest, or an ML-DSA EXTERNAL_MU, use the
+     *   `MessageType` parameter.
      * - Choose a signing algorithm that is compatible with the KMS key.
      *
      * ! When signing a message, be sure to record the KMS key and the signing algorithm. This information is required to
