@@ -19,7 +19,7 @@ The goals of this client are:
 
 1. **Async first.** Everything is asynchronous and responses are only downloaded
    if needed.
-1. **Not feature complete.** AsyncAws is currently covering around a dozen of AWS
+1. **Not feature complete.** AsyncAws is currently covering around 40 AWS
    APIs (the most popular ones). We are happy to generate more features if needed.
    Just ask or [contribute](./contribute/index.md).
 1. **Only relevant updates.** Updates are great, but if changes are released multiple
