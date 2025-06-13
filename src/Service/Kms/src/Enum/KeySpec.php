@@ -12,6 +12,9 @@ final class KeySpec
     public const HMAC_256 = 'HMAC_256';
     public const HMAC_384 = 'HMAC_384';
     public const HMAC_512 = 'HMAC_512';
+    public const ML_DSA_44 = 'ML_DSA_44';
+    public const ML_DSA_65 = 'ML_DSA_65';
+    public const ML_DSA_87 = 'ML_DSA_87';
     public const RSA_2048 = 'RSA_2048';
     public const RSA_3072 = 'RSA_3072';
     public const RSA_4096 = 'RSA_4096';
@@ -29,6 +32,9 @@ final class KeySpec
             self::HMAC_256 => true,
             self::HMAC_384 => true,
             self::HMAC_512 => true,
+            self::ML_DSA_44 => true,
+            self::ML_DSA_65 => true,
+            self::ML_DSA_87 => true,
             self::RSA_2048 => true,
             self::RSA_3072 => true,
             self::RSA_4096 => true,
