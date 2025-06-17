@@ -6,6 +6,10 @@
 
 - AWS api-change: Rework regions configuration
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 1.10.0
 
 ### Added
