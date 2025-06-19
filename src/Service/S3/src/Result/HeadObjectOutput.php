@@ -368,6 +368,19 @@ class HeadObjectOutput extends Result
     private $partsCount;
 
     /**
+     * The number of tags, if any, on the object, when you have the relevant permission to read object tags.
+     *
+     * You can use GetObjectTagging [^1] to retrieve the tag set associated with an object.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
+     *
+     * @var int|null
+     */
+    private $tagCount;
+
+    /**
      * The Object Lock mode, if any, that's in effect for this object. This header is only returned if the requester has the
      * `s3:GetObjectRetention` permission. For more information about S3 Object Lock, see Object Lock [^1].
      *
@@ -674,6 +687,13 @@ class HeadObjectOutput extends Result
         return $this->storageClass;
     }
 
+    public function getTagCount(): ?int
+    {
+        $this->initialize();
+
+        return $this->tagCount;
+    }
+
     public function getVersionId(): ?string
     {
         $this->initialize();
@@ -725,6 +745,7 @@ class HeadObjectOutput extends Result
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
         $this->replicationStatus = $headers['x-amz-replication-status'][0] ?? null;
         $this->partsCount = isset($headers['x-amz-mp-parts-count'][0]) ? (int) $headers['x-amz-mp-parts-count'][0] : null;
+        $this->tagCount = isset($headers['x-amz-tagging-count'][0]) ? (int) $headers['x-amz-tagging-count'][0] : null;
         $this->objectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
         $this->objectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
         $this->objectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;

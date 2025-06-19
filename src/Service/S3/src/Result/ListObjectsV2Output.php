@@ -120,8 +120,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
 
     /**
      * If `ContinuationToken` was sent with the request, it is included in the response. You can use the returned
-     * `ContinuationToken` for pagination of the list response. You can use this `ContinuationToken` for pagination of the
-     * list results.
+     * `ContinuationToken` for pagination of the list response.
      *
      * @var string|null
      */

@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
+- AWS api-change: Added support for renaming objects within the same bucket using the new RenameObject API.
 
 ## 2.9.1
 

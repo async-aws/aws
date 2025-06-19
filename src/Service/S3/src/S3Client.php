@@ -374,6 +374,15 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
+     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
+     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
+     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * Creates a copy of an object that is already stored in Amazon S3.
      *
      * > You can store individual objects of up to 5 TB in Amazon S3. You create a copy of your object up to 5 GB in size in
@@ -565,6 +574,23 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
+     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
+     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
+     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * > This action creates an Amazon S3 bucket. To create an Amazon S3 on Outposts bucket, see `CreateBucket` [^1].
      *
      * Creates a new S3 bucket. To create a bucket, you must set up Amazon S3 and have a valid Amazon Web Services Access
@@ -691,6 +717,15 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
+     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
+     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
+     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * This action initiates a multipart upload and returns an upload ID. This upload ID is used to associate all of the
      * parts in the specific multipart upload. You specify this upload ID in each of your subsequent upload part requests
      * (see UploadPart [^1]). You also include this upload ID in the final request to either complete or abort the multipart
@@ -1779,6 +1814,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * > This operation is not supported for directory buckets.
      *
      * Returns a list of all buckets owned by the authenticated sender of the request. To grant IAM permission to use this
@@ -1814,6 +1857,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * This operation lists in-progress multipart uploads in a bucket. An in-progress multipart upload is a multipart upload
      * that has been initiated by the `CreateMultipartUpload` request, but has not yet been completed or aborted.
      *
@@ -1921,6 +1972,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * > This operation is not supported for directory buckets.
      *
      * Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection
@@ -2071,6 +2130,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * Lists the parts that have been uploaded for a specific multipart upload.
      *
      * To use this operation, you must provide the `upload ID` in the request. You obtain this uploadID by sending the
@@ -2433,6 +2500,15 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
+     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
+     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
+     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * Adds an object to a bucket.
      *
      * > - Amazon S3 never adds partial objects; if you receive a success response, Amazon S3 added the entire object to the
@@ -2661,7 +2737,8 @@ class S3Client extends AbstractApi
      * - `Grantee Values`:
      *
      *   You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the
-     *   following ways:
+     *   following ways. For examples of how to specify these grantee values in JSON format, see the Amazon Web Services CLI
+     *   example in Enabling Amazon S3 server access logging [^7] in the *Amazon S3 User Guide*.
      *
      *   - By the person's ID:
      *
@@ -2693,7 +2770,7 @@ class S3Client extends AbstractApi
      *     > - Europe (Ireland)
      *     > - South America (São Paulo)
      *     >
-     *     > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^7] in the Amazon
+     *     > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^8] in the Amazon
      *     > Web Services General Reference.
      *
      *
@@ -2704,8 +2781,8 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `PutObjectAcl`:
      *
-     * - CopyObject [^8]
-     * - GetObject [^9]
+     * - CopyObject [^9]
+     * - GetObject [^10]
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
@@ -2713,9 +2790,10 @@ class S3Client extends AbstractApi
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
      * [^6]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-     * [^7]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html
+     * [^8]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobjectacl
