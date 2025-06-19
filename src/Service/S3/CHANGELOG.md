@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
+- AWS api-change: Added `tagCount` property to the HeadObject response
 
 ## 2.9.1
 
