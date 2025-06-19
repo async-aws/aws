@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
-- AWS api-change: Added support for renaming objects within the same bucket using the new RenameObject API.
+- AWS api-change: Added `tagCount` property to the HeadObject response
 
 ## 2.9.1
 
