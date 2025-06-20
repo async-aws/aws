@@ -5,7 +5,7 @@ namespace AsyncAws\Lambda\ValueObject;
 /**
  * The dead-letter queue [^1] for failed asynchronous invocations.
  *
- * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq
+ * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html#invocation-dlq
  */
 final class DeadLetterConfig
 {
