@@ -237,7 +237,10 @@ class GetObjectOutput extends Result
     private $websiteRedirectLocation;
 
     /**
-     * The server-side encryption algorithm used when you store this object in Amazon S3.
+     * The server-side encryption algorithm used when you store this object in Amazon S3 or Amazon FSx.
+     *
+     * > When accessing data stored in Amazon FSx file systems using S3 access points, the only valid server side encryption
+     * > option is `aws:fsx`.
      *
      * @var ServerSideEncryption::*|null
      */

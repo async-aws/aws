@@ -6,6 +6,7 @@ final class ObjectStorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
     public const EXPRESS_ONEZONE = 'EXPRESS_ONEZONE';
+    public const FSX_OPENZFS = 'FSX_OPENZFS';
     public const GLACIER = 'GLACIER';
     public const GLACIER_IR = 'GLACIER_IR';
     public const INTELLIGENT_TIERING = 'INTELLIGENT_TIERING';
@@ -21,6 +22,7 @@ final class ObjectStorageClass
         return isset([
             self::DEEP_ARCHIVE => true,
             self::EXPRESS_ONEZONE => true,
+            self::FSX_OPENZFS => true,
             self::GLACIER => true,
             self::GLACIER_IR => true,
             self::INTELLIGENT_TIERING => true,
