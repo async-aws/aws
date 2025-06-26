@@ -417,6 +417,10 @@ final class CopyObjectRequest extends Input
      *   a `CopyObject` operation and want to specify server-side encryption settings for new object copies with SSE-KMS in
      *   the encryption-related request headers, you must ensure the encryption key is the same customer managed key that
      *   you specified for the directory bucket's default encryption configuration.
+     * - **S3 access points for Amazon FSx ** - When accessing data stored in Amazon FSx file systems using S3 access
+     *   points, the only valid server side encryption option is `aws:fsx`. All Amazon FSx file systems have encryption
+     *   configured by default and are encrypted at rest. Data is automatically encrypted before being written to the file
+     *   system, and automatically decrypted as it is read. These processes are handled transparently by Amazon FSx.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html

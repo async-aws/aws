@@ -375,8 +375,7 @@ final class PutObjectRequest extends Input
     private $metadata;
 
     /**
-     * The server-side encryption algorithm that was used when you store this object in Amazon S3 (for example, `AES256`,
-     * `aws:kms`, `aws:kms:dsse`).
+     * The server-side encryption algorithm that was used when you store this object in Amazon S3 or Amazon FSx.
      *
      * - **General purpose buckets ** - You have four mutually exclusive options to protect data using server-side
      *   encryption in Amazon S3, depending on how you choose to manage the encryption keys. Specifically, the encryption
@@ -407,6 +406,11 @@ final class PutObjectRequest extends Input
      *   > encryption settings values in the `CreateSession` request. So in the Zonal endpoint API calls (except CopyObject
      *   > [^6] and UploadPartCopy [^7]), the encryption request headers must match the default encryption configuration of
      *   > the directory bucket.
+     *
+     * - **S3 access points for Amazon FSx ** - When accessing data stored in Amazon FSx file systems using S3 access
+     *   points, the only valid server side encryption option is `aws:fsx`. All Amazon FSx file systems have encryption
+     *   configured by default and are encrypted at rest. Data is automatically encrypted before being written to the file
+     *   system, and automatically decrypted as it is read. These processes are handled transparently by Amazon FSx.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html

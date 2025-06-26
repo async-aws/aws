@@ -317,7 +317,7 @@ final class CreateMultipartUploadRequest extends Input
     private $metadata;
 
     /**
-     * The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+     * The server-side encryption algorithm used when you store this object in Amazon S3 or Amazon FSx.
      *
      * - **Directory buckets ** - For directory buckets, there are only two supported options for server-side encryption:
      *   server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) and server-side encryption with KMS keys
@@ -342,6 +342,11 @@ final class CreateMultipartUploadRequest extends Input
      *   > encryption settings values in the `CreateSession` request. So in the Zonal endpoint API calls (except CopyObject
      *   > [^5] and UploadPartCopy [^6]), the encryption request headers must match the default encryption configuration of
      *   > the directory bucket.
+     *
+     * - **S3 access points for Amazon FSx ** - When accessing data stored in Amazon FSx file systems using S3 access
+     *   points, the only valid server side encryption option is `aws:fsx`. All Amazon FSx file systems have encryption
+     *   configured by default and are encrypted at rest. Data is automatically encrypted before being written to the file
+     *   system, and automatically decrypted as it is read. These processes are handled transparently by Amazon FSx.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-specifying-kms-encryption.html
