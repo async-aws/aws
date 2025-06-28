@@ -11,8 +11,8 @@ namespace AsyncAws\Ses\ValueObject;
 final class Template
 {
     /**
-     * The name of the template. You will refer to this name when you send email using the `SendTemplatedEmail` or
-     * `SendBulkTemplatedEmail` operations.
+     * The name of the template. You will refer to this name when you send email using the `SendEmail` or `SendBulkEmail`
+     * operations.
      *
      * @var string|null
      */
