@@ -26,9 +26,6 @@ final class Tag
      * of the number associated with the different cost centers in your company. Typically, many resources have tags with
      * the same key name but with different values.
      *
-     * > Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can
-     * > store comma-separated values in the string. However, you must interpret the value in your code.
-     *
      * @var string
      */
     private $value;

@@ -117,14 +117,16 @@ class IamClient extends AbstractApi
      *
      * You can have a maximum of two sets of service-specific credentials for each supported service per user.
      *
-     * You can create service-specific credentials for CodeCommit and Amazon Keyspaces (for Apache Cassandra).
+     * You can create service-specific credentials for Amazon Bedrock, CodeCommit and Amazon Keyspaces (for Apache
+     * Cassandra).
      *
-     * You can reset the password to a new service-generated value by calling ResetServiceSpecificCredential.
+     * You can reset the password to a new service-generated value by calling ResetServiceSpecificCredential [^1].
      *
-     * For more information about service-specific credentials, see Using IAM with CodeCommit: Git credentials, SSH keys,
-     * and Amazon Web Services access keys [^1] in the *IAM User Guide*.
+     * For more information about service-specific credentials, see Service-specific credentials for IAM users [^2] in the
+     * *IAM User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_ResetServiceSpecificCredential.html
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_bedrock.html
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceSpecificCredential.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createservicespecificcredential
@@ -132,6 +134,7 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName: string,
      *   ServiceName: string,
+     *   CredentialAgeDays?: null|int,
      *   '@region'?: string|null,
      * }|CreateServiceSpecificCredentialRequest $input
      *
@@ -254,17 +257,27 @@ class IamClient extends AbstractApi
      * programmatically, you must delete the items attached to the user manually, or the deletion fails. For more
      * information, see Deleting an IAM user [^1]. Before attempting to delete a user, remove the following items:
      *
-     * - Password (DeleteLoginProfile)
-     * - Access keys (DeleteAccessKey)
-     * - Signing certificate (DeleteSigningCertificate)
-     * - SSH public key (DeleteSSHPublicKey)
-     * - Git credentials (DeleteServiceSpecificCredential)
-     * - Multi-factor authentication (MFA) device (DeactivateMFADevice, DeleteVirtualMFADevice)
-     * - Inline policies (DeleteUserPolicy)
-     * - Attached managed policies (DetachUserPolicy)
-     * - Group memberships (RemoveUserFromGroup)
+     * - Password (DeleteLoginProfile [^2])
+     * - Access keys (DeleteAccessKey [^3])
+     * - Signing certificate (DeleteSigningCertificate [^4])
+     * - SSH public key (DeleteSSHPublicKey [^5])
+     * - Git credentials (DeleteServiceSpecificCredential [^6])
+     * - Multi-factor authentication (MFA) device (DeactivateMFADevice [^7], DeleteVirtualMFADevice [^8])
+     * - Inline policies (DeleteUserPolicy [^9])
+     * - Attached managed policies (DetachUserPolicy [^10])
+     * - Group memberships (RemoveUserFromGroup [^11])
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteLoginProfile.html
+     * [^3]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteAccessKey.html
+     * [^4]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteSigningCertificate.html
+     * [^5]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteSSHPublicKey.html
+     * [^6]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteServiceSpecificCredential.html
+     * [^7]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeactivateMFADevice.html
+     * [^8]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteVirtualMFADevice.html
+     * [^9]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteUserPolicy.html
+     * [^10]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DetachUserPolicy.html
+     * [^11]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_RemoveUserFromGroup.html
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#deleteuser
@@ -297,10 +310,12 @@ class IamClient extends AbstractApi
     /**
      * Deletes the specified inline policy that is embedded in the specified IAM user.
      *
-     * A user can also have managed policies attached to it. To detach a managed policy from a user, use DetachUserPolicy.
-     * For more information about policies, refer to Managed policies and inline policies [^1] in the *IAM User Guide*.
+     * A user can also have managed policies attached to it. To detach a managed policy from a user, use DetachUserPolicy
+     * [^1]. For more information about policies, refer to Managed policies and inline policies [^2] in the *IAM User
+     * Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_DetachUserPolicy.html
+     * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteUserPolicy.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#deleteuserpolicy
@@ -370,6 +385,9 @@ class IamClient extends AbstractApi
      * @param array{
      *   UserName?: null|string,
      *   ServiceName?: null|string,
+     *   AllUsers?: null|bool,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListServiceSpecificCredentialsRequest $input
      *
@@ -397,9 +415,11 @@ class IamClient extends AbstractApi
      * > - PermissionsBoundary
      * > - Tags
      * >
-     * > To view all of the information for a user, see GetUser.
+     * > To view all of the information for a user, see GetUser [^1].
      *
      * You can paginate the results using the `MaxItems` and `Marker` parameters.
+     *
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#listusers

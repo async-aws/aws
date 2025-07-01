@@ -9,6 +9,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\BillingModeSummary;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexDescription;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexWarmThroughputDescription;
+use AsyncAws\DynamoDb\ValueObject\GlobalTableWitnessDescription;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndexDescription;
 use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
@@ -126,6 +127,27 @@ class DeleteTableOutput extends Result
             'WriteUnitsPerSecond' => isset($json['WriteUnitsPerSecond']) ? (int) $json['WriteUnitsPerSecond'] : null,
             'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
         ]);
+    }
+
+    private function populateResultGlobalTableWitnessDescription(array $json): GlobalTableWitnessDescription
+    {
+        return new GlobalTableWitnessDescription([
+            'RegionName' => isset($json['RegionName']) ? (string) $json['RegionName'] : null,
+            'WitnessStatus' => isset($json['WitnessStatus']) ? (string) $json['WitnessStatus'] : null,
+        ]);
+    }
+
+    /**
+     * @return GlobalTableWitnessDescription[]
+     */
+    private function populateResultGlobalTableWitnessDescriptionList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultGlobalTableWitnessDescription($item);
+        }
+
+        return $items;
     }
 
     /**
@@ -341,6 +363,7 @@ class DeleteTableOutput extends Result
             'LatestStreamArn' => isset($json['LatestStreamArn']) ? (string) $json['LatestStreamArn'] : null,
             'GlobalTableVersion' => isset($json['GlobalTableVersion']) ? (string) $json['GlobalTableVersion'] : null,
             'Replicas' => !isset($json['Replicas']) ? null : $this->populateResultReplicaDescriptionList($json['Replicas']),
+            'GlobalTableWitnesses' => !isset($json['GlobalTableWitnesses']) ? null : $this->populateResultGlobalTableWitnessDescriptionList($json['GlobalTableWitnesses']),
             'RestoreSummary' => empty($json['RestoreSummary']) ? null : $this->populateResultRestoreSummary($json['RestoreSummary']),
             'SSEDescription' => empty($json['SSEDescription']) ? null : $this->populateResultSSEDescription($json['SSEDescription']),
             'ArchivalSummary' => empty($json['ArchivalSummary']) ? null : $this->populateResultArchivalSummary($json['ArchivalSummary']),

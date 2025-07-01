@@ -142,7 +142,7 @@ final class StackEvent
     private $hookFailureMode;
 
     /**
-     * An optional field containing information about the detailed status of the stack event.
+     * An optional field that contains information about the detailed status of the stack event.
      *
      * - `CONFIGURATION_COMPLETE` - all of the resources in the stack have reached that event. For more information, see
      *   Understand CloudFormation stack creation events [^1] in the *CloudFormation User Guide*.

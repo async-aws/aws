@@ -11,6 +11,7 @@ use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
+use AsyncAws\DynamoDb\ValueObject\GlobalTableWitnessGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\OnDemandThroughput;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
@@ -104,8 +105,6 @@ final class UpdateTableInput extends Input
     /**
      * A list of replica update actions (create, delete, or update) for the table.
      *
-     * > For global tables, this property only applies to global tables using Version 2019.11.21 (Current version).
-     *
      * @var ReplicationGroupUpdate[]|null
      */
     private $replicaUpdates;
@@ -130,23 +129,38 @@ final class UpdateTableInput extends Input
      *
      * You can specify one of the following consistency modes:
      *
-     * - `EVENTUAL`: Configures a new global table for multi-Region eventual consistency. This is the default consistency
-     *   mode for global tables.
-     * - `STRONG`: Configures a new global table for multi-Region strong consistency (preview).
+     * - `EVENTUAL`: Configures a new global table for multi-Region eventual consistency (MREC). This is the default
+     *   consistency mode for global tables.
+     * - `STRONG`: Configures a new global table for multi-Region strong consistency (MRSC).
      *
-     *   > Multi-Region strong consistency (MRSC) is a new DynamoDB global tables capability currently available in preview
-     *   > mode. For more information, see Global tables multi-Region strong consistency [^3].
-     *
-     *
-     * If you don't specify this parameter, the global table consistency mode defaults to `EVENTUAL`.
+     * If you don't specify this field, the global table consistency mode defaults to `EVENTUAL`. For more information about
+     * global tables consistency modes, see Consistency modes [^3] in DynamoDB developer guide.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicationGroupUpdate.html#DDB-Type-ReplicationGroupUpdate-Create
      * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#DDB-UpdateTable-request-ReplicaUpdates
-     * [^3]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PreviewFeatures.html#multi-region-strong-consistency-gt
+     * [^3]: https://docs.aws.amazon.com/V2globaltables_HowItWorks.html#V2globaltables_HowItWorks.consistency-modes
      *
      * @var MultiRegionConsistency::*|null
      */
     private $multiRegionConsistency;
+
+    /**
+     * A list of witness updates for a MRSC global table. A witness provides a cost-effective alternative to a full replica
+     * in a MRSC global table by maintaining replicated change data written to global table replicas. You cannot perform
+     * read or write operations on a witness. For each witness, you can request one action:
+     *
+     * - `Create` - add a new witness to the global table.
+     * - `Delete` - remove a witness from the global table.
+     *
+     * You can create or delete only one witness per `UpdateTable` operation.
+     *
+     * For more information, see Multi-Region strong consistency (MRSC) [^1] in the Amazon DynamoDB Developer Guide
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_HowItWorks.html#V2globaltables_HowItWorks.consistency-modes
+     *
+     * @var GlobalTableWitnessGroupUpdate[]|null
+     */
+    private $globalTableWitnessUpdates;
 
     /**
      * Updates the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
@@ -176,6 +190,7 @@ final class UpdateTableInput extends Input
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
+     *   GlobalTableWitnessUpdates?: null|array<GlobalTableWitnessGroupUpdate|array>,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
@@ -194,6 +209,7 @@ final class UpdateTableInput extends Input
         $this->tableClass = $input['TableClass'] ?? null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
         $this->multiRegionConsistency = $input['MultiRegionConsistency'] ?? null;
+        $this->globalTableWitnessUpdates = isset($input['GlobalTableWitnessUpdates']) ? array_map([GlobalTableWitnessGroupUpdate::class, 'create'], $input['GlobalTableWitnessUpdates']) : null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         parent::__construct($input);
@@ -212,6 +228,7 @@ final class UpdateTableInput extends Input
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
+     *   GlobalTableWitnessUpdates?: null|array<GlobalTableWitnessGroupUpdate|array>,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,
@@ -249,6 +266,14 @@ final class UpdateTableInput extends Input
     public function getGlobalSecondaryIndexUpdates(): array
     {
         return $this->globalSecondaryIndexUpdates ?? [];
+    }
+
+    /**
+     * @return GlobalTableWitnessGroupUpdate[]
+     */
+    public function getGlobalTableWitnessUpdates(): array
+    {
+        return $this->globalTableWitnessUpdates ?? [];
     }
 
     /**
@@ -364,6 +389,16 @@ final class UpdateTableInput extends Input
     public function setGlobalSecondaryIndexUpdates(array $value): self
     {
         $this->globalSecondaryIndexUpdates = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param GlobalTableWitnessGroupUpdate[] $value
+     */
+    public function setGlobalTableWitnessUpdates(array $value): self
+    {
+        $this->globalTableWitnessUpdates = $value;
 
         return $this;
     }
@@ -500,6 +535,14 @@ final class UpdateTableInput extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "MultiRegionConsistency" for "%s". The value "%s" is not a valid "MultiRegionConsistency".', __CLASS__, $v));
             }
             $payload['MultiRegionConsistency'] = $v;
+        }
+        if (null !== $v = $this->globalTableWitnessUpdates) {
+            $index = -1;
+            $payload['GlobalTableWitnessUpdates'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['GlobalTableWitnessUpdates'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->onDemandThroughput) {
             $payload['OnDemandThroughput'] = $v->requestBody();

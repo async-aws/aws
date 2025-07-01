@@ -7,7 +7,9 @@ use AsyncAws\Core\Result;
 use AsyncAws\Iam\ValueObject\AccessKey;
 
 /**
- * Contains the response to a successful CreateAccessKey request.
+ * Contains the response to a successful CreateAccessKey [^1] request.
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateAccessKey.html
  */
 class CreateAccessKeyResponse extends Result
 {

@@ -24,12 +24,13 @@ final class DeleteServiceSpecificCredentialRequest extends Input
 
     /**
      * The unique identifier of the service-specific credential. You can get this value by calling
-     * ListServiceSpecificCredentials.
+     * ListServiceSpecificCredentials [^1].
      *
-     * This parameter allows (through its regex pattern [^1]) a string of characters that can consist of any upper or
+     * This parameter allows (through its regex pattern [^2]) a string of characters that can consist of any upper or
      * lowercased letter or digit.
      *
-     * [^1]: http://wikipedia.org/wiki/regex
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListServiceSpecificCredentials.html
+     * [^2]: http://wikipedia.org/wiki/regex
      *
      * @required
      *

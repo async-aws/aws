@@ -9,7 +9,9 @@ use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
 /**
- * Contains the response to a successful GetUser request.
+ * Contains the response to a successful GetUser [^1] request.
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html
  */
 class GetUserResponse extends Result
 {

@@ -8,11 +8,15 @@ use AsyncAws\Iam\Enum\StatusType;
 /**
  * Contains information about an Amazon Web Services access key.
  *
- * This data type is used as a response element in the CreateAccessKey and ListAccessKeys operations.
+ * This data type is used as a response element in the CreateAccessKey [^1] and ListAccessKeys [^2] operations.
  *
- * > The `SecretAccessKey` value is returned only in response to CreateAccessKey. You can get a secret access key only
- * > when you first create an access key; you cannot recover the secret access key later. If you lose a secret access
- * > key, you must create a new access key.
+ * > The `SecretAccessKey` value is returned only in response to CreateAccessKey [^3]. You can get a secret access key
+ * > only when you first create an access key; you cannot recover the secret access key later. If you lose a secret
+ * > access key, you must create a new access key.
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateAccessKey.html
+ * [^2]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListAccessKeys.html
+ * [^3]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateAccessKey.html
  */
 final class AccessKey
 {
