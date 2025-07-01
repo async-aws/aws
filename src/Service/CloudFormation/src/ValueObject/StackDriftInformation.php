@@ -19,7 +19,7 @@ final class StackDriftInformation
      *   or more of its resources have drifted.
      * - `NOT_CHECKED`: CloudFormation hasn't checked if the stack differs from its expected template configuration.
      * - `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
-     * - `UNKNOWN`: This value is reserved for future use.
+     * - `UNKNOWN`: CloudFormation could not run drift detection for a resource in the stack.
      *
      * @var StackDriftStatus::*
      */

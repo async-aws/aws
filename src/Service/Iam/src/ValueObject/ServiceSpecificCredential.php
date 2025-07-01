@@ -20,6 +20,14 @@ final class ServiceSpecificCredential
     private $createDate;
 
     /**
+     * The date and time when the service specific credential expires. This field is only present for Bedrock API keys that
+     * were created with an expiration period.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $expirationDate;
+
+    /**
      * The name of the service associated with the service-specific credential.
      *
      * @var string
@@ -31,16 +39,32 @@ final class ServiceSpecificCredential
      * combined with the ID number of the Amazon Web Services account, as in `jane-at-123456789012`, for example. This value
      * cannot be configured by the user.
      *
-     * @var string
+     * @var string|null
      */
     private $serviceUserName;
 
     /**
      * The generated password for the service-specific credential.
      *
-     * @var string
+     * @var string|null
      */
     private $servicePassword;
+
+    /**
+     * For Bedrock API keys, this is the public portion of the credential that includes the IAM user name and a suffix
+     * containing version and creation information.
+     *
+     * @var string|null
+     */
+    private $serviceCredentialAlias;
+
+    /**
+     * For Bedrock API keys, this is the secret portion of the credential that should be used to authenticate API calls.
+     * This value is returned only when the credential is created.
+     *
+     * @var string|null
+     */
+    private $serviceCredentialSecret;
 
     /**
      * The unique identifier for the service-specific credential.
@@ -67,9 +91,12 @@ final class ServiceSpecificCredential
     /**
      * @param array{
      *   CreateDate: \DateTimeImmutable,
+     *   ExpirationDate?: null|\DateTimeImmutable,
      *   ServiceName: string,
-     *   ServiceUserName: string,
-     *   ServicePassword: string,
+     *   ServiceUserName?: null|string,
+     *   ServicePassword?: null|string,
+     *   ServiceCredentialAlias?: null|string,
+     *   ServiceCredentialSecret?: null|string,
      *   ServiceSpecificCredentialId: string,
      *   UserName: string,
      *   Status: StatusType::*,
@@ -78,9 +105,12 @@ final class ServiceSpecificCredential
     public function __construct(array $input)
     {
         $this->createDate = $input['CreateDate'] ?? $this->throwException(new InvalidArgument('Missing required field "CreateDate".'));
+        $this->expirationDate = $input['ExpirationDate'] ?? null;
         $this->serviceName = $input['ServiceName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceName".'));
-        $this->serviceUserName = $input['ServiceUserName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceUserName".'));
-        $this->servicePassword = $input['ServicePassword'] ?? $this->throwException(new InvalidArgument('Missing required field "ServicePassword".'));
+        $this->serviceUserName = $input['ServiceUserName'] ?? null;
+        $this->servicePassword = $input['ServicePassword'] ?? null;
+        $this->serviceCredentialAlias = $input['ServiceCredentialAlias'] ?? null;
+        $this->serviceCredentialSecret = $input['ServiceCredentialSecret'] ?? null;
         $this->serviceSpecificCredentialId = $input['ServiceSpecificCredentialId'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceSpecificCredentialId".'));
         $this->userName = $input['UserName'] ?? $this->throwException(new InvalidArgument('Missing required field "UserName".'));
         $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
@@ -89,9 +119,12 @@ final class ServiceSpecificCredential
     /**
      * @param array{
      *   CreateDate: \DateTimeImmutable,
+     *   ExpirationDate?: null|\DateTimeImmutable,
      *   ServiceName: string,
-     *   ServiceUserName: string,
-     *   ServicePassword: string,
+     *   ServiceUserName?: null|string,
+     *   ServicePassword?: null|string,
+     *   ServiceCredentialAlias?: null|string,
+     *   ServiceCredentialSecret?: null|string,
      *   ServiceSpecificCredentialId: string,
      *   UserName: string,
      *   Status: StatusType::*,
@@ -107,12 +140,27 @@ final class ServiceSpecificCredential
         return $this->createDate;
     }
 
+    public function getExpirationDate(): ?\DateTimeImmutable
+    {
+        return $this->expirationDate;
+    }
+
+    public function getServiceCredentialAlias(): ?string
+    {
+        return $this->serviceCredentialAlias;
+    }
+
+    public function getServiceCredentialSecret(): ?string
+    {
+        return $this->serviceCredentialSecret;
+    }
+
     public function getServiceName(): string
     {
         return $this->serviceName;
     }
 
-    public function getServicePassword(): string
+    public function getServicePassword(): ?string
     {
         return $this->servicePassword;
     }
@@ -122,7 +170,7 @@ final class ServiceSpecificCredential
         return $this->serviceSpecificCredentialId;
     }
 
-    public function getServiceUserName(): string
+    public function getServiceUserName(): ?string
     {
         return $this->serviceUserName;
     }

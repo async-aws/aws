@@ -9,9 +9,13 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * This data type is used as a response element in the following operations:
  *
- * - CreateUser
- * - GetUser
- * - ListUsers
+ * - CreateUser [^1]
+ * - GetUser [^2]
+ * - ListUsers [^3]
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateUser.html
+ * [^2]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html
+ * [^3]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
  */
 final class User
 {
@@ -75,10 +79,12 @@ final class User
      * A null value does not mean that the user *never* had a password. Also, if the user does not currently have a password
      * but had one in the past, then this field contains the date and time the most recent password was used.
      *
-     * This value is returned only in the GetUser and ListUsers operations.
+     * This value is returned only in the GetUser [^3] and ListUsers [^4] operations.
      *
      * [^1]: http://www.iso.org/iso/iso8601
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html
+     * [^3]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html
+     * [^4]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
      *
      * @var \DateTimeImmutable|null
      */

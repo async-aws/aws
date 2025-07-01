@@ -10,6 +10,7 @@ final class TableStatus
     public const CREATING = 'CREATING';
     public const DELETING = 'DELETING';
     public const INACCESSIBLE_ENCRYPTION_CREDENTIALS = 'INACCESSIBLE_ENCRYPTION_CREDENTIALS';
+    public const REPLICATION_NOT_AUTHORIZED = 'REPLICATION_NOT_AUTHORIZED';
     public const UPDATING = 'UPDATING';
 
     public static function exists(string $value): bool
@@ -21,6 +22,7 @@ final class TableStatus
             self::CREATING => true,
             self::DELETING => true,
             self::INACCESSIBLE_ENCRYPTION_CREDENTIALS => true,
+            self::REPLICATION_NOT_AUTHORIZED => true,
             self::UPDATING => true,
         ][$value]);
     }

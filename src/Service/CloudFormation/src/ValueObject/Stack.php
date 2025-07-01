@@ -159,11 +159,10 @@ final class Stack
     private $enableTerminationProtection;
 
     /**
-     * For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack.
-     * For the first level of nested stacks, the root stack is also the parent stack.
+     * For nested stacks, the stack ID of the direct parent of this stack. For the first level of nested stacks, the root
+     * stack is also the parent stack.
      *
-     * For more information, see Embed stacks within other stacks using nested stacks [^1] in the *CloudFormation User
-     * Guide*.
+     * For more information, see Nested stacks [^1] in the *CloudFormation User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      *
@@ -172,11 +171,9 @@ final class Stack
     private $parentId;
 
     /**
-     * For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the
-     * nested stack ultimately belongs.
+     * For nested stacks, the stack ID of the top-level stack to which the nested stack ultimately belongs.
      *
-     * For more information, see Embed stacks within other stacks using nested stacks [^1] in the *CloudFormation User
-     * Guide*.
+     * For more information, see Nested stacks [^1] in the *CloudFormation User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html
      *

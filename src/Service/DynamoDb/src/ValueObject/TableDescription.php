@@ -264,6 +264,14 @@ final class TableDescription
     private $replicas;
 
     /**
+     * The witness Region and its current status in the MRSC global table. Only one witness Region can be configured per
+     * MRSC global table.
+     *
+     * @var GlobalTableWitnessDescription[]|null
+     */
+    private $globalTableWitnesses;
+
+    /**
      * Contains details for the restore.
      *
      * @var RestoreSummary|null
@@ -316,16 +324,13 @@ final class TableDescription
     /**
      * Indicates one of the following consistency modes for a global table:
      *
-     * - `EVENTUAL`: Indicates that the global table is configured for multi-Region eventual consistency.
-     * - `STRONG`: Indicates that the global table is configured for multi-Region strong consistency (preview).
+     * - `EVENTUAL`: Indicates that the global table is configured for multi-Region eventual consistency (MREC).
+     * - `STRONG`: Indicates that the global table is configured for multi-Region strong consistency (MRSC).
      *
-     *   > Multi-Region strong consistency (MRSC) is a new DynamoDB global tables capability currently available in preview
-     *   > mode. For more information, see Global tables multi-Region strong consistency [^1].
+     * If you don't specify this field, the global table consistency mode defaults to `EVENTUAL`. For more information about
+     * global tables consistency modes, see Consistency modes [^1] in DynamoDB developer guide.
      *
-     *
-     * If you don't specify this field, the global table consistency mode defaults to `EVENTUAL`.
-     *
-     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PreviewFeatures.html#multi-region-strong-consistency-gt
+     * [^1]: https://docs.aws.amazon.com/V2globaltables_HowItWorks.html#V2globaltables_HowItWorks.consistency-modes
      *
      * @var MultiRegionConsistency::*|null
      */
@@ -351,6 +356,7 @@ final class TableDescription
      *   LatestStreamArn?: null|string,
      *   GlobalTableVersion?: null|string,
      *   Replicas?: null|array<ReplicaDescription|array>,
+     *   GlobalTableWitnesses?: null|array<GlobalTableWitnessDescription|array>,
      *   RestoreSummary?: null|RestoreSummary|array,
      *   SSEDescription?: null|SSEDescription|array,
      *   ArchivalSummary?: null|ArchivalSummary|array,
@@ -381,6 +387,7 @@ final class TableDescription
         $this->latestStreamArn = $input['LatestStreamArn'] ?? null;
         $this->globalTableVersion = $input['GlobalTableVersion'] ?? null;
         $this->replicas = isset($input['Replicas']) ? array_map([ReplicaDescription::class, 'create'], $input['Replicas']) : null;
+        $this->globalTableWitnesses = isset($input['GlobalTableWitnesses']) ? array_map([GlobalTableWitnessDescription::class, 'create'], $input['GlobalTableWitnesses']) : null;
         $this->restoreSummary = isset($input['RestoreSummary']) ? RestoreSummary::create($input['RestoreSummary']) : null;
         $this->sseDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
@@ -411,6 +418,7 @@ final class TableDescription
      *   LatestStreamArn?: null|string,
      *   GlobalTableVersion?: null|string,
      *   Replicas?: null|array<ReplicaDescription|array>,
+     *   GlobalTableWitnesses?: null|array<GlobalTableWitnessDescription|array>,
      *   RestoreSummary?: null|RestoreSummary|array,
      *   SSEDescription?: null|SSEDescription|array,
      *   ArchivalSummary?: null|ArchivalSummary|array,
@@ -465,6 +473,14 @@ final class TableDescription
     public function getGlobalTableVersion(): ?string
     {
         return $this->globalTableVersion;
+    }
+
+    /**
+     * @return GlobalTableWitnessDescription[]
+     */
+    public function getGlobalTableWitnesses(): array
+    {
+        return $this->globalTableWitnesses ?? [];
     }
 
     public function getItemCount(): ?int

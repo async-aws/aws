@@ -9,7 +9,9 @@ use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
 /**
- * Contains the response to a successful CreateUser request.
+ * Contains the response to a successful CreateUser [^1] request.
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateUser.html
  */
 class CreateUserResponse extends Result
 {

@@ -28,9 +28,17 @@ final class ServiceSpecificCredentialMetadata
     /**
      * The generated user name for the service-specific credential.
      *
-     * @var string
+     * @var string|null
      */
     private $serviceUserName;
+
+    /**
+     * For Bedrock API keys, this is the public portion of the credential that includes the IAM user name and a suffix
+     * containing version and creation information.
+     *
+     * @var string|null
+     */
+    private $serviceCredentialAlias;
 
     /**
      * The date and time, in ISO 8601 date-time format [^1], when the service-specific credential were created.
@@ -40,6 +48,14 @@ final class ServiceSpecificCredentialMetadata
      * @var \DateTimeImmutable
      */
     private $createDate;
+
+    /**
+     * The date and time when the service specific credential expires. This field is only present for Bedrock API keys that
+     * were created with an expiration period.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $expirationDate;
 
     /**
      * The unique identifier for the service-specific credential.
@@ -59,8 +75,10 @@ final class ServiceSpecificCredentialMetadata
      * @param array{
      *   UserName: string,
      *   Status: StatusType::*,
-     *   ServiceUserName: string,
+     *   ServiceUserName?: null|string,
+     *   ServiceCredentialAlias?: null|string,
      *   CreateDate: \DateTimeImmutable,
+     *   ExpirationDate?: null|\DateTimeImmutable,
      *   ServiceSpecificCredentialId: string,
      *   ServiceName: string,
      * } $input
@@ -69,8 +87,10 @@ final class ServiceSpecificCredentialMetadata
     {
         $this->userName = $input['UserName'] ?? $this->throwException(new InvalidArgument('Missing required field "UserName".'));
         $this->status = $input['Status'] ?? $this->throwException(new InvalidArgument('Missing required field "Status".'));
-        $this->serviceUserName = $input['ServiceUserName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceUserName".'));
+        $this->serviceUserName = $input['ServiceUserName'] ?? null;
+        $this->serviceCredentialAlias = $input['ServiceCredentialAlias'] ?? null;
         $this->createDate = $input['CreateDate'] ?? $this->throwException(new InvalidArgument('Missing required field "CreateDate".'));
+        $this->expirationDate = $input['ExpirationDate'] ?? null;
         $this->serviceSpecificCredentialId = $input['ServiceSpecificCredentialId'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceSpecificCredentialId".'));
         $this->serviceName = $input['ServiceName'] ?? $this->throwException(new InvalidArgument('Missing required field "ServiceName".'));
     }
@@ -79,8 +99,10 @@ final class ServiceSpecificCredentialMetadata
      * @param array{
      *   UserName: string,
      *   Status: StatusType::*,
-     *   ServiceUserName: string,
+     *   ServiceUserName?: null|string,
+     *   ServiceCredentialAlias?: null|string,
      *   CreateDate: \DateTimeImmutable,
+     *   ExpirationDate?: null|\DateTimeImmutable,
      *   ServiceSpecificCredentialId: string,
      *   ServiceName: string,
      * }|ServiceSpecificCredentialMetadata $input
@@ -95,6 +117,16 @@ final class ServiceSpecificCredentialMetadata
         return $this->createDate;
     }
 
+    public function getExpirationDate(): ?\DateTimeImmutable
+    {
+        return $this->expirationDate;
+    }
+
+    public function getServiceCredentialAlias(): ?string
+    {
+        return $this->serviceCredentialAlias;
+    }
+
     public function getServiceName(): string
     {
         return $this->serviceName;
@@ -105,7 +137,7 @@ final class ServiceSpecificCredentialMetadata
         return $this->serviceSpecificCredentialId;
     }
 
-    public function getServiceUserName(): string
+    public function getServiceUserName(): ?string
     {
         return $this->serviceUserName;
     }

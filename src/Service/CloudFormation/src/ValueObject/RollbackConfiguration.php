@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 /**
- * Structure containing the rollback triggers for CloudFormation to monitor during stack creation and updating
+ * Structure that contains the rollback triggers for CloudFormation to monitor during stack creation and updating
  * operations, and for the specified monitoring period afterwards.
  *
  * Rollback triggers enable you to have CloudFormation monitor the state of your application during stack creation and

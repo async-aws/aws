@@ -73,6 +73,7 @@ use AsyncAws\DynamoDb\ValueObject\Condition;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
+use AsyncAws\DynamoDb\ValueObject\GlobalTableWitnessGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
@@ -241,6 +242,7 @@ class DynamoDbClient extends AbstractApi
      * @throws InternalServerErrorException
      * @throws ItemCollectionSizeLimitExceededException
      * @throws ProvisionedThroughputExceededException
+     * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
      */
@@ -251,6 +253,7 @@ class DynamoDbClient extends AbstractApi
             'InternalServerError' => InternalServerErrorException::class,
             'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
         ], 'usesEndpointDiscovery' => true]));
@@ -375,8 +378,6 @@ class DynamoDbClient extends AbstractApi
      * specified table does not exist, DynamoDB returns a `ResourceNotFoundException`. If table is already in the `DELETING`
      * state, no error is returned.
      *
-     * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
-     *
      * > DynamoDB might continue to accept data read and write operations, such as `GetItem` and `PutItem`, on a table in
      * > the `DELETING` state until the table deletion is complete. For the full list of table states, see TableStatus [^1].
      *
@@ -439,8 +440,6 @@ class DynamoDbClient extends AbstractApi
     /**
      * Returns information about the table, including the current status of the table, when it was created, the primary key
      * schema, and any indexes on the table.
-     *
-     * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
      *
      * > If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a
      * > `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata
@@ -984,8 +983,6 @@ class DynamoDbClient extends AbstractApi
      * Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given
      * table.
      *
-     * ! For global tables, this operation only applies to global tables using Version 2019.11.21 (Current version).
-     *
      * You can only perform one of the following operations at once:
      *
      * - Modify the provisioned throughput settings of the table.
@@ -1012,6 +1009,7 @@ class DynamoDbClient extends AbstractApi
      *   TableClass?: null|TableClass::*,
      *   DeletionProtectionEnabled?: null|bool,
      *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
+     *   GlobalTableWitnessUpdates?: null|array<GlobalTableWitnessGroupUpdate|array>,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|WarmThroughput|array,
      *   '@region'?: string|null,

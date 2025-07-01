@@ -30,9 +30,37 @@ final class ListServiceSpecificCredentialsRequest extends Input
     private $serviceName;
 
     /**
+     * A flag indicating whether to list service specific credentials for all users. This parameter cannot be specified
+     * together with UserName. When true, returns all credentials associated with the specified service.
+     *
+     * @var bool|null
+     */
+    private $allUsers;
+
+    /**
+     * Use this parameter only when paginating results and only after you receive a response indicating that the results are
+     * truncated. Set it to the value of the Marker from the response that you received to indicate where the next call
+     * should start.
+     *
+     * @var string|null
+     */
+    private $marker;
+
+    /**
+     * Use this only when paginating results to indicate the maximum number of items you want in the response. If additional
+     * items exist beyond the maximum you specify, the IsTruncated response element is true.
+     *
+     * @var int|null
+     */
+    private $maxItems;
+
+    /**
      * @param array{
      *   UserName?: null|string,
      *   ServiceName?: null|string,
+     *   AllUsers?: null|bool,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -40,6 +68,9 @@ final class ListServiceSpecificCredentialsRequest extends Input
     {
         $this->userName = $input['UserName'] ?? null;
         $this->serviceName = $input['ServiceName'] ?? null;
+        $this->allUsers = $input['AllUsers'] ?? null;
+        $this->marker = $input['Marker'] ?? null;
+        $this->maxItems = $input['MaxItems'] ?? null;
         parent::__construct($input);
     }
 
@@ -47,12 +78,30 @@ final class ListServiceSpecificCredentialsRequest extends Input
      * @param array{
      *   UserName?: null|string,
      *   ServiceName?: null|string,
+     *   AllUsers?: null|bool,
+     *   Marker?: null|string,
+     *   MaxItems?: null|int,
      *   '@region'?: string|null,
      * }|ListServiceSpecificCredentialsRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getAllUsers(): ?bool
+    {
+        return $this->allUsers;
+    }
+
+    public function getMarker(): ?string
+    {
+        return $this->marker;
+    }
+
+    public function getMaxItems(): ?int
+    {
+        return $this->maxItems;
     }
 
     public function getServiceName(): ?string
@@ -86,6 +135,27 @@ final class ListServiceSpecificCredentialsRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setAllUsers(?bool $value): self
+    {
+        $this->allUsers = $value;
+
+        return $this;
+    }
+
+    public function setMarker(?string $value): self
+    {
+        $this->marker = $value;
+
+        return $this;
+    }
+
+    public function setMaxItems(?int $value): self
+    {
+        $this->maxItems = $value;
+
+        return $this;
+    }
+
     public function setServiceName(?string $value): self
     {
         $this->serviceName = $value;
@@ -108,6 +178,15 @@ final class ListServiceSpecificCredentialsRequest extends Input
         }
         if (null !== $v = $this->serviceName) {
             $payload['ServiceName'] = $v;
+        }
+        if (null !== $v = $this->allUsers) {
+            $payload['AllUsers'] = $v ? 'true' : 'false';
+        }
+        if (null !== $v = $this->marker) {
+            $payload['Marker'] = $v;
+        }
+        if (null !== $v = $this->maxItems) {
+            $payload['MaxItems'] = $v;
         }
 
         return $payload;

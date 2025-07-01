@@ -19,7 +19,8 @@ final class Tag
     private $key;
 
     /**
-     * *Required*. A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value.
+     * *Required*. A string that contains the value for this tag. You can specify a maximum of 256 characters for a tag
+     * value.
      *
      * @var string
      */

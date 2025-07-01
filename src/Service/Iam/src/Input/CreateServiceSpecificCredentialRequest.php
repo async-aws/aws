@@ -35,9 +35,18 @@ final class CreateServiceSpecificCredentialRequest extends Input
     private $serviceName;
 
     /**
+     * The number of days until the service specific credential expires. This field is only valid for Bedrock API keys and
+     * must be a positive integer. When not specified, the credential will not expire.
+     *
+     * @var int|null
+     */
+    private $credentialAgeDays;
+
+    /**
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
+     *   CredentialAgeDays?: null|int,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,6 +54,7 @@ final class CreateServiceSpecificCredentialRequest extends Input
     {
         $this->userName = $input['UserName'] ?? null;
         $this->serviceName = $input['ServiceName'] ?? null;
+        $this->credentialAgeDays = $input['CredentialAgeDays'] ?? null;
         parent::__construct($input);
     }
 
@@ -52,12 +62,18 @@ final class CreateServiceSpecificCredentialRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
+     *   CredentialAgeDays?: null|int,
      *   '@region'?: string|null,
      * }|CreateServiceSpecificCredentialRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getCredentialAgeDays(): ?int
+    {
+        return $this->credentialAgeDays;
     }
 
     public function getServiceName(): ?string
@@ -91,6 +107,13 @@ final class CreateServiceSpecificCredentialRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setCredentialAgeDays(?int $value): self
+    {
+        $this->credentialAgeDays = $value;
+
+        return $this;
+    }
+
     public function setServiceName(?string $value): self
     {
         $this->serviceName = $value;
@@ -116,6 +139,9 @@ final class CreateServiceSpecificCredentialRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "ServiceName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ServiceName'] = $v;
+        if (null !== $v = $this->credentialAgeDays) {
+            $payload['CredentialAgeDays'] = $v;
+        }
 
         return $payload;
     }

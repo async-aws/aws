@@ -12,7 +12,9 @@ use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
 /**
- * Contains the response to a successful ListUsers request.
+ * Contains the response to a successful ListUsers [^1] request.
+ *
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
  *
  * @implements \IteratorAggregate<User>
  */
