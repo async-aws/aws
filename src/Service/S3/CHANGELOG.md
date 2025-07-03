@@ -7,6 +7,7 @@
 - AWS api-change: Rework regions configuration
 - AWS api-change: Added `tagCount` property to the HeadObject response
 - AWS api-change: Adds support for additional server-side encryption mode and storage class values for accessing Amazon FSx data from Amazon S3 using S3 Access Points
+- AWS api-change: Added support for directory bucket creation with tags and bucket ARN retrieval in CreateBucket, ListDirectoryBuckets, and HeadBucket operations
 
 ## 2.9.1
 

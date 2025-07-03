@@ -137,6 +137,7 @@ class ListBucketsOutput extends Result implements \IteratorAggregate
             'Name' => (null !== $v = $xml->Name[0]) ? (string) $v : null,
             'CreationDate' => (null !== $v = $xml->CreationDate[0]) ? new \DateTimeImmutable((string) $v) : null,
             'BucketRegion' => (null !== $v = $xml->BucketRegion[0]) ? (string) $v : null,
+            'BucketArn' => (null !== $v = $xml->BucketArn[0]) ? (string) $v : null,
         ]);
     }
 
