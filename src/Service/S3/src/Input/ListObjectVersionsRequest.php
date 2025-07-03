@@ -26,6 +26,8 @@ final class ListObjectVersionsRequest extends Input
      * and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups
      * are counted as one result against the `max-keys` limitation. These keys are not returned elsewhere in the response.
      *
+     * `CommonPrefixes` is filtered out from results if it is not lexicographically greater than the key-marker.
+     *
      * @var string|null
      */
     private $delimiter;

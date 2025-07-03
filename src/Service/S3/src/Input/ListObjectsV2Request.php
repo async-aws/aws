@@ -49,6 +49,8 @@ final class ListObjectsV2Request extends Input
     /**
      * A delimiter is a character that you use to group keys.
      *
+     * `CommonPrefixes` is filtered out from results if it is not lexicographically greater than the `StartAfter` value.
+     *
      * > - **Directory buckets** - For directory buckets, `/` is the only supported delimiter.
      * > - **Directory buckets ** - When you query `ListObjectsV2` with a delimiter during in-progress multipart uploads,
      * >   the `CommonPrefixes` response parameter contains the prefixes that are associated with the in-progress multipart

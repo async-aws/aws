@@ -53,10 +53,24 @@ final class CreateBucketConfiguration
     private $bucket;
 
     /**
+     * An array of tags that you can apply to the bucket that you're creating. Tags are key-value pairs of metadata used to
+     * categorize and organize your buckets, track costs, and control access.
+     *
+     * > This parameter is only supported for S3 directory buckets. For more information, see Using tags with directory
+     * > buckets [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+     *
+     * @var Tag[]|null
+     */
+    private $tags;
+
+    /**
      * @param array{
      *   LocationConstraint?: null|BucketLocationConstraint::*,
      *   Location?: null|LocationInfo|array,
      *   Bucket?: null|BucketInfo|array,
+     *   Tags?: null|array<Tag|array>,
      * } $input
      */
     public function __construct(array $input)
@@ -64,6 +78,7 @@ final class CreateBucketConfiguration
         $this->locationConstraint = $input['LocationConstraint'] ?? null;
         $this->location = isset($input['Location']) ? LocationInfo::create($input['Location']) : null;
         $this->bucket = isset($input['Bucket']) ? BucketInfo::create($input['Bucket']) : null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
     }
 
     /**
@@ -71,6 +86,7 @@ final class CreateBucketConfiguration
      *   LocationConstraint?: null|BucketLocationConstraint::*,
      *   Location?: null|LocationInfo|array,
      *   Bucket?: null|BucketInfo|array,
+     *   Tags?: null|array<Tag|array>,
      * }|CreateBucketConfiguration $input
      */
     public static function create($input): self
@@ -97,6 +113,14 @@ final class CreateBucketConfiguration
     }
 
     /**
+     * @return Tag[]
+     */
+    public function getTags(): array
+    {
+        return $this->tags ?? [];
+    }
+
+    /**
      * @internal
      */
     public function requestBody(\DOMElement $node, \DOMDocument $document): void
@@ -116,6 +140,14 @@ final class CreateBucketConfiguration
             $node->appendChild($child = $document->createElement('Bucket'));
 
             $v->requestBody($child, $document);
+        }
+        if (null !== $v = $this->tags) {
+            $node->appendChild($nodeList = $document->createElement('Tags'));
+            foreach ($v as $item) {
+                $nodeList->appendChild($child = $document->createElement('Tag'));
+
+                $item->requestBody($child, $document);
+            }
         }
     }
 }

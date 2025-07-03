@@ -31,10 +31,24 @@ final class Bucket
     private $bucketRegion;
 
     /**
+     * The Amazon Resource Name (ARN) of the S3 bucket. ARNs uniquely identify Amazon Web Services resources across all of
+     * Amazon Web Services.
+     *
+     * > This parameter is only supported for S3 directory buckets. For more information, see Using tags with directory
+     * > buckets [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+     *
+     * @var string|null
+     */
+    private $bucketArn;
+
+    /**
      * @param array{
      *   Name?: null|string,
      *   CreationDate?: null|\DateTimeImmutable,
      *   BucketRegion?: null|string,
+     *   BucketArn?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -42,6 +56,7 @@ final class Bucket
         $this->name = $input['Name'] ?? null;
         $this->creationDate = $input['CreationDate'] ?? null;
         $this->bucketRegion = $input['BucketRegion'] ?? null;
+        $this->bucketArn = $input['BucketArn'] ?? null;
     }
 
     /**
@@ -49,11 +64,17 @@ final class Bucket
      *   Name?: null|string,
      *   CreationDate?: null|\DateTimeImmutable,
      *   BucketRegion?: null|string,
+     *   BucketArn?: null|string,
      * }|Bucket $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getBucketArn(): ?string
+    {
+        return $this->bucketArn;
     }
 
     public function getBucketRegion(): ?string
