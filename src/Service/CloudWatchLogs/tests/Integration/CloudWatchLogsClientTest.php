@@ -6,6 +6,7 @@ use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\Enum\OrderBy;
 use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\CreateLogStreamRequest;
+use AsyncAws\CloudWatchLogs\Input\DescribeLogGroupsRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
@@ -44,6 +45,28 @@ class CloudWatchLogsClientTest extends TestCase
         self::expectExceptionMessageMatches('/The specified log group does not exist/');
 
         $result->resolve();
+    }
+
+    public function testDescribeLogGroups(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeLogGroupsRequest([
+            'accountIdentifiers' => ['change me'],
+            'logGroupNamePrefix' => 'change me',
+            'logGroupNamePattern' => 'change me',
+            'nextToken' => 'change me',
+            'limit' => 1337,
+            'includeLinkedAccounts' => false,
+            'logGroupClass' => 'change me',
+            'logGroupIdentifiers' => ['change me'],
+        ]);
+        $result = $client->describeLogGroups($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getLogGroups());
+        self::assertSame('changeIt', $result->getNextToken());
     }
 
     public function testDescribeLogStreams(): void

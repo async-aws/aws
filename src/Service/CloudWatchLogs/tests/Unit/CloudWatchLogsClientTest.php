@@ -5,9 +5,11 @@ namespace AsyncAws\CloudWatchLogs\Tests\Unit;
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\CreateLogStreamRequest;
+use AsyncAws\CloudWatchLogs\Input\DescribeLogGroupsRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
+use AsyncAws\CloudWatchLogs\Result\DescribeLogGroupsResponse;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\FilterLogEventsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
@@ -43,6 +45,18 @@ class CloudWatchLogsClientTest extends TestCase
         $result = $client->createLogStream($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDescribeLogGroups(): void
+    {
+        $client = new CloudWatchLogsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DescribeLogGroupsRequest([
+        ]);
+        $result = $client->describeLogGroups($input);
+
+        self::assertInstanceOf(DescribeLogGroupsResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
