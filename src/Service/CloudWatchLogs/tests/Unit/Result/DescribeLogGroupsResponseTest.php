@@ -48,7 +48,7 @@ class DescribeLogGroupsResponseTest extends TestCase
         self::assertCount(2, $logGroups);
         self::assertSame('arn:aws:logs:us-east-1:123456789012:log-group:my-log-group-1:*', $logGroups[0]->getArn());
         self::assertSame(1393545600000, $logGroups[0]->getCreationTime());
-        self::assertSame('my-log-group-1', $logGroups[0]->getLogGroupArn());
+        self::assertSame('my-log-group-1', $logGroups[0]->getLogGroupName());
         self::assertSame(0, $logGroups[0]->getMetricFilterCount());
         self::assertSame(14, $logGroups[0]->getRetentionInDays());
         self::assertSame('arn:aws:kms:us-east-1:123456789012:key/abcd1234-a123-456a-a12b-a123b4cd56ef', $logGroups[0]->getKmsKeyId());

@@ -23,7 +23,8 @@ class DescribeLogGroupsRequestTest extends TestCase
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
-
+            X-AMZ-TARGET: Logs_20140328.DescribeLogGroups
+            Accept: application/json
             {
                "accountIdentifiers": [ "s123456789012" ],
                "includeLinkedAccounts": false,
