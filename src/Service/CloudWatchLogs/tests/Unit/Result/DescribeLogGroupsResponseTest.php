@@ -6,7 +6,6 @@ use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogGroupsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogGroupsResponse;
 use AsyncAws\CloudWatchLogs\ValueObject\LogGroup;
-use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
