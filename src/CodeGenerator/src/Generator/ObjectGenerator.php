@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
@@ -307,6 +308,8 @@ class ObjectGenerator
                     $enumClassName = $this->enumGenerator->generate($memberShape);
                     $classBuilder->addUse($enumClassName->getFqdn());
                 }
+            } elseif ($memberShape instanceof DocumentShape) {
+                $nullable = false;
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = ResultStream::class;
