@@ -238,7 +238,7 @@ foreach ($services as $service => $hasChange) {
 
     // Fix branch-alias in composer.json
     if ($hasChange) {
-        $lastVersion = null;
+        $lastPackageVersion = null;
         $level = 1;
         switch ($changeLog[4]) {
             case '### BC-BREAK':
@@ -249,22 +249,22 @@ foreach ($services as $service => $hasChange) {
         }
         foreach (\array_slice($changeLog, 4) as $line) {
             if (strpos($line, '## ') === 0) {
-                $lastVersion = substr($line, 3);
+                $lastPackageVersion = substr($line, 3);
 
                 break;
             }
         }
-        if (empty($lastVersion)) {
+        if (empty($lastPackageVersion)) {
             console_log('unable to find the next version in CHANGELOG');
 
             exit(1);
         }
-        if (!preg_match('/^\d+\.\d+\.\d+$/', $lastVersion)) {
+        if (!preg_match('/^\d+\.\d+\.\d+$/', $lastPackageVersion)) {
             console_log('the last version in CHANGELOG is not a valid version');
 
             exit(1);
         }
-        $parts = explode('.', $lastVersion);
+        $parts = explode('.', $lastPackageVersion);
         $level = 1;
         if (0 === (int) $parts[0]) {
             $level = min(2, $level + 1);
