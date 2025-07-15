@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
@@ -292,6 +293,8 @@ class TestGenerator
                 return strtr('["change me" => INPUT_ARGUMENTS]', [
                     'INPUT_ARGUMENTS' => $this->getInputCode($classBuilder, $shape->getValue()->getShape(), $includeOptionalParameters, $recursion),
                 ]);
+            case $shape instanceof DocumentShape:
+                return '"change me"';
         }
 
         switch ($shape->getType()) {

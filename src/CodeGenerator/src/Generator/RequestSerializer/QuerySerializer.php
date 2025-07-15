@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
@@ -183,6 +184,8 @@ class QuerySerializer implements Serializer
                 return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
                 return $this->dumpArrayMap($output, $input, $contextProperty, $shape);
+            case $shape instanceof DocumentShape:
+                throw new \LogicException('Document shapes are not supported in the query serializer for now.');
         }
 
         switch ($shape->getType()) {

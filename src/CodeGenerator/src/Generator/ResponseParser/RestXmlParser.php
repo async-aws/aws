@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\ResponseParser;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
@@ -177,6 +178,8 @@ class RestXmlParser implements Parser
                 return $this->parseXmlResponseStructure($shape, $input, $required);
             case $shape instanceof MapShape:
                 return $this->parseXmlResponseMap($shape, $input, $required, $inObject);
+            case $shape instanceof DocumentShape:
+                throw new \LogicException('Document shapes are not supported in the XML parser for now.');
         }
 
         switch ($shape->getType()) {

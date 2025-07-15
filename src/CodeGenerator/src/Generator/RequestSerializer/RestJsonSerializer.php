@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
@@ -180,6 +181,8 @@ class RestJsonSerializer implements Serializer
                 return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
                 return $this->dumpArrayMap($output, $input, $contextProperty, $shape);
+            case $shape instanceof DocumentShape:
+                return $this->dumpArrayScalar($output, $input, $contextProperty, $shape);
         }
 
         switch ($shape->getType()) {
