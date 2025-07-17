@@ -56,7 +56,9 @@ final class StartExecutionInput extends Input
      * - brackets `< > { } [ ]`
      * - wildcard characters `? *`
      * - special characters `" # % \ ^ | ~ ` $ & , ; : /`
-     * - control characters (`U+0000-001F`, `U+007F-009F`)
+     * - control characters (`U+0000-001F`, `U+007F-009F`, `U+FFFE-FFFF`)
+     * - surrogates (`U+D800-DFFF`)
+     * - invalid characters (` U+10FFFF`)
      *
      * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      *
@@ -69,9 +71,9 @@ final class StartExecutionInput extends Input
     /**
      * The string that contains the JSON input data for the execution, for example:
      *
-     * `"input": "{\"first_name\" : \"test\"}"`
+     * `"{\"first_name\" : \"Tim\"}"`
      *
-     * > If you don't include any JSON input data, you still must include the two braces, for example: `"input": "{}"`
+     * > If you don't include any JSON input data, you still must include the two braces, for example: `"{}"`
      *
      * Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      *
@@ -81,6 +83,11 @@ final class StartExecutionInput extends Input
 
     /**
      * Passes the X-Ray trace header. The trace header can also be passed in the request payload.
+     *
+     * > For X-Ray traces, all Amazon Web Services services use the `X-Amzn-Trace-Id` header from the HTTP request. Using
+     * > the header is the preferred mechanism to identify a trace. `StartExecution` and `StartSyncExecution` API operations
+     * > can also use `traceHeader` from the body of the request payload. If **both** sources are provided, Step Functions
+     * > will use the **header value** (preferred) over the value in the request body.
      *
      * @var string|null
      */
