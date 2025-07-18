@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\AacAudioDescriptionBroadcasterMix;
 use AsyncAws\MediaConvert\Enum\AacCodecProfile;
 use AsyncAws\MediaConvert\Enum\AacCodingMode;
+use AsyncAws\MediaConvert\Enum\AacLoudnessMeasurementMode;
 use AsyncAws\MediaConvert\Enum\AacRateControlMode;
 use AsyncAws\MediaConvert\Enum\AacRawFormat;
 use AsyncAws\MediaConvert\Enum\AacSpecification;
@@ -65,6 +66,26 @@ final class AacSettings
     private $codingMode;
 
     /**
+     * Choose the loudness measurement mode for your audio content. For music or advertisements: We recommend that you keep
+     * the default value, Program. For speech or other content: We recommend that you choose Anchor. When you do,
+     * MediaConvert optimizes the loudness of your output for clarify by applying speech gates.
+     *
+     * @var AacLoudnessMeasurementMode::*|null
+     */
+    private $loudnessMeasurementMode;
+
+    /**
+     * Specify the RAP (Random Access Point) interval for your xHE-AAC audio output. A RAP allows a decoder to decode audio
+     * data mid-stream, without the need to reference previous audio frames, and perform adaptive audio bitrate switching.
+     * To specify the RAP interval: Enter an integer from 2000 to 30000, in milliseconds. Smaller values allow for better
+     * seeking and more frequent stream switching, while large values improve compression efficiency. To have MediaConvert
+     * automatically determine the RAP interval: Leave blank.
+     *
+     * @var int|null
+     */
+    private $rapInterval;
+
+    /**
      * Specify the AAC rate control mode. For a constant bitrate: Choose CBR. Your AAC output bitrate will be equal to the
      * value that you choose for Bitrate. For a variable bitrate: Choose VBR. Your AAC output bitrate will vary according to
      * your audio content and the value that you choose for Bitrate quality.
@@ -98,6 +119,14 @@ final class AacSettings
     private $specification;
 
     /**
+     * Specify the xHE-AAC loudness target. Enter an integer from 6 to 16, representing "loudness units". For more
+     * information, see the following specification: Supplementary information for R 128 EBU Tech 3342-2023.
+     *
+     * @var int|null
+     */
+    private $targetLoudnessRange;
+
+    /**
      * Specify the quality of your variable bitrate (VBR) AAC audio. For a list of approximate VBR bitrates, see:
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/aac-support.html#aac_vbr
      *
@@ -111,10 +140,13 @@ final class AacSettings
      *   Bitrate?: null|int,
      *   CodecProfile?: null|AacCodecProfile::*,
      *   CodingMode?: null|AacCodingMode::*,
+     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*,
+     *   RapInterval?: null|int,
      *   RateControlMode?: null|AacRateControlMode::*,
      *   RawFormat?: null|AacRawFormat::*,
      *   SampleRate?: null|int,
      *   Specification?: null|AacSpecification::*,
+     *   TargetLoudnessRange?: null|int,
      *   VbrQuality?: null|AacVbrQuality::*,
      * } $input
      */
@@ -124,10 +156,13 @@ final class AacSettings
         $this->bitrate = $input['Bitrate'] ?? null;
         $this->codecProfile = $input['CodecProfile'] ?? null;
         $this->codingMode = $input['CodingMode'] ?? null;
+        $this->loudnessMeasurementMode = $input['LoudnessMeasurementMode'] ?? null;
+        $this->rapInterval = $input['RapInterval'] ?? null;
         $this->rateControlMode = $input['RateControlMode'] ?? null;
         $this->rawFormat = $input['RawFormat'] ?? null;
         $this->sampleRate = $input['SampleRate'] ?? null;
         $this->specification = $input['Specification'] ?? null;
+        $this->targetLoudnessRange = $input['TargetLoudnessRange'] ?? null;
         $this->vbrQuality = $input['VbrQuality'] ?? null;
     }
 
@@ -137,10 +172,13 @@ final class AacSettings
      *   Bitrate?: null|int,
      *   CodecProfile?: null|AacCodecProfile::*,
      *   CodingMode?: null|AacCodingMode::*,
+     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*,
+     *   RapInterval?: null|int,
      *   RateControlMode?: null|AacRateControlMode::*,
      *   RawFormat?: null|AacRawFormat::*,
      *   SampleRate?: null|int,
      *   Specification?: null|AacSpecification::*,
+     *   TargetLoudnessRange?: null|int,
      *   VbrQuality?: null|AacVbrQuality::*,
      * }|AacSettings $input
      */
@@ -179,6 +217,19 @@ final class AacSettings
     }
 
     /**
+     * @return AacLoudnessMeasurementMode::*|null
+     */
+    public function getLoudnessMeasurementMode(): ?string
+    {
+        return $this->loudnessMeasurementMode;
+    }
+
+    public function getRapInterval(): ?int
+    {
+        return $this->rapInterval;
+    }
+
+    /**
      * @return AacRateControlMode::*|null
      */
     public function getRateControlMode(): ?string
@@ -205,6 +256,11 @@ final class AacSettings
     public function getSpecification(): ?string
     {
         return $this->specification;
+    }
+
+    public function getTargetLoudnessRange(): ?int
+    {
+        return $this->targetLoudnessRange;
     }
 
     /**
@@ -242,6 +298,15 @@ final class AacSettings
             }
             $payload['codingMode'] = $v;
         }
+        if (null !== $v = $this->loudnessMeasurementMode) {
+            if (!AacLoudnessMeasurementMode::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "loudnessMeasurementMode" for "%s". The value "%s" is not a valid "AacLoudnessMeasurementMode".', __CLASS__, $v));
+            }
+            $payload['loudnessMeasurementMode'] = $v;
+        }
+        if (null !== $v = $this->rapInterval) {
+            $payload['rapInterval'] = $v;
+        }
         if (null !== $v = $this->rateControlMode) {
             if (!AacRateControlMode::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "AacRateControlMode".', __CLASS__, $v));
@@ -262,6 +327,9 @@ final class AacSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "specification" for "%s". The value "%s" is not a valid "AacSpecification".', __CLASS__, $v));
             }
             $payload['specification'] = $v;
+        }
+        if (null !== $v = $this->targetLoudnessRange) {
+            $payload['targetLoudnessRange'] = $v;
         }
         if (null !== $v = $this->vbrQuality) {
             if (!AacVbrQuality::exists($v)) {

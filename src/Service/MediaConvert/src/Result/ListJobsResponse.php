@@ -285,10 +285,13 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
             'CodecProfile' => isset($json['codecProfile']) ? (string) $json['codecProfile'] : null,
             'CodingMode' => isset($json['codingMode']) ? (string) $json['codingMode'] : null,
+            'LoudnessMeasurementMode' => isset($json['loudnessMeasurementMode']) ? (string) $json['loudnessMeasurementMode'] : null,
+            'RapInterval' => isset($json['rapInterval']) ? (int) $json['rapInterval'] : null,
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
             'RawFormat' => isset($json['rawFormat']) ? (string) $json['rawFormat'] : null,
             'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
             'Specification' => isset($json['specification']) ? (string) $json['specification'] : null,
+            'TargetLoudnessRange' => isset($json['targetLoudnessRange']) ? (int) $json['targetLoudnessRange'] : null,
             'VbrQuality' => isset($json['vbrQuality']) ? (string) $json['vbrQuality'] : null,
         ]);
     }
