@@ -7,6 +7,7 @@
 - AWS api-change: This release includes support for embedding and signing C2PA content credentials in MP4 outputs.
 - AWS api-change: This release adds a new SPECIFIED_OPTIMAL option for handling DDS when using DVB-Sub with high resolution video.
 - AWS api-change: This release expands the range of supported audio outputs to include xHE, 192khz FLAC and the deprecation of dual mono for AC3.
+- AWS api-change: This release adds support for TAMS server integration with MediaConvert inputs.
 
 ## 1.9.0
 

@@ -101,6 +101,10 @@ class SsmClient extends AbstractApi
     /**
      * Get information about a single parameter by specifying the parameter name.
      *
+     * Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a
+     * parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a
+     * `ValidationException` error.
+     *
      * > To get information about more than one parameter at a time, use the GetParameters operation.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
@@ -135,6 +139,10 @@ class SsmClient extends AbstractApi
      *
      * > To get information about a single parameter, you can use the GetParameter operation instead.
      *
+     * Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a
+     * parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a
+     * `ValidationException` error.
+     *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameters
      *
@@ -166,6 +174,10 @@ class SsmClient extends AbstractApi
      * value of `MaxResults`. If the service reaches an internal limit while processing the results, it stops the operation
      * and returns the matching values up to that point and a `NextToken`. You can specify the `NextToken` in a subsequent
      * call to get the next set of results.
+     *
+     * Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a
+     * parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a
+     * `ValidationException` error.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparametersbypath

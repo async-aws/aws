@@ -123,10 +123,14 @@ final class Input
 
     /**
      * Specify the source file for your transcoding job. You can use multiple inputs in a single job. The service
-     * concatenates these inputs, in the order that you specify them in the job, to create the outputs. If your input format
-     * is IMF, specify your input by providing the path to your CPL. For example, "s3://bucket/vf/cpl.xml". If the CPL is in
-     * an incomplete IMP, make sure to use *Supplemental IMPs* to specify any supplemental IMPs that contain assets
-     * referenced by the CPL.
+     * concatenates these inputs, in the order that you specify them in the job, to create the outputs. For standard inputs,
+     * provide the path to your S3, HTTP, or HTTPS source file. For example, s3://amzn-s3-demo-bucket/input.mp4 for an
+     * Amazon S3 input or https://example.com/input.mp4 for an HTTPS input. For TAMS inputs, specify the HTTPS endpoint of
+     * your TAMS server. For example, https://tams-server.example.com . When you do, also specify Source ID, Timerange, GAP
+     * handling, and the Authorization connection ARN under TAMS settings. (Don't include these parameters in the Input file
+     * URL.) For IMF inputs, specify your input by providing the path to your CPL. For example,
+     * s3://amzn-s3-demo-bucket/vf/cpl.xml . If the CPL is in an incomplete IMP, make sure to use Supplemental IMPsto
+     * specify any supplemental IMPs that contain assets referenced by the CPL.
      *
      * @var string|null
      */
@@ -221,6 +225,19 @@ final class Input
     private $supplementalImps;
 
     /**
+     * Specify a Time Addressable Media Store (TAMS) server as an input source. TAMS is an open-source API specification
+     * that provides access to time-segmented media content. Use TAMS to retrieve specific time ranges from live or archived
+     * media streams. When you specify TAMS settings, MediaConvert connects to your TAMS server, retrieves the media
+     * segments for your specified time range, and processes them as a single input. This enables workflows like extracting
+     * clips from live streams or processing specific portions of archived content. To use TAMS, you must: 1. Have access to
+     * a TAMS-compliant server 2. Specify the server URL in the Input file URL field 3. Provide the required SourceId and
+     * Timerange parameters 4. Configure authentication, if your TAMS server requires it.
+     *
+     * @var InputTamsSettings|null
+     */
+    private $tamsSettings;
+
+    /**
      * Use this Timecode source setting, located under the input settings, to specify how the service counts input video
      * frames. This input frame count affects only the behavior of features that apply to a single input at a time, such as
      * input clipping and synchronizing some captions formats. Choose Embedded to use the timecodes in your input video.
@@ -290,6 +307,7 @@ final class Input
      *   ProgramNumber?: null|int,
      *   PsiControl?: null|InputPsiControl::*,
      *   SupplementalImps?: null|string[],
+     *   TamsSettings?: null|InputTamsSettings|array,
      *   TimecodeSource?: null|InputTimecodeSource::*,
      *   TimecodeStart?: null|string,
      *   VideoGenerator?: null|InputVideoGenerator|array,
@@ -320,6 +338,7 @@ final class Input
         $this->programNumber = $input['ProgramNumber'] ?? null;
         $this->psiControl = $input['PsiControl'] ?? null;
         $this->supplementalImps = $input['SupplementalImps'] ?? null;
+        $this->tamsSettings = isset($input['TamsSettings']) ? InputTamsSettings::create($input['TamsSettings']) : null;
         $this->timecodeSource = $input['TimecodeSource'] ?? null;
         $this->timecodeStart = $input['TimecodeStart'] ?? null;
         $this->videoGenerator = isset($input['VideoGenerator']) ? InputVideoGenerator::create($input['VideoGenerator']) : null;
@@ -350,6 +369,7 @@ final class Input
      *   ProgramNumber?: null|int,
      *   PsiControl?: null|InputPsiControl::*,
      *   SupplementalImps?: null|string[],
+     *   TamsSettings?: null|InputTamsSettings|array,
      *   TimecodeSource?: null|InputTimecodeSource::*,
      *   TimecodeStart?: null|string,
      *   VideoGenerator?: null|InputVideoGenerator|array,
@@ -501,6 +521,11 @@ final class Input
     public function getSupplementalImps(): array
     {
         return $this->supplementalImps ?? [];
+    }
+
+    public function getTamsSettings(): ?InputTamsSettings
+    {
+        return $this->tamsSettings;
     }
 
     /**
@@ -658,6 +683,9 @@ final class Input
                 ++$index;
                 $payload['supplementalImps'][$index] = $listValue;
             }
+        }
+        if (null !== $v = $this->tamsSettings) {
+            $payload['tamsSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->timecodeSource) {
             if (!InputTimecodeSource::exists($v)) {
