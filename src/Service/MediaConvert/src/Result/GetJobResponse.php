@@ -96,6 +96,7 @@ use AsyncAws\MediaConvert\ValueObject\ImscDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\Input;
 use AsyncAws\MediaConvert\ValueObject\InputClipping;
 use AsyncAws\MediaConvert\ValueObject\InputDecryptionSettings;
+use AsyncAws\MediaConvert\ValueObject\InputTamsSettings;
 use AsyncAws\MediaConvert\ValueObject\InputVideoGenerator;
 use AsyncAws\MediaConvert\ValueObject\InsertableImage;
 use AsyncAws\MediaConvert\ValueObject\Job;
@@ -1352,6 +1353,7 @@ class GetJobResponse extends Result
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,
             'PsiControl' => isset($json['psiControl']) ? (string) $json['psiControl'] : null,
             'SupplementalImps' => !isset($json['supplementalImps']) ? null : $this->populateResult__listOf__stringPatternS3ASSETMAPXml($json['supplementalImps']),
+            'TamsSettings' => empty($json['tamsSettings']) ? null : $this->populateResultInputTamsSettings($json['tamsSettings']),
             'TimecodeSource' => isset($json['timecodeSource']) ? (string) $json['timecodeSource'] : null,
             'TimecodeStart' => isset($json['timecodeStart']) ? (string) $json['timecodeStart'] : null,
             'VideoGenerator' => empty($json['videoGenerator']) ? null : $this->populateResultInputVideoGenerator($json['videoGenerator']),
@@ -1375,6 +1377,16 @@ class GetJobResponse extends Result
             'EncryptedDecryptionKey' => isset($json['encryptedDecryptionKey']) ? (string) $json['encryptedDecryptionKey'] : null,
             'InitializationVector' => isset($json['initializationVector']) ? (string) $json['initializationVector'] : null,
             'KmsKeyRegion' => isset($json['kmsKeyRegion']) ? (string) $json['kmsKeyRegion'] : null,
+        ]);
+    }
+
+    private function populateResultInputTamsSettings(array $json): InputTamsSettings
+    {
+        return new InputTamsSettings([
+            'AuthConnectionArn' => isset($json['authConnectionArn']) ? (string) $json['authConnectionArn'] : null,
+            'GapHandling' => isset($json['gapHandling']) ? (string) $json['gapHandling'] : null,
+            'SourceId' => isset($json['sourceId']) ? (string) $json['sourceId'] : null,
+            'Timerange' => isset($json['timerange']) ? (string) $json['timerange'] : null,
         ]);
     }
 
