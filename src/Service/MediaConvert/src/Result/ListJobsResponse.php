@@ -99,6 +99,7 @@ use AsyncAws\MediaConvert\ValueObject\ImscDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\Input;
 use AsyncAws\MediaConvert\ValueObject\InputClipping;
 use AsyncAws\MediaConvert\ValueObject\InputDecryptionSettings;
+use AsyncAws\MediaConvert\ValueObject\InputTamsSettings;
 use AsyncAws\MediaConvert\ValueObject\InputVideoGenerator;
 use AsyncAws\MediaConvert\ValueObject\InsertableImage;
 use AsyncAws\MediaConvert\ValueObject\Job;
@@ -285,10 +286,13 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
             'CodecProfile' => isset($json['codecProfile']) ? (string) $json['codecProfile'] : null,
             'CodingMode' => isset($json['codingMode']) ? (string) $json['codingMode'] : null,
+            'LoudnessMeasurementMode' => isset($json['loudnessMeasurementMode']) ? (string) $json['loudnessMeasurementMode'] : null,
+            'RapInterval' => isset($json['rapInterval']) ? (int) $json['rapInterval'] : null,
             'RateControlMode' => isset($json['rateControlMode']) ? (string) $json['rateControlMode'] : null,
             'RawFormat' => isset($json['rawFormat']) ? (string) $json['rawFormat'] : null,
             'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
             'Specification' => isset($json['specification']) ? (string) $json['specification'] : null,
+            'TargetLoudnessRange' => isset($json['targetLoudnessRange']) ? (int) $json['targetLoudnessRange'] : null,
             'VbrQuality' => isset($json['vbrQuality']) ? (string) $json['vbrQuality'] : null,
         ]);
     }
@@ -1416,6 +1420,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,
             'PsiControl' => isset($json['psiControl']) ? (string) $json['psiControl'] : null,
             'SupplementalImps' => !isset($json['supplementalImps']) ? null : $this->populateResult__listOf__stringPatternS3ASSETMAPXml($json['supplementalImps']),
+            'TamsSettings' => empty($json['tamsSettings']) ? null : $this->populateResultInputTamsSettings($json['tamsSettings']),
             'TimecodeSource' => isset($json['timecodeSource']) ? (string) $json['timecodeSource'] : null,
             'TimecodeStart' => isset($json['timecodeStart']) ? (string) $json['timecodeStart'] : null,
             'VideoGenerator' => empty($json['videoGenerator']) ? null : $this->populateResultInputVideoGenerator($json['videoGenerator']),
@@ -1439,6 +1444,16 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'EncryptedDecryptionKey' => isset($json['encryptedDecryptionKey']) ? (string) $json['encryptedDecryptionKey'] : null,
             'InitializationVector' => isset($json['initializationVector']) ? (string) $json['initializationVector'] : null,
             'KmsKeyRegion' => isset($json['kmsKeyRegion']) ? (string) $json['kmsKeyRegion'] : null,
+        ]);
+    }
+
+    private function populateResultInputTamsSettings(array $json): InputTamsSettings
+    {
+        return new InputTamsSettings([
+            'AuthConnectionArn' => isset($json['authConnectionArn']) ? (string) $json['authConnectionArn'] : null,
+            'GapHandling' => isset($json['gapHandling']) ? (string) $json['gapHandling'] : null,
+            'SourceId' => isset($json['sourceId']) ? (string) $json['sourceId'] : null,
+            'Timerange' => isset($json['timerange']) ? (string) $json['timerange'] : null,
         ]);
     }
 

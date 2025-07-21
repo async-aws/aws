@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
@@ -210,6 +211,8 @@ class InputGenerator
                     // It is a scalar, like a string
                     $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
+            } elseif ($memberShape instanceof DocumentShape) {
+                $getterSetterNullable = false; // The type itself is already nullable
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|(callable(int): string)|iterable<string>';
                 $returnType = null;

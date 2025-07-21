@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
@@ -90,6 +91,8 @@ class TypeGenerator
                 } else {
                     $param = 'array<string, ' . $param . '>';
                 }
+            } elseif ($memberShape instanceof DocumentShape) {
+                $param = 'bool|string|int|float|null|list<mixed>|array<string, mixed>';
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|(callable(int): string)|iterable<string>';
             } elseif ('timestamp' === $param = $memberShape->getType()) {
@@ -166,6 +169,10 @@ class TypeGenerator
             }
 
             return ['array', $doc, $memberClassNames];
+        }
+
+        if ($shape instanceof DocumentShape) {
+            return ['bool|string|int|float|null|array', 'bool|string|int|float|null|list<mixed>|array<string, mixed>', []];
         }
 
         $type = $doc = $this->getNativePhpType($shape->getType());

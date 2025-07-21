@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
@@ -158,6 +159,8 @@ class RestXmlSerializer implements Serializer
                 return $this->dumpXmlShapeStructure($member, $shape, $output, $input);
             case $shape instanceof ListShape:
                 return $this->dumpXmlShapeList($member, $shape, $output, $input);
+            case $shape instanceof DocumentShape:
+                throw new \LogicException('Document shapes are not supported in the XML serializer for now.');
         }
 
         switch ($shape->getType()) {

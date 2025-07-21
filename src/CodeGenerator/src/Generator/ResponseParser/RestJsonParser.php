@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\ResponseParser;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
@@ -193,6 +194,8 @@ class RestJsonParser implements Parser
                 return $this->parseResponseStructure($shape, $input, $required);
             case $shape instanceof MapShape:
                 return $this->parseResponseMap($shape, $input, $required, $inObject);
+            case $shape instanceof DocumentShape:
+                return $this->parseResponseDocument($input, $required);
         }
 
         switch ($shape->getType()) {
@@ -294,6 +297,15 @@ class RestJsonParser implements Parser
         }
 
         return strtr('isset(INPUT) ? base64_decode((string) INPUT) : null', ['INPUT' => $input]);
+    }
+
+    private function parseResponseDocument(string $input, bool $required): string
+    {
+        if ($required) {
+            return strtr('INPUT', ['INPUT' => $input]);
+        }
+
+        return strtr('INPUT ?? null', ['INPUT' => $input]);
     }
 
     private function parseResponseList(ListShape $shape, string $input, bool $required, bool $inObject): string

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 
+use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
@@ -127,6 +128,8 @@ class PopulatorGenerator
                 }
 
                 $nullable = false;
+            } elseif ($memberShape instanceof DocumentShape) {
+                $nullable = false; // the type is already nullable, not need to add an extra union
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = 'ResultStream';
