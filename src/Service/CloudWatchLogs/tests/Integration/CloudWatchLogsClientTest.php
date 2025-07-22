@@ -52,21 +52,16 @@ class CloudWatchLogsClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new DescribeLogGroupsRequest([
-            'accountIdentifiers' => ['change me'],
-            'logGroupNamePrefix' => 'change me',
-            'logGroupNamePattern' => 'change me',
-            'nextToken' => 'change me',
+            'accountIdentifiers' => ['123456789012'],
+            'logGroupNamePrefix' => 'searchForNamePrefix',
             'limit' => 1337,
             'includeLinkedAccounts' => false,
-            'logGroupClass' => 'change me',
-            'logGroupIdentifiers' => ['change me'],
         ]);
         $result = $client->describeLogGroups($input);
 
         $result->resolve();
-
-        // self::assertTODO(expected, $result->getLogGroups());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertEquals(200, $result->info()['status']);
+        self::assertInstanceOf(\Generator::class, $result->getLogGroups());
     }
 
     public function testDescribeLogStreams(): void

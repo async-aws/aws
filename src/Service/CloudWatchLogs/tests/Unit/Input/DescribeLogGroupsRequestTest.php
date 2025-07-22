@@ -20,21 +20,24 @@ class DescribeLogGroupsRequestTest extends TestCase
         ]);
 
         // see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogGroups.html
-        $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
-            X-AMZ-TARGET: Logs_20140328.DescribeLogGroups
-            Accept: application/json
-            {
-               "accountIdentifiers": [ "s123456789012" ],
-               "includeLinkedAccounts": false,
-               "limit": 1337,
-               "logGroupClass": "STANDARD",
-               "logGroupIdentifiers": [ "logGroupIdentifier1" ],
-               "logGroupNamePattern": "my-log-group-pattern",
-               "logGroupNamePrefix": "my-log-group",
-            }
-                ';
+        $expected = 'POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-AMZ-TARGET: Logs_20140328.DescribeLogGroups
+Accept: application/json
+
+{
+    "accountIdentifiers": [
+        "123456789012"
+    ],
+    "includeLinkedAccounts": false,
+    "limit": 1337,
+    "logGroupClass": "STANDARD",
+    "logGroupIdentifiers": [
+        "logGroupIdentifier1"
+    ],
+    "logGroupNamePattern": "my-log-group-pattern",
+    "logGroupNamePrefix": "my-log-group"
+}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
