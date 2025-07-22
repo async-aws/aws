@@ -107,7 +107,6 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 
@@ -2031,44 +2030,6 @@ class CognitoIdentityProviderClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'af-south-1':
-            case 'ap-east-1':
-            case 'ap-northeast-1':
-            case 'ap-northeast-2':
-            case 'ap-northeast-3':
-            case 'ap-south-1':
-            case 'ap-south-2':
-            case 'ap-southeast-1':
-            case 'ap-southeast-2':
-            case 'ap-southeast-3':
-            case 'ap-southeast-4':
-            case 'ap-southeast-5':
-            case 'ca-central-1':
-            case 'ca-west-1':
-            case 'eu-central-1':
-            case 'eu-central-2':
-            case 'eu-north-1':
-            case 'eu-south-1':
-            case 'eu-south-2':
-            case 'eu-west-1':
-            case 'eu-west-2':
-            case 'eu-west-3':
-            case 'il-central-1':
-            case 'me-central-1':
-            case 'me-south-1':
-            case 'sa-east-1':
-            case 'us-east-1':
-            case 'us-east-2':
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-            case 'us-west-1':
-            case 'us-west-2':
-                return [
-                    'endpoint' => "https://cognito-idp.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'cognito-idp',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-east-1.amazonaws.com',
@@ -2106,6 +2067,11 @@ class CognitoIdentityProviderClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "CognitoIdentityProvider".', $region));
+        return [
+            'endpoint' => "https://cognito-idp.$region.amazonaws.com",
+            'signRegion' => $region,
+            'signService' => 'cognito-idp',
+            'signVersions' => ['v4'],
+        ];
     }
 }
