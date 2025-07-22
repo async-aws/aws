@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Rework regions configuration
 
 ## 1.14.0
 
