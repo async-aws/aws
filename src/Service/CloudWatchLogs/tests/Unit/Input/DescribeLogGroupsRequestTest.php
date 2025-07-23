@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatchLogs\Tests\Unit\Input;
 
+use AsyncAws\CloudWatchLogs\Enum\LogGroupClass;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogGroupsRequest;
 use AsyncAws\Core\Test\TestCase;
 
@@ -13,7 +14,7 @@ class DescribeLogGroupsRequestTest extends TestCase
             'accountIdentifiers' => ['123456789012'],
             'includeLinkedAccounts' => false,
             'limit' => 1337,
-            'logGroupClass' => 'STANDARD',
+            'logGroupClass' => LogGroupClass::STANDARD,
             'logGroupIdentifiers' => ['logGroupIdentifier1'],
             'logGroupNamePattern' => 'my-log-group-pattern',
             'logGroupNamePrefix' => 'my-log-group',
