@@ -126,7 +126,7 @@ final class ListFunctionsRequest extends Input
         }
 
         // Prepare URI
-        $uriString = '/2015-03-31/functions/';
+        $uriString = '/2015-03-31/functions';
 
         // Prepare Body
         $body = '';
