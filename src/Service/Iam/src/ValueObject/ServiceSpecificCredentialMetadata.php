@@ -21,7 +21,7 @@ final class ServiceSpecificCredentialMetadata
      * The status of the service-specific credential. `Active` means that the key is valid for API calls, while `Inactive`
      * means it is not.
      *
-     * @var StatusType::*
+     * @var StatusType::*|string
      */
     private $status;
 
@@ -74,7 +74,7 @@ final class ServiceSpecificCredentialMetadata
     /**
      * @param array{
      *   UserName: string,
-     *   Status: StatusType::*,
+     *   Status: StatusType::*|string,
      *   ServiceUserName?: null|string,
      *   ServiceCredentialAlias?: null|string,
      *   CreateDate: \DateTimeImmutable,
@@ -98,7 +98,7 @@ final class ServiceSpecificCredentialMetadata
     /**
      * @param array{
      *   UserName: string,
-     *   Status: StatusType::*,
+     *   Status: StatusType::*|string,
      *   ServiceUserName?: null|string,
      *   ServiceCredentialAlias?: null|string,
      *   CreateDate: \DateTimeImmutable,
@@ -143,7 +143,7 @@ final class ServiceSpecificCredentialMetadata
     }
 
     /**
-     * @return StatusType::*
+     * @return StatusType::*|string
      */
     public function getStatus(): string
     {

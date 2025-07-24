@@ -24,7 +24,7 @@ final class FileSourceSettings
      * downstream systems require a maximum of 2 caption bytes per frame. Note that this setting has no effect when your
      * output frame rate is 30 or 60.
      *
-     * @var CaptionSourceByteRateLimit::*|null
+     * @var CaptionSourceByteRateLimit::*|string|null
      */
     private $byteRateLimit;
 
@@ -33,7 +33,7 @@ final class FileSourceSettings
      * Upconvert, MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608
      * compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
      *
-     * @var FileSourceConvert608To708::*|null
+     * @var FileSourceConvert608To708::*|string|null
      */
     private $convert608To708;
 
@@ -42,7 +42,7 @@ final class FileSourceSettings
      * default value, Disabled. To convert paint-on captions to pop-on: Choose Enabled. We also recommend that you choose
      * Enabled if you notice additional repeated lines in your output captions.
      *
-     * @var CaptionSourceConvertPaintOnToPopOn::*|null
+     * @var CaptionSourceConvertPaintOnToPopOn::*|string|null
      */
     private $convertPaintToPop;
 
@@ -84,7 +84,7 @@ final class FileSourceSettings
      * to specify the units for the delta that you specify. When you don't specify a value for Time delta units,
      * MediaConvert uses seconds by default.
      *
-     * @var FileSourceTimeDeltaUnits::*|null
+     * @var FileSourceTimeDeltaUnits::*|string|null
      */
     private $timeDeltaUnits;
 
@@ -93,20 +93,20 @@ final class FileSourceSettings
      * Upconvert, MediaConvert includes the captions data in two ways: it passes the STL data through using the Teletext
      * compatibility bytes fields of the Teletext wrapper, and it also translates the STL data into Teletext.
      *
-     * @var CaptionSourceUpconvertSTLToTeletext::*|null
+     * @var CaptionSourceUpconvertSTLToTeletext::*|string|null
      */
     private $upconvertStlToTeletext;
 
     /**
      * @param array{
-     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
-     *   Convert608To708?: null|FileSourceConvert608To708::*,
-     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
+     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*|string,
+     *   Convert608To708?: null|FileSourceConvert608To708::*|string,
+     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*|string,
      *   Framerate?: null|CaptionSourceFramerate|array,
      *   SourceFile?: null|string,
      *   TimeDelta?: null|int,
-     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
-     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*,
+     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*|string,
+     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -123,14 +123,14 @@ final class FileSourceSettings
 
     /**
      * @param array{
-     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
-     *   Convert608To708?: null|FileSourceConvert608To708::*,
-     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
+     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*|string,
+     *   Convert608To708?: null|FileSourceConvert608To708::*|string,
+     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*|string,
      *   Framerate?: null|CaptionSourceFramerate|array,
      *   SourceFile?: null|string,
      *   TimeDelta?: null|int,
-     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
-     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*,
+     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*|string,
+     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*|string,
      * }|FileSourceSettings $input
      */
     public static function create($input): self
@@ -139,7 +139,7 @@ final class FileSourceSettings
     }
 
     /**
-     * @return CaptionSourceByteRateLimit::*|null
+     * @return CaptionSourceByteRateLimit::*|string|null
      */
     public function getByteRateLimit(): ?string
     {
@@ -147,7 +147,7 @@ final class FileSourceSettings
     }
 
     /**
-     * @return FileSourceConvert608To708::*|null
+     * @return FileSourceConvert608To708::*|string|null
      */
     public function getConvert608To708(): ?string
     {
@@ -155,7 +155,7 @@ final class FileSourceSettings
     }
 
     /**
-     * @return CaptionSourceConvertPaintOnToPopOn::*|null
+     * @return CaptionSourceConvertPaintOnToPopOn::*|string|null
      */
     public function getConvertPaintToPop(): ?string
     {
@@ -178,7 +178,7 @@ final class FileSourceSettings
     }
 
     /**
-     * @return FileSourceTimeDeltaUnits::*|null
+     * @return FileSourceTimeDeltaUnits::*|string|null
      */
     public function getTimeDeltaUnits(): ?string
     {
@@ -186,7 +186,7 @@ final class FileSourceSettings
     }
 
     /**
-     * @return CaptionSourceUpconvertSTLToTeletext::*|null
+     * @return CaptionSourceUpconvertSTLToTeletext::*|string|null
      */
     public function getUpconvertStlToTeletext(): ?string
     {

@@ -28,7 +28,7 @@ final class CaptionSelector
      * caption language to extract. If input is DVB-Sub that is being passed through, omit this field (and PID field); there
      * is no way to extract a specific language with pass-through captions.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $languageCode;
 
@@ -43,7 +43,7 @@ final class CaptionSelector
     /**
      * @param array{
      *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   SourceSettings?: null|CaptionSourceSettings|array,
      * } $input
      */
@@ -57,7 +57,7 @@ final class CaptionSelector
     /**
      * @param array{
      *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   SourceSettings?: null|CaptionSourceSettings|array,
      * }|CaptionSelector $input
      */
@@ -72,7 +72,7 @@ final class CaptionSelector
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getLanguageCode(): ?string
     {

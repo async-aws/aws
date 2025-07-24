@@ -56,7 +56,7 @@ final class SessionStatus
      *
      * `FAILED` - Due to a failure, the session and its resources are no longer running.
      *
-     * @var SessionState::*|null
+     * @var SessionState::*|string|null
      */
     private $state;
 
@@ -73,7 +73,7 @@ final class SessionStatus
      *   LastModifiedDateTime?: null|\DateTimeImmutable,
      *   EndDateTime?: null|\DateTimeImmutable,
      *   IdleSinceDateTime?: null|\DateTimeImmutable,
-     *   State?: null|SessionState::*,
+     *   State?: null|SessionState::*|string,
      *   StateChangeReason?: null|string,
      * } $input
      */
@@ -93,7 +93,7 @@ final class SessionStatus
      *   LastModifiedDateTime?: null|\DateTimeImmutable,
      *   EndDateTime?: null|\DateTimeImmutable,
      *   IdleSinceDateTime?: null|\DateTimeImmutable,
-     *   State?: null|SessionState::*,
+     *   State?: null|SessionState::*|string,
      *   StateChangeReason?: null|string,
      * }|SessionStatus $input
      */
@@ -123,7 +123,7 @@ final class SessionStatus
     }
 
     /**
-     * @return SessionState::*|null
+     * @return SessionState::*|string|null
      */
     public function getState(): ?string
     {

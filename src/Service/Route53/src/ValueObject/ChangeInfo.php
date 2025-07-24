@@ -24,7 +24,7 @@ final class ChangeInfo
      * The current state of the request. `PENDING` indicates that this request has not yet been applied to all Amazon Route
      * 53 DNS servers.
      *
-     * @var ChangeStatus::*
+     * @var ChangeStatus::*|string
      */
     private $status;
 
@@ -48,7 +48,7 @@ final class ChangeInfo
     /**
      * @param array{
      *   Id: string,
-     *   Status: ChangeStatus::*,
+     *   Status: ChangeStatus::*|string,
      *   SubmittedAt: \DateTimeImmutable,
      *   Comment?: null|string,
      * } $input
@@ -64,7 +64,7 @@ final class ChangeInfo
     /**
      * @param array{
      *   Id: string,
-     *   Status: ChangeStatus::*,
+     *   Status: ChangeStatus::*|string,
      *   SubmittedAt: \DateTimeImmutable,
      *   Comment?: null|string,
      * }|ChangeInfo $input
@@ -85,7 +85,7 @@ final class ChangeInfo
     }
 
     /**
-     * @return ChangeStatus::*
+     * @return ChangeStatus::*|string
      */
     public function getStatus(): string
     {

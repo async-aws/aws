@@ -9,6 +9,10 @@
 - AWS api-change: Adds support for additional server-side encryption mode and storage class values for accessing Amazon FSx data from Amazon S3 using S3 Access Points
 - AWS api-change: Added support for directory bucket creation with tags and bucket ARN retrieval in CreateBucket, ListDirectoryBuckets, and HeadBucket operations
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 2.9.1
 
 ### Changed

@@ -6,6 +6,10 @@
 
 - AWS api-change: Rework regions configuration
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 3.2.0
 
 ### Added

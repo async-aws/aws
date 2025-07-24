@@ -33,7 +33,7 @@ final class S3Location
      * - `YAML`: A YAML-formatted file.
      * - `JSON`: A JSON-formatted file.
      *
-     * @var BundleType::*|null
+     * @var BundleType::*|string|null
      */
     private $bundleType;
 
@@ -59,7 +59,7 @@ final class S3Location
      * @param array{
      *   bucket?: null|string,
      *   key?: null|string,
-     *   bundleType?: null|BundleType::*,
+     *   bundleType?: null|BundleType::*|string,
      *   version?: null|string,
      *   eTag?: null|string,
      * } $input
@@ -77,7 +77,7 @@ final class S3Location
      * @param array{
      *   bucket?: null|string,
      *   key?: null|string,
-     *   bundleType?: null|BundleType::*,
+     *   bundleType?: null|BundleType::*|string,
      *   version?: null|string,
      *   eTag?: null|string,
      * }|S3Location $input
@@ -93,7 +93,7 @@ final class S3Location
     }
 
     /**
-     * @return BundleType::*|null
+     * @return BundleType::*|string|null
      */
     public function getBundleType(): ?string
     {

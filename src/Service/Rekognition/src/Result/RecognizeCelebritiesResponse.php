@@ -47,7 +47,7 @@ class RecognizeCelebritiesResponse extends Result
      * > face locations after Exif metadata is used to correct the image orientation. Images in .png format don't contain
      * > Exif metadata.
      *
-     * @var OrientationCorrection::*|null
+     * @var OrientationCorrection::*|string|null
      */
     private $orientationCorrection;
 
@@ -62,7 +62,7 @@ class RecognizeCelebritiesResponse extends Result
     }
 
     /**
-     * @return OrientationCorrection::*|null
+     * @return OrientationCorrection::*|string|null
      */
     public function getOrientationCorrection(): ?string
     {

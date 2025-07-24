@@ -19,7 +19,7 @@ final class XavcHdProfileSettings
      * Specify the XAVC HD (Long GOP) Bitrate Class to set the bitrate of your output. Outputs of the same class have
      * similar image quality over the operating points that are valid for that class.
      *
-     * @var XavcHdProfileBitrateClass::*|null
+     * @var XavcHdProfileBitrateClass::*|string|null
      */
     private $bitrateClass;
 
@@ -34,7 +34,7 @@ final class XavcHdProfileSettings
      * setting, you must also set Adaptive quantization to a value other than Off or Auto. Use Adaptive quantization to
      * adjust the degree of smoothing that Flicker adaptive quantization provides.
      *
-     * @var XavcFlickerAdaptiveQuantization::*|null
+     * @var XavcFlickerAdaptiveQuantization::*|string|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -43,7 +43,7 @@ final class XavcHdProfileSettings
      * allow the encoder to use B-frames as reference frames. Choose Don't allow to prevent the encoder from using B-frames
      * as reference frames.
      *
-     * @var XavcGopBReference::*|null
+     * @var XavcGopBReference::*|string|null
      */
     private $gopBreference;
 
@@ -73,7 +73,7 @@ final class XavcHdProfileSettings
      * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
      * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
-     * @var XavcInterlaceMode::*|null
+     * @var XavcInterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -81,7 +81,7 @@ final class XavcHdProfileSettings
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, single-pass encoding.
      *
-     * @var XavcHdProfileQualityTuningLevel::*|null
+     * @var XavcHdProfileQualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
@@ -98,21 +98,21 @@ final class XavcHdProfileSettings
      * input framerate is 23.976, choose Hard. Otherwise, keep the default value None. For more information, see
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-telecine-and-inverse-telecine.html.
      *
-     * @var XavcHdProfileTelecine::*|null
+     * @var XavcHdProfileTelecine::*|string|null
      */
     private $telecine;
 
     /**
      * @param array{
-     *   BitrateClass?: null|XavcHdProfileBitrateClass::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
+     *   BitrateClass?: null|XavcHdProfileBitrateClass::*|string,
+     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*|string,
+     *   GopBReference?: null|XavcGopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|XavcInterlaceMode::*,
-     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*,
+     *   InterlaceMode?: null|XavcInterlaceMode::*|string,
+     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*|string,
      *   Slices?: null|int,
-     *   Telecine?: null|XavcHdProfileTelecine::*,
+     *   Telecine?: null|XavcHdProfileTelecine::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -130,15 +130,15 @@ final class XavcHdProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|XavcHdProfileBitrateClass::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
+     *   BitrateClass?: null|XavcHdProfileBitrateClass::*|string,
+     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*|string,
+     *   GopBReference?: null|XavcGopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|XavcInterlaceMode::*,
-     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*,
+     *   InterlaceMode?: null|XavcInterlaceMode::*|string,
+     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*|string,
      *   Slices?: null|int,
-     *   Telecine?: null|XavcHdProfileTelecine::*,
+     *   Telecine?: null|XavcHdProfileTelecine::*|string,
      * }|XavcHdProfileSettings $input
      */
     public static function create($input): self
@@ -147,7 +147,7 @@ final class XavcHdProfileSettings
     }
 
     /**
-     * @return XavcHdProfileBitrateClass::*|null
+     * @return XavcHdProfileBitrateClass::*|string|null
      */
     public function getBitrateClass(): ?string
     {
@@ -155,7 +155,7 @@ final class XavcHdProfileSettings
     }
 
     /**
-     * @return XavcFlickerAdaptiveQuantization::*|null
+     * @return XavcFlickerAdaptiveQuantization::*|string|null
      */
     public function getFlickerAdaptiveQuantization(): ?string
     {
@@ -163,7 +163,7 @@ final class XavcHdProfileSettings
     }
 
     /**
-     * @return XavcGopBReference::*|null
+     * @return XavcGopBReference::*|string|null
      */
     public function getGopBreference(): ?string
     {
@@ -181,7 +181,7 @@ final class XavcHdProfileSettings
     }
 
     /**
-     * @return XavcInterlaceMode::*|null
+     * @return XavcInterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -189,7 +189,7 @@ final class XavcHdProfileSettings
     }
 
     /**
-     * @return XavcHdProfileQualityTuningLevel::*|null
+     * @return XavcHdProfileQualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {
@@ -202,7 +202,7 @@ final class XavcHdProfileSettings
     }
 
     /**
-     * @return XavcHdProfileTelecine::*|null
+     * @return XavcHdProfileTelecine::*|string|null
      */
     public function getTelecine(): ?string
     {

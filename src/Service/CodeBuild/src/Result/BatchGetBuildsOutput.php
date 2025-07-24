@@ -378,7 +378,7 @@ class BatchGetBuildsOutput extends Result
     }
 
     /**
-     * @return list<CacheMode::*>
+     * @return list<CacheMode::*|string>
      */
     private function populateResultProjectCacheModes(array $json): array
     {

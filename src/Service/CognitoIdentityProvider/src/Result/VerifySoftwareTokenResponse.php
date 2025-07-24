@@ -13,7 +13,7 @@ class VerifySoftwareTokenResponse extends Result
      * verification. Some reasons that this operation might return an error are clock skew on the user's device and
      * excessive retries.
      *
-     * @var VerifySoftwareTokenResponseType::*|null
+     * @var VerifySoftwareTokenResponseType::*|string|null
      */
     private $status;
 
@@ -32,7 +32,7 @@ class VerifySoftwareTokenResponse extends Result
     }
 
     /**
-     * @return VerifySoftwareTokenResponseType::*|null
+     * @return VerifySoftwareTokenResponseType::*|string|null
      */
     public function getStatus(): ?string
     {

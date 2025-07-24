@@ -16,7 +16,7 @@ final class LoggingConfig
      * The format in which Lambda sends your function's application and system logs to CloudWatch. Select between plain text
      * and structured JSON.
      *
-     * @var LogFormat::*|null
+     * @var LogFormat::*|string|null
      */
     private $logFormat;
 
@@ -25,7 +25,7 @@ final class LoggingConfig
      * application logs at the selected level of detail and lower, where `TRACE` is the highest level and `FATAL` is the
      * lowest.
      *
-     * @var ApplicationLogLevel::*|null
+     * @var ApplicationLogLevel::*|string|null
      */
     private $applicationLogLevel;
 
@@ -33,7 +33,7 @@ final class LoggingConfig
      * Set this property to filter the system logs for your function that Lambda sends to CloudWatch. Lambda only sends
      * system logs at the selected level of detail and lower, where `DEBUG` is the highest level and `WARN` is the lowest.
      *
-     * @var SystemLogLevel::*|null
+     * @var SystemLogLevel::*|string|null
      */
     private $systemLogLevel;
 
@@ -48,9 +48,9 @@ final class LoggingConfig
 
     /**
      * @param array{
-     *   LogFormat?: null|LogFormat::*,
-     *   ApplicationLogLevel?: null|ApplicationLogLevel::*,
-     *   SystemLogLevel?: null|SystemLogLevel::*,
+     *   LogFormat?: null|LogFormat::*|string,
+     *   ApplicationLogLevel?: null|ApplicationLogLevel::*|string,
+     *   SystemLogLevel?: null|SystemLogLevel::*|string,
      *   LogGroup?: null|string,
      * } $input
      */
@@ -64,9 +64,9 @@ final class LoggingConfig
 
     /**
      * @param array{
-     *   LogFormat?: null|LogFormat::*,
-     *   ApplicationLogLevel?: null|ApplicationLogLevel::*,
-     *   SystemLogLevel?: null|SystemLogLevel::*,
+     *   LogFormat?: null|LogFormat::*|string,
+     *   ApplicationLogLevel?: null|ApplicationLogLevel::*|string,
+     *   SystemLogLevel?: null|SystemLogLevel::*|string,
      *   LogGroup?: null|string,
      * }|LoggingConfig $input
      */
@@ -76,7 +76,7 @@ final class LoggingConfig
     }
 
     /**
-     * @return ApplicationLogLevel::*|null
+     * @return ApplicationLogLevel::*|string|null
      */
     public function getApplicationLogLevel(): ?string
     {
@@ -84,7 +84,7 @@ final class LoggingConfig
     }
 
     /**
-     * @return LogFormat::*|null
+     * @return LogFormat::*|string|null
      */
     public function getLogFormat(): ?string
     {
@@ -97,7 +97,7 @@ final class LoggingConfig
     }
 
     /**
-     * @return SystemLogLevel::*|null
+     * @return SystemLogLevel::*|string|null
      */
     public function getSystemLogLevel(): ?string
     {

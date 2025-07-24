@@ -44,7 +44,7 @@ final class AudioCodecSettings
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/reference-codecs-containers-input.html#reference-codecs-containers-input-audio-only
      * and https://docs.aws.amazon.com/mediaconvert/latest/ug/reference-codecs-containers.html#audio-only-output.
      *
-     * @var AudioCodec::*|null
+     * @var AudioCodec::*|string|null
      */
     private $codec;
 
@@ -109,7 +109,7 @@ final class AudioCodecSettings
      *   AacSettings?: null|AacSettings|array,
      *   Ac3Settings?: null|Ac3Settings|array,
      *   AiffSettings?: null|AiffSettings|array,
-     *   Codec?: null|AudioCodec::*,
+     *   Codec?: null|AudioCodec::*|string,
      *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
      *   Eac3Settings?: null|Eac3Settings|array,
      *   FlacSettings?: null|FlacSettings|array,
@@ -141,7 +141,7 @@ final class AudioCodecSettings
      *   AacSettings?: null|AacSettings|array,
      *   Ac3Settings?: null|Ac3Settings|array,
      *   AiffSettings?: null|AiffSettings|array,
-     *   Codec?: null|AudioCodec::*,
+     *   Codec?: null|AudioCodec::*|string,
      *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
      *   Eac3Settings?: null|Eac3Settings|array,
      *   FlacSettings?: null|FlacSettings|array,
@@ -173,7 +173,7 @@ final class AudioCodecSettings
     }
 
     /**
-     * @return AudioCodec::*|null
+     * @return AudioCodec::*|string|null
      */
     public function getCodec(): ?string
     {

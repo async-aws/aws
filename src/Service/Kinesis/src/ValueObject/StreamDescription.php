@@ -37,7 +37,7 @@ final class StreamDescription
      * - `UPDATING` - Shards in the stream are being merged or split. Read and write operations continue to work while the
      *   stream is in the `UPDATING` state.
      *
-     * @var StreamStatus::*
+     * @var StreamStatus::*|string
      */
     private $streamStatus;
 
@@ -91,7 +91,7 @@ final class StreamDescription
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
      *
-     * @var EncryptionType::*|null
+     * @var EncryptionType::*|string|null
      */
     private $encryptionType;
 
@@ -114,14 +114,14 @@ final class StreamDescription
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
-     *   StreamStatus: StreamStatus::*,
+     *   StreamStatus: StreamStatus::*|string,
      *   StreamModeDetails?: null|StreamModeDetails|array,
      *   Shards: array<Shard|array>,
      *   HasMoreShards: bool,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: array<EnhancedMetrics|array>,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: null|EncryptionType::*|string,
      *   KeyId?: null|string,
      * } $input
      */
@@ -144,14 +144,14 @@ final class StreamDescription
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
-     *   StreamStatus: StreamStatus::*,
+     *   StreamStatus: StreamStatus::*|string,
      *   StreamModeDetails?: null|StreamModeDetails|array,
      *   Shards: array<Shard|array>,
      *   HasMoreShards: bool,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: array<EnhancedMetrics|array>,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: null|EncryptionType::*|string,
      *   KeyId?: null|string,
      * }|StreamDescription $input
      */
@@ -161,7 +161,7 @@ final class StreamDescription
     }
 
     /**
-     * @return EncryptionType::*|null
+     * @return EncryptionType::*|string|null
      */
     public function getEncryptionType(): ?string
     {
@@ -220,7 +220,7 @@ final class StreamDescription
     }
 
     /**
-     * @return StreamStatus::*
+     * @return StreamStatus::*|string
      */
     public function getStreamStatus(): string
     {

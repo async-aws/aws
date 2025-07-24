@@ -35,7 +35,7 @@ final class InputTamsSettings
      * continuity but adds black frames where content is missing. * Hold last frame - Repeat the last frame before a gap
      * until the next segment begins. This maintains visual continuity during gaps.
      *
-     * @var TamsGapHandling::*|null
+     * @var TamsGapHandling::*|string|null
      */
     private $gapHandling;
 
@@ -63,7 +63,7 @@ final class InputTamsSettings
     /**
      * @param array{
      *   AuthConnectionArn?: null|string,
-     *   GapHandling?: null|TamsGapHandling::*,
+     *   GapHandling?: null|TamsGapHandling::*|string,
      *   SourceId?: null|string,
      *   Timerange?: null|string,
      * } $input
@@ -79,7 +79,7 @@ final class InputTamsSettings
     /**
      * @param array{
      *   AuthConnectionArn?: null|string,
-     *   GapHandling?: null|TamsGapHandling::*,
+     *   GapHandling?: null|TamsGapHandling::*|string,
      *   SourceId?: null|string,
      *   Timerange?: null|string,
      * }|InputTamsSettings $input
@@ -95,7 +95,7 @@ final class InputTamsSettings
     }
 
     /**
-     * @return TamsGapHandling::*|null
+     * @return TamsGapHandling::*|string|null
      */
     public function getGapHandling(): ?string
     {

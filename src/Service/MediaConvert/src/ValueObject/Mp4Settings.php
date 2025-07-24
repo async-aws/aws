@@ -27,7 +27,7 @@ final class Mp4Settings
      * you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio
      * codec.
      *
-     * @var CmfcAudioDuration::*|null
+     * @var CmfcAudioDuration::*|string|null
      */
     private $audioDuration;
 
@@ -35,7 +35,7 @@ final class Mp4Settings
      * When enabled, a C2PA compliant manifest will be generated, signed and embeded in the output. For more information on
      * C2PA, see https://c2pa.org/specifications/specifications/2.1/index.html.
      *
-     * @var Mp4C2paManifest::*|null
+     * @var Mp4C2paManifest::*|string|null
      */
     private $c2paManifest;
 
@@ -55,7 +55,7 @@ final class Mp4Settings
      * box for B-frames will be negative, and a 'cslg' (composition shift least greatest) box will be included per 14496-1
      * amendment 1. This improves compatibility with Apple players and tools.
      *
-     * @var Mp4CslgAtom::*|null
+     * @var Mp4CslgAtom::*|string|null
      */
     private $cslgAtom;
 
@@ -72,7 +72,7 @@ final class Mp4Settings
     /**
      * Inserts a free-space box immediately after the moov box.
      *
-     * @var Mp4FreeSpaceBox::*|null
+     * @var Mp4FreeSpaceBox::*|string|null
      */
     private $freeSpaceBox;
 
@@ -80,7 +80,7 @@ final class Mp4Settings
      * To place the MOOV atom at the beginning of your output, which is useful for progressive downloading: Leave blank or
      * choose Progressive download. To place the MOOV at the end of your output: Choose Normal.
      *
-     * @var Mp4MoovPlacement::*|null
+     * @var Mp4MoovPlacement::*|string|null
      */
     private $moovPlacement;
 
@@ -101,13 +101,13 @@ final class Mp4Settings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
-     *   C2paManifest?: null|Mp4C2paManifest::*,
+     *   AudioDuration?: null|CmfcAudioDuration::*|string,
+     *   C2paManifest?: null|Mp4C2paManifest::*|string,
      *   CertificateSecret?: null|string,
-     *   CslgAtom?: null|Mp4CslgAtom::*,
+     *   CslgAtom?: null|Mp4CslgAtom::*|string,
      *   CttsVersion?: null|int,
-     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
-     *   MoovPlacement?: null|Mp4MoovPlacement::*,
+     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*|string,
+     *   MoovPlacement?: null|Mp4MoovPlacement::*|string,
      *   Mp4MajorBrand?: null|string,
      *   SigningKmsKey?: null|string,
      * } $input
@@ -127,13 +127,13 @@ final class Mp4Settings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
-     *   C2paManifest?: null|Mp4C2paManifest::*,
+     *   AudioDuration?: null|CmfcAudioDuration::*|string,
+     *   C2paManifest?: null|Mp4C2paManifest::*|string,
      *   CertificateSecret?: null|string,
-     *   CslgAtom?: null|Mp4CslgAtom::*,
+     *   CslgAtom?: null|Mp4CslgAtom::*|string,
      *   CttsVersion?: null|int,
-     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
-     *   MoovPlacement?: null|Mp4MoovPlacement::*,
+     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*|string,
+     *   MoovPlacement?: null|Mp4MoovPlacement::*|string,
      *   Mp4MajorBrand?: null|string,
      *   SigningKmsKey?: null|string,
      * }|Mp4Settings $input
@@ -144,7 +144,7 @@ final class Mp4Settings
     }
 
     /**
-     * @return CmfcAudioDuration::*|null
+     * @return CmfcAudioDuration::*|string|null
      */
     public function getAudioDuration(): ?string
     {
@@ -152,7 +152,7 @@ final class Mp4Settings
     }
 
     /**
-     * @return Mp4C2paManifest::*|null
+     * @return Mp4C2paManifest::*|string|null
      */
     public function getC2paManifest(): ?string
     {
@@ -165,7 +165,7 @@ final class Mp4Settings
     }
 
     /**
-     * @return Mp4CslgAtom::*|null
+     * @return Mp4CslgAtom::*|string|null
      */
     public function getCslgAtom(): ?string
     {
@@ -178,7 +178,7 @@ final class Mp4Settings
     }
 
     /**
-     * @return Mp4FreeSpaceBox::*|null
+     * @return Mp4FreeSpaceBox::*|string|null
      */
     public function getFreeSpaceBox(): ?string
     {
@@ -186,7 +186,7 @@ final class Mp4Settings
     }
 
     /**
-     * @return Mp4MoovPlacement::*|null
+     * @return Mp4MoovPlacement::*|string|null
      */
     public function getMoovPlacement(): ?string
     {

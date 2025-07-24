@@ -11,12 +11,12 @@ class DeleteProjectResponse extends Result
     /**
      * The current status of the delete project operation.
      *
-     * @var ProjectStatus::*|null
+     * @var ProjectStatus::*|string|null
      */
     private $status;
 
     /**
-     * @return ProjectStatus::*|null
+     * @return ProjectStatus::*|string|null
      */
     public function getStatus(): ?string
     {

@@ -16,7 +16,7 @@ final class DashIsoEncryptionSettings
      * devices. Otherwise, keep the default setting CENC v1. If you choose Unencrypted SEI, for that output, the service
      * will exclude the access unit delimiter and will leave the SEI NAL units unencrypted.
      *
-     * @var DashIsoPlaybackDeviceCompatibility::*|null
+     * @var DashIsoPlaybackDeviceCompatibility::*|string|null
      */
     private $playbackDeviceCompatibility;
 
@@ -30,7 +30,7 @@ final class DashIsoEncryptionSettings
 
     /**
      * @param array{
-     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*,
+     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*|string,
      *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
      * } $input
      */
@@ -42,7 +42,7 @@ final class DashIsoEncryptionSettings
 
     /**
      * @param array{
-     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*,
+     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*|string,
      *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
      * }|DashIsoEncryptionSettings $input
      */
@@ -52,7 +52,7 @@ final class DashIsoEncryptionSettings
     }
 
     /**
-     * @return DashIsoPlaybackDeviceCompatibility::*|null
+     * @return DashIsoPlaybackDeviceCompatibility::*|string|null
      */
     public function getPlaybackDeviceCompatibility(): ?string
     {

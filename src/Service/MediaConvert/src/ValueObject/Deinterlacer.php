@@ -18,7 +18,7 @@ final class Deinterlacer
      * the frame: Choose Interpolate ticker or Blend ticker. To apply field doubling: Choose Linear interpolation. Note that
      * Linear interpolation may introduce video artifacts into your output.
      *
-     * @var DeinterlaceAlgorithm::*|null
+     * @var DeinterlaceAlgorithm::*|string|null
      */
     private $algorithm;
 
@@ -30,7 +30,7 @@ final class Deinterlacer
      * on otherwise; processing frames that are already progressive into progressive will probably result in lower quality
      * video.
      *
-     * @var DeinterlacerControl::*|null
+     * @var DeinterlacerControl::*|string|null
      */
     private $control;
 
@@ -40,15 +40,15 @@ final class Deinterlacer
      * - Inverse telecine converts Hard Telecine 29.97i to progressive 23.976p.
      * - Adaptive auto-detects and converts to progressive.
      *
-     * @var DeinterlacerMode::*|null
+     * @var DeinterlacerMode::*|string|null
      */
     private $mode;
 
     /**
      * @param array{
-     *   Algorithm?: null|DeinterlaceAlgorithm::*,
-     *   Control?: null|DeinterlacerControl::*,
-     *   Mode?: null|DeinterlacerMode::*,
+     *   Algorithm?: null|DeinterlaceAlgorithm::*|string,
+     *   Control?: null|DeinterlacerControl::*|string,
+     *   Mode?: null|DeinterlacerMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -60,9 +60,9 @@ final class Deinterlacer
 
     /**
      * @param array{
-     *   Algorithm?: null|DeinterlaceAlgorithm::*,
-     *   Control?: null|DeinterlacerControl::*,
-     *   Mode?: null|DeinterlacerMode::*,
+     *   Algorithm?: null|DeinterlaceAlgorithm::*|string,
+     *   Control?: null|DeinterlacerControl::*|string,
+     *   Mode?: null|DeinterlacerMode::*|string,
      * }|Deinterlacer $input
      */
     public static function create($input): self
@@ -71,7 +71,7 @@ final class Deinterlacer
     }
 
     /**
-     * @return DeinterlaceAlgorithm::*|null
+     * @return DeinterlaceAlgorithm::*|string|null
      */
     public function getAlgorithm(): ?string
     {
@@ -79,7 +79,7 @@ final class Deinterlacer
     }
 
     /**
-     * @return DeinterlacerControl::*|null
+     * @return DeinterlacerControl::*|string|null
      */
     public function getControl(): ?string
     {
@@ -87,7 +87,7 @@ final class Deinterlacer
     }
 
     /**
-     * @return DeinterlacerMode::*|null
+     * @return DeinterlacerMode::*|string|null
      */
     public function getMode(): ?string
     {

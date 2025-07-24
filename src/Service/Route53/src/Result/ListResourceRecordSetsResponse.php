@@ -52,7 +52,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
      *
      * This element is present only if `IsTruncated` is true.
      *
-     * @var RRType::*|null
+     * @var RRType::*|string|null
      */
     private $nextRecordType;
 
@@ -114,7 +114,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
     }
 
     /**
-     * @return RRType::*|null
+     * @return RRType::*|string|null
      */
     public function getNextRecordType(): ?string
     {

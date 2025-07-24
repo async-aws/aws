@@ -9,6 +9,10 @@
 - AWS api-change: This release expands the range of supported audio outputs to include xHE, 192khz FLAC and the deprecation of dual mono for AC3.
 - AWS api-change: This release adds support for TAMS server integration with MediaConvert inputs.
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 1.9.0
 
 ### Added

@@ -32,7 +32,7 @@ class StartCalculationExecutionResponse extends Result
      *
      * `FAILED` - The calculation failed and is no longer running.
      *
-     * @var CalculationExecutionState::*|null
+     * @var CalculationExecutionState::*|string|null
      */
     private $state;
 
@@ -44,7 +44,7 @@ class StartCalculationExecutionResponse extends Result
     }
 
     /**
-     * @return CalculationExecutionState::*|null
+     * @return CalculationExecutionState::*|string|null
      */
     public function getState(): ?string
     {

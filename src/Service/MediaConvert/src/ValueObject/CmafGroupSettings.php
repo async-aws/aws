@@ -49,14 +49,14 @@ final class CmafGroupSettings
      * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
      * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http header.
      *
-     * @var CmafClientCache::*|null
+     * @var CmafClientCache::*|string|null
      */
     private $clientCache;
 
     /**
      * Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation.
      *
-     * @var CmafCodecSpecification::*|null
+     * @var CmafCodecSpecification::*|string|null
      */
     private $codecSpecification;
 
@@ -80,7 +80,7 @@ final class CmafGroupSettings
      * common timeline. To write a video AdaptationSet for each different output framerate, and a common SegmentTimeline in
      * each AdaptationSet: Choose Distinct.
      *
-     * @var DashManifestStyle::*|null
+     * @var DashManifestStyle::*|string|null
      */
     private $dashManifestStyle;
 
@@ -125,7 +125,7 @@ final class CmafGroupSettings
      * creates with this feature are compatible with this Roku specification:
      * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
-     * @var CmafImageBasedTrickPlay::*|null
+     * @var CmafImageBasedTrickPlay::*|string|null
      */
     private $imageBasedTrickPlay;
 
@@ -139,14 +139,14 @@ final class CmafGroupSettings
     /**
      * When set to GZIP, compresses HLS playlist.
      *
-     * @var CmafManifestCompression::*|null
+     * @var CmafManifestCompression::*|string|null
      */
     private $manifestCompression;
 
     /**
      * Indicates whether the output manifest should use floating point values for segment duration.
      *
-     * @var CmafManifestDurationFormat::*|null
+     * @var CmafManifestDurationFormat::*|string|null
      */
     private $manifestDurationFormat;
 
@@ -176,7 +176,7 @@ final class CmafGroupSettings
      * Max: Use the same value that you specify for Max bitrate in the video output, in bits per second. Average: Use the
      * calculated average bitrate of the encoded video output, in bits per second.
      *
-     * @var CmafMpdManifestBandwidthType::*|null
+     * @var CmafMpdManifestBandwidthType::*|string|null
      */
     private $mpdManifestBandwidthType;
 
@@ -186,7 +186,7 @@ final class CmafGroupSettings
      * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
      * group setting Segment control to Single file.
      *
-     * @var CmafMpdProfile::*|null
+     * @var CmafMpdProfile::*|string|null
      */
     private $mpdProfile;
 
@@ -198,7 +198,7 @@ final class CmafGroupSettings
      * and instead write the initial time stamp as zero in the manifest. For outputs that don't have B-frames, the time
      * stamps in your DASH manifests start at zero regardless of your choice here.
      *
-     * @var CmafPtsOffsetHandlingForBFrames::*|null
+     * @var CmafPtsOffsetHandlingForBFrames::*|string|null
      */
     private $ptsOffsetHandlingForBframes;
 
@@ -206,7 +206,7 @@ final class CmafGroupSettings
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length
      * and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
      *
-     * @var CmafSegmentControl::*|null
+     * @var CmafSegmentControl::*|string|null
      */
     private $segmentControl;
 
@@ -233,14 +233,14 @@ final class CmafGroupSettings
      * For example: 5, 15, 30 and 60. Or: 25 and 50. (Outputs must share an integer multiple.) - Output audio codec: Specify
      * Advanced Audio Coding (AAC). - Output sample rate: Choose 48kHz.
      *
-     * @var CmafSegmentLengthControl::*|null
+     * @var CmafSegmentLengthControl::*|string|null
      */
     private $segmentLengthControl;
 
     /**
      * Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF tag of variant manifest.
      *
-     * @var CmafStreamInfResolution::*|null
+     * @var CmafStreamInfResolution::*|string|null
      */
     private $streamInfResolution;
 
@@ -252,7 +252,7 @@ final class CmafGroupSettings
      * duration of the segment. Some older players may experience interrupted playback when the actual duration of a track
      * in a segment is longer than the target duration.
      *
-     * @var CmafTargetDurationCompatibilityMode::*|null
+     * @var CmafTargetDurationCompatibilityMode::*|string|null
      */
     private $targetDurationCompatibilityMode;
 
@@ -263,21 +263,21 @@ final class CmafGroupSettings
      * set Video composition offsets to Signed. The earliest presentation time will be equal to zero, and sample composition
      * time offsets will increment using signed integers.
      *
-     * @var CmafVideoCompositionOffsets::*|null
+     * @var CmafVideoCompositionOffsets::*|string|null
      */
     private $videoCompositionOffsets;
 
     /**
      * When set to ENABLED, a DASH MPD manifest will be generated for this output.
      *
-     * @var CmafWriteDASHManifest::*|null
+     * @var CmafWriteDASHManifest::*|string|null
      */
     private $writeDashManifest;
 
     /**
      * When set to ENABLED, an Apple HLS manifest will be generated for this output.
      *
-     * @var CmafWriteHLSManifest::*|null
+     * @var CmafWriteHLSManifest::*|string|null
      */
     private $writeHlsManifest;
 
@@ -287,7 +287,7 @@ final class CmafGroupSettings
      * level. When this feature isn't enabled, the segment durations in your DASH manifest are approximate. The segment
      * duration information appears in the duration attribute of the SegmentTemplate element.
      *
-     * @var CmafWriteSegmentTimelineInRepresentation::*|null
+     * @var CmafWriteSegmentTimelineInRepresentation::*|string|null
      */
     private $writeSegmentTimelineInRepresentation;
 
@@ -295,32 +295,32 @@ final class CmafGroupSettings
      * @param array{
      *   AdditionalManifests?: null|array<CmafAdditionalManifest|array>,
      *   BaseUrl?: null|string,
-     *   ClientCache?: null|CmafClientCache::*,
-     *   CodecSpecification?: null|CmafCodecSpecification::*,
+     *   ClientCache?: null|CmafClientCache::*|string,
+     *   CodecSpecification?: null|CmafCodecSpecification::*|string,
      *   DashIFrameTrickPlayNameModifier?: null|string,
-     *   DashManifestStyle?: null|DashManifestStyle::*,
+     *   DashManifestStyle?: null|DashManifestStyle::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
      *   Encryption?: null|CmafEncryptionSettings|array,
      *   FragmentLength?: null|int,
-     *   ImageBasedTrickPlay?: null|CmafImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlay?: null|CmafImageBasedTrickPlay::*|string,
      *   ImageBasedTrickPlaySettings?: null|CmafImageBasedTrickPlaySettings|array,
-     *   ManifestCompression?: null|CmafManifestCompression::*,
-     *   ManifestDurationFormat?: null|CmafManifestDurationFormat::*,
+     *   ManifestCompression?: null|CmafManifestCompression::*|string,
+     *   ManifestDurationFormat?: null|CmafManifestDurationFormat::*|string,
      *   MinBufferTime?: null|int,
      *   MinFinalSegmentLength?: null|float,
-     *   MpdManifestBandwidthType?: null|CmafMpdManifestBandwidthType::*,
-     *   MpdProfile?: null|CmafMpdProfile::*,
-     *   PtsOffsetHandlingForBFrames?: null|CmafPtsOffsetHandlingForBFrames::*,
-     *   SegmentControl?: null|CmafSegmentControl::*,
+     *   MpdManifestBandwidthType?: null|CmafMpdManifestBandwidthType::*|string,
+     *   MpdProfile?: null|CmafMpdProfile::*|string,
+     *   PtsOffsetHandlingForBFrames?: null|CmafPtsOffsetHandlingForBFrames::*|string,
+     *   SegmentControl?: null|CmafSegmentControl::*|string,
      *   SegmentLength?: null|int,
-     *   SegmentLengthControl?: null|CmafSegmentLengthControl::*,
-     *   StreamInfResolution?: null|CmafStreamInfResolution::*,
-     *   TargetDurationCompatibilityMode?: null|CmafTargetDurationCompatibilityMode::*,
-     *   VideoCompositionOffsets?: null|CmafVideoCompositionOffsets::*,
-     *   WriteDashManifest?: null|CmafWriteDASHManifest::*,
-     *   WriteHlsManifest?: null|CmafWriteHLSManifest::*,
-     *   WriteSegmentTimelineInRepresentation?: null|CmafWriteSegmentTimelineInRepresentation::*,
+     *   SegmentLengthControl?: null|CmafSegmentLengthControl::*|string,
+     *   StreamInfResolution?: null|CmafStreamInfResolution::*|string,
+     *   TargetDurationCompatibilityMode?: null|CmafTargetDurationCompatibilityMode::*|string,
+     *   VideoCompositionOffsets?: null|CmafVideoCompositionOffsets::*|string,
+     *   WriteDashManifest?: null|CmafWriteDASHManifest::*|string,
+     *   WriteHlsManifest?: null|CmafWriteHLSManifest::*|string,
+     *   WriteSegmentTimelineInRepresentation?: null|CmafWriteSegmentTimelineInRepresentation::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -359,32 +359,32 @@ final class CmafGroupSettings
      * @param array{
      *   AdditionalManifests?: null|array<CmafAdditionalManifest|array>,
      *   BaseUrl?: null|string,
-     *   ClientCache?: null|CmafClientCache::*,
-     *   CodecSpecification?: null|CmafCodecSpecification::*,
+     *   ClientCache?: null|CmafClientCache::*|string,
+     *   CodecSpecification?: null|CmafCodecSpecification::*|string,
      *   DashIFrameTrickPlayNameModifier?: null|string,
-     *   DashManifestStyle?: null|DashManifestStyle::*,
+     *   DashManifestStyle?: null|DashManifestStyle::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
      *   Encryption?: null|CmafEncryptionSettings|array,
      *   FragmentLength?: null|int,
-     *   ImageBasedTrickPlay?: null|CmafImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlay?: null|CmafImageBasedTrickPlay::*|string,
      *   ImageBasedTrickPlaySettings?: null|CmafImageBasedTrickPlaySettings|array,
-     *   ManifestCompression?: null|CmafManifestCompression::*,
-     *   ManifestDurationFormat?: null|CmafManifestDurationFormat::*,
+     *   ManifestCompression?: null|CmafManifestCompression::*|string,
+     *   ManifestDurationFormat?: null|CmafManifestDurationFormat::*|string,
      *   MinBufferTime?: null|int,
      *   MinFinalSegmentLength?: null|float,
-     *   MpdManifestBandwidthType?: null|CmafMpdManifestBandwidthType::*,
-     *   MpdProfile?: null|CmafMpdProfile::*,
-     *   PtsOffsetHandlingForBFrames?: null|CmafPtsOffsetHandlingForBFrames::*,
-     *   SegmentControl?: null|CmafSegmentControl::*,
+     *   MpdManifestBandwidthType?: null|CmafMpdManifestBandwidthType::*|string,
+     *   MpdProfile?: null|CmafMpdProfile::*|string,
+     *   PtsOffsetHandlingForBFrames?: null|CmafPtsOffsetHandlingForBFrames::*|string,
+     *   SegmentControl?: null|CmafSegmentControl::*|string,
      *   SegmentLength?: null|int,
-     *   SegmentLengthControl?: null|CmafSegmentLengthControl::*,
-     *   StreamInfResolution?: null|CmafStreamInfResolution::*,
-     *   TargetDurationCompatibilityMode?: null|CmafTargetDurationCompatibilityMode::*,
-     *   VideoCompositionOffsets?: null|CmafVideoCompositionOffsets::*,
-     *   WriteDashManifest?: null|CmafWriteDASHManifest::*,
-     *   WriteHlsManifest?: null|CmafWriteHLSManifest::*,
-     *   WriteSegmentTimelineInRepresentation?: null|CmafWriteSegmentTimelineInRepresentation::*,
+     *   SegmentLengthControl?: null|CmafSegmentLengthControl::*|string,
+     *   StreamInfResolution?: null|CmafStreamInfResolution::*|string,
+     *   TargetDurationCompatibilityMode?: null|CmafTargetDurationCompatibilityMode::*|string,
+     *   VideoCompositionOffsets?: null|CmafVideoCompositionOffsets::*|string,
+     *   WriteDashManifest?: null|CmafWriteDASHManifest::*|string,
+     *   WriteHlsManifest?: null|CmafWriteHLSManifest::*|string,
+     *   WriteSegmentTimelineInRepresentation?: null|CmafWriteSegmentTimelineInRepresentation::*|string,
      * }|CmafGroupSettings $input
      */
     public static function create($input): self
@@ -406,7 +406,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafClientCache::*|null
+     * @return CmafClientCache::*|string|null
      */
     public function getClientCache(): ?string
     {
@@ -414,7 +414,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafCodecSpecification::*|null
+     * @return CmafCodecSpecification::*|string|null
      */
     public function getCodecSpecification(): ?string
     {
@@ -427,7 +427,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return DashManifestStyle::*|null
+     * @return DashManifestStyle::*|string|null
      */
     public function getDashManifestStyle(): ?string
     {
@@ -455,7 +455,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafImageBasedTrickPlay::*|null
+     * @return CmafImageBasedTrickPlay::*|string|null
      */
     public function getImageBasedTrickPlay(): ?string
     {
@@ -468,7 +468,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafManifestCompression::*|null
+     * @return CmafManifestCompression::*|string|null
      */
     public function getManifestCompression(): ?string
     {
@@ -476,7 +476,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafManifestDurationFormat::*|null
+     * @return CmafManifestDurationFormat::*|string|null
      */
     public function getManifestDurationFormat(): ?string
     {
@@ -494,7 +494,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafMpdManifestBandwidthType::*|null
+     * @return CmafMpdManifestBandwidthType::*|string|null
      */
     public function getMpdManifestBandwidthType(): ?string
     {
@@ -502,7 +502,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafMpdProfile::*|null
+     * @return CmafMpdProfile::*|string|null
      */
     public function getMpdProfile(): ?string
     {
@@ -510,7 +510,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafPtsOffsetHandlingForBFrames::*|null
+     * @return CmafPtsOffsetHandlingForBFrames::*|string|null
      */
     public function getPtsOffsetHandlingForBframes(): ?string
     {
@@ -518,7 +518,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafSegmentControl::*|null
+     * @return CmafSegmentControl::*|string|null
      */
     public function getSegmentControl(): ?string
     {
@@ -531,7 +531,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafSegmentLengthControl::*|null
+     * @return CmafSegmentLengthControl::*|string|null
      */
     public function getSegmentLengthControl(): ?string
     {
@@ -539,7 +539,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafStreamInfResolution::*|null
+     * @return CmafStreamInfResolution::*|string|null
      */
     public function getStreamInfResolution(): ?string
     {
@@ -547,7 +547,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafTargetDurationCompatibilityMode::*|null
+     * @return CmafTargetDurationCompatibilityMode::*|string|null
      */
     public function getTargetDurationCompatibilityMode(): ?string
     {
@@ -555,7 +555,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafVideoCompositionOffsets::*|null
+     * @return CmafVideoCompositionOffsets::*|string|null
      */
     public function getVideoCompositionOffsets(): ?string
     {
@@ -563,7 +563,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafWriteDASHManifest::*|null
+     * @return CmafWriteDASHManifest::*|string|null
      */
     public function getWriteDashManifest(): ?string
     {
@@ -571,7 +571,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafWriteHLSManifest::*|null
+     * @return CmafWriteHLSManifest::*|string|null
      */
     public function getWriteHlsManifest(): ?string
     {
@@ -579,7 +579,7 @@ final class CmafGroupSettings
     }
 
     /**
-     * @return CmafWriteSegmentTimelineInRepresentation::*|null
+     * @return CmafWriteSegmentTimelineInRepresentation::*|string|null
      */
     public function getWriteSegmentTimelineInRepresentation(): ?string
     {

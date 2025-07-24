@@ -46,7 +46,7 @@ final class H264Settings
      * following settings: H264FlickerAdaptiveQuantization, H264SpatialAdaptiveQuantization, and
      * H264TemporalAdaptiveQuantization.
      *
-     * @var H264AdaptiveQuantization::*|null
+     * @var H264AdaptiveQuantization::*|string|null
      */
     private $adaptiveQuantization;
 
@@ -73,14 +73,14 @@ final class H264Settings
      * Specify an H.264 level that is consistent with your output video settings. If you aren't sure what level to specify,
      * choose Auto.
      *
-     * @var H264CodecLevel::*|null
+     * @var H264CodecLevel::*|string|null
      */
     private $codecLevel;
 
     /**
      * H.264 Profile. High 4:2:2 and 10-bit profiles are only available with the AVC-I License.
      *
-     * @var H264CodecProfile::*|null
+     * @var H264CodecProfile::*|string|null
      */
     private $codecProfile;
 
@@ -91,7 +91,7 @@ final class H264Settings
      * content. The maximum number of B- frames is limited by the value that you choose for B-frames between reference
      * frames. To use the same number B-frames for all types of content: Choose Static.
      *
-     * @var H264DynamicSubGop::*|null
+     * @var H264DynamicSubGop::*|string|null
      */
     private $dynamicSubGop;
 
@@ -100,14 +100,14 @@ final class H264Settings
      * end of stream markers: Leave blank or keep the default value, Include. To not include end of stream markers: Choose
      * Suppress. This is useful when your output will be inserted into another stream.
      *
-     * @var H264EndOfStreamMarkers::*|null
+     * @var H264EndOfStreamMarkers::*|string|null
      */
     private $endOfStreamMarkers;
 
     /**
      * Entropy encoding mode. Use CABAC (must be in Main or High profile) or CAVLC.
      *
-     * @var H264EntropyEncoding::*|null
+     * @var H264EntropyEncoding::*|string|null
      */
     private $entropyEncoding;
 
@@ -116,7 +116,7 @@ final class H264Settings
      * encoding for interlaced outputs. Choose Force field to disable PAFF encoding and create separate interlaced fields.
      * Choose MBAFF to disable PAFF and have MediaConvert use MBAFF encoding for interlaced outputs.
      *
-     * @var H264FieldEncoding::*|null
+     * @var H264FieldEncoding::*|string|null
      */
     private $fieldEncoding;
 
@@ -131,7 +131,7 @@ final class H264Settings
      * the flicker. To manually enable or disable H264FlickerAdaptiveQuantization, you must set Adaptive quantization to a
      * value other than AUTO.
      *
-     * @var H264FlickerAdaptiveQuantization::*|null
+     * @var H264FlickerAdaptiveQuantization::*|string|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -141,7 +141,7 @@ final class H264Settings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var H264FramerateControl::*|null
+     * @var H264FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -158,7 +158,7 @@ final class H264Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var H264FramerateConversionAlgorithm::*|null
+     * @var H264FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -188,7 +188,7 @@ final class H264Settings
      * to help improve the video quality of your output relative to its bitrate. To not use reference B-frames: Choose
      * Disabled.
      *
-     * @var H264GopBReference::*|null
+     * @var H264GopBReference::*|string|null
      */
     private $gopBreference;
 
@@ -221,7 +221,7 @@ final class H264Settings
      * leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose Specified,
      * frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      *
-     * @var H264GopSizeUnits::*|null
+     * @var H264GopSizeUnits::*|string|null
      */
     private $gopSizeUnits;
 
@@ -257,7 +257,7 @@ final class H264Settings
      * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
      * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
-     * @var H264InterlaceMode::*|null
+     * @var H264InterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -309,7 +309,7 @@ final class H264Settings
      * any value other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
      *
-     * @var H264ParControl::*|null
+     * @var H264ParControl::*|string|null
      */
     private $parControl;
 
@@ -347,7 +347,7 @@ final class H264Settings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -358,7 +358,7 @@ final class H264Settings
      * quality, at the cost of encoding speed: Choose Multi pass HQ. MediaConvert performs an analysis pass on your input
      * followed by an encoding pass. Outputs that use this feature incur pro-tier pricing.
      *
-     * @var H264QualityTuningLevel::*|null
+     * @var H264QualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
@@ -374,14 +374,14 @@ final class H264Settings
      * Use this setting to specify whether this output has a variable bitrate (VBR), constant bitrate (CBR) or
      * quality-defined variable bitrate (QVBR).
      *
-     * @var H264RateControlMode::*|null
+     * @var H264RateControlMode::*|string|null
      */
     private $rateControlMode;
 
     /**
      * Places a PPS header on each encoded picture, even if repeated.
      *
-     * @var H264RepeatPps::*|null
+     * @var H264RepeatPps::*|string|null
      */
     private $repeatPps;
 
@@ -393,7 +393,7 @@ final class H264Settings
      * that are 720p or higher in resolution. To not apply saliency aware encoding, prioritizing encoding speed over
      * perceptual video quality: Choose Disabled.
      *
-     * @var H264SaliencyAwareEncoding::*|null
+     * @var H264SaliencyAwareEncoding::*|string|null
      */
     private $saliencyAwareEncoding;
 
@@ -407,7 +407,7 @@ final class H264Settings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var H264ScanTypeConversionMode::*|null
+     * @var H264ScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -416,7 +416,7 @@ final class H264Settings
      * quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video quality
      * improvement. For more information about QVBR, see https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      *
-     * @var H264SceneChangeDetect::*|null
+     * @var H264SceneChangeDetect::*|string|null
      */
     private $sceneChangeDetect;
 
@@ -434,7 +434,7 @@ final class H264Settings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25.
      *
-     * @var H264SlowPal::*|null
+     * @var H264SlowPal::*|string|null
      */
     private $slowPal;
 
@@ -468,14 +468,14 @@ final class H264Settings
      * a wider variety of textures, set it to High or Higher. To manually enable or disable H264SpatialAdaptiveQuantization,
      * you must set Adaptive quantization to a value other than AUTO.
      *
-     * @var H264SpatialAdaptiveQuantization::*|null
+     * @var H264SpatialAdaptiveQuantization::*|string|null
      */
     private $spatialAdaptiveQuantization;
 
     /**
      * Produces a bitstream compliant with SMPTE RP-2027.
      *
-     * @var H264Syntax::*|null
+     * @var H264Syntax::*|string|null
      */
     private $syntax;
 
@@ -486,7 +486,7 @@ final class H264Settings
      * the conversion during play back. When you keep the default value, None, MediaConvert does a standard frame rate
      * conversion to 29.97 without doing anything with the field polarity to create a smoother picture.
      *
-     * @var H264Telecine::*|null
+     * @var H264Telecine::*|string|null
      */
     private $telecine;
 
@@ -506,14 +506,14 @@ final class H264Settings
      * Adaptive quantization. To manually enable or disable H264TemporalAdaptiveQuantization, you must set Adaptive
      * quantization to a value other than AUTO.
      *
-     * @var H264TemporalAdaptiveQuantization::*|null
+     * @var H264TemporalAdaptiveQuantization::*|string|null
      */
     private $temporalAdaptiveQuantization;
 
     /**
      * Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
      *
-     * @var H264UnregisteredSeiTimecode::*|null
+     * @var H264UnregisteredSeiTimecode::*|string|null
      */
     private $unregisteredSeiTimecode;
 
@@ -524,58 +524,58 @@ final class H264Settings
      * units directly into samples (but not in the 'stsd' box): Choose AVC3. When you do, note that your output might not
      * play properly with some downstream systems or players.
      *
-     * @var H264WriteMp4PackagingType::*|null
+     * @var H264WriteMp4PackagingType::*|string|null
      */
     private $writeMp4PackagingType;
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|H264AdaptiveQuantization::*,
+     *   AdaptiveQuantization?: null|H264AdaptiveQuantization::*|string,
      *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
      *   Bitrate?: null|int,
-     *   CodecLevel?: null|H264CodecLevel::*,
-     *   CodecProfile?: null|H264CodecProfile::*,
-     *   DynamicSubGop?: null|H264DynamicSubGop::*,
-     *   EndOfStreamMarkers?: null|H264EndOfStreamMarkers::*,
-     *   EntropyEncoding?: null|H264EntropyEncoding::*,
-     *   FieldEncoding?: null|H264FieldEncoding::*,
-     *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*,
-     *   FramerateControl?: null|H264FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|H264FramerateConversionAlgorithm::*,
+     *   CodecLevel?: null|H264CodecLevel::*|string,
+     *   CodecProfile?: null|H264CodecProfile::*|string,
+     *   DynamicSubGop?: null|H264DynamicSubGop::*|string,
+     *   EndOfStreamMarkers?: null|H264EndOfStreamMarkers::*|string,
+     *   EntropyEncoding?: null|H264EntropyEncoding::*|string,
+     *   FieldEncoding?: null|H264FieldEncoding::*|string,
+     *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*|string,
+     *   FramerateControl?: null|H264FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|H264FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   GopBReference?: null|H264GopBReference::*,
+     *   GopBReference?: null|H264GopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   GopSize?: null|float,
-     *   GopSizeUnits?: null|H264GopSizeUnits::*,
+     *   GopSizeUnits?: null|H264GopSizeUnits::*|string,
      *   HrdBufferFinalFillPercentage?: null|int,
      *   HrdBufferInitialFillPercentage?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|H264InterlaceMode::*,
+     *   InterlaceMode?: null|H264InterlaceMode::*|string,
      *   MaxBitrate?: null|int,
      *   MinIInterval?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
      *   NumberReferenceFrames?: null|int,
-     *   ParControl?: null|H264ParControl::*,
+     *   ParControl?: null|H264ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QualityTuningLevel?: null|H264QualityTuningLevel::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   QualityTuningLevel?: null|H264QualityTuningLevel::*|string,
      *   QvbrSettings?: null|H264QvbrSettings|array,
-     *   RateControlMode?: null|H264RateControlMode::*,
-     *   RepeatPps?: null|H264RepeatPps::*,
-     *   SaliencyAwareEncoding?: null|H264SaliencyAwareEncoding::*,
-     *   ScanTypeConversionMode?: null|H264ScanTypeConversionMode::*,
-     *   SceneChangeDetect?: null|H264SceneChangeDetect::*,
+     *   RateControlMode?: null|H264RateControlMode::*|string,
+     *   RepeatPps?: null|H264RepeatPps::*|string,
+     *   SaliencyAwareEncoding?: null|H264SaliencyAwareEncoding::*|string,
+     *   ScanTypeConversionMode?: null|H264ScanTypeConversionMode::*|string,
+     *   SceneChangeDetect?: null|H264SceneChangeDetect::*|string,
      *   Slices?: null|int,
-     *   SlowPal?: null|H264SlowPal::*,
+     *   SlowPal?: null|H264SlowPal::*|string,
      *   Softness?: null|int,
-     *   SpatialAdaptiveQuantization?: null|H264SpatialAdaptiveQuantization::*,
-     *   Syntax?: null|H264Syntax::*,
-     *   Telecine?: null|H264Telecine::*,
-     *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*,
-     *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*,
-     *   WriteMp4PackagingType?: null|H264WriteMp4PackagingType::*,
+     *   SpatialAdaptiveQuantization?: null|H264SpatialAdaptiveQuantization::*|string,
+     *   Syntax?: null|H264Syntax::*|string,
+     *   Telecine?: null|H264Telecine::*|string,
+     *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*|string,
+     *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*|string,
+     *   WriteMp4PackagingType?: null|H264WriteMp4PackagingType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -630,52 +630,52 @@ final class H264Settings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|H264AdaptiveQuantization::*,
+     *   AdaptiveQuantization?: null|H264AdaptiveQuantization::*|string,
      *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
      *   Bitrate?: null|int,
-     *   CodecLevel?: null|H264CodecLevel::*,
-     *   CodecProfile?: null|H264CodecProfile::*,
-     *   DynamicSubGop?: null|H264DynamicSubGop::*,
-     *   EndOfStreamMarkers?: null|H264EndOfStreamMarkers::*,
-     *   EntropyEncoding?: null|H264EntropyEncoding::*,
-     *   FieldEncoding?: null|H264FieldEncoding::*,
-     *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*,
-     *   FramerateControl?: null|H264FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|H264FramerateConversionAlgorithm::*,
+     *   CodecLevel?: null|H264CodecLevel::*|string,
+     *   CodecProfile?: null|H264CodecProfile::*|string,
+     *   DynamicSubGop?: null|H264DynamicSubGop::*|string,
+     *   EndOfStreamMarkers?: null|H264EndOfStreamMarkers::*|string,
+     *   EntropyEncoding?: null|H264EntropyEncoding::*|string,
+     *   FieldEncoding?: null|H264FieldEncoding::*|string,
+     *   FlickerAdaptiveQuantization?: null|H264FlickerAdaptiveQuantization::*|string,
+     *   FramerateControl?: null|H264FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|H264FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   GopBReference?: null|H264GopBReference::*,
+     *   GopBReference?: null|H264GopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   GopSize?: null|float,
-     *   GopSizeUnits?: null|H264GopSizeUnits::*,
+     *   GopSizeUnits?: null|H264GopSizeUnits::*|string,
      *   HrdBufferFinalFillPercentage?: null|int,
      *   HrdBufferInitialFillPercentage?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|H264InterlaceMode::*,
+     *   InterlaceMode?: null|H264InterlaceMode::*|string,
      *   MaxBitrate?: null|int,
      *   MinIInterval?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
      *   NumberReferenceFrames?: null|int,
-     *   ParControl?: null|H264ParControl::*,
+     *   ParControl?: null|H264ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QualityTuningLevel?: null|H264QualityTuningLevel::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   QualityTuningLevel?: null|H264QualityTuningLevel::*|string,
      *   QvbrSettings?: null|H264QvbrSettings|array,
-     *   RateControlMode?: null|H264RateControlMode::*,
-     *   RepeatPps?: null|H264RepeatPps::*,
-     *   SaliencyAwareEncoding?: null|H264SaliencyAwareEncoding::*,
-     *   ScanTypeConversionMode?: null|H264ScanTypeConversionMode::*,
-     *   SceneChangeDetect?: null|H264SceneChangeDetect::*,
+     *   RateControlMode?: null|H264RateControlMode::*|string,
+     *   RepeatPps?: null|H264RepeatPps::*|string,
+     *   SaliencyAwareEncoding?: null|H264SaliencyAwareEncoding::*|string,
+     *   ScanTypeConversionMode?: null|H264ScanTypeConversionMode::*|string,
+     *   SceneChangeDetect?: null|H264SceneChangeDetect::*|string,
      *   Slices?: null|int,
-     *   SlowPal?: null|H264SlowPal::*,
+     *   SlowPal?: null|H264SlowPal::*|string,
      *   Softness?: null|int,
-     *   SpatialAdaptiveQuantization?: null|H264SpatialAdaptiveQuantization::*,
-     *   Syntax?: null|H264Syntax::*,
-     *   Telecine?: null|H264Telecine::*,
-     *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*,
-     *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*,
-     *   WriteMp4PackagingType?: null|H264WriteMp4PackagingType::*,
+     *   SpatialAdaptiveQuantization?: null|H264SpatialAdaptiveQuantization::*|string,
+     *   Syntax?: null|H264Syntax::*|string,
+     *   Telecine?: null|H264Telecine::*|string,
+     *   TemporalAdaptiveQuantization?: null|H264TemporalAdaptiveQuantization::*|string,
+     *   UnregisteredSeiTimecode?: null|H264UnregisteredSeiTimecode::*|string,
+     *   WriteMp4PackagingType?: null|H264WriteMp4PackagingType::*|string,
      * }|H264Settings $input
      */
     public static function create($input): self
@@ -684,7 +684,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264AdaptiveQuantization::*|null
+     * @return H264AdaptiveQuantization::*|string|null
      */
     public function getAdaptiveQuantization(): ?string
     {
@@ -702,7 +702,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264CodecLevel::*|null
+     * @return H264CodecLevel::*|string|null
      */
     public function getCodecLevel(): ?string
     {
@@ -710,7 +710,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264CodecProfile::*|null
+     * @return H264CodecProfile::*|string|null
      */
     public function getCodecProfile(): ?string
     {
@@ -718,7 +718,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264DynamicSubGop::*|null
+     * @return H264DynamicSubGop::*|string|null
      */
     public function getDynamicSubGop(): ?string
     {
@@ -726,7 +726,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264EndOfStreamMarkers::*|null
+     * @return H264EndOfStreamMarkers::*|string|null
      */
     public function getEndOfStreamMarkers(): ?string
     {
@@ -734,7 +734,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264EntropyEncoding::*|null
+     * @return H264EntropyEncoding::*|string|null
      */
     public function getEntropyEncoding(): ?string
     {
@@ -742,7 +742,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264FieldEncoding::*|null
+     * @return H264FieldEncoding::*|string|null
      */
     public function getFieldEncoding(): ?string
     {
@@ -750,7 +750,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264FlickerAdaptiveQuantization::*|null
+     * @return H264FlickerAdaptiveQuantization::*|string|null
      */
     public function getFlickerAdaptiveQuantization(): ?string
     {
@@ -758,7 +758,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264FramerateControl::*|null
+     * @return H264FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -766,7 +766,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264FramerateConversionAlgorithm::*|null
+     * @return H264FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -784,7 +784,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264GopBReference::*|null
+     * @return H264GopBReference::*|string|null
      */
     public function getGopBreference(): ?string
     {
@@ -802,7 +802,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264GopSizeUnits::*|null
+     * @return H264GopSizeUnits::*|string|null
      */
     public function getGopSizeUnits(): ?string
     {
@@ -825,7 +825,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264InterlaceMode::*|null
+     * @return H264InterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -853,7 +853,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264ParControl::*|null
+     * @return H264ParControl::*|string|null
      */
     public function getParControl(): ?string
     {
@@ -871,7 +871,7 @@ final class H264Settings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -879,7 +879,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264QualityTuningLevel::*|null
+     * @return H264QualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {
@@ -892,7 +892,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264RateControlMode::*|null
+     * @return H264RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {
@@ -900,7 +900,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264RepeatPps::*|null
+     * @return H264RepeatPps::*|string|null
      */
     public function getRepeatPps(): ?string
     {
@@ -908,7 +908,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264SaliencyAwareEncoding::*|null
+     * @return H264SaliencyAwareEncoding::*|string|null
      */
     public function getSaliencyAwareEncoding(): ?string
     {
@@ -916,7 +916,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264ScanTypeConversionMode::*|null
+     * @return H264ScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -924,7 +924,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264SceneChangeDetect::*|null
+     * @return H264SceneChangeDetect::*|string|null
      */
     public function getSceneChangeDetect(): ?string
     {
@@ -937,7 +937,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264SlowPal::*|null
+     * @return H264SlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -950,7 +950,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264SpatialAdaptiveQuantization::*|null
+     * @return H264SpatialAdaptiveQuantization::*|string|null
      */
     public function getSpatialAdaptiveQuantization(): ?string
     {
@@ -958,7 +958,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264Syntax::*|null
+     * @return H264Syntax::*|string|null
      */
     public function getSyntax(): ?string
     {
@@ -966,7 +966,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264Telecine::*|null
+     * @return H264Telecine::*|string|null
      */
     public function getTelecine(): ?string
     {
@@ -974,7 +974,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264TemporalAdaptiveQuantization::*|null
+     * @return H264TemporalAdaptiveQuantization::*|string|null
      */
     public function getTemporalAdaptiveQuantization(): ?string
     {
@@ -982,7 +982,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264UnregisteredSeiTimecode::*|null
+     * @return H264UnregisteredSeiTimecode::*|string|null
      */
     public function getUnregisteredSeiTimecode(): ?string
     {
@@ -990,7 +990,7 @@ final class H264Settings
     }
 
     /**
-     * @return H264WriteMp4PackagingType::*|null
+     * @return H264WriteMp4PackagingType::*|string|null
      */
     public function getWriteMp4PackagingType(): ?string
     {

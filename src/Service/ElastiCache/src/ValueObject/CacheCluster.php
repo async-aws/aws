@@ -350,7 +350,7 @@ final class CacheCluster
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
-     * @var NetworkType::*|null
+     * @var NetworkType::*|string|null
      */
     private $networkType;
 
@@ -361,14 +361,14 @@ final class CacheCluster
      *
      * [^1]: http://aws.amazon.com/ec2/nitro/
      *
-     * @var IpDiscovery::*|null
+     * @var IpDiscovery::*|string|null
      */
     private $ipDiscovery;
 
     /**
      * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
      *
-     * @var TransitEncryptionMode::*|null
+     * @var TransitEncryptionMode::*|string|null
      */
     private $transitEncryptionMode;
 
@@ -404,9 +404,9 @@ final class CacheCluster
      *   ARN?: null|string,
      *   ReplicationGroupLogDeliveryEnabled?: null|bool,
      *   LogDeliveryConfigurations?: null|array<LogDeliveryConfiguration|array>,
-     *   NetworkType?: null|NetworkType::*,
-     *   IpDiscovery?: null|IpDiscovery::*,
-     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     *   NetworkType?: null|NetworkType::*|string,
+     *   IpDiscovery?: null|IpDiscovery::*|string,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -478,9 +478,9 @@ final class CacheCluster
      *   ARN?: null|string,
      *   ReplicationGroupLogDeliveryEnabled?: null|bool,
      *   LogDeliveryConfigurations?: null|array<LogDeliveryConfiguration|array>,
-     *   NetworkType?: null|NetworkType::*,
-     *   IpDiscovery?: null|IpDiscovery::*,
-     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     *   NetworkType?: null|NetworkType::*|string,
+     *   IpDiscovery?: null|IpDiscovery::*|string,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*|string,
      * }|CacheCluster $input
      */
     public static function create($input): self
@@ -580,7 +580,7 @@ final class CacheCluster
     }
 
     /**
-     * @return IpDiscovery::*|null
+     * @return IpDiscovery::*|string|null
      */
     public function getIpDiscovery(): ?string
     {
@@ -596,7 +596,7 @@ final class CacheCluster
     }
 
     /**
-     * @return NetworkType::*|null
+     * @return NetworkType::*|string|null
      */
     public function getNetworkType(): ?string
     {
@@ -667,7 +667,7 @@ final class CacheCluster
     }
 
     /**
-     * @return TransitEncryptionMode::*|null
+     * @return TransitEncryptionMode::*|string|null
      */
     public function getTransitEncryptionMode(): ?string
     {

@@ -59,7 +59,7 @@ final class AudioDescription
      * value in Audio Type is included in the output. Note that this field and audioType are both ignored if
      * audioDescriptionBroadcasterMix is set to BROADCASTER_MIXED_AD.
      *
-     * @var AudioTypeControl::*|null
+     * @var AudioTypeControl::*|string|null
      */
     private $audioTypeControl;
 
@@ -88,7 +88,7 @@ final class AudioDescription
      * will be used when 'Follow Input Language Code' is not selected or when 'Follow Input Language Code' is selected but
      * there is no ISO 639 language code specified by the input.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $languageCode;
 
@@ -98,7 +98,7 @@ final class AudioDescription
      * the service uses the code that you specify in the setting Language code. When you choose Use configured, the service
      * uses the language code that you specify.
      *
-     * @var AudioLanguageCodeControl::*|null
+     * @var AudioLanguageCodeControl::*|string|null
      */
     private $languageCodeControl;
 
@@ -124,11 +124,11 @@ final class AudioDescription
      *   AudioNormalizationSettings?: null|AudioNormalizationSettings|array,
      *   AudioSourceName?: null|string,
      *   AudioType?: null|int,
-     *   AudioTypeControl?: null|AudioTypeControl::*,
+     *   AudioTypeControl?: null|AudioTypeControl::*|string,
      *   CodecSettings?: null|AudioCodecSettings|array,
      *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
+     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*|string,
      *   RemixSettings?: null|RemixSettings|array,
      *   StreamName?: null|string,
      * } $input
@@ -154,11 +154,11 @@ final class AudioDescription
      *   AudioNormalizationSettings?: null|AudioNormalizationSettings|array,
      *   AudioSourceName?: null|string,
      *   AudioType?: null|int,
-     *   AudioTypeControl?: null|AudioTypeControl::*,
+     *   AudioTypeControl?: null|AudioTypeControl::*|string,
      *   CodecSettings?: null|AudioCodecSettings|array,
      *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
+     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*|string,
      *   RemixSettings?: null|RemixSettings|array,
      *   StreamName?: null|string,
      * }|AudioDescription $input
@@ -189,7 +189,7 @@ final class AudioDescription
     }
 
     /**
-     * @return AudioTypeControl::*|null
+     * @return AudioTypeControl::*|string|null
      */
     public function getAudioTypeControl(): ?string
     {
@@ -207,7 +207,7 @@ final class AudioDescription
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getLanguageCode(): ?string
     {
@@ -215,7 +215,7 @@ final class AudioDescription
     }
 
     /**
-     * @return AudioLanguageCodeControl::*|null
+     * @return AudioLanguageCodeControl::*|string|null
      */
     public function getLanguageCodeControl(): ?string
     {

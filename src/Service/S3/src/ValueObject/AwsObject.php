@@ -47,7 +47,7 @@ final class AwsObject
     /**
      * The algorithm that was used to create a checksum of the object.
      *
-     * @var list<ChecksumAlgorithm::*>|null
+     * @var list<ChecksumAlgorithm::*|string>|null
      */
     private $checksumAlgorithm;
 
@@ -57,7 +57,7 @@ final class AwsObject
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -74,7 +74,7 @@ final class AwsObject
      * > **Directory buckets** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class) in
      * > Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
-     * @var ObjectStorageClass::*|null
+     * @var ObjectStorageClass::*|string|null
      */
     private $storageClass;
 
@@ -107,10 +107,10 @@ final class AwsObject
      *   Key?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*|string>,
+     *   ChecksumType?: null|ChecksumType::*|string,
      *   Size?: null|int,
-     *   StorageClass?: null|ObjectStorageClass::*,
+     *   StorageClass?: null|ObjectStorageClass::*|string,
      *   Owner?: null|Owner|array,
      *   RestoreStatus?: null|RestoreStatus|array,
      * } $input
@@ -133,10 +133,10 @@ final class AwsObject
      *   Key?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*|string>,
+     *   ChecksumType?: null|ChecksumType::*|string,
      *   Size?: null|int,
-     *   StorageClass?: null|ObjectStorageClass::*,
+     *   StorageClass?: null|ObjectStorageClass::*|string,
      *   Owner?: null|Owner|array,
      *   RestoreStatus?: null|RestoreStatus|array,
      * }|AwsObject $input
@@ -147,7 +147,7 @@ final class AwsObject
     }
 
     /**
-     * @return list<ChecksumAlgorithm::*>
+     * @return list<ChecksumAlgorithm::*|string>
      */
     public function getChecksumAlgorithm(): array
     {
@@ -155,7 +155,7 @@ final class AwsObject
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -193,7 +193,7 @@ final class AwsObject
     }
 
     /**
-     * @return ObjectStorageClass::*|null
+     * @return ObjectStorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

@@ -16,7 +16,7 @@ final class SSEDescription
      * - `ENABLED` - Server-side encryption is enabled.
      * - `UPDATING` - Server-side encryption is being updated.
      *
-     * @var SSEStatus::*|null
+     * @var SSEStatus::*|string|null
      */
     private $status;
 
@@ -26,7 +26,7 @@ final class SSEDescription
      * - `KMS` - Server-side encryption that uses Key Management Service. The key is stored in your account and is managed
      *   by KMS (KMS charges apply).
      *
-     * @var SSEType::*|null
+     * @var SSEType::*|string|null
      */
     private $sseType;
 
@@ -49,8 +49,8 @@ final class SSEDescription
 
     /**
      * @param array{
-     *   Status?: null|SSEStatus::*,
-     *   SSEType?: null|SSEType::*,
+     *   Status?: null|SSEStatus::*|string,
+     *   SSEType?: null|SSEType::*|string,
      *   KMSMasterKeyArn?: null|string,
      *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
      * } $input
@@ -65,8 +65,8 @@ final class SSEDescription
 
     /**
      * @param array{
-     *   Status?: null|SSEStatus::*,
-     *   SSEType?: null|SSEType::*,
+     *   Status?: null|SSEStatus::*|string,
+     *   SSEType?: null|SSEType::*|string,
      *   KMSMasterKeyArn?: null|string,
      *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
      * }|SSEDescription $input
@@ -87,7 +87,7 @@ final class SSEDescription
     }
 
     /**
-     * @return SSEType::*|null
+     * @return SSEType::*|string|null
      */
     public function getSseType(): ?string
     {
@@ -95,7 +95,7 @@ final class SSEDescription
     }
 
     /**
-     * @return SSEStatus::*|null
+     * @return SSEStatus::*|string|null
      */
     public function getStatus(): ?string
     {

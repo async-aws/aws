@@ -39,7 +39,7 @@ class SignResponse extends Result
     /**
      * The signing algorithm that was used to sign the message.
      *
-     * @var SigningAlgorithmSpec::*|null
+     * @var SigningAlgorithmSpec::*|string|null
      */
     private $signingAlgorithm;
 
@@ -58,7 +58,7 @@ class SignResponse extends Result
     }
 
     /**
-     * @return SigningAlgorithmSpec::*|null
+     * @return SigningAlgorithmSpec::*|string|null
      */
     public function getSigningAlgorithm(): ?string
     {

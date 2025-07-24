@@ -19,7 +19,7 @@ final class CodeDeliveryDetailsType
     /**
      * The method that Amazon Cognito used to send the code.
      *
-     * @var DeliveryMediumType::*|null
+     * @var DeliveryMediumType::*|string|null
      */
     private $deliveryMedium;
 
@@ -33,7 +33,7 @@ final class CodeDeliveryDetailsType
     /**
      * @param array{
      *   Destination?: null|string,
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
+     *   DeliveryMedium?: null|DeliveryMediumType::*|string,
      *   AttributeName?: null|string,
      * } $input
      */
@@ -47,7 +47,7 @@ final class CodeDeliveryDetailsType
     /**
      * @param array{
      *   Destination?: null|string,
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
+     *   DeliveryMedium?: null|DeliveryMediumType::*|string,
      *   AttributeName?: null|string,
      * }|CodeDeliveryDetailsType $input
      */
@@ -62,7 +62,7 @@ final class CodeDeliveryDetailsType
     }
 
     /**
-     * @return DeliveryMediumType::*|null
+     * @return DeliveryMediumType::*|string|null
      */
     public function getDeliveryMedium(): ?string
     {

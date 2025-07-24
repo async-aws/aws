@@ -17,13 +17,13 @@ final class AvcIntraUhdSettings
      * of your output is closer to the target bitrate defined in the specification. When you choose Single-pass, your
      * encoding time is faster. The default behavior is Single-pass.
      *
-     * @var AvcIntraUhdQualityTuningLevel::*|null
+     * @var AvcIntraUhdQualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
     /**
      * @param array{
-     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*,
+     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class AvcIntraUhdSettings
 
     /**
      * @param array{
-     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*,
+     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*|string,
      * }|AvcIntraUhdSettings $input
      */
     public static function create($input): self
@@ -42,7 +42,7 @@ final class AvcIntraUhdSettings
     }
 
     /**
-     * @return AvcIntraUhdQualityTuningLevel::*|null
+     * @return AvcIntraUhdQualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {

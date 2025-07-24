@@ -27,7 +27,7 @@ final class ReplicationStatusType
     /**
      * The status can be `InProgress`, `Failed`, or `InSync`.
      *
-     * @var StatusType::*|null
+     * @var StatusType::*|string|null
      */
     private $status;
 
@@ -50,7 +50,7 @@ final class ReplicationStatusType
      * @param array{
      *   Region?: null|string,
      *   KmsKeyId?: null|string,
-     *   Status?: null|StatusType::*,
+     *   Status?: null|StatusType::*|string,
      *   StatusMessage?: null|string,
      *   LastAccessedDate?: null|\DateTimeImmutable,
      * } $input
@@ -68,7 +68,7 @@ final class ReplicationStatusType
      * @param array{
      *   Region?: null|string,
      *   KmsKeyId?: null|string,
-     *   Status?: null|StatusType::*,
+     *   Status?: null|StatusType::*|string,
      *   StatusMessage?: null|string,
      *   LastAccessedDate?: null|\DateTimeImmutable,
      * }|ReplicationStatusType $input
@@ -94,7 +94,7 @@ final class ReplicationStatusType
     }
 
     /**
-     * @return StatusType::*|null
+     * @return StatusType::*|string|null
      */
     public function getStatus(): ?string
     {

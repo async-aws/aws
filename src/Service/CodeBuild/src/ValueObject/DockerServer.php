@@ -19,7 +19,7 @@ final class DockerServer
      * - `BUILD_GENERAL1_XLARGE`: Use up to 64 GiB memory and 32 vCPUs for your docker server.
      * - `BUILD_GENERAL1_2XLARGE`: Use up to 128 GiB memory and 64 vCPUs for your docker server.
      *
-     * @var ComputeType::*
+     * @var ComputeType::*|string
      */
     private $computeType;
 
@@ -42,7 +42,7 @@ final class DockerServer
 
     /**
      * @param array{
-     *   computeType: ComputeType::*,
+     *   computeType: ComputeType::*|string,
      *   securityGroupIds?: null|string[],
      *   status?: null|DockerServerStatus|array,
      * } $input
@@ -56,7 +56,7 @@ final class DockerServer
 
     /**
      * @param array{
-     *   computeType: ComputeType::*,
+     *   computeType: ComputeType::*|string,
      *   securityGroupIds?: null|string[],
      *   status?: null|DockerServerStatus|array,
      * }|DockerServer $input
@@ -67,7 +67,7 @@ final class DockerServer
     }
 
     /**
-     * @return ComputeType::*
+     * @return ComputeType::*|string
      */
     public function getComputeType(): string
     {

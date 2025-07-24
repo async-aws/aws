@@ -23,7 +23,7 @@ final class DolbyVision
     /**
      * Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
      *
-     * @var DolbyVisionLevel6Mode::*|null
+     * @var DolbyVisionLevel6Mode::*|string|null
      */
     private $l6Mode;
 
@@ -35,7 +35,7 @@ final class DolbyVision
      * sources with metadata that is created from analysis. For graded Dolby Vision content, be aware that creative intent
      * might not be guaranteed with extreme 1,000 nits trims.
      *
-     * @var DolbyVisionMapping::*|null
+     * @var DolbyVisionMapping::*|string|null
      */
     private $mapping;
 
@@ -45,16 +45,16 @@ final class DolbyVision
      * frame-interleaved Dolby Vision metadata and HDR10 metadata in your output. Your input must include Dolby Vision
      * metadata.
      *
-     * @var DolbyVisionProfile::*|null
+     * @var DolbyVisionProfile::*|string|null
      */
     private $profile;
 
     /**
      * @param array{
      *   L6Metadata?: null|DolbyVisionLevel6Metadata|array,
-     *   L6Mode?: null|DolbyVisionLevel6Mode::*,
-     *   Mapping?: null|DolbyVisionMapping::*,
-     *   Profile?: null|DolbyVisionProfile::*,
+     *   L6Mode?: null|DolbyVisionLevel6Mode::*|string,
+     *   Mapping?: null|DolbyVisionMapping::*|string,
+     *   Profile?: null|DolbyVisionProfile::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -68,9 +68,9 @@ final class DolbyVision
     /**
      * @param array{
      *   L6Metadata?: null|DolbyVisionLevel6Metadata|array,
-     *   L6Mode?: null|DolbyVisionLevel6Mode::*,
-     *   Mapping?: null|DolbyVisionMapping::*,
-     *   Profile?: null|DolbyVisionProfile::*,
+     *   L6Mode?: null|DolbyVisionLevel6Mode::*|string,
+     *   Mapping?: null|DolbyVisionMapping::*|string,
+     *   Profile?: null|DolbyVisionProfile::*|string,
      * }|DolbyVision $input
      */
     public static function create($input): self
@@ -84,7 +84,7 @@ final class DolbyVision
     }
 
     /**
-     * @return DolbyVisionLevel6Mode::*|null
+     * @return DolbyVisionLevel6Mode::*|string|null
      */
     public function getL6Mode(): ?string
     {
@@ -92,7 +92,7 @@ final class DolbyVision
     }
 
     /**
-     * @return DolbyVisionMapping::*|null
+     * @return DolbyVisionMapping::*|string|null
      */
     public function getMapping(): ?string
     {
@@ -100,7 +100,7 @@ final class DolbyVision
     }
 
     /**
-     * @return DolbyVisionProfile::*|null
+     * @return DolbyVisionProfile::*|string|null
      */
     public function getProfile(): ?string
     {

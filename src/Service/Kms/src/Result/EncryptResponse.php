@@ -28,7 +28,7 @@ class EncryptResponse extends Result
     /**
      * The encryption algorithm that was used to encrypt the plaintext.
      *
-     * @var EncryptionAlgorithmSpec::*|null
+     * @var EncryptionAlgorithmSpec::*|string|null
      */
     private $encryptionAlgorithm;
 
@@ -40,7 +40,7 @@ class EncryptResponse extends Result
     }
 
     /**
-     * @return EncryptionAlgorithmSpec::*|null
+     * @return EncryptionAlgorithmSpec::*|string|null
      */
     public function getEncryptionAlgorithm(): ?string
     {

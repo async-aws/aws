@@ -25,7 +25,7 @@ final class HlsEncryptionSettings
      * Encrypts the segments with the given encryption scheme. Leave blank to disable. Selecting 'Disabled' in the web
      * interface also disables encryption.
      *
-     * @var HlsEncryptionType::*|null
+     * @var HlsEncryptionType::*|string|null
      */
     private $encryptionMethod;
 
@@ -33,7 +33,7 @@ final class HlsEncryptionSettings
      * The Initialization Vector is a 128-bit number used in conjunction with the key for encrypting blocks. If set to
      * INCLUDE, Initialization Vector is listed in the manifest. Otherwise Initialization Vector is not in the manifest.
      *
-     * @var HlsInitializationVectorInManifest::*|null
+     * @var HlsInitializationVectorInManifest::*|string|null
      */
     private $initializationVectorInManifest;
 
@@ -41,7 +41,7 @@ final class HlsEncryptionSettings
      * Enable this setting to insert the EXT-X-SESSION-KEY element into the master playlist. This allows for offline Apple
      * HLS FairPlay content protection.
      *
-     * @var HlsOfflineEncrypted::*|null
+     * @var HlsOfflineEncrypted::*|string|null
      */
     private $offlineEncrypted;
 
@@ -64,19 +64,19 @@ final class HlsEncryptionSettings
      * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For more
      * information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      *
-     * @var HlsKeyProviderType::*|null
+     * @var HlsKeyProviderType::*|string|null
      */
     private $type;
 
     /**
      * @param array{
      *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|HlsEncryptionType::*,
-     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*,
-     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*,
+     *   EncryptionMethod?: null|HlsEncryptionType::*|string,
+     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*|string,
+     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*|string,
      *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
      *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|HlsKeyProviderType::*,
+     *   Type?: null|HlsKeyProviderType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -93,12 +93,12 @@ final class HlsEncryptionSettings
     /**
      * @param array{
      *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|HlsEncryptionType::*,
-     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*,
-     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*,
+     *   EncryptionMethod?: null|HlsEncryptionType::*|string,
+     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*|string,
+     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*|string,
      *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
      *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|HlsKeyProviderType::*,
+     *   Type?: null|HlsKeyProviderType::*|string,
      * }|HlsEncryptionSettings $input
      */
     public static function create($input): self
@@ -112,7 +112,7 @@ final class HlsEncryptionSettings
     }
 
     /**
-     * @return HlsEncryptionType::*|null
+     * @return HlsEncryptionType::*|string|null
      */
     public function getEncryptionMethod(): ?string
     {
@@ -120,7 +120,7 @@ final class HlsEncryptionSettings
     }
 
     /**
-     * @return HlsInitializationVectorInManifest::*|null
+     * @return HlsInitializationVectorInManifest::*|string|null
      */
     public function getInitializationVectorInManifest(): ?string
     {
@@ -128,7 +128,7 @@ final class HlsEncryptionSettings
     }
 
     /**
-     * @return HlsOfflineEncrypted::*|null
+     * @return HlsOfflineEncrypted::*|string|null
      */
     public function getOfflineEncrypted(): ?string
     {
@@ -146,7 +146,7 @@ final class HlsEncryptionSettings
     }
 
     /**
-     * @return HlsKeyProviderType::*|null
+     * @return HlsKeyProviderType::*|string|null
      */
     public function getType(): ?string
     {

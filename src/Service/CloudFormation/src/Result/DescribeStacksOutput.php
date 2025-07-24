@@ -109,7 +109,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<Capability::*>
+     * @return list<Capability::*|string>
      */
     private function populateResultCapabilities(\SimpleXMLElement $xml): array
     {

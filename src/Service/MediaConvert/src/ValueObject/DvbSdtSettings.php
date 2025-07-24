@@ -16,7 +16,7 @@ final class DvbSdtSettings
      * SDT information is present in the input, otherwise it will fall back on the user-defined values. Enter "SDT Manually"
      * means user will enter the SDT information. "No SDT" means output stream will not contain SDT information.
      *
-     * @var OutputSdt::*|null
+     * @var OutputSdt::*|string|null
      */
     private $outputSdt;
 
@@ -44,7 +44,7 @@ final class DvbSdtSettings
 
     /**
      * @param array{
-     *   OutputSdt?: null|OutputSdt::*,
+     *   OutputSdt?: null|OutputSdt::*|string,
      *   SdtInterval?: null|int,
      *   ServiceName?: null|string,
      *   ServiceProviderName?: null|string,
@@ -60,7 +60,7 @@ final class DvbSdtSettings
 
     /**
      * @param array{
-     *   OutputSdt?: null|OutputSdt::*,
+     *   OutputSdt?: null|OutputSdt::*|string,
      *   SdtInterval?: null|int,
      *   ServiceName?: null|string,
      *   ServiceProviderName?: null|string,
@@ -72,7 +72,7 @@ final class DvbSdtSettings
     }
 
     /**
-     * @return OutputSdt::*|null
+     * @return OutputSdt::*|string|null
      */
     public function getOutputSdt(): ?string
     {

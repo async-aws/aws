@@ -36,7 +36,7 @@ class DescribeStackDriftDetectionStatusOutput extends Result
      * - `UNKNOWN`: CloudFormation could not run drift detection for a resource in the stack. See the
      *   `DetectionStatusReason` for details.
      *
-     * @var StackDriftStatus::*|null
+     * @var StackDriftStatus::*|string|null
      */
     private $stackDriftStatus;
 
@@ -52,7 +52,7 @@ class DescribeStackDriftDetectionStatusOutput extends Result
      *   will be available for resources on which CloudFormation successfully completed drift detection.
      * - `DETECTION_IN_PROGRESS`: The stack drift detection operation is currently in progress.
      *
-     * @var StackDriftDetectionStatus::*
+     * @var StackDriftDetectionStatus::*|string
      */
     private $detectionStatus;
 
@@ -79,7 +79,7 @@ class DescribeStackDriftDetectionStatusOutput extends Result
     private $timestamp;
 
     /**
-     * @return StackDriftDetectionStatus::*
+     * @return StackDriftDetectionStatus::*|string
      */
     public function getDetectionStatus(): string
     {
@@ -110,7 +110,7 @@ class DescribeStackDriftDetectionStatusOutput extends Result
     }
 
     /**
-     * @return StackDriftStatus::*|null
+     * @return StackDriftStatus::*|string|null
      */
     public function getStackDriftStatus(): ?string
     {

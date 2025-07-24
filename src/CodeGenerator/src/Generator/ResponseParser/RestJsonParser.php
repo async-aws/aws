@@ -439,7 +439,7 @@ class RestJsonParser implements Parser
                 ->setType('array')
         ;
 
-        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
+        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape, false);
         $method
             ->setReturnType($returnType)
             ->setComment('@return ' . $parameterType);

@@ -25,7 +25,7 @@ final class WebvttHlsSourceSettings
     /**
      * Optional. Specify ISO 639-2 or ISO 639-3 code in the language property.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $renditionLanguageCode;
 
@@ -39,7 +39,7 @@ final class WebvttHlsSourceSettings
     /**
      * @param array{
      *   RenditionGroupId?: null|string,
-     *   RenditionLanguageCode?: null|LanguageCode::*,
+     *   RenditionLanguageCode?: null|LanguageCode::*|string,
      *   RenditionName?: null|string,
      * } $input
      */
@@ -53,7 +53,7 @@ final class WebvttHlsSourceSettings
     /**
      * @param array{
      *   RenditionGroupId?: null|string,
-     *   RenditionLanguageCode?: null|LanguageCode::*,
+     *   RenditionLanguageCode?: null|LanguageCode::*|string,
      *   RenditionName?: null|string,
      * }|WebvttHlsSourceSettings $input
      */
@@ -68,7 +68,7 @@ final class WebvttHlsSourceSettings
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getRenditionLanguageCode(): ?string
     {

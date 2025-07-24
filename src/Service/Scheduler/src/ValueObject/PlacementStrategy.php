@@ -27,14 +27,14 @@ final class PlacementStrategy
      * specified with the field parameter. For example, if you binpack on memory, a task is placed on the instance with the
      * least amount of remaining memory (but still enough to run the task).
      *
-     * @var PlacementStrategyType::*|null
+     * @var PlacementStrategyType::*|string|null
      */
     private $type;
 
     /**
      * @param array{
      *   field?: null|string,
-     *   type?: null|PlacementStrategyType::*,
+     *   type?: null|PlacementStrategyType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -46,7 +46,7 @@ final class PlacementStrategy
     /**
      * @param array{
      *   field?: null|string,
-     *   type?: null|PlacementStrategyType::*,
+     *   type?: null|PlacementStrategyType::*|string,
      * }|PlacementStrategy $input
      */
     public static function create($input): self
@@ -60,7 +60,7 @@ final class PlacementStrategy
     }
 
     /**
-     * @return PlacementStrategyType::*|null
+     * @return PlacementStrategyType::*|string|null
      */
     public function getType(): ?string
     {

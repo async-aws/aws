@@ -27,7 +27,7 @@ final class QueryResultsS3AccessGrantsConfiguration
     /**
      * The authentication type used for Amazon S3 access grants. Currently, only `DIRECTORY_IDENTITY` is supported.
      *
-     * @var AuthenticationType::*
+     * @var AuthenticationType::*|string
      */
     private $authenticationType;
 
@@ -35,7 +35,7 @@ final class QueryResultsS3AccessGrantsConfiguration
      * @param array{
      *   EnableS3AccessGrants: bool,
      *   CreateUserLevelPrefix?: null|bool,
-     *   AuthenticationType: AuthenticationType::*,
+     *   AuthenticationType: AuthenticationType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -49,7 +49,7 @@ final class QueryResultsS3AccessGrantsConfiguration
      * @param array{
      *   EnableS3AccessGrants: bool,
      *   CreateUserLevelPrefix?: null|bool,
-     *   AuthenticationType: AuthenticationType::*,
+     *   AuthenticationType: AuthenticationType::*|string,
      * }|QueryResultsS3AccessGrantsConfiguration $input
      */
     public static function create($input): self
@@ -58,7 +58,7 @@ final class QueryResultsS3AccessGrantsConfiguration
     }
 
     /**
-     * @return AuthenticationType::*
+     * @return AuthenticationType::*|string
      */
     public function getAuthenticationType(): string
     {

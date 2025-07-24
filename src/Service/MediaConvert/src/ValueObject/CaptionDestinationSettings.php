@@ -28,7 +28,7 @@ final class CaptionDestinationSettings
      * want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To create a non-compliant
      * output where the embedded captions come first, choose Embedded plus SCTE-20.
      *
-     * @var CaptionDestinationType::*|null
+     * @var CaptionDestinationType::*|string|null
      */
     private $destinationType;
 
@@ -104,7 +104,7 @@ final class CaptionDestinationSettings
     /**
      * @param array{
      *   BurninDestinationSettings?: null|BurninDestinationSettings|array,
-     *   DestinationType?: null|CaptionDestinationType::*,
+     *   DestinationType?: null|CaptionDestinationType::*|string,
      *   DvbSubDestinationSettings?: null|DvbSubDestinationSettings|array,
      *   EmbeddedDestinationSettings?: null|EmbeddedDestinationSettings|array,
      *   ImscDestinationSettings?: null|ImscDestinationSettings|array,
@@ -132,7 +132,7 @@ final class CaptionDestinationSettings
     /**
      * @param array{
      *   BurninDestinationSettings?: null|BurninDestinationSettings|array,
-     *   DestinationType?: null|CaptionDestinationType::*,
+     *   DestinationType?: null|CaptionDestinationType::*|string,
      *   DvbSubDestinationSettings?: null|DvbSubDestinationSettings|array,
      *   EmbeddedDestinationSettings?: null|EmbeddedDestinationSettings|array,
      *   ImscDestinationSettings?: null|ImscDestinationSettings|array,
@@ -154,7 +154,7 @@ final class CaptionDestinationSettings
     }
 
     /**
-     * @return CaptionDestinationType::*|null
+     * @return CaptionDestinationType::*|string|null
      */
     public function getDestinationType(): ?string
     {

@@ -20,7 +20,7 @@ final class TimecodeBurnin
     /**
      * Use Position under Timecode burn-in to specify the location the burned-in timecode on output video.
      *
-     * @var TimecodeBurninPosition::*|null
+     * @var TimecodeBurninPosition::*|string|null
      */
     private $position;
 
@@ -37,7 +37,7 @@ final class TimecodeBurnin
     /**
      * @param array{
      *   FontSize?: null|int,
-     *   Position?: null|TimecodeBurninPosition::*,
+     *   Position?: null|TimecodeBurninPosition::*|string,
      *   Prefix?: null|string,
      * } $input
      */
@@ -51,7 +51,7 @@ final class TimecodeBurnin
     /**
      * @param array{
      *   FontSize?: null|int,
-     *   Position?: null|TimecodeBurninPosition::*,
+     *   Position?: null|TimecodeBurninPosition::*|string,
      *   Prefix?: null|string,
      * }|TimecodeBurnin $input
      */
@@ -66,7 +66,7 @@ final class TimecodeBurnin
     }
 
     /**
-     * @return TimecodeBurninPosition::*|null
+     * @return TimecodeBurninPosition::*|string|null
      */
     public function getPosition(): ?string
     {

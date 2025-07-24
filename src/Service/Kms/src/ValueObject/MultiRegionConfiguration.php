@@ -15,7 +15,7 @@ final class MultiRegionConfiguration
     /**
      * Indicates whether the KMS key is a `PRIMARY` or `REPLICA` key.
      *
-     * @var MultiRegionKeyType::*|null
+     * @var MultiRegionKeyType::*|string|null
      */
     private $multiRegionKeyType;
 
@@ -36,7 +36,7 @@ final class MultiRegionConfiguration
 
     /**
      * @param array{
-     *   MultiRegionKeyType?: null|MultiRegionKeyType::*,
+     *   MultiRegionKeyType?: null|MultiRegionKeyType::*|string,
      *   PrimaryKey?: null|MultiRegionKey|array,
      *   ReplicaKeys?: null|array<MultiRegionKey|array>,
      * } $input
@@ -50,7 +50,7 @@ final class MultiRegionConfiguration
 
     /**
      * @param array{
-     *   MultiRegionKeyType?: null|MultiRegionKeyType::*,
+     *   MultiRegionKeyType?: null|MultiRegionKeyType::*|string,
      *   PrimaryKey?: null|MultiRegionKey|array,
      *   ReplicaKeys?: null|array<MultiRegionKey|array>,
      * }|MultiRegionConfiguration $input
@@ -61,7 +61,7 @@ final class MultiRegionConfiguration
     }
 
     /**
-     * @return MultiRegionKeyType::*|null
+     * @return MultiRegionKeyType::*|string|null
      */
     public function getMultiRegionKeyType(): ?string
     {

@@ -37,7 +37,7 @@ final class AccessKey
     /**
      * The status of the access key. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
      *
-     * @var StatusType::*
+     * @var StatusType::*|string
      */
     private $status;
 
@@ -59,7 +59,7 @@ final class AccessKey
      * @param array{
      *   UserName: string,
      *   AccessKeyId: string,
-     *   Status: StatusType::*,
+     *   Status: StatusType::*|string,
      *   SecretAccessKey: string,
      *   CreateDate?: null|\DateTimeImmutable,
      * } $input
@@ -77,7 +77,7 @@ final class AccessKey
      * @param array{
      *   UserName: string,
      *   AccessKeyId: string,
-     *   Status: StatusType::*,
+     *   Status: StatusType::*|string,
      *   SecretAccessKey: string,
      *   CreateDate?: null|\DateTimeImmutable,
      * }|AccessKey $input
@@ -103,7 +103,7 @@ final class AccessKey
     }
 
     /**
-     * @return StatusType::*
+     * @return StatusType::*|string
      */
     public function getStatus(): string
     {

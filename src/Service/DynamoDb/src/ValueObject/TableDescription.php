@@ -70,7 +70,7 @@ final class TableDescription
      * - `ARCHIVING` - The table is being archived. Operations are not allowed until archival is complete.
      * - `ARCHIVED` - The table has been archived. See the ArchivalReason for more information.
      *
-     * @var TableStatus::*|null
+     * @var TableStatus::*|string|null
      */
     private $tableStatus;
 
@@ -332,7 +332,7 @@ final class TableDescription
      *
      * [^1]: https://docs.aws.amazon.com/V2globaltables_HowItWorks.html#V2globaltables_HowItWorks.consistency-modes
      *
-     * @var MultiRegionConsistency::*|null
+     * @var MultiRegionConsistency::*|string|null
      */
     private $multiRegionConsistency;
 
@@ -341,7 +341,7 @@ final class TableDescription
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
-     *   TableStatus?: null|TableStatus::*,
+     *   TableStatus?: null|TableStatus::*|string,
      *   CreationDateTime?: null|\DateTimeImmutable,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
      *   TableSizeBytes?: null|int,
@@ -364,7 +364,7 @@ final class TableDescription
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|TableWarmThroughputDescription|array,
-     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -403,7 +403,7 @@ final class TableDescription
      *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
      *   TableName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
-     *   TableStatus?: null|TableStatus::*,
+     *   TableStatus?: null|TableStatus::*|string,
      *   CreationDateTime?: null|\DateTimeImmutable,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
      *   TableSizeBytes?: null|int,
@@ -426,7 +426,7 @@ final class TableDescription
      *   DeletionProtectionEnabled?: null|bool,
      *   OnDemandThroughput?: null|OnDemandThroughput|array,
      *   WarmThroughput?: null|TableWarmThroughputDescription|array,
-     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
+     *   MultiRegionConsistency?: null|MultiRegionConsistency::*|string,
      * }|TableDescription $input
      */
     public static function create($input): self
@@ -515,7 +515,7 @@ final class TableDescription
     }
 
     /**
-     * @return MultiRegionConsistency::*|null
+     * @return MultiRegionConsistency::*|string|null
      */
     public function getMultiRegionConsistency(): ?string
     {
@@ -581,7 +581,7 @@ final class TableDescription
     }
 
     /**
-     * @return TableStatus::*|null
+     * @return TableStatus::*|string|null
      */
     public function getTableStatus(): ?string
     {

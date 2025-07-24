@@ -19,7 +19,7 @@ final class NoiseReducer
      * Lanczos, and Sharpen (sharpest) do convolution filtering. * Conserve does min/max noise reduction. * Spatial does
      * frequency-domain filtering based on JND principles. * Temporal optimizes video quality for complex motion.
      *
-     * @var NoiseReducerFilter::*|null
+     * @var NoiseReducerFilter::*|string|null
      */
     private $filter;
 
@@ -46,7 +46,7 @@ final class NoiseReducer
 
     /**
      * @param array{
-     *   Filter?: null|NoiseReducerFilter::*,
+     *   Filter?: null|NoiseReducerFilter::*|string,
      *   FilterSettings?: null|NoiseReducerFilterSettings|array,
      *   SpatialFilterSettings?: null|NoiseReducerSpatialFilterSettings|array,
      *   TemporalFilterSettings?: null|NoiseReducerTemporalFilterSettings|array,
@@ -62,7 +62,7 @@ final class NoiseReducer
 
     /**
      * @param array{
-     *   Filter?: null|NoiseReducerFilter::*,
+     *   Filter?: null|NoiseReducerFilter::*|string,
      *   FilterSettings?: null|NoiseReducerFilterSettings|array,
      *   SpatialFilterSettings?: null|NoiseReducerSpatialFilterSettings|array,
      *   TemporalFilterSettings?: null|NoiseReducerTemporalFilterSettings|array,
@@ -74,7 +74,7 @@ final class NoiseReducer
     }
 
     /**
-     * @return NoiseReducerFilter::*|null
+     * @return NoiseReducerFilter::*|string|null
      */
     public function getFilter(): ?string
     {

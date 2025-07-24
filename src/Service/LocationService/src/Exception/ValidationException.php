@@ -15,7 +15,7 @@ final class ValidationException extends ClientException
     /**
      * A message with the reason for the validation exception error.
      *
-     * @var ValidationExceptionReason::*
+     * @var ValidationExceptionReason::*|string
      */
     private $reason;
 
@@ -35,7 +35,7 @@ final class ValidationException extends ClientException
     }
 
     /**
-     * @return ValidationExceptionReason::*
+     * @return ValidationExceptionReason::*|string
      */
     public function getReason(): string
     {

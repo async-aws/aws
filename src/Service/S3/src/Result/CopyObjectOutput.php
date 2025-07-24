@@ -51,7 +51,7 @@ class CopyObjectOutput extends Result
      * > When accessing data stored in Amazon FSx file systems using S3 access points, the only valid server side encryption
      * > option is `aws:fsx`.
      *
-     * @var ServerSideEncryption::*|null
+     * @var ServerSideEncryption::*|string|null
      */
     private $serverSideEncryption;
 
@@ -99,7 +99,7 @@ class CopyObjectOutput extends Result
     private $bucketKeyEnabled;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -132,7 +132,7 @@ class CopyObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -142,7 +142,7 @@ class CopyObjectOutput extends Result
     }
 
     /**
-     * @return ServerSideEncryption::*|null
+     * @return ServerSideEncryption::*|string|null
      */
     public function getServerSideEncryption(): ?string
     {

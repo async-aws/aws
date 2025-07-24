@@ -60,7 +60,7 @@ final class Resolver
      * - **PIPELINE**: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of `Function` objects in
      *   a serial manner. You can use a pipeline resolver to run a GraphQL query against multiple data sources.
      *
-     * @var ResolverKind::*|null
+     * @var ResolverKind::*|string|null
      */
     private $kind;
 
@@ -113,7 +113,7 @@ final class Resolver
      *
      * `metricsConfig` can be `ENABLED` or `DISABLED`.
      *
-     * @var ResolverLevelMetricsConfig::*|null
+     * @var ResolverLevelMetricsConfig::*|string|null
      */
     private $metricsConfig;
 
@@ -125,14 +125,14 @@ final class Resolver
      *   resolverArn?: null|string,
      *   requestMappingTemplate?: null|string,
      *   responseMappingTemplate?: null|string,
-     *   kind?: null|ResolverKind::*,
+     *   kind?: null|ResolverKind::*|string,
      *   pipelineConfig?: null|PipelineConfig|array,
      *   syncConfig?: null|SyncConfig|array,
      *   cachingConfig?: null|CachingConfig|array,
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
-     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -161,14 +161,14 @@ final class Resolver
      *   resolverArn?: null|string,
      *   requestMappingTemplate?: null|string,
      *   responseMappingTemplate?: null|string,
-     *   kind?: null|ResolverKind::*,
+     *   kind?: null|ResolverKind::*|string,
      *   pipelineConfig?: null|PipelineConfig|array,
      *   syncConfig?: null|SyncConfig|array,
      *   cachingConfig?: null|CachingConfig|array,
      *   maxBatchSize?: null|int,
      *   runtime?: null|AppSyncRuntime|array,
      *   code?: null|string,
-     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
+     *   metricsConfig?: null|ResolverLevelMetricsConfig::*|string,
      * }|Resolver $input
      */
     public static function create($input): self
@@ -197,7 +197,7 @@ final class Resolver
     }
 
     /**
-     * @return ResolverKind::*|null
+     * @return ResolverKind::*|string|null
      */
     public function getKind(): ?string
     {
@@ -210,7 +210,7 @@ final class Resolver
     }
 
     /**
-     * @return ResolverLevelMetricsConfig::*|null
+     * @return ResolverLevelMetricsConfig::*|string|null
      */
     public function getMetricsConfig(): ?string
     {

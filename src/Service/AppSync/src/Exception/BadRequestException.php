@@ -16,7 +16,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class BadRequestException extends ClientException
 {
     /**
-     * @var BadRequestReason::*|null
+     * @var BadRequestReason::*|string|null
      */
     private $reason;
 
@@ -31,7 +31,7 @@ final class BadRequestException extends ClientException
     }
 
     /**
-     * @return BadRequestReason::*|null
+     * @return BadRequestReason::*|string|null
      */
     public function getReason(): ?string
     {

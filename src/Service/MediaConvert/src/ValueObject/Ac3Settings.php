@@ -32,14 +32,14 @@ final class Ac3Settings
      * Specify the bitstream mode for the AC-3 stream that the encoder emits. For more information about the AC3 bitstream
      * mode, see ATSC A/52-2012 (Annex E).
      *
-     * @var Ac3BitstreamMode::*|null
+     * @var Ac3BitstreamMode::*|string|null
      */
     private $bitstreamMode;
 
     /**
      * Dolby Digital coding mode. Determines number of channels.
      *
-     * @var Ac3CodingMode::*|null
+     * @var Ac3CodingMode::*|string|null
      */
     private $codingMode;
 
@@ -57,7 +57,7 @@ final class Ac3Settings
      * modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
-     * @var Ac3DynamicRangeCompressionLine::*|null
+     * @var Ac3DynamicRangeCompressionLine::*|string|null
      */
     private $dynamicRangeCompressionLine;
 
@@ -69,7 +69,7 @@ final class Ac3Settings
      * use this setting instead of the mode-specific settings, choose None to leave out DRC signaling. Keep the default Film
      * standard to set the profile to Dolby's film standard profile for all operating modes.
      *
-     * @var Ac3DynamicRangeCompressionProfile::*|null
+     * @var Ac3DynamicRangeCompressionProfile::*|string|null
      */
     private $dynamicRangeCompressionProfile;
 
@@ -80,14 +80,14 @@ final class Ac3Settings
      * and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
-     * @var Ac3DynamicRangeCompressionRf::*|null
+     * @var Ac3DynamicRangeCompressionRf::*|string|null
      */
     private $dynamicRangeCompressionRf;
 
     /**
      * Applies a 120Hz lowpass filter to the LFE channel prior to encoding. Only valid with 3_2_LFE coding mode.
      *
-     * @var Ac3LfeFilter::*|null
+     * @var Ac3LfeFilter::*|string|null
      */
     private $lfeFilter;
 
@@ -95,7 +95,7 @@ final class Ac3Settings
      * When set to FOLLOW_INPUT, encoder metadata will be sourced from the DD, DD+, or DolbyE decoder that supplied this
      * audio data. If audio was not supplied from one of these streams, then the static metadata settings will be used.
      *
-     * @var Ac3MetadataControl::*|null
+     * @var Ac3MetadataControl::*|string|null
      */
     private $metadataControl;
 
@@ -109,14 +109,14 @@ final class Ac3Settings
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Ac3BitstreamMode::*,
-     *   CodingMode?: null|Ac3CodingMode::*,
+     *   BitstreamMode?: null|Ac3BitstreamMode::*|string,
+     *   CodingMode?: null|Ac3CodingMode::*|string,
      *   Dialnorm?: null|int,
-     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*,
-     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*,
-     *   LfeFilter?: null|Ac3LfeFilter::*,
-     *   MetadataControl?: null|Ac3MetadataControl::*,
+     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*|string,
+     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*|string,
+     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*|string,
+     *   LfeFilter?: null|Ac3LfeFilter::*|string,
+     *   MetadataControl?: null|Ac3MetadataControl::*|string,
      *   SampleRate?: null|int,
      * } $input
      */
@@ -137,14 +137,14 @@ final class Ac3Settings
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Ac3BitstreamMode::*,
-     *   CodingMode?: null|Ac3CodingMode::*,
+     *   BitstreamMode?: null|Ac3BitstreamMode::*|string,
+     *   CodingMode?: null|Ac3CodingMode::*|string,
      *   Dialnorm?: null|int,
-     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*,
-     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*,
-     *   LfeFilter?: null|Ac3LfeFilter::*,
-     *   MetadataControl?: null|Ac3MetadataControl::*,
+     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*|string,
+     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*|string,
+     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*|string,
+     *   LfeFilter?: null|Ac3LfeFilter::*|string,
+     *   MetadataControl?: null|Ac3MetadataControl::*|string,
      *   SampleRate?: null|int,
      * }|Ac3Settings $input
      */
@@ -159,7 +159,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3BitstreamMode::*|null
+     * @return Ac3BitstreamMode::*|string|null
      */
     public function getBitstreamMode(): ?string
     {
@@ -167,7 +167,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3CodingMode::*|null
+     * @return Ac3CodingMode::*|string|null
      */
     public function getCodingMode(): ?string
     {
@@ -180,7 +180,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3DynamicRangeCompressionLine::*|null
+     * @return Ac3DynamicRangeCompressionLine::*|string|null
      */
     public function getDynamicRangeCompressionLine(): ?string
     {
@@ -188,7 +188,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3DynamicRangeCompressionProfile::*|null
+     * @return Ac3DynamicRangeCompressionProfile::*|string|null
      */
     public function getDynamicRangeCompressionProfile(): ?string
     {
@@ -196,7 +196,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3DynamicRangeCompressionRf::*|null
+     * @return Ac3DynamicRangeCompressionRf::*|string|null
      */
     public function getDynamicRangeCompressionRf(): ?string
     {
@@ -204,7 +204,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3LfeFilter::*|null
+     * @return Ac3LfeFilter::*|string|null
      */
     public function getLfeFilter(): ?string
     {
@@ -212,7 +212,7 @@ final class Ac3Settings
     }
 
     /**
-     * @return Ac3MetadataControl::*|null
+     * @return Ac3MetadataControl::*|string|null
      */
     public function getMetadataControl(): ?string
     {

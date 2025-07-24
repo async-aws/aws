@@ -19,14 +19,14 @@ final class GlobalTableWitnessDescription
     /**
      * The current status of the witness Region in the MRSC global table.
      *
-     * @var WitnessStatus::*|null
+     * @var WitnessStatus::*|string|null
      */
     private $witnessStatus;
 
     /**
      * @param array{
      *   RegionName?: null|string,
-     *   WitnessStatus?: null|WitnessStatus::*,
+     *   WitnessStatus?: null|WitnessStatus::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -38,7 +38,7 @@ final class GlobalTableWitnessDescription
     /**
      * @param array{
      *   RegionName?: null|string,
-     *   WitnessStatus?: null|WitnessStatus::*,
+     *   WitnessStatus?: null|WitnessStatus::*|string,
      * }|GlobalTableWitnessDescription $input
      */
     public static function create($input): self
@@ -52,7 +52,7 @@ final class GlobalTableWitnessDescription
     }
 
     /**
-     * @return WitnessStatus::*|null
+     * @return WitnessStatus::*|string|null
      */
     public function getWitnessStatus(): ?string
     {

@@ -22,7 +22,7 @@ final class UnindexedFace
      * - LOW_CONFIDENCE - The face was detected with a low confidence.
      * - SMALL_BOUNDING_BOX - The bounding box around the face is too small.
      *
-     * @var list<Reason::*>|null
+     * @var list<Reason::*|string>|null
      */
     private $reasons;
 
@@ -35,7 +35,7 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|array<Reason::*>,
+     *   Reasons?: null|array<Reason::*|string>,
      *   FaceDetail?: null|FaceDetail|array,
      * } $input
      */
@@ -47,7 +47,7 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|array<Reason::*>,
+     *   Reasons?: null|array<Reason::*|string>,
      *   FaceDetail?: null|FaceDetail|array,
      * }|UnindexedFace $input
      */
@@ -62,7 +62,7 @@ final class UnindexedFace
     }
 
     /**
-     * @return list<Reason::*>
+     * @return list<Reason::*|string>
      */
     public function getReasons(): array
     {

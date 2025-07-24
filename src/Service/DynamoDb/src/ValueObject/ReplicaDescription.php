@@ -33,7 +33,7 @@ final class ReplicaDescription
      *   > If the KMS key remains inaccessible for more than 20 hours, DynamoDB will remove this replica from the
      *   > replication group. The replica will not be deleted and replication will stop from and to this region.
      *
-     * @var ReplicaStatus::*|null
+     * @var ReplicaStatus::*|string|null
      */
     private $replicaStatus;
 
@@ -102,7 +102,7 @@ final class ReplicaDescription
     /**
      * @param array{
      *   RegionName?: null|string,
-     *   ReplicaStatus?: null|ReplicaStatus::*,
+     *   ReplicaStatus?: null|ReplicaStatus::*|string,
      *   ReplicaStatusDescription?: null|string,
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
@@ -132,7 +132,7 @@ final class ReplicaDescription
     /**
      * @param array{
      *   RegionName?: null|string,
-     *   ReplicaStatus?: null|ReplicaStatus::*,
+     *   ReplicaStatus?: null|ReplicaStatus::*|string,
      *   ReplicaStatusDescription?: null|string,
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
@@ -183,7 +183,7 @@ final class ReplicaDescription
     }
 
     /**
-     * @return ReplicaStatus::*|null
+     * @return ReplicaStatus::*|string|null
      */
     public function getReplicaStatus(): ?string
     {

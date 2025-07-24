@@ -33,7 +33,7 @@ final class Job
      * transcoding, depending on how you set Acceleration (AccelerationMode). When the service runs your job without
      * accelerated transcoding, AccelerationStatus is NOT_ACCELERATED.
      *
-     * @var AccelerationStatus::*|null
+     * @var AccelerationStatus::*|string|null
      */
     private $accelerationStatus;
 
@@ -48,7 +48,7 @@ final class Job
      * The tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert costs on any
      * billing report that you set up.
      *
-     * @var BillingTagsSource::*|null
+     * @var BillingTagsSource::*|string|null
      */
     private $billingTagsSource;
 
@@ -72,7 +72,7 @@ final class Job
     /**
      * A job's phase can be PROBING, TRANSCODING OR UPLOADING.
      *
-     * @var JobPhase::*|null
+     * @var JobPhase::*|string|null
      */
     private $currentPhase;
 
@@ -205,14 +205,14 @@ final class Job
      * is enabled, MediaConvert runs your job from an on-demand queue with similar performance to what you will see with one
      * RTS in a reserved queue. This setting is disabled by default.
      *
-     * @var SimulateReservedQueue::*|null
+     * @var SimulateReservedQueue::*|string|null
      */
     private $simulateReservedQueue;
 
     /**
      * A job's status can be SUBMITTED, PROGRESSING, COMPLETE, CANCELED, or ERROR.
      *
-     * @var JobStatus::*|null
+     * @var JobStatus::*|string|null
      */
     private $status;
 
@@ -221,7 +221,7 @@ final class Job
      * between status updates. MediaConvert sends an update at this interval from the time the service begins processing
      * your job to the time it completes the transcode or encounters an error.
      *
-     * @var StatusUpdateInterval::*|null
+     * @var StatusUpdateInterval::*|string|null
      */
     private $statusUpdateInterval;
 
@@ -250,12 +250,12 @@ final class Job
     /**
      * @param array{
      *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   AccelerationStatus?: null|AccelerationStatus::*,
+     *   AccelerationStatus?: null|AccelerationStatus::*|string,
      *   Arn?: null|string,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
+     *   BillingTagsSource?: null|BillingTagsSource::*|string,
      *   ClientRequestToken?: null|string,
      *   CreatedAt?: null|\DateTimeImmutable,
-     *   CurrentPhase?: null|JobPhase::*,
+     *   CurrentPhase?: null|JobPhase::*|string,
      *   ErrorCode?: null|int,
      *   ErrorMessage?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
@@ -272,9 +272,9 @@ final class Job
      *   RetryCount?: null|int,
      *   Role: string,
      *   Settings: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   Status?: null|JobStatus::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
+     *   SimulateReservedQueue?: null|SimulateReservedQueue::*|string,
+     *   Status?: null|JobStatus::*|string,
+     *   StatusUpdateInterval?: null|StatusUpdateInterval::*|string,
      *   Timing?: null|Timing|array,
      *   UserMetadata?: null|array<string, string>,
      *   Warnings?: null|array<WarningGroup|array>,
@@ -316,12 +316,12 @@ final class Job
     /**
      * @param array{
      *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   AccelerationStatus?: null|AccelerationStatus::*,
+     *   AccelerationStatus?: null|AccelerationStatus::*|string,
      *   Arn?: null|string,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
+     *   BillingTagsSource?: null|BillingTagsSource::*|string,
      *   ClientRequestToken?: null|string,
      *   CreatedAt?: null|\DateTimeImmutable,
-     *   CurrentPhase?: null|JobPhase::*,
+     *   CurrentPhase?: null|JobPhase::*|string,
      *   ErrorCode?: null|int,
      *   ErrorMessage?: null|string,
      *   HopDestinations?: null|array<HopDestination|array>,
@@ -338,9 +338,9 @@ final class Job
      *   RetryCount?: null|int,
      *   Role: string,
      *   Settings: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   Status?: null|JobStatus::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
+     *   SimulateReservedQueue?: null|SimulateReservedQueue::*|string,
+     *   Status?: null|JobStatus::*|string,
+     *   StatusUpdateInterval?: null|StatusUpdateInterval::*|string,
      *   Timing?: null|Timing|array,
      *   UserMetadata?: null|array<string, string>,
      *   Warnings?: null|array<WarningGroup|array>,
@@ -357,7 +357,7 @@ final class Job
     }
 
     /**
-     * @return AccelerationStatus::*|null
+     * @return AccelerationStatus::*|string|null
      */
     public function getAccelerationStatus(): ?string
     {
@@ -370,7 +370,7 @@ final class Job
     }
 
     /**
-     * @return BillingTagsSource::*|null
+     * @return BillingTagsSource::*|string|null
      */
     public function getBillingTagsSource(): ?string
     {
@@ -388,7 +388,7 @@ final class Job
     }
 
     /**
-     * @return JobPhase::*|null
+     * @return JobPhase::*|string|null
      */
     public function getCurrentPhase(): ?string
     {
@@ -485,7 +485,7 @@ final class Job
     }
 
     /**
-     * @return SimulateReservedQueue::*|null
+     * @return SimulateReservedQueue::*|string|null
      */
     public function getSimulateReservedQueue(): ?string
     {
@@ -493,7 +493,7 @@ final class Job
     }
 
     /**
-     * @return JobStatus::*|null
+     * @return JobStatus::*|string|null
      */
     public function getStatus(): ?string
     {
@@ -501,7 +501,7 @@ final class Job
     }
 
     /**
-     * @return StatusUpdateInterval::*|null
+     * @return StatusUpdateInterval::*|string|null
      */
     public function getStatusUpdateInterval(): ?string
     {

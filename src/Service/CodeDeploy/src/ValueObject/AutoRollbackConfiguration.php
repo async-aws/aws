@@ -21,14 +21,14 @@ final class AutoRollbackConfiguration
     /**
      * The event type or types that trigger a rollback.
      *
-     * @var list<AutoRollbackEvent::*>|null
+     * @var list<AutoRollbackEvent::*|string>|null
      */
     private $events;
 
     /**
      * @param array{
      *   enabled?: null|bool,
-     *   events?: null|array<AutoRollbackEvent::*>,
+     *   events?: null|array<AutoRollbackEvent::*|string>,
      * } $input
      */
     public function __construct(array $input)
@@ -40,7 +40,7 @@ final class AutoRollbackConfiguration
     /**
      * @param array{
      *   enabled?: null|bool,
-     *   events?: null|array<AutoRollbackEvent::*>,
+     *   events?: null|array<AutoRollbackEvent::*|string>,
      * }|AutoRollbackConfiguration $input
      */
     public static function create($input): self
@@ -54,7 +54,7 @@ final class AutoRollbackConfiguration
     }
 
     /**
-     * @return list<AutoRollbackEvent::*>
+     * @return list<AutoRollbackEvent::*|string>
      */
     public function getEvents(): array
     {

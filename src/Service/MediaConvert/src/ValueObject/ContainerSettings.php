@@ -21,7 +21,7 @@ final class ContainerSettings
      * Container for this output. Some containers require a container settings object. If not specified, the default object
      * will be created.
      *
-     * @var ContainerType::*|null
+     * @var ContainerType::*|string|null
      */
     private $container;
 
@@ -85,7 +85,7 @@ final class ContainerSettings
     /**
      * @param array{
      *   CmfcSettings?: null|CmfcSettings|array,
-     *   Container?: null|ContainerType::*,
+     *   Container?: null|ContainerType::*|string,
      *   F4vSettings?: null|F4vSettings|array,
      *   M2tsSettings?: null|M2tsSettings|array,
      *   M3u8Settings?: null|M3u8Settings|array,
@@ -111,7 +111,7 @@ final class ContainerSettings
     /**
      * @param array{
      *   CmfcSettings?: null|CmfcSettings|array,
-     *   Container?: null|ContainerType::*,
+     *   Container?: null|ContainerType::*|string,
      *   F4vSettings?: null|F4vSettings|array,
      *   M2tsSettings?: null|M2tsSettings|array,
      *   M3u8Settings?: null|M3u8Settings|array,
@@ -132,7 +132,7 @@ final class ContainerSettings
     }
 
     /**
-     * @return ContainerType::*|null
+     * @return ContainerType::*|string|null
      */
     public function getContainer(): ?string
     {

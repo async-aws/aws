@@ -44,7 +44,7 @@ final class H265Settings
      * Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the quantization
      * filter. Set Adaptive Quantization to Off to apply no quantization to your output.
      *
-     * @var H265AdaptiveQuantization::*|null
+     * @var H265AdaptiveQuantization::*|string|null
      */
     private $adaptiveQuantization;
 
@@ -52,7 +52,7 @@ final class H265Settings
      * Enables Alternate Transfer Function SEI message for outputs using Hybrid Log Gamma (HLG) Electro-Optical Transfer
      * Function (EOTF).
      *
-     * @var H265AlternateTransferFunctionSei::*|null
+     * @var H265AlternateTransferFunctionSei::*|string|null
      */
     private $alternateTransferFunctionSei;
 
@@ -78,7 +78,7 @@ final class H265Settings
     /**
      * H.265 Level.
      *
-     * @var H265CodecLevel::*|null
+     * @var H265CodecLevel::*|string|null
      */
     private $codecLevel;
 
@@ -86,7 +86,7 @@ final class H265Settings
      * Represents the Profile and Tier, per the HEVC (H.265) specification. Selections are grouped as [Profile] / [Tier], so
      * "Main/High" represents Main Profile with High Tier. 4:2:2 profiles are only available with the HEVC 4:2:2 License.
      *
-     * @var H265CodecProfile::*|null
+     * @var H265CodecProfile::*|string|null
      */
     private $codecProfile;
 
@@ -96,7 +96,7 @@ final class H265Settings
      * the default value, Enabled. To not apply any deblocking: Choose Disabled. Visible block edge artifacts might appear
      * in the output, especially at lower bitrates.
      *
-     * @var H265Deblocking::*|null
+     * @var H265Deblocking::*|string|null
      */
     private $deblocking;
 
@@ -107,7 +107,7 @@ final class H265Settings
      * content. The maximum number of B- frames is limited by the value that you choose for B-frames between reference
      * frames. To use the same number B-frames for all types of content: Choose Static.
      *
-     * @var H265DynamicSubGop::*|null
+     * @var H265DynamicSubGop::*|string|null
      */
     private $dynamicSubGop;
 
@@ -116,7 +116,7 @@ final class H265Settings
      * end of stream markers: Leave blank or keep the default value, Include. To not include end of stream markers: Choose
      * Suppress. This is useful when your output will be inserted into another stream.
      *
-     * @var H265EndOfStreamMarkers::*|null
+     * @var H265EndOfStreamMarkers::*|string|null
      */
     private $endOfStreamMarkers;
 
@@ -127,7 +127,7 @@ final class H265Settings
      * the flicker. This setting is disabled by default. Related setting: In addition to enabling this setting, you must
      * also set adaptiveQuantization to a value other than Off.
      *
-     * @var H265FlickerAdaptiveQuantization::*|null
+     * @var H265FlickerAdaptiveQuantization::*|string|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -137,7 +137,7 @@ final class H265Settings
      * list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you
      * choose Custom, specify your frame rate as a fraction.
      *
-     * @var H265FramerateControl::*|null
+     * @var H265FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -154,7 +154,7 @@ final class H265Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var H265FramerateConversionAlgorithm::*|null
+     * @var H265FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -184,7 +184,7 @@ final class H265Settings
      * to help improve the video quality of your output relative to its bitrate. To not use reference B-frames: Choose
      * Disabled.
      *
-     * @var H265GopBReference::*|null
+     * @var H265GopBReference::*|string|null
      */
     private $gopBreference;
 
@@ -218,7 +218,7 @@ final class H265Settings
      * leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose Specified,
      * frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      *
-     * @var H265GopSizeUnits::*|null
+     * @var H265GopSizeUnits::*|string|null
      */
     private $gopSizeUnits;
 
@@ -254,7 +254,7 @@ final class H265Settings
      * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
      * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
-     * @var H265InterlaceMode::*|null
+     * @var H265InterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -306,7 +306,7 @@ final class H265Settings
      * than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and
      * parDenominator settings.
      *
-     * @var H265ParControl::*|null
+     * @var H265ParControl::*|string|null
      */
     private $parControl;
 
@@ -344,7 +344,7 @@ final class H265Settings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -352,7 +352,7 @@ final class H265Settings
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, single-pass encoding.
      *
-     * @var H265QualityTuningLevel::*|null
+     * @var H265QualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
@@ -368,7 +368,7 @@ final class H265Settings
      * Use this setting to specify whether this output has a variable bitrate (VBR), constant bitrate (CBR) or
      * quality-defined variable bitrate (QVBR).
      *
-     * @var H265RateControlMode::*|null
+     * @var H265RateControlMode::*|string|null
      */
     private $rateControlMode;
 
@@ -376,7 +376,7 @@ final class H265Settings
      * Specify Sample Adaptive Offset (SAO) filter strength. Adaptive mode dynamically selects best strength based on
      * content.
      *
-     * @var H265SampleAdaptiveOffsetFilterMode::*|null
+     * @var H265SampleAdaptiveOffsetFilterMode::*|string|null
      */
     private $sampleAdaptiveOffsetFilterMode;
 
@@ -390,7 +390,7 @@ final class H265Settings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var H265ScanTypeConversionMode::*|null
+     * @var H265ScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -399,7 +399,7 @@ final class H265Settings
      * quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video quality
      * improvement. For more information about QVBR, see https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      *
-     * @var H265SceneChangeDetect::*|null
+     * @var H265SceneChangeDetect::*|string|null
      */
     private $sceneChangeDetect;
 
@@ -417,7 +417,7 @@ final class H265Settings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25.
      *
-     * @var H265SlowPal::*|null
+     * @var H265SlowPal::*|string|null
      */
     private $slowPal;
 
@@ -433,7 +433,7 @@ final class H265Settings
      * homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures,
      * set it to High or Higher.
      *
-     * @var H265SpatialAdaptiveQuantization::*|null
+     * @var H265SpatialAdaptiveQuantization::*|string|null
      */
     private $spatialAdaptiveQuantization;
 
@@ -443,7 +443,7 @@ final class H265Settings
      * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
      * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      *
-     * @var H265Telecine::*|null
+     * @var H265Telecine::*|string|null
      */
     private $telecine;
 
@@ -457,7 +457,7 @@ final class H265Settings
      * objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting:
      * When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization.
      *
-     * @var H265TemporalAdaptiveQuantization::*|null
+     * @var H265TemporalAdaptiveQuantization::*|string|null
      */
     private $temporalAdaptiveQuantization;
 
@@ -469,21 +469,21 @@ final class H265Settings
      * decode all the frames for full frame rate output or only the I and P frames (lowest temporal layer) for a half frame
      * rate output.
      *
-     * @var H265TemporalIds::*|null
+     * @var H265TemporalIds::*|string|null
      */
     private $temporalIds;
 
     /**
      * Enable use of tiles, allowing horizontal as well as vertical subdivision of the encoded pictures.
      *
-     * @var H265Tiles::*|null
+     * @var H265Tiles::*|string|null
      */
     private $tiles;
 
     /**
      * Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
      *
-     * @var H265UnregisteredSeiTimecode::*|null
+     * @var H265UnregisteredSeiTimecode::*|string|null
      */
     private $unregisteredSeiTimecode;
 
@@ -496,57 +496,57 @@ final class H265Settings
      * properly with some downstream systems and video players. The service defaults to marking your output as HEV1. For
      * these outputs, the service writes parameter set NAL units directly into the samples.
      *
-     * @var H265WriteMp4PackagingType::*|null
+     * @var H265WriteMp4PackagingType::*|string|null
      */
     private $writeMp4PackagingType;
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|H265AdaptiveQuantization::*,
-     *   AlternateTransferFunctionSei?: null|H265AlternateTransferFunctionSei::*,
+     *   AdaptiveQuantization?: null|H265AdaptiveQuantization::*|string,
+     *   AlternateTransferFunctionSei?: null|H265AlternateTransferFunctionSei::*|string,
      *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
      *   Bitrate?: null|int,
-     *   CodecLevel?: null|H265CodecLevel::*,
-     *   CodecProfile?: null|H265CodecProfile::*,
-     *   Deblocking?: null|H265Deblocking::*,
-     *   DynamicSubGop?: null|H265DynamicSubGop::*,
-     *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*,
-     *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
-     *   FramerateControl?: null|H265FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*,
+     *   CodecLevel?: null|H265CodecLevel::*|string,
+     *   CodecProfile?: null|H265CodecProfile::*|string,
+     *   Deblocking?: null|H265Deblocking::*|string,
+     *   DynamicSubGop?: null|H265DynamicSubGop::*|string,
+     *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*|string,
+     *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*|string,
+     *   FramerateControl?: null|H265FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   GopBReference?: null|H265GopBReference::*,
+     *   GopBReference?: null|H265GopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   GopSize?: null|float,
-     *   GopSizeUnits?: null|H265GopSizeUnits::*,
+     *   GopSizeUnits?: null|H265GopSizeUnits::*|string,
      *   HrdBufferFinalFillPercentage?: null|int,
      *   HrdBufferInitialFillPercentage?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|H265InterlaceMode::*,
+     *   InterlaceMode?: null|H265InterlaceMode::*|string,
      *   MaxBitrate?: null|int,
      *   MinIInterval?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
      *   NumberReferenceFrames?: null|int,
-     *   ParControl?: null|H265ParControl::*,
+     *   ParControl?: null|H265ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QualityTuningLevel?: null|H265QualityTuningLevel::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   QualityTuningLevel?: null|H265QualityTuningLevel::*|string,
      *   QvbrSettings?: null|H265QvbrSettings|array,
-     *   RateControlMode?: null|H265RateControlMode::*,
-     *   SampleAdaptiveOffsetFilterMode?: null|H265SampleAdaptiveOffsetFilterMode::*,
-     *   ScanTypeConversionMode?: null|H265ScanTypeConversionMode::*,
-     *   SceneChangeDetect?: null|H265SceneChangeDetect::*,
+     *   RateControlMode?: null|H265RateControlMode::*|string,
+     *   SampleAdaptiveOffsetFilterMode?: null|H265SampleAdaptiveOffsetFilterMode::*|string,
+     *   ScanTypeConversionMode?: null|H265ScanTypeConversionMode::*|string,
+     *   SceneChangeDetect?: null|H265SceneChangeDetect::*|string,
      *   Slices?: null|int,
-     *   SlowPal?: null|H265SlowPal::*,
-     *   SpatialAdaptiveQuantization?: null|H265SpatialAdaptiveQuantization::*,
-     *   Telecine?: null|H265Telecine::*,
-     *   TemporalAdaptiveQuantization?: null|H265TemporalAdaptiveQuantization::*,
-     *   TemporalIds?: null|H265TemporalIds::*,
-     *   Tiles?: null|H265Tiles::*,
-     *   UnregisteredSeiTimecode?: null|H265UnregisteredSeiTimecode::*,
-     *   WriteMp4PackagingType?: null|H265WriteMp4PackagingType::*,
+     *   SlowPal?: null|H265SlowPal::*|string,
+     *   SpatialAdaptiveQuantization?: null|H265SpatialAdaptiveQuantization::*|string,
+     *   Telecine?: null|H265Telecine::*|string,
+     *   TemporalAdaptiveQuantization?: null|H265TemporalAdaptiveQuantization::*|string,
+     *   TemporalIds?: null|H265TemporalIds::*|string,
+     *   Tiles?: null|H265Tiles::*|string,
+     *   UnregisteredSeiTimecode?: null|H265UnregisteredSeiTimecode::*|string,
+     *   WriteMp4PackagingType?: null|H265WriteMp4PackagingType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -600,51 +600,51 @@ final class H265Settings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|H265AdaptiveQuantization::*,
-     *   AlternateTransferFunctionSei?: null|H265AlternateTransferFunctionSei::*,
+     *   AdaptiveQuantization?: null|H265AdaptiveQuantization::*|string,
+     *   AlternateTransferFunctionSei?: null|H265AlternateTransferFunctionSei::*|string,
      *   BandwidthReductionFilter?: null|BandwidthReductionFilter|array,
      *   Bitrate?: null|int,
-     *   CodecLevel?: null|H265CodecLevel::*,
-     *   CodecProfile?: null|H265CodecProfile::*,
-     *   Deblocking?: null|H265Deblocking::*,
-     *   DynamicSubGop?: null|H265DynamicSubGop::*,
-     *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*,
-     *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*,
-     *   FramerateControl?: null|H265FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*,
+     *   CodecLevel?: null|H265CodecLevel::*|string,
+     *   CodecProfile?: null|H265CodecProfile::*|string,
+     *   Deblocking?: null|H265Deblocking::*|string,
+     *   DynamicSubGop?: null|H265DynamicSubGop::*|string,
+     *   EndOfStreamMarkers?: null|H265EndOfStreamMarkers::*|string,
+     *   FlickerAdaptiveQuantization?: null|H265FlickerAdaptiveQuantization::*|string,
+     *   FramerateControl?: null|H265FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|H265FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   GopBReference?: null|H265GopBReference::*,
+     *   GopBReference?: null|H265GopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   GopSize?: null|float,
-     *   GopSizeUnits?: null|H265GopSizeUnits::*,
+     *   GopSizeUnits?: null|H265GopSizeUnits::*|string,
      *   HrdBufferFinalFillPercentage?: null|int,
      *   HrdBufferInitialFillPercentage?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|H265InterlaceMode::*,
+     *   InterlaceMode?: null|H265InterlaceMode::*|string,
      *   MaxBitrate?: null|int,
      *   MinIInterval?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
      *   NumberReferenceFrames?: null|int,
-     *   ParControl?: null|H265ParControl::*,
+     *   ParControl?: null|H265ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QualityTuningLevel?: null|H265QualityTuningLevel::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   QualityTuningLevel?: null|H265QualityTuningLevel::*|string,
      *   QvbrSettings?: null|H265QvbrSettings|array,
-     *   RateControlMode?: null|H265RateControlMode::*,
-     *   SampleAdaptiveOffsetFilterMode?: null|H265SampleAdaptiveOffsetFilterMode::*,
-     *   ScanTypeConversionMode?: null|H265ScanTypeConversionMode::*,
-     *   SceneChangeDetect?: null|H265SceneChangeDetect::*,
+     *   RateControlMode?: null|H265RateControlMode::*|string,
+     *   SampleAdaptiveOffsetFilterMode?: null|H265SampleAdaptiveOffsetFilterMode::*|string,
+     *   ScanTypeConversionMode?: null|H265ScanTypeConversionMode::*|string,
+     *   SceneChangeDetect?: null|H265SceneChangeDetect::*|string,
      *   Slices?: null|int,
-     *   SlowPal?: null|H265SlowPal::*,
-     *   SpatialAdaptiveQuantization?: null|H265SpatialAdaptiveQuantization::*,
-     *   Telecine?: null|H265Telecine::*,
-     *   TemporalAdaptiveQuantization?: null|H265TemporalAdaptiveQuantization::*,
-     *   TemporalIds?: null|H265TemporalIds::*,
-     *   Tiles?: null|H265Tiles::*,
-     *   UnregisteredSeiTimecode?: null|H265UnregisteredSeiTimecode::*,
-     *   WriteMp4PackagingType?: null|H265WriteMp4PackagingType::*,
+     *   SlowPal?: null|H265SlowPal::*|string,
+     *   SpatialAdaptiveQuantization?: null|H265SpatialAdaptiveQuantization::*|string,
+     *   Telecine?: null|H265Telecine::*|string,
+     *   TemporalAdaptiveQuantization?: null|H265TemporalAdaptiveQuantization::*|string,
+     *   TemporalIds?: null|H265TemporalIds::*|string,
+     *   Tiles?: null|H265Tiles::*|string,
+     *   UnregisteredSeiTimecode?: null|H265UnregisteredSeiTimecode::*|string,
+     *   WriteMp4PackagingType?: null|H265WriteMp4PackagingType::*|string,
      * }|H265Settings $input
      */
     public static function create($input): self
@@ -653,7 +653,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265AdaptiveQuantization::*|null
+     * @return H265AdaptiveQuantization::*|string|null
      */
     public function getAdaptiveQuantization(): ?string
     {
@@ -661,7 +661,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265AlternateTransferFunctionSei::*|null
+     * @return H265AlternateTransferFunctionSei::*|string|null
      */
     public function getAlternateTransferFunctionSei(): ?string
     {
@@ -679,7 +679,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265CodecLevel::*|null
+     * @return H265CodecLevel::*|string|null
      */
     public function getCodecLevel(): ?string
     {
@@ -687,7 +687,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265CodecProfile::*|null
+     * @return H265CodecProfile::*|string|null
      */
     public function getCodecProfile(): ?string
     {
@@ -695,7 +695,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265Deblocking::*|null
+     * @return H265Deblocking::*|string|null
      */
     public function getDeblocking(): ?string
     {
@@ -703,7 +703,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265DynamicSubGop::*|null
+     * @return H265DynamicSubGop::*|string|null
      */
     public function getDynamicSubGop(): ?string
     {
@@ -711,7 +711,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265EndOfStreamMarkers::*|null
+     * @return H265EndOfStreamMarkers::*|string|null
      */
     public function getEndOfStreamMarkers(): ?string
     {
@@ -719,7 +719,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265FlickerAdaptiveQuantization::*|null
+     * @return H265FlickerAdaptiveQuantization::*|string|null
      */
     public function getFlickerAdaptiveQuantization(): ?string
     {
@@ -727,7 +727,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265FramerateControl::*|null
+     * @return H265FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -735,7 +735,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265FramerateConversionAlgorithm::*|null
+     * @return H265FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -753,7 +753,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265GopBReference::*|null
+     * @return H265GopBReference::*|string|null
      */
     public function getGopBreference(): ?string
     {
@@ -771,7 +771,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265GopSizeUnits::*|null
+     * @return H265GopSizeUnits::*|string|null
      */
     public function getGopSizeUnits(): ?string
     {
@@ -794,7 +794,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265InterlaceMode::*|null
+     * @return H265InterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -822,7 +822,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265ParControl::*|null
+     * @return H265ParControl::*|string|null
      */
     public function getParControl(): ?string
     {
@@ -840,7 +840,7 @@ final class H265Settings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -848,7 +848,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265QualityTuningLevel::*|null
+     * @return H265QualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {
@@ -861,7 +861,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265RateControlMode::*|null
+     * @return H265RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {
@@ -869,7 +869,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265SampleAdaptiveOffsetFilterMode::*|null
+     * @return H265SampleAdaptiveOffsetFilterMode::*|string|null
      */
     public function getSampleAdaptiveOffsetFilterMode(): ?string
     {
@@ -877,7 +877,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265ScanTypeConversionMode::*|null
+     * @return H265ScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -885,7 +885,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265SceneChangeDetect::*|null
+     * @return H265SceneChangeDetect::*|string|null
      */
     public function getSceneChangeDetect(): ?string
     {
@@ -898,7 +898,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265SlowPal::*|null
+     * @return H265SlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -906,7 +906,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265SpatialAdaptiveQuantization::*|null
+     * @return H265SpatialAdaptiveQuantization::*|string|null
      */
     public function getSpatialAdaptiveQuantization(): ?string
     {
@@ -914,7 +914,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265Telecine::*|null
+     * @return H265Telecine::*|string|null
      */
     public function getTelecine(): ?string
     {
@@ -922,7 +922,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265TemporalAdaptiveQuantization::*|null
+     * @return H265TemporalAdaptiveQuantization::*|string|null
      */
     public function getTemporalAdaptiveQuantization(): ?string
     {
@@ -930,7 +930,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265TemporalIds::*|null
+     * @return H265TemporalIds::*|string|null
      */
     public function getTemporalIds(): ?string
     {
@@ -938,7 +938,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265Tiles::*|null
+     * @return H265Tiles::*|string|null
      */
     public function getTiles(): ?string
     {
@@ -946,7 +946,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265UnregisteredSeiTimecode::*|null
+     * @return H265UnregisteredSeiTimecode::*|string|null
      */
     public function getUnregisteredSeiTimecode(): ?string
     {
@@ -954,7 +954,7 @@ final class H265Settings
     }
 
     /**
-     * @return H265WriteMp4PackagingType::*|null
+     * @return H265WriteMp4PackagingType::*|string|null
      */
     public function getWriteMp4PackagingType(): ?string
     {

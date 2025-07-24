@@ -15,12 +15,12 @@ final class KmsInvalidStateException extends ClientException
      * Current status of the KMS; key. For example: `DISABLED`, `PENDING_DELETION`, `PENDING_IMPORT`, `UNAVAILABLE`,
      * `CREATING`.
      *
-     * @var KmsKeyState::*|null
+     * @var KmsKeyState::*|string|null
      */
     private $kmsKeyState;
 
     /**
-     * @return KmsKeyState::*|null
+     * @return KmsKeyState::*|string|null
      */
     public function getKmsKeyState(): ?string
     {

@@ -68,7 +68,7 @@ class CreateMultipartUploadOutput extends Result
      * > When accessing data stored in Amazon FSx file systems using S3 access points, the only valid server side encryption
      * > option is `aws:fsx`.
      *
-     * @var ServerSideEncryption::*|null
+     * @var ServerSideEncryption::*|string|null
      */
     private $serverSideEncryption;
 
@@ -116,14 +116,14 @@ class CreateMultipartUploadOutput extends Result
     private $bucketKeyEnabled;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
     /**
      * The algorithm that was used to create a checksum of the object.
      *
-     * @var ChecksumAlgorithm::*|null
+     * @var ChecksumAlgorithm::*|string|null
      */
     private $checksumAlgorithm;
 
@@ -133,7 +133,7 @@ class CreateMultipartUploadOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -166,7 +166,7 @@ class CreateMultipartUploadOutput extends Result
     }
 
     /**
-     * @return ChecksumAlgorithm::*|null
+     * @return ChecksumAlgorithm::*|string|null
      */
     public function getChecksumAlgorithm(): ?string
     {
@@ -176,7 +176,7 @@ class CreateMultipartUploadOutput extends Result
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -193,7 +193,7 @@ class CreateMultipartUploadOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -203,7 +203,7 @@ class CreateMultipartUploadOutput extends Result
     }
 
     /**
-     * @return ServerSideEncryption::*|null
+     * @return ServerSideEncryption::*|string|null
      */
     public function getServerSideEncryption(): ?string
     {

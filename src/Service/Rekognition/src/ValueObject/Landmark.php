@@ -12,7 +12,7 @@ final class Landmark
     /**
      * Type of landmark.
      *
-     * @var LandmarkType::*|null
+     * @var LandmarkType::*|string|null
      */
     private $type;
 
@@ -36,7 +36,7 @@ final class Landmark
 
     /**
      * @param array{
-     *   Type?: null|LandmarkType::*,
+     *   Type?: null|LandmarkType::*|string,
      *   X?: null|float,
      *   Y?: null|float,
      * } $input
@@ -50,7 +50,7 @@ final class Landmark
 
     /**
      * @param array{
-     *   Type?: null|LandmarkType::*,
+     *   Type?: null|LandmarkType::*|string,
      *   X?: null|float,
      *   Y?: null|float,
      * }|Landmark $input
@@ -61,7 +61,7 @@ final class Landmark
     }
 
     /**
-     * @return LandmarkType::*|null
+     * @return LandmarkType::*|string|null
      */
     public function getType(): ?string
     {

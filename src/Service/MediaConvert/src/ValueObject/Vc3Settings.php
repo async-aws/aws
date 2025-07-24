@@ -22,7 +22,7 @@ final class Vc3Settings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var Vc3FramerateControl::*|null
+     * @var Vc3FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -39,7 +39,7 @@ final class Vc3Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var Vc3FramerateConversionAlgorithm::*|null
+     * @var Vc3FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -67,7 +67,7 @@ final class Vc3Settings
      * Optional. Choose the scan line type for this output. If you don't specify a value, MediaConvert will create a
      * progressive output.
      *
-     * @var Vc3InterlaceMode::*|null
+     * @var Vc3InterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -81,7 +81,7 @@ final class Vc3Settings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var Vc3ScanTypeConversionMode::*|null
+     * @var Vc3ScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -90,7 +90,7 @@ final class Vc3Settings
      * 25 fps output by relabeling the video frames and resampling your audio. Note that enabling this setting will slightly
      * reduce the duration of your video. Related settings: You must also set Framerate to 25.
      *
-     * @var Vc3SlowPal::*|null
+     * @var Vc3SlowPal::*|string|null
      */
     private $slowPal;
 
@@ -100,7 +100,7 @@ final class Vc3Settings
      * None, MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to
      * create a smoother picture.
      *
-     * @var Vc3Telecine::*|null
+     * @var Vc3Telecine::*|string|null
      */
     private $telecine;
 
@@ -111,21 +111,21 @@ final class Vc3Settings
      * you an output with a bitrate of approximately 145 Mbps and Class 220 gives you and output with a bitrate of
      * approximately 220 Mbps. VC3 class also specifies the color bit depth of your output.
      *
-     * @var Vc3Class::*|null
+     * @var Vc3Class::*|string|null
      */
     private $vc3Class;
 
     /**
      * @param array{
-     *   FramerateControl?: null|Vc3FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|Vc3FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|Vc3InterlaceMode::*,
-     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*,
-     *   SlowPal?: null|Vc3SlowPal::*,
-     *   Telecine?: null|Vc3Telecine::*,
-     *   Vc3Class?: null|Vc3Class::*,
+     *   InterlaceMode?: null|Vc3InterlaceMode::*|string,
+     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*|string,
+     *   SlowPal?: null|Vc3SlowPal::*|string,
+     *   Telecine?: null|Vc3Telecine::*|string,
+     *   Vc3Class?: null|Vc3Class::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -143,15 +143,15 @@ final class Vc3Settings
 
     /**
      * @param array{
-     *   FramerateControl?: null|Vc3FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|Vc3FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|Vc3InterlaceMode::*,
-     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*,
-     *   SlowPal?: null|Vc3SlowPal::*,
-     *   Telecine?: null|Vc3Telecine::*,
-     *   Vc3Class?: null|Vc3Class::*,
+     *   InterlaceMode?: null|Vc3InterlaceMode::*|string,
+     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*|string,
+     *   SlowPal?: null|Vc3SlowPal::*|string,
+     *   Telecine?: null|Vc3Telecine::*|string,
+     *   Vc3Class?: null|Vc3Class::*|string,
      * }|Vc3Settings $input
      */
     public static function create($input): self
@@ -160,7 +160,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3FramerateControl::*|null
+     * @return Vc3FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -168,7 +168,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3FramerateConversionAlgorithm::*|null
+     * @return Vc3FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -186,7 +186,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3InterlaceMode::*|null
+     * @return Vc3InterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -194,7 +194,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3ScanTypeConversionMode::*|null
+     * @return Vc3ScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -202,7 +202,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3SlowPal::*|null
+     * @return Vc3SlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -210,7 +210,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3Telecine::*|null
+     * @return Vc3Telecine::*|string|null
      */
     public function getTelecine(): ?string
     {
@@ -218,7 +218,7 @@ final class Vc3Settings
     }
 
     /**
-     * @return Vc3Class::*|null
+     * @return Vc3Class::*|string|null
      */
     public function getVc3Class(): ?string
     {

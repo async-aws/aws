@@ -24,7 +24,7 @@ final class CmafEncryptionSettings
      * Specify the encryption scheme that you want the service to use when encrypting your CMAF segments. Choose AES-CBC
      * subsample or AES_CTR.
      *
-     * @var CmafEncryptionType::*|null
+     * @var CmafEncryptionType::*|string|null
      */
     private $encryptionMethod;
 
@@ -32,7 +32,7 @@ final class CmafEncryptionSettings
      * When you use DRM with CMAF outputs, choose whether the service writes the 128-bit encryption initialization vector in
      * the HLS and DASH manifests.
      *
-     * @var CmafInitializationVectorInManifest::*|null
+     * @var CmafInitializationVectorInManifest::*|string|null
      */
     private $initializationVectorInManifest;
 
@@ -55,18 +55,18 @@ final class CmafEncryptionSettings
      * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For more
      * information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      *
-     * @var CmafKeyProviderType::*|null
+     * @var CmafKeyProviderType::*|string|null
      */
     private $type;
 
     /**
      * @param array{
      *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|CmafEncryptionType::*,
-     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*,
+     *   EncryptionMethod?: null|CmafEncryptionType::*|string,
+     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*|string,
      *   SpekeKeyProvider?: null|SpekeKeyProviderCmaf|array,
      *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|CmafKeyProviderType::*,
+     *   Type?: null|CmafKeyProviderType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -82,11 +82,11 @@ final class CmafEncryptionSettings
     /**
      * @param array{
      *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|CmafEncryptionType::*,
-     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*,
+     *   EncryptionMethod?: null|CmafEncryptionType::*|string,
+     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*|string,
      *   SpekeKeyProvider?: null|SpekeKeyProviderCmaf|array,
      *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|CmafKeyProviderType::*,
+     *   Type?: null|CmafKeyProviderType::*|string,
      * }|CmafEncryptionSettings $input
      */
     public static function create($input): self
@@ -100,7 +100,7 @@ final class CmafEncryptionSettings
     }
 
     /**
-     * @return CmafEncryptionType::*|null
+     * @return CmafEncryptionType::*|string|null
      */
     public function getEncryptionMethod(): ?string
     {
@@ -108,7 +108,7 @@ final class CmafEncryptionSettings
     }
 
     /**
-     * @return CmafInitializationVectorInManifest::*|null
+     * @return CmafInitializationVectorInManifest::*|string|null
      */
     public function getInitializationVectorInManifest(): ?string
     {
@@ -126,7 +126,7 @@ final class CmafEncryptionSettings
     }
 
     /**
-     * @return CmafKeyProviderType::*|null
+     * @return CmafKeyProviderType::*|string|null
      */
     public function getType(): ?string
     {

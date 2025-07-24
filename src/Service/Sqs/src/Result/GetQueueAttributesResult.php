@@ -14,12 +14,12 @@ class GetQueueAttributesResult extends Result
     /**
      * A map of attributes to their respective values.
      *
-     * @var array<QueueAttributeName::*, string>
+     * @var array<QueueAttributeName::*|string, string>
      */
     private $attributes;
 
     /**
-     * @return array<QueueAttributeName::*, string>
+     * @return array<QueueAttributeName::*|string, string>
      */
     public function getAttributes(): array
     {
@@ -36,7 +36,7 @@ class GetQueueAttributesResult extends Result
     }
 
     /**
-     * @return array<QueueAttributeName::*, string>
+     * @return array<QueueAttributeName::*|string, string>
      */
     private function populateResultQueueAttributeMap(array $json): array
     {

@@ -70,7 +70,7 @@ final class ColumnInfo
     /**
      * Unsupported constraint. This value always shows as `UNKNOWN`.
      *
-     * @var ColumnNullable::*|null
+     * @var ColumnNullable::*|string|null
      */
     private $nullable;
 
@@ -91,7 +91,7 @@ final class ColumnInfo
      *   Type: string,
      *   Precision?: null|int,
      *   Scale?: null|int,
-     *   Nullable?: null|ColumnNullable::*,
+     *   Nullable?: null|ColumnNullable::*|string,
      *   CaseSensitive?: null|bool,
      * } $input
      */
@@ -119,7 +119,7 @@ final class ColumnInfo
      *   Type: string,
      *   Precision?: null|int,
      *   Scale?: null|int,
-     *   Nullable?: null|ColumnNullable::*,
+     *   Nullable?: null|ColumnNullable::*|string,
      *   CaseSensitive?: null|bool,
      * }|ColumnInfo $input
      */
@@ -149,7 +149,7 @@ final class ColumnInfo
     }
 
     /**
-     * @return ColumnNullable::*|null
+     * @return ColumnNullable::*|string|null
      */
     public function getNullable(): ?string
     {

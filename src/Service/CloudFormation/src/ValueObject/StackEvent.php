@@ -69,7 +69,7 @@ final class StackEvent
     /**
      * Current status of the resource.
      *
-     * @var ResourceStatus::*|null
+     * @var ResourceStatus::*|string|null
      */
     private $resourceStatus;
 
@@ -113,7 +113,7 @@ final class StackEvent
     /**
      * Provides the status of the change set hook.
      *
-     * @var HookStatus::*|null
+     * @var HookStatus::*|string|null
      */
     private $hookStatus;
 
@@ -127,7 +127,7 @@ final class StackEvent
     /**
      * Invocation points are points in provisioning logic where Hooks are initiated.
      *
-     * @var HookInvocationPoint::*|null
+     * @var HookInvocationPoint::*|string|null
      */
     private $hookInvocationPoint;
 
@@ -137,7 +137,7 @@ final class StackEvent
      * - `FAIL` Stops provisioning resources.
      * - `WARN` Allows provisioning to continue with a warning message.
      *
-     * @var HookFailureMode::*|null
+     * @var HookFailureMode::*|string|null
      */
     private $hookFailureMode;
 
@@ -152,7 +152,7 @@ final class StackEvent
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html
      *
-     * @var DetailedStatus::*|null
+     * @var DetailedStatus::*|string|null
      */
     private $detailedStatus;
 
@@ -165,16 +165,16 @@ final class StackEvent
      *   PhysicalResourceId?: null|string,
      *   ResourceType?: null|string,
      *   Timestamp: \DateTimeImmutable,
-     *   ResourceStatus?: null|ResourceStatus::*,
+     *   ResourceStatus?: null|ResourceStatus::*|string,
      *   ResourceStatusReason?: null|string,
      *   ResourceProperties?: null|string,
      *   ClientRequestToken?: null|string,
      *   HookType?: null|string,
-     *   HookStatus?: null|HookStatus::*,
+     *   HookStatus?: null|HookStatus::*|string,
      *   HookStatusReason?: null|string,
-     *   HookInvocationPoint?: null|HookInvocationPoint::*,
-     *   HookFailureMode?: null|HookFailureMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   HookInvocationPoint?: null|HookInvocationPoint::*|string,
+     *   HookFailureMode?: null|HookFailureMode::*|string,
+     *   DetailedStatus?: null|DetailedStatus::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -207,16 +207,16 @@ final class StackEvent
      *   PhysicalResourceId?: null|string,
      *   ResourceType?: null|string,
      *   Timestamp: \DateTimeImmutable,
-     *   ResourceStatus?: null|ResourceStatus::*,
+     *   ResourceStatus?: null|ResourceStatus::*|string,
      *   ResourceStatusReason?: null|string,
      *   ResourceProperties?: null|string,
      *   ClientRequestToken?: null|string,
      *   HookType?: null|string,
-     *   HookStatus?: null|HookStatus::*,
+     *   HookStatus?: null|HookStatus::*|string,
      *   HookStatusReason?: null|string,
-     *   HookInvocationPoint?: null|HookInvocationPoint::*,
-     *   HookFailureMode?: null|HookFailureMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   HookInvocationPoint?: null|HookInvocationPoint::*|string,
+     *   HookFailureMode?: null|HookFailureMode::*|string,
+     *   DetailedStatus?: null|DetailedStatus::*|string,
      * }|StackEvent $input
      */
     public static function create($input): self
@@ -230,7 +230,7 @@ final class StackEvent
     }
 
     /**
-     * @return DetailedStatus::*|null
+     * @return DetailedStatus::*|string|null
      */
     public function getDetailedStatus(): ?string
     {
@@ -243,7 +243,7 @@ final class StackEvent
     }
 
     /**
-     * @return HookFailureMode::*|null
+     * @return HookFailureMode::*|string|null
      */
     public function getHookFailureMode(): ?string
     {
@@ -251,7 +251,7 @@ final class StackEvent
     }
 
     /**
-     * @return HookInvocationPoint::*|null
+     * @return HookInvocationPoint::*|string|null
      */
     public function getHookInvocationPoint(): ?string
     {
@@ -259,7 +259,7 @@ final class StackEvent
     }
 
     /**
-     * @return HookStatus::*|null
+     * @return HookStatus::*|string|null
      */
     public function getHookStatus(): ?string
     {
@@ -292,7 +292,7 @@ final class StackEvent
     }
 
     /**
-     * @return ResourceStatus::*|null
+     * @return ResourceStatus::*|string|null
      */
     public function getResourceStatus(): ?string
     {

@@ -40,7 +40,7 @@ final class ScheduleGroupSummary
     /**
      * Specifies the state of the schedule group.
      *
-     * @var ScheduleGroupState::*|null
+     * @var ScheduleGroupState::*|string|null
      */
     private $state;
 
@@ -50,7 +50,7 @@ final class ScheduleGroupSummary
      *   CreationDate?: null|\DateTimeImmutable,
      *   LastModificationDate?: null|\DateTimeImmutable,
      *   Name?: null|string,
-     *   State?: null|ScheduleGroupState::*,
+     *   State?: null|ScheduleGroupState::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -68,7 +68,7 @@ final class ScheduleGroupSummary
      *   CreationDate?: null|\DateTimeImmutable,
      *   LastModificationDate?: null|\DateTimeImmutable,
      *   Name?: null|string,
-     *   State?: null|ScheduleGroupState::*,
+     *   State?: null|ScheduleGroupState::*|string,
      * }|ScheduleGroupSummary $input
      */
     public static function create($input): self
@@ -97,7 +97,7 @@ final class ScheduleGroupSummary
     }
 
     /**
-     * @return ScheduleGroupState::*|null
+     * @return ScheduleGroupState::*|string|null
      */
     public function getState(): ?string
     {

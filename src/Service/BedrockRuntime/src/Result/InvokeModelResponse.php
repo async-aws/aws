@@ -28,7 +28,7 @@ class InvokeModelResponse extends Result
     /**
      * Model performance settings for the request.
      *
-     * @var PerformanceConfigLatency::*|null
+     * @var PerformanceConfigLatency::*|string|null
      */
     private $performanceConfigLatency;
 
@@ -47,7 +47,7 @@ class InvokeModelResponse extends Result
     }
 
     /**
-     * @return PerformanceConfigLatency::*|null
+     * @return PerformanceConfigLatency::*|string|null
      */
     public function getPerformanceConfigLatency(): ?string
     {

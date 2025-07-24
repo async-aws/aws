@@ -16,7 +16,7 @@ final class EmbeddedSourceSettings
      * Upconvert, MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608
      * compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
      *
-     * @var EmbeddedConvert608To708::*|null
+     * @var EmbeddedConvert608To708::*|string|null
      */
     private $convert608To708;
 
@@ -39,16 +39,16 @@ final class EmbeddedSourceSettings
      * By default, the service terminates any unterminated captions at the end of each input. If you want the caption to
      * continue onto your next input, disable this setting.
      *
-     * @var EmbeddedTerminateCaptions::*|null
+     * @var EmbeddedTerminateCaptions::*|string|null
      */
     private $terminateCaptions;
 
     /**
      * @param array{
-     *   Convert608To708?: null|EmbeddedConvert608To708::*,
+     *   Convert608To708?: null|EmbeddedConvert608To708::*|string,
      *   Source608ChannelNumber?: null|int,
      *   Source608TrackNumber?: null|int,
-     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*,
+     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -61,10 +61,10 @@ final class EmbeddedSourceSettings
 
     /**
      * @param array{
-     *   Convert608To708?: null|EmbeddedConvert608To708::*,
+     *   Convert608To708?: null|EmbeddedConvert608To708::*|string,
      *   Source608ChannelNumber?: null|int,
      *   Source608TrackNumber?: null|int,
-     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*,
+     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*|string,
      * }|EmbeddedSourceSettings $input
      */
     public static function create($input): self
@@ -73,7 +73,7 @@ final class EmbeddedSourceSettings
     }
 
     /**
-     * @return EmbeddedConvert608To708::*|null
+     * @return EmbeddedConvert608To708::*|string|null
      */
     public function getConvert608To708(): ?string
     {
@@ -91,7 +91,7 @@ final class EmbeddedSourceSettings
     }
 
     /**
-     * @return EmbeddedTerminateCaptions::*|null
+     * @return EmbeddedTerminateCaptions::*|string|null
      */
     public function getTerminateCaptions(): ?string
     {

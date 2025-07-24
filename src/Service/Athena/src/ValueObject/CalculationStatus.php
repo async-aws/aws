@@ -42,7 +42,7 @@ final class CalculationStatus
      *
      * `FAILED` - The calculation failed and is no longer running.
      *
-     * @var CalculationExecutionState::*|null
+     * @var CalculationExecutionState::*|string|null
      */
     private $state;
 
@@ -58,7 +58,7 @@ final class CalculationStatus
      * @param array{
      *   SubmissionDateTime?: null|\DateTimeImmutable,
      *   CompletionDateTime?: null|\DateTimeImmutable,
-     *   State?: null|CalculationExecutionState::*,
+     *   State?: null|CalculationExecutionState::*|string,
      *   StateChangeReason?: null|string,
      * } $input
      */
@@ -74,7 +74,7 @@ final class CalculationStatus
      * @param array{
      *   SubmissionDateTime?: null|\DateTimeImmutable,
      *   CompletionDateTime?: null|\DateTimeImmutable,
-     *   State?: null|CalculationExecutionState::*,
+     *   State?: null|CalculationExecutionState::*|string,
      *   StateChangeReason?: null|string,
      * }|CalculationStatus $input
      */
@@ -89,7 +89,7 @@ final class CalculationStatus
     }
 
     /**
-     * @return CalculationExecutionState::*|null
+     * @return CalculationExecutionState::*|string|null
      */
     public function getState(): ?string
     {

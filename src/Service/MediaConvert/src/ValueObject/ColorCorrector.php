@@ -39,7 +39,7 @@ final class ColorCorrector
      * * P3D65 (SDR): Display P3, sRGB, BT.709
      * * P3D65 (HDR): Display P3, PQ, BT.709.
      *
-     * @var ColorSpaceConversion::*|null
+     * @var ColorSpaceConversion::*|string|null
      */
     private $colorSpaceConversion;
 
@@ -73,7 +73,7 @@ final class ColorCorrector
      * may notice loss of details in bright or saturated areas of your output. HDR to SDR tone mapping has no effect when
      * your input is SDR.
      *
-     * @var HDRToSDRToneMapper::*|null
+     * @var HDRToSDRToneMapper::*|string|null
      */
     private $hdrToSdrToneMapper;
 
@@ -104,7 +104,7 @@ final class ColorCorrector
      * Minimum RGB tolerance and Maximum RGB tolerance. With either limited range conversion, MediaConvert writes the sample
      * range metadata in the output.
      *
-     * @var SampleRangeConversion::*|null
+     * @var SampleRangeConversion::*|string|null
      */
     private $sampleRangeConversion;
 
@@ -131,13 +131,13 @@ final class ColorCorrector
      * @param array{
      *   Brightness?: null|int,
      *   ClipLimits?: null|ClipLimits|array,
-     *   ColorSpaceConversion?: null|ColorSpaceConversion::*,
+     *   ColorSpaceConversion?: null|ColorSpaceConversion::*|string,
      *   Contrast?: null|int,
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
-     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
+     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*|string,
      *   Hue?: null|int,
      *   MaxLuminance?: null|int,
-     *   SampleRangeConversion?: null|SampleRangeConversion::*,
+     *   SampleRangeConversion?: null|SampleRangeConversion::*|string,
      *   Saturation?: null|int,
      *   SdrReferenceWhiteLevel?: null|int,
      * } $input
@@ -161,13 +161,13 @@ final class ColorCorrector
      * @param array{
      *   Brightness?: null|int,
      *   ClipLimits?: null|ClipLimits|array,
-     *   ColorSpaceConversion?: null|ColorSpaceConversion::*,
+     *   ColorSpaceConversion?: null|ColorSpaceConversion::*|string,
      *   Contrast?: null|int,
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
-     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
+     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*|string,
      *   Hue?: null|int,
      *   MaxLuminance?: null|int,
-     *   SampleRangeConversion?: null|SampleRangeConversion::*,
+     *   SampleRangeConversion?: null|SampleRangeConversion::*|string,
      *   Saturation?: null|int,
      *   SdrReferenceWhiteLevel?: null|int,
      * }|ColorCorrector $input
@@ -188,7 +188,7 @@ final class ColorCorrector
     }
 
     /**
-     * @return ColorSpaceConversion::*|null
+     * @return ColorSpaceConversion::*|string|null
      */
     public function getColorSpaceConversion(): ?string
     {
@@ -206,7 +206,7 @@ final class ColorCorrector
     }
 
     /**
-     * @return HDRToSDRToneMapper::*|null
+     * @return HDRToSDRToneMapper::*|string|null
      */
     public function getHdrToSdrToneMapper(): ?string
     {
@@ -224,7 +224,7 @@ final class ColorCorrector
     }
 
     /**
-     * @return SampleRangeConversion::*|null
+     * @return SampleRangeConversion::*|string|null
      */
     public function getSampleRangeConversion(): ?string
     {

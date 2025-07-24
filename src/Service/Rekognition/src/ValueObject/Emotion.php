@@ -16,7 +16,7 @@ final class Emotion
     /**
      * Type of emotion detected.
      *
-     * @var EmotionName::*|null
+     * @var EmotionName::*|string|null
      */
     private $type;
 
@@ -29,7 +29,7 @@ final class Emotion
 
     /**
      * @param array{
-     *   Type?: null|EmotionName::*,
+     *   Type?: null|EmotionName::*|string,
      *   Confidence?: null|float,
      * } $input
      */
@@ -41,7 +41,7 @@ final class Emotion
 
     /**
      * @param array{
-     *   Type?: null|EmotionName::*,
+     *   Type?: null|EmotionName::*|string,
      *   Confidence?: null|float,
      * }|Emotion $input
      */
@@ -56,7 +56,7 @@ final class Emotion
     }
 
     /**
-     * @return EmotionName::*|null
+     * @return EmotionName::*|string|null
      */
     public function getType(): ?string
     {

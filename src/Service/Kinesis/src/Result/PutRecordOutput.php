@@ -34,12 +34,12 @@ class PutRecordOutput extends Result
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
      *
-     * @var EncryptionType::*|null
+     * @var EncryptionType::*|string|null
      */
     private $encryptionType;
 
     /**
-     * @return EncryptionType::*|null
+     * @return EncryptionType::*|string|null
      */
     public function getEncryptionType(): ?string
     {

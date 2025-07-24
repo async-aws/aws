@@ -22,13 +22,13 @@ final class InvalidRequestDetail
      * - MISMATCHED_TOTAL_PAGE_COUNT - Check the number of pages in your file and resubmit the request.
      * - INVALID_DOCUMENT - Invalid document. Check the file and resubmit the request.
      *
-     * @var InvalidRequestDetailReason::*|null
+     * @var InvalidRequestDetailReason::*|string|null
      */
     private $reason;
 
     /**
      * @param array{
-     *   Reason?: null|InvalidRequestDetailReason::*,
+     *   Reason?: null|InvalidRequestDetailReason::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -38,7 +38,7 @@ final class InvalidRequestDetail
 
     /**
      * @param array{
-     *   Reason?: null|InvalidRequestDetailReason::*,
+     *   Reason?: null|InvalidRequestDetailReason::*|string,
      * }|InvalidRequestDetail $input
      */
     public static function create($input): self
@@ -47,7 +47,7 @@ final class InvalidRequestDetail
     }
 
     /**
-     * @return InvalidRequestDetailReason::*|null
+     * @return InvalidRequestDetailReason::*|string|null
      */
     public function getReason(): ?string
     {

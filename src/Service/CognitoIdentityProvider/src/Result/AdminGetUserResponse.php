@@ -62,7 +62,7 @@ class AdminGetUserResponse extends Result
      *   sign-in, the user must change their password to a new value before doing anything else.
      * - EXTERNAL_PROVIDER - The user signed in with a third-party identity provider.
      *
-     * @var UserStatusType::*|null
+     * @var UserStatusType::*|string|null
      */
     private $userStatus;
 
@@ -149,7 +149,7 @@ class AdminGetUserResponse extends Result
     }
 
     /**
-     * @return UserStatusType::*|null
+     * @return UserStatusType::*|string|null
      */
     public function getUserStatus(): ?string
     {

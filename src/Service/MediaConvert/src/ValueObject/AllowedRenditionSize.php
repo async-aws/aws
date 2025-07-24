@@ -25,7 +25,7 @@ final class AllowedRenditionSize
     /**
      * Set to ENABLED to force a rendition to be included.
      *
-     * @var RequiredFlag::*|null
+     * @var RequiredFlag::*|string|null
      */
     private $required;
 
@@ -39,7 +39,7 @@ final class AllowedRenditionSize
     /**
      * @param array{
      *   Height?: null|int,
-     *   Required?: null|RequiredFlag::*,
+     *   Required?: null|RequiredFlag::*|string,
      *   Width?: null|int,
      * } $input
      */
@@ -53,7 +53,7 @@ final class AllowedRenditionSize
     /**
      * @param array{
      *   Height?: null|int,
-     *   Required?: null|RequiredFlag::*,
+     *   Required?: null|RequiredFlag::*|string,
      *   Width?: null|int,
      * }|AllowedRenditionSize $input
      */
@@ -68,7 +68,7 @@ final class AllowedRenditionSize
     }
 
     /**
-     * @return RequiredFlag::*|null
+     * @return RequiredFlag::*|string|null
      */
     public function getRequired(): ?string
     {

@@ -32,7 +32,7 @@ final class TimecodeConfig
      * use Start at 0 instead. * Start at 0 - Set the timecode of the initial frame to 00:00:00:00. * Specified Start - Set
      * the timecode of the initial frame to a value other than zero. You use Start timecode to provide this value.
      *
-     * @var TimecodeSource::*|null
+     * @var TimecodeSource::*|string|null
      */
     private $source;
 
@@ -57,7 +57,7 @@ final class TimecodeConfig
     /**
      * @param array{
      *   Anchor?: null|string,
-     *   Source?: null|TimecodeSource::*,
+     *   Source?: null|TimecodeSource::*|string,
      *   Start?: null|string,
      *   TimestampOffset?: null|string,
      * } $input
@@ -73,7 +73,7 @@ final class TimecodeConfig
     /**
      * @param array{
      *   Anchor?: null|string,
-     *   Source?: null|TimecodeSource::*,
+     *   Source?: null|TimecodeSource::*|string,
      *   Start?: null|string,
      *   TimestampOffset?: null|string,
      * }|TimecodeConfig $input
@@ -89,7 +89,7 @@ final class TimecodeConfig
     }
 
     /**
-     * @return TimecodeSource::*|null
+     * @return TimecodeSource::*|string|null
      */
     public function getSource(): ?string
     {

@@ -56,7 +56,7 @@ class IndexFacesResponse extends Result
      * Bounding box information is returned in the `FaceRecords` array. You can get the version of the face detection model
      * by calling DescribeCollection.
      *
-     * @var OrientationCorrection::*|null
+     * @var OrientationCorrection::*|string|null
      */
     private $orientationCorrection;
 
@@ -94,7 +94,7 @@ class IndexFacesResponse extends Result
     }
 
     /**
-     * @return OrientationCorrection::*|null
+     * @return OrientationCorrection::*|string|null
      */
     public function getOrientationCorrection(): ?string
     {
@@ -324,7 +324,7 @@ class IndexFacesResponse extends Result
     }
 
     /**
-     * @return list<Reason::*>
+     * @return list<Reason::*|string>
      */
     private function populateResultReasons(array $json): array
     {

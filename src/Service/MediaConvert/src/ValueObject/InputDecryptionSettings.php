@@ -15,7 +15,7 @@ final class InputDecryptionSettings
     /**
      * Specify the encryption mode that you used to encrypt your input files.
      *
-     * @var DecryptionMode::*|null
+     * @var DecryptionMode::*|string|null
      */
     private $decryptionMode;
 
@@ -47,7 +47,7 @@ final class InputDecryptionSettings
 
     /**
      * @param array{
-     *   DecryptionMode?: null|DecryptionMode::*,
+     *   DecryptionMode?: null|DecryptionMode::*|string,
      *   EncryptedDecryptionKey?: null|string,
      *   InitializationVector?: null|string,
      *   KmsKeyRegion?: null|string,
@@ -63,7 +63,7 @@ final class InputDecryptionSettings
 
     /**
      * @param array{
-     *   DecryptionMode?: null|DecryptionMode::*,
+     *   DecryptionMode?: null|DecryptionMode::*|string,
      *   EncryptedDecryptionKey?: null|string,
      *   InitializationVector?: null|string,
      *   KmsKeyRegion?: null|string,
@@ -75,7 +75,7 @@ final class InputDecryptionSettings
     }
 
     /**
-     * @return DecryptionMode::*|null
+     * @return DecryptionMode::*|string|null
      */
     public function getDecryptionMode(): ?string
     {

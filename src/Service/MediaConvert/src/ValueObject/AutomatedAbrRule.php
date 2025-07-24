@@ -72,7 +72,7 @@ final class AutomatedAbrRule
      * you specify in Min top rendition size or Min bottom rendition size. * If you specify Allowed renditions, you must not
      * specify a separate rule for Force include renditions.
      *
-     * @var RuleType::*|null
+     * @var RuleType::*|string|null
      */
     private $type;
 
@@ -82,7 +82,7 @@ final class AutomatedAbrRule
      *   ForceIncludeRenditions?: null|array<ForceIncludeRenditionSize|array>,
      *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
      *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
-     *   Type?: null|RuleType::*,
+     *   Type?: null|RuleType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -100,7 +100,7 @@ final class AutomatedAbrRule
      *   ForceIncludeRenditions?: null|array<ForceIncludeRenditionSize|array>,
      *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
      *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
-     *   Type?: null|RuleType::*,
+     *   Type?: null|RuleType::*|string,
      * }|AutomatedAbrRule $input
      */
     public static function create($input): self
@@ -135,7 +135,7 @@ final class AutomatedAbrRule
     }
 
     /**
-     * @return RuleType::*|null
+     * @return RuleType::*|string|null
      */
     public function getType(): ?string
     {

@@ -18,7 +18,7 @@ final class EncryptionConfiguration
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
      * encryption is used. It specifies whether query results must be encrypted, for all queries that run in this workgroup.
      *
-     * @var EncryptionOption::*
+     * @var EncryptionOption::*|string
      */
     private $encryptionOption;
 
@@ -31,7 +31,7 @@ final class EncryptionConfiguration
 
     /**
      * @param array{
-     *   EncryptionOption: EncryptionOption::*,
+     *   EncryptionOption: EncryptionOption::*|string,
      *   KmsKey?: null|string,
      * } $input
      */
@@ -43,7 +43,7 @@ final class EncryptionConfiguration
 
     /**
      * @param array{
-     *   EncryptionOption: EncryptionOption::*,
+     *   EncryptionOption: EncryptionOption::*|string,
      *   KmsKey?: null|string,
      * }|EncryptionConfiguration $input
      */
@@ -53,7 +53,7 @@ final class EncryptionConfiguration
     }
 
     /**
-     * @return EncryptionOption::*
+     * @return EncryptionOption::*|string
      */
     public function getEncryptionOption(): string
     {

@@ -30,7 +30,7 @@ final class WavSettings
      * output audio is likely to exceed 4GB in file size, or if you otherwise need the extended support of the RF64 format:
      * Choose RF64. If your player only supports the extensible wave format: Choose Extensible.
      *
-     * @var WavFormat::*|null
+     * @var WavFormat::*|string|null
      */
     private $format;
 
@@ -45,7 +45,7 @@ final class WavSettings
      * @param array{
      *   BitDepth?: null|int,
      *   Channels?: null|int,
-     *   Format?: null|WavFormat::*,
+     *   Format?: null|WavFormat::*|string,
      *   SampleRate?: null|int,
      * } $input
      */
@@ -61,7 +61,7 @@ final class WavSettings
      * @param array{
      *   BitDepth?: null|int,
      *   Channels?: null|int,
-     *   Format?: null|WavFormat::*,
+     *   Format?: null|WavFormat::*|string,
      *   SampleRate?: null|int,
      * }|WavSettings $input
      */
@@ -81,7 +81,7 @@ final class WavSettings
     }
 
     /**
-     * @return WavFormat::*|null
+     * @return WavFormat::*|string|null
      */
     public function getFormat(): ?string
     {

@@ -86,7 +86,7 @@ final class ResourceRecordSet
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html
      * [^2]: http://tools.ietf.org/html/rfc7208#section-14.1
      *
-     * @var RRType::*
+     * @var RRType::*|string
      */
     private $type;
 
@@ -151,7 +151,7 @@ final class ResourceRecordSet
      * - You can't create non-latency resource record sets that have the same values for the `Name` and `Type` elements as
      *   latency resource record sets.
      *
-     * @var ResourceRecordSetRegion::*|null
+     * @var ResourceRecordSetRegion::*|string|null
      */
     private $region;
 
@@ -220,7 +220,7 @@ final class ResourceRecordSet
      * [^1]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html
      * [^2]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html
      *
-     * @var ResourceRecordSetFailover::*|null
+     * @var ResourceRecordSetFailover::*|string|null
      */
     private $failover;
 
@@ -413,12 +413,12 @@ final class ResourceRecordSet
     /**
      * @param array{
      *   Name: string,
-     *   Type: RRType::*,
+     *   Type: RRType::*|string,
      *   SetIdentifier?: null|string,
      *   Weight?: null|int,
-     *   Region?: null|ResourceRecordSetRegion::*,
+     *   Region?: null|ResourceRecordSetRegion::*|string,
      *   GeoLocation?: null|GeoLocation|array,
-     *   Failover?: null|ResourceRecordSetFailover::*,
+     *   Failover?: null|ResourceRecordSetFailover::*|string,
      *   MultiValueAnswer?: null|bool,
      *   TTL?: null|int,
      *   ResourceRecords?: null|array<ResourceRecord|array>,
@@ -451,12 +451,12 @@ final class ResourceRecordSet
     /**
      * @param array{
      *   Name: string,
-     *   Type: RRType::*,
+     *   Type: RRType::*|string,
      *   SetIdentifier?: null|string,
      *   Weight?: null|int,
-     *   Region?: null|ResourceRecordSetRegion::*,
+     *   Region?: null|ResourceRecordSetRegion::*|string,
      *   GeoLocation?: null|GeoLocation|array,
-     *   Failover?: null|ResourceRecordSetFailover::*,
+     *   Failover?: null|ResourceRecordSetFailover::*|string,
      *   MultiValueAnswer?: null|bool,
      *   TTL?: null|int,
      *   ResourceRecords?: null|array<ResourceRecord|array>,
@@ -483,7 +483,7 @@ final class ResourceRecordSet
     }
 
     /**
-     * @return ResourceRecordSetFailover::*|null
+     * @return ResourceRecordSetFailover::*|string|null
      */
     public function getFailover(): ?string
     {
@@ -516,7 +516,7 @@ final class ResourceRecordSet
     }
 
     /**
-     * @return ResourceRecordSetRegion::*|null
+     * @return ResourceRecordSetRegion::*|string|null
      */
     public function getRegion(): ?string
     {
@@ -547,7 +547,7 @@ final class ResourceRecordSet
     }
 
     /**
-     * @return RRType::*
+     * @return RRType::*|string
      */
     public function getType(): string
     {

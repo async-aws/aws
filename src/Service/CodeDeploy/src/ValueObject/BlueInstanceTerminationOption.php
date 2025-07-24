@@ -17,7 +17,7 @@ final class BlueInstanceTerminationOption
      * - `KEEP_ALIVE`: Instances are left running after they are deregistered from the load balancer and removed from the
      *   deployment group.
      *
-     * @var InstanceAction::*|null
+     * @var InstanceAction::*|string|null
      */
     private $action;
 
@@ -36,7 +36,7 @@ final class BlueInstanceTerminationOption
 
     /**
      * @param array{
-     *   action?: null|InstanceAction::*,
+     *   action?: null|InstanceAction::*|string,
      *   terminationWaitTimeInMinutes?: null|int,
      * } $input
      */
@@ -48,7 +48,7 @@ final class BlueInstanceTerminationOption
 
     /**
      * @param array{
-     *   action?: null|InstanceAction::*,
+     *   action?: null|InstanceAction::*|string,
      *   terminationWaitTimeInMinutes?: null|int,
      * }|BlueInstanceTerminationOption $input
      */
@@ -58,7 +58,7 @@ final class BlueInstanceTerminationOption
     }
 
     /**
-     * @return InstanceAction::*|null
+     * @return InstanceAction::*|string|null
      */
     public function getAction(): ?string
     {

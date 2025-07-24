@@ -5,6 +5,7 @@
 ### Changed
 
 - AWS enhancement: Documentation updates.
+- DocBloc on enum values reflects that AWS might returns unknown values
 
 ## 1.1.0
 

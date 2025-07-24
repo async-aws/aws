@@ -80,7 +80,7 @@ final class Stack
     /**
      * Current status of the stack.
      *
-     * @var StackStatus::*
+     * @var StackStatus::*|string
      */
     private $stackStatus;
 
@@ -118,7 +118,7 @@ final class Stack
     /**
      * The capabilities allowed in the stack.
      *
-     * @var list<Capability::*>|null
+     * @var list<Capability::*|string>|null
      */
     private $capabilities;
 
@@ -208,7 +208,7 @@ final class Stack
      * - `STANDARD` - Use the standard behavior. Specifying this value is the same as not specifying this parameter.
      * - `FORCE_DELETE_STACK` - Delete the stack if it's stuck in a `DELETE_FAILED` state due to resource deletion failure.
      *
-     * @var DeletionMode::*|null
+     * @var DeletionMode::*|string|null
      */
     private $deletionMode;
 
@@ -220,7 +220,7 @@ final class Stack
      *
      * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html
      *
-     * @var DetailedStatus::*|null
+     * @var DetailedStatus::*|string|null
      */
     private $detailedStatus;
 
@@ -235,12 +235,12 @@ final class Stack
      *   DeletionTime?: null|\DateTimeImmutable,
      *   LastUpdatedTime?: null|\DateTimeImmutable,
      *   RollbackConfiguration?: null|RollbackConfiguration|array,
-     *   StackStatus: StackStatus::*,
+     *   StackStatus: StackStatus::*|string,
      *   StackStatusReason?: null|string,
      *   DisableRollback?: null|bool,
      *   NotificationARNs?: null|string[],
      *   TimeoutInMinutes?: null|int,
-     *   Capabilities?: null|array<Capability::*>,
+     *   Capabilities?: null|array<Capability::*|string>,
      *   Outputs?: null|array<Output|array>,
      *   RoleARN?: null|string,
      *   Tags?: null|array<Tag|array>,
@@ -249,8 +249,8 @@ final class Stack
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
      *   RetainExceptOnCreate?: null|bool,
-     *   DeletionMode?: null|DeletionMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   DeletionMode?: null|DeletionMode::*|string,
+     *   DetailedStatus?: null|DetailedStatus::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -293,12 +293,12 @@ final class Stack
      *   DeletionTime?: null|\DateTimeImmutable,
      *   LastUpdatedTime?: null|\DateTimeImmutable,
      *   RollbackConfiguration?: null|RollbackConfiguration|array,
-     *   StackStatus: StackStatus::*,
+     *   StackStatus: StackStatus::*|string,
      *   StackStatusReason?: null|string,
      *   DisableRollback?: null|bool,
      *   NotificationARNs?: null|string[],
      *   TimeoutInMinutes?: null|int,
-     *   Capabilities?: null|array<Capability::*>,
+     *   Capabilities?: null|array<Capability::*|string>,
      *   Outputs?: null|array<Output|array>,
      *   RoleARN?: null|string,
      *   Tags?: null|array<Tag|array>,
@@ -307,8 +307,8 @@ final class Stack
      *   RootId?: null|string,
      *   DriftInformation?: null|StackDriftInformation|array,
      *   RetainExceptOnCreate?: null|bool,
-     *   DeletionMode?: null|DeletionMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   DeletionMode?: null|DeletionMode::*|string,
+     *   DetailedStatus?: null|DetailedStatus::*|string,
      * }|Stack $input
      */
     public static function create($input): self
@@ -317,7 +317,7 @@ final class Stack
     }
 
     /**
-     * @return list<Capability::*>
+     * @return list<Capability::*|string>
      */
     public function getCapabilities(): array
     {
@@ -335,7 +335,7 @@ final class Stack
     }
 
     /**
-     * @return DeletionMode::*|null
+     * @return DeletionMode::*|string|null
      */
     public function getDeletionMode(): ?string
     {
@@ -353,7 +353,7 @@ final class Stack
     }
 
     /**
-     * @return DetailedStatus::*|null
+     * @return DetailedStatus::*|string|null
      */
     public function getDetailedStatus(): ?string
     {
@@ -440,7 +440,7 @@ final class Stack
     }
 
     /**
-     * @return StackStatus::*
+     * @return StackStatus::*|string
      */
     public function getStackStatus(): string
     {

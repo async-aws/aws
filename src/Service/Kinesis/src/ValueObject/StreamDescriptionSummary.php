@@ -37,7 +37,7 @@ final class StreamDescriptionSummary
      * - `UPDATING` - Shards in the stream are being merged or split. Read and write operations continue to work while the
      *   stream is in the `UPDATING` state.
      *
-     * @var StreamStatus::*
+     * @var StreamStatus::*|string
      */
     private $streamStatus;
 
@@ -76,7 +76,7 @@ final class StreamDescriptionSummary
      * - `KMS`
      * - `NONE`
      *
-     * @var EncryptionType::*|null
+     * @var EncryptionType::*|string|null
      */
     private $encryptionType;
 
@@ -113,12 +113,12 @@ final class StreamDescriptionSummary
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
-     *   StreamStatus: StreamStatus::*,
+     *   StreamStatus: StreamStatus::*|string,
      *   StreamModeDetails?: null|StreamModeDetails|array,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: array<EnhancedMetrics|array>,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: null|EncryptionType::*|string,
      *   KeyId?: null|string,
      *   OpenShardCount: int,
      *   ConsumerCount?: null|int,
@@ -143,12 +143,12 @@ final class StreamDescriptionSummary
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
-     *   StreamStatus: StreamStatus::*,
+     *   StreamStatus: StreamStatus::*|string,
      *   StreamModeDetails?: null|StreamModeDetails|array,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: array<EnhancedMetrics|array>,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: null|EncryptionType::*|string,
      *   KeyId?: null|string,
      *   OpenShardCount: int,
      *   ConsumerCount?: null|int,
@@ -165,7 +165,7 @@ final class StreamDescriptionSummary
     }
 
     /**
-     * @return EncryptionType::*|null
+     * @return EncryptionType::*|string|null
      */
     public function getEncryptionType(): ?string
     {
@@ -216,7 +216,7 @@ final class StreamDescriptionSummary
     }
 
     /**
-     * @return StreamStatus::*
+     * @return StreamStatus::*|string
      */
     public function getStreamStatus(): string
     {

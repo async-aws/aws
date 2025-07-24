@@ -19,7 +19,7 @@ final class UncompressedSettings
     /**
      * The four character code for the uncompressed video.
      *
-     * @var UncompressedFourcc::*|null
+     * @var UncompressedFourcc::*|string|null
      */
     private $fourcc;
 
@@ -29,7 +29,7 @@ final class UncompressedSettings
      * list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you
      * choose Custom, specify your frame rate as a fraction.
      *
-     * @var UncompressedFramerateControl::*|null
+     * @var UncompressedFramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -46,7 +46,7 @@ final class UncompressedSettings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var UncompressedFramerateConversionAlgorithm::*|null
+     * @var UncompressedFramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -74,7 +74,7 @@ final class UncompressedSettings
      * Optional. Choose the scan line type for this output. If you don't specify a value, MediaConvert will create a
      * progressive output.
      *
-     * @var UncompressedInterlaceMode::*|null
+     * @var UncompressedInterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -88,7 +88,7 @@ final class UncompressedSettings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var UncompressedScanTypeConversionMode::*|null
+     * @var UncompressedScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -97,7 +97,7 @@ final class UncompressedSettings
      * 25 fps output by relabeling the video frames and resampling your audio. Note that enabling this setting will slightly
      * reduce the duration of your video. Related settings: You must also set Framerate to 25.
      *
-     * @var UncompressedSlowPal::*|null
+     * @var UncompressedSlowPal::*|string|null
      */
     private $slowPal;
 
@@ -107,21 +107,21 @@ final class UncompressedSettings
      * None, MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to
      * create a smoother picture.
      *
-     * @var UncompressedTelecine::*|null
+     * @var UncompressedTelecine::*|string|null
      */
     private $telecine;
 
     /**
      * @param array{
-     *   Fourcc?: null|UncompressedFourcc::*,
-     *   FramerateControl?: null|UncompressedFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|UncompressedFramerateConversionAlgorithm::*,
+     *   Fourcc?: null|UncompressedFourcc::*|string,
+     *   FramerateControl?: null|UncompressedFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|UncompressedFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|UncompressedInterlaceMode::*,
-     *   ScanTypeConversionMode?: null|UncompressedScanTypeConversionMode::*,
-     *   SlowPal?: null|UncompressedSlowPal::*,
-     *   Telecine?: null|UncompressedTelecine::*,
+     *   InterlaceMode?: null|UncompressedInterlaceMode::*|string,
+     *   ScanTypeConversionMode?: null|UncompressedScanTypeConversionMode::*|string,
+     *   SlowPal?: null|UncompressedSlowPal::*|string,
+     *   Telecine?: null|UncompressedTelecine::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -139,15 +139,15 @@ final class UncompressedSettings
 
     /**
      * @param array{
-     *   Fourcc?: null|UncompressedFourcc::*,
-     *   FramerateControl?: null|UncompressedFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|UncompressedFramerateConversionAlgorithm::*,
+     *   Fourcc?: null|UncompressedFourcc::*|string,
+     *   FramerateControl?: null|UncompressedFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|UncompressedFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|UncompressedInterlaceMode::*,
-     *   ScanTypeConversionMode?: null|UncompressedScanTypeConversionMode::*,
-     *   SlowPal?: null|UncompressedSlowPal::*,
-     *   Telecine?: null|UncompressedTelecine::*,
+     *   InterlaceMode?: null|UncompressedInterlaceMode::*|string,
+     *   ScanTypeConversionMode?: null|UncompressedScanTypeConversionMode::*|string,
+     *   SlowPal?: null|UncompressedSlowPal::*|string,
+     *   Telecine?: null|UncompressedTelecine::*|string,
      * }|UncompressedSettings $input
      */
     public static function create($input): self
@@ -156,7 +156,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedFourcc::*|null
+     * @return UncompressedFourcc::*|string|null
      */
     public function getFourcc(): ?string
     {
@@ -164,7 +164,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedFramerateControl::*|null
+     * @return UncompressedFramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -172,7 +172,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedFramerateConversionAlgorithm::*|null
+     * @return UncompressedFramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -190,7 +190,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedInterlaceMode::*|null
+     * @return UncompressedInterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -198,7 +198,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedScanTypeConversionMode::*|null
+     * @return UncompressedScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -206,7 +206,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedSlowPal::*|null
+     * @return UncompressedSlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -214,7 +214,7 @@ final class UncompressedSettings
     }
 
     /**
-     * @return UncompressedTelecine::*|null
+     * @return UncompressedTelecine::*|string|null
      */
     public function getTelecine(): ?string
     {

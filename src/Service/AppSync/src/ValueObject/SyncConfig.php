@@ -21,7 +21,7 @@ final class SyncConfig
      * - **AUTOMERGE**: Resolve conflicts with the Automerge conflict resolution strategy.
      * - **LAMBDA**: Resolve conflicts with an Lambda function supplied in the `LambdaConflictHandlerConfig`.
      *
-     * @var ConflictHandlerType::*|null
+     * @var ConflictHandlerType::*|string|null
      */
     private $conflictHandler;
 
@@ -31,7 +31,7 @@ final class SyncConfig
      * - **VERSION**: Detect conflicts based on object versions for this resolver.
      * - **NONE**: Do not detect conflicts when invoking this resolver.
      *
-     * @var ConflictDetectionType::*|null
+     * @var ConflictDetectionType::*|string|null
      */
     private $conflictDetection;
 
@@ -44,8 +44,8 @@ final class SyncConfig
 
     /**
      * @param array{
-     *   conflictHandler?: null|ConflictHandlerType::*,
-     *   conflictDetection?: null|ConflictDetectionType::*,
+     *   conflictHandler?: null|ConflictHandlerType::*|string,
+     *   conflictDetection?: null|ConflictDetectionType::*|string,
      *   lambdaConflictHandlerConfig?: null|LambdaConflictHandlerConfig|array,
      * } $input
      */
@@ -58,8 +58,8 @@ final class SyncConfig
 
     /**
      * @param array{
-     *   conflictHandler?: null|ConflictHandlerType::*,
-     *   conflictDetection?: null|ConflictDetectionType::*,
+     *   conflictHandler?: null|ConflictHandlerType::*|string,
+     *   conflictDetection?: null|ConflictDetectionType::*|string,
      *   lambdaConflictHandlerConfig?: null|LambdaConflictHandlerConfig|array,
      * }|SyncConfig $input
      */
@@ -69,7 +69,7 @@ final class SyncConfig
     }
 
     /**
-     * @return ConflictDetectionType::*|null
+     * @return ConflictDetectionType::*|string|null
      */
     public function getConflictDetection(): ?string
     {
@@ -77,7 +77,7 @@ final class SyncConfig
     }
 
     /**
-     * @return ConflictHandlerType::*|null
+     * @return ConflictHandlerType::*|string|null
      */
     public function getConflictHandler(): ?string
     {

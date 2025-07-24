@@ -48,7 +48,7 @@ final class Record
      * - `KMS`: Use server-side encryption on the records in the stream using a customer-managed Amazon Web Services KMS
      *   key.
      *
-     * @var EncryptionType::*|null
+     * @var EncryptionType::*|string|null
      */
     private $encryptionType;
 
@@ -58,7 +58,7 @@ final class Record
      *   ApproximateArrivalTimestamp?: null|\DateTimeImmutable,
      *   Data: string,
      *   PartitionKey: string,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: null|EncryptionType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -76,7 +76,7 @@ final class Record
      *   ApproximateArrivalTimestamp?: null|\DateTimeImmutable,
      *   Data: string,
      *   PartitionKey: string,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: null|EncryptionType::*|string,
      * }|Record $input
      */
     public static function create($input): self
@@ -95,7 +95,7 @@ final class Record
     }
 
     /**
-     * @return EncryptionType::*|null
+     * @return EncryptionType::*|string|null
      */
     public function getEncryptionType(): ?string
     {

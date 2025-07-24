@@ -25,14 +25,14 @@ final class PlacementConstraint
      * The type of constraint. Use `distinctInstance` to ensure that each task in a particular group is running on a
      * different container instance. Use `memberOf` to restrict the selection to a group of valid candidates.
      *
-     * @var PlacementConstraintType::*|null
+     * @var PlacementConstraintType::*|string|null
      */
     private $type;
 
     /**
      * @param array{
      *   expression?: null|string,
-     *   type?: null|PlacementConstraintType::*,
+     *   type?: null|PlacementConstraintType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -44,7 +44,7 @@ final class PlacementConstraint
     /**
      * @param array{
      *   expression?: null|string,
-     *   type?: null|PlacementConstraintType::*,
+     *   type?: null|PlacementConstraintType::*|string,
      * }|PlacementConstraint $input
      */
     public static function create($input): self
@@ -58,7 +58,7 @@ final class PlacementConstraint
     }
 
     /**
-     * @return PlacementConstraintType::*|null
+     * @return PlacementConstraintType::*|string|null
      */
     public function getType(): ?string
     {

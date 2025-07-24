@@ -21,12 +21,12 @@ class PutParameterResult extends Result
     /**
      * The tier assigned to the parameter.
      *
-     * @var ParameterTier::*|null
+     * @var ParameterTier::*|string|null
      */
     private $tier;
 
     /**
-     * @return ParameterTier::*|null
+     * @return ParameterTier::*|string|null
      */
     public function getTier(): ?string
     {

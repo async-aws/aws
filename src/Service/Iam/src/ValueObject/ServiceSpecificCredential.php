@@ -84,7 +84,7 @@ final class ServiceSpecificCredential
      * The status of the service-specific credential. `Active` means that the key is valid for API calls, while `Inactive`
      * means it is not.
      *
-     * @var StatusType::*
+     * @var StatusType::*|string
      */
     private $status;
 
@@ -99,7 +99,7 @@ final class ServiceSpecificCredential
      *   ServiceCredentialSecret?: null|string,
      *   ServiceSpecificCredentialId: string,
      *   UserName: string,
-     *   Status: StatusType::*,
+     *   Status: StatusType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -127,7 +127,7 @@ final class ServiceSpecificCredential
      *   ServiceCredentialSecret?: null|string,
      *   ServiceSpecificCredentialId: string,
      *   UserName: string,
-     *   Status: StatusType::*,
+     *   Status: StatusType::*|string,
      * }|ServiceSpecificCredential $input
      */
     public static function create($input): self
@@ -176,7 +176,7 @@ final class ServiceSpecificCredential
     }
 
     /**
-     * @return StatusType::*
+     * @return StatusType::*|string
      */
     public function getStatus(): string
     {

@@ -31,7 +31,7 @@ final class TranslationSettings
      * [^1]: https://en.wikipedia.org/wiki/Register_(sociolinguistics)
      * [^2]: https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-formality.html#customizing-translations-formality-languages
      *
-     * @var Formality::*|null
+     * @var Formality::*|string|null
      */
     private $formality;
 
@@ -50,7 +50,7 @@ final class TranslationSettings
      *
      * [^1]: https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-profanity.html#customizing-translations-profanity-languages
      *
-     * @var Profanity::*|null
+     * @var Profanity::*|string|null
      */
     private $profanity;
 
@@ -65,15 +65,15 @@ final class TranslationSettings
      *
      * [^1]: https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-brevity
      *
-     * @var Brevity::*|null
+     * @var Brevity::*|string|null
      */
     private $brevity;
 
     /**
      * @param array{
-     *   Formality?: null|Formality::*,
-     *   Profanity?: null|Profanity::*,
-     *   Brevity?: null|Brevity::*,
+     *   Formality?: null|Formality::*|string,
+     *   Profanity?: null|Profanity::*|string,
+     *   Brevity?: null|Brevity::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -85,9 +85,9 @@ final class TranslationSettings
 
     /**
      * @param array{
-     *   Formality?: null|Formality::*,
-     *   Profanity?: null|Profanity::*,
-     *   Brevity?: null|Brevity::*,
+     *   Formality?: null|Formality::*|string,
+     *   Profanity?: null|Profanity::*|string,
+     *   Brevity?: null|Brevity::*|string,
      * }|TranslationSettings $input
      */
     public static function create($input): self
@@ -96,7 +96,7 @@ final class TranslationSettings
     }
 
     /**
-     * @return Brevity::*|null
+     * @return Brevity::*|string|null
      */
     public function getBrevity(): ?string
     {
@@ -104,7 +104,7 @@ final class TranslationSettings
     }
 
     /**
-     * @return Formality::*|null
+     * @return Formality::*|string|null
      */
     public function getFormality(): ?string
     {
@@ -112,7 +112,7 @@ final class TranslationSettings
     }
 
     /**
-     * @return Profanity::*|null
+     * @return Profanity::*|string|null
      */
     public function getProfanity(): ?string
     {

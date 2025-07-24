@@ -39,7 +39,7 @@ class GetScheduleGroupOutput extends Result
     /**
      * Specifies the state of the schedule group.
      *
-     * @var ScheduleGroupState::*|null
+     * @var ScheduleGroupState::*|string|null
      */
     private $state;
 
@@ -72,7 +72,7 @@ class GetScheduleGroupOutput extends Result
     }
 
     /**
-     * @return ScheduleGroupState::*|null
+     * @return ScheduleGroupState::*|string|null
      */
     public function getState(): ?string
     {

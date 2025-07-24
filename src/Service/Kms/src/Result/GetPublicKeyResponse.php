@@ -41,14 +41,14 @@ class GetPublicKeyResponse extends Result
      * The `KeySpec` and `CustomerMasterKeySpec` fields have the same value. We recommend that you use the `KeySpec` field
      * in your code. However, to avoid breaking changes, KMS supports both fields.
      *
-     * @var CustomerMasterKeySpec::*|null
+     * @var CustomerMasterKeySpec::*|string|null
      */
     private $customerMasterKeySpec;
 
     /**
      * The type of the of the public key that was downloaded.
      *
-     * @var KeySpec::*|null
+     * @var KeySpec::*|string|null
      */
     private $keySpec;
 
@@ -59,7 +59,7 @@ class GetPublicKeyResponse extends Result
      * This information is critical. For example, if a public key with `SIGN_VERIFY` key usage encrypts data outside of KMS,
      * the ciphertext cannot be decrypted.
      *
-     * @var KeyUsageType::*|null
+     * @var KeyUsageType::*|string|null
      */
     private $keyUsage;
 
@@ -71,7 +71,7 @@ class GetPublicKeyResponse extends Result
      *
      * This field appears in the response only when the `KeyUsage` of the public key is `ENCRYPT_DECRYPT`.
      *
-     * @var list<EncryptionAlgorithmSpec::*>
+     * @var list<EncryptionAlgorithmSpec::*|string>
      */
     private $encryptionAlgorithms;
 
@@ -80,7 +80,7 @@ class GetPublicKeyResponse extends Result
      *
      * This field appears in the response only when the `KeyUsage` of the public key is `SIGN_VERIFY`.
      *
-     * @var list<SigningAlgorithmSpec::*>
+     * @var list<SigningAlgorithmSpec::*|string>
      */
     private $signingAlgorithms;
 
@@ -88,14 +88,14 @@ class GetPublicKeyResponse extends Result
      * The key agreement algorithm used to derive a shared secret. This field is present only when the KMS key has a
      * `KeyUsage` value of `KEY_AGREEMENT`.
      *
-     * @var list<KeyAgreementAlgorithmSpec::*>
+     * @var list<KeyAgreementAlgorithmSpec::*|string>
      */
     private $keyAgreementAlgorithms;
 
     /**
      * @deprecated
      *
-     * @return CustomerMasterKeySpec::*|null
+     * @return CustomerMasterKeySpec::*|string|null
      */
     public function getCustomerMasterKeySpec(): ?string
     {
@@ -106,7 +106,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<EncryptionAlgorithmSpec::*>
+     * @return list<EncryptionAlgorithmSpec::*|string>
      */
     public function getEncryptionAlgorithms(): array
     {
@@ -116,7 +116,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<KeyAgreementAlgorithmSpec::*>
+     * @return list<KeyAgreementAlgorithmSpec::*|string>
      */
     public function getKeyAgreementAlgorithms(): array
     {
@@ -133,7 +133,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return KeySpec::*|null
+     * @return KeySpec::*|string|null
      */
     public function getKeySpec(): ?string
     {
@@ -143,7 +143,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return KeyUsageType::*|null
+     * @return KeyUsageType::*|string|null
      */
     public function getKeyUsage(): ?string
     {
@@ -160,7 +160,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<SigningAlgorithmSpec::*>
+     * @return list<SigningAlgorithmSpec::*|string>
      */
     public function getSigningAlgorithms(): array
     {
@@ -184,7 +184,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<EncryptionAlgorithmSpec::*>
+     * @return list<EncryptionAlgorithmSpec::*|string>
      */
     private function populateResultEncryptionAlgorithmSpecList(array $json): array
     {
@@ -200,7 +200,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<KeyAgreementAlgorithmSpec::*>
+     * @return list<KeyAgreementAlgorithmSpec::*|string>
      */
     private function populateResultKeyAgreementAlgorithmSpecList(array $json): array
     {
@@ -216,7 +216,7 @@ class GetPublicKeyResponse extends Result
     }
 
     /**
-     * @return list<SigningAlgorithmSpec::*>
+     * @return list<SigningAlgorithmSpec::*|string>
      */
     private function populateResultSigningAlgorithmSpecList(array $json): array
     {

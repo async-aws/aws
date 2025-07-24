@@ -17,7 +17,7 @@ final class ExtendedDataServices
      * The action to take on copy and redistribution control XDS packets. If you select PASSTHROUGH, packets will not be
      * changed. If you select STRIP, any packets will be removed in output captions.
      *
-     * @var CopyProtectionAction::*|null
+     * @var CopyProtectionAction::*|string|null
      */
     private $copyProtectionAction;
 
@@ -25,14 +25,14 @@ final class ExtendedDataServices
      * The action to take on content advisory XDS packets. If you select PASSTHROUGH, packets will not be changed. If you
      * select STRIP, any packets will be removed in output captions.
      *
-     * @var VchipAction::*|null
+     * @var VchipAction::*|string|null
      */
     private $vchipAction;
 
     /**
      * @param array{
-     *   CopyProtectionAction?: null|CopyProtectionAction::*,
-     *   VchipAction?: null|VchipAction::*,
+     *   CopyProtectionAction?: null|CopyProtectionAction::*|string,
+     *   VchipAction?: null|VchipAction::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class ExtendedDataServices
 
     /**
      * @param array{
-     *   CopyProtectionAction?: null|CopyProtectionAction::*,
-     *   VchipAction?: null|VchipAction::*,
+     *   CopyProtectionAction?: null|CopyProtectionAction::*|string,
+     *   VchipAction?: null|VchipAction::*|string,
      * }|ExtendedDataServices $input
      */
     public static function create($input): self
@@ -53,7 +53,7 @@ final class ExtendedDataServices
     }
 
     /**
-     * @return CopyProtectionAction::*|null
+     * @return CopyProtectionAction::*|string|null
      */
     public function getCopyProtectionAction(): ?string
     {
@@ -61,7 +61,7 @@ final class ExtendedDataServices
     }
 
     /**
-     * @return VchipAction::*|null
+     * @return VchipAction::*|string|null
      */
     public function getVchipAction(): ?string
     {

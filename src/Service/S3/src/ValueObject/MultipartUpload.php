@@ -38,7 +38,7 @@ final class MultipartUpload
      * > **Directory buckets** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class) in
      * > Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
-     * @var StorageClass::*|null
+     * @var StorageClass::*|string|null
      */
     private $storageClass;
 
@@ -61,7 +61,7 @@ final class MultipartUpload
     /**
      * The algorithm that was used to create a checksum of the object.
      *
-     * @var ChecksumAlgorithm::*|null
+     * @var ChecksumAlgorithm::*|string|null
      */
     private $checksumAlgorithm;
 
@@ -71,7 +71,7 @@ final class MultipartUpload
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -80,11 +80,11 @@ final class MultipartUpload
      *   UploadId?: null|string,
      *   Key?: null|string,
      *   Initiated?: null|\DateTimeImmutable,
-     *   StorageClass?: null|StorageClass::*,
+     *   StorageClass?: null|StorageClass::*|string,
      *   Owner?: null|Owner|array,
      *   Initiator?: null|Initiator|array,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*|string,
+     *   ChecksumType?: null|ChecksumType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -104,11 +104,11 @@ final class MultipartUpload
      *   UploadId?: null|string,
      *   Key?: null|string,
      *   Initiated?: null|\DateTimeImmutable,
-     *   StorageClass?: null|StorageClass::*,
+     *   StorageClass?: null|StorageClass::*|string,
      *   Owner?: null|Owner|array,
      *   Initiator?: null|Initiator|array,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*|string,
+     *   ChecksumType?: null|ChecksumType::*|string,
      * }|MultipartUpload $input
      */
     public static function create($input): self
@@ -117,7 +117,7 @@ final class MultipartUpload
     }
 
     /**
-     * @return ChecksumAlgorithm::*|null
+     * @return ChecksumAlgorithm::*|string|null
      */
     public function getChecksumAlgorithm(): ?string
     {
@@ -125,7 +125,7 @@ final class MultipartUpload
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -153,7 +153,7 @@ final class MultipartUpload
     }
 
     /**
-     * @return StorageClass::*|null
+     * @return StorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

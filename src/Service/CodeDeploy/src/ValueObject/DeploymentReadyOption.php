@@ -19,7 +19,7 @@ final class DeploymentReadyOption
      *   ContinueDeployment. If traffic rerouting is not started before the end of the specified wait period, the deployment
      *   status is changed to Stopped.
      *
-     * @var DeploymentReadyAction::*|null
+     * @var DeploymentReadyAction::*|string|null
      */
     private $actionOnTimeout;
 
@@ -33,7 +33,7 @@ final class DeploymentReadyOption
 
     /**
      * @param array{
-     *   actionOnTimeout?: null|DeploymentReadyAction::*,
+     *   actionOnTimeout?: null|DeploymentReadyAction::*|string,
      *   waitTimeInMinutes?: null|int,
      * } $input
      */
@@ -45,7 +45,7 @@ final class DeploymentReadyOption
 
     /**
      * @param array{
-     *   actionOnTimeout?: null|DeploymentReadyAction::*,
+     *   actionOnTimeout?: null|DeploymentReadyAction::*|string,
      *   waitTimeInMinutes?: null|int,
      * }|DeploymentReadyOption $input
      */
@@ -55,7 +55,7 @@ final class DeploymentReadyOption
     }
 
     /**
-     * @return DeploymentReadyAction::*|null
+     * @return DeploymentReadyAction::*|string|null
      */
     public function getActionOnTimeout(): ?string
     {

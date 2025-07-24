@@ -65,14 +65,14 @@ final class OutputGroupSettings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
     /**
      * Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth Streaming, CMAF).
      *
-     * @var OutputGroupType::*|null
+     * @var OutputGroupType::*|string|null
      */
     private $type;
 
@@ -83,8 +83,8 @@ final class OutputGroupSettings
      *   FileGroupSettings?: null|FileGroupSettings|array,
      *   HlsGroupSettings?: null|HlsGroupSettings|array,
      *   MsSmoothGroupSettings?: null|MsSmoothGroupSettings|array,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   Type?: null|OutputGroupType::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   Type?: null|OutputGroupType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -105,8 +105,8 @@ final class OutputGroupSettings
      *   FileGroupSettings?: null|FileGroupSettings|array,
      *   HlsGroupSettings?: null|HlsGroupSettings|array,
      *   MsSmoothGroupSettings?: null|MsSmoothGroupSettings|array,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   Type?: null|OutputGroupType::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   Type?: null|OutputGroupType::*|string,
      * }|OutputGroupSettings $input
      */
     public static function create($input): self
@@ -140,7 +140,7 @@ final class OutputGroupSettings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -148,7 +148,7 @@ final class OutputGroupSettings
     }
 
     /**
-     * @return OutputGroupType::*|null
+     * @return OutputGroupType::*|string|null
      */
     public function getType(): ?string
     {

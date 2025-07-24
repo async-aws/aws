@@ -18,7 +18,7 @@ final class AudioChannelTaggingSettings
      * right channel, enter Left (L) for the first channel and Right (R) for the second. If your output has multiple
      * single-channel audio tracks, enter a single channel layout tag for each track.
      *
-     * @var AudioChannelTag::*|null
+     * @var AudioChannelTag::*|string|null
      */
     private $channelTag;
 
@@ -28,14 +28,14 @@ final class AudioChannelTaggingSettings
      * right channel, enter Left (L) for the first channel and Right (R) for the second. If your output has multiple
      * single-channel audio tracks, enter a single channel layout tag for each track.
      *
-     * @var list<AudioChannelTag::*>|null
+     * @var list<AudioChannelTag::*|string>|null
      */
     private $channelTags;
 
     /**
      * @param array{
-     *   ChannelTag?: null|AudioChannelTag::*,
-     *   ChannelTags?: null|array<AudioChannelTag::*>,
+     *   ChannelTag?: null|AudioChannelTag::*|string,
+     *   ChannelTags?: null|array<AudioChannelTag::*|string>,
      * } $input
      */
     public function __construct(array $input)
@@ -46,8 +46,8 @@ final class AudioChannelTaggingSettings
 
     /**
      * @param array{
-     *   ChannelTag?: null|AudioChannelTag::*,
-     *   ChannelTags?: null|array<AudioChannelTag::*>,
+     *   ChannelTag?: null|AudioChannelTag::*|string,
+     *   ChannelTags?: null|array<AudioChannelTag::*|string>,
      * }|AudioChannelTaggingSettings $input
      */
     public static function create($input): self
@@ -56,7 +56,7 @@ final class AudioChannelTaggingSettings
     }
 
     /**
-     * @return AudioChannelTag::*|null
+     * @return AudioChannelTag::*|string|null
      */
     public function getChannelTag(): ?string
     {
@@ -64,7 +64,7 @@ final class AudioChannelTaggingSettings
     }
 
     /**
-     * @return list<AudioChannelTag::*>
+     * @return list<AudioChannelTag::*|string>
      */
     public function getChannelTags(): array
     {

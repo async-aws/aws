@@ -26,14 +26,14 @@ final class StreamSpecification
      * - `OLD_IMAGE` - The entire item, as it appeared before it was modified, is written to the stream.
      * - `NEW_AND_OLD_IMAGES` - Both the new and the old item images of the item are written to the stream.
      *
-     * @var StreamViewType::*|null
+     * @var StreamViewType::*|string|null
      */
     private $streamViewType;
 
     /**
      * @param array{
      *   StreamEnabled: bool,
-     *   StreamViewType?: null|StreamViewType::*,
+     *   StreamViewType?: null|StreamViewType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -45,7 +45,7 @@ final class StreamSpecification
     /**
      * @param array{
      *   StreamEnabled: bool,
-     *   StreamViewType?: null|StreamViewType::*,
+     *   StreamViewType?: null|StreamViewType::*|string,
      * }|StreamSpecification $input
      */
     public static function create($input): self
@@ -59,7 +59,7 @@ final class StreamSpecification
     }
 
     /**
-     * @return StreamViewType::*|null
+     * @return StreamViewType::*|string|null
      */
     public function getStreamViewType(): ?string
     {

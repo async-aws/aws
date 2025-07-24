@@ -18,7 +18,7 @@ final class Xavc4kProfileSettings
      * Specify the XAVC 4k (Long GOP) Bitrate Class to set the bitrate of your output. Outputs of the same class have
      * similar image quality over the operating points that are valid for that class.
      *
-     * @var Xavc4kProfileBitrateClass::*|null
+     * @var Xavc4kProfileBitrateClass::*|string|null
      */
     private $bitrateClass;
 
@@ -26,7 +26,7 @@ final class Xavc4kProfileSettings
      * Specify the codec profile for this output. Choose High, 8-bit, 4:2:0 (HIGH) or High, 10-bit, 4:2:2 (HIGH_422). These
      * profiles are specified in ITU-T H.264.
      *
-     * @var Xavc4kProfileCodecProfile::*|null
+     * @var Xavc4kProfileCodecProfile::*|string|null
      */
     private $codecProfile;
 
@@ -41,7 +41,7 @@ final class Xavc4kProfileSettings
      * setting, you must also set Adaptive quantization to a value other than Off or Auto. Use Adaptive quantization to
      * adjust the degree of smoothing that Flicker adaptive quantization provides.
      *
-     * @var XavcFlickerAdaptiveQuantization::*|null
+     * @var XavcFlickerAdaptiveQuantization::*|string|null
      */
     private $flickerAdaptiveQuantization;
 
@@ -50,7 +50,7 @@ final class Xavc4kProfileSettings
      * allow the encoder to use B-frames as reference frames. Choose Don't allow to prevent the encoder from using B-frames
      * as reference frames.
      *
-     * @var XavcGopBReference::*|null
+     * @var XavcGopBReference::*|string|null
      */
     private $gopBreference;
 
@@ -75,7 +75,7 @@ final class Xavc4kProfileSettings
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, single-pass encoding.
      *
-     * @var Xavc4kProfileQualityTuningLevel::*|null
+     * @var Xavc4kProfileQualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
@@ -89,13 +89,13 @@ final class Xavc4kProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*,
-     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
+     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*|string,
+     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*|string,
+     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*|string,
+     *   GopBReference?: null|XavcGopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   HrdBufferSize?: null|int,
-     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*,
+     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*|string,
      *   Slices?: null|int,
      * } $input
      */
@@ -113,13 +113,13 @@ final class Xavc4kProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*,
-     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
+     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*|string,
+     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*|string,
+     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*|string,
+     *   GopBReference?: null|XavcGopBReference::*|string,
      *   GopClosedCadence?: null|int,
      *   HrdBufferSize?: null|int,
-     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*,
+     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*|string,
      *   Slices?: null|int,
      * }|Xavc4kProfileSettings $input
      */
@@ -129,7 +129,7 @@ final class Xavc4kProfileSettings
     }
 
     /**
-     * @return Xavc4kProfileBitrateClass::*|null
+     * @return Xavc4kProfileBitrateClass::*|string|null
      */
     public function getBitrateClass(): ?string
     {
@@ -137,7 +137,7 @@ final class Xavc4kProfileSettings
     }
 
     /**
-     * @return Xavc4kProfileCodecProfile::*|null
+     * @return Xavc4kProfileCodecProfile::*|string|null
      */
     public function getCodecProfile(): ?string
     {
@@ -145,7 +145,7 @@ final class Xavc4kProfileSettings
     }
 
     /**
-     * @return XavcFlickerAdaptiveQuantization::*|null
+     * @return XavcFlickerAdaptiveQuantization::*|string|null
      */
     public function getFlickerAdaptiveQuantization(): ?string
     {
@@ -153,7 +153,7 @@ final class Xavc4kProfileSettings
     }
 
     /**
-     * @return XavcGopBReference::*|null
+     * @return XavcGopBReference::*|string|null
      */
     public function getGopBreference(): ?string
     {
@@ -171,7 +171,7 @@ final class Xavc4kProfileSettings
     }
 
     /**
-     * @return Xavc4kProfileQualityTuningLevel::*|null
+     * @return Xavc4kProfileQualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {

@@ -25,7 +25,7 @@ final class MpdSettings
      * markup that MediaConvert includes in your manifest: `<Accessibility schemeIdUri="urn:scte:dash:cc:cea-608:2015"
      * value="CC1=eng"/>`.
      *
-     * @var MpdAccessibilityCaptionHints::*|null
+     * @var MpdAccessibilityCaptionHints::*|string|null
      */
     private $accessibilityCaptionHints;
 
@@ -40,7 +40,7 @@ final class MpdSettings
      * you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio
      * codec.
      *
-     * @var MpdAudioDuration::*|null
+     * @var MpdAudioDuration::*|string|null
      */
     private $audioDuration;
 
@@ -50,7 +50,7 @@ final class MpdSettings
      * Choose Fragmented MPEG-4 for captions in XML format contained within fragmented MP4 files. This set of fragmented MP4
      * files is separate from your video and audio fragmented MP4 files.
      *
-     * @var MpdCaptionContainerType::*|null
+     * @var MpdCaptionContainerType::*|string|null
      */
     private $captionContainerType;
 
@@ -59,7 +59,7 @@ final class MpdSettings
      * KLV metadata present in your input and writes each instance to a separate event message box in the output, according
      * to MISB ST1910.1. To exclude this KLV metadata: Set KLV metadata insertion to None or leave blank.
      *
-     * @var MpdKlvMetadata::*|null
+     * @var MpdKlvMetadata::*|string|null
      */
     private $klvMetadata;
 
@@ -71,7 +71,7 @@ final class MpdSettings
      * to Disabled. To enable Manifest metadata signaling, you must also set SCTE-35 source to Passthrough, ESAM SCTE-35 to
      * insert, or ID3 metadata to Passthrough.
      *
-     * @var MpdManifestMetadataSignaling::*|null
+     * @var MpdManifestMetadataSignaling::*|string|null
      */
     private $manifestMetadataSignaling;
 
@@ -79,7 +79,7 @@ final class MpdSettings
      * Use this setting only when you specify SCTE-35 markers from ESAM. Choose INSERT to put SCTE-35 markers in this output
      * at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML.
      *
-     * @var MpdScte35Esam::*|null
+     * @var MpdScte35Esam::*|string|null
      */
     private $scte35Esam;
 
@@ -88,7 +88,7 @@ final class MpdSettings
      * markers that appear in your input to also appear in this output. Choose None if you don't want those SCTE-35 markers
      * in this output.
      *
-     * @var MpdScte35Source::*|null
+     * @var MpdScte35Source::*|string|null
      */
     private $scte35Source;
 
@@ -97,7 +97,7 @@ final class MpdSettings
      * metadata inserter. MediaConvert writes each instance of ID3 metadata in a separate Event Message (eMSG) box. To
      * exclude this ID3 metadata: Set ID3 metadata to None or leave blank.
      *
-     * @var MpdTimedMetadata::*|null
+     * @var MpdTimedMetadata::*|string|null
      */
     private $timedMetadata;
 
@@ -107,7 +107,7 @@ final class MpdSettings
      * Leave blank to use the default value Version 0.
      * When you specify Version 1, you must also set ID3 metadata to Passthrough.
      *
-     * @var MpdTimedMetadataBoxVersion::*|null
+     * @var MpdTimedMetadataBoxVersion::*|string|null
      */
     private $timedMetadataBoxVersion;
 
@@ -131,15 +131,15 @@ final class MpdSettings
 
     /**
      * @param array{
-     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*,
-     *   AudioDuration?: null|MpdAudioDuration::*,
-     *   CaptionContainerType?: null|MpdCaptionContainerType::*,
-     *   KlvMetadata?: null|MpdKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|MpdScte35Esam::*,
-     *   Scte35Source?: null|MpdScte35Source::*,
-     *   TimedMetadata?: null|MpdTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*,
+     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*|string,
+     *   AudioDuration?: null|MpdAudioDuration::*|string,
+     *   CaptionContainerType?: null|MpdCaptionContainerType::*|string,
+     *   KlvMetadata?: null|MpdKlvMetadata::*|string,
+     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*|string,
+     *   Scte35Esam?: null|MpdScte35Esam::*|string,
+     *   Scte35Source?: null|MpdScte35Source::*|string,
+     *   TimedMetadata?: null|MpdTimedMetadata::*|string,
+     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*|string,
      *   TimedMetadataSchemeIdUri?: null|string,
      *   TimedMetadataValue?: null|string,
      * } $input
@@ -161,15 +161,15 @@ final class MpdSettings
 
     /**
      * @param array{
-     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*,
-     *   AudioDuration?: null|MpdAudioDuration::*,
-     *   CaptionContainerType?: null|MpdCaptionContainerType::*,
-     *   KlvMetadata?: null|MpdKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|MpdScte35Esam::*,
-     *   Scte35Source?: null|MpdScte35Source::*,
-     *   TimedMetadata?: null|MpdTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*,
+     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*|string,
+     *   AudioDuration?: null|MpdAudioDuration::*|string,
+     *   CaptionContainerType?: null|MpdCaptionContainerType::*|string,
+     *   KlvMetadata?: null|MpdKlvMetadata::*|string,
+     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*|string,
+     *   Scte35Esam?: null|MpdScte35Esam::*|string,
+     *   Scte35Source?: null|MpdScte35Source::*|string,
+     *   TimedMetadata?: null|MpdTimedMetadata::*|string,
+     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*|string,
      *   TimedMetadataSchemeIdUri?: null|string,
      *   TimedMetadataValue?: null|string,
      * }|MpdSettings $input
@@ -180,7 +180,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdAccessibilityCaptionHints::*|null
+     * @return MpdAccessibilityCaptionHints::*|string|null
      */
     public function getAccessibilityCaptionHints(): ?string
     {
@@ -188,7 +188,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdAudioDuration::*|null
+     * @return MpdAudioDuration::*|string|null
      */
     public function getAudioDuration(): ?string
     {
@@ -196,7 +196,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdCaptionContainerType::*|null
+     * @return MpdCaptionContainerType::*|string|null
      */
     public function getCaptionContainerType(): ?string
     {
@@ -204,7 +204,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdKlvMetadata::*|null
+     * @return MpdKlvMetadata::*|string|null
      */
     public function getKlvMetadata(): ?string
     {
@@ -212,7 +212,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdManifestMetadataSignaling::*|null
+     * @return MpdManifestMetadataSignaling::*|string|null
      */
     public function getManifestMetadataSignaling(): ?string
     {
@@ -220,7 +220,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdScte35Esam::*|null
+     * @return MpdScte35Esam::*|string|null
      */
     public function getScte35Esam(): ?string
     {
@@ -228,7 +228,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdScte35Source::*|null
+     * @return MpdScte35Source::*|string|null
      */
     public function getScte35Source(): ?string
     {
@@ -236,7 +236,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdTimedMetadata::*|null
+     * @return MpdTimedMetadata::*|string|null
      */
     public function getTimedMetadata(): ?string
     {
@@ -244,7 +244,7 @@ final class MpdSettings
     }
 
     /**
-     * @return MpdTimedMetadataBoxVersion::*|null
+     * @return MpdTimedMetadataBoxVersion::*|string|null
      */
     public function getTimedMetadataBoxVersion(): ?string
     {

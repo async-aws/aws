@@ -15,7 +15,7 @@ final class AwsVpcConfiguration
      * Specifies whether the task's elastic network interface receives a public IP address. You can specify `ENABLED` only
      * when `LaunchType` in `EcsParameters` is set to `FARGATE`.
      *
-     * @var AssignPublicIp::*|null
+     * @var AssignPublicIp::*|string|null
      */
     private $assignPublicIp;
 
@@ -38,7 +38,7 @@ final class AwsVpcConfiguration
 
     /**
      * @param array{
-     *   AssignPublicIp?: null|AssignPublicIp::*,
+     *   AssignPublicIp?: null|AssignPublicIp::*|string,
      *   SecurityGroups?: null|string[],
      *   Subnets: string[],
      * } $input
@@ -52,7 +52,7 @@ final class AwsVpcConfiguration
 
     /**
      * @param array{
-     *   AssignPublicIp?: null|AssignPublicIp::*,
+     *   AssignPublicIp?: null|AssignPublicIp::*|string,
      *   SecurityGroups?: null|string[],
      *   Subnets: string[],
      * }|AwsVpcConfiguration $input
@@ -63,7 +63,7 @@ final class AwsVpcConfiguration
     }
 
     /**
-     * @return AssignPublicIp::*|null
+     * @return AssignPublicIp::*|string|null
      */
     public function getAssignPublicIp(): ?string
     {

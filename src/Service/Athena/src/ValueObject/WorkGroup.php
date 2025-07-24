@@ -26,7 +26,7 @@ final class WorkGroup
     /**
      * The state of the workgroup: ENABLED or DISABLED.
      *
-     * @var WorkGroupState::*|null
+     * @var WorkGroupState::*|string|null
      */
     private $state;
 
@@ -66,7 +66,7 @@ final class WorkGroup
     /**
      * @param array{
      *   Name: string,
-     *   State?: null|WorkGroupState::*,
+     *   State?: null|WorkGroupState::*|string,
      *   Configuration?: null|WorkGroupConfiguration|array,
      *   Description?: null|string,
      *   CreationTime?: null|\DateTimeImmutable,
@@ -86,7 +86,7 @@ final class WorkGroup
     /**
      * @param array{
      *   Name: string,
-     *   State?: null|WorkGroupState::*,
+     *   State?: null|WorkGroupState::*|string,
      *   Configuration?: null|WorkGroupConfiguration|array,
      *   Description?: null|string,
      *   CreationTime?: null|\DateTimeImmutable,
@@ -124,7 +124,7 @@ final class WorkGroup
     }
 
     /**
-     * @return WorkGroupState::*|null
+     * @return WorkGroupState::*|string|null
      */
     public function getState(): ?string
     {

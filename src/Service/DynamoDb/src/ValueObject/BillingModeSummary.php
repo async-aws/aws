@@ -23,7 +23,7 @@ final class BillingModeSummary
      * - `PAY_PER_REQUEST` - Sets the read/write capacity mode to `PAY_PER_REQUEST`. We recommend using `PAY_PER_REQUEST`
      *   for unpredictable workloads.
      *
-     * @var BillingMode::*|null
+     * @var BillingMode::*|string|null
      */
     private $billingMode;
 
@@ -36,7 +36,7 @@ final class BillingModeSummary
 
     /**
      * @param array{
-     *   BillingMode?: null|BillingMode::*,
+     *   BillingMode?: null|BillingMode::*|string,
      *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
      * } $input
      */
@@ -48,7 +48,7 @@ final class BillingModeSummary
 
     /**
      * @param array{
-     *   BillingMode?: null|BillingMode::*,
+     *   BillingMode?: null|BillingMode::*|string,
      *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
      * }|BillingModeSummary $input
      */
@@ -58,7 +58,7 @@ final class BillingModeSummary
     }
 
     /**
-     * @return BillingMode::*|null
+     * @return BillingMode::*|string|null
      */
     public function getBillingMode(): ?string
     {

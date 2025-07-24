@@ -90,7 +90,7 @@ class PopulatorGenerator
             if (null !== $propertyDocumentation = $memberShape->getDocumentationMember()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
-            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape, false);
             foreach ($memberClassNames as $memberClassName) {
                 $classBuilder->addUse($memberClassName->getFqdn());
             }
@@ -100,7 +100,7 @@ class PopulatorGenerator
             }
 
             if ($memberShape instanceof StructureShape) {
-                $this->objectGenerator->generate($memberShape);
+                $this->objectGenerator->generate($memberShape, false, false);
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
@@ -111,7 +111,7 @@ class PopulatorGenerator
                 }
 
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
-                    $this->objectGenerator->generate($valueShape);
+                    $this->objectGenerator->generate($valueShape, false, false);
                 }
                 if (!empty($valueShape->getEnum())) {
                     $this->enumGenerator->generate($valueShape);
@@ -299,7 +299,7 @@ class PopulatorGenerator
     private function generateListShapeMemberShape(Shape $memberShape, bool $forEndpoint): void
     {
         if ($memberShape instanceof StructureShape) {
-            $this->objectGenerator->generate($memberShape, $forEndpoint);
+            $this->objectGenerator->generate($memberShape, $forEndpoint, false);
         } elseif ($memberShape instanceof ListShape) {
             $this->generateListShapeMemberShape($memberShape->getMember()->getShape(), $forEndpoint);
         }

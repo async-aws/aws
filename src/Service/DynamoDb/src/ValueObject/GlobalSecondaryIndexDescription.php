@@ -50,7 +50,7 @@ final class GlobalSecondaryIndexDescription
      * - `DELETING` - The index is being deleted.
      * - `ACTIVE` - The index is ready for use.
      *
-     * @var IndexStatus::*|null
+     * @var IndexStatus::*|string|null
      */
     private $indexStatus;
 
@@ -127,7 +127,7 @@ final class GlobalSecondaryIndexDescription
      *   IndexName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
-     *   IndexStatus?: null|IndexStatus::*,
+     *   IndexStatus?: null|IndexStatus::*|string,
      *   Backfilling?: null|bool,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
      *   IndexSizeBytes?: null|int,
@@ -157,7 +157,7 @@ final class GlobalSecondaryIndexDescription
      *   IndexName?: null|string,
      *   KeySchema?: null|array<KeySchemaElement|array>,
      *   Projection?: null|Projection|array,
-     *   IndexStatus?: null|IndexStatus::*,
+     *   IndexStatus?: null|IndexStatus::*|string,
      *   Backfilling?: null|bool,
      *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
      *   IndexSizeBytes?: null|int,
@@ -193,7 +193,7 @@ final class GlobalSecondaryIndexDescription
     }
 
     /**
-     * @return IndexStatus::*|null
+     * @return IndexStatus::*|string|null
      */
     public function getIndexStatus(): ?string
     {

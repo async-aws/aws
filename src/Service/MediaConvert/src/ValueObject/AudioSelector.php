@@ -27,7 +27,7 @@ final class AudioSelector
      * Force: Apply audio duration correction, either Track or Frame depending on your input, regardless of the accuracy of
      * your input's STTS table. Your output audio and video may not be aligned or it may contain audio artifacts.
      *
-     * @var AudioDurationCorrection::*|null
+     * @var AudioDurationCorrection::*|string|null
      */
     private $audioDurationCorrection;
 
@@ -43,7 +43,7 @@ final class AudioSelector
      * Enable this setting on one audio selector to set it as the default for the job. The service uses this default for
      * outputs where it can't find the specified input audio. If you don't set a default, those outputs have no audio.
      *
-     * @var AudioDefaultSelection::*|null
+     * @var AudioDefaultSelection::*|string|null
      */
     private $defaultSelection;
 
@@ -70,7 +70,7 @@ final class AudioSelector
      * your JSON job settings choose from an ISO 639-2 three-letter code listed at
      * https://www.loc.gov/standards/iso639-2/php/code_list.php.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $languageCode;
 
@@ -120,7 +120,7 @@ final class AudioSelector
      * audio tracks from your input automatically. This is useful when you want to include all PCM audio tracks without
      * specifying individual track numbers.
      *
-     * @var AudioSelectorType::*|null
+     * @var AudioSelectorType::*|string|null
      */
     private $selectorType;
 
@@ -135,17 +135,17 @@ final class AudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
+     *   AudioDurationCorrection?: null|AudioDurationCorrection::*|string,
      *   CustomLanguageCode?: null|string,
-     *   DefaultSelection?: null|AudioDefaultSelection::*,
+     *   DefaultSelection?: null|AudioDefaultSelection::*|string,
      *   ExternalAudioFileInput?: null|string,
      *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   Offset?: null|int,
      *   Pids?: null|int[],
      *   ProgramSelection?: null|int,
      *   RemixSettings?: null|RemixSettings|array,
-     *   SelectorType?: null|AudioSelectorType::*,
+     *   SelectorType?: null|AudioSelectorType::*|string,
      *   Tracks?: null|int[],
      * } $input
      */
@@ -167,17 +167,17 @@ final class AudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
+     *   AudioDurationCorrection?: null|AudioDurationCorrection::*|string,
      *   CustomLanguageCode?: null|string,
-     *   DefaultSelection?: null|AudioDefaultSelection::*,
+     *   DefaultSelection?: null|AudioDefaultSelection::*|string,
      *   ExternalAudioFileInput?: null|string,
      *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   Offset?: null|int,
      *   Pids?: null|int[],
      *   ProgramSelection?: null|int,
      *   RemixSettings?: null|RemixSettings|array,
-     *   SelectorType?: null|AudioSelectorType::*,
+     *   SelectorType?: null|AudioSelectorType::*|string,
      *   Tracks?: null|int[],
      * }|AudioSelector $input
      */
@@ -187,7 +187,7 @@ final class AudioSelector
     }
 
     /**
-     * @return AudioDurationCorrection::*|null
+     * @return AudioDurationCorrection::*|string|null
      */
     public function getAudioDurationCorrection(): ?string
     {
@@ -200,7 +200,7 @@ final class AudioSelector
     }
 
     /**
-     * @return AudioDefaultSelection::*|null
+     * @return AudioDefaultSelection::*|string|null
      */
     public function getDefaultSelection(): ?string
     {
@@ -218,7 +218,7 @@ final class AudioSelector
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getLanguageCode(): ?string
     {
@@ -249,7 +249,7 @@ final class AudioSelector
     }
 
     /**
-     * @return AudioSelectorType::*|null
+     * @return AudioSelectorType::*|string|null
      */
     public function getSelectorType(): ?string
     {

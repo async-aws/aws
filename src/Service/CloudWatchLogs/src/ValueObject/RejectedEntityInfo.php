@@ -14,13 +14,13 @@ final class RejectedEntityInfo
     /**
      * The type of error that caused the rejection of the entity when calling `PutLogEvents`.
      *
-     * @var EntityRejectionErrorType::*
+     * @var EntityRejectionErrorType::*|string
      */
     private $errorType;
 
     /**
      * @param array{
-     *   errorType: EntityRejectionErrorType::*,
+     *   errorType: EntityRejectionErrorType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class RejectedEntityInfo
 
     /**
      * @param array{
-     *   errorType: EntityRejectionErrorType::*,
+     *   errorType: EntityRejectionErrorType::*|string,
      * }|RejectedEntityInfo $input
      */
     public static function create($input): self
@@ -39,7 +39,7 @@ final class RejectedEntityInfo
     }
 
     /**
-     * @return EntityRejectionErrorType::*
+     * @return EntityRejectionErrorType::*|string
      */
     public function getErrorType(): string
     {

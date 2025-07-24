@@ -32,7 +32,7 @@ final class HlsGroupSettings
      * Choose one or more ad marker types to decorate your Apple HLS manifest. This setting does not determine whether
      * SCTE-35 markers appear in the outputs themselves.
      *
-     * @var list<HlsAdMarkers::*>|null
+     * @var list<HlsAdMarkers::*|string>|null
      */
     private $adMarkers;
 
@@ -50,7 +50,7 @@ final class HlsGroupSettings
      * default value, Include, to output audio-only headers. Choose Exclude to remove the audio-only headers from your audio
      * segments.
      *
-     * @var HlsAudioOnlyHeader::*|null
+     * @var HlsAudioOnlyHeader::*|string|null
      */
     private $audioOnlyHeader;
 
@@ -77,7 +77,7 @@ final class HlsGroupSettings
      * in the manifest will not match up properly with the output captions. None: Include CLOSED-CAPTIONS=NONE line in the
      * manifest. Omit: Omit any CLOSED-CAPTIONS line from the manifest.
      *
-     * @var HlsCaptionLanguageSetting::*|null
+     * @var HlsCaptionLanguageSetting::*|string|null
      */
     private $captionLanguageSetting;
 
@@ -87,7 +87,7 @@ final class HlsGroupSettings
      * segments will also be 2 seconds long. Keep the default setting, Large segments to create caption segments that are
      * 300 seconds long.
      *
-     * @var HlsCaptionSegmentLengthControl::*|null
+     * @var HlsCaptionSegmentLengthControl::*|string|null
      */
     private $captionSegmentLengthControl;
 
@@ -95,14 +95,14 @@ final class HlsGroupSettings
      * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
      * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http header.
      *
-     * @var HlsClientCache::*|null
+     * @var HlsClientCache::*|string|null
      */
     private $clientCache;
 
     /**
      * Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation.
      *
-     * @var HlsCodecSpecification::*|null
+     * @var HlsCodecSpecification::*|string|null
      */
     private $codecSpecification;
 
@@ -125,7 +125,7 @@ final class HlsGroupSettings
     /**
      * Indicates whether segments should be placed in subdirectories.
      *
-     * @var HlsDirectoryStructure::*|null
+     * @var HlsDirectoryStructure::*|string|null
      */
     private $directoryStructure;
 
@@ -144,7 +144,7 @@ final class HlsGroupSettings
      * mode. The thumbnails and full-frame images that MediaConvert creates with this feature are compatible with this Roku
      * specification: https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
-     * @var HlsImageBasedTrickPlay::*|null
+     * @var HlsImageBasedTrickPlay::*|string|null
      */
     private $imageBasedTrickPlay;
 
@@ -158,14 +158,14 @@ final class HlsGroupSettings
     /**
      * When set to GZIP, compresses HLS playlist.
      *
-     * @var HlsManifestCompression::*|null
+     * @var HlsManifestCompression::*|string|null
      */
     private $manifestCompression;
 
     /**
      * Indicates whether the output manifest should use floating point values for segment duration.
      *
-     * @var HlsManifestDurationFormat::*|null
+     * @var HlsManifestDurationFormat::*|string|null
      */
     private $manifestDurationFormat;
 
@@ -193,7 +193,7 @@ final class HlsGroupSettings
     /**
      * Indicates whether the .m3u8 manifest file should be generated for this HLS output group.
      *
-     * @var HlsOutputSelection::*|null
+     * @var HlsOutputSelection::*|string|null
      */
     private $outputSelection;
 
@@ -202,7 +202,7 @@ final class HlsGroupSettings
      * the program date and time are initialized using the input timecode source, or the time is initialized using the input
      * timecode source and the date is initialized using the timestamp_offset.
      *
-     * @var HlsProgramDateTime::*|null
+     * @var HlsProgramDateTime::*|string|null
      */
     private $programDateTime;
 
@@ -222,7 +222,7 @@ final class HlsGroupSettings
      * latest available media segment. When your job completes, the final child playlists include an EXT-X-ENDLIST tag. To
      * generate HLS manifests only when your job completes: Choose Disabled.
      *
-     * @var HlsProgressiveWriteHlsManifest::*|null
+     * @var HlsProgressiveWriteHlsManifest::*|string|null
      */
     private $progressiveWriteHlsManifest;
 
@@ -230,7 +230,7 @@ final class HlsGroupSettings
      * When set to SINGLE_FILE, emits program as a single media resource (.ts) file, uses #EXT-X-BYTERANGE tags to index
      * segment for playback.
      *
-     * @var HlsSegmentControl::*|null
+     * @var HlsSegmentControl::*|string|null
      */
     private $segmentControl;
 
@@ -257,7 +257,7 @@ final class HlsGroupSettings
      * For example: 5, 15, 30 and 60. Or: 25 and 50. (Outputs must share an integer multiple.) - Output audio codec: Specify
      * Advanced Audio Coding (AAC). - Output sample rate: Choose 48kHz.
      *
-     * @var HlsSegmentLengthControl::*|null
+     * @var HlsSegmentLengthControl::*|string|null
      */
     private $segmentLengthControl;
 
@@ -272,7 +272,7 @@ final class HlsGroupSettings
     /**
      * Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF tag of variant manifest.
      *
-     * @var HlsStreamInfResolution::*|null
+     * @var HlsStreamInfResolution::*|string|null
      */
     private $streamInfResolution;
 
@@ -284,7 +284,7 @@ final class HlsGroupSettings
      * duration of the segment. Some older players may experience interrupted playback when the actual duration of a track
      * in a segment is longer than the target duration.
      *
-     * @var HlsTargetDurationCompatibilityMode::*|null
+     * @var HlsTargetDurationCompatibilityMode::*|string|null
      */
     private $targetDurationCompatibilityMode;
 
@@ -292,7 +292,7 @@ final class HlsGroupSettings
      * Specify the type of the ID3 frame to use for ID3 timestamps in your output. To include ID3 timestamps: Specify PRIV
      * or TDRL and set ID3 metadata to Passthrough. To exclude ID3 timestamps: Set ID3 timestamp frame type to None.
      *
-     * @var HlsTimedMetadataId3Frame::*|null
+     * @var HlsTimedMetadataId3Frame::*|string|null
      */
     private $timedMetadataId3Frame;
 
@@ -315,36 +315,36 @@ final class HlsGroupSettings
 
     /**
      * @param array{
-     *   AdMarkers?: null|array<HlsAdMarkers::*>,
+     *   AdMarkers?: null|array<HlsAdMarkers::*|string>,
      *   AdditionalManifests?: null|array<HlsAdditionalManifest|array>,
-     *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*,
+     *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*|string,
      *   BaseUrl?: null|string,
      *   CaptionLanguageMappings?: null|array<HlsCaptionLanguageMapping|array>,
-     *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*,
-     *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*,
-     *   ClientCache?: null|HlsClientCache::*,
-     *   CodecSpecification?: null|HlsCodecSpecification::*,
+     *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*|string,
+     *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*|string,
+     *   ClientCache?: null|HlsClientCache::*|string,
+     *   CodecSpecification?: null|HlsCodecSpecification::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
-     *   DirectoryStructure?: null|HlsDirectoryStructure::*,
+     *   DirectoryStructure?: null|HlsDirectoryStructure::*|string,
      *   Encryption?: null|HlsEncryptionSettings|array,
-     *   ImageBasedTrickPlay?: null|HlsImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlay?: null|HlsImageBasedTrickPlay::*|string,
      *   ImageBasedTrickPlaySettings?: null|HlsImageBasedTrickPlaySettings|array,
-     *   ManifestCompression?: null|HlsManifestCompression::*,
-     *   ManifestDurationFormat?: null|HlsManifestDurationFormat::*,
+     *   ManifestCompression?: null|HlsManifestCompression::*|string,
+     *   ManifestDurationFormat?: null|HlsManifestDurationFormat::*|string,
      *   MinFinalSegmentLength?: null|float,
      *   MinSegmentLength?: null|int,
-     *   OutputSelection?: null|HlsOutputSelection::*,
-     *   ProgramDateTime?: null|HlsProgramDateTime::*,
+     *   OutputSelection?: null|HlsOutputSelection::*|string,
+     *   ProgramDateTime?: null|HlsProgramDateTime::*|string,
      *   ProgramDateTimePeriod?: null|int,
-     *   ProgressiveWriteHlsManifest?: null|HlsProgressiveWriteHlsManifest::*,
-     *   SegmentControl?: null|HlsSegmentControl::*,
+     *   ProgressiveWriteHlsManifest?: null|HlsProgressiveWriteHlsManifest::*|string,
+     *   SegmentControl?: null|HlsSegmentControl::*|string,
      *   SegmentLength?: null|int,
-     *   SegmentLengthControl?: null|HlsSegmentLengthControl::*,
+     *   SegmentLengthControl?: null|HlsSegmentLengthControl::*|string,
      *   SegmentsPerSubdirectory?: null|int,
-     *   StreamInfResolution?: null|HlsStreamInfResolution::*,
-     *   TargetDurationCompatibilityMode?: null|HlsTargetDurationCompatibilityMode::*,
-     *   TimedMetadataId3Frame?: null|HlsTimedMetadataId3Frame::*,
+     *   StreamInfResolution?: null|HlsStreamInfResolution::*|string,
+     *   TargetDurationCompatibilityMode?: null|HlsTargetDurationCompatibilityMode::*|string,
+     *   TimedMetadataId3Frame?: null|HlsTimedMetadataId3Frame::*|string,
      *   TimedMetadataId3Period?: null|int,
      *   TimestampDeltaMilliseconds?: null|int,
      * } $input
@@ -387,36 +387,36 @@ final class HlsGroupSettings
 
     /**
      * @param array{
-     *   AdMarkers?: null|array<HlsAdMarkers::*>,
+     *   AdMarkers?: null|array<HlsAdMarkers::*|string>,
      *   AdditionalManifests?: null|array<HlsAdditionalManifest|array>,
-     *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*,
+     *   AudioOnlyHeader?: null|HlsAudioOnlyHeader::*|string,
      *   BaseUrl?: null|string,
      *   CaptionLanguageMappings?: null|array<HlsCaptionLanguageMapping|array>,
-     *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*,
-     *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*,
-     *   ClientCache?: null|HlsClientCache::*,
-     *   CodecSpecification?: null|HlsCodecSpecification::*,
+     *   CaptionLanguageSetting?: null|HlsCaptionLanguageSetting::*|string,
+     *   CaptionSegmentLengthControl?: null|HlsCaptionSegmentLengthControl::*|string,
+     *   ClientCache?: null|HlsClientCache::*|string,
+     *   CodecSpecification?: null|HlsCodecSpecification::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
-     *   DirectoryStructure?: null|HlsDirectoryStructure::*,
+     *   DirectoryStructure?: null|HlsDirectoryStructure::*|string,
      *   Encryption?: null|HlsEncryptionSettings|array,
-     *   ImageBasedTrickPlay?: null|HlsImageBasedTrickPlay::*,
+     *   ImageBasedTrickPlay?: null|HlsImageBasedTrickPlay::*|string,
      *   ImageBasedTrickPlaySettings?: null|HlsImageBasedTrickPlaySettings|array,
-     *   ManifestCompression?: null|HlsManifestCompression::*,
-     *   ManifestDurationFormat?: null|HlsManifestDurationFormat::*,
+     *   ManifestCompression?: null|HlsManifestCompression::*|string,
+     *   ManifestDurationFormat?: null|HlsManifestDurationFormat::*|string,
      *   MinFinalSegmentLength?: null|float,
      *   MinSegmentLength?: null|int,
-     *   OutputSelection?: null|HlsOutputSelection::*,
-     *   ProgramDateTime?: null|HlsProgramDateTime::*,
+     *   OutputSelection?: null|HlsOutputSelection::*|string,
+     *   ProgramDateTime?: null|HlsProgramDateTime::*|string,
      *   ProgramDateTimePeriod?: null|int,
-     *   ProgressiveWriteHlsManifest?: null|HlsProgressiveWriteHlsManifest::*,
-     *   SegmentControl?: null|HlsSegmentControl::*,
+     *   ProgressiveWriteHlsManifest?: null|HlsProgressiveWriteHlsManifest::*|string,
+     *   SegmentControl?: null|HlsSegmentControl::*|string,
      *   SegmentLength?: null|int,
-     *   SegmentLengthControl?: null|HlsSegmentLengthControl::*,
+     *   SegmentLengthControl?: null|HlsSegmentLengthControl::*|string,
      *   SegmentsPerSubdirectory?: null|int,
-     *   StreamInfResolution?: null|HlsStreamInfResolution::*,
-     *   TargetDurationCompatibilityMode?: null|HlsTargetDurationCompatibilityMode::*,
-     *   TimedMetadataId3Frame?: null|HlsTimedMetadataId3Frame::*,
+     *   StreamInfResolution?: null|HlsStreamInfResolution::*|string,
+     *   TargetDurationCompatibilityMode?: null|HlsTargetDurationCompatibilityMode::*|string,
+     *   TimedMetadataId3Frame?: null|HlsTimedMetadataId3Frame::*|string,
      *   TimedMetadataId3Period?: null|int,
      *   TimestampDeltaMilliseconds?: null|int,
      * }|HlsGroupSettings $input
@@ -427,7 +427,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return list<HlsAdMarkers::*>
+     * @return list<HlsAdMarkers::*|string>
      */
     public function getAdMarkers(): array
     {
@@ -443,7 +443,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsAudioOnlyHeader::*|null
+     * @return HlsAudioOnlyHeader::*|string|null
      */
     public function getAudioOnlyHeader(): ?string
     {
@@ -464,7 +464,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsCaptionLanguageSetting::*|null
+     * @return HlsCaptionLanguageSetting::*|string|null
      */
     public function getCaptionLanguageSetting(): ?string
     {
@@ -472,7 +472,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsCaptionSegmentLengthControl::*|null
+     * @return HlsCaptionSegmentLengthControl::*|string|null
      */
     public function getCaptionSegmentLengthControl(): ?string
     {
@@ -480,7 +480,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsClientCache::*|null
+     * @return HlsClientCache::*|string|null
      */
     public function getClientCache(): ?string
     {
@@ -488,7 +488,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsCodecSpecification::*|null
+     * @return HlsCodecSpecification::*|string|null
      */
     public function getCodecSpecification(): ?string
     {
@@ -506,7 +506,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsDirectoryStructure::*|null
+     * @return HlsDirectoryStructure::*|string|null
      */
     public function getDirectoryStructure(): ?string
     {
@@ -519,7 +519,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsImageBasedTrickPlay::*|null
+     * @return HlsImageBasedTrickPlay::*|string|null
      */
     public function getImageBasedTrickPlay(): ?string
     {
@@ -532,7 +532,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsManifestCompression::*|null
+     * @return HlsManifestCompression::*|string|null
      */
     public function getManifestCompression(): ?string
     {
@@ -540,7 +540,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsManifestDurationFormat::*|null
+     * @return HlsManifestDurationFormat::*|string|null
      */
     public function getManifestDurationFormat(): ?string
     {
@@ -558,7 +558,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsOutputSelection::*|null
+     * @return HlsOutputSelection::*|string|null
      */
     public function getOutputSelection(): ?string
     {
@@ -566,7 +566,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsProgramDateTime::*|null
+     * @return HlsProgramDateTime::*|string|null
      */
     public function getProgramDateTime(): ?string
     {
@@ -579,7 +579,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsProgressiveWriteHlsManifest::*|null
+     * @return HlsProgressiveWriteHlsManifest::*|string|null
      */
     public function getProgressiveWriteHlsManifest(): ?string
     {
@@ -587,7 +587,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsSegmentControl::*|null
+     * @return HlsSegmentControl::*|string|null
      */
     public function getSegmentControl(): ?string
     {
@@ -600,7 +600,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsSegmentLengthControl::*|null
+     * @return HlsSegmentLengthControl::*|string|null
      */
     public function getSegmentLengthControl(): ?string
     {
@@ -613,7 +613,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsStreamInfResolution::*|null
+     * @return HlsStreamInfResolution::*|string|null
      */
     public function getStreamInfResolution(): ?string
     {
@@ -621,7 +621,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsTargetDurationCompatibilityMode::*|null
+     * @return HlsTargetDurationCompatibilityMode::*|string|null
      */
     public function getTargetDurationCompatibilityMode(): ?string
     {
@@ -629,7 +629,7 @@ final class HlsGroupSettings
     }
 
     /**
-     * @return HlsTimedMetadataId3Frame::*|null
+     * @return HlsTimedMetadataId3Frame::*|string|null
      */
     public function getTimedMetadataId3Frame(): ?string
     {

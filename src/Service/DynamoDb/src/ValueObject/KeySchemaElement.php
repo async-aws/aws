@@ -38,14 +38,14 @@ final class KeySchemaElement
      * > The sort key of an item is also known as its *range attribute*. The term "range attribute" derives from the way
      * > DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
      *
-     * @var KeyType::*
+     * @var KeyType::*|string
      */
     private $keyType;
 
     /**
      * @param array{
      *   AttributeName: string,
-     *   KeyType: KeyType::*,
+     *   KeyType: KeyType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -57,7 +57,7 @@ final class KeySchemaElement
     /**
      * @param array{
      *   AttributeName: string,
-     *   KeyType: KeyType::*,
+     *   KeyType: KeyType::*|string,
      * }|KeySchemaElement $input
      */
     public static function create($input): self
@@ -71,7 +71,7 @@ final class KeySchemaElement
     }
 
     /**
-     * @return KeyType::*
+     * @return KeyType::*|string
      */
     public function getKeyType(): string
     {

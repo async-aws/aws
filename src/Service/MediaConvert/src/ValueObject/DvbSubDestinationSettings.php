@@ -29,7 +29,7 @@ final class DvbSubDestinationSettings
      * be justified (either left or centered) relative to those coordinates. Within your job settings, all of your DVB-Sub
      * settings must be identical.
      *
-     * @var DvbSubtitleAlignment::*|null
+     * @var DvbSubtitleAlignment::*|string|null
      */
     private $alignment;
 
@@ -40,7 +40,7 @@ final class DvbSubDestinationSettings
      * Yellow, and your input captions have red and white text, your output captions will have red and yellow text. When you
      * choose ALL_TEXT, your font color setting applies to all of your output captions text.
      *
-     * @var DvbSubtitleApplyFontColor::*|null
+     * @var DvbSubtitleApplyFontColor::*|string|null
      */
     private $applyFontColor;
 
@@ -48,7 +48,7 @@ final class DvbSubDestinationSettings
      * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
      * enabled to use the background color data from your input captions, if present.
      *
-     * @var DvbSubtitleBackgroundColor::*|null
+     * @var DvbSubtitleBackgroundColor::*|string|null
      */
     private $backgroundColor;
 
@@ -75,7 +75,7 @@ final class DvbSubDestinationSettings
      * also supports resolutions higher than 1080p while maintaining full DVB-Sub compatibility. When you do, also specify
      * the offset coordinates of the display window with DDS x-coordinate and DDS y-coordinate.
      *
-     * @var DvbddsHandling::*|null
+     * @var DvbddsHandling::*|string|null
      */
     private $ddsHandling;
 
@@ -111,7 +111,7 @@ final class DvbSubDestinationSettings
      * When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts from your
      * input.
      *
-     * @var DvbSubSubtitleFallbackFont::*|null
+     * @var DvbSubSubtitleFallbackFont::*|string|null
      */
     private $fallbackFont;
 
@@ -120,7 +120,7 @@ final class DvbSubDestinationSettings
      * color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must be
      * identical.
      *
-     * @var DvbSubtitleFontColor::*|null
+     * @var DvbSubtitleFontColor::*|string|null
      */
     private $fontColor;
 
@@ -178,7 +178,7 @@ final class DvbSubDestinationSettings
      * captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font script uses
      * Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must be identical.
      *
-     * @var FontScript::*|null
+     * @var FontScript::*|string|null
      */
     private $fontScript;
 
@@ -213,7 +213,7 @@ final class DvbSubDestinationSettings
      * color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must be
      * identical.
      *
-     * @var DvbSubtitleOutlineColor::*|null
+     * @var DvbSubtitleOutlineColor::*|string|null
      */
     private $outlineColor;
 
@@ -231,7 +231,7 @@ final class DvbSubDestinationSettings
      * to use the shadow color data from your input captions, if present. Within your job settings, all of your DVB-Sub
      * settings must be identical.
      *
-     * @var DvbSubtitleShadowColor::*|null
+     * @var DvbSubtitleShadowColor::*|string|null
      */
     private $shadowColor;
 
@@ -272,7 +272,7 @@ final class DvbSubDestinationSettings
      * manually override any of the individual style and position settings. You can also override any fonts by manually
      * specifying custom font files.
      *
-     * @var DvbSubtitleStylePassthrough::*|null
+     * @var DvbSubtitleStylePassthrough::*|string|null
      */
     private $stylePassthrough;
 
@@ -280,7 +280,7 @@ final class DvbSubDestinationSettings
      * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your subtitles
      * include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
      *
-     * @var DvbSubtitlingType::*|null
+     * @var DvbSubtitlingType::*|string|null
      */
     private $subtitlingType;
 
@@ -290,7 +290,7 @@ final class DvbSubDestinationSettings
      * make the text easier to read for closed captions. Within your job settings, all of your DVB-Sub settings must be
      * identical.
      *
-     * @var DvbSubtitleTeletextSpacing::*|null
+     * @var DvbSubtitleTeletextSpacing::*|string|null
      */
     private $teletextSpacing;
 
@@ -325,34 +325,34 @@ final class DvbSubDestinationSettings
 
     /**
      * @param array{
-     *   Alignment?: null|DvbSubtitleAlignment::*,
-     *   ApplyFontColor?: null|DvbSubtitleApplyFontColor::*,
-     *   BackgroundColor?: null|DvbSubtitleBackgroundColor::*,
+     *   Alignment?: null|DvbSubtitleAlignment::*|string,
+     *   ApplyFontColor?: null|DvbSubtitleApplyFontColor::*|string,
+     *   BackgroundColor?: null|DvbSubtitleBackgroundColor::*|string,
      *   BackgroundOpacity?: null|int,
-     *   DdsHandling?: null|DvbddsHandling::*,
+     *   DdsHandling?: null|DvbddsHandling::*|string,
      *   DdsXCoordinate?: null|int,
      *   DdsYCoordinate?: null|int,
-     *   FallbackFont?: null|DvbSubSubtitleFallbackFont::*,
-     *   FontColor?: null|DvbSubtitleFontColor::*,
+     *   FallbackFont?: null|DvbSubSubtitleFallbackFont::*|string,
+     *   FontColor?: null|DvbSubtitleFontColor::*|string,
      *   FontFileBold?: null|string,
      *   FontFileBoldItalic?: null|string,
      *   FontFileItalic?: null|string,
      *   FontFileRegular?: null|string,
      *   FontOpacity?: null|int,
      *   FontResolution?: null|int,
-     *   FontScript?: null|FontScript::*,
+     *   FontScript?: null|FontScript::*|string,
      *   FontSize?: null|int,
      *   Height?: null|int,
      *   HexFontColor?: null|string,
-     *   OutlineColor?: null|DvbSubtitleOutlineColor::*,
+     *   OutlineColor?: null|DvbSubtitleOutlineColor::*|string,
      *   OutlineSize?: null|int,
-     *   ShadowColor?: null|DvbSubtitleShadowColor::*,
+     *   ShadowColor?: null|DvbSubtitleShadowColor::*|string,
      *   ShadowOpacity?: null|int,
      *   ShadowXOffset?: null|int,
      *   ShadowYOffset?: null|int,
-     *   StylePassthrough?: null|DvbSubtitleStylePassthrough::*,
-     *   SubtitlingType?: null|DvbSubtitlingType::*,
-     *   TeletextSpacing?: null|DvbSubtitleTeletextSpacing::*,
+     *   StylePassthrough?: null|DvbSubtitleStylePassthrough::*|string,
+     *   SubtitlingType?: null|DvbSubtitlingType::*|string,
+     *   TeletextSpacing?: null|DvbSubtitleTeletextSpacing::*|string,
      *   Width?: null|int,
      *   XPosition?: null|int,
      *   YPosition?: null|int,
@@ -395,34 +395,34 @@ final class DvbSubDestinationSettings
 
     /**
      * @param array{
-     *   Alignment?: null|DvbSubtitleAlignment::*,
-     *   ApplyFontColor?: null|DvbSubtitleApplyFontColor::*,
-     *   BackgroundColor?: null|DvbSubtitleBackgroundColor::*,
+     *   Alignment?: null|DvbSubtitleAlignment::*|string,
+     *   ApplyFontColor?: null|DvbSubtitleApplyFontColor::*|string,
+     *   BackgroundColor?: null|DvbSubtitleBackgroundColor::*|string,
      *   BackgroundOpacity?: null|int,
-     *   DdsHandling?: null|DvbddsHandling::*,
+     *   DdsHandling?: null|DvbddsHandling::*|string,
      *   DdsXCoordinate?: null|int,
      *   DdsYCoordinate?: null|int,
-     *   FallbackFont?: null|DvbSubSubtitleFallbackFont::*,
-     *   FontColor?: null|DvbSubtitleFontColor::*,
+     *   FallbackFont?: null|DvbSubSubtitleFallbackFont::*|string,
+     *   FontColor?: null|DvbSubtitleFontColor::*|string,
      *   FontFileBold?: null|string,
      *   FontFileBoldItalic?: null|string,
      *   FontFileItalic?: null|string,
      *   FontFileRegular?: null|string,
      *   FontOpacity?: null|int,
      *   FontResolution?: null|int,
-     *   FontScript?: null|FontScript::*,
+     *   FontScript?: null|FontScript::*|string,
      *   FontSize?: null|int,
      *   Height?: null|int,
      *   HexFontColor?: null|string,
-     *   OutlineColor?: null|DvbSubtitleOutlineColor::*,
+     *   OutlineColor?: null|DvbSubtitleOutlineColor::*|string,
      *   OutlineSize?: null|int,
-     *   ShadowColor?: null|DvbSubtitleShadowColor::*,
+     *   ShadowColor?: null|DvbSubtitleShadowColor::*|string,
      *   ShadowOpacity?: null|int,
      *   ShadowXOffset?: null|int,
      *   ShadowYOffset?: null|int,
-     *   StylePassthrough?: null|DvbSubtitleStylePassthrough::*,
-     *   SubtitlingType?: null|DvbSubtitlingType::*,
-     *   TeletextSpacing?: null|DvbSubtitleTeletextSpacing::*,
+     *   StylePassthrough?: null|DvbSubtitleStylePassthrough::*|string,
+     *   SubtitlingType?: null|DvbSubtitlingType::*|string,
+     *   TeletextSpacing?: null|DvbSubtitleTeletextSpacing::*|string,
      *   Width?: null|int,
      *   XPosition?: null|int,
      *   YPosition?: null|int,
@@ -434,7 +434,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleAlignment::*|null
+     * @return DvbSubtitleAlignment::*|string|null
      */
     public function getAlignment(): ?string
     {
@@ -442,7 +442,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleApplyFontColor::*|null
+     * @return DvbSubtitleApplyFontColor::*|string|null
      */
     public function getApplyFontColor(): ?string
     {
@@ -450,7 +450,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleBackgroundColor::*|null
+     * @return DvbSubtitleBackgroundColor::*|string|null
      */
     public function getBackgroundColor(): ?string
     {
@@ -463,7 +463,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbddsHandling::*|null
+     * @return DvbddsHandling::*|string|null
      */
     public function getDdsHandling(): ?string
     {
@@ -481,7 +481,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubSubtitleFallbackFont::*|null
+     * @return DvbSubSubtitleFallbackFont::*|string|null
      */
     public function getFallbackFont(): ?string
     {
@@ -489,7 +489,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleFontColor::*|null
+     * @return DvbSubtitleFontColor::*|string|null
      */
     public function getFontColor(): ?string
     {
@@ -527,7 +527,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return FontScript::*|null
+     * @return FontScript::*|string|null
      */
     public function getFontScript(): ?string
     {
@@ -550,7 +550,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleOutlineColor::*|null
+     * @return DvbSubtitleOutlineColor::*|string|null
      */
     public function getOutlineColor(): ?string
     {
@@ -563,7 +563,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleShadowColor::*|null
+     * @return DvbSubtitleShadowColor::*|string|null
      */
     public function getShadowColor(): ?string
     {
@@ -586,7 +586,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleStylePassthrough::*|null
+     * @return DvbSubtitleStylePassthrough::*|string|null
      */
     public function getStylePassthrough(): ?string
     {
@@ -594,7 +594,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitlingType::*|null
+     * @return DvbSubtitlingType::*|string|null
      */
     public function getSubtitlingType(): ?string
     {
@@ -602,7 +602,7 @@ final class DvbSubDestinationSettings
     }
 
     /**
-     * @return DvbSubtitleTeletextSpacing::*|null
+     * @return DvbSubtitleTeletextSpacing::*|string|null
      */
     public function getTeletextSpacing(): ?string
     {

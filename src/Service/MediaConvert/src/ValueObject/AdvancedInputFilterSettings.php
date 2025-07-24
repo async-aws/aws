@@ -17,7 +17,7 @@ final class AdvancedInputFilterSettings
      * Disabled. We recommend that you choose Disabled for input video content that doesn't have texture, including screen
      * recordings, computer graphics, or cartoons.
      *
-     * @var AdvancedInputFilterAddTexture::*|null
+     * @var AdvancedInputFilterAddTexture::*|string|null
      */
     private $addTexture;
 
@@ -26,14 +26,14 @@ final class AdvancedInputFilterSettings
      * to the edges of your video content and can reduce softness. To apply no sharpening: Keep the default value, Off. To
      * apply a minimal amount of sharpening choose Low, or for the maximum choose High.
      *
-     * @var AdvancedInputFilterSharpen::*|null
+     * @var AdvancedInputFilterSharpen::*|string|null
      */
     private $sharpening;
 
     /**
      * @param array{
-     *   AddTexture?: null|AdvancedInputFilterAddTexture::*,
-     *   Sharpening?: null|AdvancedInputFilterSharpen::*,
+     *   AddTexture?: null|AdvancedInputFilterAddTexture::*|string,
+     *   Sharpening?: null|AdvancedInputFilterSharpen::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -44,8 +44,8 @@ final class AdvancedInputFilterSettings
 
     /**
      * @param array{
-     *   AddTexture?: null|AdvancedInputFilterAddTexture::*,
-     *   Sharpening?: null|AdvancedInputFilterSharpen::*,
+     *   AddTexture?: null|AdvancedInputFilterAddTexture::*|string,
+     *   Sharpening?: null|AdvancedInputFilterSharpen::*|string,
      * }|AdvancedInputFilterSettings $input
      */
     public static function create($input): self
@@ -54,7 +54,7 @@ final class AdvancedInputFilterSettings
     }
 
     /**
-     * @return AdvancedInputFilterAddTexture::*|null
+     * @return AdvancedInputFilterAddTexture::*|string|null
      */
     public function getAddTexture(): ?string
     {
@@ -62,7 +62,7 @@ final class AdvancedInputFilterSettings
     }
 
     /**
-     * @return AdvancedInputFilterSharpen::*|null
+     * @return AdvancedInputFilterSharpen::*|string|null
      */
     public function getSharpening(): ?string
     {

@@ -13,13 +13,13 @@ final class KnownGender
     /**
      * A string value of the KnownGender info about the Celebrity.
      *
-     * @var KnownGenderType::*|null
+     * @var KnownGenderType::*|string|null
      */
     private $type;
 
     /**
      * @param array{
-     *   Type?: null|KnownGenderType::*,
+     *   Type?: null|KnownGenderType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -29,7 +29,7 @@ final class KnownGender
 
     /**
      * @param array{
-     *   Type?: null|KnownGenderType::*,
+     *   Type?: null|KnownGenderType::*|string,
      * }|KnownGender $input
      */
     public static function create($input): self
@@ -38,7 +38,7 @@ final class KnownGender
     }
 
     /**
-     * @return KnownGenderType::*|null
+     * @return KnownGenderType::*|string|null
      */
     public function getType(): ?string
     {

@@ -46,7 +46,7 @@ final class CaptionDescription
      * information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the encoder uses
      * this language information to choose the font language for rendering the captions text.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $languageCode;
 
@@ -64,7 +64,7 @@ final class CaptionDescription
      *   CaptionSelectorName?: null|string,
      *   CustomLanguageCode?: null|string,
      *   DestinationSettings?: null|CaptionDestinationSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   LanguageDescription?: null|string,
      * } $input
      */
@@ -82,7 +82,7 @@ final class CaptionDescription
      *   CaptionSelectorName?: null|string,
      *   CustomLanguageCode?: null|string,
      *   DestinationSettings?: null|CaptionDestinationSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   LanguageDescription?: null|string,
      * }|CaptionDescription $input
      */
@@ -107,7 +107,7 @@ final class CaptionDescription
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getLanguageCode(): ?string
     {

@@ -31,7 +31,7 @@ class DeleteObjectOutput extends Result
     private $versionId;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -43,7 +43,7 @@ class DeleteObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {

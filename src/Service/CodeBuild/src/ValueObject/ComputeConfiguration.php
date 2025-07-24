@@ -34,7 +34,7 @@ final class ComputeConfiguration
     /**
      * The machine type of the instance type included in your fleet.
      *
-     * @var MachineType::*|null
+     * @var MachineType::*|string|null
      */
     private $machineType;
 
@@ -50,7 +50,7 @@ final class ComputeConfiguration
      *   vCpu?: null|int,
      *   memory?: null|int,
      *   disk?: null|int,
-     *   machineType?: null|MachineType::*,
+     *   machineType?: null|MachineType::*|string,
      *   instanceType?: null|string,
      * } $input
      */
@@ -68,7 +68,7 @@ final class ComputeConfiguration
      *   vCpu?: null|int,
      *   memory?: null|int,
      *   disk?: null|int,
-     *   machineType?: null|MachineType::*,
+     *   machineType?: null|MachineType::*|string,
      *   instanceType?: null|string,
      * }|ComputeConfiguration $input
      */
@@ -88,7 +88,7 @@ final class ComputeConfiguration
     }
 
     /**
-     * @return MachineType::*|null
+     * @return MachineType::*|string|null
      */
     public function getMachineType(): ?string
     {

@@ -53,7 +53,7 @@ final class VideoOverlay
      * overlay only once: Choose Once. With either option, you can end playback at a time that you specify by entering a
      * value for End timecode.
      *
-     * @var VideoOverlayPlayBackMode::*|null
+     * @var VideoOverlayPlayBackMode::*|string|null
      */
     private $playback;
 
@@ -84,7 +84,7 @@ final class VideoOverlay
      *   EndTimecode?: null|string,
      *   InitialPosition?: null|VideoOverlayPosition|array,
      *   Input?: null|VideoOverlayInput|array,
-     *   Playback?: null|VideoOverlayPlayBackMode::*,
+     *   Playback?: null|VideoOverlayPlayBackMode::*|string,
      *   StartTimecode?: null|string,
      *   Transitions?: null|array<VideoOverlayTransition|array>,
      * } $input
@@ -106,7 +106,7 @@ final class VideoOverlay
      *   EndTimecode?: null|string,
      *   InitialPosition?: null|VideoOverlayPosition|array,
      *   Input?: null|VideoOverlayInput|array,
-     *   Playback?: null|VideoOverlayPlayBackMode::*,
+     *   Playback?: null|VideoOverlayPlayBackMode::*|string,
      *   StartTimecode?: null|string,
      *   Transitions?: null|array<VideoOverlayTransition|array>,
      * }|VideoOverlay $input
@@ -137,7 +137,7 @@ final class VideoOverlay
     }
 
     /**
-     * @return VideoOverlayPlayBackMode::*|null
+     * @return VideoOverlayPlayBackMode::*|string|null
      */
     public function getPlayback(): ?string
     {

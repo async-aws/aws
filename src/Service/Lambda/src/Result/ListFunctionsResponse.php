@@ -116,7 +116,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     private function populateResultArchitecturesList(array $json): array
     {

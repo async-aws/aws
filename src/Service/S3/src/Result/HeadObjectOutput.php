@@ -75,7 +75,7 @@ class HeadObjectOutput extends Result
      *
      * > This functionality is not supported for directory buckets.
      *
-     * @var ArchiveStatus::*|null
+     * @var ArchiveStatus::*|string|null
      */
     private $archiveStatus;
 
@@ -163,7 +163,7 @@ class HeadObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -261,7 +261,7 @@ class HeadObjectOutput extends Result
      * > When accessing data stored in Amazon FSx file systems using S3 access points, the only valid server side encryption
      * > option is `aws:fsx`.
      *
-     * @var ServerSideEncryption::*|null
+     * @var ServerSideEncryption::*|string|null
      */
     private $serverSideEncryption;
 
@@ -318,12 +318,12 @@ class HeadObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
-     * @var StorageClass::*|null
+     * @var StorageClass::*|string|null
      */
     private $storageClass;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -357,7 +357,7 @@ class HeadObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      *
-     * @var ReplicationStatus::*|null
+     * @var ReplicationStatus::*|string|null
      */
     private $replicationStatus;
 
@@ -390,7 +390,7 @@ class HeadObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      *
-     * @var ObjectLockMode::*|null
+     * @var ObjectLockMode::*|string|null
      */
     private $objectLockMode;
 
@@ -413,7 +413,7 @@ class HeadObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      *
-     * @var ObjectLockLegalHoldStatus::*|null
+     * @var ObjectLockLegalHoldStatus::*|string|null
      */
     private $objectLockLegalHoldStatus;
 
@@ -425,7 +425,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return ArchiveStatus::*|null
+     * @return ArchiveStatus::*|string|null
      */
     public function getArchiveStatus(): ?string
     {
@@ -484,7 +484,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -588,7 +588,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return ObjectLockLegalHoldStatus::*|null
+     * @return ObjectLockLegalHoldStatus::*|string|null
      */
     public function getObjectLockLegalHoldStatus(): ?string
     {
@@ -598,7 +598,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return ObjectLockMode::*|null
+     * @return ObjectLockMode::*|string|null
      */
     public function getObjectLockMode(): ?string
     {
@@ -622,7 +622,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return ReplicationStatus::*|null
+     * @return ReplicationStatus::*|string|null
      */
     public function getReplicationStatus(): ?string
     {
@@ -632,7 +632,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -649,7 +649,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return ServerSideEncryption::*|null
+     * @return ServerSideEncryption::*|string|null
      */
     public function getServerSideEncryption(): ?string
     {
@@ -680,7 +680,7 @@ class HeadObjectOutput extends Result
     }
 
     /**
-     * @return StorageClass::*|null
+     * @return StorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

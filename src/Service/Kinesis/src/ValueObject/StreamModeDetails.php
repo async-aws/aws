@@ -15,13 +15,13 @@ final class StreamModeDetails
      * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can
      * choose between an **on-demand** capacity mode and a **provisioned** capacity mode for your data streams.
      *
-     * @var StreamMode::*
+     * @var StreamMode::*|string
      */
     private $streamMode;
 
     /**
      * @param array{
-     *   StreamMode: StreamMode::*,
+     *   StreamMode: StreamMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class StreamModeDetails
 
     /**
      * @param array{
-     *   StreamMode: StreamMode::*,
+     *   StreamMode: StreamMode::*|string,
      * }|StreamModeDetails $input
      */
     public static function create($input): self
@@ -40,7 +40,7 @@ final class StreamModeDetails
     }
 
     /**
-     * @return StreamMode::*
+     * @return StreamMode::*|string
      */
     public function getStreamMode(): string
     {

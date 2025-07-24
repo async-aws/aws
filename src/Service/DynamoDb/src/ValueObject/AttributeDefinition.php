@@ -24,14 +24,14 @@ final class AttributeDefinition
      * - `N` - the attribute is of type Number
      * - `B` - the attribute is of type Binary
      *
-     * @var ScalarAttributeType::*
+     * @var ScalarAttributeType::*|string
      */
     private $attributeType;
 
     /**
      * @param array{
      *   AttributeName: string,
-     *   AttributeType: ScalarAttributeType::*,
+     *   AttributeType: ScalarAttributeType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -43,7 +43,7 @@ final class AttributeDefinition
     /**
      * @param array{
      *   AttributeName: string,
-     *   AttributeType: ScalarAttributeType::*,
+     *   AttributeType: ScalarAttributeType::*|string,
      * }|AttributeDefinition $input
      */
     public static function create($input): self
@@ -57,7 +57,7 @@ final class AttributeDefinition
     }
 
     /**
-     * @return ScalarAttributeType::*
+     * @return ScalarAttributeType::*|string
      */
     public function getAttributeType(): string
     {

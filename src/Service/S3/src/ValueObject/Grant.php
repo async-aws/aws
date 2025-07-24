@@ -20,14 +20,14 @@ final class Grant
     /**
      * Specifies the permission given to the grantee.
      *
-     * @var Permission::*|null
+     * @var Permission::*|string|null
      */
     private $permission;
 
     /**
      * @param array{
      *   Grantee?: null|Grantee|array,
-     *   Permission?: null|Permission::*,
+     *   Permission?: null|Permission::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -39,7 +39,7 @@ final class Grant
     /**
      * @param array{
      *   Grantee?: null|Grantee|array,
-     *   Permission?: null|Permission::*,
+     *   Permission?: null|Permission::*|string,
      * }|Grant $input
      */
     public static function create($input): self
@@ -53,7 +53,7 @@ final class Grant
     }
 
     /**
-     * @return Permission::*|null
+     * @return Permission::*|string|null
      */
     public function getPermission(): ?string
     {

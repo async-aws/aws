@@ -15,7 +15,7 @@ final class HlsImageBasedTrickPlaySettings
      * thumbnails for each IDR frame in the output (matching the GOP cadence). If set to FOLLOW_CUSTOM, MediaConvert
      * generates thumbnails according to the interval you specify in thumbnailInterval.
      *
-     * @var HlsIntervalCadence::*|null
+     * @var HlsIntervalCadence::*|string|null
      */
     private $intervalCadence;
 
@@ -61,7 +61,7 @@ final class HlsImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|HlsIntervalCadence::*,
+     *   IntervalCadence?: null|HlsIntervalCadence::*|string,
      *   ThumbnailHeight?: null|int,
      *   ThumbnailInterval?: null|float,
      *   ThumbnailWidth?: null|int,
@@ -81,7 +81,7 @@ final class HlsImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|HlsIntervalCadence::*,
+     *   IntervalCadence?: null|HlsIntervalCadence::*|string,
      *   ThumbnailHeight?: null|int,
      *   ThumbnailInterval?: null|float,
      *   ThumbnailWidth?: null|int,
@@ -95,7 +95,7 @@ final class HlsImageBasedTrickPlaySettings
     }
 
     /**
-     * @return HlsIntervalCadence::*|null
+     * @return HlsIntervalCadence::*|string|null
      */
     public function getIntervalCadence(): ?string
     {

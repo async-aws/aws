@@ -126,12 +126,12 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
      *
      * `Delimiter`, `KeyMarker`, `Prefix`, `NextKeyMarker`, `Key`.
      *
-     * @var EncodingType::*|null
+     * @var EncodingType::*|string|null
      */
     private $encodingType;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -196,7 +196,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return EncodingType::*|null
+     * @return EncodingType::*|string|null
      */
     public function getEncodingType(): ?string
     {
@@ -288,7 +288,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {

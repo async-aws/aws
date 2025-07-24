@@ -37,7 +37,7 @@ class CreateKeyResponse extends Result
     }
 
     /**
-     * @return list<EncryptionAlgorithmSpec::*>
+     * @return list<EncryptionAlgorithmSpec::*|string>
      */
     private function populateResultEncryptionAlgorithmSpecList(array $json): array
     {
@@ -53,7 +53,7 @@ class CreateKeyResponse extends Result
     }
 
     /**
-     * @return list<KeyAgreementAlgorithmSpec::*>
+     * @return list<KeyAgreementAlgorithmSpec::*|string>
      */
     private function populateResultKeyAgreementAlgorithmSpecList(array $json): array
     {
@@ -101,7 +101,7 @@ class CreateKeyResponse extends Result
     }
 
     /**
-     * @return list<MacAlgorithmSpec::*>
+     * @return list<MacAlgorithmSpec::*|string>
      */
     private function populateResultMacAlgorithmSpecList(array $json): array
     {
@@ -147,7 +147,7 @@ class CreateKeyResponse extends Result
     }
 
     /**
-     * @return list<SigningAlgorithmSpec::*>
+     * @return list<SigningAlgorithmSpec::*|string>
      */
     private function populateResultSigningAlgorithmSpecList(array $json): array
     {

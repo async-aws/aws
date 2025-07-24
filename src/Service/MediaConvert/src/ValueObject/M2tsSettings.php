@@ -34,7 +34,7 @@ final class M2tsSettings
     /**
      * Selects between the DVB and ATSC buffer models for Dolby Digital audio.
      *
-     * @var M2tsAudioBufferModel::*|null
+     * @var M2tsAudioBufferModel::*|string|null
      */
     private $audioBufferModel;
 
@@ -49,7 +49,7 @@ final class M2tsSettings
      * you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio
      * codec.
      *
-     * @var M2tsAudioDuration::*|null
+     * @var M2tsAudioDuration::*|string|null
      */
     private $audioDuration;
 
@@ -90,7 +90,7 @@ final class M2tsSettings
      * to NONE, this can lead to lower latency, but low-memory devices may not be able to play back the stream without
      * interruptions.
      *
-     * @var M2tsBufferModel::*|null
+     * @var M2tsBufferModel::*|string|null
      */
     private $bufferModel;
 
@@ -99,7 +99,7 @@ final class M2tsSettings
      * greater than or equal to the first video packet PTS (MediaConvert drops captions and data packets with lesser PTS
      * values). Keep the default value to allow all PTS values.
      *
-     * @var M2tsDataPtsControl::*|null
+     * @var M2tsDataPtsControl::*|string|null
      */
     private $dataPtsControl;
 
@@ -145,7 +145,7 @@ final class M2tsSettings
      * VIDEO_INTERVAL, these additional markers will not be inserted. Only applicable when EBP segmentation markers are is
      * selected (segmentationMarkers is EBP or EBP_LEGACY).
      *
-     * @var M2tsEbpAudioInterval::*|null
+     * @var M2tsEbpAudioInterval::*|string|null
      */
     private $ebpAudioInterval;
 
@@ -154,14 +154,14 @@ final class M2tsSettings
      * and all audio PIDs. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or
      * EBP_LEGACY).
      *
-     * @var M2tsEbpPlacement::*|null
+     * @var M2tsEbpPlacement::*|string|null
      */
     private $ebpPlacement;
 
     /**
      * Controls whether to include the ES Rate field in the PES header.
      *
-     * @var M2tsEsRateInPes::*|null
+     * @var M2tsEsRateInPes::*|string|null
      */
     private $esRateInPes;
 
@@ -169,7 +169,7 @@ final class M2tsSettings
      * Keep the default value unless you know that your audio EBP markers are incorrectly appearing before your video EBP
      * markers. To correct this problem, set this value to Force.
      *
-     * @var M2tsForceTsVideoEbpOrder::*|null
+     * @var M2tsForceTsVideoEbpOrder::*|string|null
      */
     private $forceTsVideoEbpOrder;
 
@@ -185,7 +185,7 @@ final class M2tsSettings
      * KLV metadata present in your input and passes it through to the output transport stream. To exclude this KLV
      * metadata: Set KLV metadata insertion to None or leave blank.
      *
-     * @var M2tsKlvMetadata::*|null
+     * @var M2tsKlvMetadata::*|string|null
      */
     private $klvMetadata;
 
@@ -211,7 +211,7 @@ final class M2tsSettings
      * If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag
      * will be inserted in the output.
      *
-     * @var M2tsNielsenId3::*|null
+     * @var M2tsNielsenId3::*|string|null
      */
     private $nielsenId3;
 
@@ -234,7 +234,7 @@ final class M2tsSettings
      * When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is inserted for every Packetized Elementary Stream
      * (PES) header. This is effective only when the PCR PID is the same as the video or audio elementary stream.
      *
-     * @var M2tsPcrControl::*|null
+     * @var M2tsPcrControl::*|string|null
      */
     private $pcrControl;
 
@@ -267,7 +267,7 @@ final class M2tsSettings
      * buffer underflows in your output, when possible: Choose Enabled. Note that if MediaConvert prevents a decoder buffer
      * underflow in your output, output video quality is reduced and your job will take longer to complete.
      *
-     * @var M2tsPreventBufferUnderflow::*|null
+     * @var M2tsPreventBufferUnderflow::*|string|null
      */
     private $preventBufferUnderflow;
 
@@ -301,7 +301,7 @@ final class M2tsSettings
      * bitrate, HRD buffer size and HRD buffer initial fill percentage. To manually specify an initial PTS offset: Choose
      * Seconds or Milliseconds. Then specify the number of seconds or milliseconds with PTS offset.
      *
-     * @var TsPtsOffset::*|null
+     * @var TsPtsOffset::*|string|null
      */
     private $ptsOffsetMode;
 
@@ -309,7 +309,7 @@ final class M2tsSettings
      * When set to CBR, inserts null packets into transport stream to fill specified bitrate. When set to VBR, the bitrate
      * setting acts as the maximum bitrate, but the output will not be padded up to that bitrate.
      *
-     * @var M2tsRateMode::*|null
+     * @var M2tsRateMode::*|string|null
      */
     private $rateMode;
 
@@ -334,7 +334,7 @@ final class M2tsSettings
      * ESAM XML document-- Choose None. Also provide the ESAM XML as a string in the setting Signal processing notification
      * XML. Also enable ESAM SCTE-35 (include the property scte35Esam).
      *
-     * @var M2tsScte35Source::*|null
+     * @var M2tsScte35Source::*|string|null
      */
     private $scte35Source;
 
@@ -345,7 +345,7 @@ final class M2tsSettings
      * adaptation field as per OpenCable specification OC-SP-EBP-I01-130118. ebp_legacy adds Encoder Boundary Point
      * information to the adaptation field using a legacy proprietary format.
      *
-     * @var M2tsSegmentationMarkers::*|null
+     * @var M2tsSegmentationMarkers::*|string|null
      */
     private $segmentationMarkers;
 
@@ -359,7 +359,7 @@ final class M2tsSettings
      * all segments after that will have a duration of $segmentation_time seconds. Note that EBP lookahead is a slight
      * exception to this rule.
      *
-     * @var M2tsSegmentationStyle::*|null
+     * @var M2tsSegmentationStyle::*|string|null
      */
     private $segmentationStyle;
 
@@ -394,45 +394,45 @@ final class M2tsSettings
 
     /**
      * @param array{
-     *   AudioBufferModel?: null|M2tsAudioBufferModel::*,
-     *   AudioDuration?: null|M2tsAudioDuration::*,
+     *   AudioBufferModel?: null|M2tsAudioBufferModel::*|string,
+     *   AudioDuration?: null|M2tsAudioDuration::*|string,
      *   AudioFramesPerPes?: null|int,
      *   AudioPids?: null|int[],
      *   AudioPtsOffsetDelta?: null|int,
      *   Bitrate?: null|int,
-     *   BufferModel?: null|M2tsBufferModel::*,
-     *   DataPTSControl?: null|M2tsDataPtsControl::*,
+     *   BufferModel?: null|M2tsBufferModel::*|string,
+     *   DataPTSControl?: null|M2tsDataPtsControl::*|string,
      *   DvbNitSettings?: null|DvbNitSettings|array,
      *   DvbSdtSettings?: null|DvbSdtSettings|array,
      *   DvbSubPids?: null|int[],
      *   DvbTdtSettings?: null|DvbTdtSettings|array,
      *   DvbTeletextPid?: null|int,
-     *   EbpAudioInterval?: null|M2tsEbpAudioInterval::*,
-     *   EbpPlacement?: null|M2tsEbpPlacement::*,
-     *   EsRateInPes?: null|M2tsEsRateInPes::*,
-     *   ForceTsVideoEbpOrder?: null|M2tsForceTsVideoEbpOrder::*,
+     *   EbpAudioInterval?: null|M2tsEbpAudioInterval::*|string,
+     *   EbpPlacement?: null|M2tsEbpPlacement::*|string,
+     *   EsRateInPes?: null|M2tsEsRateInPes::*|string,
+     *   ForceTsVideoEbpOrder?: null|M2tsForceTsVideoEbpOrder::*|string,
      *   FragmentTime?: null|float,
-     *   KlvMetadata?: null|M2tsKlvMetadata::*,
+     *   KlvMetadata?: null|M2tsKlvMetadata::*|string,
      *   MaxPcrInterval?: null|int,
      *   MinEbpInterval?: null|int,
-     *   NielsenId3?: null|M2tsNielsenId3::*,
+     *   NielsenId3?: null|M2tsNielsenId3::*|string,
      *   NullPacketBitrate?: null|float,
      *   PatInterval?: null|int,
-     *   PcrControl?: null|M2tsPcrControl::*,
+     *   PcrControl?: null|M2tsPcrControl::*|string,
      *   PcrPid?: null|int,
      *   PmtInterval?: null|int,
      *   PmtPid?: null|int,
-     *   PreventBufferUnderflow?: null|M2tsPreventBufferUnderflow::*,
+     *   PreventBufferUnderflow?: null|M2tsPreventBufferUnderflow::*|string,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
      *   PtsOffset?: null|int,
-     *   PtsOffsetMode?: null|TsPtsOffset::*,
-     *   RateMode?: null|M2tsRateMode::*,
+     *   PtsOffsetMode?: null|TsPtsOffset::*|string,
+     *   RateMode?: null|M2tsRateMode::*|string,
      *   Scte35Esam?: null|M2tsScte35Esam|array,
      *   Scte35Pid?: null|int,
-     *   Scte35Source?: null|M2tsScte35Source::*,
-     *   SegmentationMarkers?: null|M2tsSegmentationMarkers::*,
-     *   SegmentationStyle?: null|M2tsSegmentationStyle::*,
+     *   Scte35Source?: null|M2tsScte35Source::*|string,
+     *   SegmentationMarkers?: null|M2tsSegmentationMarkers::*|string,
+     *   SegmentationStyle?: null|M2tsSegmentationStyle::*|string,
      *   SegmentationTime?: null|float,
      *   TimedMetadataPid?: null|int,
      *   TransportStreamId?: null|int,
@@ -488,45 +488,45 @@ final class M2tsSettings
 
     /**
      * @param array{
-     *   AudioBufferModel?: null|M2tsAudioBufferModel::*,
-     *   AudioDuration?: null|M2tsAudioDuration::*,
+     *   AudioBufferModel?: null|M2tsAudioBufferModel::*|string,
+     *   AudioDuration?: null|M2tsAudioDuration::*|string,
      *   AudioFramesPerPes?: null|int,
      *   AudioPids?: null|int[],
      *   AudioPtsOffsetDelta?: null|int,
      *   Bitrate?: null|int,
-     *   BufferModel?: null|M2tsBufferModel::*,
-     *   DataPTSControl?: null|M2tsDataPtsControl::*,
+     *   BufferModel?: null|M2tsBufferModel::*|string,
+     *   DataPTSControl?: null|M2tsDataPtsControl::*|string,
      *   DvbNitSettings?: null|DvbNitSettings|array,
      *   DvbSdtSettings?: null|DvbSdtSettings|array,
      *   DvbSubPids?: null|int[],
      *   DvbTdtSettings?: null|DvbTdtSettings|array,
      *   DvbTeletextPid?: null|int,
-     *   EbpAudioInterval?: null|M2tsEbpAudioInterval::*,
-     *   EbpPlacement?: null|M2tsEbpPlacement::*,
-     *   EsRateInPes?: null|M2tsEsRateInPes::*,
-     *   ForceTsVideoEbpOrder?: null|M2tsForceTsVideoEbpOrder::*,
+     *   EbpAudioInterval?: null|M2tsEbpAudioInterval::*|string,
+     *   EbpPlacement?: null|M2tsEbpPlacement::*|string,
+     *   EsRateInPes?: null|M2tsEsRateInPes::*|string,
+     *   ForceTsVideoEbpOrder?: null|M2tsForceTsVideoEbpOrder::*|string,
      *   FragmentTime?: null|float,
-     *   KlvMetadata?: null|M2tsKlvMetadata::*,
+     *   KlvMetadata?: null|M2tsKlvMetadata::*|string,
      *   MaxPcrInterval?: null|int,
      *   MinEbpInterval?: null|int,
-     *   NielsenId3?: null|M2tsNielsenId3::*,
+     *   NielsenId3?: null|M2tsNielsenId3::*|string,
      *   NullPacketBitrate?: null|float,
      *   PatInterval?: null|int,
-     *   PcrControl?: null|M2tsPcrControl::*,
+     *   PcrControl?: null|M2tsPcrControl::*|string,
      *   PcrPid?: null|int,
      *   PmtInterval?: null|int,
      *   PmtPid?: null|int,
-     *   PreventBufferUnderflow?: null|M2tsPreventBufferUnderflow::*,
+     *   PreventBufferUnderflow?: null|M2tsPreventBufferUnderflow::*|string,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
      *   PtsOffset?: null|int,
-     *   PtsOffsetMode?: null|TsPtsOffset::*,
-     *   RateMode?: null|M2tsRateMode::*,
+     *   PtsOffsetMode?: null|TsPtsOffset::*|string,
+     *   RateMode?: null|M2tsRateMode::*|string,
      *   Scte35Esam?: null|M2tsScte35Esam|array,
      *   Scte35Pid?: null|int,
-     *   Scte35Source?: null|M2tsScte35Source::*,
-     *   SegmentationMarkers?: null|M2tsSegmentationMarkers::*,
-     *   SegmentationStyle?: null|M2tsSegmentationStyle::*,
+     *   Scte35Source?: null|M2tsScte35Source::*|string,
+     *   SegmentationMarkers?: null|M2tsSegmentationMarkers::*|string,
+     *   SegmentationStyle?: null|M2tsSegmentationStyle::*|string,
      *   SegmentationTime?: null|float,
      *   TimedMetadataPid?: null|int,
      *   TransportStreamId?: null|int,
@@ -539,7 +539,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsAudioBufferModel::*|null
+     * @return M2tsAudioBufferModel::*|string|null
      */
     public function getAudioBufferModel(): ?string
     {
@@ -547,7 +547,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsAudioDuration::*|null
+     * @return M2tsAudioDuration::*|string|null
      */
     public function getAudioDuration(): ?string
     {
@@ -578,7 +578,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsBufferModel::*|null
+     * @return M2tsBufferModel::*|string|null
      */
     public function getBufferModel(): ?string
     {
@@ -586,7 +586,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsDataPtsControl::*|null
+     * @return M2tsDataPtsControl::*|string|null
      */
     public function getDataPtsControl(): ?string
     {
@@ -622,7 +622,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsEbpAudioInterval::*|null
+     * @return M2tsEbpAudioInterval::*|string|null
      */
     public function getEbpAudioInterval(): ?string
     {
@@ -630,7 +630,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsEbpPlacement::*|null
+     * @return M2tsEbpPlacement::*|string|null
      */
     public function getEbpPlacement(): ?string
     {
@@ -638,7 +638,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsEsRateInPes::*|null
+     * @return M2tsEsRateInPes::*|string|null
      */
     public function getEsRateInPes(): ?string
     {
@@ -646,7 +646,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsForceTsVideoEbpOrder::*|null
+     * @return M2tsForceTsVideoEbpOrder::*|string|null
      */
     public function getForceTsVideoEbpOrder(): ?string
     {
@@ -659,7 +659,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsKlvMetadata::*|null
+     * @return M2tsKlvMetadata::*|string|null
      */
     public function getKlvMetadata(): ?string
     {
@@ -677,7 +677,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsNielsenId3::*|null
+     * @return M2tsNielsenId3::*|string|null
      */
     public function getNielsenId3(): ?string
     {
@@ -695,7 +695,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsPcrControl::*|null
+     * @return M2tsPcrControl::*|string|null
      */
     public function getPcrControl(): ?string
     {
@@ -718,7 +718,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsPreventBufferUnderflow::*|null
+     * @return M2tsPreventBufferUnderflow::*|string|null
      */
     public function getPreventBufferUnderflow(): ?string
     {
@@ -741,7 +741,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return TsPtsOffset::*|null
+     * @return TsPtsOffset::*|string|null
      */
     public function getPtsOffsetMode(): ?string
     {
@@ -749,7 +749,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsRateMode::*|null
+     * @return M2tsRateMode::*|string|null
      */
     public function getRateMode(): ?string
     {
@@ -767,7 +767,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsScte35Source::*|null
+     * @return M2tsScte35Source::*|string|null
      */
     public function getScte35Source(): ?string
     {
@@ -775,7 +775,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsSegmentationMarkers::*|null
+     * @return M2tsSegmentationMarkers::*|string|null
      */
     public function getSegmentationMarkers(): ?string
     {
@@ -783,7 +783,7 @@ final class M2tsSettings
     }
 
     /**
-     * @return M2tsSegmentationStyle::*|null
+     * @return M2tsSegmentationStyle::*|string|null
      */
     public function getSegmentationStyle(): ?string
     {

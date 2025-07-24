@@ -33,7 +33,7 @@ final class Consumer
     /**
      * A consumer can't read data while in the `CREATING` or `DELETING` states.
      *
-     * @var ConsumerStatus::*
+     * @var ConsumerStatus::*|string
      */
     private $consumerStatus;
 
@@ -46,7 +46,7 @@ final class Consumer
      * @param array{
      *   ConsumerName: string,
      *   ConsumerARN: string,
-     *   ConsumerStatus: ConsumerStatus::*,
+     *   ConsumerStatus: ConsumerStatus::*|string,
      *   ConsumerCreationTimestamp: \DateTimeImmutable,
      * } $input
      */
@@ -62,7 +62,7 @@ final class Consumer
      * @param array{
      *   ConsumerName: string,
      *   ConsumerARN: string,
-     *   ConsumerStatus: ConsumerStatus::*,
+     *   ConsumerStatus: ConsumerStatus::*|string,
      *   ConsumerCreationTimestamp: \DateTimeImmutable,
      * }|Consumer $input
      */
@@ -87,7 +87,7 @@ final class Consumer
     }
 
     /**
-     * @return ConsumerStatus::*
+     * @return ConsumerStatus::*|string
      */
     public function getConsumerStatus(): string
     {

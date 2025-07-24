@@ -46,7 +46,7 @@ final class DataSource
      * - **HTTP**: The data source is an HTTP endpoint.
      * - **RELATIONAL_DATABASE**: The data source is a relational database.
      *
-     * @var DataSourceType::*|null
+     * @var DataSourceType::*|string|null
      */
     private $type;
 
@@ -115,7 +115,7 @@ final class DataSource
      *
      * `metricsConfig` can be `ENABLED` or `DISABLED`.
      *
-     * @var DataSourceLevelMetricsConfig::*|null
+     * @var DataSourceLevelMetricsConfig::*|string|null
      */
     private $metricsConfig;
 
@@ -124,7 +124,7 @@ final class DataSource
      *   dataSourceArn?: null|string,
      *   name?: null|string,
      *   description?: null|string,
-     *   type?: null|DataSourceType::*,
+     *   type?: null|DataSourceType::*|string,
      *   serviceRoleArn?: null|string,
      *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
      *   lambdaConfig?: null|LambdaDataSourceConfig|array,
@@ -133,7 +133,7 @@ final class DataSource
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
-     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -158,7 +158,7 @@ final class DataSource
      *   dataSourceArn?: null|string,
      *   name?: null|string,
      *   description?: null|string,
-     *   type?: null|DataSourceType::*,
+     *   type?: null|DataSourceType::*|string,
      *   serviceRoleArn?: null|string,
      *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
      *   lambdaConfig?: null|LambdaDataSourceConfig|array,
@@ -167,7 +167,7 @@ final class DataSource
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
-     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
+     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*|string,
      * }|DataSource $input
      */
     public static function create($input): self
@@ -211,7 +211,7 @@ final class DataSource
     }
 
     /**
-     * @return DataSourceLevelMetricsConfig::*|null
+     * @return DataSourceLevelMetricsConfig::*|string|null
      */
     public function getMetricsConfig(): ?string
     {
@@ -239,7 +239,7 @@ final class DataSource
     }
 
     /**
-     * @return DataSourceType::*|null
+     * @return DataSourceType::*|string|null
      */
     public function getType(): ?string
     {

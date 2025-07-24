@@ -26,7 +26,7 @@ final class MsSmoothGroupSettings
      * COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings across a Microsoft Smooth output group into a
      * single audio stream.
      *
-     * @var MsSmoothAudioDeduplication::*|null
+     * @var MsSmoothAudioDeduplication::*|string|null
      */
     private $audioDeduplication;
 
@@ -67,7 +67,7 @@ final class MsSmoothGroupSettings
      * length that you specify with the setting Fragment length. This might result in extra I-frames. Choose Multiple of GOP
      * to have the encoder round up the segment lengths to match the next GOP boundary.
      *
-     * @var MsSmoothFragmentLengthControl::*|null
+     * @var MsSmoothFragmentLengthControl::*|string|null
      */
     private $fragmentLengthControl;
 
@@ -75,20 +75,20 @@ final class MsSmoothGroupSettings
      * Use Manifest encoding to specify the encoding format for the server and client manifest. Valid options are utf8 and
      * utf16.
      *
-     * @var MsSmoothManifestEncoding::*|null
+     * @var MsSmoothManifestEncoding::*|string|null
      */
     private $manifestEncoding;
 
     /**
      * @param array{
      *   AdditionalManifests?: null|array<MsSmoothAdditionalManifest|array>,
-     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
+     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
      *   Encryption?: null|MsSmoothEncryptionSettings|array,
      *   FragmentLength?: null|int,
-     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*,
-     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*,
+     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*|string,
+     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -106,13 +106,13 @@ final class MsSmoothGroupSettings
     /**
      * @param array{
      *   AdditionalManifests?: null|array<MsSmoothAdditionalManifest|array>,
-     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
+     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
      *   Encryption?: null|MsSmoothEncryptionSettings|array,
      *   FragmentLength?: null|int,
-     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*,
-     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*,
+     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*|string,
+     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*|string,
      * }|MsSmoothGroupSettings $input
      */
     public static function create($input): self
@@ -129,7 +129,7 @@ final class MsSmoothGroupSettings
     }
 
     /**
-     * @return MsSmoothAudioDeduplication::*|null
+     * @return MsSmoothAudioDeduplication::*|string|null
      */
     public function getAudioDeduplication(): ?string
     {
@@ -157,7 +157,7 @@ final class MsSmoothGroupSettings
     }
 
     /**
-     * @return MsSmoothFragmentLengthControl::*|null
+     * @return MsSmoothFragmentLengthControl::*|string|null
      */
     public function getFragmentLengthControl(): ?string
     {
@@ -165,7 +165,7 @@ final class MsSmoothGroupSettings
     }
 
     /**
-     * @return MsSmoothManifestEncoding::*|null
+     * @return MsSmoothManifestEncoding::*|string|null
      */
     public function getManifestEncoding(): ?string
     {

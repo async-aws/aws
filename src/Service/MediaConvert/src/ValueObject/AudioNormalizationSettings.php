@@ -22,7 +22,7 @@ final class AudioNormalizationSettings
      * BS.1770-4: Higher channel count. Allows for more audio channels than the other algorithms, including configurations
      * such as 7.1.
      *
-     * @var AudioNormalizationAlgorithm::*|null
+     * @var AudioNormalizationAlgorithm::*|string|null
      */
     private $algorithm;
 
@@ -30,7 +30,7 @@ final class AudioNormalizationSettings
      * When enabled the output audio is corrected using the chosen algorithm. If disabled, the audio will be measured but
      * not adjusted.
      *
-     * @var AudioNormalizationAlgorithmControl::*|null
+     * @var AudioNormalizationAlgorithmControl::*|string|null
      */
     private $algorithmControl;
 
@@ -45,14 +45,14 @@ final class AudioNormalizationSettings
     /**
      * If set to LOG, log each output's audio track loudness to a CSV file.
      *
-     * @var AudioNormalizationLoudnessLogging::*|null
+     * @var AudioNormalizationLoudnessLogging::*|string|null
      */
     private $loudnessLogging;
 
     /**
      * If set to TRUE_PEAK, calculate and log the TruePeak for each output's audio track loudness.
      *
-     * @var AudioNormalizationPeakCalculation::*|null
+     * @var AudioNormalizationPeakCalculation::*|string|null
      */
     private $peakCalculation;
 
@@ -76,11 +76,11 @@ final class AudioNormalizationSettings
 
     /**
      * @param array{
-     *   Algorithm?: null|AudioNormalizationAlgorithm::*,
-     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*,
+     *   Algorithm?: null|AudioNormalizationAlgorithm::*|string,
+     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*|string,
      *   CorrectionGateLevel?: null|int,
-     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*,
-     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*,
+     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*|string,
+     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*|string,
      *   TargetLkfs?: null|float,
      *   TruePeakLimiterThreshold?: null|float,
      * } $input
@@ -98,11 +98,11 @@ final class AudioNormalizationSettings
 
     /**
      * @param array{
-     *   Algorithm?: null|AudioNormalizationAlgorithm::*,
-     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*,
+     *   Algorithm?: null|AudioNormalizationAlgorithm::*|string,
+     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*|string,
      *   CorrectionGateLevel?: null|int,
-     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*,
-     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*,
+     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*|string,
+     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*|string,
      *   TargetLkfs?: null|float,
      *   TruePeakLimiterThreshold?: null|float,
      * }|AudioNormalizationSettings $input
@@ -113,7 +113,7 @@ final class AudioNormalizationSettings
     }
 
     /**
-     * @return AudioNormalizationAlgorithm::*|null
+     * @return AudioNormalizationAlgorithm::*|string|null
      */
     public function getAlgorithm(): ?string
     {
@@ -121,7 +121,7 @@ final class AudioNormalizationSettings
     }
 
     /**
-     * @return AudioNormalizationAlgorithmControl::*|null
+     * @return AudioNormalizationAlgorithmControl::*|string|null
      */
     public function getAlgorithmControl(): ?string
     {
@@ -134,7 +134,7 @@ final class AudioNormalizationSettings
     }
 
     /**
-     * @return AudioNormalizationLoudnessLogging::*|null
+     * @return AudioNormalizationLoudnessLogging::*|string|null
      */
     public function getLoudnessLogging(): ?string
     {
@@ -142,7 +142,7 @@ final class AudioNormalizationSettings
     }
 
     /**
-     * @return AudioNormalizationPeakCalculation::*|null
+     * @return AudioNormalizationPeakCalculation::*|string|null
      */
     public function getPeakCalculation(): ?string
     {
