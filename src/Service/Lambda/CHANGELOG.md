@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
+- AWS api-change: This release migrated the model to Smithy keeping all features unchanged.
 
 ### Changed
 
