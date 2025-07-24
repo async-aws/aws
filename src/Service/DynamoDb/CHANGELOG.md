@@ -6,6 +6,10 @@
 
 - AWS api-change: This change adds support for witnesses in global tables. It also adds a new table status, REPLICATION_NOT_AUTHORIZED. This status will indicate scenarios where global replicas table can't be utilized for data plane operations.
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 3.6.0
 
 ### Added

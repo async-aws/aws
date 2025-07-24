@@ -21,7 +21,7 @@ final class ProjectEnvironment
      *
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html
      *
-     * @var EnvironmentType::*
+     * @var EnvironmentType::*|string
      */
     private $type;
 
@@ -90,7 +90,7 @@ final class ProjectEnvironment
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment-reserved-capacity.types
      * [^2]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment.types
      *
-     * @var ComputeType::*
+     * @var ComputeType::*|string
      */
     private $computeType;
 
@@ -170,7 +170,7 @@ final class ProjectEnvironment
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
      * CodeBuild curated image, you must use CODEBUILD credentials.
      *
-     * @var ImagePullCredentialsType::*|null
+     * @var ImagePullCredentialsType::*|string|null
      */
     private $imagePullCredentialsType;
 
@@ -183,16 +183,16 @@ final class ProjectEnvironment
 
     /**
      * @param array{
-     *   type: EnvironmentType::*,
+     *   type: EnvironmentType::*|string,
      *   image: string,
-     *   computeType: ComputeType::*,
+     *   computeType: ComputeType::*|string,
      *   computeConfiguration?: null|ComputeConfiguration|array,
      *   fleet?: null|ProjectFleet|array,
      *   environmentVariables?: null|array<EnvironmentVariable|array>,
      *   privilegedMode?: null|bool,
      *   certificate?: null|string,
      *   registryCredential?: null|RegistryCredential|array,
-     *   imagePullCredentialsType?: null|ImagePullCredentialsType::*,
+     *   imagePullCredentialsType?: null|ImagePullCredentialsType::*|string,
      *   dockerServer?: null|DockerServer|array,
      * } $input
      */
@@ -213,16 +213,16 @@ final class ProjectEnvironment
 
     /**
      * @param array{
-     *   type: EnvironmentType::*,
+     *   type: EnvironmentType::*|string,
      *   image: string,
-     *   computeType: ComputeType::*,
+     *   computeType: ComputeType::*|string,
      *   computeConfiguration?: null|ComputeConfiguration|array,
      *   fleet?: null|ProjectFleet|array,
      *   environmentVariables?: null|array<EnvironmentVariable|array>,
      *   privilegedMode?: null|bool,
      *   certificate?: null|string,
      *   registryCredential?: null|RegistryCredential|array,
-     *   imagePullCredentialsType?: null|ImagePullCredentialsType::*,
+     *   imagePullCredentialsType?: null|ImagePullCredentialsType::*|string,
      *   dockerServer?: null|DockerServer|array,
      * }|ProjectEnvironment $input
      */
@@ -242,7 +242,7 @@ final class ProjectEnvironment
     }
 
     /**
-     * @return ComputeType::*
+     * @return ComputeType::*|string
      */
     public function getComputeType(): string
     {
@@ -273,7 +273,7 @@ final class ProjectEnvironment
     }
 
     /**
-     * @return ImagePullCredentialsType::*|null
+     * @return ImagePullCredentialsType::*|string|null
      */
     public function getImagePullCredentialsType(): ?string
     {
@@ -291,7 +291,7 @@ final class ProjectEnvironment
     }
 
     /**
-     * @return EnvironmentType::*
+     * @return EnvironmentType::*|string
      */
     public function getType(): string
     {

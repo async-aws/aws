@@ -21,7 +21,7 @@ final class GifSettings
      * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings
      * FramerateNumerator and FramerateDenominator.
      *
-     * @var GifFramerateControl::*|null
+     * @var GifFramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -30,7 +30,7 @@ final class GifSettings
      * (DUPLICATE_DROP) conversion. When you choose Interpolate (INTERPOLATE) instead, the conversion produces smoother
      * motion.
      *
-     * @var GifFramerateConversionAlgorithm::*|null
+     * @var GifFramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -56,8 +56,8 @@ final class GifSettings
 
     /**
      * @param array{
-     *   FramerateControl?: null|GifFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|GifFramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|GifFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|GifFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      * } $input
@@ -72,8 +72,8 @@ final class GifSettings
 
     /**
      * @param array{
-     *   FramerateControl?: null|GifFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|GifFramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|GifFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|GifFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      * }|GifSettings $input
@@ -84,7 +84,7 @@ final class GifSettings
     }
 
     /**
-     * @return GifFramerateControl::*|null
+     * @return GifFramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -92,7 +92,7 @@ final class GifSettings
     }
 
     /**
-     * @return GifFramerateConversionAlgorithm::*|null
+     * @return GifFramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {

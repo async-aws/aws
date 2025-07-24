@@ -21,7 +21,7 @@ final class BandwidthReductionFilter
      * sharpening. Set Sharpening strength to Low to apply a minimal amount of sharpening, or High to apply a maximum amount
      * of sharpening.
      *
-     * @var BandwidthReductionFilterSharpening::*|null
+     * @var BandwidthReductionFilterSharpening::*|string|null
      */
     private $sharpening;
 
@@ -31,14 +31,14 @@ final class BandwidthReductionFilter
      * bitrate outputs, choose Low. For the most bandwidth reduction, choose High. We recommend that you choose High for low
      * bitrate outputs. Note that High may incur a slight increase in the softness of your output.
      *
-     * @var BandwidthReductionFilterStrength::*|null
+     * @var BandwidthReductionFilterStrength::*|string|null
      */
     private $strength;
 
     /**
      * @param array{
-     *   Sharpening?: null|BandwidthReductionFilterSharpening::*,
-     *   Strength?: null|BandwidthReductionFilterStrength::*,
+     *   Sharpening?: null|BandwidthReductionFilterSharpening::*|string,
+     *   Strength?: null|BandwidthReductionFilterStrength::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -49,8 +49,8 @@ final class BandwidthReductionFilter
 
     /**
      * @param array{
-     *   Sharpening?: null|BandwidthReductionFilterSharpening::*,
-     *   Strength?: null|BandwidthReductionFilterStrength::*,
+     *   Sharpening?: null|BandwidthReductionFilterSharpening::*|string,
+     *   Strength?: null|BandwidthReductionFilterStrength::*|string,
      * }|BandwidthReductionFilter $input
      */
     public static function create($input): self
@@ -59,7 +59,7 @@ final class BandwidthReductionFilter
     }
 
     /**
-     * @return BandwidthReductionFilterSharpening::*|null
+     * @return BandwidthReductionFilterSharpening::*|string|null
      */
     public function getSharpening(): ?string
     {
@@ -67,7 +67,7 @@ final class BandwidthReductionFilter
     }
 
     /**
-     * @return BandwidthReductionFilterStrength::*|null
+     * @return BandwidthReductionFilterStrength::*|string|null
      */
     public function getStrength(): ?string
     {

@@ -27,7 +27,7 @@ final class GlobalSecondaryIndexWarmThroughputDescription
      * Represents the warm throughput status being created or updated on a global secondary index. The status can only be
      * `UPDATING` or `ACTIVE`.
      *
-     * @var IndexStatus::*|null
+     * @var IndexStatus::*|string|null
      */
     private $status;
 
@@ -35,7 +35,7 @@ final class GlobalSecondaryIndexWarmThroughputDescription
      * @param array{
      *   ReadUnitsPerSecond?: null|int,
      *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|IndexStatus::*,
+     *   Status?: null|IndexStatus::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -49,7 +49,7 @@ final class GlobalSecondaryIndexWarmThroughputDescription
      * @param array{
      *   ReadUnitsPerSecond?: null|int,
      *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|IndexStatus::*,
+     *   Status?: null|IndexStatus::*|string,
      * }|GlobalSecondaryIndexWarmThroughputDescription $input
      */
     public static function create($input): self
@@ -63,7 +63,7 @@ final class GlobalSecondaryIndexWarmThroughputDescription
     }
 
     /**
-     * @return IndexStatus::*|null
+     * @return IndexStatus::*|string|null
      */
     public function getStatus(): ?string
     {

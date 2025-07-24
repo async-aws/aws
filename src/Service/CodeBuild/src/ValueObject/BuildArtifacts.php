@@ -62,7 +62,7 @@ final class BuildArtifacts
     private $artifactIdentifier;
 
     /**
-     * @var BucketOwnerAccess::*|null
+     * @var BucketOwnerAccess::*|string|null
      */
     private $bucketOwnerAccess;
 
@@ -74,7 +74,7 @@ final class BuildArtifacts
      *   overrideArtifactName?: null|bool,
      *   encryptionDisabled?: null|bool,
      *   artifactIdentifier?: null|string,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -96,7 +96,7 @@ final class BuildArtifacts
      *   overrideArtifactName?: null|bool,
      *   encryptionDisabled?: null|bool,
      *   artifactIdentifier?: null|string,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*|string,
      * }|BuildArtifacts $input
      */
     public static function create($input): self
@@ -110,7 +110,7 @@ final class BuildArtifacts
     }
 
     /**
-     * @return BucketOwnerAccess::*|null
+     * @return BucketOwnerAccess::*|string|null
      */
     public function getBucketOwnerAccess(): ?string
     {

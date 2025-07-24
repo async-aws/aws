@@ -29,7 +29,7 @@ final class Input
      * pro-tier pricing. To not apply advanced input filtering: Choose Disabled. Note that you can still apply basic
      * filtering with Deblock and Denoise.
      *
-     * @var AdvancedInputFilter::*|null
+     * @var AdvancedInputFilter::*|string|null
      */
     private $advancedInputFilter;
 
@@ -77,7 +77,7 @@ final class Input
      * Enable Deblock to produce smoother motion in the output. Default is disabled. Only manually controllable for MPEG2
      * and uncompressed video inputs.
      *
-     * @var InputDeblockFilter::*|null
+     * @var InputDeblockFilter::*|string|null
      */
     private $deblockFilter;
 
@@ -94,7 +94,7 @@ final class Input
      * Enable Denoise to filter noise from the input. Default is disabled. Only applicable to MPEG2, H.264, H.265, and
      * uncompressed video inputs.
      *
-     * @var InputDenoiseFilter::*|null
+     * @var InputDenoiseFilter::*|string|null
      */
     private $denoiseFilter;
 
@@ -141,7 +141,7 @@ final class Input
      * your input type and quality: Choose Auto. To apply no filtering: Choose Disable. To apply filtering regardless of
      * your input type and quality: Choose Force. When you do, you must also specify a value for Filter strength.
      *
-     * @var InputFilterEnable::*|null
+     * @var InputFilterEnable::*|string|null
      */
     private $filterEnable;
 
@@ -181,7 +181,7 @@ final class Input
      * the correct setting for all inputs that are not PsF. Don't set this value to PsF when your input is interlaced. Doing
      * so creates horizontal interlacing artifacts.
      *
-     * @var InputScanType::*|null
+     * @var InputScanType::*|string|null
      */
     private $inputScanType;
 
@@ -210,7 +210,7 @@ final class Input
      * * Ignore PSI - Scan all PIDs for audio and video.
      * * Use PSI - Scan only PSI data.
      *
-     * @var InputPsiControl::*|null
+     * @var InputPsiControl::*|string|null
      */
     private $psiControl;
 
@@ -246,7 +246,7 @@ final class Input
      * service will use Embedded by default. For more information about timecodes, see
      * https://docs.aws.amazon.com/console/mediaconvert/timecode.
      *
-     * @var InputTimecodeSource::*|null
+     * @var InputTimecodeSource::*|string|null
      */
     private $timecodeSource;
 
@@ -286,29 +286,29 @@ final class Input
 
     /**
      * @param array{
-     *   AdvancedInputFilter?: null|AdvancedInputFilter::*,
+     *   AdvancedInputFilter?: null|AdvancedInputFilter::*|string,
      *   AdvancedInputFilterSettings?: null|AdvancedInputFilterSettings|array,
      *   AudioSelectorGroups?: null|array<string, AudioSelectorGroup|array>,
      *   AudioSelectors?: null|array<string, AudioSelector|array>,
      *   CaptionSelectors?: null|array<string, CaptionSelector|array>,
      *   Crop?: null|Rectangle|array,
-     *   DeblockFilter?: null|InputDeblockFilter::*,
+     *   DeblockFilter?: null|InputDeblockFilter::*|string,
      *   DecryptionSettings?: null|InputDecryptionSettings|array,
-     *   DenoiseFilter?: null|InputDenoiseFilter::*,
+     *   DenoiseFilter?: null|InputDenoiseFilter::*|string,
      *   DolbyVisionMetadataXml?: null|string,
      *   DynamicAudioSelectors?: null|array<string, DynamicAudioSelector|array>,
      *   FileInput?: null|string,
-     *   FilterEnable?: null|InputFilterEnable::*,
+     *   FilterEnable?: null|InputFilterEnable::*|string,
      *   FilterStrength?: null|int,
      *   ImageInserter?: null|ImageInserter|array,
      *   InputClippings?: null|array<InputClipping|array>,
-     *   InputScanType?: null|InputScanType::*,
+     *   InputScanType?: null|InputScanType::*|string,
      *   Position?: null|Rectangle|array,
      *   ProgramNumber?: null|int,
-     *   PsiControl?: null|InputPsiControl::*,
+     *   PsiControl?: null|InputPsiControl::*|string,
      *   SupplementalImps?: null|string[],
      *   TamsSettings?: null|InputTamsSettings|array,
-     *   TimecodeSource?: null|InputTimecodeSource::*,
+     *   TimecodeSource?: null|InputTimecodeSource::*|string,
      *   TimecodeStart?: null|string,
      *   VideoGenerator?: null|InputVideoGenerator|array,
      *   VideoOverlays?: null|array<VideoOverlay|array>,
@@ -348,29 +348,29 @@ final class Input
 
     /**
      * @param array{
-     *   AdvancedInputFilter?: null|AdvancedInputFilter::*,
+     *   AdvancedInputFilter?: null|AdvancedInputFilter::*|string,
      *   AdvancedInputFilterSettings?: null|AdvancedInputFilterSettings|array,
      *   AudioSelectorGroups?: null|array<string, AudioSelectorGroup|array>,
      *   AudioSelectors?: null|array<string, AudioSelector|array>,
      *   CaptionSelectors?: null|array<string, CaptionSelector|array>,
      *   Crop?: null|Rectangle|array,
-     *   DeblockFilter?: null|InputDeblockFilter::*,
+     *   DeblockFilter?: null|InputDeblockFilter::*|string,
      *   DecryptionSettings?: null|InputDecryptionSettings|array,
-     *   DenoiseFilter?: null|InputDenoiseFilter::*,
+     *   DenoiseFilter?: null|InputDenoiseFilter::*|string,
      *   DolbyVisionMetadataXml?: null|string,
      *   DynamicAudioSelectors?: null|array<string, DynamicAudioSelector|array>,
      *   FileInput?: null|string,
-     *   FilterEnable?: null|InputFilterEnable::*,
+     *   FilterEnable?: null|InputFilterEnable::*|string,
      *   FilterStrength?: null|int,
      *   ImageInserter?: null|ImageInserter|array,
      *   InputClippings?: null|array<InputClipping|array>,
-     *   InputScanType?: null|InputScanType::*,
+     *   InputScanType?: null|InputScanType::*|string,
      *   Position?: null|Rectangle|array,
      *   ProgramNumber?: null|int,
-     *   PsiControl?: null|InputPsiControl::*,
+     *   PsiControl?: null|InputPsiControl::*|string,
      *   SupplementalImps?: null|string[],
      *   TamsSettings?: null|InputTamsSettings|array,
-     *   TimecodeSource?: null|InputTimecodeSource::*,
+     *   TimecodeSource?: null|InputTimecodeSource::*|string,
      *   TimecodeStart?: null|string,
      *   VideoGenerator?: null|InputVideoGenerator|array,
      *   VideoOverlays?: null|array<VideoOverlay|array>,
@@ -383,7 +383,7 @@ final class Input
     }
 
     /**
-     * @return AdvancedInputFilter::*|null
+     * @return AdvancedInputFilter::*|string|null
      */
     public function getAdvancedInputFilter(): ?string
     {
@@ -425,7 +425,7 @@ final class Input
     }
 
     /**
-     * @return InputDeblockFilter::*|null
+     * @return InputDeblockFilter::*|string|null
      */
     public function getDeblockFilter(): ?string
     {
@@ -438,7 +438,7 @@ final class Input
     }
 
     /**
-     * @return InputDenoiseFilter::*|null
+     * @return InputDenoiseFilter::*|string|null
      */
     public function getDenoiseFilter(): ?string
     {
@@ -464,7 +464,7 @@ final class Input
     }
 
     /**
-     * @return InputFilterEnable::*|null
+     * @return InputFilterEnable::*|string|null
      */
     public function getFilterEnable(): ?string
     {
@@ -490,7 +490,7 @@ final class Input
     }
 
     /**
-     * @return InputScanType::*|null
+     * @return InputScanType::*|string|null
      */
     public function getInputScanType(): ?string
     {
@@ -508,7 +508,7 @@ final class Input
     }
 
     /**
-     * @return InputPsiControl::*|null
+     * @return InputPsiControl::*|string|null
      */
     public function getPsiControl(): ?string
     {
@@ -529,7 +529,7 @@ final class Input
     }
 
     /**
-     * @return InputTimecodeSource::*|null
+     * @return InputTimecodeSource::*|string|null
      */
     public function getTimecodeSource(): ?string
     {

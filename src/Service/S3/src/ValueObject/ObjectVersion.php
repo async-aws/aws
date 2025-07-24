@@ -21,7 +21,7 @@ final class ObjectVersion
     /**
      * The algorithm that was used to create a checksum of the object.
      *
-     * @var list<ChecksumAlgorithm::*>|null
+     * @var list<ChecksumAlgorithm::*|string>|null
      */
     private $checksumAlgorithm;
 
@@ -31,7 +31,7 @@ final class ObjectVersion
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -45,7 +45,7 @@ final class ObjectVersion
     /**
      * The class of storage used to store the object.
      *
-     * @var ObjectVersionStorageClass::*|null
+     * @var ObjectVersionStorageClass::*|string|null
      */
     private $storageClass;
 
@@ -98,10 +98,10 @@ final class ObjectVersion
     /**
      * @param array{
      *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*|string>,
+     *   ChecksumType?: null|ChecksumType::*|string,
      *   Size?: null|int,
-     *   StorageClass?: null|ObjectVersionStorageClass::*,
+     *   StorageClass?: null|ObjectVersionStorageClass::*|string,
      *   Key?: null|string,
      *   VersionId?: null|string,
      *   IsLatest?: null|bool,
@@ -128,10 +128,10 @@ final class ObjectVersion
     /**
      * @param array{
      *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*|string>,
+     *   ChecksumType?: null|ChecksumType::*|string,
      *   Size?: null|int,
-     *   StorageClass?: null|ObjectVersionStorageClass::*,
+     *   StorageClass?: null|ObjectVersionStorageClass::*|string,
      *   Key?: null|string,
      *   VersionId?: null|string,
      *   IsLatest?: null|bool,
@@ -146,7 +146,7 @@ final class ObjectVersion
     }
 
     /**
-     * @return list<ChecksumAlgorithm::*>
+     * @return list<ChecksumAlgorithm::*|string>
      */
     public function getChecksumAlgorithm(): array
     {
@@ -154,7 +154,7 @@ final class ObjectVersion
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -197,7 +197,7 @@ final class ObjectVersion
     }
 
     /**
-     * @return ObjectVersionStorageClass::*|null
+     * @return ObjectVersionStorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

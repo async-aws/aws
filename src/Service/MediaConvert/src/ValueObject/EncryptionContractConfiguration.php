@@ -22,7 +22,7 @@ final class EncryptionContractConfiguration
      * you do, to encrypt your video outputs, you must also specify a SPEKE v2.0 video preset (other than Shared or
      * Unencrypted).
      *
-     * @var PresetSpeke20Audio::*|null
+     * @var PresetSpeke20Audio::*|string|null
      */
     private $spekeAudioPreset;
 
@@ -35,14 +35,14 @@ final class EncryptionContractConfiguration
      * audio preset to Shared. To not encrypt your video outputs: Choose Unencrypted. When you do, to encrypt your audio
      * outputs, you must also specify a SPEKE v2.0 audio preset (other than Shared or Unencrypted).
      *
-     * @var PresetSpeke20Video::*|null
+     * @var PresetSpeke20Video::*|string|null
      */
     private $spekeVideoPreset;
 
     /**
      * @param array{
-     *   SpekeAudioPreset?: null|PresetSpeke20Audio::*,
-     *   SpekeVideoPreset?: null|PresetSpeke20Video::*,
+     *   SpekeAudioPreset?: null|PresetSpeke20Audio::*|string,
+     *   SpekeVideoPreset?: null|PresetSpeke20Video::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -53,8 +53,8 @@ final class EncryptionContractConfiguration
 
     /**
      * @param array{
-     *   SpekeAudioPreset?: null|PresetSpeke20Audio::*,
-     *   SpekeVideoPreset?: null|PresetSpeke20Video::*,
+     *   SpekeAudioPreset?: null|PresetSpeke20Audio::*|string,
+     *   SpekeVideoPreset?: null|PresetSpeke20Video::*|string,
      * }|EncryptionContractConfiguration $input
      */
     public static function create($input): self
@@ -63,7 +63,7 @@ final class EncryptionContractConfiguration
     }
 
     /**
-     * @return PresetSpeke20Audio::*|null
+     * @return PresetSpeke20Audio::*|string|null
      */
     public function getSpekeAudioPreset(): ?string
     {
@@ -71,7 +71,7 @@ final class EncryptionContractConfiguration
     }
 
     /**
-     * @return PresetSpeke20Video::*|null
+     * @return PresetSpeke20Video::*|string|null
      */
     public function getSpekeVideoPreset(): ?string
     {

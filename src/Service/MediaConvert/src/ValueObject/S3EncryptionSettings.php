@@ -19,7 +19,7 @@ final class S3EncryptionSettings
      * can optionally choose to specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name
      * (ARN) of the key for the setting KMS ARN.
      *
-     * @var S3ServerSideEncryptionType::*|null
+     * @var S3ServerSideEncryptionType::*|string|null
      */
     private $encryptionType;
 
@@ -46,7 +46,7 @@ final class S3EncryptionSettings
 
     /**
      * @param array{
-     *   EncryptionType?: null|S3ServerSideEncryptionType::*,
+     *   EncryptionType?: null|S3ServerSideEncryptionType::*|string,
      *   KmsEncryptionContext?: null|string,
      *   KmsKeyArn?: null|string,
      * } $input
@@ -60,7 +60,7 @@ final class S3EncryptionSettings
 
     /**
      * @param array{
-     *   EncryptionType?: null|S3ServerSideEncryptionType::*,
+     *   EncryptionType?: null|S3ServerSideEncryptionType::*|string,
      *   KmsEncryptionContext?: null|string,
      *   KmsKeyArn?: null|string,
      * }|S3EncryptionSettings $input
@@ -71,7 +71,7 @@ final class S3EncryptionSettings
     }
 
     /**
-     * @return S3ServerSideEncryptionType::*|null
+     * @return S3ServerSideEncryptionType::*|string|null
      */
     public function getEncryptionType(): ?string
     {

@@ -24,7 +24,7 @@ final class ImscDestinationSettings
      * adds the following in the adaptation set for this track: `<Role schemeIDUri="urn:mpeg:dash:role:2011"
      * value="subtitle"/>`.
      *
-     * @var ImscAccessibilitySubs::*|null
+     * @var ImscAccessibilitySubs::*|string|null
      */
     private $accessibility;
 
@@ -33,14 +33,14 @@ final class ImscDestinationSettings
      * in the output. This option is available only when your input captions are IMSC, SMPTE-TT, or TTML. Disable this
      * setting for simplified output captions.
      *
-     * @var ImscStylePassthrough::*|null
+     * @var ImscStylePassthrough::*|string|null
      */
     private $stylePassthrough;
 
     /**
      * @param array{
-     *   Accessibility?: null|ImscAccessibilitySubs::*,
-     *   StylePassthrough?: null|ImscStylePassthrough::*,
+     *   Accessibility?: null|ImscAccessibilitySubs::*|string,
+     *   StylePassthrough?: null|ImscStylePassthrough::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -51,8 +51,8 @@ final class ImscDestinationSettings
 
     /**
      * @param array{
-     *   Accessibility?: null|ImscAccessibilitySubs::*,
-     *   StylePassthrough?: null|ImscStylePassthrough::*,
+     *   Accessibility?: null|ImscAccessibilitySubs::*|string,
+     *   StylePassthrough?: null|ImscStylePassthrough::*|string,
      * }|ImscDestinationSettings $input
      */
     public static function create($input): self
@@ -61,7 +61,7 @@ final class ImscDestinationSettings
     }
 
     /**
-     * @return ImscAccessibilitySubs::*|null
+     * @return ImscAccessibilitySubs::*|string|null
      */
     public function getAccessibility(): ?string
     {
@@ -69,7 +69,7 @@ final class ImscDestinationSettings
     }
 
     /**
-     * @return ImscStylePassthrough::*|null
+     * @return ImscStylePassthrough::*|string|null
      */
     public function getStylePassthrough(): ?string
     {

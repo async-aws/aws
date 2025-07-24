@@ -17,7 +17,7 @@ final class Type
      *
      * [^1]: https://docs.aws.amazon.com/timestream/latest/developerguide/supported-data-types.html
      *
-     * @var ScalarType::*|null
+     * @var ScalarType::*|string|null
      */
     private $scalarType;
 
@@ -44,7 +44,7 @@ final class Type
 
     /**
      * @param array{
-     *   ScalarType?: null|ScalarType::*,
+     *   ScalarType?: null|ScalarType::*|string,
      *   ArrayColumnInfo?: null|ColumnInfo|array,
      *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
      *   RowColumnInfo?: null|array<ColumnInfo|array>,
@@ -60,7 +60,7 @@ final class Type
 
     /**
      * @param array{
-     *   ScalarType?: null|ScalarType::*,
+     *   ScalarType?: null|ScalarType::*|string,
      *   ArrayColumnInfo?: null|ColumnInfo|array,
      *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
      *   RowColumnInfo?: null|array<ColumnInfo|array>,
@@ -85,7 +85,7 @@ final class Type
     }
 
     /**
-     * @return ScalarType::*|null
+     * @return ScalarType::*|string|null
      */
     public function getScalarType(): ?string
     {

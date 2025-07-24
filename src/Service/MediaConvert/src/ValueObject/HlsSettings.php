@@ -25,7 +25,7 @@ final class HlsSettings
      * container. Keep the default value Automatic to create an audio-only file in a raw container. Regardless of the value
      * that you specify here, if this output has video, the service will place the output into an MPEG2-TS container.
      *
-     * @var HlsAudioOnlyContainer::*|null
+     * @var HlsAudioOnlyContainer::*|string|null
      */
     private $audioOnlyContainer;
 
@@ -46,7 +46,7 @@ final class HlsSettings
      * DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not Auto Select Alternate rendition that the client will not try to play
      * back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=NO.
      *
-     * @var HlsAudioTrackType::*|null
+     * @var HlsAudioTrackType::*|string|null
      */
     private $audioTrackType;
 
@@ -56,7 +56,7 @@ final class HlsSettings
      * EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag, MediaConvert leaves this parameter
      * out. The DVS flag can help with accessibility on Apple devices. For more information, see the Apple documentation.
      *
-     * @var HlsDescriptiveVideoServiceFlag::*|null
+     * @var HlsDescriptiveVideoServiceFlag::*|string|null
      */
     private $descriptiveVideoServiceFlag;
 
@@ -66,7 +66,7 @@ final class HlsSettings
      * preview functions for your video. MediaConvert adds both the I-frame only child manifest and the regular child
      * manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value Exclude.
      *
-     * @var HlsIFrameOnlyManifest::*|null
+     * @var HlsIFrameOnlyManifest::*|string|null
      */
     private $iframeOnlyManifest;
 
@@ -82,11 +82,11 @@ final class HlsSettings
     /**
      * @param array{
      *   AudioGroupId?: null|string,
-     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*,
+     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*|string,
      *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|HlsAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*,
+     *   AudioTrackType?: null|HlsAudioTrackType::*|string,
+     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*|string,
+     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*|string,
      *   SegmentModifier?: null|string,
      * } $input
      */
@@ -104,11 +104,11 @@ final class HlsSettings
     /**
      * @param array{
      *   AudioGroupId?: null|string,
-     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*,
+     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*|string,
      *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|HlsAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*,
+     *   AudioTrackType?: null|HlsAudioTrackType::*|string,
+     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*|string,
+     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*|string,
      *   SegmentModifier?: null|string,
      * }|HlsSettings $input
      */
@@ -123,7 +123,7 @@ final class HlsSettings
     }
 
     /**
-     * @return HlsAudioOnlyContainer::*|null
+     * @return HlsAudioOnlyContainer::*|string|null
      */
     public function getAudioOnlyContainer(): ?string
     {
@@ -136,7 +136,7 @@ final class HlsSettings
     }
 
     /**
-     * @return HlsAudioTrackType::*|null
+     * @return HlsAudioTrackType::*|string|null
      */
     public function getAudioTrackType(): ?string
     {
@@ -144,7 +144,7 @@ final class HlsSettings
     }
 
     /**
-     * @return HlsDescriptiveVideoServiceFlag::*|null
+     * @return HlsDescriptiveVideoServiceFlag::*|string|null
      */
     public function getDescriptiveVideoServiceFlag(): ?string
     {
@@ -152,7 +152,7 @@ final class HlsSettings
     }
 
     /**
-     * @return HlsIFrameOnlyManifest::*|null
+     * @return HlsIFrameOnlyManifest::*|string|null
      */
     public function getIframeOnlyManifest(): ?string
     {

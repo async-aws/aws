@@ -18,7 +18,7 @@ final class ProjectCache
      * - `S3`: The build project reads and writes from and to S3.
      * - `LOCAL`: The build project stores a cache locally on a build host that is only available to that build host.
      *
-     * @var CacheType::*
+     * @var CacheType::*|string
      */
     private $type;
 
@@ -64,7 +64,7 @@ final class ProjectCache
      *   - Cached directories are linked to your build before it downloads its project sources. Cached items are overridden
      *     if a source item has the same name. Directories are specified using cache paths in the buildspec file.
      *
-     * @var list<CacheMode::*>|null
+     * @var list<CacheMode::*|string>|null
      */
     private $modes;
 
@@ -80,9 +80,9 @@ final class ProjectCache
 
     /**
      * @param array{
-     *   type: CacheType::*,
+     *   type: CacheType::*|string,
      *   location?: null|string,
-     *   modes?: null|array<CacheMode::*>,
+     *   modes?: null|array<CacheMode::*|string>,
      *   cacheNamespace?: null|string,
      * } $input
      */
@@ -96,9 +96,9 @@ final class ProjectCache
 
     /**
      * @param array{
-     *   type: CacheType::*,
+     *   type: CacheType::*|string,
      *   location?: null|string,
-     *   modes?: null|array<CacheMode::*>,
+     *   modes?: null|array<CacheMode::*|string>,
      *   cacheNamespace?: null|string,
      * }|ProjectCache $input
      */
@@ -118,7 +118,7 @@ final class ProjectCache
     }
 
     /**
-     * @return list<CacheMode::*>
+     * @return list<CacheMode::*|string>
      */
     public function getModes(): array
     {
@@ -126,7 +126,7 @@ final class ProjectCache
     }
 
     /**
-     * @return CacheType::*
+     * @return CacheType::*|string
      */
     public function getType(): string
     {

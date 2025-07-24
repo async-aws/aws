@@ -152,7 +152,7 @@ class GetObjectOutput extends Result
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -242,7 +242,7 @@ class GetObjectOutput extends Result
      * > When accessing data stored in Amazon FSx file systems using S3 access points, the only valid server side encryption
      * > option is `aws:fsx`.
      *
-     * @var ServerSideEncryption::*|null
+     * @var ServerSideEncryption::*|string|null
      */
     private $serverSideEncryption;
 
@@ -295,12 +295,12 @@ class GetObjectOutput extends Result
      * > **Directory buckets ** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class)
      * > in Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
-     * @var StorageClass::*|null
+     * @var StorageClass::*|string|null
      */
     private $storageClass;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -310,7 +310,7 @@ class GetObjectOutput extends Result
      *
      * > This functionality is not supported for directory buckets.
      *
-     * @var ReplicationStatus::*|null
+     * @var ReplicationStatus::*|string|null
      */
     private $replicationStatus;
 
@@ -340,7 +340,7 @@ class GetObjectOutput extends Result
      *
      * > This functionality is not supported for directory buckets.
      *
-     * @var ObjectLockMode::*|null
+     * @var ObjectLockMode::*|string|null
      */
     private $objectLockMode;
 
@@ -359,7 +359,7 @@ class GetObjectOutput extends Result
      *
      * > This functionality is not supported for directory buckets.
      *
-     * @var ObjectLockLegalHoldStatus::*|null
+     * @var ObjectLockLegalHoldStatus::*|string|null
      */
     private $objectLockLegalHoldStatus;
 
@@ -427,7 +427,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -531,7 +531,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return ObjectLockLegalHoldStatus::*|null
+     * @return ObjectLockLegalHoldStatus::*|string|null
      */
     public function getObjectLockLegalHoldStatus(): ?string
     {
@@ -541,7 +541,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return ObjectLockMode::*|null
+     * @return ObjectLockMode::*|string|null
      */
     public function getObjectLockMode(): ?string
     {
@@ -565,7 +565,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return ReplicationStatus::*|null
+     * @return ReplicationStatus::*|string|null
      */
     public function getReplicationStatus(): ?string
     {
@@ -575,7 +575,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -592,7 +592,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return ServerSideEncryption::*|null
+     * @return ServerSideEncryption::*|string|null
      */
     public function getServerSideEncryption(): ?string
     {
@@ -623,7 +623,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return StorageClass::*|null
+     * @return StorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

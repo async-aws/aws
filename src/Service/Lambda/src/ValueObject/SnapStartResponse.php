@@ -16,7 +16,7 @@ final class SnapStartResponse
      * When set to `PublishedVersions`, Lambda creates a snapshot of the execution environment when you publish a function
      * version.
      *
-     * @var SnapStartApplyOn::*|null
+     * @var SnapStartApplyOn::*|string|null
      */
     private $applyOn;
 
@@ -26,14 +26,14 @@ final class SnapStartResponse
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using
      *
-     * @var SnapStartOptimizationStatus::*|null
+     * @var SnapStartOptimizationStatus::*|string|null
      */
     private $optimizationStatus;
 
     /**
      * @param array{
-     *   ApplyOn?: null|SnapStartApplyOn::*,
-     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*,
+     *   ApplyOn?: null|SnapStartApplyOn::*|string,
+     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -44,8 +44,8 @@ final class SnapStartResponse
 
     /**
      * @param array{
-     *   ApplyOn?: null|SnapStartApplyOn::*,
-     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*,
+     *   ApplyOn?: null|SnapStartApplyOn::*|string,
+     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*|string,
      * }|SnapStartResponse $input
      */
     public static function create($input): self
@@ -54,7 +54,7 @@ final class SnapStartResponse
     }
 
     /**
-     * @return SnapStartApplyOn::*|null
+     * @return SnapStartApplyOn::*|string|null
      */
     public function getApplyOn(): ?string
     {
@@ -62,7 +62,7 @@ final class SnapStartResponse
     }
 
     /**
-     * @return SnapStartOptimizationStatus::*|null
+     * @return SnapStartOptimizationStatus::*|string|null
      */
     public function getOptimizationStatus(): ?string
     {

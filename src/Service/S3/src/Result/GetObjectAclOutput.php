@@ -26,7 +26,7 @@ class GetObjectAclOutput extends Result
     private $grants;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -48,7 +48,7 @@ class GetObjectAclOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {

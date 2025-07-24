@@ -31,7 +31,7 @@ final class ServerSideEncryptionByDefault
      *
      * > For directory buckets, there are only two supported values for server-side encryption: `AES256` and `aws:kms`.
      *
-     * @var ServerSideEncryption::*
+     * @var ServerSideEncryption::*|string
      */
     private $sseAlgorithm;
 
@@ -74,7 +74,7 @@ final class ServerSideEncryptionByDefault
 
     /**
      * @param array{
-     *   SSEAlgorithm: ServerSideEncryption::*,
+     *   SSEAlgorithm: ServerSideEncryption::*|string,
      *   KMSMasterKeyID?: null|string,
      * } $input
      */
@@ -86,7 +86,7 @@ final class ServerSideEncryptionByDefault
 
     /**
      * @param array{
-     *   SSEAlgorithm: ServerSideEncryption::*,
+     *   SSEAlgorithm: ServerSideEncryption::*|string,
      *   KMSMasterKeyID?: null|string,
      * }|ServerSideEncryptionByDefault $input
      */
@@ -101,7 +101,7 @@ final class ServerSideEncryptionByDefault
     }
 
     /**
-     * @return ServerSideEncryption::*
+     * @return ServerSideEncryption::*|string
      */
     public function getSseAlgorithm(): string
     {

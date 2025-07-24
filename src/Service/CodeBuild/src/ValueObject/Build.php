@@ -62,7 +62,7 @@ final class Build
      * - `SUCCEEDED`: The build succeeded.
      * - `TIMED_OUT`: The build timed out.
      *
-     * @var StatusType::*|null
+     * @var StatusType::*|string|null
      */
     private $buildStatus;
 
@@ -297,7 +297,7 @@ final class Build
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   currentPhase?: null|string,
-     *   buildStatus?: null|StatusType::*,
+     *   buildStatus?: null|StatusType::*|string,
      *   sourceVersion?: null|string,
      *   resolvedSourceVersion?: null|string,
      *   projectName?: null|string,
@@ -371,7 +371,7 @@ final class Build
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   currentPhase?: null|string,
-     *   buildStatus?: null|StatusType::*,
+     *   buildStatus?: null|StatusType::*|string,
      *   sourceVersion?: null|string,
      *   resolvedSourceVersion?: null|string,
      *   projectName?: null|string,
@@ -436,7 +436,7 @@ final class Build
     }
 
     /**
-     * @return StatusType::*|null
+     * @return StatusType::*|string|null
      */
     public function getBuildStatus(): ?string
     {

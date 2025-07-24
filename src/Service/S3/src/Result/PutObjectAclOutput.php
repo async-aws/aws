@@ -9,12 +9,12 @@ use AsyncAws\S3\Enum\RequestCharged;
 class PutObjectAclOutput extends Result
 {
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {

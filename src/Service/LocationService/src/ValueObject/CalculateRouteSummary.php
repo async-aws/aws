@@ -64,7 +64,7 @@ final class CalculateRouteSummary
     /**
      * The unit of measurement for route distances.
      *
-     * @var DistanceUnit::*
+     * @var DistanceUnit::*|string
      */
     private $distanceUnit;
 
@@ -74,7 +74,7 @@ final class CalculateRouteSummary
      *   DataSource: string,
      *   Distance: float,
      *   DurationSeconds: float,
-     *   DistanceUnit: DistanceUnit::*,
+     *   DistanceUnit: DistanceUnit::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -92,7 +92,7 @@ final class CalculateRouteSummary
      *   DataSource: string,
      *   Distance: float,
      *   DurationSeconds: float,
-     *   DistanceUnit: DistanceUnit::*,
+     *   DistanceUnit: DistanceUnit::*|string,
      * }|CalculateRouteSummary $input
      */
     public static function create($input): self
@@ -111,7 +111,7 @@ final class CalculateRouteSummary
     }
 
     /**
-     * @return DistanceUnit::*
+     * @return DistanceUnit::*|string
      */
     public function getDistanceUnit(): string
     {

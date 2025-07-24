@@ -29,7 +29,7 @@ final class DynamicAudioSelector
      * Force: Apply audio duration correction, either Track or Frame depending on your input, regardless of the accuracy of
      * your input's STTS table. Your output audio and video may not be aligned or it may contain audio artifacts.
      *
-     * @var AudioDurationCorrection::*|null
+     * @var AudioDurationCorrection::*|string|null
      */
     private $audioDurationCorrection;
 
@@ -45,7 +45,7 @@ final class DynamicAudioSelector
      * your JSON job settings choose from an ISO 639-2 three-letter code listed at
      * https://www.loc.gov/standards/iso639-2/php/code_list.php.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $languageCode;
 
@@ -64,17 +64,17 @@ final class DynamicAudioSelector
      * must also specify a language code under the Language code setting. If there is no matching Language code in your
      * source, then no track will be selected.
      *
-     * @var DynamicAudioSelectorType::*|null
+     * @var DynamicAudioSelectorType::*|string|null
      */
     private $selectorType;
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
+     *   AudioDurationCorrection?: null|AudioDurationCorrection::*|string,
      *   ExternalAudioFileInput?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   Offset?: null|int,
-     *   SelectorType?: null|DynamicAudioSelectorType::*,
+     *   SelectorType?: null|DynamicAudioSelectorType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -88,11 +88,11 @@ final class DynamicAudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
+     *   AudioDurationCorrection?: null|AudioDurationCorrection::*|string,
      *   ExternalAudioFileInput?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   Offset?: null|int,
-     *   SelectorType?: null|DynamicAudioSelectorType::*,
+     *   SelectorType?: null|DynamicAudioSelectorType::*|string,
      * }|DynamicAudioSelector $input
      */
     public static function create($input): self
@@ -101,7 +101,7 @@ final class DynamicAudioSelector
     }
 
     /**
-     * @return AudioDurationCorrection::*|null
+     * @return AudioDurationCorrection::*|string|null
      */
     public function getAudioDurationCorrection(): ?string
     {
@@ -114,7 +114,7 @@ final class DynamicAudioSelector
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getLanguageCode(): ?string
     {
@@ -127,7 +127,7 @@ final class DynamicAudioSelector
     }
 
     /**
-     * @return DynamicAudioSelectorType::*|null
+     * @return DynamicAudioSelectorType::*|string|null
      */
     public function getSelectorType(): ?string
     {

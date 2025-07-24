@@ -114,7 +114,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     private function populateResultArchitecturesList(array $json): array
     {

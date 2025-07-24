@@ -44,7 +44,7 @@ final class NexGuardFileMarkerSettings
      * Optional. Ignore this setting unless Nagra support directs you to specify a value. When you don't specify a value
      * here, the Nagra NexGuard library uses its default value.
      *
-     * @var WatermarkingStrength::*|null
+     * @var WatermarkingStrength::*|string|null
      */
     private $strength;
 
@@ -53,7 +53,7 @@ final class NexGuardFileMarkerSettings
      *   License?: null|string,
      *   Payload?: null|int,
      *   Preset?: null|string,
-     *   Strength?: null|WatermarkingStrength::*,
+     *   Strength?: null|WatermarkingStrength::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -69,7 +69,7 @@ final class NexGuardFileMarkerSettings
      *   License?: null|string,
      *   Payload?: null|int,
      *   Preset?: null|string,
-     *   Strength?: null|WatermarkingStrength::*,
+     *   Strength?: null|WatermarkingStrength::*|string,
      * }|NexGuardFileMarkerSettings $input
      */
     public static function create($input): self
@@ -93,7 +93,7 @@ final class NexGuardFileMarkerSettings
     }
 
     /**
-     * @return WatermarkingStrength::*|null
+     * @return WatermarkingStrength::*|string|null
      */
     public function getStrength(): ?string
     {

@@ -16,7 +16,7 @@ final class AncillarySourceSettings
      * Upconvert, MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608
      * compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
      *
-     * @var AncillaryConvert608To708::*|null
+     * @var AncillaryConvert608To708::*|string|null
      */
     private $convert608To708;
 
@@ -31,15 +31,15 @@ final class AncillarySourceSettings
      * By default, the service terminates any unterminated captions at the end of each input. If you want the caption to
      * continue onto your next input, disable this setting.
      *
-     * @var AncillaryTerminateCaptions::*|null
+     * @var AncillaryTerminateCaptions::*|string|null
      */
     private $terminateCaptions;
 
     /**
      * @param array{
-     *   Convert608To708?: null|AncillaryConvert608To708::*,
+     *   Convert608To708?: null|AncillaryConvert608To708::*|string,
      *   SourceAncillaryChannelNumber?: null|int,
-     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*,
+     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -51,9 +51,9 @@ final class AncillarySourceSettings
 
     /**
      * @param array{
-     *   Convert608To708?: null|AncillaryConvert608To708::*,
+     *   Convert608To708?: null|AncillaryConvert608To708::*|string,
      *   SourceAncillaryChannelNumber?: null|int,
-     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*,
+     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*|string,
      * }|AncillarySourceSettings $input
      */
     public static function create($input): self
@@ -62,7 +62,7 @@ final class AncillarySourceSettings
     }
 
     /**
-     * @return AncillaryConvert608To708::*|null
+     * @return AncillaryConvert608To708::*|string|null
      */
     public function getConvert608To708(): ?string
     {
@@ -75,7 +75,7 @@ final class AncillarySourceSettings
     }
 
     /**
-     * @return AncillaryTerminateCaptions::*|null
+     * @return AncillaryTerminateCaptions::*|string|null
      */
     public function getTerminateCaptions(): ?string
     {

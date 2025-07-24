@@ -28,7 +28,7 @@ class GetScheduleOutput extends Result
      * Indicates the action that EventBridge Scheduler applies to the schedule after the schedule completes invoking the
      * target.
      *
-     * @var ActionAfterCompletion::*|null
+     * @var ActionAfterCompletion::*|string|null
      */
     private $actionAfterCompletion;
 
@@ -144,7 +144,7 @@ class GetScheduleOutput extends Result
     /**
      * Specifies whether the schedule is enabled or disabled.
      *
-     * @var ScheduleState::*|null
+     * @var ScheduleState::*|string|null
      */
     private $state;
 
@@ -156,7 +156,7 @@ class GetScheduleOutput extends Result
     private $target;
 
     /**
-     * @return ActionAfterCompletion::*|null
+     * @return ActionAfterCompletion::*|string|null
      */
     public function getActionAfterCompletion(): ?string
     {
@@ -250,7 +250,7 @@ class GetScheduleOutput extends Result
     }
 
     /**
-     * @return ScheduleState::*|null
+     * @return ScheduleState::*|string|null
      */
     public function getState(): ?string
     {

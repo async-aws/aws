@@ -104,7 +104,7 @@ class GetDeploymentOutput extends Result
     }
 
     /**
-     * @return list<AutoRollbackEvent::*>
+     * @return list<AutoRollbackEvent::*|string>
      */
     private function populateResultAutoRollbackEventsList(array $json): array
     {

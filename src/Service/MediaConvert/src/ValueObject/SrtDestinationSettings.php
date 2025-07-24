@@ -17,13 +17,13 @@ final class SrtDestinationSettings
      * Set Style passthrough to DISABLED, or leave blank, to ignore the style and position information from your input
      * captions and use simplified output captions.
      *
-     * @var SrtStylePassthrough::*|null
+     * @var SrtStylePassthrough::*|string|null
      */
     private $stylePassthrough;
 
     /**
      * @param array{
-     *   StylePassthrough?: null|SrtStylePassthrough::*,
+     *   StylePassthrough?: null|SrtStylePassthrough::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class SrtDestinationSettings
 
     /**
      * @param array{
-     *   StylePassthrough?: null|SrtStylePassthrough::*,
+     *   StylePassthrough?: null|SrtStylePassthrough::*|string,
      * }|SrtDestinationSettings $input
      */
     public static function create($input): self
@@ -42,7 +42,7 @@ final class SrtDestinationSettings
     }
 
     /**
-     * @return SrtStylePassthrough::*|null
+     * @return SrtStylePassthrough::*|string|null
      */
     public function getStylePassthrough(): ?string
     {

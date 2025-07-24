@@ -59,7 +59,7 @@ class FunctionConfiguration extends Result
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels
      * [^3]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported
      *
-     * @var Runtime::*|null
+     * @var Runtime::*|string|null
      */
     private $runtime;
 
@@ -209,7 +209,7 @@ class FunctionConfiguration extends Result
     /**
      * The current state of the function. When the state is `Inactive`, you can reactivate the function by invoking it.
      *
-     * @var State::*|null
+     * @var State::*|string|null
      */
     private $state;
 
@@ -224,7 +224,7 @@ class FunctionConfiguration extends Result
      * The reason code for the function's current state. When the code is `Creating`, you can't invoke or modify the
      * function.
      *
-     * @var StateReasonCode::*|null
+     * @var StateReasonCode::*|string|null
      */
     private $stateReasonCode;
 
@@ -232,7 +232,7 @@ class FunctionConfiguration extends Result
      * The status of the last update that was performed on the function. This is first set to `Successful` after function
      * creation completes.
      *
-     * @var LastUpdateStatus::*|null
+     * @var LastUpdateStatus::*|string|null
      */
     private $lastUpdateStatus;
 
@@ -246,7 +246,7 @@ class FunctionConfiguration extends Result
     /**
      * The reason code for the last update that was performed on the function.
      *
-     * @var LastUpdateStatusReasonCode::*|null
+     * @var LastUpdateStatusReasonCode::*|string|null
      */
     private $lastUpdateStatusReasonCode;
 
@@ -262,7 +262,7 @@ class FunctionConfiguration extends Result
     /**
      * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
      *
-     * @var PackageType::*|null
+     * @var PackageType::*|string|null
      */
     private $packageType;
 
@@ -291,7 +291,7 @@ class FunctionConfiguration extends Result
      * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
      * values. The default architecture value is `x86_64`.
      *
-     * @var list<Architecture::*>
+     * @var list<Architecture::*|string>
      */
     private $architectures;
 
@@ -330,7 +330,7 @@ class FunctionConfiguration extends Result
     private $loggingConfig;
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     public function getArchitectures(): array
     {
@@ -434,7 +434,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return LastUpdateStatus::*|null
+     * @return LastUpdateStatus::*|string|null
      */
     public function getLastUpdateStatus(): ?string
     {
@@ -451,7 +451,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return LastUpdateStatusReasonCode::*|null
+     * @return LastUpdateStatusReasonCode::*|string|null
      */
     public function getLastUpdateStatusReasonCode(): ?string
     {
@@ -492,7 +492,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return PackageType::*|null
+     * @return PackageType::*|string|null
      */
     public function getPackageType(): ?string
     {
@@ -516,7 +516,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return Runtime::*|null
+     * @return Runtime::*|string|null
      */
     public function getRuntime(): ?string
     {
@@ -554,7 +554,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return State::*|null
+     * @return State::*|string|null
      */
     public function getState(): ?string
     {
@@ -571,7 +571,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return StateReasonCode::*|null
+     * @return StateReasonCode::*|string|null
      */
     public function getStateReasonCode(): ?string
     {
@@ -651,7 +651,7 @@ class FunctionConfiguration extends Result
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     private function populateResultArchitecturesList(array $json): array
     {

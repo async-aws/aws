@@ -15,7 +15,7 @@ final class AuthorizationConfig
      *
      * - **AWS_IAM**: The authorization type is Signature Version 4 (SigV4).
      *
-     * @var AuthorizationType::*
+     * @var AuthorizationType::*|string
      */
     private $authorizationType;
 
@@ -28,7 +28,7 @@ final class AuthorizationConfig
 
     /**
      * @param array{
-     *   authorizationType: AuthorizationType::*,
+     *   authorizationType: AuthorizationType::*|string,
      *   awsIamConfig?: null|AwsIamConfig|array,
      * } $input
      */
@@ -40,7 +40,7 @@ final class AuthorizationConfig
 
     /**
      * @param array{
-     *   authorizationType: AuthorizationType::*,
+     *   authorizationType: AuthorizationType::*|string,
      *   awsIamConfig?: null|AwsIamConfig|array,
      * }|AuthorizationConfig $input
      */
@@ -50,7 +50,7 @@ final class AuthorizationConfig
     }
 
     /**
-     * @return AuthorizationType::*
+     * @return AuthorizationType::*|string
      */
     public function getAuthorizationType(): string
     {

@@ -33,7 +33,7 @@ final class VideoOverlayInput
      * you do, enter the starting timecode in Start timecode. If you don't specify a value for Timecode source, MediaConvert
      * uses Embedded by default.
      *
-     * @var InputTimecodeSource::*|null
+     * @var InputTimecodeSource::*|string|null
      */
     private $timecodeSource;
 
@@ -49,7 +49,7 @@ final class VideoOverlayInput
      * @param array{
      *   FileInput?: null|string,
      *   InputClippings?: null|array<VideoOverlayInputClipping|array>,
-     *   TimecodeSource?: null|InputTimecodeSource::*,
+     *   TimecodeSource?: null|InputTimecodeSource::*|string,
      *   TimecodeStart?: null|string,
      * } $input
      */
@@ -65,7 +65,7 @@ final class VideoOverlayInput
      * @param array{
      *   FileInput?: null|string,
      *   InputClippings?: null|array<VideoOverlayInputClipping|array>,
-     *   TimecodeSource?: null|InputTimecodeSource::*,
+     *   TimecodeSource?: null|InputTimecodeSource::*|string,
      *   TimecodeStart?: null|string,
      * }|VideoOverlayInput $input
      */
@@ -88,7 +88,7 @@ final class VideoOverlayInput
     }
 
     /**
-     * @return InputTimecodeSource::*|null
+     * @return InputTimecodeSource::*|string|null
      */
     public function getTimecodeSource(): ?string
     {

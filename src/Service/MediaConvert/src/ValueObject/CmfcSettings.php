@@ -30,7 +30,7 @@ final class CmfcSettings
      * you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio
      * codec.
      *
-     * @var CmfcAudioDuration::*|null
+     * @var CmfcAudioDuration::*|string|null
      */
     private $audioDuration;
 
@@ -77,7 +77,7 @@ final class CmfcSettings
      * setting, MediaConvert defaults to Alternate audio, auto select, default. When there is more than one variant in your
      * output group, you must explicitly choose a value for this setting.
      *
-     * @var CmfcAudioTrackType::*|null
+     * @var CmfcAudioTrackType::*|string|null
      */
     private $audioTrackType;
 
@@ -87,7 +87,7 @@ final class CmfcSettings
      * EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag, MediaConvert leaves this parameter
      * out. The DVS flag can help with accessibility on Apple devices. For more information, see the Apple documentation.
      *
-     * @var CmfcDescriptiveVideoServiceFlag::*|null
+     * @var CmfcDescriptiveVideoServiceFlag::*|string|null
      */
     private $descriptiveVideoServiceFlag;
 
@@ -98,7 +98,7 @@ final class CmfcSettings
      * child manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value
      * Exclude.
      *
-     * @var CmfcIFrameOnlyManifest::*|null
+     * @var CmfcIFrameOnlyManifest::*|string|null
      */
     private $iframeOnlyManifest;
 
@@ -107,7 +107,7 @@ final class CmfcSettings
      * KLV metadata present in your input and writes each instance to a separate event message box in the output, according
      * to MISB ST1910.1. To exclude this KLV metadata: Set KLV metadata insertion to None or leave blank.
      *
-     * @var CmfcKlvMetadata::*|null
+     * @var CmfcKlvMetadata::*|string|null
      */
     private $klvMetadata;
 
@@ -119,7 +119,7 @@ final class CmfcSettings
      * to Disabled. To enable Manifest metadata signaling, you must also set SCTE-35 source to Passthrough, ESAM SCTE-35 to
      * insert, or ID3 metadata to Passthrough.
      *
-     * @var CmfcManifestMetadataSignaling::*|null
+     * @var CmfcManifestMetadataSignaling::*|string|null
      */
     private $manifestMetadataSignaling;
 
@@ -127,7 +127,7 @@ final class CmfcSettings
      * Use this setting only when you specify SCTE-35 markers from ESAM. Choose INSERT to put SCTE-35 markers in this output
      * at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML.
      *
-     * @var CmfcScte35Esam::*|null
+     * @var CmfcScte35Esam::*|string|null
      */
     private $scte35Esam;
 
@@ -136,7 +136,7 @@ final class CmfcSettings
      * markers that appear in your input to also appear in this output. Choose None if you don't want those SCTE-35 markers
      * in this output.
      *
-     * @var CmfcScte35Source::*|null
+     * @var CmfcScte35Source::*|string|null
      */
     private $scte35Source;
 
@@ -145,7 +145,7 @@ final class CmfcSettings
      * metadata inserter. MediaConvert writes each instance of ID3 metadata in a separate Event Message (eMSG) box. To
      * exclude this ID3 metadata: Set ID3 metadata to None or leave blank.
      *
-     * @var CmfcTimedMetadata::*|null
+     * @var CmfcTimedMetadata::*|string|null
      */
     private $timedMetadata;
 
@@ -155,7 +155,7 @@ final class CmfcSettings
      * Leave blank to use the default value Version 0.
      * When you specify Version 1, you must also set ID3 metadata to Passthrough.
      *
-     * @var CmfcTimedMetadataBoxVersion::*|null
+     * @var CmfcTimedMetadataBoxVersion::*|string|null
      */
     private $timedMetadataBoxVersion;
 
@@ -179,18 +179,18 @@ final class CmfcSettings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
+     *   AudioDuration?: null|CmfcAudioDuration::*|string,
      *   AudioGroupId?: null|string,
      *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|CmfcAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*,
-     *   KlvMetadata?: null|CmfcKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|CmfcScte35Esam::*,
-     *   Scte35Source?: null|CmfcScte35Source::*,
-     *   TimedMetadata?: null|CmfcTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*,
+     *   AudioTrackType?: null|CmfcAudioTrackType::*|string,
+     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*|string,
+     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*|string,
+     *   KlvMetadata?: null|CmfcKlvMetadata::*|string,
+     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*|string,
+     *   Scte35Esam?: null|CmfcScte35Esam::*|string,
+     *   Scte35Source?: null|CmfcScte35Source::*|string,
+     *   TimedMetadata?: null|CmfcTimedMetadata::*|string,
+     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*|string,
      *   TimedMetadataSchemeIdUri?: null|string,
      *   TimedMetadataValue?: null|string,
      * } $input
@@ -215,18 +215,18 @@ final class CmfcSettings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
+     *   AudioDuration?: null|CmfcAudioDuration::*|string,
      *   AudioGroupId?: null|string,
      *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|CmfcAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*,
-     *   KlvMetadata?: null|CmfcKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|CmfcScte35Esam::*,
-     *   Scte35Source?: null|CmfcScte35Source::*,
-     *   TimedMetadata?: null|CmfcTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*,
+     *   AudioTrackType?: null|CmfcAudioTrackType::*|string,
+     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*|string,
+     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*|string,
+     *   KlvMetadata?: null|CmfcKlvMetadata::*|string,
+     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*|string,
+     *   Scte35Esam?: null|CmfcScte35Esam::*|string,
+     *   Scte35Source?: null|CmfcScte35Source::*|string,
+     *   TimedMetadata?: null|CmfcTimedMetadata::*|string,
+     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*|string,
      *   TimedMetadataSchemeIdUri?: null|string,
      *   TimedMetadataValue?: null|string,
      * }|CmfcSettings $input
@@ -237,7 +237,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcAudioDuration::*|null
+     * @return CmfcAudioDuration::*|string|null
      */
     public function getAudioDuration(): ?string
     {
@@ -255,7 +255,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcAudioTrackType::*|null
+     * @return CmfcAudioTrackType::*|string|null
      */
     public function getAudioTrackType(): ?string
     {
@@ -263,7 +263,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcDescriptiveVideoServiceFlag::*|null
+     * @return CmfcDescriptiveVideoServiceFlag::*|string|null
      */
     public function getDescriptiveVideoServiceFlag(): ?string
     {
@@ -271,7 +271,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcIFrameOnlyManifest::*|null
+     * @return CmfcIFrameOnlyManifest::*|string|null
      */
     public function getIframeOnlyManifest(): ?string
     {
@@ -279,7 +279,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcKlvMetadata::*|null
+     * @return CmfcKlvMetadata::*|string|null
      */
     public function getKlvMetadata(): ?string
     {
@@ -287,7 +287,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcManifestMetadataSignaling::*|null
+     * @return CmfcManifestMetadataSignaling::*|string|null
      */
     public function getManifestMetadataSignaling(): ?string
     {
@@ -295,7 +295,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcScte35Esam::*|null
+     * @return CmfcScte35Esam::*|string|null
      */
     public function getScte35Esam(): ?string
     {
@@ -303,7 +303,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcScte35Source::*|null
+     * @return CmfcScte35Source::*|string|null
      */
     public function getScte35Source(): ?string
     {
@@ -311,7 +311,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcTimedMetadata::*|null
+     * @return CmfcTimedMetadata::*|string|null
      */
     public function getTimedMetadata(): ?string
     {
@@ -319,7 +319,7 @@ final class CmfcSettings
     }
 
     /**
-     * @return CmfcTimedMetadataBoxVersion::*|null
+     * @return CmfcTimedMetadataBoxVersion::*|string|null
      */
     public function getTimedMetadataBoxVersion(): ?string
     {

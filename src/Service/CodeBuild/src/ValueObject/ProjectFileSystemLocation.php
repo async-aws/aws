@@ -15,7 +15,7 @@ final class ProjectFileSystemLocation
     /**
      * The type of the file system. The one supported type is `EFS`.
      *
-     * @var FileSystemType::*|null
+     * @var FileSystemType::*|string|null
      */
     private $type;
 
@@ -64,7 +64,7 @@ final class ProjectFileSystemLocation
 
     /**
      * @param array{
-     *   type?: null|FileSystemType::*,
+     *   type?: null|FileSystemType::*|string,
      *   location?: null|string,
      *   mountPoint?: null|string,
      *   identifier?: null|string,
@@ -82,7 +82,7 @@ final class ProjectFileSystemLocation
 
     /**
      * @param array{
-     *   type?: null|FileSystemType::*,
+     *   type?: null|FileSystemType::*|string,
      *   location?: null|string,
      *   mountPoint?: null|string,
      *   identifier?: null|string,
@@ -115,7 +115,7 @@ final class ProjectFileSystemLocation
     }
 
     /**
-     * @return FileSystemType::*|null
+     * @return FileSystemType::*|string|null
      */
     public function getType(): ?string
     {

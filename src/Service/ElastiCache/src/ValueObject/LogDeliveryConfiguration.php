@@ -17,14 +17,14 @@ final class LogDeliveryConfiguration
      *
      * [^1]: https://redis.io/commands/slowlog
      *
-     * @var LogType::*|null
+     * @var LogType::*|string|null
      */
     private $logType;
 
     /**
      * Returns the destination type, either `cloudwatch-logs` or `kinesis-firehose`.
      *
-     * @var DestinationType::*|null
+     * @var DestinationType::*|string|null
      */
     private $destinationType;
 
@@ -38,7 +38,7 @@ final class LogDeliveryConfiguration
     /**
      * Returns the log format, either JSON or TEXT.
      *
-     * @var LogFormat::*|null
+     * @var LogFormat::*|string|null
      */
     private $logFormat;
 
@@ -46,7 +46,7 @@ final class LogDeliveryConfiguration
      * Returns the log delivery configuration status. Values are one of `enabling` | `disabling` | `modifying` | `active` |
      * `error`.
      *
-     * @var LogDeliveryConfigurationStatus::*|null
+     * @var LogDeliveryConfigurationStatus::*|string|null
      */
     private $status;
 
@@ -59,11 +59,11 @@ final class LogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
+     *   LogType?: null|LogType::*|string,
+     *   DestinationType?: null|DestinationType::*|string,
      *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
-     *   Status?: null|LogDeliveryConfigurationStatus::*,
+     *   LogFormat?: null|LogFormat::*|string,
+     *   Status?: null|LogDeliveryConfigurationStatus::*|string,
      *   Message?: null|string,
      * } $input
      */
@@ -79,11 +79,11 @@ final class LogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
+     *   LogType?: null|LogType::*|string,
+     *   DestinationType?: null|DestinationType::*|string,
      *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
-     *   Status?: null|LogDeliveryConfigurationStatus::*,
+     *   LogFormat?: null|LogFormat::*|string,
+     *   Status?: null|LogDeliveryConfigurationStatus::*|string,
      *   Message?: null|string,
      * }|LogDeliveryConfiguration $input
      */
@@ -98,7 +98,7 @@ final class LogDeliveryConfiguration
     }
 
     /**
-     * @return DestinationType::*|null
+     * @return DestinationType::*|string|null
      */
     public function getDestinationType(): ?string
     {
@@ -106,7 +106,7 @@ final class LogDeliveryConfiguration
     }
 
     /**
-     * @return LogFormat::*|null
+     * @return LogFormat::*|string|null
      */
     public function getLogFormat(): ?string
     {
@@ -114,7 +114,7 @@ final class LogDeliveryConfiguration
     }
 
     /**
-     * @return LogType::*|null
+     * @return LogType::*|string|null
      */
     public function getLogType(): ?string
     {
@@ -127,7 +127,7 @@ final class LogDeliveryConfiguration
     }
 
     /**
-     * @return LogDeliveryConfigurationStatus::*|null
+     * @return LogDeliveryConfigurationStatus::*|string|null
      */
     public function getStatus(): ?string
     {

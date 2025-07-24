@@ -27,7 +27,7 @@ final class Vp9Settings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var Vp9FramerateControl::*|null
+     * @var Vp9FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -44,7 +44,7 @@ final class Vp9Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var Vp9FramerateConversionAlgorithm::*|null
+     * @var Vp9FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -95,7 +95,7 @@ final class Vp9Settings
      * Optional. Specify how the service determines the pixel aspect ratio for this output. The default behavior is to use
      * the same pixel aspect ratio as your input video.
      *
-     * @var Vp9ParControl::*|null
+     * @var Vp9ParControl::*|string|null
      */
     private $parControl;
 
@@ -123,32 +123,32 @@ final class Vp9Settings
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, multi-pass encoding.
      *
-     * @var Vp9QualityTuningLevel::*|null
+     * @var Vp9QualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
     /**
      * With the VP9 codec, you can use only the variable bitrate (VBR) rate control mode.
      *
-     * @var Vp9RateControlMode::*|null
+     * @var Vp9RateControlMode::*|string|null
      */
     private $rateControlMode;
 
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp9FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|Vp9FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopSize?: null|float,
      *   HrdBufferSize?: null|int,
      *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp9ParControl::*,
+     *   ParControl?: null|Vp9ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp9RateControlMode::*,
+     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*|string,
+     *   RateControlMode?: null|Vp9RateControlMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -171,18 +171,18 @@ final class Vp9Settings
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp9FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|Vp9FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopSize?: null|float,
      *   HrdBufferSize?: null|int,
      *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp9ParControl::*,
+     *   ParControl?: null|Vp9ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp9RateControlMode::*,
+     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*|string,
+     *   RateControlMode?: null|Vp9RateControlMode::*|string,
      * }|Vp9Settings $input
      */
     public static function create($input): self
@@ -196,7 +196,7 @@ final class Vp9Settings
     }
 
     /**
-     * @return Vp9FramerateControl::*|null
+     * @return Vp9FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -204,7 +204,7 @@ final class Vp9Settings
     }
 
     /**
-     * @return Vp9FramerateConversionAlgorithm::*|null
+     * @return Vp9FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -237,7 +237,7 @@ final class Vp9Settings
     }
 
     /**
-     * @return Vp9ParControl::*|null
+     * @return Vp9ParControl::*|string|null
      */
     public function getParControl(): ?string
     {
@@ -255,7 +255,7 @@ final class Vp9Settings
     }
 
     /**
-     * @return Vp9QualityTuningLevel::*|null
+     * @return Vp9QualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {
@@ -263,7 +263,7 @@ final class Vp9Settings
     }
 
     /**
-     * @return Vp9RateControlMode::*|null
+     * @return Vp9RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {

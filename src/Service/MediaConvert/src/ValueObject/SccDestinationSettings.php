@@ -17,13 +17,13 @@ final class SccDestinationSettings
      * matches the frame rate of the associated video. If the video frame rate is 29.97, choose 29.97 dropframe only if the
      * video has video_insertion=true and drop_frame_timecode=true; otherwise, choose 29.97 non-dropframe.
      *
-     * @var SccDestinationFramerate::*|null
+     * @var SccDestinationFramerate::*|string|null
      */
     private $framerate;
 
     /**
      * @param array{
-     *   Framerate?: null|SccDestinationFramerate::*,
+     *   Framerate?: null|SccDestinationFramerate::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class SccDestinationSettings
 
     /**
      * @param array{
-     *   Framerate?: null|SccDestinationFramerate::*,
+     *   Framerate?: null|SccDestinationFramerate::*|string,
      * }|SccDestinationSettings $input
      */
     public static function create($input): self
@@ -42,7 +42,7 @@ final class SccDestinationSettings
     }
 
     /**
-     * @return SccDestinationFramerate::*|null
+     * @return SccDestinationFramerate::*|string|null
      */
     public function getFramerate(): ?string
     {

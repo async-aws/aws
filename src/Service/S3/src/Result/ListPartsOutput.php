@@ -131,19 +131,19 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * > **Directory buckets** - Directory buckets only support `EXPRESS_ONEZONE` (the S3 Express One Zone storage class) in
      * > Availability Zones and `ONEZONE_IA` (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.
      *
-     * @var StorageClass::*|null
+     * @var StorageClass::*|string|null
      */
     private $storageClass;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
     /**
      * The algorithm that was used to create a checksum of the object.
      *
-     * @var ChecksumAlgorithm::*|null
+     * @var ChecksumAlgorithm::*|string|null
      */
     private $checksumAlgorithm;
 
@@ -155,7 +155,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -181,7 +181,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return ChecksumAlgorithm::*|null
+     * @return ChecksumAlgorithm::*|string|null
      */
     public function getChecksumAlgorithm(): ?string
     {
@@ -191,7 +191,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {
@@ -304,7 +304,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -314,7 +314,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return StorageClass::*|null
+     * @return StorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

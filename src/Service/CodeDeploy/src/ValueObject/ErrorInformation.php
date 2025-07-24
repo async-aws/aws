@@ -37,7 +37,7 @@ final class ErrorInformation
      * [^1]: https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html
      * [^2]: https://docs.aws.amazon.com/codedeploy/latest/userguide
      *
-     * @var ErrorCode::*|null
+     * @var ErrorCode::*|string|null
      */
     private $code;
 
@@ -50,7 +50,7 @@ final class ErrorInformation
 
     /**
      * @param array{
-     *   code?: null|ErrorCode::*,
+     *   code?: null|ErrorCode::*|string,
      *   message?: null|string,
      * } $input
      */
@@ -62,7 +62,7 @@ final class ErrorInformation
 
     /**
      * @param array{
-     *   code?: null|ErrorCode::*,
+     *   code?: null|ErrorCode::*|string,
      *   message?: null|string,
      * }|ErrorInformation $input
      */
@@ -72,7 +72,7 @@ final class ErrorInformation
     }
 
     /**
-     * @return ErrorCode::*|null
+     * @return ErrorCode::*|string|null
      */
     public function getCode(): ?string
     {

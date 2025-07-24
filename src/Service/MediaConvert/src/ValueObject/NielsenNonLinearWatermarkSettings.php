@@ -21,7 +21,7 @@ final class NielsenNonLinearWatermarkSettings
      * a value for the setting SID. When you choose CBET, you must provide a value for the setting CSID. When you choose
      * NAES 2, NW, and CBET, you must provide values for both of these settings.
      *
-     * @var NielsenActiveWatermarkProcessType::*|null
+     * @var NielsenActiveWatermarkProcessType::*|string|null
      */
     private $activeWatermarkProcess;
 
@@ -90,7 +90,7 @@ final class NielsenNonLinearWatermarkSettings
      * to Watermarked, the service fails the job. Nielsen requires that you add non-linear watermarking to only clean
      * content that doesn't already have non-linear Nielsen watermarks.
      *
-     * @var NielsenSourceWatermarkStatusType::*|null
+     * @var NielsenSourceWatermarkStatusType::*|string|null
      */
     private $sourceWatermarkStatus;
 
@@ -108,13 +108,13 @@ final class NielsenNonLinearWatermarkSettings
      * To create assets that have the same TIC values in each audio track, keep the default value Share TICs. To create
      * assets that have unique TIC values for each audio track, choose Use unique TICs.
      *
-     * @var NielsenUniqueTicPerAudioTrackType::*|null
+     * @var NielsenUniqueTicPerAudioTrackType::*|string|null
      */
     private $uniqueTicPerAudioTrack;
 
     /**
      * @param array{
-     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*,
+     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*|string,
      *   AdiFilename?: null|string,
      *   AssetId?: null|string,
      *   AssetName?: null|string,
@@ -122,9 +122,9 @@ final class NielsenNonLinearWatermarkSettings
      *   EpisodeId?: null|string,
      *   MetadataDestination?: null|string,
      *   SourceId?: null|int,
-     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*,
+     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*|string,
      *   TicServerUrl?: null|string,
-     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*,
+     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -144,7 +144,7 @@ final class NielsenNonLinearWatermarkSettings
 
     /**
      * @param array{
-     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*,
+     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*|string,
      *   AdiFilename?: null|string,
      *   AssetId?: null|string,
      *   AssetName?: null|string,
@@ -152,9 +152,9 @@ final class NielsenNonLinearWatermarkSettings
      *   EpisodeId?: null|string,
      *   MetadataDestination?: null|string,
      *   SourceId?: null|int,
-     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*,
+     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*|string,
      *   TicServerUrl?: null|string,
-     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*,
+     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*|string,
      * }|NielsenNonLinearWatermarkSettings $input
      */
     public static function create($input): self
@@ -163,7 +163,7 @@ final class NielsenNonLinearWatermarkSettings
     }
 
     /**
-     * @return NielsenActiveWatermarkProcessType::*|null
+     * @return NielsenActiveWatermarkProcessType::*|string|null
      */
     public function getActiveWatermarkProcess(): ?string
     {
@@ -206,7 +206,7 @@ final class NielsenNonLinearWatermarkSettings
     }
 
     /**
-     * @return NielsenSourceWatermarkStatusType::*|null
+     * @return NielsenSourceWatermarkStatusType::*|string|null
      */
     public function getSourceWatermarkStatus(): ?string
     {
@@ -219,7 +219,7 @@ final class NielsenNonLinearWatermarkSettings
     }
 
     /**
-     * @return NielsenUniqueTicPerAudioTrackType::*|null
+     * @return NielsenUniqueTicPerAudioTrackType::*|string|null
      */
     public function getUniqueTicPerAudioTrack(): ?string
     {

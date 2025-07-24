@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 3.4.0
 
 ### Added

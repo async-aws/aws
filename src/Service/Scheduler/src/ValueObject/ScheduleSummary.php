@@ -47,7 +47,7 @@ final class ScheduleSummary
     /**
      * Specifies whether the schedule is enabled or disabled.
      *
-     * @var ScheduleState::*|null
+     * @var ScheduleState::*|string|null
      */
     private $state;
 
@@ -65,7 +65,7 @@ final class ScheduleSummary
      *   GroupName?: null|string,
      *   LastModificationDate?: null|\DateTimeImmutable,
      *   Name?: null|string,
-     *   State?: null|ScheduleState::*,
+     *   State?: null|ScheduleState::*|string,
      *   Target?: null|TargetSummary|array,
      * } $input
      */
@@ -87,7 +87,7 @@ final class ScheduleSummary
      *   GroupName?: null|string,
      *   LastModificationDate?: null|\DateTimeImmutable,
      *   Name?: null|string,
-     *   State?: null|ScheduleState::*,
+     *   State?: null|ScheduleState::*|string,
      *   Target?: null|TargetSummary|array,
      * }|ScheduleSummary $input
      */
@@ -122,7 +122,7 @@ final class ScheduleSummary
     }
 
     /**
-     * @return ScheduleState::*|null
+     * @return ScheduleState::*|string|null
      */
     public function getState(): ?string
     {

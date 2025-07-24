@@ -18,7 +18,7 @@ final class QueryExecutionStatus
      * > Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the query
      * > state transition from `RUNNING` or `FAILED` to `QUEUED`.
      *
-     * @var QueryExecutionState::*|null
+     * @var QueryExecutionState::*|string|null
      */
     private $state;
 
@@ -52,7 +52,7 @@ final class QueryExecutionStatus
 
     /**
      * @param array{
-     *   State?: null|QueryExecutionState::*,
+     *   State?: null|QueryExecutionState::*|string,
      *   StateChangeReason?: null|string,
      *   SubmissionDateTime?: null|\DateTimeImmutable,
      *   CompletionDateTime?: null|\DateTimeImmutable,
@@ -70,7 +70,7 @@ final class QueryExecutionStatus
 
     /**
      * @param array{
-     *   State?: null|QueryExecutionState::*,
+     *   State?: null|QueryExecutionState::*|string,
      *   StateChangeReason?: null|string,
      *   SubmissionDateTime?: null|\DateTimeImmutable,
      *   CompletionDateTime?: null|\DateTimeImmutable,
@@ -93,7 +93,7 @@ final class QueryExecutionStatus
     }
 
     /**
-     * @return QueryExecutionState::*|null
+     * @return QueryExecutionState::*|string|null
      */
     public function getState(): ?string
     {

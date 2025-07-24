@@ -18,7 +18,7 @@ final class VPC
     /**
      * (Private hosted zones only) The region that an Amazon VPC was created in.
      *
-     * @var VPCRegion::*|null
+     * @var VPCRegion::*|string|null
      */
     private $vpcRegion;
 
@@ -29,7 +29,7 @@ final class VPC
 
     /**
      * @param array{
-     *   VPCRegion?: null|VPCRegion::*,
+     *   VPCRegion?: null|VPCRegion::*|string,
      *   VPCId?: null|string,
      * } $input
      */
@@ -41,7 +41,7 @@ final class VPC
 
     /**
      * @param array{
-     *   VPCRegion?: null|VPCRegion::*,
+     *   VPCRegion?: null|VPCRegion::*|string,
      *   VPCId?: null|string,
      * }|VPC $input
      */
@@ -56,7 +56,7 @@ final class VPC
     }
 
     /**
-     * @return VPCRegion::*|null
+     * @return VPCRegion::*|string|null
      */
     public function getVpcRegion(): ?string
     {

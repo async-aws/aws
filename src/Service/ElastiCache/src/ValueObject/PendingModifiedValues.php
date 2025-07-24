@@ -45,7 +45,7 @@ final class PendingModifiedValues
     /**
      * The auth token status.
      *
-     * @var AuthTokenUpdateStatus::*|null
+     * @var AuthTokenUpdateStatus::*|string|null
      */
     private $authTokenStatus;
 
@@ -66,7 +66,7 @@ final class PendingModifiedValues
     /**
      * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
      *
-     * @var TransitEncryptionMode::*|null
+     * @var TransitEncryptionMode::*|string|null
      */
     private $transitEncryptionMode;
 
@@ -83,10 +83,10 @@ final class PendingModifiedValues
      *   CacheNodeIdsToRemove?: null|string[],
      *   EngineVersion?: null|string,
      *   CacheNodeType?: null|string,
-     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
+     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*|string,
      *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
      *   TransitEncryptionEnabled?: null|bool,
-     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*|string,
      *   ScaleConfig?: null|ScaleConfig|array,
      * } $input
      */
@@ -109,10 +109,10 @@ final class PendingModifiedValues
      *   CacheNodeIdsToRemove?: null|string[],
      *   EngineVersion?: null|string,
      *   CacheNodeType?: null|string,
-     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
+     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*|string,
      *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
      *   TransitEncryptionEnabled?: null|bool,
-     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
+     *   TransitEncryptionMode?: null|TransitEncryptionMode::*|string,
      *   ScaleConfig?: null|ScaleConfig|array,
      * }|PendingModifiedValues $input
      */
@@ -122,7 +122,7 @@ final class PendingModifiedValues
     }
 
     /**
-     * @return AuthTokenUpdateStatus::*|null
+     * @return AuthTokenUpdateStatus::*|string|null
      */
     public function getAuthTokenStatus(): ?string
     {
@@ -171,7 +171,7 @@ final class PendingModifiedValues
     }
 
     /**
-     * @return TransitEncryptionMode::*|null
+     * @return TransitEncryptionMode::*|string|null
      */
     public function getTransitEncryptionMode(): ?string
     {

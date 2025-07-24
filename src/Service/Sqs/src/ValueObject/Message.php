@@ -55,7 +55,7 @@ final class Message
      *
      * [^1]: http://en.wikipedia.org/wiki/Unix_time
      *
-     * @var array<MessageSystemAttributeName::*, string>|null
+     * @var array<MessageSystemAttributeName::*|string, string>|null
      */
     private $attributes;
 
@@ -86,7 +86,7 @@ final class Message
      *   ReceiptHandle?: null|string,
      *   MD5OfBody?: null|string,
      *   Body?: null|string,
-     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
+     *   Attributes?: null|array<MessageSystemAttributeName::*|string, string>,
      *   MD5OfMessageAttributes?: null|string,
      *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
      * } $input
@@ -108,7 +108,7 @@ final class Message
      *   ReceiptHandle?: null|string,
      *   MD5OfBody?: null|string,
      *   Body?: null|string,
-     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
+     *   Attributes?: null|array<MessageSystemAttributeName::*|string, string>,
      *   MD5OfMessageAttributes?: null|string,
      *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
      * }|Message $input
@@ -119,7 +119,7 @@ final class Message
     }
 
     /**
-     * @return array<MessageSystemAttributeName::*, string>
+     * @return array<MessageSystemAttributeName::*|string, string>
      */
     public function getAttributes(): array
     {

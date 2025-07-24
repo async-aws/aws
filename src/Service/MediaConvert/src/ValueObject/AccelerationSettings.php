@@ -13,13 +13,13 @@ final class AccelerationSettings
     /**
      * Specify the conditions when the service will run your job with accelerated transcoding.
      *
-     * @var AccelerationMode::*
+     * @var AccelerationMode::*|string
      */
     private $mode;
 
     /**
      * @param array{
-     *   Mode: AccelerationMode::*,
+     *   Mode: AccelerationMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -29,7 +29,7 @@ final class AccelerationSettings
 
     /**
      * @param array{
-     *   Mode: AccelerationMode::*,
+     *   Mode: AccelerationMode::*|string,
      * }|AccelerationSettings $input
      */
     public static function create($input): self
@@ -38,7 +38,7 @@ final class AccelerationSettings
     }
 
     /**
-     * @return AccelerationMode::*
+     * @return AccelerationMode::*|string
      */
     public function getMode(): string
     {

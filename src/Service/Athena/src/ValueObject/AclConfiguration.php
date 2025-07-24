@@ -24,13 +24,13 @@ final class AclConfiguration
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl
      *
-     * @var S3AclOption::*
+     * @var S3AclOption::*|string
      */
     private $s3AclOption;
 
     /**
      * @param array{
-     *   S3AclOption: S3AclOption::*,
+     *   S3AclOption: S3AclOption::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -40,7 +40,7 @@ final class AclConfiguration
 
     /**
      * @param array{
-     *   S3AclOption: S3AclOption::*,
+     *   S3AclOption: S3AclOption::*|string,
      * }|AclConfiguration $input
      */
     public static function create($input): self
@@ -49,7 +49,7 @@ final class AclConfiguration
     }
 
     /**
-     * @return S3AclOption::*
+     * @return S3AclOption::*|string
      */
     public function getS3AclOption(): string
     {

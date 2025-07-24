@@ -19,7 +19,7 @@ final class MxfSettings
      * exclude AFD values, see AfdSignaling, under VideoDescription. On the console, find AFD signaling under the output's
      * video encoding settings.
      *
-     * @var MxfAfdSignaling::*|null
+     * @var MxfAfdSignaling::*|string|null
      */
     private $afdSignaling;
 
@@ -30,7 +30,7 @@ final class MxfSettings
      * about the automatic selection behavior, see
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/default-automatic-selection-of-mxf-profiles.html.
      *
-     * @var MxfProfile::*|null
+     * @var MxfProfile::*|string|null
      */
     private $profile;
 
@@ -43,8 +43,8 @@ final class MxfSettings
 
     /**
      * @param array{
-     *   AfdSignaling?: null|MxfAfdSignaling::*,
-     *   Profile?: null|MxfProfile::*,
+     *   AfdSignaling?: null|MxfAfdSignaling::*|string,
+     *   Profile?: null|MxfProfile::*|string,
      *   XavcProfileSettings?: null|MxfXavcProfileSettings|array,
      * } $input
      */
@@ -57,8 +57,8 @@ final class MxfSettings
 
     /**
      * @param array{
-     *   AfdSignaling?: null|MxfAfdSignaling::*,
-     *   Profile?: null|MxfProfile::*,
+     *   AfdSignaling?: null|MxfAfdSignaling::*|string,
+     *   Profile?: null|MxfProfile::*|string,
      *   XavcProfileSettings?: null|MxfXavcProfileSettings|array,
      * }|MxfSettings $input
      */
@@ -68,7 +68,7 @@ final class MxfSettings
     }
 
     /**
-     * @return MxfAfdSignaling::*|null
+     * @return MxfAfdSignaling::*|string|null
      */
     public function getAfdSignaling(): ?string
     {
@@ -76,7 +76,7 @@ final class MxfSettings
     }
 
     /**
-     * @return MxfProfile::*|null
+     * @return MxfProfile::*|string|null
      */
     public function getProfile(): ?string
     {

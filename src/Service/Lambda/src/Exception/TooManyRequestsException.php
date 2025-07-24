@@ -26,12 +26,12 @@ final class TooManyRequestsException extends ClientException
     private $type;
 
     /**
-     * @var ThrottleReason::*|null
+     * @var ThrottleReason::*|string|null
      */
     private $reason;
 
     /**
-     * @return ThrottleReason::*|null
+     * @return ThrottleReason::*|string|null
      */
     public function getReason(): ?string
     {

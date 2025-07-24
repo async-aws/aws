@@ -12,13 +12,13 @@ final class TracingConfigResponse
     /**
      * The tracing mode.
      *
-     * @var TracingMode::*|null
+     * @var TracingMode::*|string|null
      */
     private $mode;
 
     /**
      * @param array{
-     *   Mode?: null|TracingMode::*,
+     *   Mode?: null|TracingMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class TracingConfigResponse
 
     /**
      * @param array{
-     *   Mode?: null|TracingMode::*,
+     *   Mode?: null|TracingMode::*|string,
      * }|TracingConfigResponse $input
      */
     public static function create($input): self
@@ -37,7 +37,7 @@ final class TracingConfigResponse
     }
 
     /**
-     * @return TracingMode::*|null
+     * @return TracingMode::*|string|null
      */
     public function getMode(): ?string
     {

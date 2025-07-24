@@ -28,7 +28,7 @@ final class M3u8Settings
      * you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio
      * codec.
      *
-     * @var M3u8AudioDuration::*|null
+     * @var M3u8AudioDuration::*|string|null
      */
     private $audioDuration;
 
@@ -61,7 +61,7 @@ final class M3u8Settings
      * greater than or equal to the first video packet PTS (MediaConvert drops captions and data packets with lesser PTS
      * values). Keep the default value AUTO to allow all PTS values.
      *
-     * @var M3u8DataPtsControl::*|null
+     * @var M3u8DataPtsControl::*|string|null
      */
     private $dataPtsControl;
 
@@ -77,7 +77,7 @@ final class M3u8Settings
      * If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag
      * will be inserted in the output.
      *
-     * @var M3u8NielsenId3::*|null
+     * @var M3u8NielsenId3::*|string|null
      */
     private $nielsenId3;
 
@@ -92,7 +92,7 @@ final class M3u8Settings
      * When set to PCR_EVERY_PES_PACKET a Program Clock Reference value is inserted for every Packetized Elementary Stream
      * (PES) header. This parameter is effective only when the PCR PID is the same as the video or audio elementary stream.
      *
-     * @var M3u8PcrControl::*|null
+     * @var M3u8PcrControl::*|string|null
      */
     private $pcrControl;
 
@@ -147,7 +147,7 @@ final class M3u8Settings
      * bitrate, HRD buffer size and HRD buffer initial fill percentage. To manually specify an initial PTS offset: Choose
      * Seconds or Milliseconds. Then specify the number of seconds or milliseconds with PTS offset.
      *
-     * @var TsPtsOffset::*|null
+     * @var TsPtsOffset::*|string|null
      */
     private $ptsOffsetMode;
 
@@ -165,7 +165,7 @@ final class M3u8Settings
      * you do want manifest conditioning. In both cases, also provide the ESAM XML as a string in the setting Signal
      * processing notification XML.
      *
-     * @var M3u8Scte35Source::*|null
+     * @var M3u8Scte35Source::*|string|null
      */
     private $scte35Source;
 
@@ -174,7 +174,7 @@ final class M3u8Settings
      * features: ID3 timestamp period, and Custom ID3 metadata inserter. To exclude this ID3 metadata in this output: set
      * ID3 metadata to None or leave blank.
      *
-     * @var TimedMetadata::*|null
+     * @var TimedMetadata::*|string|null
      */
     private $timedMetadata;
 
@@ -201,25 +201,25 @@ final class M3u8Settings
 
     /**
      * @param array{
-     *   AudioDuration?: null|M3u8AudioDuration::*,
+     *   AudioDuration?: null|M3u8AudioDuration::*|string,
      *   AudioFramesPerPes?: null|int,
      *   AudioPids?: null|int[],
      *   AudioPtsOffsetDelta?: null|int,
-     *   DataPTSControl?: null|M3u8DataPtsControl::*,
+     *   DataPTSControl?: null|M3u8DataPtsControl::*|string,
      *   MaxPcrInterval?: null|int,
-     *   NielsenId3?: null|M3u8NielsenId3::*,
+     *   NielsenId3?: null|M3u8NielsenId3::*|string,
      *   PatInterval?: null|int,
-     *   PcrControl?: null|M3u8PcrControl::*,
+     *   PcrControl?: null|M3u8PcrControl::*|string,
      *   PcrPid?: null|int,
      *   PmtInterval?: null|int,
      *   PmtPid?: null|int,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
      *   PtsOffset?: null|int,
-     *   PtsOffsetMode?: null|TsPtsOffset::*,
+     *   PtsOffsetMode?: null|TsPtsOffset::*|string,
      *   Scte35Pid?: null|int,
-     *   Scte35Source?: null|M3u8Scte35Source::*,
-     *   TimedMetadata?: null|TimedMetadata::*,
+     *   Scte35Source?: null|M3u8Scte35Source::*|string,
+     *   TimedMetadata?: null|TimedMetadata::*|string,
      *   TimedMetadataPid?: null|int,
      *   TransportStreamId?: null|int,
      *   VideoPid?: null|int,
@@ -253,25 +253,25 @@ final class M3u8Settings
 
     /**
      * @param array{
-     *   AudioDuration?: null|M3u8AudioDuration::*,
+     *   AudioDuration?: null|M3u8AudioDuration::*|string,
      *   AudioFramesPerPes?: null|int,
      *   AudioPids?: null|int[],
      *   AudioPtsOffsetDelta?: null|int,
-     *   DataPTSControl?: null|M3u8DataPtsControl::*,
+     *   DataPTSControl?: null|M3u8DataPtsControl::*|string,
      *   MaxPcrInterval?: null|int,
-     *   NielsenId3?: null|M3u8NielsenId3::*,
+     *   NielsenId3?: null|M3u8NielsenId3::*|string,
      *   PatInterval?: null|int,
-     *   PcrControl?: null|M3u8PcrControl::*,
+     *   PcrControl?: null|M3u8PcrControl::*|string,
      *   PcrPid?: null|int,
      *   PmtInterval?: null|int,
      *   PmtPid?: null|int,
      *   PrivateMetadataPid?: null|int,
      *   ProgramNumber?: null|int,
      *   PtsOffset?: null|int,
-     *   PtsOffsetMode?: null|TsPtsOffset::*,
+     *   PtsOffsetMode?: null|TsPtsOffset::*|string,
      *   Scte35Pid?: null|int,
-     *   Scte35Source?: null|M3u8Scte35Source::*,
-     *   TimedMetadata?: null|TimedMetadata::*,
+     *   Scte35Source?: null|M3u8Scte35Source::*|string,
+     *   TimedMetadata?: null|TimedMetadata::*|string,
      *   TimedMetadataPid?: null|int,
      *   TransportStreamId?: null|int,
      *   VideoPid?: null|int,
@@ -283,7 +283,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return M3u8AudioDuration::*|null
+     * @return M3u8AudioDuration::*|string|null
      */
     public function getAudioDuration(): ?string
     {
@@ -309,7 +309,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return M3u8DataPtsControl::*|null
+     * @return M3u8DataPtsControl::*|string|null
      */
     public function getDataPtsControl(): ?string
     {
@@ -322,7 +322,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return M3u8NielsenId3::*|null
+     * @return M3u8NielsenId3::*|string|null
      */
     public function getNielsenId3(): ?string
     {
@@ -335,7 +335,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return M3u8PcrControl::*|null
+     * @return M3u8PcrControl::*|string|null
      */
     public function getPcrControl(): ?string
     {
@@ -373,7 +373,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return TsPtsOffset::*|null
+     * @return TsPtsOffset::*|string|null
      */
     public function getPtsOffsetMode(): ?string
     {
@@ -386,7 +386,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return M3u8Scte35Source::*|null
+     * @return M3u8Scte35Source::*|string|null
      */
     public function getScte35Source(): ?string
     {
@@ -394,7 +394,7 @@ final class M3u8Settings
     }
 
     /**
-     * @return TimedMetadata::*|null
+     * @return TimedMetadata::*|string|null
      */
     public function getTimedMetadata(): ?string
     {

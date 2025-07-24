@@ -15,13 +15,13 @@ final class TtmlDestinationSettings
     /**
      * Pass through style and position information from a TTML-like input source (TTML, IMSC, SMPTE-TT) to the TTML output.
      *
-     * @var TtmlStylePassthrough::*|null
+     * @var TtmlStylePassthrough::*|string|null
      */
     private $stylePassthrough;
 
     /**
      * @param array{
-     *   StylePassthrough?: null|TtmlStylePassthrough::*,
+     *   StylePassthrough?: null|TtmlStylePassthrough::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class TtmlDestinationSettings
 
     /**
      * @param array{
-     *   StylePassthrough?: null|TtmlStylePassthrough::*,
+     *   StylePassthrough?: null|TtmlStylePassthrough::*|string,
      * }|TtmlDestinationSettings $input
      */
     public static function create($input): self
@@ -40,7 +40,7 @@ final class TtmlDestinationSettings
     }
 
     /**
-     * @return TtmlStylePassthrough::*|null
+     * @return TtmlStylePassthrough::*|string|null
      */
     public function getStylePassthrough(): ?string
     {

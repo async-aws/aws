@@ -28,7 +28,7 @@ final class Mp3Settings
     /**
      * Specify whether the service encodes this MP3 audio output with a constant bitrate (CBR) or a variable bitrate (VBR).
      *
-     * @var Mp3RateControlMode::*|null
+     * @var Mp3RateControlMode::*|string|null
      */
     private $rateControlMode;
 
@@ -51,7 +51,7 @@ final class Mp3Settings
      * @param array{
      *   Bitrate?: null|int,
      *   Channels?: null|int,
-     *   RateControlMode?: null|Mp3RateControlMode::*,
+     *   RateControlMode?: null|Mp3RateControlMode::*|string,
      *   SampleRate?: null|int,
      *   VbrQuality?: null|int,
      * } $input
@@ -69,7 +69,7 @@ final class Mp3Settings
      * @param array{
      *   Bitrate?: null|int,
      *   Channels?: null|int,
-     *   RateControlMode?: null|Mp3RateControlMode::*,
+     *   RateControlMode?: null|Mp3RateControlMode::*|string,
      *   SampleRate?: null|int,
      *   VbrQuality?: null|int,
      * }|Mp3Settings $input
@@ -90,7 +90,7 @@ final class Mp3Settings
     }
 
     /**
-     * @return Mp3RateControlMode::*|null
+     * @return Mp3RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {

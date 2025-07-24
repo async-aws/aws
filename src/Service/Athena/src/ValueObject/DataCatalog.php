@@ -36,7 +36,7 @@ final class DataCatalog
      * an external Apache Hive metastore. `FEDERATED` is a federated catalog for which Athena creates the connection and the
      * Lambda function for you based on the parameters that you pass.
      *
-     * @var DataCatalogType::*
+     * @var DataCatalogType::*|string
      */
     private $type;
 
@@ -104,7 +104,7 @@ final class DataCatalog
      * - `DELETE_COMPLETE`: Federated data catalog deleted.
      * - `DELETE_FAILED`: Federated data catalog could not be deleted.
      *
-     * @var DataCatalogStatus::*|null
+     * @var DataCatalogStatus::*|string|null
      */
     private $status;
 
@@ -114,7 +114,7 @@ final class DataCatalog
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/connectors-available.html
      *
-     * @var ConnectionType::*|null
+     * @var ConnectionType::*|string|null
      */
     private $connectionType;
 
@@ -129,10 +129,10 @@ final class DataCatalog
      * @param array{
      *   Name: string,
      *   Description?: null|string,
-     *   Type: DataCatalogType::*,
+     *   Type: DataCatalogType::*|string,
      *   Parameters?: null|array<string, string>,
-     *   Status?: null|DataCatalogStatus::*,
-     *   ConnectionType?: null|ConnectionType::*,
+     *   Status?: null|DataCatalogStatus::*|string,
+     *   ConnectionType?: null|ConnectionType::*|string,
      *   Error?: null|string,
      * } $input
      */
@@ -151,10 +151,10 @@ final class DataCatalog
      * @param array{
      *   Name: string,
      *   Description?: null|string,
-     *   Type: DataCatalogType::*,
+     *   Type: DataCatalogType::*|string,
      *   Parameters?: null|array<string, string>,
-     *   Status?: null|DataCatalogStatus::*,
-     *   ConnectionType?: null|ConnectionType::*,
+     *   Status?: null|DataCatalogStatus::*|string,
+     *   ConnectionType?: null|ConnectionType::*|string,
      *   Error?: null|string,
      * }|DataCatalog $input
      */
@@ -164,7 +164,7 @@ final class DataCatalog
     }
 
     /**
-     * @return ConnectionType::*|null
+     * @return ConnectionType::*|string|null
      */
     public function getConnectionType(): ?string
     {
@@ -195,7 +195,7 @@ final class DataCatalog
     }
 
     /**
-     * @return DataCatalogStatus::*|null
+     * @return DataCatalogStatus::*|string|null
      */
     public function getStatus(): ?string
     {
@@ -203,7 +203,7 @@ final class DataCatalog
     }
 
     /**
-     * @return DataCatalogType::*
+     * @return DataCatalogType::*|string
      */
     public function getType(): string
     {

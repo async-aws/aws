@@ -41,6 +41,11 @@ class ObjectGenerator
     private $generated = [];
 
     /**
+     * @var bool[]
+     */
+    private $generatedIsStrictEnum = [];
+
+    /**
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
@@ -83,22 +88,27 @@ class ObjectGenerator
         $this->managedMethods = $managedMethods;
     }
 
-    public function generate(StructureShape $shape, bool $forEndpoint = false): ClassName
+    public function generate(StructureShape $shape, bool $forEndpoint = false, bool $strictEnum = true): ClassName
     {
         if (isset($this->generated[$shape->getName()])) {
-            return $this->generated[$shape->getName()];
+            if ($strictEnum || false === $this->generatedIsStrictEnum[$shape->getName()]) {
+                return $this->generated[$shape->getName()];
+            }
         }
+
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getObject($shape);
+        $this->generatedIsStrictEnum[$shape->getName()] = $strictEnum;
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
         $classBuilder->setFinal();
+        $classBuilder->removeComment();
         if (null !== $documentation = $shape->getDocumentationMain()) {
             $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
         // Named constructor
-        $this->namedConstructor($shape, $classBuilder);
-        $this->addProperties($shape, $classBuilder, $forEndpoint);
+        $this->namedConstructor($shape, $classBuilder, $strictEnum);
+        $this->addProperties($shape, $classBuilder, $forEndpoint, $strictEnum);
 
         if ($forEndpoint) {
             $classBuilder->addUse(EndpointInterface::class);
@@ -156,7 +166,7 @@ class ObjectGenerator
         return $this->usedShapedInput[$shape->getName()] ?? false;
     }
 
-    private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
+    private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder, bool $strictEnum): void
     {
         if (empty($shape->getMembers())) {
             $createMethod = $classBuilder->addMethod('create')
@@ -164,7 +174,7 @@ class ObjectGenerator
                 ->setReturnType('self')
                 ->setBody('return $input instanceof self ? $input : new self();');
             $createMethod->addParameter('input');
-            [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true);
+            [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true, [], $strictEnum);
             $createMethod->addComment($doc);
             foreach ($memberClassNames as $memberClassName) {
                 $classBuilder->addUse($memberClassName->getFqdn());
@@ -178,7 +188,7 @@ class ObjectGenerator
             ->setReturnType('self')
             ->setBody('return $input instanceof self ? $input : new self($input);');
         $createMethod->addParameter('input');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true);
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true, [], $strictEnum);
         $createMethod->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());
@@ -186,7 +196,7 @@ class ObjectGenerator
 
         // We need a constructor
         $constructor = $classBuilder->addMethod('__construct');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true);
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true, [], $strictEnum);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());
@@ -201,14 +211,14 @@ class ObjectGenerator
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
             if ($memberShape instanceof StructureShape) {
-                $objectClass = $this->generate($memberShape);
+                $objectClass = $this->generate($memberShape, false, $strictEnum);
                 $memberCode = strtr('CLASS::create($input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // Check if this is a list of objects
                 if ($listMemberShape instanceof StructureShape) {
-                    $objectClass = $this->generate($listMemberShape);
+                    $objectClass = $this->generate($listMemberShape, false, $strictEnum);
                     $memberCode = strtr('array_map([CLASS::class, "create"], $input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
                     $memberCode = strtr('$input["NAME"]', ['NAME' => $member->getName()]);
@@ -217,7 +227,7 @@ class ObjectGenerator
                 $mapValueShape = $memberShape->getValue()->getShape();
 
                 if ($mapValueShape instanceof StructureShape) {
-                    $objectClass = $this->generate($mapValueShape);
+                    $objectClass = $this->generate($mapValueShape, false, $strictEnum);
                     $memberCode = strtr('array_map([CLASS::class, "create"], $input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
                     $memberCode = strtr('$input["NAME"]', ['NAME' => $member->getName()]);
@@ -253,7 +263,7 @@ class ObjectGenerator
     /**
      * Add properties and getters.
      */
-    private function addProperties(StructureShape $shape, ClassBuilder $classBuilder, bool $forEndpoint): void
+    private function addProperties(StructureShape $shape, ClassBuilder $classBuilder, bool $forEndpoint, bool $strictEnum): void
     {
         $forEndpointProps = $forEndpoint ? ['address' => false, 'cachePeriodInMinutes' => false] : [];
         foreach ($shape->getMembers() as $member) {
@@ -264,7 +274,7 @@ class ObjectGenerator
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
-            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape, $strictEnum);
             if ($forEndpoint && isset($forEndpointProps[$propertyName])) {
                 $forEndpointProps[$propertyName] = true;
             }
@@ -279,7 +289,7 @@ class ObjectGenerator
             $getterSetterNullable = null;
 
             if ($memberShape instanceof StructureShape) {
-                $this->generate($memberShape);
+                $this->generate($memberShape, false, $strictEnum);
             } elseif ($memberShape instanceof MapShape) {
                 $getterSetterNullable = false;
                 $mapKeyShape = $memberShape->getKey()->getShape();
@@ -291,7 +301,7 @@ class ObjectGenerator
                 }
 
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
-                    $this->generate($valueShape);
+                    $this->generate($valueShape, false, $strictEnum);
                 }
                 if (!empty($valueShape->getEnum())) {
                     $enumClassName = $this->enumGenerator->generate($valueShape);
@@ -302,7 +312,7 @@ class ObjectGenerator
                 $memberShape->getMember()->getShape();
 
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
-                    $this->generate($memberShape);
+                    $this->generate($memberShape, false, $strictEnum);
                 }
                 if (!empty($memberShape->getEnum())) {
                     $enumClassName = $this->enumGenerator->generate($memberShape);

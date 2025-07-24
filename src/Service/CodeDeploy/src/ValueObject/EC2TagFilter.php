@@ -31,7 +31,7 @@ final class EC2TagFilter
      * - `VALUE_ONLY`: Value only.
      * - `KEY_AND_VALUE`: Key and value.
      *
-     * @var EC2TagFilterType::*|null
+     * @var EC2TagFilterType::*|string|null
      */
     private $type;
 
@@ -39,7 +39,7 @@ final class EC2TagFilter
      * @param array{
      *   Key?: null|string,
      *   Value?: null|string,
-     *   Type?: null|EC2TagFilterType::*,
+     *   Type?: null|EC2TagFilterType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -53,7 +53,7 @@ final class EC2TagFilter
      * @param array{
      *   Key?: null|string,
      *   Value?: null|string,
-     *   Type?: null|EC2TagFilterType::*,
+     *   Type?: null|EC2TagFilterType::*|string,
      * }|EC2TagFilter $input
      */
     public static function create($input): self
@@ -67,7 +67,7 @@ final class EC2TagFilter
     }
 
     /**
-     * @return EC2TagFilterType::*|null
+     * @return EC2TagFilterType::*|string|null
      */
     public function getType(): ?string
     {

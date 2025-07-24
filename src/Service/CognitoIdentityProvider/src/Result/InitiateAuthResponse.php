@@ -66,7 +66,7 @@ class InitiateAuthResponse extends Result
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device
      * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device
      *
-     * @var ChallengeNameType::*|null
+     * @var ChallengeNameType::*|string|null
      */
     private $challengeName;
 
@@ -103,7 +103,7 @@ class InitiateAuthResponse extends Result
      *
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice
      *
-     * @var list<ChallengeNameType::*>
+     * @var list<ChallengeNameType::*|string>
      */
     private $availableChallenges;
 
@@ -115,7 +115,7 @@ class InitiateAuthResponse extends Result
     }
 
     /**
-     * @return list<ChallengeNameType::*>
+     * @return list<ChallengeNameType::*|string>
      */
     public function getAvailableChallenges(): array
     {
@@ -125,7 +125,7 @@ class InitiateAuthResponse extends Result
     }
 
     /**
-     * @return ChallengeNameType::*|null
+     * @return ChallengeNameType::*|string|null
      */
     public function getChallengeName(): ?string
     {
@@ -175,7 +175,7 @@ class InitiateAuthResponse extends Result
     }
 
     /**
-     * @return list<ChallengeNameType::*>
+     * @return list<ChallengeNameType::*|string>
      */
     private function populateResultAvailableChallengeListType(array $json): array
     {

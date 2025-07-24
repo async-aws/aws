@@ -27,7 +27,7 @@ final class XavcSettings
      * following settings: Flicker adaptive quantization (flickerAdaptiveQuantization), Spatial adaptive quantization, and
      * Temporal adaptive quantization.
      *
-     * @var XavcAdaptiveQuantization::*|null
+     * @var XavcAdaptiveQuantization::*|string|null
      */
     private $adaptiveQuantization;
 
@@ -35,7 +35,7 @@ final class XavcSettings
      * Optional. Choose a specific entropy encoding mode only when you want to override XAVC recommendations. If you choose
      * the value auto, MediaConvert uses the mode that the XAVC file format specifies given this output's operating point.
      *
-     * @var XavcEntropyEncoding::*|null
+     * @var XavcEntropyEncoding::*|string|null
      */
     private $entropyEncoding;
 
@@ -44,7 +44,7 @@ final class XavcSettings
      * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a
      * frame rate from the dropdown list. The framerates shown in the dropdown list are decimal approximations of fractions.
      *
-     * @var XavcFramerateControl::*|null
+     * @var XavcFramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -61,7 +61,7 @@ final class XavcSettings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var XavcFramerateConversionAlgorithm::*|null
+     * @var XavcFramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -99,7 +99,7 @@ final class XavcSettings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -108,7 +108,7 @@ final class XavcSettings
      * https://www.xavc-info.org/. Note that MediaConvert doesn't support the interlaced video XAVC operating points for
      * XAVC_HD_INTRA_CBG. To create an interlaced XAVC output, choose the profile XAVC_HD.
      *
-     * @var XavcProfile::*|null
+     * @var XavcProfile::*|string|null
      */
     private $profile;
 
@@ -117,7 +117,7 @@ final class XavcSettings
      * 25 fps output by relabeling the video frames and resampling your audio. Note that enabling this setting will slightly
      * reduce the duration of your video. Related settings: You must also set Frame rate to 25.
      *
-     * @var XavcSlowPal::*|null
+     * @var XavcSlowPal::*|string|null
      */
     private $slowPal;
 
@@ -148,7 +148,7 @@ final class XavcSettings
      * depending on your content. For homogeneous content, such as cartoons and video games, set it to Low. For content with
      * a wider variety of textures, set it to High or Higher.
      *
-     * @var XavcSpatialAdaptiveQuantization::*|null
+     * @var XavcSpatialAdaptiveQuantization::*|string|null
      */
     private $spatialAdaptiveQuantization;
 
@@ -166,7 +166,7 @@ final class XavcSettings
      * this feature. Related setting: When you enable temporal adaptive quantization, adjust the strength of the filter with
      * the setting Adaptive quantization.
      *
-     * @var XavcTemporalAdaptiveQuantization::*|null
+     * @var XavcTemporalAdaptiveQuantization::*|string|null
      */
     private $temporalAdaptiveQuantization;
 
@@ -207,18 +207,18 @@ final class XavcSettings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|XavcAdaptiveQuantization::*,
-     *   EntropyEncoding?: null|XavcEntropyEncoding::*,
-     *   FramerateControl?: null|XavcFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|XavcFramerateConversionAlgorithm::*,
+     *   AdaptiveQuantization?: null|XavcAdaptiveQuantization::*|string,
+     *   EntropyEncoding?: null|XavcEntropyEncoding::*|string,
+     *   FramerateControl?: null|XavcFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|XavcFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   Profile?: null|XavcProfile::*,
-     *   SlowPal?: null|XavcSlowPal::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   Profile?: null|XavcProfile::*|string,
+     *   SlowPal?: null|XavcSlowPal::*|string,
      *   Softness?: null|int,
-     *   SpatialAdaptiveQuantization?: null|XavcSpatialAdaptiveQuantization::*,
-     *   TemporalAdaptiveQuantization?: null|XavcTemporalAdaptiveQuantization::*,
+     *   SpatialAdaptiveQuantization?: null|XavcSpatialAdaptiveQuantization::*|string,
+     *   TemporalAdaptiveQuantization?: null|XavcTemporalAdaptiveQuantization::*|string,
      *   Xavc4kIntraCbgProfileSettings?: null|Xavc4kIntraCbgProfileSettings|array,
      *   Xavc4kIntraVbrProfileSettings?: null|Xavc4kIntraVbrProfileSettings|array,
      *   Xavc4kProfileSettings?: null|Xavc4kProfileSettings|array,
@@ -249,18 +249,18 @@ final class XavcSettings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|XavcAdaptiveQuantization::*,
-     *   EntropyEncoding?: null|XavcEntropyEncoding::*,
-     *   FramerateControl?: null|XavcFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|XavcFramerateConversionAlgorithm::*,
+     *   AdaptiveQuantization?: null|XavcAdaptiveQuantization::*|string,
+     *   EntropyEncoding?: null|XavcEntropyEncoding::*|string,
+     *   FramerateControl?: null|XavcFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|XavcFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   Profile?: null|XavcProfile::*,
-     *   SlowPal?: null|XavcSlowPal::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   Profile?: null|XavcProfile::*|string,
+     *   SlowPal?: null|XavcSlowPal::*|string,
      *   Softness?: null|int,
-     *   SpatialAdaptiveQuantization?: null|XavcSpatialAdaptiveQuantization::*,
-     *   TemporalAdaptiveQuantization?: null|XavcTemporalAdaptiveQuantization::*,
+     *   SpatialAdaptiveQuantization?: null|XavcSpatialAdaptiveQuantization::*|string,
+     *   TemporalAdaptiveQuantization?: null|XavcTemporalAdaptiveQuantization::*|string,
      *   Xavc4kIntraCbgProfileSettings?: null|Xavc4kIntraCbgProfileSettings|array,
      *   Xavc4kIntraVbrProfileSettings?: null|Xavc4kIntraVbrProfileSettings|array,
      *   Xavc4kProfileSettings?: null|Xavc4kProfileSettings|array,
@@ -274,7 +274,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcAdaptiveQuantization::*|null
+     * @return XavcAdaptiveQuantization::*|string|null
      */
     public function getAdaptiveQuantization(): ?string
     {
@@ -282,7 +282,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcEntropyEncoding::*|null
+     * @return XavcEntropyEncoding::*|string|null
      */
     public function getEntropyEncoding(): ?string
     {
@@ -290,7 +290,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcFramerateControl::*|null
+     * @return XavcFramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -298,7 +298,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcFramerateConversionAlgorithm::*|null
+     * @return XavcFramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -316,7 +316,7 @@ final class XavcSettings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -324,7 +324,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcProfile::*|null
+     * @return XavcProfile::*|string|null
      */
     public function getProfile(): ?string
     {
@@ -332,7 +332,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcSlowPal::*|null
+     * @return XavcSlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -345,7 +345,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcSpatialAdaptiveQuantization::*|null
+     * @return XavcSpatialAdaptiveQuantization::*|string|null
      */
     public function getSpatialAdaptiveQuantization(): ?string
     {
@@ -353,7 +353,7 @@ final class XavcSettings
     }
 
     /**
-     * @return XavcTemporalAdaptiveQuantization::*|null
+     * @return XavcTemporalAdaptiveQuantization::*|string|null
      */
     public function getTemporalAdaptiveQuantization(): ?string
     {

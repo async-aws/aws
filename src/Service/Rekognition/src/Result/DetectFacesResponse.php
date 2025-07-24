@@ -44,7 +44,7 @@ class DetectFacesResponse extends Result
      * information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object
      * locations before the image is rotated.
      *
-     * @var OrientationCorrection::*|null
+     * @var OrientationCorrection::*|string|null
      */
     private $orientationCorrection;
 
@@ -59,7 +59,7 @@ class DetectFacesResponse extends Result
     }
 
     /**
-     * @return OrientationCorrection::*|null
+     * @return OrientationCorrection::*|string|null
      */
     public function getOrientationCorrection(): ?string
     {

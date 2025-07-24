@@ -13,7 +13,7 @@ final class MFAOptionType
     /**
      * The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
      *
-     * @var DeliveryMediumType::*|null
+     * @var DeliveryMediumType::*|string|null
      */
     private $deliveryMedium;
 
@@ -26,7 +26,7 @@ final class MFAOptionType
 
     /**
      * @param array{
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
+     *   DeliveryMedium?: null|DeliveryMediumType::*|string,
      *   AttributeName?: null|string,
      * } $input
      */
@@ -38,7 +38,7 @@ final class MFAOptionType
 
     /**
      * @param array{
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
+     *   DeliveryMedium?: null|DeliveryMediumType::*|string,
      *   AttributeName?: null|string,
      * }|MFAOptionType $input
      */
@@ -53,7 +53,7 @@ final class MFAOptionType
     }
 
     /**
-     * @return DeliveryMediumType::*|null
+     * @return DeliveryMediumType::*|string|null
      */
     public function getDeliveryMedium(): ?string
     {

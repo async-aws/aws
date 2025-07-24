@@ -50,7 +50,7 @@ final class LayerVersionsListItem
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported
      *
-     * @var list<Runtime::*>|null
+     * @var list<Runtime::*|string>|null
      */
     private $compatibleRuntimes;
 
@@ -66,7 +66,7 @@ final class LayerVersionsListItem
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      *
-     * @var list<Architecture::*>|null
+     * @var list<Architecture::*|string>|null
      */
     private $compatibleArchitectures;
 
@@ -76,9 +76,9 @@ final class LayerVersionsListItem
      *   Version?: null|int,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|array<Runtime::*>,
+     *   CompatibleRuntimes?: null|array<Runtime::*|string>,
      *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|array<Architecture::*>,
+     *   CompatibleArchitectures?: null|array<Architecture::*|string>,
      * } $input
      */
     public function __construct(array $input)
@@ -98,9 +98,9 @@ final class LayerVersionsListItem
      *   Version?: null|int,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|array<Runtime::*>,
+     *   CompatibleRuntimes?: null|array<Runtime::*|string>,
      *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|array<Architecture::*>,
+     *   CompatibleArchitectures?: null|array<Architecture::*|string>,
      * }|LayerVersionsListItem $input
      */
     public static function create($input): self
@@ -109,7 +109,7 @@ final class LayerVersionsListItem
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     public function getCompatibleArchitectures(): array
     {
@@ -117,7 +117,7 @@ final class LayerVersionsListItem
     }
 
     /**
-     * @return list<Runtime::*>
+     * @return list<Runtime::*|string>
      */
     public function getCompatibleRuntimes(): array
     {

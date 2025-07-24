@@ -325,6 +325,7 @@ class RestXmlParser implements Parser
                 ';
             } else {
                 $listAccessorRequired = true;
+
                 $body = '
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
@@ -391,7 +392,7 @@ class RestXmlParser implements Parser
                 ->setType(\SimpleXMLElement::class)
         ;
 
-        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
+        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape, false);
         $method
             ->setReturnType($returnType)
             ->setComment('@return ' . $parameterType);

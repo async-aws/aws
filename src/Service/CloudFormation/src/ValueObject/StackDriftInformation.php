@@ -21,7 +21,7 @@ final class StackDriftInformation
      * - `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
      * - `UNKNOWN`: CloudFormation could not run drift detection for a resource in the stack.
      *
-     * @var StackDriftStatus::*
+     * @var StackDriftStatus::*|string
      */
     private $stackDriftStatus;
 
@@ -35,7 +35,7 @@ final class StackDriftInformation
 
     /**
      * @param array{
-     *   StackDriftStatus: StackDriftStatus::*,
+     *   StackDriftStatus: StackDriftStatus::*|string,
      *   LastCheckTimestamp?: null|\DateTimeImmutable,
      * } $input
      */
@@ -47,7 +47,7 @@ final class StackDriftInformation
 
     /**
      * @param array{
-     *   StackDriftStatus: StackDriftStatus::*,
+     *   StackDriftStatus: StackDriftStatus::*|string,
      *   LastCheckTimestamp?: null|\DateTimeImmutable,
      * }|StackDriftInformation $input
      */
@@ -62,7 +62,7 @@ final class StackDriftInformation
     }
 
     /**
-     * @return StackDriftStatus::*
+     * @return StackDriftStatus::*|string
      */
     public function getStackDriftStatus(): string
     {

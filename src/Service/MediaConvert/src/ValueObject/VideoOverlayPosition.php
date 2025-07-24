@@ -26,7 +26,7 @@ final class VideoOverlayPosition
      * Specify the Unit type to use when you enter a value for X position, Y position, Width, or Height. You can choose
      * Pixels or Percentage. Leave blank to use the default value, Pixels.
      *
-     * @var VideoOverlayUnit::*|null
+     * @var VideoOverlayUnit::*|string|null
      */
     private $unit;
 
@@ -69,7 +69,7 @@ final class VideoOverlayPosition
     /**
      * @param array{
      *   Height?: null|int,
-     *   Unit?: null|VideoOverlayUnit::*,
+     *   Unit?: null|VideoOverlayUnit::*|string,
      *   Width?: null|int,
      *   XPosition?: null|int,
      *   YPosition?: null|int,
@@ -87,7 +87,7 @@ final class VideoOverlayPosition
     /**
      * @param array{
      *   Height?: null|int,
-     *   Unit?: null|VideoOverlayUnit::*,
+     *   Unit?: null|VideoOverlayUnit::*|string,
      *   Width?: null|int,
      *   XPosition?: null|int,
      *   YPosition?: null|int,
@@ -104,7 +104,7 @@ final class VideoOverlayPosition
     }
 
     /**
-     * @return VideoOverlayUnit::*|null
+     * @return VideoOverlayUnit::*|string|null
      */
     public function getUnit(): ?string
     {

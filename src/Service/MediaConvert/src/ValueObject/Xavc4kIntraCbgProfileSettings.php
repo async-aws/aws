@@ -14,13 +14,13 @@ final class Xavc4kIntraCbgProfileSettings
      * Specify the XAVC Intra 4k (CBG) Class to set the bitrate of your output. Outputs of the same class have similar image
      * quality over the operating points that are valid for that class.
      *
-     * @var Xavc4kIntraCbgProfileClass::*|null
+     * @var Xavc4kIntraCbgProfileClass::*|string|null
      */
     private $xavcClass;
 
     /**
      * @param array{
-     *   XavcClass?: null|Xavc4kIntraCbgProfileClass::*,
+     *   XavcClass?: null|Xavc4kIntraCbgProfileClass::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class Xavc4kIntraCbgProfileSettings
 
     /**
      * @param array{
-     *   XavcClass?: null|Xavc4kIntraCbgProfileClass::*,
+     *   XavcClass?: null|Xavc4kIntraCbgProfileClass::*|string,
      * }|Xavc4kIntraCbgProfileSettings $input
      */
     public static function create($input): self
@@ -39,7 +39,7 @@ final class Xavc4kIntraCbgProfileSettings
     }
 
     /**
-     * @return Xavc4kIntraCbgProfileClass::*|null
+     * @return Xavc4kIntraCbgProfileClass::*|string|null
      */
     public function getXavcClass(): ?string
     {

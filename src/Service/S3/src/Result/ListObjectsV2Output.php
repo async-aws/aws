@@ -106,7 +106,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      *
      * `Delimiter, Prefix, Key,` and `StartAfter`.
      *
-     * @var EncodingType::*|null
+     * @var EncodingType::*|string|null
      */
     private $encodingType;
 
@@ -145,7 +145,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $startAfter;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -252,7 +252,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return EncodingType::*|null
+     * @return EncodingType::*|string|null
      */
     public function getEncodingType(): ?string
     {
@@ -342,7 +342,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -380,7 +380,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<ChecksumAlgorithm::*>
+     * @return list<ChecksumAlgorithm::*|string>
      */
     private function populateResultChecksumAlgorithmList(\SimpleXMLElement $xml): array
     {

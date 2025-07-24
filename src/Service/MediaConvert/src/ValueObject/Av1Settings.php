@@ -21,14 +21,14 @@ final class Av1Settings
      * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
      * Spatial adaptive quantization.
      *
-     * @var Av1AdaptiveQuantization::*|null
+     * @var Av1AdaptiveQuantization::*|string|null
      */
     private $adaptiveQuantization;
 
     /**
      * Specify the Bit depth. You can choose 8-bit or 10-bit.
      *
-     * @var Av1BitDepth::*|null
+     * @var Av1BitDepth::*|string|null
      */
     private $bitDepth;
 
@@ -38,7 +38,7 @@ final class Av1Settings
      * quality level 9 or 10 outputs we recommend that you keep the default value, Disabled. When you include Film grain
      * synthesis, you cannot include the Noise reducer preprocessor.
      *
-     * @var Av1FilmGrainSynthesis::*|null
+     * @var Av1FilmGrainSynthesis::*|string|null
      */
     private $filmGrainSynthesis;
 
@@ -48,7 +48,7 @@ final class Av1Settings
      * list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you
      * choose Custom, specify your frame rate as a fraction.
      *
-     * @var Av1FramerateControl::*|null
+     * @var Av1FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -65,7 +65,7 @@ final class Av1Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var Av1FramerateConversionAlgorithm::*|null
+     * @var Av1FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -128,7 +128,7 @@ final class Av1Settings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -144,7 +144,7 @@ final class Av1Settings
      * 'With AV1 outputs, for rate control mode, MediaConvert supports only quality-defined variable bitrate (QVBR). You
      * can''t use CBR or VBR.'.
      *
-     * @var Av1RateControlMode::*|null
+     * @var Av1RateControlMode::*|string|null
      */
     private $rateControlMode;
 
@@ -169,27 +169,27 @@ final class Av1Settings
      * homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures,
      * set it to High or Higher.
      *
-     * @var Av1SpatialAdaptiveQuantization::*|null
+     * @var Av1SpatialAdaptiveQuantization::*|string|null
      */
     private $spatialAdaptiveQuantization;
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
-     *   BitDepth?: null|Av1BitDepth::*,
-     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*,
-     *   FramerateControl?: null|Av1FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
+     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*|string,
+     *   BitDepth?: null|Av1BitDepth::*|string,
+     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*|string,
+     *   FramerateControl?: null|Av1FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopSize?: null|float,
      *   MaxBitrate?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
      *   QvbrSettings?: null|Av1QvbrSettings|array,
-     *   RateControlMode?: null|Av1RateControlMode::*,
+     *   RateControlMode?: null|Av1RateControlMode::*|string,
      *   Slices?: null|int,
-     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*,
+     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -213,21 +213,21 @@ final class Av1Settings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
-     *   BitDepth?: null|Av1BitDepth::*,
-     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*,
-     *   FramerateControl?: null|Av1FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
+     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*|string,
+     *   BitDepth?: null|Av1BitDepth::*|string,
+     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*|string,
+     *   FramerateControl?: null|Av1FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopSize?: null|float,
      *   MaxBitrate?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
      *   QvbrSettings?: null|Av1QvbrSettings|array,
-     *   RateControlMode?: null|Av1RateControlMode::*,
+     *   RateControlMode?: null|Av1RateControlMode::*|string,
      *   Slices?: null|int,
-     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*,
+     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*|string,
      * }|Av1Settings $input
      */
     public static function create($input): self
@@ -236,7 +236,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1AdaptiveQuantization::*|null
+     * @return Av1AdaptiveQuantization::*|string|null
      */
     public function getAdaptiveQuantization(): ?string
     {
@@ -244,7 +244,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1BitDepth::*|null
+     * @return Av1BitDepth::*|string|null
      */
     public function getBitDepth(): ?string
     {
@@ -252,7 +252,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1FilmGrainSynthesis::*|null
+     * @return Av1FilmGrainSynthesis::*|string|null
      */
     public function getFilmGrainSynthesis(): ?string
     {
@@ -260,7 +260,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1FramerateControl::*|null
+     * @return Av1FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -268,7 +268,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1FramerateConversionAlgorithm::*|null
+     * @return Av1FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -301,7 +301,7 @@ final class Av1Settings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -314,7 +314,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1RateControlMode::*|null
+     * @return Av1RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {
@@ -327,7 +327,7 @@ final class Av1Settings
     }
 
     /**
-     * @return Av1SpatialAdaptiveQuantization::*|null
+     * @return Av1SpatialAdaptiveQuantization::*|string|null
      */
     public function getSpatialAdaptiveQuantization(): ?string
     {

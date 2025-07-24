@@ -2462,7 +2462,7 @@ class GetJobResponse extends Result
     }
 
     /**
-     * @return list<AudioChannelTag::*>
+     * @return list<AudioChannelTag::*|string>
      */
     private function populateResult__listOfAudioChannelTag(array $json): array
     {
@@ -2569,7 +2569,7 @@ class GetJobResponse extends Result
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     private function populateResult__listOfFrameMetricType(array $json): array
     {
@@ -2585,7 +2585,7 @@ class GetJobResponse extends Result
     }
 
     /**
-     * @return list<HlsAdMarkers::*>
+     * @return list<HlsAdMarkers::*|string>
      */
     private function populateResult__listOfHlsAdMarkers(array $json): array
     {
@@ -2783,7 +2783,7 @@ class GetJobResponse extends Result
     }
 
     /**
-     * @return list<TeletextPageType::*>
+     * @return list<TeletextPageType::*|string>
      */
     private function populateResult__listOfTeletextPageType(array $json): array
     {

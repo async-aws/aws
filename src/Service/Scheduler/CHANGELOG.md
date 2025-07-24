@@ -6,6 +6,10 @@
 
 - AWS api-change: Added `cn-north-1` and `cn-northwest-1` regions
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 1.4.0
 
 ### Added

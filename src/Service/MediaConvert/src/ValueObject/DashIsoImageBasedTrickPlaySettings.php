@@ -15,7 +15,7 @@ final class DashIsoImageBasedTrickPlaySettings
      * thumbnails for each IDR frame in the output (matching the GOP cadence). If set to FOLLOW_CUSTOM, MediaConvert
      * generates thumbnails according to the interval you specify in thumbnailInterval.
      *
-     * @var DashIsoIntervalCadence::*|null
+     * @var DashIsoIntervalCadence::*|string|null
      */
     private $intervalCadence;
 
@@ -61,7 +61,7 @@ final class DashIsoImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|DashIsoIntervalCadence::*,
+     *   IntervalCadence?: null|DashIsoIntervalCadence::*|string,
      *   ThumbnailHeight?: null|int,
      *   ThumbnailInterval?: null|float,
      *   ThumbnailWidth?: null|int,
@@ -81,7 +81,7 @@ final class DashIsoImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|DashIsoIntervalCadence::*,
+     *   IntervalCadence?: null|DashIsoIntervalCadence::*|string,
      *   ThumbnailHeight?: null|int,
      *   ThumbnailInterval?: null|float,
      *   ThumbnailWidth?: null|int,
@@ -95,7 +95,7 @@ final class DashIsoImageBasedTrickPlaySettings
     }
 
     /**
-     * @return DashIsoIntervalCadence::*|null
+     * @return DashIsoIntervalCadence::*|string|null
      */
     public function getIntervalCadence(): ?string
     {

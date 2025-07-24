@@ -124,12 +124,12 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
      *
      * `KeyMarker, NextKeyMarker, Prefix, Key`, and `Delimiter`.
      *
-     * @var EncodingType::*|null
+     * @var EncodingType::*|string|null
      */
     private $encodingType;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -233,7 +233,7 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return EncodingType::*|null
+     * @return EncodingType::*|string|null
      */
     public function getEncodingType(): ?string
     {
@@ -333,7 +333,7 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {
@@ -418,7 +418,7 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<ChecksumAlgorithm::*>
+     * @return list<ChecksumAlgorithm::*|string>
      */
     private function populateResultChecksumAlgorithmList(\SimpleXMLElement $xml): array
     {

@@ -28,7 +28,7 @@ final class HlsCaptionLanguageMapping
      * Specify the language, using the ISO 639-2 three-letter code listed at
      * https://www.loc.gov/standards/iso639-2/php/code_list.php.
      *
-     * @var LanguageCode::*|null
+     * @var LanguageCode::*|string|null
      */
     private $languageCode;
 
@@ -43,7 +43,7 @@ final class HlsCaptionLanguageMapping
      * @param array{
      *   CaptionChannel?: null|int,
      *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   LanguageDescription?: null|string,
      * } $input
      */
@@ -59,7 +59,7 @@ final class HlsCaptionLanguageMapping
      * @param array{
      *   CaptionChannel?: null|int,
      *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
+     *   LanguageCode?: null|LanguageCode::*|string,
      *   LanguageDescription?: null|string,
      * }|HlsCaptionLanguageMapping $input
      */
@@ -79,7 +79,7 @@ final class HlsCaptionLanguageMapping
     }
 
     /**
-     * @return LanguageCode::*|null
+     * @return LanguageCode::*|string|null
      */
     public function getLanguageCode(): ?string
     {

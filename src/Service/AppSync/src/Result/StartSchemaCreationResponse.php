@@ -12,12 +12,12 @@ class StartSchemaCreationResponse extends Result
      * The current state of the schema (PROCESSING, FAILED, SUCCESS, or NOT_APPLICABLE). When the schema is in the ACTIVE
      * state, you can add data.
      *
-     * @var SchemaStatus::*|null
+     * @var SchemaStatus::*|string|null
      */
     private $status;
 
     /**
-     * @return SchemaStatus::*|null
+     * @return SchemaStatus::*|string|null
      */
     public function getStatus(): ?string
     {

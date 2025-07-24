@@ -20,7 +20,7 @@ final class SuppressedDestination
     /**
      * The reason that the address was added to the suppression list for your account.
      *
-     * @var SuppressionListReason::*
+     * @var SuppressionListReason::*|string
      */
     private $reason;
 
@@ -42,7 +42,7 @@ final class SuppressedDestination
     /**
      * @param array{
      *   EmailAddress: string,
-     *   Reason: SuppressionListReason::*,
+     *   Reason: SuppressionListReason::*|string,
      *   LastUpdateTime: \DateTimeImmutable,
      *   Attributes?: null|SuppressedDestinationAttributes|array,
      * } $input
@@ -58,7 +58,7 @@ final class SuppressedDestination
     /**
      * @param array{
      *   EmailAddress: string,
-     *   Reason: SuppressionListReason::*,
+     *   Reason: SuppressionListReason::*|string,
      *   LastUpdateTime: \DateTimeImmutable,
      *   Attributes?: null|SuppressedDestinationAttributes|array,
      * }|SuppressedDestination $input
@@ -84,7 +84,7 @@ final class SuppressedDestination
     }
 
     /**
-     * @return SuppressionListReason::*
+     * @return SuppressionListReason::*|string
      */
     public function getReason(): string
     {

@@ -27,7 +27,7 @@ final class Vp8Settings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var Vp8FramerateControl::*|null
+     * @var Vp8FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -44,7 +44,7 @@ final class Vp8Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var Vp8FramerateConversionAlgorithm::*|null
+     * @var Vp8FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -97,7 +97,7 @@ final class Vp8Settings
      * any value other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
      *
-     * @var Vp8ParControl::*|null
+     * @var Vp8ParControl::*|string|null
      */
     private $parControl;
 
@@ -125,32 +125,32 @@ final class Vp8Settings
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, multi-pass encoding.
      *
-     * @var Vp8QualityTuningLevel::*|null
+     * @var Vp8QualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
     /**
      * With the VP8 codec, you can use only the variable bitrate (VBR) rate control mode.
      *
-     * @var Vp8RateControlMode::*|null
+     * @var Vp8RateControlMode::*|string|null
      */
     private $rateControlMode;
 
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp8FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|Vp8FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopSize?: null|float,
      *   HrdBufferSize?: null|int,
      *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp8ParControl::*,
+     *   ParControl?: null|Vp8ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp8RateControlMode::*,
+     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*|string,
+     *   RateControlMode?: null|Vp8RateControlMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -173,18 +173,18 @@ final class Vp8Settings
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp8FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|Vp8FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopSize?: null|float,
      *   HrdBufferSize?: null|int,
      *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp8ParControl::*,
+     *   ParControl?: null|Vp8ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp8RateControlMode::*,
+     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*|string,
+     *   RateControlMode?: null|Vp8RateControlMode::*|string,
      * }|Vp8Settings $input
      */
     public static function create($input): self
@@ -198,7 +198,7 @@ final class Vp8Settings
     }
 
     /**
-     * @return Vp8FramerateControl::*|null
+     * @return Vp8FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -206,7 +206,7 @@ final class Vp8Settings
     }
 
     /**
-     * @return Vp8FramerateConversionAlgorithm::*|null
+     * @return Vp8FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -239,7 +239,7 @@ final class Vp8Settings
     }
 
     /**
-     * @return Vp8ParControl::*|null
+     * @return Vp8ParControl::*|string|null
      */
     public function getParControl(): ?string
     {
@@ -257,7 +257,7 @@ final class Vp8Settings
     }
 
     /**
-     * @return Vp8QualityTuningLevel::*|null
+     * @return Vp8QualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {
@@ -265,7 +265,7 @@ final class Vp8Settings
     }
 
     /**
-     * @return Vp8RateControlMode::*|null
+     * @return Vp8RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {

@@ -50,7 +50,7 @@ final class Grantee
     /**
      * Type of grantee.
      *
-     * @var Type::*
+     * @var Type::*|string
      */
     private $type;
 
@@ -66,7 +66,7 @@ final class Grantee
      *   DisplayName?: null|string,
      *   EmailAddress?: null|string,
      *   ID?: null|string,
-     *   Type: Type::*,
+     *   Type: Type::*|string,
      *   URI?: null|string,
      * } $input
      */
@@ -84,7 +84,7 @@ final class Grantee
      *   DisplayName?: null|string,
      *   EmailAddress?: null|string,
      *   ID?: null|string,
-     *   Type: Type::*,
+     *   Type: Type::*|string,
      *   URI?: null|string,
      * }|Grantee $input
      */
@@ -109,7 +109,7 @@ final class Grantee
     }
 
     /**
-     * @return Type::*
+     * @return Type::*|string
      */
     public function getType(): string
     {

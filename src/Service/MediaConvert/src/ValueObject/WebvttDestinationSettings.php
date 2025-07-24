@@ -24,7 +24,7 @@ final class WebvttDestinationSettings
      * adds the following in the adaptation set for this track: `<Role schemeIDUri="urn:mpeg:dash:role:2011"
      * value="subtitle"/>`.
      *
-     * @var WebvttAccessibilitySubs::*|null
+     * @var WebvttAccessibilitySubs::*|string|null
      */
     private $accessibility;
 
@@ -39,14 +39,14 @@ final class WebvttDestinationSettings
      * ranges: Choose merge. This setting can help prevent positioning overlaps for certain players that expect a single
      * single cue for any given time range.
      *
-     * @var WebvttStylePassthrough::*|null
+     * @var WebvttStylePassthrough::*|string|null
      */
     private $stylePassthrough;
 
     /**
      * @param array{
-     *   Accessibility?: null|WebvttAccessibilitySubs::*,
-     *   StylePassthrough?: null|WebvttStylePassthrough::*,
+     *   Accessibility?: null|WebvttAccessibilitySubs::*|string,
+     *   StylePassthrough?: null|WebvttStylePassthrough::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -57,8 +57,8 @@ final class WebvttDestinationSettings
 
     /**
      * @param array{
-     *   Accessibility?: null|WebvttAccessibilitySubs::*,
-     *   StylePassthrough?: null|WebvttStylePassthrough::*,
+     *   Accessibility?: null|WebvttAccessibilitySubs::*|string,
+     *   StylePassthrough?: null|WebvttStylePassthrough::*|string,
      * }|WebvttDestinationSettings $input
      */
     public static function create($input): self
@@ -67,7 +67,7 @@ final class WebvttDestinationSettings
     }
 
     /**
-     * @return WebvttAccessibilitySubs::*|null
+     * @return WebvttAccessibilitySubs::*|string|null
      */
     public function getAccessibility(): ?string
     {
@@ -75,7 +75,7 @@ final class WebvttDestinationSettings
     }
 
     /**
-     * @return WebvttStylePassthrough::*|null
+     * @return WebvttStylePassthrough::*|string|null
      */
     public function getStylePassthrough(): ?string
     {

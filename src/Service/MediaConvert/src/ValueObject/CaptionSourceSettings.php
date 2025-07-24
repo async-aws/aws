@@ -44,7 +44,7 @@ final class CaptionSourceSettings
     /**
      * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      *
-     * @var CaptionSourceType::*|null
+     * @var CaptionSourceType::*|string|null
      */
     private $sourceType;
 
@@ -82,7 +82,7 @@ final class CaptionSourceSettings
      *   DvbSubSourceSettings?: null|DvbSubSourceSettings|array,
      *   EmbeddedSourceSettings?: null|EmbeddedSourceSettings|array,
      *   FileSourceSettings?: null|FileSourceSettings|array,
-     *   SourceType?: null|CaptionSourceType::*,
+     *   SourceType?: null|CaptionSourceType::*|string,
      *   TeletextSourceSettings?: null|TeletextSourceSettings|array,
      *   TrackSourceSettings?: null|TrackSourceSettings|array,
      *   WebvttHlsSourceSettings?: null|WebvttHlsSourceSettings|array,
@@ -106,7 +106,7 @@ final class CaptionSourceSettings
      *   DvbSubSourceSettings?: null|DvbSubSourceSettings|array,
      *   EmbeddedSourceSettings?: null|EmbeddedSourceSettings|array,
      *   FileSourceSettings?: null|FileSourceSettings|array,
-     *   SourceType?: null|CaptionSourceType::*,
+     *   SourceType?: null|CaptionSourceType::*|string,
      *   TeletextSourceSettings?: null|TeletextSourceSettings|array,
      *   TrackSourceSettings?: null|TrackSourceSettings|array,
      *   WebvttHlsSourceSettings?: null|WebvttHlsSourceSettings|array,
@@ -138,7 +138,7 @@ final class CaptionSourceSettings
     }
 
     /**
-     * @return CaptionSourceType::*|null
+     * @return CaptionSourceType::*|string|null
      */
     public function getSourceType(): ?string
     {

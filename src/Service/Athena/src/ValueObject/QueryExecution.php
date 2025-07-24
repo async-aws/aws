@@ -28,7 +28,7 @@ final class QueryExecution
      * Manipulation Language) query statements, such as `CREATE TABLE AS SELECT`. `UTILITY` indicates query statements other
      * than DDL and DML, such as `SHOW CREATE TABLE`, or `DESCRIBE TABLE`.
      *
-     * @var StatementType::*|null
+     * @var StatementType::*|string|null
      */
     private $statementType;
 
@@ -119,7 +119,7 @@ final class QueryExecution
      * @param array{
      *   QueryExecutionId?: null|string,
      *   Query?: null|string,
-     *   StatementType?: null|StatementType::*,
+     *   StatementType?: null|StatementType::*|string,
      *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
      *   ResultConfiguration?: null|ResultConfiguration|array,
      *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
@@ -155,7 +155,7 @@ final class QueryExecution
      * @param array{
      *   QueryExecutionId?: null|string,
      *   Query?: null|string,
-     *   StatementType?: null|StatementType::*,
+     *   StatementType?: null|StatementType::*|string,
      *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
      *   ResultConfiguration?: null|ResultConfiguration|array,
      *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
@@ -223,7 +223,7 @@ final class QueryExecution
     }
 
     /**
-     * @return StatementType::*|null
+     * @return StatementType::*|string|null
      */
     public function getStatementType(): ?string
     {

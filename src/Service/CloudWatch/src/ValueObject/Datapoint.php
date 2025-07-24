@@ -54,7 +54,7 @@ final class Datapoint
     /**
      * The standard unit for the data point.
      *
-     * @var StandardUnit::*|null
+     * @var StandardUnit::*|string|null
      */
     private $unit;
 
@@ -73,7 +73,7 @@ final class Datapoint
      *   Sum?: null|float,
      *   Minimum?: null|float,
      *   Maximum?: null|float,
-     *   Unit?: null|StandardUnit::*,
+     *   Unit?: null|StandardUnit::*|string,
      *   ExtendedStatistics?: null|array<string, float>,
      * } $input
      */
@@ -97,7 +97,7 @@ final class Datapoint
      *   Sum?: null|float,
      *   Minimum?: null|float,
      *   Maximum?: null|float,
-     *   Unit?: null|StandardUnit::*,
+     *   Unit?: null|StandardUnit::*|string,
      *   ExtendedStatistics?: null|array<string, float>,
      * }|Datapoint $input
      */
@@ -145,7 +145,7 @@ final class Datapoint
     }
 
     /**
-     * @return StandardUnit::*|null
+     * @return StandardUnit::*|string|null
      */
     public function getUnit(): ?string
     {

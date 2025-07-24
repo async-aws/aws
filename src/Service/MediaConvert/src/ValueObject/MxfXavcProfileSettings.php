@@ -16,7 +16,7 @@ final class MxfXavcProfileSettings
      * duration. The number of frames that MediaConvert excludes when you set this to Drop frames for compliance depends on
      * the output frame rate and duration.
      *
-     * @var MxfXavcDurationMode::*|null
+     * @var MxfXavcDurationMode::*|string|null
      */
     private $durationMode;
 
@@ -33,7 +33,7 @@ final class MxfXavcProfileSettings
 
     /**
      * @param array{
-     *   DurationMode?: null|MxfXavcDurationMode::*,
+     *   DurationMode?: null|MxfXavcDurationMode::*|string,
      *   MaxAncDataSize?: null|int,
      * } $input
      */
@@ -45,7 +45,7 @@ final class MxfXavcProfileSettings
 
     /**
      * @param array{
-     *   DurationMode?: null|MxfXavcDurationMode::*,
+     *   DurationMode?: null|MxfXavcDurationMode::*|string,
      *   MaxAncDataSize?: null|int,
      * }|MxfXavcProfileSettings $input
      */
@@ -55,7 +55,7 @@ final class MxfXavcProfileSettings
     }
 
     /**
-     * @return MxfXavcDurationMode::*|null
+     * @return MxfXavcDurationMode::*|string|null
      */
     public function getDurationMode(): ?string
     {

@@ -22,7 +22,7 @@ final class Parameter
      * > If type is `StringList`, the system returns a comma-separated string with no spaces between commas in the `Value`
      * > field.
      *
-     * @var ParameterType::*|null
+     * @var ParameterType::*|string|null
      */
     private $type;
 
@@ -87,7 +87,7 @@ final class Parameter
     /**
      * @param array{
      *   Name?: null|string,
-     *   Type?: null|ParameterType::*,
+     *   Type?: null|ParameterType::*|string,
      *   Value?: null|string,
      *   Version?: null|int,
      *   Selector?: null|string,
@@ -113,7 +113,7 @@ final class Parameter
     /**
      * @param array{
      *   Name?: null|string,
-     *   Type?: null|ParameterType::*,
+     *   Type?: null|ParameterType::*|string,
      *   Value?: null|string,
      *   Version?: null|int,
      *   Selector?: null|string,
@@ -159,7 +159,7 @@ final class Parameter
     }
 
     /**
-     * @return ParameterType::*|null
+     * @return ParameterType::*|string|null
      */
     public function getType(): ?string
     {

@@ -21,7 +21,7 @@ final class Projection
      *
      * When using the DynamoDB console, `ALL` is selected by default.
      *
-     * @var ProjectionType::*|null
+     * @var ProjectionType::*|string|null
      */
     private $projectionType;
 
@@ -40,7 +40,7 @@ final class Projection
 
     /**
      * @param array{
-     *   ProjectionType?: null|ProjectionType::*,
+     *   ProjectionType?: null|ProjectionType::*|string,
      *   NonKeyAttributes?: null|string[],
      * } $input
      */
@@ -52,7 +52,7 @@ final class Projection
 
     /**
      * @param array{
-     *   ProjectionType?: null|ProjectionType::*,
+     *   ProjectionType?: null|ProjectionType::*|string,
      *   NonKeyAttributes?: null|string[],
      * }|Projection $input
      */
@@ -70,7 +70,7 @@ final class Projection
     }
 
     /**
-     * @return ProjectionType::*|null
+     * @return ProjectionType::*|string|null
      */
     public function getProjectionType(): ?string
     {

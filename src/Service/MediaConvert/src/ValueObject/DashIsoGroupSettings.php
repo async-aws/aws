@@ -38,7 +38,7 @@ final class DashIsoGroupSettings
      * write this: urn:mpeg:mpegB:cicp:ChannelConfiguration. Choose Dolby channel configuration to have MediaConvert write
      * this instead: tag:dolby.com,2014:dash:audio_channel_configuration:2011.
      *
-     * @var DashIsoGroupAudioChannelConfigSchemeIdUri::*|null
+     * @var DashIsoGroupAudioChannelConfigSchemeIdUri::*|string|null
      */
     private $audioChannelConfigSchemeIdUri;
 
@@ -70,7 +70,7 @@ final class DashIsoGroupSettings
      * common timeline. To write a video AdaptationSet for each different output framerate, and a common SegmentTimeline in
      * each AdaptationSet: Choose Distinct.
      *
-     * @var DashManifestStyle::*|null
+     * @var DashManifestStyle::*|string|null
      */
     private $dashManifestStyle;
 
@@ -110,7 +110,7 @@ final class DashIsoGroupSettings
     /**
      * Supports HbbTV specification as indicated.
      *
-     * @var DashIsoHbbtvCompliance::*|null
+     * @var DashIsoHbbtvCompliance::*|string|null
      */
     private $hbbtvCompliance;
 
@@ -122,7 +122,7 @@ final class DashIsoGroupSettings
      * that MediaConvert creates with this feature are compatible with this Roku specification:
      * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
-     * @var DashIsoImageBasedTrickPlay::*|null
+     * @var DashIsoImageBasedTrickPlay::*|string|null
      */
     private $imageBasedTrickPlay;
 
@@ -159,7 +159,7 @@ final class DashIsoGroupSettings
      * Max: Use the same value that you specify for Max bitrate in the video output, in bits per second. Average: Use the
      * calculated average bitrate of the encoded video output, in bits per second.
      *
-     * @var DashIsoMpdManifestBandwidthType::*|null
+     * @var DashIsoMpdManifestBandwidthType::*|string|null
      */
     private $mpdManifestBandwidthType;
 
@@ -169,7 +169,7 @@ final class DashIsoGroupSettings
      * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
      * group setting Segment control to Single file.
      *
-     * @var DashIsoMpdProfile::*|null
+     * @var DashIsoMpdProfile::*|string|null
      */
     private $mpdProfile;
 
@@ -181,7 +181,7 @@ final class DashIsoGroupSettings
      * and instead write the initial time stamp as zero in the manifest. For outputs that don't have B-frames, the time
      * stamps in your DASH manifests start at zero regardless of your choice here.
      *
-     * @var DashIsoPtsOffsetHandlingForBFrames::*|null
+     * @var DashIsoPtsOffsetHandlingForBFrames::*|string|null
      */
     private $ptsOffsetHandlingForBframes;
 
@@ -189,7 +189,7 @@ final class DashIsoGroupSettings
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length
      * and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
      *
-     * @var DashIsoSegmentControl::*|null
+     * @var DashIsoSegmentControl::*|string|null
      */
     private $segmentControl;
 
@@ -216,7 +216,7 @@ final class DashIsoGroupSettings
      * For example: 5, 15, 30 and 60. Or: 25 and 50. (Outputs must share an integer multiple.) - Output audio codec: Specify
      * Advanced Audio Coding (AAC). - Output sample rate: Choose 48kHz.
      *
-     * @var DashIsoSegmentLengthControl::*|null
+     * @var DashIsoSegmentLengthControl::*|string|null
      */
     private $segmentLengthControl;
 
@@ -227,7 +227,7 @@ final class DashIsoGroupSettings
      * set Video composition offsets to Signed. The earliest presentation time will be equal to zero, and sample composition
      * time offsets will increment using signed integers.
      *
-     * @var DashIsoVideoCompositionOffsets::*|null
+     * @var DashIsoVideoCompositionOffsets::*|string|null
      */
     private $videoCompositionOffsets;
 
@@ -238,34 +238,34 @@ final class DashIsoGroupSettings
      * Representation level. When you don't enable this setting, the service writes approximate segment durations in your
      * DASH manifest.
      *
-     * @var DashIsoWriteSegmentTimelineInRepresentation::*|null
+     * @var DashIsoWriteSegmentTimelineInRepresentation::*|string|null
      */
     private $writeSegmentTimelineInRepresentation;
 
     /**
      * @param array{
      *   AdditionalManifests?: null|array<DashAdditionalManifest|array>,
-     *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*,
+     *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*|string,
      *   BaseUrl?: null|string,
      *   DashIFrameTrickPlayNameModifier?: null|string,
-     *   DashManifestStyle?: null|DashManifestStyle::*,
+     *   DashManifestStyle?: null|DashManifestStyle::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
      *   Encryption?: null|DashIsoEncryptionSettings|array,
      *   FragmentLength?: null|int,
-     *   HbbtvCompliance?: null|DashIsoHbbtvCompliance::*,
-     *   ImageBasedTrickPlay?: null|DashIsoImageBasedTrickPlay::*,
+     *   HbbtvCompliance?: null|DashIsoHbbtvCompliance::*|string,
+     *   ImageBasedTrickPlay?: null|DashIsoImageBasedTrickPlay::*|string,
      *   ImageBasedTrickPlaySettings?: null|DashIsoImageBasedTrickPlaySettings|array,
      *   MinBufferTime?: null|int,
      *   MinFinalSegmentLength?: null|float,
-     *   MpdManifestBandwidthType?: null|DashIsoMpdManifestBandwidthType::*,
-     *   MpdProfile?: null|DashIsoMpdProfile::*,
-     *   PtsOffsetHandlingForBFrames?: null|DashIsoPtsOffsetHandlingForBFrames::*,
-     *   SegmentControl?: null|DashIsoSegmentControl::*,
+     *   MpdManifestBandwidthType?: null|DashIsoMpdManifestBandwidthType::*|string,
+     *   MpdProfile?: null|DashIsoMpdProfile::*|string,
+     *   PtsOffsetHandlingForBFrames?: null|DashIsoPtsOffsetHandlingForBFrames::*|string,
+     *   SegmentControl?: null|DashIsoSegmentControl::*|string,
      *   SegmentLength?: null|int,
-     *   SegmentLengthControl?: null|DashIsoSegmentLengthControl::*,
-     *   VideoCompositionOffsets?: null|DashIsoVideoCompositionOffsets::*,
-     *   WriteSegmentTimelineInRepresentation?: null|DashIsoWriteSegmentTimelineInRepresentation::*,
+     *   SegmentLengthControl?: null|DashIsoSegmentLengthControl::*|string,
+     *   VideoCompositionOffsets?: null|DashIsoVideoCompositionOffsets::*|string,
+     *   WriteSegmentTimelineInRepresentation?: null|DashIsoWriteSegmentTimelineInRepresentation::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -297,27 +297,27 @@ final class DashIsoGroupSettings
     /**
      * @param array{
      *   AdditionalManifests?: null|array<DashAdditionalManifest|array>,
-     *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*,
+     *   AudioChannelConfigSchemeIdUri?: null|DashIsoGroupAudioChannelConfigSchemeIdUri::*|string,
      *   BaseUrl?: null|string,
      *   DashIFrameTrickPlayNameModifier?: null|string,
-     *   DashManifestStyle?: null|DashManifestStyle::*,
+     *   DashManifestStyle?: null|DashManifestStyle::*|string,
      *   Destination?: null|string,
      *   DestinationSettings?: null|DestinationSettings|array,
      *   Encryption?: null|DashIsoEncryptionSettings|array,
      *   FragmentLength?: null|int,
-     *   HbbtvCompliance?: null|DashIsoHbbtvCompliance::*,
-     *   ImageBasedTrickPlay?: null|DashIsoImageBasedTrickPlay::*,
+     *   HbbtvCompliance?: null|DashIsoHbbtvCompliance::*|string,
+     *   ImageBasedTrickPlay?: null|DashIsoImageBasedTrickPlay::*|string,
      *   ImageBasedTrickPlaySettings?: null|DashIsoImageBasedTrickPlaySettings|array,
      *   MinBufferTime?: null|int,
      *   MinFinalSegmentLength?: null|float,
-     *   MpdManifestBandwidthType?: null|DashIsoMpdManifestBandwidthType::*,
-     *   MpdProfile?: null|DashIsoMpdProfile::*,
-     *   PtsOffsetHandlingForBFrames?: null|DashIsoPtsOffsetHandlingForBFrames::*,
-     *   SegmentControl?: null|DashIsoSegmentControl::*,
+     *   MpdManifestBandwidthType?: null|DashIsoMpdManifestBandwidthType::*|string,
+     *   MpdProfile?: null|DashIsoMpdProfile::*|string,
+     *   PtsOffsetHandlingForBFrames?: null|DashIsoPtsOffsetHandlingForBFrames::*|string,
+     *   SegmentControl?: null|DashIsoSegmentControl::*|string,
      *   SegmentLength?: null|int,
-     *   SegmentLengthControl?: null|DashIsoSegmentLengthControl::*,
-     *   VideoCompositionOffsets?: null|DashIsoVideoCompositionOffsets::*,
-     *   WriteSegmentTimelineInRepresentation?: null|DashIsoWriteSegmentTimelineInRepresentation::*,
+     *   SegmentLengthControl?: null|DashIsoSegmentLengthControl::*|string,
+     *   VideoCompositionOffsets?: null|DashIsoVideoCompositionOffsets::*|string,
+     *   WriteSegmentTimelineInRepresentation?: null|DashIsoWriteSegmentTimelineInRepresentation::*|string,
      * }|DashIsoGroupSettings $input
      */
     public static function create($input): self
@@ -334,7 +334,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoGroupAudioChannelConfigSchemeIdUri::*|null
+     * @return DashIsoGroupAudioChannelConfigSchemeIdUri::*|string|null
      */
     public function getAudioChannelConfigSchemeIdUri(): ?string
     {
@@ -352,7 +352,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashManifestStyle::*|null
+     * @return DashManifestStyle::*|string|null
      */
     public function getDashManifestStyle(): ?string
     {
@@ -380,7 +380,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoHbbtvCompliance::*|null
+     * @return DashIsoHbbtvCompliance::*|string|null
      */
     public function getHbbtvCompliance(): ?string
     {
@@ -388,7 +388,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoImageBasedTrickPlay::*|null
+     * @return DashIsoImageBasedTrickPlay::*|string|null
      */
     public function getImageBasedTrickPlay(): ?string
     {
@@ -411,7 +411,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoMpdManifestBandwidthType::*|null
+     * @return DashIsoMpdManifestBandwidthType::*|string|null
      */
     public function getMpdManifestBandwidthType(): ?string
     {
@@ -419,7 +419,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoMpdProfile::*|null
+     * @return DashIsoMpdProfile::*|string|null
      */
     public function getMpdProfile(): ?string
     {
@@ -427,7 +427,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoPtsOffsetHandlingForBFrames::*|null
+     * @return DashIsoPtsOffsetHandlingForBFrames::*|string|null
      */
     public function getPtsOffsetHandlingForBframes(): ?string
     {
@@ -435,7 +435,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoSegmentControl::*|null
+     * @return DashIsoSegmentControl::*|string|null
      */
     public function getSegmentControl(): ?string
     {
@@ -448,7 +448,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoSegmentLengthControl::*|null
+     * @return DashIsoSegmentLengthControl::*|string|null
      */
     public function getSegmentLengthControl(): ?string
     {
@@ -456,7 +456,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoVideoCompositionOffsets::*|null
+     * @return DashIsoVideoCompositionOffsets::*|string|null
      */
     public function getVideoCompositionOffsets(): ?string
     {
@@ -464,7 +464,7 @@ final class DashIsoGroupSettings
     }
 
     /**
-     * @return DashIsoWriteSegmentTimelineInRepresentation::*|null
+     * @return DashIsoWriteSegmentTimelineInRepresentation::*|string|null
      */
     public function getWriteSegmentTimelineInRepresentation(): ?string
     {

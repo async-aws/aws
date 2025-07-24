@@ -122,7 +122,18 @@ class ClassBuilder
 
     public function addProperty(string $name): Property
     {
+        if ($this->class->hasProperty($name)) {
+            $this->class->removeProperty($name);
+        }
+
         return $this->class->addProperty($name);
+    }
+
+    public function removeComment(): self
+    {
+        $this->class->removeComment();
+
+        return $this;
     }
 
     public function addComment(string $val): self

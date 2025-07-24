@@ -16,13 +16,13 @@ final class GreenFleetProvisioningOption
      * - `COPY_AUTO_SCALING_GROUP`: Use settings from a specified Auto Scaling group to define and create instances in a new
      *   Auto Scaling group.
      *
-     * @var GreenFleetProvisioningAction::*|null
+     * @var GreenFleetProvisioningAction::*|string|null
      */
     private $action;
 
     /**
      * @param array{
-     *   action?: null|GreenFleetProvisioningAction::*,
+     *   action?: null|GreenFleetProvisioningAction::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -32,7 +32,7 @@ final class GreenFleetProvisioningOption
 
     /**
      * @param array{
-     *   action?: null|GreenFleetProvisioningAction::*,
+     *   action?: null|GreenFleetProvisioningAction::*|string,
      * }|GreenFleetProvisioningOption $input
      */
     public static function create($input): self
@@ -41,7 +41,7 @@ final class GreenFleetProvisioningOption
     }
 
     /**
-     * @return GreenFleetProvisioningAction::*|null
+     * @return GreenFleetProvisioningAction::*|string|null
      */
     public function getAction(): ?string
     {

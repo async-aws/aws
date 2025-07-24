@@ -12,7 +12,7 @@ final class TableClassSummary
     /**
      * The table class of the specified table. Valid values are `STANDARD` and `STANDARD_INFREQUENT_ACCESS`.
      *
-     * @var TableClass::*|null
+     * @var TableClass::*|string|null
      */
     private $tableClass;
 
@@ -25,7 +25,7 @@ final class TableClassSummary
 
     /**
      * @param array{
-     *   TableClass?: null|TableClass::*,
+     *   TableClass?: null|TableClass::*|string,
      *   LastUpdateDateTime?: null|\DateTimeImmutable,
      * } $input
      */
@@ -37,7 +37,7 @@ final class TableClassSummary
 
     /**
      * @param array{
-     *   TableClass?: null|TableClass::*,
+     *   TableClass?: null|TableClass::*|string,
      *   LastUpdateDateTime?: null|\DateTimeImmutable,
      * }|TableClassSummary $input
      */
@@ -52,7 +52,7 @@ final class TableClassSummary
     }
 
     /**
-     * @return TableClass::*|null
+     * @return TableClass::*|string|null
      */
     public function getTableClass(): ?string
     {

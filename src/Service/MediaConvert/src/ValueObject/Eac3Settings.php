@@ -26,7 +26,7 @@ final class Eac3Settings
     /**
      * If set to ATTENUATE_3_DB, applies a 3 dB attenuation to the surround channels. Only used for 3/2 coding mode.
      *
-     * @var Eac3AttenuationControl::*|null
+     * @var Eac3AttenuationControl::*|string|null
      */
     private $attenuationControl;
 
@@ -45,21 +45,21 @@ final class Eac3Settings
      * Specify the bitstream mode for the E-AC-3 stream that the encoder emits. For more information about the EAC3
      * bitstream mode, see ATSC A/52-2012 (Annex E).
      *
-     * @var Eac3BitstreamMode::*|null
+     * @var Eac3BitstreamMode::*|string|null
      */
     private $bitstreamMode;
 
     /**
      * Dolby Digital Plus coding mode. Determines number of channels.
      *
-     * @var Eac3CodingMode::*|null
+     * @var Eac3CodingMode::*|string|null
      */
     private $codingMode;
 
     /**
      * Activates a DC highpass filter for all input channels.
      *
-     * @var Eac3DcFilter::*|null
+     * @var Eac3DcFilter::*|string|null
      */
     private $dcFilter;
 
@@ -77,7 +77,7 @@ final class Eac3Settings
      * modes and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
-     * @var Eac3DynamicRangeCompressionLine::*|null
+     * @var Eac3DynamicRangeCompressionLine::*|string|null
      */
     private $dynamicRangeCompressionLine;
 
@@ -88,21 +88,21 @@ final class Eac3Settings
      * and profiles, see the Dynamic Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
-     * @var Eac3DynamicRangeCompressionRf::*|null
+     * @var Eac3DynamicRangeCompressionRf::*|string|null
      */
     private $dynamicRangeCompressionRf;
 
     /**
      * When encoding 3/2 audio, controls whether the LFE channel is enabled.
      *
-     * @var Eac3LfeControl::*|null
+     * @var Eac3LfeControl::*|string|null
      */
     private $lfeControl;
 
     /**
      * Applies a 120Hz lowpass filter to the LFE channel prior to encoding. Only valid with 3_2_LFE coding mode.
      *
-     * @var Eac3LfeFilter::*|null
+     * @var Eac3LfeFilter::*|string|null
      */
     private $lfeFilter;
 
@@ -154,7 +154,7 @@ final class Eac3Settings
      * When set to FOLLOW_INPUT, encoder metadata will be sourced from the DD, DD+, or DolbyE decoder that supplied this
      * audio data. If audio was not supplied from one of these streams, then the static metadata settings will be used.
      *
-     * @var Eac3MetadataControl::*|null
+     * @var Eac3MetadataControl::*|string|null
      */
     private $metadataControl;
 
@@ -163,14 +163,14 @@ final class Eac3Settings
      * dynamic over the life of the transcode. Inputs that alternate between DD+ and non-DD+ content will have a consistent
      * DD+ output as the system alternates between passthrough and encoding.
      *
-     * @var Eac3PassthroughControl::*|null
+     * @var Eac3PassthroughControl::*|string|null
      */
     private $passthroughControl;
 
     /**
      * Controls the amount of phase-shift applied to the surround channels. Only used for 3/2 coding mode.
      *
-     * @var Eac3PhaseControl::*|null
+     * @var Eac3PhaseControl::*|string|null
      */
     private $phaseControl;
 
@@ -186,7 +186,7 @@ final class Eac3Settings
      * C, Ls, Rs for the setting Coding mode. If you choose a different value for Coding mode, the service ignores Stereo
      * downmix.
      *
-     * @var Eac3StereoDownmix::*|null
+     * @var Eac3StereoDownmix::*|string|null
      */
     private $stereoDownmix;
 
@@ -194,40 +194,40 @@ final class Eac3Settings
      * When encoding 3/2 audio, sets whether an extra center back surround channel is matrix encoded into the left and right
      * surround channels.
      *
-     * @var Eac3SurroundExMode::*|null
+     * @var Eac3SurroundExMode::*|string|null
      */
     private $surroundExMode;
 
     /**
      * When encoding 2/0 audio, sets whether Dolby Surround is matrix encoded into the two channels.
      *
-     * @var Eac3SurroundMode::*|null
+     * @var Eac3SurroundMode::*|string|null
      */
     private $surroundMode;
 
     /**
      * @param array{
-     *   AttenuationControl?: null|Eac3AttenuationControl::*,
+     *   AttenuationControl?: null|Eac3AttenuationControl::*|string,
      *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Eac3BitstreamMode::*,
-     *   CodingMode?: null|Eac3CodingMode::*,
-     *   DcFilter?: null|Eac3DcFilter::*,
+     *   BitstreamMode?: null|Eac3BitstreamMode::*|string,
+     *   CodingMode?: null|Eac3CodingMode::*|string,
+     *   DcFilter?: null|Eac3DcFilter::*|string,
      *   Dialnorm?: null|int,
-     *   DynamicRangeCompressionLine?: null|Eac3DynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionRf?: null|Eac3DynamicRangeCompressionRf::*,
-     *   LfeControl?: null|Eac3LfeControl::*,
-     *   LfeFilter?: null|Eac3LfeFilter::*,
+     *   DynamicRangeCompressionLine?: null|Eac3DynamicRangeCompressionLine::*|string,
+     *   DynamicRangeCompressionRf?: null|Eac3DynamicRangeCompressionRf::*|string,
+     *   LfeControl?: null|Eac3LfeControl::*|string,
+     *   LfeFilter?: null|Eac3LfeFilter::*|string,
      *   LoRoCenterMixLevel?: null|float,
      *   LoRoSurroundMixLevel?: null|float,
      *   LtRtCenterMixLevel?: null|float,
      *   LtRtSurroundMixLevel?: null|float,
-     *   MetadataControl?: null|Eac3MetadataControl::*,
-     *   PassthroughControl?: null|Eac3PassthroughControl::*,
-     *   PhaseControl?: null|Eac3PhaseControl::*,
+     *   MetadataControl?: null|Eac3MetadataControl::*|string,
+     *   PassthroughControl?: null|Eac3PassthroughControl::*|string,
+     *   PhaseControl?: null|Eac3PhaseControl::*|string,
      *   SampleRate?: null|int,
-     *   StereoDownmix?: null|Eac3StereoDownmix::*,
-     *   SurroundExMode?: null|Eac3SurroundExMode::*,
-     *   SurroundMode?: null|Eac3SurroundMode::*,
+     *   StereoDownmix?: null|Eac3StereoDownmix::*|string,
+     *   SurroundExMode?: null|Eac3SurroundExMode::*|string,
+     *   SurroundMode?: null|Eac3SurroundMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -257,27 +257,27 @@ final class Eac3Settings
 
     /**
      * @param array{
-     *   AttenuationControl?: null|Eac3AttenuationControl::*,
+     *   AttenuationControl?: null|Eac3AttenuationControl::*|string,
      *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Eac3BitstreamMode::*,
-     *   CodingMode?: null|Eac3CodingMode::*,
-     *   DcFilter?: null|Eac3DcFilter::*,
+     *   BitstreamMode?: null|Eac3BitstreamMode::*|string,
+     *   CodingMode?: null|Eac3CodingMode::*|string,
+     *   DcFilter?: null|Eac3DcFilter::*|string,
      *   Dialnorm?: null|int,
-     *   DynamicRangeCompressionLine?: null|Eac3DynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionRf?: null|Eac3DynamicRangeCompressionRf::*,
-     *   LfeControl?: null|Eac3LfeControl::*,
-     *   LfeFilter?: null|Eac3LfeFilter::*,
+     *   DynamicRangeCompressionLine?: null|Eac3DynamicRangeCompressionLine::*|string,
+     *   DynamicRangeCompressionRf?: null|Eac3DynamicRangeCompressionRf::*|string,
+     *   LfeControl?: null|Eac3LfeControl::*|string,
+     *   LfeFilter?: null|Eac3LfeFilter::*|string,
      *   LoRoCenterMixLevel?: null|float,
      *   LoRoSurroundMixLevel?: null|float,
      *   LtRtCenterMixLevel?: null|float,
      *   LtRtSurroundMixLevel?: null|float,
-     *   MetadataControl?: null|Eac3MetadataControl::*,
-     *   PassthroughControl?: null|Eac3PassthroughControl::*,
-     *   PhaseControl?: null|Eac3PhaseControl::*,
+     *   MetadataControl?: null|Eac3MetadataControl::*|string,
+     *   PassthroughControl?: null|Eac3PassthroughControl::*|string,
+     *   PhaseControl?: null|Eac3PhaseControl::*|string,
      *   SampleRate?: null|int,
-     *   StereoDownmix?: null|Eac3StereoDownmix::*,
-     *   SurroundExMode?: null|Eac3SurroundExMode::*,
-     *   SurroundMode?: null|Eac3SurroundMode::*,
+     *   StereoDownmix?: null|Eac3StereoDownmix::*|string,
+     *   SurroundExMode?: null|Eac3SurroundExMode::*|string,
+     *   SurroundMode?: null|Eac3SurroundMode::*|string,
      * }|Eac3Settings $input
      */
     public static function create($input): self
@@ -286,7 +286,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3AttenuationControl::*|null
+     * @return Eac3AttenuationControl::*|string|null
      */
     public function getAttenuationControl(): ?string
     {
@@ -299,7 +299,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3BitstreamMode::*|null
+     * @return Eac3BitstreamMode::*|string|null
      */
     public function getBitstreamMode(): ?string
     {
@@ -307,7 +307,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3CodingMode::*|null
+     * @return Eac3CodingMode::*|string|null
      */
     public function getCodingMode(): ?string
     {
@@ -315,7 +315,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3DcFilter::*|null
+     * @return Eac3DcFilter::*|string|null
      */
     public function getDcFilter(): ?string
     {
@@ -328,7 +328,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3DynamicRangeCompressionLine::*|null
+     * @return Eac3DynamicRangeCompressionLine::*|string|null
      */
     public function getDynamicRangeCompressionLine(): ?string
     {
@@ -336,7 +336,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3DynamicRangeCompressionRf::*|null
+     * @return Eac3DynamicRangeCompressionRf::*|string|null
      */
     public function getDynamicRangeCompressionRf(): ?string
     {
@@ -344,7 +344,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3LfeControl::*|null
+     * @return Eac3LfeControl::*|string|null
      */
     public function getLfeControl(): ?string
     {
@@ -352,7 +352,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3LfeFilter::*|null
+     * @return Eac3LfeFilter::*|string|null
      */
     public function getLfeFilter(): ?string
     {
@@ -380,7 +380,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3MetadataControl::*|null
+     * @return Eac3MetadataControl::*|string|null
      */
     public function getMetadataControl(): ?string
     {
@@ -388,7 +388,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3PassthroughControl::*|null
+     * @return Eac3PassthroughControl::*|string|null
      */
     public function getPassthroughControl(): ?string
     {
@@ -396,7 +396,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3PhaseControl::*|null
+     * @return Eac3PhaseControl::*|string|null
      */
     public function getPhaseControl(): ?string
     {
@@ -409,7 +409,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3StereoDownmix::*|null
+     * @return Eac3StereoDownmix::*|string|null
      */
     public function getStereoDownmix(): ?string
     {
@@ -417,7 +417,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3SurroundExMode::*|null
+     * @return Eac3SurroundExMode::*|string|null
      */
     public function getSurroundExMode(): ?string
     {
@@ -425,7 +425,7 @@ final class Eac3Settings
     }
 
     /**
-     * @return Eac3SurroundMode::*|null
+     * @return Eac3SurroundMode::*|string|null
      */
     public function getSurroundMode(): ?string
     {

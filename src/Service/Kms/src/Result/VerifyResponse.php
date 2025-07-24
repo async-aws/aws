@@ -29,7 +29,7 @@ class VerifyResponse extends Result
     /**
      * The signing algorithm that was used to verify the signature.
      *
-     * @var SigningAlgorithmSpec::*|null
+     * @var SigningAlgorithmSpec::*|string|null
      */
     private $signingAlgorithm;
 
@@ -48,7 +48,7 @@ class VerifyResponse extends Result
     }
 
     /**
-     * @return SigningAlgorithmSpec::*|null
+     * @return SigningAlgorithmSpec::*|string|null
      */
     public function getSigningAlgorithm(): ?string
     {

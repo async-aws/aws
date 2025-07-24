@@ -44,7 +44,7 @@ final class CalculateRouteMatrixSummary
     /**
      * The unit of measurement for route distances.
      *
-     * @var DistanceUnit::*
+     * @var DistanceUnit::*|string
      */
     private $distanceUnit;
 
@@ -53,7 +53,7 @@ final class CalculateRouteMatrixSummary
      *   DataSource: string,
      *   RouteCount: int,
      *   ErrorCount: int,
-     *   DistanceUnit: DistanceUnit::*,
+     *   DistanceUnit: DistanceUnit::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -69,7 +69,7 @@ final class CalculateRouteMatrixSummary
      *   DataSource: string,
      *   RouteCount: int,
      *   ErrorCount: int,
-     *   DistanceUnit: DistanceUnit::*,
+     *   DistanceUnit: DistanceUnit::*|string,
      * }|CalculateRouteMatrixSummary $input
      */
     public static function create($input): self
@@ -83,7 +83,7 @@ final class CalculateRouteMatrixSummary
     }
 
     /**
-     * @return DistanceUnit::*
+     * @return DistanceUnit::*|string
      */
     public function getDistanceUnit(): string
     {

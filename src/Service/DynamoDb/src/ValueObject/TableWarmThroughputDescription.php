@@ -28,7 +28,7 @@ final class TableWarmThroughputDescription
     /**
      * Represents warm throughput value of the base table.
      *
-     * @var TableStatus::*|null
+     * @var TableStatus::*|string|null
      */
     private $status;
 
@@ -36,7 +36,7 @@ final class TableWarmThroughputDescription
      * @param array{
      *   ReadUnitsPerSecond?: null|int,
      *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|TableStatus::*,
+     *   Status?: null|TableStatus::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -50,7 +50,7 @@ final class TableWarmThroughputDescription
      * @param array{
      *   ReadUnitsPerSecond?: null|int,
      *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|TableStatus::*,
+     *   Status?: null|TableStatus::*|string,
      * }|TableWarmThroughputDescription $input
      */
     public static function create($input): self
@@ -64,7 +64,7 @@ final class TableWarmThroughputDescription
     }
 
     /**
-     * @return TableStatus::*|null
+     * @return TableStatus::*|string|null
      */
     public function getStatus(): ?string
     {

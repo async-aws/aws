@@ -28,13 +28,13 @@ final class EnhancedMetrics
      *
      * [^1]: https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html
      *
-     * @var list<MetricsName::*>|null
+     * @var list<MetricsName::*|string>|null
      */
     private $shardLevelMetrics;
 
     /**
      * @param array{
-     *   ShardLevelMetrics?: null|array<MetricsName::*>,
+     *   ShardLevelMetrics?: null|array<MetricsName::*|string>,
      * } $input
      */
     public function __construct(array $input)
@@ -44,7 +44,7 @@ final class EnhancedMetrics
 
     /**
      * @param array{
-     *   ShardLevelMetrics?: null|array<MetricsName::*>,
+     *   ShardLevelMetrics?: null|array<MetricsName::*|string>,
      * }|EnhancedMetrics $input
      */
     public static function create($input): self
@@ -53,7 +53,7 @@ final class EnhancedMetrics
     }
 
     /**
-     * @return list<MetricsName::*>
+     * @return list<MetricsName::*|string>
      */
     public function getShardLevelMetrics(): array
     {

@@ -41,7 +41,7 @@ final class MotionImageInserter
      * Choose the type of motion graphic asset that you are providing for your overlay. You can choose either a .mov file or
      * a series of .png files.
      *
-     * @var MotionImageInsertionMode::*|null
+     * @var MotionImageInsertionMode::*|string|null
      */
     private $insertionMode;
 
@@ -58,7 +58,7 @@ final class MotionImageInserter
     /**
      * Specify whether your motion graphic overlay repeats on a loop or plays only once.
      *
-     * @var MotionImagePlayback::*|null
+     * @var MotionImagePlayback::*|string|null
      */
     private $playback;
 
@@ -78,9 +78,9 @@ final class MotionImageInserter
      * @param array{
      *   Framerate?: null|MotionImageInsertionFramerate|array,
      *   Input?: null|string,
-     *   InsertionMode?: null|MotionImageInsertionMode::*,
+     *   InsertionMode?: null|MotionImageInsertionMode::*|string,
      *   Offset?: null|MotionImageInsertionOffset|array,
-     *   Playback?: null|MotionImagePlayback::*,
+     *   Playback?: null|MotionImagePlayback::*|string,
      *   StartTime?: null|string,
      * } $input
      */
@@ -98,9 +98,9 @@ final class MotionImageInserter
      * @param array{
      *   Framerate?: null|MotionImageInsertionFramerate|array,
      *   Input?: null|string,
-     *   InsertionMode?: null|MotionImageInsertionMode::*,
+     *   InsertionMode?: null|MotionImageInsertionMode::*|string,
      *   Offset?: null|MotionImageInsertionOffset|array,
-     *   Playback?: null|MotionImagePlayback::*,
+     *   Playback?: null|MotionImagePlayback::*|string,
      *   StartTime?: null|string,
      * }|MotionImageInserter $input
      */
@@ -120,7 +120,7 @@ final class MotionImageInserter
     }
 
     /**
-     * @return MotionImageInsertionMode::*|null
+     * @return MotionImageInsertionMode::*|string|null
      */
     public function getInsertionMode(): ?string
     {
@@ -133,7 +133,7 @@ final class MotionImageInserter
     }
 
     /**
-     * @return MotionImagePlayback::*|null
+     * @return MotionImagePlayback::*|string|null
      */
     public function getPlayback(): ?string
     {

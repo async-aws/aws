@@ -14,13 +14,13 @@ final class S3DestinationAccessControl
     /**
      * Choose an Amazon S3 canned ACL for MediaConvert to apply to this output.
      *
-     * @var S3ObjectCannedAcl::*|null
+     * @var S3ObjectCannedAcl::*|string|null
      */
     private $cannedAcl;
 
     /**
      * @param array{
-     *   CannedAcl?: null|S3ObjectCannedAcl::*,
+     *   CannedAcl?: null|S3ObjectCannedAcl::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class S3DestinationAccessControl
 
     /**
      * @param array{
-     *   CannedAcl?: null|S3ObjectCannedAcl::*,
+     *   CannedAcl?: null|S3ObjectCannedAcl::*|string,
      * }|S3DestinationAccessControl $input
      */
     public static function create($input): self
@@ -39,7 +39,7 @@ final class S3DestinationAccessControl
     }
 
     /**
-     * @return S3ObjectCannedAcl::*|null
+     * @return S3ObjectCannedAcl::*|string|null
      */
     public function getCannedAcl(): ?string
     {

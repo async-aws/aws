@@ -29,7 +29,7 @@ final class CopyObjectResult
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
-     * @var ChecksumType::*|null
+     * @var ChecksumType::*|string|null
      */
     private $checksumType;
 
@@ -89,7 +89,7 @@ final class CopyObjectResult
      * @param array{
      *   ETag?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumType?: null|ChecksumType::*|string,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
      *   ChecksumCRC64NVME?: null|string,
@@ -113,7 +113,7 @@ final class CopyObjectResult
      * @param array{
      *   ETag?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   ChecksumType?: null|ChecksumType::*|string,
      *   ChecksumCRC32?: null|string,
      *   ChecksumCRC32C?: null|string,
      *   ChecksumCRC64NVME?: null|string,
@@ -152,7 +152,7 @@ final class CopyObjectResult
     }
 
     /**
-     * @return ChecksumType::*|null
+     * @return ChecksumType::*|string|null
      */
     public function getChecksumType(): ?string
     {

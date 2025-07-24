@@ -47,7 +47,7 @@ final class BuildPhase
      *
      *   Build output artifacts are being uploaded to the output location.
      *
-     * @var BuildPhaseType::*|null
+     * @var BuildPhaseType::*|string|null
      */
     private $phaseType;
 
@@ -73,7 +73,7 @@ final class BuildPhase
      *
      *   The build phase timed out.
      *
-     * @var StatusType::*|null
+     * @var StatusType::*|string|null
      */
     private $phaseStatus;
 
@@ -107,8 +107,8 @@ final class BuildPhase
 
     /**
      * @param array{
-     *   phaseType?: null|BuildPhaseType::*,
-     *   phaseStatus?: null|StatusType::*,
+     *   phaseType?: null|BuildPhaseType::*|string,
+     *   phaseStatus?: null|StatusType::*|string,
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   durationInSeconds?: null|int,
@@ -127,8 +127,8 @@ final class BuildPhase
 
     /**
      * @param array{
-     *   phaseType?: null|BuildPhaseType::*,
-     *   phaseStatus?: null|StatusType::*,
+     *   phaseType?: null|BuildPhaseType::*|string,
+     *   phaseStatus?: null|StatusType::*|string,
      *   startTime?: null|\DateTimeImmutable,
      *   endTime?: null|\DateTimeImmutable,
      *   durationInSeconds?: null|int,
@@ -159,7 +159,7 @@ final class BuildPhase
     }
 
     /**
-     * @return StatusType::*|null
+     * @return StatusType::*|string|null
      */
     public function getPhaseStatus(): ?string
     {
@@ -167,7 +167,7 @@ final class BuildPhase
     }
 
     /**
-     * @return BuildPhaseType::*|null
+     * @return BuildPhaseType::*|string|null
      */
     public function getPhaseType(): ?string
     {

@@ -27,7 +27,7 @@ final class NoiseReducerTemporalFilterSettings
      * sharpening to Enabled, specify how much sharpening is applied using Post temporal sharpening strength. Set Post
      * temporal sharpening to Disabled to not apply sharpening.
      *
-     * @var NoiseFilterPostTemporalSharpening::*|null
+     * @var NoiseFilterPostTemporalSharpening::*|string|null
      */
     private $postTemporalSharpening;
 
@@ -35,7 +35,7 @@ final class NoiseReducerTemporalFilterSettings
      * Use Post temporal sharpening strength to define the amount of sharpening the transcoder applies to your output. Set
      * Post temporal sharpening strength to Low, Medium, or High to indicate the amount of sharpening.
      *
-     * @var NoiseFilterPostTemporalSharpeningStrength::*|null
+     * @var NoiseFilterPostTemporalSharpeningStrength::*|string|null
      */
     private $postTemporalSharpeningStrength;
 
@@ -60,8 +60,8 @@ final class NoiseReducerTemporalFilterSettings
     /**
      * @param array{
      *   AggressiveMode?: null|int,
-     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*,
-     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*,
+     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*|string,
+     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*|string,
      *   Speed?: null|int,
      *   Strength?: null|int,
      * } $input
@@ -78,8 +78,8 @@ final class NoiseReducerTemporalFilterSettings
     /**
      * @param array{
      *   AggressiveMode?: null|int,
-     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*,
-     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*,
+     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*|string,
+     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*|string,
      *   Speed?: null|int,
      *   Strength?: null|int,
      * }|NoiseReducerTemporalFilterSettings $input
@@ -95,7 +95,7 @@ final class NoiseReducerTemporalFilterSettings
     }
 
     /**
-     * @return NoiseFilterPostTemporalSharpening::*|null
+     * @return NoiseFilterPostTemporalSharpening::*|string|null
      */
     public function getPostTemporalSharpening(): ?string
     {
@@ -103,7 +103,7 @@ final class NoiseReducerTemporalFilterSettings
     }
 
     /**
-     * @return NoiseFilterPostTemporalSharpeningStrength::*|null
+     * @return NoiseFilterPostTemporalSharpeningStrength::*|string|null
      */
     public function getPostTemporalSharpeningStrength(): ?string
     {

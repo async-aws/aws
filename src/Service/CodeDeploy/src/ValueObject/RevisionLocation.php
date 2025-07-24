@@ -19,7 +19,7 @@ final class RevisionLocation
      * - AppSpecContent: An `AppSpecContent` object that contains the contents of an AppSpec file for an Lambda or Amazon
      *   ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      *
-     * @var RevisionLocationType::*|null
+     * @var RevisionLocationType::*|string|null
      */
     private $revisionType;
 
@@ -54,7 +54,7 @@ final class RevisionLocation
 
     /**
      * @param array{
-     *   revisionType?: null|RevisionLocationType::*,
+     *   revisionType?: null|RevisionLocationType::*|string,
      *   s3Location?: null|S3Location|array,
      *   gitHubLocation?: null|GitHubLocation|array,
      *   string?: null|RawString|array,
@@ -72,7 +72,7 @@ final class RevisionLocation
 
     /**
      * @param array{
-     *   revisionType?: null|RevisionLocationType::*,
+     *   revisionType?: null|RevisionLocationType::*|string,
      *   s3Location?: null|S3Location|array,
      *   gitHubLocation?: null|GitHubLocation|array,
      *   string?: null|RawString|array,
@@ -95,7 +95,7 @@ final class RevisionLocation
     }
 
     /**
-     * @return RevisionLocationType::*|null
+     * @return RevisionLocationType::*|string|null
      */
     public function getRevisionType(): ?string
     {

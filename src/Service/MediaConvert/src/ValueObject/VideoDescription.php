@@ -25,7 +25,7 @@ final class VideoDescription
      * this output. * Choose Fixed to ignore input AFD values and instead encode the value specified in the job. * Choose
      * Auto to calculate output AFD values based on the input AFD scaler data.
      *
-     * @var AfdSignaling::*|null
+     * @var AfdSignaling::*|string|null
      */
     private $afdSignaling;
 
@@ -33,7 +33,7 @@ final class VideoDescription
      * The anti-alias filter is automatically applied to all outputs. The service no longer accepts the value DISABLED for
      * AntiAlias. If you specify that in your job, the service will ignore the setting.
      *
-     * @var AntiAlias::*|null
+     * @var AntiAlias::*|string|null
      */
     private $antiAlias;
 
@@ -42,7 +42,7 @@ final class VideoDescription
      * determine chroma positioning: We recommend that you keep the default value, Auto. To specify center positioning:
      * Choose Force center. To specify top left positioning: Choose Force top left.
      *
-     * @var ChromaPositionMode::*|null
+     * @var ChromaPositionMode::*|string|null
      */
     private $chromaPositionMode;
 
@@ -62,7 +62,7 @@ final class VideoDescription
      * Choose Insert for this setting to include color metadata in this output. Choose Ignore to exclude color metadata from
      * this output. If you don't specify a value, the service sets this to Insert by default.
      *
-     * @var ColorMetadata::*|null
+     * @var ColorMetadata::*|string|null
      */
     private $colorMetadata;
 
@@ -78,7 +78,7 @@ final class VideoDescription
      * If it is not possible to use drop-frame timecode, the system will fall back to non-drop-frame. This setting is
      * enabled by default when Timecode insertion or Timecode track is enabled.
      *
-     * @var DropFrameTimecode::*|null
+     * @var DropFrameTimecode::*|string|null
      */
     private $dropFrameTimecode;
 
@@ -114,7 +114,7 @@ final class VideoDescription
      * set to NONE. A preferred implementation of this workflow is to set RespondToAfd to and set AfdSignaling to AUTO. *
      * Choose None to remove all input AFD values from this output.
      *
-     * @var RespondToAfd::*|null
+     * @var RespondToAfd::*|string|null
      */
     private $respondToAfd;
 
@@ -122,7 +122,7 @@ final class VideoDescription
      * Specify the video Scaling behavior when your output has a different resolution than your input. For more information,
      * see https://docs.aws.amazon.com/mediaconvert/latest/ug/video-scaling.html.
      *
-     * @var ScalingBehavior::*|null
+     * @var ScalingBehavior::*|string|null
      */
     private $scalingBehavior;
 
@@ -145,7 +145,7 @@ final class VideoDescription
      * input settings does not affect the timecodes that are inserted in the output. Source under Job settings > Timecode
      * configuration does.
      *
-     * @var VideoTimecodeInsertion::*|null
+     * @var VideoTimecodeInsertion::*|string|null
      */
     private $timecodeInsertion;
 
@@ -155,7 +155,7 @@ final class VideoDescription
      * non-dropframe timecode under the Drop Frame Timecode setting. To not include a timecode track: Keep the default
      * value, Disabled.
      *
-     * @var TimecodeTrack::*|null
+     * @var TimecodeTrack::*|string|null
      */
     private $timecodeTrack;
 
@@ -178,21 +178,21 @@ final class VideoDescription
 
     /**
      * @param array{
-     *   AfdSignaling?: null|AfdSignaling::*,
-     *   AntiAlias?: null|AntiAlias::*,
-     *   ChromaPositionMode?: null|ChromaPositionMode::*,
+     *   AfdSignaling?: null|AfdSignaling::*|string,
+     *   AntiAlias?: null|AntiAlias::*|string,
+     *   ChromaPositionMode?: null|ChromaPositionMode::*|string,
      *   CodecSettings?: null|VideoCodecSettings|array,
-     *   ColorMetadata?: null|ColorMetadata::*,
+     *   ColorMetadata?: null|ColorMetadata::*|string,
      *   Crop?: null|Rectangle|array,
-     *   DropFrameTimecode?: null|DropFrameTimecode::*,
+     *   DropFrameTimecode?: null|DropFrameTimecode::*|string,
      *   FixedAfd?: null|int,
      *   Height?: null|int,
      *   Position?: null|Rectangle|array,
-     *   RespondToAfd?: null|RespondToAfd::*,
-     *   ScalingBehavior?: null|ScalingBehavior::*,
+     *   RespondToAfd?: null|RespondToAfd::*|string,
+     *   ScalingBehavior?: null|ScalingBehavior::*|string,
      *   Sharpness?: null|int,
-     *   TimecodeInsertion?: null|VideoTimecodeInsertion::*,
-     *   TimecodeTrack?: null|TimecodeTrack::*,
+     *   TimecodeInsertion?: null|VideoTimecodeInsertion::*|string,
+     *   TimecodeTrack?: null|TimecodeTrack::*|string,
      *   VideoPreprocessors?: null|VideoPreprocessor|array,
      *   Width?: null|int,
      * } $input
@@ -220,21 +220,21 @@ final class VideoDescription
 
     /**
      * @param array{
-     *   AfdSignaling?: null|AfdSignaling::*,
-     *   AntiAlias?: null|AntiAlias::*,
-     *   ChromaPositionMode?: null|ChromaPositionMode::*,
+     *   AfdSignaling?: null|AfdSignaling::*|string,
+     *   AntiAlias?: null|AntiAlias::*|string,
+     *   ChromaPositionMode?: null|ChromaPositionMode::*|string,
      *   CodecSettings?: null|VideoCodecSettings|array,
-     *   ColorMetadata?: null|ColorMetadata::*,
+     *   ColorMetadata?: null|ColorMetadata::*|string,
      *   Crop?: null|Rectangle|array,
-     *   DropFrameTimecode?: null|DropFrameTimecode::*,
+     *   DropFrameTimecode?: null|DropFrameTimecode::*|string,
      *   FixedAfd?: null|int,
      *   Height?: null|int,
      *   Position?: null|Rectangle|array,
-     *   RespondToAfd?: null|RespondToAfd::*,
-     *   ScalingBehavior?: null|ScalingBehavior::*,
+     *   RespondToAfd?: null|RespondToAfd::*|string,
+     *   ScalingBehavior?: null|ScalingBehavior::*|string,
      *   Sharpness?: null|int,
-     *   TimecodeInsertion?: null|VideoTimecodeInsertion::*,
-     *   TimecodeTrack?: null|TimecodeTrack::*,
+     *   TimecodeInsertion?: null|VideoTimecodeInsertion::*|string,
+     *   TimecodeTrack?: null|TimecodeTrack::*|string,
      *   VideoPreprocessors?: null|VideoPreprocessor|array,
      *   Width?: null|int,
      * }|VideoDescription $input
@@ -245,7 +245,7 @@ final class VideoDescription
     }
 
     /**
-     * @return AfdSignaling::*|null
+     * @return AfdSignaling::*|string|null
      */
     public function getAfdSignaling(): ?string
     {
@@ -253,7 +253,7 @@ final class VideoDescription
     }
 
     /**
-     * @return AntiAlias::*|null
+     * @return AntiAlias::*|string|null
      */
     public function getAntiAlias(): ?string
     {
@@ -261,7 +261,7 @@ final class VideoDescription
     }
 
     /**
-     * @return ChromaPositionMode::*|null
+     * @return ChromaPositionMode::*|string|null
      */
     public function getChromaPositionMode(): ?string
     {
@@ -274,7 +274,7 @@ final class VideoDescription
     }
 
     /**
-     * @return ColorMetadata::*|null
+     * @return ColorMetadata::*|string|null
      */
     public function getColorMetadata(): ?string
     {
@@ -287,7 +287,7 @@ final class VideoDescription
     }
 
     /**
-     * @return DropFrameTimecode::*|null
+     * @return DropFrameTimecode::*|string|null
      */
     public function getDropFrameTimecode(): ?string
     {
@@ -310,7 +310,7 @@ final class VideoDescription
     }
 
     /**
-     * @return RespondToAfd::*|null
+     * @return RespondToAfd::*|string|null
      */
     public function getRespondToAfd(): ?string
     {
@@ -318,7 +318,7 @@ final class VideoDescription
     }
 
     /**
-     * @return ScalingBehavior::*|null
+     * @return ScalingBehavior::*|string|null
      */
     public function getScalingBehavior(): ?string
     {
@@ -331,7 +331,7 @@ final class VideoDescription
     }
 
     /**
-     * @return VideoTimecodeInsertion::*|null
+     * @return VideoTimecodeInsertion::*|string|null
      */
     public function getTimecodeInsertion(): ?string
     {
@@ -339,7 +339,7 @@ final class VideoDescription
     }
 
     /**
-     * @return TimecodeTrack::*|null
+     * @return TimecodeTrack::*|string|null
      */
     public function getTimecodeTrack(): ?string
     {

@@ -39,7 +39,7 @@ class TypeGenerator
      *
      * @return array{string, ClassName[]} [docblock representation, ClassName related]
      */
-    public function generateDocblock(StructureShape $shape, ClassName $shapeClassName, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): array
+    public function generateDocblock(StructureShape $shape, ClassName $shapeClassName, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = [], bool $strictEnum = true): array
     {
         $classNames = [];
         if ($alternateClass) {
@@ -67,7 +67,11 @@ class TypeGenerator
                     $param = 'array<' . $className->getName() . '|array>';
                 } elseif (!empty($listMemberShape->getEnum())) {
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($listMemberShape);
-                    $param = 'array<' . $className->getName() . '::*>';
+                    if ($strictEnum) {
+                        $param = 'array<' . $className->getName() . '::*>';
+                    } else {
+                        $param = 'array<' . $className->getName() . '::*|string>';
+                    }
                 } else {
                     $param = $this->getNativePhpType($listMemberShape->getType()) . '[]';
                 }
@@ -81,13 +85,20 @@ class TypeGenerator
                 } elseif (!empty($mapValueShape->getEnum())) {
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($mapValueShape);
                     $param = $className->getName() . '::*';
+                    if (!$strictEnum) {
+                        $param .= '|string';
+                    }
                 } else {
                     $param = $this->getNativePhpType($mapValueShape->getType());
                 }
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if (!empty($mapKeyShape->getEnum())) {
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($mapKeyShape);
-                    $param = 'array<' . $className->getName() . '::*, ' . $param . '>';
+                    if ($strictEnum) {
+                        $param = 'array<' . $className->getName() . '::*, ' . $param . '>';
+                    } else {
+                        $param = 'array<' . $className->getName() . '::*|string, ' . $param . '>';
+                    }
                 } else {
                     $param = 'array<string, ' . $param . '>';
                 }
@@ -101,6 +112,9 @@ class TypeGenerator
                 if (!empty($memberShape->getEnum())) {
                     $classNames[] = $className = $this->namespaceRegistry->getEnum($memberShape);
                     $param = $className->getName() . '::*';
+                    if (!$strictEnum) {
+                        $param .= '|string';
+                    }
                 } else {
                     $param = $this->getNativePhpType($memberShape->getType());
                 }
@@ -136,7 +150,7 @@ class TypeGenerator
      *
      * @return array{string, string, ClassName[]} [typeHint value, docblock representation, ClassName related]
      */
-    public function getPhpType(Shape $shape): array
+    public function getPhpType(Shape $shape, bool $strictEnum = true): array
     {
         $memberClassNames = [];
         if ($shape instanceof StructureShape) {
@@ -147,8 +161,8 @@ class TypeGenerator
 
         if ($shape instanceof ListShape) {
             $listMemberShape = $shape->getMember()->getShape();
-            [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape);
-            if ('::*' === substr($doc, -3)) {
+            [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape, $strictEnum);
+            if (!empty($listMemberShape->getEnum())) {
                 $doc = "list<$doc>";
             } else {
                 $doc .= '[]';
@@ -160,10 +174,14 @@ class TypeGenerator
         if ($shape instanceof MapShape) {
             $mapKeyShape = $shape->getKey()->getShape();
             $mapValueShape = $shape->getValue()->getShape();
-            [$type, $doc, $memberClassNames] = $this->getPhpType($mapValueShape);
+            [$type, $doc, $memberClassNames] = $this->getPhpType($mapValueShape, $strictEnum);
             if (!empty($mapKeyShape->getEnum())) {
                 $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
-                $doc = "array<{$memberClassName->getName()}::*, $doc>";
+                if ($strictEnum) {
+                    $doc = "array<{$memberClassName->getName()}::*, $doc>";
+                } else {
+                    $doc = "array<{$memberClassName->getName()}::*|string, $doc>";
+                }
             } else {
                 $doc = "array<string, $doc>";
             }
@@ -180,6 +198,9 @@ class TypeGenerator
             $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($shape);
 
             $doc = $memberClassName->getName() . '::*';
+            if (!$strictEnum) {
+                $doc .= '|string';
+            }
         }
 
         return [$type, $doc, $memberClassNames];

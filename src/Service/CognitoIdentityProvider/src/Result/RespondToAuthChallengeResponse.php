@@ -66,7 +66,7 @@ class RespondToAuthChallengeResponse extends Result
      * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device
      * [^2]: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device
      *
-     * @var ChallengeNameType::*|null
+     * @var ChallengeNameType::*|string|null
      */
     private $challengeName;
 
@@ -103,7 +103,7 @@ class RespondToAuthChallengeResponse extends Result
     }
 
     /**
-     * @return ChallengeNameType::*|null
+     * @return ChallengeNameType::*|string|null
      */
     public function getChallengeName(): ?string
     {

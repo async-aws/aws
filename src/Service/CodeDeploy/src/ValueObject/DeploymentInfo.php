@@ -58,7 +58,7 @@ final class DeploymentInfo
     /**
      * The current state of the deployment as a whole.
      *
-     * @var DeploymentStatus::*|null
+     * @var DeploymentStatus::*|string|null
      */
     private $status;
 
@@ -116,7 +116,7 @@ final class DeploymentInfo
      * - `CodeDeployAutoUpdate`: An auto-update process created the deployment when it detected outdated Amazon EC2
      *   instances.
      *
-     * @var DeploymentCreator::*|null
+     * @var DeploymentCreator::*|string|null
      */
     private $creator;
 
@@ -219,7 +219,7 @@ final class DeploymentInfo
      *   already on the instance.
      * - `RETAIN`: The version of the file already on the instance is kept and used as part of the new deployment.
      *
-     * @var FileExistsBehavior::*|null
+     * @var FileExistsBehavior::*|string|null
      */
     private $fileExistsBehavior;
 
@@ -233,7 +233,7 @@ final class DeploymentInfo
     /**
      * The destination platform type for the deployment (`Lambda`, `Server`, or `ECS`).
      *
-     * @var ComputePlatform::*|null
+     * @var ComputePlatform::*|string|null
      */
     private $computePlatform;
 
@@ -262,14 +262,14 @@ final class DeploymentInfo
      *   deploymentId?: null|string,
      *   previousRevision?: null|RevisionLocation|array,
      *   revision?: null|RevisionLocation|array,
-     *   status?: null|DeploymentStatus::*,
+     *   status?: null|DeploymentStatus::*|string,
      *   errorInformation?: null|ErrorInformation|array,
      *   createTime?: null|\DateTimeImmutable,
      *   startTime?: null|\DateTimeImmutable,
      *   completeTime?: null|\DateTimeImmutable,
      *   deploymentOverview?: null|DeploymentOverview|array,
      *   description?: null|string,
-     *   creator?: null|DeploymentCreator::*,
+     *   creator?: null|DeploymentCreator::*|string,
      *   ignoreApplicationStopFailures?: null|bool,
      *   autoRollbackConfiguration?: null|AutoRollbackConfiguration|array,
      *   updateOutdatedInstancesOnly?: null|bool,
@@ -280,9 +280,9 @@ final class DeploymentInfo
      *   blueGreenDeploymentConfiguration?: null|BlueGreenDeploymentConfiguration|array,
      *   loadBalancerInfo?: null|LoadBalancerInfo|array,
      *   additionalDeploymentStatusInfo?: null|string,
-     *   fileExistsBehavior?: null|FileExistsBehavior::*,
+     *   fileExistsBehavior?: null|FileExistsBehavior::*|string,
      *   deploymentStatusMessages?: null|string[],
-     *   computePlatform?: null|ComputePlatform::*,
+     *   computePlatform?: null|ComputePlatform::*|string,
      *   externalId?: null|string,
      *   relatedDeployments?: null|RelatedDeployments|array,
      *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
@@ -330,14 +330,14 @@ final class DeploymentInfo
      *   deploymentId?: null|string,
      *   previousRevision?: null|RevisionLocation|array,
      *   revision?: null|RevisionLocation|array,
-     *   status?: null|DeploymentStatus::*,
+     *   status?: null|DeploymentStatus::*|string,
      *   errorInformation?: null|ErrorInformation|array,
      *   createTime?: null|\DateTimeImmutable,
      *   startTime?: null|\DateTimeImmutable,
      *   completeTime?: null|\DateTimeImmutable,
      *   deploymentOverview?: null|DeploymentOverview|array,
      *   description?: null|string,
-     *   creator?: null|DeploymentCreator::*,
+     *   creator?: null|DeploymentCreator::*|string,
      *   ignoreApplicationStopFailures?: null|bool,
      *   autoRollbackConfiguration?: null|AutoRollbackConfiguration|array,
      *   updateOutdatedInstancesOnly?: null|bool,
@@ -348,9 +348,9 @@ final class DeploymentInfo
      *   blueGreenDeploymentConfiguration?: null|BlueGreenDeploymentConfiguration|array,
      *   loadBalancerInfo?: null|LoadBalancerInfo|array,
      *   additionalDeploymentStatusInfo?: null|string,
-     *   fileExistsBehavior?: null|FileExistsBehavior::*,
+     *   fileExistsBehavior?: null|FileExistsBehavior::*|string,
      *   deploymentStatusMessages?: null|string[],
-     *   computePlatform?: null|ComputePlatform::*,
+     *   computePlatform?: null|ComputePlatform::*|string,
      *   externalId?: null|string,
      *   relatedDeployments?: null|RelatedDeployments|array,
      *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
@@ -387,7 +387,7 @@ final class DeploymentInfo
     }
 
     /**
-     * @return ComputePlatform::*|null
+     * @return ComputePlatform::*|string|null
      */
     public function getComputePlatform(): ?string
     {
@@ -400,7 +400,7 @@ final class DeploymentInfo
     }
 
     /**
-     * @return DeploymentCreator::*|null
+     * @return DeploymentCreator::*|string|null
      */
     public function getCreator(): ?string
     {
@@ -456,7 +456,7 @@ final class DeploymentInfo
     }
 
     /**
-     * @return FileExistsBehavior::*|null
+     * @return FileExistsBehavior::*|string|null
      */
     public function getFileExistsBehavior(): ?string
     {
@@ -509,7 +509,7 @@ final class DeploymentInfo
     }
 
     /**
-     * @return DeploymentStatus::*|null
+     * @return DeploymentStatus::*|string|null
      */
     public function getStatus(): ?string
     {

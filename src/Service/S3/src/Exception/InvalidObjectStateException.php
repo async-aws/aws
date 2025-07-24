@@ -22,17 +22,17 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class InvalidObjectStateException extends ClientException
 {
     /**
-     * @var StorageClass::*|null
+     * @var StorageClass::*|string|null
      */
     private $storageClass;
 
     /**
-     * @var IntelligentTieringAccessTier::*|null
+     * @var IntelligentTieringAccessTier::*|string|null
      */
     private $accessTier;
 
     /**
-     * @return IntelligentTieringAccessTier::*|null
+     * @return IntelligentTieringAccessTier::*|string|null
      */
     public function getAccessTier(): ?string
     {
@@ -40,7 +40,7 @@ final class InvalidObjectStateException extends ClientException
     }
 
     /**
-     * @return StorageClass::*|null
+     * @return StorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

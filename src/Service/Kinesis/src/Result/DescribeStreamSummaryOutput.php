@@ -53,7 +53,7 @@ class DescribeStreamSummaryOutput extends Result
     }
 
     /**
-     * @return list<MetricsName::*>
+     * @return list<MetricsName::*|string>
      */
     private function populateResultMetricsNameList(array $json): array
     {

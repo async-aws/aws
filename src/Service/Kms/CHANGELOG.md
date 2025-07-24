@@ -8,6 +8,10 @@
 - AWS api-change: Rework regions configuration
 - AWS api-change: AWS KMS announces the support of ML-DSA key pairs that creates post-quantum safe digital signatures.
 
+### Changed
+
+- DocBloc on enum values reflects that AWS might returns unknown values
+
 ## 1.9.0
 
 ### Added

@@ -53,7 +53,7 @@ final class EcsParameters
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html
      *
-     * @var LaunchType::*|null
+     * @var LaunchType::*|string|null
      */
     private $launchType;
 
@@ -94,7 +94,7 @@ final class EcsParameters
      *
      * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html
      *
-     * @var PropagateTags::*|null
+     * @var PropagateTags::*|string|null
      */
     private $propagateTags;
 
@@ -135,12 +135,12 @@ final class EcsParameters
      *   EnableECSManagedTags?: null|bool,
      *   EnableExecuteCommand?: null|bool,
      *   Group?: null|string,
-     *   LaunchType?: null|LaunchType::*,
+     *   LaunchType?: null|LaunchType::*|string,
      *   NetworkConfiguration?: null|NetworkConfiguration|array,
      *   PlacementConstraints?: null|array<PlacementConstraint|array>,
      *   PlacementStrategy?: null|array<PlacementStrategy|array>,
      *   PlatformVersion?: null|string,
-     *   PropagateTags?: null|PropagateTags::*,
+     *   PropagateTags?: null|PropagateTags::*|string,
      *   ReferenceId?: null|string,
      *   Tags?: null|array[],
      *   TaskCount?: null|int,
@@ -171,12 +171,12 @@ final class EcsParameters
      *   EnableECSManagedTags?: null|bool,
      *   EnableExecuteCommand?: null|bool,
      *   Group?: null|string,
-     *   LaunchType?: null|LaunchType::*,
+     *   LaunchType?: null|LaunchType::*|string,
      *   NetworkConfiguration?: null|NetworkConfiguration|array,
      *   PlacementConstraints?: null|array<PlacementConstraint|array>,
      *   PlacementStrategy?: null|array<PlacementStrategy|array>,
      *   PlatformVersion?: null|string,
-     *   PropagateTags?: null|PropagateTags::*,
+     *   PropagateTags?: null|PropagateTags::*|string,
      *   ReferenceId?: null|string,
      *   Tags?: null|array[],
      *   TaskCount?: null|int,
@@ -212,7 +212,7 @@ final class EcsParameters
     }
 
     /**
-     * @return LaunchType::*|null
+     * @return LaunchType::*|string|null
      */
     public function getLaunchType(): ?string
     {
@@ -246,7 +246,7 @@ final class EcsParameters
     }
 
     /**
-     * @return PropagateTags::*|null
+     * @return PropagateTags::*|string|null
      */
     public function getPropagateTags(): ?string
     {

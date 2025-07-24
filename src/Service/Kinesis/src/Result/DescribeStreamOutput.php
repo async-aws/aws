@@ -111,7 +111,7 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<MetricsName::*>
+     * @return list<MetricsName::*|string>
      */
     private function populateResultMetricsNameList(array $json): array
     {

@@ -21,14 +21,14 @@ class EnhancedMonitoringOutput extends Result
     /**
      * Represents the current state of the metrics that are in the enhanced state before the operation.
      *
-     * @var list<MetricsName::*>
+     * @var list<MetricsName::*|string>
      */
     private $currentShardLevelMetrics;
 
     /**
      * Represents the list of all the metrics that would be in the enhanced state after the operation.
      *
-     * @var list<MetricsName::*>
+     * @var list<MetricsName::*|string>
      */
     private $desiredShardLevelMetrics;
 
@@ -40,7 +40,7 @@ class EnhancedMonitoringOutput extends Result
     private $streamArn;
 
     /**
-     * @return list<MetricsName::*>
+     * @return list<MetricsName::*|string>
      */
     public function getCurrentShardLevelMetrics(): array
     {
@@ -50,7 +50,7 @@ class EnhancedMonitoringOutput extends Result
     }
 
     /**
-     * @return list<MetricsName::*>
+     * @return list<MetricsName::*|string>
      */
     public function getDesiredShardLevelMetrics(): array
     {
@@ -84,7 +84,7 @@ class EnhancedMonitoringOutput extends Result
     }
 
     /**
-     * @return list<MetricsName::*>
+     * @return list<MetricsName::*|string>
      */
     private function populateResultMetricsNameList(array $json): array
     {

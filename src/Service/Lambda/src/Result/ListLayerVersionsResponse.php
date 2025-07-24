@@ -100,7 +100,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     private function populateResultCompatibleArchitectures(array $json): array
     {
@@ -116,7 +116,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<Runtime::*>
+     * @return list<Runtime::*|string>
      */
     private function populateResultCompatibleRuntimes(array $json): array
     {

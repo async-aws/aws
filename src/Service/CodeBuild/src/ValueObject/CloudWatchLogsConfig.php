@@ -16,7 +16,7 @@ final class CloudWatchLogsConfig
      * - `ENABLED`: CloudWatch Logs are enabled for this build project.
      * - `DISABLED`: CloudWatch Logs are not enabled for this build project.
      *
-     * @var LogsConfigStatusType::*
+     * @var LogsConfigStatusType::*|string
      */
     private $status;
 
@@ -42,7 +42,7 @@ final class CloudWatchLogsConfig
 
     /**
      * @param array{
-     *   status: LogsConfigStatusType::*,
+     *   status: LogsConfigStatusType::*|string,
      *   groupName?: null|string,
      *   streamName?: null|string,
      * } $input
@@ -56,7 +56,7 @@ final class CloudWatchLogsConfig
 
     /**
      * @param array{
-     *   status: LogsConfigStatusType::*,
+     *   status: LogsConfigStatusType::*|string,
      *   groupName?: null|string,
      *   streamName?: null|string,
      * }|CloudWatchLogsConfig $input
@@ -72,7 +72,7 @@ final class CloudWatchLogsConfig
     }
 
     /**
-     * @return LogsConfigStatusType::*
+     * @return LogsConfigStatusType::*|string
      */
     public function getStatus(): string
     {

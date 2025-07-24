@@ -64,7 +64,7 @@ class PublishLayerVersionResponse extends Result
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported
      *
-     * @var list<Runtime::*>
+     * @var list<Runtime::*|string>
      */
     private $compatibleRuntimes;
 
@@ -80,12 +80,12 @@ class PublishLayerVersionResponse extends Result
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      *
-     * @var list<Architecture::*>
+     * @var list<Architecture::*|string>
      */
     private $compatibleArchitectures;
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     public function getCompatibleArchitectures(): array
     {
@@ -95,7 +95,7 @@ class PublishLayerVersionResponse extends Result
     }
 
     /**
-     * @return list<Runtime::*>
+     * @return list<Runtime::*|string>
      */
     public function getCompatibleRuntimes(): array
     {
@@ -169,7 +169,7 @@ class PublishLayerVersionResponse extends Result
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     private function populateResultCompatibleArchitectures(array $json): array
     {
@@ -185,7 +185,7 @@ class PublishLayerVersionResponse extends Result
     }
 
     /**
-     * @return list<Runtime::*>
+     * @return list<Runtime::*|string>
      */
     private function populateResultCompatibleRuntimes(array $json): array
     {

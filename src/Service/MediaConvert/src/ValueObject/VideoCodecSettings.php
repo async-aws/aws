@@ -38,7 +38,7 @@ final class VideoCodecSettings
      * passthrough codec support and job settings requirements, see:
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/video-passthrough-feature-restrictions.html.
      *
-     * @var VideoCodec::*|null
+     * @var VideoCodec::*|string|null
      */
     private $codec;
 
@@ -123,7 +123,7 @@ final class VideoCodecSettings
      * @param array{
      *   Av1Settings?: null|Av1Settings|array,
      *   AvcIntraSettings?: null|AvcIntraSettings|array,
-     *   Codec?: null|VideoCodec::*,
+     *   Codec?: null|VideoCodec::*|string,
      *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
      *   GifSettings?: null|GifSettings|array,
      *   H264Settings?: null|H264Settings|array,
@@ -159,7 +159,7 @@ final class VideoCodecSettings
      * @param array{
      *   Av1Settings?: null|Av1Settings|array,
      *   AvcIntraSettings?: null|AvcIntraSettings|array,
-     *   Codec?: null|VideoCodec::*,
+     *   Codec?: null|VideoCodec::*|string,
      *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
      *   GifSettings?: null|GifSettings|array,
      *   H264Settings?: null|H264Settings|array,
@@ -189,7 +189,7 @@ final class VideoCodecSettings
     }
 
     /**
-     * @return VideoCodec::*|null
+     * @return VideoCodec::*|string|null
      */
     public function getCodec(): ?string
     {

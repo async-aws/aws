@@ -23,7 +23,7 @@ final class VideoSelector
      * at the default value DISCARD to delete the alpha channel and preserve the video. Set it to REMAP_TO_LUMA to delete
      * the video and map the alpha channel to the luma channel of your outputs.
      *
-     * @var AlphaBehavior::*|null
+     * @var AlphaBehavior::*|string|null
      */
     private $alphaBehavior;
 
@@ -42,7 +42,7 @@ final class VideoSelector
      * * P3D65 (SDR): Display P3, sRGB, BT.709
      * * P3D65 (HDR): Display P3, PQ, BT.709.
      *
-     * @var ColorSpace::*|null
+     * @var ColorSpace::*|string|null
      */
     private $colorSpace;
 
@@ -54,7 +54,7 @@ final class VideoSelector
      * If there's no color metadata in your input file, the service defaults to using values you specify in the input
      * settings.
      *
-     * @var ColorSpaceUsage::*|null
+     * @var ColorSpaceUsage::*|string|null
      */
     private $colorSpaceUsage;
 
@@ -63,7 +63,7 @@ final class VideoSelector
      * Video Pack Metadata. When you do, we recommend you also set Timecode source to Embedded. Leave Embedded timecode
      * override blank, or set to None, when your input does not contain MDPM timecode.
      *
-     * @var EmbeddedTimecodeOverride::*|null
+     * @var EmbeddedTimecodeOverride::*|string|null
      */
     private $embeddedTimecodeOverride;
 
@@ -96,7 +96,7 @@ final class VideoSelector
      * match. Black video frames are added at the beginning or end, depending on your input. To keep the default behavior
      * and not generate black video, set Pad video to Disabled or leave blank.
      *
-     * @var PadVideo::*|null
+     * @var PadVideo::*|string|null
      */
     private $padVideo;
 
@@ -125,7 +125,7 @@ final class VideoSelector
      * rotation metadata specifies any other rotation, the service will default to no rotation. By default, the service does
      * no rotation, even if your input video has rotation metadata. The service doesn't pass through rotation metadata.
      *
-     * @var InputRotate::*|null
+     * @var InputRotate::*|string|null
      */
     private $rotate;
 
@@ -137,23 +137,23 @@ final class VideoSelector
      * input sample range or the sample range that you specify, MediaConvert uses the sample range for transcoding and also
      * writes it to the output metadata.
      *
-     * @var InputSampleRange::*|null
+     * @var InputSampleRange::*|string|null
      */
     private $sampleRange;
 
     /**
      * @param array{
-     *   AlphaBehavior?: null|AlphaBehavior::*,
-     *   ColorSpace?: null|ColorSpace::*,
-     *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
-     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
+     *   AlphaBehavior?: null|AlphaBehavior::*|string,
+     *   ColorSpace?: null|ColorSpace::*|string,
+     *   ColorSpaceUsage?: null|ColorSpaceUsage::*|string,
+     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*|string,
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
      *   MaxLuminance?: null|int,
-     *   PadVideo?: null|PadVideo::*,
+     *   PadVideo?: null|PadVideo::*|string,
      *   Pid?: null|int,
      *   ProgramNumber?: null|int,
-     *   Rotate?: null|InputRotate::*,
-     *   SampleRange?: null|InputSampleRange::*,
+     *   Rotate?: null|InputRotate::*|string,
+     *   SampleRange?: null|InputSampleRange::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -173,17 +173,17 @@ final class VideoSelector
 
     /**
      * @param array{
-     *   AlphaBehavior?: null|AlphaBehavior::*,
-     *   ColorSpace?: null|ColorSpace::*,
-     *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
-     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
+     *   AlphaBehavior?: null|AlphaBehavior::*|string,
+     *   ColorSpace?: null|ColorSpace::*|string,
+     *   ColorSpaceUsage?: null|ColorSpaceUsage::*|string,
+     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*|string,
      *   Hdr10Metadata?: null|Hdr10Metadata|array,
      *   MaxLuminance?: null|int,
-     *   PadVideo?: null|PadVideo::*,
+     *   PadVideo?: null|PadVideo::*|string,
      *   Pid?: null|int,
      *   ProgramNumber?: null|int,
-     *   Rotate?: null|InputRotate::*,
-     *   SampleRange?: null|InputSampleRange::*,
+     *   Rotate?: null|InputRotate::*|string,
+     *   SampleRange?: null|InputSampleRange::*|string,
      * }|VideoSelector $input
      */
     public static function create($input): self
@@ -192,7 +192,7 @@ final class VideoSelector
     }
 
     /**
-     * @return AlphaBehavior::*|null
+     * @return AlphaBehavior::*|string|null
      */
     public function getAlphaBehavior(): ?string
     {
@@ -200,7 +200,7 @@ final class VideoSelector
     }
 
     /**
-     * @return ColorSpace::*|null
+     * @return ColorSpace::*|string|null
      */
     public function getColorSpace(): ?string
     {
@@ -208,7 +208,7 @@ final class VideoSelector
     }
 
     /**
-     * @return ColorSpaceUsage::*|null
+     * @return ColorSpaceUsage::*|string|null
      */
     public function getColorSpaceUsage(): ?string
     {
@@ -216,7 +216,7 @@ final class VideoSelector
     }
 
     /**
-     * @return EmbeddedTimecodeOverride::*|null
+     * @return EmbeddedTimecodeOverride::*|string|null
      */
     public function getEmbeddedTimecodeOverride(): ?string
     {
@@ -234,7 +234,7 @@ final class VideoSelector
     }
 
     /**
-     * @return PadVideo::*|null
+     * @return PadVideo::*|string|null
      */
     public function getPadVideo(): ?string
     {
@@ -252,7 +252,7 @@ final class VideoSelector
     }
 
     /**
-     * @return InputRotate::*|null
+     * @return InputRotate::*|string|null
      */
     public function getRotate(): ?string
     {
@@ -260,7 +260,7 @@ final class VideoSelector
     }
 
     /**
-     * @return InputSampleRange::*|null
+     * @return InputSampleRange::*|string|null
      */
     public function getSampleRange(): ?string
     {

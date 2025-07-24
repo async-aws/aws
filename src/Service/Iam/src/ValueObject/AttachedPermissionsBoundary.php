@@ -21,7 +21,7 @@ final class AttachedPermissionsBoundary
      * The permissions boundary usage type that indicates what type of IAM resource is used as the permissions boundary for
      * an entity. This data type can only have a value of `Policy`.
      *
-     * @var PermissionsBoundaryAttachmentType::*|null
+     * @var PermissionsBoundaryAttachmentType::*|string|null
      */
     private $permissionsBoundaryType;
 
@@ -34,7 +34,7 @@ final class AttachedPermissionsBoundary
 
     /**
      * @param array{
-     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*,
+     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*|string,
      *   PermissionsBoundaryArn?: null|string,
      * } $input
      */
@@ -46,7 +46,7 @@ final class AttachedPermissionsBoundary
 
     /**
      * @param array{
-     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*,
+     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*|string,
      *   PermissionsBoundaryArn?: null|string,
      * }|AttachedPermissionsBoundary $input
      */
@@ -61,7 +61,7 @@ final class AttachedPermissionsBoundary
     }
 
     /**
-     * @return PermissionsBoundaryAttachmentType::*|null
+     * @return PermissionsBoundaryAttachmentType::*|string|null
      */
     public function getPermissionsBoundaryType(): ?string
     {

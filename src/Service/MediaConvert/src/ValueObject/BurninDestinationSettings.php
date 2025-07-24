@@ -28,7 +28,7 @@ final class BurninDestinationSettings
      * bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will
      * be justified (either left or centered) relative to those coordinates.
      *
-     * @var BurninSubtitleAlignment::*|null
+     * @var BurninSubtitleAlignment::*|string|null
      */
     private $alignment;
 
@@ -39,7 +39,7 @@ final class BurninDestinationSettings
      * Yellow, and your input captions have red and white text, your output captions will have red and yellow text. When you
      * choose ALL_TEXT, your font color setting applies to all of your output captions text.
      *
-     * @var BurninSubtitleApplyFontColor::*|null
+     * @var BurninSubtitleApplyFontColor::*|string|null
      */
     private $applyFontColor;
 
@@ -47,7 +47,7 @@ final class BurninDestinationSettings
      * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
      * enabled to use the background color data from your input captions, if present.
      *
-     * @var BurninSubtitleBackgroundColor::*|null
+     * @var BurninSubtitleBackgroundColor::*|string|null
      */
     private $backgroundColor;
 
@@ -69,7 +69,7 @@ final class BurninDestinationSettings
      * When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts from your
      * input.
      *
-     * @var BurninSubtitleFallbackFont::*|null
+     * @var BurninSubtitleFallbackFont::*|string|null
      */
     private $fallbackFont;
 
@@ -77,7 +77,7 @@ final class BurninDestinationSettings
      * Specify the color of the burned-in captions text. Leave Font color blank and set Style passthrough to enabled to use
      * the font color data from your input captions, if present.
      *
-     * @var BurninSubtitleFontColor::*|null
+     * @var BurninSubtitleFontColor::*|string|null
      */
     private $fontColor;
 
@@ -133,7 +133,7 @@ final class BurninDestinationSettings
      * captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font script uses
      * Simplified or Traditional Chinese.
      *
-     * @var FontScript::*|null
+     * @var FontScript::*|string|null
      */
     private $fontScript;
 
@@ -157,7 +157,7 @@ final class BurninDestinationSettings
      * Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font outline
      * color data from your input captions, if present.
      *
-     * @var BurninSubtitleOutlineColor::*|null
+     * @var BurninSubtitleOutlineColor::*|string|null
      */
     private $outlineColor;
 
@@ -175,7 +175,7 @@ final class BurninDestinationSettings
      * reserve attributes when present: Choose Enabled. To not remove any ruby reserve attributes: Keep the default value,
      * Disabled.
      *
-     * @var RemoveRubyReserveAttributes::*|null
+     * @var RemoveRubyReserveAttributes::*|string|null
      */
     private $removeRubyReserveAttributes;
 
@@ -183,7 +183,7 @@ final class BurninDestinationSettings
      * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to enabled
      * to use the shadow color data from your input captions, if present.
      *
-     * @var BurninSubtitleShadowColor::*|null
+     * @var BurninSubtitleShadowColor::*|string|null
      */
     private $shadowColor;
 
@@ -223,7 +223,7 @@ final class BurninDestinationSettings
      * manually override any of the individual style and position settings. You can also override any fonts by manually
      * specifying custom font files.
      *
-     * @var BurnInSubtitleStylePassthrough::*|null
+     * @var BurnInSubtitleStylePassthrough::*|string|null
      */
     private $stylePassthrough;
 
@@ -232,7 +232,7 @@ final class BurninDestinationSettings
      * Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose proportional to
      * make the text easier to read for closed captions.
      *
-     * @var BurninSubtitleTeletextSpacing::*|null
+     * @var BurninSubtitleTeletextSpacing::*|string|null
      */
     private $teletextSpacing;
 
@@ -256,30 +256,30 @@ final class BurninDestinationSettings
 
     /**
      * @param array{
-     *   Alignment?: null|BurninSubtitleAlignment::*,
-     *   ApplyFontColor?: null|BurninSubtitleApplyFontColor::*,
-     *   BackgroundColor?: null|BurninSubtitleBackgroundColor::*,
+     *   Alignment?: null|BurninSubtitleAlignment::*|string,
+     *   ApplyFontColor?: null|BurninSubtitleApplyFontColor::*|string,
+     *   BackgroundColor?: null|BurninSubtitleBackgroundColor::*|string,
      *   BackgroundOpacity?: null|int,
-     *   FallbackFont?: null|BurninSubtitleFallbackFont::*,
-     *   FontColor?: null|BurninSubtitleFontColor::*,
+     *   FallbackFont?: null|BurninSubtitleFallbackFont::*|string,
+     *   FontColor?: null|BurninSubtitleFontColor::*|string,
      *   FontFileBold?: null|string,
      *   FontFileBoldItalic?: null|string,
      *   FontFileItalic?: null|string,
      *   FontFileRegular?: null|string,
      *   FontOpacity?: null|int,
      *   FontResolution?: null|int,
-     *   FontScript?: null|FontScript::*,
+     *   FontScript?: null|FontScript::*|string,
      *   FontSize?: null|int,
      *   HexFontColor?: null|string,
-     *   OutlineColor?: null|BurninSubtitleOutlineColor::*,
+     *   OutlineColor?: null|BurninSubtitleOutlineColor::*|string,
      *   OutlineSize?: null|int,
-     *   RemoveRubyReserveAttributes?: null|RemoveRubyReserveAttributes::*,
-     *   ShadowColor?: null|BurninSubtitleShadowColor::*,
+     *   RemoveRubyReserveAttributes?: null|RemoveRubyReserveAttributes::*|string,
+     *   ShadowColor?: null|BurninSubtitleShadowColor::*|string,
      *   ShadowOpacity?: null|int,
      *   ShadowXOffset?: null|int,
      *   ShadowYOffset?: null|int,
-     *   StylePassthrough?: null|BurnInSubtitleStylePassthrough::*,
-     *   TeletextSpacing?: null|BurninSubtitleTeletextSpacing::*,
+     *   StylePassthrough?: null|BurnInSubtitleStylePassthrough::*|string,
+     *   TeletextSpacing?: null|BurninSubtitleTeletextSpacing::*|string,
      *   XPosition?: null|int,
      *   YPosition?: null|int,
      * } $input
@@ -316,30 +316,30 @@ final class BurninDestinationSettings
 
     /**
      * @param array{
-     *   Alignment?: null|BurninSubtitleAlignment::*,
-     *   ApplyFontColor?: null|BurninSubtitleApplyFontColor::*,
-     *   BackgroundColor?: null|BurninSubtitleBackgroundColor::*,
+     *   Alignment?: null|BurninSubtitleAlignment::*|string,
+     *   ApplyFontColor?: null|BurninSubtitleApplyFontColor::*|string,
+     *   BackgroundColor?: null|BurninSubtitleBackgroundColor::*|string,
      *   BackgroundOpacity?: null|int,
-     *   FallbackFont?: null|BurninSubtitleFallbackFont::*,
-     *   FontColor?: null|BurninSubtitleFontColor::*,
+     *   FallbackFont?: null|BurninSubtitleFallbackFont::*|string,
+     *   FontColor?: null|BurninSubtitleFontColor::*|string,
      *   FontFileBold?: null|string,
      *   FontFileBoldItalic?: null|string,
      *   FontFileItalic?: null|string,
      *   FontFileRegular?: null|string,
      *   FontOpacity?: null|int,
      *   FontResolution?: null|int,
-     *   FontScript?: null|FontScript::*,
+     *   FontScript?: null|FontScript::*|string,
      *   FontSize?: null|int,
      *   HexFontColor?: null|string,
-     *   OutlineColor?: null|BurninSubtitleOutlineColor::*,
+     *   OutlineColor?: null|BurninSubtitleOutlineColor::*|string,
      *   OutlineSize?: null|int,
-     *   RemoveRubyReserveAttributes?: null|RemoveRubyReserveAttributes::*,
-     *   ShadowColor?: null|BurninSubtitleShadowColor::*,
+     *   RemoveRubyReserveAttributes?: null|RemoveRubyReserveAttributes::*|string,
+     *   ShadowColor?: null|BurninSubtitleShadowColor::*|string,
      *   ShadowOpacity?: null|int,
      *   ShadowXOffset?: null|int,
      *   ShadowYOffset?: null|int,
-     *   StylePassthrough?: null|BurnInSubtitleStylePassthrough::*,
-     *   TeletextSpacing?: null|BurninSubtitleTeletextSpacing::*,
+     *   StylePassthrough?: null|BurnInSubtitleStylePassthrough::*|string,
+     *   TeletextSpacing?: null|BurninSubtitleTeletextSpacing::*|string,
      *   XPosition?: null|int,
      *   YPosition?: null|int,
      * }|BurninDestinationSettings $input
@@ -350,7 +350,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleAlignment::*|null
+     * @return BurninSubtitleAlignment::*|string|null
      */
     public function getAlignment(): ?string
     {
@@ -358,7 +358,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleApplyFontColor::*|null
+     * @return BurninSubtitleApplyFontColor::*|string|null
      */
     public function getApplyFontColor(): ?string
     {
@@ -366,7 +366,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleBackgroundColor::*|null
+     * @return BurninSubtitleBackgroundColor::*|string|null
      */
     public function getBackgroundColor(): ?string
     {
@@ -379,7 +379,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleFallbackFont::*|null
+     * @return BurninSubtitleFallbackFont::*|string|null
      */
     public function getFallbackFont(): ?string
     {
@@ -387,7 +387,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleFontColor::*|null
+     * @return BurninSubtitleFontColor::*|string|null
      */
     public function getFontColor(): ?string
     {
@@ -425,7 +425,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return FontScript::*|null
+     * @return FontScript::*|string|null
      */
     public function getFontScript(): ?string
     {
@@ -443,7 +443,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleOutlineColor::*|null
+     * @return BurninSubtitleOutlineColor::*|string|null
      */
     public function getOutlineColor(): ?string
     {
@@ -456,7 +456,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return RemoveRubyReserveAttributes::*|null
+     * @return RemoveRubyReserveAttributes::*|string|null
      */
     public function getRemoveRubyReserveAttributes(): ?string
     {
@@ -464,7 +464,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleShadowColor::*|null
+     * @return BurninSubtitleShadowColor::*|string|null
      */
     public function getShadowColor(): ?string
     {
@@ -487,7 +487,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurnInSubtitleStylePassthrough::*|null
+     * @return BurnInSubtitleStylePassthrough::*|string|null
      */
     public function getStylePassthrough(): ?string
     {
@@ -495,7 +495,7 @@ final class BurninDestinationSettings
     }
 
     /**
-     * @return BurninSubtitleTeletextSpacing::*|null
+     * @return BurninSubtitleTeletextSpacing::*|string|null
      */
     public function getTeletextSpacing(): ?string
     {

@@ -16,14 +16,14 @@ final class PendingLogDeliveryConfiguration
      *
      * [^1]: https://redis.io/commands/slowlog
      *
-     * @var LogType::*|null
+     * @var LogType::*|string|null
      */
     private $logType;
 
     /**
      * Returns the destination type, either CloudWatch Logs or Kinesis Data Firehose.
      *
-     * @var DestinationType::*|null
+     * @var DestinationType::*|string|null
      */
     private $destinationType;
 
@@ -37,16 +37,16 @@ final class PendingLogDeliveryConfiguration
     /**
      * Returns the log format, either JSON or TEXT.
      *
-     * @var LogFormat::*|null
+     * @var LogFormat::*|string|null
      */
     private $logFormat;
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
+     *   LogType?: null|LogType::*|string,
+     *   DestinationType?: null|DestinationType::*|string,
      *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
+     *   LogFormat?: null|LogFormat::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -59,10 +59,10 @@ final class PendingLogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
+     *   LogType?: null|LogType::*|string,
+     *   DestinationType?: null|DestinationType::*|string,
      *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
+     *   LogFormat?: null|LogFormat::*|string,
      * }|PendingLogDeliveryConfiguration $input
      */
     public static function create($input): self
@@ -76,7 +76,7 @@ final class PendingLogDeliveryConfiguration
     }
 
     /**
-     * @return DestinationType::*|null
+     * @return DestinationType::*|string|null
      */
     public function getDestinationType(): ?string
     {
@@ -84,7 +84,7 @@ final class PendingLogDeliveryConfiguration
     }
 
     /**
-     * @return LogFormat::*|null
+     * @return LogFormat::*|string|null
      */
     public function getLogFormat(): ?string
     {
@@ -92,7 +92,7 @@ final class PendingLogDeliveryConfiguration
     }
 
     /**
-     * @return LogType::*|null
+     * @return LogType::*|string|null
      */
     public function getLogType(): ?string
     {

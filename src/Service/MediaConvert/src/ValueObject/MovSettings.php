@@ -17,7 +17,7 @@ final class MovSettings
     /**
      * When enabled, include 'clap' atom if appropriate for the video output settings.
      *
-     * @var MovClapAtom::*|null
+     * @var MovClapAtom::*|string|null
      */
     private $clapAtom;
 
@@ -26,7 +26,7 @@ final class MovSettings
      * box for B-frames will be negative, and a 'cslg' (composition shift least greatest) box will be included per 14496-1
      * amendment 1. This improves compatibility with Apple players and tools.
      *
-     * @var MovCslgAtom::*|null
+     * @var MovCslgAtom::*|string|null
      */
     private $cslgAtom;
 
@@ -35,7 +35,7 @@ final class MovSettings
      * compatibility with Apple editors and players, but may decrease compatibility with other players. Only applicable when
      * the video codec is MPEG2.
      *
-     * @var MovMpeg2FourCCControl::*|null
+     * @var MovMpeg2FourCCControl::*|string|null
      */
     private $mpeg2FourccControl;
 
@@ -44,24 +44,24 @@ final class MovSettings
      * Choose Omneon. When you do, MediaConvert increases the length of the 'elst' edit list atom. Note that this might
      * cause file rejections when a recipient of the output file doesn't expect this extra padding.
      *
-     * @var MovPaddingControl::*|null
+     * @var MovPaddingControl::*|string|null
      */
     private $paddingControl;
 
     /**
      * Always keep the default value (SELF_CONTAINED) for this setting.
      *
-     * @var MovReference::*|null
+     * @var MovReference::*|string|null
      */
     private $reference;
 
     /**
      * @param array{
-     *   ClapAtom?: null|MovClapAtom::*,
-     *   CslgAtom?: null|MovCslgAtom::*,
-     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*,
-     *   PaddingControl?: null|MovPaddingControl::*,
-     *   Reference?: null|MovReference::*,
+     *   ClapAtom?: null|MovClapAtom::*|string,
+     *   CslgAtom?: null|MovCslgAtom::*|string,
+     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*|string,
+     *   PaddingControl?: null|MovPaddingControl::*|string,
+     *   Reference?: null|MovReference::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -75,11 +75,11 @@ final class MovSettings
 
     /**
      * @param array{
-     *   ClapAtom?: null|MovClapAtom::*,
-     *   CslgAtom?: null|MovCslgAtom::*,
-     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*,
-     *   PaddingControl?: null|MovPaddingControl::*,
-     *   Reference?: null|MovReference::*,
+     *   ClapAtom?: null|MovClapAtom::*|string,
+     *   CslgAtom?: null|MovCslgAtom::*|string,
+     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*|string,
+     *   PaddingControl?: null|MovPaddingControl::*|string,
+     *   Reference?: null|MovReference::*|string,
      * }|MovSettings $input
      */
     public static function create($input): self
@@ -88,7 +88,7 @@ final class MovSettings
     }
 
     /**
-     * @return MovClapAtom::*|null
+     * @return MovClapAtom::*|string|null
      */
     public function getClapAtom(): ?string
     {
@@ -96,7 +96,7 @@ final class MovSettings
     }
 
     /**
-     * @return MovCslgAtom::*|null
+     * @return MovCslgAtom::*|string|null
      */
     public function getCslgAtom(): ?string
     {
@@ -104,7 +104,7 @@ final class MovSettings
     }
 
     /**
-     * @return MovMpeg2FourCCControl::*|null
+     * @return MovMpeg2FourCCControl::*|string|null
      */
     public function getMpeg2FourccControl(): ?string
     {
@@ -112,7 +112,7 @@ final class MovSettings
     }
 
     /**
-     * @return MovPaddingControl::*|null
+     * @return MovPaddingControl::*|string|null
      */
     public function getPaddingControl(): ?string
     {
@@ -120,7 +120,7 @@ final class MovSettings
     }
 
     /**
-     * @return MovReference::*|null
+     * @return MovReference::*|string|null
      */
     public function getReference(): ?string
     {

@@ -15,7 +15,7 @@ final class AppSyncRuntime
     /**
      * The `name` of the runtime to use. Currently, the only allowed value is `APPSYNC_JS`.
      *
-     * @var RuntimeName::*
+     * @var RuntimeName::*|string
      */
     private $name;
 
@@ -28,7 +28,7 @@ final class AppSyncRuntime
 
     /**
      * @param array{
-     *   name: RuntimeName::*,
+     *   name: RuntimeName::*|string,
      *   runtimeVersion: string,
      * } $input
      */
@@ -40,7 +40,7 @@ final class AppSyncRuntime
 
     /**
      * @param array{
-     *   name: RuntimeName::*,
+     *   name: RuntimeName::*|string,
      *   runtimeVersion: string,
      * }|AppSyncRuntime $input
      */
@@ -50,7 +50,7 @@ final class AppSyncRuntime
     }
 
     /**
-     * @return RuntimeName::*
+     * @return RuntimeName::*|string
      */
     public function getName(): string
     {

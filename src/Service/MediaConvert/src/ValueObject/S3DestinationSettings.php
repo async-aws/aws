@@ -30,7 +30,7 @@ final class S3DestinationSettings
      * default value, Not set. For more information about S3 storage classes, see
      * https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html.
      *
-     * @var S3StorageClass::*|null
+     * @var S3StorageClass::*|string|null
      */
     private $storageClass;
 
@@ -38,7 +38,7 @@ final class S3DestinationSettings
      * @param array{
      *   AccessControl?: null|S3DestinationAccessControl|array,
      *   Encryption?: null|S3EncryptionSettings|array,
-     *   StorageClass?: null|S3StorageClass::*,
+     *   StorageClass?: null|S3StorageClass::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -52,7 +52,7 @@ final class S3DestinationSettings
      * @param array{
      *   AccessControl?: null|S3DestinationAccessControl|array,
      *   Encryption?: null|S3EncryptionSettings|array,
-     *   StorageClass?: null|S3StorageClass::*,
+     *   StorageClass?: null|S3StorageClass::*|string,
      * }|S3DestinationSettings $input
      */
     public static function create($input): self
@@ -71,7 +71,7 @@ final class S3DestinationSettings
     }
 
     /**
-     * @return S3StorageClass::*|null
+     * @return S3StorageClass::*|string|null
      */
     public function getStorageClass(): ?string
     {

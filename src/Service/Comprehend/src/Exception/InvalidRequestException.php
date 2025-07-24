@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class InvalidRequestException extends ClientException
 {
     /**
-     * @var InvalidRequestReason::*|null
+     * @var InvalidRequestReason::*|string|null
      */
     private $reason;
 
@@ -28,7 +28,7 @@ final class InvalidRequestException extends ClientException
     }
 
     /**
-     * @return InvalidRequestReason::*|null
+     * @return InvalidRequestReason::*|string|null
      */
     public function getReason(): ?string
     {

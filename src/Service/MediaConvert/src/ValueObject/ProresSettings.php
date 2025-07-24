@@ -27,14 +27,14 @@ final class ProresSettings
      * your output codec Profile is Apple ProRes 4444 or 4444 XQ. Note that when you choose Preserve 4:4:4 sampling, you
      * cannot include any of the following Preprocessors: Dolby Vision, HDR10+, or Noise reducer.
      *
-     * @var ProresChromaSampling::*|null
+     * @var ProresChromaSampling::*|string|null
      */
     private $chromaSampling;
 
     /**
      * Use Profile to specify the type of Apple ProRes codec to use for this output.
      *
-     * @var ProresCodecProfile::*|null
+     * @var ProresCodecProfile::*|string|null
      */
     private $codecProfile;
 
@@ -44,7 +44,7 @@ final class ProresSettings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var ProresFramerateControl::*|null
+     * @var ProresFramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -61,7 +61,7 @@ final class ProresSettings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var ProresFramerateConversionAlgorithm::*|null
+     * @var ProresFramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -94,7 +94,7 @@ final class ProresSettings
      * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
      * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
-     * @var ProresInterlaceMode::*|null
+     * @var ProresInterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -104,7 +104,7 @@ final class ProresSettings
      * than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and
      * parDenominator settings.
      *
-     * @var ProresParControl::*|null
+     * @var ProresParControl::*|string|null
      */
     private $parControl;
 
@@ -142,7 +142,7 @@ final class ProresSettings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -156,7 +156,7 @@ final class ProresSettings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var ProresScanTypeConversionMode::*|null
+     * @var ProresScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -166,7 +166,7 @@ final class ProresSettings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25.
      *
-     * @var ProresSlowPal::*|null
+     * @var ProresSlowPal::*|string|null
      */
     private $slowPal;
 
@@ -176,26 +176,26 @@ final class ProresSettings
      * None, MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to
      * create a smoother picture.
      *
-     * @var ProresTelecine::*|null
+     * @var ProresTelecine::*|string|null
      */
     private $telecine;
 
     /**
      * @param array{
-     *   ChromaSampling?: null|ProresChromaSampling::*,
-     *   CodecProfile?: null|ProresCodecProfile::*,
-     *   FramerateControl?: null|ProresFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*,
+     *   ChromaSampling?: null|ProresChromaSampling::*|string,
+     *   CodecProfile?: null|ProresCodecProfile::*|string,
+     *   FramerateControl?: null|ProresFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|ProresInterlaceMode::*,
-     *   ParControl?: null|ProresParControl::*,
+     *   InterlaceMode?: null|ProresInterlaceMode::*|string,
+     *   ParControl?: null|ProresParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*,
-     *   SlowPal?: null|ProresSlowPal::*,
-     *   Telecine?: null|ProresTelecine::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*|string,
+     *   SlowPal?: null|ProresSlowPal::*|string,
+     *   Telecine?: null|ProresTelecine::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -218,20 +218,20 @@ final class ProresSettings
 
     /**
      * @param array{
-     *   ChromaSampling?: null|ProresChromaSampling::*,
-     *   CodecProfile?: null|ProresCodecProfile::*,
-     *   FramerateControl?: null|ProresFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*,
+     *   ChromaSampling?: null|ProresChromaSampling::*|string,
+     *   CodecProfile?: null|ProresCodecProfile::*|string,
+     *   FramerateControl?: null|ProresFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|ProresInterlaceMode::*,
-     *   ParControl?: null|ProresParControl::*,
+     *   InterlaceMode?: null|ProresInterlaceMode::*|string,
+     *   ParControl?: null|ProresParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*,
-     *   SlowPal?: null|ProresSlowPal::*,
-     *   Telecine?: null|ProresTelecine::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*|string,
+     *   SlowPal?: null|ProresSlowPal::*|string,
+     *   Telecine?: null|ProresTelecine::*|string,
      * }|ProresSettings $input
      */
     public static function create($input): self
@@ -240,7 +240,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresChromaSampling::*|null
+     * @return ProresChromaSampling::*|string|null
      */
     public function getChromaSampling(): ?string
     {
@@ -248,7 +248,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresCodecProfile::*|null
+     * @return ProresCodecProfile::*|string|null
      */
     public function getCodecProfile(): ?string
     {
@@ -256,7 +256,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresFramerateControl::*|null
+     * @return ProresFramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -264,7 +264,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresFramerateConversionAlgorithm::*|null
+     * @return ProresFramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -282,7 +282,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresInterlaceMode::*|null
+     * @return ProresInterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -290,7 +290,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresParControl::*|null
+     * @return ProresParControl::*|string|null
      */
     public function getParControl(): ?string
     {
@@ -308,7 +308,7 @@ final class ProresSettings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -316,7 +316,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresScanTypeConversionMode::*|null
+     * @return ProresScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -324,7 +324,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresSlowPal::*|null
+     * @return ProresSlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -332,7 +332,7 @@ final class ProresSettings
     }
 
     /**
-     * @return ProresTelecine::*|null
+     * @return ProresTelecine::*|string|null
      */
     public function getTelecine(): ?string
     {

@@ -34,12 +34,12 @@ class PutRecordsOutput extends Result
      * - `NONE`: Do not encrypt the records.
      * - `KMS`: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      *
-     * @var EncryptionType::*|null
+     * @var EncryptionType::*|string|null
      */
     private $encryptionType;
 
     /**
-     * @return EncryptionType::*|null
+     * @return EncryptionType::*|string|null
      */
     public function getEncryptionType(): ?string
     {

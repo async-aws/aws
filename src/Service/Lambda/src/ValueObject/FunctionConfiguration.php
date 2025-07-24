@@ -42,7 +42,7 @@ final class FunctionConfiguration
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels
      * [^3]: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported
      *
-     * @var Runtime::*|null
+     * @var Runtime::*|string|null
      */
     private $runtime;
 
@@ -192,7 +192,7 @@ final class FunctionConfiguration
     /**
      * The current state of the function. When the state is `Inactive`, you can reactivate the function by invoking it.
      *
-     * @var State::*|null
+     * @var State::*|string|null
      */
     private $state;
 
@@ -207,7 +207,7 @@ final class FunctionConfiguration
      * The reason code for the function's current state. When the code is `Creating`, you can't invoke or modify the
      * function.
      *
-     * @var StateReasonCode::*|null
+     * @var StateReasonCode::*|string|null
      */
     private $stateReasonCode;
 
@@ -215,7 +215,7 @@ final class FunctionConfiguration
      * The status of the last update that was performed on the function. This is first set to `Successful` after function
      * creation completes.
      *
-     * @var LastUpdateStatus::*|null
+     * @var LastUpdateStatus::*|string|null
      */
     private $lastUpdateStatus;
 
@@ -229,7 +229,7 @@ final class FunctionConfiguration
     /**
      * The reason code for the last update that was performed on the function.
      *
-     * @var LastUpdateStatusReasonCode::*|null
+     * @var LastUpdateStatusReasonCode::*|string|null
      */
     private $lastUpdateStatusReasonCode;
 
@@ -245,7 +245,7 @@ final class FunctionConfiguration
     /**
      * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
      *
-     * @var PackageType::*|null
+     * @var PackageType::*|string|null
      */
     private $packageType;
 
@@ -274,7 +274,7 @@ final class FunctionConfiguration
      * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
      * values. The default architecture value is `x86_64`.
      *
-     * @var list<Architecture::*>|null
+     * @var list<Architecture::*|string>|null
      */
     private $architectures;
 
@@ -316,7 +316,7 @@ final class FunctionConfiguration
      * @param array{
      *   FunctionName?: null|string,
      *   FunctionArn?: null|string,
-     *   Runtime?: null|Runtime::*,
+     *   Runtime?: null|Runtime::*|string,
      *   Role?: null|string,
      *   Handler?: null|string,
      *   CodeSize?: null|int,
@@ -334,18 +334,18 @@ final class FunctionConfiguration
      *   MasterArn?: null|string,
      *   RevisionId?: null|string,
      *   Layers?: null|array<Layer|array>,
-     *   State?: null|State::*,
+     *   State?: null|State::*|string,
      *   StateReason?: null|string,
-     *   StateReasonCode?: null|StateReasonCode::*,
-     *   LastUpdateStatus?: null|LastUpdateStatus::*,
+     *   StateReasonCode?: null|StateReasonCode::*|string,
+     *   LastUpdateStatus?: null|LastUpdateStatus::*|string,
      *   LastUpdateStatusReason?: null|string,
-     *   LastUpdateStatusReasonCode?: null|LastUpdateStatusReasonCode::*,
+     *   LastUpdateStatusReasonCode?: null|LastUpdateStatusReasonCode::*|string,
      *   FileSystemConfigs?: null|array<FileSystemConfig|array>,
-     *   PackageType?: null|PackageType::*,
+     *   PackageType?: null|PackageType::*|string,
      *   ImageConfigResponse?: null|ImageConfigResponse|array,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
-     *   Architectures?: null|array<Architecture::*>,
+     *   Architectures?: null|array<Architecture::*|string>,
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStartResponse|array,
      *   RuntimeVersionConfig?: null|RuntimeVersionConfig|array,
@@ -396,7 +396,7 @@ final class FunctionConfiguration
      * @param array{
      *   FunctionName?: null|string,
      *   FunctionArn?: null|string,
-     *   Runtime?: null|Runtime::*,
+     *   Runtime?: null|Runtime::*|string,
      *   Role?: null|string,
      *   Handler?: null|string,
      *   CodeSize?: null|int,
@@ -414,18 +414,18 @@ final class FunctionConfiguration
      *   MasterArn?: null|string,
      *   RevisionId?: null|string,
      *   Layers?: null|array<Layer|array>,
-     *   State?: null|State::*,
+     *   State?: null|State::*|string,
      *   StateReason?: null|string,
-     *   StateReasonCode?: null|StateReasonCode::*,
-     *   LastUpdateStatus?: null|LastUpdateStatus::*,
+     *   StateReasonCode?: null|StateReasonCode::*|string,
+     *   LastUpdateStatus?: null|LastUpdateStatus::*|string,
      *   LastUpdateStatusReason?: null|string,
-     *   LastUpdateStatusReasonCode?: null|LastUpdateStatusReasonCode::*,
+     *   LastUpdateStatusReasonCode?: null|LastUpdateStatusReasonCode::*|string,
      *   FileSystemConfigs?: null|array<FileSystemConfig|array>,
-     *   PackageType?: null|PackageType::*,
+     *   PackageType?: null|PackageType::*|string,
      *   ImageConfigResponse?: null|ImageConfigResponse|array,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
-     *   Architectures?: null|array<Architecture::*>,
+     *   Architectures?: null|array<Architecture::*|string>,
      *   EphemeralStorage?: null|EphemeralStorage|array,
      *   SnapStart?: null|SnapStartResponse|array,
      *   RuntimeVersionConfig?: null|RuntimeVersionConfig|array,
@@ -438,7 +438,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return list<Architecture::*>
+     * @return list<Architecture::*|string>
      */
     public function getArchitectures(): array
     {
@@ -514,7 +514,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return LastUpdateStatus::*|null
+     * @return LastUpdateStatus::*|string|null
      */
     public function getLastUpdateStatus(): ?string
     {
@@ -527,7 +527,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return LastUpdateStatusReasonCode::*|null
+     * @return LastUpdateStatusReasonCode::*|string|null
      */
     public function getLastUpdateStatusReasonCode(): ?string
     {
@@ -558,7 +558,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return PackageType::*|null
+     * @return PackageType::*|string|null
      */
     public function getPackageType(): ?string
     {
@@ -576,7 +576,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return Runtime::*|null
+     * @return Runtime::*|string|null
      */
     public function getRuntime(): ?string
     {
@@ -604,7 +604,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return State::*|null
+     * @return State::*|string|null
      */
     public function getState(): ?string
     {
@@ -617,7 +617,7 @@ final class FunctionConfiguration
     }
 
     /**
-     * @return StateReasonCode::*|null
+     * @return StateReasonCode::*|string|null
      */
     public function getStateReasonCode(): ?string
     {

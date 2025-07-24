@@ -104,7 +104,7 @@ class ReceiveMessageResult extends Result
     }
 
     /**
-     * @return array<MessageSystemAttributeName::*, string>
+     * @return array<MessageSystemAttributeName::*|string, string>
      */
     private function populateResultMessageSystemAttributeMap(array $json): array
     {

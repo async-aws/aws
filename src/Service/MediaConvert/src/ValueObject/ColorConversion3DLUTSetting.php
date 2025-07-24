@@ -21,7 +21,7 @@ final class ColorConversion3DLUTSetting
     /**
      * Specify which inputs use this 3D LUT, according to their color space.
      *
-     * @var ColorSpace::*|null
+     * @var ColorSpace::*|string|null
      */
     private $inputColorSpace;
 
@@ -37,7 +37,7 @@ final class ColorConversion3DLUTSetting
     /**
      * Specify which outputs use this 3D LUT, according to their color space.
      *
-     * @var ColorSpace::*|null
+     * @var ColorSpace::*|string|null
      */
     private $outputColorSpace;
 
@@ -53,9 +53,9 @@ final class ColorConversion3DLUTSetting
     /**
      * @param array{
      *   FileInput?: null|string,
-     *   InputColorSpace?: null|ColorSpace::*,
+     *   InputColorSpace?: null|ColorSpace::*|string,
      *   InputMasteringLuminance?: null|int,
-     *   OutputColorSpace?: null|ColorSpace::*,
+     *   OutputColorSpace?: null|ColorSpace::*|string,
      *   OutputMasteringLuminance?: null|int,
      * } $input
      */
@@ -71,9 +71,9 @@ final class ColorConversion3DLUTSetting
     /**
      * @param array{
      *   FileInput?: null|string,
-     *   InputColorSpace?: null|ColorSpace::*,
+     *   InputColorSpace?: null|ColorSpace::*|string,
      *   InputMasteringLuminance?: null|int,
-     *   OutputColorSpace?: null|ColorSpace::*,
+     *   OutputColorSpace?: null|ColorSpace::*|string,
      *   OutputMasteringLuminance?: null|int,
      * }|ColorConversion3DLUTSetting $input
      */
@@ -88,7 +88,7 @@ final class ColorConversion3DLUTSetting
     }
 
     /**
-     * @return ColorSpace::*|null
+     * @return ColorSpace::*|string|null
      */
     public function getInputColorSpace(): ?string
     {
@@ -101,7 +101,7 @@ final class ColorConversion3DLUTSetting
     }
 
     /**
-     * @return ColorSpace::*|null
+     * @return ColorSpace::*|string|null
      */
     public function getOutputColorSpace(): ?string
     {

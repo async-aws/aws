@@ -23,7 +23,7 @@ final class ProjectSource
      * - `NO_SOURCE`: The project does not have input source code.
      * - `S3`: The source code is in an Amazon S3 bucket.
      *
-     * @var SourceType::*
+     * @var SourceType::*|string
      */
     private $type;
 
@@ -154,7 +154,7 @@ final class ProjectSource
 
     /**
      * @param array{
-     *   type: SourceType::*,
+     *   type: SourceType::*|string,
      *   location?: null|string,
      *   gitCloneDepth?: null|int,
      *   gitSubmodulesConfig?: null|GitSubmodulesConfig|array,
@@ -182,7 +182,7 @@ final class ProjectSource
 
     /**
      * @param array{
-     *   type: SourceType::*,
+     *   type: SourceType::*|string,
      *   location?: null|string,
      *   gitCloneDepth?: null|int,
      *   gitSubmodulesConfig?: null|GitSubmodulesConfig|array,
@@ -245,7 +245,7 @@ final class ProjectSource
     }
 
     /**
-     * @return SourceType::*
+     * @return SourceType::*|string
      */
     public function getType(): string
     {

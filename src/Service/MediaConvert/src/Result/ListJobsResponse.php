@@ -2529,7 +2529,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<AudioChannelTag::*>
+     * @return list<AudioChannelTag::*|string>
      */
     private function populateResult__listOfAudioChannelTag(array $json): array
     {
@@ -2636,7 +2636,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     private function populateResult__listOfFrameMetricType(array $json): array
     {
@@ -2652,7 +2652,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<HlsAdMarkers::*>
+     * @return list<HlsAdMarkers::*|string>
      */
     private function populateResult__listOfHlsAdMarkers(array $json): array
     {
@@ -2863,7 +2863,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return list<TeletextPageType::*>
+     * @return list<TeletextPageType::*|string>
      */
     private function populateResult__listOfTeletextPageType(array $json): array
     {

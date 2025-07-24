@@ -34,7 +34,7 @@ class StartSessionResponse extends Result
      *
      * `FAILED` - Due to a failure, the session and its resources are no longer running.
      *
-     * @var SessionState::*|null
+     * @var SessionState::*|string|null
      */
     private $state;
 
@@ -46,7 +46,7 @@ class StartSessionResponse extends Result
     }
 
     /**
-     * @return SessionState::*|null
+     * @return SessionState::*|string|null
      */
     public function getState(): ?string
     {

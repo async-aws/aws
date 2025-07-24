@@ -28,7 +28,7 @@ final class AacSettings
      * FollowInputAudioType. Choose NORMAL when the input does not contain pre-mixed audio + audio description (AD). In this
      * case, the encoder will use any values you provide for AudioType and FollowInputAudioType.
      *
-     * @var AacAudioDescriptionBroadcasterMix::*|null
+     * @var AacAudioDescriptionBroadcasterMix::*|string|null
      */
     private $audioDescriptionBroadcasterMix;
 
@@ -49,7 +49,7 @@ final class AacSettings
      * adds spectral band replication to improve speech audio at low bitrates. HEV2 (AAC-HE v2) adds parametric stereo,
      * which optimizes for encoding stereo audio at very low bitrates.
      *
-     * @var AacCodecProfile::*|null
+     * @var AacCodecProfile::*|string|null
      */
     private $codecProfile;
 
@@ -61,7 +61,7 @@ final class AacSettings
      * Annex E. * 1.0 Mono: One channel, C. * 2.0 Stereo: Two channels, L, R. * 5.1 Surround: Six channels, C, L, R, Ls, Rs,
      * LFE.
      *
-     * @var AacCodingMode::*|null
+     * @var AacCodingMode::*|string|null
      */
     private $codingMode;
 
@@ -70,7 +70,7 @@ final class AacSettings
      * the default value, Program. For speech or other content: We recommend that you choose Anchor. When you do,
      * MediaConvert optimizes the loudness of your output for clarify by applying speech gates.
      *
-     * @var AacLoudnessMeasurementMode::*|null
+     * @var AacLoudnessMeasurementMode::*|string|null
      */
     private $loudnessMeasurementMode;
 
@@ -90,7 +90,7 @@ final class AacSettings
      * value that you choose for Bitrate. For a variable bitrate: Choose VBR. Your AAC output bitrate will vary according to
      * your audio content and the value that you choose for Bitrate quality.
      *
-     * @var AacRateControlMode::*|null
+     * @var AacRateControlMode::*|string|null
      */
     private $rateControlMode;
 
@@ -98,7 +98,7 @@ final class AacSettings
      * Enables LATM/LOAS AAC output. Note that if you use LATM/LOAS AAC in an output, you must choose "No container" for the
      * output container.
      *
-     * @var AacRawFormat::*|null
+     * @var AacRawFormat::*|string|null
      */
     private $rawFormat;
 
@@ -114,7 +114,7 @@ final class AacSettings
     /**
      * Use MPEG-2 AAC instead of MPEG-4 AAC audio for raw or MPEG-2 Transport Stream containers.
      *
-     * @var AacSpecification::*|null
+     * @var AacSpecification::*|string|null
      */
     private $specification;
 
@@ -130,24 +130,24 @@ final class AacSettings
      * Specify the quality of your variable bitrate (VBR) AAC audio. For a list of approximate VBR bitrates, see:
      * https://docs.aws.amazon.com/mediaconvert/latest/ug/aac-support.html#aac_vbr
      *
-     * @var AacVbrQuality::*|null
+     * @var AacVbrQuality::*|string|null
      */
     private $vbrQuality;
 
     /**
      * @param array{
-     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*,
+     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*|string,
      *   Bitrate?: null|int,
-     *   CodecProfile?: null|AacCodecProfile::*,
-     *   CodingMode?: null|AacCodingMode::*,
-     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*,
+     *   CodecProfile?: null|AacCodecProfile::*|string,
+     *   CodingMode?: null|AacCodingMode::*|string,
+     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*|string,
      *   RapInterval?: null|int,
-     *   RateControlMode?: null|AacRateControlMode::*,
-     *   RawFormat?: null|AacRawFormat::*,
+     *   RateControlMode?: null|AacRateControlMode::*|string,
+     *   RawFormat?: null|AacRawFormat::*|string,
      *   SampleRate?: null|int,
-     *   Specification?: null|AacSpecification::*,
+     *   Specification?: null|AacSpecification::*|string,
      *   TargetLoudnessRange?: null|int,
-     *   VbrQuality?: null|AacVbrQuality::*,
+     *   VbrQuality?: null|AacVbrQuality::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -168,18 +168,18 @@ final class AacSettings
 
     /**
      * @param array{
-     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*,
+     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*|string,
      *   Bitrate?: null|int,
-     *   CodecProfile?: null|AacCodecProfile::*,
-     *   CodingMode?: null|AacCodingMode::*,
-     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*,
+     *   CodecProfile?: null|AacCodecProfile::*|string,
+     *   CodingMode?: null|AacCodingMode::*|string,
+     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*|string,
      *   RapInterval?: null|int,
-     *   RateControlMode?: null|AacRateControlMode::*,
-     *   RawFormat?: null|AacRawFormat::*,
+     *   RateControlMode?: null|AacRateControlMode::*|string,
+     *   RawFormat?: null|AacRawFormat::*|string,
      *   SampleRate?: null|int,
-     *   Specification?: null|AacSpecification::*,
+     *   Specification?: null|AacSpecification::*|string,
      *   TargetLoudnessRange?: null|int,
-     *   VbrQuality?: null|AacVbrQuality::*,
+     *   VbrQuality?: null|AacVbrQuality::*|string,
      * }|AacSettings $input
      */
     public static function create($input): self
@@ -188,7 +188,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacAudioDescriptionBroadcasterMix::*|null
+     * @return AacAudioDescriptionBroadcasterMix::*|string|null
      */
     public function getAudioDescriptionBroadcasterMix(): ?string
     {
@@ -201,7 +201,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacCodecProfile::*|null
+     * @return AacCodecProfile::*|string|null
      */
     public function getCodecProfile(): ?string
     {
@@ -209,7 +209,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacCodingMode::*|null
+     * @return AacCodingMode::*|string|null
      */
     public function getCodingMode(): ?string
     {
@@ -217,7 +217,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacLoudnessMeasurementMode::*|null
+     * @return AacLoudnessMeasurementMode::*|string|null
      */
     public function getLoudnessMeasurementMode(): ?string
     {
@@ -230,7 +230,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacRateControlMode::*|null
+     * @return AacRateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {
@@ -238,7 +238,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacRawFormat::*|null
+     * @return AacRawFormat::*|string|null
      */
     public function getRawFormat(): ?string
     {
@@ -251,7 +251,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacSpecification::*|null
+     * @return AacSpecification::*|string|null
      */
     public function getSpecification(): ?string
     {
@@ -264,7 +264,7 @@ final class AacSettings
     }
 
     /**
-     * @return AacVbrQuality::*|null
+     * @return AacVbrQuality::*|string|null
      */
     public function getVbrQuality(): ?string
     {

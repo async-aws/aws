@@ -26,7 +26,7 @@ final class Difference
     /**
      * Whether the change type of the difference is an addition (A), deletion (D), or modification (M).
      *
-     * @var ChangeTypeEnum::*|null
+     * @var ChangeTypeEnum::*|string|null
      */
     private $changeType;
 
@@ -34,7 +34,7 @@ final class Difference
      * @param array{
      *   beforeBlob?: null|BlobMetadata|array,
      *   afterBlob?: null|BlobMetadata|array,
-     *   changeType?: null|ChangeTypeEnum::*,
+     *   changeType?: null|ChangeTypeEnum::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -48,7 +48,7 @@ final class Difference
      * @param array{
      *   beforeBlob?: null|BlobMetadata|array,
      *   afterBlob?: null|BlobMetadata|array,
-     *   changeType?: null|ChangeTypeEnum::*,
+     *   changeType?: null|ChangeTypeEnum::*|string,
      * }|Difference $input
      */
     public static function create($input): self
@@ -67,7 +67,7 @@ final class Difference
     }
 
     /**
-     * @return ChangeTypeEnum::*|null
+     * @return ChangeTypeEnum::*|string|null
      */
     public function getChangeType(): ?string
     {

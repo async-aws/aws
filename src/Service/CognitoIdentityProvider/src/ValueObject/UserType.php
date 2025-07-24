@@ -59,7 +59,7 @@ final class UserType
      *
      * The statuses `ARCHIVED`, `UNKNOWN`, and `COMPROMISED` are no longer used.
      *
-     * @var UserStatusType::*|null
+     * @var UserStatusType::*|string|null
      */
     private $userStatus;
 
@@ -77,7 +77,7 @@ final class UserType
      *   UserCreateDate?: null|\DateTimeImmutable,
      *   UserLastModifiedDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
-     *   UserStatus?: null|UserStatusType::*,
+     *   UserStatus?: null|UserStatusType::*|string,
      *   MFAOptions?: null|array<MFAOptionType|array>,
      * } $input
      */
@@ -99,7 +99,7 @@ final class UserType
      *   UserCreateDate?: null|\DateTimeImmutable,
      *   UserLastModifiedDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
-     *   UserStatus?: null|UserStatusType::*,
+     *   UserStatus?: null|UserStatusType::*|string,
      *   MFAOptions?: null|array<MFAOptionType|array>,
      * }|UserType $input
      */
@@ -140,7 +140,7 @@ final class UserType
     }
 
     /**
-     * @return UserStatusType::*|null
+     * @return UserStatusType::*|string|null
      */
     public function getUserStatus(): ?string
     {

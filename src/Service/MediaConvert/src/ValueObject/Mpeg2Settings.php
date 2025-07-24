@@ -33,7 +33,7 @@ final class Mpeg2Settings
      * Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to
      * the following settings: Spatial adaptive quantization, and Temporal adaptive quantization.
      *
-     * @var Mpeg2AdaptiveQuantization::*|null
+     * @var Mpeg2AdaptiveQuantization::*|string|null
      */
     private $adaptiveQuantization;
 
@@ -48,14 +48,14 @@ final class Mpeg2Settings
     /**
      * Use Level to set the MPEG-2 level for the video output.
      *
-     * @var Mpeg2CodecLevel::*|null
+     * @var Mpeg2CodecLevel::*|string|null
      */
     private $codecLevel;
 
     /**
      * Use Profile to set the MPEG-2 profile for the video output.
      *
-     * @var Mpeg2CodecProfile::*|null
+     * @var Mpeg2CodecProfile::*|string|null
      */
     private $codecProfile;
 
@@ -65,7 +65,7 @@ final class Mpeg2Settings
      * low-motion portions. The maximum number of B-frames is limited by the value you provide for the setting B frames
      * between reference frames.
      *
-     * @var Mpeg2DynamicSubGop::*|null
+     * @var Mpeg2DynamicSubGop::*|string|null
      */
     private $dynamicSubGop;
 
@@ -75,7 +75,7 @@ final class Mpeg2Settings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var Mpeg2FramerateControl::*|null
+     * @var Mpeg2FramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -92,7 +92,7 @@ final class Mpeg2Settings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var Mpeg2FramerateConversionAlgorithm::*|null
+     * @var Mpeg2FramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -139,7 +139,7 @@ final class Mpeg2Settings
      * Specify the units for GOP size. If you don't specify a value here, by default the encoder measures GOP size in
      * frames.
      *
-     * @var Mpeg2GopSizeUnits::*|null
+     * @var Mpeg2GopSizeUnits::*|string|null
      */
     private $gopSizeUnits;
 
@@ -175,7 +175,7 @@ final class Mpeg2Settings
      * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
      * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
-     * @var Mpeg2InterlaceMode::*|null
+     * @var Mpeg2InterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -183,7 +183,7 @@ final class Mpeg2Settings
      * Use Intra DC precision to set quantization precision for intra-block DC coefficients. If you choose the value auto,
      * the service will automatically select the precision based on the per-frame compression ratio.
      *
-     * @var Mpeg2IntraDcPrecision::*|null
+     * @var Mpeg2IntraDcPrecision::*|string|null
      */
     private $intraDcPrecision;
 
@@ -223,7 +223,7 @@ final class Mpeg2Settings
      * any value other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
      * parNumerator and parDenominator settings.
      *
-     * @var Mpeg2ParControl::*|null
+     * @var Mpeg2ParControl::*|string|null
      */
     private $parControl;
 
@@ -261,7 +261,7 @@ final class Mpeg2Settings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -269,14 +269,14 @@ final class Mpeg2Settings
      * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality. The
      * default behavior is faster, lower quality, single-pass encoding.
      *
-     * @var Mpeg2QualityTuningLevel::*|null
+     * @var Mpeg2QualityTuningLevel::*|string|null
      */
     private $qualityTuningLevel;
 
     /**
      * Use Rate control mode to specify whether the bitrate is variable (vbr) or constant (cbr).
      *
-     * @var Mpeg2RateControlMode::*|null
+     * @var Mpeg2RateControlMode::*|string|null
      */
     private $rateControlMode;
 
@@ -290,7 +290,7 @@ final class Mpeg2Settings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var Mpeg2ScanTypeConversionMode::*|null
+     * @var Mpeg2ScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -298,7 +298,7 @@ final class Mpeg2Settings
      * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video
      * quality and is enabled by default.
      *
-     * @var Mpeg2SceneChangeDetect::*|null
+     * @var Mpeg2SceneChangeDetect::*|string|null
      */
     private $sceneChangeDetect;
 
@@ -308,7 +308,7 @@ final class Mpeg2Settings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25.
      *
-     * @var Mpeg2SlowPal::*|null
+     * @var Mpeg2SlowPal::*|string|null
      */
     private $slowPal;
 
@@ -336,7 +336,7 @@ final class Mpeg2Settings
      * homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures,
      * set it to High or Higher.
      *
-     * @var Mpeg2SpatialAdaptiveQuantization::*|null
+     * @var Mpeg2SpatialAdaptiveQuantization::*|string|null
      */
     private $spatialAdaptiveQuantization;
 
@@ -344,7 +344,7 @@ final class Mpeg2Settings
      * Specify whether this output's video uses the D10 syntax. Keep the default value to not use the syntax. Related
      * settings: When you choose D10 for your MXF profile, you must also set this value to D10.
      *
-     * @var Mpeg2Syntax::*|null
+     * @var Mpeg2Syntax::*|string|null
      */
     private $syntax;
 
@@ -355,7 +355,7 @@ final class Mpeg2Settings
      * the conversion during play back. When you keep the default value, None, MediaConvert does a standard frame rate
      * conversion to 29.97 without doing anything with the field polarity to create a smoother picture.
      *
-     * @var Mpeg2Telecine::*|null
+     * @var Mpeg2Telecine::*|string|null
      */
     private $telecine;
 
@@ -369,46 +369,46 @@ final class Mpeg2Settings
      * objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting:
      * When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization.
      *
-     * @var Mpeg2TemporalAdaptiveQuantization::*|null
+     * @var Mpeg2TemporalAdaptiveQuantization::*|string|null
      */
     private $temporalAdaptiveQuantization;
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|Mpeg2AdaptiveQuantization::*,
+     *   AdaptiveQuantization?: null|Mpeg2AdaptiveQuantization::*|string,
      *   Bitrate?: null|int,
-     *   CodecLevel?: null|Mpeg2CodecLevel::*,
-     *   CodecProfile?: null|Mpeg2CodecProfile::*,
-     *   DynamicSubGop?: null|Mpeg2DynamicSubGop::*,
-     *   FramerateControl?: null|Mpeg2FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Mpeg2FramerateConversionAlgorithm::*,
+     *   CodecLevel?: null|Mpeg2CodecLevel::*|string,
+     *   CodecProfile?: null|Mpeg2CodecProfile::*|string,
+     *   DynamicSubGop?: null|Mpeg2DynamicSubGop::*|string,
+     *   FramerateControl?: null|Mpeg2FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Mpeg2FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopClosedCadence?: null|int,
      *   GopSize?: null|float,
-     *   GopSizeUnits?: null|Mpeg2GopSizeUnits::*,
+     *   GopSizeUnits?: null|Mpeg2GopSizeUnits::*|string,
      *   HrdBufferFinalFillPercentage?: null|int,
      *   HrdBufferInitialFillPercentage?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|Mpeg2InterlaceMode::*,
-     *   IntraDcPrecision?: null|Mpeg2IntraDcPrecision::*,
+     *   InterlaceMode?: null|Mpeg2InterlaceMode::*|string,
+     *   IntraDcPrecision?: null|Mpeg2IntraDcPrecision::*|string,
      *   MaxBitrate?: null|int,
      *   MinIInterval?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
-     *   ParControl?: null|Mpeg2ParControl::*,
+     *   ParControl?: null|Mpeg2ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*,
-     *   RateControlMode?: null|Mpeg2RateControlMode::*,
-     *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*,
-     *   SceneChangeDetect?: null|Mpeg2SceneChangeDetect::*,
-     *   SlowPal?: null|Mpeg2SlowPal::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*|string,
+     *   RateControlMode?: null|Mpeg2RateControlMode::*|string,
+     *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*|string,
+     *   SceneChangeDetect?: null|Mpeg2SceneChangeDetect::*|string,
+     *   SlowPal?: null|Mpeg2SlowPal::*|string,
      *   Softness?: null|int,
-     *   SpatialAdaptiveQuantization?: null|Mpeg2SpatialAdaptiveQuantization::*,
-     *   Syntax?: null|Mpeg2Syntax::*,
-     *   Telecine?: null|Mpeg2Telecine::*,
-     *   TemporalAdaptiveQuantization?: null|Mpeg2TemporalAdaptiveQuantization::*,
+     *   SpatialAdaptiveQuantization?: null|Mpeg2SpatialAdaptiveQuantization::*|string,
+     *   Syntax?: null|Mpeg2Syntax::*|string,
+     *   Telecine?: null|Mpeg2Telecine::*|string,
+     *   TemporalAdaptiveQuantization?: null|Mpeg2TemporalAdaptiveQuantization::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -451,40 +451,40 @@ final class Mpeg2Settings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|Mpeg2AdaptiveQuantization::*,
+     *   AdaptiveQuantization?: null|Mpeg2AdaptiveQuantization::*|string,
      *   Bitrate?: null|int,
-     *   CodecLevel?: null|Mpeg2CodecLevel::*,
-     *   CodecProfile?: null|Mpeg2CodecProfile::*,
-     *   DynamicSubGop?: null|Mpeg2DynamicSubGop::*,
-     *   FramerateControl?: null|Mpeg2FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Mpeg2FramerateConversionAlgorithm::*,
+     *   CodecLevel?: null|Mpeg2CodecLevel::*|string,
+     *   CodecProfile?: null|Mpeg2CodecProfile::*|string,
+     *   DynamicSubGop?: null|Mpeg2DynamicSubGop::*|string,
+     *   FramerateControl?: null|Mpeg2FramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|Mpeg2FramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
      *   GopClosedCadence?: null|int,
      *   GopSize?: null|float,
-     *   GopSizeUnits?: null|Mpeg2GopSizeUnits::*,
+     *   GopSizeUnits?: null|Mpeg2GopSizeUnits::*|string,
      *   HrdBufferFinalFillPercentage?: null|int,
      *   HrdBufferInitialFillPercentage?: null|int,
      *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|Mpeg2InterlaceMode::*,
-     *   IntraDcPrecision?: null|Mpeg2IntraDcPrecision::*,
+     *   InterlaceMode?: null|Mpeg2InterlaceMode::*|string,
+     *   IntraDcPrecision?: null|Mpeg2IntraDcPrecision::*|string,
      *   MaxBitrate?: null|int,
      *   MinIInterval?: null|int,
      *   NumberBFramesBetweenReferenceFrames?: null|int,
-     *   ParControl?: null|Mpeg2ParControl::*,
+     *   ParControl?: null|Mpeg2ParControl::*|string,
      *   ParDenominator?: null|int,
      *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*,
-     *   RateControlMode?: null|Mpeg2RateControlMode::*,
-     *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*,
-     *   SceneChangeDetect?: null|Mpeg2SceneChangeDetect::*,
-     *   SlowPal?: null|Mpeg2SlowPal::*,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   QualityTuningLevel?: null|Mpeg2QualityTuningLevel::*|string,
+     *   RateControlMode?: null|Mpeg2RateControlMode::*|string,
+     *   ScanTypeConversionMode?: null|Mpeg2ScanTypeConversionMode::*|string,
+     *   SceneChangeDetect?: null|Mpeg2SceneChangeDetect::*|string,
+     *   SlowPal?: null|Mpeg2SlowPal::*|string,
      *   Softness?: null|int,
-     *   SpatialAdaptiveQuantization?: null|Mpeg2SpatialAdaptiveQuantization::*,
-     *   Syntax?: null|Mpeg2Syntax::*,
-     *   Telecine?: null|Mpeg2Telecine::*,
-     *   TemporalAdaptiveQuantization?: null|Mpeg2TemporalAdaptiveQuantization::*,
+     *   SpatialAdaptiveQuantization?: null|Mpeg2SpatialAdaptiveQuantization::*|string,
+     *   Syntax?: null|Mpeg2Syntax::*|string,
+     *   Telecine?: null|Mpeg2Telecine::*|string,
+     *   TemporalAdaptiveQuantization?: null|Mpeg2TemporalAdaptiveQuantization::*|string,
      * }|Mpeg2Settings $input
      */
     public static function create($input): self
@@ -493,7 +493,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2AdaptiveQuantization::*|null
+     * @return Mpeg2AdaptiveQuantization::*|string|null
      */
     public function getAdaptiveQuantization(): ?string
     {
@@ -506,7 +506,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2CodecLevel::*|null
+     * @return Mpeg2CodecLevel::*|string|null
      */
     public function getCodecLevel(): ?string
     {
@@ -514,7 +514,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2CodecProfile::*|null
+     * @return Mpeg2CodecProfile::*|string|null
      */
     public function getCodecProfile(): ?string
     {
@@ -522,7 +522,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2DynamicSubGop::*|null
+     * @return Mpeg2DynamicSubGop::*|string|null
      */
     public function getDynamicSubGop(): ?string
     {
@@ -530,7 +530,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2FramerateControl::*|null
+     * @return Mpeg2FramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -538,7 +538,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2FramerateConversionAlgorithm::*|null
+     * @return Mpeg2FramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -566,7 +566,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2GopSizeUnits::*|null
+     * @return Mpeg2GopSizeUnits::*|string|null
      */
     public function getGopSizeUnits(): ?string
     {
@@ -589,7 +589,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2InterlaceMode::*|null
+     * @return Mpeg2InterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -597,7 +597,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2IntraDcPrecision::*|null
+     * @return Mpeg2IntraDcPrecision::*|string|null
      */
     public function getIntraDcPrecision(): ?string
     {
@@ -620,7 +620,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2ParControl::*|null
+     * @return Mpeg2ParControl::*|string|null
      */
     public function getParControl(): ?string
     {
@@ -638,7 +638,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -646,7 +646,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2QualityTuningLevel::*|null
+     * @return Mpeg2QualityTuningLevel::*|string|null
      */
     public function getQualityTuningLevel(): ?string
     {
@@ -654,7 +654,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2RateControlMode::*|null
+     * @return Mpeg2RateControlMode::*|string|null
      */
     public function getRateControlMode(): ?string
     {
@@ -662,7 +662,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2ScanTypeConversionMode::*|null
+     * @return Mpeg2ScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -670,7 +670,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2SceneChangeDetect::*|null
+     * @return Mpeg2SceneChangeDetect::*|string|null
      */
     public function getSceneChangeDetect(): ?string
     {
@@ -678,7 +678,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2SlowPal::*|null
+     * @return Mpeg2SlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -691,7 +691,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2SpatialAdaptiveQuantization::*|null
+     * @return Mpeg2SpatialAdaptiveQuantization::*|string|null
      */
     public function getSpatialAdaptiveQuantization(): ?string
     {
@@ -699,7 +699,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2Syntax::*|null
+     * @return Mpeg2Syntax::*|string|null
      */
     public function getSyntax(): ?string
     {
@@ -707,7 +707,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2Telecine::*|null
+     * @return Mpeg2Telecine::*|string|null
      */
     public function getTelecine(): ?string
     {
@@ -715,7 +715,7 @@ final class Mpeg2Settings
     }
 
     /**
-     * @return Mpeg2TemporalAdaptiveQuantization::*|null
+     * @return Mpeg2TemporalAdaptiveQuantization::*|string|null
      */
     public function getTemporalAdaptiveQuantization(): ?string
     {

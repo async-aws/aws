@@ -20,14 +20,14 @@ final class FlexibleTimeWindow
     /**
      * Determines whether the schedule is invoked within a flexible time window.
      *
-     * @var FlexibleTimeWindowMode::*
+     * @var FlexibleTimeWindowMode::*|string
      */
     private $mode;
 
     /**
      * @param array{
      *   MaximumWindowInMinutes?: null|int,
-     *   Mode: FlexibleTimeWindowMode::*,
+     *   Mode: FlexibleTimeWindowMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -39,7 +39,7 @@ final class FlexibleTimeWindow
     /**
      * @param array{
      *   MaximumWindowInMinutes?: null|int,
-     *   Mode: FlexibleTimeWindowMode::*,
+     *   Mode: FlexibleTimeWindowMode::*|string,
      * }|FlexibleTimeWindow $input
      */
     public static function create($input): self
@@ -53,7 +53,7 @@ final class FlexibleTimeWindow
     }
 
     /**
-     * @return FlexibleTimeWindowMode::*
+     * @return FlexibleTimeWindowMode::*|string
      */
     public function getMode(): string
     {

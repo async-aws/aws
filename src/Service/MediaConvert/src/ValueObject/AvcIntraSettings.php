@@ -25,7 +25,7 @@ final class AvcIntraSettings
      * depending on the frame rate of the output. Outputs with higher class values have higher bitrates and improved image
      * quality. Note that for Class 4K/2K, MediaConvert supports only 4:2:2 chroma subsampling.
      *
-     * @var AvcIntraClass::*|null
+     * @var AvcIntraClass::*|string|null
      */
     private $avcIntraClass;
 
@@ -43,7 +43,7 @@ final class AvcIntraSettings
      * frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
      * approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      *
-     * @var AvcIntraFramerateControl::*|null
+     * @var AvcIntraFramerateControl::*|string|null
      */
     private $framerateControl;
 
@@ -60,7 +60,7 @@ final class AvcIntraSettings
      * your output. Note that since the frame count is maintained, the duration of your output will become shorter at higher
      * frame rates and longer at lower frame rates.
      *
-     * @var AvcIntraFramerateConversionAlgorithm::*|null
+     * @var AvcIntraFramerateConversionAlgorithm::*|string|null
      */
     private $framerateConversionAlgorithm;
 
@@ -93,7 +93,7 @@ final class AvcIntraSettings
      * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
      * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      *
-     * @var AvcIntraInterlaceMode::*|null
+     * @var AvcIntraInterlaceMode::*|string|null
      */
     private $interlaceMode;
 
@@ -111,7 +111,7 @@ final class AvcIntraSettings
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
      * control mode.
      *
-     * @var list<FrameMetricType::*>|null
+     * @var list<FrameMetricType::*|string>|null
      */
     private $perFrameMetrics;
 
@@ -125,7 +125,7 @@ final class AvcIntraSettings
      * use optimized interlacing, you must set Telecine to None or Soft. You can't use optimized interlacing for hard
      * telecine outputs. You must also set Interlace mode to a value other than Progressive.
      *
-     * @var AvcIntraScanTypeConversionMode::*|null
+     * @var AvcIntraScanTypeConversionMode::*|string|null
      */
     private $scanTypeConversionMode;
 
@@ -135,7 +135,7 @@ final class AvcIntraSettings
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
      * Required settings: You must also set Framerate to 25.
      *
-     * @var AvcIntraSlowPal::*|null
+     * @var AvcIntraSlowPal::*|string|null
      */
     private $slowPal;
 
@@ -145,23 +145,23 @@ final class AvcIntraSettings
      * None, MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to
      * create a smoother picture.
      *
-     * @var AvcIntraTelecine::*|null
+     * @var AvcIntraTelecine::*|string|null
      */
     private $telecine;
 
     /**
      * @param array{
-     *   AvcIntraClass?: null|AvcIntraClass::*,
+     *   AvcIntraClass?: null|AvcIntraClass::*|string,
      *   AvcIntraUhdSettings?: null|AvcIntraUhdSettings|array,
-     *   FramerateControl?: null|AvcIntraFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|AvcIntraFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|AvcIntraInterlaceMode::*,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*,
-     *   SlowPal?: null|AvcIntraSlowPal::*,
-     *   Telecine?: null|AvcIntraTelecine::*,
+     *   InterlaceMode?: null|AvcIntraInterlaceMode::*|string,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*|string,
+     *   SlowPal?: null|AvcIntraSlowPal::*|string,
+     *   Telecine?: null|AvcIntraTelecine::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -181,17 +181,17 @@ final class AvcIntraSettings
 
     /**
      * @param array{
-     *   AvcIntraClass?: null|AvcIntraClass::*,
+     *   AvcIntraClass?: null|AvcIntraClass::*|string,
      *   AvcIntraUhdSettings?: null|AvcIntraUhdSettings|array,
-     *   FramerateControl?: null|AvcIntraFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*,
+     *   FramerateControl?: null|AvcIntraFramerateControl::*|string,
+     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*|string,
      *   FramerateDenominator?: null|int,
      *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|AvcIntraInterlaceMode::*,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*,
-     *   SlowPal?: null|AvcIntraSlowPal::*,
-     *   Telecine?: null|AvcIntraTelecine::*,
+     *   InterlaceMode?: null|AvcIntraInterlaceMode::*|string,
+     *   PerFrameMetrics?: null|array<FrameMetricType::*|string>,
+     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*|string,
+     *   SlowPal?: null|AvcIntraSlowPal::*|string,
+     *   Telecine?: null|AvcIntraTelecine::*|string,
      * }|AvcIntraSettings $input
      */
     public static function create($input): self
@@ -200,7 +200,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraClass::*|null
+     * @return AvcIntraClass::*|string|null
      */
     public function getAvcIntraClass(): ?string
     {
@@ -213,7 +213,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraFramerateControl::*|null
+     * @return AvcIntraFramerateControl::*|string|null
      */
     public function getFramerateControl(): ?string
     {
@@ -221,7 +221,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraFramerateConversionAlgorithm::*|null
+     * @return AvcIntraFramerateConversionAlgorithm::*|string|null
      */
     public function getFramerateConversionAlgorithm(): ?string
     {
@@ -239,7 +239,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraInterlaceMode::*|null
+     * @return AvcIntraInterlaceMode::*|string|null
      */
     public function getInterlaceMode(): ?string
     {
@@ -247,7 +247,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return list<FrameMetricType::*>
+     * @return list<FrameMetricType::*|string>
      */
     public function getPerFrameMetrics(): array
     {
@@ -255,7 +255,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraScanTypeConversionMode::*|null
+     * @return AvcIntraScanTypeConversionMode::*|string|null
      */
     public function getScanTypeConversionMode(): ?string
     {
@@ -263,7 +263,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraSlowPal::*|null
+     * @return AvcIntraSlowPal::*|string|null
      */
     public function getSlowPal(): ?string
     {
@@ -271,7 +271,7 @@ final class AvcIntraSettings
     }
 
     /**
-     * @return AvcIntraTelecine::*|null
+     * @return AvcIntraTelecine::*|string|null
      */
     public function getTelecine(): ?string
     {

@@ -13,7 +13,7 @@ final class SourceAuth
     /**
      * The authorization type to use. Valid options are OAUTH, CODECONNECTIONS, or SECRETS_MANAGER.
      *
-     * @var SourceAuthType::*
+     * @var SourceAuthType::*|string
      */
     private $type;
 
@@ -26,7 +26,7 @@ final class SourceAuth
 
     /**
      * @param array{
-     *   type: SourceAuthType::*,
+     *   type: SourceAuthType::*|string,
      *   resource?: null|string,
      * } $input
      */
@@ -38,7 +38,7 @@ final class SourceAuth
 
     /**
      * @param array{
-     *   type: SourceAuthType::*,
+     *   type: SourceAuthType::*|string,
      *   resource?: null|string,
      * }|SourceAuth $input
      */
@@ -53,7 +53,7 @@ final class SourceAuth
     }
 
     /**
-     * @return SourceAuthType::*
+     * @return SourceAuthType::*|string
      */
     public function getType(): string
     {

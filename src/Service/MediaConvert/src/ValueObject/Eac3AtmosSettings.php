@@ -32,21 +32,21 @@ final class Eac3AtmosSettings
      * Specify the bitstream mode for the E-AC-3 stream that the encoder emits. For more information about the EAC3
      * bitstream mode, see ATSC A/52-2012 (Annex E).
      *
-     * @var Eac3AtmosBitstreamMode::*|null
+     * @var Eac3AtmosBitstreamMode::*|string|null
      */
     private $bitstreamMode;
 
     /**
      * The coding mode for Dolby Digital Plus JOC (Atmos).
      *
-     * @var Eac3AtmosCodingMode::*|null
+     * @var Eac3AtmosCodingMode::*|string|null
      */
     private $codingMode;
 
     /**
      * Enable Dolby Dialogue Intelligence to adjust loudness based on dialogue analysis.
      *
-     * @var Eac3AtmosDialogueIntelligence::*|null
+     * @var Eac3AtmosDialogueIntelligence::*|string|null
      */
     private $dialogueIntelligence;
 
@@ -58,7 +58,7 @@ final class Eac3AtmosSettings
      * Downmix control and you don't specify values for the related settings, MediaConvert uses default values for those
      * settings.
      *
-     * @var Eac3AtmosDownmixControl::*|null
+     * @var Eac3AtmosDownmixControl::*|string|null
      */
     private $downmixControl;
 
@@ -70,7 +70,7 @@ final class Eac3AtmosSettings
      * Range Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
-     * @var Eac3AtmosDynamicRangeCompressionLine::*|null
+     * @var Eac3AtmosDynamicRangeCompressionLine::*|string|null
      */
     private $dynamicRangeCompressionLine;
 
@@ -82,7 +82,7 @@ final class Eac3AtmosSettings
      * Control chapter of the Dolby Metadata Guide at
      * https://developer.dolby.com/globalassets/professional/documents/dolby-metadata-guide.pdf.
      *
-     * @var Eac3AtmosDynamicRangeCompressionRf::*|null
+     * @var Eac3AtmosDynamicRangeCompressionRf::*|string|null
      */
     private $dynamicRangeCompressionRf;
 
@@ -93,7 +93,7 @@ final class Eac3AtmosSettings
      * compression line and Dynamic range compression RF. When you keep the value Custom for Dynamic range control and you
      * don't specify values for the related settings, MediaConvert uses default values for those settings.
      *
-     * @var Eac3AtmosDynamicRangeControl::*|null
+     * @var Eac3AtmosDynamicRangeControl::*|string|null
      */
     private $dynamicRangeControl;
 
@@ -144,7 +144,7 @@ final class Eac3AtmosSettings
     /**
      * Choose how the service meters the loudness of your audio.
      *
-     * @var Eac3AtmosMeteringMode::*|null
+     * @var Eac3AtmosMeteringMode::*|string|null
      */
     private $meteringMode;
 
@@ -168,7 +168,7 @@ final class Eac3AtmosSettings
      * this value, keep the default value, Custom for the setting Downmix control. Otherwise, MediaConvert ignores Stereo
      * downmix.
      *
-     * @var Eac3AtmosStereoDownmix::*|null
+     * @var Eac3AtmosStereoDownmix::*|string|null
      */
     private $stereoDownmix;
 
@@ -176,29 +176,29 @@ final class Eac3AtmosSettings
      * Specify whether your input audio has an additional center rear surround channel matrix encoded into your left and
      * right surround channels.
      *
-     * @var Eac3AtmosSurroundExMode::*|null
+     * @var Eac3AtmosSurroundExMode::*|string|null
      */
     private $surroundExMode;
 
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Eac3AtmosBitstreamMode::*,
-     *   CodingMode?: null|Eac3AtmosCodingMode::*,
-     *   DialogueIntelligence?: null|Eac3AtmosDialogueIntelligence::*,
-     *   DownmixControl?: null|Eac3AtmosDownmixControl::*,
-     *   DynamicRangeCompressionLine?: null|Eac3AtmosDynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionRf?: null|Eac3AtmosDynamicRangeCompressionRf::*,
-     *   DynamicRangeControl?: null|Eac3AtmosDynamicRangeControl::*,
+     *   BitstreamMode?: null|Eac3AtmosBitstreamMode::*|string,
+     *   CodingMode?: null|Eac3AtmosCodingMode::*|string,
+     *   DialogueIntelligence?: null|Eac3AtmosDialogueIntelligence::*|string,
+     *   DownmixControl?: null|Eac3AtmosDownmixControl::*|string,
+     *   DynamicRangeCompressionLine?: null|Eac3AtmosDynamicRangeCompressionLine::*|string,
+     *   DynamicRangeCompressionRf?: null|Eac3AtmosDynamicRangeCompressionRf::*|string,
+     *   DynamicRangeControl?: null|Eac3AtmosDynamicRangeControl::*|string,
      *   LoRoCenterMixLevel?: null|float,
      *   LoRoSurroundMixLevel?: null|float,
      *   LtRtCenterMixLevel?: null|float,
      *   LtRtSurroundMixLevel?: null|float,
-     *   MeteringMode?: null|Eac3AtmosMeteringMode::*,
+     *   MeteringMode?: null|Eac3AtmosMeteringMode::*|string,
      *   SampleRate?: null|int,
      *   SpeechThreshold?: null|int,
-     *   StereoDownmix?: null|Eac3AtmosStereoDownmix::*,
-     *   SurroundExMode?: null|Eac3AtmosSurroundExMode::*,
+     *   StereoDownmix?: null|Eac3AtmosStereoDownmix::*|string,
+     *   SurroundExMode?: null|Eac3AtmosSurroundExMode::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -225,22 +225,22 @@ final class Eac3AtmosSettings
     /**
      * @param array{
      *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Eac3AtmosBitstreamMode::*,
-     *   CodingMode?: null|Eac3AtmosCodingMode::*,
-     *   DialogueIntelligence?: null|Eac3AtmosDialogueIntelligence::*,
-     *   DownmixControl?: null|Eac3AtmosDownmixControl::*,
-     *   DynamicRangeCompressionLine?: null|Eac3AtmosDynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionRf?: null|Eac3AtmosDynamicRangeCompressionRf::*,
-     *   DynamicRangeControl?: null|Eac3AtmosDynamicRangeControl::*,
+     *   BitstreamMode?: null|Eac3AtmosBitstreamMode::*|string,
+     *   CodingMode?: null|Eac3AtmosCodingMode::*|string,
+     *   DialogueIntelligence?: null|Eac3AtmosDialogueIntelligence::*|string,
+     *   DownmixControl?: null|Eac3AtmosDownmixControl::*|string,
+     *   DynamicRangeCompressionLine?: null|Eac3AtmosDynamicRangeCompressionLine::*|string,
+     *   DynamicRangeCompressionRf?: null|Eac3AtmosDynamicRangeCompressionRf::*|string,
+     *   DynamicRangeControl?: null|Eac3AtmosDynamicRangeControl::*|string,
      *   LoRoCenterMixLevel?: null|float,
      *   LoRoSurroundMixLevel?: null|float,
      *   LtRtCenterMixLevel?: null|float,
      *   LtRtSurroundMixLevel?: null|float,
-     *   MeteringMode?: null|Eac3AtmosMeteringMode::*,
+     *   MeteringMode?: null|Eac3AtmosMeteringMode::*|string,
      *   SampleRate?: null|int,
      *   SpeechThreshold?: null|int,
-     *   StereoDownmix?: null|Eac3AtmosStereoDownmix::*,
-     *   SurroundExMode?: null|Eac3AtmosSurroundExMode::*,
+     *   StereoDownmix?: null|Eac3AtmosStereoDownmix::*|string,
+     *   SurroundExMode?: null|Eac3AtmosSurroundExMode::*|string,
      * }|Eac3AtmosSettings $input
      */
     public static function create($input): self
@@ -254,7 +254,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosBitstreamMode::*|null
+     * @return Eac3AtmosBitstreamMode::*|string|null
      */
     public function getBitstreamMode(): ?string
     {
@@ -262,7 +262,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosCodingMode::*|null
+     * @return Eac3AtmosCodingMode::*|string|null
      */
     public function getCodingMode(): ?string
     {
@@ -270,7 +270,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosDialogueIntelligence::*|null
+     * @return Eac3AtmosDialogueIntelligence::*|string|null
      */
     public function getDialogueIntelligence(): ?string
     {
@@ -278,7 +278,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosDownmixControl::*|null
+     * @return Eac3AtmosDownmixControl::*|string|null
      */
     public function getDownmixControl(): ?string
     {
@@ -286,7 +286,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosDynamicRangeCompressionLine::*|null
+     * @return Eac3AtmosDynamicRangeCompressionLine::*|string|null
      */
     public function getDynamicRangeCompressionLine(): ?string
     {
@@ -294,7 +294,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosDynamicRangeCompressionRf::*|null
+     * @return Eac3AtmosDynamicRangeCompressionRf::*|string|null
      */
     public function getDynamicRangeCompressionRf(): ?string
     {
@@ -302,7 +302,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosDynamicRangeControl::*|null
+     * @return Eac3AtmosDynamicRangeControl::*|string|null
      */
     public function getDynamicRangeControl(): ?string
     {
@@ -330,7 +330,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosMeteringMode::*|null
+     * @return Eac3AtmosMeteringMode::*|string|null
      */
     public function getMeteringMode(): ?string
     {
@@ -348,7 +348,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosStereoDownmix::*|null
+     * @return Eac3AtmosStereoDownmix::*|string|null
      */
     public function getStereoDownmix(): ?string
     {
@@ -356,7 +356,7 @@ final class Eac3AtmosSettings
     }
 
     /**
-     * @return Eac3AtmosSurroundExMode::*|null
+     * @return Eac3AtmosSurroundExMode::*|string|null
      */
     public function getSurroundExMode(): ?string
     {

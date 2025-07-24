@@ -30,14 +30,14 @@ final class RegistryCredential
      * The service that created the credentials to access a private Docker registry. The valid value, SECRETS_MANAGER, is
      * for Secrets Manager.
      *
-     * @var CredentialProviderType::*
+     * @var CredentialProviderType::*|string
      */
     private $credentialProvider;
 
     /**
      * @param array{
      *   credential: string,
-     *   credentialProvider: CredentialProviderType::*,
+     *   credentialProvider: CredentialProviderType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -49,7 +49,7 @@ final class RegistryCredential
     /**
      * @param array{
      *   credential: string,
-     *   credentialProvider: CredentialProviderType::*,
+     *   credentialProvider: CredentialProviderType::*|string,
      * }|RegistryCredential $input
      */
     public static function create($input): self
@@ -63,7 +63,7 @@ final class RegistryCredential
     }
 
     /**
-     * @return CredentialProviderType::*
+     * @return CredentialProviderType::*|string
      */
     public function getCredentialProvider(): string
     {

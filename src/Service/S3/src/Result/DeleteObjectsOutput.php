@@ -18,7 +18,7 @@ class DeleteObjectsOutput extends Result
     private $deleted;
 
     /**
-     * @var RequestCharged::*|null
+     * @var RequestCharged::*|string|null
      */
     private $requestCharged;
 
@@ -51,7 +51,7 @@ class DeleteObjectsOutput extends Result
     }
 
     /**
-     * @return RequestCharged::*|null
+     * @return RequestCharged::*|string|null
      */
     public function getRequestCharged(): ?string
     {

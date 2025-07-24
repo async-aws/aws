@@ -24,7 +24,7 @@ final class Gender
     /**
      * The predicted gender of the face.
      *
-     * @var GenderType::*|null
+     * @var GenderType::*|string|null
      */
     private $value;
 
@@ -37,7 +37,7 @@ final class Gender
 
     /**
      * @param array{
-     *   Value?: null|GenderType::*,
+     *   Value?: null|GenderType::*|string,
      *   Confidence?: null|float,
      * } $input
      */
@@ -49,7 +49,7 @@ final class Gender
 
     /**
      * @param array{
-     *   Value?: null|GenderType::*,
+     *   Value?: null|GenderType::*|string,
      *   Confidence?: null|float,
      * }|Gender $input
      */
@@ -64,7 +64,7 @@ final class Gender
     }
 
     /**
-     * @return GenderType::*|null
+     * @return GenderType::*|string|null
      */
     public function getValue(): ?string
     {

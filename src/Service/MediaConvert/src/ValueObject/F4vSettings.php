@@ -14,13 +14,13 @@ final class F4vSettings
      * To place the MOOV atom at the beginning of your output, which is useful for progressive downloading: Leave blank or
      * choose Progressive download. To place the MOOV at the end of your output: Choose Normal.
      *
-     * @var F4vMoovPlacement::*|null
+     * @var F4vMoovPlacement::*|string|null
      */
     private $moovPlacement;
 
     /**
      * @param array{
-     *   MoovPlacement?: null|F4vMoovPlacement::*,
+     *   MoovPlacement?: null|F4vMoovPlacement::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class F4vSettings
 
     /**
      * @param array{
-     *   MoovPlacement?: null|F4vMoovPlacement::*,
+     *   MoovPlacement?: null|F4vMoovPlacement::*|string,
      * }|F4vSettings $input
      */
     public static function create($input): self
@@ -39,7 +39,7 @@ final class F4vSettings
     }
 
     /**
-     * @return F4vMoovPlacement::*|null
+     * @return F4vMoovPlacement::*|string|null
      */
     public function getMoovPlacement(): ?string
     {

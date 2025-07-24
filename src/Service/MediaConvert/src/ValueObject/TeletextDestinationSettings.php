@@ -25,14 +25,14 @@ final class TeletextDestinationSettings
      * the default value Subtitle. If you pass through the entire set of Teletext data, don't use this field. When you pass
      * through a set of Teletext pages, your output has the same page types as your input.
      *
-     * @var list<TeletextPageType::*>|null
+     * @var list<TeletextPageType::*|string>|null
      */
     private $pageTypes;
 
     /**
      * @param array{
      *   PageNumber?: null|string,
-     *   PageTypes?: null|array<TeletextPageType::*>,
+     *   PageTypes?: null|array<TeletextPageType::*|string>,
      * } $input
      */
     public function __construct(array $input)
@@ -44,7 +44,7 @@ final class TeletextDestinationSettings
     /**
      * @param array{
      *   PageNumber?: null|string,
-     *   PageTypes?: null|array<TeletextPageType::*>,
+     *   PageTypes?: null|array<TeletextPageType::*|string>,
      * }|TeletextDestinationSettings $input
      */
     public static function create($input): self
@@ -58,7 +58,7 @@ final class TeletextDestinationSettings
     }
 
     /**
-     * @return list<TeletextPageType::*>
+     * @return list<TeletextPageType::*|string>
      */
     public function getPageTypes(): array
     {

@@ -17,7 +17,7 @@ final class S3LogsConfig
      * - `ENABLED`: S3 build logs are enabled for this build project.
      * - `DISABLED`: S3 build logs are not enabled for this build project.
      *
-     * @var LogsConfigStatusType::*
+     * @var LogsConfigStatusType::*|string
      */
     private $status;
 
@@ -37,16 +37,16 @@ final class S3LogsConfig
     private $encryptionDisabled;
 
     /**
-     * @var BucketOwnerAccess::*|null
+     * @var BucketOwnerAccess::*|string|null
      */
     private $bucketOwnerAccess;
 
     /**
      * @param array{
-     *   status: LogsConfigStatusType::*,
+     *   status: LogsConfigStatusType::*|string,
      *   location?: null|string,
      *   encryptionDisabled?: null|bool,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -59,10 +59,10 @@ final class S3LogsConfig
 
     /**
      * @param array{
-     *   status: LogsConfigStatusType::*,
+     *   status: LogsConfigStatusType::*|string,
      *   location?: null|string,
      *   encryptionDisabled?: null|bool,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   bucketOwnerAccess?: null|BucketOwnerAccess::*|string,
      * }|S3LogsConfig $input
      */
     public static function create($input): self
@@ -71,7 +71,7 @@ final class S3LogsConfig
     }
 
     /**
-     * @return BucketOwnerAccess::*|null
+     * @return BucketOwnerAccess::*|string|null
      */
     public function getBucketOwnerAccess(): ?string
     {
@@ -89,7 +89,7 @@ final class S3LogsConfig
     }
 
     /**
-     * @return LogsConfigStatusType::*
+     * @return LogsConfigStatusType::*|string
      */
     public function getStatus(): string
     {

@@ -28,7 +28,7 @@ final class RouteMatrixEntryError
     /**
      * The type of error which occurred for the route calculation.
      *
-     * @var RouteMatrixErrorCode::*
+     * @var RouteMatrixErrorCode::*|string
      */
     private $code;
 
@@ -41,7 +41,7 @@ final class RouteMatrixEntryError
 
     /**
      * @param array{
-     *   Code: RouteMatrixErrorCode::*,
+     *   Code: RouteMatrixErrorCode::*|string,
      *   Message?: null|string,
      * } $input
      */
@@ -53,7 +53,7 @@ final class RouteMatrixEntryError
 
     /**
      * @param array{
-     *   Code: RouteMatrixErrorCode::*,
+     *   Code: RouteMatrixErrorCode::*|string,
      *   Message?: null|string,
      * }|RouteMatrixEntryError $input
      */
@@ -63,7 +63,7 @@ final class RouteMatrixEntryError
     }
 
     /**
-     * @return RouteMatrixErrorCode::*
+     * @return RouteMatrixErrorCode::*|string
      */
     public function getCode(): string
     {

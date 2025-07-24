@@ -72,7 +72,7 @@ final class KeyMetadata
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations
      *
-     * @var KeyUsageType::*|null
+     * @var KeyUsageType::*|string|null
      */
     private $keyUsage;
 
@@ -84,7 +84,7 @@ final class KeyMetadata
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      *
-     * @var KeyState::*|null
+     * @var KeyState::*|string|null
      */
     private $keyState;
 
@@ -115,7 +115,7 @@ final class KeyMetadata
      * value is `EXTERNAL`, the key material was imported or the KMS key doesn't have any key material. When this value is
      * `AWS_CLOUDHSM`, the key material was created in the CloudHSM cluster associated with a custom key store.
      *
-     * @var OriginType::*|null
+     * @var OriginType::*|string|null
      */
     private $origin;
 
@@ -144,7 +144,7 @@ final class KeyMetadata
      * Specifies whether the KMS key's key material expires. This value is present only when `Origin` is `EXTERNAL`,
      * otherwise this value is omitted.
      *
-     * @var ExpirationModelType::*|null
+     * @var ExpirationModelType::*|string|null
      */
     private $expirationModel;
 
@@ -155,7 +155,7 @@ final class KeyMetadata
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys
      *
-     * @var KeyManagerType::*|null
+     * @var KeyManagerType::*|string|null
      */
     private $keyManager;
 
@@ -165,14 +165,14 @@ final class KeyMetadata
      * The `KeySpec` and `CustomerMasterKeySpec` fields have the same value. We recommend that you use the `KeySpec` field
      * in your code. However, to avoid breaking changes, KMS supports both fields.
      *
-     * @var CustomerMasterKeySpec::*|null
+     * @var CustomerMasterKeySpec::*|string|null
      */
     private $customerMasterKeySpec;
 
     /**
      * Describes the type of key material in the KMS key.
      *
-     * @var KeySpec::*|null
+     * @var KeySpec::*|string|null
      */
     private $keySpec;
 
@@ -182,7 +182,7 @@ final class KeyMetadata
      *
      * This value is present only when the `KeyUsage` of the KMS key is `ENCRYPT_DECRYPT`.
      *
-     * @var list<EncryptionAlgorithmSpec::*>|null
+     * @var list<EncryptionAlgorithmSpec::*|string>|null
      */
     private $encryptionAlgorithms;
 
@@ -192,14 +192,14 @@ final class KeyMetadata
      *
      * This field appears only when the `KeyUsage` of the KMS key is `SIGN_VERIFY`.
      *
-     * @var list<SigningAlgorithmSpec::*>|null
+     * @var list<SigningAlgorithmSpec::*|string>|null
      */
     private $signingAlgorithms;
 
     /**
      * The key agreement algorithm used to derive a shared secret.
      *
-     * @var list<KeyAgreementAlgorithmSpec::*>|null
+     * @var list<KeyAgreementAlgorithmSpec::*|string>|null
      */
     private $keyAgreementAlgorithms;
 
@@ -253,7 +253,7 @@ final class KeyMetadata
      *
      * This value is present only when the `KeyUsage` of the KMS key is `GENERATE_VERIFY_MAC`.
      *
-     * @var list<MacAlgorithmSpec::*>|null
+     * @var list<MacAlgorithmSpec::*|string>|null
      */
     private $macAlgorithms;
 
@@ -286,24 +286,24 @@ final class KeyMetadata
      *   CreationDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
      *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   KeyState?: null|KeyState::*,
+     *   KeyUsage?: null|KeyUsageType::*|string,
+     *   KeyState?: null|KeyState::*|string,
      *   DeletionDate?: null|\DateTimeImmutable,
      *   ValidTo?: null|\DateTimeImmutable,
-     *   Origin?: null|OriginType::*,
+     *   Origin?: null|OriginType::*|string,
      *   CustomKeyStoreId?: null|string,
      *   CloudHsmClusterId?: null|string,
-     *   ExpirationModel?: null|ExpirationModelType::*,
-     *   KeyManager?: null|KeyManagerType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*>,
-     *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*>,
-     *   KeyAgreementAlgorithms?: null|array<KeyAgreementAlgorithmSpec::*>,
+     *   ExpirationModel?: null|ExpirationModelType::*|string,
+     *   KeyManager?: null|KeyManagerType::*|string,
+     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*|string,
+     *   KeySpec?: null|KeySpec::*|string,
+     *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*|string>,
+     *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*|string>,
+     *   KeyAgreementAlgorithms?: null|array<KeyAgreementAlgorithmSpec::*|string>,
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
-     *   MacAlgorithms?: null|array<MacAlgorithmSpec::*>,
+     *   MacAlgorithms?: null|array<MacAlgorithmSpec::*|string>,
      *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
      *   CurrentKeyMaterialId?: null|string,
      * } $input
@@ -346,24 +346,24 @@ final class KeyMetadata
      *   CreationDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
      *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   KeyState?: null|KeyState::*,
+     *   KeyUsage?: null|KeyUsageType::*|string,
+     *   KeyState?: null|KeyState::*|string,
      *   DeletionDate?: null|\DateTimeImmutable,
      *   ValidTo?: null|\DateTimeImmutable,
-     *   Origin?: null|OriginType::*,
+     *   Origin?: null|OriginType::*|string,
      *   CustomKeyStoreId?: null|string,
      *   CloudHsmClusterId?: null|string,
-     *   ExpirationModel?: null|ExpirationModelType::*,
-     *   KeyManager?: null|KeyManagerType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*>,
-     *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*>,
-     *   KeyAgreementAlgorithms?: null|array<KeyAgreementAlgorithmSpec::*>,
+     *   ExpirationModel?: null|ExpirationModelType::*|string,
+     *   KeyManager?: null|KeyManagerType::*|string,
+     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*|string,
+     *   KeySpec?: null|KeySpec::*|string,
+     *   EncryptionAlgorithms?: null|array<EncryptionAlgorithmSpec::*|string>,
+     *   SigningAlgorithms?: null|array<SigningAlgorithmSpec::*|string>,
+     *   KeyAgreementAlgorithms?: null|array<KeyAgreementAlgorithmSpec::*|string>,
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
-     *   MacAlgorithms?: null|array<MacAlgorithmSpec::*>,
+     *   MacAlgorithms?: null|array<MacAlgorithmSpec::*|string>,
      *   XksKeyConfiguration?: null|XksKeyConfigurationType|array,
      *   CurrentKeyMaterialId?: null|string,
      * }|KeyMetadata $input
@@ -406,7 +406,7 @@ final class KeyMetadata
     /**
      * @deprecated
      *
-     * @return CustomerMasterKeySpec::*|null
+     * @return CustomerMasterKeySpec::*|string|null
      */
     public function getCustomerMasterKeySpec(): ?string
     {
@@ -431,7 +431,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return list<EncryptionAlgorithmSpec::*>
+     * @return list<EncryptionAlgorithmSpec::*|string>
      */
     public function getEncryptionAlgorithms(): array
     {
@@ -439,7 +439,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return ExpirationModelType::*|null
+     * @return ExpirationModelType::*|string|null
      */
     public function getExpirationModel(): ?string
     {
@@ -447,7 +447,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return list<KeyAgreementAlgorithmSpec::*>
+     * @return list<KeyAgreementAlgorithmSpec::*|string>
      */
     public function getKeyAgreementAlgorithms(): array
     {
@@ -460,7 +460,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return KeyManagerType::*|null
+     * @return KeyManagerType::*|string|null
      */
     public function getKeyManager(): ?string
     {
@@ -468,7 +468,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return KeySpec::*|null
+     * @return KeySpec::*|string|null
      */
     public function getKeySpec(): ?string
     {
@@ -476,7 +476,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return KeyState::*|null
+     * @return KeyState::*|string|null
      */
     public function getKeyState(): ?string
     {
@@ -484,7 +484,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return KeyUsageType::*|null
+     * @return KeyUsageType::*|string|null
      */
     public function getKeyUsage(): ?string
     {
@@ -492,7 +492,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return list<MacAlgorithmSpec::*>
+     * @return list<MacAlgorithmSpec::*|string>
      */
     public function getMacAlgorithms(): array
     {
@@ -510,7 +510,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return OriginType::*|null
+     * @return OriginType::*|string|null
      */
     public function getOrigin(): ?string
     {
@@ -523,7 +523,7 @@ final class KeyMetadata
     }
 
     /**
-     * @return list<SigningAlgorithmSpec::*>
+     * @return list<SigningAlgorithmSpec::*|string>
      */
     public function getSigningAlgorithms(): array
     {

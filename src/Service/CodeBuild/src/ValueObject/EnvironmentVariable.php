@@ -45,7 +45,7 @@ final class EnvironmentVariable
      * [^1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.env.parameter-store
      * [^2]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.env.secrets-manager
      *
-     * @var EnvironmentVariableType::*|null
+     * @var EnvironmentVariableType::*|string|null
      */
     private $type;
 
@@ -53,7 +53,7 @@ final class EnvironmentVariable
      * @param array{
      *   name: string,
      *   value: string,
-     *   type?: null|EnvironmentVariableType::*,
+     *   type?: null|EnvironmentVariableType::*|string,
      * } $input
      */
     public function __construct(array $input)
@@ -67,7 +67,7 @@ final class EnvironmentVariable
      * @param array{
      *   name: string,
      *   value: string,
-     *   type?: null|EnvironmentVariableType::*,
+     *   type?: null|EnvironmentVariableType::*|string,
      * }|EnvironmentVariable $input
      */
     public static function create($input): self
@@ -81,7 +81,7 @@ final class EnvironmentVariable
     }
 
     /**
-     * @return EnvironmentVariableType::*|null
+     * @return EnvironmentVariableType::*|string|null
      */
     public function getType(): ?string
     {

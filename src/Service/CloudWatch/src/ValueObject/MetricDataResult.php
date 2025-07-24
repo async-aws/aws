@@ -46,7 +46,7 @@ final class MetricDataResult
      * returned and repeat your request to get more data points. `NextToken` is not returned if you are performing a math
      * expression. `InternalError` indicates that an error occurred. Retry your request using `NextToken`, if present.
      *
-     * @var StatusCode::*|null
+     * @var StatusCode::*|string|null
      */
     private $statusCode;
 
@@ -63,7 +63,7 @@ final class MetricDataResult
      *   Label?: null|string,
      *   Timestamps?: null|\DateTimeImmutable[],
      *   Values?: null|float[],
-     *   StatusCode?: null|StatusCode::*,
+     *   StatusCode?: null|StatusCode::*|string,
      *   Messages?: null|array<MessageData|array>,
      * } $input
      */
@@ -83,7 +83,7 @@ final class MetricDataResult
      *   Label?: null|string,
      *   Timestamps?: null|\DateTimeImmutable[],
      *   Values?: null|float[],
-     *   StatusCode?: null|StatusCode::*,
+     *   StatusCode?: null|StatusCode::*|string,
      *   Messages?: null|array<MessageData|array>,
      * }|MetricDataResult $input
      */
@@ -111,7 +111,7 @@ final class MetricDataResult
     }
 
     /**
-     * @return StatusCode::*|null
+     * @return StatusCode::*|string|null
      */
     public function getStatusCode(): ?string
     {

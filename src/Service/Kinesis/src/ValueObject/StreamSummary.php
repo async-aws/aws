@@ -27,7 +27,7 @@ final class StreamSummary
     /**
      * The status of the stream.
      *
-     * @var StreamStatus::*
+     * @var StreamStatus::*|string
      */
     private $streamStatus;
 
@@ -47,7 +47,7 @@ final class StreamSummary
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
-     *   StreamStatus: StreamStatus::*,
+     *   StreamStatus: StreamStatus::*|string,
      *   StreamModeDetails?: null|StreamModeDetails|array,
      *   StreamCreationTimestamp?: null|\DateTimeImmutable,
      * } $input
@@ -65,7 +65,7 @@ final class StreamSummary
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
-     *   StreamStatus: StreamStatus::*,
+     *   StreamStatus: StreamStatus::*|string,
      *   StreamModeDetails?: null|StreamModeDetails|array,
      *   StreamCreationTimestamp?: null|\DateTimeImmutable,
      * }|StreamSummary $input
@@ -96,7 +96,7 @@ final class StreamSummary
     }
 
     /**
-     * @return StreamStatus::*
+     * @return StreamStatus::*|string
      */
     public function getStreamStatus(): string
     {
