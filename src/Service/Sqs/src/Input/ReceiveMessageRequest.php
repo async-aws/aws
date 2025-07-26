@@ -47,8 +47,7 @@ final class ReceiveMessageRequest extends Input
      * - `SqsManagedSseEnabled` – Enables server-side queue encryption using SQS owned encryption keys. Only one
      *   server-side encryption option is supported per queue (for example, SSE-KMS [^3] or SSE-SQS [^4]).
      * - `MessageDeduplicationId` – Returns the value provided by the producer that calls the `SendMessage` action.
-     * - `MessageGroupId` – Returns the value provided by the producer that calls the `SendMessage` action. Messages with
-     *   the same `MessageGroupId` are returned in sequence.
+     * - `MessageGroupId` – Returns the value provided by the producer that calls the `SendMessage` action.
      * - `SequenceNumber` – Returns the value provided by Amazon SQS.
      *
      * [^1]: http://en.wikipedia.org/wiki/Unix_time
@@ -157,7 +156,7 @@ final class ReceiveMessageRequest extends Input
      *
      * - While messages with a particular `MessageGroupId` are invisible, no more messages belonging to the same
      *   `MessageGroupId` are returned until the visibility timeout expires. You can still receive messages with another
-     *   `MessageGroupId` as long as it is also visible.
+     *   `MessageGroupId` from your FIFO queue as long as they are visible.
      * - If a caller of `ReceiveMessage` can't track the `ReceiveRequestAttemptId`, no retries work until the original
      *   visibility timeout expires. As a result, delays might occur but the messages in the queue remain in a strict order.
      *
