@@ -8,6 +8,10 @@
 - AWS api-change: Rework regions configuration
 - AWS api-change: AWS KMS announces the support of ML-DSA key pairs that creates post-quantum safe digital signatures.
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 1.9.0
 
 ### Added

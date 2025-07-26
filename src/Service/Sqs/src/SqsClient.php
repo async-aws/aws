@@ -257,7 +257,7 @@ class SqsClient extends AbstractApi
      *
      *   > You can't change the queue type after you create it and you can't convert an existing standard queue into a FIFO
      *   > queue. You must either create a new FIFO queue for your application or delete your existing standard queue and
-     *   > recreate it as a FIFO queue. For more information, see Moving From a Standard Queue to a FIFO Queue [^1] in the
+     *   > recreate it as a FIFO queue. For more information, see Moving From a standard queue to a FIFO queue [^1] in the
      *   > *Amazon SQS Developer Guide*.
      *
      * - If you don't provide a value for an attribute, the queue is created with the default value for the attribute.
@@ -745,7 +745,7 @@ class SqsClient extends AbstractApi
      * ! `#x9` | `#xA` | `#xD` | `#x20` to `#xD7FF` | `#xE000` to `#xFFFD` | `#x10000` to `#x10FFFF`
      * !
      * ! Amazon SQS does not throw an exception or completely reject the message if it contains invalid characters. Instead,
-     * ! it replaces those invalid characters with `U+FFFD` before storing the message in the queue, as long as the message
+     * ! it replaces those invalid characters with U+FFFD before storing the message in the queue, as long as the message
      * ! body contains at least one valid character.
      *
      * [^1]: http://www.w3.org/TR/REC-xml/#charsets
@@ -818,7 +818,7 @@ class SqsClient extends AbstractApi
      * ! `#x9` | `#xA` | `#xD` | `#x20` to `#xD7FF` | `#xE000` to `#xFFFD` | `#x10000` to `#x10FFFF`
      * !
      * ! Amazon SQS does not throw an exception or completely reject the message if it contains invalid characters. Instead,
-     * ! it replaces those invalid characters with `U+FFFD` before storing the message in the queue, as long as the message
+     * ! it replaces those invalid characters with U+FFFD before storing the message in the queue, as long as the message
      * ! body contains at least one valid character.
      *
      * If you don't specify the `DelaySeconds` parameter for an entry, Amazon SQS uses the default value for the queue.
