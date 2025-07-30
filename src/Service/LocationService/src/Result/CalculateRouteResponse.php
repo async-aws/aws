@@ -32,7 +32,7 @@ class CalculateRouteResponse extends Result
      * - Leg 1: The `StartPosition` is the departure position . The `EndPosition` is the waypoint positon.
      * - Leg 2: The `StartPosition` is the waypoint position. The `EndPosition` is the destination position.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @var Leg[]
      */

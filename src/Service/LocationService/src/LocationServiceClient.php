@@ -50,10 +50,10 @@ class LocationServiceClient extends AbstractApi
      *   > If you specify `walking` for the travel mode and your data provider is Esri, the start and destination must be
      *   > within 40km.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/calculate-route.html
      * [^2]: https://docs.aws.amazon.com/location-routes/latest/APIReference/API_CreateRouteCalculator.html
-     * [^3]: https://docs.aws.amazon.com/location/latest/developerguide/departure-time.html
-     * [^4]: https://docs.aws.amazon.com/location/latest/developerguide/travel-mode.html
+     * [^3]: https://docs.aws.amazon.com/location/previous/developerguide/departure-time.html
+     * [^4]: https://docs.aws.amazon.com/location/previous/developerguide/travel-mode.html
      *
      * @see https://docs.aws.amazon.com/location/latest/APIReference/API_CalculateRoute.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#calculateroute
@@ -123,10 +123,10 @@ class LocationServiceClient extends AbstractApi
      *   lets you specify additional route preferences in `CarModeOptions` if traveling by `Car`, or `TruckModeOptions` if
      *   traveling by `Truck`.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/calculate-route-matrix.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/calculate-route-matrix.html
      * [^2]: https://docs.aws.amazon.com/location-routes/latest/APIReference/API_CreateRouteCalculator.html
-     * [^3]: https://docs.aws.amazon.com/location/latest/developerguide/departure-time.html
-     * [^4]: https://docs.aws.amazon.com/location/latest/developerguide/travel-mode.html
+     * [^3]: https://docs.aws.amazon.com/location/previous/developerguide/departure-time.html
+     * [^4]: https://docs.aws.amazon.com/location/previous/developerguide/travel-mode.html
      *
      * @see https://docs.aws.amazon.com/location/latest/APIReference/API_CalculateRouteMatrix.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#calculateroutematrix

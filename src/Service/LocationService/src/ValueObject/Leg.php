@@ -20,7 +20,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * - Leg 1: The `StartPosition` is the departure position . The `EndPosition` is the waypoint positon.
  * - Leg 2: The `StartPosition` is the waypoint position. The `EndPosition` is the destination position.
  *
- * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+ * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
  */
 final class Leg
 {
@@ -29,7 +29,7 @@ final class Leg
      *
      * > If the `StartPosition` isn't located on a road, it's snapped to a nearby road [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @var float[]
      */
@@ -40,7 +40,7 @@ final class Leg
      *
      * > If the `EndPosition` isn't located on a road, it's snapped to a nearby road [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/nap-to-nearby-road.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/nap-to-nearby-road.html
      *
      * @var float[]
      */
