@@ -35,7 +35,7 @@ final class CalculateRouteRequest extends Input
      * Valid Values: `[-180 to 180,-90 to 90]`
      *
      * [^1]: https://earth-info.nga.mil/index.php?dir=wgs84&amp;action=wgs84
-     * [^2]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^2]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @required
      *
@@ -54,7 +54,7 @@ final class CalculateRouteRequest extends Input
      * Valid Values: `[-180 to 180,-90 to 90]`
      *
      * [^1]: https://earth-info.nga.mil/index.php?dir=wgs84&amp;action=wgs84
-     * [^2]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^2]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @required
      *
@@ -79,7 +79,7 @@ final class CalculateRouteRequest extends Input
      *
      * Valid Values: `[-180 to 180,-90 to 90]`
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @var float[][]|null
      */
@@ -103,7 +103,7 @@ final class CalculateRouteRequest extends Input
      *
      * Default Value: `Car`
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/grab.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/grab.html
      *
      * @var TravelMode::*|null
      */
@@ -192,7 +192,7 @@ final class CalculateRouteRequest extends Input
     /**
      * The optional API key [^1] to authorize the request.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html
      *
      * @var string|null
      */

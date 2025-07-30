@@ -129,9 +129,9 @@ final class Place
      * The Amazon Location categories that describe this Place.
      *
      * For more information about using categories, including a list of Amazon Location categories, see Categories and
-     * filtering [^1], in the *Amazon Location Service Developer Guide*.
+     * filtering [^1], in the *Amazon Location Service developer guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/category-filtering.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/category-filtering.html
      *
      * @var string[]|null
      */

@@ -66,7 +66,7 @@ final class SearchPlaceIndexForPositionRequest extends Input
     /**
      * The optional API key [^1] to authorize the request.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html
      *
      * @var string|null
      */
