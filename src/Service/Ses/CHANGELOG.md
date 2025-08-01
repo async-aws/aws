@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release introduces support for Multi-tenant management
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
