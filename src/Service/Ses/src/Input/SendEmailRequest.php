@@ -122,6 +122,16 @@ final class SendEmailRequest extends Input
     private $endpointId;
 
     /**
+     * The name of the tenant through which this email will be sent.
+     *
+     * > The email sending operation will only succeed if all referenced resources (identities, configuration sets, and
+     * > templates) are associated with this tenant.
+     *
+     * @var string|null
+     */
+    private $tenantName;
+
+    /**
      * An object used to specify a list or topic to which an email belongs, which will be used when a contact chooses to
      * unsubscribe.
      *
@@ -141,6 +151,7 @@ final class SendEmailRequest extends Input
      *   EmailTags?: null|array<MessageTag|array>,
      *   ConfigurationSetName?: null|string,
      *   EndpointId?: null|string,
+     *   TenantName?: null|string,
      *   ListManagementOptions?: null|ListManagementOptions|array,
      *   '@region'?: string|null,
      * } $input
@@ -157,6 +168,7 @@ final class SendEmailRequest extends Input
         $this->emailTags = isset($input['EmailTags']) ? array_map([MessageTag::class, 'create'], $input['EmailTags']) : null;
         $this->configurationSetName = $input['ConfigurationSetName'] ?? null;
         $this->endpointId = $input['EndpointId'] ?? null;
+        $this->tenantName = $input['TenantName'] ?? null;
         $this->listManagementOptions = isset($input['ListManagementOptions']) ? ListManagementOptions::create($input['ListManagementOptions']) : null;
         parent::__construct($input);
     }
@@ -173,6 +185,7 @@ final class SendEmailRequest extends Input
      *   EmailTags?: null|array<MessageTag|array>,
      *   ConfigurationSetName?: null|string,
      *   EndpointId?: null|string,
+     *   TenantName?: null|string,
      *   ListManagementOptions?: null|ListManagementOptions|array,
      *   '@region'?: string|null,
      * }|SendEmailRequest $input
@@ -241,6 +254,11 @@ final class SendEmailRequest extends Input
     public function getReplyToAddresses(): array
     {
         return $this->replyToAddresses ?? [];
+    }
+
+    public function getTenantName(): ?string
+    {
+        return $this->tenantName;
     }
 
     /**
@@ -351,6 +369,13 @@ final class SendEmailRequest extends Input
         return $this;
     }
 
+    public function setTenantName(?string $value): self
+    {
+        $this->tenantName = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -394,6 +419,9 @@ final class SendEmailRequest extends Input
         }
         if (null !== $v = $this->endpointId) {
             $payload['EndpointId'] = $v;
+        }
+        if (null !== $v = $this->tenantName) {
+            $payload['TenantName'] = $v;
         }
         if (null !== $v = $this->listManagementOptions) {
             $payload['ListManagementOptions'] = $v->requestBody();
