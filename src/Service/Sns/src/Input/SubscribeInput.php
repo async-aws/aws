@@ -32,7 +32,7 @@ final class SubscribeInput extends Input
      * - `sqs` – delivery of JSON-encoded message to an Amazon SQS queue
      * - `application` – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      * - `lambda` – delivery of JSON-encoded message to an Lambda function
-     * - `firehose` – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery stream.
+     * - `firehose` – delivery of JSON-encoded message to an Amazon Data Firehose delivery stream.
      *
      * @required
      *
@@ -51,7 +51,7 @@ final class SubscribeInput extends Input
      * - For the `sqs` protocol, the endpoint is the ARN of an Amazon SQS queue.
      * - For the `application` protocol, the endpoint is the EndpointArn of a mobile app and device.
      * - For the `lambda` protocol, the endpoint is the ARN of an Lambda function.
-     * - For the `firehose` protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose delivery stream.
+     * - For the `firehose` protocol, the endpoint is the ARN of an Amazon Data Firehose delivery stream.
      *
      * @var string|null
      */
