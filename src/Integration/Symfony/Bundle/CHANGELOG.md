@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for Symfony 8
+
 ## 1.14.0
 
 ### Added
