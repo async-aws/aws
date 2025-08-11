@@ -84,7 +84,9 @@ class ResultMockFactory
         // Make sure the Result is initialized
         $reflectionClass = new \ReflectionClass(Result::class);
         $initializedProperty = $reflectionClass->getProperty('initialized');
-        $initializedProperty->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $initializedProperty->setAccessible(true);
+        }
 
         /** @psalm-var \ReflectionClass<T> $reflectionClass */
         $reflectionClass = new \ReflectionClass($class);
@@ -116,7 +118,9 @@ class ResultMockFactory
                     $property = $reflectionClass->getProperty($propertyName);
                 }
             }
-            $property->setAccessible(true);
+            if (\PHP_VERSION_ID < 80100) {
+                $property->setAccessible(true);
+            }
             $property->setValue($object, $propertyValue);
         }
 
@@ -151,10 +155,14 @@ class ResultMockFactory
 
         $reflectionClass = new \ReflectionClass(Waiter::class);
         $propertyResponse = $reflectionClass->getProperty('response');
-        $propertyResponse->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $propertyResponse->setAccessible(true);
+        }
 
         $propertyState = $reflectionClass->getProperty('finalState');
-        $propertyState->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $propertyState->setAccessible(true);
+        }
 
         /** @psalm-var \ReflectionClass<T> $reflectionClass */
         $reflectionClass = new \ReflectionClass($class);
@@ -217,7 +225,9 @@ class ResultMockFactory
             }
 
             if (null !== $propertyValue) {
-                $property->setAccessible(true);
+                if (\PHP_VERSION_ID < 80100) {
+                    $property->setAccessible(true);
+                }
                 $property->setValue($object, $propertyValue);
             }
         }
@@ -260,14 +270,18 @@ class ResultMockFactory
         if (class_exists($awsClientClass)) {
             $awsClientMock = (new \ReflectionClass($awsClientClass))->newInstanceWithoutConstructor();
             $property = $reflectionClass->getProperty('awsClient');
-            $property->setAccessible(true);
+            if (\PHP_VERSION_ID < 80100) {
+                $property->setAccessible(true);
+            }
             $property->setValue($object, $awsClientMock);
         }
 
         if (class_exists($inputClass)) {
             $inputMock = (new \ReflectionClass($inputClass))->newInstanceWithoutConstructor();
             $property = $reflectionClass->getProperty('input');
-            $property->setAccessible(true);
+            if (\PHP_VERSION_ID < 80100) {
+                $property->setAccessible(true);
+            }
             $property->setValue($object, $inputMock);
         }
     }
@@ -278,15 +292,21 @@ class ResultMockFactory
         $response = $reflectionClass->newInstanceWithoutConstructor();
 
         $property = $reflectionClass->getProperty('resolveResult');
-        $property->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $property->setAccessible(true);
+        }
         $property->setValue($response, true);
 
         $property = $reflectionClass->getProperty('bodyDownloaded');
-        $property->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $property->setAccessible(true);
+        }
         $property->setValue($response, true);
 
         $property = $reflectionClass->getProperty('httpResponse');
-        $property->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $property->setAccessible(true);
+        }
         $property->setValue($response, new SimpleMockedResponse());
 
         return $response;

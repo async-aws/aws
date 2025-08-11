@@ -159,7 +159,9 @@ class SesClientTest extends TestCase
         $ses = new SesClient([], new NullProvider());
         $refl = new \ReflectionClass($ses);
         $method = $refl->getMethod('getEndpointMetadata');
-        $method->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $method->setAccessible(true);
+        }
         $data = $method->invokeArgs($ses, ['eu-central-1']);
 
         self::assertEquals('ses', $data['signService']);
