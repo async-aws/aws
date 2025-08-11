@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.11.1
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
