@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.3.0
+
 ### Added
 
 - AWS api-change: Rework regions configuration
