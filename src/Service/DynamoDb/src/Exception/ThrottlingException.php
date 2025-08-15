@@ -7,14 +7,12 @@ use AsyncAws\DynamoDb\ValueObject\ThrottlingReason;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Throughput exceeds the current throughput quota for your account. For detailed information about why the request was
- * throttled and the ARN of the impacted resource, find the ThrottlingReason [^1] field in the returned exception.
- * Contact Amazon Web ServicesSupport [^2] to request a quota increase.
+ * The request was denied due to request throttling. For detailed information about why the request was throttled and
+ * the ARN of the impacted resource, find the ThrottlingReason [^1] field in the returned exception.
  *
  * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ThrottlingReason.html
- * [^2]: https://aws.amazon.com/support
  */
-final class RequestLimitExceededException extends ClientException
+final class ThrottlingException extends ClientException
 {
     /**
      * A list of ThrottlingReason [^1] that provide detailed diagnostic information about why the request was throttled.
@@ -37,7 +35,7 @@ final class RequestLimitExceededException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->throttlingReasons = empty($data['ThrottlingReasons']) ? [] : $this->populateResultThrottlingReasonList($data['ThrottlingReasons']);
+        $this->throttlingReasons = empty($data['throttlingReasons']) ? [] : $this->populateResultThrottlingReasonList($data['throttlingReasons']);
     }
 
     private function populateResultThrottlingReason(array $json): ThrottlingReason

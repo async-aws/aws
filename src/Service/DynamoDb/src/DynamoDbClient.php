@@ -27,6 +27,7 @@ use AsyncAws\DynamoDb\Exception\ReplicatedWriteConflictException;
 use AsyncAws\DynamoDb\Exception\RequestLimitExceededException;
 use AsyncAws\DynamoDb\Exception\ResourceInUseException;
 use AsyncAws\DynamoDb\Exception\ResourceNotFoundException;
+use AsyncAws\DynamoDb\Exception\ThrottlingException;
 use AsyncAws\DynamoDb\Exception\TransactionCanceledException;
 use AsyncAws\DynamoDb\Exception\TransactionConflictException;
 use AsyncAws\DynamoDb\Exception\TransactionInProgressException;
@@ -150,6 +151,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function batchGetItem($input): BatchGetItemOutput
     {
@@ -159,6 +161,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new BatchGetItemOutput($response, $this, $input);
@@ -245,6 +248,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function batchWriteItem($input): BatchWriteItemOutput
     {
@@ -256,6 +260,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new BatchWriteItemOutput($response);
@@ -352,6 +357,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function deleteItem($input): DeleteItemOutput
@@ -365,6 +371,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
@@ -502,6 +509,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function executeStatement($input): ExecuteStatementOutput
@@ -515,6 +523,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ]]));
 
@@ -547,6 +556,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function getItem($input): GetItemOutput
     {
@@ -556,6 +566,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new GetItemOutput($response);
@@ -635,6 +646,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function putItem($input): PutItemOutput
@@ -648,6 +660,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
@@ -724,6 +737,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function query($input): QueryOutput
     {
@@ -733,6 +747,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new QueryOutput($response, $this, $input);
@@ -801,6 +816,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function scan($input): ScanOutput
     {
@@ -810,6 +826,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new ScanOutput($response, $this, $input);
@@ -905,6 +922,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionCanceledException
      * @throws TransactionInProgressException
      */
@@ -917,6 +935,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionCanceledException' => TransactionCanceledException::class,
             'TransactionInProgressException' => TransactionInProgressException::class,
         ], 'usesEndpointDiscovery' => true]));
@@ -960,6 +979,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function updateItem($input): UpdateItemOutput
@@ -973,6 +993,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
