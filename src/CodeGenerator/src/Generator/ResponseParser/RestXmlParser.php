@@ -16,8 +16,8 @@ use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
+use Nette\PhpGenerator\Visibility;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -384,7 +384,7 @@ class RestXmlParser implements Parser
     private function createPopulateMethod(string $functionName, string $body, Shape $shape): Method
     {
         $method = new Method($functionName);
-        $method->setVisibility(ClassType::VISIBILITY_PRIVATE)
+        $method->setVisibility(Visibility::Private)
             ->setReturnType('array')
             ->setBody($body)
             ->addParameter('xml')
