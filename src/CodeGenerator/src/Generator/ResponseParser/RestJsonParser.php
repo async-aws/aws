@@ -16,8 +16,8 @@ use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
+use Nette\PhpGenerator\Visibility;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -433,7 +433,7 @@ class RestJsonParser implements Parser
     private function createPopulateMethod(string $functionName, string $body, Shape $shape): Method
     {
         $method = new Method($functionName);
-        $method->setVisibility(ClassType::VISIBILITY_PRIVATE)
+        $method->setVisibility(Visibility::Private)
             ->setBody($body)
             ->addParameter('json')
                 ->setType('array')

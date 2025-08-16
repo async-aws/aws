@@ -15,7 +15,7 @@ use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
-use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Visibility;
 
 /**
  * Generate API client.
@@ -252,7 +252,7 @@ class ClientGenerator
 
         $classBuilder->addMethod('getEndpointMetadata')
             ->setReturnType('array')
-            ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+            ->setVisibility(Visibility::Protected)
             ->setBody(strtr($body, ['"$region"' => '$region']))
             ->addParameter('region')
                 ->setType('string')
@@ -287,7 +287,7 @@ class ClientGenerator
         $errorFactoryBase = basename(str_replace('\\', '/', $errorFactory));
         $classBuilder->addMethod('getAwsErrorFactory')
             ->setReturnType(AwsErrorFactoryInterface::class)
-            ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+            ->setVisibility(Visibility::Protected)
             ->setBody("return new $errorFactoryBase();")
         ;
 
