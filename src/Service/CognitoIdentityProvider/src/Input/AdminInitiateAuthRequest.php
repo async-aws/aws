@@ -74,21 +74,37 @@ final class AdminInitiateAuthRequest extends Input
     private $authFlow;
 
     /**
-     * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required
-     * values depend on the value of `AuthFlow` for example:
+     * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking.
      *
-     * - For `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If you don't provide a value for
-     *   `PREFERRED_CHALLENGE`, Amazon Cognito responds with the `AvailableChallenges` parameter that specifies the
-     *   available sign-in methods.
-     * - For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is
-     *   configured with a client secret), `DEVICE_KEY`.
-     * - For `ADMIN_USER_PASSWORD_AUTH`: `USERNAME` (required), `PASSWORD` (required), `SECRET_HASH` (required if the app
-     *   client is configured with a client secret), `DEVICE_KEY`.
-     * - For `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is
-     *   configured with a client secret), `DEVICE_KEY`.
-     * - For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret),
-     *   `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and
-     *   `SRP_A: (The SRP_A Value)`.
+     * The following are some authentication flows and their parameters. Add a `SECRET_HASH` parameter if your app client
+     * has a client secret. Add `DEVICE_KEY` if you want to bypass multi-factor authentication with a remembered device.
+     *
+     * - `USER_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `PREFERRED_CHALLENGE`. If you don't provide a value for `PREFERRED_CHALLENGE`, Amazon Cognito responds with the
+     *     `AvailableChallenges` parameter that specifies the available sign-in methods.
+     *
+     * - `USER_SRP_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `SRP_A` (required)
+     *
+     * - `ADMIN_USER_PASSWORD_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `PASSWORD` (required)
+     *
+     * - `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`:
+     *
+     *   - `REFRESH_TOKEN`(required)
+     *
+     * - `CUSTOM_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `ChallengeName: SRP_A` (when preceding custom authentication with SRP authentication)
+     *   - `SRP_A: (An SRP_A value)` (when preceding custom authentication with SRP authentication)
+     *
      *
      * For more information about `SECRET_HASH`, see Computing secret hash values [^1]. For information about `DEVICE_KEY`,
      * see Working with user devices in your user pool [^2].

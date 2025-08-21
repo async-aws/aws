@@ -19,22 +19,25 @@ class RespondToAuthChallengeResponse extends Result
      * Possible challenges include the following:
      *
      * > All of the following challenges require `USERNAME` and, when the app client has a client secret, `SECRET_HASH` in
-     * > the parameters.
+     * > the parameters. Include a `DEVICE_KEY` for device authentication.
      *
      * - `WEB_AUTHN`: Respond to the challenge with the results of a successful authentication with a WebAuthn
-     *   authenticator, or passkey. Examples of WebAuthn authenticators include biometric devices and security keys.
-     * - `PASSWORD`: Respond with `USER_PASSWORD_AUTH` parameters: `USERNAME` (required), `PASSWORD` (required),
-     *   `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
-     * - `PASSWORD_SRP`: Respond with `USER_SRP_AUTH` parameters: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH`
-     *   (required if the app client is configured with a client secret), `DEVICE_KEY`.
-     * - `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an `ANSWER` that matches one of the challenge
-     *   types in the `AvailableChallenges` response parameter.
-     * - `SMS_MFA`: Respond with an `SMS_MFA_CODE` that your user pool delivered in an SMS message.
-     * - `EMAIL_OTP`: Respond with an `EMAIL_OTP_CODE` that your user pool delivered in an email message.
-     * - `PASSWORD_VERIFIER`: Respond with `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP` after
-     *   client-side SRP calculations.
+     *   authenticator, or passkey, as `CREDENTIAL`. Examples of WebAuthn authenticators include biometric devices and
+     *   security keys.
+     * - `PASSWORD`: Respond with the user's password as `PASSWORD`.
+     * - `PASSWORD_SRP`: Respond with the initial SRP secret as `SRP_A`.
+     * - `SELECT_CHALLENGE`: Respond with a challenge selection as `ANSWER`. It must be one of the challenge types in the
+     *   `AvailableChallenges` response parameter. Add the parameters of the selected challenge, for example `USERNAME` and
+     *   `SMS_OTP`.
+     * - `SMS_MFA`: Respond with the code that your user pool delivered in an SMS message, as `SMS_MFA_CODE`
+     * - `EMAIL_MFA`: Respond with the code that your user pool delivered in an email message, as `EMAIL_MFA_CODE`
+     * - `EMAIL_OTP`: Respond with the code that your user pool delivered in an email message, as `EMAIL_OTP_CODE` .
+     * - `SMS_OTP`: Respond with the code that your user pool delivered in an SMS message, as `SMS_OTP_CODE`.
+     * - `PASSWORD_VERIFIER`: Respond with the second stage of SRP secrets as `PASSWORD_CLAIM_SIGNATURE`,
+     *   `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP`.
      * - `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass
-     *   another challenge before tokens are issued. The parameters of the challenge are determined by your Lambda function.
+     *   another challenge before tokens are issued. The parameters of the challenge are determined by your Lambda function
+     *   and issued in the `ChallengeParameters` of a challenge response.
      * - `DEVICE_SRP_AUTH`: Respond with the initial parameters of device SRP authentication. For more information, see
      *   Signing in with a device [^1].
      * - `DEVICE_PASSWORD_VERIFIER`: Respond with `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP`
