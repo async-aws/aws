@@ -668,8 +668,10 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Resets the specified user's password in a user pool. This operation doesn't change the user's password, but sends a
-     * password-reset code.
+     * Begins the password reset process. Sets the requested user’s account into a `RESET_REQUIRED` status, and sends them
+     * a password-reset code. Your user pool also sends the user a notification with a reset code and the information that
+     * their password has been reset. At sign-in, your application or the managed login session receives a challenge to
+     * complete the reset by confirming the code and setting a new password.
      *
      * To use this API operation, your user pool must have self-service account recovery configured.
      *
@@ -1275,9 +1277,11 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Sends a password-reset confirmation code for the currently signed-in user.
+     * Sends a password-reset confirmation code to the email address or phone number of the requested username. The message
+     * delivery method is determined by the user's available attributes and the `AccountRecoverySetting` configuration of
+     * the user pool.
      *
-     * For the `Username` parameter, you can use the username or user alias.
+     * For the `Username` parameter, you can use the username or an email, phone, or preferred username alias.
      *
      * If neither a verified phone number nor a verified email exists, Amazon Cognito responds with an
      * `InvalidParameterException` error . If your app client has a client secret and you don't provide a `SECRET_HASH`
