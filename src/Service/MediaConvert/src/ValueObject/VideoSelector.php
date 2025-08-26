@@ -10,6 +10,7 @@ use AsyncAws\MediaConvert\Enum\EmbeddedTimecodeOverride;
 use AsyncAws\MediaConvert\Enum\InputRotate;
 use AsyncAws\MediaConvert\Enum\InputSampleRange;
 use AsyncAws\MediaConvert\Enum\PadVideo;
+use AsyncAws\MediaConvert\Enum\VideoSelectorType;
 
 /**
  * Input video selectors contain the video settings for the input. Each of your inputs can have up to one video
@@ -142,6 +143,24 @@ final class VideoSelector
     private $sampleRange;
 
     /**
+     * Choose the video selector type for your HLS input. Use to specify which video rendition MediaConvert uses from your
+     * HLS input. To have MediaConvert automatically use the highest bitrate rendition from your HLS input: Keep the default
+     * value, Auto. To manually specify a rendition: Choose Stream. Then enter the unique stream number in the Streams
+     * array, starting at 1, corresponding to the stream order in the manifest.
+     *
+     * @var VideoSelectorType::*|null
+     */
+    private $selectorType;
+
+    /**
+     * Specify a stream for MediaConvert to use from your HLS input. Enter an integer corresponding to the stream order in
+     * your HLS manifest.
+     *
+     * @var int[]|null
+     */
+    private $streams;
+
+    /**
      * @param array{
      *   AlphaBehavior?: null|AlphaBehavior::*,
      *   ColorSpace?: null|ColorSpace::*,
@@ -154,6 +173,8 @@ final class VideoSelector
      *   ProgramNumber?: null|int,
      *   Rotate?: null|InputRotate::*,
      *   SampleRange?: null|InputSampleRange::*,
+     *   SelectorType?: null|VideoSelectorType::*,
+     *   Streams?: null|int[],
      * } $input
      */
     public function __construct(array $input)
@@ -169,6 +190,8 @@ final class VideoSelector
         $this->programNumber = $input['ProgramNumber'] ?? null;
         $this->rotate = $input['Rotate'] ?? null;
         $this->sampleRange = $input['SampleRange'] ?? null;
+        $this->selectorType = $input['SelectorType'] ?? null;
+        $this->streams = $input['Streams'] ?? null;
     }
 
     /**
@@ -184,6 +207,8 @@ final class VideoSelector
      *   ProgramNumber?: null|int,
      *   Rotate?: null|InputRotate::*,
      *   SampleRange?: null|InputSampleRange::*,
+     *   SelectorType?: null|VideoSelectorType::*,
+     *   Streams?: null|int[],
      * }|VideoSelector $input
      */
     public static function create($input): self
@@ -268,6 +293,22 @@ final class VideoSelector
     }
 
     /**
+     * @return VideoSelectorType::*|null
+     */
+    public function getSelectorType(): ?string
+    {
+        return $this->selectorType;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getStreams(): array
+    {
+        return $this->streams ?? [];
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -326,6 +367,20 @@ final class VideoSelector
                 throw new InvalidArgument(\sprintf('Invalid parameter "sampleRange" for "%s". The value "%s" is not a valid "InputSampleRange".', __CLASS__, $v));
             }
             $payload['sampleRange'] = $v;
+        }
+        if (null !== $v = $this->selectorType) {
+            if (!VideoSelectorType::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "selectorType" for "%s". The value "%s" is not a valid "VideoSelectorType".', __CLASS__, $v));
+            }
+            $payload['selectorType'] = $v;
+        }
+        if (null !== $v = $this->streams) {
+            $index = -1;
+            $payload['streams'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['streams'][$index] = $listValue;
+            }
         }
 
         return $payload;

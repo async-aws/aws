@@ -2,11 +2,26 @@
 
 namespace AsyncAws\MediaConvert\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\Mp2AudioDescriptionMix;
+
 /**
  * Required when you set Codec to the value MP2.
  */
 final class Mp2Settings
 {
+    /**
+     * Choose BROADCASTER_MIXED_AD when the input contains pre-mixed main audio + audio description (AD) as a stereo pair.
+     * The value for AudioType will be set to 3, which signals to downstream systems that this stream contains "broadcaster
+     * mixed AD". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the
+     * mixing. When you choose BROADCASTER_MIXED_AD, the encoder ignores any values you provide in AudioType and
+     * FollowInputAudioType. Choose NONE when the input does not contain pre-mixed audio + audio description (AD). In this
+     * case, the encoder will use any values you provide for AudioType and FollowInputAudioType.
+     *
+     * @var Mp2AudioDescriptionMix::*|null
+     */
+    private $audioDescriptionMix;
+
     /**
      * Specify the average bitrate in bits per second.
      *
@@ -31,6 +46,7 @@ final class Mp2Settings
 
     /**
      * @param array{
+     *   AudioDescriptionMix?: null|Mp2AudioDescriptionMix::*,
      *   Bitrate?: null|int,
      *   Channels?: null|int,
      *   SampleRate?: null|int,
@@ -38,6 +54,7 @@ final class Mp2Settings
      */
     public function __construct(array $input)
     {
+        $this->audioDescriptionMix = $input['AudioDescriptionMix'] ?? null;
         $this->bitrate = $input['Bitrate'] ?? null;
         $this->channels = $input['Channels'] ?? null;
         $this->sampleRate = $input['SampleRate'] ?? null;
@@ -45,6 +62,7 @@ final class Mp2Settings
 
     /**
      * @param array{
+     *   AudioDescriptionMix?: null|Mp2AudioDescriptionMix::*,
      *   Bitrate?: null|int,
      *   Channels?: null|int,
      *   SampleRate?: null|int,
@@ -53,6 +71,14 @@ final class Mp2Settings
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return Mp2AudioDescriptionMix::*|null
+     */
+    public function getAudioDescriptionMix(): ?string
+    {
+        return $this->audioDescriptionMix;
     }
 
     public function getBitrate(): ?int
@@ -76,6 +102,12 @@ final class Mp2Settings
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->audioDescriptionMix) {
+            if (!Mp2AudioDescriptionMix::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "audioDescriptionMix" for "%s". The value "%s" is not a valid "Mp2AudioDescriptionMix".', __CLASS__, $v));
+            }
+            $payload['audioDescriptionMix'] = $v;
+        }
         if (null !== $v = $this->bitrate) {
             $payload['bitrate'] = $v;
         }
