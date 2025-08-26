@@ -9,7 +9,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * the content as the message body. For more information, see `SendMessage.`.
  *
  * `Name`, `type`, `value` and the message body must not be empty or null. All parts of the message attribute, including
- * `Name`, `Type`, and `Value`, are part of the message size restriction (256 KiB or 262,144 bytes).
+ * `Name`, `Type`, and `Value`, are part of the message size restriction (1 MiB or 1,048,576 bytes).
  */
 final class MessageAttributeValue
 {

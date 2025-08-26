@@ -1436,6 +1436,7 @@ class GetJobResponse extends Result
             'JobEngineVersionUsed' => isset($json['jobEngineVersionUsed']) ? (string) $json['jobEngineVersionUsed'] : null,
             'JobPercentComplete' => isset($json['jobPercentComplete']) ? (int) $json['jobPercentComplete'] : null,
             'JobTemplate' => isset($json['jobTemplate']) ? (string) $json['jobTemplate'] : null,
+            'LastShareDetails' => isset($json['lastShareDetails']) ? (string) $json['lastShareDetails'] : null,
             'Messages' => empty($json['messages']) ? null : $this->populateResultJobMessages($json['messages']),
             'OutputGroupDetails' => !isset($json['outputGroupDetails']) ? null : $this->populateResult__listOfOutputGroupDetail($json['outputGroupDetails']),
             'Priority' => isset($json['priority']) ? (int) $json['priority'] : null,
@@ -1444,6 +1445,7 @@ class GetJobResponse extends Result
             'RetryCount' => isset($json['retryCount']) ? (int) $json['retryCount'] : null,
             'Role' => (string) $json['role'],
             'Settings' => $this->populateResultJobSettings($json['settings']),
+            'ShareStatus' => isset($json['shareStatus']) ? (string) $json['shareStatus'] : null,
             'SimulateReservedQueue' => isset($json['simulateReservedQueue']) ? (string) $json['simulateReservedQueue'] : null,
             'Status' => isset($json['status']) ? (string) $json['status'] : null,
             'StatusUpdateInterval' => isset($json['statusUpdateInterval']) ? (string) $json['statusUpdateInterval'] : null,
@@ -1642,6 +1644,7 @@ class GetJobResponse extends Result
     private function populateResultMp2Settings(array $json): Mp2Settings
     {
         return new Mp2Settings([
+            'AudioDescriptionMix' => isset($json['audioDescriptionMix']) ? (string) $json['audioDescriptionMix'] : null,
             'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
             'Channels' => isset($json['channels']) ? (int) $json['channels'] : null,
             'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
@@ -2290,6 +2293,8 @@ class GetJobResponse extends Result
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,
             'Rotate' => isset($json['rotate']) ? (string) $json['rotate'] : null,
             'SampleRange' => isset($json['sampleRange']) ? (string) $json['sampleRange'] : null,
+            'SelectorType' => isset($json['selectorType']) ? (string) $json['selectorType'] : null,
+            'Streams' => !isset($json['streams']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['streams']),
         ]);
     }
 
