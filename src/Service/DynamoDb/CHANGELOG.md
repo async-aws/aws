@@ -6,6 +6,10 @@
 
 - AWS api-change: This release 1/ Adds support for throttled keys mode for CloudWatch Contributor Insights, 2/ Adds throttling reasons to exceptions across dataplane APIs. 3/ Explicitly models ThrottlingException as a class in statically typed languages. Refer to the launch day blog post for more details.
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 3.7.0
 
 ### Added
