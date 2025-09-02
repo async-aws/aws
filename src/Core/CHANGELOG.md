@@ -3,8 +3,8 @@
 ## NOT RELEASED
 
 ### Fixed
-- SignerV4: sort canonical query parameters **after** URI-encoding (per AWS SigV4). Fixes incorrect ordering for array-style keys (e.g., `transaction_ids[10]` vs `transaction_ids[1]`), which could cause `The request signature we calculated does not match the signature you provided`. See: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv-create-signed-request.html
 
+- SignerV4: fix sort of query parameters to build correct canoncal query string 
 
 ## 1.27.0
 
