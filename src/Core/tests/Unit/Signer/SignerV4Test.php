@@ -78,7 +78,7 @@ class SignerV4Test extends TestCase
         self::assertEquals($expected, $request);
     }
 
-    public function provideRequests()
+    public static function provideRequests()
     {
         return [
             // POST headers should be signed.
@@ -158,7 +158,7 @@ class SignerV4Test extends TestCase
         self::assertEquals($expected, $request);
     }
 
-    private function provideRequestsWithQueryParams()
+    public static function provideRequestsWithQueryParams()
     {
         return [
             // GET Case with array in query params
