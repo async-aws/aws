@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- SignerV4: fix sort of query parameters to build correct canoncal query string 
+
 ## 1.27.0
 
 ### Added

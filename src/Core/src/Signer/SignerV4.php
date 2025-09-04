@@ -321,7 +321,9 @@ class SignerV4 implements Signer
             return '';
         }
 
-        ksort($query);
+        uksort($query, static function (string $a, string $b): int {
+            return strcmp(rawurlencode($a), rawurlencode($b));
+        });
         $encodedQuery = [];
         foreach ($query as $key => $values) {
             if (!\is_array($values)) {
