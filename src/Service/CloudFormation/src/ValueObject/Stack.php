@@ -214,7 +214,7 @@ final class Stack
 
     /**
      * The detailed status of the resource or stack. If `CONFIGURATION_COMPLETE` is present, the resource or resource
-     * configuration phase has completed and the stabilization of the resources is in progress. The stack sets
+     * configuration phase has completed and the stabilization of the resources is in progress. The StackSets
      * `CONFIGURATION_COMPLETE` when all of the resources in the stack have reached that event. For more information, see
      * Understand CloudFormation stack creation events [^1] in the *CloudFormation User Guide*.
      *
