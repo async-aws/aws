@@ -119,6 +119,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             'HookStatus' => (null !== $v = $xml->HookStatus[0]) ? (string) $v : null,
             'HookStatusReason' => (null !== $v = $xml->HookStatusReason[0]) ? (string) $v : null,
             'HookInvocationPoint' => (null !== $v = $xml->HookInvocationPoint[0]) ? (string) $v : null,
+            'HookInvocationId' => (null !== $v = $xml->HookInvocationId[0]) ? (string) $v : null,
             'HookFailureMode' => (null !== $v = $xml->HookFailureMode[0]) ? (string) $v : null,
             'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (string) $v : null,
         ]);
