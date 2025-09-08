@@ -150,14 +150,14 @@ final class CacheNode
 
     /**
      * @param array{
-     *   CacheNodeId?: null|string,
-     *   CacheNodeStatus?: null|string,
-     *   CacheNodeCreateTime?: null|\DateTimeImmutable,
-     *   Endpoint?: null|Endpoint|array,
-     *   ParameterGroupStatus?: null|string,
-     *   SourceCacheNodeId?: null|string,
-     *   CustomerAvailabilityZone?: null|string,
-     *   CustomerOutpostArn?: null|string,
+     *   CacheNodeId?: string|null,
+     *   CacheNodeStatus?: string|null,
+     *   CacheNodeCreateTime?: \DateTimeImmutable|null,
+     *   Endpoint?: Endpoint|array|null,
+     *   ParameterGroupStatus?: string|null,
+     *   SourceCacheNodeId?: string|null,
+     *   CustomerAvailabilityZone?: string|null,
+     *   CustomerOutpostArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -174,14 +174,14 @@ final class CacheNode
 
     /**
      * @param array{
-     *   CacheNodeId?: null|string,
-     *   CacheNodeStatus?: null|string,
-     *   CacheNodeCreateTime?: null|\DateTimeImmutable,
-     *   Endpoint?: null|Endpoint|array,
-     *   ParameterGroupStatus?: null|string,
-     *   SourceCacheNodeId?: null|string,
-     *   CustomerAvailabilityZone?: null|string,
-     *   CustomerOutpostArn?: null|string,
+     *   CacheNodeId?: string|null,
+     *   CacheNodeStatus?: string|null,
+     *   CacheNodeCreateTime?: \DateTimeImmutable|null,
+     *   Endpoint?: Endpoint|array|null,
+     *   ParameterGroupStatus?: string|null,
+     *   SourceCacheNodeId?: string|null,
+     *   CustomerAvailabilityZone?: string|null,
+     *   CustomerOutpostArn?: string|null,
      * }|CacheNode $input
      */
     public static function create($input): self

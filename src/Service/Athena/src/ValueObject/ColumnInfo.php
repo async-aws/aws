@@ -83,16 +83,16 @@ final class ColumnInfo
 
     /**
      * @param array{
-     *   CatalogName?: null|string,
-     *   SchemaName?: null|string,
-     *   TableName?: null|string,
+     *   CatalogName?: string|null,
+     *   SchemaName?: string|null,
+     *   TableName?: string|null,
      *   Name: string,
-     *   Label?: null|string,
+     *   Label?: string|null,
      *   Type: string,
-     *   Precision?: null|int,
-     *   Scale?: null|int,
-     *   Nullable?: null|ColumnNullable::*,
-     *   CaseSensitive?: null|bool,
+     *   Precision?: int|null,
+     *   Scale?: int|null,
+     *   Nullable?: ColumnNullable::*|null,
+     *   CaseSensitive?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -111,16 +111,16 @@ final class ColumnInfo
 
     /**
      * @param array{
-     *   CatalogName?: null|string,
-     *   SchemaName?: null|string,
-     *   TableName?: null|string,
+     *   CatalogName?: string|null,
+     *   SchemaName?: string|null,
+     *   TableName?: string|null,
      *   Name: string,
-     *   Label?: null|string,
+     *   Label?: string|null,
      *   Type: string,
-     *   Precision?: null|int,
-     *   Scale?: null|int,
-     *   Nullable?: null|ColumnNullable::*,
-     *   CaseSensitive?: null|bool,
+     *   Precision?: int|null,
+     *   Scale?: int|null,
+     *   Nullable?: ColumnNullable::*|null,
+     *   CaseSensitive?: bool|null,
      * }|ColumnInfo $input
      */
     public static function create($input): self

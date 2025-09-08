@@ -56,8 +56,8 @@ final class RollbackConfiguration
 
     /**
      * @param array{
-     *   RollbackTriggers?: null|array<RollbackTrigger|array>,
-     *   MonitoringTimeInMinutes?: null|int,
+     *   RollbackTriggers?: array<RollbackTrigger|array>|null,
+     *   MonitoringTimeInMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -68,8 +68,8 @@ final class RollbackConfiguration
 
     /**
      * @param array{
-     *   RollbackTriggers?: null|array<RollbackTrigger|array>,
-     *   MonitoringTimeInMinutes?: null|int,
+     *   RollbackTriggers?: array<RollbackTrigger|array>|null,
+     *   MonitoringTimeInMinutes?: int|null,
      * }|RollbackConfiguration $input
      */
     public static function create($input): self

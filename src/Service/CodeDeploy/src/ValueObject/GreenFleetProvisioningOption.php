@@ -22,7 +22,7 @@ final class GreenFleetProvisioningOption
 
     /**
      * @param array{
-     *   action?: null|GreenFleetProvisioningAction::*,
+     *   action?: GreenFleetProvisioningAction::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -32,7 +32,7 @@ final class GreenFleetProvisioningOption
 
     /**
      * @param array{
-     *   action?: null|GreenFleetProvisioningAction::*,
+     *   action?: GreenFleetProvisioningAction::*|null,
      * }|GreenFleetProvisioningOption $input
      */
     public static function create($input): self

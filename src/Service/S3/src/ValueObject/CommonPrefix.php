@@ -18,7 +18,7 @@ final class CommonPrefix
 
     /**
      * @param array{
-     *   Prefix?: null|string,
+     *   Prefix?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class CommonPrefix
 
     /**
      * @param array{
-     *   Prefix?: null|string,
+     *   Prefix?: string|null,
      * }|CommonPrefix $input
      */
     public static function create($input): self

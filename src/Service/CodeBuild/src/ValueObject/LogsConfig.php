@@ -24,8 +24,8 @@ final class LogsConfig
 
     /**
      * @param array{
-     *   cloudWatchLogs?: null|CloudWatchLogsConfig|array,
-     *   s3Logs?: null|S3LogsConfig|array,
+     *   cloudWatchLogs?: CloudWatchLogsConfig|array|null,
+     *   s3Logs?: S3LogsConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class LogsConfig
 
     /**
      * @param array{
-     *   cloudWatchLogs?: null|CloudWatchLogsConfig|array,
-     *   s3Logs?: null|S3LogsConfig|array,
+     *   cloudWatchLogs?: CloudWatchLogsConfig|array|null,
+     *   s3Logs?: S3LogsConfig|array|null,
      * }|LogsConfig $input
      */
     public static function create($input): self

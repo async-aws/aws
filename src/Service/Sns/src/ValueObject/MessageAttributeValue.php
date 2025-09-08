@@ -48,8 +48,8 @@ final class MessageAttributeValue
     /**
      * @param array{
      *   DataType: string,
-     *   StringValue?: null|string,
-     *   BinaryValue?: null|string,
+     *   StringValue?: string|null,
+     *   BinaryValue?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,8 +62,8 @@ final class MessageAttributeValue
     /**
      * @param array{
      *   DataType: string,
-     *   StringValue?: null|string,
-     *   BinaryValue?: null|string,
+     *   StringValue?: string|null,
+     *   BinaryValue?: string|null,
      * }|MessageAttributeValue $input
      */
     public static function create($input): self

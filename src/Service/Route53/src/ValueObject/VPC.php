@@ -29,8 +29,8 @@ final class VPC
 
     /**
      * @param array{
-     *   VPCRegion?: null|VPCRegion::*,
-     *   VPCId?: null|string,
+     *   VPCRegion?: VPCRegion::*|null,
+     *   VPCId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class VPC
 
     /**
      * @param array{
-     *   VPCRegion?: null|VPCRegion::*,
-     *   VPCId?: null|string,
+     *   VPCRegion?: VPCRegion::*|null,
+     *   VPCId?: string|null,
      * }|VPC $input
      */
     public static function create($input): self

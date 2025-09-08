@@ -48,10 +48,10 @@ final class LoggingConfig
 
     /**
      * @param array{
-     *   LogFormat?: null|LogFormat::*,
-     *   ApplicationLogLevel?: null|ApplicationLogLevel::*,
-     *   SystemLogLevel?: null|SystemLogLevel::*,
-     *   LogGroup?: null|string,
+     *   LogFormat?: LogFormat::*|null,
+     *   ApplicationLogLevel?: ApplicationLogLevel::*|null,
+     *   SystemLogLevel?: SystemLogLevel::*|null,
+     *   LogGroup?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -64,10 +64,10 @@ final class LoggingConfig
 
     /**
      * @param array{
-     *   LogFormat?: null|LogFormat::*,
-     *   ApplicationLogLevel?: null|ApplicationLogLevel::*,
-     *   SystemLogLevel?: null|SystemLogLevel::*,
-     *   LogGroup?: null|string,
+     *   LogFormat?: LogFormat::*|null,
+     *   ApplicationLogLevel?: ApplicationLogLevel::*|null,
+     *   SystemLogLevel?: SystemLogLevel::*|null,
+     *   LogGroup?: string|null,
      * }|LoggingConfig $input
      */
     public static function create($input): self

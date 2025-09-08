@@ -23,8 +23,8 @@ final class CalculationStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|int,
-     *   Progress?: null|string,
+     *   DpuExecutionInMillis?: int|null,
+     *   Progress?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class CalculationStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|int,
-     *   Progress?: null|string,
+     *   DpuExecutionInMillis?: int|null,
+     *   Progress?: string|null,
      * }|CalculationStatistics $input
      */
     public static function create($input): self

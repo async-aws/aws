@@ -111,17 +111,17 @@ final class FilterLogEventsRequest extends Input
 
     /**
      * @param array{
-     *   logGroupName?: null|string,
-     *   logGroupIdentifier?: null|string,
-     *   logStreamNames?: null|string[],
-     *   logStreamNamePrefix?: null|string,
-     *   startTime?: null|int,
-     *   endTime?: null|int,
-     *   filterPattern?: null|string,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
-     *   interleaved?: null|bool,
-     *   unmask?: null|bool,
+     *   logGroupName?: string|null,
+     *   logGroupIdentifier?: string|null,
+     *   logStreamNames?: string[]|null,
+     *   logStreamNamePrefix?: string|null,
+     *   startTime?: int|null,
+     *   endTime?: int|null,
+     *   filterPattern?: string|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
+     *   interleaved?: bool|null,
+     *   unmask?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -143,17 +143,17 @@ final class FilterLogEventsRequest extends Input
 
     /**
      * @param array{
-     *   logGroupName?: null|string,
-     *   logGroupIdentifier?: null|string,
-     *   logStreamNames?: null|string[],
-     *   logStreamNamePrefix?: null|string,
-     *   startTime?: null|int,
-     *   endTime?: null|int,
-     *   filterPattern?: null|string,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
-     *   interleaved?: null|bool,
-     *   unmask?: null|bool,
+     *   logGroupName?: string|null,
+     *   logGroupIdentifier?: string|null,
+     *   logStreamNames?: string[]|null,
+     *   logStreamNamePrefix?: string|null,
+     *   startTime?: int|null,
+     *   endTime?: int|null,
+     *   filterPattern?: string|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
+     *   interleaved?: bool|null,
+     *   unmask?: bool|null,
      *   '@region'?: string|null,
      * }|FilterLogEventsRequest $input
      */

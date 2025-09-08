@@ -63,10 +63,10 @@ final class InputTamsSettings
 
     /**
      * @param array{
-     *   AuthConnectionArn?: null|string,
-     *   GapHandling?: null|TamsGapHandling::*,
-     *   SourceId?: null|string,
-     *   Timerange?: null|string,
+     *   AuthConnectionArn?: string|null,
+     *   GapHandling?: TamsGapHandling::*|null,
+     *   SourceId?: string|null,
+     *   Timerange?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,10 +79,10 @@ final class InputTamsSettings
 
     /**
      * @param array{
-     *   AuthConnectionArn?: null|string,
-     *   GapHandling?: null|TamsGapHandling::*,
-     *   SourceId?: null|string,
-     *   Timerange?: null|string,
+     *   AuthConnectionArn?: string|null,
+     *   GapHandling?: TamsGapHandling::*|null,
+     *   SourceId?: string|null,
+     *   Timerange?: string|null,
      * }|InputTamsSettings $input
      */
     public static function create($input): self

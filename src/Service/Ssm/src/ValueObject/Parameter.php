@@ -86,15 +86,15 @@ final class Parameter
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   Type?: null|ParameterType::*,
-     *   Value?: null|string,
-     *   Version?: null|int,
-     *   Selector?: null|string,
-     *   SourceResult?: null|string,
-     *   LastModifiedDate?: null|\DateTimeImmutable,
-     *   ARN?: null|string,
-     *   DataType?: null|string,
+     *   Name?: string|null,
+     *   Type?: ParameterType::*|null,
+     *   Value?: string|null,
+     *   Version?: int|null,
+     *   Selector?: string|null,
+     *   SourceResult?: string|null,
+     *   LastModifiedDate?: \DateTimeImmutable|null,
+     *   ARN?: string|null,
+     *   DataType?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -112,15 +112,15 @@ final class Parameter
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   Type?: null|ParameterType::*,
-     *   Value?: null|string,
-     *   Version?: null|int,
-     *   Selector?: null|string,
-     *   SourceResult?: null|string,
-     *   LastModifiedDate?: null|\DateTimeImmutable,
-     *   ARN?: null|string,
-     *   DataType?: null|string,
+     *   Name?: string|null,
+     *   Type?: ParameterType::*|null,
+     *   Value?: string|null,
+     *   Version?: int|null,
+     *   Selector?: string|null,
+     *   SourceResult?: string|null,
+     *   LastModifiedDate?: \DateTimeImmutable|null,
+     *   ARN?: string|null,
+     *   DataType?: string|null,
      * }|Parameter $input
      */
     public static function create($input): self

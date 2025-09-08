@@ -32,9 +32,9 @@ final class CancellationReason
 
     /**
      * @param array{
-     *   Item?: null|array<string, AttributeValue|array>,
-     *   Code?: null|string,
-     *   Message?: null|string,
+     *   Item?: array<string, AttributeValue|array>|null,
+     *   Code?: string|null,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class CancellationReason
 
     /**
      * @param array{
-     *   Item?: null|array<string, AttributeValue|array>,
-     *   Code?: null|string,
-     *   Message?: null|string,
+     *   Item?: array<string, AttributeValue|array>|null,
+     *   Code?: string|null,
+     *   Message?: string|null,
      * }|CancellationReason $input
      */
     public static function create($input): self

@@ -27,8 +27,8 @@ final class DeploymentStyle
 
     /**
      * @param array{
-     *   deploymentType?: null|DeploymentType::*,
-     *   deploymentOption?: null|DeploymentOption::*,
+     *   deploymentType?: DeploymentType::*|null,
+     *   deploymentOption?: DeploymentOption::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class DeploymentStyle
 
     /**
      * @param array{
-     *   deploymentType?: null|DeploymentType::*,
-     *   deploymentOption?: null|DeploymentOption::*,
+     *   deploymentType?: DeploymentType::*|null,
+     *   deploymentOption?: DeploymentOption::*|null,
      * }|DeploymentStyle $input
      */
     public static function create($input): self

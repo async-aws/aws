@@ -128,11 +128,11 @@ final class PublishBatchRequestEntry
      * @param array{
      *   Id: string,
      *   Message: string,
-     *   Subject?: null|string,
-     *   MessageStructure?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   Subject?: string|null,
+     *   MessageStructure?: string|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -150,11 +150,11 @@ final class PublishBatchRequestEntry
      * @param array{
      *   Id: string,
      *   Message: string,
-     *   Subject?: null|string,
-     *   MessageStructure?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   Subject?: string|null,
+     *   MessageStructure?: string|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      * }|PublishBatchRequestEntry $input
      */
     public static function create($input): self

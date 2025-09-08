@@ -30,9 +30,9 @@ final class Metric
 
     /**
      * @param array{
-     *   Namespace?: null|string,
-     *   MetricName?: null|string,
-     *   Dimensions?: null|array<Dimension|array>,
+     *   Namespace?: string|null,
+     *   MetricName?: string|null,
+     *   Dimensions?: array<Dimension|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class Metric
 
     /**
      * @param array{
-     *   Namespace?: null|string,
-     *   MetricName?: null|string,
-     *   Dimensions?: null|array<Dimension|array>,
+     *   Namespace?: string|null,
+     *   MetricName?: string|null,
+     *   Dimensions?: array<Dimension|array>|null,
      * }|Metric $input
      */
     public static function create($input): self

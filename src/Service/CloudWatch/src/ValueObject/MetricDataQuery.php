@@ -121,12 +121,12 @@ final class MetricDataQuery
     /**
      * @param array{
      *   Id: string,
-     *   MetricStat?: null|MetricStat|array,
-     *   Expression?: null|string,
-     *   Label?: null|string,
-     *   ReturnData?: null|bool,
-     *   Period?: null|int,
-     *   AccountId?: null|string,
+     *   MetricStat?: MetricStat|array|null,
+     *   Expression?: string|null,
+     *   Label?: string|null,
+     *   ReturnData?: bool|null,
+     *   Period?: int|null,
+     *   AccountId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -143,12 +143,12 @@ final class MetricDataQuery
     /**
      * @param array{
      *   Id: string,
-     *   MetricStat?: null|MetricStat|array,
-     *   Expression?: null|string,
-     *   Label?: null|string,
-     *   ReturnData?: null|bool,
-     *   Period?: null|int,
-     *   AccountId?: null|string,
+     *   MetricStat?: MetricStat|array|null,
+     *   Expression?: string|null,
+     *   Label?: string|null,
+     *   ReturnData?: bool|null,
+     *   Period?: int|null,
+     *   AccountId?: string|null,
      * }|MetricDataQuery $input
      */
     public static function create($input): self

@@ -57,11 +57,11 @@ final class S3Location
 
     /**
      * @param array{
-     *   bucket?: null|string,
-     *   key?: null|string,
-     *   bundleType?: null|BundleType::*,
-     *   version?: null|string,
-     *   eTag?: null|string,
+     *   bucket?: string|null,
+     *   key?: string|null,
+     *   bundleType?: BundleType::*|null,
+     *   version?: string|null,
+     *   eTag?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -75,11 +75,11 @@ final class S3Location
 
     /**
      * @param array{
-     *   bucket?: null|string,
-     *   key?: null|string,
-     *   bundleType?: null|BundleType::*,
-     *   version?: null|string,
-     *   eTag?: null|string,
+     *   bucket?: string|null,
+     *   key?: string|null,
+     *   bundleType?: BundleType::*|null,
+     *   version?: string|null,
+     *   eTag?: string|null,
      * }|S3Location $input
      */
     public static function create($input): self

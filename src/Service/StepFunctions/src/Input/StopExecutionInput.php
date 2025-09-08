@@ -35,8 +35,8 @@ final class StopExecutionInput extends Input
     /**
      * @param array{
      *   executionArn?: string,
-     *   error?: null|string,
-     *   cause?: null|string,
+     *   error?: string|null,
+     *   cause?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -51,8 +51,8 @@ final class StopExecutionInput extends Input
     /**
      * @param array{
      *   executionArn?: string,
-     *   error?: null|string,
-     *   cause?: null|string,
+     *   error?: string|null,
+     *   cause?: string|null,
      *   '@region'?: string|null,
      * }|StopExecutionInput $input
      */

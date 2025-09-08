@@ -47,10 +47,10 @@ final class VideoOverlayInput
 
     /**
      * @param array{
-     *   FileInput?: null|string,
-     *   InputClippings?: null|array<VideoOverlayInputClipping|array>,
-     *   TimecodeSource?: null|InputTimecodeSource::*,
-     *   TimecodeStart?: null|string,
+     *   FileInput?: string|null,
+     *   InputClippings?: array<VideoOverlayInputClipping|array>|null,
+     *   TimecodeSource?: InputTimecodeSource::*|null,
+     *   TimecodeStart?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -63,10 +63,10 @@ final class VideoOverlayInput
 
     /**
      * @param array{
-     *   FileInput?: null|string,
-     *   InputClippings?: null|array<VideoOverlayInputClipping|array>,
-     *   TimecodeSource?: null|InputTimecodeSource::*,
-     *   TimecodeStart?: null|string,
+     *   FileInput?: string|null,
+     *   InputClippings?: array<VideoOverlayInputClipping|array>|null,
+     *   TimecodeSource?: InputTimecodeSource::*|null,
+     *   TimecodeStart?: string|null,
      * }|VideoOverlayInput $input
      */
     public static function create($input): self

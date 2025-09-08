@@ -56,10 +56,10 @@ final class TimecodeConfig
 
     /**
      * @param array{
-     *   Anchor?: null|string,
-     *   Source?: null|TimecodeSource::*,
-     *   Start?: null|string,
-     *   TimestampOffset?: null|string,
+     *   Anchor?: string|null,
+     *   Source?: TimecodeSource::*|null,
+     *   Start?: string|null,
+     *   TimestampOffset?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -72,10 +72,10 @@ final class TimecodeConfig
 
     /**
      * @param array{
-     *   Anchor?: null|string,
-     *   Source?: null|TimecodeSource::*,
-     *   Start?: null|string,
-     *   TimestampOffset?: null|string,
+     *   Anchor?: string|null,
+     *   Source?: TimecodeSource::*|null,
+     *   Start?: string|null,
+     *   TimestampOffset?: string|null,
      * }|TimecodeConfig $input
      */
     public static function create($input): self

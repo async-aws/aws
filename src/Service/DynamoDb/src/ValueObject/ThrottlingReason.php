@@ -53,8 +53,8 @@ final class ThrottlingReason
 
     /**
      * @param array{
-     *   reason?: null|string,
-     *   resource?: null|string,
+     *   reason?: string|null,
+     *   resource?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -65,8 +65,8 @@ final class ThrottlingReason
 
     /**
      * @param array{
-     *   reason?: null|string,
-     *   resource?: null|string,
+     *   reason?: string|null,
+     *   resource?: string|null,
      * }|ThrottlingReason $input
      */
     public static function create($input): self

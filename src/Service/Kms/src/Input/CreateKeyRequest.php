@@ -312,17 +312,17 @@ final class CreateKeyRequest extends Input
 
     /**
      * @param array{
-     *   Policy?: null|string,
-     *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   Origin?: null|OriginType::*,
-     *   CustomKeyStoreId?: null|string,
-     *   BypassPolicyLockoutSafetyCheck?: null|bool,
-     *   Tags?: null|array<Tag|array>,
-     *   MultiRegion?: null|bool,
-     *   XksKeyId?: null|string,
+     *   Policy?: string|null,
+     *   Description?: string|null,
+     *   KeyUsage?: KeyUsageType::*|null,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*|null,
+     *   KeySpec?: KeySpec::*|null,
+     *   Origin?: OriginType::*|null,
+     *   CustomKeyStoreId?: string|null,
+     *   BypassPolicyLockoutSafetyCheck?: bool|null,
+     *   Tags?: array<Tag|array>|null,
+     *   MultiRegion?: bool|null,
+     *   XksKeyId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -344,17 +344,17 @@ final class CreateKeyRequest extends Input
 
     /**
      * @param array{
-     *   Policy?: null|string,
-     *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   Origin?: null|OriginType::*,
-     *   CustomKeyStoreId?: null|string,
-     *   BypassPolicyLockoutSafetyCheck?: null|bool,
-     *   Tags?: null|array<Tag|array>,
-     *   MultiRegion?: null|bool,
-     *   XksKeyId?: null|string,
+     *   Policy?: string|null,
+     *   Description?: string|null,
+     *   KeyUsage?: KeyUsageType::*|null,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*|null,
+     *   KeySpec?: KeySpec::*|null,
+     *   Origin?: OriginType::*|null,
+     *   CustomKeyStoreId?: string|null,
+     *   BypassPolicyLockoutSafetyCheck?: bool|null,
+     *   Tags?: array<Tag|array>|null,
+     *   MultiRegion?: bool|null,
+     *   XksKeyId?: string|null,
      *   '@region'?: string|null,
      * }|CreateKeyRequest $input
      */

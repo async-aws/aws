@@ -24,7 +24,7 @@ final class ChannelMapping
 
     /**
      * @param array{
-     *   OutputChannels?: null|array<OutputChannelMapping|array>,
+     *   OutputChannels?: array<OutputChannelMapping|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -34,7 +34,7 @@ final class ChannelMapping
 
     /**
      * @param array{
-     *   OutputChannels?: null|array<OutputChannelMapping|array>,
+     *   OutputChannels?: array<OutputChannelMapping|array>|null,
      * }|ChannelMapping $input
      */
     public static function create($input): self

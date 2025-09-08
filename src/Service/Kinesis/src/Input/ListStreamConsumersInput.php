@@ -66,9 +66,9 @@ final class ListStreamConsumersInput extends Input
     /**
      * @param array{
      *   StreamARN?: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   StreamCreationTimestamp?: null|\DateTimeImmutable|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -84,9 +84,9 @@ final class ListStreamConsumersInput extends Input
     /**
      * @param array{
      *   StreamARN?: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   StreamCreationTimestamp?: null|\DateTimeImmutable|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
      * }|ListStreamConsumersInput $input
      */

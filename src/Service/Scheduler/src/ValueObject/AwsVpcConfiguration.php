@@ -38,8 +38,8 @@ final class AwsVpcConfiguration
 
     /**
      * @param array{
-     *   AssignPublicIp?: null|AssignPublicIp::*,
-     *   SecurityGroups?: null|string[],
+     *   AssignPublicIp?: AssignPublicIp::*|null,
+     *   SecurityGroups?: string[]|null,
      *   Subnets: string[],
      * } $input
      */
@@ -52,8 +52,8 @@ final class AwsVpcConfiguration
 
     /**
      * @param array{
-     *   AssignPublicIp?: null|AssignPublicIp::*,
-     *   SecurityGroups?: null|string[],
+     *   AssignPublicIp?: AssignPublicIp::*|null,
+     *   SecurityGroups?: string[]|null,
      *   Subnets: string[],
      * }|AwsVpcConfiguration $input
      */

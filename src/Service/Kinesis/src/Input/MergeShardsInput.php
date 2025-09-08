@@ -46,10 +46,10 @@ final class MergeShardsInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardToMerge?: string,
      *   AdjacentShardToMerge?: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -64,10 +64,10 @@ final class MergeShardsInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardToMerge?: string,
      *   AdjacentShardToMerge?: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|MergeShardsInput $input
      */

@@ -43,10 +43,10 @@ final class PendingLogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
-     *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
+     *   LogType?: LogType::*|null,
+     *   DestinationType?: DestinationType::*|null,
+     *   DestinationDetails?: DestinationDetails|array|null,
+     *   LogFormat?: LogFormat::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -59,10 +59,10 @@ final class PendingLogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
-     *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
+     *   LogType?: LogType::*|null,
+     *   DestinationType?: DestinationType::*|null,
+     *   DestinationDetails?: DestinationDetails|array|null,
+     *   LogFormat?: LogFormat::*|null,
      * }|PendingLogDeliveryConfiguration $input
      */
     public static function create($input): self

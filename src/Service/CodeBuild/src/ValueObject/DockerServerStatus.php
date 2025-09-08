@@ -23,8 +23,8 @@ final class DockerServerStatus
 
     /**
      * @param array{
-     *   status?: null|string,
-     *   message?: null|string,
+     *   status?: string|null,
+     *   message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class DockerServerStatus
 
     /**
      * @param array{
-     *   status?: null|string,
-     *   message?: null|string,
+     *   status?: string|null,
+     *   message?: string|null,
      * }|DockerServerStatus $input
      */
     public static function create($input): self

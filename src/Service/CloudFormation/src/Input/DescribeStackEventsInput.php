@@ -30,8 +30,8 @@ final class DescribeStackEventsInput extends Input
 
     /**
      * @param array{
-     *   StackName?: null|string,
-     *   NextToken?: null|string,
+     *   StackName?: string|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -44,8 +44,8 @@ final class DescribeStackEventsInput extends Input
 
     /**
      * @param array{
-     *   StackName?: null|string,
-     *   NextToken?: null|string,
+     *   StackName?: string|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStackEventsInput $input
      */

@@ -29,8 +29,8 @@ final class AssociateSoftwareTokenRequest extends Input
 
     /**
      * @param array{
-     *   AccessToken?: null|string,
-     *   Session?: null|string,
+     *   AccessToken?: string|null,
+     *   Session?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -43,8 +43,8 @@ final class AssociateSoftwareTokenRequest extends Input
 
     /**
      * @param array{
-     *   AccessToken?: null|string,
-     *   Session?: null|string,
+     *   AccessToken?: string|null,
+     *   Session?: string|null,
      *   '@region'?: string|null,
      * }|AssociateSoftwareTokenRequest $input
      */

@@ -139,14 +139,14 @@ final class ListMultipartUploadsRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: null|string,
-     *   EncodingType?: null|EncodingType::*,
-     *   KeyMarker?: null|string,
-     *   MaxUploads?: null|int,
-     *   Prefix?: null|string,
-     *   UploadIdMarker?: null|string,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
+     *   Delimiter?: string|null,
+     *   EncodingType?: EncodingType::*|null,
+     *   KeyMarker?: string|null,
+     *   MaxUploads?: int|null,
+     *   Prefix?: string|null,
+     *   UploadIdMarker?: string|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -167,14 +167,14 @@ final class ListMultipartUploadsRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: null|string,
-     *   EncodingType?: null|EncodingType::*,
-     *   KeyMarker?: null|string,
-     *   MaxUploads?: null|int,
-     *   Prefix?: null|string,
-     *   UploadIdMarker?: null|string,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
+     *   Delimiter?: string|null,
+     *   EncodingType?: EncodingType::*|null,
+     *   KeyMarker?: string|null,
+     *   MaxUploads?: int|null,
+     *   Prefix?: string|null,
+     *   UploadIdMarker?: string|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
      * }|ListMultipartUploadsRequest $input
      */

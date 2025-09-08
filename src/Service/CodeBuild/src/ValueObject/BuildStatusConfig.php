@@ -49,8 +49,8 @@ final class BuildStatusConfig
 
     /**
      * @param array{
-     *   context?: null|string,
-     *   targetUrl?: null|string,
+     *   context?: string|null,
+     *   targetUrl?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -61,8 +61,8 @@ final class BuildStatusConfig
 
     /**
      * @param array{
-     *   context?: null|string,
-     *   targetUrl?: null|string,
+     *   context?: string|null,
+     *   targetUrl?: string|null,
      * }|BuildStatusConfig $input
      */
     public static function create($input): self

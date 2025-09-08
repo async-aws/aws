@@ -115,14 +115,14 @@ final class StreamDescription
      *   StreamName: string,
      *   StreamARN: string,
      *   StreamStatus: StreamStatus::*,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Shards: array<Shard|array>,
      *   HasMoreShards: bool,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: array<EnhancedMetrics|array>,
-     *   EncryptionType?: null|EncryptionType::*,
-     *   KeyId?: null|string,
+     *   EncryptionType?: EncryptionType::*|null,
+     *   KeyId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -145,14 +145,14 @@ final class StreamDescription
      *   StreamName: string,
      *   StreamARN: string,
      *   StreamStatus: StreamStatus::*,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Shards: array<Shard|array>,
      *   HasMoreShards: bool,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: array<EnhancedMetrics|array>,
-     *   EncryptionType?: null|EncryptionType::*,
-     *   KeyId?: null|string,
+     *   EncryptionType?: EncryptionType::*|null,
+     *   KeyId?: string|null,
      * }|StreamDescription $input
      */
     public static function create($input): self

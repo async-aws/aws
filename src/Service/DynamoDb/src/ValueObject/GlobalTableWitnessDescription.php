@@ -25,8 +25,8 @@ final class GlobalTableWitnessDescription
 
     /**
      * @param array{
-     *   RegionName?: null|string,
-     *   WitnessStatus?: null|WitnessStatus::*,
+     *   RegionName?: string|null,
+     *   WitnessStatus?: WitnessStatus::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class GlobalTableWitnessDescription
 
     /**
      * @param array{
-     *   RegionName?: null|string,
-     *   WitnessStatus?: null|WitnessStatus::*,
+     *   RegionName?: string|null,
+     *   WitnessStatus?: WitnessStatus::*|null,
      * }|GlobalTableWitnessDescription $input
      */
     public static function create($input): self

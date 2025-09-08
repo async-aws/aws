@@ -51,9 +51,9 @@ final class SearchForTextResult
     /**
      * @param array{
      *   Place: Place|array,
-     *   Distance?: null|float,
-     *   Relevance?: null|float,
-     *   PlaceId?: null|string,
+     *   Distance?: float|null,
+     *   Relevance?: float|null,
+     *   PlaceId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -67,9 +67,9 @@ final class SearchForTextResult
     /**
      * @param array{
      *   Place: Place|array,
-     *   Distance?: null|float,
-     *   Relevance?: null|float,
-     *   PlaceId?: null|string,
+     *   Distance?: float|null,
+     *   Relevance?: float|null,
+     *   PlaceId?: string|null,
      * }|SearchForTextResult $input
      */
     public static function create($input): self

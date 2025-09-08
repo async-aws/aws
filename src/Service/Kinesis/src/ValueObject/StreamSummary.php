@@ -48,8 +48,8 @@ final class StreamSummary
      *   StreamName: string,
      *   StreamARN: string,
      *   StreamStatus: StreamStatus::*,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
-     *   StreamCreationTimestamp?: null|\DateTimeImmutable,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -66,8 +66,8 @@ final class StreamSummary
      *   StreamName: string,
      *   StreamARN: string,
      *   StreamStatus: StreamStatus::*,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
-     *   StreamCreationTimestamp?: null|\DateTimeImmutable,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|null,
      * }|StreamSummary $input
      */
     public static function create($input): self

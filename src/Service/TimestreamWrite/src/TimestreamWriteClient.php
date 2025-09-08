@@ -105,7 +105,7 @@ class TimestreamWriteClient extends AbstractApi
      * @param array{
      *   DatabaseName: string,
      *   TableName: string,
-     *   CommonAttributes?: null|Record|array,
+     *   CommonAttributes?: Record|array|null,
      *   Records: array<Record|array>,
      *   '@region'?: string|null,
      * }|WriteRecordsRequest $input

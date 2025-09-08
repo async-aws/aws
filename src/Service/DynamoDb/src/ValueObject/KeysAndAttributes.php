@@ -92,10 +92,10 @@ final class KeysAndAttributes
     /**
      * @param array{
      *   Keys: array[],
-     *   AttributesToGet?: null|string[],
-     *   ConsistentRead?: null|bool,
-     *   ProjectionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   AttributesToGet?: string[]|null,
+     *   ConsistentRead?: bool|null,
+     *   ProjectionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -110,10 +110,10 @@ final class KeysAndAttributes
     /**
      * @param array{
      *   Keys: array[],
-     *   AttributesToGet?: null|string[],
-     *   ConsistentRead?: null|bool,
-     *   ProjectionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   AttributesToGet?: string[]|null,
+     *   ConsistentRead?: bool|null,
+     *   ProjectionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
      * }|KeysAndAttributes $input
      */
     public static function create($input): self

@@ -33,9 +33,9 @@ final class QuerySpatialCoverageMax
 
     /**
      * @param array{
-     *   Value?: null|float,
-     *   TableArn?: null|string,
-     *   PartitionKey?: null|string[],
+     *   Value?: float|null,
+     *   TableArn?: string|null,
+     *   PartitionKey?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,9 +47,9 @@ final class QuerySpatialCoverageMax
 
     /**
      * @param array{
-     *   Value?: null|float,
-     *   TableArn?: null|string,
-     *   PartitionKey?: null|string[],
+     *   Value?: float|null,
+     *   TableArn?: string|null,
+     *   PartitionKey?: string[]|null,
      * }|QuerySpatialCoverageMax $input
      */
     public static function create($input): self

@@ -27,8 +27,8 @@ final class AgeRange
 
     /**
      * @param array{
-     *   Low?: null|int,
-     *   High?: null|int,
+     *   Low?: int|null,
+     *   High?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class AgeRange
 
     /**
      * @param array{
-     *   Low?: null|int,
-     *   High?: null|int,
+     *   Low?: int|null,
+     *   High?: int|null,
      * }|AgeRange $input
      */
     public static function create($input): self

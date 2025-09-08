@@ -31,9 +31,9 @@ final class ThingTypeProperties
 
     /**
      * @param array{
-     *   thingTypeDescription?: null|string,
-     *   searchableAttributes?: null|string[],
-     *   mqtt5Configuration?: null|Mqtt5Configuration|array,
+     *   thingTypeDescription?: string|null,
+     *   searchableAttributes?: string[]|null,
+     *   mqtt5Configuration?: Mqtt5Configuration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class ThingTypeProperties
 
     /**
      * @param array{
-     *   thingTypeDescription?: null|string,
-     *   searchableAttributes?: null|string[],
-     *   mqtt5Configuration?: null|Mqtt5Configuration|array,
+     *   thingTypeDescription?: string|null,
+     *   searchableAttributes?: string[]|null,
+     *   mqtt5Configuration?: Mqtt5Configuration|array|null,
      * }|ThingTypeProperties $input
      */
     public static function create($input): self

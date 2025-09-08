@@ -44,11 +44,11 @@ final class FilteredLogEvent
 
     /**
      * @param array{
-     *   logStreamName?: null|string,
-     *   timestamp?: null|int,
-     *   message?: null|string,
-     *   ingestionTime?: null|int,
-     *   eventId?: null|string,
+     *   logStreamName?: string|null,
+     *   timestamp?: int|null,
+     *   message?: string|null,
+     *   ingestionTime?: int|null,
+     *   eventId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class FilteredLogEvent
 
     /**
      * @param array{
-     *   logStreamName?: null|string,
-     *   timestamp?: null|int,
-     *   message?: null|string,
-     *   ingestionTime?: null|int,
-     *   eventId?: null|string,
+     *   logStreamName?: string|null,
+     *   timestamp?: int|null,
+     *   message?: string|null,
+     *   ingestionTime?: int|null,
+     *   eventId?: string|null,
      * }|FilteredLogEvent $input
      */
     public static function create($input): self

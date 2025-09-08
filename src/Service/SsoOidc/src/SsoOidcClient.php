@@ -35,12 +35,12 @@ class SsoOidcClient extends AbstractApi
      *   clientId: string,
      *   clientSecret: string,
      *   grantType: string,
-     *   deviceCode?: null|string,
-     *   code?: null|string,
-     *   refreshToken?: null|string,
-     *   scope?: null|string[],
-     *   redirectUri?: null|string,
-     *   codeVerifier?: null|string,
+     *   deviceCode?: string|null,
+     *   code?: string|null,
+     *   refreshToken?: string|null,
+     *   scope?: string[]|null,
+     *   redirectUri?: string|null,
+     *   codeVerifier?: string|null,
      *   '@region'?: string|null,
      * }|CreateTokenRequest $input
      *

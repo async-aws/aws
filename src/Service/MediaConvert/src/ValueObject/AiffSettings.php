@@ -31,9 +31,9 @@ final class AiffSettings
 
     /**
      * @param array{
-     *   BitDepth?: null|int,
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
+     *   BitDepth?: int|null,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class AiffSettings
 
     /**
      * @param array{
-     *   BitDepth?: null|int,
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
+     *   BitDepth?: int|null,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
      * }|AiffSettings $input
      */
     public static function create($input): self

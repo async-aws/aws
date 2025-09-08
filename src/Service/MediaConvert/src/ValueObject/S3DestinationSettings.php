@@ -36,9 +36,9 @@ final class S3DestinationSettings
 
     /**
      * @param array{
-     *   AccessControl?: null|S3DestinationAccessControl|array,
-     *   Encryption?: null|S3EncryptionSettings|array,
-     *   StorageClass?: null|S3StorageClass::*,
+     *   AccessControl?: S3DestinationAccessControl|array|null,
+     *   Encryption?: S3EncryptionSettings|array|null,
+     *   StorageClass?: S3StorageClass::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -50,9 +50,9 @@ final class S3DestinationSettings
 
     /**
      * @param array{
-     *   AccessControl?: null|S3DestinationAccessControl|array,
-     *   Encryption?: null|S3EncryptionSettings|array,
-     *   StorageClass?: null|S3StorageClass::*,
+     *   AccessControl?: S3DestinationAccessControl|array|null,
+     *   Encryption?: S3EncryptionSettings|array|null,
+     *   StorageClass?: S3StorageClass::*|null,
      * }|S3DestinationSettings $input
      */
     public static function create($input): self

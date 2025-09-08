@@ -69,9 +69,9 @@ final class ConditionCheck
      *   Key: array<string, AttributeValue|array>,
      *   TableName: string,
      *   ConditionExpression: string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -89,9 +89,9 @@ final class ConditionCheck
      *   Key: array<string, AttributeValue|array>,
      *   TableName: string,
      *   ConditionExpression: string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      * }|ConditionCheck $input
      */
     public static function create($input): self

@@ -29,8 +29,8 @@ final class Emotion
 
     /**
      * @param array{
-     *   Type?: null|EmotionName::*,
-     *   Confidence?: null|float,
+     *   Type?: EmotionName::*|null,
+     *   Confidence?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class Emotion
 
     /**
      * @param array{
-     *   Type?: null|EmotionName::*,
-     *   Confidence?: null|float,
+     *   Type?: EmotionName::*|null,
+     *   Confidence?: float|null,
      * }|Emotion $input
      */
     public static function create($input): self

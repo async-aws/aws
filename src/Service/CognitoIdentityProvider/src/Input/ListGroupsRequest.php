@@ -38,8 +38,8 @@ final class ListGroupsRequest extends Input
     /**
      * @param array{
      *   UserPoolId?: string,
-     *   Limit?: null|int,
-     *   NextToken?: null|string,
+     *   Limit?: int|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -54,8 +54,8 @@ final class ListGroupsRequest extends Input
     /**
      * @param array{
      *   UserPoolId?: string,
-     *   Limit?: null|int,
-     *   NextToken?: null|string,
+     *   Limit?: int|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|ListGroupsRequest $input
      */

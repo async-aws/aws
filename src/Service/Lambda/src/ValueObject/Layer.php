@@ -39,10 +39,10 @@ final class Layer
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   CodeSize?: null|int,
-     *   SigningProfileVersionArn?: null|string,
-     *   SigningJobArn?: null|string,
+     *   Arn?: string|null,
+     *   CodeSize?: int|null,
+     *   SigningProfileVersionArn?: string|null,
+     *   SigningJobArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,10 +55,10 @@ final class Layer
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   CodeSize?: null|int,
-     *   SigningProfileVersionArn?: null|string,
-     *   SigningJobArn?: null|string,
+     *   Arn?: string|null,
+     *   CodeSize?: int|null,
+     *   SigningProfileVersionArn?: string|null,
+     *   SigningJobArn?: string|null,
      * }|Layer $input
      */
     public static function create($input): self

@@ -43,10 +43,10 @@ final class FrameCaptureSettings
 
     /**
      * @param array{
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   MaxCaptures?: null|int,
-     *   Quality?: null|int,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   MaxCaptures?: int|null,
+     *   Quality?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -59,10 +59,10 @@ final class FrameCaptureSettings
 
     /**
      * @param array{
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   MaxCaptures?: null|int,
-     *   Quality?: null|int,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   MaxCaptures?: int|null,
+     *   Quality?: int|null,
      * }|FrameCaptureSettings $input
      */
     public static function create($input): self

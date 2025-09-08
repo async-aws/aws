@@ -50,10 +50,10 @@ final class UpdateShardCountInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -68,10 +68,10 @@ final class UpdateShardCountInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|UpdateShardCountInput $input
      */

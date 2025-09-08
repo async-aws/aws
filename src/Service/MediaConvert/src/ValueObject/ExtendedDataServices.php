@@ -31,8 +31,8 @@ final class ExtendedDataServices
 
     /**
      * @param array{
-     *   CopyProtectionAction?: null|CopyProtectionAction::*,
-     *   VchipAction?: null|VchipAction::*,
+     *   CopyProtectionAction?: CopyProtectionAction::*|null,
+     *   VchipAction?: VchipAction::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class ExtendedDataServices
 
     /**
      * @param array{
-     *   CopyProtectionAction?: null|CopyProtectionAction::*,
-     *   VchipAction?: null|VchipAction::*,
+     *   CopyProtectionAction?: CopyProtectionAction::*|null,
+     *   VchipAction?: VchipAction::*|null,
      * }|ExtendedDataServices $input
      */
     public static function create($input): self

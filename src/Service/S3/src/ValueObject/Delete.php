@@ -30,7 +30,7 @@ final class Delete
     /**
      * @param array{
      *   Objects: array<ObjectIdentifier|array>,
-     *   Quiet?: null|bool,
+     *   Quiet?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,7 +42,7 @@ final class Delete
     /**
      * @param array{
      *   Objects: array<ObjectIdentifier|array>,
-     *   Quiet?: null|bool,
+     *   Quiet?: bool|null,
      * }|Delete $input
      */
     public static function create($input): self

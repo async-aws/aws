@@ -28,7 +28,7 @@ final class TimeZone
     /**
      * @param array{
      *   Name: string,
-     *   Offset?: null|int,
+     *   Offset?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -40,7 +40,7 @@ final class TimeZone
     /**
      * @param array{
      *   Name: string,
-     *   Offset?: null|int,
+     *   Offset?: int|null,
      * }|TimeZone $input
      */
     public static function create($input): self

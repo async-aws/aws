@@ -20,7 +20,7 @@ final class AudioSelectorGroup
 
     /**
      * @param array{
-     *   AudioSelectorNames?: null|string[],
+     *   AudioSelectorNames?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class AudioSelectorGroup
 
     /**
      * @param array{
-     *   AudioSelectorNames?: null|string[],
+     *   AudioSelectorNames?: string[]|null,
      * }|AudioSelectorGroup $input
      */
     public static function create($input): self

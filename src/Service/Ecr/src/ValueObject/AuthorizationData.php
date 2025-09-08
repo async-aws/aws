@@ -34,9 +34,9 @@ final class AuthorizationData
 
     /**
      * @param array{
-     *   authorizationToken?: null|string,
-     *   expiresAt?: null|\DateTimeImmutable,
-     *   proxyEndpoint?: null|string,
+     *   authorizationToken?: string|null,
+     *   expiresAt?: \DateTimeImmutable|null,
+     *   proxyEndpoint?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class AuthorizationData
 
     /**
      * @param array{
-     *   authorizationToken?: null|string,
-     *   expiresAt?: null|\DateTimeImmutable,
-     *   proxyEndpoint?: null|string,
+     *   authorizationToken?: string|null,
+     *   expiresAt?: \DateTimeImmutable|null,
+     *   proxyEndpoint?: string|null,
      * }|AuthorizationData $input
      */
     public static function create($input): self

@@ -46,11 +46,11 @@ final class ListThingGroupsRequest extends Input
 
     /**
      * @param array{
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
-     *   parentGroup?: null|string,
-     *   namePrefixFilter?: null|string,
-     *   recursive?: null|bool,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
+     *   parentGroup?: string|null,
+     *   namePrefixFilter?: string|null,
+     *   recursive?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -66,11 +66,11 @@ final class ListThingGroupsRequest extends Input
 
     /**
      * @param array{
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
-     *   parentGroup?: null|string,
-     *   namePrefixFilter?: null|string,
-     *   recursive?: null|bool,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
+     *   parentGroup?: string|null,
+     *   namePrefixFilter?: string|null,
+     *   recursive?: bool|null,
      *   '@region'?: string|null,
      * }|ListThingGroupsRequest $input
      */

@@ -25,8 +25,8 @@ final class Hdr10Plus
 
     /**
      * @param array{
-     *   MasteringMonitorNits?: null|int,
-     *   TargetMonitorNits?: null|int,
+     *   MasteringMonitorNits?: int|null,
+     *   TargetMonitorNits?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class Hdr10Plus
 
     /**
      * @param array{
-     *   MasteringMonitorNits?: null|int,
-     *   TargetMonitorNits?: null|int,
+     *   MasteringMonitorNits?: int|null,
+     *   TargetMonitorNits?: int|null,
      * }|Hdr10Plus $input
      */
     public static function create($input): self

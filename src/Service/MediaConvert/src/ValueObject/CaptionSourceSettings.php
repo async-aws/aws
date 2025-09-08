@@ -78,14 +78,14 @@ final class CaptionSourceSettings
 
     /**
      * @param array{
-     *   AncillarySourceSettings?: null|AncillarySourceSettings|array,
-     *   DvbSubSourceSettings?: null|DvbSubSourceSettings|array,
-     *   EmbeddedSourceSettings?: null|EmbeddedSourceSettings|array,
-     *   FileSourceSettings?: null|FileSourceSettings|array,
-     *   SourceType?: null|CaptionSourceType::*,
-     *   TeletextSourceSettings?: null|TeletextSourceSettings|array,
-     *   TrackSourceSettings?: null|TrackSourceSettings|array,
-     *   WebvttHlsSourceSettings?: null|WebvttHlsSourceSettings|array,
+     *   AncillarySourceSettings?: AncillarySourceSettings|array|null,
+     *   DvbSubSourceSettings?: DvbSubSourceSettings|array|null,
+     *   EmbeddedSourceSettings?: EmbeddedSourceSettings|array|null,
+     *   FileSourceSettings?: FileSourceSettings|array|null,
+     *   SourceType?: CaptionSourceType::*|null,
+     *   TeletextSourceSettings?: TeletextSourceSettings|array|null,
+     *   TrackSourceSettings?: TrackSourceSettings|array|null,
+     *   WebvttHlsSourceSettings?: WebvttHlsSourceSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -102,14 +102,14 @@ final class CaptionSourceSettings
 
     /**
      * @param array{
-     *   AncillarySourceSettings?: null|AncillarySourceSettings|array,
-     *   DvbSubSourceSettings?: null|DvbSubSourceSettings|array,
-     *   EmbeddedSourceSettings?: null|EmbeddedSourceSettings|array,
-     *   FileSourceSettings?: null|FileSourceSettings|array,
-     *   SourceType?: null|CaptionSourceType::*,
-     *   TeletextSourceSettings?: null|TeletextSourceSettings|array,
-     *   TrackSourceSettings?: null|TrackSourceSettings|array,
-     *   WebvttHlsSourceSettings?: null|WebvttHlsSourceSettings|array,
+     *   AncillarySourceSettings?: AncillarySourceSettings|array|null,
+     *   DvbSubSourceSettings?: DvbSubSourceSettings|array|null,
+     *   EmbeddedSourceSettings?: EmbeddedSourceSettings|array|null,
+     *   FileSourceSettings?: FileSourceSettings|array|null,
+     *   SourceType?: CaptionSourceType::*|null,
+     *   TeletextSourceSettings?: TeletextSourceSettings|array|null,
+     *   TrackSourceSettings?: TrackSourceSettings|array|null,
+     *   WebvttHlsSourceSettings?: WebvttHlsSourceSettings|array|null,
      * }|CaptionSourceSettings $input
      */
     public static function create($input): self

@@ -38,10 +38,10 @@ final class QueueConfiguration
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      *   QueueArn: string,
      *   Events: array<Event::*>,
-     *   Filter?: null|NotificationConfigurationFilter|array,
+     *   Filter?: NotificationConfigurationFilter|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -54,10 +54,10 @@ final class QueueConfiguration
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      *   QueueArn: string,
      *   Events: array<Event::*>,
-     *   Filter?: null|NotificationConfigurationFilter|array,
+     *   Filter?: NotificationConfigurationFilter|array|null,
      * }|QueueConfiguration $input
      */
     public static function create($input): self

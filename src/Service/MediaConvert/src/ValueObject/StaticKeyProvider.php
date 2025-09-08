@@ -39,10 +39,10 @@ final class StaticKeyProvider
 
     /**
      * @param array{
-     *   KeyFormat?: null|string,
-     *   KeyFormatVersions?: null|string,
-     *   StaticKeyValue?: null|string,
-     *   Url?: null|string,
+     *   KeyFormat?: string|null,
+     *   KeyFormatVersions?: string|null,
+     *   StaticKeyValue?: string|null,
+     *   Url?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,10 +55,10 @@ final class StaticKeyProvider
 
     /**
      * @param array{
-     *   KeyFormat?: null|string,
-     *   KeyFormatVersions?: null|string,
-     *   StaticKeyValue?: null|string,
-     *   Url?: null|string,
+     *   KeyFormat?: string|null,
+     *   KeyFormatVersions?: string|null,
+     *   StaticKeyValue?: string|null,
+     *   Url?: string|null,
      * }|StaticKeyProvider $input
      */
     public static function create($input): self

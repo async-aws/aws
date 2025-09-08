@@ -101,17 +101,17 @@ final class InsertableImage
 
     /**
      * @param array{
-     *   Duration?: null|int,
-     *   FadeIn?: null|int,
-     *   FadeOut?: null|int,
-     *   Height?: null|int,
-     *   ImageInserterInput?: null|string,
-     *   ImageX?: null|int,
-     *   ImageY?: null|int,
-     *   Layer?: null|int,
-     *   Opacity?: null|int,
-     *   StartTime?: null|string,
-     *   Width?: null|int,
+     *   Duration?: int|null,
+     *   FadeIn?: int|null,
+     *   FadeOut?: int|null,
+     *   Height?: int|null,
+     *   ImageInserterInput?: string|null,
+     *   ImageX?: int|null,
+     *   ImageY?: int|null,
+     *   Layer?: int|null,
+     *   Opacity?: int|null,
+     *   StartTime?: string|null,
+     *   Width?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -131,17 +131,17 @@ final class InsertableImage
 
     /**
      * @param array{
-     *   Duration?: null|int,
-     *   FadeIn?: null|int,
-     *   FadeOut?: null|int,
-     *   Height?: null|int,
-     *   ImageInserterInput?: null|string,
-     *   ImageX?: null|int,
-     *   ImageY?: null|int,
-     *   Layer?: null|int,
-     *   Opacity?: null|int,
-     *   StartTime?: null|string,
-     *   Width?: null|int,
+     *   Duration?: int|null,
+     *   FadeIn?: int|null,
+     *   FadeOut?: int|null,
+     *   Height?: int|null,
+     *   ImageInserterInput?: string|null,
+     *   ImageX?: int|null,
+     *   ImageY?: int|null,
+     *   Layer?: int|null,
+     *   Opacity?: int|null,
+     *   StartTime?: string|null,
+     *   Width?: int|null,
      * }|InsertableImage $input
      */
     public static function create($input): self

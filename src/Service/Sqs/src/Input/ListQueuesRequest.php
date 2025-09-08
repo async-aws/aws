@@ -35,9 +35,9 @@ final class ListQueuesRequest extends Input
 
     /**
      * @param array{
-     *   QueueNamePrefix?: null|string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
+     *   QueueNamePrefix?: string|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -51,9 +51,9 @@ final class ListQueuesRequest extends Input
 
     /**
      * @param array{
-     *   QueueNamePrefix?: null|string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
+     *   QueueNamePrefix?: string|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListQueuesRequest $input
      */

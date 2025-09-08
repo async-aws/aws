@@ -37,9 +37,9 @@ final class HlsRenditionGroupSettings
 
     /**
      * @param array{
-     *   RenditionGroupId?: null|string,
-     *   RenditionLanguageCode?: null|LanguageCode::*,
-     *   RenditionName?: null|string,
+     *   RenditionGroupId?: string|null,
+     *   RenditionLanguageCode?: LanguageCode::*|null,
+     *   RenditionName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -51,9 +51,9 @@ final class HlsRenditionGroupSettings
 
     /**
      * @param array{
-     *   RenditionGroupId?: null|string,
-     *   RenditionLanguageCode?: null|LanguageCode::*,
-     *   RenditionName?: null|string,
+     *   RenditionGroupId?: string|null,
+     *   RenditionLanguageCode?: LanguageCode::*|null,
+     *   RenditionName?: string|null,
      * }|HlsRenditionGroupSettings $input
      */
     public static function create($input): self

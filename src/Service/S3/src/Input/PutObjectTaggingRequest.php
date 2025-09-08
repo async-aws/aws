@@ -105,12 +105,12 @@ final class PutObjectTaggingRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   ContentMD5?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   VersionId?: string|null,
+     *   ContentMD5?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   Tagging?: Tagging|array,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -131,12 +131,12 @@ final class PutObjectTaggingRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   ContentMD5?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   VersionId?: string|null,
+     *   ContentMD5?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   Tagging?: Tagging|array,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
      * }|PutObjectTaggingRequest $input
      */

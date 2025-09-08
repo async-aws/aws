@@ -74,14 +74,14 @@ final class LogsLocation
 
     /**
      * @param array{
-     *   groupName?: null|string,
-     *   streamName?: null|string,
-     *   deepLink?: null|string,
-     *   s3DeepLink?: null|string,
-     *   cloudWatchLogsArn?: null|string,
-     *   s3LogsArn?: null|string,
-     *   cloudWatchLogs?: null|CloudWatchLogsConfig|array,
-     *   s3Logs?: null|S3LogsConfig|array,
+     *   groupName?: string|null,
+     *   streamName?: string|null,
+     *   deepLink?: string|null,
+     *   s3DeepLink?: string|null,
+     *   cloudWatchLogsArn?: string|null,
+     *   s3LogsArn?: string|null,
+     *   cloudWatchLogs?: CloudWatchLogsConfig|array|null,
+     *   s3Logs?: S3LogsConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -98,14 +98,14 @@ final class LogsLocation
 
     /**
      * @param array{
-     *   groupName?: null|string,
-     *   streamName?: null|string,
-     *   deepLink?: null|string,
-     *   s3DeepLink?: null|string,
-     *   cloudWatchLogsArn?: null|string,
-     *   s3LogsArn?: null|string,
-     *   cloudWatchLogs?: null|CloudWatchLogsConfig|array,
-     *   s3Logs?: null|S3LogsConfig|array,
+     *   groupName?: string|null,
+     *   streamName?: string|null,
+     *   deepLink?: string|null,
+     *   s3DeepLink?: string|null,
+     *   cloudWatchLogsArn?: string|null,
+     *   s3LogsArn?: string|null,
+     *   cloudWatchLogs?: CloudWatchLogsConfig|array|null,
+     *   s3Logs?: S3LogsConfig|array|null,
      * }|LogsLocation $input
      */
     public static function create($input): self

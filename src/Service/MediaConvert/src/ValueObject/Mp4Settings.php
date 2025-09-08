@@ -101,15 +101,15 @@ final class Mp4Settings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
-     *   C2paManifest?: null|Mp4C2paManifest::*,
-     *   CertificateSecret?: null|string,
-     *   CslgAtom?: null|Mp4CslgAtom::*,
-     *   CttsVersion?: null|int,
-     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
-     *   MoovPlacement?: null|Mp4MoovPlacement::*,
-     *   Mp4MajorBrand?: null|string,
-     *   SigningKmsKey?: null|string,
+     *   AudioDuration?: CmfcAudioDuration::*|null,
+     *   C2paManifest?: Mp4C2paManifest::*|null,
+     *   CertificateSecret?: string|null,
+     *   CslgAtom?: Mp4CslgAtom::*|null,
+     *   CttsVersion?: int|null,
+     *   FreeSpaceBox?: Mp4FreeSpaceBox::*|null,
+     *   MoovPlacement?: Mp4MoovPlacement::*|null,
+     *   Mp4MajorBrand?: string|null,
+     *   SigningKmsKey?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -127,15 +127,15 @@ final class Mp4Settings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
-     *   C2paManifest?: null|Mp4C2paManifest::*,
-     *   CertificateSecret?: null|string,
-     *   CslgAtom?: null|Mp4CslgAtom::*,
-     *   CttsVersion?: null|int,
-     *   FreeSpaceBox?: null|Mp4FreeSpaceBox::*,
-     *   MoovPlacement?: null|Mp4MoovPlacement::*,
-     *   Mp4MajorBrand?: null|string,
-     *   SigningKmsKey?: null|string,
+     *   AudioDuration?: CmfcAudioDuration::*|null,
+     *   C2paManifest?: Mp4C2paManifest::*|null,
+     *   CertificateSecret?: string|null,
+     *   CslgAtom?: Mp4CslgAtom::*|null,
+     *   CttsVersion?: int|null,
+     *   FreeSpaceBox?: Mp4FreeSpaceBox::*|null,
+     *   MoovPlacement?: Mp4MoovPlacement::*|null,
+     *   Mp4MajorBrand?: string|null,
+     *   SigningKmsKey?: string|null,
      * }|Mp4Settings $input
      */
     public static function create($input): self

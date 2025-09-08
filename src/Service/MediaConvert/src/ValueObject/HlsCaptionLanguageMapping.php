@@ -41,10 +41,10 @@ final class HlsCaptionLanguageMapping
 
     /**
      * @param array{
-     *   CaptionChannel?: null|int,
-     *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageDescription?: null|string,
+     *   CaptionChannel?: int|null,
+     *   CustomLanguageCode?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   LanguageDescription?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,10 +57,10 @@ final class HlsCaptionLanguageMapping
 
     /**
      * @param array{
-     *   CaptionChannel?: null|int,
-     *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageDescription?: null|string,
+     *   CaptionChannel?: int|null,
+     *   CustomLanguageCode?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   LanguageDescription?: string|null,
      * }|HlsCaptionLanguageMapping $input
      */
     public static function create($input): self

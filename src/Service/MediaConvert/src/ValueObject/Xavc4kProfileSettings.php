@@ -89,14 +89,14 @@ final class Xavc4kProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*,
-     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
-     *   GopClosedCadence?: null|int,
-     *   HrdBufferSize?: null|int,
-     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*,
-     *   Slices?: null|int,
+     *   BitrateClass?: Xavc4kProfileBitrateClass::*|null,
+     *   CodecProfile?: Xavc4kProfileCodecProfile::*|null,
+     *   FlickerAdaptiveQuantization?: XavcFlickerAdaptiveQuantization::*|null,
+     *   GopBReference?: XavcGopBReference::*|null,
+     *   GopClosedCadence?: int|null,
+     *   HrdBufferSize?: int|null,
+     *   QualityTuningLevel?: Xavc4kProfileQualityTuningLevel::*|null,
+     *   Slices?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -113,14 +113,14 @@ final class Xavc4kProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|Xavc4kProfileBitrateClass::*,
-     *   CodecProfile?: null|Xavc4kProfileCodecProfile::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
-     *   GopClosedCadence?: null|int,
-     *   HrdBufferSize?: null|int,
-     *   QualityTuningLevel?: null|Xavc4kProfileQualityTuningLevel::*,
-     *   Slices?: null|int,
+     *   BitrateClass?: Xavc4kProfileBitrateClass::*|null,
+     *   CodecProfile?: Xavc4kProfileCodecProfile::*|null,
+     *   FlickerAdaptiveQuantization?: XavcFlickerAdaptiveQuantization::*|null,
+     *   GopBReference?: XavcGopBReference::*|null,
+     *   GopClosedCadence?: int|null,
+     *   HrdBufferSize?: int|null,
+     *   QualityTuningLevel?: Xavc4kProfileQualityTuningLevel::*|null,
+     *   Slices?: int|null,
      * }|Xavc4kProfileSettings $input
      */
     public static function create($input): self

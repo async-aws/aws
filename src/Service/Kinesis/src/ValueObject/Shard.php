@@ -47,8 +47,8 @@ final class Shard
     /**
      * @param array{
      *   ShardId: string,
-     *   ParentShardId?: null|string,
-     *   AdjacentParentShardId?: null|string,
+     *   ParentShardId?: string|null,
+     *   AdjacentParentShardId?: string|null,
      *   HashKeyRange: HashKeyRange|array,
      *   SequenceNumberRange: SequenceNumberRange|array,
      * } $input
@@ -65,8 +65,8 @@ final class Shard
     /**
      * @param array{
      *   ShardId: string,
-     *   ParentShardId?: null|string,
-     *   AdjacentParentShardId?: null|string,
+     *   ParentShardId?: string|null,
+     *   AdjacentParentShardId?: string|null,
      *   HashKeyRange: HashKeyRange|array,
      *   SequenceNumberRange: SequenceNumberRange|array,
      * }|Shard $input

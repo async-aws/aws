@@ -41,8 +41,8 @@ final class EncryptionContractConfiguration
 
     /**
      * @param array{
-     *   SpekeAudioPreset?: null|PresetSpeke20Audio::*,
-     *   SpekeVideoPreset?: null|PresetSpeke20Video::*,
+     *   SpekeAudioPreset?: PresetSpeke20Audio::*|null,
+     *   SpekeVideoPreset?: PresetSpeke20Video::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,8 +53,8 @@ final class EncryptionContractConfiguration
 
     /**
      * @param array{
-     *   SpekeAudioPreset?: null|PresetSpeke20Audio::*,
-     *   SpekeVideoPreset?: null|PresetSpeke20Video::*,
+     *   SpekeAudioPreset?: PresetSpeke20Audio::*|null,
+     *   SpekeVideoPreset?: PresetSpeke20Video::*|null,
      * }|EncryptionContractConfiguration $input
      */
     public static function create($input): self

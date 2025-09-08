@@ -50,8 +50,8 @@ final class ErrorInformation
 
     /**
      * @param array{
-     *   code?: null|ErrorCode::*,
-     *   message?: null|string,
+     *   code?: ErrorCode::*|null,
+     *   message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,8 +62,8 @@ final class ErrorInformation
 
     /**
      * @param array{
-     *   code?: null|ErrorCode::*,
-     *   message?: null|string,
+     *   code?: ErrorCode::*|null,
+     *   message?: string|null,
      * }|ErrorInformation $input
      */
     public static function create($input): self

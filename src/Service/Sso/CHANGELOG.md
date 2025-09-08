@@ -6,6 +6,10 @@
 
 - AWS api-change: rework regions definition
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
 ## 1.4.1
 
 ### Changed

@@ -134,20 +134,20 @@ final class JobSettings
 
     /**
      * @param array{
-     *   AdAvailOffset?: null|int,
-     *   AvailBlanking?: null|AvailBlanking|array,
-     *   ColorConversion3DLUTSettings?: null|array<ColorConversion3DLUTSetting|array>,
-     *   Esam?: null|EsamSettings|array,
-     *   ExtendedDataServices?: null|ExtendedDataServices|array,
-     *   FollowSource?: null|int,
-     *   Inputs?: null|array<Input|array>,
-     *   KantarWatermark?: null|KantarWatermarkSettings|array,
-     *   MotionImageInserter?: null|MotionImageInserter|array,
-     *   NielsenConfiguration?: null|NielsenConfiguration|array,
-     *   NielsenNonLinearWatermark?: null|NielsenNonLinearWatermarkSettings|array,
-     *   OutputGroups?: null|array<OutputGroup|array>,
-     *   TimecodeConfig?: null|TimecodeConfig|array,
-     *   TimedMetadataInsertion?: null|TimedMetadataInsertion|array,
+     *   AdAvailOffset?: int|null,
+     *   AvailBlanking?: AvailBlanking|array|null,
+     *   ColorConversion3DLUTSettings?: array<ColorConversion3DLUTSetting|array>|null,
+     *   Esam?: EsamSettings|array|null,
+     *   ExtendedDataServices?: ExtendedDataServices|array|null,
+     *   FollowSource?: int|null,
+     *   Inputs?: array<Input|array>|null,
+     *   KantarWatermark?: KantarWatermarkSettings|array|null,
+     *   MotionImageInserter?: MotionImageInserter|array|null,
+     *   NielsenConfiguration?: NielsenConfiguration|array|null,
+     *   NielsenNonLinearWatermark?: NielsenNonLinearWatermarkSettings|array|null,
+     *   OutputGroups?: array<OutputGroup|array>|null,
+     *   TimecodeConfig?: TimecodeConfig|array|null,
+     *   TimedMetadataInsertion?: TimedMetadataInsertion|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -170,20 +170,20 @@ final class JobSettings
 
     /**
      * @param array{
-     *   AdAvailOffset?: null|int,
-     *   AvailBlanking?: null|AvailBlanking|array,
-     *   ColorConversion3DLUTSettings?: null|array<ColorConversion3DLUTSetting|array>,
-     *   Esam?: null|EsamSettings|array,
-     *   ExtendedDataServices?: null|ExtendedDataServices|array,
-     *   FollowSource?: null|int,
-     *   Inputs?: null|array<Input|array>,
-     *   KantarWatermark?: null|KantarWatermarkSettings|array,
-     *   MotionImageInserter?: null|MotionImageInserter|array,
-     *   NielsenConfiguration?: null|NielsenConfiguration|array,
-     *   NielsenNonLinearWatermark?: null|NielsenNonLinearWatermarkSettings|array,
-     *   OutputGroups?: null|array<OutputGroup|array>,
-     *   TimecodeConfig?: null|TimecodeConfig|array,
-     *   TimedMetadataInsertion?: null|TimedMetadataInsertion|array,
+     *   AdAvailOffset?: int|null,
+     *   AvailBlanking?: AvailBlanking|array|null,
+     *   ColorConversion3DLUTSettings?: array<ColorConversion3DLUTSetting|array>|null,
+     *   Esam?: EsamSettings|array|null,
+     *   ExtendedDataServices?: ExtendedDataServices|array|null,
+     *   FollowSource?: int|null,
+     *   Inputs?: array<Input|array>|null,
+     *   KantarWatermark?: KantarWatermarkSettings|array|null,
+     *   MotionImageInserter?: MotionImageInserter|array|null,
+     *   NielsenConfiguration?: NielsenConfiguration|array|null,
+     *   NielsenNonLinearWatermark?: NielsenNonLinearWatermarkSettings|array|null,
+     *   OutputGroups?: array<OutputGroup|array>|null,
+     *   TimecodeConfig?: TimecodeConfig|array|null,
+     *   TimedMetadataInsertion?: TimedMetadataInsertion|array|null,
      * }|JobSettings $input
      */
     public static function create($input): self

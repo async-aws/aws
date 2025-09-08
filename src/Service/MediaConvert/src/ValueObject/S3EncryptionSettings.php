@@ -46,9 +46,9 @@ final class S3EncryptionSettings
 
     /**
      * @param array{
-     *   EncryptionType?: null|S3ServerSideEncryptionType::*,
-     *   KmsEncryptionContext?: null|string,
-     *   KmsKeyArn?: null|string,
+     *   EncryptionType?: S3ServerSideEncryptionType::*|null,
+     *   KmsEncryptionContext?: string|null,
+     *   KmsKeyArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,9 +60,9 @@ final class S3EncryptionSettings
 
     /**
      * @param array{
-     *   EncryptionType?: null|S3ServerSideEncryptionType::*,
-     *   KmsEncryptionContext?: null|string,
-     *   KmsKeyArn?: null|string,
+     *   EncryptionType?: S3ServerSideEncryptionType::*|null,
+     *   KmsEncryptionContext?: string|null,
+     *   KmsKeyArn?: string|null,
      * }|S3EncryptionSettings $input
      */
     public static function create($input): self

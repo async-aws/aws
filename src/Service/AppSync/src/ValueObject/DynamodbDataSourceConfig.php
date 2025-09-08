@@ -48,9 +48,9 @@ final class DynamodbDataSourceConfig
      * @param array{
      *   tableName: string,
      *   awsRegion: string,
-     *   useCallerCredentials?: null|bool,
-     *   deltaSyncConfig?: null|DeltaSyncConfig|array,
-     *   versioned?: null|bool,
+     *   useCallerCredentials?: bool|null,
+     *   deltaSyncConfig?: DeltaSyncConfig|array|null,
+     *   versioned?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -66,9 +66,9 @@ final class DynamodbDataSourceConfig
      * @param array{
      *   tableName: string,
      *   awsRegion: string,
-     *   useCallerCredentials?: null|bool,
-     *   deltaSyncConfig?: null|DeltaSyncConfig|array,
-     *   versioned?: null|bool,
+     *   useCallerCredentials?: bool|null,
+     *   deltaSyncConfig?: DeltaSyncConfig|array|null,
+     *   versioned?: bool|null,
      * }|DynamodbDataSourceConfig $input
      */
     public static function create($input): self

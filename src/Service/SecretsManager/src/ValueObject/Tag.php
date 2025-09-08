@@ -23,8 +23,8 @@ final class Tag
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   Value?: null|string,
+     *   Key?: string|null,
+     *   Value?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class Tag
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   Value?: null|string,
+     *   Key?: string|null,
+     *   Value?: string|null,
      * }|Tag $input
      */
     public static function create($input): self

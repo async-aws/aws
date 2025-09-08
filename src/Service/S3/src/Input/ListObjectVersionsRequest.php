@@ -96,15 +96,15 @@ final class ListObjectVersionsRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: null|string,
-     *   EncodingType?: null|EncodingType::*,
-     *   KeyMarker?: null|string,
-     *   MaxKeys?: null|int,
-     *   Prefix?: null|string,
-     *   VersionIdMarker?: null|string,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
+     *   Delimiter?: string|null,
+     *   EncodingType?: EncodingType::*|null,
+     *   KeyMarker?: string|null,
+     *   MaxKeys?: int|null,
+     *   Prefix?: string|null,
+     *   VersionIdMarker?: string|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -126,15 +126,15 @@ final class ListObjectVersionsRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: null|string,
-     *   EncodingType?: null|EncodingType::*,
-     *   KeyMarker?: null|string,
-     *   MaxKeys?: null|int,
-     *   Prefix?: null|string,
-     *   VersionIdMarker?: null|string,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
+     *   Delimiter?: string|null,
+     *   EncodingType?: EncodingType::*|null,
+     *   KeyMarker?: string|null,
+     *   MaxKeys?: int|null,
+     *   Prefix?: string|null,
+     *   VersionIdMarker?: string|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
      * }|ListObjectVersionsRequest $input
      */

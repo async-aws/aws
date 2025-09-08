@@ -63,11 +63,11 @@ final class Grantee
 
     /**
      * @param array{
-     *   DisplayName?: null|string,
-     *   EmailAddress?: null|string,
-     *   ID?: null|string,
+     *   DisplayName?: string|null,
+     *   EmailAddress?: string|null,
+     *   ID?: string|null,
      *   Type: Type::*,
-     *   URI?: null|string,
+     *   URI?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,11 +81,11 @@ final class Grantee
 
     /**
      * @param array{
-     *   DisplayName?: null|string,
-     *   EmailAddress?: null|string,
-     *   ID?: null|string,
+     *   DisplayName?: string|null,
+     *   EmailAddress?: string|null,
+     *   ID?: string|null,
      *   Type: Type::*,
-     *   URI?: null|string,
+     *   URI?: string|null,
      * }|Grantee $input
      */
     public static function create($input): self

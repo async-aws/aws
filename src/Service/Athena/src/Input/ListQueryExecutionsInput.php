@@ -34,9 +34,9 @@ final class ListQueryExecutionsInput extends Input
 
     /**
      * @param array{
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -50,9 +50,9 @@ final class ListQueryExecutionsInput extends Input
 
     /**
      * @param array{
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|ListQueryExecutionsInput $input
      */

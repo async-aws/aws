@@ -182,10 +182,10 @@ final class ExpectedAttributeValue
 
     /**
      * @param array{
-     *   Value?: null|AttributeValue|array,
-     *   Exists?: null|bool,
-     *   ComparisonOperator?: null|ComparisonOperator::*,
-     *   AttributeValueList?: null|array<AttributeValue|array>,
+     *   Value?: AttributeValue|array|null,
+     *   Exists?: bool|null,
+     *   ComparisonOperator?: ComparisonOperator::*|null,
+     *   AttributeValueList?: array<AttributeValue|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -198,10 +198,10 @@ final class ExpectedAttributeValue
 
     /**
      * @param array{
-     *   Value?: null|AttributeValue|array,
-     *   Exists?: null|bool,
-     *   ComparisonOperator?: null|ComparisonOperator::*,
-     *   AttributeValueList?: null|array<AttributeValue|array>,
+     *   Value?: AttributeValue|array|null,
+     *   Exists?: bool|null,
+     *   ComparisonOperator?: ComparisonOperator::*|null,
+     *   AttributeValueList?: array<AttributeValue|array>|null,
      * }|ExpectedAttributeValue $input
      */
     public static function create($input): self

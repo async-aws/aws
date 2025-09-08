@@ -44,9 +44,9 @@ final class H265QvbrSettings
 
     /**
      * @param array{
-     *   MaxAverageBitrate?: null|int,
-     *   QvbrQualityLevel?: null|int,
-     *   QvbrQualityLevelFineTune?: null|float,
+     *   MaxAverageBitrate?: int|null,
+     *   QvbrQualityLevel?: int|null,
+     *   QvbrQualityLevelFineTune?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -58,9 +58,9 @@ final class H265QvbrSettings
 
     /**
      * @param array{
-     *   MaxAverageBitrate?: null|int,
-     *   QvbrQualityLevel?: null|int,
-     *   QvbrQualityLevelFineTune?: null|float,
+     *   MaxAverageBitrate?: int|null,
+     *   QvbrQualityLevel?: int|null,
+     *   QvbrQualityLevelFineTune?: float|null,
      * }|H265QvbrSettings $input
      */
     public static function create($input): self

@@ -129,17 +129,17 @@ final class ColorCorrector
 
     /**
      * @param array{
-     *   Brightness?: null|int,
-     *   ClipLimits?: null|ClipLimits|array,
-     *   ColorSpaceConversion?: null|ColorSpaceConversion::*,
-     *   Contrast?: null|int,
-     *   Hdr10Metadata?: null|Hdr10Metadata|array,
-     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
-     *   Hue?: null|int,
-     *   MaxLuminance?: null|int,
-     *   SampleRangeConversion?: null|SampleRangeConversion::*,
-     *   Saturation?: null|int,
-     *   SdrReferenceWhiteLevel?: null|int,
+     *   Brightness?: int|null,
+     *   ClipLimits?: ClipLimits|array|null,
+     *   ColorSpaceConversion?: ColorSpaceConversion::*|null,
+     *   Contrast?: int|null,
+     *   Hdr10Metadata?: Hdr10Metadata|array|null,
+     *   HdrToSdrToneMapper?: HDRToSDRToneMapper::*|null,
+     *   Hue?: int|null,
+     *   MaxLuminance?: int|null,
+     *   SampleRangeConversion?: SampleRangeConversion::*|null,
+     *   Saturation?: int|null,
+     *   SdrReferenceWhiteLevel?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -159,17 +159,17 @@ final class ColorCorrector
 
     /**
      * @param array{
-     *   Brightness?: null|int,
-     *   ClipLimits?: null|ClipLimits|array,
-     *   ColorSpaceConversion?: null|ColorSpaceConversion::*,
-     *   Contrast?: null|int,
-     *   Hdr10Metadata?: null|Hdr10Metadata|array,
-     *   HdrToSdrToneMapper?: null|HDRToSDRToneMapper::*,
-     *   Hue?: null|int,
-     *   MaxLuminance?: null|int,
-     *   SampleRangeConversion?: null|SampleRangeConversion::*,
-     *   Saturation?: null|int,
-     *   SdrReferenceWhiteLevel?: null|int,
+     *   Brightness?: int|null,
+     *   ClipLimits?: ClipLimits|array|null,
+     *   ColorSpaceConversion?: ColorSpaceConversion::*|null,
+     *   Contrast?: int|null,
+     *   Hdr10Metadata?: Hdr10Metadata|array|null,
+     *   HdrToSdrToneMapper?: HDRToSDRToneMapper::*|null,
+     *   Hue?: int|null,
+     *   MaxLuminance?: int|null,
+     *   SampleRangeConversion?: SampleRangeConversion::*|null,
+     *   Saturation?: int|null,
+     *   SdrReferenceWhiteLevel?: int|null,
      * }|ColorCorrector $input
      */
     public static function create($input): self

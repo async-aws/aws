@@ -116,13 +116,13 @@ final class ConfirmForgotPasswordRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: null|string,
+     *   SecretHash?: string|null,
      *   Username?: string,
      *   ConfirmationCode?: string,
      *   Password?: string,
-     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
-     *   UserContextData?: null|UserContextDataType|array,
-     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
+     *   UserContextData?: UserContextDataType|array|null,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -142,13 +142,13 @@ final class ConfirmForgotPasswordRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: null|string,
+     *   SecretHash?: string|null,
      *   Username?: string,
      *   ConfirmationCode?: string,
      *   Password?: string,
-     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
-     *   UserContextData?: null|UserContextDataType|array,
-     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
+     *   UserContextData?: UserContextDataType|array|null,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|ConfirmForgotPasswordRequest $input
      */

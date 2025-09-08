@@ -105,18 +105,18 @@ final class Hdr10Metadata
 
     /**
      * @param array{
-     *   BluePrimaryX?: null|int,
-     *   BluePrimaryY?: null|int,
-     *   GreenPrimaryX?: null|int,
-     *   GreenPrimaryY?: null|int,
-     *   MaxContentLightLevel?: null|int,
-     *   MaxFrameAverageLightLevel?: null|int,
-     *   MaxLuminance?: null|int,
-     *   MinLuminance?: null|int,
-     *   RedPrimaryX?: null|int,
-     *   RedPrimaryY?: null|int,
-     *   WhitePointX?: null|int,
-     *   WhitePointY?: null|int,
+     *   BluePrimaryX?: int|null,
+     *   BluePrimaryY?: int|null,
+     *   GreenPrimaryX?: int|null,
+     *   GreenPrimaryY?: int|null,
+     *   MaxContentLightLevel?: int|null,
+     *   MaxFrameAverageLightLevel?: int|null,
+     *   MaxLuminance?: int|null,
+     *   MinLuminance?: int|null,
+     *   RedPrimaryX?: int|null,
+     *   RedPrimaryY?: int|null,
+     *   WhitePointX?: int|null,
+     *   WhitePointY?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -137,18 +137,18 @@ final class Hdr10Metadata
 
     /**
      * @param array{
-     *   BluePrimaryX?: null|int,
-     *   BluePrimaryY?: null|int,
-     *   GreenPrimaryX?: null|int,
-     *   GreenPrimaryY?: null|int,
-     *   MaxContentLightLevel?: null|int,
-     *   MaxFrameAverageLightLevel?: null|int,
-     *   MaxLuminance?: null|int,
-     *   MinLuminance?: null|int,
-     *   RedPrimaryX?: null|int,
-     *   RedPrimaryY?: null|int,
-     *   WhitePointX?: null|int,
-     *   WhitePointY?: null|int,
+     *   BluePrimaryX?: int|null,
+     *   BluePrimaryY?: int|null,
+     *   GreenPrimaryX?: int|null,
+     *   GreenPrimaryY?: int|null,
+     *   MaxContentLightLevel?: int|null,
+     *   MaxFrameAverageLightLevel?: int|null,
+     *   MaxLuminance?: int|null,
+     *   MinLuminance?: int|null,
+     *   RedPrimaryX?: int|null,
+     *   RedPrimaryY?: int|null,
+     *   WhitePointX?: int|null,
+     *   WhitePointY?: int|null,
      * }|Hdr10Metadata $input
      */
     public static function create($input): self

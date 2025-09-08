@@ -375,8 +375,8 @@ class GenerateCommand extends Command
 
     /**
      * @param array{operations: array<string, mixed>,...} $definition
-     * @param array{waiters: array<string, mixed>} $waiter
-     * @param array{methods: list<string>,...} $manifest
+     * @param array{waiters: array<string, mixed>}        $waiter
+     * @param array{methods: list<string>,...}            $manifest
      *
      * @return string[]|int
      */

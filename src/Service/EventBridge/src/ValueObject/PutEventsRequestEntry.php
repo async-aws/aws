@@ -89,13 +89,13 @@ final class PutEventsRequestEntry
 
     /**
      * @param array{
-     *   Time?: null|\DateTimeImmutable,
-     *   Source?: null|string,
-     *   Resources?: null|string[],
-     *   DetailType?: null|string,
-     *   Detail?: null|string,
-     *   EventBusName?: null|string,
-     *   TraceHeader?: null|string,
+     *   Time?: \DateTimeImmutable|null,
+     *   Source?: string|null,
+     *   Resources?: string[]|null,
+     *   DetailType?: string|null,
+     *   Detail?: string|null,
+     *   EventBusName?: string|null,
+     *   TraceHeader?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -111,13 +111,13 @@ final class PutEventsRequestEntry
 
     /**
      * @param array{
-     *   Time?: null|\DateTimeImmutable,
-     *   Source?: null|string,
-     *   Resources?: null|string[],
-     *   DetailType?: null|string,
-     *   Detail?: null|string,
-     *   EventBusName?: null|string,
-     *   TraceHeader?: null|string,
+     *   Time?: \DateTimeImmutable|null,
+     *   Source?: string|null,
+     *   Resources?: string[]|null,
+     *   DetailType?: string|null,
+     *   Detail?: string|null,
+     *   EventBusName?: string|null,
+     *   TraceHeader?: string|null,
      * }|PutEventsRequestEntry $input
      */
     public static function create($input): self

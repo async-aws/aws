@@ -24,8 +24,8 @@ final class EntityMetricData
 
     /**
      * @param array{
-     *   Entity?: null|Entity|array,
-     *   MetricData?: null|array<MetricDatum|array>,
+     *   Entity?: Entity|array|null,
+     *   MetricData?: array<MetricDatum|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class EntityMetricData
 
     /**
      * @param array{
-     *   Entity?: null|Entity|array,
-     *   MetricData?: null|array<MetricDatum|array>,
+     *   Entity?: Entity|array|null,
+     *   MetricData?: array<MetricDatum|array>|null,
      * }|EntityMetricData $input
      */
     public static function create($input): self

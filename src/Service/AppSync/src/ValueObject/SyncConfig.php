@@ -44,9 +44,9 @@ final class SyncConfig
 
     /**
      * @param array{
-     *   conflictHandler?: null|ConflictHandlerType::*,
-     *   conflictDetection?: null|ConflictDetectionType::*,
-     *   lambdaConflictHandlerConfig?: null|LambdaConflictHandlerConfig|array,
+     *   conflictHandler?: ConflictHandlerType::*|null,
+     *   conflictDetection?: ConflictDetectionType::*|null,
+     *   lambdaConflictHandlerConfig?: LambdaConflictHandlerConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -58,9 +58,9 @@ final class SyncConfig
 
     /**
      * @param array{
-     *   conflictHandler?: null|ConflictHandlerType::*,
-     *   conflictDetection?: null|ConflictDetectionType::*,
-     *   lambdaConflictHandlerConfig?: null|LambdaConflictHandlerConfig|array,
+     *   conflictHandler?: ConflictHandlerType::*|null,
+     *   conflictDetection?: ConflictDetectionType::*|null,
+     *   lambdaConflictHandlerConfig?: LambdaConflictHandlerConfig|array|null,
      * }|SyncConfig $input
      */
     public static function create($input): self

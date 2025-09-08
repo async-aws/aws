@@ -56,10 +56,10 @@ final class GifSettings
 
     /**
      * @param array{
-     *   FramerateControl?: null|GifFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|GifFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
+     *   FramerateControl?: GifFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: GifFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -72,10 +72,10 @@ final class GifSettings
 
     /**
      * @param array{
-     *   FramerateControl?: null|GifFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|GifFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
+     *   FramerateControl?: GifFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: GifFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
      * }|GifSettings $input
      */
     public static function create($input): self

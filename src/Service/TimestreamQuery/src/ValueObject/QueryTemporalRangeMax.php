@@ -23,8 +23,8 @@ final class QueryTemporalRangeMax
 
     /**
      * @param array{
-     *   Value?: null|int,
-     *   TableArn?: null|string,
+     *   Value?: int|null,
+     *   TableArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class QueryTemporalRangeMax
 
     /**
      * @param array{
-     *   Value?: null|int,
-     *   TableArn?: null|string,
+     *   Value?: int|null,
+     *   TableArn?: string|null,
      * }|QueryTemporalRangeMax $input
      */
     public static function create($input): self

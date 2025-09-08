@@ -34,8 +34,8 @@ final class Av1QvbrSettings
 
     /**
      * @param array{
-     *   QvbrQualityLevel?: null|int,
-     *   QvbrQualityLevelFineTune?: null|float,
+     *   QvbrQualityLevel?: int|null,
+     *   QvbrQualityLevelFineTune?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,8 +46,8 @@ final class Av1QvbrSettings
 
     /**
      * @param array{
-     *   QvbrQualityLevel?: null|int,
-     *   QvbrQualityLevelFineTune?: null|float,
+     *   QvbrQualityLevel?: int|null,
+     *   QvbrQualityLevelFineTune?: float|null,
      * }|Av1QvbrSettings $input
      */
     public static function create($input): self

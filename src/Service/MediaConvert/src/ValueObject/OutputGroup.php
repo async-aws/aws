@@ -47,11 +47,11 @@ final class OutputGroup
 
     /**
      * @param array{
-     *   AutomatedEncodingSettings?: null|AutomatedEncodingSettings|array,
-     *   CustomName?: null|string,
-     *   Name?: null|string,
-     *   OutputGroupSettings?: null|OutputGroupSettings|array,
-     *   Outputs?: null|array<Output|array>,
+     *   AutomatedEncodingSettings?: AutomatedEncodingSettings|array|null,
+     *   CustomName?: string|null,
+     *   Name?: string|null,
+     *   OutputGroupSettings?: OutputGroupSettings|array|null,
+     *   Outputs?: array<Output|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -65,11 +65,11 @@ final class OutputGroup
 
     /**
      * @param array{
-     *   AutomatedEncodingSettings?: null|AutomatedEncodingSettings|array,
-     *   CustomName?: null|string,
-     *   Name?: null|string,
-     *   OutputGroupSettings?: null|OutputGroupSettings|array,
-     *   Outputs?: null|array<Output|array>,
+     *   AutomatedEncodingSettings?: AutomatedEncodingSettings|array|null,
+     *   CustomName?: string|null,
+     *   Name?: string|null,
+     *   OutputGroupSettings?: OutputGroupSettings|array|null,
+     *   Outputs?: array<Output|array>|null,
      * }|OutputGroup $input
      */
     public static function create($input): self

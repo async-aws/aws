@@ -40,8 +40,8 @@ final class Entity
 
     /**
      * @param array{
-     *   KeyAttributes?: null|array<string, string>,
-     *   Attributes?: null|array<string, string>,
+     *   KeyAttributes?: array<string, string>|null,
+     *   Attributes?: array<string, string>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,8 +52,8 @@ final class Entity
 
     /**
      * @param array{
-     *   KeyAttributes?: null|array<string, string>,
-     *   Attributes?: null|array<string, string>,
+     *   KeyAttributes?: array<string, string>|null,
+     *   Attributes?: array<string, string>|null,
      * }|Entity $input
      */
     public static function create($input): self

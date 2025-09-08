@@ -38,7 +38,7 @@ final class HumanLoopConfig
      * @param array{
      *   HumanLoopName: string,
      *   FlowDefinitionArn: string,
-     *   DataAttributes?: null|HumanLoopDataAttributes|array,
+     *   DataAttributes?: HumanLoopDataAttributes|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,7 +52,7 @@ final class HumanLoopConfig
      * @param array{
      *   HumanLoopName: string,
      *   FlowDefinitionArn: string,
-     *   DataAttributes?: null|HumanLoopDataAttributes|array,
+     *   DataAttributes?: HumanLoopDataAttributes|array|null,
      * }|HumanLoopConfig $input
      */
     public static function create($input): self

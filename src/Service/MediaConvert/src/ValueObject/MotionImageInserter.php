@@ -76,12 +76,12 @@ final class MotionImageInserter
 
     /**
      * @param array{
-     *   Framerate?: null|MotionImageInsertionFramerate|array,
-     *   Input?: null|string,
-     *   InsertionMode?: null|MotionImageInsertionMode::*,
-     *   Offset?: null|MotionImageInsertionOffset|array,
-     *   Playback?: null|MotionImagePlayback::*,
-     *   StartTime?: null|string,
+     *   Framerate?: MotionImageInsertionFramerate|array|null,
+     *   Input?: string|null,
+     *   InsertionMode?: MotionImageInsertionMode::*|null,
+     *   Offset?: MotionImageInsertionOffset|array|null,
+     *   Playback?: MotionImagePlayback::*|null,
+     *   StartTime?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -96,12 +96,12 @@ final class MotionImageInserter
 
     /**
      * @param array{
-     *   Framerate?: null|MotionImageInsertionFramerate|array,
-     *   Input?: null|string,
-     *   InsertionMode?: null|MotionImageInsertionMode::*,
-     *   Offset?: null|MotionImageInsertionOffset|array,
-     *   Playback?: null|MotionImagePlayback::*,
-     *   StartTime?: null|string,
+     *   Framerate?: MotionImageInsertionFramerate|array|null,
+     *   Input?: string|null,
+     *   InsertionMode?: MotionImageInsertionMode::*|null,
+     *   Offset?: MotionImageInsertionOffset|array|null,
+     *   Playback?: MotionImagePlayback::*|null,
+     *   StartTime?: string|null,
      * }|MotionImageInserter $input
      */
     public static function create($input): self

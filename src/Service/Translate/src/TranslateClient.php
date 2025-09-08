@@ -33,10 +33,10 @@ class TranslateClient extends AbstractApi
      *
      * @param array{
      *   Text: string,
-     *   TerminologyNames?: null|string[],
+     *   TerminologyNames?: string[]|null,
      *   SourceLanguageCode: string,
      *   TargetLanguageCode: string,
-     *   Settings?: null|TranslationSettings|array,
+     *   Settings?: TranslationSettings|array|null,
      *   '@region'?: string|null,
      * }|TranslateTextRequest $input
      *

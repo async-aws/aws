@@ -87,9 +87,9 @@ class CodeCommitClient extends AbstractApi
      *
      * @param array{
      *   repositoryName: string,
-     *   repositoryDescription?: null|string,
-     *   tags?: null|array<string, string>,
-     *   kmsKeyId?: null|string,
+     *   repositoryDescription?: string|null,
+     *   tags?: array<string, string>|null,
+     *   kmsKeyId?: string|null,
      *   '@region'?: string|null,
      * }|CreateRepositoryInput $input
      *
@@ -228,8 +228,8 @@ class CodeCommitClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#getbranch
      *
      * @param array{
-     *   repositoryName?: null|string,
-     *   branchName?: null|string,
+     *   repositoryName?: string|null,
+     *   branchName?: string|null,
      *   '@region'?: string|null,
      * }|GetBranchInput $input
      *
@@ -318,12 +318,12 @@ class CodeCommitClient extends AbstractApi
      *
      * @param array{
      *   repositoryName: string,
-     *   beforeCommitSpecifier?: null|string,
+     *   beforeCommitSpecifier?: string|null,
      *   afterCommitSpecifier: string,
-     *   beforePath?: null|string,
-     *   afterPath?: null|string,
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
+     *   beforePath?: string|null,
+     *   afterPath?: string|null,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|GetDifferencesInput $input
      *
@@ -376,9 +376,9 @@ class CodeCommitClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#listrepositories
      *
      * @param array{
-     *   nextToken?: null|string,
-     *   sortBy?: null|SortByEnum::*,
-     *   order?: null|OrderEnum::*,
+     *   nextToken?: string|null,
+     *   sortBy?: SortByEnum::*|null,
+     *   order?: OrderEnum::*|null,
      *   '@region'?: string|null,
      * }|ListRepositoriesInput $input
      *

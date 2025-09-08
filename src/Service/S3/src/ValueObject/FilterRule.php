@@ -35,8 +35,8 @@ final class FilterRule
 
     /**
      * @param array{
-     *   Name?: null|FilterRuleName::*,
-     *   Value?: null|string,
+     *   Name?: FilterRuleName::*|null,
+     *   Value?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,8 +47,8 @@ final class FilterRule
 
     /**
      * @param array{
-     *   Name?: null|FilterRuleName::*,
-     *   Value?: null|string,
+     *   Name?: FilterRuleName::*|null,
+     *   Value?: string|null,
      * }|FilterRule $input
      */
     public static function create($input): self

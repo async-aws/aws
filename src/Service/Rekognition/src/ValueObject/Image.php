@@ -44,8 +44,8 @@ final class Image
 
     /**
      * @param array{
-     *   Bytes?: null|string,
-     *   S3Object?: null|S3Object|array,
+     *   Bytes?: string|null,
+     *   S3Object?: S3Object|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -56,8 +56,8 @@ final class Image
 
     /**
      * @param array{
-     *   Bytes?: null|string,
-     *   S3Object?: null|S3Object|array,
+     *   Bytes?: string|null,
+     *   S3Object?: S3Object|array|null,
      * }|Image $input
      */
     public static function create($input): self

@@ -42,7 +42,7 @@ final class RouteMatrixEntryError
     /**
      * @param array{
      *   Code: RouteMatrixErrorCode::*,
-     *   Message?: null|string,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -54,7 +54,7 @@ final class RouteMatrixEntryError
     /**
      * @param array{
      *   Code: RouteMatrixErrorCode::*,
-     *   Message?: null|string,
+     *   Message?: string|null,
      * }|RouteMatrixEntryError $input
      */
     public static function create($input): self

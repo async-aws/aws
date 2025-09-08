@@ -17,7 +17,7 @@ final class EC2TagSet
 
     /**
      * @param array{
-     *   ec2TagSetList?: null|array[],
+     *   ec2TagSetList?: array[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class EC2TagSet
 
     /**
      * @param array{
-     *   ec2TagSetList?: null|array[],
+     *   ec2TagSetList?: array[]|null,
      * }|EC2TagSet $input
      */
     public static function create($input): self

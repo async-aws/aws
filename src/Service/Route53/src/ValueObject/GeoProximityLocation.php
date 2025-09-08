@@ -61,10 +61,10 @@ final class GeoProximityLocation
 
     /**
      * @param array{
-     *   AWSRegion?: null|string,
-     *   LocalZoneGroup?: null|string,
-     *   Coordinates?: null|Coordinates|array,
-     *   Bias?: null|int,
+     *   AWSRegion?: string|null,
+     *   LocalZoneGroup?: string|null,
+     *   Coordinates?: Coordinates|array|null,
+     *   Bias?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -77,10 +77,10 @@ final class GeoProximityLocation
 
     /**
      * @param array{
-     *   AWSRegion?: null|string,
-     *   LocalZoneGroup?: null|string,
-     *   Coordinates?: null|Coordinates|array,
-     *   Bias?: null|int,
+     *   AWSRegion?: string|null,
+     *   LocalZoneGroup?: string|null,
+     *   Coordinates?: Coordinates|array|null,
+     *   Bias?: int|null,
      * }|GeoProximityLocation $input
      */
     public static function create($input): self

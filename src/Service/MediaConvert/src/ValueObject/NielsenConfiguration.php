@@ -25,8 +25,8 @@ final class NielsenConfiguration
 
     /**
      * @param array{
-     *   BreakoutCode?: null|int,
-     *   DistributorId?: null|string,
+     *   BreakoutCode?: int|null,
+     *   DistributorId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class NielsenConfiguration
 
     /**
      * @param array{
-     *   BreakoutCode?: null|int,
-     *   DistributorId?: null|string,
+     *   BreakoutCode?: int|null,
+     *   DistributorId?: string|null,
      * }|NielsenConfiguration $input
      */
     public static function create($input): self

@@ -30,7 +30,7 @@ final class CachingConfig
     /**
      * @param array{
      *   ttl: int,
-     *   cachingKeys?: null|string[],
+     *   cachingKeys?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,7 +42,7 @@ final class CachingConfig
     /**
      * @param array{
      *   ttl: int,
-     *   cachingKeys?: null|string[],
+     *   cachingKeys?: string[]|null,
      * }|CachingConfig $input
      */
     public static function create($input): self

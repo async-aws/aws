@@ -51,11 +51,11 @@ final class ProvisionedThroughputDescription
 
     /**
      * @param array{
-     *   LastIncreaseDateTime?: null|\DateTimeImmutable,
-     *   LastDecreaseDateTime?: null|\DateTimeImmutable,
-     *   NumberOfDecreasesToday?: null|int,
-     *   ReadCapacityUnits?: null|int,
-     *   WriteCapacityUnits?: null|int,
+     *   LastIncreaseDateTime?: \DateTimeImmutable|null,
+     *   LastDecreaseDateTime?: \DateTimeImmutable|null,
+     *   NumberOfDecreasesToday?: int|null,
+     *   ReadCapacityUnits?: int|null,
+     *   WriteCapacityUnits?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -69,11 +69,11 @@ final class ProvisionedThroughputDescription
 
     /**
      * @param array{
-     *   LastIncreaseDateTime?: null|\DateTimeImmutable,
-     *   LastDecreaseDateTime?: null|\DateTimeImmutable,
-     *   NumberOfDecreasesToday?: null|int,
-     *   ReadCapacityUnits?: null|int,
-     *   WriteCapacityUnits?: null|int,
+     *   LastIncreaseDateTime?: \DateTimeImmutable|null,
+     *   LastDecreaseDateTime?: \DateTimeImmutable|null,
+     *   NumberOfDecreasesToday?: int|null,
+     *   ReadCapacityUnits?: int|null,
+     *   WriteCapacityUnits?: int|null,
      * }|ProvisionedThroughputDescription $input
      */
     public static function create($input): self

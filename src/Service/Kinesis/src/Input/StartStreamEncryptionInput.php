@@ -53,10 +53,10 @@ final class StartStreamEncryptionInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   EncryptionType?: EncryptionType::*,
      *   KeyId?: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -71,10 +71,10 @@ final class StartStreamEncryptionInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   EncryptionType?: EncryptionType::*,
      *   KeyId?: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|StartStreamEncryptionInput $input
      */

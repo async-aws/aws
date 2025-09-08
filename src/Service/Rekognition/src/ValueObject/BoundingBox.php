@@ -52,10 +52,10 @@ final class BoundingBox
 
     /**
      * @param array{
-     *   Width?: null|float,
-     *   Height?: null|float,
-     *   Left?: null|float,
-     *   Top?: null|float,
+     *   Width?: float|null,
+     *   Height?: float|null,
+     *   Left?: float|null,
+     *   Top?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -68,10 +68,10 @@ final class BoundingBox
 
     /**
      * @param array{
-     *   Width?: null|float,
-     *   Height?: null|float,
-     *   Left?: null|float,
-     *   Top?: null|float,
+     *   Width?: float|null,
+     *   Height?: float|null,
+     *   Left?: float|null,
+     *   Top?: float|null,
      * }|BoundingBox $input
      */
     public static function create($input): self

@@ -54,9 +54,9 @@ final class EnableEnhancedMonitoringInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardLevelMetrics?: array<MetricsName::*>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -70,9 +70,9 @@ final class EnableEnhancedMonitoringInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardLevelMetrics?: array<MetricsName::*>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|EnableEnhancedMonitoringInput $input
      */

@@ -22,7 +22,7 @@ final class CreateAccessKeyRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
+     *   UserName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -34,7 +34,7 @@ final class CreateAccessKeyRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
+     *   UserName?: string|null,
      *   '@region'?: string|null,
      * }|CreateAccessKeyRequest $input
      */

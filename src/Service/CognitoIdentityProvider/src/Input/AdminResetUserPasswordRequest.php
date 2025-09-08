@@ -63,7 +63,7 @@ final class AdminResetUserPasswordRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   ClientMetadata?: null|array<string, string>,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -79,7 +79,7 @@ final class AdminResetUserPasswordRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   ClientMetadata?: null|array<string, string>,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|AdminResetUserPasswordRequest $input
      */

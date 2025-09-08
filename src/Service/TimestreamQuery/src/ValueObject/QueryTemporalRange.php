@@ -20,7 +20,7 @@ final class QueryTemporalRange
 
     /**
      * @param array{
-     *   Max?: null|QueryTemporalRangeMax|array,
+     *   Max?: QueryTemporalRangeMax|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class QueryTemporalRange
 
     /**
      * @param array{
-     *   Max?: null|QueryTemporalRangeMax|array,
+     *   Max?: QueryTemporalRangeMax|array|null,
      * }|QueryTemporalRange $input
      */
     public static function create($input): self

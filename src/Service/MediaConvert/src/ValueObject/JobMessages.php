@@ -23,8 +23,8 @@ final class JobMessages
 
     /**
      * @param array{
-     *   Info?: null|string[],
-     *   Warning?: null|string[],
+     *   Info?: string[]|null,
+     *   Warning?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class JobMessages
 
     /**
      * @param array{
-     *   Info?: null|string[],
-     *   Warning?: null|string[],
+     *   Info?: string[]|null,
+     *   Warning?: string[]|null,
      * }|JobMessages $input
      */
     public static function create($input): self

@@ -38,10 +38,10 @@ final class NotificationConfiguration
 
     /**
      * @param array{
-     *   TopicConfigurations?: null|array<TopicConfiguration|array>,
-     *   QueueConfigurations?: null|array<QueueConfiguration|array>,
-     *   LambdaFunctionConfigurations?: null|array<LambdaFunctionConfiguration|array>,
-     *   EventBridgeConfiguration?: null|EventBridgeConfiguration|array,
+     *   TopicConfigurations?: array<TopicConfiguration|array>|null,
+     *   QueueConfigurations?: array<QueueConfiguration|array>|null,
+     *   LambdaFunctionConfigurations?: array<LambdaFunctionConfiguration|array>|null,
+     *   EventBridgeConfiguration?: EventBridgeConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -54,10 +54,10 @@ final class NotificationConfiguration
 
     /**
      * @param array{
-     *   TopicConfigurations?: null|array<TopicConfiguration|array>,
-     *   QueueConfigurations?: null|array<QueueConfiguration|array>,
-     *   LambdaFunctionConfigurations?: null|array<LambdaFunctionConfiguration|array>,
-     *   EventBridgeConfiguration?: null|EventBridgeConfiguration|array,
+     *   TopicConfigurations?: array<TopicConfiguration|array>|null,
+     *   QueueConfigurations?: array<QueueConfiguration|array>|null,
+     *   LambdaFunctionConfigurations?: array<LambdaFunctionConfiguration|array>|null,
+     *   EventBridgeConfiguration?: EventBridgeConfiguration|array|null,
      * }|NotificationConfiguration $input
      */
     public static function create($input): self

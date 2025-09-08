@@ -67,10 +67,10 @@ final class CreateBucketConfiguration
 
     /**
      * @param array{
-     *   LocationConstraint?: null|BucketLocationConstraint::*,
-     *   Location?: null|LocationInfo|array,
-     *   Bucket?: null|BucketInfo|array,
-     *   Tags?: null|array<Tag|array>,
+     *   LocationConstraint?: BucketLocationConstraint::*|null,
+     *   Location?: LocationInfo|array|null,
+     *   Bucket?: BucketInfo|array|null,
+     *   Tags?: array<Tag|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -83,10 +83,10 @@ final class CreateBucketConfiguration
 
     /**
      * @param array{
-     *   LocationConstraint?: null|BucketLocationConstraint::*,
-     *   Location?: null|LocationInfo|array,
-     *   Bucket?: null|BucketInfo|array,
-     *   Tags?: null|array<Tag|array>,
+     *   LocationConstraint?: BucketLocationConstraint::*|null,
+     *   Location?: LocationInfo|array|null,
+     *   Bucket?: BucketInfo|array|null,
+     *   Tags?: array<Tag|array>|null,
      * }|CreateBucketConfiguration $input
      */
     public static function create($input): self

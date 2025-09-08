@@ -61,10 +61,10 @@ final class Put
      * @param array{
      *   Item: array<string, AttributeValue|array>,
      *   TableName: string,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,10 +81,10 @@ final class Put
      * @param array{
      *   Item: array<string, AttributeValue|array>,
      *   TableName: string,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      * }|Put $input
      */
     public static function create($input): self

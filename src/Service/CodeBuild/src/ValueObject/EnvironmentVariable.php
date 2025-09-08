@@ -53,7 +53,7 @@ final class EnvironmentVariable
      * @param array{
      *   name: string,
      *   value: string,
-     *   type?: null|EnvironmentVariableType::*,
+     *   type?: EnvironmentVariableType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -67,7 +67,7 @@ final class EnvironmentVariable
      * @param array{
      *   name: string,
      *   value: string,
-     *   type?: null|EnvironmentVariableType::*,
+     *   type?: EnvironmentVariableType::*|null,
      * }|EnvironmentVariable $input
      */
     public static function create($input): self

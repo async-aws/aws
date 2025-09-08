@@ -44,9 +44,9 @@ final class CreateThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   parentGroupName?: null|string,
-     *   thingGroupProperties?: null|ThingGroupProperties|array,
-     *   tags?: null|array<Tag|array>,
+     *   parentGroupName?: string|null,
+     *   thingGroupProperties?: ThingGroupProperties|array|null,
+     *   tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -62,9 +62,9 @@ final class CreateThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   parentGroupName?: null|string,
-     *   thingGroupProperties?: null|ThingGroupProperties|array,
-     *   tags?: null|array<Tag|array>,
+     *   parentGroupName?: string|null,
+     *   thingGroupProperties?: ThingGroupProperties|array|null,
+     *   tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * }|CreateThingGroupRequest $input
      */

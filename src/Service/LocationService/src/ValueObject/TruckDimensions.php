@@ -55,10 +55,10 @@ final class TruckDimensions
 
     /**
      * @param array{
-     *   Length?: null|float,
-     *   Height?: null|float,
-     *   Width?: null|float,
-     *   Unit?: null|DimensionUnit::*,
+     *   Length?: float|null,
+     *   Height?: float|null,
+     *   Width?: float|null,
+     *   Unit?: DimensionUnit::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -71,10 +71,10 @@ final class TruckDimensions
 
     /**
      * @param array{
-     *   Length?: null|float,
-     *   Height?: null|float,
-     *   Width?: null|float,
-     *   Unit?: null|DimensionUnit::*,
+     *   Length?: float|null,
+     *   Height?: float|null,
+     *   Width?: float|null,
+     *   Unit?: DimensionUnit::*|null,
      * }|TruckDimensions $input
      */
     public static function create($input): self
