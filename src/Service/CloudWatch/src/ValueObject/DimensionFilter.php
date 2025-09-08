@@ -26,7 +26,7 @@ final class DimensionFilter
     /**
      * @param array{
      *   Name: string,
-     *   Value?: null|string,
+     *   Value?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,7 +38,7 @@ final class DimensionFilter
     /**
      * @param array{
      *   Name: string,
-     *   Value?: null|string,
+     *   Value?: string|null,
      * }|DimensionFilter $input
      */
     public static function create($input): self

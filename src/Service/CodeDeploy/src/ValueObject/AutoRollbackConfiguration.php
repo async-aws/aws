@@ -27,8 +27,8 @@ final class AutoRollbackConfiguration
 
     /**
      * @param array{
-     *   enabled?: null|bool,
-     *   events?: null|array<AutoRollbackEvent::*>,
+     *   enabled?: bool|null,
+     *   events?: array<AutoRollbackEvent::*>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class AutoRollbackConfiguration
 
     /**
      * @param array{
-     *   enabled?: null|bool,
-     *   events?: null|array<AutoRollbackEvent::*>,
+     *   enabled?: bool|null,
+     *   events?: array<AutoRollbackEvent::*>|null,
      * }|AutoRollbackConfiguration $input
      */
     public static function create($input): self

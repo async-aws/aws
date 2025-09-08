@@ -40,10 +40,10 @@ final class AutoRetryConfig
 
     /**
      * @param array{
-     *   autoRetryLimit?: null|int,
-     *   autoRetryNumber?: null|int,
-     *   nextAutoRetry?: null|string,
-     *   previousAutoRetry?: null|string,
+     *   autoRetryLimit?: int|null,
+     *   autoRetryNumber?: int|null,
+     *   nextAutoRetry?: string|null,
+     *   previousAutoRetry?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -56,10 +56,10 @@ final class AutoRetryConfig
 
     /**
      * @param array{
-     *   autoRetryLimit?: null|int,
-     *   autoRetryNumber?: null|int,
-     *   nextAutoRetry?: null|string,
-     *   previousAutoRetry?: null|string,
+     *   autoRetryLimit?: int|null,
+     *   autoRetryNumber?: int|null,
+     *   nextAutoRetry?: string|null,
+     *   previousAutoRetry?: string|null,
      * }|AutoRetryConfig $input
      */
     public static function create($input): self

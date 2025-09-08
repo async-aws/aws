@@ -75,7 +75,7 @@ final class ServerSideEncryptionByDefault
     /**
      * @param array{
      *   SSEAlgorithm: ServerSideEncryption::*,
-     *   KMSMasterKeyID?: null|string,
+     *   KMSMasterKeyID?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -87,7 +87,7 @@ final class ServerSideEncryptionByDefault
     /**
      * @param array{
      *   SSEAlgorithm: ServerSideEncryption::*,
-     *   KMSMasterKeyID?: null|string,
+     *   KMSMasterKeyID?: string|null,
      * }|ServerSideEncryptionByDefault $input
      */
     public static function create($input): self

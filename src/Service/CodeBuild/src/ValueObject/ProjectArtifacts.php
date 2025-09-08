@@ -144,15 +144,15 @@ final class ProjectArtifacts
     /**
      * @param array{
      *   type: ArtifactsType::*,
-     *   location?: null|string,
-     *   path?: null|string,
-     *   namespaceType?: null|ArtifactNamespace::*,
-     *   name?: null|string,
-     *   packaging?: null|ArtifactPackaging::*,
-     *   overrideArtifactName?: null|bool,
-     *   encryptionDisabled?: null|bool,
-     *   artifactIdentifier?: null|string,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   location?: string|null,
+     *   path?: string|null,
+     *   namespaceType?: ArtifactNamespace::*|null,
+     *   name?: string|null,
+     *   packaging?: ArtifactPackaging::*|null,
+     *   overrideArtifactName?: bool|null,
+     *   encryptionDisabled?: bool|null,
+     *   artifactIdentifier?: string|null,
+     *   bucketOwnerAccess?: BucketOwnerAccess::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -172,15 +172,15 @@ final class ProjectArtifacts
     /**
      * @param array{
      *   type: ArtifactsType::*,
-     *   location?: null|string,
-     *   path?: null|string,
-     *   namespaceType?: null|ArtifactNamespace::*,
-     *   name?: null|string,
-     *   packaging?: null|ArtifactPackaging::*,
-     *   overrideArtifactName?: null|bool,
-     *   encryptionDisabled?: null|bool,
-     *   artifactIdentifier?: null|string,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   location?: string|null,
+     *   path?: string|null,
+     *   namespaceType?: ArtifactNamespace::*|null,
+     *   name?: string|null,
+     *   packaging?: ArtifactPackaging::*|null,
+     *   overrideArtifactName?: bool|null,
+     *   encryptionDisabled?: bool|null,
+     *   artifactIdentifier?: string|null,
+     *   bucketOwnerAccess?: BucketOwnerAccess::*|null,
      * }|ProjectArtifacts $input
      */
     public static function create($input): self

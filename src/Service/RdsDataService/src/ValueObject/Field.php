@@ -58,13 +58,13 @@ final class Field
 
     /**
      * @param array{
-     *   isNull?: null|bool,
-     *   booleanValue?: null|bool,
-     *   longValue?: null|int,
-     *   doubleValue?: null|float,
-     *   stringValue?: null|string,
-     *   blobValue?: null|string,
-     *   arrayValue?: null|ArrayValue|array,
+     *   isNull?: bool|null,
+     *   booleanValue?: bool|null,
+     *   longValue?: int|null,
+     *   doubleValue?: float|null,
+     *   stringValue?: string|null,
+     *   blobValue?: string|null,
+     *   arrayValue?: ArrayValue|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -80,13 +80,13 @@ final class Field
 
     /**
      * @param array{
-     *   isNull?: null|bool,
-     *   booleanValue?: null|bool,
-     *   longValue?: null|int,
-     *   doubleValue?: null|float,
-     *   stringValue?: null|string,
-     *   blobValue?: null|string,
-     *   arrayValue?: null|ArrayValue|array,
+     *   isNull?: bool|null,
+     *   booleanValue?: bool|null,
+     *   longValue?: int|null,
+     *   doubleValue?: float|null,
+     *   stringValue?: string|null,
+     *   blobValue?: string|null,
+     *   arrayValue?: ArrayValue|array|null,
      * }|Field $input
      */
     public static function create($input): self

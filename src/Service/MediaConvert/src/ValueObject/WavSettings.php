@@ -43,10 +43,10 @@ final class WavSettings
 
     /**
      * @param array{
-     *   BitDepth?: null|int,
-     *   Channels?: null|int,
-     *   Format?: null|WavFormat::*,
-     *   SampleRate?: null|int,
+     *   BitDepth?: int|null,
+     *   Channels?: int|null,
+     *   Format?: WavFormat::*|null,
+     *   SampleRate?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -59,10 +59,10 @@ final class WavSettings
 
     /**
      * @param array{
-     *   BitDepth?: null|int,
-     *   Channels?: null|int,
-     *   Format?: null|WavFormat::*,
-     *   SampleRate?: null|int,
+     *   BitDepth?: int|null,
+     *   Channels?: int|null,
+     *   Format?: WavFormat::*|null,
+     *   SampleRate?: int|null,
      * }|WavSettings $input
      */
     public static function create($input): self

@@ -33,8 +33,8 @@ final class DeploymentReadyOption
 
     /**
      * @param array{
-     *   actionOnTimeout?: null|DeploymentReadyAction::*,
-     *   waitTimeInMinutes?: null|int,
+     *   actionOnTimeout?: DeploymentReadyAction::*|null,
+     *   waitTimeInMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class DeploymentReadyOption
 
     /**
      * @param array{
-     *   actionOnTimeout?: null|DeploymentReadyAction::*,
-     *   waitTimeInMinutes?: null|int,
+     *   actionOnTimeout?: DeploymentReadyAction::*|null,
+     *   waitTimeInMinutes?: int|null,
      * }|DeploymentReadyOption $input
      */
     public static function create($input): self

@@ -105,15 +105,15 @@ final class Target
     /**
      * @param array{
      *   Arn: string,
-     *   DeadLetterConfig?: null|DeadLetterConfig|array,
-     *   EcsParameters?: null|EcsParameters|array,
-     *   EventBridgeParameters?: null|EventBridgeParameters|array,
-     *   Input?: null|string,
-     *   KinesisParameters?: null|KinesisParameters|array,
-     *   RetryPolicy?: null|RetryPolicy|array,
+     *   DeadLetterConfig?: DeadLetterConfig|array|null,
+     *   EcsParameters?: EcsParameters|array|null,
+     *   EventBridgeParameters?: EventBridgeParameters|array|null,
+     *   Input?: string|null,
+     *   KinesisParameters?: KinesisParameters|array|null,
+     *   RetryPolicy?: RetryPolicy|array|null,
      *   RoleArn: string,
-     *   SageMakerPipelineParameters?: null|SageMakerPipelineParameters|array,
-     *   SqsParameters?: null|SqsParameters|array,
+     *   SageMakerPipelineParameters?: SageMakerPipelineParameters|array|null,
+     *   SqsParameters?: SqsParameters|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -133,15 +133,15 @@ final class Target
     /**
      * @param array{
      *   Arn: string,
-     *   DeadLetterConfig?: null|DeadLetterConfig|array,
-     *   EcsParameters?: null|EcsParameters|array,
-     *   EventBridgeParameters?: null|EventBridgeParameters|array,
-     *   Input?: null|string,
-     *   KinesisParameters?: null|KinesisParameters|array,
-     *   RetryPolicy?: null|RetryPolicy|array,
+     *   DeadLetterConfig?: DeadLetterConfig|array|null,
+     *   EcsParameters?: EcsParameters|array|null,
+     *   EventBridgeParameters?: EventBridgeParameters|array|null,
+     *   Input?: string|null,
+     *   KinesisParameters?: KinesisParameters|array|null,
+     *   RetryPolicy?: RetryPolicy|array|null,
      *   RoleArn: string,
-     *   SageMakerPipelineParameters?: null|SageMakerPipelineParameters|array,
-     *   SqsParameters?: null|SqsParameters|array,
+     *   SageMakerPipelineParameters?: SageMakerPipelineParameters|array|null,
+     *   SqsParameters?: SqsParameters|array|null,
      * }|Target $input
      */
     public static function create($input): self

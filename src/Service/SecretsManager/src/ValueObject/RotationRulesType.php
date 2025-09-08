@@ -61,9 +61,9 @@ final class RotationRulesType
 
     /**
      * @param array{
-     *   AutomaticallyAfterDays?: null|int,
-     *   Duration?: null|string,
-     *   ScheduleExpression?: null|string,
+     *   AutomaticallyAfterDays?: int|null,
+     *   Duration?: string|null,
+     *   ScheduleExpression?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -75,9 +75,9 @@ final class RotationRulesType
 
     /**
      * @param array{
-     *   AutomaticallyAfterDays?: null|int,
-     *   Duration?: null|string,
-     *   ScheduleExpression?: null|string,
+     *   AutomaticallyAfterDays?: int|null,
+     *   Duration?: string|null,
+     *   ScheduleExpression?: string|null,
      * }|RotationRulesType $input
      */
     public static function create($input): self

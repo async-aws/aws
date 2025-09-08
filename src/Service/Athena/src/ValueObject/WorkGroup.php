@@ -66,11 +66,11 @@ final class WorkGroup
     /**
      * @param array{
      *   Name: string,
-     *   State?: null|WorkGroupState::*,
-     *   Configuration?: null|WorkGroupConfiguration|array,
-     *   Description?: null|string,
-     *   CreationTime?: null|\DateTimeImmutable,
-     *   IdentityCenterApplicationArn?: null|string,
+     *   State?: WorkGroupState::*|null,
+     *   Configuration?: WorkGroupConfiguration|array|null,
+     *   Description?: string|null,
+     *   CreationTime?: \DateTimeImmutable|null,
+     *   IdentityCenterApplicationArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -86,11 +86,11 @@ final class WorkGroup
     /**
      * @param array{
      *   Name: string,
-     *   State?: null|WorkGroupState::*,
-     *   Configuration?: null|WorkGroupConfiguration|array,
-     *   Description?: null|string,
-     *   CreationTime?: null|\DateTimeImmutable,
-     *   IdentityCenterApplicationArn?: null|string,
+     *   State?: WorkGroupState::*|null,
+     *   Configuration?: WorkGroupConfiguration|array|null,
+     *   Description?: string|null,
+     *   CreationTime?: \DateTimeImmutable|null,
+     *   IdentityCenterApplicationArn?: string|null,
      * }|WorkGroup $input
      */
     public static function create($input): self

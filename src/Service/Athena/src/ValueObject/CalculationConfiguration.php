@@ -16,7 +16,7 @@ final class CalculationConfiguration
 
     /**
      * @param array{
-     *   CodeBlock?: null|string,
+     *   CodeBlock?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class CalculationConfiguration
 
     /**
      * @param array{
-     *   CodeBlock?: null|string,
+     *   CodeBlock?: string|null,
      * }|CalculationConfiguration $input
      */
     public static function create($input): self

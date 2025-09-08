@@ -36,8 +36,8 @@ final class BillingModeSummary
 
     /**
      * @param array{
-     *   BillingMode?: null|BillingMode::*,
-     *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
+     *   BillingMode?: BillingMode::*|null,
+     *   LastUpdateToPayPerRequestDateTime?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,8 +48,8 @@ final class BillingModeSummary
 
     /**
      * @param array{
-     *   BillingMode?: null|BillingMode::*,
-     *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
+     *   BillingMode?: BillingMode::*|null,
+     *   LastUpdateToPayPerRequestDateTime?: \DateTimeImmutable|null,
      * }|BillingModeSummary $input
      */
     public static function create($input): self

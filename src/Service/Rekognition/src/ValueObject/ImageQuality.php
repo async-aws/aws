@@ -25,8 +25,8 @@ final class ImageQuality
 
     /**
      * @param array{
-     *   Brightness?: null|float,
-     *   Sharpness?: null|float,
+     *   Brightness?: float|null,
+     *   Sharpness?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class ImageQuality
 
     /**
      * @param array{
-     *   Brightness?: null|float,
-     *   Sharpness?: null|float,
+     *   Brightness?: float|null,
+     *   Sharpness?: float|null,
      * }|ImageQuality $input
      */
     public static function create($input): self

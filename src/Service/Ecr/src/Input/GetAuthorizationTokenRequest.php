@@ -18,7 +18,7 @@ final class GetAuthorizationTokenRequest extends Input
 
     /**
      * @param array{
-     *   registryIds?: null|string[],
+     *   registryIds?: string[]|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -30,7 +30,7 @@ final class GetAuthorizationTokenRequest extends Input
 
     /**
      * @param array{
-     *   registryIds?: null|string[],
+     *   registryIds?: string[]|null,
      *   '@region'?: string|null,
      * }|GetAuthorizationTokenRequest $input
      */

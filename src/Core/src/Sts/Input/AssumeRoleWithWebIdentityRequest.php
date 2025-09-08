@@ -156,10 +156,10 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   RoleArn?: string,
      *   RoleSessionName?: string,
      *   WebIdentityToken?: string,
-     *   ProviderId?: null|string,
-     *   PolicyArns?: null|array<PolicyDescriptorType|array>,
-     *   Policy?: null|string,
-     *   DurationSeconds?: null|int,
+     *   ProviderId?: string|null,
+     *   PolicyArns?: array<PolicyDescriptorType|array>|null,
+     *   Policy?: string|null,
+     *   DurationSeconds?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -180,10 +180,10 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   RoleArn?: string,
      *   RoleSessionName?: string,
      *   WebIdentityToken?: string,
-     *   ProviderId?: null|string,
-     *   PolicyArns?: null|array<PolicyDescriptorType|array>,
-     *   Policy?: null|string,
-     *   DurationSeconds?: null|int,
+     *   ProviderId?: string|null,
+     *   PolicyArns?: array<PolicyDescriptorType|array>|null,
+     *   Policy?: string|null,
+     *   DurationSeconds?: int|null,
      *   '@region'?: string|null,
      * }|AssumeRoleWithWebIdentityRequest $input
      */

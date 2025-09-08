@@ -37,9 +37,9 @@ final class EC2TagFilter
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   Value?: null|string,
-     *   Type?: null|EC2TagFilterType::*,
+     *   Key?: string|null,
+     *   Value?: string|null,
+     *   Type?: EC2TagFilterType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -51,9 +51,9 @@ final class EC2TagFilter
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   Value?: null|string,
-     *   Type?: null|EC2TagFilterType::*,
+     *   Key?: string|null,
+     *   Value?: string|null,
+     *   Type?: EC2TagFilterType::*|null,
      * }|EC2TagFilter $input
      */
     public static function create($input): self

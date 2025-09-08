@@ -18,7 +18,7 @@ final class SageMakerPipelineParameters
 
     /**
      * @param array{
-     *   PipelineParameterList?: null|array<SageMakerPipelineParameter|array>,
+     *   PipelineParameterList?: array<SageMakerPipelineParameter|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class SageMakerPipelineParameters
 
     /**
      * @param array{
-     *   PipelineParameterList?: null|array<SageMakerPipelineParameter|array>,
+     *   PipelineParameterList?: array<SageMakerPipelineParameter|array>|null,
      * }|SageMakerPipelineParameters $input
      */
     public static function create($input): self

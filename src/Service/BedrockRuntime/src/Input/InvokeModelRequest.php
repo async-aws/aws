@@ -105,14 +105,14 @@ final class InvokeModelRequest extends Input
 
     /**
      * @param array{
-     *   body?: null|string,
-     *   contentType?: null|string,
-     *   accept?: null|string,
+     *   body?: string|null,
+     *   contentType?: string|null,
+     *   accept?: string|null,
      *   modelId?: string,
-     *   trace?: null|Trace::*,
-     *   guardrailIdentifier?: null|string,
-     *   guardrailVersion?: null|string,
-     *   performanceConfigLatency?: null|PerformanceConfigLatency::*,
+     *   trace?: Trace::*|null,
+     *   guardrailIdentifier?: string|null,
+     *   guardrailVersion?: string|null,
+     *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -131,14 +131,14 @@ final class InvokeModelRequest extends Input
 
     /**
      * @param array{
-     *   body?: null|string,
-     *   contentType?: null|string,
-     *   accept?: null|string,
+     *   body?: string|null,
+     *   contentType?: string|null,
+     *   accept?: string|null,
      *   modelId?: string,
-     *   trace?: null|Trace::*,
-     *   guardrailIdentifier?: null|string,
-     *   guardrailVersion?: null|string,
-     *   performanceConfigLatency?: null|PerformanceConfigLatency::*,
+     *   trace?: Trace::*|null,
+     *   guardrailIdentifier?: string|null,
+     *   guardrailVersion?: string|null,
+     *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   '@region'?: string|null,
      * }|InvokeModelRequest $input
      */

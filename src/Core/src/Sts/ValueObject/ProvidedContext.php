@@ -25,8 +25,8 @@ final class ProvidedContext
 
     /**
      * @param array{
-     *   ProviderArn?: null|string,
-     *   ContextAssertion?: null|string,
+     *   ProviderArn?: string|null,
+     *   ContextAssertion?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class ProvidedContext
 
     /**
      * @param array{
-     *   ProviderArn?: null|string,
-     *   ContextAssertion?: null|string,
+     *   ProviderArn?: string|null,
+     *   ContextAssertion?: string|null,
      * }|ProvidedContext $input
      */
     public static function create($input): self

@@ -99,14 +99,14 @@ final class FileSourceSettings
 
     /**
      * @param array{
-     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
-     *   Convert608To708?: null|FileSourceConvert608To708::*,
-     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
-     *   Framerate?: null|CaptionSourceFramerate|array,
-     *   SourceFile?: null|string,
-     *   TimeDelta?: null|int,
-     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
-     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*,
+     *   ByteRateLimit?: CaptionSourceByteRateLimit::*|null,
+     *   Convert608To708?: FileSourceConvert608To708::*|null,
+     *   ConvertPaintToPop?: CaptionSourceConvertPaintOnToPopOn::*|null,
+     *   Framerate?: CaptionSourceFramerate|array|null,
+     *   SourceFile?: string|null,
+     *   TimeDelta?: int|null,
+     *   TimeDeltaUnits?: FileSourceTimeDeltaUnits::*|null,
+     *   UpconvertSTLToTeletext?: CaptionSourceUpconvertSTLToTeletext::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -123,14 +123,14 @@ final class FileSourceSettings
 
     /**
      * @param array{
-     *   ByteRateLimit?: null|CaptionSourceByteRateLimit::*,
-     *   Convert608To708?: null|FileSourceConvert608To708::*,
-     *   ConvertPaintToPop?: null|CaptionSourceConvertPaintOnToPopOn::*,
-     *   Framerate?: null|CaptionSourceFramerate|array,
-     *   SourceFile?: null|string,
-     *   TimeDelta?: null|int,
-     *   TimeDeltaUnits?: null|FileSourceTimeDeltaUnits::*,
-     *   UpconvertSTLToTeletext?: null|CaptionSourceUpconvertSTLToTeletext::*,
+     *   ByteRateLimit?: CaptionSourceByteRateLimit::*|null,
+     *   Convert608To708?: FileSourceConvert608To708::*|null,
+     *   ConvertPaintToPop?: CaptionSourceConvertPaintOnToPopOn::*|null,
+     *   Framerate?: CaptionSourceFramerate|array|null,
+     *   SourceFile?: string|null,
+     *   TimeDelta?: int|null,
+     *   TimeDeltaUnits?: FileSourceTimeDeltaUnits::*|null,
+     *   UpconvertSTLToTeletext?: CaptionSourceUpconvertSTLToTeletext::*|null,
      * }|FileSourceSettings $input
      */
     public static function create($input): self

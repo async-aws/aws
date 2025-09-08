@@ -32,9 +32,9 @@ final class OpusSettings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
+     *   Bitrate?: int|null,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class OpusSettings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
+     *   Bitrate?: int|null,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
      * }|OpusSettings $input
      */
     public static function create($input): self

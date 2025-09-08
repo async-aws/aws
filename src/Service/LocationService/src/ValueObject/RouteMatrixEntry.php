@@ -30,9 +30,9 @@ final class RouteMatrixEntry
 
     /**
      * @param array{
-     *   Distance?: null|float,
-     *   DurationSeconds?: null|float,
-     *   Error?: null|RouteMatrixEntryError|array,
+     *   Distance?: float|null,
+     *   DurationSeconds?: float|null,
+     *   Error?: RouteMatrixEntryError|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class RouteMatrixEntry
 
     /**
      * @param array{
-     *   Distance?: null|float,
-     *   DurationSeconds?: null|float,
-     *   Error?: null|RouteMatrixEntryError|array,
+     *   Distance?: float|null,
+     *   DurationSeconds?: float|null,
+     *   Error?: RouteMatrixEntryError|array|null,
      * }|RouteMatrixEntry $input
      */
     public static function create($input): self

@@ -74,13 +74,13 @@ final class GroupType
 
     /**
      * @param array{
-     *   GroupName?: null|string,
-     *   UserPoolId?: null|string,
-     *   Description?: null|string,
-     *   RoleArn?: null|string,
-     *   Precedence?: null|int,
-     *   LastModifiedDate?: null|\DateTimeImmutable,
-     *   CreationDate?: null|\DateTimeImmutable,
+     *   GroupName?: string|null,
+     *   UserPoolId?: string|null,
+     *   Description?: string|null,
+     *   RoleArn?: string|null,
+     *   Precedence?: int|null,
+     *   LastModifiedDate?: \DateTimeImmutable|null,
+     *   CreationDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -96,13 +96,13 @@ final class GroupType
 
     /**
      * @param array{
-     *   GroupName?: null|string,
-     *   UserPoolId?: null|string,
-     *   Description?: null|string,
-     *   RoleArn?: null|string,
-     *   Precedence?: null|int,
-     *   LastModifiedDate?: null|\DateTimeImmutable,
-     *   CreationDate?: null|\DateTimeImmutable,
+     *   GroupName?: string|null,
+     *   UserPoolId?: string|null,
+     *   Description?: string|null,
+     *   RoleArn?: string|null,
+     *   Precedence?: int|null,
+     *   LastModifiedDate?: \DateTimeImmutable|null,
+     *   CreationDate?: \DateTimeImmutable|null,
      * }|GroupType $input
      */
     public static function create($input): self

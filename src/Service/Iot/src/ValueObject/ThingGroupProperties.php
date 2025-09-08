@@ -23,8 +23,8 @@ final class ThingGroupProperties
 
     /**
      * @param array{
-     *   thingGroupDescription?: null|string,
-     *   attributePayload?: null|AttributePayload|array,
+     *   thingGroupDescription?: string|null,
+     *   attributePayload?: AttributePayload|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class ThingGroupProperties
 
     /**
      * @param array{
-     *   thingGroupDescription?: null|string,
-     *   attributePayload?: null|AttributePayload|array,
+     *   thingGroupDescription?: string|null,
+     *   attributePayload?: AttributePayload|array|null,
      * }|ThingGroupProperties $input
      */
     public static function create($input): self

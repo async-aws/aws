@@ -34,9 +34,9 @@ final class PublishBatchResultEntry
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   MessageId?: null|string,
-     *   SequenceNumber?: null|string,
+     *   Id?: string|null,
+     *   MessageId?: string|null,
+     *   SequenceNumber?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class PublishBatchResultEntry
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   MessageId?: null|string,
-     *   SequenceNumber?: null|string,
+     *   Id?: string|null,
+     *   MessageId?: string|null,
+     *   SequenceNumber?: string|null,
      * }|PublishBatchResultEntry $input
      */
     public static function create($input): self

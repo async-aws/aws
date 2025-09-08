@@ -23,8 +23,8 @@ final class Term
 
     /**
      * @param array{
-     *   SourceText?: null|string,
-     *   TargetText?: null|string,
+     *   SourceText?: string|null,
+     *   TargetText?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class Term
 
     /**
      * @param array{
-     *   SourceText?: null|string,
-     *   TargetText?: null|string,
+     *   SourceText?: string|null,
+     *   TargetText?: string|null,
      * }|Term $input
      */
     public static function create($input): self

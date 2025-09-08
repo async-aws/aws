@@ -16,7 +16,7 @@ final class DvbTdtSettings
 
     /**
      * @param array{
-     *   TdtInterval?: null|int,
+     *   TdtInterval?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class DvbTdtSettings
 
     /**
      * @param array{
-     *   TdtInterval?: null|int,
+     *   TdtInterval?: int|null,
      * }|DvbTdtSettings $input
      */
     public static function create($input): self

@@ -96,9 +96,9 @@ final class StartExecutionInput extends Input
     /**
      * @param array{
      *   stateMachineArn?: string,
-     *   name?: null|string,
-     *   input?: null|string,
-     *   traceHeader?: null|string,
+     *   name?: string|null,
+     *   input?: string|null,
+     *   traceHeader?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -114,9 +114,9 @@ final class StartExecutionInput extends Input
     /**
      * @param array{
      *   stateMachineArn?: string,
-     *   name?: null|string,
-     *   input?: null|string,
-     *   traceHeader?: null|string,
+     *   name?: string|null,
+     *   input?: string|null,
+     *   traceHeader?: string|null,
      *   '@region'?: string|null,
      * }|StartExecutionInput $input
      */

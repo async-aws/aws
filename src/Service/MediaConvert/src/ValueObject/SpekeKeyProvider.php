@@ -51,11 +51,11 @@ final class SpekeKeyProvider
 
     /**
      * @param array{
-     *   CertificateArn?: null|string,
-     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
-     *   ResourceId?: null|string,
-     *   SystemIds?: null|string[],
-     *   Url?: null|string,
+     *   CertificateArn?: string|null,
+     *   EncryptionContractConfiguration?: EncryptionContractConfiguration|array|null,
+     *   ResourceId?: string|null,
+     *   SystemIds?: string[]|null,
+     *   Url?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -69,11 +69,11 @@ final class SpekeKeyProvider
 
     /**
      * @param array{
-     *   CertificateArn?: null|string,
-     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
-     *   ResourceId?: null|string,
-     *   SystemIds?: null|string[],
-     *   Url?: null|string,
+     *   CertificateArn?: string|null,
+     *   EncryptionContractConfiguration?: EncryptionContractConfiguration|array|null,
+     *   ResourceId?: string|null,
+     *   SystemIds?: string[]|null,
+     *   Url?: string|null,
      * }|SpekeKeyProvider $input
      */
     public static function create($input): self

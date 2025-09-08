@@ -62,7 +62,7 @@ final class HeadBucketRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ExpectedBucketOwner?: null|string,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -76,7 +76,7 @@ final class HeadBucketRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ExpectedBucketOwner?: null|string,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|HeadBucketRequest $input
      */

@@ -2,11 +2,15 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
 ## 1.27.1
 
 ### Fixed
 
-- SignerV4: fix sort of query parameters to build correct canoncal query string 
+- SignerV4: fix sort of query parameters to build correct canoncal query string
 
 ## 1.27.0
 

@@ -38,10 +38,10 @@ final class ThingTypeDefinition
 
     /**
      * @param array{
-     *   thingTypeName?: null|string,
-     *   thingTypeArn?: null|string,
-     *   thingTypeProperties?: null|ThingTypeProperties|array,
-     *   thingTypeMetadata?: null|ThingTypeMetadata|array,
+     *   thingTypeName?: string|null,
+     *   thingTypeArn?: string|null,
+     *   thingTypeProperties?: ThingTypeProperties|array|null,
+     *   thingTypeMetadata?: ThingTypeMetadata|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -54,10 +54,10 @@ final class ThingTypeDefinition
 
     /**
      * @param array{
-     *   thingTypeName?: null|string,
-     *   thingTypeArn?: null|string,
-     *   thingTypeProperties?: null|ThingTypeProperties|array,
-     *   thingTypeMetadata?: null|ThingTypeMetadata|array,
+     *   thingTypeName?: string|null,
+     *   thingTypeArn?: string|null,
+     *   thingTypeProperties?: ThingTypeProperties|array|null,
+     *   thingTypeMetadata?: ThingTypeMetadata|array|null,
      * }|ThingTypeDefinition $input
      */
     public static function create($input): self

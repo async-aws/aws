@@ -79,15 +79,15 @@ final class PendingModifiedValues
 
     /**
      * @param array{
-     *   NumCacheNodes?: null|int,
-     *   CacheNodeIdsToRemove?: null|string[],
-     *   EngineVersion?: null|string,
-     *   CacheNodeType?: null|string,
-     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
-     *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
-     *   TransitEncryptionEnabled?: null|bool,
-     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
-     *   ScaleConfig?: null|ScaleConfig|array,
+     *   NumCacheNodes?: int|null,
+     *   CacheNodeIdsToRemove?: string[]|null,
+     *   EngineVersion?: string|null,
+     *   CacheNodeType?: string|null,
+     *   AuthTokenStatus?: AuthTokenUpdateStatus::*|null,
+     *   LogDeliveryConfigurations?: array<PendingLogDeliveryConfiguration|array>|null,
+     *   TransitEncryptionEnabled?: bool|null,
+     *   TransitEncryptionMode?: TransitEncryptionMode::*|null,
+     *   ScaleConfig?: ScaleConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -105,15 +105,15 @@ final class PendingModifiedValues
 
     /**
      * @param array{
-     *   NumCacheNodes?: null|int,
-     *   CacheNodeIdsToRemove?: null|string[],
-     *   EngineVersion?: null|string,
-     *   CacheNodeType?: null|string,
-     *   AuthTokenStatus?: null|AuthTokenUpdateStatus::*,
-     *   LogDeliveryConfigurations?: null|array<PendingLogDeliveryConfiguration|array>,
-     *   TransitEncryptionEnabled?: null|bool,
-     *   TransitEncryptionMode?: null|TransitEncryptionMode::*,
-     *   ScaleConfig?: null|ScaleConfig|array,
+     *   NumCacheNodes?: int|null,
+     *   CacheNodeIdsToRemove?: string[]|null,
+     *   EngineVersion?: string|null,
+     *   CacheNodeType?: string|null,
+     *   AuthTokenStatus?: AuthTokenUpdateStatus::*|null,
+     *   LogDeliveryConfigurations?: array<PendingLogDeliveryConfiguration|array>|null,
+     *   TransitEncryptionEnabled?: bool|null,
+     *   TransitEncryptionMode?: TransitEncryptionMode::*|null,
+     *   ScaleConfig?: ScaleConfig|array|null,
      * }|PendingModifiedValues $input
      */
     public static function create($input): self

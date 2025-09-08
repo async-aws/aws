@@ -59,10 +59,10 @@ final class RequestContext
 
     /**
      * @param array{
-     *  operation?: null|string,
-     *  region?: null|string,
-     *  expirationDate?: null|\DateTimeImmutable,
-     *  currentDate?: null|\DateTimeImmutable,
+     *  operation?: string|null,
+     *  region?: string|null,
+     *  expirationDate?: \DateTimeImmutable|null,
+     *  currentDate?: \DateTimeImmutable|null,
      *  exceptionMapping?: array<string, class-string<HttpException>>,
      *  usesEndpointDiscovery?: bool,
      *  requiresEndpointDiscovery?: bool,

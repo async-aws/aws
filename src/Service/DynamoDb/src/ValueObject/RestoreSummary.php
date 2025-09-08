@@ -39,8 +39,8 @@ final class RestoreSummary
 
     /**
      * @param array{
-     *   SourceBackupArn?: null|string,
-     *   SourceTableArn?: null|string,
+     *   SourceBackupArn?: string|null,
+     *   SourceTableArn?: string|null,
      *   RestoreDateTime: \DateTimeImmutable,
      *   RestoreInProgress: bool,
      * } $input
@@ -55,8 +55,8 @@ final class RestoreSummary
 
     /**
      * @param array{
-     *   SourceBackupArn?: null|string,
-     *   SourceTableArn?: null|string,
+     *   SourceBackupArn?: string|null,
+     *   SourceTableArn?: string|null,
      *   RestoreDateTime: \DateTimeImmutable,
      *   RestoreInProgress: bool,
      * }|RestoreSummary $input

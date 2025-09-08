@@ -50,10 +50,10 @@ final class NexGuardFileMarkerSettings
 
     /**
      * @param array{
-     *   License?: null|string,
-     *   Payload?: null|int,
-     *   Preset?: null|string,
-     *   Strength?: null|WatermarkingStrength::*,
+     *   License?: string|null,
+     *   Payload?: int|null,
+     *   Preset?: string|null,
+     *   Strength?: WatermarkingStrength::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -66,10 +66,10 @@ final class NexGuardFileMarkerSettings
 
     /**
      * @param array{
-     *   License?: null|string,
-     *   Payload?: null|int,
-     *   Preset?: null|string,
-     *   Strength?: null|WatermarkingStrength::*,
+     *   License?: string|null,
+     *   Payload?: int|null,
+     *   Preset?: string|null,
+     *   Strength?: WatermarkingStrength::*|null,
      * }|NexGuardFileMarkerSettings $input
      */
     public static function create($input): self

@@ -23,8 +23,8 @@ final class RuntimeVersionConfig
 
     /**
      * @param array{
-     *   RuntimeVersionArn?: null|string,
-     *   Error?: null|RuntimeVersionError|array,
+     *   RuntimeVersionArn?: string|null,
+     *   Error?: RuntimeVersionError|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class RuntimeVersionConfig
 
     /**
      * @param array{
-     *   RuntimeVersionArn?: null|string,
-     *   Error?: null|RuntimeVersionError|array,
+     *   RuntimeVersionArn?: string|null,
+     *   Error?: RuntimeVersionError|array|null,
      * }|RuntimeVersionConfig $input
      */
     public static function create($input): self

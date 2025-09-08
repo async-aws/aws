@@ -50,12 +50,12 @@ final class Celebrity
 
     /**
      * @param array{
-     *   Urls?: null|string[],
-     *   Name?: null|string,
-     *   Id?: null|string,
-     *   Face?: null|ComparedFace|array,
-     *   MatchConfidence?: null|float,
-     *   KnownGender?: null|KnownGender|array,
+     *   Urls?: string[]|null,
+     *   Name?: string|null,
+     *   Id?: string|null,
+     *   Face?: ComparedFace|array|null,
+     *   MatchConfidence?: float|null,
+     *   KnownGender?: KnownGender|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -70,12 +70,12 @@ final class Celebrity
 
     /**
      * @param array{
-     *   Urls?: null|string[],
-     *   Name?: null|string,
-     *   Id?: null|string,
-     *   Face?: null|ComparedFace|array,
-     *   MatchConfidence?: null|float,
-     *   KnownGender?: null|KnownGender|array,
+     *   Urls?: string[]|null,
+     *   Name?: string|null,
+     *   Id?: string|null,
+     *   Face?: ComparedFace|array|null,
+     *   MatchConfidence?: float|null,
+     *   KnownGender?: KnownGender|array|null,
      * }|Celebrity $input
      */
     public static function create($input): self

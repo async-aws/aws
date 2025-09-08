@@ -44,11 +44,11 @@ final class ThingAttribute
 
     /**
      * @param array{
-     *   thingName?: null|string,
-     *   thingTypeName?: null|string,
-     *   thingArn?: null|string,
-     *   attributes?: null|array<string, string>,
-     *   version?: null|int,
+     *   thingName?: string|null,
+     *   thingTypeName?: string|null,
+     *   thingArn?: string|null,
+     *   attributes?: array<string, string>|null,
+     *   version?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class ThingAttribute
 
     /**
      * @param array{
-     *   thingName?: null|string,
-     *   thingTypeName?: null|string,
-     *   thingArn?: null|string,
-     *   attributes?: null|array<string, string>,
-     *   version?: null|int,
+     *   thingName?: string|null,
+     *   thingTypeName?: string|null,
+     *   thingArn?: string|null,
+     *   attributes?: array<string, string>|null,
+     *   version?: int|null,
      * }|ThingAttribute $input
      */
     public static function create($input): self

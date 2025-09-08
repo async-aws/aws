@@ -34,9 +34,9 @@ final class EsamSettings
 
     /**
      * @param array{
-     *   ManifestConfirmConditionNotification?: null|EsamManifestConfirmConditionNotification|array,
-     *   ResponseSignalPreroll?: null|int,
-     *   SignalProcessingNotification?: null|EsamSignalProcessingNotification|array,
+     *   ManifestConfirmConditionNotification?: EsamManifestConfirmConditionNotification|array|null,
+     *   ResponseSignalPreroll?: int|null,
+     *   SignalProcessingNotification?: EsamSignalProcessingNotification|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class EsamSettings
 
     /**
      * @param array{
-     *   ManifestConfirmConditionNotification?: null|EsamManifestConfirmConditionNotification|array,
-     *   ResponseSignalPreroll?: null|int,
-     *   SignalProcessingNotification?: null|EsamSignalProcessingNotification|array,
+     *   ManifestConfirmConditionNotification?: EsamManifestConfirmConditionNotification|array|null,
+     *   ResponseSignalPreroll?: int|null,
+     *   SignalProcessingNotification?: EsamSignalProcessingNotification|array|null,
      * }|EsamSettings $input
      */
     public static function create($input): self

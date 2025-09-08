@@ -26,8 +26,8 @@ final class GitHubLocation
 
     /**
      * @param array{
-     *   repository?: null|string,
-     *   commitId?: null|string,
+     *   repository?: string|null,
+     *   commitId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class GitHubLocation
 
     /**
      * @param array{
-     *   repository?: null|string,
-     *   commitId?: null|string,
+     *   repository?: string|null,
+     *   commitId?: string|null,
      * }|GitHubLocation $input
      */
     public static function create($input): self

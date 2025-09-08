@@ -48,11 +48,11 @@ final class ListSchedulesInput extends Input
 
     /**
      * @param array{
-     *   GroupName?: null|string,
-     *   MaxResults?: null|int,
-     *   NamePrefix?: null|string,
-     *   NextToken?: null|string,
-     *   State?: null|ScheduleState::*,
+     *   GroupName?: string|null,
+     *   MaxResults?: int|null,
+     *   NamePrefix?: string|null,
+     *   NextToken?: string|null,
+     *   State?: ScheduleState::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -68,11 +68,11 @@ final class ListSchedulesInput extends Input
 
     /**
      * @param array{
-     *   GroupName?: null|string,
-     *   MaxResults?: null|int,
-     *   NamePrefix?: null|string,
-     *   NextToken?: null|string,
-     *   State?: null|ScheduleState::*,
+     *   GroupName?: string|null,
+     *   MaxResults?: int|null,
+     *   NamePrefix?: string|null,
+     *   NextToken?: string|null,
+     *   State?: ScheduleState::*|null,
      *   '@region'?: string|null,
      * }|ListSchedulesInput $input
      */

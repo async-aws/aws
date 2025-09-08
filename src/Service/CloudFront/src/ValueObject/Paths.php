@@ -29,7 +29,7 @@ final class Paths
     /**
      * @param array{
      *   Quantity: int,
-     *   Items?: null|string[],
+     *   Items?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,7 +41,7 @@ final class Paths
     /**
      * @param array{
      *   Quantity: int,
-     *   Items?: null|string[],
+     *   Items?: string[]|null,
      * }|Paths $input
      */
     public static function create($input): self

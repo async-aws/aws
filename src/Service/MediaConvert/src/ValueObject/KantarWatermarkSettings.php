@@ -114,19 +114,19 @@ final class KantarWatermarkSettings
 
     /**
      * @param array{
-     *   ChannelName?: null|string,
-     *   ContentReference?: null|string,
-     *   CredentialsSecretName?: null|string,
-     *   FileOffset?: null|float,
-     *   KantarLicenseId?: null|int,
-     *   KantarServerUrl?: null|string,
-     *   LogDestination?: null|string,
-     *   Metadata3?: null|string,
-     *   Metadata4?: null|string,
-     *   Metadata5?: null|string,
-     *   Metadata6?: null|string,
-     *   Metadata7?: null|string,
-     *   Metadata8?: null|string,
+     *   ChannelName?: string|null,
+     *   ContentReference?: string|null,
+     *   CredentialsSecretName?: string|null,
+     *   FileOffset?: float|null,
+     *   KantarLicenseId?: int|null,
+     *   KantarServerUrl?: string|null,
+     *   LogDestination?: string|null,
+     *   Metadata3?: string|null,
+     *   Metadata4?: string|null,
+     *   Metadata5?: string|null,
+     *   Metadata6?: string|null,
+     *   Metadata7?: string|null,
+     *   Metadata8?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -148,19 +148,19 @@ final class KantarWatermarkSettings
 
     /**
      * @param array{
-     *   ChannelName?: null|string,
-     *   ContentReference?: null|string,
-     *   CredentialsSecretName?: null|string,
-     *   FileOffset?: null|float,
-     *   KantarLicenseId?: null|int,
-     *   KantarServerUrl?: null|string,
-     *   LogDestination?: null|string,
-     *   Metadata3?: null|string,
-     *   Metadata4?: null|string,
-     *   Metadata5?: null|string,
-     *   Metadata6?: null|string,
-     *   Metadata7?: null|string,
-     *   Metadata8?: null|string,
+     *   ChannelName?: string|null,
+     *   ContentReference?: string|null,
+     *   CredentialsSecretName?: string|null,
+     *   FileOffset?: float|null,
+     *   KantarLicenseId?: int|null,
+     *   KantarServerUrl?: string|null,
+     *   LogDestination?: string|null,
+     *   Metadata3?: string|null,
+     *   Metadata4?: string|null,
+     *   Metadata5?: string|null,
+     *   Metadata6?: string|null,
+     *   Metadata7?: string|null,
+     *   Metadata8?: string|null,
      * }|KantarWatermarkSettings $input
      */
     public static function create($input): self

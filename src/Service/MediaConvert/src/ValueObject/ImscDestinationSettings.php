@@ -39,8 +39,8 @@ final class ImscDestinationSettings
 
     /**
      * @param array{
-     *   Accessibility?: null|ImscAccessibilitySubs::*,
-     *   StylePassthrough?: null|ImscStylePassthrough::*,
+     *   Accessibility?: ImscAccessibilitySubs::*|null,
+     *   StylePassthrough?: ImscStylePassthrough::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -51,8 +51,8 @@ final class ImscDestinationSettings
 
     /**
      * @param array{
-     *   Accessibility?: null|ImscAccessibilitySubs::*,
-     *   StylePassthrough?: null|ImscStylePassthrough::*,
+     *   Accessibility?: ImscAccessibilitySubs::*|null,
+     *   StylePassthrough?: ImscStylePassthrough::*|null,
      * }|ImscDestinationSettings $input
      */
     public static function create($input): self

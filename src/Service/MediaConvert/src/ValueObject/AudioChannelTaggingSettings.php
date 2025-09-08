@@ -34,8 +34,8 @@ final class AudioChannelTaggingSettings
 
     /**
      * @param array{
-     *   ChannelTag?: null|AudioChannelTag::*,
-     *   ChannelTags?: null|array<AudioChannelTag::*>,
+     *   ChannelTag?: AudioChannelTag::*|null,
+     *   ChannelTags?: array<AudioChannelTag::*>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,8 +46,8 @@ final class AudioChannelTaggingSettings
 
     /**
      * @param array{
-     *   ChannelTag?: null|AudioChannelTag::*,
-     *   ChannelTags?: null|array<AudioChannelTag::*>,
+     *   ChannelTag?: AudioChannelTag::*|null,
+     *   ChannelTags?: array<AudioChannelTag::*>|null,
      * }|AudioChannelTaggingSettings $input
      */
     public static function create($input): self

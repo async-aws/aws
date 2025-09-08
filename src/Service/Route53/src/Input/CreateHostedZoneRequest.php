@@ -87,10 +87,10 @@ final class CreateHostedZoneRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   VPC?: null|VPC|array,
+     *   VPC?: VPC|array|null,
      *   CallerReference?: string,
-     *   HostedZoneConfig?: null|HostedZoneConfig|array,
-     *   DelegationSetId?: null|string,
+     *   HostedZoneConfig?: HostedZoneConfig|array|null,
+     *   DelegationSetId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -107,10 +107,10 @@ final class CreateHostedZoneRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   VPC?: null|VPC|array,
+     *   VPC?: VPC|array|null,
      *   CallerReference?: string,
-     *   HostedZoneConfig?: null|HostedZoneConfig|array,
-     *   DelegationSetId?: null|string,
+     *   HostedZoneConfig?: HostedZoneConfig|array|null,
+     *   DelegationSetId?: string|null,
      *   '@region'?: string|null,
      * }|CreateHostedZoneRequest $input
      */

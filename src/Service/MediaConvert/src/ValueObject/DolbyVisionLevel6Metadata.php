@@ -26,8 +26,8 @@ final class DolbyVisionLevel6Metadata
 
     /**
      * @param array{
-     *   MaxCll?: null|int,
-     *   MaxFall?: null|int,
+     *   MaxCll?: int|null,
+     *   MaxFall?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class DolbyVisionLevel6Metadata
 
     /**
      * @param array{
-     *   MaxCll?: null|int,
-     *   MaxFall?: null|int,
+     *   MaxCll?: int|null,
+     *   MaxFall?: int|null,
      * }|DolbyVisionLevel6Metadata $input
      */
     public static function create($input): self

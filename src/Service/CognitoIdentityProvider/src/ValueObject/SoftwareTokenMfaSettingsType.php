@@ -26,8 +26,8 @@ final class SoftwareTokenMfaSettingsType
 
     /**
      * @param array{
-     *   Enabled?: null|bool,
-     *   PreferredMfa?: null|bool,
+     *   Enabled?: bool|null,
+     *   PreferredMfa?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class SoftwareTokenMfaSettingsType
 
     /**
      * @param array{
-     *   Enabled?: null|bool,
-     *   PreferredMfa?: null|bool,
+     *   Enabled?: bool|null,
+     *   PreferredMfa?: bool|null,
      * }|SoftwareTokenMfaSettingsType $input
      */
     public static function create($input): self

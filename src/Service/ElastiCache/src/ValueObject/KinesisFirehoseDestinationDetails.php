@@ -16,7 +16,7 @@ final class KinesisFirehoseDestinationDetails
 
     /**
      * @param array{
-     *   DeliveryStream?: null|string,
+     *   DeliveryStream?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class KinesisFirehoseDestinationDetails
 
     /**
      * @param array{
-     *   DeliveryStream?: null|string,
+     *   DeliveryStream?: string|null,
      * }|KinesisFirehoseDestinationDetails $input
      */
     public static function create($input): self

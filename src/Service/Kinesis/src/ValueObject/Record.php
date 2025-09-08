@@ -55,10 +55,10 @@ final class Record
     /**
      * @param array{
      *   SequenceNumber: string,
-     *   ApproximateArrivalTimestamp?: null|\DateTimeImmutable,
+     *   ApproximateArrivalTimestamp?: \DateTimeImmutable|null,
      *   Data: string,
      *   PartitionKey: string,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: EncryptionType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -73,10 +73,10 @@ final class Record
     /**
      * @param array{
      *   SequenceNumber: string,
-     *   ApproximateArrivalTimestamp?: null|\DateTimeImmutable,
+     *   ApproximateArrivalTimestamp?: \DateTimeImmutable|null,
      *   Data: string,
      *   PartitionKey: string,
-     *   EncryptionType?: null|EncryptionType::*,
+     *   EncryptionType?: EncryptionType::*|null,
      * }|Record $input
      */
     public static function create($input): self

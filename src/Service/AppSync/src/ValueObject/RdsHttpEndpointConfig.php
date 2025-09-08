@@ -44,11 +44,11 @@ final class RdsHttpEndpointConfig
 
     /**
      * @param array{
-     *   awsRegion?: null|string,
-     *   dbClusterIdentifier?: null|string,
-     *   databaseName?: null|string,
-     *   schema?: null|string,
-     *   awsSecretStoreArn?: null|string,
+     *   awsRegion?: string|null,
+     *   dbClusterIdentifier?: string|null,
+     *   databaseName?: string|null,
+     *   schema?: string|null,
+     *   awsSecretStoreArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class RdsHttpEndpointConfig
 
     /**
      * @param array{
-     *   awsRegion?: null|string,
-     *   dbClusterIdentifier?: null|string,
-     *   databaseName?: null|string,
-     *   schema?: null|string,
-     *   awsSecretStoreArn?: null|string,
+     *   awsRegion?: string|null,
+     *   dbClusterIdentifier?: string|null,
+     *   databaseName?: string|null,
+     *   schema?: string|null,
+     *   awsSecretStoreArn?: string|null,
      * }|RdsHttpEndpointConfig $input
      */
     public static function create($input): self

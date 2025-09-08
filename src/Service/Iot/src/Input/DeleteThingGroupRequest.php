@@ -28,7 +28,7 @@ final class DeleteThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   expectedVersion?: null|int,
+     *   expectedVersion?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -42,7 +42,7 @@ final class DeleteThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   expectedVersion?: null|int,
+     *   expectedVersion?: int|null,
      *   '@region'?: string|null,
      * }|DeleteThingGroupRequest $input
      */

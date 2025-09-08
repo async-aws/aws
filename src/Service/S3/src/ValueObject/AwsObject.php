@@ -104,15 +104,15 @@ final class AwsObject
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   LastModified?: null|\DateTimeImmutable,
-     *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
-     *   Size?: null|int,
-     *   StorageClass?: null|ObjectStorageClass::*,
-     *   Owner?: null|Owner|array,
-     *   RestoreStatus?: null|RestoreStatus|array,
+     *   Key?: string|null,
+     *   LastModified?: \DateTimeImmutable|null,
+     *   ETag?: string|null,
+     *   ChecksumAlgorithm?: array<ChecksumAlgorithm::*>|null,
+     *   ChecksumType?: ChecksumType::*|null,
+     *   Size?: int|null,
+     *   StorageClass?: ObjectStorageClass::*|null,
+     *   Owner?: Owner|array|null,
+     *   RestoreStatus?: RestoreStatus|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -130,15 +130,15 @@ final class AwsObject
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   LastModified?: null|\DateTimeImmutable,
-     *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
-     *   Size?: null|int,
-     *   StorageClass?: null|ObjectStorageClass::*,
-     *   Owner?: null|Owner|array,
-     *   RestoreStatus?: null|RestoreStatus|array,
+     *   Key?: string|null,
+     *   LastModified?: \DateTimeImmutable|null,
+     *   ETag?: string|null,
+     *   ChecksumAlgorithm?: array<ChecksumAlgorithm::*>|null,
+     *   ChecksumType?: ChecksumType::*|null,
+     *   Size?: int|null,
+     *   StorageClass?: ObjectStorageClass::*|null,
+     *   Owner?: Owner|array|null,
+     *   RestoreStatus?: RestoreStatus|array|null,
      * }|AwsObject $input
      */
     public static function create($input): self

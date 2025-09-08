@@ -25,8 +25,8 @@ final class RawString
 
     /**
      * @param array{
-     *   content?: null|string,
-     *   sha256?: null|string,
+     *   content?: string|null,
+     *   sha256?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class RawString
 
     /**
      * @param array{
-     *   content?: null|string,
-     *   sha256?: null|string,
+     *   content?: string|null,
+     *   sha256?: string|null,
      * }|RawString $input
      */
     public static function create($input): self

@@ -39,10 +39,10 @@ final class LambdaFunctionConfiguration
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      *   LambdaFunctionArn: string,
      *   Events: array<Event::*>,
-     *   Filter?: null|NotificationConfigurationFilter|array,
+     *   Filter?: NotificationConfigurationFilter|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,10 +55,10 @@ final class LambdaFunctionConfiguration
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      *   LambdaFunctionArn: string,
      *   Events: array<Event::*>,
-     *   Filter?: null|NotificationConfigurationFilter|array,
+     *   Filter?: NotificationConfigurationFilter|array|null,
      * }|LambdaFunctionConfiguration $input
      */
     public static function create($input): self

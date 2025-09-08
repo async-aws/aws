@@ -14,7 +14,7 @@ final class S3KeyFilter
 
     /**
      * @param array{
-     *   FilterRules?: null|array<FilterRule|array>,
+     *   FilterRules?: array<FilterRule|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -24,7 +24,7 @@ final class S3KeyFilter
 
     /**
      * @param array{
-     *   FilterRules?: null|array<FilterRule|array>,
+     *   FilterRules?: array<FilterRule|array>|null,
      * }|S3KeyFilter $input
      */
     public static function create($input): self

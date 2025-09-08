@@ -23,8 +23,8 @@ final class RelatedDeployments
 
     /**
      * @param array{
-     *   autoUpdateOutdatedInstancesRootDeploymentId?: null|string,
-     *   autoUpdateOutdatedInstancesDeploymentIds?: null|string[],
+     *   autoUpdateOutdatedInstancesRootDeploymentId?: string|null,
+     *   autoUpdateOutdatedInstancesDeploymentIds?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class RelatedDeployments
 
     /**
      * @param array{
-     *   autoUpdateOutdatedInstancesRootDeploymentId?: null|string,
-     *   autoUpdateOutdatedInstancesDeploymentIds?: null|string[],
+     *   autoUpdateOutdatedInstancesRootDeploymentId?: string|null,
+     *   autoUpdateOutdatedInstancesDeploymentIds?: string[]|null,
      * }|RelatedDeployments $input
      */
     public static function create($input): self

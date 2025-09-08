@@ -514,10 +514,10 @@ final class Error
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   Code?: null|string,
-     *   Message?: null|string,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   Code?: string|null,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -530,10 +530,10 @@ final class Error
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   Code?: null|string,
-     *   Message?: null|string,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   Code?: string|null,
+     *   Message?: string|null,
      * }|Error $input
      */
     public static function create($input): self

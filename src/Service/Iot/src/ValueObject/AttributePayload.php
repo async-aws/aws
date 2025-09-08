@@ -30,8 +30,8 @@ final class AttributePayload
 
     /**
      * @param array{
-     *   attributes?: null|array<string, string>,
-     *   merge?: null|bool,
+     *   attributes?: array<string, string>|null,
+     *   merge?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,8 +42,8 @@ final class AttributePayload
 
     /**
      * @param array{
-     *   attributes?: null|array<string, string>,
-     *   merge?: null|bool,
+     *   attributes?: array<string, string>|null,
+     *   merge?: bool|null,
      * }|AttributePayload $input
      */
     public static function create($input): self

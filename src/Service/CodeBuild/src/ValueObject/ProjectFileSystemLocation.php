@@ -64,11 +64,11 @@ final class ProjectFileSystemLocation
 
     /**
      * @param array{
-     *   type?: null|FileSystemType::*,
-     *   location?: null|string,
-     *   mountPoint?: null|string,
-     *   identifier?: null|string,
-     *   mountOptions?: null|string,
+     *   type?: FileSystemType::*|null,
+     *   location?: string|null,
+     *   mountPoint?: string|null,
+     *   identifier?: string|null,
+     *   mountOptions?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -82,11 +82,11 @@ final class ProjectFileSystemLocation
 
     /**
      * @param array{
-     *   type?: null|FileSystemType::*,
-     *   location?: null|string,
-     *   mountPoint?: null|string,
-     *   identifier?: null|string,
-     *   mountOptions?: null|string,
+     *   type?: FileSystemType::*|null,
+     *   location?: string|null,
+     *   mountPoint?: string|null,
+     *   identifier?: string|null,
+     *   mountOptions?: string|null,
      * }|ProjectFileSystemLocation $input
      */
     public static function create($input): self

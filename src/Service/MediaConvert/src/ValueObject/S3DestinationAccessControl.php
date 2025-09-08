@@ -20,7 +20,7 @@ final class S3DestinationAccessControl
 
     /**
      * @param array{
-     *   CannedAcl?: null|S3ObjectCannedAcl::*,
+     *   CannedAcl?: S3ObjectCannedAcl::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class S3DestinationAccessControl
 
     /**
      * @param array{
-     *   CannedAcl?: null|S3ObjectCannedAcl::*,
+     *   CannedAcl?: S3ObjectCannedAcl::*|null,
      * }|S3DestinationAccessControl $input
      */
     public static function create($input): self

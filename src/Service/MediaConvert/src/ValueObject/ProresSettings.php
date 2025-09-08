@@ -182,20 +182,20 @@ final class ProresSettings
 
     /**
      * @param array{
-     *   ChromaSampling?: null|ProresChromaSampling::*,
-     *   CodecProfile?: null|ProresCodecProfile::*,
-     *   FramerateControl?: null|ProresFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|ProresInterlaceMode::*,
-     *   ParControl?: null|ProresParControl::*,
-     *   ParDenominator?: null|int,
-     *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*,
-     *   SlowPal?: null|ProresSlowPal::*,
-     *   Telecine?: null|ProresTelecine::*,
+     *   ChromaSampling?: ProresChromaSampling::*|null,
+     *   CodecProfile?: ProresCodecProfile::*|null,
+     *   FramerateControl?: ProresFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: ProresFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: ProresInterlaceMode::*|null,
+     *   ParControl?: ProresParControl::*|null,
+     *   ParDenominator?: int|null,
+     *   ParNumerator?: int|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   ScanTypeConversionMode?: ProresScanTypeConversionMode::*|null,
+     *   SlowPal?: ProresSlowPal::*|null,
+     *   Telecine?: ProresTelecine::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -218,20 +218,20 @@ final class ProresSettings
 
     /**
      * @param array{
-     *   ChromaSampling?: null|ProresChromaSampling::*,
-     *   CodecProfile?: null|ProresCodecProfile::*,
-     *   FramerateControl?: null|ProresFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|ProresFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|ProresInterlaceMode::*,
-     *   ParControl?: null|ProresParControl::*,
-     *   ParDenominator?: null|int,
-     *   ParNumerator?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|ProresScanTypeConversionMode::*,
-     *   SlowPal?: null|ProresSlowPal::*,
-     *   Telecine?: null|ProresTelecine::*,
+     *   ChromaSampling?: ProresChromaSampling::*|null,
+     *   CodecProfile?: ProresCodecProfile::*|null,
+     *   FramerateControl?: ProresFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: ProresFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: ProresInterlaceMode::*|null,
+     *   ParControl?: ProresParControl::*|null,
+     *   ParDenominator?: int|null,
+     *   ParNumerator?: int|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   ScanTypeConversionMode?: ProresScanTypeConversionMode::*|null,
+     *   SlowPal?: ProresSlowPal::*|null,
+     *   Telecine?: ProresTelecine::*|null,
      * }|ProresSettings $input
      */
     public static function create($input): self

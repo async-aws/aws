@@ -67,12 +67,12 @@ final class StartSessionRequest extends Input
 
     /**
      * @param array{
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   WorkGroup?: string,
      *   EngineConfiguration?: EngineConfiguration|array,
-     *   NotebookVersion?: null|string,
-     *   SessionIdleTimeoutInMinutes?: null|int,
-     *   ClientRequestToken?: null|string,
+     *   NotebookVersion?: string|null,
+     *   SessionIdleTimeoutInMinutes?: int|null,
+     *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -89,12 +89,12 @@ final class StartSessionRequest extends Input
 
     /**
      * @param array{
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   WorkGroup?: string,
      *   EngineConfiguration?: EngineConfiguration|array,
-     *   NotebookVersion?: null|string,
-     *   SessionIdleTimeoutInMinutes?: null|int,
-     *   ClientRequestToken?: null|string,
+     *   NotebookVersion?: string|null,
+     *   SessionIdleTimeoutInMinutes?: int|null,
+     *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
      * }|StartSessionRequest $input
      */

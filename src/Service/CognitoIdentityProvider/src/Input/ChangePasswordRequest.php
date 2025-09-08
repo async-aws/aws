@@ -40,7 +40,7 @@ final class ChangePasswordRequest extends Input
 
     /**
      * @param array{
-     *   PreviousPassword?: null|string,
+     *   PreviousPassword?: string|null,
      *   ProposedPassword?: string,
      *   AccessToken?: string,
      *   '@region'?: string|null,
@@ -56,7 +56,7 @@ final class ChangePasswordRequest extends Input
 
     /**
      * @param array{
-     *   PreviousPassword?: null|string,
+     *   PreviousPassword?: string|null,
      *   ProposedPassword?: string,
      *   AccessToken?: string,
      *   '@region'?: string|null,

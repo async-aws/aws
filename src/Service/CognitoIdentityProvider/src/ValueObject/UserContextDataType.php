@@ -27,8 +27,8 @@ final class UserContextDataType
 
     /**
      * @param array{
-     *   IpAddress?: null|string,
-     *   EncodedData?: null|string,
+     *   IpAddress?: string|null,
+     *   EncodedData?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class UserContextDataType
 
     /**
      * @param array{
-     *   IpAddress?: null|string,
-     *   EncodedData?: null|string,
+     *   IpAddress?: string|null,
+     *   EncodedData?: string|null,
      * }|UserContextDataType $input
      */
     public static function create($input): self

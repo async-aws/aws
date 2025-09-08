@@ -23,8 +23,8 @@ final class SearchedLogStream
 
     /**
      * @param array{
-     *   logStreamName?: null|string,
-     *   searchedCompletely?: null|bool,
+     *   logStreamName?: string|null,
+     *   searchedCompletely?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class SearchedLogStream
 
     /**
      * @param array{
-     *   logStreamName?: null|string,
-     *   searchedCompletely?: null|bool,
+     *   logStreamName?: string|null,
+     *   searchedCompletely?: bool|null,
      * }|SearchedLogStream $input
      */
     public static function create($input): self

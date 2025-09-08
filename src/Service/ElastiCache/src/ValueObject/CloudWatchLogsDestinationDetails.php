@@ -16,7 +16,7 @@ final class CloudWatchLogsDestinationDetails
 
     /**
      * @param array{
-     *   LogGroup?: null|string,
+     *   LogGroup?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class CloudWatchLogsDestinationDetails
 
     /**
      * @param array{
-     *   LogGroup?: null|string,
+     *   LogGroup?: string|null,
      * }|CloudWatchLogsDestinationDetails $input
      */
     public static function create($input): self

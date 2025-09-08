@@ -46,10 +46,10 @@ final class RoleCredentials
 
     /**
      * @param array{
-     *   accessKeyId?: null|string,
-     *   secretAccessKey?: null|string,
-     *   sessionToken?: null|string,
-     *   expiration?: null|int,
+     *   accessKeyId?: string|null,
+     *   secretAccessKey?: string|null,
+     *   sessionToken?: string|null,
+     *   expiration?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,10 +62,10 @@ final class RoleCredentials
 
     /**
      * @param array{
-     *   accessKeyId?: null|string,
-     *   secretAccessKey?: null|string,
-     *   sessionToken?: null|string,
-     *   expiration?: null|int,
+     *   accessKeyId?: string|null,
+     *   secretAccessKey?: string|null,
+     *   sessionToken?: string|null,
+     *   expiration?: int|null,
      * }|RoleCredentials $input
      */
     public static function create($input): self

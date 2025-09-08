@@ -32,7 +32,7 @@ final class EncryptionConfiguration
     /**
      * @param array{
      *   EncryptionOption: EncryptionOption::*,
-     *   KmsKey?: null|string,
+     *   KmsKey?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,7 +44,7 @@ final class EncryptionConfiguration
     /**
      * @param array{
      *   EncryptionOption: EncryptionOption::*,
-     *   KmsKey?: null|string,
+     *   KmsKey?: string|null,
      * }|EncryptionConfiguration $input
      */
     public static function create($input): self

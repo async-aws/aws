@@ -33,8 +33,8 @@ final class Database
     /**
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
-     *   Parameters?: null|array<string, string>,
+     *   Description?: string|null,
+     *   Parameters?: array<string, string>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,8 +47,8 @@ final class Database
     /**
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
-     *   Parameters?: null|array<string, string>,
+     *   Description?: string|null,
+     *   Parameters?: array<string, string>|null,
      * }|Database $input
      */
     public static function create($input): self

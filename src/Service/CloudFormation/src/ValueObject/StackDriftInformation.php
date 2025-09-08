@@ -36,7 +36,7 @@ final class StackDriftInformation
     /**
      * @param array{
      *   StackDriftStatus: StackDriftStatus::*,
-     *   LastCheckTimestamp?: null|\DateTimeImmutable,
+     *   LastCheckTimestamp?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,7 +48,7 @@ final class StackDriftInformation
     /**
      * @param array{
      *   StackDriftStatus: StackDriftStatus::*,
-     *   LastCheckTimestamp?: null|\DateTimeImmutable,
+     *   LastCheckTimestamp?: \DateTimeImmutable|null,
      * }|StackDriftInformation $input
      */
     public static function create($input): self

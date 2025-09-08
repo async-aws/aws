@@ -31,9 +31,9 @@ final class NoiseReducerSpatialFilterSettings
 
     /**
      * @param array{
-     *   PostFilterSharpenStrength?: null|int,
-     *   Speed?: null|int,
-     *   Strength?: null|int,
+     *   PostFilterSharpenStrength?: int|null,
+     *   Speed?: int|null,
+     *   Strength?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class NoiseReducerSpatialFilterSettings
 
     /**
      * @param array{
-     *   PostFilterSharpenStrength?: null|int,
-     *   Speed?: null|int,
-     *   Strength?: null|int,
+     *   PostFilterSharpenStrength?: int|null,
+     *   Speed?: int|null,
+     *   Strength?: int|null,
      * }|NoiseReducerSpatialFilterSettings $input
      */
     public static function create($input): self

@@ -42,7 +42,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
-     *   Tags?: null|array<string, string>,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -58,7 +58,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
-     *   Tags?: null|array<string, string>,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|RegisterStreamConsumerInput $input
      */

@@ -24,8 +24,8 @@ final class HostedZoneConfig
 
     /**
      * @param array{
-     *   Comment?: null|string,
-     *   PrivateZone?: null|bool,
+     *   Comment?: string|null,
+     *   PrivateZone?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class HostedZoneConfig
 
     /**
      * @param array{
-     *   Comment?: null|string,
-     *   PrivateZone?: null|bool,
+     *   Comment?: string|null,
+     *   PrivateZone?: bool|null,
      * }|HostedZoneConfig $input
      */
     public static function create($input): self

@@ -124,17 +124,17 @@ final class GlobalSecondaryIndexDescription
 
     /**
      * @param array{
-     *   IndexName?: null|string,
-     *   KeySchema?: null|array<KeySchemaElement|array>,
-     *   Projection?: null|Projection|array,
-     *   IndexStatus?: null|IndexStatus::*,
-     *   Backfilling?: null|bool,
-     *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
-     *   IndexSizeBytes?: null|int,
-     *   ItemCount?: null|int,
-     *   IndexArn?: null|string,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
+     *   IndexName?: string|null,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
+     *   Projection?: Projection|array|null,
+     *   IndexStatus?: IndexStatus::*|null,
+     *   Backfilling?: bool|null,
+     *   ProvisionedThroughput?: ProvisionedThroughputDescription|array|null,
+     *   IndexSizeBytes?: int|null,
+     *   ItemCount?: int|null,
+     *   IndexArn?: string|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: GlobalSecondaryIndexWarmThroughputDescription|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -154,17 +154,17 @@ final class GlobalSecondaryIndexDescription
 
     /**
      * @param array{
-     *   IndexName?: null|string,
-     *   KeySchema?: null|array<KeySchemaElement|array>,
-     *   Projection?: null|Projection|array,
-     *   IndexStatus?: null|IndexStatus::*,
-     *   Backfilling?: null|bool,
-     *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
-     *   IndexSizeBytes?: null|int,
-     *   ItemCount?: null|int,
-     *   IndexArn?: null|string,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
+     *   IndexName?: string|null,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
+     *   Projection?: Projection|array|null,
+     *   IndexStatus?: IndexStatus::*|null,
+     *   Backfilling?: bool|null,
+     *   ProvisionedThroughput?: ProvisionedThroughputDescription|array|null,
+     *   IndexSizeBytes?: int|null,
+     *   ItemCount?: int|null,
+     *   IndexArn?: string|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: GlobalSecondaryIndexWarmThroughputDescription|array|null,
      * }|GlobalSecondaryIndexDescription $input
      */
     public static function create($input): self

@@ -43,8 +43,8 @@ final class RestoreStatus
 
     /**
      * @param array{
-     *   IsRestoreInProgress?: null|bool,
-     *   RestoreExpiryDate?: null|\DateTimeImmutable,
+     *   IsRestoreInProgress?: bool|null,
+     *   RestoreExpiryDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,8 +55,8 @@ final class RestoreStatus
 
     /**
      * @param array{
-     *   IsRestoreInProgress?: null|bool,
-     *   RestoreExpiryDate?: null|\DateTimeImmutable,
+     *   IsRestoreInProgress?: bool|null,
+     *   RestoreExpiryDate?: \DateTimeImmutable|null,
      * }|RestoreStatus $input
      */
     public static function create($input): self

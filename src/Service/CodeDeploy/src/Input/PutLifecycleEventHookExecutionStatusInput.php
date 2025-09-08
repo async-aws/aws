@@ -36,9 +36,9 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
 
     /**
      * @param array{
-     *   deploymentId?: null|string,
-     *   lifecycleEventHookExecutionId?: null|string,
-     *   status?: null|LifecycleEventStatus::*,
+     *   deploymentId?: string|null,
+     *   lifecycleEventHookExecutionId?: string|null,
+     *   status?: LifecycleEventStatus::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -52,9 +52,9 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
 
     /**
      * @param array{
-     *   deploymentId?: null|string,
-     *   lifecycleEventHookExecutionId?: null|string,
-     *   status?: null|LifecycleEventStatus::*,
+     *   deploymentId?: string|null,
+     *   lifecycleEventHookExecutionId?: string|null,
+     *   status?: LifecycleEventStatus::*|null,
      *   '@region'?: string|null,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      */

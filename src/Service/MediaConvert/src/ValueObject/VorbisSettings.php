@@ -34,9 +34,9 @@ final class VorbisSettings
 
     /**
      * @param array{
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
-     *   VbrQuality?: null|int,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
+     *   VbrQuality?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class VorbisSettings
 
     /**
      * @param array{
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
-     *   VbrQuality?: null|int,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
+     *   VbrQuality?: int|null,
      * }|VorbisSettings $input
      */
     public static function create($input): self

@@ -175,21 +175,21 @@ final class Av1Settings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
-     *   BitDepth?: null|Av1BitDepth::*,
-     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*,
-     *   FramerateControl?: null|Av1FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   GopSize?: null|float,
-     *   MaxBitrate?: null|int,
-     *   NumberBFramesBetweenReferenceFrames?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QvbrSettings?: null|Av1QvbrSettings|array,
-     *   RateControlMode?: null|Av1RateControlMode::*,
-     *   Slices?: null|int,
-     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*,
+     *   AdaptiveQuantization?: Av1AdaptiveQuantization::*|null,
+     *   BitDepth?: Av1BitDepth::*|null,
+     *   FilmGrainSynthesis?: Av1FilmGrainSynthesis::*|null,
+     *   FramerateControl?: Av1FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Av1FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   GopSize?: float|null,
+     *   MaxBitrate?: int|null,
+     *   NumberBFramesBetweenReferenceFrames?: int|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   QvbrSettings?: Av1QvbrSettings|array|null,
+     *   RateControlMode?: Av1RateControlMode::*|null,
+     *   Slices?: int|null,
+     *   SpatialAdaptiveQuantization?: Av1SpatialAdaptiveQuantization::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -213,21 +213,21 @@ final class Av1Settings
 
     /**
      * @param array{
-     *   AdaptiveQuantization?: null|Av1AdaptiveQuantization::*,
-     *   BitDepth?: null|Av1BitDepth::*,
-     *   FilmGrainSynthesis?: null|Av1FilmGrainSynthesis::*,
-     *   FramerateControl?: null|Av1FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Av1FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   GopSize?: null|float,
-     *   MaxBitrate?: null|int,
-     *   NumberBFramesBetweenReferenceFrames?: null|int,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   QvbrSettings?: null|Av1QvbrSettings|array,
-     *   RateControlMode?: null|Av1RateControlMode::*,
-     *   Slices?: null|int,
-     *   SpatialAdaptiveQuantization?: null|Av1SpatialAdaptiveQuantization::*,
+     *   AdaptiveQuantization?: Av1AdaptiveQuantization::*|null,
+     *   BitDepth?: Av1BitDepth::*|null,
+     *   FilmGrainSynthesis?: Av1FilmGrainSynthesis::*|null,
+     *   FramerateControl?: Av1FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Av1FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   GopSize?: float|null,
+     *   MaxBitrate?: int|null,
+     *   NumberBFramesBetweenReferenceFrames?: int|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   QvbrSettings?: Av1QvbrSettings|array|null,
+     *   RateControlMode?: Av1RateControlMode::*|null,
+     *   Slices?: int|null,
+     *   SpatialAdaptiveQuantization?: Av1SpatialAdaptiveQuantization::*|null,
      * }|Av1Settings $input
      */
     public static function create($input): self

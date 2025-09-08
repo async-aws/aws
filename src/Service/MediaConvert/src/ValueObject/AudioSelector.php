@@ -135,18 +135,18 @@ final class AudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   CustomLanguageCode?: null|string,
-     *   DefaultSelection?: null|AudioDefaultSelection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   Pids?: null|int[],
-     *   ProgramSelection?: null|int,
-     *   RemixSettings?: null|RemixSettings|array,
-     *   SelectorType?: null|AudioSelectorType::*,
-     *   Tracks?: null|int[],
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   CustomLanguageCode?: string|null,
+     *   DefaultSelection?: AudioDefaultSelection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   HlsRenditionGroupSettings?: HlsRenditionGroupSettings|array|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   Pids?: int[]|null,
+     *   ProgramSelection?: int|null,
+     *   RemixSettings?: RemixSettings|array|null,
+     *   SelectorType?: AudioSelectorType::*|null,
+     *   Tracks?: int[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -167,18 +167,18 @@ final class AudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   CustomLanguageCode?: null|string,
-     *   DefaultSelection?: null|AudioDefaultSelection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   Pids?: null|int[],
-     *   ProgramSelection?: null|int,
-     *   RemixSettings?: null|RemixSettings|array,
-     *   SelectorType?: null|AudioSelectorType::*,
-     *   Tracks?: null|int[],
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   CustomLanguageCode?: string|null,
+     *   DefaultSelection?: AudioDefaultSelection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   HlsRenditionGroupSettings?: HlsRenditionGroupSettings|array|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   Pids?: int[]|null,
+     *   ProgramSelection?: int|null,
+     *   RemixSettings?: RemixSettings|array|null,
+     *   SelectorType?: AudioSelectorType::*|null,
+     *   Tracks?: int[]|null,
      * }|AudioSelector $input
      */
     public static function create($input): self

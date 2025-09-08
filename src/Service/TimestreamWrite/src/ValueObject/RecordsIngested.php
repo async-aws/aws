@@ -30,9 +30,9 @@ final class RecordsIngested
 
     /**
      * @param array{
-     *   Total?: null|int,
-     *   MemoryStore?: null|int,
-     *   MagneticStore?: null|int,
+     *   Total?: int|null,
+     *   MemoryStore?: int|null,
+     *   MagneticStore?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class RecordsIngested
 
     /**
      * @param array{
-     *   Total?: null|int,
-     *   MemoryStore?: null|int,
-     *   MagneticStore?: null|int,
+     *   Total?: int|null,
+     *   MemoryStore?: int|null,
+     *   MagneticStore?: int|null,
      * }|RecordsIngested $input
      */
     public static function create($input): self

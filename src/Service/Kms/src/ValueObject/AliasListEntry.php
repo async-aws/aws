@@ -45,11 +45,11 @@ final class AliasListEntry
 
     /**
      * @param array{
-     *   AliasName?: null|string,
-     *   AliasArn?: null|string,
-     *   TargetKeyId?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   LastUpdatedDate?: null|\DateTimeImmutable,
+     *   AliasName?: string|null,
+     *   AliasArn?: string|null,
+     *   TargetKeyId?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastUpdatedDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -63,11 +63,11 @@ final class AliasListEntry
 
     /**
      * @param array{
-     *   AliasName?: null|string,
-     *   AliasArn?: null|string,
-     *   TargetKeyId?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   LastUpdatedDate?: null|\DateTimeImmutable,
+     *   AliasName?: string|null,
+     *   AliasArn?: string|null,
+     *   TargetKeyId?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastUpdatedDate?: \DateTimeImmutable|null,
      * }|AliasListEntry $input
      */
     public static function create($input): self

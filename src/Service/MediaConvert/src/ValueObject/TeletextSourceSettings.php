@@ -17,7 +17,7 @@ final class TeletextSourceSettings
 
     /**
      * @param array{
-     *   PageNumber?: null|string,
+     *   PageNumber?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class TeletextSourceSettings
 
     /**
      * @param array{
-     *   PageNumber?: null|string,
+     *   PageNumber?: string|null,
      * }|TeletextSourceSettings $input
      */
     public static function create($input): self

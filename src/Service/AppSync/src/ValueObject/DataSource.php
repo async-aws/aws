@@ -121,19 +121,19 @@ final class DataSource
 
     /**
      * @param array{
-     *   dataSourceArn?: null|string,
-     *   name?: null|string,
-     *   description?: null|string,
-     *   type?: null|DataSourceType::*,
-     *   serviceRoleArn?: null|string,
-     *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
-     *   lambdaConfig?: null|LambdaDataSourceConfig|array,
-     *   elasticsearchConfig?: null|ElasticsearchDataSourceConfig|array,
-     *   openSearchServiceConfig?: null|OpenSearchServiceDataSourceConfig|array,
-     *   httpConfig?: null|HttpDataSourceConfig|array,
-     *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
-     *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
-     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
+     *   dataSourceArn?: string|null,
+     *   name?: string|null,
+     *   description?: string|null,
+     *   type?: DataSourceType::*|null,
+     *   serviceRoleArn?: string|null,
+     *   dynamodbConfig?: DynamodbDataSourceConfig|array|null,
+     *   lambdaConfig?: LambdaDataSourceConfig|array|null,
+     *   elasticsearchConfig?: ElasticsearchDataSourceConfig|array|null,
+     *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array|null,
+     *   httpConfig?: HttpDataSourceConfig|array|null,
+     *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array|null,
+     *   eventBridgeConfig?: EventBridgeDataSourceConfig|array|null,
+     *   metricsConfig?: DataSourceLevelMetricsConfig::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -155,19 +155,19 @@ final class DataSource
 
     /**
      * @param array{
-     *   dataSourceArn?: null|string,
-     *   name?: null|string,
-     *   description?: null|string,
-     *   type?: null|DataSourceType::*,
-     *   serviceRoleArn?: null|string,
-     *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
-     *   lambdaConfig?: null|LambdaDataSourceConfig|array,
-     *   elasticsearchConfig?: null|ElasticsearchDataSourceConfig|array,
-     *   openSearchServiceConfig?: null|OpenSearchServiceDataSourceConfig|array,
-     *   httpConfig?: null|HttpDataSourceConfig|array,
-     *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
-     *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
-     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
+     *   dataSourceArn?: string|null,
+     *   name?: string|null,
+     *   description?: string|null,
+     *   type?: DataSourceType::*|null,
+     *   serviceRoleArn?: string|null,
+     *   dynamodbConfig?: DynamodbDataSourceConfig|array|null,
+     *   lambdaConfig?: LambdaDataSourceConfig|array|null,
+     *   elasticsearchConfig?: ElasticsearchDataSourceConfig|array|null,
+     *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array|null,
+     *   httpConfig?: HttpDataSourceConfig|array|null,
+     *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array|null,
+     *   eventBridgeConfig?: EventBridgeDataSourceConfig|array|null,
+     *   metricsConfig?: DataSourceLevelMetricsConfig::*|null,
      * }|DataSource $input
      */
     public static function create($input): self

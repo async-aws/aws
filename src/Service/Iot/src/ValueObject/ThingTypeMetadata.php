@@ -31,9 +31,9 @@ final class ThingTypeMetadata
 
     /**
      * @param array{
-     *   deprecated?: null|bool,
-     *   deprecationDate?: null|\DateTimeImmutable,
-     *   creationDate?: null|\DateTimeImmutable,
+     *   deprecated?: bool|null,
+     *   deprecationDate?: \DateTimeImmutable|null,
+     *   creationDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class ThingTypeMetadata
 
     /**
      * @param array{
-     *   deprecated?: null|bool,
-     *   deprecationDate?: null|\DateTimeImmutable,
-     *   creationDate?: null|\DateTimeImmutable,
+     *   deprecated?: bool|null,
+     *   deprecationDate?: \DateTimeImmutable|null,
+     *   creationDate?: \DateTimeImmutable|null,
      * }|ThingTypeMetadata $input
      */
     public static function create($input): self

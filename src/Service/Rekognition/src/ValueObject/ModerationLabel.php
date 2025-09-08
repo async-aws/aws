@@ -42,10 +42,10 @@ final class ModerationLabel
 
     /**
      * @param array{
-     *   Confidence?: null|float,
-     *   Name?: null|string,
-     *   ParentName?: null|string,
-     *   TaxonomyLevel?: null|int,
+     *   Confidence?: float|null,
+     *   Name?: string|null,
+     *   ParentName?: string|null,
+     *   TaxonomyLevel?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -58,10 +58,10 @@ final class ModerationLabel
 
     /**
      * @param array{
-     *   Confidence?: null|float,
-     *   Name?: null|string,
-     *   ParentName?: null|string,
-     *   TaxonomyLevel?: null|int,
+     *   Confidence?: float|null,
+     *   Name?: string|null,
+     *   ParentName?: string|null,
+     *   TaxonomyLevel?: int|null,
      * }|ModerationLabel $input
      */
     public static function create($input): self

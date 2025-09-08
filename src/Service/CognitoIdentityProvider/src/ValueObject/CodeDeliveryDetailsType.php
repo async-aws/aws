@@ -32,9 +32,9 @@ final class CodeDeliveryDetailsType
 
     /**
      * @param array{
-     *   Destination?: null|string,
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
-     *   AttributeName?: null|string,
+     *   Destination?: string|null,
+     *   DeliveryMedium?: DeliveryMediumType::*|null,
+     *   AttributeName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class CodeDeliveryDetailsType
 
     /**
      * @param array{
-     *   Destination?: null|string,
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
-     *   AttributeName?: null|string,
+     *   Destination?: string|null,
+     *   DeliveryMedium?: DeliveryMediumType::*|null,
+     *   AttributeName?: string|null,
      * }|CodeDeliveryDetailsType $input
      */
     public static function create($input): self

@@ -53,7 +53,7 @@ final class AdminSetUserPasswordRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   Password?: string,
-     *   Permanent?: null|bool,
+     *   Permanent?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -71,7 +71,7 @@ final class AdminSetUserPasswordRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   Password?: string,
-     *   Permanent?: null|bool,
+     *   Permanent?: bool|null,
      *   '@region'?: string|null,
      * }|AdminSetUserPasswordRequest $input
      */

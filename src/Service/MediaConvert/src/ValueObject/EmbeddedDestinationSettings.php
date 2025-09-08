@@ -33,8 +33,8 @@ final class EmbeddedDestinationSettings
 
     /**
      * @param array{
-     *   Destination608ChannelNumber?: null|int,
-     *   Destination708ServiceNumber?: null|int,
+     *   Destination608ChannelNumber?: int|null,
+     *   Destination708ServiceNumber?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class EmbeddedDestinationSettings
 
     /**
      * @param array{
-     *   Destination608ChannelNumber?: null|int,
-     *   Destination708ServiceNumber?: null|int,
+     *   Destination608ChannelNumber?: int|null,
+     *   Destination708ServiceNumber?: int|null,
      * }|EmbeddedDestinationSettings $input
      */
     public static function create($input): self

@@ -49,11 +49,11 @@ final class Mp3Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   Channels?: null|int,
-     *   RateControlMode?: null|Mp3RateControlMode::*,
-     *   SampleRate?: null|int,
-     *   VbrQuality?: null|int,
+     *   Bitrate?: int|null,
+     *   Channels?: int|null,
+     *   RateControlMode?: Mp3RateControlMode::*|null,
+     *   SampleRate?: int|null,
+     *   VbrQuality?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -67,11 +67,11 @@ final class Mp3Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   Channels?: null|int,
-     *   RateControlMode?: null|Mp3RateControlMode::*,
-     *   SampleRate?: null|int,
-     *   VbrQuality?: null|int,
+     *   Bitrate?: int|null,
+     *   Channels?: int|null,
+     *   RateControlMode?: Mp3RateControlMode::*|null,
+     *   SampleRate?: int|null,
+     *   VbrQuality?: int|null,
      * }|Mp3Settings $input
      */
     public static function create($input): self

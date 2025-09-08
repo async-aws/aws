@@ -61,10 +61,10 @@ final class ObjectIdentifier
     /**
      * @param array{
      *   Key: string,
-     *   VersionId?: null|string,
-     *   ETag?: null|string,
-     *   LastModifiedTime?: null|\DateTimeImmutable,
-     *   Size?: null|int,
+     *   VersionId?: string|null,
+     *   ETag?: string|null,
+     *   LastModifiedTime?: \DateTimeImmutable|null,
+     *   Size?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,10 +79,10 @@ final class ObjectIdentifier
     /**
      * @param array{
      *   Key: string,
-     *   VersionId?: null|string,
-     *   ETag?: null|string,
-     *   LastModifiedTime?: null|\DateTimeImmutable,
-     *   Size?: null|int,
+     *   VersionId?: string|null,
+     *   ETag?: string|null,
+     *   LastModifiedTime?: \DateTimeImmutable|null,
+     *   Size?: int|null,
      * }|ObjectIdentifier $input
      */
     public static function create($input): self

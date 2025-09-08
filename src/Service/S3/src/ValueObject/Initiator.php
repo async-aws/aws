@@ -29,8 +29,8 @@ final class Initiator
 
     /**
      * @param array{
-     *   ID?: null|string,
-     *   DisplayName?: null|string,
+     *   ID?: string|null,
+     *   DisplayName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class Initiator
 
     /**
      * @param array{
-     *   ID?: null|string,
-     *   DisplayName?: null|string,
+     *   ID?: string|null,
+     *   DisplayName?: string|null,
      * }|Initiator $input
      */
     public static function create($input): self

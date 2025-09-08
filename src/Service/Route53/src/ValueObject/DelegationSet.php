@@ -34,8 +34,8 @@ final class DelegationSet
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   CallerReference?: null|string,
+     *   Id?: string|null,
+     *   CallerReference?: string|null,
      *   NameServers: string[],
      * } $input
      */
@@ -48,8 +48,8 @@ final class DelegationSet
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   CallerReference?: null|string,
+     *   Id?: string|null,
+     *   CallerReference?: string|null,
      *   NameServers: string[],
      * }|DelegationSet $input
      */

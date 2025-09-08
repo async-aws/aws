@@ -86,17 +86,17 @@ final class RepositoryMetadata
 
     /**
      * @param array{
-     *   accountId?: null|string,
-     *   repositoryId?: null|string,
-     *   repositoryName?: null|string,
-     *   repositoryDescription?: null|string,
-     *   defaultBranch?: null|string,
-     *   lastModifiedDate?: null|\DateTimeImmutable,
-     *   creationDate?: null|\DateTimeImmutable,
-     *   cloneUrlHttp?: null|string,
-     *   cloneUrlSsh?: null|string,
-     *   Arn?: null|string,
-     *   kmsKeyId?: null|string,
+     *   accountId?: string|null,
+     *   repositoryId?: string|null,
+     *   repositoryName?: string|null,
+     *   repositoryDescription?: string|null,
+     *   defaultBranch?: string|null,
+     *   lastModifiedDate?: \DateTimeImmutable|null,
+     *   creationDate?: \DateTimeImmutable|null,
+     *   cloneUrlHttp?: string|null,
+     *   cloneUrlSsh?: string|null,
+     *   Arn?: string|null,
+     *   kmsKeyId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -116,17 +116,17 @@ final class RepositoryMetadata
 
     /**
      * @param array{
-     *   accountId?: null|string,
-     *   repositoryId?: null|string,
-     *   repositoryName?: null|string,
-     *   repositoryDescription?: null|string,
-     *   defaultBranch?: null|string,
-     *   lastModifiedDate?: null|\DateTimeImmutable,
-     *   creationDate?: null|\DateTimeImmutable,
-     *   cloneUrlHttp?: null|string,
-     *   cloneUrlSsh?: null|string,
-     *   Arn?: null|string,
-     *   kmsKeyId?: null|string,
+     *   accountId?: string|null,
+     *   repositoryId?: string|null,
+     *   repositoryName?: string|null,
+     *   repositoryDescription?: string|null,
+     *   defaultBranch?: string|null,
+     *   lastModifiedDate?: \DateTimeImmutable|null,
+     *   creationDate?: \DateTimeImmutable|null,
+     *   cloneUrlHttp?: string|null,
+     *   cloneUrlSsh?: string|null,
+     *   Arn?: string|null,
+     *   kmsKeyId?: string|null,
      * }|RepositoryMetadata $input
      */
     public static function create($input): self

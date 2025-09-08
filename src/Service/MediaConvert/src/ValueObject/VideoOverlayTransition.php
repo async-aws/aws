@@ -38,9 +38,9 @@ final class VideoOverlayTransition
 
     /**
      * @param array{
-     *   EndPosition?: null|VideoOverlayPosition|array,
-     *   EndTimecode?: null|string,
-     *   StartTimecode?: null|string,
+     *   EndPosition?: VideoOverlayPosition|array|null,
+     *   EndTimecode?: string|null,
+     *   StartTimecode?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,9 +52,9 @@ final class VideoOverlayTransition
 
     /**
      * @param array{
-     *   EndPosition?: null|VideoOverlayPosition|array,
-     *   EndTimecode?: null|string,
-     *   StartTimecode?: null|string,
+     *   EndPosition?: VideoOverlayPosition|array|null,
+     *   EndTimecode?: string|null,
+     *   StartTimecode?: string|null,
      * }|VideoOverlayTransition $input
      */
     public static function create($input): self

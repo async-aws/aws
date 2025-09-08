@@ -23,8 +23,8 @@ final class IdentityCenterConfiguration
 
     /**
      * @param array{
-     *   EnableIdentityCenter?: null|bool,
-     *   IdentityCenterInstanceArn?: null|string,
+     *   EnableIdentityCenter?: bool|null,
+     *   IdentityCenterInstanceArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class IdentityCenterConfiguration
 
     /**
      * @param array{
-     *   EnableIdentityCenter?: null|bool,
-     *   IdentityCenterInstanceArn?: null|string,
+     *   EnableIdentityCenter?: bool|null,
+     *   IdentityCenterInstanceArn?: string|null,
      * }|IdentityCenterConfiguration $input
      */
     public static function create($input): self

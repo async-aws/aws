@@ -22,7 +22,7 @@ final class SqsParameters
 
     /**
      * @param array{
-     *   MessageGroupId?: null|string,
+     *   MessageGroupId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -32,7 +32,7 @@ final class SqsParameters
 
     /**
      * @param array{
-     *   MessageGroupId?: null|string,
+     *   MessageGroupId?: string|null,
      * }|SqsParameters $input
      */
     public static function create($input): self

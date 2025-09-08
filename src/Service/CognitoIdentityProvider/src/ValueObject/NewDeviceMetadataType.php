@@ -27,8 +27,8 @@ final class NewDeviceMetadataType
 
     /**
      * @param array{
-     *   DeviceKey?: null|string,
-     *   DeviceGroupKey?: null|string,
+     *   DeviceKey?: string|null,
+     *   DeviceGroupKey?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class NewDeviceMetadataType
 
     /**
      * @param array{
-     *   DeviceKey?: null|string,
-     *   DeviceGroupKey?: null|string,
+     *   DeviceKey?: string|null,
+     *   DeviceGroupKey?: string|null,
      * }|NewDeviceMetadataType $input
      */
     public static function create($input): self

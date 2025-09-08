@@ -108,16 +108,16 @@ final class Ac3Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Ac3BitstreamMode::*,
-     *   CodingMode?: null|Ac3CodingMode::*,
-     *   Dialnorm?: null|int,
-     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*,
-     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*,
-     *   LfeFilter?: null|Ac3LfeFilter::*,
-     *   MetadataControl?: null|Ac3MetadataControl::*,
-     *   SampleRate?: null|int,
+     *   Bitrate?: int|null,
+     *   BitstreamMode?: Ac3BitstreamMode::*|null,
+     *   CodingMode?: Ac3CodingMode::*|null,
+     *   Dialnorm?: int|null,
+     *   DynamicRangeCompressionLine?: Ac3DynamicRangeCompressionLine::*|null,
+     *   DynamicRangeCompressionProfile?: Ac3DynamicRangeCompressionProfile::*|null,
+     *   DynamicRangeCompressionRf?: Ac3DynamicRangeCompressionRf::*|null,
+     *   LfeFilter?: Ac3LfeFilter::*|null,
+     *   MetadataControl?: Ac3MetadataControl::*|null,
+     *   SampleRate?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -136,16 +136,16 @@ final class Ac3Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   BitstreamMode?: null|Ac3BitstreamMode::*,
-     *   CodingMode?: null|Ac3CodingMode::*,
-     *   Dialnorm?: null|int,
-     *   DynamicRangeCompressionLine?: null|Ac3DynamicRangeCompressionLine::*,
-     *   DynamicRangeCompressionProfile?: null|Ac3DynamicRangeCompressionProfile::*,
-     *   DynamicRangeCompressionRf?: null|Ac3DynamicRangeCompressionRf::*,
-     *   LfeFilter?: null|Ac3LfeFilter::*,
-     *   MetadataControl?: null|Ac3MetadataControl::*,
-     *   SampleRate?: null|int,
+     *   Bitrate?: int|null,
+     *   BitstreamMode?: Ac3BitstreamMode::*|null,
+     *   CodingMode?: Ac3CodingMode::*|null,
+     *   Dialnorm?: int|null,
+     *   DynamicRangeCompressionLine?: Ac3DynamicRangeCompressionLine::*|null,
+     *   DynamicRangeCompressionProfile?: Ac3DynamicRangeCompressionProfile::*|null,
+     *   DynamicRangeCompressionRf?: Ac3DynamicRangeCompressionRf::*|null,
+     *   LfeFilter?: Ac3LfeFilter::*|null,
+     *   MetadataControl?: Ac3MetadataControl::*|null,
+     *   SampleRate?: int|null,
      * }|Ac3Settings $input
      */
     public static function create($input): self

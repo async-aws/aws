@@ -27,8 +27,8 @@ final class MessageData
 
     /**
      * @param array{
-     *   Code?: null|string,
-     *   Value?: null|string,
+     *   Code?: string|null,
+     *   Value?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class MessageData
 
     /**
      * @param array{
-     *   Code?: null|string,
-     *   Value?: null|string,
+     *   Code?: string|null,
+     *   Value?: string|null,
      * }|MessageData $input
      */
     public static function create($input): self

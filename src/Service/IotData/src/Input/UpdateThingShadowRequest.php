@@ -40,7 +40,7 @@ final class UpdateThingShadowRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   shadowName?: null|string,
+     *   shadowName?: string|null,
      *   payload?: string,
      *   '@region'?: string|null,
      * } $input
@@ -56,7 +56,7 @@ final class UpdateThingShadowRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   shadowName?: null|string,
+     *   shadowName?: string|null,
      *   payload?: string,
      *   '@region'?: string|null,
      * }|UpdateThingShadowRequest $input

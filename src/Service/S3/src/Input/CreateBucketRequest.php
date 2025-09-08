@@ -113,16 +113,16 @@ final class CreateBucketRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|BucketCannedACL::*,
+     *   ACL?: BucketCannedACL::*|null,
      *   Bucket?: string,
-     *   CreateBucketConfiguration?: null|CreateBucketConfiguration|array,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWrite?: null|string,
-     *   GrantWriteACP?: null|string,
-     *   ObjectLockEnabledForBucket?: null|bool,
-     *   ObjectOwnership?: null|ObjectOwnership::*,
+     *   CreateBucketConfiguration?: CreateBucketConfiguration|array|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWrite?: string|null,
+     *   GrantWriteACP?: string|null,
+     *   ObjectLockEnabledForBucket?: bool|null,
+     *   ObjectOwnership?: ObjectOwnership::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -143,16 +143,16 @@ final class CreateBucketRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|BucketCannedACL::*,
+     *   ACL?: BucketCannedACL::*|null,
      *   Bucket?: string,
-     *   CreateBucketConfiguration?: null|CreateBucketConfiguration|array,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWrite?: null|string,
-     *   GrantWriteACP?: null|string,
-     *   ObjectLockEnabledForBucket?: null|bool,
-     *   ObjectOwnership?: null|ObjectOwnership::*,
+     *   CreateBucketConfiguration?: CreateBucketConfiguration|array|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWrite?: string|null,
+     *   GrantWriteACP?: string|null,
+     *   ObjectLockEnabledForBucket?: bool|null,
+     *   ObjectOwnership?: ObjectOwnership::*|null,
      *   '@region'?: string|null,
      * }|CreateBucketRequest $input
      */

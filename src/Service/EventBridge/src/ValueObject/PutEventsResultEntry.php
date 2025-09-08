@@ -74,9 +74,9 @@ final class PutEventsResultEntry
 
     /**
      * @param array{
-     *   EventId?: null|string,
-     *   ErrorCode?: null|string,
-     *   ErrorMessage?: null|string,
+     *   EventId?: string|null,
+     *   ErrorCode?: string|null,
+     *   ErrorMessage?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -88,9 +88,9 @@ final class PutEventsResultEntry
 
     /**
      * @param array{
-     *   EventId?: null|string,
-     *   ErrorCode?: null|string,
-     *   ErrorMessage?: null|string,
+     *   EventId?: string|null,
+     *   ErrorCode?: string|null,
+     *   ErrorMessage?: string|null,
      * }|PutEventsResultEntry $input
      */
     public static function create($input): self

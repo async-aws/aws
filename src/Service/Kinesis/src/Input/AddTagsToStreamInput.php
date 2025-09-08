@@ -38,9 +38,9 @@ final class AddTagsToStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   Tags?: array<string, string>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -54,9 +54,9 @@ final class AddTagsToStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   Tags?: array<string, string>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|AddTagsToStreamInput $input
      */

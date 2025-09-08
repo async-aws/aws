@@ -56,12 +56,12 @@ final class CORSRule
 
     /**
      * @param array{
-     *   ID?: null|string,
-     *   AllowedHeaders?: null|string[],
+     *   ID?: string|null,
+     *   AllowedHeaders?: string[]|null,
      *   AllowedMethods: string[],
      *   AllowedOrigins: string[],
-     *   ExposeHeaders?: null|string[],
-     *   MaxAgeSeconds?: null|int,
+     *   ExposeHeaders?: string[]|null,
+     *   MaxAgeSeconds?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -76,12 +76,12 @@ final class CORSRule
 
     /**
      * @param array{
-     *   ID?: null|string,
-     *   AllowedHeaders?: null|string[],
+     *   ID?: string|null,
+     *   AllowedHeaders?: string[]|null,
      *   AllowedMethods: string[],
      *   AllowedOrigins: string[],
-     *   ExposeHeaders?: null|string[],
-     *   MaxAgeSeconds?: null|int,
+     *   ExposeHeaders?: string[]|null,
+     *   MaxAgeSeconds?: int|null,
      * }|CORSRule $input
      */
     public static function create($input): self

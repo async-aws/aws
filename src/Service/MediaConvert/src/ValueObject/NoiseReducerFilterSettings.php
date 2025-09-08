@@ -16,7 +16,7 @@ final class NoiseReducerFilterSettings
 
     /**
      * @param array{
-     *   Strength?: null|int,
+     *   Strength?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class NoiseReducerFilterSettings
 
     /**
      * @param array{
-     *   Strength?: null|int,
+     *   Strength?: int|null,
      * }|NoiseReducerFilterSettings $input
      */
     public static function create($input): self

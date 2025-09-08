@@ -65,9 +65,9 @@ final class CreateGlobalSecondaryIndexAction
      *   IndexName: string,
      *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
-     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|WarmThroughput|array,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: WarmThroughput|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -85,9 +85,9 @@ final class CreateGlobalSecondaryIndexAction
      *   IndexName: string,
      *   KeySchema: array<KeySchemaElement|array>,
      *   Projection: Projection|array,
-     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|WarmThroughput|array,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: WarmThroughput|array|null,
      * }|CreateGlobalSecondaryIndexAction $input
      */
     public static function create($input): self

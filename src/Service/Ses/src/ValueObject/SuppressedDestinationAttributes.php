@@ -25,8 +25,8 @@ final class SuppressedDestinationAttributes
 
     /**
      * @param array{
-     *   MessageId?: null|string,
-     *   FeedbackId?: null|string,
+     *   MessageId?: string|null,
+     *   FeedbackId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class SuppressedDestinationAttributes
 
     /**
      * @param array{
-     *   MessageId?: null|string,
-     *   FeedbackId?: null|string,
+     *   MessageId?: string|null,
+     *   FeedbackId?: string|null,
      * }|SuppressedDestinationAttributes $input
      */
     public static function create($input): self

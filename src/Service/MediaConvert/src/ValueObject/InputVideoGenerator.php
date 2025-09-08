@@ -54,11 +54,11 @@ final class InputVideoGenerator
 
     /**
      * @param array{
-     *   Channels?: null|int,
-     *   Duration?: null|int,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   SampleRate?: null|int,
+     *   Channels?: int|null,
+     *   Duration?: int|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   SampleRate?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -72,11 +72,11 @@ final class InputVideoGenerator
 
     /**
      * @param array{
-     *   Channels?: null|int,
-     *   Duration?: null|int,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   SampleRate?: null|int,
+     *   Channels?: int|null,
+     *   Duration?: int|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   SampleRate?: int|null,
      * }|InputVideoGenerator $input
      */
     public static function create($input): self

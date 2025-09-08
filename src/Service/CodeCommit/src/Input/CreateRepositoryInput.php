@@ -63,9 +63,9 @@ final class CreateRepositoryInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   repositoryDescription?: null|string,
-     *   tags?: null|array<string, string>,
-     *   kmsKeyId?: null|string,
+     *   repositoryDescription?: string|null,
+     *   tags?: array<string, string>|null,
+     *   kmsKeyId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -81,9 +81,9 @@ final class CreateRepositoryInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   repositoryDescription?: null|string,
-     *   tags?: null|array<string, string>,
-     *   kmsKeyId?: null|string,
+     *   repositoryDescription?: string|null,
+     *   tags?: array<string, string>|null,
+     *   kmsKeyId?: string|null,
      *   '@region'?: string|null,
      * }|CreateRepositoryInput $input
      */

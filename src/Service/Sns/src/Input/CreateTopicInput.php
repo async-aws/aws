@@ -167,9 +167,9 @@ final class CreateTopicInput extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   Attributes?: null|array<string, string>,
-     *   Tags?: null|array<Tag|array>,
-     *   DataProtectionPolicy?: null|string,
+     *   Attributes?: array<string, string>|null,
+     *   Tags?: array<Tag|array>|null,
+     *   DataProtectionPolicy?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -185,9 +185,9 @@ final class CreateTopicInput extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   Attributes?: null|array<string, string>,
-     *   Tags?: null|array<Tag|array>,
-     *   DataProtectionPolicy?: null|string,
+     *   Attributes?: array<string, string>|null,
+     *   Tags?: array<Tag|array>|null,
+     *   DataProtectionPolicy?: string|null,
      *   '@region'?: string|null,
      * }|CreateTopicInput $input
      */

@@ -103,16 +103,16 @@ final class CaptionDestinationSettings
 
     /**
      * @param array{
-     *   BurninDestinationSettings?: null|BurninDestinationSettings|array,
-     *   DestinationType?: null|CaptionDestinationType::*,
-     *   DvbSubDestinationSettings?: null|DvbSubDestinationSettings|array,
-     *   EmbeddedDestinationSettings?: null|EmbeddedDestinationSettings|array,
-     *   ImscDestinationSettings?: null|ImscDestinationSettings|array,
-     *   SccDestinationSettings?: null|SccDestinationSettings|array,
-     *   SrtDestinationSettings?: null|SrtDestinationSettings|array,
-     *   TeletextDestinationSettings?: null|TeletextDestinationSettings|array,
-     *   TtmlDestinationSettings?: null|TtmlDestinationSettings|array,
-     *   WebvttDestinationSettings?: null|WebvttDestinationSettings|array,
+     *   BurninDestinationSettings?: BurninDestinationSettings|array|null,
+     *   DestinationType?: CaptionDestinationType::*|null,
+     *   DvbSubDestinationSettings?: DvbSubDestinationSettings|array|null,
+     *   EmbeddedDestinationSettings?: EmbeddedDestinationSettings|array|null,
+     *   ImscDestinationSettings?: ImscDestinationSettings|array|null,
+     *   SccDestinationSettings?: SccDestinationSettings|array|null,
+     *   SrtDestinationSettings?: SrtDestinationSettings|array|null,
+     *   TeletextDestinationSettings?: TeletextDestinationSettings|array|null,
+     *   TtmlDestinationSettings?: TtmlDestinationSettings|array|null,
+     *   WebvttDestinationSettings?: WebvttDestinationSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -131,16 +131,16 @@ final class CaptionDestinationSettings
 
     /**
      * @param array{
-     *   BurninDestinationSettings?: null|BurninDestinationSettings|array,
-     *   DestinationType?: null|CaptionDestinationType::*,
-     *   DvbSubDestinationSettings?: null|DvbSubDestinationSettings|array,
-     *   EmbeddedDestinationSettings?: null|EmbeddedDestinationSettings|array,
-     *   ImscDestinationSettings?: null|ImscDestinationSettings|array,
-     *   SccDestinationSettings?: null|SccDestinationSettings|array,
-     *   SrtDestinationSettings?: null|SrtDestinationSettings|array,
-     *   TeletextDestinationSettings?: null|TeletextDestinationSettings|array,
-     *   TtmlDestinationSettings?: null|TtmlDestinationSettings|array,
-     *   WebvttDestinationSettings?: null|WebvttDestinationSettings|array,
+     *   BurninDestinationSettings?: BurninDestinationSettings|array|null,
+     *   DestinationType?: CaptionDestinationType::*|null,
+     *   DvbSubDestinationSettings?: DvbSubDestinationSettings|array|null,
+     *   EmbeddedDestinationSettings?: EmbeddedDestinationSettings|array|null,
+     *   ImscDestinationSettings?: ImscDestinationSettings|array|null,
+     *   SccDestinationSettings?: SccDestinationSettings|array|null,
+     *   SrtDestinationSettings?: SrtDestinationSettings|array|null,
+     *   TeletextDestinationSettings?: TeletextDestinationSettings|array|null,
+     *   TtmlDestinationSettings?: TtmlDestinationSettings|array|null,
+     *   WebvttDestinationSettings?: WebvttDestinationSettings|array|null,
      * }|CaptionDestinationSettings $input
      */
     public static function create($input): self

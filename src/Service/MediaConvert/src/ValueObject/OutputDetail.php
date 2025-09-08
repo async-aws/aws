@@ -23,8 +23,8 @@ final class OutputDetail
 
     /**
      * @param array{
-     *   DurationInMs?: null|int,
-     *   VideoDetails?: null|VideoDetail|array,
+     *   DurationInMs?: int|null,
+     *   VideoDetails?: VideoDetail|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class OutputDetail
 
     /**
      * @param array{
-     *   DurationInMs?: null|int,
-     *   VideoDetails?: null|VideoDetail|array,
+     *   DurationInMs?: int|null,
+     *   VideoDetails?: VideoDetail|array|null,
      * }|OutputDetail $input
      */
     public static function create($input): self

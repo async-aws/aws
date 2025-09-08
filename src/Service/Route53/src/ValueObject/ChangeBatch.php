@@ -25,7 +25,7 @@ final class ChangeBatch
 
     /**
      * @param array{
-     *   Comment?: null|string,
+     *   Comment?: string|null,
      *   Changes: array<Change|array>,
      * } $input
      */
@@ -37,7 +37,7 @@ final class ChangeBatch
 
     /**
      * @param array{
-     *   Comment?: null|string,
+     *   Comment?: string|null,
      *   Changes: array<Change|array>,
      * }|ChangeBatch $input
      */

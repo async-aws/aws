@@ -39,11 +39,11 @@ class ElastiCacheClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-elasticache-2015-02-02.html#describecacheclusters
      *
      * @param array{
-     *   CacheClusterId?: null|string,
-     *   MaxRecords?: null|int,
-     *   Marker?: null|string,
-     *   ShowCacheNodeInfo?: null|bool,
-     *   ShowCacheClustersNotInReplicationGroups?: null|bool,
+     *   CacheClusterId?: string|null,
+     *   MaxRecords?: int|null,
+     *   Marker?: string|null,
+     *   ShowCacheNodeInfo?: bool|null,
+     *   ShowCacheClustersNotInReplicationGroups?: bool|null,
      *   '@region'?: string|null,
      * }|DescribeCacheClustersMessage $input
      *

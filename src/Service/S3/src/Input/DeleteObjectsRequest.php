@@ -131,11 +131,11 @@ final class DeleteObjectsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Delete?: Delete|array,
-     *   MFA?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   BypassGovernanceRetention?: null|bool,
-     *   ExpectedBucketOwner?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   MFA?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   BypassGovernanceRetention?: bool|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -155,11 +155,11 @@ final class DeleteObjectsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Delete?: Delete|array,
-     *   MFA?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   BypassGovernanceRetention?: null|bool,
-     *   ExpectedBucketOwner?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
+     *   MFA?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   BypassGovernanceRetention?: bool|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   '@region'?: string|null,
      * }|DeleteObjectsRequest $input
      */

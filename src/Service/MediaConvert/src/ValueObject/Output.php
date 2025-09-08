@@ -77,14 +77,14 @@ final class Output
 
     /**
      * @param array{
-     *   AudioDescriptions?: null|array<AudioDescription|array>,
-     *   CaptionDescriptions?: null|array<CaptionDescription|array>,
-     *   ContainerSettings?: null|ContainerSettings|array,
-     *   Extension?: null|string,
-     *   NameModifier?: null|string,
-     *   OutputSettings?: null|OutputSettings|array,
-     *   Preset?: null|string,
-     *   VideoDescription?: null|VideoDescription|array,
+     *   AudioDescriptions?: array<AudioDescription|array>|null,
+     *   CaptionDescriptions?: array<CaptionDescription|array>|null,
+     *   ContainerSettings?: ContainerSettings|array|null,
+     *   Extension?: string|null,
+     *   NameModifier?: string|null,
+     *   OutputSettings?: OutputSettings|array|null,
+     *   Preset?: string|null,
+     *   VideoDescription?: VideoDescription|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -101,14 +101,14 @@ final class Output
 
     /**
      * @param array{
-     *   AudioDescriptions?: null|array<AudioDescription|array>,
-     *   CaptionDescriptions?: null|array<CaptionDescription|array>,
-     *   ContainerSettings?: null|ContainerSettings|array,
-     *   Extension?: null|string,
-     *   NameModifier?: null|string,
-     *   OutputSettings?: null|OutputSettings|array,
-     *   Preset?: null|string,
-     *   VideoDescription?: null|VideoDescription|array,
+     *   AudioDescriptions?: array<AudioDescription|array>|null,
+     *   CaptionDescriptions?: array<CaptionDescription|array>|null,
+     *   ContainerSettings?: ContainerSettings|array|null,
+     *   Extension?: string|null,
+     *   NameModifier?: string|null,
+     *   OutputSettings?: OutputSettings|array|null,
+     *   Preset?: string|null,
+     *   VideoDescription?: VideoDescription|array|null,
      * }|Output $input
      */
     public static function create($input): self

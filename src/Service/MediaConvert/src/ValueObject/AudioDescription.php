@@ -120,17 +120,17 @@ final class AudioDescription
 
     /**
      * @param array{
-     *   AudioChannelTaggingSettings?: null|AudioChannelTaggingSettings|array,
-     *   AudioNormalizationSettings?: null|AudioNormalizationSettings|array,
-     *   AudioSourceName?: null|string,
-     *   AudioType?: null|int,
-     *   AudioTypeControl?: null|AudioTypeControl::*,
-     *   CodecSettings?: null|AudioCodecSettings|array,
-     *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*,
-     *   RemixSettings?: null|RemixSettings|array,
-     *   StreamName?: null|string,
+     *   AudioChannelTaggingSettings?: AudioChannelTaggingSettings|array|null,
+     *   AudioNormalizationSettings?: AudioNormalizationSettings|array|null,
+     *   AudioSourceName?: string|null,
+     *   AudioType?: int|null,
+     *   AudioTypeControl?: AudioTypeControl::*|null,
+     *   CodecSettings?: AudioCodecSettings|array|null,
+     *   CustomLanguageCode?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   LanguageCodeControl?: AudioLanguageCodeControl::*|null,
+     *   RemixSettings?: RemixSettings|array|null,
+     *   StreamName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -150,17 +150,17 @@ final class AudioDescription
 
     /**
      * @param array{
-     *   AudioChannelTaggingSettings?: null|AudioChannelTaggingSettings|array,
-     *   AudioNormalizationSettings?: null|AudioNormalizationSettings|array,
-     *   AudioSourceName?: null|string,
-     *   AudioType?: null|int,
-     *   AudioTypeControl?: null|AudioTypeControl::*,
-     *   CodecSettings?: null|AudioCodecSettings|array,
-     *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageCodeControl?: null|AudioLanguageCodeControl::*,
-     *   RemixSettings?: null|RemixSettings|array,
-     *   StreamName?: null|string,
+     *   AudioChannelTaggingSettings?: AudioChannelTaggingSettings|array|null,
+     *   AudioNormalizationSettings?: AudioNormalizationSettings|array|null,
+     *   AudioSourceName?: string|null,
+     *   AudioType?: int|null,
+     *   AudioTypeControl?: AudioTypeControl::*|null,
+     *   CodecSettings?: AudioCodecSettings|array|null,
+     *   CustomLanguageCode?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   LanguageCodeControl?: AudioLanguageCodeControl::*|null,
+     *   RemixSettings?: RemixSettings|array|null,
+     *   StreamName?: string|null,
      * }|AudioDescription $input
      */
     public static function create($input): self

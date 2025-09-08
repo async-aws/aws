@@ -43,8 +43,8 @@ final class DockerServer
     /**
      * @param array{
      *   computeType: ComputeType::*,
-     *   securityGroupIds?: null|string[],
-     *   status?: null|DockerServerStatus|array,
+     *   securityGroupIds?: string[]|null,
+     *   status?: DockerServerStatus|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,8 +57,8 @@ final class DockerServer
     /**
      * @param array{
      *   computeType: ComputeType::*,
-     *   securityGroupIds?: null|string[],
-     *   status?: null|DockerServerStatus|array,
+     *   securityGroupIds?: string[]|null,
+     *   status?: DockerServerStatus|array|null,
      * }|DockerServer $input
      */
     public static function create($input): self

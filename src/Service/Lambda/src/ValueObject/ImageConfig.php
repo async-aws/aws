@@ -33,9 +33,9 @@ final class ImageConfig
 
     /**
      * @param array{
-     *   EntryPoint?: null|string[],
-     *   Command?: null|string[],
-     *   WorkingDirectory?: null|string,
+     *   EntryPoint?: string[]|null,
+     *   Command?: string[]|null,
+     *   WorkingDirectory?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,9 +47,9 @@ final class ImageConfig
 
     /**
      * @param array{
-     *   EntryPoint?: null|string[],
-     *   Command?: null|string[],
-     *   WorkingDirectory?: null|string,
+     *   EntryPoint?: string[]|null,
+     *   Command?: string[]|null,
+     *   WorkingDirectory?: string|null,
      * }|ImageConfig $input
      */
     public static function create($input): self

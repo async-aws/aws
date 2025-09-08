@@ -23,8 +23,8 @@ final class ImageConfigResponse
 
     /**
      * @param array{
-     *   ImageConfig?: null|ImageConfig|array,
-     *   Error?: null|ImageConfigError|array,
+     *   ImageConfig?: ImageConfig|array|null,
+     *   Error?: ImageConfigError|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class ImageConfigResponse
 
     /**
      * @param array{
-     *   ImageConfig?: null|ImageConfig|array,
-     *   Error?: null|ImageConfigError|array,
+     *   ImageConfig?: ImageConfig|array|null,
+     *   Error?: ImageConfigError|array|null,
      * }|ImageConfigResponse $input
      */
     public static function create($input): self

@@ -31,8 +31,8 @@ final class PlacementConstraint
 
     /**
      * @param array{
-     *   expression?: null|string,
-     *   type?: null|PlacementConstraintType::*,
+     *   expression?: string|null,
+     *   type?: PlacementConstraintType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class PlacementConstraint
 
     /**
      * @param array{
-     *   expression?: null|string,
-     *   type?: null|PlacementConstraintType::*,
+     *   expression?: string|null,
+     *   type?: PlacementConstraintType::*|null,
      * }|PlacementConstraint $input
      */
     public static function create($input): self

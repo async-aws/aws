@@ -27,8 +27,8 @@ final class DebugSession
 
     /**
      * @param array{
-     *   sessionEnabled?: null|bool,
-     *   sessionTarget?: null|string,
+     *   sessionEnabled?: bool|null,
+     *   sessionTarget?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class DebugSession
 
     /**
      * @param array{
-     *   sessionEnabled?: null|bool,
-     *   sessionTarget?: null|string,
+     *   sessionEnabled?: bool|null,
+     *   sessionTarget?: string|null,
      * }|DebugSession $input
      */
     public static function create($input): self

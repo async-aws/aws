@@ -37,10 +37,10 @@ final class VpcConfigResponse
 
     /**
      * @param array{
-     *   SubnetIds?: null|string[],
-     *   SecurityGroupIds?: null|string[],
-     *   VpcId?: null|string,
-     *   Ipv6AllowedForDualStack?: null|bool,
+     *   SubnetIds?: string[]|null,
+     *   SecurityGroupIds?: string[]|null,
+     *   VpcId?: string|null,
+     *   Ipv6AllowedForDualStack?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,10 +53,10 @@ final class VpcConfigResponse
 
     /**
      * @param array{
-     *   SubnetIds?: null|string[],
-     *   SecurityGroupIds?: null|string[],
-     *   VpcId?: null|string,
-     *   Ipv6AllowedForDualStack?: null|bool,
+     *   SubnetIds?: string[]|null,
+     *   SecurityGroupIds?: string[]|null,
+     *   VpcId?: string|null,
+     *   Ipv6AllowedForDualStack?: bool|null,
      * }|VpcConfigResponse $input
      */
     public static function create($input): self

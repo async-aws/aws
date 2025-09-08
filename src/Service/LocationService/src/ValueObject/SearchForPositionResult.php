@@ -40,7 +40,7 @@ final class SearchForPositionResult
      * @param array{
      *   Place: Place|array,
      *   Distance: float,
-     *   PlaceId?: null|string,
+     *   PlaceId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -54,7 +54,7 @@ final class SearchForPositionResult
      * @param array{
      *   Place: Place|array,
      *   Distance: float,
-     *   PlaceId?: null|string,
+     *   PlaceId?: string|null,
      * }|SearchForPositionResult $input
      */
     public static function create($input): self

@@ -41,10 +41,10 @@ final class LayerVersionContentInput
 
     /**
      * @param array{
-     *   S3Bucket?: null|string,
-     *   S3Key?: null|string,
-     *   S3ObjectVersion?: null|string,
-     *   ZipFile?: null|string,
+     *   S3Bucket?: string|null,
+     *   S3Key?: string|null,
+     *   S3ObjectVersion?: string|null,
+     *   ZipFile?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,10 +57,10 @@ final class LayerVersionContentInput
 
     /**
      * @param array{
-     *   S3Bucket?: null|string,
-     *   S3Key?: null|string,
-     *   S3ObjectVersion?: null|string,
-     *   ZipFile?: null|string,
+     *   S3Bucket?: string|null,
+     *   S3Key?: string|null,
+     *   S3ObjectVersion?: string|null,
+     *   ZipFile?: string|null,
      * }|LayerVersionContentInput $input
      */
     public static function create($input): self

@@ -73,9 +73,9 @@ final class SendMessageBatchResultEntry
      *   Id: string,
      *   MessageId: string,
      *   MD5OfMessageBody: string,
-     *   MD5OfMessageAttributes?: null|string,
-     *   MD5OfMessageSystemAttributes?: null|string,
-     *   SequenceNumber?: null|string,
+     *   MD5OfMessageAttributes?: string|null,
+     *   MD5OfMessageSystemAttributes?: string|null,
+     *   SequenceNumber?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -93,9 +93,9 @@ final class SendMessageBatchResultEntry
      *   Id: string,
      *   MessageId: string,
      *   MD5OfMessageBody: string,
-     *   MD5OfMessageAttributes?: null|string,
-     *   MD5OfMessageSystemAttributes?: null|string,
-     *   SequenceNumber?: null|string,
+     *   MD5OfMessageAttributes?: string|null,
+     *   MD5OfMessageSystemAttributes?: string|null,
+     *   SequenceNumber?: string|null,
      * }|SendMessageBatchResultEntry $input
      */
     public static function create($input): self

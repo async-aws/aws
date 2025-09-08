@@ -38,9 +38,9 @@ final class AllowedRenditionSize
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Required?: null|RequiredFlag::*,
-     *   Width?: null|int,
+     *   Height?: int|null,
+     *   Required?: RequiredFlag::*|null,
+     *   Width?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,9 +52,9 @@ final class AllowedRenditionSize
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Required?: null|RequiredFlag::*,
-     *   Width?: null|int,
+     *   Height?: int|null,
+     *   Required?: RequiredFlag::*|null,
+     *   Width?: int|null,
      * }|AllowedRenditionSize $input
      */
     public static function create($input): self

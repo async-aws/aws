@@ -32,9 +32,9 @@ final class ListScheduleGroupsInput extends Input
 
     /**
      * @param array{
-     *   MaxResults?: null|int,
-     *   NamePrefix?: null|string,
-     *   NextToken?: null|string,
+     *   MaxResults?: int|null,
+     *   NamePrefix?: string|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -48,9 +48,9 @@ final class ListScheduleGroupsInput extends Input
 
     /**
      * @param array{
-     *   MaxResults?: null|int,
-     *   NamePrefix?: null|string,
-     *   NextToken?: null|string,
+     *   MaxResults?: int|null,
+     *   NamePrefix?: string|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|ListScheduleGroupsInput $input
      */

@@ -25,8 +25,8 @@ final class Body
 
     /**
      * @param array{
-     *   Text?: null|Content|array,
-     *   Html?: null|Content|array,
+     *   Text?: Content|array|null,
+     *   Html?: Content|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class Body
 
     /**
      * @param array{
-     *   Text?: null|Content|array,
-     *   Html?: null|Content|array,
+     *   Text?: Content|array|null,
+     *   Html?: Content|array|null,
      * }|Body $input
      */
     public static function create($input): self

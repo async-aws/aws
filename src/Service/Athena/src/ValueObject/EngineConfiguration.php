@@ -52,11 +52,11 @@ final class EngineConfiguration
 
     /**
      * @param array{
-     *   CoordinatorDpuSize?: null|int,
+     *   CoordinatorDpuSize?: int|null,
      *   MaxConcurrentDpus: int,
-     *   DefaultExecutorDpuSize?: null|int,
-     *   AdditionalConfigs?: null|array<string, string>,
-     *   SparkProperties?: null|array<string, string>,
+     *   DefaultExecutorDpuSize?: int|null,
+     *   AdditionalConfigs?: array<string, string>|null,
+     *   SparkProperties?: array<string, string>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -70,11 +70,11 @@ final class EngineConfiguration
 
     /**
      * @param array{
-     *   CoordinatorDpuSize?: null|int,
+     *   CoordinatorDpuSize?: int|null,
      *   MaxConcurrentDpus: int,
-     *   DefaultExecutorDpuSize?: null|int,
-     *   AdditionalConfigs?: null|array<string, string>,
-     *   SparkProperties?: null|array<string, string>,
+     *   DefaultExecutorDpuSize?: int|null,
+     *   AdditionalConfigs?: array<string, string>|null,
+     *   SparkProperties?: array<string, string>|null,
      * }|EngineConfiguration $input
      */
     public static function create($input): self

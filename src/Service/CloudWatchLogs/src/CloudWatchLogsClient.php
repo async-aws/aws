@@ -64,9 +64,9 @@ class CloudWatchLogsClient extends AbstractApi
      *
      * @param array{
      *   logGroupName: string,
-     *   kmsKeyId?: null|string,
-     *   tags?: null|array<string, string>,
-     *   logGroupClass?: null|LogGroupClass::*,
+     *   kmsKeyId?: string|null,
+     *   tags?: array<string, string>|null,
+     *   logGroupClass?: LogGroupClass::*|null,
      *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      *
@@ -148,13 +148,13 @@ class CloudWatchLogsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#describelogstreams
      *
      * @param array{
-     *   logGroupName?: null|string,
-     *   logGroupIdentifier?: null|string,
-     *   logStreamNamePrefix?: null|string,
-     *   orderBy?: null|OrderBy::*,
-     *   descending?: null|bool,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
+     *   logGroupName?: string|null,
+     *   logGroupIdentifier?: string|null,
+     *   logStreamNamePrefix?: string|null,
+     *   orderBy?: OrderBy::*|null,
+     *   descending?: bool|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
      *   '@region'?: string|null,
      * }|DescribeLogStreamsRequest $input
      *
@@ -216,17 +216,17 @@ class CloudWatchLogsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#filterlogevents
      *
      * @param array{
-     *   logGroupName?: null|string,
-     *   logGroupIdentifier?: null|string,
-     *   logStreamNames?: null|string[],
-     *   logStreamNamePrefix?: null|string,
-     *   startTime?: null|int,
-     *   endTime?: null|int,
-     *   filterPattern?: null|string,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
-     *   interleaved?: null|bool,
-     *   unmask?: null|bool,
+     *   logGroupName?: string|null,
+     *   logGroupIdentifier?: string|null,
+     *   logStreamNames?: string[]|null,
+     *   logStreamNamePrefix?: string|null,
+     *   startTime?: int|null,
+     *   endTime?: int|null,
+     *   filterPattern?: string|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
+     *   interleaved?: bool|null,
+     *   unmask?: bool|null,
      *   '@region'?: string|null,
      * }|FilterLogEventsRequest $input
      *
@@ -284,8 +284,8 @@ class CloudWatchLogsClient extends AbstractApi
      *   logGroupName: string,
      *   logStreamName: string,
      *   logEvents: array<InputLogEvent|array>,
-     *   sequenceToken?: null|string,
-     *   entity?: null|Entity|array,
+     *   sequenceToken?: string|null,
+     *   entity?: Entity|array|null,
      *   '@region'?: string|null,
      * }|PutLogEventsRequest $input
      *

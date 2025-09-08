@@ -30,7 +30,7 @@ final class ManagedQueryResultsConfiguration
     /**
      * @param array{
      *   Enabled: bool,
-     *   EncryptionConfiguration?: null|ManagedQueryResultsEncryptionConfiguration|array,
+     *   EncryptionConfiguration?: ManagedQueryResultsEncryptionConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,7 +42,7 @@ final class ManagedQueryResultsConfiguration
     /**
      * @param array{
      *   Enabled: bool,
-     *   EncryptionConfiguration?: null|ManagedQueryResultsEncryptionConfiguration|array,
+     *   EncryptionConfiguration?: ManagedQueryResultsEncryptionConfiguration|array|null,
      * }|ManagedQueryResultsConfiguration $input
      */
     public static function create($input): self

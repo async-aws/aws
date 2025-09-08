@@ -44,7 +44,7 @@ final class SuppressedDestination
      *   EmailAddress: string,
      *   Reason: SuppressionListReason::*,
      *   LastUpdateTime: \DateTimeImmutable,
-     *   Attributes?: null|SuppressedDestinationAttributes|array,
+     *   Attributes?: SuppressedDestinationAttributes|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,7 +60,7 @@ final class SuppressedDestination
      *   EmailAddress: string,
      *   Reason: SuppressionListReason::*,
      *   LastUpdateTime: \DateTimeImmutable,
-     *   Attributes?: null|SuppressedDestinationAttributes|array,
+     *   Attributes?: SuppressedDestinationAttributes|array|null,
      * }|SuppressedDestination $input
      */
     public static function create($input): self

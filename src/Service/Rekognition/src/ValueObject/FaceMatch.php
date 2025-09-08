@@ -24,8 +24,8 @@ final class FaceMatch
 
     /**
      * @param array{
-     *   Similarity?: null|float,
-     *   Face?: null|Face|array,
+     *   Similarity?: float|null,
+     *   Face?: Face|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class FaceMatch
 
     /**
      * @param array{
-     *   Similarity?: null|float,
-     *   Face?: null|Face|array,
+     *   Similarity?: float|null,
+     *   Face?: Face|array|null,
      * }|FaceMatch $input
      */
     public static function create($input): self
