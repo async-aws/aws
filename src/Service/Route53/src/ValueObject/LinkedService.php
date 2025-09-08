@@ -27,8 +27,8 @@ final class LinkedService
 
     /**
      * @param array{
-     *   ServicePrincipal?: null|string,
-     *   Description?: null|string,
+     *   ServicePrincipal?: string|null,
+     *   Description?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class LinkedService
 
     /**
      * @param array{
-     *   ServicePrincipal?: null|string,
-     *   Description?: null|string,
+     *   ServicePrincipal?: string|null,
+     *   Description?: string|null,
      * }|LinkedService $input
      */
     public static function create($input): self

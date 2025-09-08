@@ -23,8 +23,8 @@ final class ImageConfigError
 
     /**
      * @param array{
-     *   ErrorCode?: null|string,
-     *   Message?: null|string,
+     *   ErrorCode?: string|null,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class ImageConfigError
 
     /**
      * @param array{
-     *   ErrorCode?: null|string,
-     *   Message?: null|string,
+     *   ErrorCode?: string|null,
+     *   Message?: string|null,
      * }|ImageConfigError $input
      */
     public static function create($input): self

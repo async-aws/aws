@@ -121,20 +121,20 @@ final class VideoCodecSettings
 
     /**
      * @param array{
-     *   Av1Settings?: null|Av1Settings|array,
-     *   AvcIntraSettings?: null|AvcIntraSettings|array,
-     *   Codec?: null|VideoCodec::*,
-     *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
-     *   GifSettings?: null|GifSettings|array,
-     *   H264Settings?: null|H264Settings|array,
-     *   H265Settings?: null|H265Settings|array,
-     *   Mpeg2Settings?: null|Mpeg2Settings|array,
-     *   ProresSettings?: null|ProresSettings|array,
-     *   UncompressedSettings?: null|UncompressedSettings|array,
-     *   Vc3Settings?: null|Vc3Settings|array,
-     *   Vp8Settings?: null|Vp8Settings|array,
-     *   Vp9Settings?: null|Vp9Settings|array,
-     *   XavcSettings?: null|XavcSettings|array,
+     *   Av1Settings?: Av1Settings|array|null,
+     *   AvcIntraSettings?: AvcIntraSettings|array|null,
+     *   Codec?: VideoCodec::*|null,
+     *   FrameCaptureSettings?: FrameCaptureSettings|array|null,
+     *   GifSettings?: GifSettings|array|null,
+     *   H264Settings?: H264Settings|array|null,
+     *   H265Settings?: H265Settings|array|null,
+     *   Mpeg2Settings?: Mpeg2Settings|array|null,
+     *   ProresSettings?: ProresSettings|array|null,
+     *   UncompressedSettings?: UncompressedSettings|array|null,
+     *   Vc3Settings?: Vc3Settings|array|null,
+     *   Vp8Settings?: Vp8Settings|array|null,
+     *   Vp9Settings?: Vp9Settings|array|null,
+     *   XavcSettings?: XavcSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -157,20 +157,20 @@ final class VideoCodecSettings
 
     /**
      * @param array{
-     *   Av1Settings?: null|Av1Settings|array,
-     *   AvcIntraSettings?: null|AvcIntraSettings|array,
-     *   Codec?: null|VideoCodec::*,
-     *   FrameCaptureSettings?: null|FrameCaptureSettings|array,
-     *   GifSettings?: null|GifSettings|array,
-     *   H264Settings?: null|H264Settings|array,
-     *   H265Settings?: null|H265Settings|array,
-     *   Mpeg2Settings?: null|Mpeg2Settings|array,
-     *   ProresSettings?: null|ProresSettings|array,
-     *   UncompressedSettings?: null|UncompressedSettings|array,
-     *   Vc3Settings?: null|Vc3Settings|array,
-     *   Vp8Settings?: null|Vp8Settings|array,
-     *   Vp9Settings?: null|Vp9Settings|array,
-     *   XavcSettings?: null|XavcSettings|array,
+     *   Av1Settings?: Av1Settings|array|null,
+     *   AvcIntraSettings?: AvcIntraSettings|array|null,
+     *   Codec?: VideoCodec::*|null,
+     *   FrameCaptureSettings?: FrameCaptureSettings|array|null,
+     *   GifSettings?: GifSettings|array|null,
+     *   H264Settings?: H264Settings|array|null,
+     *   H265Settings?: H265Settings|array|null,
+     *   Mpeg2Settings?: Mpeg2Settings|array|null,
+     *   ProresSettings?: ProresSettings|array|null,
+     *   UncompressedSettings?: UncompressedSettings|array|null,
+     *   Vc3Settings?: Vc3Settings|array|null,
+     *   Vp8Settings?: Vp8Settings|array|null,
+     *   Vp9Settings?: Vp9Settings|array|null,
+     *   XavcSettings?: XavcSettings|array|null,
      * }|VideoCodecSettings $input
      */
     public static function create($input): self

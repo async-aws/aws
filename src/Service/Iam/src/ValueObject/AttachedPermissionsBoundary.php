@@ -34,8 +34,8 @@ final class AttachedPermissionsBoundary
 
     /**
      * @param array{
-     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*,
-     *   PermissionsBoundaryArn?: null|string,
+     *   PermissionsBoundaryType?: PermissionsBoundaryAttachmentType::*|null,
+     *   PermissionsBoundaryArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,8 +46,8 @@ final class AttachedPermissionsBoundary
 
     /**
      * @param array{
-     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*,
-     *   PermissionsBoundaryArn?: null|string,
+     *   PermissionsBoundaryType?: PermissionsBoundaryAttachmentType::*|null,
+     *   PermissionsBoundaryArn?: string|null,
      * }|AttachedPermissionsBoundary $input
      */
     public static function create($input): self

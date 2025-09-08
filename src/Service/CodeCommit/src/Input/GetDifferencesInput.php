@@ -70,12 +70,12 @@ final class GetDifferencesInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   beforeCommitSpecifier?: null|string,
+     *   beforeCommitSpecifier?: string|null,
      *   afterCommitSpecifier?: string,
-     *   beforePath?: null|string,
-     *   afterPath?: null|string,
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
+     *   beforePath?: string|null,
+     *   afterPath?: string|null,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -94,12 +94,12 @@ final class GetDifferencesInput extends Input
     /**
      * @param array{
      *   repositoryName?: string,
-     *   beforeCommitSpecifier?: null|string,
+     *   beforeCommitSpecifier?: string|null,
      *   afterCommitSpecifier?: string,
-     *   beforePath?: null|string,
-     *   afterPath?: null|string,
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
+     *   beforePath?: string|null,
+     *   afterPath?: string|null,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|GetDifferencesInput $input
      */

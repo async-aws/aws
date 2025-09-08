@@ -61,12 +61,12 @@ final class TableMetadata
     /**
      * @param array{
      *   Name: string,
-     *   CreateTime?: null|\DateTimeImmutable,
-     *   LastAccessTime?: null|\DateTimeImmutable,
-     *   TableType?: null|string,
-     *   Columns?: null|array<Column|array>,
-     *   PartitionKeys?: null|array<Column|array>,
-     *   Parameters?: null|array<string, string>,
+     *   CreateTime?: \DateTimeImmutable|null,
+     *   LastAccessTime?: \DateTimeImmutable|null,
+     *   TableType?: string|null,
+     *   Columns?: array<Column|array>|null,
+     *   PartitionKeys?: array<Column|array>|null,
+     *   Parameters?: array<string, string>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -83,12 +83,12 @@ final class TableMetadata
     /**
      * @param array{
      *   Name: string,
-     *   CreateTime?: null|\DateTimeImmutable,
-     *   LastAccessTime?: null|\DateTimeImmutable,
-     *   TableType?: null|string,
-     *   Columns?: null|array<Column|array>,
-     *   PartitionKeys?: null|array<Column|array>,
-     *   Parameters?: null|array<string, string>,
+     *   CreateTime?: \DateTimeImmutable|null,
+     *   LastAccessTime?: \DateTimeImmutable|null,
+     *   TableType?: string|null,
+     *   Columns?: array<Column|array>|null,
+     *   PartitionKeys?: array<Column|array>|null,
+     *   Parameters?: array<string, string>|null,
      * }|TableMetadata $input
      */
     public static function create($input): self

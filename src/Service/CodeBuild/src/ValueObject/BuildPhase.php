@@ -107,12 +107,12 @@ final class BuildPhase
 
     /**
      * @param array{
-     *   phaseType?: null|BuildPhaseType::*,
-     *   phaseStatus?: null|StatusType::*,
-     *   startTime?: null|\DateTimeImmutable,
-     *   endTime?: null|\DateTimeImmutable,
-     *   durationInSeconds?: null|int,
-     *   contexts?: null|array<PhaseContext|array>,
+     *   phaseType?: BuildPhaseType::*|null,
+     *   phaseStatus?: StatusType::*|null,
+     *   startTime?: \DateTimeImmutable|null,
+     *   endTime?: \DateTimeImmutable|null,
+     *   durationInSeconds?: int|null,
+     *   contexts?: array<PhaseContext|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -127,12 +127,12 @@ final class BuildPhase
 
     /**
      * @param array{
-     *   phaseType?: null|BuildPhaseType::*,
-     *   phaseStatus?: null|StatusType::*,
-     *   startTime?: null|\DateTimeImmutable,
-     *   endTime?: null|\DateTimeImmutable,
-     *   durationInSeconds?: null|int,
-     *   contexts?: null|array<PhaseContext|array>,
+     *   phaseType?: BuildPhaseType::*|null,
+     *   phaseStatus?: StatusType::*|null,
+     *   startTime?: \DateTimeImmutable|null,
+     *   endTime?: \DateTimeImmutable|null,
+     *   durationInSeconds?: int|null,
+     *   contexts?: array<PhaseContext|array>|null,
      * }|BuildPhase $input
      */
     public static function create($input): self

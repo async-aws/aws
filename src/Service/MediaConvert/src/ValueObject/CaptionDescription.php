@@ -61,11 +61,11 @@ final class CaptionDescription
 
     /**
      * @param array{
-     *   CaptionSelectorName?: null|string,
-     *   CustomLanguageCode?: null|string,
-     *   DestinationSettings?: null|CaptionDestinationSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageDescription?: null|string,
+     *   CaptionSelectorName?: string|null,
+     *   CustomLanguageCode?: string|null,
+     *   DestinationSettings?: CaptionDestinationSettings|array|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   LanguageDescription?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,11 +79,11 @@ final class CaptionDescription
 
     /**
      * @param array{
-     *   CaptionSelectorName?: null|string,
-     *   CustomLanguageCode?: null|string,
-     *   DestinationSettings?: null|CaptionDestinationSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   LanguageDescription?: null|string,
+     *   CaptionSelectorName?: string|null,
+     *   CustomLanguageCode?: string|null,
+     *   DestinationSettings?: CaptionDestinationSettings|array|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   LanguageDescription?: string|null,
      * }|CaptionDescription $input
      */
     public static function create($input): self

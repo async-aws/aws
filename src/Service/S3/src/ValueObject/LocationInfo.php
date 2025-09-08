@@ -36,8 +36,8 @@ final class LocationInfo
 
     /**
      * @param array{
-     *   Type?: null|LocationType::*,
-     *   Name?: null|string,
+     *   Type?: LocationType::*|null,
+     *   Name?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,8 +48,8 @@ final class LocationInfo
 
     /**
      * @param array{
-     *   Type?: null|LocationType::*,
-     *   Name?: null|string,
+     *   Type?: LocationType::*|null,
+     *   Name?: string|null,
      * }|LocationInfo $input
      */
     public static function create($input): self

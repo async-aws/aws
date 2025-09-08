@@ -131,11 +131,11 @@ final class VerifyRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
-     *   MessageType?: null|MessageType::*,
+     *   MessageType?: MessageType::*|null,
      *   Signature?: string,
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
-     *   GrantTokens?: null|string[],
-     *   DryRun?: null|bool,
+     *   GrantTokens?: string[]|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -155,11 +155,11 @@ final class VerifyRequest extends Input
      * @param array{
      *   KeyId?: string,
      *   Message?: string,
-     *   MessageType?: null|MessageType::*,
+     *   MessageType?: MessageType::*|null,
      *   Signature?: string,
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
-     *   GrantTokens?: null|string[],
-     *   DryRun?: null|bool,
+     *   GrantTokens?: string[]|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|VerifyRequest $input
      */

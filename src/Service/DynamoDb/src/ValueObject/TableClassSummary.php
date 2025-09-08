@@ -25,8 +25,8 @@ final class TableClassSummary
 
     /**
      * @param array{
-     *   TableClass?: null|TableClass::*,
-     *   LastUpdateDateTime?: null|\DateTimeImmutable,
+     *   TableClass?: TableClass::*|null,
+     *   LastUpdateDateTime?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class TableClassSummary
 
     /**
      * @param array{
-     *   TableClass?: null|TableClass::*,
-     *   LastUpdateDateTime?: null|\DateTimeImmutable,
+     *   TableClass?: TableClass::*|null,
+     *   LastUpdateDateTime?: \DateTimeImmutable|null,
      * }|TableClassSummary $input
      */
     public static function create($input): self

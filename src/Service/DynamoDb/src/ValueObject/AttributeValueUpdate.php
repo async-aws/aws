@@ -84,8 +84,8 @@ final class AttributeValueUpdate
 
     /**
      * @param array{
-     *   Value?: null|AttributeValue|array,
-     *   Action?: null|AttributeAction::*,
+     *   Value?: AttributeValue|array|null,
+     *   Action?: AttributeAction::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -96,8 +96,8 @@ final class AttributeValueUpdate
 
     /**
      * @param array{
-     *   Value?: null|AttributeValue|array,
-     *   Action?: null|AttributeAction::*,
+     *   Value?: AttributeValue|array|null,
+     *   Action?: AttributeAction::*|null,
      * }|AttributeValueUpdate $input
      */
     public static function create($input): self

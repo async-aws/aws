@@ -47,9 +47,9 @@ final class GetQueryResultsInput extends Input
     /**
      * @param array{
      *   QueryExecutionId?: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   QueryResultType?: null|QueryResultType::*,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   QueryResultType?: QueryResultType::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -65,9 +65,9 @@ final class GetQueryResultsInput extends Input
     /**
      * @param array{
      *   QueryExecutionId?: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   QueryResultType?: null|QueryResultType::*,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   QueryResultType?: QueryResultType::*|null,
      *   '@region'?: string|null,
      * }|GetQueryResultsInput $input
      */

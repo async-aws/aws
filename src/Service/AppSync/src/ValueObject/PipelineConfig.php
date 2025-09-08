@@ -16,7 +16,7 @@ final class PipelineConfig
 
     /**
      * @param array{
-     *   functions?: null|string[],
+     *   functions?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class PipelineConfig
 
     /**
      * @param array{
-     *   functions?: null|string[],
+     *   functions?: string[]|null,
      * }|PipelineConfig $input
      */
     public static function create($input): self

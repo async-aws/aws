@@ -46,9 +46,9 @@ final class Deinterlacer
 
     /**
      * @param array{
-     *   Algorithm?: null|DeinterlaceAlgorithm::*,
-     *   Control?: null|DeinterlacerControl::*,
-     *   Mode?: null|DeinterlacerMode::*,
+     *   Algorithm?: DeinterlaceAlgorithm::*|null,
+     *   Control?: DeinterlacerControl::*|null,
+     *   Mode?: DeinterlacerMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,9 +60,9 @@ final class Deinterlacer
 
     /**
      * @param array{
-     *   Algorithm?: null|DeinterlaceAlgorithm::*,
-     *   Control?: null|DeinterlacerControl::*,
-     *   Mode?: null|DeinterlacerMode::*,
+     *   Algorithm?: DeinterlaceAlgorithm::*|null,
+     *   Control?: DeinterlacerControl::*|null,
+     *   Mode?: DeinterlacerMode::*|null,
      * }|Deinterlacer $input
      */
     public static function create($input): self

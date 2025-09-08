@@ -30,9 +30,9 @@ final class RejectedLogEventsInfo
 
     /**
      * @param array{
-     *   tooNewLogEventStartIndex?: null|int,
-     *   tooOldLogEventEndIndex?: null|int,
-     *   expiredLogEventEndIndex?: null|int,
+     *   tooNewLogEventStartIndex?: int|null,
+     *   tooOldLogEventEndIndex?: int|null,
+     *   expiredLogEventEndIndex?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class RejectedLogEventsInfo
 
     /**
      * @param array{
-     *   tooNewLogEventStartIndex?: null|int,
-     *   tooOldLogEventEndIndex?: null|int,
-     *   expiredLogEventEndIndex?: null|int,
+     *   tooNewLogEventStartIndex?: int|null,
+     *   tooOldLogEventEndIndex?: int|null,
+     *   expiredLogEventEndIndex?: int|null,
      * }|RejectedLogEventsInfo $input
      */
     public static function create($input): self

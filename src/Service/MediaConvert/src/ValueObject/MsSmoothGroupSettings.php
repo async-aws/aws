@@ -81,14 +81,14 @@ final class MsSmoothGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|array<MsSmoothAdditionalManifest|array>,
-     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
-     *   Destination?: null|string,
-     *   DestinationSettings?: null|DestinationSettings|array,
-     *   Encryption?: null|MsSmoothEncryptionSettings|array,
-     *   FragmentLength?: null|int,
-     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*,
-     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*,
+     *   AdditionalManifests?: array<MsSmoothAdditionalManifest|array>|null,
+     *   AudioDeduplication?: MsSmoothAudioDeduplication::*|null,
+     *   Destination?: string|null,
+     *   DestinationSettings?: DestinationSettings|array|null,
+     *   Encryption?: MsSmoothEncryptionSettings|array|null,
+     *   FragmentLength?: int|null,
+     *   FragmentLengthControl?: MsSmoothFragmentLengthControl::*|null,
+     *   ManifestEncoding?: MsSmoothManifestEncoding::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -105,14 +105,14 @@ final class MsSmoothGroupSettings
 
     /**
      * @param array{
-     *   AdditionalManifests?: null|array<MsSmoothAdditionalManifest|array>,
-     *   AudioDeduplication?: null|MsSmoothAudioDeduplication::*,
-     *   Destination?: null|string,
-     *   DestinationSettings?: null|DestinationSettings|array,
-     *   Encryption?: null|MsSmoothEncryptionSettings|array,
-     *   FragmentLength?: null|int,
-     *   FragmentLengthControl?: null|MsSmoothFragmentLengthControl::*,
-     *   ManifestEncoding?: null|MsSmoothManifestEncoding::*,
+     *   AdditionalManifests?: array<MsSmoothAdditionalManifest|array>|null,
+     *   AudioDeduplication?: MsSmoothAudioDeduplication::*|null,
+     *   Destination?: string|null,
+     *   DestinationSettings?: DestinationSettings|array|null,
+     *   Encryption?: MsSmoothEncryptionSettings|array|null,
+     *   FragmentLength?: int|null,
+     *   FragmentLengthControl?: MsSmoothFragmentLengthControl::*|null,
+     *   ManifestEncoding?: MsSmoothManifestEncoding::*|null,
      * }|MsSmoothGroupSettings $input
      */
     public static function create($input): self

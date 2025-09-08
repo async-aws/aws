@@ -80,8 +80,8 @@ class SnsClient extends AbstractApi
      * @param array{
      *   PlatformApplicationArn: string,
      *   Token: string,
-     *   CustomUserData?: null|string,
-     *   Attributes?: null|array<string, string>,
+     *   CustomUserData?: string|null,
+     *   Attributes?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreatePlatformEndpointInput $input
      *
@@ -116,9 +116,9 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   Attributes?: null|array<string, string>,
-     *   Tags?: null|array<Tag|array>,
-     *   DataProtectionPolicy?: null|string,
+     *   Attributes?: array<string, string>|null,
+     *   Tags?: array<Tag|array>|null,
+     *   DataProtectionPolicy?: string|null,
      *   '@region'?: string|null,
      * }|CreateTopicInput $input
      *
@@ -234,7 +234,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   TopicArn: string,
-     *   NextToken?: null|string,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|ListSubscriptionsByTopicInput $input
      *
@@ -267,7 +267,7 @@ class SnsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#listtopics
      *
      * @param array{
-     *   NextToken?: null|string,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|ListTopicsInput $input
      *
@@ -311,15 +311,15 @@ class SnsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#publish
      *
      * @param array{
-     *   TopicArn?: null|string,
-     *   TargetArn?: null|string,
-     *   PhoneNumber?: null|string,
+     *   TopicArn?: string|null,
+     *   TargetArn?: string|null,
+     *   PhoneNumber?: string|null,
      *   Message: string,
-     *   Subject?: null|string,
-     *   MessageStructure?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   Subject?: string|null,
+     *   MessageStructure?: string|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      *   '@region'?: string|null,
      * }|PublishInput $input
      *
@@ -470,9 +470,9 @@ class SnsClient extends AbstractApi
      * @param array{
      *   TopicArn: string,
      *   Protocol: string,
-     *   Endpoint?: null|string,
-     *   Attributes?: null|array<string, string>,
-     *   ReturnSubscriptionArn?: null|bool,
+     *   Endpoint?: string|null,
+     *   Attributes?: array<string, string>|null,
+     *   ReturnSubscriptionArn?: bool|null,
      *   '@region'?: string|null,
      * }|SubscribeInput $input
      *

@@ -18,7 +18,7 @@ final class PartnerWatermarking
 
     /**
      * @param array{
-     *   NexguardFileMarkerSettings?: null|NexGuardFileMarkerSettings|array,
+     *   NexguardFileMarkerSettings?: NexGuardFileMarkerSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class PartnerWatermarking
 
     /**
      * @param array{
-     *   NexguardFileMarkerSettings?: null|NexGuardFileMarkerSettings|array,
+     *   NexguardFileMarkerSettings?: NexGuardFileMarkerSettings|array|null,
      * }|PartnerWatermarking $input
      */
     public static function create($input): self

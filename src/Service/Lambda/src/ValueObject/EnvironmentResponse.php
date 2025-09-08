@@ -24,8 +24,8 @@ final class EnvironmentResponse
 
     /**
      * @param array{
-     *   Variables?: null|array<string, string>,
-     *   Error?: null|EnvironmentError|array,
+     *   Variables?: array<string, string>|null,
+     *   Error?: EnvironmentError|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class EnvironmentResponse
 
     /**
      * @param array{
-     *   Variables?: null|array<string, string>,
-     *   Error?: null|EnvironmentError|array,
+     *   Variables?: array<string, string>|null,
+     *   Error?: EnvironmentError|array|null,
      * }|EnvironmentResponse $input
      */
     public static function create($input): self

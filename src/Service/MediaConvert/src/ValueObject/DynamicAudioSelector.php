@@ -70,11 +70,11 @@ final class DynamicAudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   SelectorType?: null|DynamicAudioSelectorType::*,
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   SelectorType?: DynamicAudioSelectorType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -88,11 +88,11 @@ final class DynamicAudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   SelectorType?: null|DynamicAudioSelectorType::*,
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   SelectorType?: DynamicAudioSelectorType::*|null,
      * }|DynamicAudioSelector $input
      */
     public static function create($input): self

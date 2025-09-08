@@ -102,14 +102,14 @@ final class MetricDatum
     /**
      * @param array{
      *   MetricName: string,
-     *   Dimensions?: null|array<Dimension|array>,
-     *   Timestamp?: null|\DateTimeImmutable,
-     *   Value?: null|float,
-     *   StatisticValues?: null|StatisticSet|array,
-     *   Values?: null|float[],
-     *   Counts?: null|float[],
-     *   Unit?: null|StandardUnit::*,
-     *   StorageResolution?: null|int,
+     *   Dimensions?: array<Dimension|array>|null,
+     *   Timestamp?: \DateTimeImmutable|null,
+     *   Value?: float|null,
+     *   StatisticValues?: StatisticSet|array|null,
+     *   Values?: float[]|null,
+     *   Counts?: float[]|null,
+     *   Unit?: StandardUnit::*|null,
+     *   StorageResolution?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -128,14 +128,14 @@ final class MetricDatum
     /**
      * @param array{
      *   MetricName: string,
-     *   Dimensions?: null|array<Dimension|array>,
-     *   Timestamp?: null|\DateTimeImmutable,
-     *   Value?: null|float,
-     *   StatisticValues?: null|StatisticSet|array,
-     *   Values?: null|float[],
-     *   Counts?: null|float[],
-     *   Unit?: null|StandardUnit::*,
-     *   StorageResolution?: null|int,
+     *   Dimensions?: array<Dimension|array>|null,
+     *   Timestamp?: \DateTimeImmutable|null,
+     *   Value?: float|null,
+     *   StatisticValues?: StatisticSet|array|null,
+     *   Values?: float[]|null,
+     *   Counts?: float[]|null,
+     *   Unit?: StandardUnit::*|null,
+     *   StorageResolution?: int|null,
      * }|MetricDatum $input
      */
     public static function create($input): self

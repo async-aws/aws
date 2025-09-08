@@ -32,8 +32,8 @@ final class AdvancedInputFilterSettings
 
     /**
      * @param array{
-     *   AddTexture?: null|AdvancedInputFilterAddTexture::*,
-     *   Sharpening?: null|AdvancedInputFilterSharpen::*,
+     *   AddTexture?: AdvancedInputFilterAddTexture::*|null,
+     *   Sharpening?: AdvancedInputFilterSharpen::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,8 +44,8 @@ final class AdvancedInputFilterSettings
 
     /**
      * @param array{
-     *   AddTexture?: null|AdvancedInputFilterAddTexture::*,
-     *   Sharpening?: null|AdvancedInputFilterSharpen::*,
+     *   AddTexture?: AdvancedInputFilterAddTexture::*|null,
+     *   Sharpening?: AdvancedInputFilterSharpen::*|null,
      * }|AdvancedInputFilterSettings $input
      */
     public static function create($input): self

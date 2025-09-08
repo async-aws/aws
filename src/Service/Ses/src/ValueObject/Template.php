@@ -60,12 +60,12 @@ final class Template
 
     /**
      * @param array{
-     *   TemplateName?: null|string,
-     *   TemplateArn?: null|string,
-     *   TemplateContent?: null|EmailTemplateContent|array,
-     *   TemplateData?: null|string,
-     *   Headers?: null|array<MessageHeader|array>,
-     *   Attachments?: null|array<Attachment|array>,
+     *   TemplateName?: string|null,
+     *   TemplateArn?: string|null,
+     *   TemplateContent?: EmailTemplateContent|array|null,
+     *   TemplateData?: string|null,
+     *   Headers?: array<MessageHeader|array>|null,
+     *   Attachments?: array<Attachment|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -80,12 +80,12 @@ final class Template
 
     /**
      * @param array{
-     *   TemplateName?: null|string,
-     *   TemplateArn?: null|string,
-     *   TemplateContent?: null|EmailTemplateContent|array,
-     *   TemplateData?: null|string,
-     *   Headers?: null|array<MessageHeader|array>,
-     *   Attachments?: null|array<Attachment|array>,
+     *   TemplateName?: string|null,
+     *   TemplateArn?: string|null,
+     *   TemplateContent?: EmailTemplateContent|array|null,
+     *   TemplateData?: string|null,
+     *   Headers?: array<MessageHeader|array>|null,
+     *   Attachments?: array<Attachment|array>|null,
      * }|Template $input
      */
     public static function create($input): self

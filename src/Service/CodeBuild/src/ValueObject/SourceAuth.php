@@ -27,7 +27,7 @@ final class SourceAuth
     /**
      * @param array{
      *   type: SourceAuthType::*,
-     *   resource?: null|string,
+     *   resource?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,7 +39,7 @@ final class SourceAuth
     /**
      * @param array{
      *   type: SourceAuthType::*,
-     *   resource?: null|string,
+     *   resource?: string|null,
      * }|SourceAuth $input
      */
     public static function create($input): self

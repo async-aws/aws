@@ -33,8 +33,8 @@ final class RecipientInfo
 
     /**
      * @param array{
-     *   KeyEncryptionAlgorithm?: null|KeyEncryptionMechanism::*,
-     *   AttestationDocument?: null|string,
+     *   KeyEncryptionAlgorithm?: KeyEncryptionMechanism::*|null,
+     *   AttestationDocument?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class RecipientInfo
 
     /**
      * @param array{
-     *   KeyEncryptionAlgorithm?: null|KeyEncryptionMechanism::*,
-     *   AttestationDocument?: null|string,
+     *   KeyEncryptionAlgorithm?: KeyEncryptionMechanism::*|null,
+     *   AttestationDocument?: string|null,
      * }|RecipientInfo $input
      */
     public static function create($input): self

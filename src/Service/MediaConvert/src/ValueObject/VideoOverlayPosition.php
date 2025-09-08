@@ -68,11 +68,11 @@ final class VideoOverlayPosition
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Unit?: null|VideoOverlayUnit::*,
-     *   Width?: null|int,
-     *   XPosition?: null|int,
-     *   YPosition?: null|int,
+     *   Height?: int|null,
+     *   Unit?: VideoOverlayUnit::*|null,
+     *   Width?: int|null,
+     *   XPosition?: int|null,
+     *   YPosition?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -86,11 +86,11 @@ final class VideoOverlayPosition
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Unit?: null|VideoOverlayUnit::*,
-     *   Width?: null|int,
-     *   XPosition?: null|int,
-     *   YPosition?: null|int,
+     *   Height?: int|null,
+     *   Unit?: VideoOverlayUnit::*|null,
+     *   Width?: int|null,
+     *   XPosition?: int|null,
+     *   YPosition?: int|null,
      * }|VideoOverlayPosition $input
      */
     public static function create($input): self

@@ -77,13 +77,13 @@ final class DescribeLogStreamsRequest extends Input
 
     /**
      * @param array{
-     *   logGroupName?: null|string,
-     *   logGroupIdentifier?: null|string,
-     *   logStreamNamePrefix?: null|string,
-     *   orderBy?: null|OrderBy::*,
-     *   descending?: null|bool,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
+     *   logGroupName?: string|null,
+     *   logGroupIdentifier?: string|null,
+     *   logStreamNamePrefix?: string|null,
+     *   orderBy?: OrderBy::*|null,
+     *   descending?: bool|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -101,13 +101,13 @@ final class DescribeLogStreamsRequest extends Input
 
     /**
      * @param array{
-     *   logGroupName?: null|string,
-     *   logGroupIdentifier?: null|string,
-     *   logStreamNamePrefix?: null|string,
-     *   orderBy?: null|OrderBy::*,
-     *   descending?: null|bool,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
+     *   logGroupName?: string|null,
+     *   logGroupIdentifier?: string|null,
+     *   logStreamNamePrefix?: string|null,
+     *   orderBy?: OrderBy::*|null,
+     *   descending?: bool|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
      *   '@region'?: string|null,
      * }|DescribeLogStreamsRequest $input
      */

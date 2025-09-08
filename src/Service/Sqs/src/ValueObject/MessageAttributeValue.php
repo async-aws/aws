@@ -58,10 +58,10 @@ final class MessageAttributeValue
 
     /**
      * @param array{
-     *   StringValue?: null|string,
-     *   BinaryValue?: null|string,
-     *   StringListValues?: null|string[],
-     *   BinaryListValues?: null|string[],
+     *   StringValue?: string|null,
+     *   BinaryValue?: string|null,
+     *   StringListValues?: string[]|null,
+     *   BinaryListValues?: string[]|null,
      *   DataType: string,
      * } $input
      */
@@ -76,10 +76,10 @@ final class MessageAttributeValue
 
     /**
      * @param array{
-     *   StringValue?: null|string,
-     *   BinaryValue?: null|string,
-     *   StringListValues?: null|string[],
-     *   BinaryListValues?: null|string[],
+     *   StringValue?: string|null,
+     *   BinaryValue?: string|null,
+     *   StringListValues?: string[]|null,
+     *   BinaryListValues?: string[]|null,
      *   DataType: string,
      * }|MessageAttributeValue $input
      */

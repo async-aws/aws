@@ -36,9 +36,9 @@ final class S3Object
 
     /**
      * @param array{
-     *   Bucket?: null|string,
-     *   Name?: null|string,
-     *   Version?: null|string,
+     *   Bucket?: string|null,
+     *   Name?: string|null,
+     *   Version?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -50,9 +50,9 @@ final class S3Object
 
     /**
      * @param array{
-     *   Bucket?: null|string,
-     *   Name?: null|string,
-     *   Version?: null|string,
+     *   Bucket?: string|null,
+     *   Name?: string|null,
+     *   Version?: string|null,
      * }|S3Object $input
      */
     public static function create($input): self

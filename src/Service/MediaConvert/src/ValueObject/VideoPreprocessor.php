@@ -73,14 +73,14 @@ final class VideoPreprocessor
 
     /**
      * @param array{
-     *   ColorCorrector?: null|ColorCorrector|array,
-     *   Deinterlacer?: null|Deinterlacer|array,
-     *   DolbyVision?: null|DolbyVision|array,
-     *   Hdr10Plus?: null|Hdr10Plus|array,
-     *   ImageInserter?: null|ImageInserter|array,
-     *   NoiseReducer?: null|NoiseReducer|array,
-     *   PartnerWatermarking?: null|PartnerWatermarking|array,
-     *   TimecodeBurnin?: null|TimecodeBurnin|array,
+     *   ColorCorrector?: ColorCorrector|array|null,
+     *   Deinterlacer?: Deinterlacer|array|null,
+     *   DolbyVision?: DolbyVision|array|null,
+     *   Hdr10Plus?: Hdr10Plus|array|null,
+     *   ImageInserter?: ImageInserter|array|null,
+     *   NoiseReducer?: NoiseReducer|array|null,
+     *   PartnerWatermarking?: PartnerWatermarking|array|null,
+     *   TimecodeBurnin?: TimecodeBurnin|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -97,14 +97,14 @@ final class VideoPreprocessor
 
     /**
      * @param array{
-     *   ColorCorrector?: null|ColorCorrector|array,
-     *   Deinterlacer?: null|Deinterlacer|array,
-     *   DolbyVision?: null|DolbyVision|array,
-     *   Hdr10Plus?: null|Hdr10Plus|array,
-     *   ImageInserter?: null|ImageInserter|array,
-     *   NoiseReducer?: null|NoiseReducer|array,
-     *   PartnerWatermarking?: null|PartnerWatermarking|array,
-     *   TimecodeBurnin?: null|TimecodeBurnin|array,
+     *   ColorCorrector?: ColorCorrector|array|null,
+     *   Deinterlacer?: Deinterlacer|array|null,
+     *   DolbyVision?: DolbyVision|array|null,
+     *   Hdr10Plus?: Hdr10Plus|array|null,
+     *   ImageInserter?: ImageInserter|array|null,
+     *   NoiseReducer?: NoiseReducer|array|null,
+     *   PartnerWatermarking?: PartnerWatermarking|array|null,
+     *   TimecodeBurnin?: TimecodeBurnin|array|null,
      * }|VideoPreprocessor $input
      */
     public static function create($input): self

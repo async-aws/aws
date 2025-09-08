@@ -49,7 +49,7 @@ final class GetTableMetadataInput extends Input
      *   CatalogName?: string,
      *   DatabaseName?: string,
      *   TableName?: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -67,7 +67,7 @@ final class GetTableMetadataInput extends Input
      *   CatalogName?: string,
      *   DatabaseName?: string,
      *   TableName?: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|GetTableMetadataInput $input
      */

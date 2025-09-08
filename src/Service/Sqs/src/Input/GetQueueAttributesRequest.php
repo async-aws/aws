@@ -156,7 +156,7 @@ final class GetQueueAttributesRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: null|array<QueueAttributeName::*>,
+     *   AttributeNames?: array<QueueAttributeName::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -170,7 +170,7 @@ final class GetQueueAttributesRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: null|array<QueueAttributeName::*>,
+     *   AttributeNames?: array<QueueAttributeName::*>|null,
      *   '@region'?: string|null,
      * }|GetQueueAttributesRequest $input
      */

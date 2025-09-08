@@ -131,17 +131,17 @@ final class MpdSettings
 
     /**
      * @param array{
-     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*,
-     *   AudioDuration?: null|MpdAudioDuration::*,
-     *   CaptionContainerType?: null|MpdCaptionContainerType::*,
-     *   KlvMetadata?: null|MpdKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|MpdScte35Esam::*,
-     *   Scte35Source?: null|MpdScte35Source::*,
-     *   TimedMetadata?: null|MpdTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*,
-     *   TimedMetadataSchemeIdUri?: null|string,
-     *   TimedMetadataValue?: null|string,
+     *   AccessibilityCaptionHints?: MpdAccessibilityCaptionHints::*|null,
+     *   AudioDuration?: MpdAudioDuration::*|null,
+     *   CaptionContainerType?: MpdCaptionContainerType::*|null,
+     *   KlvMetadata?: MpdKlvMetadata::*|null,
+     *   ManifestMetadataSignaling?: MpdManifestMetadataSignaling::*|null,
+     *   Scte35Esam?: MpdScte35Esam::*|null,
+     *   Scte35Source?: MpdScte35Source::*|null,
+     *   TimedMetadata?: MpdTimedMetadata::*|null,
+     *   TimedMetadataBoxVersion?: MpdTimedMetadataBoxVersion::*|null,
+     *   TimedMetadataSchemeIdUri?: string|null,
+     *   TimedMetadataValue?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -161,17 +161,17 @@ final class MpdSettings
 
     /**
      * @param array{
-     *   AccessibilityCaptionHints?: null|MpdAccessibilityCaptionHints::*,
-     *   AudioDuration?: null|MpdAudioDuration::*,
-     *   CaptionContainerType?: null|MpdCaptionContainerType::*,
-     *   KlvMetadata?: null|MpdKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|MpdManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|MpdScte35Esam::*,
-     *   Scte35Source?: null|MpdScte35Source::*,
-     *   TimedMetadata?: null|MpdTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|MpdTimedMetadataBoxVersion::*,
-     *   TimedMetadataSchemeIdUri?: null|string,
-     *   TimedMetadataValue?: null|string,
+     *   AccessibilityCaptionHints?: MpdAccessibilityCaptionHints::*|null,
+     *   AudioDuration?: MpdAudioDuration::*|null,
+     *   CaptionContainerType?: MpdCaptionContainerType::*|null,
+     *   KlvMetadata?: MpdKlvMetadata::*|null,
+     *   ManifestMetadataSignaling?: MpdManifestMetadataSignaling::*|null,
+     *   Scte35Esam?: MpdScte35Esam::*|null,
+     *   Scte35Source?: MpdScte35Source::*|null,
+     *   TimedMetadata?: MpdTimedMetadata::*|null,
+     *   TimedMetadataBoxVersion?: MpdTimedMetadataBoxVersion::*|null,
+     *   TimedMetadataSchemeIdUri?: string|null,
+     *   TimedMetadataValue?: string|null,
      * }|MpdSettings $input
      */
     public static function create($input): self

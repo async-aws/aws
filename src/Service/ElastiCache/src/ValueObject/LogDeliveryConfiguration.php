@@ -59,12 +59,12 @@ final class LogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
-     *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
-     *   Status?: null|LogDeliveryConfigurationStatus::*,
-     *   Message?: null|string,
+     *   LogType?: LogType::*|null,
+     *   DestinationType?: DestinationType::*|null,
+     *   DestinationDetails?: DestinationDetails|array|null,
+     *   LogFormat?: LogFormat::*|null,
+     *   Status?: LogDeliveryConfigurationStatus::*|null,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,12 +79,12 @@ final class LogDeliveryConfiguration
 
     /**
      * @param array{
-     *   LogType?: null|LogType::*,
-     *   DestinationType?: null|DestinationType::*,
-     *   DestinationDetails?: null|DestinationDetails|array,
-     *   LogFormat?: null|LogFormat::*,
-     *   Status?: null|LogDeliveryConfigurationStatus::*,
-     *   Message?: null|string,
+     *   LogType?: LogType::*|null,
+     *   DestinationType?: DestinationType::*|null,
+     *   DestinationDetails?: DestinationDetails|array|null,
+     *   LogFormat?: LogFormat::*|null,
+     *   Status?: LogDeliveryConfigurationStatus::*|null,
+     *   Message?: string|null,
      * }|LogDeliveryConfiguration $input
      */
     public static function create($input): self

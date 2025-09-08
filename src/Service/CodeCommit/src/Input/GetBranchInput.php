@@ -27,8 +27,8 @@ final class GetBranchInput extends Input
 
     /**
      * @param array{
-     *   repositoryName?: null|string,
-     *   branchName?: null|string,
+     *   repositoryName?: string|null,
+     *   branchName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -41,8 +41,8 @@ final class GetBranchInput extends Input
 
     /**
      * @param array{
-     *   repositoryName?: null|string,
-     *   branchName?: null|string,
+     *   repositoryName?: string|null,
+     *   branchName?: string|null,
      *   '@region'?: string|null,
      * }|GetBranchInput $input
      */

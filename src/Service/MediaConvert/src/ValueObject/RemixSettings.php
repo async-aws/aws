@@ -63,11 +63,11 @@ final class RemixSettings
 
     /**
      * @param array{
-     *   AudioDescriptionAudioChannel?: null|int,
-     *   AudioDescriptionDataChannel?: null|int,
-     *   ChannelMapping?: null|ChannelMapping|array,
-     *   ChannelsIn?: null|int,
-     *   ChannelsOut?: null|int,
+     *   AudioDescriptionAudioChannel?: int|null,
+     *   AudioDescriptionDataChannel?: int|null,
+     *   ChannelMapping?: ChannelMapping|array|null,
+     *   ChannelsIn?: int|null,
+     *   ChannelsOut?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,11 +81,11 @@ final class RemixSettings
 
     /**
      * @param array{
-     *   AudioDescriptionAudioChannel?: null|int,
-     *   AudioDescriptionDataChannel?: null|int,
-     *   ChannelMapping?: null|ChannelMapping|array,
-     *   ChannelsIn?: null|int,
-     *   ChannelsOut?: null|int,
+     *   AudioDescriptionAudioChannel?: int|null,
+     *   AudioDescriptionDataChannel?: int|null,
+     *   ChannelMapping?: ChannelMapping|array|null,
+     *   ChannelsIn?: int|null,
+     *   ChannelsOut?: int|null,
      * }|RemixSettings $input
      */
     public static function create($input): self

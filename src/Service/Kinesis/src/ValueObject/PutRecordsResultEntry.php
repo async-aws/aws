@@ -42,10 +42,10 @@ final class PutRecordsResultEntry
 
     /**
      * @param array{
-     *   SequenceNumber?: null|string,
-     *   ShardId?: null|string,
-     *   ErrorCode?: null|string,
-     *   ErrorMessage?: null|string,
+     *   SequenceNumber?: string|null,
+     *   ShardId?: string|null,
+     *   ErrorCode?: string|null,
+     *   ErrorMessage?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -58,10 +58,10 @@ final class PutRecordsResultEntry
 
     /**
      * @param array{
-     *   SequenceNumber?: null|string,
-     *   ShardId?: null|string,
-     *   ErrorCode?: null|string,
-     *   ErrorMessage?: null|string,
+     *   SequenceNumber?: string|null,
+     *   ShardId?: string|null,
+     *   ErrorCode?: string|null,
+     *   ErrorMessage?: string|null,
      * }|PutRecordsResultEntry $input
      */
     public static function create($input): self

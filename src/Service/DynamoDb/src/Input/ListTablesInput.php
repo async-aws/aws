@@ -28,8 +28,8 @@ final class ListTablesInput extends Input
 
     /**
      * @param array{
-     *   ExclusiveStartTableName?: null|string,
-     *   Limit?: null|int,
+     *   ExclusiveStartTableName?: string|null,
+     *   Limit?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -42,8 +42,8 @@ final class ListTablesInput extends Input
 
     /**
      * @param array{
-     *   ExclusiveStartTableName?: null|string,
-     *   Limit?: null|int,
+     *   ExclusiveStartTableName?: string|null,
+     *   Limit?: int|null,
      *   '@region'?: string|null,
      * }|ListTablesInput $input
      */

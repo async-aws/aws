@@ -91,15 +91,15 @@ final class Part
 
     /**
      * @param array{
-     *   PartNumber?: null|int,
-     *   LastModified?: null|\DateTimeImmutable,
-     *   ETag?: null|string,
-     *   Size?: null|int,
-     *   ChecksumCRC32?: null|string,
-     *   ChecksumCRC32C?: null|string,
-     *   ChecksumCRC64NVME?: null|string,
-     *   ChecksumSHA1?: null|string,
-     *   ChecksumSHA256?: null|string,
+     *   PartNumber?: int|null,
+     *   LastModified?: \DateTimeImmutable|null,
+     *   ETag?: string|null,
+     *   Size?: int|null,
+     *   ChecksumCRC32?: string|null,
+     *   ChecksumCRC32C?: string|null,
+     *   ChecksumCRC64NVME?: string|null,
+     *   ChecksumSHA1?: string|null,
+     *   ChecksumSHA256?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -117,15 +117,15 @@ final class Part
 
     /**
      * @param array{
-     *   PartNumber?: null|int,
-     *   LastModified?: null|\DateTimeImmutable,
-     *   ETag?: null|string,
-     *   Size?: null|int,
-     *   ChecksumCRC32?: null|string,
-     *   ChecksumCRC32C?: null|string,
-     *   ChecksumCRC64NVME?: null|string,
-     *   ChecksumSHA1?: null|string,
-     *   ChecksumSHA256?: null|string,
+     *   PartNumber?: int|null,
+     *   LastModified?: \DateTimeImmutable|null,
+     *   ETag?: string|null,
+     *   Size?: int|null,
+     *   ChecksumCRC32?: string|null,
+     *   ChecksumCRC32C?: string|null,
+     *   ChecksumCRC64NVME?: string|null,
+     *   ChecksumSHA1?: string|null,
+     *   ChecksumSHA256?: string|null,
      * }|Part $input
      */
     public static function create($input): self

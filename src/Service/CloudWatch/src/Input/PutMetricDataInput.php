@@ -79,9 +79,9 @@ final class PutMetricDataInput extends Input
     /**
      * @param array{
      *   Namespace?: string,
-     *   MetricData?: null|array<MetricDatum|array>,
-     *   EntityMetricData?: null|array<EntityMetricData|array>,
-     *   StrictEntityValidation?: null|bool,
+     *   MetricData?: array<MetricDatum|array>|null,
+     *   EntityMetricData?: array<EntityMetricData|array>|null,
+     *   StrictEntityValidation?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -97,9 +97,9 @@ final class PutMetricDataInput extends Input
     /**
      * @param array{
      *   Namespace?: string,
-     *   MetricData?: null|array<MetricDatum|array>,
-     *   EntityMetricData?: null|array<EntityMetricData|array>,
-     *   StrictEntityValidation?: null|bool,
+     *   MetricData?: array<MetricDatum|array>|null,
+     *   EntityMetricData?: array<EntityMetricData|array>|null,
+     *   StrictEntityValidation?: bool|null,
      *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      */

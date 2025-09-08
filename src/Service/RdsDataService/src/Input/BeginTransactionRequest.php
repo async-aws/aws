@@ -48,8 +48,8 @@ final class BeginTransactionRequest extends Input
      * @param array{
      *   resourceArn?: string,
      *   secretArn?: string,
-     *   database?: null|string,
-     *   schema?: null|string,
+     *   database?: string|null,
+     *   schema?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -66,8 +66,8 @@ final class BeginTransactionRequest extends Input
      * @param array{
      *   resourceArn?: string,
      *   secretArn?: string,
-     *   database?: null|string,
-     *   schema?: null|string,
+     *   database?: string|null,
+     *   schema?: string|null,
      *   '@region'?: string|null,
      * }|BeginTransactionRequest $input
      */

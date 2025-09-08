@@ -50,7 +50,7 @@ final class ChangeInfo
      *   Id: string,
      *   Status: ChangeStatus::*,
      *   SubmittedAt: \DateTimeImmutable,
-     *   Comment?: null|string,
+     *   Comment?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -66,7 +66,7 @@ final class ChangeInfo
      *   Id: string,
      *   Status: ChangeStatus::*,
      *   SubmittedAt: \DateTimeImmutable,
-     *   Comment?: null|string,
+     *   Comment?: string|null,
      * }|ChangeInfo $input
      */
     public static function create($input): self

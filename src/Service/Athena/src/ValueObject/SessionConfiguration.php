@@ -36,10 +36,10 @@ final class SessionConfiguration
 
     /**
      * @param array{
-     *   ExecutionRole?: null|string,
-     *   WorkingDirectory?: null|string,
-     *   IdleTimeoutSeconds?: null|int,
-     *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
+     *   ExecutionRole?: string|null,
+     *   WorkingDirectory?: string|null,
+     *   IdleTimeoutSeconds?: int|null,
+     *   EncryptionConfiguration?: EncryptionConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,10 +52,10 @@ final class SessionConfiguration
 
     /**
      * @param array{
-     *   ExecutionRole?: null|string,
-     *   WorkingDirectory?: null|string,
-     *   IdleTimeoutSeconds?: null|int,
-     *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
+     *   ExecutionRole?: string|null,
+     *   WorkingDirectory?: string|null,
+     *   IdleTimeoutSeconds?: int|null,
+     *   EncryptionConfiguration?: EncryptionConfiguration|array|null,
      * }|SessionConfiguration $input
      */
     public static function create($input): self

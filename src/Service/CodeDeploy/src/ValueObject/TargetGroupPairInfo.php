@@ -33,9 +33,9 @@ final class TargetGroupPairInfo
 
     /**
      * @param array{
-     *   targetGroups?: null|array<TargetGroupInfo|array>,
-     *   prodTrafficRoute?: null|TrafficRoute|array,
-     *   testTrafficRoute?: null|TrafficRoute|array,
+     *   targetGroups?: array<TargetGroupInfo|array>|null,
+     *   prodTrafficRoute?: TrafficRoute|array|null,
+     *   testTrafficRoute?: TrafficRoute|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,9 +47,9 @@ final class TargetGroupPairInfo
 
     /**
      * @param array{
-     *   targetGroups?: null|array<TargetGroupInfo|array>,
-     *   prodTrafficRoute?: null|TrafficRoute|array,
-     *   testTrafficRoute?: null|TrafficRoute|array,
+     *   targetGroups?: array<TargetGroupInfo|array>|null,
+     *   prodTrafficRoute?: TrafficRoute|array|null,
+     *   testTrafficRoute?: TrafficRoute|array|null,
      * }|TargetGroupPairInfo $input
      */
     public static function create($input): self

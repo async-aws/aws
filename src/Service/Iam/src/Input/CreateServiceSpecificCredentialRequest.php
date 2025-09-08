@@ -46,7 +46,7 @@ final class CreateServiceSpecificCredentialRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
-     *   CredentialAgeDays?: null|int,
+     *   CredentialAgeDays?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -62,7 +62,7 @@ final class CreateServiceSpecificCredentialRequest extends Input
      * @param array{
      *   UserName?: string,
      *   ServiceName?: string,
-     *   CredentialAgeDays?: null|int,
+     *   CredentialAgeDays?: int|null,
      *   '@region'?: string|null,
      * }|CreateServiceSpecificCredentialRequest $input
      */

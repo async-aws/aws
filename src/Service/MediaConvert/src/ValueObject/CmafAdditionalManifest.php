@@ -29,8 +29,8 @@ final class CmafAdditionalManifest
 
     /**
      * @param array{
-     *   ManifestNameModifier?: null|string,
-     *   SelectedOutputs?: null|string[],
+     *   ManifestNameModifier?: string|null,
+     *   SelectedOutputs?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class CmafAdditionalManifest
 
     /**
      * @param array{
-     *   ManifestNameModifier?: null|string,
-     *   SelectedOutputs?: null|string[],
+     *   ManifestNameModifier?: string|null,
+     *   SelectedOutputs?: string[]|null,
      * }|CmafAdditionalManifest $input
      */
     public static function create($input): self

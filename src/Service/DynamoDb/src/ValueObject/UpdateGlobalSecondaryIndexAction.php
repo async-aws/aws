@@ -47,9 +47,9 @@ final class UpdateGlobalSecondaryIndexAction
     /**
      * @param array{
      *   IndexName: string,
-     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|WarmThroughput|array,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: WarmThroughput|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -63,9 +63,9 @@ final class UpdateGlobalSecondaryIndexAction
     /**
      * @param array{
      *   IndexName: string,
-     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|WarmThroughput|array,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: WarmThroughput|array|null,
      * }|UpdateGlobalSecondaryIndexAction $input
      */
     public static function create($input): self

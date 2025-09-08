@@ -47,10 +47,10 @@ final class InputDecryptionSettings
 
     /**
      * @param array{
-     *   DecryptionMode?: null|DecryptionMode::*,
-     *   EncryptedDecryptionKey?: null|string,
-     *   InitializationVector?: null|string,
-     *   KmsKeyRegion?: null|string,
+     *   DecryptionMode?: DecryptionMode::*|null,
+     *   EncryptedDecryptionKey?: string|null,
+     *   InitializationVector?: string|null,
+     *   KmsKeyRegion?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -63,10 +63,10 @@ final class InputDecryptionSettings
 
     /**
      * @param array{
-     *   DecryptionMode?: null|DecryptionMode::*,
-     *   EncryptedDecryptionKey?: null|string,
-     *   InitializationVector?: null|string,
-     *   KmsKeyRegion?: null|string,
+     *   DecryptionMode?: DecryptionMode::*|null,
+     *   EncryptedDecryptionKey?: string|null,
+     *   InitializationVector?: string|null,
+     *   KmsKeyRegion?: string|null,
      * }|InputDecryptionSettings $input
      */
     public static function create($input): self

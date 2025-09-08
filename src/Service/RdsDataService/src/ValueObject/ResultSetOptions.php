@@ -33,8 +33,8 @@ final class ResultSetOptions
 
     /**
      * @param array{
-     *   decimalReturnType?: null|DecimalReturnType::*,
-     *   longReturnType?: null|LongReturnType::*,
+     *   decimalReturnType?: DecimalReturnType::*|null,
+     *   longReturnType?: LongReturnType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class ResultSetOptions
 
     /**
      * @param array{
-     *   decimalReturnType?: null|DecimalReturnType::*,
-     *   longReturnType?: null|LongReturnType::*,
+     *   decimalReturnType?: DecimalReturnType::*|null,
+     *   longReturnType?: LongReturnType::*|null,
      * }|ResultSetOptions $input
      */
     public static function create($input): self

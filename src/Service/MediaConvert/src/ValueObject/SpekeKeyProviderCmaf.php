@@ -59,12 +59,12 @@ final class SpekeKeyProviderCmaf
 
     /**
      * @param array{
-     *   CertificateArn?: null|string,
-     *   DashSignaledSystemIds?: null|string[],
-     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
-     *   HlsSignaledSystemIds?: null|string[],
-     *   ResourceId?: null|string,
-     *   Url?: null|string,
+     *   CertificateArn?: string|null,
+     *   DashSignaledSystemIds?: string[]|null,
+     *   EncryptionContractConfiguration?: EncryptionContractConfiguration|array|null,
+     *   HlsSignaledSystemIds?: string[]|null,
+     *   ResourceId?: string|null,
+     *   Url?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,12 +79,12 @@ final class SpekeKeyProviderCmaf
 
     /**
      * @param array{
-     *   CertificateArn?: null|string,
-     *   DashSignaledSystemIds?: null|string[],
-     *   EncryptionContractConfiguration?: null|EncryptionContractConfiguration|array,
-     *   HlsSignaledSystemIds?: null|string[],
-     *   ResourceId?: null|string,
-     *   Url?: null|string,
+     *   CertificateArn?: string|null,
+     *   DashSignaledSystemIds?: string[]|null,
+     *   EncryptionContractConfiguration?: EncryptionContractConfiguration|array|null,
+     *   HlsSignaledSystemIds?: string[]|null,
+     *   ResourceId?: string|null,
+     *   Url?: string|null,
      * }|SpekeKeyProviderCmaf $input
      */
     public static function create($input): self

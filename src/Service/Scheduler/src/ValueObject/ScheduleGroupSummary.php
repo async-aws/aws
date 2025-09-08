@@ -46,11 +46,11 @@ final class ScheduleGroupSummary
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   LastModificationDate?: null|\DateTimeImmutable,
-     *   Name?: null|string,
-     *   State?: null|ScheduleGroupState::*,
+     *   Arn?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
+     *   Name?: string|null,
+     *   State?: ScheduleGroupState::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -64,11 +64,11 @@ final class ScheduleGroupSummary
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   LastModificationDate?: null|\DateTimeImmutable,
-     *   Name?: null|string,
-     *   State?: null|ScheduleGroupState::*,
+     *   Arn?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
+     *   Name?: string|null,
+     *   State?: ScheduleGroupState::*|null,
      * }|ScheduleGroupSummary $input
      */
     public static function create($input): self

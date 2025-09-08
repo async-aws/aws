@@ -61,12 +61,12 @@ final class HlsImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|HlsIntervalCadence::*,
-     *   ThumbnailHeight?: null|int,
-     *   ThumbnailInterval?: null|float,
-     *   ThumbnailWidth?: null|int,
-     *   TileHeight?: null|int,
-     *   TileWidth?: null|int,
+     *   IntervalCadence?: HlsIntervalCadence::*|null,
+     *   ThumbnailHeight?: int|null,
+     *   ThumbnailInterval?: float|null,
+     *   ThumbnailWidth?: int|null,
+     *   TileHeight?: int|null,
+     *   TileWidth?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,12 +81,12 @@ final class HlsImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|HlsIntervalCadence::*,
-     *   ThumbnailHeight?: null|int,
-     *   ThumbnailInterval?: null|float,
-     *   ThumbnailWidth?: null|int,
-     *   TileHeight?: null|int,
-     *   TileWidth?: null|int,
+     *   IntervalCadence?: HlsIntervalCadence::*|null,
+     *   ThumbnailHeight?: int|null,
+     *   ThumbnailInterval?: float|null,
+     *   ThumbnailWidth?: int|null,
+     *   TileHeight?: int|null,
+     *   TileWidth?: int|null,
      * }|HlsImageBasedTrickPlaySettings $input
      */
     public static function create($input): self

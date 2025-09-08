@@ -63,9 +63,9 @@ final class HostedZone
      *   Id: string,
      *   Name: string,
      *   CallerReference: string,
-     *   Config?: null|HostedZoneConfig|array,
-     *   ResourceRecordSetCount?: null|int,
-     *   LinkedService?: null|LinkedService|array,
+     *   Config?: HostedZoneConfig|array|null,
+     *   ResourceRecordSetCount?: int|null,
+     *   LinkedService?: LinkedService|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -83,9 +83,9 @@ final class HostedZone
      *   Id: string,
      *   Name: string,
      *   CallerReference: string,
-     *   Config?: null|HostedZoneConfig|array,
-     *   ResourceRecordSetCount?: null|int,
-     *   LinkedService?: null|LinkedService|array,
+     *   Config?: HostedZoneConfig|array|null,
+     *   ResourceRecordSetCount?: int|null,
+     *   LinkedService?: LinkedService|array|null,
      * }|HostedZone $input
      */
     public static function create($input): self

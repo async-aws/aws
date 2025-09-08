@@ -43,8 +43,8 @@ final class Owner
 
     /**
      * @param array{
-     *   DisplayName?: null|string,
-     *   ID?: null|string,
+     *   DisplayName?: string|null,
+     *   ID?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,8 +55,8 @@ final class Owner
 
     /**
      * @param array{
-     *   DisplayName?: null|string,
-     *   ID?: null|string,
+     *   DisplayName?: string|null,
+     *   ID?: string|null,
      * }|Owner $input
      */
     public static function create($input): self

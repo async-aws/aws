@@ -16,7 +16,7 @@ final class SessionStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|int,
+     *   DpuExecutionInMillis?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class SessionStatistics
 
     /**
      * @param array{
-     *   DpuExecutionInMillis?: null|int,
+     *   DpuExecutionInMillis?: int|null,
      * }|SessionStatistics $input
      */
     public static function create($input): self

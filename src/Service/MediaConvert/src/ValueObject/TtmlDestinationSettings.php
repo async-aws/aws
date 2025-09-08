@@ -21,7 +21,7 @@ final class TtmlDestinationSettings
 
     /**
      * @param array{
-     *   StylePassthrough?: null|TtmlStylePassthrough::*,
+     *   StylePassthrough?: TtmlStylePassthrough::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class TtmlDestinationSettings
 
     /**
      * @param array{
-     *   StylePassthrough?: null|TtmlStylePassthrough::*,
+     *   StylePassthrough?: TtmlStylePassthrough::*|null,
      * }|TtmlDestinationSettings $input
      */
     public static function create($input): self

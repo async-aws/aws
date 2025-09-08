@@ -92,14 +92,14 @@ final class Record
 
     /**
      * @param array{
-     *   Dimensions?: null|array<Dimension|array>,
-     *   MeasureName?: null|string,
-     *   MeasureValue?: null|string,
-     *   MeasureValueType?: null|MeasureValueType::*,
-     *   Time?: null|string,
-     *   TimeUnit?: null|TimeUnit::*,
-     *   Version?: null|int,
-     *   MeasureValues?: null|array<MeasureValue|array>,
+     *   Dimensions?: array<Dimension|array>|null,
+     *   MeasureName?: string|null,
+     *   MeasureValue?: string|null,
+     *   MeasureValueType?: MeasureValueType::*|null,
+     *   Time?: string|null,
+     *   TimeUnit?: TimeUnit::*|null,
+     *   Version?: int|null,
+     *   MeasureValues?: array<MeasureValue|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -116,14 +116,14 @@ final class Record
 
     /**
      * @param array{
-     *   Dimensions?: null|array<Dimension|array>,
-     *   MeasureName?: null|string,
-     *   MeasureValue?: null|string,
-     *   MeasureValueType?: null|MeasureValueType::*,
-     *   Time?: null|string,
-     *   TimeUnit?: null|TimeUnit::*,
-     *   Version?: null|int,
-     *   MeasureValues?: null|array<MeasureValue|array>,
+     *   Dimensions?: array<Dimension|array>|null,
+     *   MeasureName?: string|null,
+     *   MeasureValue?: string|null,
+     *   MeasureValueType?: MeasureValueType::*|null,
+     *   Time?: string|null,
+     *   TimeUnit?: TimeUnit::*|null,
+     *   Version?: int|null,
+     *   MeasureValues?: array<MeasureValue|array>|null,
      * }|Record $input
      */
     public static function create($input): self

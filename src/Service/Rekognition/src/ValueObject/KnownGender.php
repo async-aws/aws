@@ -19,7 +19,7 @@ final class KnownGender
 
     /**
      * @param array{
-     *   Type?: null|KnownGenderType::*,
+     *   Type?: KnownGenderType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -29,7 +29,7 @@ final class KnownGender
 
     /**
      * @param array{
-     *   Type?: null|KnownGenderType::*,
+     *   Type?: KnownGenderType::*|null,
      * }|KnownGender $input
      */
     public static function create($input): self

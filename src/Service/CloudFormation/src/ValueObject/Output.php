@@ -37,10 +37,10 @@ final class Output
 
     /**
      * @param array{
-     *   OutputKey?: null|string,
-     *   OutputValue?: null|string,
-     *   Description?: null|string,
-     *   ExportName?: null|string,
+     *   OutputKey?: string|null,
+     *   OutputValue?: string|null,
+     *   Description?: string|null,
+     *   ExportName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,10 +53,10 @@ final class Output
 
     /**
      * @param array{
-     *   OutputKey?: null|string,
-     *   OutputValue?: null|string,
-     *   Description?: null|string,
-     *   ExportName?: null|string,
+     *   OutputKey?: string|null,
+     *   OutputValue?: string|null,
+     *   Description?: string|null,
+     *   ExportName?: string|null,
      * }|Output $input
      */
     public static function create($input): self

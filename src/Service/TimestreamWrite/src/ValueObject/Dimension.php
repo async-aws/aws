@@ -41,7 +41,7 @@ final class Dimension
      * @param array{
      *   Name: string,
      *   Value: string,
-     *   DimensionValueType?: null|DimensionValueType::*,
+     *   DimensionValueType?: DimensionValueType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,7 +55,7 @@ final class Dimension
      * @param array{
      *   Name: string,
      *   Value: string,
-     *   DimensionValueType?: null|DimensionValueType::*,
+     *   DimensionValueType?: DimensionValueType::*|null,
      * }|Dimension $input
      */
     public static function create($input): self

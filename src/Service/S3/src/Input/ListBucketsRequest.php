@@ -58,10 +58,10 @@ final class ListBucketsRequest extends Input
 
     /**
      * @param array{
-     *   MaxBuckets?: null|int,
-     *   ContinuationToken?: null|string,
-     *   Prefix?: null|string,
-     *   BucketRegion?: null|string,
+     *   MaxBuckets?: int|null,
+     *   ContinuationToken?: string|null,
+     *   Prefix?: string|null,
+     *   BucketRegion?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -76,10 +76,10 @@ final class ListBucketsRequest extends Input
 
     /**
      * @param array{
-     *   MaxBuckets?: null|int,
-     *   ContinuationToken?: null|string,
-     *   Prefix?: null|string,
-     *   BucketRegion?: null|string,
+     *   MaxBuckets?: int|null,
+     *   ContinuationToken?: string|null,
+     *   Prefix?: string|null,
+     *   BucketRegion?: string|null,
      *   '@region'?: string|null,
      * }|ListBucketsRequest $input
      */

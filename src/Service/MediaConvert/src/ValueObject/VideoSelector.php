@@ -162,19 +162,19 @@ final class VideoSelector
 
     /**
      * @param array{
-     *   AlphaBehavior?: null|AlphaBehavior::*,
-     *   ColorSpace?: null|ColorSpace::*,
-     *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
-     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
-     *   Hdr10Metadata?: null|Hdr10Metadata|array,
-     *   MaxLuminance?: null|int,
-     *   PadVideo?: null|PadVideo::*,
-     *   Pid?: null|int,
-     *   ProgramNumber?: null|int,
-     *   Rotate?: null|InputRotate::*,
-     *   SampleRange?: null|InputSampleRange::*,
-     *   SelectorType?: null|VideoSelectorType::*,
-     *   Streams?: null|int[],
+     *   AlphaBehavior?: AlphaBehavior::*|null,
+     *   ColorSpace?: ColorSpace::*|null,
+     *   ColorSpaceUsage?: ColorSpaceUsage::*|null,
+     *   EmbeddedTimecodeOverride?: EmbeddedTimecodeOverride::*|null,
+     *   Hdr10Metadata?: Hdr10Metadata|array|null,
+     *   MaxLuminance?: int|null,
+     *   PadVideo?: PadVideo::*|null,
+     *   Pid?: int|null,
+     *   ProgramNumber?: int|null,
+     *   Rotate?: InputRotate::*|null,
+     *   SampleRange?: InputSampleRange::*|null,
+     *   SelectorType?: VideoSelectorType::*|null,
+     *   Streams?: int[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -196,19 +196,19 @@ final class VideoSelector
 
     /**
      * @param array{
-     *   AlphaBehavior?: null|AlphaBehavior::*,
-     *   ColorSpace?: null|ColorSpace::*,
-     *   ColorSpaceUsage?: null|ColorSpaceUsage::*,
-     *   EmbeddedTimecodeOverride?: null|EmbeddedTimecodeOverride::*,
-     *   Hdr10Metadata?: null|Hdr10Metadata|array,
-     *   MaxLuminance?: null|int,
-     *   PadVideo?: null|PadVideo::*,
-     *   Pid?: null|int,
-     *   ProgramNumber?: null|int,
-     *   Rotate?: null|InputRotate::*,
-     *   SampleRange?: null|InputSampleRange::*,
-     *   SelectorType?: null|VideoSelectorType::*,
-     *   Streams?: null|int[],
+     *   AlphaBehavior?: AlphaBehavior::*|null,
+     *   ColorSpace?: ColorSpace::*|null,
+     *   ColorSpaceUsage?: ColorSpaceUsage::*|null,
+     *   EmbeddedTimecodeOverride?: EmbeddedTimecodeOverride::*|null,
+     *   Hdr10Metadata?: Hdr10Metadata|array|null,
+     *   MaxLuminance?: int|null,
+     *   PadVideo?: PadVideo::*|null,
+     *   Pid?: int|null,
+     *   ProgramNumber?: int|null,
+     *   Rotate?: InputRotate::*|null,
+     *   SampleRange?: InputSampleRange::*|null,
+     *   SelectorType?: VideoSelectorType::*|null,
+     *   Streams?: int[]|null,
      * }|VideoSelector $input
      */
     public static function create($input): self

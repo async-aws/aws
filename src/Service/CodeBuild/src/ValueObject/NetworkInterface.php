@@ -23,8 +23,8 @@ final class NetworkInterface
 
     /**
      * @param array{
-     *   subnetId?: null|string,
-     *   networkInterfaceId?: null|string,
+     *   subnetId?: string|null,
+     *   networkInterfaceId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class NetworkInterface
 
     /**
      * @param array{
-     *   subnetId?: null|string,
-     *   networkInterfaceId?: null|string,
+     *   subnetId?: string|null,
+     *   networkInterfaceId?: string|null,
      * }|NetworkInterface $input
      */
     public static function create($input): self

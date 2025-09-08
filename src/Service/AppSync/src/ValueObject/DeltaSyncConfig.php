@@ -30,9 +30,9 @@ final class DeltaSyncConfig
 
     /**
      * @param array{
-     *   baseTableTTL?: null|int,
-     *   deltaSyncTableName?: null|string,
-     *   deltaSyncTableTTL?: null|int,
+     *   baseTableTTL?: int|null,
+     *   deltaSyncTableName?: string|null,
+     *   deltaSyncTableTTL?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class DeltaSyncConfig
 
     /**
      * @param array{
-     *   baseTableTTL?: null|int,
-     *   deltaSyncTableName?: null|string,
-     *   deltaSyncTableTTL?: null|int,
+     *   baseTableTTL?: int|null,
+     *   deltaSyncTableName?: string|null,
+     *   deltaSyncTableTTL?: int|null,
      * }|DeltaSyncConfig $input
      */
     public static function create($input): self

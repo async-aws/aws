@@ -37,8 +37,8 @@ final class Gender
 
     /**
      * @param array{
-     *   Value?: null|GenderType::*,
-     *   Confidence?: null|float,
+     *   Value?: GenderType::*|null,
+     *   Confidence?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -49,8 +49,8 @@ final class Gender
 
     /**
      * @param array{
-     *   Value?: null|GenderType::*,
-     *   Confidence?: null|float,
+     *   Value?: GenderType::*|null,
+     *   Confidence?: float|null,
      * }|Gender $input
      */
     public static function create($input): self

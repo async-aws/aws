@@ -36,9 +36,9 @@ final class CreateScheduleGroupInput extends Input
 
     /**
      * @param array{
-     *   ClientToken?: null|string,
+     *   ClientToken?: string|null,
      *   Name?: string,
-     *   Tags?: null|array<Tag|array>,
+     *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -52,9 +52,9 @@ final class CreateScheduleGroupInput extends Input
 
     /**
      * @param array{
-     *   ClientToken?: null|string,
+     *   ClientToken?: string|null,
      *   Name?: string,
-     *   Tags?: null|array<Tag|array>,
+     *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * }|CreateScheduleGroupInput $input
      */

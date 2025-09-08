@@ -33,7 +33,7 @@ final class StreamSpecification
     /**
      * @param array{
      *   StreamEnabled: bool,
-     *   StreamViewType?: null|StreamViewType::*,
+     *   StreamViewType?: StreamViewType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,7 +45,7 @@ final class StreamSpecification
     /**
      * @param array{
      *   StreamEnabled: bool,
-     *   StreamViewType?: null|StreamViewType::*,
+     *   StreamViewType?: StreamViewType::*|null,
      * }|StreamSpecification $input
      */
     public static function create($input): self

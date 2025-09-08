@@ -57,9 +57,9 @@ final class RejectedRecord
 
     /**
      * @param array{
-     *   RecordIndex?: null|int,
-     *   Reason?: null|string,
-     *   ExistingVersion?: null|int,
+     *   RecordIndex?: int|null,
+     *   Reason?: string|null,
+     *   ExistingVersion?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -71,9 +71,9 @@ final class RejectedRecord
 
     /**
      * @param array{
-     *   RecordIndex?: null|int,
-     *   Reason?: null|string,
-     *   ExistingVersion?: null|int,
+     *   RecordIndex?: int|null,
+     *   Reason?: string|null,
+     *   ExistingVersion?: int|null,
      * }|RejectedRecord $input
      */
     public static function create($input): self

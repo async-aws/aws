@@ -288,7 +288,7 @@ final class Response
      * @return array{
      *                resolved: bool,
      *                body_downloaded: bool,
-     *                response: \Symfony\Contracts\HttpClient\ResponseInterface,
+     *                response: ResponseInterface,
      *                status: int,
      *                }
      */

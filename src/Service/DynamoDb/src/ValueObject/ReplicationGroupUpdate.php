@@ -39,9 +39,9 @@ final class ReplicationGroupUpdate
 
     /**
      * @param array{
-     *   Create?: null|CreateReplicationGroupMemberAction|array,
-     *   Update?: null|UpdateReplicationGroupMemberAction|array,
-     *   Delete?: null|DeleteReplicationGroupMemberAction|array,
+     *   Create?: CreateReplicationGroupMemberAction|array|null,
+     *   Update?: UpdateReplicationGroupMemberAction|array|null,
+     *   Delete?: DeleteReplicationGroupMemberAction|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,9 +53,9 @@ final class ReplicationGroupUpdate
 
     /**
      * @param array{
-     *   Create?: null|CreateReplicationGroupMemberAction|array,
-     *   Update?: null|UpdateReplicationGroupMemberAction|array,
-     *   Delete?: null|DeleteReplicationGroupMemberAction|array,
+     *   Create?: CreateReplicationGroupMemberAction|array|null,
+     *   Update?: UpdateReplicationGroupMemberAction|array|null,
+     *   Delete?: DeleteReplicationGroupMemberAction|array|null,
      * }|ReplicationGroupUpdate $input
      */
     public static function create($input): self

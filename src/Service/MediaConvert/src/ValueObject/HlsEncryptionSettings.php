@@ -70,13 +70,13 @@ final class HlsEncryptionSettings
 
     /**
      * @param array{
-     *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|HlsEncryptionType::*,
-     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*,
-     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*,
-     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
-     *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|HlsKeyProviderType::*,
+     *   ConstantInitializationVector?: string|null,
+     *   EncryptionMethod?: HlsEncryptionType::*|null,
+     *   InitializationVectorInManifest?: HlsInitializationVectorInManifest::*|null,
+     *   OfflineEncrypted?: HlsOfflineEncrypted::*|null,
+     *   SpekeKeyProvider?: SpekeKeyProvider|array|null,
+     *   StaticKeyProvider?: StaticKeyProvider|array|null,
+     *   Type?: HlsKeyProviderType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -92,13 +92,13 @@ final class HlsEncryptionSettings
 
     /**
      * @param array{
-     *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|HlsEncryptionType::*,
-     *   InitializationVectorInManifest?: null|HlsInitializationVectorInManifest::*,
-     *   OfflineEncrypted?: null|HlsOfflineEncrypted::*,
-     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
-     *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|HlsKeyProviderType::*,
+     *   ConstantInitializationVector?: string|null,
+     *   EncryptionMethod?: HlsEncryptionType::*|null,
+     *   InitializationVectorInManifest?: HlsInitializationVectorInManifest::*|null,
+     *   OfflineEncrypted?: HlsOfflineEncrypted::*|null,
+     *   SpekeKeyProvider?: SpekeKeyProvider|array|null,
+     *   StaticKeyProvider?: StaticKeyProvider|array|null,
+     *   Type?: HlsKeyProviderType::*|null,
      * }|HlsEncryptionSettings $input
      */
     public static function create($input): self

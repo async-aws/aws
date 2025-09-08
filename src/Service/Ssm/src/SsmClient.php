@@ -112,7 +112,7 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   WithDecryption?: null|bool,
+     *   WithDecryption?: bool|null,
      *   '@region'?: string|null,
      * }|GetParameterRequest $input
      *
@@ -148,7 +148,7 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Names: string[],
-     *   WithDecryption?: null|bool,
+     *   WithDecryption?: bool|null,
      *   '@region'?: string|null,
      * }|GetParametersRequest $input
      *
@@ -184,11 +184,11 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Path: string,
-     *   Recursive?: null|bool,
-     *   ParameterFilters?: null|array<ParameterStringFilter|array>,
-     *   WithDecryption?: null|bool,
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
+     *   Recursive?: bool|null,
+     *   ParameterFilters?: array<ParameterStringFilter|array>|null,
+     *   WithDecryption?: bool|null,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|GetParametersByPathRequest $input
      *
@@ -222,16 +222,16 @@ class SsmClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   Value: string,
-     *   Type?: null|ParameterType::*,
-     *   KeyId?: null|string,
-     *   Overwrite?: null|bool,
-     *   AllowedPattern?: null|string,
-     *   Tags?: null|array<Tag|array>,
-     *   Tier?: null|ParameterTier::*,
-     *   Policies?: null|string,
-     *   DataType?: null|string,
+     *   Type?: ParameterType::*|null,
+     *   KeyId?: string|null,
+     *   Overwrite?: bool|null,
+     *   AllowedPattern?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   Tier?: ParameterTier::*|null,
+     *   Policies?: string|null,
+     *   DataType?: string|null,
      *   '@region'?: string|null,
      * }|PutParameterRequest $input
      *

@@ -37,10 +37,10 @@ final class ReplicaGlobalSecondaryIndexDescription
 
     /**
      * @param array{
-     *   IndexName?: null|string,
-     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
-     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
+     *   IndexName?: string|null,
+     *   ProvisionedThroughputOverride?: ProvisionedThroughputOverride|array|null,
+     *   OnDemandThroughputOverride?: OnDemandThroughputOverride|array|null,
+     *   WarmThroughput?: GlobalSecondaryIndexWarmThroughputDescription|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,10 +53,10 @@ final class ReplicaGlobalSecondaryIndexDescription
 
     /**
      * @param array{
-     *   IndexName?: null|string,
-     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
-     *   WarmThroughput?: null|GlobalSecondaryIndexWarmThroughputDescription|array,
+     *   IndexName?: string|null,
+     *   ProvisionedThroughputOverride?: ProvisionedThroughputOverride|array|null,
+     *   OnDemandThroughputOverride?: OnDemandThroughputOverride|array|null,
+     *   WarmThroughput?: GlobalSecondaryIndexWarmThroughputDescription|array|null,
      * }|ReplicaGlobalSecondaryIndexDescription $input
      */
     public static function create($input): self

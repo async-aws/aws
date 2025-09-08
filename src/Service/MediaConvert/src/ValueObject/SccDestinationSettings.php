@@ -23,7 +23,7 @@ final class SccDestinationSettings
 
     /**
      * @param array{
-     *   Framerate?: null|SccDestinationFramerate::*,
+     *   Framerate?: SccDestinationFramerate::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class SccDestinationSettings
 
     /**
      * @param array{
-     *   Framerate?: null|SccDestinationFramerate::*,
+     *   Framerate?: SccDestinationFramerate::*|null,
      * }|SccDestinationSettings $input
      */
     public static function create($input): self

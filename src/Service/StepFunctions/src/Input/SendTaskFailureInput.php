@@ -38,8 +38,8 @@ final class SendTaskFailureInput extends Input
     /**
      * @param array{
      *   taskToken?: string,
-     *   error?: null|string,
-     *   cause?: null|string,
+     *   error?: string|null,
+     *   cause?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -54,8 +54,8 @@ final class SendTaskFailureInput extends Input
     /**
      * @param array{
      *   taskToken?: string,
-     *   error?: null|string,
-     *   cause?: null|string,
+     *   error?: string|null,
+     *   cause?: string|null,
      *   '@region'?: string|null,
      * }|SendTaskFailureInput $input
      */

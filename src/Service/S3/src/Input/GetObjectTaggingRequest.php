@@ -69,9 +69,9 @@ final class GetObjectTaggingRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
+     *   VersionId?: string|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -89,9 +89,9 @@ final class GetObjectTaggingRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   ExpectedBucketOwner?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
+     *   VersionId?: string|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
      * }|GetObjectTaggingRequest $input
      */

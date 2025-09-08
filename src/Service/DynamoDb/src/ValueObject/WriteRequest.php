@@ -25,8 +25,8 @@ final class WriteRequest
 
     /**
      * @param array{
-     *   PutRequest?: null|PutRequest|array,
-     *   DeleteRequest?: null|DeleteRequest|array,
+     *   PutRequest?: PutRequest|array|null,
+     *   DeleteRequest?: DeleteRequest|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class WriteRequest
 
     /**
      * @param array{
-     *   PutRequest?: null|PutRequest|array,
-     *   DeleteRequest?: null|DeleteRequest|array,
+     *   PutRequest?: PutRequest|array|null,
+     *   DeleteRequest?: DeleteRequest|array|null,
      * }|WriteRequest $input
      */
     public static function create($input): self

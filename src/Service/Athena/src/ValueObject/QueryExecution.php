@@ -117,20 +117,20 @@ final class QueryExecution
 
     /**
      * @param array{
-     *   QueryExecutionId?: null|string,
-     *   Query?: null|string,
-     *   StatementType?: null|StatementType::*,
-     *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
-     *   ResultConfiguration?: null|ResultConfiguration|array,
-     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
-     *   QueryExecutionContext?: null|QueryExecutionContext|array,
-     *   Status?: null|QueryExecutionStatus|array,
-     *   Statistics?: null|QueryExecutionStatistics|array,
-     *   WorkGroup?: null|string,
-     *   EngineVersion?: null|EngineVersion|array,
-     *   ExecutionParameters?: null|string[],
-     *   SubstatementType?: null|string,
-     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
+     *   QueryExecutionId?: string|null,
+     *   Query?: string|null,
+     *   StatementType?: StatementType::*|null,
+     *   ManagedQueryResultsConfiguration?: ManagedQueryResultsConfiguration|array|null,
+     *   ResultConfiguration?: ResultConfiguration|array|null,
+     *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
+     *   QueryExecutionContext?: QueryExecutionContext|array|null,
+     *   Status?: QueryExecutionStatus|array|null,
+     *   Statistics?: QueryExecutionStatistics|array|null,
+     *   WorkGroup?: string|null,
+     *   EngineVersion?: EngineVersion|array|null,
+     *   ExecutionParameters?: string[]|null,
+     *   SubstatementType?: string|null,
+     *   QueryResultsS3AccessGrantsConfiguration?: QueryResultsS3AccessGrantsConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -153,20 +153,20 @@ final class QueryExecution
 
     /**
      * @param array{
-     *   QueryExecutionId?: null|string,
-     *   Query?: null|string,
-     *   StatementType?: null|StatementType::*,
-     *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
-     *   ResultConfiguration?: null|ResultConfiguration|array,
-     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
-     *   QueryExecutionContext?: null|QueryExecutionContext|array,
-     *   Status?: null|QueryExecutionStatus|array,
-     *   Statistics?: null|QueryExecutionStatistics|array,
-     *   WorkGroup?: null|string,
-     *   EngineVersion?: null|EngineVersion|array,
-     *   ExecutionParameters?: null|string[],
-     *   SubstatementType?: null|string,
-     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
+     *   QueryExecutionId?: string|null,
+     *   Query?: string|null,
+     *   StatementType?: StatementType::*|null,
+     *   ManagedQueryResultsConfiguration?: ManagedQueryResultsConfiguration|array|null,
+     *   ResultConfiguration?: ResultConfiguration|array|null,
+     *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
+     *   QueryExecutionContext?: QueryExecutionContext|array|null,
+     *   Status?: QueryExecutionStatus|array|null,
+     *   Statistics?: QueryExecutionStatistics|array|null,
+     *   WorkGroup?: string|null,
+     *   EngineVersion?: EngineVersion|array|null,
+     *   ExecutionParameters?: string[]|null,
+     *   SubstatementType?: string|null,
+     *   QueryResultsS3AccessGrantsConfiguration?: QueryResultsS3AccessGrantsConfiguration|array|null,
      * }|QueryExecution $input
      */
     public static function create($input): self

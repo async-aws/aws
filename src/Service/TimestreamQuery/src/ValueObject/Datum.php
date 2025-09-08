@@ -44,11 +44,11 @@ final class Datum
 
     /**
      * @param array{
-     *   ScalarValue?: null|string,
-     *   TimeSeriesValue?: null|array<TimeSeriesDataPoint|array>,
-     *   ArrayValue?: null|array<Datum|array>,
-     *   RowValue?: null|Row|array,
-     *   NullValue?: null|bool,
+     *   ScalarValue?: string|null,
+     *   TimeSeriesValue?: array<TimeSeriesDataPoint|array>|null,
+     *   ArrayValue?: array<Datum|array>|null,
+     *   RowValue?: Row|array|null,
+     *   NullValue?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class Datum
 
     /**
      * @param array{
-     *   ScalarValue?: null|string,
-     *   TimeSeriesValue?: null|array<TimeSeriesDataPoint|array>,
-     *   ArrayValue?: null|array<Datum|array>,
-     *   RowValue?: null|Row|array,
-     *   NullValue?: null|bool,
+     *   ScalarValue?: string|null,
+     *   TimeSeriesValue?: array<TimeSeriesDataPoint|array>|null,
+     *   ArrayValue?: array<Datum|array>|null,
+     *   RowValue?: Row|array|null,
+     *   NullValue?: bool|null,
      * }|Datum $input
      */
     public static function create($input): self

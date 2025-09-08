@@ -16,7 +16,7 @@ final class LambdaConflictHandlerConfig
 
     /**
      * @param array{
-     *   lambdaConflictHandlerArn?: null|string,
+     *   lambdaConflictHandlerArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class LambdaConflictHandlerConfig
 
     /**
      * @param array{
-     *   lambdaConflictHandlerArn?: null|string,
+     *   lambdaConflictHandlerArn?: string|null,
      * }|LambdaConflictHandlerConfig $input
      */
     public static function create($input): self

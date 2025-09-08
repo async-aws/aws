@@ -66,13 +66,13 @@ final class Commit
 
     /**
      * @param array{
-     *   commitId?: null|string,
-     *   treeId?: null|string,
-     *   parents?: null|string[],
-     *   message?: null|string,
-     *   author?: null|UserInfo|array,
-     *   committer?: null|UserInfo|array,
-     *   additionalData?: null|string,
+     *   commitId?: string|null,
+     *   treeId?: string|null,
+     *   parents?: string[]|null,
+     *   message?: string|null,
+     *   author?: UserInfo|array|null,
+     *   committer?: UserInfo|array|null,
+     *   additionalData?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -88,13 +88,13 @@ final class Commit
 
     /**
      * @param array{
-     *   commitId?: null|string,
-     *   treeId?: null|string,
-     *   parents?: null|string[],
-     *   message?: null|string,
-     *   author?: null|UserInfo|array,
-     *   committer?: null|UserInfo|array,
-     *   additionalData?: null|string,
+     *   commitId?: string|null,
+     *   treeId?: string|null,
+     *   parents?: string[]|null,
+     *   message?: string|null,
+     *   author?: UserInfo|array|null,
+     *   committer?: UserInfo|array|null,
+     *   additionalData?: string|null,
      * }|Commit $input
      */
     public static function create($input): self

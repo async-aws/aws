@@ -23,8 +23,8 @@ final class GroupNameAndArn
 
     /**
      * @param array{
-     *   groupName?: null|string,
-     *   groupArn?: null|string,
+     *   groupName?: string|null,
+     *   groupArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class GroupNameAndArn
 
     /**
      * @param array{
-     *   groupName?: null|string,
-     *   groupArn?: null|string,
+     *   groupName?: string|null,
+     *   groupArn?: string|null,
      * }|GroupNameAndArn $input
      */
     public static function create($input): self

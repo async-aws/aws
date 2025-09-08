@@ -72,9 +72,9 @@ final class PutBucketCorsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   CORSConfiguration?: CORSConfiguration|array,
-     *   ContentMD5?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ExpectedBucketOwner?: null|string,
+     *   ContentMD5?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -92,9 +92,9 @@ final class PutBucketCorsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   CORSConfiguration?: CORSConfiguration|array,
-     *   ContentMD5?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ExpectedBucketOwner?: null|string,
+     *   ContentMD5?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|PutBucketCorsRequest $input
      */

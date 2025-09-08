@@ -16,7 +16,7 @@ final class DestinationSettings
 
     /**
      * @param array{
-     *   S3Settings?: null|S3DestinationSettings|array,
+     *   S3Settings?: S3DestinationSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class DestinationSettings
 
     /**
      * @param array{
-     *   S3Settings?: null|S3DestinationSettings|array,
+     *   S3Settings?: S3DestinationSettings|array|null,
      * }|DestinationSettings $input
      */
     public static function create($input): self

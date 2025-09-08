@@ -109,10 +109,10 @@ final class GetMetricDataInput extends Input
      *   MetricDataQueries?: array<MetricDataQuery|array>,
      *   StartTime?: \DateTimeImmutable|string,
      *   EndTime?: \DateTimeImmutable|string,
-     *   NextToken?: null|string,
-     *   ScanBy?: null|ScanBy::*,
-     *   MaxDatapoints?: null|int,
-     *   LabelOptions?: null|LabelOptions|array,
+     *   NextToken?: string|null,
+     *   ScanBy?: ScanBy::*|null,
+     *   MaxDatapoints?: int|null,
+     *   LabelOptions?: LabelOptions|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -133,10 +133,10 @@ final class GetMetricDataInput extends Input
      *   MetricDataQueries?: array<MetricDataQuery|array>,
      *   StartTime?: \DateTimeImmutable|string,
      *   EndTime?: \DateTimeImmutable|string,
-     *   NextToken?: null|string,
-     *   ScanBy?: null|ScanBy::*,
-     *   MaxDatapoints?: null|int,
-     *   LabelOptions?: null|LabelOptions|array,
+     *   NextToken?: string|null,
+     *   ScanBy?: ScanBy::*|null,
+     *   MaxDatapoints?: int|null,
+     *   LabelOptions?: LabelOptions|array|null,
      *   '@region'?: string|null,
      * }|GetMetricDataInput $input
      */

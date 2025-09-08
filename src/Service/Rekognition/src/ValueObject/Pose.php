@@ -30,9 +30,9 @@ final class Pose
 
     /**
      * @param array{
-     *   Roll?: null|float,
-     *   Yaw?: null|float,
-     *   Pitch?: null|float,
+     *   Roll?: float|null,
+     *   Yaw?: float|null,
+     *   Pitch?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class Pose
 
     /**
      * @param array{
-     *   Roll?: null|float,
-     *   Yaw?: null|float,
-     *   Pitch?: null|float,
+     *   Roll?: float|null,
+     *   Yaw?: float|null,
+     *   Pitch?: float|null,
      * }|Pose $input
      */
     public static function create($input): self

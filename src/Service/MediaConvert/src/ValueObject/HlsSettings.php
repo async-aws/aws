@@ -83,13 +83,13 @@ final class HlsSettings
 
     /**
      * @param array{
-     *   AudioGroupId?: null|string,
-     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*,
-     *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|HlsAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*,
-     *   SegmentModifier?: null|string,
+     *   AudioGroupId?: string|null,
+     *   AudioOnlyContainer?: HlsAudioOnlyContainer::*|null,
+     *   AudioRenditionSets?: string|null,
+     *   AudioTrackType?: HlsAudioTrackType::*|null,
+     *   DescriptiveVideoServiceFlag?: HlsDescriptiveVideoServiceFlag::*|null,
+     *   IFrameOnlyManifest?: HlsIFrameOnlyManifest::*|null,
+     *   SegmentModifier?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -105,13 +105,13 @@ final class HlsSettings
 
     /**
      * @param array{
-     *   AudioGroupId?: null|string,
-     *   AudioOnlyContainer?: null|HlsAudioOnlyContainer::*,
-     *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|HlsAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|HlsDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|HlsIFrameOnlyManifest::*,
-     *   SegmentModifier?: null|string,
+     *   AudioGroupId?: string|null,
+     *   AudioOnlyContainer?: HlsAudioOnlyContainer::*|null,
+     *   AudioRenditionSets?: string|null,
+     *   AudioTrackType?: HlsAudioTrackType::*|null,
+     *   DescriptiveVideoServiceFlag?: HlsDescriptiveVideoServiceFlag::*|null,
+     *   IFrameOnlyManifest?: HlsIFrameOnlyManifest::*|null,
+     *   SegmentModifier?: string|null,
      * }|HlsSettings $input
      */
     public static function create($input): self

@@ -18,7 +18,7 @@ final class AvailBlanking
 
     /**
      * @param array{
-     *   AvailBlankingImage?: null|string,
+     *   AvailBlankingImage?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class AvailBlanking
 
     /**
      * @param array{
-     *   AvailBlankingImage?: null|string,
+     *   AvailBlankingImage?: string|null,
      * }|AvailBlanking $input
      */
     public static function create($input): self

@@ -155,15 +155,15 @@ final class ProjectSource
     /**
      * @param array{
      *   type: SourceType::*,
-     *   location?: null|string,
-     *   gitCloneDepth?: null|int,
-     *   gitSubmodulesConfig?: null|GitSubmodulesConfig|array,
-     *   buildspec?: null|string,
-     *   auth?: null|SourceAuth|array,
-     *   reportBuildStatus?: null|bool,
-     *   buildStatusConfig?: null|BuildStatusConfig|array,
-     *   insecureSsl?: null|bool,
-     *   sourceIdentifier?: null|string,
+     *   location?: string|null,
+     *   gitCloneDepth?: int|null,
+     *   gitSubmodulesConfig?: GitSubmodulesConfig|array|null,
+     *   buildspec?: string|null,
+     *   auth?: SourceAuth|array|null,
+     *   reportBuildStatus?: bool|null,
+     *   buildStatusConfig?: BuildStatusConfig|array|null,
+     *   insecureSsl?: bool|null,
+     *   sourceIdentifier?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -183,15 +183,15 @@ final class ProjectSource
     /**
      * @param array{
      *   type: SourceType::*,
-     *   location?: null|string,
-     *   gitCloneDepth?: null|int,
-     *   gitSubmodulesConfig?: null|GitSubmodulesConfig|array,
-     *   buildspec?: null|string,
-     *   auth?: null|SourceAuth|array,
-     *   reportBuildStatus?: null|bool,
-     *   buildStatusConfig?: null|BuildStatusConfig|array,
-     *   insecureSsl?: null|bool,
-     *   sourceIdentifier?: null|string,
+     *   location?: string|null,
+     *   gitCloneDepth?: int|null,
+     *   gitSubmodulesConfig?: GitSubmodulesConfig|array|null,
+     *   buildspec?: string|null,
+     *   auth?: SourceAuth|array|null,
+     *   reportBuildStatus?: bool|null,
+     *   buildStatusConfig?: BuildStatusConfig|array|null,
+     *   insecureSsl?: bool|null,
+     *   sourceIdentifier?: string|null,
      * }|ProjectSource $input
      */
     public static function create($input): self

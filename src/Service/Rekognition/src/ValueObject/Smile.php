@@ -23,8 +23,8 @@ final class Smile
 
     /**
      * @param array{
-     *   Value?: null|bool,
-     *   Confidence?: null|float,
+     *   Value?: bool|null,
+     *   Confidence?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class Smile
 
     /**
      * @param array{
-     *   Value?: null|bool,
-     *   Confidence?: null|float,
+     *   Value?: bool|null,
+     *   Confidence?: float|null,
      * }|Smile $input
      */
     public static function create($input): self

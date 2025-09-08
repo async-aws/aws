@@ -85,7 +85,7 @@ final class Leg
      *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   Geometry?: null|LegGeometry|array,
+     *   Geometry?: LegGeometry|array|null,
      *   Steps: array<Step|array>,
      * } $input
      */
@@ -105,7 +105,7 @@ final class Leg
      *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   Geometry?: null|LegGeometry|array,
+     *   Geometry?: LegGeometry|array|null,
      *   Steps: array<Step|array>,
      * }|Leg $input
      */

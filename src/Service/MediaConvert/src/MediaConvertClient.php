@@ -77,20 +77,20 @@ class MediaConvertClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#createjob
      *
      * @param array{
-     *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
-     *   ClientRequestToken?: null|string,
-     *   HopDestinations?: null|array<HopDestination|array>,
-     *   JobEngineVersion?: null|string,
-     *   JobTemplate?: null|string,
-     *   Priority?: null|int,
-     *   Queue?: null|string,
+     *   AccelerationSettings?: AccelerationSettings|array|null,
+     *   BillingTagsSource?: BillingTagsSource::*|null,
+     *   ClientRequestToken?: string|null,
+     *   HopDestinations?: array<HopDestination|array>|null,
+     *   JobEngineVersion?: string|null,
+     *   JobTemplate?: string|null,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
      *   Role: string,
      *   Settings: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
-     *   Tags?: null|array<string, string>,
-     *   UserMetadata?: null|array<string, string>,
+     *   SimulateReservedQueue?: SimulateReservedQueue::*|null,
+     *   StatusUpdateInterval?: StatusUpdateInterval::*|null,
+     *   Tags?: array<string, string>|null,
+     *   UserMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateJobRequest $input
      *
@@ -125,9 +125,9 @@ class MediaConvertClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#describeendpoints
      *
      * @param array{
-     *   MaxResults?: null|int,
-     *   Mode?: null|DescribeEndpointsMode::*,
-     *   NextToken?: null|string,
+     *   MaxResults?: int|null,
+     *   Mode?: DescribeEndpointsMode::*|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|DescribeEndpointsRequest $input
      *
@@ -198,11 +198,11 @@ class MediaConvertClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediaconvert-2017-08-29.html#listjobs
      *
      * @param array{
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
-     *   Order?: null|Order::*,
-     *   Queue?: null|string,
-     *   Status?: null|JobStatus::*,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
+     *   Order?: Order::*|null,
+     *   Queue?: string|null,
+     *   Status?: JobStatus::*|null,
      *   '@region'?: string|null,
      * }|ListJobsRequest $input
      *

@@ -20,7 +20,7 @@ final class Environment
 
     /**
      * @param array{
-     *   Variables?: null|array<string, string>,
+     *   Variables?: array<string, string>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class Environment
 
     /**
      * @param array{
-     *   Variables?: null|array<string, string>,
+     *   Variables?: array<string, string>|null,
      * }|Environment $input
      */
     public static function create($input): self

@@ -126,7 +126,7 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|GetDataCatalogInput $input
      *
@@ -153,7 +153,7 @@ class AthenaClient extends AbstractApi
      * @param array{
      *   CatalogName: string,
      *   DatabaseName: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|GetDatabaseInput $input
      *
@@ -245,9 +245,9 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   QueryExecutionId: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   QueryResultType?: null|QueryResultType::*,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   QueryResultType?: QueryResultType::*|null,
      *   '@region'?: string|null,
      * }|GetQueryResultsInput $input
      *
@@ -331,7 +331,7 @@ class AthenaClient extends AbstractApi
      *   CatalogName: string,
      *   DatabaseName: string,
      *   TableName: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|GetTableMetadataInput $input
      *
@@ -384,9 +384,9 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   CatalogName: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      *
@@ -415,9 +415,9 @@ class AthenaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listnamedqueries
      *
      * @param array{
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|ListNamedQueriesInput $input
      *
@@ -444,9 +444,9 @@ class AthenaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#listqueryexecutions
      *
      * @param array{
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|ListQueryExecutionsInput $input
      *
@@ -473,10 +473,10 @@ class AthenaClient extends AbstractApi
      * @param array{
      *   CatalogName: string,
      *   DatabaseName: string,
-     *   Expression?: null|string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   Expression?: string|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      *
@@ -509,10 +509,10 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   SessionId: string,
-     *   Description?: null|string,
-     *   CalculationConfiguration?: null|CalculationConfiguration|array,
-     *   CodeBlock?: null|string,
-     *   ClientRequestToken?: null|string,
+     *   Description?: string|null,
+     *   CalculationConfiguration?: CalculationConfiguration|array|null,
+     *   CodeBlock?: string|null,
+     *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
      * }|StartCalculationExecutionRequest $input
      *
@@ -545,12 +545,12 @@ class AthenaClient extends AbstractApi
      *
      * @param array{
      *   QueryString: string,
-     *   ClientRequestToken?: null|string,
-     *   QueryExecutionContext?: null|QueryExecutionContext|array,
-     *   ResultConfiguration?: null|ResultConfiguration|array,
-     *   WorkGroup?: null|string,
-     *   ExecutionParameters?: null|string[],
-     *   ResultReuseConfiguration?: null|ResultReuseConfiguration|array,
+     *   ClientRequestToken?: string|null,
+     *   QueryExecutionContext?: QueryExecutionContext|array|null,
+     *   ResultConfiguration?: ResultConfiguration|array|null,
+     *   WorkGroup?: string|null,
+     *   ExecutionParameters?: string[]|null,
+     *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
      *   '@region'?: string|null,
      * }|StartQueryExecutionInput $input
      *
@@ -577,12 +577,12 @@ class AthenaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-athena-2017-05-18.html#startsession
      *
      * @param array{
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   WorkGroup: string,
      *   EngineConfiguration: EngineConfiguration|array,
-     *   NotebookVersion?: null|string,
-     *   SessionIdleTimeoutInMinutes?: null|int,
-     *   ClientRequestToken?: null|string,
+     *   NotebookVersion?: string|null,
+     *   SessionIdleTimeoutInMinutes?: int|null,
+     *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
      * }|StartSessionRequest $input
      *

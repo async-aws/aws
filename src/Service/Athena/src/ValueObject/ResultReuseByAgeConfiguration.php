@@ -27,7 +27,7 @@ final class ResultReuseByAgeConfiguration
     /**
      * @param array{
      *   Enabled: bool,
-     *   MaxAgeInMinutes?: null|int,
+     *   MaxAgeInMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,7 +39,7 @@ final class ResultReuseByAgeConfiguration
     /**
      * @param array{
      *   Enabled: bool,
-     *   MaxAgeInMinutes?: null|int,
+     *   MaxAgeInMinutes?: int|null,
      * }|ResultReuseByAgeConfiguration $input
      */
     public static function create($input): self

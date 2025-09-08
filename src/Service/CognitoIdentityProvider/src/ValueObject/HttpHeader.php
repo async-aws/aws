@@ -23,8 +23,8 @@ final class HttpHeader
 
     /**
      * @param array{
-     *   headerName?: null|string,
-     *   headerValue?: null|string,
+     *   headerName?: string|null,
+     *   headerValue?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class HttpHeader
 
     /**
      * @param array{
-     *   headerName?: null|string,
-     *   headerValue?: null|string,
+     *   headerName?: string|null,
+     *   headerValue?: string|null,
      * }|HttpHeader $input
      */
     public static function create($input): self

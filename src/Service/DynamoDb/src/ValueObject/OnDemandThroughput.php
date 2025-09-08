@@ -32,8 +32,8 @@ final class OnDemandThroughput
 
     /**
      * @param array{
-     *   MaxReadRequestUnits?: null|int,
-     *   MaxWriteRequestUnits?: null|int,
+     *   MaxReadRequestUnits?: int|null,
+     *   MaxWriteRequestUnits?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,8 +44,8 @@ final class OnDemandThroughput
 
     /**
      * @param array{
-     *   MaxReadRequestUnits?: null|int,
-     *   MaxWriteRequestUnits?: null|int,
+     *   MaxReadRequestUnits?: int|null,
+     *   MaxWriteRequestUnits?: int|null,
      * }|OnDemandThroughput $input
      */
     public static function create($input): self

@@ -24,7 +24,7 @@ final class AnalyticsMetadataType
 
     /**
      * @param array{
-     *   AnalyticsEndpointId?: null|string,
+     *   AnalyticsEndpointId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -34,7 +34,7 @@ final class AnalyticsMetadataType
 
     /**
      * @param array{
-     *   AnalyticsEndpointId?: null|string,
+     *   AnalyticsEndpointId?: string|null,
      * }|AnalyticsMetadataType $input
      */
     public static function create($input): self

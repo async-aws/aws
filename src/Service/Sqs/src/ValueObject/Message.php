@@ -82,13 +82,13 @@ final class Message
 
     /**
      * @param array{
-     *   MessageId?: null|string,
-     *   ReceiptHandle?: null|string,
-     *   MD5OfBody?: null|string,
-     *   Body?: null|string,
-     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
-     *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageId?: string|null,
+     *   ReceiptHandle?: string|null,
+     *   MD5OfBody?: string|null,
+     *   Body?: string|null,
+     *   Attributes?: array<MessageSystemAttributeName::*, string>|null,
+     *   MD5OfMessageAttributes?: string|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -104,13 +104,13 @@ final class Message
 
     /**
      * @param array{
-     *   MessageId?: null|string,
-     *   ReceiptHandle?: null|string,
-     *   MD5OfBody?: null|string,
-     *   Body?: null|string,
-     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
-     *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
+     *   MessageId?: string|null,
+     *   ReceiptHandle?: string|null,
+     *   MD5OfBody?: string|null,
+     *   Body?: string|null,
+     *   Attributes?: array<MessageSystemAttributeName::*, string>|null,
+     *   MD5OfMessageAttributes?: string|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
      * }|Message $input
      */
     public static function create($input): self

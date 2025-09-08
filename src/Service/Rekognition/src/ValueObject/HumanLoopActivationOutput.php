@@ -31,9 +31,9 @@ final class HumanLoopActivationOutput
 
     /**
      * @param array{
-     *   HumanLoopArn?: null|string,
-     *   HumanLoopActivationReasons?: null|string[],
-     *   HumanLoopActivationConditionsEvaluationResults?: null|string,
+     *   HumanLoopArn?: string|null,
+     *   HumanLoopActivationReasons?: string[]|null,
+     *   HumanLoopActivationConditionsEvaluationResults?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class HumanLoopActivationOutput
 
     /**
      * @param array{
-     *   HumanLoopArn?: null|string,
-     *   HumanLoopActivationReasons?: null|string[],
-     *   HumanLoopActivationConditionsEvaluationResults?: null|string,
+     *   HumanLoopArn?: string|null,
+     *   HumanLoopActivationReasons?: string[]|null,
+     *   HumanLoopActivationConditionsEvaluationResults?: string|null,
      * }|HumanLoopActivationOutput $input
      */
     public static function create($input): self

@@ -38,7 +38,7 @@ final class RevokeTokenRequest extends Input
      * @param array{
      *   Token?: string,
      *   ClientId?: string,
-     *   ClientSecret?: null|string,
+     *   ClientSecret?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -54,7 +54,7 @@ final class RevokeTokenRequest extends Input
      * @param array{
      *   Token?: string,
      *   ClientId?: string,
-     *   ClientSecret?: null|string,
+     *   ClientSecret?: string|null,
      *   '@region'?: string|null,
      * }|RevokeTokenRequest $input
      */

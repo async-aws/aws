@@ -33,8 +33,8 @@ final class ExportedEnvironmentVariable
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   value?: null|string,
+     *   name?: string|null,
+     *   value?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class ExportedEnvironmentVariable
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   value?: null|string,
+     *   name?: string|null,
+     *   value?: string|null,
      * }|ExportedEnvironmentVariable $input
      */
     public static function create($input): self

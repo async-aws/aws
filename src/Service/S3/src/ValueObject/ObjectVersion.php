@@ -97,17 +97,17 @@ final class ObjectVersion
 
     /**
      * @param array{
-     *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
-     *   Size?: null|int,
-     *   StorageClass?: null|ObjectVersionStorageClass::*,
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   IsLatest?: null|bool,
-     *   LastModified?: null|\DateTimeImmutable,
-     *   Owner?: null|Owner|array,
-     *   RestoreStatus?: null|RestoreStatus|array,
+     *   ETag?: string|null,
+     *   ChecksumAlgorithm?: array<ChecksumAlgorithm::*>|null,
+     *   ChecksumType?: ChecksumType::*|null,
+     *   Size?: int|null,
+     *   StorageClass?: ObjectVersionStorageClass::*|null,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   IsLatest?: bool|null,
+     *   LastModified?: \DateTimeImmutable|null,
+     *   Owner?: Owner|array|null,
+     *   RestoreStatus?: RestoreStatus|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -127,17 +127,17 @@ final class ObjectVersion
 
     /**
      * @param array{
-     *   ETag?: null|string,
-     *   ChecksumAlgorithm?: null|array<ChecksumAlgorithm::*>,
-     *   ChecksumType?: null|ChecksumType::*,
-     *   Size?: null|int,
-     *   StorageClass?: null|ObjectVersionStorageClass::*,
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   IsLatest?: null|bool,
-     *   LastModified?: null|\DateTimeImmutable,
-     *   Owner?: null|Owner|array,
-     *   RestoreStatus?: null|RestoreStatus|array,
+     *   ETag?: string|null,
+     *   ChecksumAlgorithm?: array<ChecksumAlgorithm::*>|null,
+     *   ChecksumType?: ChecksumType::*|null,
+     *   Size?: int|null,
+     *   StorageClass?: ObjectVersionStorageClass::*|null,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   IsLatest?: bool|null,
+     *   LastModified?: \DateTimeImmutable|null,
+     *   Owner?: Owner|array|null,
+     *   RestoreStatus?: RestoreStatus|array|null,
      * }|ObjectVersion $input
      */
     public static function create($input): self

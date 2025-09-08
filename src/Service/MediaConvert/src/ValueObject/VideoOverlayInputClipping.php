@@ -28,8 +28,8 @@ final class VideoOverlayInputClipping
 
     /**
      * @param array{
-     *   EndTimecode?: null|string,
-     *   StartTimecode?: null|string,
+     *   EndTimecode?: string|null,
+     *   StartTimecode?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -40,8 +40,8 @@ final class VideoOverlayInputClipping
 
     /**
      * @param array{
-     *   EndTimecode?: null|string,
-     *   StartTimecode?: null|string,
+     *   EndTimecode?: string|null,
+     *   StartTimecode?: string|null,
      * }|VideoOverlayInputClipping $input
      */
     public static function create($input): self

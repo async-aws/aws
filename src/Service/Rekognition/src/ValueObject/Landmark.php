@@ -36,9 +36,9 @@ final class Landmark
 
     /**
      * @param array{
-     *   Type?: null|LandmarkType::*,
-     *   X?: null|float,
-     *   Y?: null|float,
+     *   Type?: LandmarkType::*|null,
+     *   X?: float|null,
+     *   Y?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -50,9 +50,9 @@ final class Landmark
 
     /**
      * @param array{
-     *   Type?: null|LandmarkType::*,
-     *   X?: null|float,
-     *   Y?: null|float,
+     *   Type?: LandmarkType::*|null,
+     *   X?: float|null,
+     *   Y?: float|null,
      * }|Landmark $input
      */
     public static function create($input): self

@@ -130,12 +130,12 @@ final class DecryptRequest extends Input
     /**
      * @param array{
      *   CiphertextBlob?: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   GrantTokens?: null|string[],
-     *   KeyId?: null|string,
-     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   GrantTokens?: string[]|null,
+     *   KeyId?: string|null,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -154,12 +154,12 @@ final class DecryptRequest extends Input
     /**
      * @param array{
      *   CiphertextBlob?: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   GrantTokens?: null|string[],
-     *   KeyId?: null|string,
-     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   GrantTokens?: string[]|null,
+     *   KeyId?: string|null,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      */

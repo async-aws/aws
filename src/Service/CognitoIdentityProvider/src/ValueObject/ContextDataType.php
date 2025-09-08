@@ -53,7 +53,7 @@ final class ContextDataType
      *   ServerName: string,
      *   ServerPath: string,
      *   HttpHeaders: array<HttpHeader|array>,
-     *   EncodedData?: null|string,
+     *   EncodedData?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -71,7 +71,7 @@ final class ContextDataType
      *   ServerName: string,
      *   ServerPath: string,
      *   HttpHeaders: array<HttpHeader|array>,
-     *   EncodedData?: null|string,
+     *   EncodedData?: string|null,
      * }|ContextDataType $input
      */
     public static function create($input): self

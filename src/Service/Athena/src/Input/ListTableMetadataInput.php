@@ -61,10 +61,10 @@ final class ListTableMetadataInput extends Input
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
-     *   Expression?: null|string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   Expression?: string|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -83,10 +83,10 @@ final class ListTableMetadataInput extends Input
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
-     *   Expression?: null|string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   WorkGroup?: null|string,
+     *   Expression?: string|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      */

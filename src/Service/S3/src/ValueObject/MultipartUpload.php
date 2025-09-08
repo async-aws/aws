@@ -77,14 +77,14 @@ final class MultipartUpload
 
     /**
      * @param array{
-     *   UploadId?: null|string,
-     *   Key?: null|string,
-     *   Initiated?: null|\DateTimeImmutable,
-     *   StorageClass?: null|StorageClass::*,
-     *   Owner?: null|Owner|array,
-     *   Initiator?: null|Initiator|array,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   UploadId?: string|null,
+     *   Key?: string|null,
+     *   Initiated?: \DateTimeImmutable|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   Owner?: Owner|array|null,
+     *   Initiator?: Initiator|array|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ChecksumType?: ChecksumType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -101,14 +101,14 @@ final class MultipartUpload
 
     /**
      * @param array{
-     *   UploadId?: null|string,
-     *   Key?: null|string,
-     *   Initiated?: null|\DateTimeImmutable,
-     *   StorageClass?: null|StorageClass::*,
-     *   Owner?: null|Owner|array,
-     *   Initiator?: null|Initiator|array,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   UploadId?: string|null,
+     *   Key?: string|null,
+     *   Initiated?: \DateTimeImmutable|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   Owner?: Owner|array|null,
+     *   Initiator?: Initiator|array|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ChecksumType?: ChecksumType::*|null,
      * }|MultipartUpload $input
      */
     public static function create($input): self

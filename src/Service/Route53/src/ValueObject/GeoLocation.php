@@ -55,9 +55,9 @@ final class GeoLocation
 
     /**
      * @param array{
-     *   ContinentCode?: null|string,
-     *   CountryCode?: null|string,
-     *   SubdivisionCode?: null|string,
+     *   ContinentCode?: string|null,
+     *   CountryCode?: string|null,
+     *   SubdivisionCode?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -69,9 +69,9 @@ final class GeoLocation
 
     /**
      * @param array{
-     *   ContinentCode?: null|string,
-     *   CountryCode?: null|string,
-     *   SubdivisionCode?: null|string,
+     *   ContinentCode?: string|null,
+     *   CountryCode?: string|null,
+     *   SubdivisionCode?: string|null,
      * }|GeoLocation $input
      */
     public static function create($input): self

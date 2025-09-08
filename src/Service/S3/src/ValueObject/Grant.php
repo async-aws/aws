@@ -26,8 +26,8 @@ final class Grant
 
     /**
      * @param array{
-     *   Grantee?: null|Grantee|array,
-     *   Permission?: null|Permission::*,
+     *   Grantee?: Grantee|array|null,
+     *   Permission?: Permission::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class Grant
 
     /**
      * @param array{
-     *   Grantee?: null|Grantee|array,
-     *   Permission?: null|Permission::*,
+     *   Grantee?: Grantee|array|null,
+     *   Permission?: Permission::*|null,
      * }|Grant $input
      */
     public static function create($input): self

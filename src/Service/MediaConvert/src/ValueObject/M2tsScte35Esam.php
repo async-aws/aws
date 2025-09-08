@@ -18,7 +18,7 @@ final class M2tsScte35Esam
 
     /**
      * @param array{
-     *   Scte35EsamPid?: null|int,
+     *   Scte35EsamPid?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class M2tsScte35Esam
 
     /**
      * @param array{
-     *   Scte35EsamPid?: null|int,
+     *   Scte35EsamPid?: int|null,
      * }|M2tsScte35Esam $input
      */
     public static function create($input): self

@@ -57,11 +57,11 @@ final class UpdateReplicationGroupMemberAction
     /**
      * @param array{
      *   RegionName: string,
-     *   KMSMasterKeyId?: null|string,
-     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndex|array>,
-     *   TableClassOverride?: null|TableClass::*,
+     *   KMSMasterKeyId?: string|null,
+     *   ProvisionedThroughputOverride?: ProvisionedThroughputOverride|array|null,
+     *   OnDemandThroughputOverride?: OnDemandThroughputOverride|array|null,
+     *   GlobalSecondaryIndexes?: array<ReplicaGlobalSecondaryIndex|array>|null,
+     *   TableClassOverride?: TableClass::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -77,11 +77,11 @@ final class UpdateReplicationGroupMemberAction
     /**
      * @param array{
      *   RegionName: string,
-     *   KMSMasterKeyId?: null|string,
-     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndex|array>,
-     *   TableClassOverride?: null|TableClass::*,
+     *   KMSMasterKeyId?: string|null,
+     *   ProvisionedThroughputOverride?: ProvisionedThroughputOverride|array|null,
+     *   OnDemandThroughputOverride?: OnDemandThroughputOverride|array|null,
+     *   GlobalSecondaryIndexes?: array<ReplicaGlobalSecondaryIndex|array>|null,
+     *   TableClassOverride?: TableClass::*|null,
      * }|UpdateReplicationGroupMemberAction $input
      */
     public static function create($input): self

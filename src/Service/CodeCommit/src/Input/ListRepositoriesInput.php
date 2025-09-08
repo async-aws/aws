@@ -39,9 +39,9 @@ final class ListRepositoriesInput extends Input
 
     /**
      * @param array{
-     *   nextToken?: null|string,
-     *   sortBy?: null|SortByEnum::*,
-     *   order?: null|OrderEnum::*,
+     *   nextToken?: string|null,
+     *   sortBy?: SortByEnum::*|null,
+     *   order?: OrderEnum::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -55,9 +55,9 @@ final class ListRepositoriesInput extends Input
 
     /**
      * @param array{
-     *   nextToken?: null|string,
-     *   sortBy?: null|SortByEnum::*,
-     *   order?: null|OrderEnum::*,
+     *   nextToken?: string|null,
+     *   sortBy?: SortByEnum::*|null,
+     *   order?: OrderEnum::*|null,
      *   '@region'?: string|null,
      * }|ListRepositoriesInput $input
      */

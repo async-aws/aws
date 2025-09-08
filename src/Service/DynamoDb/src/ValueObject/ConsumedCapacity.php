@@ -64,13 +64,13 @@ final class ConsumedCapacity
 
     /**
      * @param array{
-     *   TableName?: null|string,
-     *   CapacityUnits?: null|float,
-     *   ReadCapacityUnits?: null|float,
-     *   WriteCapacityUnits?: null|float,
-     *   Table?: null|Capacity|array,
-     *   LocalSecondaryIndexes?: null|array<string, Capacity|array>,
-     *   GlobalSecondaryIndexes?: null|array<string, Capacity|array>,
+     *   TableName?: string|null,
+     *   CapacityUnits?: float|null,
+     *   ReadCapacityUnits?: float|null,
+     *   WriteCapacityUnits?: float|null,
+     *   Table?: Capacity|array|null,
+     *   LocalSecondaryIndexes?: array<string, Capacity|array>|null,
+     *   GlobalSecondaryIndexes?: array<string, Capacity|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -86,13 +86,13 @@ final class ConsumedCapacity
 
     /**
      * @param array{
-     *   TableName?: null|string,
-     *   CapacityUnits?: null|float,
-     *   ReadCapacityUnits?: null|float,
-     *   WriteCapacityUnits?: null|float,
-     *   Table?: null|Capacity|array,
-     *   LocalSecondaryIndexes?: null|array<string, Capacity|array>,
-     *   GlobalSecondaryIndexes?: null|array<string, Capacity|array>,
+     *   TableName?: string|null,
+     *   CapacityUnits?: float|null,
+     *   ReadCapacityUnits?: float|null,
+     *   WriteCapacityUnits?: float|null,
+     *   Table?: Capacity|array|null,
+     *   LocalSecondaryIndexes?: array<string, Capacity|array>|null,
+     *   GlobalSecondaryIndexes?: array<string, Capacity|array>|null,
      * }|ConsumedCapacity $input
      */
     public static function create($input): self

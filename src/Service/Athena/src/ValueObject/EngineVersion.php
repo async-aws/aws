@@ -27,8 +27,8 @@ final class EngineVersion
 
     /**
      * @param array{
-     *   SelectedEngineVersion?: null|string,
-     *   EffectiveEngineVersion?: null|string,
+     *   SelectedEngineVersion?: string|null,
+     *   EffectiveEngineVersion?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class EngineVersion
 
     /**
      * @param array{
-     *   SelectedEngineVersion?: null|string,
-     *   EffectiveEngineVersion?: null|string,
+     *   SelectedEngineVersion?: string|null,
+     *   EffectiveEngineVersion?: string|null,
      * }|EngineVersion $input
      */
     public static function create($input): self

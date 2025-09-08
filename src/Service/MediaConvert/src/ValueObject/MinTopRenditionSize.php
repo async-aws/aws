@@ -27,8 +27,8 @@ final class MinTopRenditionSize
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Width?: null|int,
+     *   Height?: int|null,
+     *   Width?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class MinTopRenditionSize
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Width?: null|int,
+     *   Height?: int|null,
+     *   Width?: int|null,
      * }|MinTopRenditionSize $input
      */
     public static function create($input): self

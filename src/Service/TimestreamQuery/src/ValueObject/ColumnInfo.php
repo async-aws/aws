@@ -27,7 +27,7 @@ final class ColumnInfo
 
     /**
      * @param array{
-     *   Name?: null|string,
+     *   Name?: string|null,
      *   Type: Type|array,
      * } $input
      */
@@ -39,7 +39,7 @@ final class ColumnInfo
 
     /**
      * @param array{
-     *   Name?: null|string,
+     *   Name?: string|null,
      *   Type: Type|array,
      * }|ColumnInfo $input
      */

@@ -61,12 +61,12 @@ final class CmafEncryptionSettings
 
     /**
      * @param array{
-     *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|CmafEncryptionType::*,
-     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*,
-     *   SpekeKeyProvider?: null|SpekeKeyProviderCmaf|array,
-     *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|CmafKeyProviderType::*,
+     *   ConstantInitializationVector?: string|null,
+     *   EncryptionMethod?: CmafEncryptionType::*|null,
+     *   InitializationVectorInManifest?: CmafInitializationVectorInManifest::*|null,
+     *   SpekeKeyProvider?: SpekeKeyProviderCmaf|array|null,
+     *   StaticKeyProvider?: StaticKeyProvider|array|null,
+     *   Type?: CmafKeyProviderType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,12 +81,12 @@ final class CmafEncryptionSettings
 
     /**
      * @param array{
-     *   ConstantInitializationVector?: null|string,
-     *   EncryptionMethod?: null|CmafEncryptionType::*,
-     *   InitializationVectorInManifest?: null|CmafInitializationVectorInManifest::*,
-     *   SpekeKeyProvider?: null|SpekeKeyProviderCmaf|array,
-     *   StaticKeyProvider?: null|StaticKeyProvider|array,
-     *   Type?: null|CmafKeyProviderType::*,
+     *   ConstantInitializationVector?: string|null,
+     *   EncryptionMethod?: CmafEncryptionType::*|null,
+     *   InitializationVectorInManifest?: CmafInitializationVectorInManifest::*|null,
+     *   SpekeKeyProvider?: SpekeKeyProviderCmaf|array|null,
+     *   StaticKeyProvider?: StaticKeyProvider|array|null,
+     *   Type?: CmafKeyProviderType::*|null,
      * }|CmafEncryptionSettings $input
      */
     public static function create($input): self

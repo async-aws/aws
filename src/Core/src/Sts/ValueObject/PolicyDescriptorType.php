@@ -21,7 +21,7 @@ final class PolicyDescriptorType
 
     /**
      * @param array{
-     *   arn?: null|string,
+     *   arn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class PolicyDescriptorType
 
     /**
      * @param array{
-     *   arn?: null|string,
+     *   arn?: string|null,
      * }|PolicyDescriptorType $input
      */
     public static function create($input): self

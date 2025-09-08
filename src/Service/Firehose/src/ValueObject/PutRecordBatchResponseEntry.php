@@ -32,9 +32,9 @@ final class PutRecordBatchResponseEntry
 
     /**
      * @param array{
-     *   RecordId?: null|string,
-     *   ErrorCode?: null|string,
-     *   ErrorMessage?: null|string,
+     *   RecordId?: string|null,
+     *   ErrorCode?: string|null,
+     *   ErrorMessage?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class PutRecordBatchResponseEntry
 
     /**
      * @param array{
-     *   RecordId?: null|string,
-     *   ErrorCode?: null|string,
-     *   ErrorMessage?: null|string,
+     *   RecordId?: string|null,
+     *   ErrorCode?: string|null,
+     *   ErrorMessage?: string|null,
      * }|PutRecordBatchResponseEntry $input
      */
     public static function create($input): self

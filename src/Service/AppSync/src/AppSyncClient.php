@@ -63,17 +63,17 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   typeName: string,
      *   fieldName: string,
-     *   dataSourceName?: null|string,
-     *   requestMappingTemplate?: null|string,
-     *   responseMappingTemplate?: null|string,
-     *   kind?: null|ResolverKind::*,
-     *   pipelineConfig?: null|PipelineConfig|array,
-     *   syncConfig?: null|SyncConfig|array,
-     *   cachingConfig?: null|CachingConfig|array,
-     *   maxBatchSize?: null|int,
-     *   runtime?: null|AppSyncRuntime|array,
-     *   code?: null|string,
-     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
+     *   dataSourceName?: string|null,
+     *   requestMappingTemplate?: string|null,
+     *   responseMappingTemplate?: string|null,
+     *   kind?: ResolverKind::*|null,
+     *   pipelineConfig?: PipelineConfig|array|null,
+     *   syncConfig?: SyncConfig|array|null,
+     *   cachingConfig?: CachingConfig|array|null,
+     *   maxBatchSize?: int|null,
+     *   runtime?: AppSyncRuntime|array|null,
+     *   code?: string|null,
+     *   metricsConfig?: ResolverLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
      * }|CreateResolverRequest $input
      *
@@ -171,8 +171,8 @@ class AppSyncClient extends AbstractApi
      *
      * @param array{
      *   apiId: string,
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListApiKeysRequest $input
      *
@@ -203,8 +203,8 @@ class AppSyncClient extends AbstractApi
      * @param array{
      *   apiId: string,
      *   typeName: string,
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListResolversRequest $input
      *
@@ -269,8 +269,8 @@ class AppSyncClient extends AbstractApi
      * @param array{
      *   apiId: string,
      *   id: string,
-     *   description?: null|string,
-     *   expires?: null|int,
+     *   description?: string|null,
+     *   expires?: int|null,
      *   '@region'?: string|null,
      * }|UpdateApiKeyRequest $input
      *
@@ -305,17 +305,17 @@ class AppSyncClient extends AbstractApi
      * @param array{
      *   apiId: string,
      *   name: string,
-     *   description?: null|string,
+     *   description?: string|null,
      *   type: DataSourceType::*,
-     *   serviceRoleArn?: null|string,
-     *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
-     *   lambdaConfig?: null|LambdaDataSourceConfig|array,
-     *   elasticsearchConfig?: null|ElasticsearchDataSourceConfig|array,
-     *   openSearchServiceConfig?: null|OpenSearchServiceDataSourceConfig|array,
-     *   httpConfig?: null|HttpDataSourceConfig|array,
-     *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
-     *   eventBridgeConfig?: null|EventBridgeDataSourceConfig|array,
-     *   metricsConfig?: null|DataSourceLevelMetricsConfig::*,
+     *   serviceRoleArn?: string|null,
+     *   dynamodbConfig?: DynamodbDataSourceConfig|array|null,
+     *   lambdaConfig?: LambdaDataSourceConfig|array|null,
+     *   elasticsearchConfig?: ElasticsearchDataSourceConfig|array|null,
+     *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array|null,
+     *   httpConfig?: HttpDataSourceConfig|array|null,
+     *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array|null,
+     *   eventBridgeConfig?: EventBridgeDataSourceConfig|array|null,
+     *   metricsConfig?: DataSourceLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
      * }|UpdateDataSourceRequest $input
      *
@@ -349,17 +349,17 @@ class AppSyncClient extends AbstractApi
      *   apiId: string,
      *   typeName: string,
      *   fieldName: string,
-     *   dataSourceName?: null|string,
-     *   requestMappingTemplate?: null|string,
-     *   responseMappingTemplate?: null|string,
-     *   kind?: null|ResolverKind::*,
-     *   pipelineConfig?: null|PipelineConfig|array,
-     *   syncConfig?: null|SyncConfig|array,
-     *   cachingConfig?: null|CachingConfig|array,
-     *   maxBatchSize?: null|int,
-     *   runtime?: null|AppSyncRuntime|array,
-     *   code?: null|string,
-     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
+     *   dataSourceName?: string|null,
+     *   requestMappingTemplate?: string|null,
+     *   responseMappingTemplate?: string|null,
+     *   kind?: ResolverKind::*|null,
+     *   pipelineConfig?: PipelineConfig|array|null,
+     *   syncConfig?: SyncConfig|array|null,
+     *   cachingConfig?: CachingConfig|array|null,
+     *   maxBatchSize?: int|null,
+     *   runtime?: AppSyncRuntime|array|null,
+     *   code?: string|null,
+     *   metricsConfig?: ResolverLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
      * }|UpdateResolverRequest $input
      *

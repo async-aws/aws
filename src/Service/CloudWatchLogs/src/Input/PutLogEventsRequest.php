@@ -61,8 +61,8 @@ final class PutLogEventsRequest extends Input
      *   logGroupName?: string,
      *   logStreamName?: string,
      *   logEvents?: array<InputLogEvent|array>,
-     *   sequenceToken?: null|string,
-     *   entity?: null|Entity|array,
+     *   sequenceToken?: string|null,
+     *   entity?: Entity|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -81,8 +81,8 @@ final class PutLogEventsRequest extends Input
      *   logGroupName?: string,
      *   logStreamName?: string,
      *   logEvents?: array<InputLogEvent|array>,
-     *   sequenceToken?: null|string,
-     *   entity?: null|Entity|array,
+     *   sequenceToken?: string|null,
+     *   entity?: Entity|array|null,
      *   '@region'?: string|null,
      * }|PutLogEventsRequest $input
      */

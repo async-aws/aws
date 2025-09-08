@@ -75,10 +75,10 @@ final class ServiceSpecificCredentialMetadata
      * @param array{
      *   UserName: string,
      *   Status: StatusType::*,
-     *   ServiceUserName?: null|string,
-     *   ServiceCredentialAlias?: null|string,
+     *   ServiceUserName?: string|null,
+     *   ServiceCredentialAlias?: string|null,
      *   CreateDate: \DateTimeImmutable,
-     *   ExpirationDate?: null|\DateTimeImmutable,
+     *   ExpirationDate?: \DateTimeImmutable|null,
      *   ServiceSpecificCredentialId: string,
      *   ServiceName: string,
      * } $input
@@ -99,10 +99,10 @@ final class ServiceSpecificCredentialMetadata
      * @param array{
      *   UserName: string,
      *   Status: StatusType::*,
-     *   ServiceUserName?: null|string,
-     *   ServiceCredentialAlias?: null|string,
+     *   ServiceUserName?: string|null,
+     *   ServiceCredentialAlias?: string|null,
      *   CreateDate: \DateTimeImmutable,
-     *   ExpirationDate?: null|\DateTimeImmutable,
+     *   ExpirationDate?: \DateTimeImmutable|null,
      *   ServiceSpecificCredentialId: string,
      *   ServiceName: string,
      * }|ServiceSpecificCredentialMetadata $input

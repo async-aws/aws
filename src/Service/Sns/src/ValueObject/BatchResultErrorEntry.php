@@ -41,7 +41,7 @@ final class BatchResultErrorEntry
      * @param array{
      *   Id: string,
      *   Code: string,
-     *   Message?: null|string,
+     *   Message?: string|null,
      *   SenderFault: bool,
      * } $input
      */
@@ -57,7 +57,7 @@ final class BatchResultErrorEntry
      * @param array{
      *   Id: string,
      *   Code: string,
-     *   Message?: null|string,
+     *   Message?: string|null,
      *   SenderFault: bool,
      * }|BatchResultErrorEntry $input
      */

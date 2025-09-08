@@ -47,9 +47,9 @@ final class ListUsersRequest extends Input
 
     /**
      * @param array{
-     *   PathPrefix?: null|string,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   PathPrefix?: string|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,9 +63,9 @@ final class ListUsersRequest extends Input
 
     /**
      * @param array{
-     *   PathPrefix?: null|string,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   PathPrefix?: string|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * }|ListUsersRequest $input
      */

@@ -17,7 +17,7 @@ final class NotificationConfigurationFilter
 
     /**
      * @param array{
-     *   Key?: null|S3KeyFilter|array,
+     *   Key?: S3KeyFilter|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class NotificationConfigurationFilter
 
     /**
      * @param array{
-     *   Key?: null|S3KeyFilter|array,
+     *   Key?: S3KeyFilter|array|null,
      * }|NotificationConfigurationFilter $input
      */
     public static function create($input): self

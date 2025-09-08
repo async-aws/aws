@@ -84,15 +84,15 @@ final class ContainerSettings
 
     /**
      * @param array{
-     *   CmfcSettings?: null|CmfcSettings|array,
-     *   Container?: null|ContainerType::*,
-     *   F4vSettings?: null|F4vSettings|array,
-     *   M2tsSettings?: null|M2tsSettings|array,
-     *   M3u8Settings?: null|M3u8Settings|array,
-     *   MovSettings?: null|MovSettings|array,
-     *   Mp4Settings?: null|Mp4Settings|array,
-     *   MpdSettings?: null|MpdSettings|array,
-     *   MxfSettings?: null|MxfSettings|array,
+     *   CmfcSettings?: CmfcSettings|array|null,
+     *   Container?: ContainerType::*|null,
+     *   F4vSettings?: F4vSettings|array|null,
+     *   M2tsSettings?: M2tsSettings|array|null,
+     *   M3u8Settings?: M3u8Settings|array|null,
+     *   MovSettings?: MovSettings|array|null,
+     *   Mp4Settings?: Mp4Settings|array|null,
+     *   MpdSettings?: MpdSettings|array|null,
+     *   MxfSettings?: MxfSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -110,15 +110,15 @@ final class ContainerSettings
 
     /**
      * @param array{
-     *   CmfcSettings?: null|CmfcSettings|array,
-     *   Container?: null|ContainerType::*,
-     *   F4vSettings?: null|F4vSettings|array,
-     *   M2tsSettings?: null|M2tsSettings|array,
-     *   M3u8Settings?: null|M3u8Settings|array,
-     *   MovSettings?: null|MovSettings|array,
-     *   Mp4Settings?: null|Mp4Settings|array,
-     *   MpdSettings?: null|MpdSettings|array,
-     *   MxfSettings?: null|MxfSettings|array,
+     *   CmfcSettings?: CmfcSettings|array|null,
+     *   Container?: ContainerType::*|null,
+     *   F4vSettings?: F4vSettings|array|null,
+     *   M2tsSettings?: M2tsSettings|array|null,
+     *   M3u8Settings?: M3u8Settings|array|null,
+     *   MovSettings?: MovSettings|array|null,
+     *   Mp4Settings?: Mp4Settings|array|null,
+     *   MpdSettings?: MpdSettings|array|null,
+     *   MxfSettings?: MxfSettings|array|null,
      * }|ContainerSettings $input
      */
     public static function create($input): self

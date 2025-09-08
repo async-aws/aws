@@ -72,13 +72,13 @@ final class UserType
 
     /**
      * @param array{
-     *   Username?: null|string,
-     *   Attributes?: null|array<AttributeType|array>,
-     *   UserCreateDate?: null|\DateTimeImmutable,
-     *   UserLastModifiedDate?: null|\DateTimeImmutable,
-     *   Enabled?: null|bool,
-     *   UserStatus?: null|UserStatusType::*,
-     *   MFAOptions?: null|array<MFAOptionType|array>,
+     *   Username?: string|null,
+     *   Attributes?: array<AttributeType|array>|null,
+     *   UserCreateDate?: \DateTimeImmutable|null,
+     *   UserLastModifiedDate?: \DateTimeImmutable|null,
+     *   Enabled?: bool|null,
+     *   UserStatus?: UserStatusType::*|null,
+     *   MFAOptions?: array<MFAOptionType|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -94,13 +94,13 @@ final class UserType
 
     /**
      * @param array{
-     *   Username?: null|string,
-     *   Attributes?: null|array<AttributeType|array>,
-     *   UserCreateDate?: null|\DateTimeImmutable,
-     *   UserLastModifiedDate?: null|\DateTimeImmutable,
-     *   Enabled?: null|bool,
-     *   UserStatus?: null|UserStatusType::*,
-     *   MFAOptions?: null|array<MFAOptionType|array>,
+     *   Username?: string|null,
+     *   Attributes?: array<AttributeType|array>|null,
+     *   UserCreateDate?: \DateTimeImmutable|null,
+     *   UserLastModifiedDate?: \DateTimeImmutable|null,
+     *   Enabled?: bool|null,
+     *   UserStatus?: UserStatusType::*|null,
+     *   MFAOptions?: array<MFAOptionType|array>|null,
      * }|UserType $input
      */
     public static function create($input): self

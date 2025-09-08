@@ -16,7 +16,7 @@ final class Mqtt5Configuration
 
     /**
      * @param array{
-     *   propagatingAttributes?: null|array<PropagatingAttribute|array>,
+     *   propagatingAttributes?: array<PropagatingAttribute|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class Mqtt5Configuration
 
     /**
      * @param array{
-     *   propagatingAttributes?: null|array<PropagatingAttribute|array>,
+     *   propagatingAttributes?: array<PropagatingAttribute|array>|null,
      * }|Mqtt5Configuration $input
      */
     public static function create($input): self

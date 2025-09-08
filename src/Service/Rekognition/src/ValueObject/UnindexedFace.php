@@ -35,8 +35,8 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|array<Reason::*>,
-     *   FaceDetail?: null|FaceDetail|array,
+     *   Reasons?: array<Reason::*>|null,
+     *   FaceDetail?: FaceDetail|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,8 +47,8 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|array<Reason::*>,
-     *   FaceDetail?: null|FaceDetail|array,
+     *   Reasons?: array<Reason::*>|null,
+     *   FaceDetail?: FaceDetail|array|null,
      * }|UnindexedFace $input
      */
     public static function create($input): self

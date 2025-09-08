@@ -43,9 +43,9 @@ final class SqlParameter
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   value?: null|Field|array,
-     *   typeHint?: null|TypeHint::*,
+     *   name?: string|null,
+     *   value?: Field|array|null,
+     *   typeHint?: TypeHint::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,9 +57,9 @@ final class SqlParameter
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   value?: null|Field|array,
-     *   typeHint?: null|TypeHint::*,
+     *   name?: string|null,
+     *   value?: Field|array|null,
+     *   typeHint?: TypeHint::*|null,
      * }|SqlParameter $input
      */
     public static function create($input): self
