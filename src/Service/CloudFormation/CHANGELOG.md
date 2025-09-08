@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.10.0
+
 ### Added
 
 - AWS api-change: ListHookResults API now supports retrieving invocation results for all CloudFormation Hooks (previously limited to create change set and Cloud Control operations) with new optional parameters for filtering by Hook status and ARN.

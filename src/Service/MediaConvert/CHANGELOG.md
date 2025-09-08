@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.11.0
+
 ### Added
 
 - AWS api-change: This release adds support for input rendition selection for HLS input, adds new Share API to enable sharing jobs with AWS Support for support investigations, and adds INCLUDE_AS_TS to iFrameOnlyManifest setting for HLS outputs.
