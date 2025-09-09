@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release includes backward compatibility work on the "Expires" parameter.
+
 ## 2.10.0
 
 ### Added

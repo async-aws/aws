@@ -256,7 +256,7 @@ final class CopyObjectRequest extends Input
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -713,7 +713,7 @@ final class CopyObjectRequest extends Input
      *   CopySourceIfModifiedSince?: null|\DateTimeImmutable|string,
      *   CopySourceIfNoneMatch?: null|string,
      *   CopySourceIfUnmodifiedSince?: null|\DateTimeImmutable|string,
-     *   Expires?: null|\DateTimeImmutable|string,
+     *   Expires?: null|string,
      *   GrantFullControl?: null|string,
      *   GrantRead?: null|string,
      *   GrantReadACP?: null|string,
@@ -759,7 +759,7 @@ final class CopyObjectRequest extends Input
         $this->copySourceIfModifiedSince = !isset($input['CopySourceIfModifiedSince']) ? null : ($input['CopySourceIfModifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfModifiedSince'] : new \DateTimeImmutable($input['CopySourceIfModifiedSince']));
         $this->copySourceIfNoneMatch = $input['CopySourceIfNoneMatch'] ?? null;
         $this->copySourceIfUnmodifiedSince = !isset($input['CopySourceIfUnmodifiedSince']) ? null : ($input['CopySourceIfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfUnmodifiedSince'] : new \DateTimeImmutable($input['CopySourceIfUnmodifiedSince']));
-        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->expires = $input['Expires'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -805,7 +805,7 @@ final class CopyObjectRequest extends Input
      *   CopySourceIfModifiedSince?: null|\DateTimeImmutable|string,
      *   CopySourceIfNoneMatch?: null|string,
      *   CopySourceIfUnmodifiedSince?: null|\DateTimeImmutable|string,
-     *   Expires?: null|\DateTimeImmutable|string,
+     *   Expires?: null|string,
      *   GrantFullControl?: null|string,
      *   GrantRead?: null|string,
      *   GrantReadACP?: null|string,
@@ -942,7 +942,7 @@ final class CopyObjectRequest extends Input
         return $this->expectedSourceBucketOwner;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         return $this->expires;
     }
@@ -1127,7 +1127,7 @@ final class CopyObjectRequest extends Input
             $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['Expires'] = $this->expires;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -1392,7 +1392,7 @@ final class CopyObjectRequest extends Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeImmutable $value): self
+    public function setExpires(?string $value): self
     {
         $this->expires = $value;
 
