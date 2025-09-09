@@ -2,9 +2,9 @@
 
 ## NOT RELEASED
 
-### Added
+### BC-BREAK
 
-- AWS api-change: This release includes backward compatibility work on the "Expires" parameter.
+- AWS api-change: Expires's property and its getters/setters switched from `\DateTimeImmutable` to `string`.
 
 ## 2.10.0
 
