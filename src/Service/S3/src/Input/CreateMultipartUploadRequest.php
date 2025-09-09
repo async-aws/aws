@@ -116,7 +116,7 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -552,7 +552,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ContentEncoding?: null|string,
      *   ContentLanguage?: null|string,
      *   ContentType?: null|string,
-     *   Expires?: null|\DateTimeImmutable|string,
+     *   Expires?: null|string,
      *   GrantFullControl?: null|string,
      *   GrantRead?: null|string,
      *   GrantReadACP?: null|string,
@@ -588,7 +588,7 @@ final class CreateMultipartUploadRequest extends Input
         $this->contentEncoding = $input['ContentEncoding'] ?? null;
         $this->contentLanguage = $input['ContentLanguage'] ?? null;
         $this->contentType = $input['ContentType'] ?? null;
-        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->expires = $input['Expires'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -624,7 +624,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ContentEncoding?: null|string,
      *   ContentLanguage?: null|string,
      *   ContentType?: null|string,
-     *   Expires?: null|\DateTimeImmutable|string,
+     *   Expires?: null|string,
      *   GrantFullControl?: null|string,
      *   GrantRead?: null|string,
      *   GrantReadACP?: null|string,
@@ -720,7 +720,7 @@ final class CreateMultipartUploadRequest extends Input
         return $this->expectedBucketOwner;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         return $this->expires;
     }
@@ -867,7 +867,7 @@ final class CreateMultipartUploadRequest extends Input
             $headers['Content-Type'] = $this->contentType;
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['Expires'] = $this->expires;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -1067,7 +1067,7 @@ final class CreateMultipartUploadRequest extends Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeImmutable $value): self
+    public function setExpires(?string $value): self
     {
         $this->expires = $value;
 
