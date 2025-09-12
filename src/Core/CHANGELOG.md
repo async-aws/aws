@@ -2,11 +2,15 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Buffer the response in temporary file to avoid issues when stream is used by another request's body
+
 ## 1.27.1
 
 ### Fixed
 
-- SignerV4: fix sort of query parameters to build correct canoncal query string 
+- SignerV4: fix sort of query parameters to build correct canoncal query string
 
 ## 1.27.0
 
