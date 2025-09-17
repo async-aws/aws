@@ -180,7 +180,7 @@ class CloudWatchLogsClient extends AbstractApi
      *
      * - A filter pattern
      * - A time range
-     * - The log stream name, or a log stream name prefix that matches mutltiple log streams
+     * - The log stream name, or a log stream name prefix that matches multiple log streams
      *
      * You must have the `logs:FilterLogEvents` permission to perform this operation.
      *
