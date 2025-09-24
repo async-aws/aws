@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
+- AWS api-change: This release includes exception definition and documentation updates.
 
 ## 1.1.1
 

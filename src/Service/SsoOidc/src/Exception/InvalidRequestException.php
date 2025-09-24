@@ -3,6 +3,7 @@
 namespace AsyncAws\SsoOidc\Exception;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\SsoOidc\Enum\InvalidRequestExceptionReason;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -17,6 +18,13 @@ final class InvalidRequestException extends ClientException
      * @var string|null
      */
     private $error;
+
+    /**
+     * A string that uniquely identifies a reason for the error.
+     *
+     * @var InvalidRequestExceptionReason::*|null
+     */
+    private $reason;
 
     /**
      * Human-readable text providing additional information, used to assist the client developer in understanding the error
@@ -36,11 +44,20 @@ final class InvalidRequestException extends ClientException
         return $this->error_description;
     }
 
+    /**
+     * @return InvalidRequestExceptionReason::*|null
+     */
+    public function getReason(): ?string
+    {
+        return $this->reason;
+    }
+
     protected function populateResult(ResponseInterface $response): void
     {
         $data = $response->toArray(false);
 
         $this->error = isset($data['error']) ? (string) $data['error'] : null;
+        $this->reason = isset($data['reason']) ? (string) $data['reason'] : null;
         $this->error_description = isset($data['error_description']) ? (string) $data['error_description'] : null;
     }
 }
