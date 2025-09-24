@@ -29,7 +29,7 @@ jobs:
           tools: flex
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Initialize tests
         run: make initialize -j 4
@@ -142,7 +142,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
