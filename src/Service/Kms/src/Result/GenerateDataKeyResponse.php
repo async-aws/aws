@@ -36,15 +36,15 @@ class GenerateDataKeyResponse extends Result
     private $keyId;
 
     /**
-     * The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be decrypted only by
-     * using a private key in the Nitro enclave.
+     * The plaintext data key encrypted with the public key from the attestation document. This ciphertext can be decrypted
+     * only by using a private key from the attested environment.
      *
      * This field is included in the response only when the `Recipient` parameter in the request includes a valid
-     * attestation document from an Amazon Web Services Nitro enclave. For information about the interaction between KMS and
-     * Amazon Web Services Nitro Enclaves, see How Amazon Web Services Nitro Enclaves uses KMS [^1] in the *Key Management
-     * Service Developer Guide*.
+     * attestation document from an Amazon Web Services Nitro enclave or NitroTPM. For information about the interaction
+     * between KMS and Amazon Web Services Nitro Enclaves or Amazon Web Services NitroTPM, see Cryptographic attestation
+     * support in KMS [^1] in the *Key Management Service Developer Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      *
      * @var string|null
      */

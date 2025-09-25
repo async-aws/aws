@@ -392,12 +392,13 @@ class KmsClient extends AbstractApi
      * particular KMS keys or particular trusted accounts. For details, see Best practices for IAM policies [^4] in the *Key
      * Management Service Developer Guide*.
      *
-     * `Decrypt` also supports Amazon Web Services Nitro Enclaves [^5], which provide an isolated compute environment in
-     * Amazon EC2. To call `Decrypt` for a Nitro enclave, use the Amazon Web Services Nitro Enclaves SDK [^6] or any Amazon
-     * Web Services SDK. Use the `Recipient` parameter to provide the attestation document for the enclave. Instead of the
-     * plaintext data, the response includes the plaintext data encrypted with the public key from the attestation document
-     * (`CiphertextForRecipient`). For information about the interaction between KMS and Amazon Web Services Nitro Enclaves,
-     * see How Amazon Web Services Nitro Enclaves uses KMS [^7] in the *Key Management Service Developer Guide*.
+     * `Decrypt` also supports Amazon Web Services Nitro Enclaves [^5] and NitroTPM, which provide attested environments in
+     * Amazon EC2. To call `Decrypt` for a Nitro enclave or NitroTPM, use the Amazon Web Services Nitro Enclaves SDK [^6] or
+     * any Amazon Web Services SDK. Use the `Recipient` parameter to provide the attestation document for the attested
+     * environment. Instead of the plaintext data, the response includes the plaintext data encrypted with the public key
+     * from the attestation document (`CiphertextForRecipient`). For information about the interaction between KMS and
+     * Amazon Web Services Nitro Enclaves or Amazon Web Services NitroTPM, see Cryptographic attestation support in KMS [^7]
+     * in the *Key Management Service Developer Guide*.
      *
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
      * keys [^8] in the *Key Management Service Developer Guide*.
@@ -423,7 +424,7 @@ class KmsClient extends AbstractApi
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/iam-policies.html#iam-policies-best-practices
      * [^5]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave.html
      * [^6]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
-     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
@@ -614,13 +615,13 @@ class KmsClient extends AbstractApi
      * information, see Encryption Context [^1] in the *Key Management Service Developer Guide*.
      *
      * `GenerateDataKey` also supports Amazon Web Services Nitro Enclaves [^2], which provide an isolated compute
-     * environment in Amazon EC2. To call `GenerateDataKey` for an Amazon Web Services Nitro enclave, use the Amazon Web
-     * Services Nitro Enclaves SDK [^3] or any Amazon Web Services SDK. Use the `Recipient` parameter to provide the
-     * attestation document for the enclave. `GenerateDataKey` returns a copy of the data key encrypted under the specified
-     * KMS key, as usual. But instead of a plaintext copy of the data key, the response includes a copy of the data key
-     * encrypted under the public key from the attestation document (`CiphertextForRecipient`). For information about the
-     * interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services Nitro Enclaves uses KMS
-     * [^4] in the *Key Management Service Developer Guide*..
+     * environment in Amazon EC2. To call `GenerateDataKey` for an Amazon Web Services Nitro enclave or NitroTPM, use the
+     * Amazon Web Services Nitro Enclaves SDK [^3] or any Amazon Web Services SDK. Use the `Recipient` parameter to provide
+     * the attestation document for the attested environment. `GenerateDataKey` returns a copy of the data key encrypted
+     * under the specified KMS key, as usual. But instead of a plaintext copy of the data key, the response includes a copy
+     * of the data key encrypted under the public key from the attestation document (`CiphertextForRecipient`). For
+     * information about the interaction between KMS and Amazon Web Services Nitro Enclaves or Amazon Web Services NitroTPM,
+     * see Cryptographic attestation support in KMS [^4] in the *Key Management Service Developer Guide*.
      *
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
      * keys [^5] in the *Key Management Service Developer Guide*.
@@ -663,7 +664,7 @@ class KmsClient extends AbstractApi
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html
      * [^2]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave.html
      * [^3]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
-     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^6]: https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/
      * [^7]: https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/
