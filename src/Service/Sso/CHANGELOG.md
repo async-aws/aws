@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: rework regions definition
+
 ## 1.4.1
 
 ### Changed
