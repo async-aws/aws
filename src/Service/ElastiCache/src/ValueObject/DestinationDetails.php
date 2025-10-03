@@ -23,8 +23,8 @@ final class DestinationDetails
 
     /**
      * @param array{
-     *   CloudWatchLogsDetails?: null|CloudWatchLogsDestinationDetails|array,
-     *   KinesisFirehoseDetails?: null|KinesisFirehoseDestinationDetails|array,
+     *   CloudWatchLogsDetails?: CloudWatchLogsDestinationDetails|array|null,
+     *   KinesisFirehoseDetails?: KinesisFirehoseDestinationDetails|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class DestinationDetails
 
     /**
      * @param array{
-     *   CloudWatchLogsDetails?: null|CloudWatchLogsDestinationDetails|array,
-     *   KinesisFirehoseDetails?: null|KinesisFirehoseDestinationDetails|array,
+     *   CloudWatchLogsDetails?: CloudWatchLogsDestinationDetails|array|null,
+     *   KinesisFirehoseDetails?: KinesisFirehoseDestinationDetails|array|null,
      * }|DestinationDetails $input
      */
     public static function create($input): self

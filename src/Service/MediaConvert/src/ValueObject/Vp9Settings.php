@@ -136,19 +136,19 @@ final class Vp9Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp9FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   GopSize?: null|float,
-     *   HrdBufferSize?: null|int,
-     *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp9ParControl::*,
-     *   ParDenominator?: null|int,
-     *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp9RateControlMode::*,
+     *   Bitrate?: int|null,
+     *   FramerateControl?: Vp9FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Vp9FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   GopSize?: float|null,
+     *   HrdBufferSize?: int|null,
+     *   MaxBitrate?: int|null,
+     *   ParControl?: Vp9ParControl::*|null,
+     *   ParDenominator?: int|null,
+     *   ParNumerator?: int|null,
+     *   QualityTuningLevel?: Vp9QualityTuningLevel::*|null,
+     *   RateControlMode?: Vp9RateControlMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -170,19 +170,19 @@ final class Vp9Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp9FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp9FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   GopSize?: null|float,
-     *   HrdBufferSize?: null|int,
-     *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp9ParControl::*,
-     *   ParDenominator?: null|int,
-     *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp9QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp9RateControlMode::*,
+     *   Bitrate?: int|null,
+     *   FramerateControl?: Vp9FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Vp9FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   GopSize?: float|null,
+     *   HrdBufferSize?: int|null,
+     *   MaxBitrate?: int|null,
+     *   ParControl?: Vp9ParControl::*|null,
+     *   ParDenominator?: int|null,
+     *   ParNumerator?: int|null,
+     *   QualityTuningLevel?: Vp9QualityTuningLevel::*|null,
+     *   RateControlMode?: Vp9RateControlMode::*|null,
      * }|Vp9Settings $input
      */
     public static function create($input): self

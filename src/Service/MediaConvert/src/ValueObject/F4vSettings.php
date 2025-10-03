@@ -20,7 +20,7 @@ final class F4vSettings
 
     /**
      * @param array{
-     *   MoovPlacement?: null|F4vMoovPlacement::*,
+     *   MoovPlacement?: F4vMoovPlacement::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class F4vSettings
 
     /**
      * @param array{
-     *   MoovPlacement?: null|F4vMoovPlacement::*,
+     *   MoovPlacement?: F4vMoovPlacement::*|null,
      * }|F4vSettings $input
      */
     public static function create($input): self

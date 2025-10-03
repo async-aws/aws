@@ -23,8 +23,8 @@ final class MotionImageInsertionOffset
 
     /**
      * @param array{
-     *   ImageX?: null|int,
-     *   ImageY?: null|int,
+     *   ImageX?: int|null,
+     *   ImageY?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class MotionImageInsertionOffset
 
     /**
      * @param array{
-     *   ImageX?: null|int,
-     *   ImageY?: null|int,
+     *   ImageX?: int|null,
+     *   ImageY?: int|null,
      * }|MotionImageInsertionOffset $input
      */
     public static function create($input): self

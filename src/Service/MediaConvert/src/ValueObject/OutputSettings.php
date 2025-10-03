@@ -16,7 +16,7 @@ final class OutputSettings
 
     /**
      * @param array{
-     *   HlsSettings?: null|HlsSettings|array,
+     *   HlsSettings?: HlsSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class OutputSettings
 
     /**
      * @param array{
-     *   HlsSettings?: null|HlsSettings|array,
+     *   HlsSettings?: HlsSettings|array|null,
      * }|OutputSettings $input
      */
     public static function create($input): self

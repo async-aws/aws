@@ -118,11 +118,11 @@ final class PutSecretValueRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   ClientRequestToken?: null|string,
-     *   SecretBinary?: null|string,
-     *   SecretString?: null|string,
-     *   VersionStages?: null|string[],
-     *   RotationToken?: null|string,
+     *   ClientRequestToken?: string|null,
+     *   SecretBinary?: string|null,
+     *   SecretString?: string|null,
+     *   VersionStages?: string[]|null,
+     *   RotationToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -140,11 +140,11 @@ final class PutSecretValueRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   ClientRequestToken?: null|string,
-     *   SecretBinary?: null|string,
-     *   SecretString?: null|string,
-     *   VersionStages?: null|string[],
-     *   RotationToken?: null|string,
+     *   ClientRequestToken?: string|null,
+     *   SecretBinary?: string|null,
+     *   SecretString?: string|null,
+     *   VersionStages?: string[]|null,
+     *   RotationToken?: string|null,
      *   '@region'?: string|null,
      * }|PutSecretValueRequest $input
      */

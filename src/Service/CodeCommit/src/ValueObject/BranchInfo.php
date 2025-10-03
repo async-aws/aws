@@ -23,8 +23,8 @@ final class BranchInfo
 
     /**
      * @param array{
-     *   branchName?: null|string,
-     *   commitId?: null|string,
+     *   branchName?: string|null,
+     *   commitId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class BranchInfo
 
     /**
      * @param array{
-     *   branchName?: null|string,
-     *   commitId?: null|string,
+     *   branchName?: string|null,
+     *   commitId?: string|null,
      * }|BranchInfo $input
      */
     public static function create($input): self

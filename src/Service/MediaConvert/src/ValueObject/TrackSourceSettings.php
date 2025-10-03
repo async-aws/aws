@@ -21,7 +21,7 @@ final class TrackSourceSettings
 
     /**
      * @param array{
-     *   TrackNumber?: null|int,
+     *   TrackNumber?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class TrackSourceSettings
 
     /**
      * @param array{
-     *   TrackNumber?: null|int,
+     *   TrackNumber?: int|null,
      * }|TrackSourceSettings $input
      */
     public static function create($input): self

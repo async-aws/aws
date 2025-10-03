@@ -21,7 +21,7 @@ final class PlaceGeometry
 
     /**
      * @param array{
-     *   Point?: null|float[],
+     *   Point?: float[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class PlaceGeometry
 
     /**
      * @param array{
-     *   Point?: null|float[],
+     *   Point?: float[]|null,
      * }|PlaceGeometry $input
      */
     public static function create($input): self

@@ -34,7 +34,7 @@ final class QueryResultsS3AccessGrantsConfiguration
     /**
      * @param array{
      *   EnableS3AccessGrants: bool,
-     *   CreateUserLevelPrefix?: null|bool,
+     *   CreateUserLevelPrefix?: bool|null,
      *   AuthenticationType: AuthenticationType::*,
      * } $input
      */
@@ -48,7 +48,7 @@ final class QueryResultsS3AccessGrantsConfiguration
     /**
      * @param array{
      *   EnableS3AccessGrants: bool,
-     *   CreateUserLevelPrefix?: null|bool,
+     *   CreateUserLevelPrefix?: bool|null,
      *   AuthenticationType: AuthenticationType::*,
      * }|QueryResultsS3AccessGrantsConfiguration $input
      */

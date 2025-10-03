@@ -23,7 +23,7 @@ final class SrtDestinationSettings
 
     /**
      * @param array{
-     *   StylePassthrough?: null|SrtStylePassthrough::*,
+     *   StylePassthrough?: SrtStylePassthrough::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class SrtDestinationSettings
 
     /**
      * @param array{
-     *   StylePassthrough?: null|SrtStylePassthrough::*,
+     *   StylePassthrough?: SrtStylePassthrough::*|null,
      * }|SrtDestinationSettings $input
      */
     public static function create($input): self

@@ -107,20 +107,20 @@ final class ColumnMetadata
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   type?: null|int,
-     *   typeName?: null|string,
-     *   label?: null|string,
-     *   schemaName?: null|string,
-     *   tableName?: null|string,
-     *   isAutoIncrement?: null|bool,
-     *   isSigned?: null|bool,
-     *   isCurrency?: null|bool,
-     *   isCaseSensitive?: null|bool,
-     *   nullable?: null|int,
-     *   precision?: null|int,
-     *   scale?: null|int,
-     *   arrayBaseColumnType?: null|int,
+     *   name?: string|null,
+     *   type?: int|null,
+     *   typeName?: string|null,
+     *   label?: string|null,
+     *   schemaName?: string|null,
+     *   tableName?: string|null,
+     *   isAutoIncrement?: bool|null,
+     *   isSigned?: bool|null,
+     *   isCurrency?: bool|null,
+     *   isCaseSensitive?: bool|null,
+     *   nullable?: int|null,
+     *   precision?: int|null,
+     *   scale?: int|null,
+     *   arrayBaseColumnType?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -143,20 +143,20 @@ final class ColumnMetadata
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   type?: null|int,
-     *   typeName?: null|string,
-     *   label?: null|string,
-     *   schemaName?: null|string,
-     *   tableName?: null|string,
-     *   isAutoIncrement?: null|bool,
-     *   isSigned?: null|bool,
-     *   isCurrency?: null|bool,
-     *   isCaseSensitive?: null|bool,
-     *   nullable?: null|int,
-     *   precision?: null|int,
-     *   scale?: null|int,
-     *   arrayBaseColumnType?: null|int,
+     *   name?: string|null,
+     *   type?: int|null,
+     *   typeName?: string|null,
+     *   label?: string|null,
+     *   schemaName?: string|null,
+     *   tableName?: string|null,
+     *   isAutoIncrement?: bool|null,
+     *   isSigned?: bool|null,
+     *   isCurrency?: bool|null,
+     *   isCaseSensitive?: bool|null,
+     *   nullable?: int|null,
+     *   precision?: int|null,
+     *   scale?: int|null,
+     *   arrayBaseColumnType?: int|null,
      * }|ColumnMetadata $input
      */
     public static function create($input): self

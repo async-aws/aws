@@ -44,9 +44,9 @@ final class S3LogsConfig
     /**
      * @param array{
      *   status: LogsConfigStatusType::*,
-     *   location?: null|string,
-     *   encryptionDisabled?: null|bool,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   location?: string|null,
+     *   encryptionDisabled?: bool|null,
+     *   bucketOwnerAccess?: BucketOwnerAccess::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,9 +60,9 @@ final class S3LogsConfig
     /**
      * @param array{
      *   status: LogsConfigStatusType::*,
-     *   location?: null|string,
-     *   encryptionDisabled?: null|bool,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   location?: string|null,
+     *   encryptionDisabled?: bool|null,
+     *   bucketOwnerAccess?: BucketOwnerAccess::*|null,
      * }|S3LogsConfig $input
      */
     public static function create($input): self

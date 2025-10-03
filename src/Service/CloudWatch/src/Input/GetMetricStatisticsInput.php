@@ -134,13 +134,13 @@ final class GetMetricStatisticsInput extends Input
      * @param array{
      *   Namespace?: string,
      *   MetricName?: string,
-     *   Dimensions?: null|array<Dimension|array>,
+     *   Dimensions?: array<Dimension|array>|null,
      *   StartTime?: \DateTimeImmutable|string,
      *   EndTime?: \DateTimeImmutable|string,
      *   Period?: int,
-     *   Statistics?: null|array<Statistic::*>,
-     *   ExtendedStatistics?: null|string[],
-     *   Unit?: null|StandardUnit::*,
+     *   Statistics?: array<Statistic::*>|null,
+     *   ExtendedStatistics?: string[]|null,
+     *   Unit?: StandardUnit::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -162,13 +162,13 @@ final class GetMetricStatisticsInput extends Input
      * @param array{
      *   Namespace?: string,
      *   MetricName?: string,
-     *   Dimensions?: null|array<Dimension|array>,
+     *   Dimensions?: array<Dimension|array>|null,
      *   StartTime?: \DateTimeImmutable|string,
      *   EndTime?: \DateTimeImmutable|string,
      *   Period?: int,
-     *   Statistics?: null|array<Statistic::*>,
-     *   ExtendedStatistics?: null|string[],
-     *   Unit?: null|StandardUnit::*,
+     *   Statistics?: array<Statistic::*>|null,
+     *   ExtendedStatistics?: string[]|null,
+     *   Unit?: StandardUnit::*|null,
      *   '@region'?: string|null,
      * }|GetMetricStatisticsInput $input
      */

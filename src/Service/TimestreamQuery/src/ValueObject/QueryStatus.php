@@ -33,9 +33,9 @@ final class QueryStatus
 
     /**
      * @param array{
-     *   ProgressPercentage?: null|float,
-     *   CumulativeBytesScanned?: null|int,
-     *   CumulativeBytesMetered?: null|int,
+     *   ProgressPercentage?: float|null,
+     *   CumulativeBytesScanned?: int|null,
+     *   CumulativeBytesMetered?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,9 +47,9 @@ final class QueryStatus
 
     /**
      * @param array{
-     *   ProgressPercentage?: null|float,
-     *   CumulativeBytesScanned?: null|int,
-     *   CumulativeBytesMetered?: null|int,
+     *   ProgressPercentage?: float|null,
+     *   CumulativeBytesScanned?: int|null,
+     *   CumulativeBytesMetered?: int|null,
      * }|QueryStatus $input
      */
     public static function create($input): self

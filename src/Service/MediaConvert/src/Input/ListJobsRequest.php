@@ -54,11 +54,11 @@ final class ListJobsRequest extends Input
 
     /**
      * @param array{
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
-     *   Order?: null|Order::*,
-     *   Queue?: null|string,
-     *   Status?: null|JobStatus::*,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
+     *   Order?: Order::*|null,
+     *   Queue?: string|null,
+     *   Status?: JobStatus::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -74,11 +74,11 @@ final class ListJobsRequest extends Input
 
     /**
      * @param array{
-     *   MaxResults?: null|int,
-     *   NextToken?: null|string,
-     *   Order?: null|Order::*,
-     *   Queue?: null|string,
-     *   Status?: null|JobStatus::*,
+     *   MaxResults?: int|null,
+     *   NextToken?: string|null,
+     *   Order?: Order::*|null,
+     *   Queue?: string|null,
+     *   Status?: JobStatus::*|null,
      *   '@region'?: string|null,
      * }|ListJobsRequest $input
      */

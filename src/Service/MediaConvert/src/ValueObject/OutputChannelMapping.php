@@ -24,8 +24,8 @@ final class OutputChannelMapping
 
     /**
      * @param array{
-     *   InputChannels?: null|int[],
-     *   InputChannelsFineTune?: null|float[],
+     *   InputChannels?: int[]|null,
+     *   InputChannelsFineTune?: float[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class OutputChannelMapping
 
     /**
      * @param array{
-     *   InputChannels?: null|int[],
-     *   InputChannelsFineTune?: null|float[],
+     *   InputChannels?: int[]|null,
+     *   InputChannelsFineTune?: float[]|null,
      * }|OutputChannelMapping $input
      */
     public static function create($input): self

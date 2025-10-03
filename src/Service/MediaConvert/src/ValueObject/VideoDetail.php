@@ -23,8 +23,8 @@ final class VideoDetail
 
     /**
      * @param array{
-     *   HeightInPx?: null|int,
-     *   WidthInPx?: null|int,
+     *   HeightInPx?: int|null,
+     *   WidthInPx?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class VideoDetail
 
     /**
      * @param array{
-     *   HeightInPx?: null|int,
-     *   WidthInPx?: null|int,
+     *   HeightInPx?: int|null,
+     *   WidthInPx?: int|null,
      * }|VideoDetail $input
      */
     public static function create($input): self

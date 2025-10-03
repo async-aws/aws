@@ -17,7 +17,7 @@ final class NetworkConfiguration
 
     /**
      * @param array{
-     *   awsvpcConfiguration?: null|AwsVpcConfiguration|array,
+     *   awsvpcConfiguration?: AwsVpcConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class NetworkConfiguration
 
     /**
      * @param array{
-     *   awsvpcConfiguration?: null|AwsVpcConfiguration|array,
+     *   awsvpcConfiguration?: AwsVpcConfiguration|array|null,
      * }|NetworkConfiguration $input
      */
     public static function create($input): self

@@ -16,7 +16,7 @@ final class Row
 
     /**
      * @param array{
-     *   Data?: null|array<Datum|array>,
+     *   Data?: array<Datum|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class Row
 
     /**
      * @param array{
-     *   Data?: null|array<Datum|array>,
+     *   Data?: array<Datum|array>|null,
      * }|Row $input
      */
     public static function create($input): self

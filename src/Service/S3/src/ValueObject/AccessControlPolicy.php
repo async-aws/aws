@@ -23,8 +23,8 @@ final class AccessControlPolicy
 
     /**
      * @param array{
-     *   Grants?: null|array<Grant|array>,
-     *   Owner?: null|Owner|array,
+     *   Grants?: array<Grant|array>|null,
+     *   Owner?: Owner|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class AccessControlPolicy
 
     /**
      * @param array{
-     *   Grants?: null|array<Grant|array>,
-     *   Owner?: null|Owner|array,
+     *   Grants?: array<Grant|array>|null,
+     *   Owner?: Owner|array|null,
      * }|AccessControlPolicy $input
      */
     public static function create($input): self

@@ -37,10 +37,10 @@ final class CalculationResult
 
     /**
      * @param array{
-     *   StdOutS3Uri?: null|string,
-     *   StdErrorS3Uri?: null|string,
-     *   ResultS3Uri?: null|string,
-     *   ResultType?: null|string,
+     *   StdOutS3Uri?: string|null,
+     *   StdErrorS3Uri?: string|null,
+     *   ResultS3Uri?: string|null,
+     *   ResultType?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,10 +53,10 @@ final class CalculationResult
 
     /**
      * @param array{
-     *   StdOutS3Uri?: null|string,
-     *   StdErrorS3Uri?: null|string,
-     *   ResultS3Uri?: null|string,
-     *   ResultType?: null|string,
+     *   StdOutS3Uri?: string|null,
+     *   StdErrorS3Uri?: string|null,
+     *   ResultS3Uri?: string|null,
+     *   ResultType?: string|null,
      * }|CalculationResult $input
      */
     public static function create($input): self

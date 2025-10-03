@@ -51,9 +51,9 @@ final class CreateThingRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   thingTypeName?: null|string,
-     *   attributePayload?: null|AttributePayload|array,
-     *   billingGroupName?: null|string,
+     *   thingTypeName?: string|null,
+     *   attributePayload?: AttributePayload|array|null,
+     *   billingGroupName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -69,9 +69,9 @@ final class CreateThingRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   thingTypeName?: null|string,
-     *   attributePayload?: null|AttributePayload|array,
-     *   billingGroupName?: null|string,
+     *   thingTypeName?: string|null,
+     *   attributePayload?: AttributePayload|array|null,
+     *   billingGroupName?: string|null,
      *   '@region'?: string|null,
      * }|CreateThingRequest $input
      */

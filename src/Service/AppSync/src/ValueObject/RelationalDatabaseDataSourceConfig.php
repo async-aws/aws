@@ -29,8 +29,8 @@ final class RelationalDatabaseDataSourceConfig
 
     /**
      * @param array{
-     *   relationalDatabaseSourceType?: null|RelationalDatabaseSourceType::*,
-     *   rdsHttpEndpointConfig?: null|RdsHttpEndpointConfig|array,
+     *   relationalDatabaseSourceType?: RelationalDatabaseSourceType::*|null,
+     *   rdsHttpEndpointConfig?: RdsHttpEndpointConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class RelationalDatabaseDataSourceConfig
 
     /**
      * @param array{
-     *   relationalDatabaseSourceType?: null|RelationalDatabaseSourceType::*,
-     *   rdsHttpEndpointConfig?: null|RdsHttpEndpointConfig|array,
+     *   relationalDatabaseSourceType?: RelationalDatabaseSourceType::*|null,
+     *   rdsHttpEndpointConfig?: RdsHttpEndpointConfig|array|null,
      * }|RelationalDatabaseDataSourceConfig $input
      */
     public static function create($input): self

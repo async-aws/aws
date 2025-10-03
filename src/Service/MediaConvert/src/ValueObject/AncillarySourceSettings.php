@@ -37,9 +37,9 @@ final class AncillarySourceSettings
 
     /**
      * @param array{
-     *   Convert608To708?: null|AncillaryConvert608To708::*,
-     *   SourceAncillaryChannelNumber?: null|int,
-     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*,
+     *   Convert608To708?: AncillaryConvert608To708::*|null,
+     *   SourceAncillaryChannelNumber?: int|null,
+     *   TerminateCaptions?: AncillaryTerminateCaptions::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -51,9 +51,9 @@ final class AncillarySourceSettings
 
     /**
      * @param array{
-     *   Convert608To708?: null|AncillaryConvert608To708::*,
-     *   SourceAncillaryChannelNumber?: null|int,
-     *   TerminateCaptions?: null|AncillaryTerminateCaptions::*,
+     *   Convert608To708?: AncillaryConvert608To708::*|null,
+     *   SourceAncillaryChannelNumber?: int|null,
+     *   TerminateCaptions?: AncillaryTerminateCaptions::*|null,
      * }|AncillarySourceSettings $input
      */
     public static function create($input): self

@@ -20,7 +20,7 @@ final class HumanLoopDataAttributes
 
     /**
      * @param array{
-     *   ContentClassifiers?: null|array<ContentClassifier::*>,
+     *   ContentClassifiers?: array<ContentClassifier::*>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class HumanLoopDataAttributes
 
     /**
      * @param array{
-     *   ContentClassifiers?: null|array<ContentClassifier::*>,
+     *   ContentClassifiers?: array<ContentClassifier::*>|null,
      * }|HumanLoopDataAttributes $input
      */
     public static function create($input): self

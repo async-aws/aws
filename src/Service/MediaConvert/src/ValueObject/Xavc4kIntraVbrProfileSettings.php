@@ -20,7 +20,7 @@ final class Xavc4kIntraVbrProfileSettings
 
     /**
      * @param array{
-     *   XavcClass?: null|Xavc4kIntraVbrProfileClass::*,
+     *   XavcClass?: Xavc4kIntraVbrProfileClass::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class Xavc4kIntraVbrProfileSettings
 
     /**
      * @param array{
-     *   XavcClass?: null|Xavc4kIntraVbrProfileClass::*,
+     *   XavcClass?: Xavc4kIntraVbrProfileClass::*|null,
      * }|Xavc4kIntraVbrProfileSettings $input
      */
     public static function create($input): self

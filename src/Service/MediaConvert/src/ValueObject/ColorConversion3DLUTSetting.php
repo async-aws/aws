@@ -52,11 +52,11 @@ final class ColorConversion3DLUTSetting
 
     /**
      * @param array{
-     *   FileInput?: null|string,
-     *   InputColorSpace?: null|ColorSpace::*,
-     *   InputMasteringLuminance?: null|int,
-     *   OutputColorSpace?: null|ColorSpace::*,
-     *   OutputMasteringLuminance?: null|int,
+     *   FileInput?: string|null,
+     *   InputColorSpace?: ColorSpace::*|null,
+     *   InputMasteringLuminance?: int|null,
+     *   OutputColorSpace?: ColorSpace::*|null,
+     *   OutputMasteringLuminance?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -70,11 +70,11 @@ final class ColorConversion3DLUTSetting
 
     /**
      * @param array{
-     *   FileInput?: null|string,
-     *   InputColorSpace?: null|ColorSpace::*,
-     *   InputMasteringLuminance?: null|int,
-     *   OutputColorSpace?: null|ColorSpace::*,
-     *   OutputMasteringLuminance?: null|int,
+     *   FileInput?: string|null,
+     *   InputColorSpace?: ColorSpace::*|null,
+     *   InputMasteringLuminance?: int|null,
+     *   OutputColorSpace?: ColorSpace::*|null,
+     *   OutputMasteringLuminance?: int|null,
      * }|ColorConversion3DLUTSetting $input
      */
     public static function create($input): self

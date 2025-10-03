@@ -60,8 +60,8 @@ final class RepositoryTrigger
      * @param array{
      *   name: string,
      *   destinationArn: string,
-     *   customData?: null|string,
-     *   branches?: null|string[],
+     *   customData?: string|null,
+     *   branches?: string[]|null,
      *   events: array<RepositoryTriggerEventEnum::*>,
      * } $input
      */
@@ -78,8 +78,8 @@ final class RepositoryTrigger
      * @param array{
      *   name: string,
      *   destinationArn: string,
-     *   customData?: null|string,
-     *   branches?: null|string[],
+     *   customData?: string|null,
+     *   branches?: string[]|null,
      *   events: array<RepositoryTriggerEventEnum::*>,
      * }|RepositoryTrigger $input
      */

@@ -32,9 +32,9 @@ final class Difference
 
     /**
      * @param array{
-     *   beforeBlob?: null|BlobMetadata|array,
-     *   afterBlob?: null|BlobMetadata|array,
-     *   changeType?: null|ChangeTypeEnum::*,
+     *   beforeBlob?: BlobMetadata|array|null,
+     *   afterBlob?: BlobMetadata|array|null,
+     *   changeType?: ChangeTypeEnum::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class Difference
 
     /**
      * @param array{
-     *   beforeBlob?: null|BlobMetadata|array,
-     *   afterBlob?: null|BlobMetadata|array,
-     *   changeType?: null|ChangeTypeEnum::*,
+     *   beforeBlob?: BlobMetadata|array|null,
+     *   afterBlob?: BlobMetadata|array|null,
+     *   changeType?: ChangeTypeEnum::*|null,
      * }|Difference $input
      */
     public static function create($input): self

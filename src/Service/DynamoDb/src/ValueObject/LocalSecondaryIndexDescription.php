@@ -65,12 +65,12 @@ final class LocalSecondaryIndexDescription
 
     /**
      * @param array{
-     *   IndexName?: null|string,
-     *   KeySchema?: null|array<KeySchemaElement|array>,
-     *   Projection?: null|Projection|array,
-     *   IndexSizeBytes?: null|int,
-     *   ItemCount?: null|int,
-     *   IndexArn?: null|string,
+     *   IndexName?: string|null,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
+     *   Projection?: Projection|array|null,
+     *   IndexSizeBytes?: int|null,
+     *   ItemCount?: int|null,
+     *   IndexArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -85,12 +85,12 @@ final class LocalSecondaryIndexDescription
 
     /**
      * @param array{
-     *   IndexName?: null|string,
-     *   KeySchema?: null|array<KeySchemaElement|array>,
-     *   Projection?: null|Projection|array,
-     *   IndexSizeBytes?: null|int,
-     *   ItemCount?: null|int,
-     *   IndexArn?: null|string,
+     *   IndexName?: string|null,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
+     *   Projection?: Projection|array|null,
+     *   IndexSizeBytes?: int|null,
+     *   ItemCount?: int|null,
+     *   IndexArn?: string|null,
      * }|LocalSecondaryIndexDescription $input
      */
     public static function create($input): self

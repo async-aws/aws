@@ -31,9 +31,9 @@ final class QueueTransition
 
     /**
      * @param array{
-     *   DestinationQueue?: null|string,
-     *   SourceQueue?: null|string,
-     *   Timestamp?: null|\DateTimeImmutable,
+     *   DestinationQueue?: string|null,
+     *   SourceQueue?: string|null,
+     *   Timestamp?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class QueueTransition
 
     /**
      * @param array{
-     *   DestinationQueue?: null|string,
-     *   SourceQueue?: null|string,
-     *   Timestamp?: null|\DateTimeImmutable,
+     *   DestinationQueue?: string|null,
+     *   SourceQueue?: string|null,
+     *   Timestamp?: \DateTimeImmutable|null,
      * }|QueueTransition $input
      */
     public static function create($input): self

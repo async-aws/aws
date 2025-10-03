@@ -69,12 +69,12 @@ final class PutRecordInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   Data?: string,
      *   PartitionKey?: string,
-     *   ExplicitHashKey?: null|string,
-     *   SequenceNumberForOrdering?: null|string,
-     *   StreamARN?: null|string,
+     *   ExplicitHashKey?: string|null,
+     *   SequenceNumberForOrdering?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -91,12 +91,12 @@ final class PutRecordInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   Data?: string,
      *   PartitionKey?: string,
-     *   ExplicitHashKey?: null|string,
-     *   SequenceNumberForOrdering?: null|string,
-     *   StreamARN?: null|string,
+     *   ExplicitHashKey?: string|null,
+     *   SequenceNumberForOrdering?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      */

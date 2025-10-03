@@ -64,9 +64,9 @@ final class GetObjectAclRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   ExpectedBucketOwner?: null|string,
+     *   VersionId?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -84,9 +84,9 @@ final class GetObjectAclRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   ExpectedBucketOwner?: null|string,
+     *   VersionId?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|GetObjectAclRequest $input
      */

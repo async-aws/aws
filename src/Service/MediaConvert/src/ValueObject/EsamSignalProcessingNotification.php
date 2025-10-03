@@ -20,7 +20,7 @@ final class EsamSignalProcessingNotification
 
     /**
      * @param array{
-     *   SccXml?: null|string,
+     *   SccXml?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class EsamSignalProcessingNotification
 
     /**
      * @param array{
-     *   SccXml?: null|string,
+     *   SccXml?: string|null,
      * }|EsamSignalProcessingNotification $input
      */
     public static function create($input): self

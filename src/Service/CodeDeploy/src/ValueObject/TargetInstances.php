@@ -32,9 +32,9 @@ final class TargetInstances
 
     /**
      * @param array{
-     *   tagFilters?: null|array<EC2TagFilter|array>,
-     *   autoScalingGroups?: null|string[],
-     *   ec2TagSet?: null|EC2TagSet|array,
+     *   tagFilters?: array<EC2TagFilter|array>|null,
+     *   autoScalingGroups?: string[]|null,
+     *   ec2TagSet?: EC2TagSet|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class TargetInstances
 
     /**
      * @param array{
-     *   tagFilters?: null|array<EC2TagFilter|array>,
-     *   autoScalingGroups?: null|string[],
-     *   ec2TagSet?: null|EC2TagSet|array,
+     *   tagFilters?: array<EC2TagFilter|array>|null,
+     *   autoScalingGroups?: string[]|null,
+     *   ec2TagSet?: EC2TagSet|array|null,
      * }|TargetInstances $input
      */
     public static function create($input): self

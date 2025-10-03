@@ -72,13 +72,13 @@ final class LayerVersionsListItem
 
     /**
      * @param array{
-     *   LayerVersionArn?: null|string,
-     *   Version?: null|int,
-     *   Description?: null|string,
-     *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|array<Runtime::*>,
-     *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|array<Architecture::*>,
+     *   LayerVersionArn?: string|null,
+     *   Version?: int|null,
+     *   Description?: string|null,
+     *   CreatedDate?: string|null,
+     *   CompatibleRuntimes?: array<Runtime::*>|null,
+     *   LicenseInfo?: string|null,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -94,13 +94,13 @@ final class LayerVersionsListItem
 
     /**
      * @param array{
-     *   LayerVersionArn?: null|string,
-     *   Version?: null|int,
-     *   Description?: null|string,
-     *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|array<Runtime::*>,
-     *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|array<Architecture::*>,
+     *   LayerVersionArn?: string|null,
+     *   Version?: int|null,
+     *   Description?: string|null,
+     *   CreatedDate?: string|null,
+     *   CompatibleRuntimes?: array<Runtime::*>|null,
+     *   LicenseInfo?: string|null,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      * }|LayerVersionsListItem $input
      */
     public static function create($input): self

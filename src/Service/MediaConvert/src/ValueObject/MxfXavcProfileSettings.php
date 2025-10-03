@@ -33,8 +33,8 @@ final class MxfXavcProfileSettings
 
     /**
      * @param array{
-     *   DurationMode?: null|MxfXavcDurationMode::*,
-     *   MaxAncDataSize?: null|int,
+     *   DurationMode?: MxfXavcDurationMode::*|null,
+     *   MaxAncDataSize?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class MxfXavcProfileSettings
 
     /**
      * @param array{
-     *   DurationMode?: null|MxfXavcDurationMode::*,
-     *   MaxAncDataSize?: null|int,
+     *   DurationMode?: MxfXavcDurationMode::*|null,
+     *   MaxAncDataSize?: int|null,
      * }|MxfXavcProfileSettings $input
      */
     public static function create($input): self

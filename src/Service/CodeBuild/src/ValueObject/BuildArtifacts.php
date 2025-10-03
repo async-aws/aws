@@ -68,13 +68,13 @@ final class BuildArtifacts
 
     /**
      * @param array{
-     *   location?: null|string,
-     *   sha256sum?: null|string,
-     *   md5sum?: null|string,
-     *   overrideArtifactName?: null|bool,
-     *   encryptionDisabled?: null|bool,
-     *   artifactIdentifier?: null|string,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   location?: string|null,
+     *   sha256sum?: string|null,
+     *   md5sum?: string|null,
+     *   overrideArtifactName?: bool|null,
+     *   encryptionDisabled?: bool|null,
+     *   artifactIdentifier?: string|null,
+     *   bucketOwnerAccess?: BucketOwnerAccess::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -90,13 +90,13 @@ final class BuildArtifacts
 
     /**
      * @param array{
-     *   location?: null|string,
-     *   sha256sum?: null|string,
-     *   md5sum?: null|string,
-     *   overrideArtifactName?: null|bool,
-     *   encryptionDisabled?: null|bool,
-     *   artifactIdentifier?: null|string,
-     *   bucketOwnerAccess?: null|BucketOwnerAccess::*,
+     *   location?: string|null,
+     *   sha256sum?: string|null,
+     *   md5sum?: string|null,
+     *   overrideArtifactName?: bool|null,
+     *   encryptionDisabled?: bool|null,
+     *   artifactIdentifier?: string|null,
+     *   bucketOwnerAccess?: BucketOwnerAccess::*|null,
      * }|BuildArtifacts $input
      */
     public static function create($input): self

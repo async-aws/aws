@@ -23,8 +23,8 @@ final class ContentType
 
     /**
      * @param array{
-     *   Confidence?: null|float,
-     *   Name?: null|string,
+     *   Confidence?: float|null,
+     *   Name?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class ContentType
 
     /**
      * @param array{
-     *   Confidence?: null|float,
-     *   Name?: null|string,
+     *   Confidence?: float|null,
+     *   Name?: string|null,
      * }|ContentType $input
      */
     public static function create($input): self

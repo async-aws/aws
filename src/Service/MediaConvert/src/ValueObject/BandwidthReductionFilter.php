@@ -37,8 +37,8 @@ final class BandwidthReductionFilter
 
     /**
      * @param array{
-     *   Sharpening?: null|BandwidthReductionFilterSharpening::*,
-     *   Strength?: null|BandwidthReductionFilterStrength::*,
+     *   Sharpening?: BandwidthReductionFilterSharpening::*|null,
+     *   Strength?: BandwidthReductionFilterStrength::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -49,8 +49,8 @@ final class BandwidthReductionFilter
 
     /**
      * @param array{
-     *   Sharpening?: null|BandwidthReductionFilterSharpening::*,
-     *   Strength?: null|BandwidthReductionFilterStrength::*,
+     *   Sharpening?: BandwidthReductionFilterSharpening::*|null,
+     *   Strength?: BandwidthReductionFilterStrength::*|null,
      * }|BandwidthReductionFilter $input
      */
     public static function create($input): self

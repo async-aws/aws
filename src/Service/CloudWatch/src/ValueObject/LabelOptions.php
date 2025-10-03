@@ -24,7 +24,7 @@ final class LabelOptions
 
     /**
      * @param array{
-     *   Timezone?: null|string,
+     *   Timezone?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -34,7 +34,7 @@ final class LabelOptions
 
     /**
      * @param array{
-     *   Timezone?: null|string,
+     *   Timezone?: string|null,
      * }|LabelOptions $input
      */
     public static function create($input): self

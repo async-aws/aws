@@ -40,8 +40,8 @@ final class Projection
 
     /**
      * @param array{
-     *   ProjectionType?: null|ProjectionType::*,
-     *   NonKeyAttributes?: null|string[],
+     *   ProjectionType?: ProjectionType::*|null,
+     *   NonKeyAttributes?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,8 +52,8 @@ final class Projection
 
     /**
      * @param array{
-     *   ProjectionType?: null|ProjectionType::*,
-     *   NonKeyAttributes?: null|string[],
+     *   ProjectionType?: ProjectionType::*|null,
+     *   NonKeyAttributes?: string[]|null,
      * }|Projection $input
      */
     public static function create($input): self

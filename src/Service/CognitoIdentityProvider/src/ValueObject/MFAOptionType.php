@@ -26,8 +26,8 @@ final class MFAOptionType
 
     /**
      * @param array{
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
-     *   AttributeName?: null|string,
+     *   DeliveryMedium?: DeliveryMediumType::*|null,
+     *   AttributeName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class MFAOptionType
 
     /**
      * @param array{
-     *   DeliveryMedium?: null|DeliveryMediumType::*,
-     *   AttributeName?: null|string,
+     *   DeliveryMedium?: DeliveryMediumType::*|null,
+     *   AttributeName?: string|null,
      * }|MFAOptionType $input
      */
     public static function create($input): self

@@ -30,9 +30,9 @@ final class VpcConfig
 
     /**
      * @param array{
-     *   vpcId?: null|string,
-     *   subnets?: null|string[],
-     *   securityGroupIds?: null|string[],
+     *   vpcId?: string|null,
+     *   subnets?: string[]|null,
+     *   securityGroupIds?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class VpcConfig
 
     /**
      * @param array{
-     *   vpcId?: null|string,
-     *   subnets?: null|string[],
-     *   securityGroupIds?: null|string[],
+     *   vpcId?: string|null,
+     *   subnets?: string[]|null,
+     *   securityGroupIds?: string[]|null,
      * }|VpcConfig $input
      */
     public static function create($input): self

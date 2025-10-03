@@ -16,7 +16,7 @@ final class ResultReuseConfiguration
 
     /**
      * @param array{
-     *   ResultReuseByAgeConfiguration?: null|ResultReuseByAgeConfiguration|array,
+     *   ResultReuseByAgeConfiguration?: ResultReuseByAgeConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class ResultReuseConfiguration
 
     /**
      * @param array{
-     *   ResultReuseByAgeConfiguration?: null|ResultReuseByAgeConfiguration|array,
+     *   ResultReuseByAgeConfiguration?: ResultReuseByAgeConfiguration|array|null,
      * }|ResultReuseConfiguration $input
      */
     public static function create($input): self

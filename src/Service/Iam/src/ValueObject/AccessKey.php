@@ -61,7 +61,7 @@ final class AccessKey
      *   AccessKeyId: string,
      *   Status: StatusType::*,
      *   SecretAccessKey: string,
-     *   CreateDate?: null|\DateTimeImmutable,
+     *   CreateDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,7 +79,7 @@ final class AccessKey
      *   AccessKeyId: string,
      *   Status: StatusType::*,
      *   SecretAccessKey: string,
-     *   CreateDate?: null|\DateTimeImmutable,
+     *   CreateDate?: \DateTimeImmutable|null,
      * }|AccessKey $input
      */
     public static function create($input): self

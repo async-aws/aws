@@ -104,15 +104,15 @@ final class XavcHdProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|XavcHdProfileBitrateClass::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
-     *   GopClosedCadence?: null|int,
-     *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|XavcInterlaceMode::*,
-     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*,
-     *   Slices?: null|int,
-     *   Telecine?: null|XavcHdProfileTelecine::*,
+     *   BitrateClass?: XavcHdProfileBitrateClass::*|null,
+     *   FlickerAdaptiveQuantization?: XavcFlickerAdaptiveQuantization::*|null,
+     *   GopBReference?: XavcGopBReference::*|null,
+     *   GopClosedCadence?: int|null,
+     *   HrdBufferSize?: int|null,
+     *   InterlaceMode?: XavcInterlaceMode::*|null,
+     *   QualityTuningLevel?: XavcHdProfileQualityTuningLevel::*|null,
+     *   Slices?: int|null,
+     *   Telecine?: XavcHdProfileTelecine::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -130,15 +130,15 @@ final class XavcHdProfileSettings
 
     /**
      * @param array{
-     *   BitrateClass?: null|XavcHdProfileBitrateClass::*,
-     *   FlickerAdaptiveQuantization?: null|XavcFlickerAdaptiveQuantization::*,
-     *   GopBReference?: null|XavcGopBReference::*,
-     *   GopClosedCadence?: null|int,
-     *   HrdBufferSize?: null|int,
-     *   InterlaceMode?: null|XavcInterlaceMode::*,
-     *   QualityTuningLevel?: null|XavcHdProfileQualityTuningLevel::*,
-     *   Slices?: null|int,
-     *   Telecine?: null|XavcHdProfileTelecine::*,
+     *   BitrateClass?: XavcHdProfileBitrateClass::*|null,
+     *   FlickerAdaptiveQuantization?: XavcFlickerAdaptiveQuantization::*|null,
+     *   GopBReference?: XavcGopBReference::*|null,
+     *   GopClosedCadence?: int|null,
+     *   HrdBufferSize?: int|null,
+     *   InterlaceMode?: XavcInterlaceMode::*|null,
+     *   QualityTuningLevel?: XavcHdProfileQualityTuningLevel::*|null,
+     *   Slices?: int|null,
+     *   Telecine?: XavcHdProfileTelecine::*|null,
      * }|XavcHdProfileSettings $input
      */
     public static function create($input): self

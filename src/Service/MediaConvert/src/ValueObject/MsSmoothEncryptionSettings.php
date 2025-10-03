@@ -17,7 +17,7 @@ final class MsSmoothEncryptionSettings
 
     /**
      * @param array{
-     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     *   SpekeKeyProvider?: SpekeKeyProvider|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class MsSmoothEncryptionSettings
 
     /**
      * @param array{
-     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     *   SpekeKeyProvider?: SpekeKeyProvider|array|null,
      * }|MsSmoothEncryptionSettings $input
      */
     public static function create($input): self

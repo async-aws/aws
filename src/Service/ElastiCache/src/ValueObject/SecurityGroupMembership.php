@@ -24,8 +24,8 @@ final class SecurityGroupMembership
 
     /**
      * @param array{
-     *   SecurityGroupId?: null|string,
-     *   Status?: null|string,
+     *   SecurityGroupId?: string|null,
+     *   Status?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class SecurityGroupMembership
 
     /**
      * @param array{
-     *   SecurityGroupId?: null|string,
-     *   Status?: null|string,
+     *   SecurityGroupId?: string|null,
+     *   Status?: string|null,
      * }|SecurityGroupMembership $input
      */
     public static function create($input): self

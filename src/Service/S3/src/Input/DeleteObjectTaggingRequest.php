@@ -63,8 +63,8 @@ final class DeleteObjectTaggingRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   ExpectedBucketOwner?: null|string,
+     *   VersionId?: string|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -81,8 +81,8 @@ final class DeleteObjectTaggingRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   VersionId?: null|string,
-     *   ExpectedBucketOwner?: null|string,
+     *   VersionId?: string|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|DeleteObjectTaggingRequest $input
      */

@@ -31,8 +31,8 @@ final class FaceOccluded
 
     /**
      * @param array{
-     *   Value?: null|bool,
-     *   Confidence?: null|float,
+     *   Value?: bool|null,
+     *   Confidence?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class FaceOccluded
 
     /**
      * @param array{
-     *   Value?: null|bool,
-     *   Confidence?: null|float,
+     *   Value?: bool|null,
+     *   Confidence?: float|null,
      * }|FaceOccluded $input
      */
     public static function create($input): self

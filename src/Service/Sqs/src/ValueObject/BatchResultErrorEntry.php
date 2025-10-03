@@ -42,7 +42,7 @@ final class BatchResultErrorEntry
      *   Id: string,
      *   SenderFault: bool,
      *   Code: string,
-     *   Message?: null|string,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -58,7 +58,7 @@ final class BatchResultErrorEntry
      *   Id: string,
      *   SenderFault: bool,
      *   Code: string,
-     *   Message?: null|string,
+     *   Message?: string|null,
      * }|BatchResultErrorEntry $input
      */
     public static function create($input): self

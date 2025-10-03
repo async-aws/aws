@@ -44,10 +44,10 @@ final class Type
 
     /**
      * @param array{
-     *   ScalarType?: null|ScalarType::*,
-     *   ArrayColumnInfo?: null|ColumnInfo|array,
-     *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
-     *   RowColumnInfo?: null|array<ColumnInfo|array>,
+     *   ScalarType?: ScalarType::*|null,
+     *   ArrayColumnInfo?: ColumnInfo|array|null,
+     *   TimeSeriesMeasureValueColumnInfo?: ColumnInfo|array|null,
+     *   RowColumnInfo?: array<ColumnInfo|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,10 +60,10 @@ final class Type
 
     /**
      * @param array{
-     *   ScalarType?: null|ScalarType::*,
-     *   ArrayColumnInfo?: null|ColumnInfo|array,
-     *   TimeSeriesMeasureValueColumnInfo?: null|ColumnInfo|array,
-     *   RowColumnInfo?: null|array<ColumnInfo|array>,
+     *   ScalarType?: ScalarType::*|null,
+     *   ArrayColumnInfo?: ColumnInfo|array|null,
+     *   TimeSeriesMeasureValueColumnInfo?: ColumnInfo|array|null,
+     *   RowColumnInfo?: array<ColumnInfo|array>|null,
      * }|Type $input
      */
     public static function create($input): self

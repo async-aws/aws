@@ -65,10 +65,10 @@ final class ResultConfiguration
 
     /**
      * @param array{
-     *   OutputLocation?: null|string,
-     *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
-     *   ExpectedBucketOwner?: null|string,
-     *   AclConfiguration?: null|AclConfiguration|array,
+     *   OutputLocation?: string|null,
+     *   EncryptionConfiguration?: EncryptionConfiguration|array|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   AclConfiguration?: AclConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,10 +81,10 @@ final class ResultConfiguration
 
     /**
      * @param array{
-     *   OutputLocation?: null|string,
-     *   EncryptionConfiguration?: null|EncryptionConfiguration|array,
-     *   ExpectedBucketOwner?: null|string,
-     *   AclConfiguration?: null|AclConfiguration|array,
+     *   OutputLocation?: string|null,
+     *   EncryptionConfiguration?: EncryptionConfiguration|array|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   AclConfiguration?: AclConfiguration|array|null,
      * }|ResultConfiguration $input
      */
     public static function create($input): self

@@ -32,8 +32,8 @@ final class BucketInfo
 
     /**
      * @param array{
-     *   DataRedundancy?: null|DataRedundancy::*,
-     *   Type?: null|BucketType::*,
+     *   DataRedundancy?: DataRedundancy::*|null,
+     *   Type?: BucketType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,8 +44,8 @@ final class BucketInfo
 
     /**
      * @param array{
-     *   DataRedundancy?: null|DataRedundancy::*,
-     *   Type?: null|BucketType::*,
+     *   DataRedundancy?: DataRedundancy::*|null,
+     *   Type?: BucketType::*|null,
      * }|BucketInfo $input
      */
     public static function create($input): self

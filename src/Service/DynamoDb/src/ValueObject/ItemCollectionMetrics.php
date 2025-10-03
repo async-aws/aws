@@ -30,8 +30,8 @@ final class ItemCollectionMetrics
 
     /**
      * @param array{
-     *   ItemCollectionKey?: null|array<string, AttributeValue|array>,
-     *   SizeEstimateRangeGB?: null|float[],
+     *   ItemCollectionKey?: array<string, AttributeValue|array>|null,
+     *   SizeEstimateRangeGB?: float[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,8 +42,8 @@ final class ItemCollectionMetrics
 
     /**
      * @param array{
-     *   ItemCollectionKey?: null|array<string, AttributeValue|array>,
-     *   SizeEstimateRangeGB?: null|float[],
+     *   ItemCollectionKey?: array<string, AttributeValue|array>|null,
+     *   SizeEstimateRangeGB?: float[]|null,
      * }|ItemCollectionMetrics $input
      */
     public static function create($input): self

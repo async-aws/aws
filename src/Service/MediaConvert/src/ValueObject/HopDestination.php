@@ -35,9 +35,9 @@ final class HopDestination
 
     /**
      * @param array{
-     *   Priority?: null|int,
-     *   Queue?: null|string,
-     *   WaitMinutes?: null|int,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
+     *   WaitMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -49,9 +49,9 @@ final class HopDestination
 
     /**
      * @param array{
-     *   Priority?: null|int,
-     *   Queue?: null|string,
-     *   WaitMinutes?: null|int,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
+     *   WaitMinutes?: int|null,
      * }|HopDestination $input
      */
     public static function create($input): self

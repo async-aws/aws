@@ -28,8 +28,8 @@ final class ImageInserter
 
     /**
      * @param array{
-     *   InsertableImages?: null|array<InsertableImage|array>,
-     *   SdrReferenceWhiteLevel?: null|int,
+     *   InsertableImages?: array<InsertableImage|array>|null,
+     *   SdrReferenceWhiteLevel?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -40,8 +40,8 @@ final class ImageInserter
 
     /**
      * @param array{
-     *   InsertableImages?: null|array<InsertableImage|array>,
-     *   SdrReferenceWhiteLevel?: null|int,
+     *   InsertableImages?: array<InsertableImage|array>|null,
+     *   SdrReferenceWhiteLevel?: int|null,
      * }|ImageInserter $input
      */
     public static function create($input): self

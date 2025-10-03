@@ -59,11 +59,11 @@ final class ListLayerVersionsRequest extends Input
 
     /**
      * @param array{
-     *   CompatibleRuntime?: null|Runtime::*,
+     *   CompatibleRuntime?: Runtime::*|null,
      *   LayerName?: string,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
-     *   CompatibleArchitecture?: null|Architecture::*,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
+     *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -79,11 +79,11 @@ final class ListLayerVersionsRequest extends Input
 
     /**
      * @param array{
-     *   CompatibleRuntime?: null|Runtime::*,
+     *   CompatibleRuntime?: Runtime::*|null,
      *   LayerName?: string,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
-     *   CompatibleArchitecture?: null|Architecture::*,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
+     *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      */

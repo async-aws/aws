@@ -37,9 +37,9 @@ final class DecreaseStreamRetentionPeriodInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   RetentionPeriodHours?: int,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -53,9 +53,9 @@ final class DecreaseStreamRetentionPeriodInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   RetentionPeriodHours?: int,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DecreaseStreamRetentionPeriodInput $input
      */

@@ -16,7 +16,7 @@ final class Datum
 
     /**
      * @param array{
-     *   VarCharValue?: null|string,
+     *   VarCharValue?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class Datum
 
     /**
      * @param array{
-     *   VarCharValue?: null|string,
+     *   VarCharValue?: string|null,
      * }|Datum $input
      */
     public static function create($input): self

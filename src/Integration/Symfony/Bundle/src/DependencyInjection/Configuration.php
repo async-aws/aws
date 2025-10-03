@@ -65,7 +65,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param null|array<string, array{type?: string, ...}> $clients
+     * @param array<string, array{type?: string, ...}>|null $clients
      *
      * @return array<string, array{type?: string, ...}>
      */

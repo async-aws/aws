@@ -43,9 +43,9 @@ final class MxfSettings
 
     /**
      * @param array{
-     *   AfdSignaling?: null|MxfAfdSignaling::*,
-     *   Profile?: null|MxfProfile::*,
-     *   XavcProfileSettings?: null|MxfXavcProfileSettings|array,
+     *   AfdSignaling?: MxfAfdSignaling::*|null,
+     *   Profile?: MxfProfile::*|null,
+     *   XavcProfileSettings?: MxfXavcProfileSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,9 +57,9 @@ final class MxfSettings
 
     /**
      * @param array{
-     *   AfdSignaling?: null|MxfAfdSignaling::*,
-     *   Profile?: null|MxfProfile::*,
-     *   XavcProfileSettings?: null|MxfXavcProfileSettings|array,
+     *   AfdSignaling?: MxfAfdSignaling::*|null,
+     *   Profile?: MxfProfile::*|null,
+     *   XavcProfileSettings?: MxfXavcProfileSettings|array|null,
      * }|MxfSettings $input
      */
     public static function create($input): self

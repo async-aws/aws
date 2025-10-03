@@ -34,9 +34,9 @@ final class TableWarmThroughputDescription
 
     /**
      * @param array{
-     *   ReadUnitsPerSecond?: null|int,
-     *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|TableStatus::*,
+     *   ReadUnitsPerSecond?: int|null,
+     *   WriteUnitsPerSecond?: int|null,
+     *   Status?: TableStatus::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class TableWarmThroughputDescription
 
     /**
      * @param array{
-     *   ReadUnitsPerSecond?: null|int,
-     *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|TableStatus::*,
+     *   ReadUnitsPerSecond?: int|null,
+     *   WriteUnitsPerSecond?: int|null,
+     *   Status?: TableStatus::*|null,
      * }|TableWarmThroughputDescription $input
      */
     public static function create($input): self

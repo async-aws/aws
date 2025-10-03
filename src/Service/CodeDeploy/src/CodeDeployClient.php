@@ -63,16 +63,16 @@ class CodeDeployClient extends AbstractApi
      *
      * @param array{
      *   applicationName: string,
-     *   deploymentGroupName?: null|string,
-     *   revision?: null|RevisionLocation|array,
-     *   deploymentConfigName?: null|string,
-     *   description?: null|string,
-     *   ignoreApplicationStopFailures?: null|bool,
-     *   targetInstances?: null|TargetInstances|array,
-     *   autoRollbackConfiguration?: null|AutoRollbackConfiguration|array,
-     *   updateOutdatedInstancesOnly?: null|bool,
-     *   fileExistsBehavior?: null|FileExistsBehavior::*,
-     *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
+     *   deploymentGroupName?: string|null,
+     *   revision?: RevisionLocation|array|null,
+     *   deploymentConfigName?: string|null,
+     *   description?: string|null,
+     *   ignoreApplicationStopFailures?: bool|null,
+     *   targetInstances?: TargetInstances|array|null,
+     *   autoRollbackConfiguration?: AutoRollbackConfiguration|array|null,
+     *   updateOutdatedInstancesOnly?: bool|null,
+     *   fileExistsBehavior?: FileExistsBehavior::*|null,
+     *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
      *
@@ -184,9 +184,9 @@ class CodeDeployClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codedeploy-2014-10-06.html#putlifecycleeventhookexecutionstatus
      *
      * @param array{
-     *   deploymentId?: null|string,
-     *   lifecycleEventHookExecutionId?: null|string,
-     *   status?: null|LifecycleEventStatus::*,
+     *   deploymentId?: string|null,
+     *   lifecycleEventHookExecutionId?: string|null,
+     *   status?: LifecycleEventStatus::*|null,
      *   '@region'?: string|null,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      *

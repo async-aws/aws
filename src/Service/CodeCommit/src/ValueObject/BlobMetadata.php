@@ -35,9 +35,9 @@ final class BlobMetadata
 
     /**
      * @param array{
-     *   blobId?: null|string,
-     *   path?: null|string,
-     *   mode?: null|string,
+     *   blobId?: string|null,
+     *   path?: string|null,
+     *   mode?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -49,9 +49,9 @@ final class BlobMetadata
 
     /**
      * @param array{
-     *   blobId?: null|string,
-     *   path?: null|string,
-     *   mode?: null|string,
+     *   blobId?: string|null,
+     *   path?: string|null,
+     *   mode?: string|null,
      * }|BlobMetadata $input
      */
     public static function create($input): self

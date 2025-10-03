@@ -141,18 +141,18 @@ final class SendEmailRequest extends Input
 
     /**
      * @param array{
-     *   FromEmailAddress?: null|string,
-     *   FromEmailAddressIdentityArn?: null|string,
-     *   Destination?: null|Destination|array,
-     *   ReplyToAddresses?: null|string[],
-     *   FeedbackForwardingEmailAddress?: null|string,
-     *   FeedbackForwardingEmailAddressIdentityArn?: null|string,
+     *   FromEmailAddress?: string|null,
+     *   FromEmailAddressIdentityArn?: string|null,
+     *   Destination?: Destination|array|null,
+     *   ReplyToAddresses?: string[]|null,
+     *   FeedbackForwardingEmailAddress?: string|null,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string|null,
      *   Content?: EmailContent|array,
-     *   EmailTags?: null|array<MessageTag|array>,
-     *   ConfigurationSetName?: null|string,
-     *   EndpointId?: null|string,
-     *   TenantName?: null|string,
-     *   ListManagementOptions?: null|ListManagementOptions|array,
+     *   EmailTags?: array<MessageTag|array>|null,
+     *   ConfigurationSetName?: string|null,
+     *   EndpointId?: string|null,
+     *   TenantName?: string|null,
+     *   ListManagementOptions?: ListManagementOptions|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -175,18 +175,18 @@ final class SendEmailRequest extends Input
 
     /**
      * @param array{
-     *   FromEmailAddress?: null|string,
-     *   FromEmailAddressIdentityArn?: null|string,
-     *   Destination?: null|Destination|array,
-     *   ReplyToAddresses?: null|string[],
-     *   FeedbackForwardingEmailAddress?: null|string,
-     *   FeedbackForwardingEmailAddressIdentityArn?: null|string,
+     *   FromEmailAddress?: string|null,
+     *   FromEmailAddressIdentityArn?: string|null,
+     *   Destination?: Destination|array|null,
+     *   ReplyToAddresses?: string[]|null,
+     *   FeedbackForwardingEmailAddress?: string|null,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string|null,
      *   Content?: EmailContent|array,
-     *   EmailTags?: null|array<MessageTag|array>,
-     *   ConfigurationSetName?: null|string,
-     *   EndpointId?: null|string,
-     *   TenantName?: null|string,
-     *   ListManagementOptions?: null|ListManagementOptions|array,
+     *   EmailTags?: array<MessageTag|array>|null,
+     *   ConfigurationSetName?: string|null,
+     *   EndpointId?: string|null,
+     *   TenantName?: string|null,
+     *   ListManagementOptions?: ListManagementOptions|array|null,
      *   '@region'?: string|null,
      * }|SendEmailRequest $input
      */

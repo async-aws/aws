@@ -96,8 +96,8 @@ class LambdaClient extends AbstractApi
      *   StatementId: string,
      *   Action: string,
      *   Principal: string,
-     *   OrganizationId?: null|string,
-     *   RevisionId?: null|string,
+     *   OrganizationId?: string|null,
+     *   RevisionId?: string|null,
      *   '@region'?: string|null,
      * }|AddLayerVersionPermissionRequest $input
      *
@@ -138,7 +138,7 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   Qualifier?: null|string,
+     *   Qualifier?: string|null,
      *   '@region'?: string|null,
      * }|DeleteFunctionRequest $input
      *
@@ -173,7 +173,7 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   Qualifier?: null|string,
+     *   Qualifier?: string|null,
      *   '@region'?: string|null,
      * }|GetFunctionConfigurationRequest $input
      *
@@ -242,11 +242,11 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   InvocationType?: null|InvocationType::*,
-     *   LogType?: null|LogType::*,
-     *   ClientContext?: null|string,
-     *   Payload?: null|string,
-     *   Qualifier?: null|string,
+     *   InvocationType?: InvocationType::*|null,
+     *   LogType?: LogType::*|null,
+     *   ClientContext?: string|null,
+     *   Payload?: string|null,
+     *   Qualifier?: string|null,
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      *
@@ -335,10 +335,10 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listfunctions
      *
      * @param array{
-     *   MasterRegion?: null|string,
-     *   FunctionVersion?: null|FunctionVersion::*,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   MasterRegion?: string|null,
+     *   FunctionVersion?: FunctionVersion::*|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * }|ListFunctionsRequest $input
      *
@@ -370,11 +370,11 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
      * @param array{
-     *   CompatibleRuntime?: null|Runtime::*,
+     *   CompatibleRuntime?: Runtime::*|null,
      *   LayerName: string,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
-     *   CompatibleArchitecture?: null|Architecture::*,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
+     *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      *
@@ -407,8 +407,8 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * }|ListVersionsByFunctionRequest $input
      *
@@ -443,11 +443,11 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   LayerName: string,
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   Content: LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: null|array<Runtime::*>,
-     *   LicenseInfo?: null|string,
-     *   CompatibleArchitectures?: null|array<Architecture::*>,
+     *   CompatibleRuntimes?: array<Runtime::*>|null,
+     *   LicenseInfo?: string|null,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      *
@@ -493,24 +493,24 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   Role?: null|string,
-     *   Handler?: null|string,
-     *   Description?: null|string,
-     *   Timeout?: null|int,
-     *   MemorySize?: null|int,
-     *   VpcConfig?: null|VpcConfig|array,
-     *   Environment?: null|Environment|array,
-     *   Runtime?: null|Runtime::*,
-     *   DeadLetterConfig?: null|DeadLetterConfig|array,
-     *   KMSKeyArn?: null|string,
-     *   TracingConfig?: null|TracingConfig|array,
-     *   RevisionId?: null|string,
-     *   Layers?: null|string[],
-     *   FileSystemConfigs?: null|array<FileSystemConfig|array>,
-     *   ImageConfig?: null|ImageConfig|array,
-     *   EphemeralStorage?: null|EphemeralStorage|array,
-     *   SnapStart?: null|SnapStart|array,
-     *   LoggingConfig?: null|LoggingConfig|array,
+     *   Role?: string|null,
+     *   Handler?: string|null,
+     *   Description?: string|null,
+     *   Timeout?: int|null,
+     *   MemorySize?: int|null,
+     *   VpcConfig?: VpcConfig|array|null,
+     *   Environment?: Environment|array|null,
+     *   Runtime?: Runtime::*|null,
+     *   DeadLetterConfig?: DeadLetterConfig|array|null,
+     *   KMSKeyArn?: string|null,
+     *   TracingConfig?: TracingConfig|array|null,
+     *   RevisionId?: string|null,
+     *   Layers?: string[]|null,
+     *   FileSystemConfigs?: array<FileSystemConfig|array>|null,
+     *   ImageConfig?: ImageConfig|array|null,
+     *   EphemeralStorage?: EphemeralStorage|array|null,
+     *   SnapStart?: SnapStart|array|null,
+     *   LoggingConfig?: LoggingConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      *

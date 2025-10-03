@@ -18,7 +18,7 @@ final class EsamManifestConfirmConditionNotification
 
     /**
      * @param array{
-     *   MccXml?: null|string,
+     *   MccXml?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class EsamManifestConfirmConditionNotification
 
     /**
      * @param array{
-     *   MccXml?: null|string,
+     *   MccXml?: string|null,
      * }|EsamManifestConfirmConditionNotification $input
      */
     public static function create($input): self

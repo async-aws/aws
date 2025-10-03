@@ -57,11 +57,11 @@ final class MovSettings
 
     /**
      * @param array{
-     *   ClapAtom?: null|MovClapAtom::*,
-     *   CslgAtom?: null|MovCslgAtom::*,
-     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*,
-     *   PaddingControl?: null|MovPaddingControl::*,
-     *   Reference?: null|MovReference::*,
+     *   ClapAtom?: MovClapAtom::*|null,
+     *   CslgAtom?: MovCslgAtom::*|null,
+     *   Mpeg2FourCCControl?: MovMpeg2FourCCControl::*|null,
+     *   PaddingControl?: MovPaddingControl::*|null,
+     *   Reference?: MovReference::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -75,11 +75,11 @@ final class MovSettings
 
     /**
      * @param array{
-     *   ClapAtom?: null|MovClapAtom::*,
-     *   CslgAtom?: null|MovCslgAtom::*,
-     *   Mpeg2FourCCControl?: null|MovMpeg2FourCCControl::*,
-     *   PaddingControl?: null|MovPaddingControl::*,
-     *   Reference?: null|MovReference::*,
+     *   ClapAtom?: MovClapAtom::*|null,
+     *   CslgAtom?: MovCslgAtom::*|null,
+     *   Mpeg2FourCCControl?: MovMpeg2FourCCControl::*|null,
+     *   PaddingControl?: MovPaddingControl::*|null,
+     *   Reference?: MovReference::*|null,
      * }|MovSettings $input
      */
     public static function create($input): self

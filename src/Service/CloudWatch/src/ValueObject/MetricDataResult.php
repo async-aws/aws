@@ -59,12 +59,12 @@ final class MetricDataResult
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   Label?: null|string,
-     *   Timestamps?: null|\DateTimeImmutable[],
-     *   Values?: null|float[],
-     *   StatusCode?: null|StatusCode::*,
-     *   Messages?: null|array<MessageData|array>,
+     *   Id?: string|null,
+     *   Label?: string|null,
+     *   Timestamps?: \DateTimeImmutable[]|null,
+     *   Values?: float[]|null,
+     *   StatusCode?: StatusCode::*|null,
+     *   Messages?: array<MessageData|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -79,12 +79,12 @@ final class MetricDataResult
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   Label?: null|string,
-     *   Timestamps?: null|\DateTimeImmutable[],
-     *   Values?: null|float[],
-     *   StatusCode?: null|StatusCode::*,
-     *   Messages?: null|array<MessageData|array>,
+     *   Id?: string|null,
+     *   Label?: string|null,
+     *   Timestamps?: \DateTimeImmutable[]|null,
+     *   Values?: float[]|null,
+     *   StatusCode?: StatusCode::*|null,
+     *   Messages?: array<MessageData|array>|null,
      * }|MetricDataResult $input
      */
     public static function create($input): self

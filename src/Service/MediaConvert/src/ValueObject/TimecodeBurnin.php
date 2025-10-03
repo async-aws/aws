@@ -36,9 +36,9 @@ final class TimecodeBurnin
 
     /**
      * @param array{
-     *   FontSize?: null|int,
-     *   Position?: null|TimecodeBurninPosition::*,
-     *   Prefix?: null|string,
+     *   FontSize?: int|null,
+     *   Position?: TimecodeBurninPosition::*|null,
+     *   Prefix?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -50,9 +50,9 @@ final class TimecodeBurnin
 
     /**
      * @param array{
-     *   FontSize?: null|int,
-     *   Position?: null|TimecodeBurninPosition::*,
-     *   Prefix?: null|string,
+     *   FontSize?: int|null,
+     *   Position?: TimecodeBurninPosition::*|null,
+     *   Prefix?: string|null,
      * }|TimecodeBurnin $input
      */
     public static function create($input): self

@@ -111,7 +111,7 @@ class TimestreamQueryClient extends AbstractApi
      *
      * @param array{
      *   QueryString: string,
-     *   ValidateOnly?: null|bool,
+     *   ValidateOnly?: bool|null,
      *   '@region'?: string|null,
      * }|PrepareQueryRequest $input
      *
@@ -169,10 +169,10 @@ class TimestreamQueryClient extends AbstractApi
      *
      * @param array{
      *   QueryString: string,
-     *   ClientToken?: null|string,
-     *   NextToken?: null|string,
-     *   MaxRows?: null|int,
-     *   QueryInsights?: null|QueryInsights|array,
+     *   ClientToken?: string|null,
+     *   NextToken?: string|null,
+     *   MaxRows?: int|null,
+     *   QueryInsights?: QueryInsights|array|null,
      *   '@region'?: string|null,
      * }|QueryRequest $input
      *

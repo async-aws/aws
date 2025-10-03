@@ -94,9 +94,9 @@ final class AbortMultipartUploadRequest extends Input
      *   Bucket?: string,
      *   Key?: string,
      *   UploadId?: string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   IfMatchInitiatedTime?: null|\DateTimeImmutable|string,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   IfMatchInitiatedTime?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -116,9 +116,9 @@ final class AbortMultipartUploadRequest extends Input
      *   Bucket?: string,
      *   Key?: string,
      *   UploadId?: string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   IfMatchInitiatedTime?: null|\DateTimeImmutable|string,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   IfMatchInitiatedTime?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
      * }|AbortMultipartUploadRequest $input
      */

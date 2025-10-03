@@ -111,16 +111,16 @@ final class AttributeValue
 
     /**
      * @param array{
-     *   S?: null|string,
-     *   N?: null|string,
-     *   B?: null|string,
-     *   SS?: null|string[],
-     *   NS?: null|string[],
-     *   BS?: null|string[],
-     *   M?: null|array<string, AttributeValue|array>,
-     *   L?: null|array<AttributeValue|array>,
-     *   'NULL'?: null|bool,
-     *   'BOOL'?: null|bool,
+     *   S?: string|null,
+     *   N?: string|null,
+     *   B?: string|null,
+     *   SS?: string[]|null,
+     *   NS?: string[]|null,
+     *   BS?: string[]|null,
+     *   M?: array<string, AttributeValue|array>|null,
+     *   L?: array<AttributeValue|array>|null,
+     *   'NULL'?: bool|null,
+     *   'BOOL'?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -139,16 +139,16 @@ final class AttributeValue
 
     /**
      * @param array{
-     *   S?: null|string,
-     *   N?: null|string,
-     *   B?: null|string,
-     *   SS?: null|string[],
-     *   NS?: null|string[],
-     *   BS?: null|string[],
-     *   M?: null|array<string, AttributeValue|array>,
-     *   L?: null|array<AttributeValue|array>,
-     *   'NULL'?: null|bool,
-     *   'BOOL'?: null|bool,
+     *   S?: string|null,
+     *   N?: string|null,
+     *   B?: string|null,
+     *   SS?: string[]|null,
+     *   NS?: string[]|null,
+     *   BS?: string[]|null,
+     *   M?: array<string, AttributeValue|array>|null,
+     *   L?: array<AttributeValue|array>|null,
+     *   'NULL'?: bool|null,
+     *   'BOOL'?: bool|null,
      * }|AttributeValue $input
      */
     public static function create($input): self

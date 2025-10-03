@@ -35,8 +35,8 @@ final class InputClipping
 
     /**
      * @param array{
-     *   EndTimecode?: null|string,
-     *   StartTimecode?: null|string,
+     *   EndTimecode?: string|null,
+     *   StartTimecode?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,8 +47,8 @@ final class InputClipping
 
     /**
      * @param array{
-     *   EndTimecode?: null|string,
-     *   StartTimecode?: null|string,
+     *   EndTimecode?: string|null,
+     *   StartTimecode?: string|null,
      * }|InputClipping $input
      */
     public static function create($input): self

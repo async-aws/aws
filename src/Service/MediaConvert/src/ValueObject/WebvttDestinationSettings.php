@@ -45,8 +45,8 @@ final class WebvttDestinationSettings
 
     /**
      * @param array{
-     *   Accessibility?: null|WebvttAccessibilitySubs::*,
-     *   StylePassthrough?: null|WebvttStylePassthrough::*,
+     *   Accessibility?: WebvttAccessibilitySubs::*|null,
+     *   StylePassthrough?: WebvttStylePassthrough::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,8 +57,8 @@ final class WebvttDestinationSettings
 
     /**
      * @param array{
-     *   Accessibility?: null|WebvttAccessibilitySubs::*,
-     *   StylePassthrough?: null|WebvttStylePassthrough::*,
+     *   Accessibility?: WebvttAccessibilitySubs::*|null,
+     *   StylePassthrough?: WebvttStylePassthrough::*|null,
      * }|WebvttDestinationSettings $input
      */
     public static function create($input): self

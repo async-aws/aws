@@ -45,10 +45,10 @@ final class Bucket
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   BucketRegion?: null|string,
-     *   BucketArn?: null|string,
+     *   Name?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   BucketRegion?: string|null,
+     *   BucketArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -61,10 +61,10 @@ final class Bucket
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   BucketRegion?: null|string,
-     *   BucketArn?: null|string,
+     *   Name?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   BucketRegion?: string|null,
+     *   BucketArn?: string|null,
      * }|Bucket $input
      */
     public static function create($input): self

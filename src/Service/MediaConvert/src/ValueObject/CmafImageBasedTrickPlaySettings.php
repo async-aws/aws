@@ -61,12 +61,12 @@ final class CmafImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|CmafIntervalCadence::*,
-     *   ThumbnailHeight?: null|int,
-     *   ThumbnailInterval?: null|float,
-     *   ThumbnailWidth?: null|int,
-     *   TileHeight?: null|int,
-     *   TileWidth?: null|int,
+     *   IntervalCadence?: CmafIntervalCadence::*|null,
+     *   ThumbnailHeight?: int|null,
+     *   ThumbnailInterval?: float|null,
+     *   ThumbnailWidth?: int|null,
+     *   TileHeight?: int|null,
+     *   TileWidth?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,12 +81,12 @@ final class CmafImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: null|CmafIntervalCadence::*,
-     *   ThumbnailHeight?: null|int,
-     *   ThumbnailInterval?: null|float,
-     *   ThumbnailWidth?: null|int,
-     *   TileHeight?: null|int,
-     *   TileWidth?: null|int,
+     *   IntervalCadence?: CmafIntervalCadence::*|null,
+     *   ThumbnailHeight?: int|null,
+     *   ThumbnailInterval?: float|null,
+     *   ThumbnailWidth?: int|null,
+     *   TileHeight?: int|null,
+     *   TileWidth?: int|null,
      * }|CmafImageBasedTrickPlaySettings $input
      */
     public static function create($input): self

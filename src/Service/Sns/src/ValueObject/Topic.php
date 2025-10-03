@@ -17,7 +17,7 @@ final class Topic
 
     /**
      * @param array{
-     *   TopicArn?: null|string,
+     *   TopicArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class Topic
 
     /**
      * @param array{
-     *   TopicArn?: null|string,
+     *   TopicArn?: string|null,
      * }|Topic $input
      */
     public static function create($input): self

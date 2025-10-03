@@ -35,9 +35,9 @@ final class ListThingTypesRequest extends Input
 
     /**
      * @param array{
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
-     *   thingTypeName?: null|string,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
+     *   thingTypeName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -51,9 +51,9 @@ final class ListThingTypesRequest extends Input
 
     /**
      * @param array{
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
-     *   thingTypeName?: null|string,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
+     *   thingTypeName?: string|null,
      *   '@region'?: string|null,
      * }|ListThingTypesRequest $input
      */

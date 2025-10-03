@@ -31,7 +31,7 @@ final class GetThingShadowRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   shadowName?: null|string,
+     *   shadowName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -45,7 +45,7 @@ final class GetThingShadowRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   shadowName?: null|string,
+     *   shadowName?: string|null,
      *   '@region'?: string|null,
      * }|GetThingShadowRequest $input
      */

@@ -30,8 +30,8 @@ final class DashIsoEncryptionSettings
 
     /**
      * @param array{
-     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*,
-     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     *   PlaybackDeviceCompatibility?: DashIsoPlaybackDeviceCompatibility::*|null,
+     *   SpekeKeyProvider?: SpekeKeyProvider|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,8 +42,8 @@ final class DashIsoEncryptionSettings
 
     /**
      * @param array{
-     *   PlaybackDeviceCompatibility?: null|DashIsoPlaybackDeviceCompatibility::*,
-     *   SpekeKeyProvider?: null|SpekeKeyProvider|array,
+     *   PlaybackDeviceCompatibility?: DashIsoPlaybackDeviceCompatibility::*|null,
+     *   SpekeKeyProvider?: SpekeKeyProvider|array|null,
      * }|DashIsoEncryptionSettings $input
      */
     public static function create($input): self

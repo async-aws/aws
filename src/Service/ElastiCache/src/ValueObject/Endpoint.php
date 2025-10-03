@@ -23,8 +23,8 @@ final class Endpoint
 
     /**
      * @param array{
-     *   Address?: null|string,
-     *   Port?: null|int,
+     *   Address?: string|null,
+     *   Port?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class Endpoint
 
     /**
      * @param array{
-     *   Address?: null|string,
-     *   Port?: null|int,
+     *   Address?: string|null,
+     *   Port?: int|null,
      * }|Endpoint $input
      */
     public static function create($input): self

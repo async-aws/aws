@@ -52,12 +52,12 @@ final class AuthenticationResultType
 
     /**
      * @param array{
-     *   AccessToken?: null|string,
-     *   ExpiresIn?: null|int,
-     *   TokenType?: null|string,
-     *   RefreshToken?: null|string,
-     *   IdToken?: null|string,
-     *   NewDeviceMetadata?: null|NewDeviceMetadataType|array,
+     *   AccessToken?: string|null,
+     *   ExpiresIn?: int|null,
+     *   TokenType?: string|null,
+     *   RefreshToken?: string|null,
+     *   IdToken?: string|null,
+     *   NewDeviceMetadata?: NewDeviceMetadataType|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -72,12 +72,12 @@ final class AuthenticationResultType
 
     /**
      * @param array{
-     *   AccessToken?: null|string,
-     *   ExpiresIn?: null|int,
-     *   TokenType?: null|string,
-     *   RefreshToken?: null|string,
-     *   IdToken?: null|string,
-     *   NewDeviceMetadata?: null|NewDeviceMetadataType|array,
+     *   AccessToken?: string|null,
+     *   ExpiresIn?: int|null,
+     *   TokenType?: string|null,
+     *   RefreshToken?: string|null,
+     *   IdToken?: string|null,
+     *   NewDeviceMetadata?: NewDeviceMetadataType|array|null,
      * }|AuthenticationResultType $input
      */
     public static function create($input): self

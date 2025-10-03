@@ -17,7 +17,7 @@ final class DvbSubSourceSettings
 
     /**
      * @param array{
-     *   Pid?: null|int,
+     *   Pid?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class DvbSubSourceSettings
 
     /**
      * @param array{
-     *   Pid?: null|int,
+     *   Pid?: int|null,
      * }|DvbSubSourceSettings $input
      */
     public static function create($input): self

@@ -23,7 +23,7 @@ final class SnapStart
 
     /**
      * @param array{
-     *   ApplyOn?: null|SnapStartApplyOn::*,
+     *   ApplyOn?: SnapStartApplyOn::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class SnapStart
 
     /**
      * @param array{
-     *   ApplyOn?: null|SnapStartApplyOn::*,
+     *   ApplyOn?: SnapStartApplyOn::*|null,
      * }|SnapStart $input
      */
     public static function create($input): self

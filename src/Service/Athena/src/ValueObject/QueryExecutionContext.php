@@ -23,8 +23,8 @@ final class QueryExecutionContext
 
     /**
      * @param array{
-     *   Database?: null|string,
-     *   Catalog?: null|string,
+     *   Database?: string|null,
+     *   Catalog?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class QueryExecutionContext
 
     /**
      * @param array{
-     *   Database?: null|string,
-     *   Catalog?: null|string,
+     *   Database?: string|null,
+     *   Catalog?: string|null,
      * }|QueryExecutionContext $input
      */
     public static function create($input): self

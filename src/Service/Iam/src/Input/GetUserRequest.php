@@ -23,7 +23,7 @@ final class GetUserRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
+     *   UserName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -35,7 +35,7 @@ final class GetUserRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
+     *   UserName?: string|null,
      *   '@region'?: string|null,
      * }|GetUserRequest $input
      */

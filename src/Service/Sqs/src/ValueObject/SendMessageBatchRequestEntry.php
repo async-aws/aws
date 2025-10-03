@@ -150,11 +150,11 @@ final class SendMessageBatchRequestEntry
      * @param array{
      *   Id: string,
      *   MessageBody: string,
-     *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   DelaySeconds?: int|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -172,11 +172,11 @@ final class SendMessageBatchRequestEntry
      * @param array{
      *   Id: string,
      *   MessageBody: string,
-     *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   DelaySeconds?: int|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      * }|SendMessageBatchRequestEntry $input
      */
     public static function create($input): self

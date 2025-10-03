@@ -138,19 +138,19 @@ final class Vp8Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp8FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   GopSize?: null|float,
-     *   HrdBufferSize?: null|int,
-     *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp8ParControl::*,
-     *   ParDenominator?: null|int,
-     *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp8RateControlMode::*,
+     *   Bitrate?: int|null,
+     *   FramerateControl?: Vp8FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Vp8FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   GopSize?: float|null,
+     *   HrdBufferSize?: int|null,
+     *   MaxBitrate?: int|null,
+     *   ParControl?: Vp8ParControl::*|null,
+     *   ParDenominator?: int|null,
+     *   ParNumerator?: int|null,
+     *   QualityTuningLevel?: Vp8QualityTuningLevel::*|null,
+     *   RateControlMode?: Vp8RateControlMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -172,19 +172,19 @@ final class Vp8Settings
 
     /**
      * @param array{
-     *   Bitrate?: null|int,
-     *   FramerateControl?: null|Vp8FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vp8FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   GopSize?: null|float,
-     *   HrdBufferSize?: null|int,
-     *   MaxBitrate?: null|int,
-     *   ParControl?: null|Vp8ParControl::*,
-     *   ParDenominator?: null|int,
-     *   ParNumerator?: null|int,
-     *   QualityTuningLevel?: null|Vp8QualityTuningLevel::*,
-     *   RateControlMode?: null|Vp8RateControlMode::*,
+     *   Bitrate?: int|null,
+     *   FramerateControl?: Vp8FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Vp8FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   GopSize?: float|null,
+     *   HrdBufferSize?: int|null,
+     *   MaxBitrate?: int|null,
+     *   ParControl?: Vp8ParControl::*|null,
+     *   ParDenominator?: int|null,
+     *   ParNumerator?: int|null,
+     *   QualityTuningLevel?: Vp8QualityTuningLevel::*|null,
+     *   RateControlMode?: Vp8RateControlMode::*|null,
      * }|Vp8Settings $input
      */
     public static function create($input): self

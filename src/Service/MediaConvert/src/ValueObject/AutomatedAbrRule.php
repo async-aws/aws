@@ -78,11 +78,11 @@ final class AutomatedAbrRule
 
     /**
      * @param array{
-     *   AllowedRenditions?: null|array<AllowedRenditionSize|array>,
-     *   ForceIncludeRenditions?: null|array<ForceIncludeRenditionSize|array>,
-     *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
-     *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
-     *   Type?: null|RuleType::*,
+     *   AllowedRenditions?: array<AllowedRenditionSize|array>|null,
+     *   ForceIncludeRenditions?: array<ForceIncludeRenditionSize|array>|null,
+     *   MinBottomRenditionSize?: MinBottomRenditionSize|array|null,
+     *   MinTopRenditionSize?: MinTopRenditionSize|array|null,
+     *   Type?: RuleType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -96,11 +96,11 @@ final class AutomatedAbrRule
 
     /**
      * @param array{
-     *   AllowedRenditions?: null|array<AllowedRenditionSize|array>,
-     *   ForceIncludeRenditions?: null|array<ForceIncludeRenditionSize|array>,
-     *   MinBottomRenditionSize?: null|MinBottomRenditionSize|array,
-     *   MinTopRenditionSize?: null|MinTopRenditionSize|array,
-     *   Type?: null|RuleType::*,
+     *   AllowedRenditions?: array<AllowedRenditionSize|array>|null,
+     *   ForceIncludeRenditions?: array<ForceIncludeRenditionSize|array>|null,
+     *   MinBottomRenditionSize?: MinBottomRenditionSize|array|null,
+     *   MinTopRenditionSize?: MinTopRenditionSize|array|null,
+     *   Type?: RuleType::*|null,
      * }|AutomatedAbrRule $input
      */
     public static function create($input): self

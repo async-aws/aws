@@ -39,7 +39,7 @@ final class ChangeMessageVisibilityBatchRequestEntry
      * @param array{
      *   Id: string,
      *   ReceiptHandle: string,
-     *   VisibilityTimeout?: null|int,
+     *   VisibilityTimeout?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,7 +53,7 @@ final class ChangeMessageVisibilityBatchRequestEntry
      * @param array{
      *   Id: string,
      *   ReceiptHandle: string,
-     *   VisibilityTimeout?: null|int,
+     *   VisibilityTimeout?: int|null,
      * }|ChangeMessageVisibilityBatchRequestEntry $input
      */
     public static function create($input): self

@@ -24,8 +24,8 @@ final class ScaleConfig
 
     /**
      * @param array{
-     *   ScalePercentage?: null|int,
-     *   ScaleIntervalMinutes?: null|int,
+     *   ScalePercentage?: int|null,
+     *   ScaleIntervalMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class ScaleConfig
 
     /**
      * @param array{
-     *   ScalePercentage?: null|int,
-     *   ScaleIntervalMinutes?: null|int,
+     *   ScalePercentage?: int|null,
+     *   ScaleIntervalMinutes?: int|null,
      * }|ScaleConfig $input
      */
     public static function create($input): self

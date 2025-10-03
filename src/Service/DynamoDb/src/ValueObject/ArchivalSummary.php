@@ -34,9 +34,9 @@ final class ArchivalSummary
 
     /**
      * @param array{
-     *   ArchivalDateTime?: null|\DateTimeImmutable,
-     *   ArchivalReason?: null|string,
-     *   ArchivalBackupArn?: null|string,
+     *   ArchivalDateTime?: \DateTimeImmutable|null,
+     *   ArchivalReason?: string|null,
+     *   ArchivalBackupArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class ArchivalSummary
 
     /**
      * @param array{
-     *   ArchivalDateTime?: null|\DateTimeImmutable,
-     *   ArchivalReason?: null|string,
-     *   ArchivalBackupArn?: null|string,
+     *   ArchivalDateTime?: \DateTimeImmutable|null,
+     *   ArchivalReason?: string|null,
+     *   ArchivalBackupArn?: string|null,
      * }|ArchivalSummary $input
      */
     public static function create($input): self

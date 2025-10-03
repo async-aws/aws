@@ -45,9 +45,9 @@ final class CreateProjectRequest extends Input
     /**
      * @param array{
      *   ProjectName?: string,
-     *   Feature?: null|CustomizationFeature::*,
-     *   AutoUpdate?: null|ProjectAutoUpdate::*,
-     *   Tags?: null|array<string, string>,
+     *   Feature?: CustomizationFeature::*|null,
+     *   AutoUpdate?: ProjectAutoUpdate::*|null,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,9 +63,9 @@ final class CreateProjectRequest extends Input
     /**
      * @param array{
      *   ProjectName?: string,
-     *   Feature?: null|CustomizationFeature::*,
-     *   AutoUpdate?: null|ProjectAutoUpdate::*,
-     *   Tags?: null|array<string, string>,
+     *   Feature?: CustomizationFeature::*|null,
+     *   AutoUpdate?: ProjectAutoUpdate::*|null,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      */

@@ -32,8 +32,8 @@ final class SnapStartResponse
 
     /**
      * @param array{
-     *   ApplyOn?: null|SnapStartApplyOn::*,
-     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*,
+     *   ApplyOn?: SnapStartApplyOn::*|null,
+     *   OptimizationStatus?: SnapStartOptimizationStatus::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,8 +44,8 @@ final class SnapStartResponse
 
     /**
      * @param array{
-     *   ApplyOn?: null|SnapStartApplyOn::*,
-     *   OptimizationStatus?: null|SnapStartOptimizationStatus::*,
+     *   ApplyOn?: SnapStartApplyOn::*|null,
+     *   OptimizationStatus?: SnapStartOptimizationStatus::*|null,
      * }|SnapStartResponse $input
      */
     public static function create($input): self

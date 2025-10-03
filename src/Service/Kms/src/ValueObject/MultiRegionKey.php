@@ -23,8 +23,8 @@ final class MultiRegionKey
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   Region?: null|string,
+     *   Arn?: string|null,
+     *   Region?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class MultiRegionKey
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   Region?: null|string,
+     *   Arn?: string|null,
+     *   Region?: string|null,
      * }|MultiRegionKey $input
      */
     public static function create($input): self

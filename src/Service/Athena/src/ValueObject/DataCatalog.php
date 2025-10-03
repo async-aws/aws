@@ -128,12 +128,12 @@ final class DataCatalog
     /**
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   Type: DataCatalogType::*,
-     *   Parameters?: null|array<string, string>,
-     *   Status?: null|DataCatalogStatus::*,
-     *   ConnectionType?: null|ConnectionType::*,
-     *   Error?: null|string,
+     *   Parameters?: array<string, string>|null,
+     *   Status?: DataCatalogStatus::*|null,
+     *   ConnectionType?: ConnectionType::*|null,
+     *   Error?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -150,12 +150,12 @@ final class DataCatalog
     /**
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   Type: DataCatalogType::*,
-     *   Parameters?: null|array<string, string>,
-     *   Status?: null|DataCatalogStatus::*,
-     *   ConnectionType?: null|ConnectionType::*,
-     *   Error?: null|string,
+     *   Parameters?: array<string, string>|null,
+     *   Status?: DataCatalogStatus::*|null,
+     *   ConnectionType?: ConnectionType::*|null,
+     *   Error?: string|null,
      * }|DataCatalog $input
      */
     public static function create($input): self

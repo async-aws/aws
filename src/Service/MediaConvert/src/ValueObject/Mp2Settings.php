@@ -46,10 +46,10 @@ final class Mp2Settings
 
     /**
      * @param array{
-     *   AudioDescriptionMix?: null|Mp2AudioDescriptionMix::*,
-     *   Bitrate?: null|int,
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
+     *   AudioDescriptionMix?: Mp2AudioDescriptionMix::*|null,
+     *   Bitrate?: int|null,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,10 +62,10 @@ final class Mp2Settings
 
     /**
      * @param array{
-     *   AudioDescriptionMix?: null|Mp2AudioDescriptionMix::*,
-     *   Bitrate?: null|int,
-     *   Channels?: null|int,
-     *   SampleRate?: null|int,
+     *   AudioDescriptionMix?: Mp2AudioDescriptionMix::*|null,
+     *   Bitrate?: int|null,
+     *   Channels?: int|null,
+     *   SampleRate?: int|null,
      * }|Mp2Settings $input
      */
     public static function create($input): self

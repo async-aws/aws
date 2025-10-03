@@ -27,8 +27,8 @@ final class AppliedTerminology
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   Terms?: null|array<Term|array>,
+     *   Name?: string|null,
+     *   Terms?: array<Term|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class AppliedTerminology
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   Terms?: null|array<Term|array>,
+     *   Name?: string|null,
+     *   Terms?: array<Term|array>|null,
      * }|AppliedTerminology $input
      */
     public static function create($input): self

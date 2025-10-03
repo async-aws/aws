@@ -16,7 +16,7 @@ final class Endpoint
 
     /**
      * @param array{
-     *   Url?: null|string,
+     *   Url?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class Endpoint
 
     /**
      * @param array{
-     *   Url?: null|string,
+     *   Url?: string|null,
      * }|Endpoint $input
      */
     public static function create($input): self

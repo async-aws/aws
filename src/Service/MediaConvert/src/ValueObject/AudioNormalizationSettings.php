@@ -76,13 +76,13 @@ final class AudioNormalizationSettings
 
     /**
      * @param array{
-     *   Algorithm?: null|AudioNormalizationAlgorithm::*,
-     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*,
-     *   CorrectionGateLevel?: null|int,
-     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*,
-     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*,
-     *   TargetLkfs?: null|float,
-     *   TruePeakLimiterThreshold?: null|float,
+     *   Algorithm?: AudioNormalizationAlgorithm::*|null,
+     *   AlgorithmControl?: AudioNormalizationAlgorithmControl::*|null,
+     *   CorrectionGateLevel?: int|null,
+     *   LoudnessLogging?: AudioNormalizationLoudnessLogging::*|null,
+     *   PeakCalculation?: AudioNormalizationPeakCalculation::*|null,
+     *   TargetLkfs?: float|null,
+     *   TruePeakLimiterThreshold?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -98,13 +98,13 @@ final class AudioNormalizationSettings
 
     /**
      * @param array{
-     *   Algorithm?: null|AudioNormalizationAlgorithm::*,
-     *   AlgorithmControl?: null|AudioNormalizationAlgorithmControl::*,
-     *   CorrectionGateLevel?: null|int,
-     *   LoudnessLogging?: null|AudioNormalizationLoudnessLogging::*,
-     *   PeakCalculation?: null|AudioNormalizationPeakCalculation::*,
-     *   TargetLkfs?: null|float,
-     *   TruePeakLimiterThreshold?: null|float,
+     *   Algorithm?: AudioNormalizationAlgorithm::*|null,
+     *   AlgorithmControl?: AudioNormalizationAlgorithmControl::*|null,
+     *   CorrectionGateLevel?: int|null,
+     *   LoudnessLogging?: AudioNormalizationLoudnessLogging::*|null,
+     *   PeakCalculation?: AudioNormalizationPeakCalculation::*|null,
+     *   TargetLkfs?: float|null,
+     *   TruePeakLimiterThreshold?: float|null,
      * }|AudioNormalizationSettings $input
      */
     public static function create($input): self

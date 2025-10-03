@@ -29,8 +29,8 @@ final class EmailMfaSettingsType
 
     /**
      * @param array{
-     *   Enabled?: null|bool,
-     *   PreferredMfa?: null|bool,
+     *   Enabled?: bool|null,
+     *   PreferredMfa?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class EmailMfaSettingsType
 
     /**
      * @param array{
-     *   Enabled?: null|bool,
-     *   PreferredMfa?: null|bool,
+     *   Enabled?: bool|null,
+     *   PreferredMfa?: bool|null,
      * }|EmailMfaSettingsType $input
      */
     public static function create($input): self

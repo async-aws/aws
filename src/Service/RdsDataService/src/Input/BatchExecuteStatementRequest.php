@@ -91,10 +91,10 @@ final class BatchExecuteStatementRequest extends Input
      *   resourceArn?: string,
      *   secretArn?: string,
      *   sql?: string,
-     *   database?: null|string,
-     *   schema?: null|string,
-     *   parameterSets?: null|array[],
-     *   transactionId?: null|string,
+     *   database?: string|null,
+     *   schema?: string|null,
+     *   parameterSets?: array[]|null,
+     *   transactionId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -117,10 +117,10 @@ final class BatchExecuteStatementRequest extends Input
      *   resourceArn?: string,
      *   secretArn?: string,
      *   sql?: string,
-     *   database?: null|string,
-     *   schema?: null|string,
-     *   parameterSets?: null|array[],
-     *   transactionId?: null|string,
+     *   database?: string|null,
+     *   schema?: string|null,
+     *   parameterSets?: array[]|null,
+     *   transactionId?: string|null,
      *   '@region'?: string|null,
      * }|BatchExecuteStatementRequest $input
      */

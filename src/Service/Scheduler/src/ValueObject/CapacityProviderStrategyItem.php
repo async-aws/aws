@@ -36,9 +36,9 @@ final class CapacityProviderStrategyItem
 
     /**
      * @param array{
-     *   base?: null|int,
+     *   base?: int|null,
      *   capacityProvider: string,
-     *   weight?: null|int,
+     *   weight?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -50,9 +50,9 @@ final class CapacityProviderStrategyItem
 
     /**
      * @param array{
-     *   base?: null|int,
+     *   base?: int|null,
      *   capacityProvider: string,
-     *   weight?: null|int,
+     *   weight?: int|null,
      * }|CapacityProviderStrategyItem $input
      */
     public static function create($input): self

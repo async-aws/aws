@@ -76,14 +76,14 @@ final class LogStream
 
     /**
      * @param array{
-     *   logStreamName?: null|string,
-     *   creationTime?: null|int,
-     *   firstEventTimestamp?: null|int,
-     *   lastEventTimestamp?: null|int,
-     *   lastIngestionTime?: null|int,
-     *   uploadSequenceToken?: null|string,
-     *   arn?: null|string,
-     *   storedBytes?: null|int,
+     *   logStreamName?: string|null,
+     *   creationTime?: int|null,
+     *   firstEventTimestamp?: int|null,
+     *   lastEventTimestamp?: int|null,
+     *   lastIngestionTime?: int|null,
+     *   uploadSequenceToken?: string|null,
+     *   arn?: string|null,
+     *   storedBytes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -100,14 +100,14 @@ final class LogStream
 
     /**
      * @param array{
-     *   logStreamName?: null|string,
-     *   creationTime?: null|int,
-     *   firstEventTimestamp?: null|int,
-     *   lastEventTimestamp?: null|int,
-     *   lastIngestionTime?: null|int,
-     *   uploadSequenceToken?: null|string,
-     *   arn?: null|string,
-     *   storedBytes?: null|int,
+     *   logStreamName?: string|null,
+     *   creationTime?: int|null,
+     *   firstEventTimestamp?: int|null,
+     *   lastEventTimestamp?: int|null,
+     *   lastIngestionTime?: int|null,
+     *   uploadSequenceToken?: string|null,
+     *   arn?: string|null,
+     *   storedBytes?: int|null,
      * }|LogStream $input
      */
     public static function create($input): self

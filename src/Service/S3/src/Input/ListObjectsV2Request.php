@@ -159,16 +159,16 @@ final class ListObjectsV2Request extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: null|string,
-     *   EncodingType?: null|EncodingType::*,
-     *   MaxKeys?: null|int,
-     *   Prefix?: null|string,
-     *   ContinuationToken?: null|string,
-     *   FetchOwner?: null|bool,
-     *   StartAfter?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
+     *   Delimiter?: string|null,
+     *   EncodingType?: EncodingType::*|null,
+     *   MaxKeys?: int|null,
+     *   Prefix?: string|null,
+     *   ContinuationToken?: string|null,
+     *   FetchOwner?: bool|null,
+     *   StartAfter?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -191,16 +191,16 @@ final class ListObjectsV2Request extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   Delimiter?: null|string,
-     *   EncodingType?: null|EncodingType::*,
-     *   MaxKeys?: null|int,
-     *   Prefix?: null|string,
-     *   ContinuationToken?: null|string,
-     *   FetchOwner?: null|bool,
-     *   StartAfter?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   OptionalObjectAttributes?: null|array<OptionalObjectAttributes::*>,
+     *   Delimiter?: string|null,
+     *   EncodingType?: EncodingType::*|null,
+     *   MaxKeys?: int|null,
+     *   Prefix?: string|null,
+     *   ContinuationToken?: string|null,
+     *   FetchOwner?: bool|null,
+     *   StartAfter?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
      * }|ListObjectsV2Request $input
      */

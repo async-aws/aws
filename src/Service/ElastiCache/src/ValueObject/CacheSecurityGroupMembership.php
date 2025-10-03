@@ -24,8 +24,8 @@ final class CacheSecurityGroupMembership
 
     /**
      * @param array{
-     *   CacheSecurityGroupName?: null|string,
-     *   Status?: null|string,
+     *   CacheSecurityGroupName?: string|null,
+     *   Status?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class CacheSecurityGroupMembership
 
     /**
      * @param array{
-     *   CacheSecurityGroupName?: null|string,
-     *   Status?: null|string,
+     *   CacheSecurityGroupName?: string|null,
+     *   Status?: string|null,
      * }|CacheSecurityGroupMembership $input
      */
     public static function create($input): self

@@ -31,8 +31,8 @@ final class TruckWeight
 
     /**
      * @param array{
-     *   Total?: null|float,
-     *   Unit?: null|VehicleWeightUnit::*,
+     *   Total?: float|null,
+     *   Unit?: VehicleWeightUnit::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class TruckWeight
 
     /**
      * @param array{
-     *   Total?: null|float,
-     *   Unit?: null|VehicleWeightUnit::*,
+     *   Total?: float|null,
+     *   Unit?: VehicleWeightUnit::*|null,
      * }|TruckWeight $input
      */
     public static function create($input): self

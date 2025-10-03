@@ -38,10 +38,10 @@ final class TransactWriteItem
 
     /**
      * @param array{
-     *   ConditionCheck?: null|ConditionCheck|array,
-     *   Put?: null|Put|array,
-     *   Delete?: null|Delete|array,
-     *   Update?: null|Update|array,
+     *   ConditionCheck?: ConditionCheck|array|null,
+     *   Put?: Put|array|null,
+     *   Delete?: Delete|array|null,
+     *   Update?: Update|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -54,10 +54,10 @@ final class TransactWriteItem
 
     /**
      * @param array{
-     *   ConditionCheck?: null|ConditionCheck|array,
-     *   Put?: null|Put|array,
-     *   Delete?: null|Delete|array,
-     *   Update?: null|Update|array,
+     *   ConditionCheck?: ConditionCheck|array|null,
+     *   Put?: Put|array|null,
+     *   Delete?: Delete|array|null,
+     *   Update?: Update|array|null,
      * }|TransactWriteItem $input
      */
     public static function create($input): self

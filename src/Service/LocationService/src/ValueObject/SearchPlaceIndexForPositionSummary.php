@@ -54,9 +54,9 @@ final class SearchPlaceIndexForPositionSummary
     /**
      * @param array{
      *   Position: float[],
-     *   MaxResults?: null|int,
+     *   MaxResults?: int|null,
      *   DataSource: string,
-     *   Language?: null|string,
+     *   Language?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -70,9 +70,9 @@ final class SearchPlaceIndexForPositionSummary
     /**
      * @param array{
      *   Position: float[],
-     *   MaxResults?: null|int,
+     *   MaxResults?: int|null,
      *   DataSource: string,
-     *   Language?: null|string,
+     *   Language?: string|null,
      * }|SearchPlaceIndexForPositionSummary $input
      */
     public static function create($input): self

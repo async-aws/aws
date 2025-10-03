@@ -43,10 +43,10 @@ final class Parameter
 
     /**
      * @param array{
-     *   ParameterKey?: null|string,
-     *   ParameterValue?: null|string,
-     *   UsePreviousValue?: null|bool,
-     *   ResolvedValue?: null|string,
+     *   ParameterKey?: string|null,
+     *   ParameterValue?: string|null,
+     *   UsePreviousValue?: bool|null,
+     *   ResolvedValue?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -59,10 +59,10 @@ final class Parameter
 
     /**
      * @param array{
-     *   ParameterKey?: null|string,
-     *   ParameterValue?: null|string,
-     *   UsePreviousValue?: null|bool,
-     *   ResolvedValue?: null|string,
+     *   ParameterKey?: string|null,
+     *   ParameterValue?: string|null,
+     *   UsePreviousValue?: bool|null,
+     *   ResolvedValue?: string|null,
      * }|Parameter $input
      */
     public static function create($input): self

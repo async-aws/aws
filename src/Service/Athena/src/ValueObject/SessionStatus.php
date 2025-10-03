@@ -69,12 +69,12 @@ final class SessionStatus
 
     /**
      * @param array{
-     *   StartDateTime?: null|\DateTimeImmutable,
-     *   LastModifiedDateTime?: null|\DateTimeImmutable,
-     *   EndDateTime?: null|\DateTimeImmutable,
-     *   IdleSinceDateTime?: null|\DateTimeImmutable,
-     *   State?: null|SessionState::*,
-     *   StateChangeReason?: null|string,
+     *   StartDateTime?: \DateTimeImmutable|null,
+     *   LastModifiedDateTime?: \DateTimeImmutable|null,
+     *   EndDateTime?: \DateTimeImmutable|null,
+     *   IdleSinceDateTime?: \DateTimeImmutable|null,
+     *   State?: SessionState::*|null,
+     *   StateChangeReason?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -89,12 +89,12 @@ final class SessionStatus
 
     /**
      * @param array{
-     *   StartDateTime?: null|\DateTimeImmutable,
-     *   LastModifiedDateTime?: null|\DateTimeImmutable,
-     *   EndDateTime?: null|\DateTimeImmutable,
-     *   IdleSinceDateTime?: null|\DateTimeImmutable,
-     *   State?: null|SessionState::*,
-     *   StateChangeReason?: null|string,
+     *   StartDateTime?: \DateTimeImmutable|null,
+     *   LastModifiedDateTime?: \DateTimeImmutable|null,
+     *   EndDateTime?: \DateTimeImmutable|null,
+     *   IdleSinceDateTime?: \DateTimeImmutable|null,
+     *   State?: SessionState::*|null,
+     *   StateChangeReason?: string|null,
      * }|SessionStatus $input
      */
     public static function create($input): self

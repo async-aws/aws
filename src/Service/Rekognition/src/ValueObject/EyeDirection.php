@@ -30,9 +30,9 @@ final class EyeDirection
 
     /**
      * @param array{
-     *   Yaw?: null|float,
-     *   Pitch?: null|float,
-     *   Confidence?: null|float,
+     *   Yaw?: float|null,
+     *   Pitch?: float|null,
+     *   Confidence?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class EyeDirection
 
     /**
      * @param array{
-     *   Yaw?: null|float,
-     *   Pitch?: null|float,
-     *   Confidence?: null|float,
+     *   Yaw?: float|null,
+     *   Pitch?: float|null,
+     *   Confidence?: float|null,
      * }|EyeDirection $input
      */
     public static function create($input): self

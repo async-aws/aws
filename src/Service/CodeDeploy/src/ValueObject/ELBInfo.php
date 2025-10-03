@@ -20,7 +20,7 @@ final class ELBInfo
 
     /**
      * @param array{
-     *   name?: null|string,
+     *   name?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -30,7 +30,7 @@ final class ELBInfo
 
     /**
      * @param array{
-     *   name?: null|string,
+     *   name?: string|null,
      * }|ELBInfo $input
      */
     public static function create($input): self

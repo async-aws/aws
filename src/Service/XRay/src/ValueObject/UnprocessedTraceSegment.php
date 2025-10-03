@@ -30,9 +30,9 @@ final class UnprocessedTraceSegment
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   ErrorCode?: null|string,
-     *   Message?: null|string,
+     *   Id?: string|null,
+     *   ErrorCode?: string|null,
+     *   Message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class UnprocessedTraceSegment
 
     /**
      * @param array{
-     *   Id?: null|string,
-     *   ErrorCode?: null|string,
-     *   Message?: null|string,
+     *   Id?: string|null,
+     *   ErrorCode?: string|null,
+     *   Message?: string|null,
      * }|UnprocessedTraceSegment $input
      */
     public static function create($input): self

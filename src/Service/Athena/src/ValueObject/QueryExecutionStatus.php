@@ -52,11 +52,11 @@ final class QueryExecutionStatus
 
     /**
      * @param array{
-     *   State?: null|QueryExecutionState::*,
-     *   StateChangeReason?: null|string,
-     *   SubmissionDateTime?: null|\DateTimeImmutable,
-     *   CompletionDateTime?: null|\DateTimeImmutable,
-     *   AthenaError?: null|AthenaError|array,
+     *   State?: QueryExecutionState::*|null,
+     *   StateChangeReason?: string|null,
+     *   SubmissionDateTime?: \DateTimeImmutable|null,
+     *   CompletionDateTime?: \DateTimeImmutable|null,
+     *   AthenaError?: AthenaError|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -70,11 +70,11 @@ final class QueryExecutionStatus
 
     /**
      * @param array{
-     *   State?: null|QueryExecutionState::*,
-     *   StateChangeReason?: null|string,
-     *   SubmissionDateTime?: null|\DateTimeImmutable,
-     *   CompletionDateTime?: null|\DateTimeImmutable,
-     *   AthenaError?: null|AthenaError|array,
+     *   State?: QueryExecutionState::*|null,
+     *   StateChangeReason?: string|null,
+     *   SubmissionDateTime?: \DateTimeImmutable|null,
+     *   CompletionDateTime?: \DateTimeImmutable|null,
+     *   AthenaError?: AthenaError|array|null,
      * }|QueryExecutionStatus $input
      */
     public static function create($input): self

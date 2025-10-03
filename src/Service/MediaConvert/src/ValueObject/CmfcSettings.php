@@ -179,20 +179,20 @@ final class CmfcSettings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
-     *   AudioGroupId?: null|string,
-     *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|CmfcAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*,
-     *   KlvMetadata?: null|CmfcKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|CmfcScte35Esam::*,
-     *   Scte35Source?: null|CmfcScte35Source::*,
-     *   TimedMetadata?: null|CmfcTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*,
-     *   TimedMetadataSchemeIdUri?: null|string,
-     *   TimedMetadataValue?: null|string,
+     *   AudioDuration?: CmfcAudioDuration::*|null,
+     *   AudioGroupId?: string|null,
+     *   AudioRenditionSets?: string|null,
+     *   AudioTrackType?: CmfcAudioTrackType::*|null,
+     *   DescriptiveVideoServiceFlag?: CmfcDescriptiveVideoServiceFlag::*|null,
+     *   IFrameOnlyManifest?: CmfcIFrameOnlyManifest::*|null,
+     *   KlvMetadata?: CmfcKlvMetadata::*|null,
+     *   ManifestMetadataSignaling?: CmfcManifestMetadataSignaling::*|null,
+     *   Scte35Esam?: CmfcScte35Esam::*|null,
+     *   Scte35Source?: CmfcScte35Source::*|null,
+     *   TimedMetadata?: CmfcTimedMetadata::*|null,
+     *   TimedMetadataBoxVersion?: CmfcTimedMetadataBoxVersion::*|null,
+     *   TimedMetadataSchemeIdUri?: string|null,
+     *   TimedMetadataValue?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -215,20 +215,20 @@ final class CmfcSettings
 
     /**
      * @param array{
-     *   AudioDuration?: null|CmfcAudioDuration::*,
-     *   AudioGroupId?: null|string,
-     *   AudioRenditionSets?: null|string,
-     *   AudioTrackType?: null|CmfcAudioTrackType::*,
-     *   DescriptiveVideoServiceFlag?: null|CmfcDescriptiveVideoServiceFlag::*,
-     *   IFrameOnlyManifest?: null|CmfcIFrameOnlyManifest::*,
-     *   KlvMetadata?: null|CmfcKlvMetadata::*,
-     *   ManifestMetadataSignaling?: null|CmfcManifestMetadataSignaling::*,
-     *   Scte35Esam?: null|CmfcScte35Esam::*,
-     *   Scte35Source?: null|CmfcScte35Source::*,
-     *   TimedMetadata?: null|CmfcTimedMetadata::*,
-     *   TimedMetadataBoxVersion?: null|CmfcTimedMetadataBoxVersion::*,
-     *   TimedMetadataSchemeIdUri?: null|string,
-     *   TimedMetadataValue?: null|string,
+     *   AudioDuration?: CmfcAudioDuration::*|null,
+     *   AudioGroupId?: string|null,
+     *   AudioRenditionSets?: string|null,
+     *   AudioTrackType?: CmfcAudioTrackType::*|null,
+     *   DescriptiveVideoServiceFlag?: CmfcDescriptiveVideoServiceFlag::*|null,
+     *   IFrameOnlyManifest?: CmfcIFrameOnlyManifest::*|null,
+     *   KlvMetadata?: CmfcKlvMetadata::*|null,
+     *   ManifestMetadataSignaling?: CmfcManifestMetadataSignaling::*|null,
+     *   Scte35Esam?: CmfcScte35Esam::*|null,
+     *   Scte35Source?: CmfcScte35Source::*|null,
+     *   TimedMetadata?: CmfcTimedMetadata::*|null,
+     *   TimedMetadataBoxVersion?: CmfcTimedMetadataBoxVersion::*|null,
+     *   TimedMetadataSchemeIdUri?: string|null,
+     *   TimedMetadataValue?: string|null,
      * }|CmfcSettings $input
      */
     public static function create($input): self
