@@ -36,6 +36,7 @@ use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
+use AsyncAws\S3\Input\PutPublicAccessBlockRequest;
 use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\PutObjectOutput;
@@ -55,6 +56,7 @@ use AsyncAws\S3\ValueObject\LambdaFunctionConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
+use AsyncAws\S3\ValueObject\PublicAccessBlockConfiguration;
 use AsyncAws\S3\ValueObject\QueueConfiguration;
 use AsyncAws\S3\ValueObject\S3KeyFilter;
 use AsyncAws\S3\ValueObject\Tag;
@@ -916,6 +918,27 @@ class S3ClientTest extends TestCase
 
         self::assertNull($result->getVersionId());
         self::assertSame(200, $result->info()['status']);
+    }
+
+    public function testPutPublicAccessBlock(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutPublicAccessBlockRequest([
+            'Bucket' => 'change me',
+            'ContentMD5' => 'change me',
+            'ChecksumAlgorithm' => 'change me',
+            'PublicAccessBlockConfiguration' => new PublicAccessBlockConfiguration([
+                'BlockPublicAcls' => false,
+                'IgnorePublicAcls' => false,
+                'BlockPublicPolicy' => false,
+                'RestrictPublicBuckets' => false,
+            ]),
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->putPublicAccessBlock($input);
+
+        $result->resolve();
     }
 
     public function testUploadFromClosure()
