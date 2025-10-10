@@ -16,7 +16,7 @@
         "ext-filter": "*",
         "ext-hash": "*",
         "ext-simplexml": "*",
-        "async-aws/core": "^1.22"
+        "async-aws/core": "^1.9"
     },
     "autoload": {
         "psr-4": {
