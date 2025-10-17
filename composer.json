@@ -43,6 +43,7 @@
         "symfony/polyfill-uuid": "^1.13.1"
     },
     "conflict": {
+        "phpunit/phpunit": ">=10",
         "symfony/http-client": "5.2.0"
     },
     "autoload": {
