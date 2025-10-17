@@ -5,6 +5,7 @@
 ### Changed
 
 - Apply no CodingStandard from latest php-cs-fixer.
+- Fix PHP 8.5 deprecation by avoiding using `null` as an array offset.
 
 ### Fixed
 
@@ -15,7 +16,7 @@
 
 ### Fixed
 
-- SignerV4: fix sort of query parameters to build correct canoncal query string
+- SignerV4: fix sort of query parameters to build correct canonical query string
 
 ## 1.27.0
 
