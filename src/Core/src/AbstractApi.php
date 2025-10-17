@@ -324,14 +324,14 @@ abstract class AbstractApi
      */
     private function getSigner(?string $region): Signer
     {
-        /** @var string $region */
         $region = $region ?? ($this->configuration->isDefault('region') ? null : $this->configuration->get('region'));
-        if (!isset($this->signers[$region])) {
+        if (!isset($this->signers[$region ?? ''])) {
             $factories = $this->getSignerFactories();
             $factory = null;
             if ($this->configuration->isDefault('endpoint') || $this->configuration->isDefault('region')) {
                 $metadata = $this->getEndpointMetadata($region);
             } else {
+                \assert(null !== $region);
                 // Allow non-aws region with custom endpoint
                 $metadata = $this->getEndpointMetadata(Configuration::DEFAULT_REGION);
                 $metadata['signRegion'] = $region;
@@ -349,10 +349,9 @@ abstract class AbstractApi
                 throw new InvalidArgument(\sprintf('None of the signatures "%s" is implemented.', implode(', ', $metadata['signVersions'])));
             }
 
-            $this->signers[$region] = $factory($metadata['signService'], $metadata['signRegion']);
+            $this->signers[$region ?? ''] = $factory($metadata['signService'], $metadata['signRegion']);
         }
 
-        /** @psalm-suppress PossiblyNullArrayOffset */
-        return $this->signers[$region];
+        return $this->signers[$region ?? ''];
     }
 }
