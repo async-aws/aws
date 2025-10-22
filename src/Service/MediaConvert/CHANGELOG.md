@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds the ability to set resolution for the black video generator.
+
 ### Changed
 
 - Apply no CodingStandard from latest php-cs-fixer.

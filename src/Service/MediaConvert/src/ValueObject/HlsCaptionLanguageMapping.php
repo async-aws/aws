@@ -18,15 +18,16 @@ final class HlsCaptionLanguageMapping
     private $captionChannel;
 
     /**
-     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3 three-letter language code.
+     * Specify the language, using an ISO 639-2 three-letter code in all capital letters. You can find a list of codes at:
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php
      *
      * @var string|null
      */
     private $customLanguageCode;
 
     /**
-     * Specify the language, using the ISO 639-2 three-letter code listed at
-     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     * Specify the language, using an ISO 639-2 three-letter code in all capital letters. You can find a list of codes at:
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php
      *
      * @var LanguageCode::*|null
      */

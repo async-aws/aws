@@ -1397,7 +1397,9 @@ class GetJobResponse extends Result
             'Duration' => isset($json['duration']) ? (int) $json['duration'] : null,
             'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
             'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
+            'Height' => isset($json['height']) ? (int) $json['height'] : null,
             'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
+            'Width' => isset($json['width']) ? (int) $json['width'] : null,
         ]);
     }
 
