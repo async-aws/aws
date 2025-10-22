@@ -6,7 +6,7 @@ namespace AsyncAws\MediaConvert\Enum;
  * * PSNR: Peak Signal-to-Noise Ratio * SSIM: Structural Similarity Index Measure * MS_SSIM: Multi-Scale Similarity
  * Index Measure * PSNR_HVS: Peak Signal-to-Noise Ratio, Human Visual System * VMAF: Video Multi-Method Assessment
  * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
- * control mode.
+ * control mode. * SHOT_CHANGE: Shot Changes.
  */
 final class FrameMetricType
 {
@@ -14,6 +14,7 @@ final class FrameMetricType
     public const PSNR = 'PSNR';
     public const PSNR_HVS = 'PSNR_HVS';
     public const QVBR = 'QVBR';
+    public const SHOT_CHANGE = 'SHOT_CHANGE';
     public const SSIM = 'SSIM';
     public const VMAF = 'VMAF';
 
@@ -24,6 +25,7 @@ final class FrameMetricType
             self::PSNR => true,
             self::PSNR_HVS => true,
             self::QVBR => true,
+            self::SHOT_CHANGE => true,
             self::SSIM => true,
             self::VMAF => true,
         ][$value]);

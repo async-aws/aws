@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release adds the ability to set resolution for the black video generator and also adds the StartJobsQuery and GetJobsQueryResults APIs which allow asynchronous search of job history using new filters.
+
 ### Changed
 
 - Apply no CodingStandard from latest php-cs-fixer.

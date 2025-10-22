@@ -19,6 +19,7 @@ use AsyncAws\MediaConvert\Exception\ConflictException;
 use AsyncAws\MediaConvert\Exception\ForbiddenException;
 use AsyncAws\MediaConvert\Exception\InternalServerErrorException;
 use AsyncAws\MediaConvert\Exception\NotFoundException;
+use AsyncAws\MediaConvert\Exception\ServiceQuotaExceededException;
 use AsyncAws\MediaConvert\Exception\TooManyRequestsException;
 use AsyncAws\MediaConvert\Input\CancelJobRequest;
 use AsyncAws\MediaConvert\Input\CreateJobRequest;
@@ -52,6 +53,7 @@ class MediaConvertClient extends AbstractApi
      * @throws ForbiddenException
      * @throws InternalServerErrorException
      * @throws NotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws TooManyRequestsException
      */
     public function cancelJob($input): CancelJobResponse
@@ -63,6 +65,7 @@ class MediaConvertClient extends AbstractApi
             'ForbiddenException' => ForbiddenException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -99,6 +102,7 @@ class MediaConvertClient extends AbstractApi
      * @throws ForbiddenException
      * @throws InternalServerErrorException
      * @throws NotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws TooManyRequestsException
      */
     public function createJob($input): CreateJobResponse
@@ -110,6 +114,7 @@ class MediaConvertClient extends AbstractApi
             'ForbiddenException' => ForbiddenException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -136,6 +141,7 @@ class MediaConvertClient extends AbstractApi
      * @throws ForbiddenException
      * @throws InternalServerErrorException
      * @throws NotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws TooManyRequestsException
      *
      * @deprecated
@@ -150,6 +156,7 @@ class MediaConvertClient extends AbstractApi
             'ForbiddenException' => ForbiddenException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -172,6 +179,7 @@ class MediaConvertClient extends AbstractApi
      * @throws ForbiddenException
      * @throws InternalServerErrorException
      * @throws NotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws TooManyRequestsException
      */
     public function getJob($input): GetJobResponse
@@ -183,6 +191,7 @@ class MediaConvertClient extends AbstractApi
             'ForbiddenException' => ForbiddenException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
@@ -211,6 +220,7 @@ class MediaConvertClient extends AbstractApi
      * @throws ForbiddenException
      * @throws InternalServerErrorException
      * @throws NotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws TooManyRequestsException
      */
     public function listJobs($input = []): ListJobsResponse
@@ -222,6 +232,7 @@ class MediaConvertClient extends AbstractApi
             'ForbiddenException' => ForbiddenException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
             'NotFoundException' => NotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
