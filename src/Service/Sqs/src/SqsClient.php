@@ -257,7 +257,7 @@ class SqsClient extends AbstractApi
      *
      *   > You can't change the queue type after you create it and you can't convert an existing standard queue into a FIFO
      *   > queue. You must either create a new FIFO queue for your application or delete your existing standard queue and
-     *   > recreate it as a FIFO queue. For more information, see Moving From a Standard Queue to a FIFO Queue [^1] in the
+     *   > recreate it as a FIFO queue. For more information, see Moving From a standard queue to a FIFO queue [^1] in the
      *   > *Amazon SQS Developer Guide*.
      *
      * - If you don't provide a value for an attribute, the queue is created with the default value for the attribute.
@@ -293,8 +293,8 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   Attributes?: null|array<QueueAttributeName::*, string>,
-     *   tags?: null|array<string, string>,
+     *   Attributes?: array<QueueAttributeName::*, string>|null,
+     *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateQueueRequest $input
      *
@@ -478,7 +478,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: null|array<QueueAttributeName::*>,
+     *   AttributeNames?: array<QueueAttributeName::*>|null,
      *   '@region'?: string|null,
      * }|GetQueueAttributesRequest $input
      *
@@ -520,7 +520,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   QueueOwnerAWSAccountId?: null|string,
+     *   QueueOwnerAWSAccountId?: string|null,
      *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      *
@@ -563,9 +563,9 @@ class SqsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#listqueues
      *
      * @param array{
-     *   QueueNamePrefix?: null|string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
+     *   QueueNamePrefix?: string|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListQueuesRequest $input
      *
@@ -634,7 +634,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   QueueOwnerAWSAccountId?: null|string,
+     *   QueueOwnerAWSAccountId?: string|null,
      *   '@region'?: string|null,
      * }|GetQueueUrlRequest $input
      */
@@ -690,13 +690,13 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: null|array<MessageSystemAttributeName::*>,
-     *   MessageSystemAttributeNames?: null|array<MessageSystemAttributeName::*>,
-     *   MessageAttributeNames?: null|string[],
-     *   MaxNumberOfMessages?: null|int,
-     *   VisibilityTimeout?: null|int,
-     *   WaitTimeSeconds?: null|int,
-     *   ReceiveRequestAttemptId?: null|string,
+     *   AttributeNames?: array<MessageSystemAttributeName::*>|null,
+     *   MessageSystemAttributeNames?: array<MessageSystemAttributeName::*>|null,
+     *   MessageAttributeNames?: string[]|null,
+     *   MaxNumberOfMessages?: int|null,
+     *   VisibilityTimeout?: int|null,
+     *   WaitTimeSeconds?: int|null,
+     *   ReceiveRequestAttemptId?: string|null,
      *   '@region'?: string|null,
      * }|ReceiveMessageRequest $input
      *
@@ -744,9 +744,8 @@ class SqsClient extends AbstractApi
      * !
      * ! `#x9` | `#xA` | `#xD` | `#x20` to `#xD7FF` | `#xE000` to `#xFFFD` | `#x10000` to `#x10FFFF`
      * !
-     * ! Amazon SQS does not throw an exception or completely reject the message if it contains invalid characters. Instead,
-     * ! it replaces those invalid characters with `U+FFFD` before storing the message in the queue, as long as the message
-     * ! body contains at least one valid character.
+     * ! If a message contains characters outside the allowed set, Amazon SQS rejects the message and returns an
+     * ! InvalidMessageContents error. Ensure that your message body includes only valid characters to avoid this exception.
      *
      * [^1]: http://www.w3.org/TR/REC-xml/#charsets
      *
@@ -756,11 +755,11 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   MessageBody: string,
-     *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   DelaySeconds?: int|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      *   '@region'?: string|null,
      * }|SendMessageRequest $input
      *
@@ -810,16 +809,15 @@ class SqsClient extends AbstractApi
      * HTTP status code of `200`.
      *
      * The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths of
-     * all of the batched messages) are both 256 KiB (262,144 bytes).
+     * all of the batched messages) are both 1 MiB 1,048,576 bytes.
      *
      * ! A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed. For more
      * ! information, see the W3C specification for characters [^1].
      * !
      * ! `#x9` | `#xA` | `#xD` | `#x20` to `#xD7FF` | `#xE000` to `#xFFFD` | `#x10000` to `#x10FFFF`
      * !
-     * ! Amazon SQS does not throw an exception or completely reject the message if it contains invalid characters. Instead,
-     * ! it replaces those invalid characters with `U+FFFD` before storing the message in the queue, as long as the message
-     * ! body contains at least one valid character.
+     * ! If a message contains characters outside the allowed set, Amazon SQS rejects the message and returns an
+     * ! InvalidMessageContents error. Ensure that your message body includes only valid characters to avoid this exception.
      *
      * If you don't specify the `DelaySeconds` parameter for an entry, Amazon SQS uses the default value for the queue.
      *

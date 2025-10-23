@@ -46,18 +46,18 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#createschedule
      *
      * @param array{
-     *   ActionAfterCompletion?: null|ActionAfterCompletion::*,
-     *   ClientToken?: null|string,
-     *   Description?: null|string,
-     *   EndDate?: null|\DateTimeImmutable|string,
+     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
+     *   ClientToken?: string|null,
+     *   Description?: string|null,
+     *   EndDate?: \DateTimeImmutable|string|null,
      *   FlexibleTimeWindow: FlexibleTimeWindow|array,
-     *   GroupName?: null|string,
-     *   KmsKeyArn?: null|string,
+     *   GroupName?: string|null,
+     *   KmsKeyArn?: string|null,
      *   Name: string,
      *   ScheduleExpression: string,
-     *   ScheduleExpressionTimezone?: null|string,
-     *   StartDate?: null|\DateTimeImmutable|string,
-     *   State?: null|ScheduleState::*,
+     *   ScheduleExpressionTimezone?: string|null,
+     *   StartDate?: \DateTimeImmutable|string|null,
+     *   State?: ScheduleState::*|null,
      *   Target: Target|array,
      *   '@region'?: string|null,
      * }|CreateScheduleInput $input
@@ -91,9 +91,9 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#createschedulegroup
      *
      * @param array{
-     *   ClientToken?: null|string,
+     *   ClientToken?: string|null,
      *   Name: string,
-     *   Tags?: null|array<Tag|array>,
+     *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * }|CreateScheduleGroupInput $input
      *
@@ -124,8 +124,8 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#deleteschedule
      *
      * @param array{
-     *   ClientToken?: null|string,
-     *   GroupName?: null|string,
+     *   ClientToken?: string|null,
+     *   GroupName?: string|null,
      *   Name: string,
      *   '@region'?: string|null,
      * }|DeleteScheduleInput $input
@@ -163,7 +163,7 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#deleteschedulegroup
      *
      * @param array{
-     *   ClientToken?: null|string,
+     *   ClientToken?: string|null,
      *   Name: string,
      *   '@region'?: string|null,
      * }|DeleteScheduleGroupInput $input
@@ -195,7 +195,7 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#getschedule
      *
      * @param array{
-     *   GroupName?: null|string,
+     *   GroupName?: string|null,
      *   Name: string,
      *   '@region'?: string|null,
      * }|GetScheduleInput $input
@@ -254,9 +254,9 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#listschedulegroups
      *
      * @param array{
-     *   MaxResults?: null|int,
-     *   NamePrefix?: null|string,
-     *   NextToken?: null|string,
+     *   MaxResults?: int|null,
+     *   NamePrefix?: string|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|ListScheduleGroupsInput $input
      *
@@ -283,11 +283,11 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#listschedules
      *
      * @param array{
-     *   GroupName?: null|string,
-     *   MaxResults?: null|int,
-     *   NamePrefix?: null|string,
-     *   NextToken?: null|string,
-     *   State?: null|ScheduleState::*,
+     *   GroupName?: string|null,
+     *   MaxResults?: int|null,
+     *   NamePrefix?: string|null,
+     *   NextToken?: string|null,
+     *   State?: ScheduleState::*|null,
      *   '@region'?: string|null,
      * }|ListSchedulesInput $input
      *
@@ -321,18 +321,18 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#updateschedule
      *
      * @param array{
-     *   ActionAfterCompletion?: null|ActionAfterCompletion::*,
-     *   ClientToken?: null|string,
-     *   Description?: null|string,
-     *   EndDate?: null|\DateTimeImmutable|string,
+     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
+     *   ClientToken?: string|null,
+     *   Description?: string|null,
+     *   EndDate?: \DateTimeImmutable|string|null,
      *   FlexibleTimeWindow: FlexibleTimeWindow|array,
-     *   GroupName?: null|string,
-     *   KmsKeyArn?: null|string,
+     *   GroupName?: string|null,
+     *   KmsKeyArn?: string|null,
      *   Name: string,
      *   ScheduleExpression: string,
-     *   ScheduleExpressionTimezone?: null|string,
-     *   StartDate?: null|\DateTimeImmutable|string,
-     *   State?: null|ScheduleState::*,
+     *   ScheduleExpressionTimezone?: string|null,
+     *   StartDate?: \DateTimeImmutable|string|null,
+     *   State?: ScheduleState::*|null,
      *   Target: Target|array,
      *   '@region'?: string|null,
      * }|UpdateScheduleInput $input

@@ -70,7 +70,9 @@ final class CreateKeyRequest extends Input
     /**
      * Determines the cryptographic operations [^1] for which you can use the KMS key. The default value is
      * `ENCRYPT_DECRYPT`. This parameter is optional when you are creating a symmetric encryption KMS key; otherwise, it is
-     * required. You can't change the `KeyUsage` value after the KMS key is created.
+     * required. You can't change the `KeyUsage` [^2] value after the KMS key is created. Each KMS key can have only one key
+     * usage. This follows key usage best practices according to NIST SP 800-57 Recommendations for Key Management [^3],
+     * section 5.2, Key usage.
      *
      * Select only one valid value.
      *
@@ -84,6 +86,8 @@ final class CreateKeyRequest extends Input
      *   `KEY_AGREEMENT`.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html#key-usage
+     * [^3]: https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final
      *
      * @var KeyUsageType::*|null
      */
@@ -308,17 +312,17 @@ final class CreateKeyRequest extends Input
 
     /**
      * @param array{
-     *   Policy?: null|string,
-     *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   Origin?: null|OriginType::*,
-     *   CustomKeyStoreId?: null|string,
-     *   BypassPolicyLockoutSafetyCheck?: null|bool,
-     *   Tags?: null|array<Tag|array>,
-     *   MultiRegion?: null|bool,
-     *   XksKeyId?: null|string,
+     *   Policy?: string|null,
+     *   Description?: string|null,
+     *   KeyUsage?: KeyUsageType::*|null,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*|null,
+     *   KeySpec?: KeySpec::*|null,
+     *   Origin?: OriginType::*|null,
+     *   CustomKeyStoreId?: string|null,
+     *   BypassPolicyLockoutSafetyCheck?: bool|null,
+     *   Tags?: array<Tag|array>|null,
+     *   MultiRegion?: bool|null,
+     *   XksKeyId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -340,17 +344,17 @@ final class CreateKeyRequest extends Input
 
     /**
      * @param array{
-     *   Policy?: null|string,
-     *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   Origin?: null|OriginType::*,
-     *   CustomKeyStoreId?: null|string,
-     *   BypassPolicyLockoutSafetyCheck?: null|bool,
-     *   Tags?: null|array<Tag|array>,
-     *   MultiRegion?: null|bool,
-     *   XksKeyId?: null|string,
+     *   Policy?: string|null,
+     *   Description?: string|null,
+     *   KeyUsage?: KeyUsageType::*|null,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*|null,
+     *   KeySpec?: KeySpec::*|null,
+     *   Origin?: OriginType::*|null,
+     *   CustomKeyStoreId?: string|null,
+     *   BypassPolicyLockoutSafetyCheck?: bool|null,
+     *   Tags?: array<Tag|array>|null,
+     *   MultiRegion?: bool|null,
+     *   XksKeyId?: string|null,
      *   '@region'?: string|null,
      * }|CreateKeyRequest $input
      */

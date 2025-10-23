@@ -18,7 +18,7 @@ final class TracingConfigResponse
 
     /**
      * @param array{
-     *   Mode?: null|TracingMode::*,
+     *   Mode?: TracingMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class TracingConfigResponse
 
     /**
      * @param array{
-     *   Mode?: null|TracingMode::*,
+     *   Mode?: TracingMode::*|null,
      * }|TracingConfigResponse $input
      */
     public static function create($input): self

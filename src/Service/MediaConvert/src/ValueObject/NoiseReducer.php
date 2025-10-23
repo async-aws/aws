@@ -46,10 +46,10 @@ final class NoiseReducer
 
     /**
      * @param array{
-     *   Filter?: null|NoiseReducerFilter::*,
-     *   FilterSettings?: null|NoiseReducerFilterSettings|array,
-     *   SpatialFilterSettings?: null|NoiseReducerSpatialFilterSettings|array,
-     *   TemporalFilterSettings?: null|NoiseReducerTemporalFilterSettings|array,
+     *   Filter?: NoiseReducerFilter::*|null,
+     *   FilterSettings?: NoiseReducerFilterSettings|array|null,
+     *   SpatialFilterSettings?: NoiseReducerSpatialFilterSettings|array|null,
+     *   TemporalFilterSettings?: NoiseReducerTemporalFilterSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,10 +62,10 @@ final class NoiseReducer
 
     /**
      * @param array{
-     *   Filter?: null|NoiseReducerFilter::*,
-     *   FilterSettings?: null|NoiseReducerFilterSettings|array,
-     *   SpatialFilterSettings?: null|NoiseReducerSpatialFilterSettings|array,
-     *   TemporalFilterSettings?: null|NoiseReducerTemporalFilterSettings|array,
+     *   Filter?: NoiseReducerFilter::*|null,
+     *   FilterSettings?: NoiseReducerFilterSettings|array|null,
+     *   SpatialFilterSettings?: NoiseReducerSpatialFilterSettings|array|null,
+     *   TemporalFilterSettings?: NoiseReducerTemporalFilterSettings|array|null,
      * }|NoiseReducer $input
      */
     public static function create($input): self

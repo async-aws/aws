@@ -31,9 +31,9 @@ final class DvbNitSettings
 
     /**
      * @param array{
-     *   NetworkId?: null|int,
-     *   NetworkName?: null|string,
-     *   NitInterval?: null|int,
+     *   NetworkId?: int|null,
+     *   NetworkName?: string|null,
+     *   NitInterval?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class DvbNitSettings
 
     /**
      * @param array{
-     *   NetworkId?: null|int,
-     *   NetworkName?: null|string,
-     *   NitInterval?: null|int,
+     *   NetworkId?: int|null,
+     *   NetworkName?: string|null,
+     *   NitInterval?: int|null,
      * }|DvbNitSettings $input
      */
     public static function create($input): self

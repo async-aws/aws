@@ -26,7 +26,7 @@ final class FlexibleTimeWindow
 
     /**
      * @param array{
-     *   MaximumWindowInMinutes?: null|int,
+     *   MaximumWindowInMinutes?: int|null,
      *   Mode: FlexibleTimeWindowMode::*,
      * } $input
      */
@@ -38,7 +38,7 @@ final class FlexibleTimeWindow
 
     /**
      * @param array{
-     *   MaximumWindowInMinutes?: null|int,
+     *   MaximumWindowInMinutes?: int|null,
      *   Mode: FlexibleTimeWindowMode::*,
      * }|FlexibleTimeWindow $input
      */

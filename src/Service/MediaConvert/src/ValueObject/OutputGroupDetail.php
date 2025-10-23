@@ -16,7 +16,7 @@ final class OutputGroupDetail
 
     /**
      * @param array{
-     *   OutputDetails?: null|array<OutputDetail|array>,
+     *   OutputDetails?: array<OutputDetail|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class OutputGroupDetail
 
     /**
      * @param array{
-     *   OutputDetails?: null|array<OutputDetail|array>,
+     *   OutputDetails?: array<OutputDetail|array>|null,
      * }|OutputGroupDetail $input
      */
     public static function create($input): self

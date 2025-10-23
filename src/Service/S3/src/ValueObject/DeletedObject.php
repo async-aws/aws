@@ -48,10 +48,10 @@ final class DeletedObject
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   DeleteMarker?: null|bool,
-     *   DeleteMarkerVersionId?: null|string,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   DeleteMarker?: bool|null,
+     *   DeleteMarkerVersionId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -64,10 +64,10 @@ final class DeletedObject
 
     /**
      * @param array{
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   DeleteMarker?: null|bool,
-     *   DeleteMarkerVersionId?: null|string,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   DeleteMarker?: bool|null,
+     *   DeleteMarkerVersionId?: string|null,
      * }|DeletedObject $input
      */
     public static function create($input): self

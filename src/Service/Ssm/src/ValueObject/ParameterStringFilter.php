@@ -51,8 +51,8 @@ final class ParameterStringFilter
     /**
      * @param array{
      *   Key: string,
-     *   Option?: null|string,
-     *   Values?: null|string[],
+     *   Option?: string|null,
+     *   Values?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -65,8 +65,8 @@ final class ParameterStringFilter
     /**
      * @param array{
      *   Key: string,
-     *   Option?: null|string,
-     *   Values?: null|string[],
+     *   Option?: string|null,
+     *   Values?: string[]|null,
      * }|ParameterStringFilter $input
      */
     public static function create($input): self

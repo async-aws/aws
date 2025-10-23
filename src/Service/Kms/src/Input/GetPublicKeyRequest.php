@@ -48,7 +48,7 @@ final class GetPublicKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   GrantTokens?: null|string[],
+     *   GrantTokens?: string[]|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -62,7 +62,7 @@ final class GetPublicKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   GrantTokens?: null|string[],
+     *   GrantTokens?: string[]|null,
      *   '@region'?: string|null,
      * }|GetPublicKeyRequest $input
      */

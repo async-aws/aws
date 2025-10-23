@@ -2,6 +2,16 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.15.0
+
+### Added
+
+- Support for Symfony 8
+
 ## 1.14.0
 
 ### Added

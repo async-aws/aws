@@ -54,11 +54,11 @@ final class RevisionLocation
 
     /**
      * @param array{
-     *   revisionType?: null|RevisionLocationType::*,
-     *   s3Location?: null|S3Location|array,
-     *   gitHubLocation?: null|GitHubLocation|array,
-     *   string?: null|RawString|array,
-     *   appSpecContent?: null|AppSpecContent|array,
+     *   revisionType?: RevisionLocationType::*|null,
+     *   s3Location?: S3Location|array|null,
+     *   gitHubLocation?: GitHubLocation|array|null,
+     *   string?: RawString|array|null,
+     *   appSpecContent?: AppSpecContent|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -72,11 +72,11 @@ final class RevisionLocation
 
     /**
      * @param array{
-     *   revisionType?: null|RevisionLocationType::*,
-     *   s3Location?: null|S3Location|array,
-     *   gitHubLocation?: null|GitHubLocation|array,
-     *   string?: null|RawString|array,
-     *   appSpecContent?: null|AppSpecContent|array,
+     *   revisionType?: RevisionLocationType::*|null,
+     *   s3Location?: S3Location|array|null,
+     *   gitHubLocation?: GitHubLocation|array|null,
+     *   string?: RawString|array|null,
+     *   appSpecContent?: AppSpecContent|array|null,
      * }|RevisionLocation $input
      */
     public static function create($input): self

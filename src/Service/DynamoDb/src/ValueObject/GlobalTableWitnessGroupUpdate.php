@@ -30,8 +30,8 @@ final class GlobalTableWitnessGroupUpdate
 
     /**
      * @param array{
-     *   Create?: null|CreateGlobalTableWitnessGroupMemberAction|array,
-     *   Delete?: null|DeleteGlobalTableWitnessGroupMemberAction|array,
+     *   Create?: CreateGlobalTableWitnessGroupMemberAction|array|null,
+     *   Delete?: DeleteGlobalTableWitnessGroupMemberAction|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -42,8 +42,8 @@ final class GlobalTableWitnessGroupUpdate
 
     /**
      * @param array{
-     *   Create?: null|CreateGlobalTableWitnessGroupMemberAction|array,
-     *   Delete?: null|DeleteGlobalTableWitnessGroupMemberAction|array,
+     *   Create?: CreateGlobalTableWitnessGroupMemberAction|array|null,
+     *   Delete?: DeleteGlobalTableWitnessGroupMemberAction|array|null,
      * }|GlobalTableWitnessGroupUpdate $input
      */
     public static function create($input): self

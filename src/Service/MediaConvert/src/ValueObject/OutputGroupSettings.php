@@ -63,7 +63,7 @@ final class OutputGroupSettings
      * * PSNR: Peak Signal-to-Noise Ratio * SSIM: Structural Similarity Index Measure * MS_SSIM: Multi-Scale Similarity
      * Index Measure * PSNR_HVS: Peak Signal-to-Noise Ratio, Human Visual System * VMAF: Video Multi-Method Assessment
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
-     * control mode.
+     * control mode. * SHOT_CHANGE: Shot Changes.
      *
      * @var list<FrameMetricType::*>|null
      */
@@ -78,13 +78,13 @@ final class OutputGroupSettings
 
     /**
      * @param array{
-     *   CmafGroupSettings?: null|CmafGroupSettings|array,
-     *   DashIsoGroupSettings?: null|DashIsoGroupSettings|array,
-     *   FileGroupSettings?: null|FileGroupSettings|array,
-     *   HlsGroupSettings?: null|HlsGroupSettings|array,
-     *   MsSmoothGroupSettings?: null|MsSmoothGroupSettings|array,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   Type?: null|OutputGroupType::*,
+     *   CmafGroupSettings?: CmafGroupSettings|array|null,
+     *   DashIsoGroupSettings?: DashIsoGroupSettings|array|null,
+     *   FileGroupSettings?: FileGroupSettings|array|null,
+     *   HlsGroupSettings?: HlsGroupSettings|array|null,
+     *   MsSmoothGroupSettings?: MsSmoothGroupSettings|array|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   Type?: OutputGroupType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -100,13 +100,13 @@ final class OutputGroupSettings
 
     /**
      * @param array{
-     *   CmafGroupSettings?: null|CmafGroupSettings|array,
-     *   DashIsoGroupSettings?: null|DashIsoGroupSettings|array,
-     *   FileGroupSettings?: null|FileGroupSettings|array,
-     *   HlsGroupSettings?: null|HlsGroupSettings|array,
-     *   MsSmoothGroupSettings?: null|MsSmoothGroupSettings|array,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   Type?: null|OutputGroupType::*,
+     *   CmafGroupSettings?: CmafGroupSettings|array|null,
+     *   DashIsoGroupSettings?: DashIsoGroupSettings|array|null,
+     *   FileGroupSettings?: FileGroupSettings|array|null,
+     *   HlsGroupSettings?: HlsGroupSettings|array|null,
+     *   MsSmoothGroupSettings?: MsSmoothGroupSettings|array|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   Type?: OutputGroupType::*|null,
      * }|OutputGroupSettings $input
      */
     public static function create($input): self

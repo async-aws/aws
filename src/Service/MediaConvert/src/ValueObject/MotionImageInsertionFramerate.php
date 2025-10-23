@@ -27,8 +27,8 @@ final class MotionImageInsertionFramerate
 
     /**
      * @param array{
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class MotionImageInsertionFramerate
 
     /**
      * @param array{
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
      * }|MotionImageInsertionFramerate $input
      */
     public static function create($input): self

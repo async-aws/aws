@@ -18,7 +18,7 @@ final class DeadLetterConfig
 
     /**
      * @param array{
-     *   TargetArn?: null|string,
+     *   TargetArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class DeadLetterConfig
 
     /**
      * @param array{
-     *   TargetArn?: null|string,
+     *   TargetArn?: string|null,
      * }|DeadLetterConfig $input
      */
     public static function create($input): self

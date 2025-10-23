@@ -114,17 +114,17 @@ final class NielsenNonLinearWatermarkSettings
 
     /**
      * @param array{
-     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*,
-     *   AdiFilename?: null|string,
-     *   AssetId?: null|string,
-     *   AssetName?: null|string,
-     *   CbetSourceId?: null|string,
-     *   EpisodeId?: null|string,
-     *   MetadataDestination?: null|string,
-     *   SourceId?: null|int,
-     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*,
-     *   TicServerUrl?: null|string,
-     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*,
+     *   ActiveWatermarkProcess?: NielsenActiveWatermarkProcessType::*|null,
+     *   AdiFilename?: string|null,
+     *   AssetId?: string|null,
+     *   AssetName?: string|null,
+     *   CbetSourceId?: string|null,
+     *   EpisodeId?: string|null,
+     *   MetadataDestination?: string|null,
+     *   SourceId?: int|null,
+     *   SourceWatermarkStatus?: NielsenSourceWatermarkStatusType::*|null,
+     *   TicServerUrl?: string|null,
+     *   UniqueTicPerAudioTrack?: NielsenUniqueTicPerAudioTrackType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -144,17 +144,17 @@ final class NielsenNonLinearWatermarkSettings
 
     /**
      * @param array{
-     *   ActiveWatermarkProcess?: null|NielsenActiveWatermarkProcessType::*,
-     *   AdiFilename?: null|string,
-     *   AssetId?: null|string,
-     *   AssetName?: null|string,
-     *   CbetSourceId?: null|string,
-     *   EpisodeId?: null|string,
-     *   MetadataDestination?: null|string,
-     *   SourceId?: null|int,
-     *   SourceWatermarkStatus?: null|NielsenSourceWatermarkStatusType::*,
-     *   TicServerUrl?: null|string,
-     *   UniqueTicPerAudioTrack?: null|NielsenUniqueTicPerAudioTrackType::*,
+     *   ActiveWatermarkProcess?: NielsenActiveWatermarkProcessType::*|null,
+     *   AdiFilename?: string|null,
+     *   AssetId?: string|null,
+     *   AssetName?: string|null,
+     *   CbetSourceId?: string|null,
+     *   EpisodeId?: string|null,
+     *   MetadataDestination?: string|null,
+     *   SourceId?: int|null,
+     *   SourceWatermarkStatus?: NielsenSourceWatermarkStatusType::*|null,
+     *   TicServerUrl?: string|null,
+     *   UniqueTicPerAudioTrack?: NielsenUniqueTicPerAudioTrackType::*|null,
      * }|NielsenNonLinearWatermarkSettings $input
      */
     public static function create($input): self

@@ -8,7 +8,7 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
-use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Visibility;
 
 /**
  * Generate Enum shapeused by Input and Result classes.
@@ -64,7 +64,7 @@ class EnumGenerator
         ksort($consts);
         $availableConsts = [];
         foreach ($consts as $constName => $constValue) {
-            $classBuilder->addConstant($constName, $constValue)->setVisibility(ClassType::VISIBILITY_PUBLIC);
+            $classBuilder->addConstant($constName, $constValue)->setVisibility(Visibility::Public);
             $availableConsts[] = 'self::' . $constName . ' => true';
         }
         $classBuilder->addMethod('exists')

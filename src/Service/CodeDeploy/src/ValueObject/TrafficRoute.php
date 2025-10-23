@@ -18,7 +18,7 @@ final class TrafficRoute
 
     /**
      * @param array{
-     *   listenerArns?: null|string[],
+     *   listenerArns?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -28,7 +28,7 @@ final class TrafficRoute
 
     /**
      * @param array{
-     *   listenerArns?: null|string[],
+     *   listenerArns?: string[]|null,
      * }|TrafficRoute $input
      */
     public static function create($input): self

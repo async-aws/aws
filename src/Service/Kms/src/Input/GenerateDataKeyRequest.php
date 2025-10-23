@@ -91,11 +91,12 @@ final class GenerateDataKeyRequest extends Input
     private $grantTokens;
 
     /**
-     * A signed attestation document [^1] from an Amazon Web Services Nitro enclave and the encryption algorithm to use with
-     * the enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
+     * A signed attestation document [^1] from an Amazon Web Services Nitro enclave or NitroTPM, and the encryption
+     * algorithm to use with the public key in the attestation document. The only valid encryption algorithm is
+     * `RSAES_OAEP_SHA_256`.
      *
-     * This parameter only supports attestation documents for Amazon Web Services Nitro Enclaves. To include this parameter,
-     * use the Amazon Web Services Nitro Enclaves SDK [^2] or any Amazon Web Services SDK.
+     * This parameter supports the Amazon Web Services Nitro Enclaves SDK [^2] or any Amazon Web Services SDK for Amazon Web
+     * Services Nitro Enclaves. It supports any Amazon Web Services SDK for Amazon Web Services NitroTPM.
      *
      * When you use this parameter, instead of returning the plaintext data key, KMS encrypts the plaintext data key under
      * the public key in the attestation document, and returns the resulting ciphertext in the `CiphertextForRecipient`
@@ -103,12 +104,12 @@ final class GenerateDataKeyRequest extends Input
      * `CiphertextBlob` field in the response contains a copy of the data key encrypted under the KMS key specified by the
      * `KeyId` parameter. The `Plaintext` field in the response is null or empty.
      *
-     * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services
-     * Nitro Enclaves uses KMS [^3] in the *Key Management Service Developer Guide*.
+     * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves or Amazon Web Services
+     * NitroTPM, see Cryptographic attestation support in KMS [^3] in the *Key Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave-how.html#term-attestdoc
      * [^2]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
-     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      *
      * @var RecipientInfo|null
      */
@@ -129,12 +130,12 @@ final class GenerateDataKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   NumberOfBytes?: null|int,
-     *   KeySpec?: null|DataKeySpec::*,
-     *   GrantTokens?: null|string[],
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   NumberOfBytes?: int|null,
+     *   KeySpec?: DataKeySpec::*|null,
+     *   GrantTokens?: string[]|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -153,12 +154,12 @@ final class GenerateDataKeyRequest extends Input
     /**
      * @param array{
      *   KeyId?: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   NumberOfBytes?: null|int,
-     *   KeySpec?: null|DataKeySpec::*,
-     *   GrantTokens?: null|string[],
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   NumberOfBytes?: int|null,
+     *   KeySpec?: DataKeySpec::*|null,
+     *   GrantTokens?: string[]|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      */

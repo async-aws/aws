@@ -71,9 +71,9 @@ final class TranslationSettings
 
     /**
      * @param array{
-     *   Formality?: null|Formality::*,
-     *   Profanity?: null|Profanity::*,
-     *   Brevity?: null|Brevity::*,
+     *   Formality?: Formality::*|null,
+     *   Profanity?: Profanity::*|null,
+     *   Brevity?: Brevity::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -85,9 +85,9 @@ final class TranslationSettings
 
     /**
      * @param array{
-     *   Formality?: null|Formality::*,
-     *   Profanity?: null|Profanity::*,
-     *   Brevity?: null|Brevity::*,
+     *   Formality?: Formality::*|null,
+     *   Profanity?: Profanity::*|null,
+     *   Brevity?: Brevity::*|null,
      * }|TranslationSettings $input
      */
     public static function create($input): self

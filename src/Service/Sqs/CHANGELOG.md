@@ -2,9 +2,26 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 2.7.1
+
+### Changed
+
+- AWS enhancement: Documentation updates.
+
+## 2.7.0
+
 ### Added
 
 - AWS api-change: Rework regions configuration
+
+### Changed
+
+- AWS enhancement: Documentation updates.
 
 ## 2.6.0
 

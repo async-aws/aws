@@ -45,10 +45,10 @@ final class EmbeddedSourceSettings
 
     /**
      * @param array{
-     *   Convert608To708?: null|EmbeddedConvert608To708::*,
-     *   Source608ChannelNumber?: null|int,
-     *   Source608TrackNumber?: null|int,
-     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*,
+     *   Convert608To708?: EmbeddedConvert608To708::*|null,
+     *   Source608ChannelNumber?: int|null,
+     *   Source608TrackNumber?: int|null,
+     *   TerminateCaptions?: EmbeddedTerminateCaptions::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -61,10 +61,10 @@ final class EmbeddedSourceSettings
 
     /**
      * @param array{
-     *   Convert608To708?: null|EmbeddedConvert608To708::*,
-     *   Source608ChannelNumber?: null|int,
-     *   Source608TrackNumber?: null|int,
-     *   TerminateCaptions?: null|EmbeddedTerminateCaptions::*,
+     *   Convert608To708?: EmbeddedConvert608To708::*|null,
+     *   Source608ChannelNumber?: int|null,
+     *   Source608TrackNumber?: int|null,
+     *   TerminateCaptions?: EmbeddedTerminateCaptions::*|null,
      * }|EmbeddedSourceSettings $input
      */
     public static function create($input): self

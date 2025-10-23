@@ -19,7 +19,7 @@ final class ProjectFleet
 
     /**
      * @param array{
-     *   fleetArn?: null|string,
+     *   fleetArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -29,7 +29,7 @@ final class ProjectFleet
 
     /**
      * @param array{
-     *   fleetArn?: null|string,
+     *   fleetArn?: string|null,
      * }|ProjectFleet $input
      */
     public static function create($input): self

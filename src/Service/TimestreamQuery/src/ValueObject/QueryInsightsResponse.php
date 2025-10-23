@@ -74,14 +74,14 @@ final class QueryInsightsResponse
 
     /**
      * @param array{
-     *   QuerySpatialCoverage?: null|QuerySpatialCoverage|array,
-     *   QueryTemporalRange?: null|QueryTemporalRange|array,
-     *   QueryTableCount?: null|int,
-     *   OutputRows?: null|int,
-     *   OutputBytes?: null|int,
-     *   UnloadPartitionCount?: null|int,
-     *   UnloadWrittenRows?: null|int,
-     *   UnloadWrittenBytes?: null|int,
+     *   QuerySpatialCoverage?: QuerySpatialCoverage|array|null,
+     *   QueryTemporalRange?: QueryTemporalRange|array|null,
+     *   QueryTableCount?: int|null,
+     *   OutputRows?: int|null,
+     *   OutputBytes?: int|null,
+     *   UnloadPartitionCount?: int|null,
+     *   UnloadWrittenRows?: int|null,
+     *   UnloadWrittenBytes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -98,14 +98,14 @@ final class QueryInsightsResponse
 
     /**
      * @param array{
-     *   QuerySpatialCoverage?: null|QuerySpatialCoverage|array,
-     *   QueryTemporalRange?: null|QueryTemporalRange|array,
-     *   QueryTableCount?: null|int,
-     *   OutputRows?: null|int,
-     *   OutputBytes?: null|int,
-     *   UnloadPartitionCount?: null|int,
-     *   UnloadWrittenRows?: null|int,
-     *   UnloadWrittenBytes?: null|int,
+     *   QuerySpatialCoverage?: QuerySpatialCoverage|array|null,
+     *   QueryTemporalRange?: QueryTemporalRange|array|null,
+     *   QueryTableCount?: int|null,
+     *   OutputRows?: int|null,
+     *   OutputBytes?: int|null,
+     *   UnloadPartitionCount?: int|null,
+     *   UnloadWrittenRows?: int|null,
+     *   UnloadWrittenBytes?: int|null,
      * }|QueryInsightsResponse $input
      */
     public static function create($input): self

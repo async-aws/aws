@@ -58,8 +58,9 @@ final class CreateJobRequest extends Input1
 
     /**
      * Use Job engine versions to run jobs for your production workflow on one version, while you test and validate the
-     * latest version. To specify a Job engine version: Enter a date in a YYYY-MM-DD format. For a list of valid Job engine
-     * versions, submit a ListVersions request. To not specify a Job engine version: Leave blank.
+     * latest version. Job engine versions represent periodically grouped MediaConvert releases with new features, updates,
+     * improvements, and fixes. Job engine versions are in a YYYY-MM-DD format. Note that the Job engine version feature is
+     * not publicly available at this time. To request access, contact AWS support.
      *
      * @var string|null
      */
@@ -148,20 +149,20 @@ final class CreateJobRequest extends Input1
 
     /**
      * @param array{
-     *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
-     *   ClientRequestToken?: null|string,
-     *   HopDestinations?: null|array<HopDestination|array>,
-     *   JobEngineVersion?: null|string,
-     *   JobTemplate?: null|string,
-     *   Priority?: null|int,
-     *   Queue?: null|string,
+     *   AccelerationSettings?: AccelerationSettings|array|null,
+     *   BillingTagsSource?: BillingTagsSource::*|null,
+     *   ClientRequestToken?: string|null,
+     *   HopDestinations?: array<HopDestination|array>|null,
+     *   JobEngineVersion?: string|null,
+     *   JobTemplate?: string|null,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
      *   Role?: string,
      *   Settings?: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
-     *   Tags?: null|array<string, string>,
-     *   UserMetadata?: null|array<string, string>,
+     *   SimulateReservedQueue?: SimulateReservedQueue::*|null,
+     *   StatusUpdateInterval?: StatusUpdateInterval::*|null,
+     *   Tags?: array<string, string>|null,
+     *   UserMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -186,20 +187,20 @@ final class CreateJobRequest extends Input1
 
     /**
      * @param array{
-     *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
-     *   ClientRequestToken?: null|string,
-     *   HopDestinations?: null|array<HopDestination|array>,
-     *   JobEngineVersion?: null|string,
-     *   JobTemplate?: null|string,
-     *   Priority?: null|int,
-     *   Queue?: null|string,
+     *   AccelerationSettings?: AccelerationSettings|array|null,
+     *   BillingTagsSource?: BillingTagsSource::*|null,
+     *   ClientRequestToken?: string|null,
+     *   HopDestinations?: array<HopDestination|array>|null,
+     *   JobEngineVersion?: string|null,
+     *   JobTemplate?: string|null,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
      *   Role?: string,
      *   Settings?: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
-     *   Tags?: null|array<string, string>,
-     *   UserMetadata?: null|array<string, string>,
+     *   SimulateReservedQueue?: SimulateReservedQueue::*|null,
+     *   StatusUpdateInterval?: StatusUpdateInterval::*|null,
+     *   Tags?: array<string, string>|null,
+     *   UserMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateJobRequest $input
      */

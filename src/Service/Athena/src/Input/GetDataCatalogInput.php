@@ -28,7 +28,7 @@ final class GetDataCatalogInput extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -42,7 +42,7 @@ final class GetDataCatalogInput extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|GetDataCatalogInput $input
      */

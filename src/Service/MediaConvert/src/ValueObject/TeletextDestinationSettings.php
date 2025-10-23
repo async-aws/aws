@@ -31,8 +31,8 @@ final class TeletextDestinationSettings
 
     /**
      * @param array{
-     *   PageNumber?: null|string,
-     *   PageTypes?: null|array<TeletextPageType::*>,
+     *   PageNumber?: string|null,
+     *   PageTypes?: array<TeletextPageType::*>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class TeletextDestinationSettings
 
     /**
      * @param array{
-     *   PageNumber?: null|string,
-     *   PageTypes?: null|array<TeletextPageType::*>,
+     *   PageNumber?: string|null,
+     *   PageTypes?: array<TeletextPageType::*>|null,
      * }|TeletextDestinationSettings $input
      */
     public static function create($input): self

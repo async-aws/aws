@@ -37,10 +37,10 @@ final class Rectangle
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Width?: null|int,
-     *   X?: null|int,
-     *   Y?: null|int,
+     *   Height?: int|null,
+     *   Width?: int|null,
+     *   X?: int|null,
+     *   Y?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -53,10 +53,10 @@ final class Rectangle
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Width?: null|int,
-     *   X?: null|int,
-     *   Y?: null|int,
+     *   Height?: int|null,
+     *   Width?: int|null,
+     *   X?: int|null,
+     *   Y?: int|null,
      * }|Rectangle $input
      */
     public static function create($input): self

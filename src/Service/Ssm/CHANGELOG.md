@@ -4,6 +4,12 @@
 
 ### Changed
 
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 2.3.1
+
+### Changed
+
 - AWS enhancement: Documentation updates.
 
 ## 2.3.0

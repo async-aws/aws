@@ -30,9 +30,9 @@ final class Timing
 
     /**
      * @param array{
-     *   FinishTime?: null|\DateTimeImmutable,
-     *   StartTime?: null|\DateTimeImmutable,
-     *   SubmitTime?: null|\DateTimeImmutable,
+     *   FinishTime?: \DateTimeImmutable|null,
+     *   StartTime?: \DateTimeImmutable|null,
+     *   SubmitTime?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class Timing
 
     /**
      * @param array{
-     *   FinishTime?: null|\DateTimeImmutable,
-     *   StartTime?: null|\DateTimeImmutable,
-     *   SubmitTime?: null|\DateTimeImmutable,
+     *   FinishTime?: \DateTimeImmutable|null,
+     *   StartTime?: \DateTimeImmutable|null,
+     *   SubmitTime?: \DateTimeImmutable|null,
      * }|Timing $input
      */
     public static function create($input): self

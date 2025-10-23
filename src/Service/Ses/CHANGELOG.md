@@ -4,6 +4,16 @@
 
 ### Changed
 
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.13.0
+
+### Added
+
+- AWS api-change: This release introduces support for Multi-tenant management
+
+### Changed
+
 - AWS enhancement: Documentation updates.
 
 ## 1.12.0

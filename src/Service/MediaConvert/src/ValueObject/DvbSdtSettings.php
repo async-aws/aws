@@ -44,10 +44,10 @@ final class DvbSdtSettings
 
     /**
      * @param array{
-     *   OutputSdt?: null|OutputSdt::*,
-     *   SdtInterval?: null|int,
-     *   ServiceName?: null|string,
-     *   ServiceProviderName?: null|string,
+     *   OutputSdt?: OutputSdt::*|null,
+     *   SdtInterval?: int|null,
+     *   ServiceName?: string|null,
+     *   ServiceProviderName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,10 +60,10 @@ final class DvbSdtSettings
 
     /**
      * @param array{
-     *   OutputSdt?: null|OutputSdt::*,
-     *   SdtInterval?: null|int,
-     *   ServiceName?: null|string,
-     *   ServiceProviderName?: null|string,
+     *   OutputSdt?: OutputSdt::*|null,
+     *   SdtInterval?: int|null,
+     *   ServiceName?: string|null,
+     *   ServiceProviderName?: string|null,
      * }|DvbSdtSettings $input
      */
     public static function create($input): self

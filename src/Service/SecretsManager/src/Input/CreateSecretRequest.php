@@ -163,14 +163,14 @@ final class CreateSecretRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   ClientRequestToken?: null|string,
-     *   Description?: null|string,
-     *   KmsKeyId?: null|string,
-     *   SecretBinary?: null|string,
-     *   SecretString?: null|string,
-     *   Tags?: null|array<Tag|array>,
-     *   AddReplicaRegions?: null|array<ReplicaRegionType|array>,
-     *   ForceOverwriteReplicaSecret?: null|bool,
+     *   ClientRequestToken?: string|null,
+     *   Description?: string|null,
+     *   KmsKeyId?: string|null,
+     *   SecretBinary?: string|null,
+     *   SecretString?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
+     *   ForceOverwriteReplicaSecret?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -191,14 +191,14 @@ final class CreateSecretRequest extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   ClientRequestToken?: null|string,
-     *   Description?: null|string,
-     *   KmsKeyId?: null|string,
-     *   SecretBinary?: null|string,
-     *   SecretString?: null|string,
-     *   Tags?: null|array<Tag|array>,
-     *   AddReplicaRegions?: null|array<ReplicaRegionType|array>,
-     *   ForceOverwriteReplicaSecret?: null|bool,
+     *   ClientRequestToken?: string|null,
+     *   Description?: string|null,
+     *   KmsKeyId?: string|null,
+     *   SecretBinary?: string|null,
+     *   SecretString?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
+     *   ForceOverwriteReplicaSecret?: bool|null,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      */

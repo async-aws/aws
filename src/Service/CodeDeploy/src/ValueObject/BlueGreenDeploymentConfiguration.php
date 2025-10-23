@@ -31,9 +31,9 @@ final class BlueGreenDeploymentConfiguration
 
     /**
      * @param array{
-     *   terminateBlueInstancesOnDeploymentSuccess?: null|BlueInstanceTerminationOption|array,
-     *   deploymentReadyOption?: null|DeploymentReadyOption|array,
-     *   greenFleetProvisioningOption?: null|GreenFleetProvisioningOption|array,
+     *   terminateBlueInstancesOnDeploymentSuccess?: BlueInstanceTerminationOption|array|null,
+     *   deploymentReadyOption?: DeploymentReadyOption|array|null,
+     *   greenFleetProvisioningOption?: GreenFleetProvisioningOption|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class BlueGreenDeploymentConfiguration
 
     /**
      * @param array{
-     *   terminateBlueInstancesOnDeploymentSuccess?: null|BlueInstanceTerminationOption|array,
-     *   deploymentReadyOption?: null|DeploymentReadyOption|array,
-     *   greenFleetProvisioningOption?: null|GreenFleetProvisioningOption|array,
+     *   terminateBlueInstancesOnDeploymentSuccess?: BlueInstanceTerminationOption|array|null,
+     *   deploymentReadyOption?: DeploymentReadyOption|array|null,
+     *   greenFleetProvisioningOption?: GreenFleetProvisioningOption|array|null,
      * }|BlueGreenDeploymentConfiguration $input
      */
     public static function create($input): self

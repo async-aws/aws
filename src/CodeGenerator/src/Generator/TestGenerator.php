@@ -19,7 +19,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Visibility;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -404,7 +404,7 @@ class TestGenerator
 
         $classBuilder->setExtends(TestCase::class);
         $classBuilder->addMethod('getClient')
-            ->setVisibility(ClassType::VISIBILITY_PRIVATE)
+            ->setVisibility(Visibility::Private)
             ->setReturnType($clientClassName->getFqdn())
             ->setBody(strtr('
     MARKER

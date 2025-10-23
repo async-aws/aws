@@ -66,7 +66,7 @@ final class SearchPlaceIndexForPositionRequest extends Input
     /**
      * The optional API key [^1] to authorize the request.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html
      *
      * @var string|null
      */
@@ -76,9 +76,9 @@ final class SearchPlaceIndexForPositionRequest extends Input
      * @param array{
      *   IndexName?: string,
      *   Position?: float[],
-     *   MaxResults?: null|int,
-     *   Language?: null|string,
-     *   Key?: null|string,
+     *   MaxResults?: int|null,
+     *   Language?: string|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -96,9 +96,9 @@ final class SearchPlaceIndexForPositionRequest extends Input
      * @param array{
      *   IndexName?: string,
      *   Position?: float[],
-     *   MaxResults?: null|int,
-     *   Language?: null|string,
-     *   Key?: null|string,
+     *   MaxResults?: int|null,
+     *   Language?: string|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input
      */

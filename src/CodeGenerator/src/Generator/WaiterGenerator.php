@@ -22,7 +22,7 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Waiter as WaiterResult;
-use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Visibility;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -143,9 +143,9 @@ class WaiterGenerator
         $classBuilder = $this->classRegistry->register($className->getFqdn());
 
         $classBuilder->addConstant('WAIT_TIMEOUT', (float) ($waiter->getMaxAttempts() * $waiter->getDelay()))
-            ->setVisibility(ClassType::VISIBILITY_PROTECTED);
+            ->setVisibility(Visibility::Protected);
         $classBuilder->addConstant('WAIT_DELAY', (float) $waiter->getDelay())
-            ->setVisibility(ClassType::VISIBILITY_PROTECTED);
+            ->setVisibility(Visibility::Protected);
 
         $classBuilder->addUse(WaiterResult::class);
         $classBuilder->addUse(Result::class);
@@ -162,7 +162,7 @@ class WaiterGenerator
 
         $classBuilder->addMethod('refreshState')
             ->setReturnType(WaiterResult::class)
-            ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+            ->setVisibility(Visibility::Protected)
             ->setBody(strtr('
                 if (!$this->awsClient instanceOf CLIENT_CLASSNAME) {
                     throw new InvalidArgument(\'missing client injected in waiter result\');

@@ -39,7 +39,7 @@ final class GetDatabaseInput extends Input
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -55,7 +55,7 @@ final class GetDatabaseInput extends Input
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
-     *   WorkGroup?: null|string,
+     *   WorkGroup?: string|null,
      *   '@region'?: string|null,
      * }|GetDatabaseInput $input
      */

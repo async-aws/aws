@@ -89,10 +89,10 @@ class CloudWatchClient extends AbstractApi
      *   MetricDataQueries: array<MetricDataQuery|array>,
      *   StartTime: \DateTimeImmutable|string,
      *   EndTime: \DateTimeImmutable|string,
-     *   NextToken?: null|string,
-     *   ScanBy?: null|ScanBy::*,
-     *   MaxDatapoints?: null|int,
-     *   LabelOptions?: null|LabelOptions|array,
+     *   NextToken?: string|null,
+     *   ScanBy?: ScanBy::*|null,
+     *   MaxDatapoints?: int|null,
+     *   LabelOptions?: LabelOptions|array|null,
      *   '@region'?: string|null,
      * }|GetMetricDataInput $input
      *
@@ -155,13 +155,13 @@ class CloudWatchClient extends AbstractApi
      * @param array{
      *   Namespace: string,
      *   MetricName: string,
-     *   Dimensions?: null|array<Dimension|array>,
+     *   Dimensions?: array<Dimension|array>|null,
      *   StartTime: \DateTimeImmutable|string,
      *   EndTime: \DateTimeImmutable|string,
      *   Period: int,
-     *   Statistics?: null|array<Statistic::*>,
-     *   ExtendedStatistics?: null|string[],
-     *   Unit?: null|StandardUnit::*,
+     *   Statistics?: array<Statistic::*>|null,
+     *   ExtendedStatistics?: string[]|null,
+     *   Unit?: StandardUnit::*|null,
      *   '@region'?: string|null,
      * }|GetMetricStatisticsInput $input
      *
@@ -211,13 +211,13 @@ class CloudWatchClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#listmetrics
      *
      * @param array{
-     *   Namespace?: null|string,
-     *   MetricName?: null|string,
-     *   Dimensions?: null|array<DimensionFilter|array>,
-     *   NextToken?: null|string,
-     *   RecentlyActive?: null|RecentlyActive::*,
-     *   IncludeLinkedAccounts?: null|bool,
-     *   OwningAccount?: null|string,
+     *   Namespace?: string|null,
+     *   MetricName?: string|null,
+     *   Dimensions?: array<DimensionFilter|array>|null,
+     *   NextToken?: string|null,
+     *   RecentlyActive?: RecentlyActive::*|null,
+     *   IncludeLinkedAccounts?: bool|null,
+     *   OwningAccount?: string|null,
      *   '@region'?: string|null,
      * }|ListMetricsInput $input
      *
@@ -288,9 +288,9 @@ class CloudWatchClient extends AbstractApi
      *
      * @param array{
      *   Namespace: string,
-     *   MetricData?: null|array<MetricDatum|array>,
-     *   EntityMetricData?: null|array<EntityMetricData|array>,
-     *   StrictEntityValidation?: null|bool,
+     *   MetricData?: array<MetricDatum|array>|null,
+     *   EntityMetricData?: array<EntityMetricData|array>|null,
+     *   StrictEntityValidation?: bool|null,
      *   '@region'?: string|null,
      * }|PutMetricDataInput $input
      *

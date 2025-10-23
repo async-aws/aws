@@ -47,10 +47,10 @@ final class CalculateRouteTruckModeOptions
 
     /**
      * @param array{
-     *   AvoidFerries?: null|bool,
-     *   AvoidTolls?: null|bool,
-     *   Dimensions?: null|TruckDimensions|array,
-     *   Weight?: null|TruckWeight|array,
+     *   AvoidFerries?: bool|null,
+     *   AvoidTolls?: bool|null,
+     *   Dimensions?: TruckDimensions|array|null,
+     *   Weight?: TruckWeight|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -63,10 +63,10 @@ final class CalculateRouteTruckModeOptions
 
     /**
      * @param array{
-     *   AvoidFerries?: null|bool,
-     *   AvoidTolls?: null|bool,
-     *   Dimensions?: null|TruckDimensions|array,
-     *   Weight?: null|TruckWeight|array,
+     *   AvoidFerries?: bool|null,
+     *   AvoidTolls?: bool|null,
+     *   Dimensions?: TruckDimensions|array|null,
+     *   Weight?: TruckWeight|array|null,
      * }|CalculateRouteTruckModeOptions $input
      */
     public static function create($input): self

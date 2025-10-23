@@ -39,7 +39,7 @@ final class GetParametersRequest extends Input
     /**
      * @param array{
      *   Names?: string[],
-     *   WithDecryption?: null|bool,
+     *   WithDecryption?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -53,7 +53,7 @@ final class GetParametersRequest extends Input
     /**
      * @param array{
      *   Names?: string[],
-     *   WithDecryption?: null|bool,
+     *   WithDecryption?: bool|null,
      *   '@region'?: string|null,
      * }|GetParametersRequest $input
      */

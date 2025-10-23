@@ -26,8 +26,8 @@ final class RetryPolicy
 
     /**
      * @param array{
-     *   MaximumEventAgeInSeconds?: null|int,
-     *   MaximumRetryAttempts?: null|int,
+     *   MaximumEventAgeInSeconds?: int|null,
+     *   MaximumRetryAttempts?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class RetryPolicy
 
     /**
      * @param array{
-     *   MaximumEventAgeInSeconds?: null|int,
-     *   MaximumRetryAttempts?: null|int,
+     *   MaximumEventAgeInSeconds?: int|null,
+     *   MaximumRetryAttempts?: int|null,
      * }|RetryPolicy $input
      */
     public static function create($input): self

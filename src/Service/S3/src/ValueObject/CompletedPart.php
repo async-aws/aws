@@ -86,13 +86,13 @@ final class CompletedPart
 
     /**
      * @param array{
-     *   ETag?: null|string,
-     *   ChecksumCRC32?: null|string,
-     *   ChecksumCRC32C?: null|string,
-     *   ChecksumCRC64NVME?: null|string,
-     *   ChecksumSHA1?: null|string,
-     *   ChecksumSHA256?: null|string,
-     *   PartNumber?: null|int,
+     *   ETag?: string|null,
+     *   ChecksumCRC32?: string|null,
+     *   ChecksumCRC32C?: string|null,
+     *   ChecksumCRC64NVME?: string|null,
+     *   ChecksumSHA1?: string|null,
+     *   ChecksumSHA256?: string|null,
+     *   PartNumber?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -108,13 +108,13 @@ final class CompletedPart
 
     /**
      * @param array{
-     *   ETag?: null|string,
-     *   ChecksumCRC32?: null|string,
-     *   ChecksumCRC32C?: null|string,
-     *   ChecksumCRC64NVME?: null|string,
-     *   ChecksumSHA1?: null|string,
-     *   ChecksumSHA256?: null|string,
-     *   PartNumber?: null|int,
+     *   ETag?: string|null,
+     *   ChecksumCRC32?: string|null,
+     *   ChecksumCRC32C?: string|null,
+     *   ChecksumCRC64NVME?: string|null,
+     *   ChecksumSHA1?: string|null,
+     *   ChecksumSHA256?: string|null,
+     *   PartNumber?: int|null,
      * }|CompletedPart $input
      */
     public static function create($input): self

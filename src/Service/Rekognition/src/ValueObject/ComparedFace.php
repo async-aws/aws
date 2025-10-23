@@ -59,13 +59,13 @@ final class ComparedFace
 
     /**
      * @param array{
-     *   BoundingBox?: null|BoundingBox|array,
-     *   Confidence?: null|float,
-     *   Landmarks?: null|array<Landmark|array>,
-     *   Pose?: null|Pose|array,
-     *   Quality?: null|ImageQuality|array,
-     *   Emotions?: null|array<Emotion|array>,
-     *   Smile?: null|Smile|array,
+     *   BoundingBox?: BoundingBox|array|null,
+     *   Confidence?: float|null,
+     *   Landmarks?: array<Landmark|array>|null,
+     *   Pose?: Pose|array|null,
+     *   Quality?: ImageQuality|array|null,
+     *   Emotions?: array<Emotion|array>|null,
+     *   Smile?: Smile|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,13 +81,13 @@ final class ComparedFace
 
     /**
      * @param array{
-     *   BoundingBox?: null|BoundingBox|array,
-     *   Confidence?: null|float,
-     *   Landmarks?: null|array<Landmark|array>,
-     *   Pose?: null|Pose|array,
-     *   Quality?: null|ImageQuality|array,
-     *   Emotions?: null|array<Emotion|array>,
-     *   Smile?: null|Smile|array,
+     *   BoundingBox?: BoundingBox|array|null,
+     *   Confidence?: float|null,
+     *   Landmarks?: array<Landmark|array>|null,
+     *   Pose?: Pose|array|null,
+     *   Quality?: ImageQuality|array|null,
+     *   Emotions?: array<Emotion|array>|null,
+     *   Smile?: Smile|array|null,
      * }|ComparedFace $input
      */
     public static function create($input): self

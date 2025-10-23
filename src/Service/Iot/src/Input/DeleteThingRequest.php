@@ -33,7 +33,7 @@ final class DeleteThingRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   expectedVersion?: null|int,
+     *   expectedVersion?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,7 +47,7 @@ final class DeleteThingRequest extends Input
     /**
      * @param array{
      *   thingName?: string,
-     *   expectedVersion?: null|int,
+     *   expectedVersion?: int|null,
      *   '@region'?: string|null,
      * }|DeleteThingRequest $input
      */

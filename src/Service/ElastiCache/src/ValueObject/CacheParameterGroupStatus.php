@@ -31,9 +31,9 @@ final class CacheParameterGroupStatus
 
     /**
      * @param array{
-     *   CacheParameterGroupName?: null|string,
-     *   ParameterApplyStatus?: null|string,
-     *   CacheNodeIdsToReboot?: null|string[],
+     *   CacheParameterGroupName?: string|null,
+     *   ParameterApplyStatus?: string|null,
+     *   CacheNodeIdsToReboot?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,9 +45,9 @@ final class CacheParameterGroupStatus
 
     /**
      * @param array{
-     *   CacheParameterGroupName?: null|string,
-     *   ParameterApplyStatus?: null|string,
-     *   CacheNodeIdsToReboot?: null|string[],
+     *   CacheParameterGroupName?: string|null,
+     *   ParameterApplyStatus?: string|null,
+     *   CacheNodeIdsToReboot?: string[]|null,
      * }|CacheParameterGroupStatus $input
      */
     public static function create($input): self

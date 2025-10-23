@@ -69,11 +69,11 @@ final class VideoOverlayCrop
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Unit?: null|VideoOverlayUnit::*,
-     *   Width?: null|int,
-     *   X?: null|int,
-     *   Y?: null|int,
+     *   Height?: int|null,
+     *   Unit?: VideoOverlayUnit::*|null,
+     *   Width?: int|null,
+     *   X?: int|null,
+     *   Y?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -87,11 +87,11 @@ final class VideoOverlayCrop
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Unit?: null|VideoOverlayUnit::*,
-     *   Width?: null|int,
-     *   X?: null|int,
-     *   Y?: null|int,
+     *   Height?: int|null,
+     *   Unit?: VideoOverlayUnit::*|null,
+     *   Width?: int|null,
+     *   X?: int|null,
+     *   Y?: int|null,
      * }|VideoOverlayCrop $input
      */
     public static function create($input): self

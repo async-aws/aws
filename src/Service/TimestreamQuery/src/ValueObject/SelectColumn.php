@@ -42,11 +42,11 @@ final class SelectColumn
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   Type?: null|Type|array,
-     *   DatabaseName?: null|string,
-     *   TableName?: null|string,
-     *   Aliased?: null|bool,
+     *   Name?: string|null,
+     *   Type?: Type|array|null,
+     *   DatabaseName?: string|null,
+     *   TableName?: string|null,
+     *   Aliased?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,11 +60,11 @@ final class SelectColumn
 
     /**
      * @param array{
-     *   Name?: null|string,
-     *   Type?: null|Type|array,
-     *   DatabaseName?: null|string,
-     *   TableName?: null|string,
-     *   Aliased?: null|bool,
+     *   Name?: string|null,
+     *   Type?: Type|array|null,
+     *   DatabaseName?: string|null,
+     *   TableName?: string|null,
+     *   Aliased?: bool|null,
      * }|SelectColumn $input
      */
     public static function create($input): self

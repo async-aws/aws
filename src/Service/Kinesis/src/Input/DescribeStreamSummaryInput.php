@@ -24,8 +24,8 @@ final class DescribeStreamSummaryInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -38,8 +38,8 @@ final class DescribeStreamSummaryInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStreamSummaryInput $input
      */

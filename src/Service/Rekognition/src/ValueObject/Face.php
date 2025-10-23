@@ -59,13 +59,13 @@ final class Face
 
     /**
      * @param array{
-     *   FaceId?: null|string,
-     *   BoundingBox?: null|BoundingBox|array,
-     *   ImageId?: null|string,
-     *   ExternalImageId?: null|string,
-     *   Confidence?: null|float,
-     *   IndexFacesModelVersion?: null|string,
-     *   UserId?: null|string,
+     *   FaceId?: string|null,
+     *   BoundingBox?: BoundingBox|array|null,
+     *   ImageId?: string|null,
+     *   ExternalImageId?: string|null,
+     *   Confidence?: float|null,
+     *   IndexFacesModelVersion?: string|null,
+     *   UserId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -81,13 +81,13 @@ final class Face
 
     /**
      * @param array{
-     *   FaceId?: null|string,
-     *   BoundingBox?: null|BoundingBox|array,
-     *   ImageId?: null|string,
-     *   ExternalImageId?: null|string,
-     *   Confidence?: null|float,
-     *   IndexFacesModelVersion?: null|string,
-     *   UserId?: null|string,
+     *   FaceId?: string|null,
+     *   BoundingBox?: BoundingBox|array|null,
+     *   ImageId?: string|null,
+     *   ExternalImageId?: string|null,
+     *   Confidence?: float|null,
+     *   IndexFacesModelVersion?: string|null,
+     *   UserId?: string|null,
      * }|Face $input
      */
     public static function create($input): self

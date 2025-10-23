@@ -2,6 +2,15 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Rework regions configuration
+- AWS api-change: This release includes exception definition and documentation updates.
+
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
 ## 1.1.1
 
 ### Changed

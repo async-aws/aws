@@ -2,9 +2,16 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 2.12.0
+
 ### Added
 
 - AWS api-change: Rework regions configuration
+- AWS api-change: remove trailling `/` in `ListFunctions` request
 
 ### Changed
 

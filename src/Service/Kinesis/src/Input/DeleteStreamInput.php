@@ -35,9 +35,9 @@ final class DeleteStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
-     *   EnforceConsumerDeletion?: null|bool,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   EnforceConsumerDeletion?: bool|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -51,9 +51,9 @@ final class DeleteStreamInput extends Input
 
     /**
      * @param array{
-     *   StreamName?: null|string,
-     *   EnforceConsumerDeletion?: null|bool,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   EnforceConsumerDeletion?: bool|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DeleteStreamInput $input
      */

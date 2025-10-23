@@ -7,6 +7,7 @@ use AsyncAws\MediaConvert\Enum\AccelerationStatus;
 use AsyncAws\MediaConvert\Enum\BillingTagsSource;
 use AsyncAws\MediaConvert\Enum\JobPhase;
 use AsyncAws\MediaConvert\Enum\JobStatus;
+use AsyncAws\MediaConvert\Enum\ShareStatus;
 use AsyncAws\MediaConvert\Enum\SimulateReservedQueue;
 use AsyncAws\MediaConvert\Enum\StatusUpdateInterval;
 
@@ -142,6 +143,14 @@ final class Job
     private $jobTemplate;
 
     /**
+     * Contains information about the most recent share attempt for the job. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-resource-share.html.
+     *
+     * @var string|null
+     */
+    private $lastShareDetails;
+
+    /**
      * Provides messages from the service about jobs that you have already successfully submitted.
      *
      * @var JobMessages|null
@@ -201,6 +210,13 @@ final class Job
     private $settings;
 
     /**
+     * A job's share status can be NOT_SHARED, INITIATED, or SHARED.
+     *
+     * @var ShareStatus::*|null
+     */
+    private $shareStatus;
+
+    /**
      * Enable this setting when you run a test job to estimate how many reserved transcoding slots (RTS) you need. When this
      * is enabled, MediaConvert runs your job from an on-demand queue with similar performance to what you will see with one
      * RTS in a reserved queue. This setting is disabled by default.
@@ -249,35 +265,37 @@ final class Job
 
     /**
      * @param array{
-     *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   AccelerationStatus?: null|AccelerationStatus::*,
-     *   Arn?: null|string,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
-     *   ClientRequestToken?: null|string,
-     *   CreatedAt?: null|\DateTimeImmutable,
-     *   CurrentPhase?: null|JobPhase::*,
-     *   ErrorCode?: null|int,
-     *   ErrorMessage?: null|string,
-     *   HopDestinations?: null|array<HopDestination|array>,
-     *   Id?: null|string,
-     *   JobEngineVersionRequested?: null|string,
-     *   JobEngineVersionUsed?: null|string,
-     *   JobPercentComplete?: null|int,
-     *   JobTemplate?: null|string,
-     *   Messages?: null|JobMessages|array,
-     *   OutputGroupDetails?: null|array<OutputGroupDetail|array>,
-     *   Priority?: null|int,
-     *   Queue?: null|string,
-     *   QueueTransitions?: null|array<QueueTransition|array>,
-     *   RetryCount?: null|int,
+     *   AccelerationSettings?: AccelerationSettings|array|null,
+     *   AccelerationStatus?: AccelerationStatus::*|null,
+     *   Arn?: string|null,
+     *   BillingTagsSource?: BillingTagsSource::*|null,
+     *   ClientRequestToken?: string|null,
+     *   CreatedAt?: \DateTimeImmutable|null,
+     *   CurrentPhase?: JobPhase::*|null,
+     *   ErrorCode?: int|null,
+     *   ErrorMessage?: string|null,
+     *   HopDestinations?: array<HopDestination|array>|null,
+     *   Id?: string|null,
+     *   JobEngineVersionRequested?: string|null,
+     *   JobEngineVersionUsed?: string|null,
+     *   JobPercentComplete?: int|null,
+     *   JobTemplate?: string|null,
+     *   LastShareDetails?: string|null,
+     *   Messages?: JobMessages|array|null,
+     *   OutputGroupDetails?: array<OutputGroupDetail|array>|null,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
+     *   QueueTransitions?: array<QueueTransition|array>|null,
+     *   RetryCount?: int|null,
      *   Role: string,
      *   Settings: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   Status?: null|JobStatus::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
-     *   Timing?: null|Timing|array,
-     *   UserMetadata?: null|array<string, string>,
-     *   Warnings?: null|array<WarningGroup|array>,
+     *   ShareStatus?: ShareStatus::*|null,
+     *   SimulateReservedQueue?: SimulateReservedQueue::*|null,
+     *   Status?: JobStatus::*|null,
+     *   StatusUpdateInterval?: StatusUpdateInterval::*|null,
+     *   Timing?: Timing|array|null,
+     *   UserMetadata?: array<string, string>|null,
+     *   Warnings?: array<WarningGroup|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -297,6 +315,7 @@ final class Job
         $this->jobEngineVersionUsed = $input['JobEngineVersionUsed'] ?? null;
         $this->jobPercentComplete = $input['JobPercentComplete'] ?? null;
         $this->jobTemplate = $input['JobTemplate'] ?? null;
+        $this->lastShareDetails = $input['LastShareDetails'] ?? null;
         $this->messages = isset($input['Messages']) ? JobMessages::create($input['Messages']) : null;
         $this->outputGroupDetails = isset($input['OutputGroupDetails']) ? array_map([OutputGroupDetail::class, 'create'], $input['OutputGroupDetails']) : null;
         $this->priority = $input['Priority'] ?? null;
@@ -305,6 +324,7 @@ final class Job
         $this->retryCount = $input['RetryCount'] ?? null;
         $this->role = $input['Role'] ?? $this->throwException(new InvalidArgument('Missing required field "Role".'));
         $this->settings = isset($input['Settings']) ? JobSettings::create($input['Settings']) : $this->throwException(new InvalidArgument('Missing required field "Settings".'));
+        $this->shareStatus = $input['ShareStatus'] ?? null;
         $this->simulateReservedQueue = $input['SimulateReservedQueue'] ?? null;
         $this->status = $input['Status'] ?? null;
         $this->statusUpdateInterval = $input['StatusUpdateInterval'] ?? null;
@@ -315,35 +335,37 @@ final class Job
 
     /**
      * @param array{
-     *   AccelerationSettings?: null|AccelerationSettings|array,
-     *   AccelerationStatus?: null|AccelerationStatus::*,
-     *   Arn?: null|string,
-     *   BillingTagsSource?: null|BillingTagsSource::*,
-     *   ClientRequestToken?: null|string,
-     *   CreatedAt?: null|\DateTimeImmutable,
-     *   CurrentPhase?: null|JobPhase::*,
-     *   ErrorCode?: null|int,
-     *   ErrorMessage?: null|string,
-     *   HopDestinations?: null|array<HopDestination|array>,
-     *   Id?: null|string,
-     *   JobEngineVersionRequested?: null|string,
-     *   JobEngineVersionUsed?: null|string,
-     *   JobPercentComplete?: null|int,
-     *   JobTemplate?: null|string,
-     *   Messages?: null|JobMessages|array,
-     *   OutputGroupDetails?: null|array<OutputGroupDetail|array>,
-     *   Priority?: null|int,
-     *   Queue?: null|string,
-     *   QueueTransitions?: null|array<QueueTransition|array>,
-     *   RetryCount?: null|int,
+     *   AccelerationSettings?: AccelerationSettings|array|null,
+     *   AccelerationStatus?: AccelerationStatus::*|null,
+     *   Arn?: string|null,
+     *   BillingTagsSource?: BillingTagsSource::*|null,
+     *   ClientRequestToken?: string|null,
+     *   CreatedAt?: \DateTimeImmutable|null,
+     *   CurrentPhase?: JobPhase::*|null,
+     *   ErrorCode?: int|null,
+     *   ErrorMessage?: string|null,
+     *   HopDestinations?: array<HopDestination|array>|null,
+     *   Id?: string|null,
+     *   JobEngineVersionRequested?: string|null,
+     *   JobEngineVersionUsed?: string|null,
+     *   JobPercentComplete?: int|null,
+     *   JobTemplate?: string|null,
+     *   LastShareDetails?: string|null,
+     *   Messages?: JobMessages|array|null,
+     *   OutputGroupDetails?: array<OutputGroupDetail|array>|null,
+     *   Priority?: int|null,
+     *   Queue?: string|null,
+     *   QueueTransitions?: array<QueueTransition|array>|null,
+     *   RetryCount?: int|null,
      *   Role: string,
      *   Settings: JobSettings|array,
-     *   SimulateReservedQueue?: null|SimulateReservedQueue::*,
-     *   Status?: null|JobStatus::*,
-     *   StatusUpdateInterval?: null|StatusUpdateInterval::*,
-     *   Timing?: null|Timing|array,
-     *   UserMetadata?: null|array<string, string>,
-     *   Warnings?: null|array<WarningGroup|array>,
+     *   ShareStatus?: ShareStatus::*|null,
+     *   SimulateReservedQueue?: SimulateReservedQueue::*|null,
+     *   Status?: JobStatus::*|null,
+     *   StatusUpdateInterval?: StatusUpdateInterval::*|null,
+     *   Timing?: Timing|array|null,
+     *   UserMetadata?: array<string, string>|null,
+     *   Warnings?: array<WarningGroup|array>|null,
      * }|Job $input
      */
     public static function create($input): self
@@ -438,6 +460,11 @@ final class Job
         return $this->jobTemplate;
     }
 
+    public function getLastShareDetails(): ?string
+    {
+        return $this->lastShareDetails;
+    }
+
     public function getMessages(): ?JobMessages
     {
         return $this->messages;
@@ -482,6 +509,14 @@ final class Job
     public function getSettings(): JobSettings
     {
         return $this->settings;
+    }
+
+    /**
+     * @return ShareStatus::*|null
+     */
+    public function getShareStatus(): ?string
+    {
+        return $this->shareStatus;
     }
 
     /**

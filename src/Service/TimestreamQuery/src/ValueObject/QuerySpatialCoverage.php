@@ -29,7 +29,7 @@ final class QuerySpatialCoverage
 
     /**
      * @param array{
-     *   Max?: null|QuerySpatialCoverageMax|array,
+     *   Max?: QuerySpatialCoverageMax|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,7 +39,7 @@ final class QuerySpatialCoverage
 
     /**
      * @param array{
-     *   Max?: null|QuerySpatialCoverageMax|array,
+     *   Max?: QuerySpatialCoverageMax|array|null,
      * }|QuerySpatialCoverage $input
      */
     public static function create($input): self

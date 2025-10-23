@@ -102,10 +102,10 @@ final class ListUsersRequest extends Input
     /**
      * @param array{
      *   UserPoolId?: string,
-     *   AttributesToGet?: null|string[],
-     *   Limit?: null|int,
-     *   PaginationToken?: null|string,
-     *   Filter?: null|string,
+     *   AttributesToGet?: string[]|null,
+     *   Limit?: int|null,
+     *   PaginationToken?: string|null,
+     *   Filter?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -122,10 +122,10 @@ final class ListUsersRequest extends Input
     /**
      * @param array{
      *   UserPoolId?: string,
-     *   AttributesToGet?: null|string[],
-     *   Limit?: null|int,
-     *   PaginationToken?: null|string,
-     *   Filter?: null|string,
+     *   AttributesToGet?: string[]|null,
+     *   Limit?: int|null,
+     *   PaginationToken?: string|null,
+     *   Filter?: string|null,
      *   '@region'?: string|null,
      * }|ListUsersRequest $input
      */

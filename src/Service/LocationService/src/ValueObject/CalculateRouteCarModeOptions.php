@@ -31,8 +31,8 @@ final class CalculateRouteCarModeOptions
 
     /**
      * @param array{
-     *   AvoidFerries?: null|bool,
-     *   AvoidTolls?: null|bool,
+     *   AvoidFerries?: bool|null,
+     *   AvoidTolls?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -43,8 +43,8 @@ final class CalculateRouteCarModeOptions
 
     /**
      * @param array{
-     *   AvoidFerries?: null|bool,
-     *   AvoidTolls?: null|bool,
+     *   AvoidFerries?: bool|null,
+     *   AvoidTolls?: bool|null,
      * }|CalculateRouteCarModeOptions $input
      */
     public static function create($input): self

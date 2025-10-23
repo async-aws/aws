@@ -22,7 +22,7 @@ final class StackEvent
     private $stackId;
 
     /**
-     * The unique ID of this event.
+     * The unique identifier of this event.
      *
      * @var string
      */
@@ -104,35 +104,42 @@ final class StackEvent
     private $clientRequestToken;
 
     /**
-     * The name of the hook.
+     * The name of the Hook.
      *
      * @var string|null
      */
     private $hookType;
 
     /**
-     * Provides the status of the change set hook.
+     * Provides the status of the change set Hook.
      *
      * @var HookStatus::*|null
      */
     private $hookStatus;
 
     /**
-     * Provides the reason for the hook status.
+     * Provides the reason for the Hook status.
      *
      * @var string|null
      */
     private $hookStatusReason;
 
     /**
-     * Invocation points are points in provisioning logic where Hooks are initiated.
+     * The specific point in the provisioning process where the Hook is invoked.
      *
      * @var HookInvocationPoint::*|null
      */
     private $hookInvocationPoint;
 
     /**
-     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * The unique identifier of the Hook invocation.
+     *
+     * @var string|null
+     */
+    private $hookInvocationId;
+
+    /**
+     * Specify the Hook failure mode for non-compliant resources in the followings ways.
      *
      * - `FAIL` Stops provisioning resources.
      * - `WARN` Allows provisioning to continue with a warning message.
@@ -161,20 +168,21 @@ final class StackEvent
      *   StackId: string,
      *   EventId: string,
      *   StackName: string,
-     *   LogicalResourceId?: null|string,
-     *   PhysicalResourceId?: null|string,
-     *   ResourceType?: null|string,
+     *   LogicalResourceId?: string|null,
+     *   PhysicalResourceId?: string|null,
+     *   ResourceType?: string|null,
      *   Timestamp: \DateTimeImmutable,
-     *   ResourceStatus?: null|ResourceStatus::*,
-     *   ResourceStatusReason?: null|string,
-     *   ResourceProperties?: null|string,
-     *   ClientRequestToken?: null|string,
-     *   HookType?: null|string,
-     *   HookStatus?: null|HookStatus::*,
-     *   HookStatusReason?: null|string,
-     *   HookInvocationPoint?: null|HookInvocationPoint::*,
-     *   HookFailureMode?: null|HookFailureMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   ResourceStatus?: ResourceStatus::*|null,
+     *   ResourceStatusReason?: string|null,
+     *   ResourceProperties?: string|null,
+     *   ClientRequestToken?: string|null,
+     *   HookType?: string|null,
+     *   HookStatus?: HookStatus::*|null,
+     *   HookStatusReason?: string|null,
+     *   HookInvocationPoint?: HookInvocationPoint::*|null,
+     *   HookInvocationId?: string|null,
+     *   HookFailureMode?: HookFailureMode::*|null,
+     *   DetailedStatus?: DetailedStatus::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -194,6 +202,7 @@ final class StackEvent
         $this->hookStatus = $input['HookStatus'] ?? null;
         $this->hookStatusReason = $input['HookStatusReason'] ?? null;
         $this->hookInvocationPoint = $input['HookInvocationPoint'] ?? null;
+        $this->hookInvocationId = $input['HookInvocationId'] ?? null;
         $this->hookFailureMode = $input['HookFailureMode'] ?? null;
         $this->detailedStatus = $input['DetailedStatus'] ?? null;
     }
@@ -203,20 +212,21 @@ final class StackEvent
      *   StackId: string,
      *   EventId: string,
      *   StackName: string,
-     *   LogicalResourceId?: null|string,
-     *   PhysicalResourceId?: null|string,
-     *   ResourceType?: null|string,
+     *   LogicalResourceId?: string|null,
+     *   PhysicalResourceId?: string|null,
+     *   ResourceType?: string|null,
      *   Timestamp: \DateTimeImmutable,
-     *   ResourceStatus?: null|ResourceStatus::*,
-     *   ResourceStatusReason?: null|string,
-     *   ResourceProperties?: null|string,
-     *   ClientRequestToken?: null|string,
-     *   HookType?: null|string,
-     *   HookStatus?: null|HookStatus::*,
-     *   HookStatusReason?: null|string,
-     *   HookInvocationPoint?: null|HookInvocationPoint::*,
-     *   HookFailureMode?: null|HookFailureMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   ResourceStatus?: ResourceStatus::*|null,
+     *   ResourceStatusReason?: string|null,
+     *   ResourceProperties?: string|null,
+     *   ClientRequestToken?: string|null,
+     *   HookType?: string|null,
+     *   HookStatus?: HookStatus::*|null,
+     *   HookStatusReason?: string|null,
+     *   HookInvocationPoint?: HookInvocationPoint::*|null,
+     *   HookInvocationId?: string|null,
+     *   HookFailureMode?: HookFailureMode::*|null,
+     *   DetailedStatus?: DetailedStatus::*|null,
      * }|StackEvent $input
      */
     public static function create($input): self
@@ -248,6 +258,11 @@ final class StackEvent
     public function getHookFailureMode(): ?string
     {
         return $this->hookFailureMode;
+    }
+
+    public function getHookInvocationId(): ?string
+    {
+        return $this->hookInvocationId;
     }
 
     /**

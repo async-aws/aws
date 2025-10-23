@@ -74,9 +74,8 @@ final class CreateTokenRequest extends Input
     private $refreshToken;
 
     /**
-     * The list of scopes for which authorization is requested. The access token that is issued is limited to the scopes
-     * that are granted. If this value is not specified, IAM Identity Center authorizes all scopes that are configured for
-     * the client during the call to RegisterClient.
+     * The list of scopes for which authorization is requested. This parameter has no effect; the access token will always
+     * include all scopes configured during client registration.
      *
      * @var string[]|null
      */
@@ -103,12 +102,12 @@ final class CreateTokenRequest extends Input
      *   clientId?: string,
      *   clientSecret?: string,
      *   grantType?: string,
-     *   deviceCode?: null|string,
-     *   code?: null|string,
-     *   refreshToken?: null|string,
-     *   scope?: null|string[],
-     *   redirectUri?: null|string,
-     *   codeVerifier?: null|string,
+     *   deviceCode?: string|null,
+     *   code?: string|null,
+     *   refreshToken?: string|null,
+     *   scope?: string[]|null,
+     *   redirectUri?: string|null,
+     *   codeVerifier?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -131,12 +130,12 @@ final class CreateTokenRequest extends Input
      *   clientId?: string,
      *   clientSecret?: string,
      *   grantType?: string,
-     *   deviceCode?: null|string,
-     *   code?: null|string,
-     *   refreshToken?: null|string,
-     *   scope?: null|string[],
-     *   redirectUri?: null|string,
-     *   codeVerifier?: null|string,
+     *   deviceCode?: string|null,
+     *   code?: string|null,
+     *   refreshToken?: string|null,
+     *   scope?: string[]|null,
+     *   redirectUri?: string|null,
+     *   codeVerifier?: string|null,
      *   '@region'?: string|null,
      * }|CreateTokenRequest $input
      */

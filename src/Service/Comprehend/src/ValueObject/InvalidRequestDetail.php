@@ -28,7 +28,7 @@ final class InvalidRequestDetail
 
     /**
      * @param array{
-     *   Reason?: null|InvalidRequestDetailReason::*,
+     *   Reason?: InvalidRequestDetailReason::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,7 +38,7 @@ final class InvalidRequestDetail
 
     /**
      * @param array{
-     *   Reason?: null|InvalidRequestDetailReason::*,
+     *   Reason?: InvalidRequestDetailReason::*|null,
      * }|InvalidRequestDetail $input
      */
     public static function create($input): self

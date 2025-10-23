@@ -2,6 +2,23 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+- AWS enhancement: Documentation updates.
+
+## 3.8.0
+
+### Added
+
+- AWS api-change: This release 1/ Adds support for throttled keys mode for CloudWatch Contributor Insights, 2/ Adds throttling reasons to exceptions across dataplane APIs. 3/ Explicitly models ThrottlingException as a class in statically typed languages. Refer to the launch day blog post for more details.
+
+### Changed
+
+- AWS enhancement: Documentation updates.
+
+## 3.7.0
+
 ### Added
 
 - AWS api-change: This change adds support for witnesses in global tables. It also adds a new table status, REPLICATION_NOT_AUTHORIZED. This status will indicate scenarios where global replicas table can't be utilized for data plane operations.

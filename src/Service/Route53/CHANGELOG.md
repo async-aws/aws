@@ -2,6 +2,18 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 2.11.0
+
+### Added
+
+- AWS api-change: Amazon Route 53 now supports the Asia Pacific (New Zealand) Region (ap-southeast-6) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+
+## 2.10.0
+
 ### Added
 
 - AWS api-change: Amazon Route 53 now supports the Asia Pacific (Taipei) Region (ap-east-2) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.

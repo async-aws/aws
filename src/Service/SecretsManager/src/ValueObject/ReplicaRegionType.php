@@ -26,8 +26,8 @@ final class ReplicaRegionType
 
     /**
      * @param array{
-     *   Region?: null|string,
-     *   KmsKeyId?: null|string,
+     *   Region?: string|null,
+     *   KmsKeyId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class ReplicaRegionType
 
     /**
      * @param array{
-     *   Region?: null|string,
-     *   KmsKeyId?: null|string,
+     *   Region?: string|null,
+     *   KmsKeyId?: string|null,
      * }|ReplicaRegionType $input
      */
     public static function create($input): self

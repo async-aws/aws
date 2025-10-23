@@ -19,7 +19,7 @@ final class AutomatedEncodingSettings
 
     /**
      * @param array{
-     *   AbrSettings?: null|AutomatedAbrSettings|array,
+     *   AbrSettings?: AutomatedAbrSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -29,7 +29,7 @@ final class AutomatedEncodingSettings
 
     /**
      * @param array{
-     *   AbrSettings?: null|AutomatedAbrSettings|array,
+     *   AbrSettings?: AutomatedAbrSettings|array|null,
      * }|AutomatedEncodingSettings $input
      */
     public static function create($input): self

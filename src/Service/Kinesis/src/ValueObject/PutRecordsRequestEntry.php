@@ -40,7 +40,7 @@ final class PutRecordsRequestEntry
     /**
      * @param array{
      *   Data: string,
-     *   ExplicitHashKey?: null|string,
+     *   ExplicitHashKey?: string|null,
      *   PartitionKey: string,
      * } $input
      */
@@ -54,7 +54,7 @@ final class PutRecordsRequestEntry
     /**
      * @param array{
      *   Data: string,
-     *   ExplicitHashKey?: null|string,
+     *   ExplicitHashKey?: string|null,
      *   PartitionKey: string,
      * }|PutRecordsRequestEntry $input
      */

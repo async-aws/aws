@@ -83,15 +83,15 @@ final class QueryExecutionStatistics
 
     /**
      * @param array{
-     *   EngineExecutionTimeInMillis?: null|int,
-     *   DataScannedInBytes?: null|int,
-     *   DataManifestLocation?: null|string,
-     *   TotalExecutionTimeInMillis?: null|int,
-     *   QueryQueueTimeInMillis?: null|int,
-     *   ServicePreProcessingTimeInMillis?: null|int,
-     *   QueryPlanningTimeInMillis?: null|int,
-     *   ServiceProcessingTimeInMillis?: null|int,
-     *   ResultReuseInformation?: null|ResultReuseInformation|array,
+     *   EngineExecutionTimeInMillis?: int|null,
+     *   DataScannedInBytes?: int|null,
+     *   DataManifestLocation?: string|null,
+     *   TotalExecutionTimeInMillis?: int|null,
+     *   QueryQueueTimeInMillis?: int|null,
+     *   ServicePreProcessingTimeInMillis?: int|null,
+     *   QueryPlanningTimeInMillis?: int|null,
+     *   ServiceProcessingTimeInMillis?: int|null,
+     *   ResultReuseInformation?: ResultReuseInformation|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -109,15 +109,15 @@ final class QueryExecutionStatistics
 
     /**
      * @param array{
-     *   EngineExecutionTimeInMillis?: null|int,
-     *   DataScannedInBytes?: null|int,
-     *   DataManifestLocation?: null|string,
-     *   TotalExecutionTimeInMillis?: null|int,
-     *   QueryQueueTimeInMillis?: null|int,
-     *   ServicePreProcessingTimeInMillis?: null|int,
-     *   QueryPlanningTimeInMillis?: null|int,
-     *   ServiceProcessingTimeInMillis?: null|int,
-     *   ResultReuseInformation?: null|ResultReuseInformation|array,
+     *   EngineExecutionTimeInMillis?: int|null,
+     *   DataScannedInBytes?: int|null,
+     *   DataManifestLocation?: string|null,
+     *   TotalExecutionTimeInMillis?: int|null,
+     *   QueryQueueTimeInMillis?: int|null,
+     *   ServicePreProcessingTimeInMillis?: int|null,
+     *   QueryPlanningTimeInMillis?: int|null,
+     *   ServiceProcessingTimeInMillis?: int|null,
+     *   ResultReuseInformation?: ResultReuseInformation|array|null,
      * }|QueryExecutionStatistics $input
      */
     public static function create($input): self

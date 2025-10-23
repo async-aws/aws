@@ -67,14 +67,14 @@ final class Datapoint
 
     /**
      * @param array{
-     *   Timestamp?: null|\DateTimeImmutable,
-     *   SampleCount?: null|float,
-     *   Average?: null|float,
-     *   Sum?: null|float,
-     *   Minimum?: null|float,
-     *   Maximum?: null|float,
-     *   Unit?: null|StandardUnit::*,
-     *   ExtendedStatistics?: null|array<string, float>,
+     *   Timestamp?: \DateTimeImmutable|null,
+     *   SampleCount?: float|null,
+     *   Average?: float|null,
+     *   Sum?: float|null,
+     *   Minimum?: float|null,
+     *   Maximum?: float|null,
+     *   Unit?: StandardUnit::*|null,
+     *   ExtendedStatistics?: array<string, float>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -91,14 +91,14 @@ final class Datapoint
 
     /**
      * @param array{
-     *   Timestamp?: null|\DateTimeImmutable,
-     *   SampleCount?: null|float,
-     *   Average?: null|float,
-     *   Sum?: null|float,
-     *   Minimum?: null|float,
-     *   Maximum?: null|float,
-     *   Unit?: null|StandardUnit::*,
-     *   ExtendedStatistics?: null|array<string, float>,
+     *   Timestamp?: \DateTimeImmutable|null,
+     *   SampleCount?: float|null,
+     *   Average?: float|null,
+     *   Sum?: float|null,
+     *   Minimum?: float|null,
+     *   Maximum?: float|null,
+     *   Unit?: StandardUnit::*|null,
+     *   ExtendedStatistics?: array<string, float>|null,
      * }|Datapoint $input
      */
     public static function create($input): self

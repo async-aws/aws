@@ -30,9 +30,9 @@ final class PropagatingAttribute
 
     /**
      * @param array{
-     *   userPropertyKey?: null|string,
-     *   thingAttribute?: null|string,
-     *   connectionAttribute?: null|string,
+     *   userPropertyKey?: string|null,
+     *   thingAttribute?: string|null,
+     *   connectionAttribute?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class PropagatingAttribute
 
     /**
      * @param array{
-     *   userPropertyKey?: null|string,
-     *   thingAttribute?: null|string,
-     *   connectionAttribute?: null|string,
+     *   userPropertyKey?: string|null,
+     *   thingAttribute?: string|null,
+     *   connectionAttribute?: string|null,
      * }|PropagatingAttribute $input
      */
     public static function create($input): self

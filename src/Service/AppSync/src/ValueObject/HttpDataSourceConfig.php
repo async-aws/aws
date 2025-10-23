@@ -25,8 +25,8 @@ final class HttpDataSourceConfig
 
     /**
      * @param array{
-     *   endpoint?: null|string,
-     *   authorizationConfig?: null|AuthorizationConfig|array,
+     *   endpoint?: string|null,
+     *   authorizationConfig?: AuthorizationConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class HttpDataSourceConfig
 
     /**
      * @param array{
-     *   endpoint?: null|string,
-     *   authorizationConfig?: null|AuthorizationConfig|array,
+     *   endpoint?: string|null,
+     *   authorizationConfig?: AuthorizationConfig|array|null,
      * }|HttpDataSourceConfig $input
      */
     public static function create($input): self

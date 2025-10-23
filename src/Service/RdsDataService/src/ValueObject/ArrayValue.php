@@ -44,11 +44,11 @@ final class ArrayValue
 
     /**
      * @param array{
-     *   booleanValues?: null|bool[],
-     *   longValues?: null|int[],
-     *   doubleValues?: null|float[],
-     *   stringValues?: null|string[],
-     *   arrayValues?: null|array<ArrayValue|array>,
+     *   booleanValues?: bool[]|null,
+     *   longValues?: int[]|null,
+     *   doubleValues?: float[]|null,
+     *   stringValues?: string[]|null,
+     *   arrayValues?: array<ArrayValue|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class ArrayValue
 
     /**
      * @param array{
-     *   booleanValues?: null|bool[],
-     *   longValues?: null|int[],
-     *   doubleValues?: null|float[],
-     *   stringValues?: null|string[],
-     *   arrayValues?: null|array<ArrayValue|array>,
+     *   booleanValues?: bool[]|null,
+     *   longValues?: int[]|null,
+     *   doubleValues?: float[]|null,
+     *   stringValues?: string[]|null,
+     *   arrayValues?: array<ArrayValue|array>|null,
      * }|ArrayValue $input
      */
     public static function create($input): self

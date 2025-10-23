@@ -29,7 +29,7 @@ jobs:
           tools: flex
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Initialize tests
         run: make initialize -j 4
@@ -58,7 +58,7 @@ jobs:
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core", "options": {"versions": {"async-aws\/core": "dev-master"}}, "canonical": ${{matrix.strategy != 'lowest' && 'true' || 'false'}} }],"require": \{/' composer.json
             composer config minimum-stability dev
             composer config prefer-stable true
-            composer require --dev --no-update symfony/phpunit-bridge
+            composer require --dev --no-update symfony/phpunit-bridge:^7.3.2
             cat composer.json
 
             echo ::endgroup::
@@ -93,7 +93,7 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
 
             localExit=0
-            composer require symfony/phpunit-bridge --no-update --no-install
+            composer require symfony/phpunit-bridge:^7.3.2@dev --dev --no-update --no-install
             composer update --no-interaction --no-scripts --prefer-dist --optimize-autoloader ${{ matrix.strategy == 'lowest' && '--prefer-lowest' || '' }} $COMPOSER_OPTIONS || localExit=1
             ./vendor/bin/simple-phpunit install
             echo ::endgroup::
@@ -138,11 +138,11 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
+          php-version: 8.4
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 

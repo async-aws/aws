@@ -40,8 +40,8 @@ final class Filter
 
     /**
      * @param array{
-     *   Key?: null|FilterNameStringType::*,
-     *   Values?: null|string[],
+     *   Key?: FilterNameStringType::*|null,
+     *   Values?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,8 +52,8 @@ final class Filter
 
     /**
      * @param array{
-     *   Key?: null|FilterNameStringType::*,
-     *   Values?: null|string[],
+     *   Key?: FilterNameStringType::*|null,
+     *   Values?: string[]|null,
      * }|Filter $input
      */
     public static function create($input): self

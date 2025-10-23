@@ -4,6 +4,23 @@
 
 ### Added
 
+- AWS api-change: This release adds the ability to set resolution for the black video generator.
+
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.11.0
+
+### Added
+
+- AWS api-change: This release adds support for input rendition selection for HLS input, adds new Share API to enable sharing jobs with AWS Support for support investigations, and adds INCLUDE_AS_TS to iFrameOnlyManifest setting for HLS outputs.
+- AWS api-change: Remove incorrect endpoint tests
+
+## 1.10.0
+
+### Added
+
 - AWS api-change: This release includes support for embedding and signing C2PA content credentials in MP4 outputs.
 - AWS api-change: This release adds a new SPECIFIED_OPTIMAL option for handling DDS when using DVB-Sub with high resolution video.
 - AWS api-change: This release expands the range of supported audio outputs to include xHE, 192khz FLAC and the deprecation of dual mono for AC3.

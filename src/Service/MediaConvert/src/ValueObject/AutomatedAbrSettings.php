@@ -59,11 +59,11 @@ final class AutomatedAbrSettings
 
     /**
      * @param array{
-     *   MaxAbrBitrate?: null|int,
-     *   MaxQualityLevel?: null|float,
-     *   MaxRenditions?: null|int,
-     *   MinAbrBitrate?: null|int,
-     *   Rules?: null|array<AutomatedAbrRule|array>,
+     *   MaxAbrBitrate?: int|null,
+     *   MaxQualityLevel?: float|null,
+     *   MaxRenditions?: int|null,
+     *   MinAbrBitrate?: int|null,
+     *   Rules?: array<AutomatedAbrRule|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -77,11 +77,11 @@ final class AutomatedAbrSettings
 
     /**
      * @param array{
-     *   MaxAbrBitrate?: null|int,
-     *   MaxQualityLevel?: null|float,
-     *   MaxRenditions?: null|int,
-     *   MinAbrBitrate?: null|int,
-     *   Rules?: null|array<AutomatedAbrRule|array>,
+     *   MaxAbrBitrate?: int|null,
+     *   MaxQualityLevel?: float|null,
+     *   MaxRenditions?: int|null,
+     *   MinAbrBitrate?: int|null,
+     *   Rules?: array<AutomatedAbrRule|array>|null,
      * }|AutomatedAbrSettings $input
      */
     public static function create($input): self

@@ -18,7 +18,7 @@ class ListFunctionsRequestTest extends TestCase
 
         // see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListFunctions.html
         $expected = '
-            GET /2015-03-31/functions/?FunctionVersion=ALL&Marker=xxyy&MasterRegion=eu-central-1&MaxItems=1337 HTTP/1.1
+            GET /2015-03-31/functions?FunctionVersion=ALL&Marker=xxyy&MasterRegion=eu-central-1&MaxItems=1337 HTTP/1.1
             Content-type: application/json
             Accept: application/json
                 ';

@@ -32,9 +32,9 @@ final class RollbackInfo
 
     /**
      * @param array{
-     *   rollbackDeploymentId?: null|string,
-     *   rollbackTriggeringDeploymentId?: null|string,
-     *   rollbackMessage?: null|string,
+     *   rollbackDeploymentId?: string|null,
+     *   rollbackTriggeringDeploymentId?: string|null,
+     *   rollbackMessage?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -46,9 +46,9 @@ final class RollbackInfo
 
     /**
      * @param array{
-     *   rollbackDeploymentId?: null|string,
-     *   rollbackTriggeringDeploymentId?: null|string,
-     *   rollbackMessage?: null|string,
+     *   rollbackDeploymentId?: string|null,
+     *   rollbackTriggeringDeploymentId?: string|null,
+     *   rollbackMessage?: string|null,
      * }|RollbackInfo $input
      */
     public static function create($input): self

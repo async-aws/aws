@@ -43,8 +43,8 @@ final class CloudWatchLogsConfig
     /**
      * @param array{
      *   status: LogsConfigStatusType::*,
-     *   groupName?: null|string,
-     *   streamName?: null|string,
+     *   groupName?: string|null,
+     *   streamName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,8 +57,8 @@ final class CloudWatchLogsConfig
     /**
      * @param array{
      *   status: LogsConfigStatusType::*,
-     *   groupName?: null|string,
-     *   streamName?: null|string,
+     *   groupName?: string|null,
+     *   streamName?: string|null,
      * }|CloudWatchLogsConfig $input
      */
     public static function create($input): self

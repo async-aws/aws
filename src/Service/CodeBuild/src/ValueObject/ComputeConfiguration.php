@@ -47,11 +47,11 @@ final class ComputeConfiguration
 
     /**
      * @param array{
-     *   vCpu?: null|int,
-     *   memory?: null|int,
-     *   disk?: null|int,
-     *   machineType?: null|MachineType::*,
-     *   instanceType?: null|string,
+     *   vCpu?: int|null,
+     *   memory?: int|null,
+     *   disk?: int|null,
+     *   machineType?: MachineType::*|null,
+     *   instanceType?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -65,11 +65,11 @@ final class ComputeConfiguration
 
     /**
      * @param array{
-     *   vCpu?: null|int,
-     *   memory?: null|int,
-     *   disk?: null|int,
-     *   machineType?: null|MachineType::*,
-     *   instanceType?: null|string,
+     *   vCpu?: int|null,
+     *   memory?: int|null,
+     *   disk?: int|null,
+     *   machineType?: MachineType::*|null,
+     *   instanceType?: string|null,
      * }|ComputeConfiguration $input
      */
     public static function create($input): self

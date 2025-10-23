@@ -119,20 +119,20 @@ final class Resolver
 
     /**
      * @param array{
-     *   typeName?: null|string,
-     *   fieldName?: null|string,
-     *   dataSourceName?: null|string,
-     *   resolverArn?: null|string,
-     *   requestMappingTemplate?: null|string,
-     *   responseMappingTemplate?: null|string,
-     *   kind?: null|ResolverKind::*,
-     *   pipelineConfig?: null|PipelineConfig|array,
-     *   syncConfig?: null|SyncConfig|array,
-     *   cachingConfig?: null|CachingConfig|array,
-     *   maxBatchSize?: null|int,
-     *   runtime?: null|AppSyncRuntime|array,
-     *   code?: null|string,
-     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
+     *   typeName?: string|null,
+     *   fieldName?: string|null,
+     *   dataSourceName?: string|null,
+     *   resolverArn?: string|null,
+     *   requestMappingTemplate?: string|null,
+     *   responseMappingTemplate?: string|null,
+     *   kind?: ResolverKind::*|null,
+     *   pipelineConfig?: PipelineConfig|array|null,
+     *   syncConfig?: SyncConfig|array|null,
+     *   cachingConfig?: CachingConfig|array|null,
+     *   maxBatchSize?: int|null,
+     *   runtime?: AppSyncRuntime|array|null,
+     *   code?: string|null,
+     *   metricsConfig?: ResolverLevelMetricsConfig::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -155,20 +155,20 @@ final class Resolver
 
     /**
      * @param array{
-     *   typeName?: null|string,
-     *   fieldName?: null|string,
-     *   dataSourceName?: null|string,
-     *   resolverArn?: null|string,
-     *   requestMappingTemplate?: null|string,
-     *   responseMappingTemplate?: null|string,
-     *   kind?: null|ResolverKind::*,
-     *   pipelineConfig?: null|PipelineConfig|array,
-     *   syncConfig?: null|SyncConfig|array,
-     *   cachingConfig?: null|CachingConfig|array,
-     *   maxBatchSize?: null|int,
-     *   runtime?: null|AppSyncRuntime|array,
-     *   code?: null|string,
-     *   metricsConfig?: null|ResolverLevelMetricsConfig::*,
+     *   typeName?: string|null,
+     *   fieldName?: string|null,
+     *   dataSourceName?: string|null,
+     *   resolverArn?: string|null,
+     *   requestMappingTemplate?: string|null,
+     *   responseMappingTemplate?: string|null,
+     *   kind?: ResolverKind::*|null,
+     *   pipelineConfig?: PipelineConfig|array|null,
+     *   syncConfig?: SyncConfig|array|null,
+     *   cachingConfig?: CachingConfig|array|null,
+     *   maxBatchSize?: int|null,
+     *   runtime?: AppSyncRuntime|array|null,
+     *   code?: string|null,
+     *   metricsConfig?: ResolverLevelMetricsConfig::*|null,
      * }|Resolver $input
      */
     public static function create($input): self

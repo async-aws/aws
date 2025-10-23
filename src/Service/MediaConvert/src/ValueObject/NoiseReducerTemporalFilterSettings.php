@@ -59,11 +59,11 @@ final class NoiseReducerTemporalFilterSettings
 
     /**
      * @param array{
-     *   AggressiveMode?: null|int,
-     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*,
-     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*,
-     *   Speed?: null|int,
-     *   Strength?: null|int,
+     *   AggressiveMode?: int|null,
+     *   PostTemporalSharpening?: NoiseFilterPostTemporalSharpening::*|null,
+     *   PostTemporalSharpeningStrength?: NoiseFilterPostTemporalSharpeningStrength::*|null,
+     *   Speed?: int|null,
+     *   Strength?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -77,11 +77,11 @@ final class NoiseReducerTemporalFilterSettings
 
     /**
      * @param array{
-     *   AggressiveMode?: null|int,
-     *   PostTemporalSharpening?: null|NoiseFilterPostTemporalSharpening::*,
-     *   PostTemporalSharpeningStrength?: null|NoiseFilterPostTemporalSharpeningStrength::*,
-     *   Speed?: null|int,
-     *   Strength?: null|int,
+     *   AggressiveMode?: int|null,
+     *   PostTemporalSharpening?: NoiseFilterPostTemporalSharpening::*|null,
+     *   PostTemporalSharpeningStrength?: NoiseFilterPostTemporalSharpeningStrength::*|null,
+     *   Speed?: int|null,
+     *   Strength?: int|null,
      * }|NoiseReducerTemporalFilterSettings $input
      */
     public static function create($input): self

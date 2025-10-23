@@ -71,12 +71,12 @@ final class Attachment
     /**
      * @param array{
      *   RawContent: string,
-     *   ContentDisposition?: null|AttachmentContentDisposition::*,
+     *   ContentDisposition?: AttachmentContentDisposition::*|null,
      *   FileName: string,
-     *   ContentDescription?: null|string,
-     *   ContentId?: null|string,
-     *   ContentTransferEncoding?: null|AttachmentContentTransferEncoding::*,
-     *   ContentType?: null|string,
+     *   ContentDescription?: string|null,
+     *   ContentId?: string|null,
+     *   ContentTransferEncoding?: AttachmentContentTransferEncoding::*|null,
+     *   ContentType?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -93,12 +93,12 @@ final class Attachment
     /**
      * @param array{
      *   RawContent: string,
-     *   ContentDisposition?: null|AttachmentContentDisposition::*,
+     *   ContentDisposition?: AttachmentContentDisposition::*|null,
      *   FileName: string,
-     *   ContentDescription?: null|string,
-     *   ContentId?: null|string,
-     *   ContentTransferEncoding?: null|AttachmentContentTransferEncoding::*,
-     *   ContentType?: null|string,
+     *   ContentDescription?: string|null,
+     *   ContentId?: string|null,
+     *   ContentTransferEncoding?: AttachmentContentTransferEncoding::*|null,
+     *   ContentType?: string|null,
      * }|Attachment $input
      */
     public static function create($input): self

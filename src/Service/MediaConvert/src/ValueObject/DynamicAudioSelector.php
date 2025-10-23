@@ -41,9 +41,8 @@ final class DynamicAudioSelector
     private $externalAudioFileInput;
 
     /**
-     * Specify the language to select from your audio input. In the MediaConvert console choose from a list of languages. In
-     * your JSON job settings choose from an ISO 639-2 three-letter code listed at
-     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     * Specify the language, using an ISO 639-2 three-letter code in all capital letters. You can find a list of codes at:
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php
      *
      * @var LanguageCode::*|null
      */
@@ -70,11 +69,11 @@ final class DynamicAudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   SelectorType?: null|DynamicAudioSelectorType::*,
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   SelectorType?: DynamicAudioSelectorType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -88,11 +87,11 @@ final class DynamicAudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   SelectorType?: null|DynamicAudioSelectorType::*,
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   SelectorType?: DynamicAudioSelectorType::*|null,
      * }|DynamicAudioSelector $input
      */
     public static function create($input): self

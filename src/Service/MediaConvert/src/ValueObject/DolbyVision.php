@@ -51,10 +51,10 @@ final class DolbyVision
 
     /**
      * @param array{
-     *   L6Metadata?: null|DolbyVisionLevel6Metadata|array,
-     *   L6Mode?: null|DolbyVisionLevel6Mode::*,
-     *   Mapping?: null|DolbyVisionMapping::*,
-     *   Profile?: null|DolbyVisionProfile::*,
+     *   L6Metadata?: DolbyVisionLevel6Metadata|array|null,
+     *   L6Mode?: DolbyVisionLevel6Mode::*|null,
+     *   Mapping?: DolbyVisionMapping::*|null,
+     *   Profile?: DolbyVisionProfile::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -67,10 +67,10 @@ final class DolbyVision
 
     /**
      * @param array{
-     *   L6Metadata?: null|DolbyVisionLevel6Metadata|array,
-     *   L6Mode?: null|DolbyVisionLevel6Mode::*,
-     *   Mapping?: null|DolbyVisionMapping::*,
-     *   Profile?: null|DolbyVisionProfile::*,
+     *   L6Metadata?: DolbyVisionLevel6Metadata|array|null,
+     *   L6Mode?: DolbyVisionLevel6Mode::*|null,
+     *   Mapping?: DolbyVisionMapping::*|null,
+     *   Profile?: DolbyVisionProfile::*|null,
      * }|DolbyVision $input
      */
     public static function create($input): self

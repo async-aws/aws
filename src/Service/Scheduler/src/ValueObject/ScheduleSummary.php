@@ -60,13 +60,13 @@ final class ScheduleSummary
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   GroupName?: null|string,
-     *   LastModificationDate?: null|\DateTimeImmutable,
-     *   Name?: null|string,
-     *   State?: null|ScheduleState::*,
-     *   Target?: null|TargetSummary|array,
+     *   Arn?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   GroupName?: string|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
+     *   Name?: string|null,
+     *   State?: ScheduleState::*|null,
+     *   Target?: TargetSummary|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -82,13 +82,13 @@ final class ScheduleSummary
 
     /**
      * @param array{
-     *   Arn?: null|string,
-     *   CreationDate?: null|\DateTimeImmutable,
-     *   GroupName?: null|string,
-     *   LastModificationDate?: null|\DateTimeImmutable,
-     *   Name?: null|string,
-     *   State?: null|ScheduleState::*,
-     *   Target?: null|TargetSummary|array,
+     *   Arn?: string|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   GroupName?: string|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
+     *   Name?: string|null,
+     *   State?: ScheduleState::*|null,
+     *   Target?: TargetSummary|array|null,
      * }|ScheduleSummary $input
      */
     public static function create($input): self

@@ -35,8 +35,8 @@ final class AppSpecContent
 
     /**
      * @param array{
-     *   content?: null|string,
-     *   sha256?: null|string,
+     *   content?: string|null,
+     *   sha256?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,8 +47,8 @@ final class AppSpecContent
 
     /**
      * @param array{
-     *   content?: null|string,
-     *   sha256?: null|string,
+     *   content?: string|null,
+     *   sha256?: string|null,
      * }|AppSpecContent $input
      */
     public static function create($input): self

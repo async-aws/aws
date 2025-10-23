@@ -23,8 +23,8 @@ final class AwsIamConfig
 
     /**
      * @param array{
-     *   signingRegion?: null|string,
-     *   signingServiceName?: null|string,
+     *   signingRegion?: string|null,
+     *   signingServiceName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class AwsIamConfig
 
     /**
      * @param array{
-     *   signingRegion?: null|string,
-     *   signingServiceName?: null|string,
+     *   signingRegion?: string|null,
+     *   signingServiceName?: string|null,
      * }|AwsIamConfig $input
      */
     public static function create($input): self

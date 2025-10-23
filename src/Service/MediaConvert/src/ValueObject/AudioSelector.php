@@ -66,9 +66,8 @@ final class AudioSelector
     private $hlsRenditionGroupSettings;
 
     /**
-     * Specify the language to select from your audio input. In the MediaConvert console choose from a list of languages. In
-     * your JSON job settings choose from an ISO 639-2 three-letter code listed at
-     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     * Specify the language, using an ISO 639-2 three-letter code in all capital letters. You can find a list of codes at:
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php
      *
      * @var LanguageCode::*|null
      */
@@ -113,12 +112,12 @@ final class AudioSelector
      * Specify how MediaConvert selects audio content within your input. The default is Track. PID: Select audio by
      * specifying the Packet Identifier (PID) values for MPEG Transport Stream inputs. Use this when you know the exact PID
      * values of your audio streams. Track: Default. Select audio by track number. This is the most common option and works
-     * with most input container formats. Language code: Select audio by language using ISO 639-2 or ISO 639-3 three-letter
-     * language codes. Use this when your source has embedded language metadata and you want to select tracks based on their
-     * language. HLS rendition group: Select audio from an HLS rendition group. Use this when your input is an HLS package
-     * with multiple audio renditions and you want to select specific rendition groups. All PCM: Select all uncompressed PCM
-     * audio tracks from your input automatically. This is useful when you want to include all PCM audio tracks without
-     * specifying individual track numbers.
+     * with most input container formats. Language code: Select audio by language using an ISO 639-2 or ISO 639-3
+     * three-letter code in all capital letters. Use this when your source has embedded language metadata and you want to
+     * select tracks based on their language. HLS rendition group: Select audio from an HLS rendition group. Use this when
+     * your input is an HLS package with multiple audio renditions and you want to select specific rendition groups. All
+     * PCM: Select all uncompressed PCM audio tracks from your input automatically. This is useful when you want to include
+     * all PCM audio tracks without specifying individual track numbers.
      *
      * @var AudioSelectorType::*|null
      */
@@ -135,18 +134,18 @@ final class AudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   CustomLanguageCode?: null|string,
-     *   DefaultSelection?: null|AudioDefaultSelection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   Pids?: null|int[],
-     *   ProgramSelection?: null|int,
-     *   RemixSettings?: null|RemixSettings|array,
-     *   SelectorType?: null|AudioSelectorType::*,
-     *   Tracks?: null|int[],
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   CustomLanguageCode?: string|null,
+     *   DefaultSelection?: AudioDefaultSelection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   HlsRenditionGroupSettings?: HlsRenditionGroupSettings|array|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   Pids?: int[]|null,
+     *   ProgramSelection?: int|null,
+     *   RemixSettings?: RemixSettings|array|null,
+     *   SelectorType?: AudioSelectorType::*|null,
+     *   Tracks?: int[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -167,18 +166,18 @@ final class AudioSelector
 
     /**
      * @param array{
-     *   AudioDurationCorrection?: null|AudioDurationCorrection::*,
-     *   CustomLanguageCode?: null|string,
-     *   DefaultSelection?: null|AudioDefaultSelection::*,
-     *   ExternalAudioFileInput?: null|string,
-     *   HlsRenditionGroupSettings?: null|HlsRenditionGroupSettings|array,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   Offset?: null|int,
-     *   Pids?: null|int[],
-     *   ProgramSelection?: null|int,
-     *   RemixSettings?: null|RemixSettings|array,
-     *   SelectorType?: null|AudioSelectorType::*,
-     *   Tracks?: null|int[],
+     *   AudioDurationCorrection?: AudioDurationCorrection::*|null,
+     *   CustomLanguageCode?: string|null,
+     *   DefaultSelection?: AudioDefaultSelection::*|null,
+     *   ExternalAudioFileInput?: string|null,
+     *   HlsRenditionGroupSettings?: HlsRenditionGroupSettings|array|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   Offset?: int|null,
+     *   Pids?: int[]|null,
+     *   ProgramSelection?: int|null,
+     *   RemixSettings?: RemixSettings|array|null,
+     *   SelectorType?: AudioSelectorType::*|null,
+     *   Tracks?: int[]|null,
      * }|AudioSelector $input
      */
     public static function create($input): self

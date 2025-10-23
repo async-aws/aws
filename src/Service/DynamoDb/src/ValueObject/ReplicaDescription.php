@@ -101,17 +101,17 @@ final class ReplicaDescription
 
     /**
      * @param array{
-     *   RegionName?: null|string,
-     *   ReplicaStatus?: null|ReplicaStatus::*,
-     *   ReplicaStatusDescription?: null|string,
-     *   ReplicaStatusPercentProgress?: null|string,
-     *   KMSMasterKeyId?: null|string,
-     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
-     *   WarmThroughput?: null|TableWarmThroughputDescription|array,
-     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
-     *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
-     *   ReplicaTableClassSummary?: null|TableClassSummary|array,
+     *   RegionName?: string|null,
+     *   ReplicaStatus?: ReplicaStatus::*|null,
+     *   ReplicaStatusDescription?: string|null,
+     *   ReplicaStatusPercentProgress?: string|null,
+     *   KMSMasterKeyId?: string|null,
+     *   ProvisionedThroughputOverride?: ProvisionedThroughputOverride|array|null,
+     *   OnDemandThroughputOverride?: OnDemandThroughputOverride|array|null,
+     *   WarmThroughput?: TableWarmThroughputDescription|array|null,
+     *   GlobalSecondaryIndexes?: array<ReplicaGlobalSecondaryIndexDescription|array>|null,
+     *   ReplicaInaccessibleDateTime?: \DateTimeImmutable|null,
+     *   ReplicaTableClassSummary?: TableClassSummary|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -131,17 +131,17 @@ final class ReplicaDescription
 
     /**
      * @param array{
-     *   RegionName?: null|string,
-     *   ReplicaStatus?: null|ReplicaStatus::*,
-     *   ReplicaStatusDescription?: null|string,
-     *   ReplicaStatusPercentProgress?: null|string,
-     *   KMSMasterKeyId?: null|string,
-     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
-     *   OnDemandThroughputOverride?: null|OnDemandThroughputOverride|array,
-     *   WarmThroughput?: null|TableWarmThroughputDescription|array,
-     *   GlobalSecondaryIndexes?: null|array<ReplicaGlobalSecondaryIndexDescription|array>,
-     *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
-     *   ReplicaTableClassSummary?: null|TableClassSummary|array,
+     *   RegionName?: string|null,
+     *   ReplicaStatus?: ReplicaStatus::*|null,
+     *   ReplicaStatusDescription?: string|null,
+     *   ReplicaStatusPercentProgress?: string|null,
+     *   KMSMasterKeyId?: string|null,
+     *   ProvisionedThroughputOverride?: ProvisionedThroughputOverride|array|null,
+     *   OnDemandThroughputOverride?: OnDemandThroughputOverride|array|null,
+     *   WarmThroughput?: TableWarmThroughputDescription|array|null,
+     *   GlobalSecondaryIndexes?: array<ReplicaGlobalSecondaryIndexDescription|array>|null,
+     *   ReplicaInaccessibleDateTime?: \DateTimeImmutable|null,
+     *   ReplicaTableClassSummary?: TableClassSummary|array|null,
      * }|ReplicaDescription $input
      */
     public static function create($input): self

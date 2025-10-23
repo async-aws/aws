@@ -78,7 +78,7 @@ class SignerV4Test extends TestCase
         self::assertEquals($expected, $request);
     }
 
-    public function provideRequests()
+    public static function provideRequests()
     {
         return [
             // POST headers should be signed.
@@ -140,7 +140,58 @@ class SignerV4Test extends TestCase
         ];
     }
 
-    private function parseRequest(string $req): Request
+    /**
+     * @dataProvider provideRequestsWithQueryParams
+     */
+    public function testSignsRequestsWithArrayInQueryParams($rawRequestWithoutQuery, $rawExpected, $queryParams)
+    {
+        $request = $this->parseRequest($rawRequestWithoutQuery, $queryParams);
+
+        $signer = new SignerV4('host', 'us-east-1');
+        $context = new RequestContext(['currentDate' => new \DateTimeImmutable('20110909T233600Z')]);
+        $credentials = new Credentials('AKIDEXAMPLE', 'wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY');
+
+        $signer->sign($request, $credentials, $context);
+
+        $expected = $this->parseRequest($rawExpected, $queryParams);
+
+        self::assertEquals($expected, $request);
+    }
+
+    public static function provideRequestsWithQueryParams()
+    {
+        return [
+            // GET Case with array in query params
+            [
+                "GET / HTTP/1.1\r\nHost: host.foo.com:443\r\n\r\n",
+                "GET / HTTP/1.1\r\nHost: host.foo.com:443\r\nX-Amz-Date: 20110909T233600Z\r\nAuthorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=host;x-amz-date, Signature=7bd9c6fed0473be1f7ea96ff34c7d79e71a92932054a24b4210b3a56e4ab46d3\r\n\r\n",
+                [
+                    'foos[0]' => '834127',
+                    'foos[1]' => '59',
+                    'foos[2]' => '90123',
+                    'foos[3]' => '4708',
+                    'foos[4]' => '120001',
+                    'foos[5]' => '333',
+                    'foos[6]' => '78005',
+                    'foos[7]' => '2',
+                    'foos[8]' => 'string value',
+                    'foos[9]' => '40617',
+                    'foos[10]' => '715',
+                ],
+            ],
+            // GET Simple case with query params (copy of one of the cases above from testSignsRequests)
+            [
+                "GET / HTTP/1.1\r\nHost: host.foo.com:443\r\n\r\n",
+                "GET / HTTP/1.1\r\nHost: host.foo.com:443\r\nX-Amz-Date: 20110909T233600Z\r\nAuthorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=host;x-amz-date, Signature=1c3274381ae12d8817336268d7da17672bd57e7348e39b7b9c567280f73742af\r\n\r\n",
+                [
+                    'a' => 'foo',
+                    'b' => 'foo',
+                ],
+            ],
+        ];
+    }
+
+    private function parseRequest(string $req, array $queryParams = []): Request
     {
         $lines = explode("\r\n", $req);
         [$method, $path] = explode(' ', array_shift($lines));
@@ -156,6 +207,12 @@ class SignerV4Test extends TestCase
 
         $req = new Request($method, '/', [], $headers, StringStream::create(implode("\n", $lines)));
         $req->setEndpoint('https://' . $headers['Host'] . $path);
+
+        // currently the library cannot properly parse query params if they contain arrays, so we need to set them manually
+        foreach ($queryParams as $k => $v) {
+            $req->setQueryAttribute($k, $v);
+        }
+
         // Ensure that the memoized property is filled, so that comparison works consistently.
         $req->getEndpoint();
 

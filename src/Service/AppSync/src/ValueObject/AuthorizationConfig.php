@@ -29,7 +29,7 @@ final class AuthorizationConfig
     /**
      * @param array{
      *   authorizationType: AuthorizationType::*,
-     *   awsIamConfig?: null|AwsIamConfig|array,
+     *   awsIamConfig?: AwsIamConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,7 +41,7 @@ final class AuthorizationConfig
     /**
      * @param array{
      *   authorizationType: AuthorizationType::*,
-     *   awsIamConfig?: null|AwsIamConfig|array,
+     *   awsIamConfig?: AwsIamConfig|array|null,
      * }|AuthorizationConfig $input
      */
     public static function create($input): self

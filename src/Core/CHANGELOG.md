@@ -2,6 +2,32 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+- Fix PHP 8.5 deprecation by avoiding using `null` as an array offset.
+
+### Fixed
+
+- Buffer the response in temporary file to avoid issues when stream is used by another request's body
+
+
+## 1.27.1
+
+### Fixed
+
+- SignerV4: fix sort of query parameters to build correct canonical query string
+
+## 1.27.0
+
+### Added
+
+- Support for Symfony 8
+
+### Changed
+
+- `ResultMockFactory` does not call `ReflectionProperty::setAccessible()` on PHP 8.1+
+
 ## 1.26.0
 
 ### Added

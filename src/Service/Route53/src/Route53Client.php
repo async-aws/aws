@@ -194,10 +194,10 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   VPC?: null|VPC|array,
+     *   VPC?: VPC|array|null,
      *   CallerReference: string,
-     *   HostedZoneConfig?: null|HostedZoneConfig|array,
-     *   DelegationSetId?: null|string,
+     *   HostedZoneConfig?: HostedZoneConfig|array|null,
+     *   DelegationSetId?: string|null,
      *   '@region'?: string|null,
      * }|CreateHostedZoneRequest $input
      *
@@ -308,10 +308,10 @@ class Route53Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-route53-2013-04-01.html#listhostedzones
      *
      * @param array{
-     *   Marker?: null|string,
-     *   MaxItems?: null|string,
-     *   DelegationSetId?: null|string,
-     *   HostedZoneType?: null|HostedZoneType::*,
+     *   Marker?: string|null,
+     *   MaxItems?: string|null,
+     *   DelegationSetId?: string|null,
+     *   HostedZoneType?: HostedZoneType::*|null,
      *   '@region'?: string|null,
      * }|ListHostedZonesRequest $input
      *
@@ -376,9 +376,9 @@ class Route53Client extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-route53-2013-04-01.html#listhostedzonesbyname
      *
      * @param array{
-     *   DNSName?: null|string,
-     *   HostedZoneId?: null|string,
-     *   MaxItems?: null|string,
+     *   DNSName?: string|null,
+     *   HostedZoneId?: string|null,
+     *   MaxItems?: string|null,
      *   '@region'?: string|null,
      * }|ListHostedZonesByNameRequest $input
      *
@@ -458,10 +458,10 @@ class Route53Client extends AbstractApi
      *
      * @param array{
      *   HostedZoneId: string,
-     *   StartRecordName?: null|string,
-     *   StartRecordType?: null|RRType::*,
-     *   StartRecordIdentifier?: null|string,
-     *   MaxItems?: null|string,
+     *   StartRecordName?: string|null,
+     *   StartRecordType?: RRType::*|null,
+     *   StartRecordIdentifier?: string|null,
+     *   MaxItems?: string|null,
      *   '@region'?: string|null,
      * }|ListResourceRecordSetsRequest $input
      *

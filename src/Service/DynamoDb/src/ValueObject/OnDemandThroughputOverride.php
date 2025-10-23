@@ -17,7 +17,7 @@ final class OnDemandThroughputOverride
 
     /**
      * @param array{
-     *   MaxReadRequestUnits?: null|int,
+     *   MaxReadRequestUnits?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class OnDemandThroughputOverride
 
     /**
      * @param array{
-     *   MaxReadRequestUnits?: null|int,
+     *   MaxReadRequestUnits?: int|null,
      * }|OnDemandThroughputOverride $input
      */
     public static function create($input): self

@@ -61,19 +61,35 @@ final class InitiateAuthRequest extends Input
     /**
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking.
      *
-     * The required values are specific to the InitiateAuthRequest$AuthFlow.
-     *
      * The following are some authentication flows and their parameters. Add a `SECRET_HASH` parameter if your app client
-     * has a client secret.
+     * has a client secret. Add `DEVICE_KEY` if you want to bypass multi-factor authentication with a remembered device.
      *
-     * - `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If you don't provide a value for `PREFERRED_CHALLENGE`,
-     *   Amazon Cognito responds with the `AvailableChallenges` parameter that specifies the available sign-in methods.
-     * - `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required), `DEVICE_KEY`.
-     * - `USER_PASSWORD_AUTH`: `USERNAME` (required), `PASSWORD` (required), `DEVICE_KEY`.
-     * - `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `DEVICE_KEY`.
-     * - `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`.
-     *   To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP_A: (The SRP_A
-     *   Value)`.
+     * - `USER_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `PREFERRED_CHALLENGE`. If you don't provide a value for `PREFERRED_CHALLENGE`, Amazon Cognito responds with the
+     *     `AvailableChallenges` parameter that specifies the available sign-in methods.
+     *
+     * - `USER_SRP_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `SRP_A` (required)
+     *
+     * - `USER_PASSWORD_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `PASSWORD` (required)
+     *
+     * - `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`:
+     *
+     *   - `REFRESH_TOKEN`(required)
+     *
+     * - `CUSTOM_AUTH`:
+     *
+     *   - `USERNAME` (required)
+     *   - `ChallengeName: SRP_A` (when doing SRP authentication before custom challenges)
+     *   - `SRP_A: (An SRP_A value)` (when doing SRP authentication before custom challenges)
+     *
      *
      * For more information about `SECRET_HASH`, see Computing secret hash values [^1]. For information about `DEVICE_KEY`,
      * see Working with user devices in your user pool [^2].
@@ -173,12 +189,12 @@ final class InitiateAuthRequest extends Input
     /**
      * @param array{
      *   AuthFlow?: AuthFlowType::*,
-     *   AuthParameters?: null|array<string, string>,
-     *   ClientMetadata?: null|array<string, string>,
+     *   AuthParameters?: array<string, string>|null,
+     *   ClientMetadata?: array<string, string>|null,
      *   ClientId?: string,
-     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
-     *   UserContextData?: null|UserContextDataType|array,
-     *   Session?: null|string,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
+     *   UserContextData?: UserContextDataType|array|null,
+     *   Session?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -197,12 +213,12 @@ final class InitiateAuthRequest extends Input
     /**
      * @param array{
      *   AuthFlow?: AuthFlowType::*,
-     *   AuthParameters?: null|array<string, string>,
-     *   ClientMetadata?: null|array<string, string>,
+     *   AuthParameters?: array<string, string>|null,
+     *   ClientMetadata?: array<string, string>|null,
      *   ClientId?: string,
-     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
-     *   UserContextData?: null|UserContextDataType|array,
-     *   Session?: null|string,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
+     *   UserContextData?: UserContextDataType|array|null,
+     *   Session?: string|null,
      *   '@region'?: string|null,
      * }|InitiateAuthRequest $input
      */

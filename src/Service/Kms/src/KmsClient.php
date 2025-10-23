@@ -158,8 +158,8 @@ class KmsClient extends AbstractApi
      * Use the parameters of `CreateKey` to specify the type of KMS key, the source of its key material, its key policy,
      * description, tags, and other properties.
      *
-     * > KMS has replaced the term *customer master key (CMK)* with *KMS key* and *KMS key*. The concept has not changed. To
-     * > prevent breaking changes, KMS is keeping some variations of this term.
+     * > KMS has replaced the term *customer master key (CMK)* with *Key Management Service key* and *KMS key*. The concept
+     * > has not changed. To prevent breaking changes, KMS is keeping some variations of this term.
      *
      * To create different types of KMS keys, use the following guidance:
      *
@@ -308,17 +308,17 @@ class KmsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey
      *
      * @param array{
-     *   Policy?: null|string,
-     *   Description?: null|string,
-     *   KeyUsage?: null|KeyUsageType::*,
-     *   CustomerMasterKeySpec?: null|CustomerMasterKeySpec::*,
-     *   KeySpec?: null|KeySpec::*,
-     *   Origin?: null|OriginType::*,
-     *   CustomKeyStoreId?: null|string,
-     *   BypassPolicyLockoutSafetyCheck?: null|bool,
-     *   Tags?: null|array<Tag|array>,
-     *   MultiRegion?: null|bool,
-     *   XksKeyId?: null|string,
+     *   Policy?: string|null,
+     *   Description?: string|null,
+     *   KeyUsage?: KeyUsageType::*|null,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*|null,
+     *   KeySpec?: KeySpec::*|null,
+     *   Origin?: OriginType::*|null,
+     *   CustomKeyStoreId?: string|null,
+     *   BypassPolicyLockoutSafetyCheck?: bool|null,
+     *   Tags?: array<Tag|array>|null,
+     *   MultiRegion?: bool|null,
+     *   XksKeyId?: string|null,
      *   '@region'?: string|null,
      * }|CreateKeyRequest $input
      *
@@ -392,12 +392,13 @@ class KmsClient extends AbstractApi
      * particular KMS keys or particular trusted accounts. For details, see Best practices for IAM policies [^4] in the *Key
      * Management Service Developer Guide*.
      *
-     * `Decrypt` also supports Amazon Web Services Nitro Enclaves [^5], which provide an isolated compute environment in
-     * Amazon EC2. To call `Decrypt` for a Nitro enclave, use the Amazon Web Services Nitro Enclaves SDK [^6] or any Amazon
-     * Web Services SDK. Use the `Recipient` parameter to provide the attestation document for the enclave. Instead of the
-     * plaintext data, the response includes the plaintext data encrypted with the public key from the attestation document
-     * (`CiphertextForRecipient`). For information about the interaction between KMS and Amazon Web Services Nitro Enclaves,
-     * see How Amazon Web Services Nitro Enclaves uses KMS [^7] in the *Key Management Service Developer Guide*.
+     * `Decrypt` also supports Amazon Web Services Nitro Enclaves [^5] and NitroTPM, which provide attested environments in
+     * Amazon EC2. To call `Decrypt` for a Nitro enclave or NitroTPM, use the Amazon Web Services Nitro Enclaves SDK [^6] or
+     * any Amazon Web Services SDK. Use the `Recipient` parameter to provide the attestation document for the attested
+     * environment. Instead of the plaintext data, the response includes the plaintext data encrypted with the public key
+     * from the attestation document (`CiphertextForRecipient`). For information about the interaction between KMS and
+     * Amazon Web Services Nitro Enclaves or Amazon Web Services NitroTPM, see Cryptographic attestation support in KMS [^7]
+     * in the *Key Management Service Developer Guide*.
      *
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
      * keys [^8] in the *Key Management Service Developer Guide*.
@@ -423,7 +424,7 @@ class KmsClient extends AbstractApi
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/iam-policies.html#iam-policies-best-practices
      * [^5]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave.html
      * [^6]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
-     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
      * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
@@ -433,12 +434,12 @@ class KmsClient extends AbstractApi
      *
      * @param array{
      *   CiphertextBlob: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   GrantTokens?: null|string[],
-     *   KeyId?: null|string,
-     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   GrantTokens?: string[]|null,
+     *   KeyId?: string|null,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      *
@@ -553,10 +554,10 @@ class KmsClient extends AbstractApi
      * @param array{
      *   KeyId: string,
      *   Plaintext: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   GrantTokens?: null|string[],
-     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   GrantTokens?: string[]|null,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|EncryptRequest $input
      *
@@ -614,13 +615,13 @@ class KmsClient extends AbstractApi
      * information, see Encryption Context [^1] in the *Key Management Service Developer Guide*.
      *
      * `GenerateDataKey` also supports Amazon Web Services Nitro Enclaves [^2], which provide an isolated compute
-     * environment in Amazon EC2. To call `GenerateDataKey` for an Amazon Web Services Nitro enclave, use the Amazon Web
-     * Services Nitro Enclaves SDK [^3] or any Amazon Web Services SDK. Use the `Recipient` parameter to provide the
-     * attestation document for the enclave. `GenerateDataKey` returns a copy of the data key encrypted under the specified
-     * KMS key, as usual. But instead of a plaintext copy of the data key, the response includes a copy of the data key
-     * encrypted under the public key from the attestation document (`CiphertextForRecipient`). For information about the
-     * interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services Nitro Enclaves uses KMS
-     * [^4] in the *Key Management Service Developer Guide*..
+     * environment in Amazon EC2. To call `GenerateDataKey` for an Amazon Web Services Nitro enclave or NitroTPM, use the
+     * Amazon Web Services Nitro Enclaves SDK [^3] or any Amazon Web Services SDK. Use the `Recipient` parameter to provide
+     * the attestation document for the attested environment. `GenerateDataKey` returns a copy of the data key encrypted
+     * under the specified KMS key, as usual. But instead of a plaintext copy of the data key, the response includes a copy
+     * of the data key encrypted under the public key from the attestation document (`CiphertextForRecipient`). For
+     * information about the interaction between KMS and Amazon Web Services Nitro Enclaves or Amazon Web Services NitroTPM,
+     * see Cryptographic attestation support in KMS [^4] in the *Key Management Service Developer Guide*.
      *
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
      * keys [^5] in the *Key Management Service Developer Guide*.
@@ -663,7 +664,7 @@ class KmsClient extends AbstractApi
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html
      * [^2]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitro-enclave.html
      * [^3]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
-     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
      * [^6]: https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/
      * [^7]: https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/
@@ -676,12 +677,12 @@ class KmsClient extends AbstractApi
      *
      * @param array{
      *   KeyId: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   NumberOfBytes?: null|int,
-     *   KeySpec?: null|DataKeySpec::*,
-     *   GrantTokens?: null|string[],
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   NumberOfBytes?: int|null,
+     *   KeySpec?: DataKeySpec::*|null,
+     *   GrantTokens?: string[]|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|GenerateDataKeyRequest $input
      *
@@ -770,7 +771,7 @@ class KmsClient extends AbstractApi
      *
      * @param array{
      *   KeyId: string,
-     *   GrantTokens?: null|string[],
+     *   GrantTokens?: string[]|null,
      *   '@region'?: string|null,
      * }|GetPublicKeyRequest $input
      *
@@ -844,9 +845,9 @@ class KmsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listaliases
      *
      * @param array{
-     *   KeyId?: null|string,
-     *   Limit?: null|int,
-     *   Marker?: null|string,
+     *   KeyId?: string|null,
+     *   Limit?: int|null,
+     *   Marker?: string|null,
      *   '@region'?: string|null,
      * }|ListAliasesRequest $input
      *
@@ -928,10 +929,10 @@ class KmsClient extends AbstractApi
      * @param array{
      *   KeyId: string,
      *   Message: string,
-     *   MessageType?: null|MessageType::*,
-     *   GrantTokens?: null|string[],
+     *   MessageType?: MessageType::*|null,
+     *   GrantTokens?: string[]|null,
      *   SigningAlgorithm: SigningAlgorithmSpec::*,
-     *   DryRun?: null|bool,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|SignRequest $input
      *
@@ -1014,11 +1015,11 @@ class KmsClient extends AbstractApi
      * @param array{
      *   KeyId: string,
      *   Message: string,
-     *   MessageType?: null|MessageType::*,
+     *   MessageType?: MessageType::*|null,
      *   Signature: string,
      *   SigningAlgorithm: SigningAlgorithmSpec::*,
-     *   GrantTokens?: null|string[],
-     *   DryRun?: null|bool,
+     *   GrantTokens?: string[]|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|VerifyRequest $input
      *

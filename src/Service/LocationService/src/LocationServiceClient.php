@@ -50,10 +50,10 @@ class LocationServiceClient extends AbstractApi
      *   > If you specify `walking` for the travel mode and your data provider is Esri, the start and destination must be
      *   > within 40km.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/calculate-route.html
      * [^2]: https://docs.aws.amazon.com/location-routes/latest/APIReference/API_CreateRouteCalculator.html
-     * [^3]: https://docs.aws.amazon.com/location/latest/developerguide/departure-time.html
-     * [^4]: https://docs.aws.amazon.com/location/latest/developerguide/travel-mode.html
+     * [^3]: https://docs.aws.amazon.com/location/previous/developerguide/departure-time.html
+     * [^4]: https://docs.aws.amazon.com/location/previous/developerguide/travel-mode.html
      *
      * @see https://docs.aws.amazon.com/location/latest/APIReference/API_CalculateRoute.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#calculateroute
@@ -62,17 +62,17 @@ class LocationServiceClient extends AbstractApi
      *   CalculatorName: string,
      *   DeparturePosition: float[],
      *   DestinationPosition: float[],
-     *   WaypointPositions?: null|array[],
-     *   TravelMode?: null|TravelMode::*,
-     *   DepartureTime?: null|\DateTimeImmutable|string,
-     *   DepartNow?: null|bool,
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   IncludeLegGeometry?: null|bool,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   ArrivalTime?: null|\DateTimeImmutable|string,
-     *   OptimizeFor?: null|OptimizationMode::*,
-     *   Key?: null|string,
+     *   WaypointPositions?: array[]|null,
+     *   TravelMode?: TravelMode::*|null,
+     *   DepartureTime?: \DateTimeImmutable|string|null,
+     *   DepartNow?: bool|null,
+     *   DistanceUnit?: DistanceUnit::*|null,
+     *   IncludeLegGeometry?: bool|null,
+     *   CarModeOptions?: CalculateRouteCarModeOptions|array|null,
+     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array|null,
+     *   ArrivalTime?: \DateTimeImmutable|string|null,
+     *   OptimizeFor?: OptimizationMode::*|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      *
@@ -123,10 +123,10 @@ class LocationServiceClient extends AbstractApi
      *   lets you specify additional route preferences in `CarModeOptions` if traveling by `Car`, or `TruckModeOptions` if
      *   traveling by `Truck`.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/calculate-route-matrix.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/calculate-route-matrix.html
      * [^2]: https://docs.aws.amazon.com/location-routes/latest/APIReference/API_CreateRouteCalculator.html
-     * [^3]: https://docs.aws.amazon.com/location/latest/developerguide/departure-time.html
-     * [^4]: https://docs.aws.amazon.com/location/latest/developerguide/travel-mode.html
+     * [^3]: https://docs.aws.amazon.com/location/previous/developerguide/departure-time.html
+     * [^4]: https://docs.aws.amazon.com/location/previous/developerguide/travel-mode.html
      *
      * @see https://docs.aws.amazon.com/location/latest/APIReference/API_CalculateRouteMatrix.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-geo-2020-11-19.html#calculateroutematrix
@@ -135,13 +135,13 @@ class LocationServiceClient extends AbstractApi
      *   CalculatorName: string,
      *   DeparturePositions: array[],
      *   DestinationPositions: array[],
-     *   TravelMode?: null|TravelMode::*,
-     *   DepartureTime?: null|\DateTimeImmutable|string,
-     *   DepartNow?: null|bool,
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   Key?: null|string,
+     *   TravelMode?: TravelMode::*|null,
+     *   DepartureTime?: \DateTimeImmutable|string|null,
+     *   DepartNow?: bool|null,
+     *   DistanceUnit?: DistanceUnit::*|null,
+     *   CarModeOptions?: CalculateRouteCarModeOptions|array|null,
+     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|CalculateRouteMatrixRequest $input
      *
@@ -175,9 +175,9 @@ class LocationServiceClient extends AbstractApi
      * @param array{
      *   IndexName: string,
      *   Position: float[],
-     *   MaxResults?: null|int,
-     *   Language?: null|string,
-     *   Key?: null|string,
+     *   MaxResults?: int|null,
+     *   Language?: string|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForPositionRequest $input
      *
@@ -219,13 +219,13 @@ class LocationServiceClient extends AbstractApi
      * @param array{
      *   IndexName: string,
      *   Text: string,
-     *   BiasPosition?: null|float[],
-     *   FilterBBox?: null|float[],
-     *   FilterCountries?: null|string[],
-     *   MaxResults?: null|int,
-     *   Language?: null|string,
-     *   FilterCategories?: null|string[],
-     *   Key?: null|string,
+     *   BiasPosition?: float[]|null,
+     *   FilterBBox?: float[]|null,
+     *   FilterCountries?: string[]|null,
+     *   MaxResults?: int|null,
+     *   Language?: string|null,
+     *   FilterCategories?: string[]|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input
      *

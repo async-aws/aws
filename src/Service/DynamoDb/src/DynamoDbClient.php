@@ -27,6 +27,7 @@ use AsyncAws\DynamoDb\Exception\ReplicatedWriteConflictException;
 use AsyncAws\DynamoDb\Exception\RequestLimitExceededException;
 use AsyncAws\DynamoDb\Exception\ResourceInUseException;
 use AsyncAws\DynamoDb\Exception\ResourceNotFoundException;
+use AsyncAws\DynamoDb\Exception\ThrottlingException;
 use AsyncAws\DynamoDb\Exception\TransactionCanceledException;
 use AsyncAws\DynamoDb\Exception\TransactionConflictException;
 use AsyncAws\DynamoDb\Exception\TransactionInProgressException;
@@ -142,7 +143,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   RequestItems: array<string, KeysAndAttributes|array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   '@region'?: string|null,
      * }|BatchGetItemInput $input
      *
@@ -150,6 +151,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function batchGetItem($input): BatchGetItemOutput
     {
@@ -159,6 +161,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new BatchGetItemOutput($response, $this, $input);
@@ -234,8 +237,8 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   RequestItems: array<string, array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
      *   '@region'?: string|null,
      * }|BatchWriteItemInput $input
      *
@@ -245,6 +248,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function batchWriteItem($input): BatchWriteItemOutput
     {
@@ -256,6 +260,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new BatchWriteItemOutput($response);
@@ -283,18 +288,18 @@ class DynamoDbClient extends AbstractApi
      *   AttributeDefinitions: array<AttributeDefinition|array>,
      *   TableName: string,
      *   KeySchema: array<KeySchemaElement|array>,
-     *   LocalSecondaryIndexes?: null|array<LocalSecondaryIndex|array>,
-     *   GlobalSecondaryIndexes?: null|array<GlobalSecondaryIndex|array>,
-     *   BillingMode?: null|BillingMode::*,
-     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
-     *   StreamSpecification?: null|StreamSpecification|array,
-     *   SSESpecification?: null|SSESpecification|array,
-     *   Tags?: null|array<Tag|array>,
-     *   TableClass?: null|TableClass::*,
-     *   DeletionProtectionEnabled?: null|bool,
-     *   WarmThroughput?: null|WarmThroughput|array,
-     *   ResourcePolicy?: null|string,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
+     *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>|null,
+     *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>|null,
+     *   BillingMode?: BillingMode::*|null,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array|null,
+     *   StreamSpecification?: StreamSpecification|array|null,
+     *   SSESpecification?: SSESpecification|array|null,
+     *   Tags?: array<Tag|array>|null,
+     *   TableClass?: TableClass::*|null,
+     *   DeletionProtectionEnabled?: bool|null,
+     *   WarmThroughput?: WarmThroughput|array|null,
+     *   ResourcePolicy?: string|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
@@ -333,15 +338,15 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Key: array<string, AttributeValue|array>,
-     *   Expected?: null|array<string, ExpectedAttributeValue|array>,
-     *   ConditionalOperator?: null|ConditionalOperator::*,
-     *   ReturnValues?: null|ReturnValue::*,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   Expected?: array<string, ExpectedAttributeValue|array>|null,
+     *   ConditionalOperator?: ConditionalOperator::*|null,
+     *   ReturnValues?: ReturnValue::*|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
      * }|DeleteItemInput $input
      *
@@ -352,6 +357,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function deleteItem($input): DeleteItemOutput
@@ -365,6 +371,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
@@ -486,12 +493,12 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   Statement: string,
-     *   Parameters?: null|array<AttributeValue|array>,
-     *   ConsistentRead?: null|bool,
-     *   NextToken?: null|string,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   Limit?: null|int,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   Parameters?: array<AttributeValue|array>|null,
+     *   ConsistentRead?: bool|null,
+     *   NextToken?: string|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   Limit?: int|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
      * }|ExecuteStatementInput $input
      *
@@ -502,6 +509,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function executeStatement($input): ExecuteStatementOutput
@@ -515,6 +523,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ]]));
 
@@ -535,11 +544,11 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Key: array<string, AttributeValue|array>,
-     *   AttributesToGet?: null|string[],
-     *   ConsistentRead?: null|bool,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ProjectionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
+     *   AttributesToGet?: string[]|null,
+     *   ConsistentRead?: bool|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ProjectionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|GetItemInput $input
      *
@@ -547,6 +556,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function getItem($input): GetItemOutput
     {
@@ -556,6 +566,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new GetItemOutput($response);
@@ -569,8 +580,8 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      *
      * @param array{
-     *   ExclusiveStartTableName?: null|string,
-     *   Limit?: null|int,
+     *   ExclusiveStartTableName?: string|null,
+     *   Limit?: int|null,
      *   '@region'?: string|null,
      * }|ListTablesInput $input
      *
@@ -616,15 +627,15 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Item: array<string, AttributeValue|array>,
-     *   Expected?: null|array<string, ExpectedAttributeValue|array>,
-     *   ReturnValues?: null|ReturnValue::*,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
-     *   ConditionalOperator?: null|ConditionalOperator::*,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   Expected?: array<string, ExpectedAttributeValue|array>|null,
+     *   ReturnValues?: ReturnValue::*|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
+     *   ConditionalOperator?: ConditionalOperator::*|null,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
      * }|PutItemInput $input
      *
@@ -635,6 +646,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function putItem($input): PutItemOutput
@@ -648,6 +660,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
@@ -701,22 +714,22 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   IndexName?: null|string,
-     *   Select?: null|Select::*,
-     *   AttributesToGet?: null|string[],
-     *   Limit?: null|int,
-     *   ConsistentRead?: null|bool,
-     *   KeyConditions?: null|array<string, Condition|array>,
-     *   QueryFilter?: null|array<string, Condition|array>,
-     *   ConditionalOperator?: null|ConditionalOperator::*,
-     *   ScanIndexForward?: null|bool,
-     *   ExclusiveStartKey?: null|array<string, AttributeValue|array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ProjectionExpression?: null|string,
-     *   FilterExpression?: null|string,
-     *   KeyConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
+     *   IndexName?: string|null,
+     *   Select?: Select::*|null,
+     *   AttributesToGet?: string[]|null,
+     *   Limit?: int|null,
+     *   ConsistentRead?: bool|null,
+     *   KeyConditions?: array<string, Condition|array>|null,
+     *   QueryFilter?: array<string, Condition|array>|null,
+     *   ConditionalOperator?: ConditionalOperator::*|null,
+     *   ScanIndexForward?: bool|null,
+     *   ExclusiveStartKey?: array<string, AttributeValue|array>|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ProjectionExpression?: string|null,
+     *   FilterExpression?: string|null,
+     *   KeyConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   '@region'?: string|null,
      * }|QueryInput $input
      *
@@ -724,6 +737,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function query($input): QueryOutput
     {
@@ -733,6 +747,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new QueryOutput($response, $this, $input);
@@ -779,21 +794,21 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   IndexName?: null|string,
-     *   AttributesToGet?: null|string[],
-     *   Limit?: null|int,
-     *   Select?: null|Select::*,
-     *   ScanFilter?: null|array<string, Condition|array>,
-     *   ConditionalOperator?: null|ConditionalOperator::*,
-     *   ExclusiveStartKey?: null|array<string, AttributeValue|array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   TotalSegments?: null|int,
-     *   Segment?: null|int,
-     *   ProjectionExpression?: null|string,
-     *   FilterExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ConsistentRead?: null|bool,
+     *   IndexName?: string|null,
+     *   AttributesToGet?: string[]|null,
+     *   Limit?: int|null,
+     *   Select?: Select::*|null,
+     *   ScanFilter?: array<string, Condition|array>|null,
+     *   ConditionalOperator?: ConditionalOperator::*|null,
+     *   ExclusiveStartKey?: array<string, AttributeValue|array>|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   TotalSegments?: int|null,
+     *   Segment?: int|null,
+     *   ProjectionExpression?: string|null,
+     *   FilterExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ConsistentRead?: bool|null,
      *   '@region'?: string|null,
      * }|ScanInput $input
      *
@@ -801,6 +816,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      */
     public function scan($input): ScanOutput
     {
@@ -810,6 +826,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
         ], 'usesEndpointDiscovery' => true]));
 
         return new ScanOutput($response, $this, $input);
@@ -894,9 +911,9 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TransactItems: array<TransactWriteItem|array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
-     *   ClientRequestToken?: null|string,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
+     *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
      * }|TransactWriteItemsInput $input
      *
@@ -905,6 +922,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ProvisionedThroughputExceededException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionCanceledException
      * @throws TransactionInProgressException
      */
@@ -917,6 +935,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionCanceledException' => TransactionCanceledException::class,
             'TransactionInProgressException' => TransactionInProgressException::class,
         ], 'usesEndpointDiscovery' => true]));
@@ -939,17 +958,17 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   Key: array<string, AttributeValue|array>,
-     *   AttributeUpdates?: null|array<string, AttributeValueUpdate|array>,
-     *   Expected?: null|array<string, ExpectedAttributeValue|array>,
-     *   ConditionalOperator?: null|ConditionalOperator::*,
-     *   ReturnValues?: null|ReturnValue::*,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: null|ReturnItemCollectionMetrics::*,
-     *   UpdateExpression?: null|string,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate|array>|null,
+     *   Expected?: array<string, ExpectedAttributeValue|array>|null,
+     *   ConditionalOperator?: ConditionalOperator::*|null,
+     *   ReturnValues?: ReturnValue::*|null,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
+     *   UpdateExpression?: string|null,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
      * }|UpdateItemInput $input
      *
@@ -960,6 +979,7 @@ class DynamoDbClient extends AbstractApi
      * @throws ReplicatedWriteConflictException
      * @throws RequestLimitExceededException
      * @throws ResourceNotFoundException
+     * @throws ThrottlingException
      * @throws TransactionConflictException
      */
     public function updateItem($input): UpdateItemOutput
@@ -973,6 +993,7 @@ class DynamoDbClient extends AbstractApi
             'ReplicatedWriteConflictException' => ReplicatedWriteConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ThrottlingException' => ThrottlingException::class,
             'TransactionConflictException' => TransactionConflictException::class,
         ], 'usesEndpointDiscovery' => true]));
 
@@ -998,20 +1019,20 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
      *
      * @param array{
-     *   AttributeDefinitions?: null|array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName: string,
-     *   BillingMode?: null|BillingMode::*,
-     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: null|array<GlobalSecondaryIndexUpdate|array>,
-     *   StreamSpecification?: null|StreamSpecification|array,
-     *   SSESpecification?: null|SSESpecification|array,
-     *   ReplicaUpdates?: null|array<ReplicationGroupUpdate|array>,
-     *   TableClass?: null|TableClass::*,
-     *   DeletionProtectionEnabled?: null|bool,
-     *   MultiRegionConsistency?: null|MultiRegionConsistency::*,
-     *   GlobalTableWitnessUpdates?: null|array<GlobalTableWitnessGroupUpdate|array>,
-     *   OnDemandThroughput?: null|OnDemandThroughput|array,
-     *   WarmThroughput?: null|WarmThroughput|array,
+     *   BillingMode?: BillingMode::*|null,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array|null,
+     *   GlobalSecondaryIndexUpdates?: array<GlobalSecondaryIndexUpdate|array>|null,
+     *   StreamSpecification?: StreamSpecification|array|null,
+     *   SSESpecification?: SSESpecification|array|null,
+     *   ReplicaUpdates?: array<ReplicationGroupUpdate|array>|null,
+     *   TableClass?: TableClass::*|null,
+     *   DeletionProtectionEnabled?: bool|null,
+     *   MultiRegionConsistency?: MultiRegionConsistency::*|null,
+     *   GlobalTableWitnessUpdates?: array<GlobalTableWitnessGroupUpdate|array>|null,
+     *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   WarmThroughput?: WarmThroughput|array|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *

@@ -93,23 +93,24 @@ final class DecryptRequest extends Input
     private $encryptionAlgorithm;
 
     /**
-     * A signed attestation document [^1] from an Amazon Web Services Nitro enclave and the encryption algorithm to use with
-     * the enclave's public key. The only valid encryption algorithm is `RSAES_OAEP_SHA_256`.
+     * A signed attestation document [^1] from an Amazon Web Services Nitro enclave or NitroTPM, and the encryption
+     * algorithm to use with the public key in the attestation document. The only valid encryption algorithm is
+     * `RSAES_OAEP_SHA_256`.
      *
-     * This parameter only supports attestation documents for Amazon Web Services Nitro Enclaves. To include this parameter,
-     * use the Amazon Web Services Nitro Enclaves SDK [^2] or any Amazon Web Services SDK.
+     * This parameter supports the Amazon Web Services Nitro Enclaves SDK [^2] or any Amazon Web Services SDK for Amazon Web
+     * Services Nitro Enclaves. It supports any Amazon Web Services SDK for Amazon Web Services NitroTPM.
      *
      * When you use this parameter, instead of returning the plaintext data, KMS encrypts the plaintext data with the public
      * key in the attestation document, and returns the resulting ciphertext in the `CiphertextForRecipient` field in the
-     * response. This ciphertext can be decrypted only with the private key in the enclave. The `Plaintext` field in the
-     * response is null or empty.
+     * response. This ciphertext can be decrypted only with the private key in the attested environment. The `Plaintext`
+     * field in the response is null or empty.
      *
-     * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves, see How Amazon Web Services
-     * Nitro Enclaves uses KMS [^3] in the *Key Management Service Developer Guide*.
+     * For information about the interaction between KMS and Amazon Web Services Nitro Enclaves or Amazon Web Services
+     * NitroTPM, see Cryptographic attestation support in KMS [^3] in the *Key Management Service Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave-concepts.html#term-attestdoc
      * [^2]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
-     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html
+     * [^3]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      *
      * @var RecipientInfo|null
      */
@@ -130,12 +131,12 @@ final class DecryptRequest extends Input
     /**
      * @param array{
      *   CiphertextBlob?: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   GrantTokens?: null|string[],
-     *   KeyId?: null|string,
-     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   GrantTokens?: string[]|null,
+     *   KeyId?: string|null,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -154,12 +155,12 @@ final class DecryptRequest extends Input
     /**
      * @param array{
      *   CiphertextBlob?: string,
-     *   EncryptionContext?: null|array<string, string>,
-     *   GrantTokens?: null|string[],
-     *   KeyId?: null|string,
-     *   EncryptionAlgorithm?: null|EncryptionAlgorithmSpec::*,
-     *   Recipient?: null|RecipientInfo|array,
-     *   DryRun?: null|bool,
+     *   EncryptionContext?: array<string, string>|null,
+     *   GrantTokens?: string[]|null,
+     *   KeyId?: string|null,
+     *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
+     *   Recipient?: RecipientInfo|array|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      */

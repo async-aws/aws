@@ -23,7 +23,7 @@ final class AvcIntraUhdSettings
 
     /**
      * @param array{
-     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*,
+     *   QualityTuningLevel?: AvcIntraUhdQualityTuningLevel::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -33,7 +33,7 @@ final class AvcIntraUhdSettings
 
     /**
      * @param array{
-     *   QualityTuningLevel?: null|AvcIntraUhdQualityTuningLevel::*,
+     *   QualityTuningLevel?: AvcIntraUhdQualityTuningLevel::*|null,
      * }|AvcIntraUhdSettings $input
      */
     public static function create($input): self

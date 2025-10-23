@@ -68,7 +68,7 @@ final class SearchPlaceIndexForTextSummary
      *
      * For more information about data providers, see Amazon Location Service data providers [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/what-is-data-provider.html
      *
      * @var string
      */
@@ -94,14 +94,14 @@ final class SearchPlaceIndexForTextSummary
     /**
      * @param array{
      *   Text: string,
-     *   BiasPosition?: null|float[],
-     *   FilterBBox?: null|float[],
-     *   FilterCountries?: null|string[],
-     *   MaxResults?: null|int,
-     *   ResultBBox?: null|float[],
+     *   BiasPosition?: float[]|null,
+     *   FilterBBox?: float[]|null,
+     *   FilterCountries?: string[]|null,
+     *   MaxResults?: int|null,
+     *   ResultBBox?: float[]|null,
      *   DataSource: string,
-     *   Language?: null|string,
-     *   FilterCategories?: null|string[],
+     *   Language?: string|null,
+     *   FilterCategories?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -120,14 +120,14 @@ final class SearchPlaceIndexForTextSummary
     /**
      * @param array{
      *   Text: string,
-     *   BiasPosition?: null|float[],
-     *   FilterBBox?: null|float[],
-     *   FilterCountries?: null|string[],
-     *   MaxResults?: null|int,
-     *   ResultBBox?: null|float[],
+     *   BiasPosition?: float[]|null,
+     *   FilterBBox?: float[]|null,
+     *   FilterCountries?: string[]|null,
+     *   MaxResults?: int|null,
+     *   ResultBBox?: float[]|null,
      *   DataSource: string,
-     *   Language?: null|string,
-     *   FilterCategories?: null|string[],
+     *   Language?: string|null,
+     *   FilterCategories?: string[]|null,
      * }|SearchPlaceIndexForTextSummary $input
      */
     public static function create($input): self

@@ -82,7 +82,7 @@ final class BatchGetItemInput extends Input
     /**
      * @param array{
      *   RequestItems?: array<string, KeysAndAttributes|array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -101,7 +101,7 @@ final class BatchGetItemInput extends Input
     /**
      * @param array{
      *   RequestItems?: array<string, KeysAndAttributes|array>,
-     *   ReturnConsumedCapacity?: null|ReturnConsumedCapacity::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   '@region'?: string|null,
      * }|BatchGetItemInput $input
      */

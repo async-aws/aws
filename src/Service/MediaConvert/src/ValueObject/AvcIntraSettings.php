@@ -109,7 +109,7 @@ final class AvcIntraSettings
      * * PSNR: Peak Signal-to-Noise Ratio * SSIM: Structural Similarity Index Measure * MS_SSIM: Multi-Scale Similarity
      * Index Measure * PSNR_HVS: Peak Signal-to-Noise Ratio, Human Visual System * VMAF: Video Multi-Method Assessment
      * Fusion * QVBR: Quality-Defined Variable Bitrate. This option is only available when your output uses the QVBR rate
-     * control mode.
+     * control mode. * SHOT_CHANGE: Shot Changes.
      *
      * @var list<FrameMetricType::*>|null
      */
@@ -151,17 +151,17 @@ final class AvcIntraSettings
 
     /**
      * @param array{
-     *   AvcIntraClass?: null|AvcIntraClass::*,
-     *   AvcIntraUhdSettings?: null|AvcIntraUhdSettings|array,
-     *   FramerateControl?: null|AvcIntraFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|AvcIntraInterlaceMode::*,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*,
-     *   SlowPal?: null|AvcIntraSlowPal::*,
-     *   Telecine?: null|AvcIntraTelecine::*,
+     *   AvcIntraClass?: AvcIntraClass::*|null,
+     *   AvcIntraUhdSettings?: AvcIntraUhdSettings|array|null,
+     *   FramerateControl?: AvcIntraFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: AvcIntraFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: AvcIntraInterlaceMode::*|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   ScanTypeConversionMode?: AvcIntraScanTypeConversionMode::*|null,
+     *   SlowPal?: AvcIntraSlowPal::*|null,
+     *   Telecine?: AvcIntraTelecine::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -181,17 +181,17 @@ final class AvcIntraSettings
 
     /**
      * @param array{
-     *   AvcIntraClass?: null|AvcIntraClass::*,
-     *   AvcIntraUhdSettings?: null|AvcIntraUhdSettings|array,
-     *   FramerateControl?: null|AvcIntraFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|AvcIntraFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|AvcIntraInterlaceMode::*,
-     *   PerFrameMetrics?: null|array<FrameMetricType::*>,
-     *   ScanTypeConversionMode?: null|AvcIntraScanTypeConversionMode::*,
-     *   SlowPal?: null|AvcIntraSlowPal::*,
-     *   Telecine?: null|AvcIntraTelecine::*,
+     *   AvcIntraClass?: AvcIntraClass::*|null,
+     *   AvcIntraUhdSettings?: AvcIntraUhdSettings|array|null,
+     *   FramerateControl?: AvcIntraFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: AvcIntraFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: AvcIntraInterlaceMode::*|null,
+     *   PerFrameMetrics?: array<FrameMetricType::*>|null,
+     *   ScanTypeConversionMode?: AvcIntraScanTypeConversionMode::*|null,
+     *   SlowPal?: AvcIntraSlowPal::*|null,
+     *   Telecine?: AvcIntraTelecine::*|null,
      * }|AvcIntraSettings $input
      */
     public static function create($input): self

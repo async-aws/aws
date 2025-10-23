@@ -16,7 +16,7 @@ final class Alarm
 
     /**
      * @param array{
-     *   name?: null|string,
+     *   name?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -26,7 +26,7 @@ final class Alarm
 
     /**
      * @param array{
-     *   name?: null|string,
+     *   name?: string|null,
      * }|Alarm $input
      */
     public static function create($input): self

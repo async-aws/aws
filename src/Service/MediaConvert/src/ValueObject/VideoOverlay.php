@@ -80,13 +80,13 @@ final class VideoOverlay
 
     /**
      * @param array{
-     *   Crop?: null|VideoOverlayCrop|array,
-     *   EndTimecode?: null|string,
-     *   InitialPosition?: null|VideoOverlayPosition|array,
-     *   Input?: null|VideoOverlayInput|array,
-     *   Playback?: null|VideoOverlayPlayBackMode::*,
-     *   StartTimecode?: null|string,
-     *   Transitions?: null|array<VideoOverlayTransition|array>,
+     *   Crop?: VideoOverlayCrop|array|null,
+     *   EndTimecode?: string|null,
+     *   InitialPosition?: VideoOverlayPosition|array|null,
+     *   Input?: VideoOverlayInput|array|null,
+     *   Playback?: VideoOverlayPlayBackMode::*|null,
+     *   StartTimecode?: string|null,
+     *   Transitions?: array<VideoOverlayTransition|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -102,13 +102,13 @@ final class VideoOverlay
 
     /**
      * @param array{
-     *   Crop?: null|VideoOverlayCrop|array,
-     *   EndTimecode?: null|string,
-     *   InitialPosition?: null|VideoOverlayPosition|array,
-     *   Input?: null|VideoOverlayInput|array,
-     *   Playback?: null|VideoOverlayPlayBackMode::*,
-     *   StartTimecode?: null|string,
-     *   Transitions?: null|array<VideoOverlayTransition|array>,
+     *   Crop?: VideoOverlayCrop|array|null,
+     *   EndTimecode?: string|null,
+     *   InitialPosition?: VideoOverlayPosition|array|null,
+     *   Input?: VideoOverlayInput|array|null,
+     *   Playback?: VideoOverlayPlayBackMode::*|null,
+     *   StartTimecode?: string|null,
+     *   Transitions?: array<VideoOverlayTransition|array>|null,
      * }|VideoOverlay $input
      */
     public static function create($input): self

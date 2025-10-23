@@ -47,7 +47,8 @@ final class AacSettings
      * Specify the AAC profile. For the widest player compatibility and where higher bitrates are acceptable: Keep the
      * default profile, LC (AAC-LC) For improved audio performance at lower bitrates: Choose HEV1 or HEV2. HEV1 (AAC-HE v1)
      * adds spectral band replication to improve speech audio at low bitrates. HEV2 (AAC-HE v2) adds parametric stereo,
-     * which optimizes for encoding stereo audio at very low bitrates.
+     * which optimizes for encoding stereo audio at very low bitrates. For improved audio quality at lower bitrates,
+     * adaptive audio bitrate switching, and loudness control: Choose XHE.
      *
      * @var AacCodecProfile::*|null
      */
@@ -136,18 +137,18 @@ final class AacSettings
 
     /**
      * @param array{
-     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*,
-     *   Bitrate?: null|int,
-     *   CodecProfile?: null|AacCodecProfile::*,
-     *   CodingMode?: null|AacCodingMode::*,
-     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*,
-     *   RapInterval?: null|int,
-     *   RateControlMode?: null|AacRateControlMode::*,
-     *   RawFormat?: null|AacRawFormat::*,
-     *   SampleRate?: null|int,
-     *   Specification?: null|AacSpecification::*,
-     *   TargetLoudnessRange?: null|int,
-     *   VbrQuality?: null|AacVbrQuality::*,
+     *   AudioDescriptionBroadcasterMix?: AacAudioDescriptionBroadcasterMix::*|null,
+     *   Bitrate?: int|null,
+     *   CodecProfile?: AacCodecProfile::*|null,
+     *   CodingMode?: AacCodingMode::*|null,
+     *   LoudnessMeasurementMode?: AacLoudnessMeasurementMode::*|null,
+     *   RapInterval?: int|null,
+     *   RateControlMode?: AacRateControlMode::*|null,
+     *   RawFormat?: AacRawFormat::*|null,
+     *   SampleRate?: int|null,
+     *   Specification?: AacSpecification::*|null,
+     *   TargetLoudnessRange?: int|null,
+     *   VbrQuality?: AacVbrQuality::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -168,18 +169,18 @@ final class AacSettings
 
     /**
      * @param array{
-     *   AudioDescriptionBroadcasterMix?: null|AacAudioDescriptionBroadcasterMix::*,
-     *   Bitrate?: null|int,
-     *   CodecProfile?: null|AacCodecProfile::*,
-     *   CodingMode?: null|AacCodingMode::*,
-     *   LoudnessMeasurementMode?: null|AacLoudnessMeasurementMode::*,
-     *   RapInterval?: null|int,
-     *   RateControlMode?: null|AacRateControlMode::*,
-     *   RawFormat?: null|AacRawFormat::*,
-     *   SampleRate?: null|int,
-     *   Specification?: null|AacSpecification::*,
-     *   TargetLoudnessRange?: null|int,
-     *   VbrQuality?: null|AacVbrQuality::*,
+     *   AudioDescriptionBroadcasterMix?: AacAudioDescriptionBroadcasterMix::*|null,
+     *   Bitrate?: int|null,
+     *   CodecProfile?: AacCodecProfile::*|null,
+     *   CodingMode?: AacCodingMode::*|null,
+     *   LoudnessMeasurementMode?: AacLoudnessMeasurementMode::*|null,
+     *   RapInterval?: int|null,
+     *   RateControlMode?: AacRateControlMode::*|null,
+     *   RawFormat?: AacRawFormat::*|null,
+     *   SampleRate?: int|null,
+     *   Specification?: AacSpecification::*|null,
+     *   TargetLoudnessRange?: int|null,
+     *   VbrQuality?: AacVbrQuality::*|null,
      * }|AacSettings $input
      */
     public static function create($input): self

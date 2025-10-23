@@ -19,7 +19,7 @@ final class CreateAliasRequest extends Input
      * slashes (/), underscores (_), and dashes (-). The alias name cannot begin with `alias/aws/`. The `alias/aws/` prefix
      * is reserved for Amazon Web Services managed keys [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-key
      *
      * @required
      *
@@ -45,7 +45,7 @@ final class CreateAliasRequest extends Input
      *
      * To get the key ID and key ARN for a KMS key, use ListKeys or DescribeKey.
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-mgn-key
      * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html
      *
      * @required

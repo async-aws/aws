@@ -23,8 +23,8 @@ final class RepositoryNameIdPair
 
     /**
      * @param array{
-     *   repositoryName?: null|string,
-     *   repositoryId?: null|string,
+     *   repositoryName?: string|null,
+     *   repositoryId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class RepositoryNameIdPair
 
     /**
      * @param array{
-     *   repositoryName?: null|string,
-     *   repositoryId?: null|string,
+     *   repositoryName?: string|null,
+     *   repositoryId?: string|null,
      * }|RepositoryNameIdPair $input
      */
     public static function create($input): self

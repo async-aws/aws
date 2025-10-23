@@ -109,26 +109,36 @@ final class SendMessageBatchRequestEntry
     private $messageDeduplicationId;
 
     /**
-     * This parameter applies only to FIFO (first-in-first-out) queues.
+     * `MessageGroupId` is an attribute used in Amazon SQS FIFO (First-In-First-Out) and standard queues. In FIFO queues,
+     * `MessageGroupId` organizes messages into distinct groups. Messages within the same message group are always processed
+     * one at a time, in strict order, ensuring that no two messages from the same group are processed simultaneously. In
+     * standard queues, using `MessageGroupId` enables fair queues. It is used to identify the tenant a message belongs to,
+     * helping maintain consistent message dwell time across all tenants during noisy neighbor events. Unlike FIFO queues,
+     * messages with the same `MessageGroupId` can be processed in parallel, maintaining the high throughput of standard
+     * queues.
      *
-     * The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message
-     * group are processed in a FIFO manner (however, messages in different message groups might be processed out of order).
-     * To interleave multiple ordered streams within a single queue, use `MessageGroupId` values (for example, session data
-     * for multiple users). In this scenario, multiple consumers can process the queue, but the session data of each user is
-     * processed in a FIFO fashion.
+     * - **FIFO queues:**`MessageGroupId` acts as the tag that specifies that a message belongs to a specific message group.
+     *   Messages that belong to the same message group are processed in a FIFO manner (however, messages in different
+     *   message groups might be processed out of order). To interleave multiple ordered streams within a single queue, use
+     *   `MessageGroupId` values (for example, session data for multiple users). In this scenario, multiple consumers can
+     *   process the queue, but the session data of each user is processed in a FIFO fashion.
      *
-     * - You must associate a non-empty `MessageGroupId` with a message. If you don't provide a `MessageGroupId`, the action
-     *   fails.
-     * - `ReceiveMessage` might return messages with multiple `MessageGroupId` values. For each `MessageGroupId`, the
-     *   messages are sorted by time sent. The caller can't specify a `MessageGroupId`.
+     *   If you do not provide a `MessageGroupId` when sending a message to a FIFO queue, the action fails.
+     *
+     *   `ReceiveMessage` might return messages with multiple `MessageGroupId` values. For each `MessageGroupId`, the
+     *   messages are sorted by time sent.
+     * - **Standard queues:**Use `MessageGroupId` in standard queues to enable fair queues. The `MessageGroupId` identifies
+     *   the tenant a message belongs to. A tenant can be any entity that shares a queue with others, such as your customer,
+     *   a client application, or a request type. When one tenant sends a disproportionately large volume of messages or has
+     *   messages that require longer processing time, fair queues ensure other tenants' messages maintain low dwell time.
+     *   This preserves quality of service for all tenants while maintaining the scalability and throughput of standard
+     *   queues. We recommend that you include a `MessageGroupId` in all messages when using fair queues.
      *
      * The length of `MessageGroupId` is 128 characters. Valid values: alphanumeric characters and punctuation
      * `(!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~)`.
      *
      * For best practices of using `MessageGroupId`, see Using the MessageGroupId Property [^1] in the *Amazon SQS Developer
      * Guide*.
-     *
-     * ! `MessageGroupId` is required for FIFO queues. You can't use it for Standard queues.
      *
      * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagegroupid-property.html
      *
@@ -140,11 +150,11 @@ final class SendMessageBatchRequestEntry
      * @param array{
      *   Id: string,
      *   MessageBody: string,
-     *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   DelaySeconds?: int|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -162,11 +172,11 @@ final class SendMessageBatchRequestEntry
      * @param array{
      *   Id: string,
      *   MessageBody: string,
-     *   DelaySeconds?: null|int,
-     *   MessageAttributes?: null|array<string, MessageAttributeValue|array>,
-     *   MessageSystemAttributes?: null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>,
-     *   MessageDeduplicationId?: null|string,
-     *   MessageGroupId?: null|string,
+     *   DelaySeconds?: int|null,
+     *   MessageAttributes?: array<string, MessageAttributeValue|array>|null,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue|array>|null,
+     *   MessageDeduplicationId?: string|null,
+     *   MessageGroupId?: string|null,
      * }|SendMessageBatchRequestEntry $input
      */
     public static function create($input): self

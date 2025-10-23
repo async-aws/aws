@@ -35,7 +35,7 @@ final class CalculateRouteRequest extends Input
      * Valid Values: `[-180 to 180,-90 to 90]`
      *
      * [^1]: https://earth-info.nga.mil/index.php?dir=wgs84&amp;action=wgs84
-     * [^2]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^2]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @required
      *
@@ -54,7 +54,7 @@ final class CalculateRouteRequest extends Input
      * Valid Values: `[-180 to 180,-90 to 90]`
      *
      * [^1]: https://earth-info.nga.mil/index.php?dir=wgs84&amp;action=wgs84
-     * [^2]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^2]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @required
      *
@@ -79,7 +79,7 @@ final class CalculateRouteRequest extends Input
      *
      * Valid Values: `[-180 to 180,-90 to 90]`
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html
      *
      * @var float[][]|null
      */
@@ -103,7 +103,7 @@ final class CalculateRouteRequest extends Input
      *
      * Default Value: `Car`
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/grab.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/grab.html
      *
      * @var TravelMode::*|null
      */
@@ -192,7 +192,7 @@ final class CalculateRouteRequest extends Input
     /**
      * The optional API key [^1] to authorize the request.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html
      *
      * @var string|null
      */
@@ -203,17 +203,17 @@ final class CalculateRouteRequest extends Input
      *   CalculatorName?: string,
      *   DeparturePosition?: float[],
      *   DestinationPosition?: float[],
-     *   WaypointPositions?: null|array[],
-     *   TravelMode?: null|TravelMode::*,
-     *   DepartureTime?: null|\DateTimeImmutable|string,
-     *   DepartNow?: null|bool,
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   IncludeLegGeometry?: null|bool,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   ArrivalTime?: null|\DateTimeImmutable|string,
-     *   OptimizeFor?: null|OptimizationMode::*,
-     *   Key?: null|string,
+     *   WaypointPositions?: array[]|null,
+     *   TravelMode?: TravelMode::*|null,
+     *   DepartureTime?: \DateTimeImmutable|string|null,
+     *   DepartNow?: bool|null,
+     *   DistanceUnit?: DistanceUnit::*|null,
+     *   IncludeLegGeometry?: bool|null,
+     *   CarModeOptions?: CalculateRouteCarModeOptions|array|null,
+     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array|null,
+     *   ArrivalTime?: \DateTimeImmutable|string|null,
+     *   OptimizeFor?: OptimizationMode::*|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -241,17 +241,17 @@ final class CalculateRouteRequest extends Input
      *   CalculatorName?: string,
      *   DeparturePosition?: float[],
      *   DestinationPosition?: float[],
-     *   WaypointPositions?: null|array[],
-     *   TravelMode?: null|TravelMode::*,
-     *   DepartureTime?: null|\DateTimeImmutable|string,
-     *   DepartNow?: null|bool,
-     *   DistanceUnit?: null|DistanceUnit::*,
-     *   IncludeLegGeometry?: null|bool,
-     *   CarModeOptions?: null|CalculateRouteCarModeOptions|array,
-     *   TruckModeOptions?: null|CalculateRouteTruckModeOptions|array,
-     *   ArrivalTime?: null|\DateTimeImmutable|string,
-     *   OptimizeFor?: null|OptimizationMode::*,
-     *   Key?: null|string,
+     *   WaypointPositions?: array[]|null,
+     *   TravelMode?: TravelMode::*|null,
+     *   DepartureTime?: \DateTimeImmutable|string|null,
+     *   DepartNow?: bool|null,
+     *   DistanceUnit?: DistanceUnit::*|null,
+     *   IncludeLegGeometry?: bool|null,
+     *   CarModeOptions?: CalculateRouteCarModeOptions|array|null,
+     *   TruckModeOptions?: CalculateRouteTruckModeOptions|array|null,
+     *   ArrivalTime?: \DateTimeImmutable|string|null,
+     *   OptimizeFor?: OptimizationMode::*|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|CalculateRouteRequest $input
      */

@@ -41,9 +41,9 @@ final class GlobalSecondaryIndexUpdate
 
     /**
      * @param array{
-     *   Update?: null|UpdateGlobalSecondaryIndexAction|array,
-     *   Create?: null|CreateGlobalSecondaryIndexAction|array,
-     *   Delete?: null|DeleteGlobalSecondaryIndexAction|array,
+     *   Update?: UpdateGlobalSecondaryIndexAction|array|null,
+     *   Create?: CreateGlobalSecondaryIndexAction|array|null,
+     *   Delete?: DeleteGlobalSecondaryIndexAction|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,9 +55,9 @@ final class GlobalSecondaryIndexUpdate
 
     /**
      * @param array{
-     *   Update?: null|UpdateGlobalSecondaryIndexAction|array,
-     *   Create?: null|CreateGlobalSecondaryIndexAction|array,
-     *   Delete?: null|DeleteGlobalSecondaryIndexAction|array,
+     *   Update?: UpdateGlobalSecondaryIndexAction|array|null,
+     *   Create?: CreateGlobalSecondaryIndexAction|array|null,
+     *   Delete?: DeleteGlobalSecondaryIndexAction|array|null,
      * }|GlobalSecondaryIndexUpdate $input
      */
     public static function create($input): self

@@ -93,9 +93,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#addtagstostream
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   Tags: array<string, string>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|AddTagsToStreamInput $input
      *
@@ -166,9 +166,9 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   StreamName: string,
-     *   ShardCount?: null|int,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
-     *   Tags?: null|array<string, string>,
+     *   ShardCount?: int|null,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      *
@@ -202,9 +202,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#decreasestreamretentionperiod
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   RetentionPeriodHours: int,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DecreaseStreamRetentionPeriodInput $input
      *
@@ -253,9 +253,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#deletestream
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   EnforceConsumerDeletion?: null|bool,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   EnforceConsumerDeletion?: bool|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DeleteStreamInput $input
      *
@@ -292,9 +292,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#deregisterstreamconsumer
      *
      * @param array{
-     *   StreamARN?: null|string,
-     *   ConsumerName?: null|string,
-     *   ConsumerARN?: null|string,
+     *   StreamARN?: string|null,
+     *   ConsumerName?: string|null,
+     *   ConsumerARN?: string|null,
      *   '@region'?: string|null,
      * }|DeregisterStreamConsumerInput $input
      *
@@ -370,10 +370,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestream
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   Limit?: null|int,
-     *   ExclusiveStartShardId?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   Limit?: int|null,
+     *   ExclusiveStartShardId?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStreamInput $input
      *
@@ -410,9 +410,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestreamconsumer
      *
      * @param array{
-     *   StreamARN?: null|string,
-     *   ConsumerName?: null|string,
-     *   ConsumerARN?: null|string,
+     *   StreamARN?: string|null,
+     *   ConsumerName?: string|null,
+     *   ConsumerARN?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStreamConsumerInput $input
      *
@@ -447,8 +447,8 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestreamsummary
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStreamSummaryInput $input
      *
@@ -480,9 +480,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#disableenhancedmonitoring
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardLevelMetrics: array<MetricsName::*>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DisableEnhancedMonitoringInput $input
      *
@@ -516,9 +516,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#enableenhancedmonitoring
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardLevelMetrics: array<MetricsName::*>,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|EnableEnhancedMonitoringInput $input
      *
@@ -598,8 +598,8 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   ShardIterator: string,
-     *   Limit?: null|int,
-     *   StreamARN?: null|string,
+     *   Limit?: int|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|GetRecordsInput $input
      *
@@ -677,12 +677,12 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#getsharditerator
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardId: string,
      *   ShardIteratorType: ShardIteratorType::*,
-     *   StartingSequenceNumber?: null|string,
-     *   Timestamp?: null|\DateTimeImmutable|string,
-     *   StreamARN?: null|string,
+     *   StartingSequenceNumber?: string|null,
+     *   Timestamp?: \DateTimeImmutable|string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|GetShardIteratorInput $input
      *
@@ -723,9 +723,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#increasestreamretentionperiod
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   RetentionPeriodHours: int,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|IncreaseStreamRetentionPeriodInput $input
      *
@@ -770,13 +770,13 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#listshards
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   NextToken?: null|string,
-     *   ExclusiveStartShardId?: null|string,
-     *   MaxResults?: null|int,
-     *   StreamCreationTimestamp?: null|\DateTimeImmutable|string,
-     *   ShardFilter?: null|ShardFilter|array,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   NextToken?: string|null,
+     *   ExclusiveStartShardId?: string|null,
+     *   MaxResults?: int|null,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
+     *   ShardFilter?: ShardFilter|array|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|ListShardsInput $input
      *
@@ -813,9 +813,9 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   StreamARN: string,
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
-     *   StreamCreationTimestamp?: null|\DateTimeImmutable|string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
      * }|ListStreamConsumersInput $input
      *
@@ -858,9 +858,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#liststreams
      *
      * @param array{
-     *   Limit?: null|int,
-     *   ExclusiveStartStreamName?: null|string,
-     *   NextToken?: null|string,
+     *   Limit?: int|null,
+     *   ExclusiveStartStreamName?: string|null,
+     *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|ListStreamsInput $input
      *
@@ -891,10 +891,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#listtagsforstream
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   ExclusiveStartTagKey?: null|string,
-     *   Limit?: null|int,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   ExclusiveStartTagKey?: string|null,
+     *   Limit?: int|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|ListTagsForStreamInput $input
      *
@@ -957,10 +957,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#mergeshards
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardToMerge: string,
      *   AdjacentShardToMerge: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|MergeShardsInput $input
      *
@@ -1033,12 +1033,12 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#putrecord
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   Data: string,
      *   PartitionKey: string,
-     *   ExplicitHashKey?: null|string,
-     *   SequenceNumberForOrdering?: null|string,
-     *   StreamARN?: null|string,
+     *   ExplicitHashKey?: string|null,
+     *   SequenceNumberForOrdering?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      *
@@ -1137,8 +1137,8 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   Records: array<PutRecordsRequestEntry|array>,
-     *   StreamName?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|PutRecordsInput $input
      *
@@ -1201,7 +1201,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamARN: string,
      *   ConsumerName: string,
-     *   Tags?: null|array<string, string>,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|RegisterStreamConsumerInput $input
      *
@@ -1238,9 +1238,9 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#removetagsfromstream
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   TagKeys: string[],
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|RemoveTagsFromStreamInput $input
      *
@@ -1313,10 +1313,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#splitshard
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   ShardToSplit: string,
      *   NewStartingHashKey: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|SplitShardInput $input
      *
@@ -1365,10 +1365,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#startstreamencryption
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|StartStreamEncryptionInput $input
      *
@@ -1426,10 +1426,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#stopstreamencryption
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   EncryptionType: EncryptionType::*,
      *   KeyId: string,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|StopStreamEncryptionInput $input
      *
@@ -1457,10 +1457,10 @@ class KinesisClient extends AbstractApi
      * @see describeStream
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   Limit?: null|int,
-     *   ExclusiveStartShardId?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   Limit?: int|null,
+     *   ExclusiveStartShardId?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStreamInput $input
      */
@@ -1481,10 +1481,10 @@ class KinesisClient extends AbstractApi
      * @see describeStream
      *
      * @param array{
-     *   StreamName?: null|string,
-     *   Limit?: null|int,
-     *   ExclusiveStartShardId?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   Limit?: int|null,
+     *   ExclusiveStartShardId?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStreamInput $input
      */
@@ -1542,10 +1542,10 @@ class KinesisClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#updateshardcount
      *
      * @param array{
-     *   StreamName?: null|string,
+     *   StreamName?: string|null,
      *   TargetShardCount: int,
      *   ScalingType: ScalingType::*,
-     *   StreamARN?: null|string,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|UpdateShardCountInput $input
      *

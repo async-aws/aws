@@ -33,8 +33,8 @@ final class Column
     /**
      * @param array{
      *   Name: string,
-     *   Type?: null|string,
-     *   Comment?: null|string,
+     *   Type?: string|null,
+     *   Comment?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,8 +47,8 @@ final class Column
     /**
      * @param array{
      *   Name: string,
-     *   Type?: null|string,
-     *   Comment?: null|string,
+     *   Type?: string|null,
+     *   Comment?: string|null,
      * }|Column $input
      */
     public static function create($input): self

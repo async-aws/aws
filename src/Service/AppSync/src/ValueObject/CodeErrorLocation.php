@@ -30,9 +30,9 @@ final class CodeErrorLocation
 
     /**
      * @param array{
-     *   line?: null|int,
-     *   column?: null|int,
-     *   span?: null|int,
+     *   line?: int|null,
+     *   column?: int|null,
+     *   span?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class CodeErrorLocation
 
     /**
      * @param array{
-     *   line?: null|int,
-     *   column?: null|int,
-     *   span?: null|int,
+     *   line?: int|null,
+     *   column?: int|null,
+     *   span?: int|null,
      * }|CodeErrorLocation $input
      */
     public static function create($input): self

@@ -41,10 +41,10 @@ final class TopicConfiguration
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      *   TopicArn: string,
      *   Events: array<Event::*>,
-     *   Filter?: null|NotificationConfigurationFilter|array,
+     *   Filter?: NotificationConfigurationFilter|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -57,10 +57,10 @@ final class TopicConfiguration
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      *   TopicArn: string,
      *   Events: array<Event::*>,
-     *   Filter?: null|NotificationConfigurationFilter|array,
+     *   Filter?: NotificationConfigurationFilter|array|null,
      * }|TopicConfiguration $input
      */
     public static function create($input): self

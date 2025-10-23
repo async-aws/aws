@@ -44,11 +44,11 @@ final class Subscription
 
     /**
      * @param array{
-     *   SubscriptionArn?: null|string,
-     *   Owner?: null|string,
-     *   Protocol?: null|string,
-     *   Endpoint?: null|string,
-     *   TopicArn?: null|string,
+     *   SubscriptionArn?: string|null,
+     *   Owner?: string|null,
+     *   Protocol?: string|null,
+     *   Endpoint?: string|null,
+     *   TopicArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class Subscription
 
     /**
      * @param array{
-     *   SubscriptionArn?: null|string,
-     *   Owner?: null|string,
-     *   Protocol?: null|string,
-     *   Endpoint?: null|string,
-     *   TopicArn?: null|string,
+     *   SubscriptionArn?: string|null,
+     *   Owner?: string|null,
+     *   Protocol?: string|null,
+     *   Endpoint?: string|null,
+     *   TopicArn?: string|null,
      * }|Subscription $input
      */
     public static function create($input): self

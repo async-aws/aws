@@ -2,6 +2,16 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.1.2
+
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 1.1.1
 
 ### Changed

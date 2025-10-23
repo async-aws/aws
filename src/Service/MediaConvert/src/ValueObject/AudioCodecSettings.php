@@ -106,18 +106,18 @@ final class AudioCodecSettings
 
     /**
      * @param array{
-     *   AacSettings?: null|AacSettings|array,
-     *   Ac3Settings?: null|Ac3Settings|array,
-     *   AiffSettings?: null|AiffSettings|array,
-     *   Codec?: null|AudioCodec::*,
-     *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
-     *   Eac3Settings?: null|Eac3Settings|array,
-     *   FlacSettings?: null|FlacSettings|array,
-     *   Mp2Settings?: null|Mp2Settings|array,
-     *   Mp3Settings?: null|Mp3Settings|array,
-     *   OpusSettings?: null|OpusSettings|array,
-     *   VorbisSettings?: null|VorbisSettings|array,
-     *   WavSettings?: null|WavSettings|array,
+     *   AacSettings?: AacSettings|array|null,
+     *   Ac3Settings?: Ac3Settings|array|null,
+     *   AiffSettings?: AiffSettings|array|null,
+     *   Codec?: AudioCodec::*|null,
+     *   Eac3AtmosSettings?: Eac3AtmosSettings|array|null,
+     *   Eac3Settings?: Eac3Settings|array|null,
+     *   FlacSettings?: FlacSettings|array|null,
+     *   Mp2Settings?: Mp2Settings|array|null,
+     *   Mp3Settings?: Mp3Settings|array|null,
+     *   OpusSettings?: OpusSettings|array|null,
+     *   VorbisSettings?: VorbisSettings|array|null,
+     *   WavSettings?: WavSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -138,18 +138,18 @@ final class AudioCodecSettings
 
     /**
      * @param array{
-     *   AacSettings?: null|AacSettings|array,
-     *   Ac3Settings?: null|Ac3Settings|array,
-     *   AiffSettings?: null|AiffSettings|array,
-     *   Codec?: null|AudioCodec::*,
-     *   Eac3AtmosSettings?: null|Eac3AtmosSettings|array,
-     *   Eac3Settings?: null|Eac3Settings|array,
-     *   FlacSettings?: null|FlacSettings|array,
-     *   Mp2Settings?: null|Mp2Settings|array,
-     *   Mp3Settings?: null|Mp3Settings|array,
-     *   OpusSettings?: null|OpusSettings|array,
-     *   VorbisSettings?: null|VorbisSettings|array,
-     *   WavSettings?: null|WavSettings|array,
+     *   AacSettings?: AacSettings|array|null,
+     *   Ac3Settings?: Ac3Settings|array|null,
+     *   AiffSettings?: AiffSettings|array|null,
+     *   Codec?: AudioCodec::*|null,
+     *   Eac3AtmosSettings?: Eac3AtmosSettings|array|null,
+     *   Eac3Settings?: Eac3Settings|array|null,
+     *   FlacSettings?: FlacSettings|array|null,
+     *   Mp2Settings?: Mp2Settings|array|null,
+     *   Mp3Settings?: Mp3Settings|array|null,
+     *   OpusSettings?: OpusSettings|array|null,
+     *   VorbisSettings?: VorbisSettings|array|null,
+     *   WavSettings?: WavSettings|array|null,
      * }|AudioCodecSettings $input
      */
     public static function create($input): self

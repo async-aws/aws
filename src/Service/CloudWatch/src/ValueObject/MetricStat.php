@@ -58,7 +58,7 @@ final class MetricStat
      *   Metric: Metric|array,
      *   Period: int,
      *   Stat: string,
-     *   Unit?: null|StandardUnit::*,
+     *   Unit?: StandardUnit::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -74,7 +74,7 @@ final class MetricStat
      *   Metric: Metric|array,
      *   Period: int,
      *   Stat: string,
-     *   Unit?: null|StandardUnit::*,
+     *   Unit?: StandardUnit::*|null,
      * }|MetricStat $input
      */
     public static function create($input): self

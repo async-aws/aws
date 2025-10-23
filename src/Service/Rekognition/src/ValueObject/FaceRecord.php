@@ -25,8 +25,8 @@ final class FaceRecord
 
     /**
      * @param array{
-     *   Face?: null|Face|array,
-     *   FaceDetail?: null|FaceDetail|array,
+     *   Face?: Face|array|null,
+     *   FaceDetail?: FaceDetail|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class FaceRecord
 
     /**
      * @param array{
-     *   Face?: null|Face|array,
-     *   FaceDetail?: null|FaceDetail|array,
+     *   Face?: Face|array|null,
+     *   FaceDetail?: FaceDetail|array|null,
      * }|FaceRecord $input
      */
     public static function create($input): self

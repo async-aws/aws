@@ -96,11 +96,11 @@ final class ResendConfirmationCodeRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: null|string,
-     *   UserContextData?: null|UserContextDataType|array,
+     *   SecretHash?: string|null,
+     *   UserContextData?: UserContextDataType|array|null,
      *   Username?: string,
-     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
-     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -118,11 +118,11 @@ final class ResendConfirmationCodeRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   SecretHash?: null|string,
-     *   UserContextData?: null|UserContextDataType|array,
+     *   SecretHash?: string|null,
+     *   UserContextData?: UserContextDataType|array|null,
      *   Username?: string,
-     *   AnalyticsMetadata?: null|AnalyticsMetadataType|array,
-     *   ClientMetadata?: null|array<string, string>,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|ResendConfirmationCodeRequest $input
      */

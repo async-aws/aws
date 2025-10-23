@@ -48,11 +48,11 @@ final class ReplicationStatusType
 
     /**
      * @param array{
-     *   Region?: null|string,
-     *   KmsKeyId?: null|string,
-     *   Status?: null|StatusType::*,
-     *   StatusMessage?: null|string,
-     *   LastAccessedDate?: null|\DateTimeImmutable,
+     *   Region?: string|null,
+     *   KmsKeyId?: string|null,
+     *   Status?: StatusType::*|null,
+     *   StatusMessage?: string|null,
+     *   LastAccessedDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -66,11 +66,11 @@ final class ReplicationStatusType
 
     /**
      * @param array{
-     *   Region?: null|string,
-     *   KmsKeyId?: null|string,
-     *   Status?: null|StatusType::*,
-     *   StatusMessage?: null|string,
-     *   LastAccessedDate?: null|\DateTimeImmutable,
+     *   Region?: string|null,
+     *   KmsKeyId?: string|null,
+     *   Status?: StatusType::*|null,
+     *   StatusMessage?: string|null,
+     *   LastAccessedDate?: \DateTimeImmutable|null,
      * }|ReplicationStatusType $input
      */
     public static function create($input): self

@@ -34,9 +34,9 @@ final class CodeError
 
     /**
      * @param array{
-     *   errorType?: null|string,
-     *   value?: null|string,
-     *   location?: null|CodeErrorLocation|array,
+     *   errorType?: string|null,
+     *   value?: string|null,
+     *   location?: CodeErrorLocation|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,9 +48,9 @@ final class CodeError
 
     /**
      * @param array{
-     *   errorType?: null|string,
-     *   value?: null|string,
-     *   location?: null|CodeErrorLocation|array,
+     *   errorType?: string|null,
+     *   value?: string|null,
+     *   location?: CodeErrorLocation|array|null,
      * }|CodeError $input
      */
     public static function create($input): self

@@ -35,7 +35,7 @@ final class SearchPlaceIndexForPositionSummary
      *
      * For more information about data providers, see Amazon Location Service data providers [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/what-is-data-provider.html
      *
      * @var string
      */
@@ -54,9 +54,9 @@ final class SearchPlaceIndexForPositionSummary
     /**
      * @param array{
      *   Position: float[],
-     *   MaxResults?: null|int,
+     *   MaxResults?: int|null,
      *   DataSource: string,
-     *   Language?: null|string,
+     *   Language?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -70,9 +70,9 @@ final class SearchPlaceIndexForPositionSummary
     /**
      * @param array{
      *   Position: float[],
-     *   MaxResults?: null|int,
+     *   MaxResults?: int|null,
      *   DataSource: string,
-     *   Language?: null|string,
+     *   Language?: string|null,
      * }|SearchPlaceIndexForPositionSummary $input
      */
     public static function create($input): self

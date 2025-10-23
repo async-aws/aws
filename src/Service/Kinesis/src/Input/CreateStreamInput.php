@@ -51,9 +51,9 @@ final class CreateStreamInput extends Input
     /**
      * @param array{
      *   StreamName?: string,
-     *   ShardCount?: null|int,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
-     *   Tags?: null|array<string, string>,
+     *   ShardCount?: int|null,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -69,9 +69,9 @@ final class CreateStreamInput extends Input
     /**
      * @param array{
      *   StreamName?: string,
-     *   ShardCount?: null|int,
-     *   StreamModeDetails?: null|StreamModeDetails|array,
-     *   Tags?: null|array<string, string>,
+     *   ShardCount?: int|null,
+     *   StreamModeDetails?: StreamModeDetails|array|null,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      */

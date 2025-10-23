@@ -23,8 +23,8 @@ final class PhaseContext
 
     /**
      * @param array{
-     *   statusCode?: null|string,
-     *   message?: null|string,
+     *   statusCode?: string|null,
+     *   message?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -35,8 +35,8 @@ final class PhaseContext
 
     /**
      * @param array{
-     *   statusCode?: null|string,
-     *   message?: null|string,
+     *   statusCode?: string|null,
+     *   message?: string|null,
      * }|PhaseContext $input
      */
     public static function create($input): self

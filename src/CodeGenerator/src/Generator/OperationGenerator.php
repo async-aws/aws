@@ -13,8 +13,8 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
+use Nette\PhpGenerator\Visibility;
 
 /**
  * Generate API client methods and result classes.
@@ -156,7 +156,7 @@ class OperationGenerator
 
         if ($operation->isEndpointOperation()) {
             $classBuilder->addMethod('discoverEndpoints')
-                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+                ->setVisibility(Visibility::Protected)
                 ->setReturnType('array')
                 ->setBody(strtr('
                     return $this->METHOD($region ? ["@region" => $region] : [])->getEndpoints();

@@ -49,10 +49,10 @@ final class SSEDescription
 
     /**
      * @param array{
-     *   Status?: null|SSEStatus::*,
-     *   SSEType?: null|SSEType::*,
-     *   KMSMasterKeyArn?: null|string,
-     *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
+     *   Status?: SSEStatus::*|null,
+     *   SSEType?: SSEType::*|null,
+     *   KMSMasterKeyArn?: string|null,
+     *   InaccessibleEncryptionDateTime?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -65,10 +65,10 @@ final class SSEDescription
 
     /**
      * @param array{
-     *   Status?: null|SSEStatus::*,
-     *   SSEType?: null|SSEType::*,
-     *   KMSMasterKeyArn?: null|string,
-     *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
+     *   Status?: SSEStatus::*|null,
+     *   SSEType?: SSEType::*|null,
+     *   KMSMasterKeyArn?: string|null,
+     *   InaccessibleEncryptionDateTime?: \DateTimeImmutable|null,
      * }|SSEDescription $input
      */
     public static function create($input): self

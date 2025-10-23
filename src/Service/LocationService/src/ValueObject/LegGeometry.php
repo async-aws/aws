@@ -21,7 +21,7 @@ final class LegGeometry
 
     /**
      * @param array{
-     *   LineString?: null|array[],
+     *   LineString?: array[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -31,7 +31,7 @@ final class LegGeometry
 
     /**
      * @param array{
-     *   LineString?: null|array[],
+     *   LineString?: array[]|null,
      * }|LegGeometry $input
      */
     public static function create($input): self

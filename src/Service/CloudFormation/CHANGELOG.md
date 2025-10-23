@@ -5,6 +5,19 @@
 ### Changed
 
 - AWS enhancement: Documentation updates.
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.10.0
+
+### Added
+
+- AWS api-change: ListHookResults API now supports retrieving invocation results for all CloudFormation Hooks (previously limited to create change set and Cloud Control operations) with new optional parameters for filtering by Hook status and ARN.
+
+## 1.9.1
+
+### Changed
+
+- AWS enhancement: Documentation updates.
 
 ## 1.9.0
 

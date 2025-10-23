@@ -43,10 +43,10 @@ final class ListFunctionsRequest extends Input
 
     /**
      * @param array{
-     *   MasterRegion?: null|string,
-     *   FunctionVersion?: null|FunctionVersion::*,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   MasterRegion?: string|null,
+     *   FunctionVersion?: FunctionVersion::*|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -61,10 +61,10 @@ final class ListFunctionsRequest extends Input
 
     /**
      * @param array{
-     *   MasterRegion?: null|string,
-     *   FunctionVersion?: null|FunctionVersion::*,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   MasterRegion?: string|null,
+     *   FunctionVersion?: FunctionVersion::*|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * }|ListFunctionsRequest $input
      */
@@ -126,7 +126,7 @@ final class ListFunctionsRequest extends Input
         }
 
         // Prepare URI
-        $uriString = '/2015-03-31/functions/';
+        $uriString = '/2015-03-31/functions';
 
         // Prepare Body
         $body = '';

@@ -54,11 +54,11 @@ final class NamedQuery
     /**
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   Database: string,
      *   QueryString: string,
-     *   NamedQueryId?: null|string,
-     *   WorkGroup?: null|string,
+     *   NamedQueryId?: string|null,
+     *   WorkGroup?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -74,11 +74,11 @@ final class NamedQuery
     /**
      * @param array{
      *   Name: string,
-     *   Description?: null|string,
+     *   Description?: string|null,
      *   Database: string,
      *   QueryString: string,
-     *   NamedQueryId?: null|string,
-     *   WorkGroup?: null|string,
+     *   NamedQueryId?: string|null,
+     *   WorkGroup?: string|null,
      * }|NamedQuery $input
      */
     public static function create($input): self

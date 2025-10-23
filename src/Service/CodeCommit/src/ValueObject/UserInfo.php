@@ -30,9 +30,9 @@ final class UserInfo
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   email?: null|string,
-     *   date?: null|string,
+     *   name?: string|null,
+     *   email?: string|null,
+     *   date?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class UserInfo
 
     /**
      * @param array{
-     *   name?: null|string,
-     *   email?: null|string,
-     *   date?: null|string,
+     *   name?: string|null,
+     *   email?: string|null,
+     *   date?: string|null,
      * }|UserInfo $input
      */
     public static function create($input): self

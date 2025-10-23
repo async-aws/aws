@@ -30,9 +30,9 @@ final class Capacity
 
     /**
      * @param array{
-     *   ReadCapacityUnits?: null|float,
-     *   WriteCapacityUnits?: null|float,
-     *   CapacityUnits?: null|float,
+     *   ReadCapacityUnits?: float|null,
+     *   WriteCapacityUnits?: float|null,
+     *   CapacityUnits?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -44,9 +44,9 @@ final class Capacity
 
     /**
      * @param array{
-     *   ReadCapacityUnits?: null|float,
-     *   WriteCapacityUnits?: null|float,
-     *   CapacityUnits?: null|float,
+     *   ReadCapacityUnits?: float|null,
+     *   WriteCapacityUnits?: float|null,
+     *   CapacityUnits?: float|null,
      * }|Capacity $input
      */
     public static function create($input): self

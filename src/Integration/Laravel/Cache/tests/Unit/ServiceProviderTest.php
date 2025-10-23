@@ -23,7 +23,9 @@ class ServiceProviderTest extends TestCase
         self::assertInstanceOf(AsyncAwsDynamoDbStore::class, $store);
         $refl = new \ReflectionClass($store);
         $property = $refl->getProperty('dynamoDb');
-        $property->setAccessible(true);
+        if (\PHP_VERSION_ID < 80100) {
+            $property->setAccessible(true);
+        }
         $client = $property->getValue($store);
 
         $config = $client->getConfiguration();

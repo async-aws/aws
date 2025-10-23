@@ -29,8 +29,8 @@ final class ForceIncludeRenditionSize
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Width?: null|int,
+     *   Height?: int|null,
+     *   Width?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -41,8 +41,8 @@ final class ForceIncludeRenditionSize
 
     /**
      * @param array{
-     *   Height?: null|int,
-     *   Width?: null|int,
+     *   Height?: int|null,
+     *   Width?: int|null,
      * }|ForceIncludeRenditionSize $input
      */
     public static function create($input): self

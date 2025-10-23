@@ -33,8 +33,8 @@ final class PlacementStrategy
 
     /**
      * @param array{
-     *   field?: null|string,
-     *   type?: null|PlacementStrategyType::*,
+     *   field?: string|null,
+     *   type?: PlacementStrategyType::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,8 +45,8 @@ final class PlacementStrategy
 
     /**
      * @param array{
-     *   field?: null|string,
-     *   type?: null|PlacementStrategyType::*,
+     *   field?: string|null,
+     *   type?: PlacementStrategyType::*|null,
      * }|PlacementStrategy $input
      */
     public static function create($input): self

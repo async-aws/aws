@@ -26,8 +26,8 @@ final class FileGroupSettings
 
     /**
      * @param array{
-     *   Destination?: null|string,
-     *   DestinationSettings?: null|DestinationSettings|array,
+     *   Destination?: string|null,
+     *   DestinationSettings?: DestinationSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,8 +38,8 @@ final class FileGroupSettings
 
     /**
      * @param array{
-     *   Destination?: null|string,
-     *   DestinationSettings?: null|DestinationSettings|array,
+     *   Destination?: string|null,
+     *   DestinationSettings?: DestinationSettings|array|null,
      * }|FileGroupSettings $input
      */
     public static function create($input): self

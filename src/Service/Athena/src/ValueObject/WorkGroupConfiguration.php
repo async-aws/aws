@@ -128,19 +128,19 @@ final class WorkGroupConfiguration
 
     /**
      * @param array{
-     *   ResultConfiguration?: null|ResultConfiguration|array,
-     *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
-     *   EnforceWorkGroupConfiguration?: null|bool,
-     *   PublishCloudWatchMetricsEnabled?: null|bool,
-     *   BytesScannedCutoffPerQuery?: null|int,
-     *   RequesterPaysEnabled?: null|bool,
-     *   EngineVersion?: null|EngineVersion|array,
-     *   AdditionalConfiguration?: null|string,
-     *   ExecutionRole?: null|string,
-     *   CustomerContentEncryptionConfiguration?: null|CustomerContentEncryptionConfiguration|array,
-     *   EnableMinimumEncryptionConfiguration?: null|bool,
-     *   IdentityCenterConfiguration?: null|IdentityCenterConfiguration|array,
-     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
+     *   ResultConfiguration?: ResultConfiguration|array|null,
+     *   ManagedQueryResultsConfiguration?: ManagedQueryResultsConfiguration|array|null,
+     *   EnforceWorkGroupConfiguration?: bool|null,
+     *   PublishCloudWatchMetricsEnabled?: bool|null,
+     *   BytesScannedCutoffPerQuery?: int|null,
+     *   RequesterPaysEnabled?: bool|null,
+     *   EngineVersion?: EngineVersion|array|null,
+     *   AdditionalConfiguration?: string|null,
+     *   ExecutionRole?: string|null,
+     *   CustomerContentEncryptionConfiguration?: CustomerContentEncryptionConfiguration|array|null,
+     *   EnableMinimumEncryptionConfiguration?: bool|null,
+     *   IdentityCenterConfiguration?: IdentityCenterConfiguration|array|null,
+     *   QueryResultsS3AccessGrantsConfiguration?: QueryResultsS3AccessGrantsConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -162,19 +162,19 @@ final class WorkGroupConfiguration
 
     /**
      * @param array{
-     *   ResultConfiguration?: null|ResultConfiguration|array,
-     *   ManagedQueryResultsConfiguration?: null|ManagedQueryResultsConfiguration|array,
-     *   EnforceWorkGroupConfiguration?: null|bool,
-     *   PublishCloudWatchMetricsEnabled?: null|bool,
-     *   BytesScannedCutoffPerQuery?: null|int,
-     *   RequesterPaysEnabled?: null|bool,
-     *   EngineVersion?: null|EngineVersion|array,
-     *   AdditionalConfiguration?: null|string,
-     *   ExecutionRole?: null|string,
-     *   CustomerContentEncryptionConfiguration?: null|CustomerContentEncryptionConfiguration|array,
-     *   EnableMinimumEncryptionConfiguration?: null|bool,
-     *   IdentityCenterConfiguration?: null|IdentityCenterConfiguration|array,
-     *   QueryResultsS3AccessGrantsConfiguration?: null|QueryResultsS3AccessGrantsConfiguration|array,
+     *   ResultConfiguration?: ResultConfiguration|array|null,
+     *   ManagedQueryResultsConfiguration?: ManagedQueryResultsConfiguration|array|null,
+     *   EnforceWorkGroupConfiguration?: bool|null,
+     *   PublishCloudWatchMetricsEnabled?: bool|null,
+     *   BytesScannedCutoffPerQuery?: int|null,
+     *   RequesterPaysEnabled?: bool|null,
+     *   EngineVersion?: EngineVersion|array|null,
+     *   AdditionalConfiguration?: string|null,
+     *   ExecutionRole?: string|null,
+     *   CustomerContentEncryptionConfiguration?: CustomerContentEncryptionConfiguration|array|null,
+     *   EnableMinimumEncryptionConfiguration?: bool|null,
+     *   IdentityCenterConfiguration?: IdentityCenterConfiguration|array|null,
+     *   QueryResultsS3AccessGrantsConfiguration?: QueryResultsS3AccessGrantsConfiguration|array|null,
      * }|WorkGroupConfiguration $input
      */
     public static function create($input): self

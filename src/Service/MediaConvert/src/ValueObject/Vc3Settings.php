@@ -117,15 +117,15 @@ final class Vc3Settings
 
     /**
      * @param array{
-     *   FramerateControl?: null|Vc3FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|Vc3InterlaceMode::*,
-     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*,
-     *   SlowPal?: null|Vc3SlowPal::*,
-     *   Telecine?: null|Vc3Telecine::*,
-     *   Vc3Class?: null|Vc3Class::*,
+     *   FramerateControl?: Vc3FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Vc3FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: Vc3InterlaceMode::*|null,
+     *   ScanTypeConversionMode?: Vc3ScanTypeConversionMode::*|null,
+     *   SlowPal?: Vc3SlowPal::*|null,
+     *   Telecine?: Vc3Telecine::*|null,
+     *   Vc3Class?: Vc3Class::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -143,15 +143,15 @@ final class Vc3Settings
 
     /**
      * @param array{
-     *   FramerateControl?: null|Vc3FramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|Vc3FramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|Vc3InterlaceMode::*,
-     *   ScanTypeConversionMode?: null|Vc3ScanTypeConversionMode::*,
-     *   SlowPal?: null|Vc3SlowPal::*,
-     *   Telecine?: null|Vc3Telecine::*,
-     *   Vc3Class?: null|Vc3Class::*,
+     *   FramerateControl?: Vc3FramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: Vc3FramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: Vc3InterlaceMode::*|null,
+     *   ScanTypeConversionMode?: Vc3ScanTypeConversionMode::*|null,
+     *   SlowPal?: Vc3SlowPal::*|null,
+     *   Telecine?: Vc3Telecine::*|null,
+     *   Vc3Class?: Vc3Class::*|null,
      * }|Vc3Settings $input
      */
     public static function create($input): self

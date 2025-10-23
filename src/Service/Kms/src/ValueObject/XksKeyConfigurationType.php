@@ -27,7 +27,7 @@ final class XksKeyConfigurationType
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,7 +37,7 @@ final class XksKeyConfigurationType
 
     /**
      * @param array{
-     *   Id?: null|string,
+     *   Id?: string|null,
      * }|XksKeyConfigurationType $input
      */
     public static function create($input): self

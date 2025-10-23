@@ -23,7 +23,8 @@ final class WebvttHlsSourceSettings
     private $renditionGroupId;
 
     /**
-     * Optional. Specify ISO 639-2 or ISO 639-3 code in the language property.
+     * Optionally specify the language, using an ISO 639-2 or ISO 639-3 three-letter code in all capital letters. You can
+     * find a list of codes at: https://www.loc.gov/standards/iso639-2/php/code_list.php.
      *
      * @var LanguageCode::*|null
      */
@@ -38,9 +39,9 @@ final class WebvttHlsSourceSettings
 
     /**
      * @param array{
-     *   RenditionGroupId?: null|string,
-     *   RenditionLanguageCode?: null|LanguageCode::*,
-     *   RenditionName?: null|string,
+     *   RenditionGroupId?: string|null,
+     *   RenditionLanguageCode?: LanguageCode::*|null,
+     *   RenditionName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -52,9 +53,9 @@ final class WebvttHlsSourceSettings
 
     /**
      * @param array{
-     *   RenditionGroupId?: null|string,
-     *   RenditionLanguageCode?: null|LanguageCode::*,
-     *   RenditionName?: null|string,
+     *   RenditionGroupId?: string|null,
+     *   RenditionLanguageCode?: LanguageCode::*|null,
+     *   RenditionName?: string|null,
      * }|WebvttHlsSourceSettings $input
      */
     public static function create($input): self

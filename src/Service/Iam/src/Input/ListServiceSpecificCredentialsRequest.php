@@ -56,11 +56,11 @@ final class ListServiceSpecificCredentialsRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
-     *   ServiceName?: null|string,
-     *   AllUsers?: null|bool,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   UserName?: string|null,
+     *   ServiceName?: string|null,
+     *   AllUsers?: bool|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -76,11 +76,11 @@ final class ListServiceSpecificCredentialsRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
-     *   ServiceName?: null|string,
-     *   AllUsers?: null|bool,
-     *   Marker?: null|string,
-     *   MaxItems?: null|int,
+     *   UserName?: string|null,
+     *   ServiceName?: string|null,
+     *   AllUsers?: bool|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
      *   '@region'?: string|null,
      * }|ListServiceSpecificCredentialsRequest $input
      */

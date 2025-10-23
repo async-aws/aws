@@ -56,10 +56,10 @@ final class CalculationStatus
 
     /**
      * @param array{
-     *   SubmissionDateTime?: null|\DateTimeImmutable,
-     *   CompletionDateTime?: null|\DateTimeImmutable,
-     *   State?: null|CalculationExecutionState::*,
-     *   StateChangeReason?: null|string,
+     *   SubmissionDateTime?: \DateTimeImmutable|null,
+     *   CompletionDateTime?: \DateTimeImmutable|null,
+     *   State?: CalculationExecutionState::*|null,
+     *   StateChangeReason?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -72,10 +72,10 @@ final class CalculationStatus
 
     /**
      * @param array{
-     *   SubmissionDateTime?: null|\DateTimeImmutable,
-     *   CompletionDateTime?: null|\DateTimeImmutable,
-     *   State?: null|CalculationExecutionState::*,
-     *   StateChangeReason?: null|string,
+     *   SubmissionDateTime?: \DateTimeImmutable|null,
+     *   CompletionDateTime?: \DateTimeImmutable|null,
+     *   State?: CalculationExecutionState::*|null,
+     *   StateChangeReason?: string|null,
      * }|CalculationStatus $input
      */
     public static function create($input): self

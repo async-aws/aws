@@ -51,12 +51,12 @@ final class DeploymentOverview
 
     /**
      * @param array{
-     *   Pending?: null|int,
-     *   InProgress?: null|int,
-     *   Succeeded?: null|int,
-     *   Failed?: null|int,
-     *   Skipped?: null|int,
-     *   Ready?: null|int,
+     *   Pending?: int|null,
+     *   InProgress?: int|null,
+     *   Succeeded?: int|null,
+     *   Failed?: int|null,
+     *   Skipped?: int|null,
+     *   Ready?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -71,12 +71,12 @@ final class DeploymentOverview
 
     /**
      * @param array{
-     *   Pending?: null|int,
-     *   InProgress?: null|int,
-     *   Succeeded?: null|int,
-     *   Failed?: null|int,
-     *   Skipped?: null|int,
-     *   Ready?: null|int,
+     *   Pending?: int|null,
+     *   InProgress?: int|null,
+     *   Succeeded?: int|null,
+     *   Failed?: int|null,
+     *   Skipped?: int|null,
+     *   Ready?: int|null,
      * }|DeploymentOverview $input
      */
     public static function create($input): self

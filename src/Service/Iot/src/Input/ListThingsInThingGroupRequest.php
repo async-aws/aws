@@ -43,9 +43,9 @@ final class ListThingsInThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   recursive?: null|bool,
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
+     *   recursive?: bool|null,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -61,9 +61,9 @@ final class ListThingsInThingGroupRequest extends Input
     /**
      * @param array{
      *   thingGroupName?: string,
-     *   recursive?: null|bool,
-     *   nextToken?: null|string,
-     *   maxResults?: null|int,
+     *   recursive?: bool|null,
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListThingsInThingGroupRequest $input
      */

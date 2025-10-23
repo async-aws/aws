@@ -27,8 +27,8 @@ final class DashAdditionalManifest
 
     /**
      * @param array{
-     *   ManifestNameModifier?: null|string,
-     *   SelectedOutputs?: null|string[],
+     *   ManifestNameModifier?: string|null,
+     *   SelectedOutputs?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class DashAdditionalManifest
 
     /**
      * @param array{
-     *   ManifestNameModifier?: null|string,
-     *   SelectedOutputs?: null|string[],
+     *   ManifestNameModifier?: string|null,
+     *   SelectedOutputs?: string[]|null,
      * }|DashAdditionalManifest $input
      */
     public static function create($input): self

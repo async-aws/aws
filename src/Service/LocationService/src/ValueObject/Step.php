@@ -57,7 +57,7 @@ final class Step
      *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   GeometryOffset?: null|int,
+     *   GeometryOffset?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -75,7 +75,7 @@ final class Step
      *   EndPosition: float[],
      *   Distance: float,
      *   DurationSeconds: float,
-     *   GeometryOffset?: null|int,
+     *   GeometryOffset?: int|null,
      * }|Step $input
      */
     public static function create($input): self

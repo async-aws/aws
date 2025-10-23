@@ -74,7 +74,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   CollectionId: string,
-     *   Tags?: null|array<string, string>,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateCollectionRequest $input
      *
@@ -114,9 +114,9 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   ProjectName: string,
-     *   Feature?: null|CustomizationFeature::*,
-     *   AutoUpdate?: null|ProjectAutoUpdate::*,
-     *   Tags?: null|array<string, string>,
+     *   Feature?: CustomizationFeature::*|null,
+     *   AutoUpdate?: ProjectAutoUpdate::*|null,
+     *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|CreateProjectRequest $input
      *
@@ -248,7 +248,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
-     *   Attributes?: null|array<Attribute::*>,
+     *   Attributes?: array<Attribute::*>|null,
      *   '@region'?: string|null,
      * }|DetectFacesRequest $input
      *
@@ -300,9 +300,9 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   Image: Image|array,
-     *   MinConfidence?: null|float,
-     *   HumanLoopConfig?: null|HumanLoopConfig|array,
-     *   ProjectVersion?: null|string,
+     *   MinConfidence?: float|null,
+     *   HumanLoopConfig?: HumanLoopConfig|array|null,
+     *   ProjectVersion?: string|null,
      *   '@region'?: string|null,
      * }|DetectModerationLabelsRequest $input
      *
@@ -454,10 +454,10 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   CollectionId: string,
      *   Image: Image|array,
-     *   ExternalImageId?: null|string,
-     *   DetectionAttributes?: null|array<Attribute::*>,
-     *   MaxFaces?: null|int,
-     *   QualityFilter?: null|QualityFilter::*,
+     *   ExternalImageId?: string|null,
+     *   DetectionAttributes?: array<Attribute::*>|null,
+     *   MaxFaces?: int|null,
+     *   QualityFilter?: QualityFilter::*|null,
      *   '@region'?: string|null,
      * }|IndexFacesRequest $input
      *
@@ -503,8 +503,8 @@ class RekognitionClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#listcollections
      *
      * @param array{
-     *   NextToken?: null|string,
-     *   MaxResults?: null|int,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListCollectionsRequest $input
      *
@@ -631,9 +631,9 @@ class RekognitionClient extends AbstractApi
      * @param array{
      *   CollectionId: string,
      *   Image: Image|array,
-     *   MaxFaces?: null|int,
-     *   FaceMatchThreshold?: null|float,
-     *   QualityFilter?: null|QualityFilter::*,
+     *   MaxFaces?: int|null,
+     *   FaceMatchThreshold?: float|null,
+     *   QualityFilter?: QualityFilter::*|null,
      *   '@region'?: string|null,
      * }|SearchFacesByImageRequest $input
      *

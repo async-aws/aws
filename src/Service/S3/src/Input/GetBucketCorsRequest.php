@@ -39,7 +39,7 @@ final class GetBucketCorsRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ExpectedBucketOwner?: null|string,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -53,7 +53,7 @@ final class GetBucketCorsRequest extends Input
     /**
      * @param array{
      *   Bucket?: string,
-     *   ExpectedBucketOwner?: null|string,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|GetBucketCorsRequest $input
      */

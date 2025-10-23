@@ -44,11 +44,11 @@ final class DeleteMarkerEntry
 
     /**
      * @param array{
-     *   Owner?: null|Owner|array,
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   IsLatest?: null|bool,
-     *   LastModified?: null|\DateTimeImmutable,
+     *   Owner?: Owner|array|null,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   IsLatest?: bool|null,
+     *   LastModified?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -62,11 +62,11 @@ final class DeleteMarkerEntry
 
     /**
      * @param array{
-     *   Owner?: null|Owner|array,
-     *   Key?: null|string,
-     *   VersionId?: null|string,
-     *   IsLatest?: null|bool,
-     *   LastModified?: null|\DateTimeImmutable,
+     *   Owner?: Owner|array|null,
+     *   Key?: string|null,
+     *   VersionId?: string|null,
+     *   IsLatest?: bool|null,
+     *   LastModified?: \DateTimeImmutable|null,
      * }|DeleteMarkerEntry $input
      */
     public static function create($input): self

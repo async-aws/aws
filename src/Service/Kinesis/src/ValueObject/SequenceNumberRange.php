@@ -26,7 +26,7 @@ final class SequenceNumberRange
     /**
      * @param array{
      *   StartingSequenceNumber: string,
-     *   EndingSequenceNumber?: null|string,
+     *   EndingSequenceNumber?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -38,7 +38,7 @@ final class SequenceNumberRange
     /**
      * @param array{
      *   StartingSequenceNumber: string,
-     *   EndingSequenceNumber?: null|string,
+     *   EndingSequenceNumber?: string|null,
      * }|SequenceNumberRange $input
      */
     public static function create($input): self

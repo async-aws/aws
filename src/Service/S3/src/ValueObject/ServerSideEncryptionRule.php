@@ -52,8 +52,8 @@ final class ServerSideEncryptionRule
 
     /**
      * @param array{
-     *   ApplyServerSideEncryptionByDefault?: null|ServerSideEncryptionByDefault|array,
-     *   BucketKeyEnabled?: null|bool,
+     *   ApplyServerSideEncryptionByDefault?: ServerSideEncryptionByDefault|array|null,
+     *   BucketKeyEnabled?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -64,8 +64,8 @@ final class ServerSideEncryptionRule
 
     /**
      * @param array{
-     *   ApplyServerSideEncryptionByDefault?: null|ServerSideEncryptionByDefault|array,
-     *   BucketKeyEnabled?: null|bool,
+     *   ApplyServerSideEncryptionByDefault?: ServerSideEncryptionByDefault|array|null,
+     *   BucketKeyEnabled?: bool|null,
      * }|ServerSideEncryptionRule $input
      */
     public static function create($input): self

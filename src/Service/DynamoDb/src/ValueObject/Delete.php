@@ -58,10 +58,10 @@ final class Delete
      * @param array{
      *   Key: array<string, AttributeValue|array>,
      *   TableName: string,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -78,10 +78,10 @@ final class Delete
      * @param array{
      *   Key: array<string, AttributeValue|array>,
      *   TableName: string,
-     *   ConditionExpression?: null|string,
-     *   ExpressionAttributeNames?: null|array<string, string>,
-     *   ExpressionAttributeValues?: null|array<string, AttributeValue|array>,
-     *   ReturnValuesOnConditionCheckFailure?: null|ReturnValuesOnConditionCheckFailure::*,
+     *   ConditionExpression?: string|null,
+     *   ExpressionAttributeNames?: array<string, string>|null,
+     *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
+     *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      * }|Delete $input
      */
     public static function create($input): self

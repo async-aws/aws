@@ -66,10 +66,10 @@ final class ApiKey
 
     /**
      * @param array{
-     *   id?: null|string,
-     *   description?: null|string,
-     *   expires?: null|int,
-     *   deletes?: null|int,
+     *   id?: string|null,
+     *   description?: string|null,
+     *   expires?: int|null,
+     *   deletes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -82,10 +82,10 @@ final class ApiKey
 
     /**
      * @param array{
-     *   id?: null|string,
-     *   description?: null|string,
-     *   expires?: null|int,
-     *   deletes?: null|int,
+     *   id?: string|null,
+     *   description?: string|null,
+     *   expires?: int|null,
+     *   deletes?: int|null,
      * }|ApiKey $input
      */
     public static function create($input): self

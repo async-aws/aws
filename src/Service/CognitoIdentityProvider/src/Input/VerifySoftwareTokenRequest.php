@@ -42,10 +42,10 @@ final class VerifySoftwareTokenRequest extends Input
 
     /**
      * @param array{
-     *   AccessToken?: null|string,
-     *   Session?: null|string,
+     *   AccessToken?: string|null,
+     *   Session?: string|null,
      *   UserCode?: string,
-     *   FriendlyDeviceName?: null|string,
+     *   FriendlyDeviceName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -60,10 +60,10 @@ final class VerifySoftwareTokenRequest extends Input
 
     /**
      * @param array{
-     *   AccessToken?: null|string,
-     *   Session?: null|string,
+     *   AccessToken?: string|null,
+     *   Session?: string|null,
      *   UserCode?: string,
-     *   FriendlyDeviceName?: null|string,
+     *   FriendlyDeviceName?: string|null,
      *   '@region'?: string|null,
      * }|VerifySoftwareTokenRequest $input
      */

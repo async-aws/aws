@@ -256,7 +256,7 @@ final class CopyObjectRequest extends Input
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -700,47 +700,47 @@ final class CopyObjectRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*|null,
      *   Bucket?: string,
-     *   CacheControl?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ContentDisposition?: null|string,
-     *   ContentEncoding?: null|string,
-     *   ContentLanguage?: null|string,
-     *   ContentType?: null|string,
+     *   CacheControl?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ContentDisposition?: string|null,
+     *   ContentEncoding?: string|null,
+     *   ContentLanguage?: string|null,
+     *   ContentType?: string|null,
      *   CopySource?: string,
-     *   CopySourceIfMatch?: null|string,
-     *   CopySourceIfModifiedSince?: null|\DateTimeImmutable|string,
-     *   CopySourceIfNoneMatch?: null|string,
-     *   CopySourceIfUnmodifiedSince?: null|\DateTimeImmutable|string,
-     *   Expires?: null|\DateTimeImmutable|string,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWriteACP?: null|string,
+     *   CopySourceIfMatch?: string|null,
+     *   CopySourceIfModifiedSince?: \DateTimeImmutable|string|null,
+     *   CopySourceIfNoneMatch?: string|null,
+     *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWriteACP?: string|null,
      *   Key?: string,
-     *   Metadata?: null|array<string, string>,
-     *   MetadataDirective?: null|MetadataDirective::*,
-     *   TaggingDirective?: null|TaggingDirective::*,
-     *   ServerSideEncryption?: null|ServerSideEncryption::*,
-     *   StorageClass?: null|StorageClass::*,
-     *   WebsiteRedirectLocation?: null|string,
-     *   SSECustomerAlgorithm?: null|string,
-     *   SSECustomerKey?: null|string,
-     *   SSECustomerKeyMD5?: null|string,
-     *   SSEKMSKeyId?: null|string,
-     *   SSEKMSEncryptionContext?: null|string,
-     *   BucketKeyEnabled?: null|bool,
-     *   CopySourceSSECustomerAlgorithm?: null|string,
-     *   CopySourceSSECustomerKey?: null|string,
-     *   CopySourceSSECustomerKeyMD5?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   Tagging?: null|string,
-     *   ObjectLockMode?: null|ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: null|\DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   ExpectedSourceBucketOwner?: null|string,
+     *   Metadata?: array<string, string>|null,
+     *   MetadataDirective?: MetadataDirective::*|null,
+     *   TaggingDirective?: TaggingDirective::*|null,
+     *   ServerSideEncryption?: ServerSideEncryption::*|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   WebsiteRedirectLocation?: string|null,
+     *   SSECustomerAlgorithm?: string|null,
+     *   SSECustomerKey?: string|null,
+     *   SSECustomerKeyMD5?: string|null,
+     *   SSEKMSKeyId?: string|null,
+     *   SSEKMSEncryptionContext?: string|null,
+     *   BucketKeyEnabled?: bool|null,
+     *   CopySourceSSECustomerAlgorithm?: string|null,
+     *   CopySourceSSECustomerKey?: string|null,
+     *   CopySourceSSECustomerKeyMD5?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   Tagging?: string|null,
+     *   ObjectLockMode?: ObjectLockMode::*|null,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   ExpectedSourceBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -759,7 +759,7 @@ final class CopyObjectRequest extends Input
         $this->copySourceIfModifiedSince = !isset($input['CopySourceIfModifiedSince']) ? null : ($input['CopySourceIfModifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfModifiedSince'] : new \DateTimeImmutable($input['CopySourceIfModifiedSince']));
         $this->copySourceIfNoneMatch = $input['CopySourceIfNoneMatch'] ?? null;
         $this->copySourceIfUnmodifiedSince = !isset($input['CopySourceIfUnmodifiedSince']) ? null : ($input['CopySourceIfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfUnmodifiedSince'] : new \DateTimeImmutable($input['CopySourceIfUnmodifiedSince']));
-        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->expires = $input['Expires'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -792,47 +792,47 @@ final class CopyObjectRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*|null,
      *   Bucket?: string,
-     *   CacheControl?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ContentDisposition?: null|string,
-     *   ContentEncoding?: null|string,
-     *   ContentLanguage?: null|string,
-     *   ContentType?: null|string,
+     *   CacheControl?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ContentDisposition?: string|null,
+     *   ContentEncoding?: string|null,
+     *   ContentLanguage?: string|null,
+     *   ContentType?: string|null,
      *   CopySource?: string,
-     *   CopySourceIfMatch?: null|string,
-     *   CopySourceIfModifiedSince?: null|\DateTimeImmutable|string,
-     *   CopySourceIfNoneMatch?: null|string,
-     *   CopySourceIfUnmodifiedSince?: null|\DateTimeImmutable|string,
-     *   Expires?: null|\DateTimeImmutable|string,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWriteACP?: null|string,
+     *   CopySourceIfMatch?: string|null,
+     *   CopySourceIfModifiedSince?: \DateTimeImmutable|string|null,
+     *   CopySourceIfNoneMatch?: string|null,
+     *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWriteACP?: string|null,
      *   Key?: string,
-     *   Metadata?: null|array<string, string>,
-     *   MetadataDirective?: null|MetadataDirective::*,
-     *   TaggingDirective?: null|TaggingDirective::*,
-     *   ServerSideEncryption?: null|ServerSideEncryption::*,
-     *   StorageClass?: null|StorageClass::*,
-     *   WebsiteRedirectLocation?: null|string,
-     *   SSECustomerAlgorithm?: null|string,
-     *   SSECustomerKey?: null|string,
-     *   SSECustomerKeyMD5?: null|string,
-     *   SSEKMSKeyId?: null|string,
-     *   SSEKMSEncryptionContext?: null|string,
-     *   BucketKeyEnabled?: null|bool,
-     *   CopySourceSSECustomerAlgorithm?: null|string,
-     *   CopySourceSSECustomerKey?: null|string,
-     *   CopySourceSSECustomerKeyMD5?: null|string,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   Tagging?: null|string,
-     *   ObjectLockMode?: null|ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: null|\DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   ExpectedSourceBucketOwner?: null|string,
+     *   Metadata?: array<string, string>|null,
+     *   MetadataDirective?: MetadataDirective::*|null,
+     *   TaggingDirective?: TaggingDirective::*|null,
+     *   ServerSideEncryption?: ServerSideEncryption::*|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   WebsiteRedirectLocation?: string|null,
+     *   SSECustomerAlgorithm?: string|null,
+     *   SSECustomerKey?: string|null,
+     *   SSECustomerKeyMD5?: string|null,
+     *   SSEKMSKeyId?: string|null,
+     *   SSEKMSEncryptionContext?: string|null,
+     *   BucketKeyEnabled?: bool|null,
+     *   CopySourceSSECustomerAlgorithm?: string|null,
+     *   CopySourceSSECustomerKey?: string|null,
+     *   CopySourceSSECustomerKeyMD5?: string|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   Tagging?: string|null,
+     *   ObjectLockMode?: ObjectLockMode::*|null,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   ExpectedSourceBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|CopyObjectRequest $input
      */
@@ -942,7 +942,7 @@ final class CopyObjectRequest extends Input
         return $this->expectedSourceBucketOwner;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         return $this->expires;
     }
@@ -1127,7 +1127,7 @@ final class CopyObjectRequest extends Input
             $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['Expires'] = $this->expires;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -1392,7 +1392,7 @@ final class CopyObjectRequest extends Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeImmutable $value): self
+    public function setExpires(?string $value): self
     {
         $this->expires = $value;
 

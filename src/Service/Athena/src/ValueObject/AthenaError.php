@@ -50,10 +50,10 @@ final class AthenaError
 
     /**
      * @param array{
-     *   ErrorCategory?: null|int,
-     *   ErrorType?: null|int,
-     *   Retryable?: null|bool,
-     *   ErrorMessage?: null|string,
+     *   ErrorCategory?: int|null,
+     *   ErrorType?: int|null,
+     *   Retryable?: bool|null,
+     *   ErrorMessage?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -66,10 +66,10 @@ final class AthenaError
 
     /**
      * @param array{
-     *   ErrorCategory?: null|int,
-     *   ErrorType?: null|int,
-     *   Retryable?: null|bool,
-     *   ErrorMessage?: null|string,
+     *   ErrorCategory?: int|null,
+     *   ErrorType?: int|null,
+     *   Retryable?: bool|null,
+     *   ErrorMessage?: string|null,
      * }|AthenaError $input
      */
     public static function create($input): self

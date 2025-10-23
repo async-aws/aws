@@ -2,11 +2,22 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.10.0
+
 ### Added
 
 - AWS api-change: AWS KMS announces the support for on-demand rotation of symmetric-encryption KMS keys with imported key material (EXTERNAL origin).
 - AWS api-change: Rework regions configuration
 - AWS api-change: AWS KMS announces the support of ML-DSA key pairs that creates post-quantum safe digital signatures.
+
+### Changed
+
+- AWS enhancement: Documentation updates.
 
 ## 1.9.0
 

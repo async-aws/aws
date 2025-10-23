@@ -39,8 +39,8 @@ final class PutRecordsInput extends Input
     /**
      * @param array{
      *   Records?: array<PutRecordsRequestEntry|array>,
-     *   StreamName?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -55,8 +55,8 @@ final class PutRecordsInput extends Input
     /**
      * @param array{
      *   Records?: array<PutRecordsRequestEntry|array>,
-     *   StreamName?: null|string,
-     *   StreamARN?: null|string,
+     *   StreamName?: string|null,
+     *   StreamARN?: string|null,
      *   '@region'?: string|null,
      * }|PutRecordsInput $input
      */

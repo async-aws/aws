@@ -62,7 +62,7 @@ final class AdminConfirmSignUpRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   ClientMetadata?: null|array<string, string>,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -78,7 +78,7 @@ final class AdminConfirmSignUpRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   ClientMetadata?: null|array<string, string>,
+     *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|AdminConfirmSignUpRequest $input
      */

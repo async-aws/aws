@@ -261,7 +261,7 @@ final class PutObjectRequest extends Input
      *
      * [^1]: https://www.rfc-editor.org/rfc/rfc7234#section-5.3
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -617,47 +617,47 @@ final class PutObjectRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|ObjectCannedACL::*,
-     *   Body?: null|string|resource|(callable(int): string)|iterable<string>,
+     *   ACL?: ObjectCannedACL::*|null,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>|null,
      *   Bucket?: string,
-     *   CacheControl?: null|string,
-     *   ContentDisposition?: null|string,
-     *   ContentEncoding?: null|string,
-     *   ContentLanguage?: null|string,
-     *   ContentLength?: null|int,
-     *   ContentMD5?: null|string,
-     *   ContentType?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumCRC32?: null|string,
-     *   ChecksumCRC32C?: null|string,
-     *   ChecksumCRC64NVME?: null|string,
-     *   ChecksumSHA1?: null|string,
-     *   ChecksumSHA256?: null|string,
-     *   Expires?: null|\DateTimeImmutable|string,
-     *   IfMatch?: null|string,
-     *   IfNoneMatch?: null|string,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWriteACP?: null|string,
+     *   CacheControl?: string|null,
+     *   ContentDisposition?: string|null,
+     *   ContentEncoding?: string|null,
+     *   ContentLanguage?: string|null,
+     *   ContentLength?: int|null,
+     *   ContentMD5?: string|null,
+     *   ContentType?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ChecksumCRC32?: string|null,
+     *   ChecksumCRC32C?: string|null,
+     *   ChecksumCRC64NVME?: string|null,
+     *   ChecksumSHA1?: string|null,
+     *   ChecksumSHA256?: string|null,
+     *   Expires?: string|null,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWriteACP?: string|null,
      *   Key?: string,
-     *   WriteOffsetBytes?: null|int,
-     *   Metadata?: null|array<string, string>,
-     *   ServerSideEncryption?: null|ServerSideEncryption::*,
-     *   StorageClass?: null|StorageClass::*,
-     *   WebsiteRedirectLocation?: null|string,
-     *   SSECustomerAlgorithm?: null|string,
-     *   SSECustomerKey?: null|string,
-     *   SSECustomerKeyMD5?: null|string,
-     *   SSEKMSKeyId?: null|string,
-     *   SSEKMSEncryptionContext?: null|string,
-     *   BucketKeyEnabled?: null|bool,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   Tagging?: null|string,
-     *   ObjectLockMode?: null|ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: null|\DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
-     *   ExpectedBucketOwner?: null|string,
+     *   WriteOffsetBytes?: int|null,
+     *   Metadata?: array<string, string>|null,
+     *   ServerSideEncryption?: ServerSideEncryption::*|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   WebsiteRedirectLocation?: string|null,
+     *   SSECustomerAlgorithm?: string|null,
+     *   SSECustomerKey?: string|null,
+     *   SSECustomerKeyMD5?: string|null,
+     *   SSEKMSKeyId?: string|null,
+     *   SSEKMSEncryptionContext?: string|null,
+     *   BucketKeyEnabled?: bool|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   Tagging?: string|null,
+     *   ObjectLockMode?: ObjectLockMode::*|null,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -679,7 +679,7 @@ final class PutObjectRequest extends Input
         $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
-        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->expires = $input['Expires'] ?? null;
         $this->ifMatch = $input['IfMatch'] ?? null;
         $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
@@ -709,47 +709,47 @@ final class PutObjectRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|ObjectCannedACL::*,
-     *   Body?: null|string|resource|(callable(int): string)|iterable<string>,
+     *   ACL?: ObjectCannedACL::*|null,
+     *   Body?: string|resource|(callable(int): string)|iterable<string>|null,
      *   Bucket?: string,
-     *   CacheControl?: null|string,
-     *   ContentDisposition?: null|string,
-     *   ContentEncoding?: null|string,
-     *   ContentLanguage?: null|string,
-     *   ContentLength?: null|int,
-     *   ContentMD5?: null|string,
-     *   ContentType?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumCRC32?: null|string,
-     *   ChecksumCRC32C?: null|string,
-     *   ChecksumCRC64NVME?: null|string,
-     *   ChecksumSHA1?: null|string,
-     *   ChecksumSHA256?: null|string,
-     *   Expires?: null|\DateTimeImmutable|string,
-     *   IfMatch?: null|string,
-     *   IfNoneMatch?: null|string,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWriteACP?: null|string,
+     *   CacheControl?: string|null,
+     *   ContentDisposition?: string|null,
+     *   ContentEncoding?: string|null,
+     *   ContentLanguage?: string|null,
+     *   ContentLength?: int|null,
+     *   ContentMD5?: string|null,
+     *   ContentType?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ChecksumCRC32?: string|null,
+     *   ChecksumCRC32C?: string|null,
+     *   ChecksumCRC64NVME?: string|null,
+     *   ChecksumSHA1?: string|null,
+     *   ChecksumSHA256?: string|null,
+     *   Expires?: string|null,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWriteACP?: string|null,
      *   Key?: string,
-     *   WriteOffsetBytes?: null|int,
-     *   Metadata?: null|array<string, string>,
-     *   ServerSideEncryption?: null|ServerSideEncryption::*,
-     *   StorageClass?: null|StorageClass::*,
-     *   WebsiteRedirectLocation?: null|string,
-     *   SSECustomerAlgorithm?: null|string,
-     *   SSECustomerKey?: null|string,
-     *   SSECustomerKeyMD5?: null|string,
-     *   SSEKMSKeyId?: null|string,
-     *   SSEKMSEncryptionContext?: null|string,
-     *   BucketKeyEnabled?: null|bool,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   Tagging?: null|string,
-     *   ObjectLockMode?: null|ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: null|\DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
-     *   ExpectedBucketOwner?: null|string,
+     *   WriteOffsetBytes?: int|null,
+     *   Metadata?: array<string, string>|null,
+     *   ServerSideEncryption?: ServerSideEncryption::*|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   WebsiteRedirectLocation?: string|null,
+     *   SSECustomerAlgorithm?: string|null,
+     *   SSECustomerKey?: string|null,
+     *   SSECustomerKeyMD5?: string|null,
+     *   SSEKMSKeyId?: string|null,
+     *   SSEKMSEncryptionContext?: string|null,
+     *   BucketKeyEnabled?: bool|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   Tagging?: string|null,
+     *   ObjectLockMode?: ObjectLockMode::*|null,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|PutObjectRequest $input
      */
@@ -857,7 +857,7 @@ final class PutObjectRequest extends Input
         return $this->expectedBucketOwner;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         return $this->expires;
     }
@@ -1046,7 +1046,7 @@ final class PutObjectRequest extends Input
             $headers['x-amz-checksum-sha256'] = $this->checksumSha256;
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['Expires'] = $this->expires;
         }
         if (null !== $this->ifMatch) {
             $headers['If-Match'] = $this->ifMatch;
@@ -1292,7 +1292,7 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeImmutable $value): self
+    public function setExpires(?string $value): self
     {
         $this->expires = $value;
 

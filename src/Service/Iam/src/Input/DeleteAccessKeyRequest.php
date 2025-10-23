@@ -37,7 +37,7 @@ final class DeleteAccessKeyRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
+     *   UserName?: string|null,
      *   AccessKeyId?: string,
      *   '@region'?: string|null,
      * } $input
@@ -51,7 +51,7 @@ final class DeleteAccessKeyRequest extends Input
 
     /**
      * @param array{
-     *   UserName?: null|string,
+     *   UserName?: string|null,
      *   AccessKeyId?: string,
      *   '@region'?: string|null,
      * }|DeleteAccessKeyRequest $input

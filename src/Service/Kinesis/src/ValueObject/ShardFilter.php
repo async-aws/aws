@@ -51,8 +51,8 @@ final class ShardFilter
     /**
      * @param array{
      *   Type: ShardFilterType::*,
-     *   ShardId?: null|string,
-     *   Timestamp?: null|\DateTimeImmutable,
+     *   ShardId?: string|null,
+     *   Timestamp?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
@@ -65,8 +65,8 @@ final class ShardFilter
     /**
      * @param array{
      *   Type: ShardFilterType::*,
-     *   ShardId?: null|string,
-     *   Timestamp?: null|\DateTimeImmutable,
+     *   ShardId?: string|null,
+     *   Timestamp?: \DateTimeImmutable|null,
      * }|ShardFilter $input
      */
     public static function create($input): self

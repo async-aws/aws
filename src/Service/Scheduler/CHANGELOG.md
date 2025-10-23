@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 1.5.0
+
 ### Added
 
 - AWS api-change: Added `cn-north-1` and `cn-northwest-1` regions

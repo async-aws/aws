@@ -214,7 +214,7 @@ final class Stack
 
     /**
      * The detailed status of the resource or stack. If `CONFIGURATION_COMPLETE` is present, the resource or resource
-     * configuration phase has completed and the stabilization of the resources is in progress. The stack sets
+     * configuration phase has completed and the stabilization of the resources is in progress. The StackSets
      * `CONFIGURATION_COMPLETE` when all of the resources in the stack have reached that event. For more information, see
      * Understand CloudFormation stack creation events [^1] in the *CloudFormation User Guide*.
      *
@@ -226,31 +226,31 @@ final class Stack
 
     /**
      * @param array{
-     *   StackId?: null|string,
+     *   StackId?: string|null,
      *   StackName: string,
-     *   ChangeSetId?: null|string,
-     *   Description?: null|string,
-     *   Parameters?: null|array<Parameter|array>,
+     *   ChangeSetId?: string|null,
+     *   Description?: string|null,
+     *   Parameters?: array<Parameter|array>|null,
      *   CreationTime: \DateTimeImmutable,
-     *   DeletionTime?: null|\DateTimeImmutable,
-     *   LastUpdatedTime?: null|\DateTimeImmutable,
-     *   RollbackConfiguration?: null|RollbackConfiguration|array,
+     *   DeletionTime?: \DateTimeImmutable|null,
+     *   LastUpdatedTime?: \DateTimeImmutable|null,
+     *   RollbackConfiguration?: RollbackConfiguration|array|null,
      *   StackStatus: StackStatus::*,
-     *   StackStatusReason?: null|string,
-     *   DisableRollback?: null|bool,
-     *   NotificationARNs?: null|string[],
-     *   TimeoutInMinutes?: null|int,
-     *   Capabilities?: null|array<Capability::*>,
-     *   Outputs?: null|array<Output|array>,
-     *   RoleARN?: null|string,
-     *   Tags?: null|array<Tag|array>,
-     *   EnableTerminationProtection?: null|bool,
-     *   ParentId?: null|string,
-     *   RootId?: null|string,
-     *   DriftInformation?: null|StackDriftInformation|array,
-     *   RetainExceptOnCreate?: null|bool,
-     *   DeletionMode?: null|DeletionMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   StackStatusReason?: string|null,
+     *   DisableRollback?: bool|null,
+     *   NotificationARNs?: string[]|null,
+     *   TimeoutInMinutes?: int|null,
+     *   Capabilities?: array<Capability::*>|null,
+     *   Outputs?: array<Output|array>|null,
+     *   RoleARN?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   EnableTerminationProtection?: bool|null,
+     *   ParentId?: string|null,
+     *   RootId?: string|null,
+     *   DriftInformation?: StackDriftInformation|array|null,
+     *   RetainExceptOnCreate?: bool|null,
+     *   DeletionMode?: DeletionMode::*|null,
+     *   DetailedStatus?: DetailedStatus::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -284,31 +284,31 @@ final class Stack
 
     /**
      * @param array{
-     *   StackId?: null|string,
+     *   StackId?: string|null,
      *   StackName: string,
-     *   ChangeSetId?: null|string,
-     *   Description?: null|string,
-     *   Parameters?: null|array<Parameter|array>,
+     *   ChangeSetId?: string|null,
+     *   Description?: string|null,
+     *   Parameters?: array<Parameter|array>|null,
      *   CreationTime: \DateTimeImmutable,
-     *   DeletionTime?: null|\DateTimeImmutable,
-     *   LastUpdatedTime?: null|\DateTimeImmutable,
-     *   RollbackConfiguration?: null|RollbackConfiguration|array,
+     *   DeletionTime?: \DateTimeImmutable|null,
+     *   LastUpdatedTime?: \DateTimeImmutable|null,
+     *   RollbackConfiguration?: RollbackConfiguration|array|null,
      *   StackStatus: StackStatus::*,
-     *   StackStatusReason?: null|string,
-     *   DisableRollback?: null|bool,
-     *   NotificationARNs?: null|string[],
-     *   TimeoutInMinutes?: null|int,
-     *   Capabilities?: null|array<Capability::*>,
-     *   Outputs?: null|array<Output|array>,
-     *   RoleARN?: null|string,
-     *   Tags?: null|array<Tag|array>,
-     *   EnableTerminationProtection?: null|bool,
-     *   ParentId?: null|string,
-     *   RootId?: null|string,
-     *   DriftInformation?: null|StackDriftInformation|array,
-     *   RetainExceptOnCreate?: null|bool,
-     *   DeletionMode?: null|DeletionMode::*,
-     *   DetailedStatus?: null|DetailedStatus::*,
+     *   StackStatusReason?: string|null,
+     *   DisableRollback?: bool|null,
+     *   NotificationARNs?: string[]|null,
+     *   TimeoutInMinutes?: int|null,
+     *   Capabilities?: array<Capability::*>|null,
+     *   Outputs?: array<Output|array>|null,
+     *   RoleARN?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   EnableTerminationProtection?: bool|null,
+     *   ParentId?: string|null,
+     *   RootId?: string|null,
+     *   DriftInformation?: StackDriftInformation|array|null,
+     *   RetainExceptOnCreate?: bool|null,
+     *   DeletionMode?: DeletionMode::*|null,
+     *   DetailedStatus?: DetailedStatus::*|null,
      * }|Stack $input
      */
     public static function create($input): self

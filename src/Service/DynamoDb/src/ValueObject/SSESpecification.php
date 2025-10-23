@@ -41,9 +41,9 @@ final class SSESpecification
 
     /**
      * @param array{
-     *   Enabled?: null|bool,
-     *   SSEType?: null|SSEType::*,
-     *   KMSMasterKeyId?: null|string,
+     *   Enabled?: bool|null,
+     *   SSEType?: SSEType::*|null,
+     *   KMSMasterKeyId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -55,9 +55,9 @@ final class SSESpecification
 
     /**
      * @param array{
-     *   Enabled?: null|bool,
-     *   SSEType?: null|SSEType::*,
-     *   KMSMasterKeyId?: null|string,
+     *   Enabled?: bool|null,
+     *   SSEType?: SSEType::*|null,
+     *   KMSMasterKeyId?: string|null,
      * }|SSESpecification $input
      */
     public static function create($input): self

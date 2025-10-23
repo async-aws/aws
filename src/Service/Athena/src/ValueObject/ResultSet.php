@@ -24,8 +24,8 @@ final class ResultSet
 
     /**
      * @param array{
-     *   Rows?: null|array<Row|array>,
-     *   ResultSetMetadata?: null|ResultSetMetadata|array,
+     *   Rows?: array<Row|array>|null,
+     *   ResultSetMetadata?: ResultSetMetadata|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class ResultSet
 
     /**
      * @param array{
-     *   Rows?: null|array<Row|array>,
-     *   ResultSetMetadata?: null|ResultSetMetadata|array,
+     *   Rows?: array<Row|array>|null,
+     *   ResultSetMetadata?: ResultSetMetadata|array|null,
      * }|ResultSet $input
      */
     public static function create($input): self

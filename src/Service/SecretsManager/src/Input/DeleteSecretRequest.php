@@ -56,8 +56,8 @@ final class DeleteSecretRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   RecoveryWindowInDays?: null|int,
-     *   ForceDeleteWithoutRecovery?: null|bool,
+     *   RecoveryWindowInDays?: int|null,
+     *   ForceDeleteWithoutRecovery?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -72,8 +72,8 @@ final class DeleteSecretRequest extends Input
     /**
      * @param array{
      *   SecretId?: string,
-     *   RecoveryWindowInDays?: null|int,
-     *   ForceDeleteWithoutRecovery?: null|bool,
+     *   RecoveryWindowInDays?: int|null,
+     *   ForceDeleteWithoutRecovery?: bool|null,
      *   '@region'?: string|null,
      * }|DeleteSecretRequest $input
      */

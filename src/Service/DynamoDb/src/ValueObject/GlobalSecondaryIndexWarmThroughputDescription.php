@@ -33,9 +33,9 @@ final class GlobalSecondaryIndexWarmThroughputDescription
 
     /**
      * @param array{
-     *   ReadUnitsPerSecond?: null|int,
-     *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|IndexStatus::*,
+     *   ReadUnitsPerSecond?: int|null,
+     *   WriteUnitsPerSecond?: int|null,
+     *   Status?: IndexStatus::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -47,9 +47,9 @@ final class GlobalSecondaryIndexWarmThroughputDescription
 
     /**
      * @param array{
-     *   ReadUnitsPerSecond?: null|int,
-     *   WriteUnitsPerSecond?: null|int,
-     *   Status?: null|IndexStatus::*,
+     *   ReadUnitsPerSecond?: int|null,
+     *   WriteUnitsPerSecond?: int|null,
+     *   Status?: IndexStatus::*|null,
      * }|GlobalSecondaryIndexWarmThroughputDescription $input
      */
     public static function create($input): self

@@ -38,7 +38,7 @@ final class CalculateRouteSummary
      *
      * For more information about data providers, see Amazon Location Service data providers [^1].
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/what-is-data-provider.html
      *
      * @var string
      */

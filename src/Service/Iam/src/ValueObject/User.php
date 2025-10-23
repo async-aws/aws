@@ -117,9 +117,9 @@ final class User
      *   UserId: string,
      *   Arn: string,
      *   CreateDate: \DateTimeImmutable,
-     *   PasswordLastUsed?: null|\DateTimeImmutable,
-     *   PermissionsBoundary?: null|AttachedPermissionsBoundary|array,
-     *   Tags?: null|array<Tag|array>,
+     *   PasswordLastUsed?: \DateTimeImmutable|null,
+     *   PermissionsBoundary?: AttachedPermissionsBoundary|array|null,
+     *   Tags?: array<Tag|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -141,9 +141,9 @@ final class User
      *   UserId: string,
      *   Arn: string,
      *   CreateDate: \DateTimeImmutable,
-     *   PasswordLastUsed?: null|\DateTimeImmutable,
-     *   PermissionsBoundary?: null|AttachedPermissionsBoundary|array,
-     *   Tags?: null|array<Tag|array>,
+     *   PasswordLastUsed?: \DateTimeImmutable|null,
+     *   PermissionsBoundary?: AttachedPermissionsBoundary|array|null,
+     *   Tags?: array<Tag|array>|null,
      * }|User $input
      */
     public static function create($input): self

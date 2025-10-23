@@ -71,10 +71,10 @@ final class CreateUserRequest extends Input
 
     /**
      * @param array{
-     *   Path?: null|string,
+     *   Path?: string|null,
      *   UserName?: string,
-     *   PermissionsBoundary?: null|string,
-     *   Tags?: null|array<Tag|array>,
+     *   PermissionsBoundary?: string|null,
+     *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -89,10 +89,10 @@ final class CreateUserRequest extends Input
 
     /**
      * @param array{
-     *   Path?: null|string,
+     *   Path?: string|null,
      *   UserName?: string,
-     *   PermissionsBoundary?: null|string,
-     *   Tags?: null|array<Tag|array>,
+     *   PermissionsBoundary?: string|null,
+     *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
      * }|CreateUserRequest $input
      */

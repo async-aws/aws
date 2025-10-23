@@ -2,6 +2,16 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- AWS api-change: Expires's property and its getters/setters switched from `\DateTimeImmutable` to `string`.
+
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
+## 2.10.0
+
 ### Added
 
 - AWS api-change: Rework regions configuration

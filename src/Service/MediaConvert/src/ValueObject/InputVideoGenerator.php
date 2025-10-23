@@ -45,6 +45,15 @@ final class InputVideoGenerator
     private $framerateNumerator;
 
     /**
+     * Specify the height, in pixels, for your video generator input. This is useful for positioning when you include one or
+     * more video overlays for this input. To use the default resolution 540x360: Leave both width and height blank. To
+     * specify a height: Enter an even integer from 32 to 8192. When you do, you must also specify a value for width.
+     *
+     * @var int|null
+     */
+    private $height;
+
+    /**
      * Specify the audio sample rate, in Hz, for the silent audio in your video generator input.
      * Enter an integer from 32000 to 48000.
      *
@@ -53,12 +62,23 @@ final class InputVideoGenerator
     private $sampleRate;
 
     /**
+     * Specify the width, in pixels, for your video generator input. This is useful for positioning when you include one or
+     * more video overlays for this input. To use the default resolution 540x360: Leave both width and height blank. To
+     * specify a width: Enter an even integer from 32 to 8192. When you do, you must also specify a value for height.
+     *
+     * @var int|null
+     */
+    private $width;
+
+    /**
      * @param array{
-     *   Channels?: null|int,
-     *   Duration?: null|int,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   SampleRate?: null|int,
+     *   Channels?: int|null,
+     *   Duration?: int|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   Height?: int|null,
+     *   SampleRate?: int|null,
+     *   Width?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -67,16 +87,20 @@ final class InputVideoGenerator
         $this->duration = $input['Duration'] ?? null;
         $this->framerateDenominator = $input['FramerateDenominator'] ?? null;
         $this->framerateNumerator = $input['FramerateNumerator'] ?? null;
+        $this->height = $input['Height'] ?? null;
         $this->sampleRate = $input['SampleRate'] ?? null;
+        $this->width = $input['Width'] ?? null;
     }
 
     /**
      * @param array{
-     *   Channels?: null|int,
-     *   Duration?: null|int,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   SampleRate?: null|int,
+     *   Channels?: int|null,
+     *   Duration?: int|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   Height?: int|null,
+     *   SampleRate?: int|null,
+     *   Width?: int|null,
      * }|InputVideoGenerator $input
      */
     public static function create($input): self
@@ -104,9 +128,19 @@ final class InputVideoGenerator
         return $this->framerateNumerator;
     }
 
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
     public function getSampleRate(): ?int
     {
         return $this->sampleRate;
+    }
+
+    public function getWidth(): ?int
+    {
+        return $this->width;
     }
 
     /**
@@ -127,8 +161,14 @@ final class InputVideoGenerator
         if (null !== $v = $this->framerateNumerator) {
             $payload['framerateNumerator'] = $v;
         }
+        if (null !== $v = $this->height) {
+            $payload['height'] = $v;
+        }
         if (null !== $v = $this->sampleRate) {
             $payload['sampleRate'] = $v;
+        }
+        if (null !== $v = $this->width) {
+            $payload['width'] = $v;
         }
 
         return $payload;

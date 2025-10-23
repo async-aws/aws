@@ -17,7 +17,7 @@ final class ProvisionedThroughputOverride
 
     /**
      * @param array{
-     *   ReadCapacityUnits?: null|int,
+     *   ReadCapacityUnits?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -27,7 +27,7 @@ final class ProvisionedThroughputOverride
 
     /**
      * @param array{
-     *   ReadCapacityUnits?: null|int,
+     *   ReadCapacityUnits?: int|null,
      * }|ProvisionedThroughputOverride $input
      */
     public static function create($input): self

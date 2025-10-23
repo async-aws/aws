@@ -27,8 +27,8 @@ final class DominantLanguage
 
     /**
      * @param array{
-     *   LanguageCode?: null|string,
-     *   Score?: null|float,
+     *   LanguageCode?: string|null,
+     *   Score?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -39,8 +39,8 @@ final class DominantLanguage
 
     /**
      * @param array{
-     *   LanguageCode?: null|string,
-     *   Score?: null|float,
+     *   LanguageCode?: string|null,
+     *   Score?: float|null,
      * }|DominantLanguage $input
      */
     public static function create($input): self

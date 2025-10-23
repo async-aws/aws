@@ -24,8 +24,8 @@ final class NotificationConfiguration
 
     /**
      * @param array{
-     *   TopicArn?: null|string,
-     *   TopicStatus?: null|string,
+     *   TopicArn?: string|null,
+     *   TopicStatus?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -36,8 +36,8 @@ final class NotificationConfiguration
 
     /**
      * @param array{
-     *   TopicArn?: null|string,
-     *   TopicStatus?: null|string,
+     *   TopicArn?: string|null,
+     *   TopicStatus?: string|null,
      * }|NotificationConfiguration $input
      */
     public static function create($input): self

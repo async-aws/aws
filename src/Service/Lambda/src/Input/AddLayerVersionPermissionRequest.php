@@ -78,8 +78,8 @@ final class AddLayerVersionPermissionRequest extends Input
      *   StatementId?: string,
      *   Action?: string,
      *   Principal?: string,
-     *   OrganizationId?: null|string,
-     *   RevisionId?: null|string,
+     *   OrganizationId?: string|null,
+     *   RevisionId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -102,8 +102,8 @@ final class AddLayerVersionPermissionRequest extends Input
      *   StatementId?: string,
      *   Action?: string,
      *   Principal?: string,
-     *   OrganizationId?: null|string,
-     *   RevisionId?: null|string,
+     *   OrganizationId?: string|null,
+     *   RevisionId?: string|null,
      *   '@region'?: string|null,
      * }|AddLayerVersionPermissionRequest $input
      */

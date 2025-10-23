@@ -25,8 +25,8 @@ final class WarmThroughput
 
     /**
      * @param array{
-     *   ReadUnitsPerSecond?: null|int,
-     *   WriteUnitsPerSecond?: null|int,
+     *   ReadUnitsPerSecond?: int|null,
+     *   WriteUnitsPerSecond?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class WarmThroughput
 
     /**
      * @param array{
-     *   ReadUnitsPerSecond?: null|int,
-     *   WriteUnitsPerSecond?: null|int,
+     *   ReadUnitsPerSecond?: int|null,
+     *   WriteUnitsPerSecond?: int|null,
      * }|WarmThroughput $input
      */
     public static function create($input): self

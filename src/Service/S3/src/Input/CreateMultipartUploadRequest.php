@@ -116,7 +116,7 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -545,37 +545,37 @@ final class CreateMultipartUploadRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*|null,
      *   Bucket?: string,
-     *   CacheControl?: null|string,
-     *   ContentDisposition?: null|string,
-     *   ContentEncoding?: null|string,
-     *   ContentLanguage?: null|string,
-     *   ContentType?: null|string,
-     *   Expires?: null|\DateTimeImmutable|string,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWriteACP?: null|string,
+     *   CacheControl?: string|null,
+     *   ContentDisposition?: string|null,
+     *   ContentEncoding?: string|null,
+     *   ContentLanguage?: string|null,
+     *   ContentType?: string|null,
+     *   Expires?: string|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWriteACP?: string|null,
      *   Key?: string,
-     *   Metadata?: null|array<string, string>,
-     *   ServerSideEncryption?: null|ServerSideEncryption::*,
-     *   StorageClass?: null|StorageClass::*,
-     *   WebsiteRedirectLocation?: null|string,
-     *   SSECustomerAlgorithm?: null|string,
-     *   SSECustomerKey?: null|string,
-     *   SSECustomerKeyMD5?: null|string,
-     *   SSEKMSKeyId?: null|string,
-     *   SSEKMSEncryptionContext?: null|string,
-     *   BucketKeyEnabled?: null|bool,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   Tagging?: null|string,
-     *   ObjectLockMode?: null|ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: null|\DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   Metadata?: array<string, string>|null,
+     *   ServerSideEncryption?: ServerSideEncryption::*|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   WebsiteRedirectLocation?: string|null,
+     *   SSECustomerAlgorithm?: string|null,
+     *   SSECustomerKey?: string|null,
+     *   SSECustomerKeyMD5?: string|null,
+     *   SSEKMSKeyId?: string|null,
+     *   SSEKMSEncryptionContext?: string|null,
+     *   BucketKeyEnabled?: bool|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   Tagging?: string|null,
+     *   ObjectLockMode?: ObjectLockMode::*|null,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ChecksumType?: ChecksumType::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -588,7 +588,7 @@ final class CreateMultipartUploadRequest extends Input
         $this->contentEncoding = $input['ContentEncoding'] ?? null;
         $this->contentLanguage = $input['ContentLanguage'] ?? null;
         $this->contentType = $input['ContentType'] ?? null;
-        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->expires = $input['Expires'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -617,37 +617,37 @@ final class CreateMultipartUploadRequest extends Input
 
     /**
      * @param array{
-     *   ACL?: null|ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*|null,
      *   Bucket?: string,
-     *   CacheControl?: null|string,
-     *   ContentDisposition?: null|string,
-     *   ContentEncoding?: null|string,
-     *   ContentLanguage?: null|string,
-     *   ContentType?: null|string,
-     *   Expires?: null|\DateTimeImmutable|string,
-     *   GrantFullControl?: null|string,
-     *   GrantRead?: null|string,
-     *   GrantReadACP?: null|string,
-     *   GrantWriteACP?: null|string,
+     *   CacheControl?: string|null,
+     *   ContentDisposition?: string|null,
+     *   ContentEncoding?: string|null,
+     *   ContentLanguage?: string|null,
+     *   ContentType?: string|null,
+     *   Expires?: string|null,
+     *   GrantFullControl?: string|null,
+     *   GrantRead?: string|null,
+     *   GrantReadACP?: string|null,
+     *   GrantWriteACP?: string|null,
      *   Key?: string,
-     *   Metadata?: null|array<string, string>,
-     *   ServerSideEncryption?: null|ServerSideEncryption::*,
-     *   StorageClass?: null|StorageClass::*,
-     *   WebsiteRedirectLocation?: null|string,
-     *   SSECustomerAlgorithm?: null|string,
-     *   SSECustomerKey?: null|string,
-     *   SSECustomerKeyMD5?: null|string,
-     *   SSEKMSKeyId?: null|string,
-     *   SSEKMSEncryptionContext?: null|string,
-     *   BucketKeyEnabled?: null|bool,
-     *   RequestPayer?: null|RequestPayer::*,
-     *   Tagging?: null|string,
-     *   ObjectLockMode?: null|ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: null|\DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: null|ObjectLockLegalHoldStatus::*,
-     *   ExpectedBucketOwner?: null|string,
-     *   ChecksumAlgorithm?: null|ChecksumAlgorithm::*,
-     *   ChecksumType?: null|ChecksumType::*,
+     *   Metadata?: array<string, string>|null,
+     *   ServerSideEncryption?: ServerSideEncryption::*|null,
+     *   StorageClass?: StorageClass::*|null,
+     *   WebsiteRedirectLocation?: string|null,
+     *   SSECustomerAlgorithm?: string|null,
+     *   SSECustomerKey?: string|null,
+     *   SSECustomerKeyMD5?: string|null,
+     *   SSEKMSKeyId?: string|null,
+     *   SSEKMSEncryptionContext?: string|null,
+     *   BucketKeyEnabled?: bool|null,
+     *   RequestPayer?: RequestPayer::*|null,
+     *   Tagging?: string|null,
+     *   ObjectLockMode?: ObjectLockMode::*|null,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   ChecksumType?: ChecksumType::*|null,
      *   '@region'?: string|null,
      * }|CreateMultipartUploadRequest $input
      */
@@ -720,7 +720,7 @@ final class CreateMultipartUploadRequest extends Input
         return $this->expectedBucketOwner;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         return $this->expires;
     }
@@ -867,7 +867,7 @@ final class CreateMultipartUploadRequest extends Input
             $headers['Content-Type'] = $this->contentType;
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['Expires'] = $this->expires;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -1067,7 +1067,7 @@ final class CreateMultipartUploadRequest extends Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeImmutable $value): self
+    public function setExpires(?string $value): self
     {
         $this->expires = $value;
 

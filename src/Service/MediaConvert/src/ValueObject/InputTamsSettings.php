@@ -21,7 +21,8 @@ final class InputTamsSettings
      * EventBridge Connection stores your authentication credentials securely. MediaConvert assumes your job's IAM role to
      * access this connection, so ensure the role has the events:RetrieveConnectionCredentials,
      * secretsmanager:DescribeSecret, and secretsmanager:GetSecretValue permissions. Format:
-     * arn:aws:events:region:account-id:connection/connection-name/unique-id.
+     * arn:aws:events:region:account-id:connection/connection-name/unique-id This setting is required when you include TAMS
+     * settings in your job.
      *
      * @var string|null
      */
@@ -44,7 +45,7 @@ final class InputTamsSettings
      * the appropriate flows containing the media segments you want to process. The source ID corresponds to a specific
      * media source registered in your TAMS server. This source must be of type urn:x-nmos:format:multi, and can can
      * reference multiple flows for audio, video, or combined audio/video content. MediaConvert automatically selects the
-     * highest quality flows available for your job. This setting is required when include TAMS settings in your job.
+     * highest quality flows available for your job. This setting is required when you include TAMS settings in your job.
      *
      * @var string|null
      */
@@ -54,7 +55,7 @@ final class InputTamsSettings
      * Specify the time range of media segments to retrieve from your TAMS server. MediaConvert fetches only the segments
      * that fall within this range. Use the format specified by your TAMS server implementation. This must be two timestamp
      * values with the format {sign?}{seconds}:{nanoseconds}, separated by an underscore, surrounded by either parentheses
-     * or square brackets. Example: [15:0_35:0) This setting is required when include TAMS settings in your job.
+     * or square brackets. Example: [15:0_35:0) This setting is required when you include TAMS settings in your job.
      *
      * @var string|null
      */
@@ -62,10 +63,10 @@ final class InputTamsSettings
 
     /**
      * @param array{
-     *   AuthConnectionArn?: null|string,
-     *   GapHandling?: null|TamsGapHandling::*,
-     *   SourceId?: null|string,
-     *   Timerange?: null|string,
+     *   AuthConnectionArn?: string|null,
+     *   GapHandling?: TamsGapHandling::*|null,
+     *   SourceId?: string|null,
+     *   Timerange?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -78,10 +79,10 @@ final class InputTamsSettings
 
     /**
      * @param array{
-     *   AuthConnectionArn?: null|string,
-     *   GapHandling?: null|TamsGapHandling::*,
-     *   SourceId?: null|string,
-     *   Timerange?: null|string,
+     *   AuthConnectionArn?: string|null,
+     *   GapHandling?: TamsGapHandling::*|null,
+     *   SourceId?: string|null,
+     *   Timerange?: string|null,
      * }|InputTamsSettings $input
      */
     public static function create($input): self

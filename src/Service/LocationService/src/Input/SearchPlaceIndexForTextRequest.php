@@ -109,9 +109,9 @@ final class SearchPlaceIndexForTextRequest extends Input
      * category, the results will include results that match *any* of the categories listed.
      *
      * For more information about using categories, including a list of Amazon Location categories, see Categories and
-     * filtering [^1], in the *Amazon Location Service Developer Guide*.
+     * filtering [^1], in the *Amazon Location Service developer guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/category-filtering.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/category-filtering.html
      *
      * @var string[]|null
      */
@@ -120,7 +120,7 @@ final class SearchPlaceIndexForTextRequest extends Input
     /**
      * The optional API key [^1] to authorize the request.
      *
-     * [^1]: https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html
+     * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html
      *
      * @var string|null
      */
@@ -130,13 +130,13 @@ final class SearchPlaceIndexForTextRequest extends Input
      * @param array{
      *   IndexName?: string,
      *   Text?: string,
-     *   BiasPosition?: null|float[],
-     *   FilterBBox?: null|float[],
-     *   FilterCountries?: null|string[],
-     *   MaxResults?: null|int,
-     *   Language?: null|string,
-     *   FilterCategories?: null|string[],
-     *   Key?: null|string,
+     *   BiasPosition?: float[]|null,
+     *   FilterBBox?: float[]|null,
+     *   FilterCountries?: string[]|null,
+     *   MaxResults?: int|null,
+     *   Language?: string|null,
+     *   FilterCategories?: string[]|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -158,13 +158,13 @@ final class SearchPlaceIndexForTextRequest extends Input
      * @param array{
      *   IndexName?: string,
      *   Text?: string,
-     *   BiasPosition?: null|float[],
-     *   FilterBBox?: null|float[],
-     *   FilterCountries?: null|string[],
-     *   MaxResults?: null|int,
-     *   Language?: null|string,
-     *   FilterCategories?: null|string[],
-     *   Key?: null|string,
+     *   BiasPosition?: float[]|null,
+     *   FilterBBox?: float[]|null,
+     *   FilterCountries?: string[]|null,
+     *   MaxResults?: int|null,
+     *   Language?: string|null,
+     *   FilterCategories?: string[]|null,
+     *   Key?: string|null,
      *   '@region'?: string|null,
      * }|SearchPlaceIndexForTextRequest $input
      */

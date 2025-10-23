@@ -42,9 +42,9 @@ final class CaptionSelector
 
     /**
      * @param array{
-     *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   SourceSettings?: null|CaptionSourceSettings|array,
+     *   CustomLanguageCode?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   SourceSettings?: CaptionSourceSettings|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -56,9 +56,9 @@ final class CaptionSelector
 
     /**
      * @param array{
-     *   CustomLanguageCode?: null|string,
-     *   LanguageCode?: null|LanguageCode::*,
-     *   SourceSettings?: null|CaptionSourceSettings|array,
+     *   CustomLanguageCode?: string|null,
+     *   LanguageCode?: LanguageCode::*|null,
+     *   SourceSettings?: CaptionSourceSettings|array|null,
      * }|CaptionSelector $input
      */
     public static function create($input): self

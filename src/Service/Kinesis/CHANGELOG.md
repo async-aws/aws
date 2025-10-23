@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Apply no CodingStandard from latest php-cs-fixer.
+
 ## 3.3.0
 
 ### Added

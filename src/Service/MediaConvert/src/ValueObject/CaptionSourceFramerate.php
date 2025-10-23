@@ -28,8 +28,8 @@ final class CaptionSourceFramerate
 
     /**
      * @param array{
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -40,8 +40,8 @@ final class CaptionSourceFramerate
 
     /**
      * @param array{
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
      * }|CaptionSourceFramerate $input
      */
     public static function create($input): self

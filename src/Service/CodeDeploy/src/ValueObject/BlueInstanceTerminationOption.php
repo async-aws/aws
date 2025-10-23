@@ -36,8 +36,8 @@ final class BlueInstanceTerminationOption
 
     /**
      * @param array{
-     *   action?: null|InstanceAction::*,
-     *   terminationWaitTimeInMinutes?: null|int,
+     *   action?: InstanceAction::*|null,
+     *   terminationWaitTimeInMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -48,8 +48,8 @@ final class BlueInstanceTerminationOption
 
     /**
      * @param array{
-     *   action?: null|InstanceAction::*,
-     *   terminationWaitTimeInMinutes?: null|int,
+     *   action?: InstanceAction::*|null,
+     *   terminationWaitTimeInMinutes?: int|null,
      * }|BlueInstanceTerminationOption $input
      */
     public static function create($input): self

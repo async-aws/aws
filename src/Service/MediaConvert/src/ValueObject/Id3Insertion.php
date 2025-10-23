@@ -25,8 +25,8 @@ final class Id3Insertion
 
     /**
      * @param array{
-     *   Id3?: null|string,
-     *   Timecode?: null|string,
+     *   Id3?: string|null,
+     *   Timecode?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -37,8 +37,8 @@ final class Id3Insertion
 
     /**
      * @param array{
-     *   Id3?: null|string,
-     *   Timecode?: null|string,
+     *   Id3?: string|null,
+     *   Timecode?: string|null,
      * }|Id3Insertion $input
      */
     public static function create($input): self

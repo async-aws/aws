@@ -113,15 +113,15 @@ final class UncompressedSettings
 
     /**
      * @param array{
-     *   Fourcc?: null|UncompressedFourcc::*,
-     *   FramerateControl?: null|UncompressedFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|UncompressedFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|UncompressedInterlaceMode::*,
-     *   ScanTypeConversionMode?: null|UncompressedScanTypeConversionMode::*,
-     *   SlowPal?: null|UncompressedSlowPal::*,
-     *   Telecine?: null|UncompressedTelecine::*,
+     *   Fourcc?: UncompressedFourcc::*|null,
+     *   FramerateControl?: UncompressedFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: UncompressedFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: UncompressedInterlaceMode::*|null,
+     *   ScanTypeConversionMode?: UncompressedScanTypeConversionMode::*|null,
+     *   SlowPal?: UncompressedSlowPal::*|null,
+     *   Telecine?: UncompressedTelecine::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -139,15 +139,15 @@ final class UncompressedSettings
 
     /**
      * @param array{
-     *   Fourcc?: null|UncompressedFourcc::*,
-     *   FramerateControl?: null|UncompressedFramerateControl::*,
-     *   FramerateConversionAlgorithm?: null|UncompressedFramerateConversionAlgorithm::*,
-     *   FramerateDenominator?: null|int,
-     *   FramerateNumerator?: null|int,
-     *   InterlaceMode?: null|UncompressedInterlaceMode::*,
-     *   ScanTypeConversionMode?: null|UncompressedScanTypeConversionMode::*,
-     *   SlowPal?: null|UncompressedSlowPal::*,
-     *   Telecine?: null|UncompressedTelecine::*,
+     *   Fourcc?: UncompressedFourcc::*|null,
+     *   FramerateControl?: UncompressedFramerateControl::*|null,
+     *   FramerateConversionAlgorithm?: UncompressedFramerateConversionAlgorithm::*|null,
+     *   FramerateDenominator?: int|null,
+     *   FramerateNumerator?: int|null,
+     *   InterlaceMode?: UncompressedInterlaceMode::*|null,
+     *   ScanTypeConversionMode?: UncompressedScanTypeConversionMode::*|null,
+     *   SlowPal?: UncompressedSlowPal::*|null,
+     *   Telecine?: UncompressedTelecine::*|null,
      * }|UncompressedSettings $input
      */
     public static function create($input): self
