@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Apply no CodingStandard from latest php-cs-fixer.
+- Apply new CodingStandard from latest php-cs-fixer.
 
 ## 2.10.0
 
