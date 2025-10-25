@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Update endpoint ruleset parameters casing
+- AWS api-change: Added `us-isob-west-1` region
 
 ### Changed
 

@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Updated OIDC and SAML apis to reject multiple simultaneous requests to change a unique object.
+- AWS api-change: Added `us-isob-west-1` region
 
 ### Changed
 
