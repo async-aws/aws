@@ -186,9 +186,6 @@ class BundleInitializationTest extends KernelTestCase
 
         $r = new \ReflectionObject($cache);
         $p = $r->getProperty('cache');
-        if (\PHP_VERSION_ID < 80100) {
-            $p->setAccessible(true);
-        }
 
         $adapter = $p->getValue($cache);
         self::assertInstanceOf(ApcuAdapter::class, $adapter);
@@ -207,9 +204,6 @@ class BundleInitializationTest extends KernelTestCase
 
         $r = new \ReflectionClass(AbstractApi::class);
         $p = $r->getProperty('credentialProvider');
-        if (\PHP_VERSION_ID < 80100) {
-            $p->setAccessible(true);
-        }
 
         $credentialProvider = $p->getValue($client);
         self::assertInstanceOf(InstanceProvider::class, $credentialProvider);
@@ -230,9 +224,6 @@ class BundleInitializationTest extends KernelTestCase
 
         $r = new \ReflectionClass(AbstractApi::class);
         $p = $r->getProperty('credentialProvider');
-        if (\PHP_VERSION_ID < 80100) {
-            $p->setAccessible(true);
-        }
 
         $credentialProvider = $p->getValue($client);
         self::assertInstanceOf(CacheProvider::class, $credentialProvider);
@@ -241,17 +232,11 @@ class BundleInitializationTest extends KernelTestCase
 
         $r = new \ReflectionObject($cache);
         $p = $r->getProperty('cache');
-        if (\PHP_VERSION_ID < 80100) {
-            $p->setAccessible(true);
-        }
 
         $adapter = $p->getValue($cache);
         self::assertInstanceOf(ApcuAdapter::class, $adapter);
 
         $p = $r->getProperty('decorated');
-        if (\PHP_VERSION_ID < 80100) {
-            $p->setAccessible(true);
-        }
 
         $decorated = $p->getValue($cache);
         self::assertInstanceOf(InstanceProvider::class, $decorated);

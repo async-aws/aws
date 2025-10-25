@@ -41,6 +41,7 @@ class BranchAliasTest extends TestCase
                 break;
             case '### Added':
             case '### Deprecated':
+            case '### Dependency bumped':
                 $level = 1;
 
                 break;

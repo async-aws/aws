@@ -150,7 +150,7 @@ final class SsoTokenProvider
                 $content,
                 true,
                 512,
-                \JSON_BIGINT_AS_STRING | (\PHP_VERSION_ID >= 70300 ? \JSON_THROW_ON_ERROR : 0)
+                \JSON_BIGINT_AS_STRING | \JSON_THROW_ON_ERROR
             );
         } catch (\JsonException $e) {
             $this->logger->warning(

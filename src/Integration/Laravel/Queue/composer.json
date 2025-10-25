@@ -12,7 +12,7 @@
         "queue"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "async-aws/sqs": "^1.1 || ^2.0",
         "illuminate/queue": "^6.18.11 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "illuminate/support": "^6.18.13 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0"
@@ -29,7 +29,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev"
+            "dev-master": "1.2-dev"
         },
         "laravel": {
             "providers": [

@@ -11,7 +11,7 @@
         "sts"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "ext-hash": "*",
         "ext-json": "*",
         "ext-simplexml": "*",

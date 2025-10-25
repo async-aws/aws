@@ -11,7 +11,7 @@
         "timestream-write"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "ext-json": "*",
         "async-aws/core": "^1.16"
     },
@@ -27,7 +27,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "2.1-dev"
         }
     }
 }
