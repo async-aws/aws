@@ -34,7 +34,7 @@ class ChangelogTest extends TestCase
 
         $title3Choices = [
             '### BC-BREAK', '### Removed', // Major
-            '### Added', '### Deprecated', // Minor
+            '### Added', '### Deprecated', '### Dependency bumped', // Minor
             '### Changed', '### Fixed', '### Security', // Patch
         ];
         $lastTitle3 = -1;
