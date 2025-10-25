@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
-        "async-aws/s3": "^2.0"
+        "async-aws/s3": "^2.1"
     },
     "autoload": {
         "psr-4": {

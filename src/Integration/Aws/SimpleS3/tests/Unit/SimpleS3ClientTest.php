@@ -6,7 +6,11 @@ namespace AsyncAws\SimpleS3\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\ResultMockFactory;
+use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
+use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\UploadPartCopyOutput;
+use AsyncAws\S3\ValueObject\CopyPartResult;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -137,6 +141,60 @@ class SimpleS3ClientTest extends TestCase
         $s3->upload('bucket', 'robots.txt', static function (int $length): string {
             return '';
         });
+    }
+
+    public function testCopySmallFile()
+    {
+        $megabyte = 1024 * 1024;
+        $s3 = $this->getMockBuilder(SimpleS3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'copyObject', 'completeMultipartUpload', 'headObject'])
+            ->getMock();
+
+        $s3->expects(self::never())->method('createMultipartUpload');
+        $s3->expects(self::never())->method('abortMultipartUpload');
+        $s3->expects(self::never())->method('completeMultipartUpload');
+        $s3->expects(self::once())->method('copyObject');
+        $s3->expects(self::once())->method('headObject')
+            ->willReturn(ResultMockFactory::create(HeadObjectOutput::class, ['ContentLength' => 50 * $megabyte]));
+
+        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt');
+    }
+
+    public function testCopyLargeFile()
+    {
+        $megabyte = 1024 * 1024;
+        $uploadedParts = 0;
+        $completedParts = 0;
+
+        $s3 = $this->getMockBuilder(SimpleS3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'copyObject', 'completeMultipartUpload', 'uploadPartCopy', 'headObject'])
+            ->getMock();
+
+        $s3->expects(self::once())->method('createMultipartUpload')
+            ->willReturn(ResultMockFactory::create(CreateMultipartUploadOutput::class, ['UploadId' => '4711']));
+        $s3->expects(self::never())->method('abortMultipartUpload');
+        $s3->expects(self::never())->method('copyObject');
+        $s3->expects(self::any())->method('uploadPartCopy')
+            ->with(self::callback(function () use (&$uploadedParts) {
+                ++$uploadedParts;
+
+                return true;
+            }))
+            ->willReturn(ResultMockFactory::create(UploadPartCopyOutput::class, ['copyPartResult' => new CopyPartResult(['ETag' => 'etag-4711'])]));
+        $s3->expects(self::once())->method('completeMultipartUpload')->with(self::callback(function (CompleteMultipartUploadRequest $request) use (&$completedParts) {
+            $completedParts = \count($request->getMultipartUpload()->getParts());
+
+            return true;
+        }));
+        $s3->expects(self::once())
+            ->method('headObject')
+            ->willReturn(ResultMockFactory::create(HeadObjectOutput::class, ['ContentLength' => 6144 * $megabyte]));
+
+        $s3->copy('bucket', 'robots.txt', 'bucket', 'copy-robots.txt');
+
+        self::assertEquals($completedParts, $uploadedParts);
     }
 
     private function assertSmallFileUpload(\Closure $callback, string $bucket, string $file, $object): void
