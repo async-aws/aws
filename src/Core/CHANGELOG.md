@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Apply no CodingStandard from latest php-cs-fixer.
+- Apply new CodingStandard from latest php-cs-fixer.
 - Fix PHP 8.5 deprecation by avoiding using `null` as an array offset.
 
 ### Fixed
