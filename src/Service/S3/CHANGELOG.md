@@ -9,6 +9,7 @@
 ### Added
 
 - AWS api-change: Added `us-isob-west-1` region
+- Added `S3Client::putPublicAccessBlock()` method
 
 ### Changed
 

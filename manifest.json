@@ -558,6 +558,7 @@
                 "PutObject",
                 "PutObjectAcl",
                 "PutObjectTagging",
+                "PutPublicAccessBlock",
                 "UploadPart",
                 "UploadPartCopy"
             ]

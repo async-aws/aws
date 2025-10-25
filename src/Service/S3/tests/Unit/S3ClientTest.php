@@ -33,6 +33,7 @@ use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
+use AsyncAws\S3\Input\PutPublicAccessBlockRequest;
 use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
@@ -67,6 +68,7 @@ use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
+use AsyncAws\S3\ValueObject\PublicAccessBlockConfiguration;
 use AsyncAws\S3\ValueObject\S3KeyFilter;
 use AsyncAws\S3\ValueObject\Tag;
 use AsyncAws\S3\ValueObject\Tagging;
@@ -539,6 +541,26 @@ class S3ClientTest extends TestCase
         $result = $client->putObjectTagging($input);
 
         self::assertInstanceOf(PutObjectTaggingOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutPublicAccessBlock(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutPublicAccessBlockRequest([
+            'Bucket' => 'examplebucket',
+
+            'PublicAccessBlockConfiguration' => new PublicAccessBlockConfiguration([
+                'BlockPublicAcls' => false,
+                'IgnorePublicAcls' => true,
+                'BlockPublicPolicy' => true,
+                'RestrictPublicBuckets' => false,
+            ]),
+        ]);
+        $result = $client->putPublicAccessBlock($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
