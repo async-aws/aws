@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Update endpoint ruleset parameters casing
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

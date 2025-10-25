@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Updated OIDC and SAML apis to reject multiple simultaneous requests to change a unique object.
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

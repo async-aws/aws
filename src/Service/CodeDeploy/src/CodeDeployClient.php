@@ -284,6 +284,14 @@ class CodeDeployClient extends AbstractApi
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => "https://codedeploy.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 'codedeploy',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
@@ -296,13 +304,6 @@ class CodeDeployClient extends AbstractApi
                 return [
                     'endpoint' => 'https://codedeploy.eu-isoe-west-1.cloud.adc-e.uk',
                     'signRegion' => 'eu-isoe-west-1',
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://codedeploy.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];

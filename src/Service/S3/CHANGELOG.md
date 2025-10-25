@@ -6,6 +6,10 @@
 
 - AWS api-change: Expires's property and its getters/setters switched from `\DateTimeImmutable` to `string`.
 
+### Added
+
+- AWS api-change: TODO
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

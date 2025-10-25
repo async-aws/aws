@@ -165,6 +165,14 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => "https://api.ecr.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
@@ -177,13 +185,6 @@ class EcrClient extends AbstractApi
                 return [
                     'endpoint' => 'https://api.ecr.eu-isoe-west-1.cloud.adc-e.uk',
                     'signRegion' => 'eu-isoe-west-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];

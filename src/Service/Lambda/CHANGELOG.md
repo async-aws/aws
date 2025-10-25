@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add NodeJs 24 (nodejs24.x) support to AWS Lambda.
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

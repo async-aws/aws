@@ -169,6 +169,14 @@ class CloudFormationClient extends AbstractApi
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => "https://cloudformation.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
@@ -181,13 +189,6 @@ class CloudFormationClient extends AbstractApi
                 return [
                     'endpoint' => 'https://cloudformation.eu-isoe-west-1.cloud.adc-e.uk',
                     'signRegion' => 'eu-isoe-west-1',
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://cloudformation.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
