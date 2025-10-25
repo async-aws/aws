@@ -612,6 +612,14 @@ class LambdaClient extends AbstractApi
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => "https://lambda.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
@@ -624,13 +632,6 @@ class LambdaClient extends AbstractApi
                 return [
                     'endpoint' => 'https://lambda.eu-isoe-west-1.cloud.adc-e.uk',
                     'signRegion' => 'eu-isoe-west-1',
-                    'signService' => 'lambda',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://lambda.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];

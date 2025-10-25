@@ -5,6 +5,7 @@
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
+- AWS enhancement: Documentation updates.
 
 ## 1.1.2
 

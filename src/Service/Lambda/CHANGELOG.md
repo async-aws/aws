@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add NodeJs 24 (nodejs24.x) support to AWS Lambda.
+- AWS api-change: Added `us-isob-west-1` region
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

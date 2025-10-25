@@ -959,6 +959,13 @@ class SqsClient extends AbstractApi
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => 'https://sqs.us-isob-west-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-west-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-iso-east-1':
             case 'us-iso-east-1':
                 return [

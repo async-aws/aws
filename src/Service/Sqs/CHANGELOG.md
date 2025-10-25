@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `us-isob-west-1` region
+
 ### Changed
 
 - AWS enhancement: Documentation updates.

@@ -601,18 +601,19 @@ class IamClient extends AbstractApi
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => 'https://iam.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
                     'endpoint' => 'https://iam.us-isof-south-1.csp.hci.ic.gov',
                     'signRegion' => 'us-isof-south-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://iam.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];

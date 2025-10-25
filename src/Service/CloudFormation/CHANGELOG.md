@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Update endpoint ruleset parameters casing
+- AWS apu-change: Added `us-isob-west-1` region
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
