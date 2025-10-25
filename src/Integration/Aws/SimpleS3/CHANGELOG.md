@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- Upgrade to `async-aws/s3` 3.0
+
 ## 2.1.1
 
 ### Changed
