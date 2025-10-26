@@ -28,7 +28,7 @@
         "nikic/php-parser": "^4.0",
         "nyholm/symfony-bundle-test": "^3.0",
         "phpstan/phpstan": "~2.0.0",
-        "psalm/phar": "~5.14.1",
+        "psalm/phar": "~6.13.1",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",
         "swaggest/json-diff": "^3.7",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",

@@ -8,6 +8,7 @@
     cacheDirectory=".cache/psalm/"
     findUnusedBaselineEntry="false"
     findUnusedCode="false"
+    ensureOverrideAttribute="false"
 >
     <projectFiles>
         <directory name="src" />
@@ -48,5 +49,19 @@
 
         <ArgumentTypeCoercion errorLevel="info" />
         <PropertyTypeCoercion errorLevel="info" />
+
+        <RiskyTruthyFalsyComparison errorLevel="info" />
+
+        <ParamNameMismatch errorLevel="info" />
+
+        <!-- SimpleXMLElement can return null values for not found elements, but we assume the structure of AWS responses is valid -->
+        <PossiblyNullArgument errorLevel="info" />
+        <PossiblyNullArrayAccess errorLevel="info" />
+        <PossiblyNullIterator errorLevel="info" />
+        <PossiblyNullPropertyFetch errorLevel="info" />
+        <PossiblyNullReference errorLevel="info" />
+
+        <!-- We don't use @api to define our public API. Anything non-internal is public for us. Those rules break due to that. See https://github.com/vimeo/psalm/issues/11580 -->
+        <ClassMustBeFinal errorLevel="suppress" />
     </issueHandlers>
 </psalm>

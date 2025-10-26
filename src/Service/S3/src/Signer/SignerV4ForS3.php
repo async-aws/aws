@@ -55,6 +55,9 @@ class SignerV4ForS3 extends SignerV4
         $this->sendChunkedBody = $s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY] ?? false;
         unset($s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY]);
 
+        /**
+         * @psalm-suppress TypeDoesNotContainType -- this validates the input without trusting the type alone.
+         */
         if (!empty($s3SignerOptions)) {
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', implode('", "', array_keys($s3SignerOptions)), __CLASS__, __METHOD__));
         }
