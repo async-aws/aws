@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ## 1.2.1
 
 ### Changed

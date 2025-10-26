@@ -14,7 +14,7 @@
         "management"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "ext-filter": "*",
         "ext-simplexml": "*",
         "async-aws/core": "^1.9"

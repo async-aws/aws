@@ -76,7 +76,7 @@ function getNextVersion(string $changelogPath): ?string
 
             continue;
         }
-        if ('### Added' === $line || '### Deprecated' === $line) {
+        if ('### Added' === $line || '### Deprecated' === $line || '### Dependency bumped' === $line) {
             $level = min($level, 1);
 
             continue;

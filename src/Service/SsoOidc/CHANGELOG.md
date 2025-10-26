@@ -7,6 +7,10 @@
 - AWS api-change: Rework regions configuration
 - AWS api-change: This release includes exception definition and documentation updates.
 
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

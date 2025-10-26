@@ -7,6 +7,10 @@
 - AWS api-change: Amazon Route 53 now supports the ISOB West Region for private DNS for Amazon VPCs and cloudwatch healthchecks.
 - AWS api-change: Added `us-isob-west-1` region
 
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
