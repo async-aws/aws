@@ -13,7 +13,7 @@
     "require": {
         "php": "^8.2",
         "ext-json": "*",
-        "async-aws/s3": "^2.0"
+        "async-aws/s3": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -27,7 +27,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2-dev"
+            "dev-master": "3.0-dev"
         }
     }
 }

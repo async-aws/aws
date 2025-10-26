@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- Upgrade to `async-aws/s3` 3.0
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2
