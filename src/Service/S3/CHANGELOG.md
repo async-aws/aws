@@ -18,6 +18,7 @@
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
+- Harden code against error cases
 
 ## 2.10.0
 

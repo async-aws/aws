@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Test;
 
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResultStream;
 
 /**
@@ -36,6 +37,9 @@ class SimpleResultStream implements ResultStream
     public function getContentAsResource()
     {
         $resource = fopen('php://temp', 'rw+');
+        if (false === $resource) {
+            throw new RuntimeException('Unable to create a temporary stream.');
+        }
 
         try {
             fwrite($resource, $this->data);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Stream;
 
 use AsyncAws\Core\Exception\LogicException;
+use AsyncAws\Core\Exception\RuntimeException;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
@@ -58,6 +59,10 @@ class ResponseBodyStream implements ResultStream
         }
 
         $resource = fopen('php://temp', 'rb+');
+        if (false === $resource) {
+            throw new RuntimeException('Unable to create a temporary stream.');
+        }
+
         foreach ($this->responseStream as $chunk) {
             $this->partialRead = true;
             $chunkContent = $chunk->getContent();

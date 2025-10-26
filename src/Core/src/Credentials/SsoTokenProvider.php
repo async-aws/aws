@@ -124,7 +124,7 @@ final class SsoTokenProvider
     {
         $filepath = \sprintf('%s/.aws/sso/cache/%s.json', $this->getHomeDir(), sha1($sessionName));
 
-        file_put_contents($filepath, json_encode(array_filter($tokenData)));
+        file_put_contents($filepath, json_encode(array_filter($tokenData), \JSON_THROW_ON_ERROR));
     }
 
     /**

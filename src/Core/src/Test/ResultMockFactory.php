@@ -46,7 +46,7 @@ class ResultMockFactory
             }
         }
 
-        $httpResponse = new SimpleMockedResponse(json_encode(array_merge(['message' => $message], $additionalContent)), ['content-type' => 'application/json'], $code);
+        $httpResponse = new SimpleMockedResponse(json_encode(array_merge(['message' => $message], $additionalContent), \JSON_THROW_ON_ERROR), ['content-type' => 'application/json'], $code);
         $client = new MockHttpClient($httpResponse);
         $response = new Response($client->request('POST', 'http://localhost'), $client, new NullLogger());
 
