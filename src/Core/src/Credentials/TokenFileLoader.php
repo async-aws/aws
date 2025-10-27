@@ -23,8 +23,10 @@ trait TokenFileLoader
 
         $tokenDir = \dirname($tokenFile);
         $tokenLink = readlink($tokenFile);
-        clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . $tokenLink);
-        clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . \dirname($tokenLink));
+        if (false !== $tokenLink) {
+            clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . $tokenLink);
+            clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . \dirname($tokenLink));
+        }
         clearstatcache(true, $tokenFile);
 
         if (false === $token = file_get_contents($tokenFile)) {

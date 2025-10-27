@@ -36,7 +36,7 @@ final class IterableStream implements ReadOnceResultStream, RequestStream
             return new self($content);
         }
 
-        throw new InvalidArgument(\sprintf('Expect content to be an iterable. "%s" given.', \is_object($content) ? \get_class($content) : \gettype($content)));
+        throw new InvalidArgument(\sprintf('Expect content to be an iterable. "%s" given.', get_debug_type($content)));
     }
 
     public function length(): ?int

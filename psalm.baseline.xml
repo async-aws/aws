@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
-  <file src="src/Core/src/AbstractApi.php">
-    <UndefinedFunction>
-      <code><![CDATA[trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__)]]></code>
-      <code><![CDATA[trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.')]]></code>
-    </UndefinedFunction>
+<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+  <file src="src/Core/src/Signer/SignerV4.php">
+    <NoValue>
+      <code><![CDATA[$values]]></code>
+    </NoValue>
   </file>
   <file src="src/Core/src/Waiter.php">
+    <InvalidOperand>
+      <code><![CDATA[$delay * 1000000]]></code>
+    </InvalidOperand>
     <PossiblyUndefinedVariable>
-      <code>$exception</code>
+      <code><![CDATA[$exception]]></code>
     </PossiblyUndefinedVariable>
   </file>
   <file src="src/Integration/Aws/SimpleS3/src/SimpleS3Client.php">
@@ -18,14 +20,14 @@
   </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
     <InvalidArgument>
-      <code>$config</code>
+      <code><![CDATA[$config]]></code>
     </InvalidArgument>
     <UndefinedInterfaceMethod>
       <code><![CDATA[$this->app]]></code>
     </UndefinedInterfaceMethod>
     <UndefinedMethod>
-      <code>getPrefix</code>
-      <code>repository</code>
+      <code><![CDATA[getPrefix]]></code>
+      <code><![CDATA[repository]]></code>
     </UndefinedMethod>
   </file>
   <file src="src/Integration/Laravel/Queue/src/ServiceProvider.php">
@@ -35,31 +37,26 @@
   </file>
   <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
     <DeprecatedConstant>
-      <code>Logger::DEBUG</code>
+      <code><![CDATA[Logger::DEBUG]]></code>
     </DeprecatedConstant>
     <InvalidArgument>
-      <code>$level</code>
+      <code><![CDATA[$level]]></code>
     </InvalidArgument>
     <PossiblyInvalidArgument>
       <code><![CDATA[$record['formatted']]]></code>
     </PossiblyInvalidArgument>
     <PossiblyInvalidMethodCall>
-      <code>format</code>
+      <code><![CDATA[format]]></code>
     </PossiblyInvalidMethodCall>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <UndefinedInterfaceMethod>
-      <code>scalarNode</code>
+      <code><![CDATA[scalarNode]]></code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Service/Athena/src/Result/GetQueryResultsOutput.php">
-    <PossiblyNullReference>
-      <code>getRows</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Service/CloudFormation/src/Result/DescribeStacksOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Capability::*>]]></code>
@@ -75,7 +72,7 @@
   </file>
   <file src="src/Service/CodeBuild/src/Result/BatchGetBuildsOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<CacheMode::*>]]></code>
@@ -83,7 +80,7 @@
   </file>
   <file src="src/Service/CodeBuild/src/Result/StartBuildOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<CacheMode::*>]]></code>
@@ -91,7 +88,7 @@
   </file>
   <file src="src/Service/CodeBuild/src/Result/StopBuildOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<CacheMode::*>]]></code>
@@ -99,7 +96,7 @@
   </file>
   <file src="src/Service/CodeDeploy/src/Result/GetDeploymentOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AutoRollbackEvent::*>]]></code>
@@ -107,7 +104,7 @@
   </file>
   <file src="src/Service/CognitoIdentityProvider/src/Result/AdminInitiateAuthResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<ChallengeNameType::*>]]></code>
@@ -115,7 +112,7 @@
   </file>
   <file src="src/Service/CognitoIdentityProvider/src/Result/InitiateAuthResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<ChallengeNameType::*>]]></code>
@@ -123,7 +120,7 @@
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<MetricsName::*>]]></code>
@@ -131,7 +128,7 @@
   </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamSummaryOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<MetricsName::*>]]></code>
@@ -139,7 +136,7 @@
   </file>
   <file src="src/Service/Kinesis/src/Result/EnhancedMonitoringOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<MetricsName::*>]]></code>
@@ -147,10 +144,10 @@
   </file>
   <file src="src/Service/Kms/src/Result/CreateKeyResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<EncryptionAlgorithmSpec::*>]]></code>
@@ -161,9 +158,9 @@
   </file>
   <file src="src/Service/Kms/src/Result/GetPublicKeyResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<EncryptionAlgorithmSpec::*>]]></code>
@@ -173,7 +170,7 @@
   </file>
   <file src="src/Service/Lambda/src/Result/FunctionConfiguration.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Architecture::*>]]></code>
@@ -181,7 +178,7 @@
   </file>
   <file src="src/Service/Lambda/src/Result/ListFunctionsResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Architecture::*>]]></code>
@@ -189,8 +186,8 @@
   </file>
   <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Architecture::*>]]></code>
@@ -199,7 +196,7 @@
   </file>
   <file src="src/Service/Lambda/src/Result/ListVersionsByFunctionResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Architecture::*>]]></code>
@@ -207,8 +204,8 @@
   </file>
   <file src="src/Service/Lambda/src/Result/PublishLayerVersionResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Architecture::*>]]></code>
@@ -217,10 +214,10 @@
   </file>
   <file src="src/Service/MediaConvert/src/Result/CreateJobResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
@@ -231,10 +228,10 @@
   </file>
   <file src="src/Service/MediaConvert/src/Result/GetJobResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
@@ -245,10 +242,10 @@
   </file>
   <file src="src/Service/MediaConvert/src/Result/ListJobsResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
@@ -259,7 +256,7 @@
   </file>
   <file src="src/Service/Rekognition/src/Result/IndexFacesResponse.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<Reason::*>]]></code>
@@ -267,7 +264,7 @@
   </file>
   <file src="src/Service/S3/src/Result/ListObjectVersionsOutput.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<ChecksumAlgorithm::*>]]></code>
@@ -275,7 +272,7 @@
   </file>
   <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<ChecksumAlgorithm::*>]]></code>
@@ -283,18 +280,15 @@
   </file>
   <file src="src/Service/S3/src/Signer/SignerV4ForS3.php">
     <InvalidArgument>
-      <code>array_keys($s3SignerOptions)</code>
+      <code><![CDATA[array_keys($s3SignerOptions)]]></code>
     </InvalidArgument>
     <NoValue>
-      <code>$s3SignerOptions</code>
+      <code><![CDATA[$s3SignerOptions]]></code>
     </NoValue>
-    <TypeDoesNotContainType>
-      <code>empty($s3SignerOptions)</code>
-    </TypeDoesNotContainType>
   </file>
   <file src="src/Service/Sqs/src/Result/GetQueueAttributesResult.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[array<QueueAttributeName::*, string>]]></code>
@@ -302,7 +296,7 @@
   </file>
   <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
     <LessSpecificReturnStatement>
-      <code>$items</code>
+      <code><![CDATA[$items]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[array<MessageSystemAttributeName::*, string>]]></code>

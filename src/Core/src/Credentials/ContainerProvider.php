@@ -118,6 +118,10 @@ final class ContainerProvider implements CredentialProvider
         // Convert the IP address to binary format
         $packedIp = inet_pton($host);
 
+        if (false === $packedIp) {
+            return false;
+        }
+
         // Check if the IP is in the 127.0.0.0/8 range
         if (4 === \strlen($packedIp)) {
             return 127 === \ord($packedIp[0]);

@@ -15,11 +15,11 @@
 
 - Apply new CodingStandard from latest php-cs-fixer.
 - Fix PHP 8.5 deprecation by avoiding using `null` as an array offset.
+- Harden code against error cases
 
 ### Fixed
 
 - Buffer the response in temporary file to avoid issues when stream is used by another request's body
-
 
 ## 1.27.1
 

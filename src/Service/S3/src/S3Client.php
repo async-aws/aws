@@ -3313,7 +3313,10 @@ class S3Client extends AbstractApi
             return parent::getEndpoint($uri, $query, $region);
         }
 
-        return preg_replace('|https?://|', '${0}' . $bucket . '.', parent::getEndpoint('/' . $uriWithOutBucket, $query, $region));
+        $endpoint = preg_replace('|https?://|', '${0}' . $bucket . '.', parent::getEndpoint('/' . $uriWithOutBucket, $query, $region));
+        \assert(null !== $endpoint); // We assume that the regex does not fail as we know it is valid.
+
+        return $endpoint;
     }
 
     protected function getEndpointMetadata(?string $region): array

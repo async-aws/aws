@@ -10,6 +10,10 @@
 
 - Drop support for PHP versions lower than 8.2
 
+### Changed
+
+- Harden code against error cases
+
 ## 2.1.1
 
 ### Changed

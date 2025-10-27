@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\SimpleS3;
 
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -99,6 +100,10 @@ class SimpleS3Client extends S3Client
         $partNumber = 1;
         $chunkIndex = 0;
         $buffer = fopen('php://temp', 'rw+');
+        if (false === $buffer) {
+            throw new RuntimeException('Unable to create a temporary stream.');
+        }
+
         foreach ($stream as $chunk) {
             // Read chunk to resource
             fwrite($buffer, $chunk);
@@ -117,6 +122,9 @@ class SimpleS3Client extends S3Client
             $parts[] = $this->doMultipartUpload($bucket, $key, $uploadId, $partNumber, $buffer);
             ++$partNumber;
             $buffer = fopen('php://temp', 'rw+');
+            if (false === $buffer) {
+                throw new RuntimeException('Unable to create a temporary stream.');
+            }
             $chunkIndex = 0;
         }
 

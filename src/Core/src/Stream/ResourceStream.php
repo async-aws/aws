@@ -3,6 +3,7 @@
 namespace AsyncAws\Core\Stream;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\RuntimeException;
 
 /**
  * Convert a resource into a Stream.
@@ -48,7 +49,7 @@ final class ResourceStream implements RequestStream
             return new self($content, $chunkSize);
         }
 
-        throw new InvalidArgument(\sprintf('Expect content to be a "resource". "%s" given.', \is_object($content) ? \get_class($content) : \gettype($content)));
+        throw new InvalidArgument(\sprintf('Expect content to be a "resource". "%s" given.', get_debug_type($content)));
     }
 
     public function length(): ?int
@@ -62,7 +63,13 @@ final class ResourceStream implements RequestStream
             throw new InvalidArgument('Unable to seek the content.');
         }
 
-        return stream_get_contents($this->content);
+        $data = stream_get_contents($this->content);
+
+        if (false === $data) {
+            throw new RuntimeException('Unable to read the content.');
+        }
+
+        return $data;
     }
 
     public function getIterator(): \Traversable
@@ -72,7 +79,13 @@ final class ResourceStream implements RequestStream
         }
 
         while (!feof($this->content)) {
-            yield fread($this->content, $this->chunkSize);
+            $data = fread($this->content, $this->chunkSize);
+
+            if (false === $data) {
+                throw new RuntimeException('Unable to read the content.');
+            }
+
+            yield $data;
         }
     }
 
@@ -87,6 +100,10 @@ final class ResourceStream implements RequestStream
     public function hash(string $algo = 'sha256', bool $raw = false): string
     {
         $pos = ftell($this->content);
+
+        if (false === $pos) {
+            throw new InvalidArgument('Unable to read the content position.');
+        }
 
         if ($pos > 0 && -1 === fseek($this->content, 0)) {
             throw new InvalidArgument('Unable to seek the content.');

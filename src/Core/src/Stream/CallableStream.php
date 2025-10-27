@@ -45,7 +45,7 @@ final class CallableStream implements ReadOnceResultStream, RequestStream
             return new self($content, $chunkSize);
         }
 
-        throw new InvalidArgument(\sprintf('Expect content to be a "callable". "%s" given.', \is_object($content) ? \get_class($content) : \gettype($content)));
+        throw new InvalidArgument(\sprintf('Expect content to be a "callable". "%s" given.', get_debug_type($content)));
     }
 
     public function length(): ?int
@@ -62,7 +62,7 @@ final class CallableStream implements ReadOnceResultStream, RequestStream
     {
         while (true) {
             if (!\is_string($data = ($this->content)($this->chunkSize))) {
-                throw new InvalidArgument(\sprintf('The return value of content callback must be a string, %s returned.', \is_object($data) ? \get_class($data) : \gettype($data)));
+                throw new InvalidArgument(\sprintf('The return value of content callback must be a string, %s returned.', get_debug_type($data)));
             }
             if ('' === $data) {
                 break;

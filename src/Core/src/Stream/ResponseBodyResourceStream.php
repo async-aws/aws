@@ -37,13 +37,23 @@ class ResponseBodyResourceStream implements ResultStream
     public function getChunks(): iterable
     {
         $pos = ftell($this->resource);
+        if (false === $pos) {
+            throw new RuntimeException('Unable to read the content position.');
+        }
+
         if (0 !== $pos && !rewind($this->resource)) {
             throw new RuntimeException('The stream is not rewindable');
         }
 
         try {
             while (!feof($this->resource)) {
-                yield fread($this->resource, 64 * 1024);
+                $data = fread($this->resource, 64 * 1024);
+
+                if (false === $data) {
+                    throw new RuntimeException('Unable to read the content.');
+                }
+
+                yield $data;
             }
         } finally {
             fseek($this->resource, $pos);
@@ -57,12 +67,22 @@ class ResponseBodyResourceStream implements ResultStream
     {
         $pos = ftell($this->resource);
 
+        if (false === $pos) {
+            throw new RuntimeException('Failed to read the stream position.');
+        }
+
         try {
             if (!rewind($this->resource)) {
                 throw new RuntimeException('Failed to rewind the stream');
             }
 
-            return stream_get_contents($this->resource);
+            $data = stream_get_contents($this->resource);
+
+            if (false === $data) {
+                throw new RuntimeException('Unable to read the content.');
+            }
+
+            return $data;
         } finally {
             fseek($this->resource, $pos);
         }
