@@ -15,9 +15,11 @@ use AsyncAws\CloudWatchLogs\Exception\ServiceUnavailableException;
 use AsyncAws\CloudWatchLogs\Exception\UnrecognizedClientException;
 use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\CreateLogStreamRequest;
+use AsyncAws\CloudWatchLogs\Input\DescribeLogGroupsRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
+use AsyncAws\CloudWatchLogs\Result\DescribeLogGroupsResponse;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\FilterLogEventsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
@@ -128,6 +130,50 @@ class CloudWatchLogsClient extends AbstractApi
         ]]));
 
         return new Result($response);
+    }
+
+    /**
+     * Returns information about log groups. You can return all your log groups or filter the results by prefix. The results
+     * are ASCII-sorted by log group name.
+     *
+     * CloudWatch Logs doesn't support IAM policies that control access to the `DescribeLogGroups` action by using the
+     * `aws:ResourceTag/*key-name*` condition key. Other CloudWatch Logs actions do support the use of the
+     * `aws:ResourceTag/*key-name*` condition key to control access. For more information about using tags to control
+     * access, see Controlling access to Amazon Web Services resources using tags [^1].
+     *
+     * If you are using CloudWatch cross-account observability, you can use this operation in a monitoring account and view
+     * data from the linked source accounts. For more information, see CloudWatch cross-account observability [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html
+     * [^2]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogGroups.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#describeloggroups
+     *
+     * @param array{
+     *   accountIdentifiers?: string[]|null,
+     *   logGroupNamePrefix?: string|null,
+     *   logGroupNamePattern?: string|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
+     *   includeLinkedAccounts?: bool|null,
+     *   logGroupClass?: LogGroupClass::*|null,
+     *   logGroupIdentifiers?: string[]|null,
+     *   '@region'?: string|null,
+     * }|DescribeLogGroupsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ServiceUnavailableException
+     */
+    public function describeLogGroups($input = []): DescribeLogGroupsResponse
+    {
+        $input = DescribeLogGroupsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeLogGroups', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+        ]]));
+
+        return new DescribeLogGroupsResponse($response, $this, $input);
     }
 
     /**

@@ -65,6 +65,14 @@
       <code><![CDATA[list<Capability::*>]]></code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/CloudWatchLogs/src/Result/DescribeLogGroupsResponse.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$items]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<InheritedProperty::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/CodeBuild/src/Result/BatchGetBuildsOutput.php">
     <LessSpecificReturnStatement>
       <code>$items</code>

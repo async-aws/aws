@@ -121,6 +121,7 @@
             "methods": [
                 "CreateLogGroup",
                 "CreateLogStream",
+                "DescribeLogGroups",
                 "DescribeLogStreams",
                 "FilterLogEvents",
                 "PutLogEvents"
