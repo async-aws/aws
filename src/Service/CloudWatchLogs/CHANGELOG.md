@@ -2,10 +2,18 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `us-isob-west-1` region
+
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ### Changed
 
 - AWS enhancement: Documentation updates.
-- Apply no CodingStandard from latest php-cs-fixer.
+- Apply new CodingStandard from latest php-cs-fixer.
 
 ## 2.7.1
 

@@ -34,7 +34,7 @@ class ChangelogTest extends TestCase
 
         $title3Choices = [
             '### BC-BREAK', '### Removed', // Major
-            '### Added', '### Deprecated', // Minor
+            '### Added', '### Deprecated', '### Dependency bumped', // Minor
             '### Changed', '### Fixed', '### Security', // Patch
         ];
         $lastTitle3 = -1;
@@ -215,6 +215,10 @@ class ChangelogTest extends TestCase
             if ('Service' === $parts[1]) {
                 $service = $parts[2];
                 $base = 'src/Service/' . $service;
+
+                if ('.template' === $service) {
+                    continue; // The service template does not have an actual changelog
+                }
             } elseif ('Integration' === $parts[1]) {
                 $service = $parts[2] . '/' . $parts[3];
                 $base = 'src/Integration/' . $service;

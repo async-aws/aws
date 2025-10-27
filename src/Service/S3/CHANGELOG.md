@@ -6,9 +6,18 @@
 
 - AWS api-change: Expires's property and its getters/setters switched from `\DateTimeImmutable` to `string`.
 
+### Added
+
+- AWS api-change: Added `us-isob-west-1` region
+- Added `S3Client::putPublicAccessBlock()` method
+
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ### Changed
 
-- Apply no CodingStandard from latest php-cs-fixer.
+- Apply new CodingStandard from latest php-cs-fixer.
 
 ## 2.10.0
 

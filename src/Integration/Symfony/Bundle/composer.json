@@ -12,14 +12,14 @@
         "bundle"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "async-aws/core": "^1.0",
         "symfony/config": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
-        "async-aws/s3": "^1.0 || ^2.0",
+        "async-aws/s3": "^1.0 || ^2.0 || ^3.0",
         "async-aws/ses": "^1.0",
         "async-aws/sqs": "^1.0 || ^2.0",
         "async-aws/ssm": "^1.0 || ^2.0",
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.15-dev"
+            "dev-master": "1.16-dev"
         }
     }
 }

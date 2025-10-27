@@ -62,6 +62,7 @@ use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
+use AsyncAws\S3\Input\PutPublicAccessBlockRequest;
 use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
@@ -101,6 +102,7 @@ use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\Part;
+use AsyncAws\S3\ValueObject\PublicAccessBlockConfiguration;
 use AsyncAws\S3\ValueObject\Tagging;
 
 class S3Client extends AbstractApi
@@ -2892,6 +2894,54 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * > This operation is not supported for directory buckets.
+     *
+     * Creates or modifies the `PublicAccessBlock` configuration for an Amazon S3 bucket. To use this operation, you must
+     * have the `s3:PutBucketPublicAccessBlock` permission. For more information about Amazon S3 permissions, see Specifying
+     * Permissions in a Policy [^1].
+     *
+     * ! When Amazon S3 evaluates the `PublicAccessBlock` configuration for a bucket or an object, it checks the
+     * ! `PublicAccessBlock` configuration for both the bucket (or the bucket that contains the object) and the bucket
+     * ! owner's account. If the `PublicAccessBlock` configurations are different between the bucket and the account, Amazon
+     * ! S3 uses the most restrictive combination of the bucket-level and account-level settings.
+     *
+     * For more information about when Amazon S3 considers a bucket or an object public, see The Meaning of "Public" [^2].
+     *
+     * The following operations are related to `PutPublicAccessBlock`:
+     *
+     * - GetPublicAccessBlock [^3]
+     * - DeletePublicAccessBlock [^4]
+     * - GetBucketPolicyStatus [^5]
+     * - Using Amazon S3 Block Public Access [^6]
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketPolicyStatus.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutPublicAccessBlock.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putpublicaccessblock
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ContentMD5?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   PublicAccessBlockConfiguration: PublicAccessBlockConfiguration|array,
+     *   ExpectedBucketOwner?: string|null,
+     *   '@region'?: string|null,
+     * }|PutPublicAccessBlockRequest $input
+     */
+    public function putPublicAccessBlock($input): Result
+    {
+        $input = PutPublicAccessBlockRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutPublicAccessBlock', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
+    /**
      * Uploads a part in a multipart upload.
      *
      * > In this operation, you provide new data as a part of an object in your request. However, you have an option to
@@ -3357,6 +3407,14 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => "https://s3.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
@@ -3369,13 +3427,6 @@ class S3Client extends AbstractApi
                 return [
                     'endpoint' => 'https://s3.eu-isoe-west-1.cloud.adc-e.uk',
                     'signRegion' => 'eu-isoe-west-1',
-                    'signService' => 's3',
-                    'signVersions' => ['s3v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://s3.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];

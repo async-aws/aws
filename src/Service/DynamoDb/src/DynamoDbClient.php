@@ -1202,6 +1202,14 @@ class DynamoDbClient extends AbstractApi
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+            case 'us-isob-west-1':
+                return [
+                    'endpoint' => "https://dynamodb.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 'dynamodb',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
@@ -1214,13 +1222,6 @@ class DynamoDbClient extends AbstractApi
                 return [
                     'endpoint' => 'https://dynamodb.eu-isoe-west-1.cloud.adc-e.uk',
                     'signRegion' => 'eu-isoe-west-1',
-                    'signService' => 'dynamodb',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://dynamodb.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];

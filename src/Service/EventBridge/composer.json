@@ -11,7 +11,7 @@
         "event-bridge"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "ext-json": "*",
         "async-aws/core": "^1.9"
     },
@@ -27,7 +27,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.9-dev"
+            "dev-master": "1.10-dev"
         }
     }
 }

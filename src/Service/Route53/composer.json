@@ -11,7 +11,7 @@
         "route53"
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^8.2",
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-simplexml": "*",
@@ -29,7 +29,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.11-dev"
+            "dev-master": "2.12-dev"
         }
     }
 }

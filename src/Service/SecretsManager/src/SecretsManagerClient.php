@@ -509,6 +509,7 @@ class SecretsManagerClient extends AbstractApi
                 ];
             case 'us-isob-east-1':
             case 'us-isob-east-1-fips':
+            case 'us-isob-west-1':
                 return [
                     'endpoint' => "https://secretsmanager.$region.sc2s.sgov.gov",
                     'signRegion' => $region,

@@ -182,7 +182,7 @@ foreach ($services as $service => $hasChange) {
     $fixSectionLabel = $hasChange ? '### Added' : '### Changed';
     $fixSectionOrder = [
         '### BC-BREAK', '### Removed', // Major
-        '### Added', '### Deprecated', // Minor
+        '### Added', '### Deprecated', '### Dependency bumped', // Minor
         '### Changed', '### Fixed', '### Security', // Patch
     ];
     $fixSectionIndex = array_search($fixSectionLabel, $fixSectionOrder);
@@ -265,7 +265,6 @@ foreach ($services as $service => $hasChange) {
             exit(1);
         }
         $parts = explode('.', $lastPackageVersion);
-        $level = 1;
         if (0 === (int) $parts[0]) {
             $level = min(2, $level + 1);
         }

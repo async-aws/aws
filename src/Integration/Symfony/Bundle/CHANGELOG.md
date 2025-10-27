@@ -2,9 +2,14 @@
 
 ## NOT RELEASED
 
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ### Changed
 
-- Apply no CodingStandard from latest php-cs-fixer.
+- Apply new CodingStandard from latest php-cs-fixer.
+- Add support for `async-aws` 3.0 in the testsuite
 
 ## 1.15.0
 

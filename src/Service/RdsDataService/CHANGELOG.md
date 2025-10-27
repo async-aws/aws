@@ -2,9 +2,13 @@
 
 ## NOT RELEASED
 
+### Dependency bumped
+
+- Drop support for PHP versions lower than 8.2
+
 ### Changed
 
-- Apply no CodingStandard from latest php-cs-fixer.
+- Apply new CodingStandard from latest php-cs-fixer.
 
 ## 2.3.1
 

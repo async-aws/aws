@@ -1,47 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.11.0@c9b192ab8400fdaf04b2b13d110575adc879aa90">
+<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
   <file src="src/Core/src/AbstractApi.php">
     <UndefinedFunction>
       <code><![CDATA[trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__)]]></code>
       <code><![CDATA[trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.')]]></code>
     </UndefinedFunction>
-  </file>
-  <file src="src/Core/src/Credentials/PsrCacheProvider.php">
-    <InvalidCatch>
-      <code><![CDATA[try {
-            return $this->getFromCache($configuration);
-        } catch (CacheException $e) {
-            if (null !== $this->logger) {
-                $this->logger->error('Failed to get AWS credentials from cache.', ['exception' => $e]);
-            }
-
-            return $this->decorated->getCredentials($configuration);
-        }]]></code>
-    </InvalidCatch>
-    <InvalidThrow>
-      <code>CacheException</code>
-    </InvalidThrow>
-  </file>
-  <file src="src/Core/src/Credentials/SymfonyCacheProvider.php">
-    <InvalidCatch>
-      <code><![CDATA[try {
-            return $this->cache->get('AsyncAws.Credentials.' . sha1(serialize([$configuration, \get_class($this->decorated)])), $closure);
-        } catch (CacheException $e) {
-            if (null !== $this->logger) {
-                $this->logger->error('Failed to get AWS credentials from cache.', ['exception' => $e]);
-            }
-
-            return $provider->getCredentials($configuration);
-        }]]></code>
-    </InvalidCatch>
-  </file>
-  <file src="src/Core/src/Response.php">
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$this->httpResponse->getHeaders(false)]]></code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[array<string, list<string>>]]></code>
-    </MoreSpecificReturnType>
   </file>
   <file src="src/Core/src/Waiter.php">
     <PossiblyUndefinedVariable>
@@ -71,14 +34,20 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
-    <InvalidOperand>
-      <code><![CDATA[$entry['datetime']->format('U.u')]]></code>
-    </InvalidOperand>
+    <DeprecatedConstant>
+      <code>Logger::DEBUG</code>
+    </DeprecatedConstant>
+    <InvalidArgument>
+      <code>$level</code>
+    </InvalidArgument>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$record['formatted']]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidMethodCall>
+      <code>format</code>
+    </PossiblyInvalidMethodCall>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
-    <PossiblyNullReference>
-      <code>scalarNode</code>
-    </PossiblyNullReference>
     <UndefinedInterfaceMethod>
       <code>scalarNode</code>
     </UndefinedInterfaceMethod>
@@ -128,6 +97,22 @@
       <code><![CDATA[list<AutoRollbackEvent::*>]]></code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Result/AdminInitiateAuthResponse.php">
+    <LessSpecificReturnStatement>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<ChallengeNameType::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Result/InitiateAuthResponse.php">
+    <LessSpecificReturnStatement>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<ChallengeNameType::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -161,9 +146,29 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<EncryptionAlgorithmSpec::*>]]></code>
+      <code><![CDATA[list<KeyAgreementAlgorithmSpec::*>]]></code>
       <code><![CDATA[list<MacAlgorithmSpec::*>]]></code>
       <code><![CDATA[list<SigningAlgorithmSpec::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Kms/src/Result/GetPublicKeyResponse.php">
+    <LessSpecificReturnStatement>
+      <code>$items</code>
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<EncryptionAlgorithmSpec::*>]]></code>
       <code><![CDATA[list<KeyAgreementAlgorithmSpec::*>]]></code>
+      <code><![CDATA[list<SigningAlgorithmSpec::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Lambda/src/Result/FunctionConfiguration.php">
+    <LessSpecificReturnStatement>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<Architecture::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/ListFunctionsResponse.php">
@@ -211,9 +216,9 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
+      <code><![CDATA[list<FrameMetricType::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
-      <code><![CDATA[list<FrameMetricType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/GetJobResponse.php">
@@ -225,9 +230,9 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
+      <code><![CDATA[list<FrameMetricType::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
-      <code><![CDATA[list<FrameMetricType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/MediaConvert/src/Result/ListJobsResponse.php">
@@ -239,9 +244,9 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[list<AudioChannelTag::*>]]></code>
+      <code><![CDATA[list<FrameMetricType::*>]]></code>
       <code><![CDATA[list<HlsAdMarkers::*>]]></code>
       <code><![CDATA[list<TeletextPageType::*>]]></code>
-      <code><![CDATA[list<FrameMetricType::*>]]></code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Rekognition/src/Result/IndexFacesResponse.php">
@@ -252,7 +257,7 @@
       <code><![CDATA[list<Reason::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
+  <file src="src/Service/S3/src/Result/ListObjectVersionsOutput.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
@@ -260,7 +265,7 @@
       <code><![CDATA[list<ChecksumAlgorithm::*>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/S3/src/Result/ListObjectVersionsOutput.php">
+  <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
     </LessSpecificReturnStatement>
@@ -279,16 +284,6 @@
       <code>empty($s3SignerOptions)</code>
     </TypeDoesNotContainType>
   </file>
-  <file src="src/Service/StepFunctions/src/Result/StartExecutionOutput.php">
-    <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['startDate']))]]></code>
-    </PossiblyFalsePropertyAssignmentValue>
-  </file>
-  <file src="src/Service/StepFunctions/src/Result/StopExecutionOutput.php">
-    <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['stopDate']))]]></code>
-    </PossiblyFalsePropertyAssignmentValue>
-  </file>
   <file src="src/Service/Sqs/src/Result/GetQueueAttributesResult.php">
     <LessSpecificReturnStatement>
       <code>$items</code>
@@ -305,40 +300,14 @@
       <code><![CDATA[array<MessageSystemAttributeName::*, string>]]></code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/Lambda/src/Result/FunctionConfiguration.php">
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$items]]></code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[list<Architecture::*>]]></code>
-    </MoreSpecificReturnType>
+  <file src="src/Service/StepFunctions/src/Result/StartExecutionOutput.php">
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['startDate']))]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
   </file>
-  <file src="src/Service/CognitoIdentityProvider/src/Result/InitiateAuthResponse.php">
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$items]]></code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[list<ChallengeNameType::*>]]></code>
-    </MoreSpecificReturnType>
-  </file>
-  <file src="src/Service/CognitoIdentityProvider/src/Result/AdminInitiateAuthResponse.php">
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$items]]></code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[list<ChallengeNameType::*>]]></code>
-    </MoreSpecificReturnType>
-  </file>
-  <file src="src/Service/Kms/src/Result/GetPublicKeyResponse.php">
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$items]]></code>
-      <code><![CDATA[$items]]></code>
-      <code><![CDATA[$items]]></code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[list<EncryptionAlgorithmSpec::*>]]></code>
-      <code><![CDATA[list<KeyAgreementAlgorithmSpec::*>]]></code>
-      <code><![CDATA[list<SigningAlgorithmSpec::*>]]></code>
-    </MoreSpecificReturnType>
+  <file src="src/Service/StepFunctions/src/Result/StopExecutionOutput.php">
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[$d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['stopDate']))]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
   </file>
 </files>
