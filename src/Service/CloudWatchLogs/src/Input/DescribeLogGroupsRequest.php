@@ -103,14 +103,14 @@ final class DescribeLogGroupsRequest extends Input
 
     /**
      * @param array{
-     *   accountIdentifiers?: null|string[],
-     *   logGroupNamePrefix?: null|string,
-     *   logGroupNamePattern?: null|string,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
-     *   includeLinkedAccounts?: null|bool,
-     *   logGroupClass?: null|LogGroupClass::*,
-     *   logGroupIdentifiers?: null|string[],
+     *   accountIdentifiers?: string[]|null,
+     *   logGroupNamePrefix?: string|null,
+     *   logGroupNamePattern?: string|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
+     *   includeLinkedAccounts?: bool|null,
+     *   logGroupClass?: LogGroupClass::*|null,
+     *   logGroupIdentifiers?: string[]|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -129,14 +129,14 @@ final class DescribeLogGroupsRequest extends Input
 
     /**
      * @param array{
-     *   accountIdentifiers?: null|string[],
-     *   logGroupNamePrefix?: null|string,
-     *   logGroupNamePattern?: null|string,
-     *   nextToken?: null|string,
-     *   limit?: null|int,
-     *   includeLinkedAccounts?: null|bool,
-     *   logGroupClass?: null|LogGroupClass::*,
-     *   logGroupIdentifiers?: null|string[],
+     *   accountIdentifiers?: string[]|null,
+     *   logGroupNamePrefix?: string|null,
+     *   logGroupNamePattern?: string|null,
+     *   nextToken?: string|null,
+     *   limit?: int|null,
+     *   includeLinkedAccounts?: bool|null,
+     *   logGroupClass?: LogGroupClass::*|null,
+     *   logGroupIdentifiers?: string[]|null,
      *   '@region'?: string|null,
      * }|DescribeLogGroupsRequest $input
      */

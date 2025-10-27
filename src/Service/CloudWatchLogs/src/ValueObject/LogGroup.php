@@ -122,17 +122,17 @@ final class LogGroup
 
     /**
      * @param array{
-     *   logGroupName?: null|string,
-     *   creationTime?: null|int,
-     *   retentionInDays?: null|int,
-     *   metricFilterCount?: null|int,
-     *   arn?: null|string,
-     *   storedBytes?: null|int,
-     *   kmsKeyId?: null|string,
-     *   dataProtectionStatus?: null|DataProtectionStatus::*,
-     *   inheritedProperties?: null|array<InheritedProperty::*>,
-     *   logGroupClass?: null|LogGroupClass::*,
-     *   logGroupArn?: null|string,
+     *   logGroupName?: string|null,
+     *   creationTime?: int|null,
+     *   retentionInDays?: int|null,
+     *   metricFilterCount?: int|null,
+     *   arn?: string|null,
+     *   storedBytes?: int|null,
+     *   kmsKeyId?: string|null,
+     *   dataProtectionStatus?: DataProtectionStatus::*|null,
+     *   inheritedProperties?: array<InheritedProperty::*>|null,
+     *   logGroupClass?: LogGroupClass::*|null,
+     *   logGroupArn?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -152,17 +152,17 @@ final class LogGroup
 
     /**
      * @param array{
-     *   logGroupName?: null|string,
-     *   creationTime?: null|int,
-     *   retentionInDays?: null|int,
-     *   metricFilterCount?: null|int,
-     *   arn?: null|string,
-     *   storedBytes?: null|int,
-     *   kmsKeyId?: null|string,
-     *   dataProtectionStatus?: null|DataProtectionStatus::*,
-     *   inheritedProperties?: null|array<InheritedProperty::*>,
-     *   logGroupClass?: null|LogGroupClass::*,
-     *   logGroupArn?: null|string,
+     *   logGroupName?: string|null,
+     *   creationTime?: int|null,
+     *   retentionInDays?: int|null,
+     *   metricFilterCount?: int|null,
+     *   arn?: string|null,
+     *   storedBytes?: int|null,
+     *   kmsKeyId?: string|null,
+     *   dataProtectionStatus?: DataProtectionStatus::*|null,
+     *   inheritedProperties?: array<InheritedProperty::*>|null,
+     *   logGroupClass?: LogGroupClass::*|null,
+     *   logGroupArn?: string|null,
      * }|LogGroup $input
      */
     public static function create($input): self
