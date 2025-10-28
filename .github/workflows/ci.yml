@@ -58,7 +58,6 @@ jobs:
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core", "options": {"versions": {"async-aws\/core": "dev-master"}}, "canonical": ${{matrix.strategy != 'lowest' && 'true' || 'false'}} }],"require": \{/' composer.json
             composer config minimum-stability dev
             composer config prefer-stable true
-            composer require --dev --no-update symfony/phpunit-bridge:^7.3.2
             cat composer.json
 
             echo ::endgroup::
@@ -71,7 +70,6 @@ jobs:
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
 
-            sed -i -re 's/"require": \{/"conflict": \{"phpunit\/phpunit": ">=10.0"\},"require": \{/' composer.json
             composer config minimum-stability dev
             composer config prefer-stable true
             cat composer.json
@@ -93,9 +91,7 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
 
             localExit=0
-            composer require symfony/phpunit-bridge:^7.3.2@dev --dev --no-update --no-install
             composer update --no-interaction --no-scripts --prefer-dist --optimize-autoloader ${{ matrix.strategy == 'lowest' && '--prefer-lowest' || '' }} $COMPOSER_OPTIONS || localExit=1
-            ./vendor/bin/simple-phpunit install
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
               echo "::error::$COMPONENT error"
@@ -105,19 +101,16 @@ jobs:
 
       - name: Run tests
         env:
-          OVERRIDE_SYMFONY_DEPRECATIONS_HELPER: ${{ matrix.strategy == 'lowest' && 'max[self]=9999' || '' }}
+          PHPUNIT_FLAGS: ${{ matrix.strategy == 'lowest' && '--do-not-fail-on-deprecation' || '' }}
         run: |
           ok=0
-          if [ -n "$OVERRIDE_SYMFONY_DEPRECATIONS_HELPER" ]; then
-            export SYMFONY_DEPRECATIONS_HELPER=$OVERRIDE_SYMFONY_DEPRECATIONS_HELPER
-          fi
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
             localExit=0
             cd "$CURRENT_DIR/$COMPONENT"
-            ./vendor/bin/simple-phpunit 2>&1 || localExit=1
+            ./vendor/bin/phpunit $PHPUNIT_FLAGS 2>&1 || localExit=1
             ok=$(( $localExit || $ok ))
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
@@ -163,12 +156,7 @@ jobs:
       - name: Download dependencies
         run: |
           composer config minimum-stability ${{ matrix.minimum_stability }}
-          composer require --dev --no-update "phpunit/phpunit=9.6.*"
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run tests
-        run: |
-          echo ::group::Install
-          ./vendor/bin/simple-phpunit install
-          echo ::endgroup::
-          ./vendor/bin/simple-phpunit
+        run: ./vendor/bin/phpunit

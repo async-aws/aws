@@ -147,6 +147,7 @@ class KmsClientTest extends TestCase
         ]);
 
         $result = $client->listAliases($input);
+        $result = iterator_to_array($result);
         self::assertCount(0, $result);
 
         $client->createAlias([
@@ -155,8 +156,9 @@ class KmsClientTest extends TestCase
         ]);
 
         $result = $client->listAliases($input);
+        $result = iterator_to_array($result);
         self::assertCount(1, $result);
-        self::assertSame($name, iterator_to_array($result)[0]->getAliasName());
+        self::assertSame($name, $result[0]->getAliasName());
     }
 
     public function testSign(): void

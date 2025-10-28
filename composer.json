@@ -21,13 +21,13 @@
         "illuminate/cache": "^6.18.13 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "illuminate/queue": "^6.18.11 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "illuminate/support": "^6.18.13 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
-        "matthiasnoback/symfony-config-test": "^4.1 || ^5.0",
+        "matthiasnoback/symfony-config-test": "^6.1",
         "monolog/monolog": "^1.1 || ^2.0 || ^3.0",
         "nette/php-generator": "^3.6 || ^4.1",
         "nette/utils": "^3.0 || ^4.0",
-        "nikic/php-parser": "^4.0",
         "nyholm/symfony-bundle-test": "^3.0",
         "phpstan/phpstan": "~2.0.0",
+        "phpunit/phpunit": "^11.5.42",
         "psalm/phar": "~6.13.1",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",
         "swaggest/json-diff": "^3.7",
@@ -36,14 +36,16 @@
         "symfony/console": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/deprecation-contracts": "^2.1 || ^3.0",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
         "symfony/filesystem": "^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/finder": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/framework-bundle": "^5.4.45 || ^6.4.13 || ^7.1.6",
         "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
-        "symfony/phpunit-bridge": "^5.3 || ^6.0 || ^7.0 || ^8.0",
-        "symfony/polyfill-uuid": "^1.13.1"
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0",
+        "symfony/polyfill-uuid": "^1.13.1",
+        "symfony/runtime": "^7.3.2 || ^8.0"
     },
     "conflict": {
-        "phpunit/phpunit": ">=10",
         "symfony/http-client": "5.2.0"
     },
     "autoload": {
@@ -156,7 +158,8 @@
     },
     "config": {
         "allow-plugins": {
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "symfony/runtime": false
         }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Test\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 
@@ -12,9 +13,7 @@ use Symfony\Component\Finder\Finder;
  */
 class ChangelogTest extends TestCase
 {
-    /**
-     * @dataProvider provideChangedlogFiles
-     */
+    #[DataProvider('provideChangedlogFiles')]
     public function testChangelogFormat(string $changelogPath)
     {
         $lines = explode("\n", file_get_contents($changelogPath));
@@ -131,9 +130,7 @@ class ChangelogTest extends TestCase
         self::assertTrue($finalWords, 'CHANGELOG MUST contains "First version"');
     }
 
-    /**
-     * @dataProvider provideChangedServicesWithoutChangelog
-     */
+    #[DataProvider('provideChangedServicesWithoutChangelog')]
     public function testChangelogEntryForService(string $service, string $base, $isCommentOnly)
     {
         if (!$isCommentOnly) {

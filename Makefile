@@ -39,7 +39,7 @@ stop-docker:
 	docker rm async_aws_kms || true
 
 test: initialize
-	./vendor/bin/simple-phpunit
+	./vendor/bin/phpunit
 
 website-assets: website/template/assets/app.css
 website/template/assets/app.css: website/node_modules website/assets/*

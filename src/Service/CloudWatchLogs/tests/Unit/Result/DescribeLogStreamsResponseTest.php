@@ -7,6 +7,7 @@ use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -56,11 +57,7 @@ class DescribeLogStreamsResponseTest extends TestCase
         self::assertSame('88602967394531410094953670125156212707622379445839968487', $logStreams[0]->getUploadSequenceToken());
     }
 
-    /**
-     * @group legacy
-     *
-     * @expectedDeprecation The property "storedBytes" of "%s" is deprecated by AWS.
-     */
+    #[IgnoreDeprecations]
     public function testDescribeLogStreamsResponseDeprecatedAttribute(): void
     {
         // see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogStreams.html
@@ -84,6 +81,8 @@ class DescribeLogStreamsResponseTest extends TestCase
 
         /** @var LogStream[] $logStreams */
         $logStreams = iterator_to_array($result->getLogStreams(true));
+
+        $this->expectUserDeprecationMessage('The property "storedBytes" of "AsyncAws\CloudWatchLogs\ValueObject\LogStream" is deprecated by AWS.');
 
         self::assertSame(0, $logStreams[0]->getStoredBytes());
     }

@@ -9,13 +9,12 @@ use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\RewindableStream;
 use AsyncAws\Core\Stream\StringStream;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RewindableStreamTest extends TestCase
 {
-    /**
-     * @dataProvider provideLengths
-     */
+    #[DataProvider('provideLengths')]
     public function testLength(RequestStream $content, ?int $expected): void
     {
         $stream = RewindableStream::create($content);
@@ -23,9 +22,7 @@ class RewindableStreamTest extends TestCase
         self::assertSame($expected, $stream->length());
     }
 
-    /**
-     * @dataProvider provideStrings
-     */
+    #[DataProvider('provideStrings')]
     public function testStringify(RequestStream $content, string $expected): void
     {
         $stream = RewindableStream::create($content);
@@ -33,9 +30,7 @@ class RewindableStreamTest extends TestCase
         self::assertSame($expected, $stream->stringify());
     }
 
-    /**
-     * @dataProvider provideChunks
-     */
+    #[DataProvider('provideChunks')]
     public function testChunk(RequestStream $content, array $expected): void
     {
         $stream = RewindableStream::create($content);
@@ -46,7 +41,7 @@ class RewindableStreamTest extends TestCase
     /**
      * Asserts the streams returns always the same value, but calls the closure once.
      */
-    public function testNoRewind(): void
+    public static function testNoRewind(): void
     {
         $count = 0;
         $stream = RewindableStream::create(CallableStream::create(function () use (&$count) {
@@ -60,19 +55,19 @@ class RewindableStreamTest extends TestCase
         self::assertSame(2, $count);
     }
 
-    public function provideLengths(): iterable
+    public static function provideLengths(): iterable
     {
         yield [StringStream::create('Hello world'), 11];
         yield [CallableStream::create(function () {}), null];
     }
 
-    public function provideStrings(): iterable
+    public static function provideStrings(): iterable
     {
         yield [StringStream::create('Hello world'), 'Hello world'];
         yield [IterableStream::create((function () { yield 'Hello world'; })()), 'Hello world'];
     }
 
-    public function provideChunks(): iterable
+    public static function provideChunks(): iterable
     {
         yield [StringStream::create('Hello world'), ['Hello world']];
     }

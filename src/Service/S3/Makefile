@@ -8,7 +8,7 @@ start-docker:
 	docker run -d -p 4569:4569 --name async_aws_s3-client asyncaws/testing-s3
 
 test: initialize
-	./vendor/bin/simple-phpunit
+	./vendor/bin/phpunit
 
 clean: stop-docker
 stop-docker:

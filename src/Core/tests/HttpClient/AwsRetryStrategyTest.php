@@ -4,6 +4,7 @@ namespace AsyncAws\Core\Tests\HttpClient;
 
 use AsyncAws\Core\HttpClient\AwsRetryStrategy;
 use AsyncAws\Core\Test\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\AsyncContext;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -11,10 +12,8 @@ use Symfony\Component\HttpClient\Retry\GenericRetryStrategy;
 
 class AwsRetryStrategyTest extends TestCase
 {
-    /**
-     * @dataProvider provideRetries
-     */
-    public function testShoudRetry(?bool $expected, int $statusCode, ?string $response): void
+    #[DataProvider('provideRetries')]
+    public function testShouldRetry(?bool $expected, int $statusCode, ?string $response): void
     {
         if (!class_exists(GenericRetryStrategy::class)) {
             self::markTestSkipped('AwsRetryStrategy requires symfony/http-client 5.2');
@@ -25,7 +24,7 @@ class AwsRetryStrategyTest extends TestCase
         self::assertSame($expected, $strategy->shouldRetry($context, $response, null));
     }
 
-    public function provideRetries(): iterable
+    public static function provideRetries(): iterable
     {
         yield [false, 200, null];
         yield [true, 429, null];

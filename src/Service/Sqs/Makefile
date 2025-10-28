@@ -7,7 +7,7 @@ start-docker:
 	docker run -d -p 9494:9494 --name async_aws_sqs asyncaws/testing-sqs
 
 test: initialize
-	./vendor/bin/simple-phpunit
+	./vendor/bin/phpunit
 
 clean: stop-docker
 stop-docker:

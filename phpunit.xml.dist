@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
          failOnRisky="true"
          failOnWarning="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
 >
+  <source ignoreSuppressionOfDeprecations="true" ignoreIndirectDeprecations="true">
+    <include>
+      <directory>./src</directory>
+    </include>
+    <exclude>
+      <directory>./src/Core/tests/</directory>
+      <directory>./src/Service/*/tests/</directory>
+      <directory>./src/Integration/*/tests/</directory>
+      <directory>./src/Integration/*/*/tests/</directory>
+    </exclude>
+    <deprecationTrigger>
+      <function>trigger_deprecation</function>
+    </deprecationTrigger>
+  </source>
   <php>
     <ini name="error_reporting" value="-1"/>
     <env name="AWS_SHARED_CREDENTIALS_FILE" value="/dev/null" />
     <env name="AWS_CONFIG_FILE" value="/dev/null" />
-    <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;quiet[]=indirect" />
   </php>
   <testsuites>
     <testsuite name="Test Suite">

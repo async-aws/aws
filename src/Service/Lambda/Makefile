@@ -9,7 +9,7 @@ start-docker:
 	docker run -d -p 9001:9001 -e DOCKER_LAMBDA_STAY_OPEN=1 -v "$(ROOT_DIR)/tests/fixtures/lambda":/var/task:ro,delegated --name async_aws_lambda lambci/lambda:nodejs12.x index.handler
 
 test: initialize
-	./vendor/bin/simple-phpunit
+	./vendor/bin/phpunit
 
 clean: stop-docker
 stop-docker:

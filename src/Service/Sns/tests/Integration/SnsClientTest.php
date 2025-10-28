@@ -192,7 +192,7 @@ class SnsClientTest extends TestCase
 
         self::assertStringContainsString('arn:aws:sns:us-east-1:000000000000:async-aws:', $result->getSubscriptionArn());
 
-        self::assertCount(1, $client->listSubscriptionsByTopic(['TopicArn' => $this->topicArn]));
+        self::assertCount(1, iterator_to_array($client->listSubscriptionsByTopic(['TopicArn' => $this->topicArn])));
     }
 
     public function testUnsubscribe(): void
@@ -207,7 +207,7 @@ class SnsClientTest extends TestCase
         ]);
 
         $result->resolve();
-        self::assertCount(1, $client->listSubscriptionsByTopic(['TopicArn' => $this->topicArn]));
+        self::assertCount(1, iterator_to_array($client->listSubscriptionsByTopic(['TopicArn' => $this->topicArn])));
 
         $input = new UnsubscribeInput([
             'SubscriptionArn' => $result->getSubscriptionArn(),
@@ -215,7 +215,7 @@ class SnsClientTest extends TestCase
         $result = $client->Unsubscribe($input);
 
         $result->resolve();
-        self::assertCount(0, $client->listSubscriptionsByTopic(['TopicArn' => $this->topicArn]));
+        self::assertCount(0, iterator_to_array($client->listSubscriptionsByTopic(['TopicArn' => $this->topicArn])));
     }
 
     private function getClient(): SnsClient

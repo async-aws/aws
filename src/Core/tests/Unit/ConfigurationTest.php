@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\Configuration;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ConfigurationTest extends TestCase
 {
-    /**
-     * @dataProvider provideConfiguration
-     */
+    #[DataProvider('provideConfiguration')]
     public function testCreate($config, $env, $expected)
     {
         foreach ($env as $key => $value) {
@@ -61,7 +60,7 @@ class ConfigurationTest extends TestCase
         self::assertNull($config->get('accessKeySecret'));
     }
 
-    public function provideConfiguration(): iterable
+    public static function provideConfiguration(): iterable
     {
         yield 'simple config' => [['endpoint' => 'foo'], [], ['endpoint' => 'foo']];
         yield 'empty config' => [['endpoint' => ''], [], ['endpoint' => '']];

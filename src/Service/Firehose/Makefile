@@ -5,7 +5,7 @@ start-docker:
 	echo "Noop"
 
 test: initialize
-	./vendor/bin/simple-phpunit
+	./vendor/bin/phpunit
 
 clean: stop-docker
 stop-docker:

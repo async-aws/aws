@@ -40,9 +40,7 @@ jobs:
           restore-keys: phpstan-
 
       - name: Download dependencies
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader
-          ./vendor/bin/simple-phpunit install
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: PHPStan
         run: vendor/bin/phpstan analyze --no-progress
@@ -104,9 +102,7 @@ jobs:
           restore-keys: composer-
 
       - name: Download dependencies
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader
-          ./vendor/bin/simple-phpunit install
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Psalm
         run: vendor/bin/psalm.phar --no-progress --show-info=false --stats

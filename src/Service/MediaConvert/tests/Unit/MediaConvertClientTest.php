@@ -16,6 +16,7 @@ use AsyncAws\MediaConvert\Result\DescribeEndpointsResponse;
 use AsyncAws\MediaConvert\Result\GetJobResponse;
 use AsyncAws\MediaConvert\Result\ListJobsResponse;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -55,9 +56,7 @@ class MediaConvertClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
     public function testDescribeEndpoints(): void
     {
         $client = new MediaConvertClient([], new NullProvider(), new MockHttpClient());

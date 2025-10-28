@@ -5,14 +5,11 @@ namespace AsyncAws\Athena\Tests\Unit\Input;
 use AsyncAws\Athena\Input\StartCalculationExecutionRequest;
 use AsyncAws\Athena\ValueObject\CalculationConfiguration;
 use AsyncAws\Core\Test\TestCase;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 class StartCalculationExecutionRequestTest extends TestCase
 {
-    /**
-     * @group legacy
-     *
-     * @expectedDeprecation The property "CalculationConfiguration" of "%s" is deprecated by AWS.
-     */
+    #[IgnoreDeprecations]
     public function testRequest(): void
     {
         $input = new StartCalculationExecutionRequest([
@@ -42,6 +39,8 @@ Accept: application/json
     "ClientRequestToken": "i@d-2023"
 }
                 ';
+
+        $this->expectUserDeprecationMessage('The property "CalculationConfiguration" of "AsyncAws\Athena\Input\StartCalculationExecutionRequest" is deprecated by AWS.');
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
