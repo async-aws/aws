@@ -82,6 +82,7 @@ class DescribeStreamSummaryOutput extends Result
             'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,
             'OpenShardCount' => (int) $json['OpenShardCount'],
             'ConsumerCount' => isset($json['ConsumerCount']) ? (int) $json['ConsumerCount'] : null,
+            'MaxRecordSizeInKiB' => isset($json['MaxRecordSizeInKiB']) ? (int) $json['MaxRecordSizeInKiB'] : null,
         ]);
     }
 

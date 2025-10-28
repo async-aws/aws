@@ -110,6 +110,13 @@ final class StreamDescriptionSummary
     private $consumerCount;
 
     /**
+     * The maximum record size of a single record in kibibyte (KiB) that you can write to, and read from a stream.
+     *
+     * @var int|null
+     */
+    private $maxRecordSizeInKiB;
+
+    /**
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
@@ -122,6 +129,7 @@ final class StreamDescriptionSummary
      *   KeyId?: string|null,
      *   OpenShardCount: int,
      *   ConsumerCount?: int|null,
+     *   MaxRecordSizeInKiB?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -137,6 +145,7 @@ final class StreamDescriptionSummary
         $this->keyId = $input['KeyId'] ?? null;
         $this->openShardCount = $input['OpenShardCount'] ?? $this->throwException(new InvalidArgument('Missing required field "OpenShardCount".'));
         $this->consumerCount = $input['ConsumerCount'] ?? null;
+        $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
     }
 
     /**
@@ -152,6 +161,7 @@ final class StreamDescriptionSummary
      *   KeyId?: string|null,
      *   OpenShardCount: int,
      *   ConsumerCount?: int|null,
+     *   MaxRecordSizeInKiB?: int|null,
      * }|StreamDescriptionSummary $input
      */
     public static function create($input): self
@@ -183,6 +193,11 @@ final class StreamDescriptionSummary
     public function getKeyId(): ?string
     {
         return $this->keyId;
+    }
+
+    public function getMaxRecordSizeInKiB(): ?int
+    {
+        return $this->maxRecordSizeInKiB;
     }
 
     public function getOpenShardCount(): int

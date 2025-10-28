@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-isob-west-1` region
+- AWS api-change: Adds support for record sizes up to 10MiB and introduces new UpdateMaxRecordSize API to modify stream record size limits. Adds record size parameters to existing CreateStream and DescribeStreamSummary APIs for request and response payloads respectively.
 
 ### Dependency bumped
 
