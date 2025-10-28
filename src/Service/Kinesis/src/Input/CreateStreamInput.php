@@ -49,11 +49,19 @@ final class CreateStreamInput extends Input
     private $tags;
 
     /**
+     * The maximum record size of a single record in kibibyte (KiB) that you can write to, and read from a stream.
+     *
+     * @var int|null
+     */
+    private $maxRecordSizeInKiB;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   ShardCount?: int|null,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Tags?: array<string, string>|null,
+     *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,6 +71,7 @@ final class CreateStreamInput extends Input
         $this->shardCount = $input['ShardCount'] ?? null;
         $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
         $this->tags = $input['Tags'] ?? null;
+        $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
         parent::__construct($input);
     }
 
@@ -72,12 +81,18 @@ final class CreateStreamInput extends Input
      *   ShardCount?: int|null,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Tags?: array<string, string>|null,
+     *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getMaxRecordSizeInKiB(): ?int
+    {
+        return $this->maxRecordSizeInKiB;
     }
 
     public function getShardCount(): ?int
@@ -127,6 +142,13 @@ final class CreateStreamInput extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setMaxRecordSizeInKiB(?int $value): self
+    {
+        $this->maxRecordSizeInKiB = $value;
+
+        return $this;
     }
 
     public function setShardCount(?int $value): self
@@ -182,6 +204,9 @@ final class CreateStreamInput extends Input
                     $payload['Tags'][$name] = $mv;
                 }
             }
+        }
+        if (null !== $v = $this->maxRecordSizeInKiB) {
+            $payload['MaxRecordSizeInKiB'] = $v;
         }
 
         return $payload;
