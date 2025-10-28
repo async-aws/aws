@@ -62,7 +62,7 @@ class SignerV4 implements Signer
 
     public function presign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
+        $now = $context->getCurrentDate() ?? new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
 
         // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
         $now = $now->setTimezone(new \DateTimeZone('UTC'));
@@ -73,7 +73,7 @@ class SignerV4 implements Signer
 
     public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
+        $now = $context->getCurrentDate() ?? new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
 
         // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
         $now = $now->setTimezone(new \DateTimeZone('UTC'));

@@ -20,6 +20,7 @@
 ### Fixed
 
 - Buffer the response in temporary file to avoid issues when stream is used by another request's body
+- SignerV4: Fix signing request during DST change
 
 ## 1.27.1
 
