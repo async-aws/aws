@@ -305,6 +305,37 @@ final class CopyObjectRequest extends Input
     private $grantWriteAcp;
 
     /**
+     * Copies the object if the entity tag (ETag) of the destination object matches the specified tag. If the ETag values do
+     * not match, the operation returns a `412 Precondition Failed` error. If a concurrent operation occurs during the
+     * upload S3 returns a `409 ConditionalRequestConflict` response. On a 409 failure you should fetch the object's ETag
+     * and retry the upload.
+     *
+     * Expects the ETag value as a string.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
+     *
+     * @var string|null
+     */
+    private $ifMatch;
+
+    /**
+     * Copies the object only if the object key name at the destination does not already exist in the bucket specified.
+     * Otherwise, Amazon S3 returns a `412 Precondition Failed` error. If a concurrent operation occurs during the upload S3
+     * returns a `409 ConditionalRequestConflict` response. On a 409 failure you should retry the upload.
+     *
+     * Expects the '*' (asterisk) character.
+     *
+     * For more information about conditional requests, see RFC 7232 [^1].
+     *
+     * [^1]: https://tools.ietf.org/html/rfc7232
+     *
+     * @var string|null
+     */
+    private $ifNoneMatch;
+
+    /**
      * The key of the destination object.
      *
      * @required
@@ -718,6 +749,8 @@ final class CopyObjectRequest extends Input
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
      *   GrantWriteACP?: string|null,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Key?: string,
      *   Metadata?: array<string, string>|null,
      *   MetadataDirective?: MetadataDirective::*|null,
@@ -764,6 +797,8 @@ final class CopyObjectRequest extends Input
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
         $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
+        $this->ifMatch = $input['IfMatch'] ?? null;
+        $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
         $this->key = $input['Key'] ?? null;
         $this->metadata = $input['Metadata'] ?? null;
         $this->metadataDirective = $input['MetadataDirective'] ?? null;
@@ -810,6 +845,8 @@ final class CopyObjectRequest extends Input
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
      *   GrantWriteACP?: string|null,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Key?: string,
      *   Metadata?: array<string, string>|null,
      *   MetadataDirective?: MetadataDirective::*|null,
@@ -965,6 +1002,16 @@ final class CopyObjectRequest extends Input
     public function getGrantWriteAcp(): ?string
     {
         return $this->grantWriteAcp;
+    }
+
+    public function getIfMatch(): ?string
+    {
+        return $this->ifMatch;
+    }
+
+    public function getIfNoneMatch(): ?string
+    {
+        return $this->ifNoneMatch;
     }
 
     public function getKey(): ?string
@@ -1140,6 +1187,12 @@ final class CopyObjectRequest extends Input
         }
         if (null !== $this->grantWriteAcp) {
             $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
+        }
+        if (null !== $this->ifMatch) {
+            $headers['If-Match'] = $this->ifMatch;
+        }
+        if (null !== $this->ifNoneMatch) {
+            $headers['If-None-Match'] = $this->ifNoneMatch;
         }
         if (null !== $this->metadataDirective) {
             if (!MetadataDirective::exists($this->metadataDirective)) {
@@ -1423,6 +1476,20 @@ final class CopyObjectRequest extends Input
     public function setGrantWriteAcp(?string $value): self
     {
         $this->grantWriteAcp = $value;
+
+        return $this;
+    }
+
+    public function setIfMatch(?string $value): self
+    {
+        $this->ifMatch = $value;
+
+        return $this;
+    }
+
+    public function setIfNoneMatch(?string $value): self
+    {
+        $this->ifNoneMatch = $value;
 
         return $this;
     }

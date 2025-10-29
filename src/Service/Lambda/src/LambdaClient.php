@@ -42,6 +42,7 @@ use AsyncAws\Lambda\Exception\RequestTooLargeException;
 use AsyncAws\Lambda\Exception\ResourceConflictException;
 use AsyncAws\Lambda\Exception\ResourceNotFoundException;
 use AsyncAws\Lambda\Exception\ResourceNotReadyException;
+use AsyncAws\Lambda\Exception\SerializedRequestEntityTooLargeException;
 use AsyncAws\Lambda\Exception\ServiceException;
 use AsyncAws\Lambda\Exception\SnapStartException;
 use AsyncAws\Lambda\Exception\SnapStartNotReadyException;
@@ -129,6 +130,9 @@ class LambdaClient extends AbstractApi
      * Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all
      * versions and aliases are deleted. This doesn't require the user to have explicit permissions for DeleteAlias.
      *
+     * > A deleted Lambda function cannot be recovered. Ensure that you specify the correct function name and version before
+     * > deleting.
+     *
      * To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping. For Amazon Web Services
      * services and resources that invoke your function directly, delete the trigger in the service where you originally
      * configured it.
@@ -200,6 +204,9 @@ class LambdaClient extends AbstractApi
      * default, Lambda invokes your function synchronously (i.e. the`InvocationType` is `RequestResponse`). To invoke a
      * function asynchronously, set `InvocationType` to `Event`. Lambda passes the `ClientContext` object to your function
      * for synchronous invocations only.
+     *
+     * For synchronous invocations, the maximum payload size is 6 MB. For asynchronous invocations, the maximum payload size
+     * is 1 MB.
      *
      * For synchronous invocation [^1], details about the function response, including errors, are included in the response
      * body and headers. For either invocation type, you can find more information in the execution log [^2] and trace [^3].
@@ -273,6 +280,7 @@ class LambdaClient extends AbstractApi
      * @throws ResourceConflictException
      * @throws ResourceNotFoundException
      * @throws ResourceNotReadyException
+     * @throws SerializedRequestEntityTooLargeException
      * @throws ServiceException
      * @throws SnapStartException
      * @throws SnapStartNotReadyException
@@ -308,6 +316,7 @@ class LambdaClient extends AbstractApi
             'ResourceConflictException' => ResourceConflictException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ResourceNotReadyException' => ResourceNotReadyException::class,
+            'SerializedRequestEntityTooLargeException' => SerializedRequestEntityTooLargeException::class,
             'ServiceException' => ServiceException::class,
             'SnapStartException' => SnapStartException::class,
             'SnapStartNotReadyException' => SnapStartNotReadyException::class,

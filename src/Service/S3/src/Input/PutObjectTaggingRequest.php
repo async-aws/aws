@@ -97,6 +97,9 @@ final class PutObjectTaggingRequest extends Input
     private $expectedBucketOwner;
 
     /**
+     * Confirms that the requester knows that she or he will be charged for the tagging object request. Bucket owners need
+     * not specify this parameter in their requests.
+     *
      * @var RequestPayer::*|null
      */
     private $requestPayer;
