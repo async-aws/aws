@@ -6,6 +6,7 @@
 
 - AWS api-change: Add NodeJs 24 (nodejs24.x) support to AWS Lambda.
 - AWS api-change: Added `us-isob-west-1` region
+- AWS api-change: Added SerializedRequestEntityTooLargeException to Lambda Invoke API
 
 ### Dependency bumped
 

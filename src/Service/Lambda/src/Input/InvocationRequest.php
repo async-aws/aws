@@ -58,7 +58,8 @@ final class InvocationRequest extends Input
     private $clientContext;
 
     /**
-     * The JSON that you want to provide to your Lambda function as input.
+     * The JSON that you want to provide to your Lambda function as input. The maximum payload size is 6 MB for synchronous
+     * invocations and 1 MB for asynchronous invocations.
      *
      * You can enter the JSON directly. For example, `--payload '{ "key": "value" }'`. You can also specify a file path. For
      * example, `--payload file://payload.json`.

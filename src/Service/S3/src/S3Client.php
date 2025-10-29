@@ -154,6 +154,9 @@ class S3Client extends AbstractApi
      * - ListParts [^10]
      * - ListMultipartUploads [^11]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
@@ -326,6 +329,9 @@ class S3Client extends AbstractApi
      * - ListParts [^14]
      * - ListMultipartUploads [^15]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/ErrorBestPractices.html
@@ -376,16 +382,15 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
-     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
-     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
-     * ! However, you will no longer be able to create new Email Grantee ACLs.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * Creates a copy of an object that is already stored in Amazon S3.
+     *
+     * ! End of support notice: As of October 1, 2025, Amazon S3 has discontinued support for Email Grantee Access Control
+     * ! Lists (ACLs). If you attempt to use an Email Grantee ACL in a request after October 1, 2025, the request will
+     * ! receive an `HTTP 405` (Method Not Allowed) error.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia), US West (N. California), US
+     * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
+     * ! America (São Paulo).
      *
      * > You can store individual objects of up to 5 TB in Amazon S3. You create a copy of your object up to 5 GB in size in
      * > a single atomic action using this API. However, to copy an object greater than 5 GB, you must use the multipart
@@ -502,6 +507,9 @@ class S3Client extends AbstractApi
      * - PutObject [^11]
      * - GetObject [^12]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
@@ -537,6 +545,8 @@ class S3Client extends AbstractApi
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
      *   GrantWriteACP?: string|null,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Key: string,
      *   Metadata?: array<string, string>|null,
      *   MetadataDirective?: MetadataDirective::*|null,
@@ -576,22 +586,13 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
-     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
-     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
-     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * ! End of support notice: As of October 1, 2025, Amazon S3 has discontinued support for Email Grantee Access Control
+     * ! Lists (ACLs). If you attempt to use an Email Grantee ACL in a request after October 1, 2025, the request will
+     * ! receive an `HTTP 405` (Method Not Allowed) error.
      * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia), US West (N. California), US
+     * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
+     * ! America (São Paulo).
      *
      * > This action creates an Amazon S3 bucket. To create an Amazon S3 on Outposts bucket, see `CreateBucket` [^1].
      *
@@ -672,6 +673,9 @@ class S3Client extends AbstractApi
      * - PutObject [^13]
      * - DeleteBucket [^14]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateBucket.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
@@ -719,14 +723,13 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
-     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
-     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
-     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * ! End of support notice: As of October 1, 2025, Amazon S3 has discontinued support for Email Grantee Access Control
+     * ! Lists (ACLs). If you attempt to use an Email Grantee ACL in a request after October 1, 2025, the request will
+     * ! receive an `HTTP 405` (Method Not Allowed) error.
      * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia), US West (N. California), US
+     * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
+     * ! America (São Paulo).
      *
      * This action initiates a multipart upload and returns an upload ID. This upload ID is used to associate all of the
      * parts in the specific multipart upload. You specify this upload ID in each of your subsequent upload part requests
@@ -875,6 +878,9 @@ class S3Client extends AbstractApi
      * - ListParts [^27]
      * - ListMultipartUploads [^28]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
@@ -983,6 +989,9 @@ class S3Client extends AbstractApi
      * - CreateBucket [^4]
      * - DeleteObject [^5]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
@@ -1020,6 +1029,9 @@ class S3Client extends AbstractApi
      *
      * - PutBucketCors [^2]
      * - RESTOPTIONSobject [^3]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
@@ -1113,6 +1125,12 @@ class S3Client extends AbstractApi
      *
      * - PutObject [^10]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
+     * > The `If-Match` header is supported for both general purpose and directory buckets. `IfMatchLastModifiedTime` and
+     * > `IfMatchSize` is only supported for directory buckets.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectVersions.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectsfromVersioningSuspendedBuckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
@@ -1164,6 +1182,9 @@ class S3Client extends AbstractApi
      *
      * - PutObjectTagging [^2]
      * - GetObjectTagging [^3]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html
@@ -1261,6 +1282,9 @@ class S3Client extends AbstractApi
      * - ListParts [^9]
      * - AbortMultipartUpload [^10]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html#MultiFactorAuthenticationDelete
@@ -1317,6 +1341,9 @@ class S3Client extends AbstractApi
      * - PutBucketCors [^3]
      * - DeleteBucketCors [^4]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
@@ -1371,6 +1398,9 @@ class S3Client extends AbstractApi
      *
      * - PutBucketEncryption [^6]
      * - DeleteBucketEncryption [^7]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-bucket-encryption.html
@@ -1510,6 +1540,9 @@ class S3Client extends AbstractApi
      * - ListBuckets [^10]
      * - GetObjectAcl [^11]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingSpecifyBucket
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
@@ -1565,6 +1598,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * > This operation is not supported for directory buckets.
      *
      * Returns the access control list (ACL) of an object. To use this operation, you must have `s3:GetObjectAcl`
@@ -1586,6 +1627,9 @@ class S3Client extends AbstractApi
      * - GetObjectAttributes [^4]
      * - DeleteObject [^5]
      * - PutObject [^6]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
@@ -1638,6 +1682,9 @@ class S3Client extends AbstractApi
      * - DeleteObjectTagging [^2]
      * - GetObjectAttributes [^3]
      * - PutObjectTagging [^4]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html
@@ -1762,6 +1809,9 @@ class S3Client extends AbstractApi
      * - GetObject [^10]
      * - GetObjectAttributes [^11]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html
      * [^3]: /AmazonS3/latest/userguide/using-with-s3-policy-actions.html
@@ -1816,7 +1866,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
      * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
      * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
      * !
@@ -1836,6 +1886,9 @@ class S3Client extends AbstractApi
      * ! an approved general purpose bucket quota above 10,000, you must send paginated `ListBuckets` requests to list your
      * ! account’s buckets. All unpaginated `ListBuckets` requests will be rejected for Amazon Web Services accounts with
      * ! a general purpose bucket quota greater than 10,000.
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
      *
@@ -1859,7 +1912,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
      * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
      * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
      * !
@@ -1937,6 +1990,9 @@ class S3Client extends AbstractApi
      * - ListParts [^10]
      * - AbortMultipartUpload [^11]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
@@ -1974,7 +2030,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
      * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
      * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
      * !
@@ -2001,6 +2057,9 @@ class S3Client extends AbstractApi
      * - GetObject [^2]
      * - PutObject [^3]
      * - DeleteObject [^4]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
@@ -2033,6 +2092,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
+     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
+     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
+     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     *
      * Returns some or all (up to 1,000) of the objects in a bucket with each request. You can use the request parameters as
      * selection criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid
      * XML. Make sure to design your application to parse the contents of the response and handle it appropriately. For more
@@ -2088,6 +2155,9 @@ class S3Client extends AbstractApi
      * - PutObject [^11]
      * - CreateBucket [^12]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ListingKeysUsingAPIs.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
@@ -2132,7 +2202,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
      * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
      * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
      * !
@@ -2192,6 +2262,9 @@ class S3Client extends AbstractApi
      * - AbortMultipartUpload [^11]
      * - GetObjectAttributes [^12]
      * - ListMultipartUploads [^13]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
@@ -2342,6 +2415,9 @@ class S3Client extends AbstractApi
      * - DeleteBucketCors [^3]
      * - RESTOPTIONSobject [^4]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html
@@ -2414,6 +2490,9 @@ class S3Client extends AbstractApi
      *
      * - GetBucketNotificationConfiguration [^4]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      * [^3]: https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3
@@ -2472,6 +2551,9 @@ class S3Client extends AbstractApi
      * - GetBucketTagging [^7]
      * - DeleteBucketTagging [^8]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
@@ -2502,14 +2584,13 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning October 1, 2025, Amazon S3 will discontinue support for creating new Email Grantee
-     * ! Access Control Lists (ACL). Email Grantee ACLs created prior to this date will continue to work and remain
-     * ! accessible through the Amazon Web Services Management Console, Command Line Interface (CLI), SDKs, and REST API.
-     * ! However, you will no longer be able to create new Email Grantee ACLs.
+     * ! End of support notice: As of October 1, 2025, Amazon S3 has discontinued support for Email Grantee Access Control
+     * ! Lists (ACLs). If you attempt to use an Email Grantee ACL in a request after October 1, 2025, the request will
+     * ! receive an `HTTP 405` (Method Not Allowed) error.
      * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia), US West (N. California), US
+     * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
+     * ! America (São Paulo).
      *
      * Adds an object to a bucket.
      *
@@ -2597,6 +2678,9 @@ class S3Client extends AbstractApi
      * - CopyObject [^10]
      * - DeleteObject [^11]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html
@@ -2676,6 +2760,14 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * ! End of support notice: As of October 1, 2025, Amazon S3 has discontinued support for Email Grantee Access Control
+     * ! Lists (ACLs). If you attempt to use an Email Grantee ACL in a request after October 1, 2025, the request will
+     * ! receive an `HTTP 405` (Method Not Allowed) error.
+     * !
+     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia), US West (N. California), US
+     * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
+     * ! America (São Paulo).
+     *
      * > This operation is not supported for directory buckets.
      *
      * Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3
@@ -2786,6 +2878,9 @@ class S3Client extends AbstractApi
      * - CopyObject [^9]
      * - GetObject [^10]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
@@ -2862,6 +2957,9 @@ class S3Client extends AbstractApi
      * - GetObjectTagging [^6]
      * - DeleteObjectTagging [^7]
      *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html
      * [^3]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html
@@ -2913,6 +3011,9 @@ class S3Client extends AbstractApi
      * - DeletePublicAccessBlock [^4]
      * - GetBucketPolicyStatus [^5]
      * - Using Amazon S3 Block Public Access [^6]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status
@@ -3059,6 +3160,9 @@ class S3Client extends AbstractApi
      * - AbortMultipartUpload [^17]
      * - ListParts [^18]
      * - ListMultipartUploads [^19]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
@@ -3232,6 +3336,9 @@ class S3Client extends AbstractApi
      * - AbortMultipartUpload [^20]
      * - ListParts [^21]
      * - ListMultipartUploads [^22]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html

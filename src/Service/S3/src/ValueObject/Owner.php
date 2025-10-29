@@ -3,7 +3,7 @@
 namespace AsyncAws\S3\ValueObject;
 
 /**
- * ! End of support notice: Beginning October 1, 2025, Amazon S3 will stop returning `DisplayName`. Update your
+ * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
  * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
  * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
  * !
