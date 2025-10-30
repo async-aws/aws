@@ -22,6 +22,11 @@
         "symfony/http-client-contracts": "^1.1.8 || ^2.0 || ^3.0",
         "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5.42",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0"
+    },
     "conflict": {
         "async-aws/s3": "<1.1",
         "symfony/http-client": "5.2.0"

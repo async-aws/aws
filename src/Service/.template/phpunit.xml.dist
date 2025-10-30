@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
          failOnRisky="true"
          failOnWarning="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
 >
-  <coverage>
+  <source ignoreSuppressionOfDeprecations="true">
     <include>
       <directory>./src</directory>
     </include>
-  </coverage>
+    <deprecationTrigger>
+      <function>trigger_deprecation</function>
+    </deprecationTrigger>
+  </source>
   <php>
     <ini name="error_reporting" value="-1"/>
   </php>
@@ -20,4 +25,7 @@
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>
+  <extensions>
+    <bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"/>
+  </extensions>
 </phpunit>

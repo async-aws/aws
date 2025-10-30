@@ -9,13 +9,12 @@ use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\StringStream;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FixedSizeStreamTest extends TestCase
 {
-    /**
-     * @dataProvider provideLengths
-     */
+    #[DataProvider('provideLengths')]
     public function testLength(RequestStream $content, ?int $expected): void
     {
         $stream = FixedSizeStream::create($content);
@@ -23,9 +22,7 @@ class FixedSizeStreamTest extends TestCase
         self::assertSame($expected, $stream->length());
     }
 
-    /**
-     * @dataProvider provideStrings
-     */
+    #[DataProvider('provideStrings')]
     public function testStringify(RequestStream $content, string $expected): void
     {
         $stream = FixedSizeStream::create($content);
@@ -33,9 +30,7 @@ class FixedSizeStreamTest extends TestCase
         self::assertSame($expected, $stream->stringify());
     }
 
-    /**
-     * @dataProvider provideChunks
-     */
+    #[DataProvider('provideChunks')]
     public function testChunk(RequestStream $content, int $size, array $expected): void
     {
         $stream = FixedSizeStream::create($content, $size);
@@ -43,9 +38,7 @@ class FixedSizeStreamTest extends TestCase
         self::assertSame($expected, iterator_to_array($stream));
     }
 
-    /**
-     * @dataProvider provideChunks
-     */
+    #[DataProvider('provideChunks')]
     public function testDecoratingFixedSize(RequestStream $content, int $size, array $expected): void
     {
         $stream = FixedSizeStream::create(FixedSizeStream::create($content, 5), $size);
@@ -53,19 +46,19 @@ class FixedSizeStreamTest extends TestCase
         self::assertSame($expected, iterator_to_array($stream));
     }
 
-    public function provideLengths(): iterable
+    public static function provideLengths(): iterable
     {
         yield [StringStream::create('Hello world'), 11];
         yield [CallableStream::create(function () {}), null];
     }
 
-    public function provideStrings(): iterable
+    public static function provideStrings(): iterable
     {
         yield [StringStream::create('Hello world'), 'Hello world'];
         yield [IterableStream::create((function () { yield 'Hello world'; })()), 'Hello world'];
     }
 
-    public function provideChunks(): iterable
+    public static function provideChunks(): iterable
     {
         yield [StringStream::create('Hello world'), 3, ['Hel', 'lo ', 'wor', 'ld']];
         yield [IterableStream::create((function () {

@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Tests\Unit\Stream;
 
 use AsyncAws\Core\Stream\CallableStream;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CallableStreamTest extends TestCase
 {
-    /**
-     * @dataProvider provideLengths
-     */
+    #[DataProvider('provideLengths')]
     public function testLength(callable $content, ?int $expected): void
     {
         $stream = CallableStream::create($content);
@@ -19,9 +18,7 @@ class CallableStreamTest extends TestCase
         self::assertSame($expected, $stream->length());
     }
 
-    /**
-     * @dataProvider provideStrings
-     */
+    #[DataProvider('provideStrings')]
     public function testStringify(callable $content, string $expected): void
     {
         $stream = CallableStream::create($content);
@@ -29,9 +26,7 @@ class CallableStreamTest extends TestCase
         self::assertSame($expected, $stream->stringify());
     }
 
-    /**
-     * @dataProvider provideChunks
-     */
+    #[DataProvider('provideChunks')]
     public function testChunk(callable $content, array $expected): void
     {
         $stream = CallableStream::create($content);
@@ -39,14 +34,14 @@ class CallableStreamTest extends TestCase
         self::assertSame($expected, iterator_to_array($stream));
     }
 
-    public function provideLengths(): iterable
+    public static function provideLengths(): iterable
     {
         yield [function () {
             return 'Hello world';
         }, null];
     }
 
-    public function provideStrings(): iterable
+    public static function provideStrings(): iterable
     {
         $f = static function (string ...$items) {
             return static function () use (&$items) {
@@ -58,7 +53,7 @@ class CallableStreamTest extends TestCase
         yield [$f('Hello', ' ', '', 'world'), 'Hello '];
     }
 
-    public function provideChunks(): iterable
+    public static function provideChunks(): iterable
     {
         $f = static function (string ...$items) {
             return static function () use (&$items) {

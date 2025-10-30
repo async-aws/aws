@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Tests\Unit\Stream;
 
 use AsyncAws\Core\Stream\StringStream;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class StringStreamTest extends TestCase
 {
-    /**
-     * @dataProvider provideLengths
-     */
+    #[DataProvider('provideLengths')]
     public function testLength(string $content, ?int $expected): void
     {
         $stream = StringStream::create($content);
@@ -19,9 +18,7 @@ class StringStreamTest extends TestCase
         self::assertSame($expected, $stream->length());
     }
 
-    /**
-     * @dataProvider provideStrings
-     */
+    #[DataProvider('provideStrings')]
     public function testStringify(string $content, string $expected): void
     {
         $stream = StringStream::create($content);
@@ -29,9 +26,7 @@ class StringStreamTest extends TestCase
         self::assertSame($expected, $stream->stringify());
     }
 
-    /**
-     * @dataProvider provideChunks
-     */
+    #[DataProvider('provideChunks')]
     public function testChunk(string $content, array $expected): void
     {
         $stream = StringStream::create($content);
@@ -39,19 +34,19 @@ class StringStreamTest extends TestCase
         self::assertSame($expected, iterator_to_array($stream));
     }
 
-    public function provideLengths(): iterable
+    public static function provideLengths(): iterable
     {
         yield ['Hello world', 11];
         yield ['H', 1];
         yield ['é', 2];
     }
 
-    public function provideStrings(): iterable
+    public static function provideStrings(): iterable
     {
         yield ['Hello world', 'Hello world'];
     }
 
-    public function provideChunks(): iterable
+    public static function provideChunks(): iterable
     {
         yield ['Hello world', ['Hello world']];
     }

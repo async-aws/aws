@@ -18,6 +18,11 @@
         "ext-simplexml": "*",
         "async-aws/core": "^1.22"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5.42",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0"
+    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\S3\\": "src"

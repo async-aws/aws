@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Test\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 
@@ -21,9 +22,7 @@ use Symfony\Component\Finder\Finder;
  */
 class BranchAliasTest extends TestCase
 {
-    /**
-     * @dataProvider provideChangedlogFiles
-     */
+    #[DataProvider('provideChangedlogFiles')]
     public function testBranchAliasValue(string $changelogPath)
     {
         $composerPath = \dirname($changelogPath) . '/composer.json';

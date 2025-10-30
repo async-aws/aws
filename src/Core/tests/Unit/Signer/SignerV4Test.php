@@ -9,6 +9,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SignerV4Test extends TestCase
@@ -60,9 +61,7 @@ class SignerV4Test extends TestCase
         self::assertEqualsCanonicalizing($expectedQuery, $request->getQuery());
     }
 
-    /**
-     * @dataProvider provideRequests
-     */
+    #[DataProvider('provideRequests')]
     public function testSignsRequests($rawRequest, $rawExpected)
     {
         $request = $this->parseRequest($rawRequest);
@@ -140,9 +139,7 @@ class SignerV4Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideRequestsWithQueryParams
-     */
+    #[DataProvider('provideRequestsWithQueryParams')]
     public function testSignsRequestsWithArrayInQueryParams($rawRequestWithoutQuery, $rawExpected, $queryParams)
     {
         $request = $this->parseRequest($rawRequestWithoutQuery, $queryParams);

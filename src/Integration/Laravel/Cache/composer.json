@@ -16,6 +16,11 @@
         "illuminate/cache": "^6.18.13 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "illuminate/support": "^6.18.13 || ^7.10 || ^8.0 || ^9.0 || ^10.0 || ^11.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5.42",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0"
+    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\Illuminate\\Cache\\": "src"

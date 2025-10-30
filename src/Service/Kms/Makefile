@@ -9,7 +9,7 @@ start-docker:
 	docker run --rm --link async_aws_localstack-kms:localstack martin/wait -c localstack:8080
 
 test: initialize
-	./vendor/bin/simple-phpunit
+	./vendor/bin/phpunit
 
 clean: stop-docker
 stop-docker:

@@ -7,13 +7,12 @@ use AsyncAws\Ssm\Result\GetParametersByPathResult;
 use AsyncAws\Ssm\SsmClient;
 use AsyncAws\Ssm\ValueObject\Parameter;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SsmVaultTest extends TestCase
 {
-    /**
-     * @dataProvider provideParameters
-     */
+    #[DataProvider('provideParameters')]
     public function testLoadEnvVars($path, $parameterName, $expected)
     {
         $client = $this->createMock(SsmClient::class);
@@ -28,7 +27,7 @@ class SsmVaultTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
-    public function provideParameters(): iterable
+    public static function provideParameters(): iterable
     {
         yield 'simple' => [null, '/FOO', ['FOO' => 'value']];
         yield 'case insensitive' => [null, '/fOo', ['FOO' => 'value']];

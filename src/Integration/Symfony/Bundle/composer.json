@@ -23,9 +23,14 @@
         "async-aws/ses": "^1.0",
         "async-aws/sqs": "^1.0 || ^2.0",
         "async-aws/ssm": "^1.0 || ^2.0",
-        "matthiasnoback/symfony-config-test": "^4.1 || ^5.0",
+        "matthiasnoback/symfony-config-test": "^6.1",
         "nyholm/symfony-bundle-test": "^3.0",
-        "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
+        "phpunit/phpunit": "^11.5.42",
+        "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
+        "symfony/framework-bundle": "^5.4.45 || ^6.4.13 || ^7.1.6",
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0",
+        "symfony/runtime": "^7.3.2 || ^8.0"
     },
     "autoload": {
         "psr-4": {
@@ -35,6 +40,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": false
         }
     },
     "extra": {
