@@ -78,6 +78,13 @@ final class VideoCodecSettings
     private $mpeg2Settings;
 
     /**
+     * Optional settings when you set Codec to the value Passthrough.
+     *
+     * @var PassthroughSettings|null
+     */
+    private $passthroughSettings;
+
+    /**
      * Required when you set Codec to the value PRORES.
      *
      * @var ProresSettings|null
@@ -129,6 +136,7 @@ final class VideoCodecSettings
      *   H264Settings?: H264Settings|array|null,
      *   H265Settings?: H265Settings|array|null,
      *   Mpeg2Settings?: Mpeg2Settings|array|null,
+     *   PassthroughSettings?: PassthroughSettings|array|null,
      *   ProresSettings?: ProresSettings|array|null,
      *   UncompressedSettings?: UncompressedSettings|array|null,
      *   Vc3Settings?: Vc3Settings|array|null,
@@ -147,6 +155,7 @@ final class VideoCodecSettings
         $this->h264Settings = isset($input['H264Settings']) ? H264Settings::create($input['H264Settings']) : null;
         $this->h265Settings = isset($input['H265Settings']) ? H265Settings::create($input['H265Settings']) : null;
         $this->mpeg2Settings = isset($input['Mpeg2Settings']) ? Mpeg2Settings::create($input['Mpeg2Settings']) : null;
+        $this->passthroughSettings = isset($input['PassthroughSettings']) ? PassthroughSettings::create($input['PassthroughSettings']) : null;
         $this->proresSettings = isset($input['ProresSettings']) ? ProresSettings::create($input['ProresSettings']) : null;
         $this->uncompressedSettings = isset($input['UncompressedSettings']) ? UncompressedSettings::create($input['UncompressedSettings']) : null;
         $this->vc3Settings = isset($input['Vc3Settings']) ? Vc3Settings::create($input['Vc3Settings']) : null;
@@ -165,6 +174,7 @@ final class VideoCodecSettings
      *   H264Settings?: H264Settings|array|null,
      *   H265Settings?: H265Settings|array|null,
      *   Mpeg2Settings?: Mpeg2Settings|array|null,
+     *   PassthroughSettings?: PassthroughSettings|array|null,
      *   ProresSettings?: ProresSettings|array|null,
      *   UncompressedSettings?: UncompressedSettings|array|null,
      *   Vc3Settings?: Vc3Settings|array|null,
@@ -219,6 +229,11 @@ final class VideoCodecSettings
     public function getMpeg2Settings(): ?Mpeg2Settings
     {
         return $this->mpeg2Settings;
+    }
+
+    public function getPassthroughSettings(): ?PassthroughSettings
+    {
+        return $this->passthroughSettings;
     }
 
     public function getProresSettings(): ?ProresSettings
@@ -283,6 +298,9 @@ final class VideoCodecSettings
         }
         if (null !== $v = $this->mpeg2Settings) {
             $payload['mpeg2Settings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->passthroughSettings) {
+            $payload['passthroughSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->proresSettings) {
             $payload['proresSettings'] = $v->requestBody();
