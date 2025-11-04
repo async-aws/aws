@@ -19,6 +19,7 @@ use AsyncAws\MediaConvert\ValueObject\AudioChannelTaggingSettings;
 use AsyncAws\MediaConvert\ValueObject\AudioCodecSettings;
 use AsyncAws\MediaConvert\ValueObject\AudioDescription;
 use AsyncAws\MediaConvert\ValueObject\AudioNormalizationSettings;
+use AsyncAws\MediaConvert\ValueObject\AudioPitchCorrectionSettings;
 use AsyncAws\MediaConvert\ValueObject\AudioSelector;
 use AsyncAws\MediaConvert\ValueObject\AudioSelectorGroup;
 use AsyncAws\MediaConvert\ValueObject\AutomatedAbrRule;
@@ -138,6 +139,7 @@ use AsyncAws\MediaConvert\ValueObject\OutputGroupDetail;
 use AsyncAws\MediaConvert\ValueObject\OutputGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\OutputSettings;
 use AsyncAws\MediaConvert\ValueObject\PartnerWatermarking;
+use AsyncAws\MediaConvert\ValueObject\PassthroughSettings;
 use AsyncAws\MediaConvert\ValueObject\ProresSettings;
 use AsyncAws\MediaConvert\ValueObject\QueueTransition;
 use AsyncAws\MediaConvert\ValueObject\Rectangle;
@@ -319,6 +321,7 @@ class GetJobResponse extends Result
         return new AudioDescription([
             'AudioChannelTaggingSettings' => empty($json['audioChannelTaggingSettings']) ? null : $this->populateResultAudioChannelTaggingSettings($json['audioChannelTaggingSettings']),
             'AudioNormalizationSettings' => empty($json['audioNormalizationSettings']) ? null : $this->populateResultAudioNormalizationSettings($json['audioNormalizationSettings']),
+            'AudioPitchCorrectionSettings' => empty($json['audioPitchCorrectionSettings']) ? null : $this->populateResultAudioPitchCorrectionSettings($json['audioPitchCorrectionSettings']),
             'AudioSourceName' => isset($json['audioSourceName']) ? (string) $json['audioSourceName'] : null,
             'AudioType' => isset($json['audioType']) ? (int) $json['audioType'] : null,
             'AudioTypeControl' => isset($json['audioTypeControl']) ? (string) $json['audioTypeControl'] : null,
@@ -344,6 +347,13 @@ class GetJobResponse extends Result
         ]);
     }
 
+    private function populateResultAudioPitchCorrectionSettings(array $json): AudioPitchCorrectionSettings
+    {
+        return new AudioPitchCorrectionSettings([
+            'SlowPalPitchCorrection' => isset($json['slowPalPitchCorrection']) ? (string) $json['slowPalPitchCorrection'] : null,
+        ]);
+    }
+
     private function populateResultAudioSelector(array $json): AudioSelector
     {
         return new AudioSelector([
@@ -358,6 +368,7 @@ class GetJobResponse extends Result
             'ProgramSelection' => isset($json['programSelection']) ? (int) $json['programSelection'] : null,
             'RemixSettings' => empty($json['remixSettings']) ? null : $this->populateResultRemixSettings($json['remixSettings']),
             'SelectorType' => isset($json['selectorType']) ? (string) $json['selectorType'] : null,
+            'Streams' => !isset($json['streams']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['streams']),
             'Tracks' => !isset($json['tracks']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['tracks']),
         ]);
     }
@@ -1938,6 +1949,13 @@ class GetJobResponse extends Result
         ]);
     }
 
+    private function populateResultPassthroughSettings(array $json): PassthroughSettings
+    {
+        return new PassthroughSettings([
+            'VideoSelectorMode' => isset($json['videoSelectorMode']) ? (string) $json['videoSelectorMode'] : null,
+        ]);
+    }
+
     private function populateResultProresSettings(array $json): ProresSettings
     {
         return new ProresSettings([
@@ -2113,6 +2131,7 @@ class GetJobResponse extends Result
     private function populateResultTrackSourceSettings(array $json): TrackSourceSettings
     {
         return new TrackSourceSettings([
+            'StreamNumber' => isset($json['streamNumber']) ? (int) $json['streamNumber'] : null,
             'TrackNumber' => isset($json['trackNumber']) ? (int) $json['trackNumber'] : null,
         ]);
     }
@@ -2165,6 +2184,7 @@ class GetJobResponse extends Result
             'H264Settings' => empty($json['h264Settings']) ? null : $this->populateResultH264Settings($json['h264Settings']),
             'H265Settings' => empty($json['h265Settings']) ? null : $this->populateResultH265Settings($json['h265Settings']),
             'Mpeg2Settings' => empty($json['mpeg2Settings']) ? null : $this->populateResultMpeg2Settings($json['mpeg2Settings']),
+            'PassthroughSettings' => empty($json['passthroughSettings']) ? null : $this->populateResultPassthroughSettings($json['passthroughSettings']),
             'ProresSettings' => empty($json['proresSettings']) ? null : $this->populateResultProresSettings($json['proresSettings']),
             'UncompressedSettings' => empty($json['uncompressedSettings']) ? null : $this->populateResultUncompressedSettings($json['uncompressedSettings']),
             'Vc3Settings' => empty($json['vc3Settings']) ? null : $this->populateResultVc3Settings($json['vc3Settings']),
@@ -2251,6 +2271,7 @@ class GetJobResponse extends Result
     {
         return new VideoOverlayPosition([
             'Height' => isset($json['height']) ? (int) $json['height'] : null,
+            'Opacity' => isset($json['opacity']) ? (int) $json['opacity'] : null,
             'Unit' => isset($json['unit']) ? (string) $json['unit'] : null,
             'Width' => isset($json['width']) ? (int) $json['width'] : null,
             'XPosition' => isset($json['xPosition']) ? (int) $json['xPosition'] : null,

@@ -8,6 +8,7 @@ use AsyncAws\Kinesis\Enum\MetricsName;
 use AsyncAws\Kinesis\ValueObject\EnhancedMetrics;
 use AsyncAws\Kinesis\ValueObject\StreamDescriptionSummary;
 use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
+use AsyncAws\Kinesis\ValueObject\WarmThroughputObject;
 
 class DescribeStreamSummaryOutput extends Result
 {
@@ -82,6 +83,7 @@ class DescribeStreamSummaryOutput extends Result
             'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,
             'OpenShardCount' => (int) $json['OpenShardCount'],
             'ConsumerCount' => isset($json['ConsumerCount']) ? (int) $json['ConsumerCount'] : null,
+            'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultWarmThroughputObject($json['WarmThroughput']),
             'MaxRecordSizeInKiB' => isset($json['MaxRecordSizeInKiB']) ? (int) $json['MaxRecordSizeInKiB'] : null,
         ]);
     }
@@ -90,6 +92,14 @@ class DescribeStreamSummaryOutput extends Result
     {
         return new StreamModeDetails([
             'StreamMode' => (string) $json['StreamMode'],
+        ]);
+    }
+
+    private function populateResultWarmThroughputObject(array $json): WarmThroughputObject
+    {
+        return new WarmThroughputObject([
+            'TargetMiBps' => isset($json['TargetMiBps']) ? (int) $json['TargetMiBps'] : null,
+            'CurrentMiBps' => isset($json['CurrentMiBps']) ? (int) $json['CurrentMiBps'] : null,
         ]);
     }
 }

@@ -49,6 +49,14 @@ final class CreateStreamInput extends Input
     private $tags;
 
     /**
+     * The target warm throughput in MB/s that the stream should be scaled to handle. This represents the throughput
+     * capacity that will be immediately available for write operations.
+     *
+     * @var int|null
+     */
+    private $warmThroughputMiBps;
+
+    /**
      * The maximum record size of a single record in kibibyte (KiB) that you can write to, and read from a stream.
      *
      * @var int|null
@@ -61,6 +69,7 @@ final class CreateStreamInput extends Input
      *   ShardCount?: int|null,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Tags?: array<string, string>|null,
+     *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
      * } $input
@@ -71,6 +80,7 @@ final class CreateStreamInput extends Input
         $this->shardCount = $input['ShardCount'] ?? null;
         $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
         $this->tags = $input['Tags'] ?? null;
+        $this->warmThroughputMiBps = $input['WarmThroughputMiBps'] ?? null;
         $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
         parent::__construct($input);
     }
@@ -81,6 +91,7 @@ final class CreateStreamInput extends Input
      *   ShardCount?: int|null,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Tags?: array<string, string>|null,
+     *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
@@ -116,6 +127,11 @@ final class CreateStreamInput extends Input
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    public function getWarmThroughputMiBps(): ?int
+    {
+        return $this->warmThroughputMiBps;
     }
 
     /**
@@ -182,6 +198,13 @@ final class CreateStreamInput extends Input
         return $this;
     }
 
+    public function setWarmThroughputMiBps(?int $value): self
+    {
+        $this->warmThroughputMiBps = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -204,6 +227,9 @@ final class CreateStreamInput extends Input
                     $payload['Tags'][$name] = $mv;
                 }
             }
+        }
+        if (null !== $v = $this->warmThroughputMiBps) {
+            $payload['WarmThroughputMiBps'] = $v;
         }
         if (null !== $v = $this->maxRecordSizeInKiB) {
             $payload['MaxRecordSizeInKiB'] = $v;
