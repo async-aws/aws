@@ -110,6 +110,14 @@ final class StreamDescriptionSummary
     private $consumerCount;
 
     /**
+     * The warm throughput in MB/s for the stream. This represents the throughput capacity that will be immediately
+     * available for write operations.
+     *
+     * @var WarmThroughputObject|null
+     */
+    private $warmThroughput;
+
+    /**
      * The maximum record size of a single record in kibibyte (KiB) that you can write to, and read from a stream.
      *
      * @var int|null
@@ -129,6 +137,7 @@ final class StreamDescriptionSummary
      *   KeyId?: string|null,
      *   OpenShardCount: int,
      *   ConsumerCount?: int|null,
+     *   WarmThroughput?: WarmThroughputObject|array|null,
      *   MaxRecordSizeInKiB?: int|null,
      * } $input
      */
@@ -145,6 +154,7 @@ final class StreamDescriptionSummary
         $this->keyId = $input['KeyId'] ?? null;
         $this->openShardCount = $input['OpenShardCount'] ?? $this->throwException(new InvalidArgument('Missing required field "OpenShardCount".'));
         $this->consumerCount = $input['ConsumerCount'] ?? null;
+        $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughputObject::create($input['WarmThroughput']) : null;
         $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
     }
 
@@ -161,6 +171,7 @@ final class StreamDescriptionSummary
      *   KeyId?: string|null,
      *   OpenShardCount: int,
      *   ConsumerCount?: int|null,
+     *   WarmThroughput?: WarmThroughputObject|array|null,
      *   MaxRecordSizeInKiB?: int|null,
      * }|StreamDescriptionSummary $input
      */
@@ -236,6 +247,11 @@ final class StreamDescriptionSummary
     public function getStreamStatus(): string
     {
         return $this->streamStatus;
+    }
+
+    public function getWarmThroughput(): ?WarmThroughputObject
+    {
+        return $this->warmThroughput;
     }
 
     /**

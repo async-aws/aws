@@ -127,10 +127,17 @@ class KinesisClient extends AbstractApi
      * You can create your data stream using either on-demand or provisioned capacity mode. Data streams with an on-demand
      * mode require no capacity planning and automatically scale to handle gigabytes of write and read throughput per
      * minute. With the on-demand mode, Kinesis Data Streams automatically manages the shards in order to provide the
-     * necessary throughput. For the data streams with a provisioned mode, you must specify the number of shards for the
-     * data stream. Each shard can support reads up to five transactions per second, up to a maximum data read total of 2
-     * MiB per second. Each shard can support writes up to 1,000 records per second, up to a maximum data write total of 1
-     * MiB per second. If the amount of data input increases or decreases, you can add or remove shards.
+     * necessary throughput.
+     *
+     * If you'd still like to proactively scale your on-demand data stream’s capacity, you can unlock the warm throughput
+     * feature for on-demand data streams by enabling `MinimumThroughputBillingCommitment` for your account. Once your
+     * account has `MinimumThroughputBillingCommitment` enabled, you can specify the warm throughput in MiB per second that
+     * your stream can support in writes.
+     *
+     * For the data streams with a provisioned mode, you must specify the number of shards for the data stream. Each shard
+     * can support reads up to five transactions per second, up to a maximum data read total of 2 MiB per second. Each shard
+     * can support writes up to 1,000 records per second, up to a maximum data write total of 1 MiB per second. If the
+     * amount of data input increases or decreases, you can add or remove shards.
      *
      * The stream name identifies the stream. The name is scoped to the Amazon Web Services account used by the application.
      * It is also scoped by Amazon Web Services Region. That is, two streams in two different accounts can have the same
@@ -145,8 +152,9 @@ class KinesisClient extends AbstractApi
      * - Have more than five streams in the `CREATING` state at any point in time.
      * - Create more shards than are authorized for your account.
      *
-     * For the default shard limit for an Amazon Web Services account, see Amazon Kinesis Data Streams Limits [^1] in the
-     * *Amazon Kinesis Data Streams Developer Guide*. To increase this limit, contact Amazon Web Services Support [^2].
+     * For the default shard or on-demand throughput limits for an Amazon Web Services account, see Amazon Kinesis Data
+     * Streams Limits [^1] in the *Amazon Kinesis Data Streams Developer Guide*. To increase this limit, contact Amazon Web
+     * Services Support [^2].
      *
      * You can use DescribeStreamSummary to check the stream status, which is returned in `StreamStatus`.
      *
@@ -169,6 +177,7 @@ class KinesisClient extends AbstractApi
      *   ShardCount?: int|null,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   Tags?: array<string, string>|null,
+     *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
@@ -176,6 +185,7 @@ class KinesisClient extends AbstractApi
      * @throws InvalidArgumentException
      * @throws LimitExceededException
      * @throws ResourceInUseException
+     * @throws ValidationException
      */
     public function createStream($input): Result
     {
@@ -184,6 +194,7 @@ class KinesisClient extends AbstractApi
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new Result($response);

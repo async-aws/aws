@@ -14,6 +14,7 @@ final class Runtime
     public const JAVA_11 = 'java11';
     public const JAVA_17 = 'java17';
     public const JAVA_21 = 'java21';
+    public const JAVA_25 = 'java25';
     public const JAVA_8 = 'java8';
     public const JAVA_8_AL_2 = 'java8.al2';
     public const NODEJS = 'nodejs';
@@ -37,6 +38,7 @@ final class Runtime
     public const PYTHON_3_11 = 'python3.11';
     public const PYTHON_3_12 = 'python3.12';
     public const PYTHON_3_13 = 'python3.13';
+    public const PYTHON_3_14 = 'python3.14';
     public const PYTHON_3_6 = 'python3.6';
     public const PYTHON_3_7 = 'python3.7';
     public const PYTHON_3_8 = 'python3.8';
@@ -60,6 +62,7 @@ final class Runtime
             self::JAVA_11 => true,
             self::JAVA_17 => true,
             self::JAVA_21 => true,
+            self::JAVA_25 => true,
             self::JAVA_8 => true,
             self::JAVA_8_AL_2 => true,
             self::NODEJS => true,
@@ -83,6 +86,7 @@ final class Runtime
             self::PYTHON_3_11 => true,
             self::PYTHON_3_12 => true,
             self::PYTHON_3_13 => true,
+            self::PYTHON_3_14 => true,
             self::PYTHON_3_6 => true,
             self::PYTHON_3_7 => true,
             self::PYTHON_3_8 => true,

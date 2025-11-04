@@ -23,6 +23,14 @@ final class VideoOverlayPosition
     private $height;
 
     /**
+     * Use Opacity to specify how much of the underlying video shows through the overlay video. 0 is transparent and 100 is
+     * fully opaque. Default is 100.
+     *
+     * @var int|null
+     */
+    private $opacity;
+
+    /**
      * Specify the Unit type to use when you enter a value for X position, Y position, Width, or Height. You can choose
      * Pixels or Percentage. Leave blank to use the default value, Pixels.
      *
@@ -69,6 +77,7 @@ final class VideoOverlayPosition
     /**
      * @param array{
      *   Height?: int|null,
+     *   Opacity?: int|null,
      *   Unit?: VideoOverlayUnit::*|null,
      *   Width?: int|null,
      *   XPosition?: int|null,
@@ -78,6 +87,7 @@ final class VideoOverlayPosition
     public function __construct(array $input)
     {
         $this->height = $input['Height'] ?? null;
+        $this->opacity = $input['Opacity'] ?? null;
         $this->unit = $input['Unit'] ?? null;
         $this->width = $input['Width'] ?? null;
         $this->xposition = $input['XPosition'] ?? null;
@@ -87,6 +97,7 @@ final class VideoOverlayPosition
     /**
      * @param array{
      *   Height?: int|null,
+     *   Opacity?: int|null,
      *   Unit?: VideoOverlayUnit::*|null,
      *   Width?: int|null,
      *   XPosition?: int|null,
@@ -101,6 +112,11 @@ final class VideoOverlayPosition
     public function getHeight(): ?int
     {
         return $this->height;
+    }
+
+    public function getOpacity(): ?int
+    {
+        return $this->opacity;
     }
 
     /**
@@ -134,6 +150,9 @@ final class VideoOverlayPosition
         $payload = [];
         if (null !== $v = $this->height) {
             $payload['height'] = $v;
+        }
+        if (null !== $v = $this->opacity) {
+            $payload['opacity'] = $v;
         }
         if (null !== $v = $this->unit) {
             if (!VideoOverlayUnit::exists($v)) {

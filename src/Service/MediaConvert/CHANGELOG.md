@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: This release adds the ability to set resolution for the black video generator.
+- AWS api-change: Adds SlowPalPitchCorrection to audio pitch correction settings. Enables opacity for VideoOverlays. Adds REMUX_ALL option to enable multi-rendition passthrough to VideoSelector for allow listed accounts.
 
 ### Dependency bumped
 

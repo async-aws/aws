@@ -32,6 +32,13 @@ final class AudioDescription
     private $audioNormalizationSettings;
 
     /**
+     * Settings for audio pitch correction during framerate conversion.
+     *
+     * @var AudioPitchCorrectionSettings|null
+     */
+    private $audioPitchCorrectionSettings;
+
+    /**
      * Specifies which audio data to use from each input. In the simplest case, specify an "Audio
      * Selector":#inputs-audio_selector by name based on its order within each input. For example if you specify "Audio
      * Selector 3", then the third audio selector will be used from each input. If an input does not have an "Audio Selector
@@ -125,6 +132,7 @@ final class AudioDescription
      * @param array{
      *   AudioChannelTaggingSettings?: AudioChannelTaggingSettings|array|null,
      *   AudioNormalizationSettings?: AudioNormalizationSettings|array|null,
+     *   AudioPitchCorrectionSettings?: AudioPitchCorrectionSettings|array|null,
      *   AudioSourceName?: string|null,
      *   AudioType?: int|null,
      *   AudioTypeControl?: AudioTypeControl::*|null,
@@ -140,6 +148,7 @@ final class AudioDescription
     {
         $this->audioChannelTaggingSettings = isset($input['AudioChannelTaggingSettings']) ? AudioChannelTaggingSettings::create($input['AudioChannelTaggingSettings']) : null;
         $this->audioNormalizationSettings = isset($input['AudioNormalizationSettings']) ? AudioNormalizationSettings::create($input['AudioNormalizationSettings']) : null;
+        $this->audioPitchCorrectionSettings = isset($input['AudioPitchCorrectionSettings']) ? AudioPitchCorrectionSettings::create($input['AudioPitchCorrectionSettings']) : null;
         $this->audioSourceName = $input['AudioSourceName'] ?? null;
         $this->audioType = $input['AudioType'] ?? null;
         $this->audioTypeControl = $input['AudioTypeControl'] ?? null;
@@ -155,6 +164,7 @@ final class AudioDescription
      * @param array{
      *   AudioChannelTaggingSettings?: AudioChannelTaggingSettings|array|null,
      *   AudioNormalizationSettings?: AudioNormalizationSettings|array|null,
+     *   AudioPitchCorrectionSettings?: AudioPitchCorrectionSettings|array|null,
      *   AudioSourceName?: string|null,
      *   AudioType?: int|null,
      *   AudioTypeControl?: AudioTypeControl::*|null,
@@ -179,6 +189,11 @@ final class AudioDescription
     public function getAudioNormalizationSettings(): ?AudioNormalizationSettings
     {
         return $this->audioNormalizationSettings;
+    }
+
+    public function getAudioPitchCorrectionSettings(): ?AudioPitchCorrectionSettings
+    {
+        return $this->audioPitchCorrectionSettings;
     }
 
     public function getAudioSourceName(): ?string
@@ -246,6 +261,9 @@ final class AudioDescription
         }
         if (null !== $v = $this->audioNormalizationSettings) {
             $payload['audioNormalizationSettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->audioPitchCorrectionSettings) {
+            $payload['audioPitchCorrectionSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->audioSourceName) {
             $payload['audioSourceName'] = $v;

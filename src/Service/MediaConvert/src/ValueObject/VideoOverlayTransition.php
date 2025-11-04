@@ -5,7 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 /**
  * Specify one or more Transitions for your video overlay. Use Transitions to reposition or resize your overlay over
  * time. To use the same position and size for the duration of your video overlay: Leave blank. To specify a Transition:
- * Enter a value for Start timecode, End Timecode, X Position, Y Position, Width, or Height.
+ * Enter a value for Start timecode, End Timecode, X Position, Y Position, Width, Height, or Opacity.
  */
 final class VideoOverlayTransition
 {
