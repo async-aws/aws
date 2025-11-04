@@ -6,8 +6,7 @@
 
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Adds support for record sizes up to 10MiB and introduces new UpdateMaxRecordSize API to modify stream record size limits. Adds record size parameters to existing CreateStream and DescribeStreamSummary APIs for request and response payloads respectively.
-- AWS api-change: Adds support for MinimumThroughputBillingCommitment with new UpdateAccountSettings API. Adds support to configure warm throughput for on-demand streams in new UpdateStreamWarmThroughput API and existing CreateStream API and UpdateStreamMode API.
-- AWS api-change: Update endpoint ruleset parameters casing
+- AWS api-change: Adds support to configure warm throughput for on-demand streams in new UpdateStreamWarmThroughput API and existing CreateStream API and UpdateStreamMode API.
 
 ### Dependency bumped
 
