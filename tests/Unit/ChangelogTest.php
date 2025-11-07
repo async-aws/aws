@@ -190,7 +190,9 @@ class ChangelogTest extends TestCase
         );
 
         if (0 === \count($branches)) {
-            yield [null, null, null];
+            yield ['', '', false];
+
+            return;
         }
 
         usort($branches, static function ($a, $b) {
