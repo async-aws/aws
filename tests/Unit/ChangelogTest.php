@@ -131,8 +131,12 @@ class ChangelogTest extends TestCase
     }
 
     #[DataProvider('provideChangedServicesWithoutChangelog')]
-    public function testChangelogEntryForService(string $service, string $base, $isCommentOnly)
+    public function testChangelogEntryForService(string $service, string $base, bool $isCommentOnly)
     {
+        if ('' === $service) {
+            self::markTestSkipped('Nothing to test');
+        }
+
         if (!$isCommentOnly) {
             self::fail('Missing CHANGELOG entry for package ' . $service);
         }
@@ -186,7 +190,7 @@ class ChangelogTest extends TestCase
         );
 
         if (0 === \count($branches)) {
-            self::markTestSkipped('Cannot find the master branch');
+            yield [null, null, null];
         }
 
         usort($branches, static function ($a, $b) {
@@ -242,6 +246,7 @@ class ChangelogTest extends TestCase
             $changedServices[$service]['files'][] = $subPath;
         }
 
+        $oneChange = false;
         foreach ($changedServices as $service => $changesService) {
             $changedFiles = $changesService['files'];
             if (\in_array('/CHANGELOG.md', $changedFiles, true)) {
@@ -271,6 +276,10 @@ class ChangelogTest extends TestCase
             }
 
             yield [$service, $changesService['base'], $isCommentOnly];
+            $oneChange = true;
+        }
+        if (!$oneChange) {
+            yield ['', '', false];
         }
     }
 
