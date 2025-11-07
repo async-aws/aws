@@ -1,7 +1,7 @@
 # AsyncAws Illuminate Cache integration
 
-![](https://github.com/async-aws/illuminate-cache/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/illuminate-cache/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/illuminate-cache/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/illuminate-cache/actions/workflows/checks.yml/badge.svg?branch=master)
 
 ## Install
 

@@ -1,7 +1,7 @@
 # AsyncAws RdsDataService Client
 
-![](https://github.com/async-aws/rds-data-service/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/rds-data-service/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/rds-data-service/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/rds-data-service/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for the RDS data service.
 

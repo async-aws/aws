@@ -1,7 +1,7 @@
 # AsyncAws Ssm Client
 
-![](https://github.com/async-aws/ssm/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/ssm/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/ssm/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/ssm/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for Ssm.
 

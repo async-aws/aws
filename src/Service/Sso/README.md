@@ -1,7 +1,7 @@
 # AsyncAws Sso Client
 
-![](https://github.com/async-aws/sso/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/sso/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/sso/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/sso/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for Sso.
 

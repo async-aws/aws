@@ -1,7 +1,7 @@
 # AsyncAws Symfony Bundle
 
-![](https://github.com/async-aws/symfony-bundle/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/symfony-bundle/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/symfony-bundle/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/symfony-bundle/actions/workflows/checks.yml/badge.svg?branch=master)
 
 A small SymfonyBundle that helps with configuration and autowiring.
 

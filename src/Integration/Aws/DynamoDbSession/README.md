@@ -1,7 +1,7 @@
 # AsyncAws DynamoDB integration for PHP Sessions
 
-![](https://github.com/async-aws/dynamo-db-session/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/dynamo-db-session/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/dynamo-db-session/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/dynamo-db-session/actions/workflows/checks.yml/badge.svg?branch=master)
 
 Store your PHP Sessions in DynamoDB.
 
