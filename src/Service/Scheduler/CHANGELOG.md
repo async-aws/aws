@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `us-isob-west-1` region
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2
