@@ -1,7 +1,7 @@
 # AsyncAws Code Generator
 
-![](https://github.com/async-aws/code-generator/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/code-generator/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/code-generator/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/code-generator/actions/workflows/checks.yml/badge.svg?branch=master)
 
 This package generate code for the API clients.
 

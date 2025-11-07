@@ -1,7 +1,7 @@
 # AsyncAws StepFunctions Client
 
-![](https://github.com/async-aws/step-functions/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/step-functions/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/step-functions/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/step-functions/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for StepFunctions.
 

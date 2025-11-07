@@ -1,7 +1,7 @@
 # AsyncAws AppSync Client
 
-![](https://github.com/async-aws/app-sync/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/app-sync/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/app-sync/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/app-sync/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for AppSync.
 

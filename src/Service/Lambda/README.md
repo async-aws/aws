@@ -1,7 +1,7 @@
 # AsyncAws Lambda Client
 
-![](https://github.com/async-aws/lambda/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/lambda/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/lambda/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/lambda/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for Lambda.
 

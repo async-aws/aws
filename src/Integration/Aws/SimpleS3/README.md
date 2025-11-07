@@ -1,7 +1,7 @@
 # AsyncAws Simple S3 client
 
-![](https://github.com/async-aws/simple-s3/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/simple-s3/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/simple-s3/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/simple-s3/actions/workflows/checks.yml/badge.svg?branch=master)
 
 A thin layer on top of the S3 client to make it easier to work with.
 

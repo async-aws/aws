@@ -1,7 +1,7 @@
 # AsyncAws Route53 Client
 
-![](https://github.com/async-aws/route53/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/route53/workflows/BC%20Check/badge.svg?branch=master)
+![CI](https://github.com/async-aws/route53/actions/workflows/ci.yml/badge.svg?branch=master)
+![BC Check](https://github.com/async-aws/route53/actions/workflows/checks.yml/badge.svg?branch=master)
 
 An API client for Route53.
 
