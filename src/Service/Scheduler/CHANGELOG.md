@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: TODO
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2
