@@ -188,7 +188,7 @@ class KmsClient extends AbstractApi
      *   (China Regions only). The private key in an asymmetric KMS key never leaves KMS unencrypted. However, you can use
      *   the GetPublicKey operation to download the public key so it can be used outside of KMS. Each KMS key can have only
      *   one key usage. KMS keys with RSA key pairs can be used to encrypt and decrypt data or sign and verify messages (but
-     *   not both). KMS keys with NIST-recommended ECC key pairs can be used to sign and verify messages or derive shared
+     *   not both). KMS keys with NIST-standard ECC key pairs can be used to sign and verify messages or derive shared
      *   secrets (but not both). KMS keys with `ECC_SECG_P256K1` can be used only to sign and verify messages. KMS keys with
      *   ML-DSA key pairs can be used to sign and verify messages. KMS keys with SM2 key pairs (China Regions only) can be
      *   used to either encrypt and decrypt data, sign and verify messages, or derive shared secrets (you must choose one

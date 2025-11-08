@@ -79,7 +79,7 @@ final class CreateKeyRequest extends Input
      * - For symmetric encryption KMS keys, omit the parameter or specify `ENCRYPT_DECRYPT`.
      * - For HMAC KMS keys (symmetric), specify `GENERATE_VERIFY_MAC`.
      * - For asymmetric KMS keys with RSA key pairs, specify `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
-     * - For asymmetric KMS keys with NIST-recommended elliptic curve key pairs, specify `SIGN_VERIFY` or `KEY_AGREEMENT`.
+     * - For asymmetric KMS keys with NIST-standard elliptic curve key pairs, specify `SIGN_VERIFY` or `KEY_AGREEMENT`.
      * - For asymmetric KMS keys with `ECC_SECG_P256K1` key pairs, specify `SIGN_VERIFY`.
      * - For asymmetric KMS keys with ML-DSA key pairs, specify `SIGN_VERIFY`.
      * - For asymmetric KMS keys with SM2 key pairs (China Regions only), specify `ENCRYPT_DECRYPT`, `SIGN_VERIFY`, or
@@ -137,11 +137,17 @@ final class CreateKeyRequest extends Input
      *   - `RSA_3072`
      *   - `RSA_4096`
      *
-     * - Asymmetric NIST-recommended elliptic curve key pairs (signing and verification -or- deriving shared secrets)
+     * - Asymmetric NIST-standard elliptic curve key pairs (signing and verification -or- deriving shared secrets)
      *
      *   - `ECC_NIST_P256` (secp256r1)
      *   - `ECC_NIST_P384` (secp384r1)
      *   - `ECC_NIST_P521` (secp521r1)
+     *   - `ECC_NIST_EDWARDS25519` (ed25519) - signing and verification only
+     *
+     *     - **Note:** For ECC_NIST_EDWARDS25519 KMS keys, the ED25519_SHA_512 signing algorithm requires `MessageType:RAW`
+     *       [^7], while ED25519_PH_SHA_512 requires `MessageType:DIGEST` [^8]. These message types cannot be used
+     *       interchangeably.
+     *
      *
      * - Other asymmetric elliptic curve key pairs (signing and verification)
      *
@@ -163,6 +169,8 @@ final class CreateKeyRequest extends Input
      * [^4]: https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-key-agreement-algorithm
      * [^5]: https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-signing-algorithm
      * [^6]: http://aws.amazon.com/kms/features/#AWS_Service_Integration
+     * [^7]: kms/latest/APIReference/API_Sign.html#KMS-Sign-request-MessageType
+     * [^8]: kms/latest/APIReference/API_Sign.html#KMS-Sign-request-MessageType
      *
      * @var KeySpec::*|null
      */
