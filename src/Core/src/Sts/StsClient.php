@@ -195,8 +195,8 @@ class StsClient extends AbstractApi
      * **Tags**
      *
      * (Optional) You can configure your IdP to pass attributes into your web identity token as session tags. Each session
-     * tag consists of a key name and an associated value. For more information about session tags, see Passing Session Tags
-     * in STS [^11] in the *IAM User Guide*.
+     * tag consists of a key name and an associated value. For more information about session tags, see Passing session tags
+     * using AssumeRoleWithWebIdentity [^11] in the *IAM User Guide*.
      *
      * You can pass up to 50 session tags. The plaintext session tag keys can’t exceed 128 characters and the values
      * can’t exceed 256 characters. For these and additional limits, see IAM and STS Character Limits [^12] in the *IAM
@@ -248,7 +248,7 @@ class StsClient extends AbstractApi
      * [^8]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html
      * [^9]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
      * [^10]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
-     * [^11]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
+     * [^11]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_adding-assume-role-idp
      * [^12]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length
      * [^13]: https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html
      * [^14]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_role-chaining

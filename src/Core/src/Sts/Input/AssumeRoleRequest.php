@@ -35,7 +35,7 @@ final class AssumeRoleRequest extends Input
      * when you assume the role. For more information, see `sts:RoleSessionName` [^2].
      *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
-     * characters with no spaces. You can also include underscores or any of the following characters: =,.@-
+     * characters with no spaces. You can also include underscores or any of the following characters: +=,.@-
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html#cloudtrail-integration_signin-tempcreds
      * [^2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#ck_rolesessionname
@@ -187,7 +187,7 @@ final class AssumeRoleRequest extends Input
      * Access to Your Amazon Web Services Resources to a Third Party [^1] in the *IAM User Guide*.
      *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
-     * characters with no spaces. You can also include underscores or any of the following characters: =,.@:/-
+     * characters with no spaces. You can also include underscores or any of the following characters: +=,.@:\/-
      *
      * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html
      *
@@ -202,7 +202,7 @@ final class AssumeRoleRequest extends Input
      * Resource Name (ARN) for a virtual device (such as `arn:aws:iam::123456789012:mfa/user`).
      *
      * The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric
-     * characters with no spaces. You can also include underscores or any of the following characters: =,.@-
+     * characters with no spaces. You can also include underscores or any of the following characters: +=/:,.@-
      *
      * @var string|null
      */
