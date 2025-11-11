@@ -16,6 +16,7 @@
 - Apply new CodingStandard from latest php-cs-fixer.
 - Fix PHP 8.5 deprecation by avoiding using `null` as an array offset.
 - Harden code against error cases
+- AWS enhancement: Documentation updates.
 
 ### Fixed
 

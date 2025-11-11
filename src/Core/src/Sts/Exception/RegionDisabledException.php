@@ -9,7 +9,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
  * administrator must use the IAM console to activate STS in that region. For more information, see Activating and
  * Deactivating STS in an Amazon Web Services Region [^1] in the *IAM User Guide*.
  *
- * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html
+ * [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html#sts-regions-activate-deactivate
  */
 final class RegionDisabledException extends ClientException
 {
