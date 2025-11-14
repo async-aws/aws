@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-isob-west-1` region
 - Added `DescribeLogGroups` method
+- Support for BedrockAgent
 
 ### Dependency bumped
 

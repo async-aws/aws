@@ -64,6 +64,20 @@
                 ]
             }
         },
+        "BedrockAgent": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agent/2023-06-05/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agent/2023-06-05/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agent/2023-06-05/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agent/2023-06-05/waiters-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agent/2023-06-05/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/bedrock/latest/APIReference",
+            "methods": [
+                "DeleteKnowledgeBaseDocuments",
+                "GetKnowledgeBaseDocuments",
+                "IngestKnowledgeBaseDocuments",
+                "ListKnowledgeBaseDocuments"
+            ]
+        },
         "BedrockRuntime": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/docs-2.json",

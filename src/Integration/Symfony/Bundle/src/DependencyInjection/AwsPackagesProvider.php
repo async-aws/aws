@@ -22,6 +22,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Athena\AthenaClient::class,
                 'package' => 'async-aws/athena',
             ],
+            'bedrock_agent' => [
+                'class' => \AsyncAws\BedrockAgent\BedrockAgentClient::class,
+                'package' => 'async-aws/bedrock-agent',
+            ],
             'bedrock_runtime' => [
                 'class' => \AsyncAws\BedrockRuntime\BedrockRuntimeClient::class,
                 'package' => 'async-aws/bedrock-runtime',
