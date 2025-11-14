@@ -10,7 +10,7 @@ use AsyncAws\CloudFormation\Enum\ResourceStatus;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The StackEvent data type.
+ * The `StackEvent` data type.
  */
 final class StackEvent
 {

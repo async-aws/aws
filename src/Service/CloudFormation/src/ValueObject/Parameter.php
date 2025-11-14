@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 /**
- * The Parameter data type.
+ * The `Parameter` data type.
  */
 final class Parameter
 {

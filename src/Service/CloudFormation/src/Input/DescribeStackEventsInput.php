@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudFormation\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -17,12 +18,14 @@ final class DescribeStackEventsInput extends Input
      * - Running stacks: You can specify either the stack's name or its unique stack ID.
      * - Deleted stacks: You must specify the unique stack ID.
      *
+     * @required
+     *
      * @var string|null
      */
     private $stackName;
 
     /**
-     * A string that identifies the next page of events that you want to retrieve.
+     * The token for the next set of items to return. (You received this token from a previous call.).
      *
      * @var string|null
      */
@@ -30,7 +33,7 @@ final class DescribeStackEventsInput extends Input
 
     /**
      * @param array{
-     *   StackName?: string|null,
+     *   StackName?: string,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
@@ -44,7 +47,7 @@ final class DescribeStackEventsInput extends Input
 
     /**
      * @param array{
-     *   StackName?: string|null,
+     *   StackName?: string,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStackEventsInput $input
@@ -102,9 +105,10 @@ final class DescribeStackEventsInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->stackName) {
-            $payload['StackName'] = $v;
+        if (null === $v = $this->stackName) {
+            throw new InvalidArgument(\sprintf('Missing parameter "StackName" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['StackName'] = $v;
         if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }

@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 /**
- * The Output data type.
+ * The `Output` data type.
  */
 final class Output
 {
