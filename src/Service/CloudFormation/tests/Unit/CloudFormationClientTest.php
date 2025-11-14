@@ -33,6 +33,7 @@ class CloudFormationClientTest extends TestCase
         $client = new CloudFormationClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeStackEventsInput([
+            'StackName' => 'demo',
         ]);
         $result = $client->DescribeStackEvents($input);
 

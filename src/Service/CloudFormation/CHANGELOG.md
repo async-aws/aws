@@ -2,11 +2,14 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- AWS api-change: The `stackName` parameter is now required in `DescribeStackEvents` operation.
+
 ### Added
 
 - AWS api-change: Update endpoint ruleset parameters casing
 - AWS apu-change: Added `us-isob-west-1` region
-- AWS api-change: CloudFormation now supports GetHookResult API with annotations to retrieve structured compliance check results and remediation guidance for each evaluated resource, replacing the previous single-message limitation with detailed validation outcomes.
 
 ### Dependency bumped
 
