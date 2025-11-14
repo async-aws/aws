@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\CmfcAudioDuration;
 use AsyncAws\MediaConvert\Enum\CmfcAudioTrackType;
+use AsyncAws\MediaConvert\Enum\CmfcC2paManifest;
 use AsyncAws\MediaConvert\Enum\CmfcDescriptiveVideoServiceFlag;
 use AsyncAws\MediaConvert\Enum\CmfcIFrameOnlyManifest;
 use AsyncAws\MediaConvert\Enum\CmfcKlvMetadata;
@@ -82,6 +83,25 @@ final class CmfcSettings
     private $audioTrackType;
 
     /**
+     * When enabled, a C2PA compliant manifest will be generated, signed and embeded in the output. For more information on
+     * C2PA, see https://c2pa.org/specifications/specifications/2.1/index.html.
+     *
+     * @var CmfcC2paManifest::*|null
+     */
+    private $c2paManifest;
+
+    /**
+     * Specify the name or ARN of the AWS Secrets Manager secret that contains your C2PA public certificate chain in PEM
+     * format. Provide a valid secret name or ARN. Note that your MediaConvert service role must allow access to this
+     * secret. The public certificate chain is added to the COSE header (x5chain) for signature validation. Include the
+     * signer's certificate and all intermediate certificates. Do not include the root certificate. For details on COSE,
+     * see: https://opensource.contentauthenticity.org/docs/manifest/signing-manifests.
+     *
+     * @var string|null
+     */
+    private $certificateSecret;
+
+    /**
      * Specify whether to flag this audio track as descriptive video service (DVS) in your HLS parent manifest. When you
      * choose Flag, MediaConvert includes the parameter CHARACTERISTICS="public.accessibility.describes-video" in the
      * EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag, MediaConvert leaves this parameter
@@ -141,6 +161,14 @@ final class CmfcSettings
     private $scte35Source;
 
     /**
+     * Specify the ID or ARN of the AWS KMS key used to sign the C2PA manifest in your MP4 output. Provide a valid KMS key
+     * ARN. Note that your MediaConvert service role must allow access to this key.
+     *
+     * @var string|null
+     */
+    private $signingKmsKey;
+
+    /**
      * To include ID3 metadata in this output: Set ID3 metadata to Passthrough. Specify this ID3 metadata in Custom ID3
      * metadata inserter. MediaConvert writes each instance of ID3 metadata in a separate Event Message (eMSG) box. To
      * exclude this ID3 metadata: Set ID3 metadata to None or leave blank.
@@ -183,12 +211,15 @@ final class CmfcSettings
      *   AudioGroupId?: string|null,
      *   AudioRenditionSets?: string|null,
      *   AudioTrackType?: CmfcAudioTrackType::*|null,
+     *   C2paManifest?: CmfcC2paManifest::*|null,
+     *   CertificateSecret?: string|null,
      *   DescriptiveVideoServiceFlag?: CmfcDescriptiveVideoServiceFlag::*|null,
      *   IFrameOnlyManifest?: CmfcIFrameOnlyManifest::*|null,
      *   KlvMetadata?: CmfcKlvMetadata::*|null,
      *   ManifestMetadataSignaling?: CmfcManifestMetadataSignaling::*|null,
      *   Scte35Esam?: CmfcScte35Esam::*|null,
      *   Scte35Source?: CmfcScte35Source::*|null,
+     *   SigningKmsKey?: string|null,
      *   TimedMetadata?: CmfcTimedMetadata::*|null,
      *   TimedMetadataBoxVersion?: CmfcTimedMetadataBoxVersion::*|null,
      *   TimedMetadataSchemeIdUri?: string|null,
@@ -201,12 +232,15 @@ final class CmfcSettings
         $this->audioGroupId = $input['AudioGroupId'] ?? null;
         $this->audioRenditionSets = $input['AudioRenditionSets'] ?? null;
         $this->audioTrackType = $input['AudioTrackType'] ?? null;
+        $this->c2paManifest = $input['C2paManifest'] ?? null;
+        $this->certificateSecret = $input['CertificateSecret'] ?? null;
         $this->descriptiveVideoServiceFlag = $input['DescriptiveVideoServiceFlag'] ?? null;
         $this->iframeOnlyManifest = $input['IFrameOnlyManifest'] ?? null;
         $this->klvMetadata = $input['KlvMetadata'] ?? null;
         $this->manifestMetadataSignaling = $input['ManifestMetadataSignaling'] ?? null;
         $this->scte35Esam = $input['Scte35Esam'] ?? null;
         $this->scte35Source = $input['Scte35Source'] ?? null;
+        $this->signingKmsKey = $input['SigningKmsKey'] ?? null;
         $this->timedMetadata = $input['TimedMetadata'] ?? null;
         $this->timedMetadataBoxVersion = $input['TimedMetadataBoxVersion'] ?? null;
         $this->timedMetadataSchemeIdUri = $input['TimedMetadataSchemeIdUri'] ?? null;
@@ -219,12 +253,15 @@ final class CmfcSettings
      *   AudioGroupId?: string|null,
      *   AudioRenditionSets?: string|null,
      *   AudioTrackType?: CmfcAudioTrackType::*|null,
+     *   C2paManifest?: CmfcC2paManifest::*|null,
+     *   CertificateSecret?: string|null,
      *   DescriptiveVideoServiceFlag?: CmfcDescriptiveVideoServiceFlag::*|null,
      *   IFrameOnlyManifest?: CmfcIFrameOnlyManifest::*|null,
      *   KlvMetadata?: CmfcKlvMetadata::*|null,
      *   ManifestMetadataSignaling?: CmfcManifestMetadataSignaling::*|null,
      *   Scte35Esam?: CmfcScte35Esam::*|null,
      *   Scte35Source?: CmfcScte35Source::*|null,
+     *   SigningKmsKey?: string|null,
      *   TimedMetadata?: CmfcTimedMetadata::*|null,
      *   TimedMetadataBoxVersion?: CmfcTimedMetadataBoxVersion::*|null,
      *   TimedMetadataSchemeIdUri?: string|null,
@@ -260,6 +297,19 @@ final class CmfcSettings
     public function getAudioTrackType(): ?string
     {
         return $this->audioTrackType;
+    }
+
+    /**
+     * @return CmfcC2paManifest::*|null
+     */
+    public function getC2paManifest(): ?string
+    {
+        return $this->c2paManifest;
+    }
+
+    public function getCertificateSecret(): ?string
+    {
+        return $this->certificateSecret;
     }
 
     /**
@@ -308,6 +358,11 @@ final class CmfcSettings
     public function getScte35Source(): ?string
     {
         return $this->scte35Source;
+    }
+
+    public function getSigningKmsKey(): ?string
+    {
+        return $this->signingKmsKey;
     }
 
     /**
@@ -360,6 +415,15 @@ final class CmfcSettings
             }
             $payload['audioTrackType'] = $v;
         }
+        if (null !== $v = $this->c2paManifest) {
+            if (!CmfcC2paManifest::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "c2paManifest" for "%s". The value "%s" is not a valid "CmfcC2paManifest".', __CLASS__, $v));
+            }
+            $payload['c2paManifest'] = $v;
+        }
+        if (null !== $v = $this->certificateSecret) {
+            $payload['certificateSecret'] = $v;
+        }
         if (null !== $v = $this->descriptiveVideoServiceFlag) {
             if (!CmfcDescriptiveVideoServiceFlag::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "descriptiveVideoServiceFlag" for "%s". The value "%s" is not a valid "CmfcDescriptiveVideoServiceFlag".', __CLASS__, $v));
@@ -395,6 +459,9 @@ final class CmfcSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "CmfcScte35Source".', __CLASS__, $v));
             }
             $payload['scte35Source'] = $v;
+        }
+        if (null !== $v = $this->signingKmsKey) {
+            $payload['signingKmsKey'] = $v;
         }
         if (null !== $v = $this->timedMetadata) {
             if (!CmfcTimedMetadata::exists($v)) {

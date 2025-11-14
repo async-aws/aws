@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### BC-BREAK
+
+- AWS api-change: The `stackName` parameter is now required in `DescribeStackEvents` operation.
+
 ### Added
 
 - AWS api-change: Update endpoint ruleset parameters casing

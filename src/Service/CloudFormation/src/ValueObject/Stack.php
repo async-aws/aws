@@ -9,7 +9,7 @@ use AsyncAws\CloudFormation\Enum\StackStatus;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The Stack data type.
+ * The `Stack` data type.
  */
 final class Stack
 {

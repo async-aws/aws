@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\MpdAccessibilityCaptionHints;
 use AsyncAws\MediaConvert\Enum\MpdAudioDuration;
+use AsyncAws\MediaConvert\Enum\MpdC2paManifest;
 use AsyncAws\MediaConvert\Enum\MpdCaptionContainerType;
 use AsyncAws\MediaConvert\Enum\MpdKlvMetadata;
 use AsyncAws\MediaConvert\Enum\MpdManifestMetadataSignaling;
@@ -45,6 +46,14 @@ final class MpdSettings
     private $audioDuration;
 
     /**
+     * When enabled, a C2PA compliant manifest will be generated, signed and embeded in the output. For more information on
+     * C2PA, see https://c2pa.org/specifications/specifications/2.1/index.html.
+     *
+     * @var MpdC2paManifest::*|null
+     */
+    private $c2paManifest;
+
+    /**
      * Use this setting only in DASH output groups that include sidecar TTML, IMSC or WEBVTT captions. You specify sidecar
      * captions in a separate output from your audio and video. Choose Raw for captions in a single XML file in a raw
      * container. Choose Fragmented MPEG-4 for captions in XML format contained within fragmented MP4 files. This set of
@@ -53,6 +62,17 @@ final class MpdSettings
      * @var MpdCaptionContainerType::*|null
      */
     private $captionContainerType;
+
+    /**
+     * Specify the name or ARN of the AWS Secrets Manager secret that contains your C2PA public certificate chain in PEM
+     * format. Provide a valid secret name or ARN. Note that your MediaConvert service role must allow access to this
+     * secret. The public certificate chain is added to the COSE header (x5chain) for signature validation. Include the
+     * signer's certificate and all intermediate certificates. Do not include the root certificate. For details on COSE,
+     * see: https://opensource.contentauthenticity.org/docs/manifest/signing-manifests.
+     *
+     * @var string|null
+     */
+    private $certificateSecret;
 
     /**
      * To include key-length-value metadata in this output: Set KLV metadata insertion to Passthrough. MediaConvert reads
@@ -91,6 +111,14 @@ final class MpdSettings
      * @var MpdScte35Source::*|null
      */
     private $scte35Source;
+
+    /**
+     * Specify the ID or ARN of the AWS KMS key used to sign the C2PA manifest in your MP4 output. Provide a valid KMS key
+     * ARN. Note that your MediaConvert service role must allow access to this key.
+     *
+     * @var string|null
+     */
+    private $signingKmsKey;
 
     /**
      * To include ID3 metadata in this output: Set ID3 metadata to Passthrough. Specify this ID3 metadata in Custom ID3
@@ -133,11 +161,14 @@ final class MpdSettings
      * @param array{
      *   AccessibilityCaptionHints?: MpdAccessibilityCaptionHints::*|null,
      *   AudioDuration?: MpdAudioDuration::*|null,
+     *   C2paManifest?: MpdC2paManifest::*|null,
      *   CaptionContainerType?: MpdCaptionContainerType::*|null,
+     *   CertificateSecret?: string|null,
      *   KlvMetadata?: MpdKlvMetadata::*|null,
      *   ManifestMetadataSignaling?: MpdManifestMetadataSignaling::*|null,
      *   Scte35Esam?: MpdScte35Esam::*|null,
      *   Scte35Source?: MpdScte35Source::*|null,
+     *   SigningKmsKey?: string|null,
      *   TimedMetadata?: MpdTimedMetadata::*|null,
      *   TimedMetadataBoxVersion?: MpdTimedMetadataBoxVersion::*|null,
      *   TimedMetadataSchemeIdUri?: string|null,
@@ -148,11 +179,14 @@ final class MpdSettings
     {
         $this->accessibilityCaptionHints = $input['AccessibilityCaptionHints'] ?? null;
         $this->audioDuration = $input['AudioDuration'] ?? null;
+        $this->c2paManifest = $input['C2paManifest'] ?? null;
         $this->captionContainerType = $input['CaptionContainerType'] ?? null;
+        $this->certificateSecret = $input['CertificateSecret'] ?? null;
         $this->klvMetadata = $input['KlvMetadata'] ?? null;
         $this->manifestMetadataSignaling = $input['ManifestMetadataSignaling'] ?? null;
         $this->scte35Esam = $input['Scte35Esam'] ?? null;
         $this->scte35Source = $input['Scte35Source'] ?? null;
+        $this->signingKmsKey = $input['SigningKmsKey'] ?? null;
         $this->timedMetadata = $input['TimedMetadata'] ?? null;
         $this->timedMetadataBoxVersion = $input['TimedMetadataBoxVersion'] ?? null;
         $this->timedMetadataSchemeIdUri = $input['TimedMetadataSchemeIdUri'] ?? null;
@@ -163,11 +197,14 @@ final class MpdSettings
      * @param array{
      *   AccessibilityCaptionHints?: MpdAccessibilityCaptionHints::*|null,
      *   AudioDuration?: MpdAudioDuration::*|null,
+     *   C2paManifest?: MpdC2paManifest::*|null,
      *   CaptionContainerType?: MpdCaptionContainerType::*|null,
+     *   CertificateSecret?: string|null,
      *   KlvMetadata?: MpdKlvMetadata::*|null,
      *   ManifestMetadataSignaling?: MpdManifestMetadataSignaling::*|null,
      *   Scte35Esam?: MpdScte35Esam::*|null,
      *   Scte35Source?: MpdScte35Source::*|null,
+     *   SigningKmsKey?: string|null,
      *   TimedMetadata?: MpdTimedMetadata::*|null,
      *   TimedMetadataBoxVersion?: MpdTimedMetadataBoxVersion::*|null,
      *   TimedMetadataSchemeIdUri?: string|null,
@@ -196,11 +233,24 @@ final class MpdSettings
     }
 
     /**
+     * @return MpdC2paManifest::*|null
+     */
+    public function getC2paManifest(): ?string
+    {
+        return $this->c2paManifest;
+    }
+
+    /**
      * @return MpdCaptionContainerType::*|null
      */
     public function getCaptionContainerType(): ?string
     {
         return $this->captionContainerType;
+    }
+
+    public function getCertificateSecret(): ?string
+    {
+        return $this->certificateSecret;
     }
 
     /**
@@ -233,6 +283,11 @@ final class MpdSettings
     public function getScte35Source(): ?string
     {
         return $this->scte35Source;
+    }
+
+    public function getSigningKmsKey(): ?string
+    {
+        return $this->signingKmsKey;
     }
 
     /**
@@ -279,11 +334,20 @@ final class MpdSettings
             }
             $payload['audioDuration'] = $v;
         }
+        if (null !== $v = $this->c2paManifest) {
+            if (!MpdC2paManifest::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "c2paManifest" for "%s". The value "%s" is not a valid "MpdC2paManifest".', __CLASS__, $v));
+            }
+            $payload['c2paManifest'] = $v;
+        }
         if (null !== $v = $this->captionContainerType) {
             if (!MpdCaptionContainerType::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "captionContainerType" for "%s". The value "%s" is not a valid "MpdCaptionContainerType".', __CLASS__, $v));
             }
             $payload['captionContainerType'] = $v;
+        }
+        if (null !== $v = $this->certificateSecret) {
+            $payload['certificateSecret'] = $v;
         }
         if (null !== $v = $this->klvMetadata) {
             if (!MpdKlvMetadata::exists($v)) {
@@ -308,6 +372,9 @@ final class MpdSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "MpdScte35Source".', __CLASS__, $v));
             }
             $payload['scte35Source'] = $v;
+        }
+        if (null !== $v = $this->signingKmsKey) {
+            $payload['signingKmsKey'] = $v;
         }
         if (null !== $v = $this->timedMetadata) {
             if (!MpdTimedMetadata::exists($v)) {

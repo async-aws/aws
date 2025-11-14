@@ -20,7 +20,7 @@ final class InputVideoGenerator
 
     /**
      * Specify the duration, in milliseconds, for your video generator input.
-     * Enter an integer from 50 to 86400000.
+     * Enter an integer from 1 to 86400000.
      *
      * @var int|null
      */

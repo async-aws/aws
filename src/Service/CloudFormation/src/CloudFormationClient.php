@@ -60,12 +60,12 @@ class CloudFormationClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestackevents
      *
      * @param array{
-     *   StackName?: string|null,
+     *   StackName: string,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
      * }|DescribeStackEventsInput $input
      */
-    public function describeStackEvents($input = []): DescribeStackEventsOutput
+    public function describeStackEvents($input): DescribeStackEventsOutput
     {
         $input = DescribeStackEventsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStackEvents', 'region' => $input->getRegion()]));

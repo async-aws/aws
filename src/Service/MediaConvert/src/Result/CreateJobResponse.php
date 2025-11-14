@@ -657,12 +657,15 @@ class CreateJobResponse extends Result
             'AudioGroupId' => isset($json['audioGroupId']) ? (string) $json['audioGroupId'] : null,
             'AudioRenditionSets' => isset($json['audioRenditionSets']) ? (string) $json['audioRenditionSets'] : null,
             'AudioTrackType' => isset($json['audioTrackType']) ? (string) $json['audioTrackType'] : null,
+            'C2paManifest' => isset($json['c2paManifest']) ? (string) $json['c2paManifest'] : null,
+            'CertificateSecret' => isset($json['certificateSecret']) ? (string) $json['certificateSecret'] : null,
             'DescriptiveVideoServiceFlag' => isset($json['descriptiveVideoServiceFlag']) ? (string) $json['descriptiveVideoServiceFlag'] : null,
             'IFrameOnlyManifest' => isset($json['iFrameOnlyManifest']) ? (string) $json['iFrameOnlyManifest'] : null,
             'KlvMetadata' => isset($json['klvMetadata']) ? (string) $json['klvMetadata'] : null,
             'ManifestMetadataSignaling' => isset($json['manifestMetadataSignaling']) ? (string) $json['manifestMetadataSignaling'] : null,
             'Scte35Esam' => isset($json['scte35Esam']) ? (string) $json['scte35Esam'] : null,
             'Scte35Source' => isset($json['scte35Source']) ? (string) $json['scte35Source'] : null,
+            'SigningKmsKey' => isset($json['signingKmsKey']) ? (string) $json['signingKmsKey'] : null,
             'TimedMetadata' => isset($json['timedMetadata']) ? (string) $json['timedMetadata'] : null,
             'TimedMetadataBoxVersion' => isset($json['timedMetadataBoxVersion']) ? (string) $json['timedMetadataBoxVersion'] : null,
             'TimedMetadataSchemeIdUri' => isset($json['timedMetadataSchemeIdUri']) ? (string) $json['timedMetadataSchemeIdUri'] : null,
@@ -1695,11 +1698,14 @@ class CreateJobResponse extends Result
         return new MpdSettings([
             'AccessibilityCaptionHints' => isset($json['accessibilityCaptionHints']) ? (string) $json['accessibilityCaptionHints'] : null,
             'AudioDuration' => isset($json['audioDuration']) ? (string) $json['audioDuration'] : null,
+            'C2paManifest' => isset($json['c2paManifest']) ? (string) $json['c2paManifest'] : null,
             'CaptionContainerType' => isset($json['captionContainerType']) ? (string) $json['captionContainerType'] : null,
+            'CertificateSecret' => isset($json['certificateSecret']) ? (string) $json['certificateSecret'] : null,
             'KlvMetadata' => isset($json['klvMetadata']) ? (string) $json['klvMetadata'] : null,
             'ManifestMetadataSignaling' => isset($json['manifestMetadataSignaling']) ? (string) $json['manifestMetadataSignaling'] : null,
             'Scte35Esam' => isset($json['scte35Esam']) ? (string) $json['scte35Esam'] : null,
             'Scte35Source' => isset($json['scte35Source']) ? (string) $json['scte35Source'] : null,
+            'SigningKmsKey' => isset($json['signingKmsKey']) ? (string) $json['signingKmsKey'] : null,
             'TimedMetadata' => isset($json['timedMetadata']) ? (string) $json['timedMetadata'] : null,
             'TimedMetadataBoxVersion' => isset($json['timedMetadataBoxVersion']) ? (string) $json['timedMetadataBoxVersion'] : null,
             'TimedMetadataSchemeIdUri' => isset($json['timedMetadataSchemeIdUri']) ? (string) $json['timedMetadataSchemeIdUri'] : null,
@@ -1952,6 +1958,7 @@ class CreateJobResponse extends Result
     private function populateResultPassthroughSettings(array $json): PassthroughSettings
     {
         return new PassthroughSettings([
+            'FrameControl' => isset($json['frameControl']) ? (string) $json['frameControl'] : null,
             'VideoSelectorMode' => isset($json['videoSelectorMode']) ? (string) $json['videoSelectorMode'] : null,
         ]);
     }
