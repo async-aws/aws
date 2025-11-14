@@ -148,7 +148,7 @@ their result. The HTTP response that is downloaded first will be printed first. 
 the requests are created do not matter.
 
 The `Result::wait()` function will iterate over provided results, and yield
-the the response as soon as it has been resolved.
+the response as soon as it has been resolved.
 
 The function has a `?float $timeout = null` argument. If the timeout is set to
 `2.0`, the HTTP client will wait up to 2 seconds for responses. Each time a response
