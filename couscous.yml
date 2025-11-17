@@ -37,6 +37,9 @@ menu:
             athena:
                 text: Athena
                 url: /clients/athena.html
+            bedrock-agent:
+                text: Bedrock Agent
+                url: /clients/bedrock-agent.html
             bedrock-runtime:
                 text: Bedrock Runtime
                 url: /clients/bedrock-runtime.html

@@ -1,0 +1,39 @@
+{
+    "name": "async-aws/bedrock-agent",
+    "description": "BedrockAgent client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "bedrock-agent"
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "async-aws/core": "^1.9",
+        "symfony/polyfill-uuid": "^1.13.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5.42",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\BedrockAgent\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\BedrockAgent\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
