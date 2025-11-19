@@ -3,6 +3,7 @@
 namespace AsyncAws\BedrockRuntime\Input;
 
 use AsyncAws\BedrockRuntime\Enum\PerformanceConfigLatency;
+use AsyncAws\BedrockRuntime\Enum\ServiceTierType;
 use AsyncAws\BedrockRuntime\Enum\Trace;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
@@ -104,6 +105,13 @@ final class InvokeModelRequest extends Input
     private $performanceConfigLatency;
 
     /**
+     * Specifies the processing tier type used for serving the request.
+     *
+     * @var ServiceTierType::*|null
+     */
+    private $serviceTier;
+
+    /**
      * @param array{
      *   body?: string|null,
      *   contentType?: string|null,
@@ -113,6 +121,7 @@ final class InvokeModelRequest extends Input
      *   guardrailIdentifier?: string|null,
      *   guardrailVersion?: string|null,
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
+     *   serviceTier?: ServiceTierType::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -126,6 +135,7 @@ final class InvokeModelRequest extends Input
         $this->guardrailIdentifier = $input['guardrailIdentifier'] ?? null;
         $this->guardrailVersion = $input['guardrailVersion'] ?? null;
         $this->performanceConfigLatency = $input['performanceConfigLatency'] ?? null;
+        $this->serviceTier = $input['serviceTier'] ?? null;
         parent::__construct($input);
     }
 
@@ -139,6 +149,7 @@ final class InvokeModelRequest extends Input
      *   guardrailIdentifier?: string|null,
      *   guardrailVersion?: string|null,
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
+     *   serviceTier?: ServiceTierType::*|null,
      *   '@region'?: string|null,
      * }|InvokeModelRequest $input
      */
@@ -186,6 +197,14 @@ final class InvokeModelRequest extends Input
     }
 
     /**
+     * @return ServiceTierType::*|null
+     */
+    public function getServiceTier(): ?string
+    {
+        return $this->serviceTier;
+    }
+
+    /**
      * @return Trace::*|null
      */
     public function getTrace(): ?string
@@ -226,6 +245,12 @@ final class InvokeModelRequest extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "performanceConfigLatency" for "%s". The value "%s" is not a valid "PerformanceConfigLatency".', __CLASS__, $this->performanceConfigLatency));
             }
             $headers['X-Amzn-Bedrock-PerformanceConfig-Latency'] = $this->performanceConfigLatency;
+        }
+        if (null !== $this->serviceTier) {
+            if (!ServiceTierType::exists($this->serviceTier)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "serviceTier" for "%s". The value "%s" is not a valid "ServiceTierType".', __CLASS__, $this->serviceTier));
+            }
+            $headers['X-Amzn-Bedrock-Service-Tier'] = $this->serviceTier;
         }
 
         // Prepare query
@@ -294,6 +319,16 @@ final class InvokeModelRequest extends Input
     public function setPerformanceConfigLatency(?string $value): self
     {
         $this->performanceConfigLatency = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ServiceTierType::*|null $value
+     */
+    public function setServiceTier(?string $value): self
+    {
+        $this->serviceTier = $value;
 
         return $this;
     }

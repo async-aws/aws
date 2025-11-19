@@ -3,6 +3,7 @@
 namespace AsyncAws\BedrockRuntime\Result;
 
 use AsyncAws\BedrockRuntime\Enum\PerformanceConfigLatency;
+use AsyncAws\BedrockRuntime\Enum\ServiceTierType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
@@ -32,6 +33,13 @@ class InvokeModelResponse extends Result
      */
     private $performanceConfigLatency;
 
+    /**
+     * Specifies the processing tier type used for serving the request.
+     *
+     * @var ServiceTierType::*|null
+     */
+    private $serviceTier;
+
     public function getBody(): string
     {
         $this->initialize();
@@ -56,12 +64,23 @@ class InvokeModelResponse extends Result
         return $this->performanceConfigLatency;
     }
 
+    /**
+     * @return ServiceTierType::*|null
+     */
+    public function getServiceTier(): ?string
+    {
+        $this->initialize();
+
+        return $this->serviceTier;
+    }
+
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
         $this->contentType = $headers['content-type'][0];
         $this->performanceConfigLatency = $headers['x-amzn-bedrock-performanceconfig-latency'][0] ?? null;
+        $this->serviceTier = $headers['x-amzn-bedrock-service-tier'][0] ?? null;
 
         $this->body = $response->getContent();
     }
