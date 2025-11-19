@@ -10,6 +10,7 @@
 
 - AWS api-change: Update endpoint ruleset parameters casing
 - AWS apu-change: Added `us-isob-west-1` region
+- AWS api-change: New CloudFormation DescribeEvents API with operation ID tracking and failure filtering capabilities to quickly identify root causes of deployment failures.
 
 ### Dependency bumped
 

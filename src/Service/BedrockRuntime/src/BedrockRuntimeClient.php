@@ -3,6 +3,7 @@
 namespace AsyncAws\BedrockRuntime;
 
 use AsyncAws\BedrockRuntime\Enum\PerformanceConfigLatency;
+use AsyncAws\BedrockRuntime\Enum\ServiceTierType;
 use AsyncAws\BedrockRuntime\Enum\Trace;
 use AsyncAws\BedrockRuntime\Exception\AccessDeniedException;
 use AsyncAws\BedrockRuntime\Exception\InternalServerException;
@@ -57,6 +58,7 @@ class BedrockRuntimeClient extends AbstractApi
      *   guardrailIdentifier?: string|null,
      *   guardrailVersion?: string|null,
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
+     *   serviceTier?: ServiceTierType::*|null,
      *   '@region'?: string|null,
      * }|InvokeModelRequest $input
      *

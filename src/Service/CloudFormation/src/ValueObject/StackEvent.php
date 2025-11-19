@@ -36,6 +36,13 @@ final class StackEvent
     private $stackName;
 
     /**
+     * The unique identifier of the operation that generated this stack event.
+     *
+     * @var string|null
+     */
+    private $operationId;
+
+    /**
      * The logical name of the resource specified in the template.
      *
      * @var string|null
@@ -168,6 +175,7 @@ final class StackEvent
      *   StackId: string,
      *   EventId: string,
      *   StackName: string,
+     *   OperationId?: string|null,
      *   LogicalResourceId?: string|null,
      *   PhysicalResourceId?: string|null,
      *   ResourceType?: string|null,
@@ -190,6 +198,7 @@ final class StackEvent
         $this->stackId = $input['StackId'] ?? $this->throwException(new InvalidArgument('Missing required field "StackId".'));
         $this->eventId = $input['EventId'] ?? $this->throwException(new InvalidArgument('Missing required field "EventId".'));
         $this->stackName = $input['StackName'] ?? $this->throwException(new InvalidArgument('Missing required field "StackName".'));
+        $this->operationId = $input['OperationId'] ?? null;
         $this->logicalResourceId = $input['LogicalResourceId'] ?? null;
         $this->physicalResourceId = $input['PhysicalResourceId'] ?? null;
         $this->resourceType = $input['ResourceType'] ?? null;
@@ -212,6 +221,7 @@ final class StackEvent
      *   StackId: string,
      *   EventId: string,
      *   StackName: string,
+     *   OperationId?: string|null,
      *   LogicalResourceId?: string|null,
      *   PhysicalResourceId?: string|null,
      *   ResourceType?: string|null,
@@ -294,6 +304,11 @@ final class StackEvent
     public function getLogicalResourceId(): ?string
     {
         return $this->logicalResourceId;
+    }
+
+    public function getOperationId(): ?string
+    {
+        return $this->operationId;
     }
 
     public function getPhysicalResourceId(): ?string

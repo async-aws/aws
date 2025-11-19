@@ -5,6 +5,7 @@ namespace AsyncAws\CloudFormation\Result;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\ValueObject\OperationEntry;
 use AsyncAws\CloudFormation\ValueObject\Output;
 use AsyncAws\CloudFormation\ValueObject\Parameter;
 use AsyncAws\CloudFormation\ValueObject\RollbackConfiguration;
@@ -122,6 +123,19 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     }
 
     /**
+     * @return OperationEntry[]
+     */
+    private function populateResultLastOperations(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->member as $item) {
+            $items[] = $this->populateResultOperationEntry($item);
+        }
+
+        return $items;
+    }
+
+    /**
      * @return string[]
      */
     private function populateResultNotificationARNs(\SimpleXMLElement $xml): array
@@ -132,6 +146,14 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         }
 
         return $items;
+    }
+
+    private function populateResultOperationEntry(\SimpleXMLElement $xml): OperationEntry
+    {
+        return new OperationEntry([
+            'OperationType' => (null !== $v = $xml->OperationType[0]) ? (string) $v : null,
+            'OperationId' => (null !== $v = $xml->OperationId[0]) ? (string) $v : null,
+        ]);
     }
 
     private function populateResultOutput(\SimpleXMLElement $xml): Output
@@ -237,6 +259,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
             'RetainExceptOnCreate' => (null !== $v = $xml->RetainExceptOnCreate[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'DeletionMode' => (null !== $v = $xml->DeletionMode[0]) ? (string) $v : null,
             'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (string) $v : null,
+            'LastOperations' => (0 === ($v = $xml->LastOperations)->count()) ? null : $this->populateResultLastOperations($v),
         ]);
     }
 

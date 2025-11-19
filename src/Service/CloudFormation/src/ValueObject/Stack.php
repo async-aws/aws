@@ -225,6 +225,13 @@ final class Stack
     private $detailedStatus;
 
     /**
+     * Information about the most recent operations performed on this stack.
+     *
+     * @var OperationEntry[]|null
+     */
+    private $lastOperations;
+
+    /**
      * @param array{
      *   StackId?: string|null,
      *   StackName: string,
@@ -251,6 +258,7 @@ final class Stack
      *   RetainExceptOnCreate?: bool|null,
      *   DeletionMode?: DeletionMode::*|null,
      *   DetailedStatus?: DetailedStatus::*|null,
+     *   LastOperations?: array<OperationEntry|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -280,6 +288,7 @@ final class Stack
         $this->retainExceptOnCreate = $input['RetainExceptOnCreate'] ?? null;
         $this->deletionMode = $input['DeletionMode'] ?? null;
         $this->detailedStatus = $input['DetailedStatus'] ?? null;
+        $this->lastOperations = isset($input['LastOperations']) ? array_map([OperationEntry::class, 'create'], $input['LastOperations']) : null;
     }
 
     /**
@@ -309,6 +318,7 @@ final class Stack
      *   RetainExceptOnCreate?: bool|null,
      *   DeletionMode?: DeletionMode::*|null,
      *   DetailedStatus?: DetailedStatus::*|null,
+     *   LastOperations?: array<OperationEntry|array>|null,
      * }|Stack $input
      */
     public static function create($input): self
@@ -373,6 +383,14 @@ final class Stack
     public function getEnableTerminationProtection(): ?bool
     {
         return $this->enableTerminationProtection;
+    }
+
+    /**
+     * @return OperationEntry[]
+     */
+    public function getLastOperations(): array
+    {
+        return $this->lastOperations ?? [];
     }
 
     public function getLastUpdatedTime(): ?\DateTimeImmutable

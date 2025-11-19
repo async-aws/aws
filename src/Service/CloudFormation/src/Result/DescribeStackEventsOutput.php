@@ -107,6 +107,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             'StackId' => (string) $xml->StackId,
             'EventId' => (string) $xml->EventId,
             'StackName' => (string) $xml->StackName,
+            'OperationId' => (null !== $v = $xml->OperationId[0]) ? (string) $v : null,
             'LogicalResourceId' => (null !== $v = $xml->LogicalResourceId[0]) ? (string) $v : null,
             'PhysicalResourceId' => (null !== $v = $xml->PhysicalResourceId[0]) ? (string) $v : null,
             'ResourceType' => (null !== $v = $xml->ResourceType[0]) ? (string) $v : null,

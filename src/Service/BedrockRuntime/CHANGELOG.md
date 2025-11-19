@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Amazon Bedrock Runtime Service Tier Support Launch
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2
