@@ -313,6 +313,14 @@ final class FunctionConfiguration
     private $loggingConfig;
 
     /**
+     * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
+     * dedicated infrastructure per unique tenant.
+     *
+     * @var TenancyConfig|null
+     */
+    private $tenancyConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string|null,
      *   FunctionArn?: string|null,
@@ -350,6 +358,7 @@ final class FunctionConfiguration
      *   SnapStart?: SnapStartResponse|array|null,
      *   RuntimeVersionConfig?: RuntimeVersionConfig|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   TenancyConfig?: TenancyConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -390,6 +399,7 @@ final class FunctionConfiguration
         $this->snapStart = isset($input['SnapStart']) ? SnapStartResponse::create($input['SnapStart']) : null;
         $this->runtimeVersionConfig = isset($input['RuntimeVersionConfig']) ? RuntimeVersionConfig::create($input['RuntimeVersionConfig']) : null;
         $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
+        $this->tenancyConfig = isset($input['TenancyConfig']) ? TenancyConfig::create($input['TenancyConfig']) : null;
     }
 
     /**
@@ -430,6 +440,7 @@ final class FunctionConfiguration
      *   SnapStart?: SnapStartResponse|array|null,
      *   RuntimeVersionConfig?: RuntimeVersionConfig|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   TenancyConfig?: TenancyConfig|array|null,
      * }|FunctionConfiguration $input
      */
     public static function create($input): self
@@ -622,6 +633,11 @@ final class FunctionConfiguration
     public function getStateReasonCode(): ?string
     {
         return $this->stateReasonCode;
+    }
+
+    public function getTenancyConfig(): ?TenancyConfig
+    {
+        return $this->tenancyConfig;
     }
 
     public function getTimeout(): ?int

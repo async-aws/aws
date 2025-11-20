@@ -161,6 +161,16 @@ final class CreateSecretRequest extends Input
     private $forceOverwriteReplicaSecret;
 
     /**
+     * The exact string that identifies the partner that holds the external secret. For more information, see Using Secrets
+     * Manager managed external secrets [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html
+     *
+     * @var string|null
+     */
+    private $type;
+
+    /**
      * @param array{
      *   Name?: string,
      *   ClientRequestToken?: string|null,
@@ -171,6 +181,7 @@ final class CreateSecretRequest extends Input
      *   Tags?: array<Tag|array>|null,
      *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
      *   ForceOverwriteReplicaSecret?: bool|null,
+     *   Type?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -185,6 +196,7 @@ final class CreateSecretRequest extends Input
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->addReplicaRegions = isset($input['AddReplicaRegions']) ? array_map([ReplicaRegionType::class, 'create'], $input['AddReplicaRegions']) : null;
         $this->forceOverwriteReplicaSecret = $input['ForceOverwriteReplicaSecret'] ?? null;
+        $this->type = $input['Type'] ?? null;
         parent::__construct($input);
     }
 
@@ -199,6 +211,7 @@ final class CreateSecretRequest extends Input
      *   Tags?: array<Tag|array>|null,
      *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
      *   ForceOverwriteReplicaSecret?: bool|null,
+     *   Type?: string|null,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      */
@@ -256,6 +269,11 @@ final class CreateSecretRequest extends Input
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 
     /**
@@ -353,6 +371,13 @@ final class CreateSecretRequest extends Input
         return $this;
     }
 
+    public function setType(?string $value): self
+    {
+        $this->type = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -394,6 +419,9 @@ final class CreateSecretRequest extends Input
         }
         if (null !== $v = $this->forceOverwriteReplicaSecret) {
             $payload['ForceOverwriteReplicaSecret'] = (bool) $v;
+        }
+        if (null !== $v = $this->type) {
+            $payload['Type'] = $v;
         }
 
         return $payload;

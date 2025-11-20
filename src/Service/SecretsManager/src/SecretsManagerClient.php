@@ -101,6 +101,7 @@ class SecretsManagerClient extends AbstractApi
      *   Tags?: array<Tag|array>|null,
      *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
      *   ForceOverwriteReplicaSecret?: bool|null,
+     *   Type?: string|null,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      *
@@ -314,14 +315,14 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Creates a new version with a new encrypted secret value and attaches it to the secret. The version can contain a new
-     * `SecretString` value or a new `SecretBinary` value.
+     * Creates a new version of your secret by creating a new encrypted value and attaching it to the secret. version can
+     * contain a new `SecretString` value or a new `SecretBinary` value.
      *
-     * We recommend you avoid calling `PutSecretValue` at a sustained rate of more than once every 10 minutes. When you
-     * update the secret value, Secrets Manager creates a new version of the secret. Secrets Manager removes outdated
-     * versions when there are more than 100, but it does not remove versions created less than 24 hours ago. If you call
-     * `PutSecretValue` more than once every 10 minutes, you create more versions than Secrets Manager removes, and you will
-     * reach the quota for secret versions.
+     * Do not call `PutSecretValue` at a sustained rate of more than once every 10 minutes. When you update the secret
+     * value, Secrets Manager creates a new version of the secret. Secrets Manager keeps 100 of the most recent versions,
+     * but it keeps *all* secret versions created in the last 24 hours. If you call `PutSecretValue` more than once every 10
+     * minutes, you will create more versions than Secrets Manager removes, and you will reach the quota for secret
+     * versions.
      *
      * You can specify the staging labels to attach to the new version in `VersionStages`. If you don't include
      * `VersionStages`, then Secrets Manager automatically moves the staging label `AWSCURRENT` to this version. If this
@@ -444,6 +445,7 @@ class SecretsManagerClient extends AbstractApi
      *   KmsKeyId?: string|null,
      *   SecretBinary?: string|null,
      *   SecretString?: string|null,
+     *   Type?: string|null,
      *   '@region'?: string|null,
      * }|UpdateSecretRequest $input
      *

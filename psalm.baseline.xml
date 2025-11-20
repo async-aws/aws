@@ -262,6 +262,14 @@
       <code><![CDATA[list<Reason::*>]]></code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/S3/src/Result/GetBucketEncryptionOutput.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$items]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<EncryptionType::*>]]></code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/S3/src/Result/ListObjectVersionsOutput.php">
     <LessSpecificReturnStatement>
       <code><![CDATA[$items]]></code>

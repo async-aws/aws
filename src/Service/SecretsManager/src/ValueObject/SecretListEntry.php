@@ -25,6 +25,16 @@ final class SecretListEntry
     private $name;
 
     /**
+     * The exact string that identifies the third-party partner that holds the external secret. For more information, see
+     * Managed external secret partners [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-partners.html
+     *
+     * @var string|null
+     */
+    private $type;
+
+    /**
      * The user-provided description of the secret.
      *
      * @var string|null
@@ -62,6 +72,27 @@ final class SecretListEntry
      * @var RotationRulesType|null
      */
     private $rotationRules;
+
+    /**
+     * The metadata needed to successfully rotate a managed external secret. A list of key value pairs in JSON format
+     * specified by the partner. For more information about the required information, see Managed external secrets partners
+     * [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-partners.html
+     *
+     * @var ExternalSecretRotationMetadataItem[]|null
+     */
+    private $externalSecretRotationMetadata;
+
+    /**
+     * The role that Secrets Manager assumes to call APIs required to perform the rotation. For more information about the
+     * required information, see Managed external secrets partners [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-partners.html
+     *
+     * @var string|null
+     */
+    private $externalSecretRotationRoleArn;
 
     /**
      * The most recent date and time that the Secrets Manager rotation process was successfully completed. This value is
@@ -152,11 +183,14 @@ final class SecretListEntry
      * @param array{
      *   ARN?: string|null,
      *   Name?: string|null,
+     *   Type?: string|null,
      *   Description?: string|null,
      *   KmsKeyId?: string|null,
      *   RotationEnabled?: bool|null,
      *   RotationLambdaARN?: string|null,
      *   RotationRules?: RotationRulesType|array|null,
+     *   ExternalSecretRotationMetadata?: array<ExternalSecretRotationMetadataItem|array>|null,
+     *   ExternalSecretRotationRoleArn?: string|null,
      *   LastRotatedDate?: \DateTimeImmutable|null,
      *   LastChangedDate?: \DateTimeImmutable|null,
      *   LastAccessedDate?: \DateTimeImmutable|null,
@@ -173,11 +207,14 @@ final class SecretListEntry
     {
         $this->arn = $input['ARN'] ?? null;
         $this->name = $input['Name'] ?? null;
+        $this->type = $input['Type'] ?? null;
         $this->description = $input['Description'] ?? null;
         $this->kmsKeyId = $input['KmsKeyId'] ?? null;
         $this->rotationEnabled = $input['RotationEnabled'] ?? null;
         $this->rotationLambdaArn = $input['RotationLambdaARN'] ?? null;
         $this->rotationRules = isset($input['RotationRules']) ? RotationRulesType::create($input['RotationRules']) : null;
+        $this->externalSecretRotationMetadata = isset($input['ExternalSecretRotationMetadata']) ? array_map([ExternalSecretRotationMetadataItem::class, 'create'], $input['ExternalSecretRotationMetadata']) : null;
+        $this->externalSecretRotationRoleArn = $input['ExternalSecretRotationRoleArn'] ?? null;
         $this->lastRotatedDate = $input['LastRotatedDate'] ?? null;
         $this->lastChangedDate = $input['LastChangedDate'] ?? null;
         $this->lastAccessedDate = $input['LastAccessedDate'] ?? null;
@@ -194,11 +231,14 @@ final class SecretListEntry
      * @param array{
      *   ARN?: string|null,
      *   Name?: string|null,
+     *   Type?: string|null,
      *   Description?: string|null,
      *   KmsKeyId?: string|null,
      *   RotationEnabled?: bool|null,
      *   RotationLambdaARN?: string|null,
      *   RotationRules?: RotationRulesType|array|null,
+     *   ExternalSecretRotationMetadata?: array<ExternalSecretRotationMetadataItem|array>|null,
+     *   ExternalSecretRotationRoleArn?: string|null,
      *   LastRotatedDate?: \DateTimeImmutable|null,
      *   LastChangedDate?: \DateTimeImmutable|null,
      *   LastAccessedDate?: \DateTimeImmutable|null,
@@ -234,6 +274,19 @@ final class SecretListEntry
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @return ExternalSecretRotationMetadataItem[]
+     */
+    public function getExternalSecretRotationMetadata(): array
+    {
+        return $this->externalSecretRotationMetadata ?? [];
+    }
+
+    public function getExternalSecretRotationRoleArn(): ?string
+    {
+        return $this->externalSecretRotationRoleArn;
     }
 
     public function getKmsKeyId(): ?string
@@ -305,5 +358,10 @@ final class SecretListEntry
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 }

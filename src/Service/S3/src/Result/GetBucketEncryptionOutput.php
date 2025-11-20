@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\EncryptionType;
+use AsyncAws\S3\ValueObject\BlockedEncryptionTypes;
 use AsyncAws\S3\ValueObject\ServerSideEncryptionByDefault;
 use AsyncAws\S3\ValueObject\ServerSideEncryptionConfiguration;
 use AsyncAws\S3\ValueObject\ServerSideEncryptionRule;
@@ -28,6 +30,26 @@ class GetBucketEncryptionOutput extends Result
         $this->serverSideEncryptionConfiguration = $this->populateResultServerSideEncryptionConfiguration($data);
     }
 
+    private function populateResultBlockedEncryptionTypes(\SimpleXMLElement $xml): BlockedEncryptionTypes
+    {
+        return new BlockedEncryptionTypes([
+            'EncryptionType' => (0 === ($v = $xml->EncryptionType)->count()) ? null : $this->populateResultEncryptionTypeList($v),
+        ]);
+    }
+
+    /**
+     * @return list<EncryptionType::*>
+     */
+    private function populateResultEncryptionTypeList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = (string) $item;
+        }
+
+        return $items;
+    }
+
     private function populateResultServerSideEncryptionByDefault(\SimpleXMLElement $xml): ServerSideEncryptionByDefault
     {
         return new ServerSideEncryptionByDefault([
@@ -48,6 +70,7 @@ class GetBucketEncryptionOutput extends Result
         return new ServerSideEncryptionRule([
             'ApplyServerSideEncryptionByDefault' => 0 === $xml->ApplyServerSideEncryptionByDefault->count() ? null : $this->populateResultServerSideEncryptionByDefault($xml->ApplyServerSideEncryptionByDefault),
             'BucketKeyEnabled' => (null !== $v = $xml->BucketKeyEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'BlockedEncryptionTypes' => 0 === $xml->BlockedEncryptionTypes->count() ? null : $this->populateResultBlockedEncryptionTypes($xml->BlockedEncryptionTypes),
         ]);
     }
 
