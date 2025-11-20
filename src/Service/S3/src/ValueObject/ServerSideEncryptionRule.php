@@ -51,21 +51,42 @@ final class ServerSideEncryptionRule
     private $bucketKeyEnabled;
 
     /**
+     * A bucket-level setting for Amazon S3 general purpose buckets used to prevent the upload of new objects encrypted with
+     * the specified server-side encryption type. For example, blocking an encryption type will block `PutObject`,
+     * `CopyObject`, `PostObject`, multipart upload, and replication requests to the bucket for objects with the specified
+     * encryption type. However, you can continue to read and list any pre-existing objects already encrypted with the
+     * specified encryption type. For more information, see Blocking an encryption type for a general purpose bucket [^1].
+     *
+     * > Currently, this parameter only supports blocking or unblocking Server Side Encryption with Customer Provided Keys
+     * > (SSE-C). For more information about SSE-C, see Using server-side encryption with customer-provided keys (SSE-C)
+     * > [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/userguide/block-encryption-type.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html
+     *
+     * @var BlockedEncryptionTypes|null
+     */
+    private $blockedEncryptionTypes;
+
+    /**
      * @param array{
      *   ApplyServerSideEncryptionByDefault?: ServerSideEncryptionByDefault|array|null,
      *   BucketKeyEnabled?: bool|null,
+     *   BlockedEncryptionTypes?: BlockedEncryptionTypes|array|null,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->applyServerSideEncryptionByDefault = isset($input['ApplyServerSideEncryptionByDefault']) ? ServerSideEncryptionByDefault::create($input['ApplyServerSideEncryptionByDefault']) : null;
         $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
+        $this->blockedEncryptionTypes = isset($input['BlockedEncryptionTypes']) ? BlockedEncryptionTypes::create($input['BlockedEncryptionTypes']) : null;
     }
 
     /**
      * @param array{
      *   ApplyServerSideEncryptionByDefault?: ServerSideEncryptionByDefault|array|null,
      *   BucketKeyEnabled?: bool|null,
+     *   BlockedEncryptionTypes?: BlockedEncryptionTypes|array|null,
      * }|ServerSideEncryptionRule $input
      */
     public static function create($input): self
@@ -76,6 +97,11 @@ final class ServerSideEncryptionRule
     public function getApplyServerSideEncryptionByDefault(): ?ServerSideEncryptionByDefault
     {
         return $this->applyServerSideEncryptionByDefault;
+    }
+
+    public function getBlockedEncryptionTypes(): ?BlockedEncryptionTypes
+    {
+        return $this->blockedEncryptionTypes;
     }
 
     public function getBucketKeyEnabled(): ?bool

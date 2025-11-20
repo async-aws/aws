@@ -254,6 +254,7 @@ class LambdaClient extends AbstractApi
      *   ClientContext?: string|null,
      *   Payload?: string|null,
      *   Qualifier?: string|null,
+     *   TenantId?: string|null,
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      *

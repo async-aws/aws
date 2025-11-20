@@ -24,6 +24,7 @@ use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionError;
 use AsyncAws\Lambda\ValueObject\SnapStartResponse;
+use AsyncAws\Lambda\ValueObject\TenancyConfig;
 use AsyncAws\Lambda\ValueObject\TracingConfigResponse;
 use AsyncAws\Lambda\ValueObject\VpcConfigResponse;
 
@@ -330,6 +331,14 @@ class FunctionConfiguration extends Result
     private $loggingConfig;
 
     /**
+     * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
+     * dedicated infrastructure per unique tenant.
+     *
+     * @var TenancyConfig|null
+     */
+    private $tenancyConfig;
+
+    /**
      * @return list<Architecture::*>
      */
     public function getArchitectures(): array
@@ -580,6 +589,13 @@ class FunctionConfiguration extends Result
         return $this->stateReasonCode;
     }
 
+    public function getTenancyConfig(): ?TenancyConfig
+    {
+        $this->initialize();
+
+        return $this->tenancyConfig;
+    }
+
     public function getTimeout(): ?int
     {
         $this->initialize();
@@ -648,6 +664,7 @@ class FunctionConfiguration extends Result
         $this->snapStart = empty($data['SnapStart']) ? null : $this->populateResultSnapStartResponse($data['SnapStart']);
         $this->runtimeVersionConfig = empty($data['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($data['RuntimeVersionConfig']);
         $this->loggingConfig = empty($data['LoggingConfig']) ? null : $this->populateResultLoggingConfig($data['LoggingConfig']);
+        $this->tenancyConfig = empty($data['TenancyConfig']) ? null : $this->populateResultTenancyConfig($data['TenancyConfig']);
     }
 
     /**
@@ -858,6 +875,13 @@ class FunctionConfiguration extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultTenancyConfig(array $json): TenancyConfig
+    {
+        return new TenancyConfig([
+            'TenantIsolationMode' => (string) $json['TenantIsolationMode'],
+        ]);
     }
 
     private function populateResultTracingConfigResponse(array $json): TracingConfigResponse

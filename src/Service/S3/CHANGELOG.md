@@ -11,6 +11,7 @@
 - AWS api-change: Added `us-isob-west-1` region
 - Added `S3Client::putPublicAccessBlock()` method
 - AWS api-change: Amazon Simple Storage Service / Features: Add conditional writes in CopyObject on destination key to prevent unintended object modifications.
+- AWS api-change: Adds support for blocking SSE-C writes to general purpose buckets.
 
 ### Dependency bumped
 

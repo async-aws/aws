@@ -22,6 +22,7 @@ use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionError;
 use AsyncAws\Lambda\ValueObject\SnapStartResponse;
+use AsyncAws\Lambda\ValueObject\TenancyConfig;
 use AsyncAws\Lambda\ValueObject\TracingConfigResponse;
 use AsyncAws\Lambda\ValueObject\VpcConfigResponse;
 
@@ -234,6 +235,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             'SnapStart' => empty($json['SnapStart']) ? null : $this->populateResultSnapStartResponse($json['SnapStart']),
             'RuntimeVersionConfig' => empty($json['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($json['RuntimeVersionConfig']),
             'LoggingConfig' => empty($json['LoggingConfig']) ? null : $this->populateResultLoggingConfig($json['LoggingConfig']),
+            'TenancyConfig' => empty($json['TenancyConfig']) ? null : $this->populateResultTenancyConfig($json['TenancyConfig']),
         ]);
     }
 
@@ -378,6 +380,13 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         }
 
         return $items;
+    }
+
+    private function populateResultTenancyConfig(array $json): TenancyConfig
+    {
+        return new TenancyConfig([
+            'TenantIsolationMode' => (string) $json['TenantIsolationMode'],
+        ]);
     }
 
     private function populateResultTracingConfigResponse(array $json): TracingConfigResponse

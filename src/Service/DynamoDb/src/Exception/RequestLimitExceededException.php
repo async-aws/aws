@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * Throughput exceeds the current throughput quota for your account. For detailed information about why the request was
  * throttled and the ARN of the impacted resource, find the ThrottlingReason [^1] field in the returned exception.
- * Contact Amazon Web ServicesSupport [^2] to request a quota increase.
+ * Contact Amazon Web Services Support [^2] to request a quota increase.
  *
  * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ThrottlingReason.html
  * [^2]: https://aws.amazon.com/support

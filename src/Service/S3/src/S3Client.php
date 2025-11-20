@@ -1107,6 +1107,10 @@ class S3Client extends AbstractApi
      *     - **`s3:DeleteObjectVersion`** - To delete a specific version of an object from a versioning-enabled bucket, you
      *       must have the `s3:DeleteObjectVersion` permission.
      *
+     *       > If the `s3:DeleteObject` or `s3:DeleteObjectVersion` permissions are explicitly denied in your bucket policy,
+     *       > attempts to delete any unversioned objects result in a `403 Access Denied` error.
+     *
+     *
      *   - **Directory bucket permissions** - To grant access to this API operation on a directory bucket, we recommend that
      *     you use the `CreateSession` [^8] API operation for session-based authorization. Specifically, you grant the
      *     `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy.
@@ -1252,6 +1256,10 @@ class S3Client extends AbstractApi
      *     - **`s3:DeleteObjectVersion`** - To delete a specific version of an object from a versioning-enabled bucket, you
      *       must specify the `s3:DeleteObjectVersion` permission.
      *
+     *       > If the `s3:DeleteObject` or `s3:DeleteObjectVersion` permissions are explicitly denied in your bucket policy,
+     *       > attempts to delete any unversioned objects result in a `403 Access Denied` error.
+     *
+     *
      *   - **Directory bucket permissions** - To grant access to this API operation on a directory bucket, we recommend that
      *     you use the `CreateSession` [^4] API operation for session-based authorization. Specifically, you grant the
      *     `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy.
@@ -1368,7 +1376,8 @@ class S3Client extends AbstractApi
 
     /**
      * Returns the default encryption configuration for an Amazon S3 bucket. By default, all buckets have a default
-     * encryption configuration that uses server-side encryption with Amazon S3 managed keys (SSE-S3).
+     * encryption configuration that uses server-side encryption with Amazon S3 managed keys (SSE-S3). This operation also
+     * returns the `BucketKeyEnabled` and `BlockedEncryptionTypes` statuses.
      *
      * > - **General purpose buckets** - For information about the bucket default encryption feature, see Amazon S3 Bucket
      * >   Default Encryption [^1] in the *Amazon S3 User Guide*.
@@ -1402,7 +1411,7 @@ class S3Client extends AbstractApi
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-bucket-encryption.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
@@ -2520,7 +2529,7 @@ class S3Client extends AbstractApi
     /**
      * > This operation is not supported for directory buckets.
      *
-     * Sets the tags for a bucket.
+     * Sets the tags for a general purpose bucket.
      *
      * Use tags to organize your Amazon Web Services bill to reflect your own cost structure. To do this, sign up to get
      * your Amazon Web Services account bill with tag key values included. Then, to see the cost of combined resources,

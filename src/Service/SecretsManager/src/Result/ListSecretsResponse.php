@@ -7,6 +7,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\SecretsManager\Input\ListSecretsRequest;
 use AsyncAws\SecretsManager\SecretsManagerClient;
+use AsyncAws\SecretsManager\ValueObject\ExternalSecretRotationMetadataItem;
 use AsyncAws\SecretsManager\ValueObject\RotationRulesType;
 use AsyncAws\SecretsManager\ValueObject\SecretListEntry;
 use AsyncAws\SecretsManager\ValueObject\Tag;
@@ -101,6 +102,27 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
+    private function populateResultExternalSecretRotationMetadataItem(array $json): ExternalSecretRotationMetadataItem
+    {
+        return new ExternalSecretRotationMetadataItem([
+            'Key' => isset($json['Key']) ? (string) $json['Key'] : null,
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+        ]);
+    }
+
+    /**
+     * @return ExternalSecretRotationMetadataItem[]
+     */
+    private function populateResultExternalSecretRotationMetadataType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultExternalSecretRotationMetadataItem($item);
+        }
+
+        return $items;
+    }
+
     private function populateResultRotationRulesType(array $json): RotationRulesType
     {
         return new RotationRulesType([
@@ -115,11 +137,14 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
         return new SecretListEntry([
             'ARN' => isset($json['ARN']) ? (string) $json['ARN'] : null,
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'KmsKeyId' => isset($json['KmsKeyId']) ? (string) $json['KmsKeyId'] : null,
             'RotationEnabled' => isset($json['RotationEnabled']) ? filter_var($json['RotationEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'RotationLambdaARN' => isset($json['RotationLambdaARN']) ? (string) $json['RotationLambdaARN'] : null,
             'RotationRules' => empty($json['RotationRules']) ? null : $this->populateResultRotationRulesType($json['RotationRules']),
+            'ExternalSecretRotationMetadata' => !isset($json['ExternalSecretRotationMetadata']) ? null : $this->populateResultExternalSecretRotationMetadataType($json['ExternalSecretRotationMetadata']),
+            'ExternalSecretRotationRoleArn' => isset($json['ExternalSecretRotationRoleArn']) ? (string) $json['ExternalSecretRotationRoleArn'] : null,
             'LastRotatedDate' => (isset($json['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastRotatedDate'])))) ? $d : null,
             'LastChangedDate' => (isset($json['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastChangedDate'])))) ? $d : null,
             'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,

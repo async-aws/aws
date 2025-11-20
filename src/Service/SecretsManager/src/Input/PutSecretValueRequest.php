@@ -101,15 +101,17 @@ final class PutSecretValueRequest extends Input
     private $versionStages;
 
     /**
-     * A unique identifier that indicates the source of the request. For cross-account rotation (when you rotate a secret in
-     * one account by using a Lambda rotation function in another account) and the Lambda rotation function assumes an IAM
-     * role to call Secrets Manager, Secrets Manager validates the identity with the rotation token. For more information,
-     * see How rotation works [^1].
+     * A unique identifier that indicates the source of the request. Required for secret rotations using an IAM assumed role
+     * or cross-account rotation, in which you rotate a secret in one account by using a Lambda rotation function in another
+     * account. In both cases, the rotation function assumes an IAM role to call Secrets Manager, and then Secrets Manager
+     * validates the identity using the token. For more information, see How rotation works [^1] and Rotation by Lambda
+     * functions [^2].
      *
      * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log entries.
      * If you create your own log entries, you must also avoid logging the information in this field.
      *
      * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html
+     * [^2]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_lambda
      *
      * @var string|null
      */

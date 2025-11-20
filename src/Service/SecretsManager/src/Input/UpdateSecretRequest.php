@@ -106,6 +106,16 @@ final class UpdateSecretRequest extends Input
     private $secretString;
 
     /**
+     * The exact string that identifies the third-party partner that holds the external secret. For more information, see
+     * Managed external secret partners [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-partners.html
+     *
+     * @var string|null
+     */
+    private $type;
+
+    /**
      * @param array{
      *   SecretId?: string,
      *   ClientRequestToken?: string|null,
@@ -113,6 +123,7 @@ final class UpdateSecretRequest extends Input
      *   KmsKeyId?: string|null,
      *   SecretBinary?: string|null,
      *   SecretString?: string|null,
+     *   Type?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -124,6 +135,7 @@ final class UpdateSecretRequest extends Input
         $this->kmsKeyId = $input['KmsKeyId'] ?? null;
         $this->secretBinary = $input['SecretBinary'] ?? null;
         $this->secretString = $input['SecretString'] ?? null;
+        $this->type = $input['Type'] ?? null;
         parent::__construct($input);
     }
 
@@ -135,6 +147,7 @@ final class UpdateSecretRequest extends Input
      *   KmsKeyId?: string|null,
      *   SecretBinary?: string|null,
      *   SecretString?: string|null,
+     *   Type?: string|null,
      *   '@region'?: string|null,
      * }|UpdateSecretRequest $input
      */
@@ -171,6 +184,11 @@ final class UpdateSecretRequest extends Input
     public function getSecretString(): ?string
     {
         return $this->secretString;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 
     /**
@@ -241,6 +259,13 @@ final class UpdateSecretRequest extends Input
         return $this;
     }
 
+    public function setType(?string $value): self
+    {
+        $this->type = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -263,6 +288,9 @@ final class UpdateSecretRequest extends Input
         }
         if (null !== $v = $this->secretString) {
             $payload['SecretString'] = $v;
+        }
+        if (null !== $v = $this->type) {
+            $payload['Type'] = $v;
         }
 
         return $payload;
