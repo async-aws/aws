@@ -1377,26 +1377,26 @@ class S3Client extends AbstractApi
     /**
      * Returns the default encryption configuration for an Amazon S3 bucket. By default, all buckets have a default
      * encryption configuration that uses server-side encryption with Amazon S3 managed keys (SSE-S3). This operation also
-     * returns the `BucketKeyEnabled` and `BlockedEncryptionTypes` statuses.
+     * returns the BucketKeyEnabled [^1] and BlockedEncryptionTypes [^2] statuses.
      *
      * > - **General purpose buckets** - For information about the bucket default encryption feature, see Amazon S3 Bucket
-     * >   Default Encryption [^1] in the *Amazon S3 User Guide*.
+     * >   Default Encryption [^3] in the *Amazon S3 User Guide*.
      * > - **Directory buckets** - For directory buckets, there are only two supported options for server-side encryption:
      * >   SSE-S3 and SSE-KMS. For information about the default encryption configuration in directory buckets, see Setting
-     * >   default server-side encryption behavior for directory buckets [^2].
+     * >   default server-side encryption behavior for directory buckets [^4].
      * >
      *
      * - `Permissions`:
      *
      *   - **General purpose bucket permissions** - The `s3:GetEncryptionConfiguration` permission is required in a policy.
      *     The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more
-     *     information about permissions, see Permissions Related to Bucket Operations [^3] and Managing Access Permissions
-     *     to Your Amazon S3 Resources [^4].
+     *     information about permissions, see Permissions Related to Bucket Operations [^5] and Managing Access Permissions
+     *     to Your Amazon S3 Resources [^6].
      *   - **Directory bucket permissions** - To grant access to this API operation, you must have the
      *     `s3express:GetEncryptionConfiguration` permission in an IAM identity-based policy instead of a bucket policy.
      *     Cross-account access to this API operation isn't supported. This operation can only be performed by the Amazon
      *     Web Services account that owns the resource. For more information about directory bucket policies and
-     *     permissions, see Amazon Web Services Identity and Access Management (IAM) for S3 Express One Zone [^5] in the
+     *     permissions, see Amazon Web Services Identity and Access Management (IAM) for S3 Express One Zone [^7] in the
      *     *Amazon S3 User Guide*.
      *
      * - `HTTP Host header syntax`:
@@ -1405,19 +1405,21 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `GetBucketEncryption`:
      *
-     * - PutBucketEncryption [^6]
-     * - DeleteBucketEncryption [^7]
+     * - PutBucketEncryption [^8]
+     * - DeleteBucketEncryption [^9]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-bucket-encryption.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_BucketKeyEnabled.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_BlockedEncryptionTypes.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-bucket-encryption.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketencryption
@@ -2529,27 +2531,32 @@ class S3Client extends AbstractApi
     /**
      * > This operation is not supported for directory buckets.
      *
-     * Sets the tags for a general purpose bucket.
+     * Sets the tags for a general purpose bucket if attribute based access control (ABAC) is not enabled for the bucket.
+     * When you enable ABAC for a general purpose bucket [^1], you can no longer use this operation for that bucket and must
+     * use the TagResource [^2] or UntagResource [^3] operations instead.
+     *
+     * if ABAC is not enabled for the bucket. When you enable ABAC for a general purpose bucket [^4], you can no longer use
+     * this operation for that bucket and must use TagResource [^5] instead.
      *
      * Use tags to organize your Amazon Web Services bill to reflect your own cost structure. To do this, sign up to get
      * your Amazon Web Services account bill with tag key values included. Then, to see the cost of combined resources,
      * organize your billing information according to resources with the same tag key values. For example, you can tag
      * several resources with a specific application name, and then organize your billing information to see the total cost
-     * of that application across several services. For more information, see Cost Allocation and Tagging [^1] and Using
-     * Cost Allocation in Amazon S3 Bucket Tags [^2].
+     * of that application across several services. For more information, see Cost Allocation and Tagging [^6] and Using
+     * Cost Allocation in Amazon S3 Bucket Tags [^7].
      *
      * > When this operation sets the tags for a bucket, it will overwrite any current tags the bucket already has. You
      * > cannot use this operation to add tags to an existing list of tags.
      *
      * To use this operation, you must have permissions to perform the `s3:PutBucketTagging` action. The bucket owner has
      * this permission by default and can grant this permission to others. For more information about permissions, see
-     * Permissions Related to Bucket Subresource Operations [^3] and Managing Access Permissions to Your Amazon S3 Resources
-     * [^4].
+     * Permissions Related to Bucket Subresource Operations [^8] and Managing Access Permissions to Your Amazon S3 Resources
+     * [^9].
      *
-     * `PutBucketTagging` has the following special errors. For more Amazon S3 errors see, Error Responses [^5].
+     * `PutBucketTagging` has the following special errors. For more Amazon S3 errors see, Error Responses [^10].
      *
      * - `InvalidTag` - The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.
-     *   For more information, see Using Cost Allocation in Amazon S3 Bucket Tags [^6].
+     *   For more information, see Using Cost Allocation in Amazon S3 Bucket Tags [^11].
      * - `MalformedXML` - The XML provided does not match the schema.
      * - `OperationAborted` - A conflicting conditional action is currently in progress against this resource. Please try
      *   again.
@@ -2557,20 +2564,25 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `PutBucketTagging`:
      *
-     * - GetBucketTagging [^7]
-     * - DeleteBucketTagging [^8]
+     * - GetBucketTagging [^12]
+     * - DeleteBucketTagging [^13]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
-     * [^1]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging-enable-abac.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_TagResource.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_UntagResource.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging-enable-abac.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_TagResource.html
+     * [^6]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
+     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
+     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbuckettagging
@@ -3134,6 +3146,10 @@ class S3Client extends AbstractApi
      *     request. Instead, you only need to specify the server-side encryption parameters in the initial Initiate
      *     Multipart request. For more information, see CreateMultipartUpload [^13].
      *
+     *     > If you have server-side encryption with customer-provided keys (SSE-C) blocked for your general purpose bucket,
+     *     > you will get an HTTP 403 Access Denied error when you specify the SSE-C request headers while writing new data
+     *     > to your bucket. For more information, see Blocking or unblocking SSE-C for a general purpose bucket [^14].
+     *
      *     If you request server-side encryption using a customer-provided encryption key (SSE-C) in your initiate multipart
      *     upload request, you must provide identical encryption information in each part upload using the following request
      *     headers.
@@ -3142,7 +3158,7 @@ class S3Client extends AbstractApi
      *     - x-amz-server-side-encryption-customer-key
      *     - x-amz-server-side-encryption-customer-key-MD5
      *
-     *     For more information, see Using Server-Side Encryption [^14] in the *Amazon S3 User Guide*.
+     *     For more information, see Using Server-Side Encryption [^15] in the *Amazon S3 User Guide*.
      *   - **Directory buckets ** - For directory buckets, there are only two supported options for server-side encryption:
      *     server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) and server-side encryption with KMS keys
      *     (SSE-KMS) (`aws:kms`).
@@ -3164,11 +3180,11 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `UploadPart`:
      *
-     * - CreateMultipartUpload [^15]
-     * - CompleteMultipartUpload [^16]
-     * - AbortMultipartUpload [^17]
-     * - ListParts [^18]
-     * - ListMultipartUploads [^19]
+     * - CreateMultipartUpload [^16]
+     * - CompleteMultipartUpload [^17]
+     * - AbortMultipartUpload [^18]
+     * - ListParts [^19]
+     * - ListMultipartUploads [^20]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
@@ -3186,12 +3202,13 @@ class S3Client extends AbstractApi
      * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
      * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html
      * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
-     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
-     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
-     * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
-     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
-     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
-     * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
+     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/blocking-unblocking-s3-c-encryption-gpb.html
+     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
+     * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
+     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
+     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
+     * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
+     * [^20]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpart
@@ -3304,9 +3321,14 @@ class S3Client extends AbstractApi
      *
      *   - **General purpose buckets ** - For information about using server-side encryption with customer-provided
      *     encryption keys with the `UploadPartCopy` operation, see CopyObject [^13] and UploadPart [^14].
+     *
+     *     > If you have server-side encryption with customer-provided keys (SSE-C) blocked for your general purpose bucket,
+     *     > you will get an HTTP 403 Access Denied error when you specify the SSE-C request headers while writing new data
+     *     > to your bucket. For more information, see Blocking or unblocking SSE-C for a general purpose bucket [^15].
+     *
      *   - **Directory buckets ** - For directory buckets, there are only two supported options for server-side encryption:
      *     server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) and server-side encryption with KMS keys
-     *     (SSE-KMS) (`aws:kms`). For more information, see Protecting data with server-side encryption [^15] in the *Amazon
+     *     (SSE-KMS) (`aws:kms`). For more information, see Protecting data with server-side encryption [^16] in the *Amazon
      *     S3 User Guide*.
      *
      *     > For directory buckets, when you perform a `CreateMultipartUpload` operation and an `UploadPartCopy` operation,
@@ -3315,7 +3337,7 @@ class S3Client extends AbstractApi
      *
      *     S3 Bucket Keys aren't supported, when you copy SSE-KMS encrypted objects from general purpose buckets to
      *     directory buckets, from directory buckets to general purpose buckets, or between directory buckets, through
-     *     UploadPartCopy [^16]. In this case, Amazon S3 makes a call to KMS every time a copy request is made for a
+     *     UploadPartCopy [^17]. In this case, Amazon S3 makes a call to KMS every time a copy request is made for a
      *     KMS-encrypted object.
      *
      * - `Special errors`:
@@ -3339,12 +3361,12 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `UploadPartCopy`:
      *
-     * - CreateMultipartUpload [^17]
-     * - UploadPart [^18]
-     * - CompleteMultipartUpload [^19]
-     * - AbortMultipartUpload [^20]
-     * - ListParts [^21]
-     * - ListMultipartUploads [^22]
+     * - CreateMultipartUpload [^18]
+     * - UploadPart [^19]
+     * - CompleteMultipartUpload [^20]
+     * - AbortMultipartUpload [^21]
+     * - ListParts [^22]
+     * - ListMultipartUploads [^23]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
@@ -3363,14 +3385,15 @@ class S3Client extends AbstractApi
      * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-identity-policies.html
      * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
      * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
-     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
-     * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
-     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
-     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
-     * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
-     * [^20]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
-     * [^21]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
-     * [^22]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
+     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/blocking-unblocking-s3-c-encryption-gpb.html
+     * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
+     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
+     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
+     * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
+     * [^20]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
+     * [^21]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
+     * [^22]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
+     * [^23]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpartcopy
