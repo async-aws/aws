@@ -30,6 +30,13 @@ final class SessionConfiguration
     private $idleTimeoutSeconds;
 
     /**
+     * The idle timeout in seconds for the session.
+     *
+     * @var int|null
+     */
+    private $sessionIdleTimeoutInMinutes;
+
+    /**
      * @var EncryptionConfiguration|null
      */
     private $encryptionConfiguration;
@@ -39,6 +46,7 @@ final class SessionConfiguration
      *   ExecutionRole?: string|null,
      *   WorkingDirectory?: string|null,
      *   IdleTimeoutSeconds?: int|null,
+     *   SessionIdleTimeoutInMinutes?: int|null,
      *   EncryptionConfiguration?: EncryptionConfiguration|array|null,
      * } $input
      */
@@ -47,6 +55,7 @@ final class SessionConfiguration
         $this->executionRole = $input['ExecutionRole'] ?? null;
         $this->workingDirectory = $input['WorkingDirectory'] ?? null;
         $this->idleTimeoutSeconds = $input['IdleTimeoutSeconds'] ?? null;
+        $this->sessionIdleTimeoutInMinutes = $input['SessionIdleTimeoutInMinutes'] ?? null;
         $this->encryptionConfiguration = isset($input['EncryptionConfiguration']) ? EncryptionConfiguration::create($input['EncryptionConfiguration']) : null;
     }
 
@@ -55,6 +64,7 @@ final class SessionConfiguration
      *   ExecutionRole?: string|null,
      *   WorkingDirectory?: string|null,
      *   IdleTimeoutSeconds?: int|null,
+     *   SessionIdleTimeoutInMinutes?: int|null,
      *   EncryptionConfiguration?: EncryptionConfiguration|array|null,
      * }|SessionConfiguration $input
      */
@@ -76,6 +86,11 @@ final class SessionConfiguration
     public function getIdleTimeoutSeconds(): ?int
     {
         return $this->idleTimeoutSeconds;
+    }
+
+    public function getSessionIdleTimeoutInMinutes(): ?int
+    {
+        return $this->sessionIdleTimeoutInMinutes;
     }
 
     public function getWorkingDirectory(): ?string

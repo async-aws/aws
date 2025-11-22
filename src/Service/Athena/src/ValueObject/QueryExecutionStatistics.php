@@ -82,6 +82,13 @@ final class QueryExecutionStatistics
     private $resultReuseInformation;
 
     /**
+     * The number of Data Processing Units (DPUs) that Athena used to run the query.
+     *
+     * @var float|null
+     */
+    private $dpuCount;
+
+    /**
      * @param array{
      *   EngineExecutionTimeInMillis?: int|null,
      *   DataScannedInBytes?: int|null,
@@ -92,6 +99,7 @@ final class QueryExecutionStatistics
      *   QueryPlanningTimeInMillis?: int|null,
      *   ServiceProcessingTimeInMillis?: int|null,
      *   ResultReuseInformation?: ResultReuseInformation|array|null,
+     *   DpuCount?: float|null,
      * } $input
      */
     public function __construct(array $input)
@@ -105,6 +113,7 @@ final class QueryExecutionStatistics
         $this->queryPlanningTimeInMillis = $input['QueryPlanningTimeInMillis'] ?? null;
         $this->serviceProcessingTimeInMillis = $input['ServiceProcessingTimeInMillis'] ?? null;
         $this->resultReuseInformation = isset($input['ResultReuseInformation']) ? ResultReuseInformation::create($input['ResultReuseInformation']) : null;
+        $this->dpuCount = $input['DpuCount'] ?? null;
     }
 
     /**
@@ -118,6 +127,7 @@ final class QueryExecutionStatistics
      *   QueryPlanningTimeInMillis?: int|null,
      *   ServiceProcessingTimeInMillis?: int|null,
      *   ResultReuseInformation?: ResultReuseInformation|array|null,
+     *   DpuCount?: float|null,
      * }|QueryExecutionStatistics $input
      */
     public static function create($input): self
@@ -133,6 +143,11 @@ final class QueryExecutionStatistics
     public function getDataScannedInBytes(): ?int
     {
         return $this->dataScannedInBytes;
+    }
+
+    public function getDpuCount(): ?float
+    {
+        return $this->dpuCount;
     }
 
     public function getEngineExecutionTimeInMillis(): ?int

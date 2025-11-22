@@ -53,9 +53,11 @@ use AsyncAws\Athena\Result\StopQueryExecutionOutput;
 use AsyncAws\Athena\Result\TerminateSessionResponse;
 use AsyncAws\Athena\ValueObject\CalculationConfiguration;
 use AsyncAws\Athena\ValueObject\EngineConfiguration;
+use AsyncAws\Athena\ValueObject\MonitoringConfiguration;
 use AsyncAws\Athena\ValueObject\QueryExecutionContext;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
 use AsyncAws\Athena\ValueObject\ResultReuseConfiguration;
+use AsyncAws\Athena\ValueObject\Tag;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
@@ -551,6 +553,7 @@ class AthenaClient extends AbstractApi
      *   WorkGroup?: string|null,
      *   ExecutionParameters?: string[]|null,
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
+     *   EngineConfiguration?: EngineConfiguration|array|null,
      *   '@region'?: string|null,
      * }|StartQueryExecutionInput $input
      *
@@ -580,9 +583,13 @@ class AthenaClient extends AbstractApi
      *   Description?: string|null,
      *   WorkGroup: string,
      *   EngineConfiguration: EngineConfiguration|array,
+     *   ExecutionRole?: string|null,
+     *   MonitoringConfiguration?: MonitoringConfiguration|array|null,
      *   NotebookVersion?: string|null,
      *   SessionIdleTimeoutInMinutes?: int|null,
      *   ClientRequestToken?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   CopyWorkGroupTags?: bool|null,
      *   '@region'?: string|null,
      * }|StartSessionRequest $input
      *

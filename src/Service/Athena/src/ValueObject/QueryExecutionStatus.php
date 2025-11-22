@@ -15,8 +15,8 @@ final class QueryExecutionStatus
      * `SUCCEEDED` indicates that the query completed without errors. `FAILED` indicates that the query experienced an error
      * and did not complete processing. `CANCELLED` indicates that a user input interrupted query execution.
      *
-     * > Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the query
-     * > state transition from `RUNNING` or `FAILED` to `QUEUED`.
+     * > For queries that experience certain transient errors, the state transitions from `RUNNING` back to `QUEUED`. The
+     * > `FAILED` state is always terminal with no automatic retry.
      *
      * @var QueryExecutionState::*|null
      */

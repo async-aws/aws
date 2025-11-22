@@ -2,8 +2,6 @@
 
 namespace AsyncAws\Athena\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 /**
  * Contains data processing unit (DPU) configuration settings and parameter mappings for a notebook engine.
  */
@@ -20,7 +18,7 @@ final class EngineConfiguration
     /**
      * The maximum number of DPUs that can run concurrently.
      *
-     * @var int
+     * @var int|null
      */
     private $maxConcurrentDpus;
 
@@ -51,30 +49,40 @@ final class EngineConfiguration
     private $sparkProperties;
 
     /**
+     * The configuration classifications that can be specified for the engine.
+     *
+     * @var Classification[]|null
+     */
+    private $classifications;
+
+    /**
      * @param array{
      *   CoordinatorDpuSize?: int|null,
-     *   MaxConcurrentDpus: int,
+     *   MaxConcurrentDpus?: int|null,
      *   DefaultExecutorDpuSize?: int|null,
      *   AdditionalConfigs?: array<string, string>|null,
      *   SparkProperties?: array<string, string>|null,
+     *   Classifications?: array<Classification|array>|null,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->coordinatorDpuSize = $input['CoordinatorDpuSize'] ?? null;
-        $this->maxConcurrentDpus = $input['MaxConcurrentDpus'] ?? $this->throwException(new InvalidArgument('Missing required field "MaxConcurrentDpus".'));
+        $this->maxConcurrentDpus = $input['MaxConcurrentDpus'] ?? null;
         $this->defaultExecutorDpuSize = $input['DefaultExecutorDpuSize'] ?? null;
         $this->additionalConfigs = $input['AdditionalConfigs'] ?? null;
         $this->sparkProperties = $input['SparkProperties'] ?? null;
+        $this->classifications = isset($input['Classifications']) ? array_map([Classification::class, 'create'], $input['Classifications']) : null;
     }
 
     /**
      * @param array{
      *   CoordinatorDpuSize?: int|null,
-     *   MaxConcurrentDpus: int,
+     *   MaxConcurrentDpus?: int|null,
      *   DefaultExecutorDpuSize?: int|null,
      *   AdditionalConfigs?: array<string, string>|null,
      *   SparkProperties?: array<string, string>|null,
+     *   Classifications?: array<Classification|array>|null,
      * }|EngineConfiguration $input
      */
     public static function create($input): self
@@ -90,6 +98,14 @@ final class EngineConfiguration
         return $this->additionalConfigs ?? [];
     }
 
+    /**
+     * @return Classification[]
+     */
+    public function getClassifications(): array
+    {
+        return $this->classifications ?? [];
+    }
+
     public function getCoordinatorDpuSize(): ?int
     {
         return $this->coordinatorDpuSize;
@@ -100,7 +116,7 @@ final class EngineConfiguration
         return $this->defaultExecutorDpuSize;
     }
 
-    public function getMaxConcurrentDpus(): int
+    public function getMaxConcurrentDpus(): ?int
     {
         return $this->maxConcurrentDpus;
     }
@@ -122,8 +138,9 @@ final class EngineConfiguration
         if (null !== $v = $this->coordinatorDpuSize) {
             $payload['CoordinatorDpuSize'] = $v;
         }
-        $v = $this->maxConcurrentDpus;
-        $payload['MaxConcurrentDpus'] = $v;
+        if (null !== $v = $this->maxConcurrentDpus) {
+            $payload['MaxConcurrentDpus'] = $v;
+        }
         if (null !== $v = $this->defaultExecutorDpuSize) {
             $payload['DefaultExecutorDpuSize'] = $v;
         }
@@ -147,15 +164,15 @@ final class EngineConfiguration
                 }
             }
         }
+        if (null !== $v = $this->classifications) {
+            $index = -1;
+            $payload['Classifications'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Classifications'][$index] = $listValue->requestBody();
+            }
+        }
 
         return $payload;
-    }
-
-    /**
-     * @return never
-     */
-    private function throwException(\Throwable $exception)
-    {
-        throw $exception;
     }
 }
