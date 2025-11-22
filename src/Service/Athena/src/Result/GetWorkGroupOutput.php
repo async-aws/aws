@@ -3,14 +3,20 @@
 namespace AsyncAws\Athena\Result;
 
 use AsyncAws\Athena\ValueObject\AclConfiguration;
+use AsyncAws\Athena\ValueObject\Classification;
+use AsyncAws\Athena\ValueObject\CloudWatchLoggingConfiguration;
 use AsyncAws\Athena\ValueObject\CustomerContentEncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EncryptionConfiguration;
+use AsyncAws\Athena\ValueObject\EngineConfiguration;
 use AsyncAws\Athena\ValueObject\EngineVersion;
 use AsyncAws\Athena\ValueObject\IdentityCenterConfiguration;
+use AsyncAws\Athena\ValueObject\ManagedLoggingConfiguration;
 use AsyncAws\Athena\ValueObject\ManagedQueryResultsConfiguration;
 use AsyncAws\Athena\ValueObject\ManagedQueryResultsEncryptionConfiguration;
+use AsyncAws\Athena\ValueObject\MonitoringConfiguration;
 use AsyncAws\Athena\ValueObject\QueryResultsS3AccessGrantsConfiguration;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
+use AsyncAws\Athena\ValueObject\S3LoggingConfiguration;
 use AsyncAws\Athena\ValueObject\WorkGroup;
 use AsyncAws\Athena\ValueObject\WorkGroupConfiguration;
 use AsyncAws\Core\Response;
@@ -46,6 +52,37 @@ class GetWorkGroupOutput extends Result
         ]);
     }
 
+    private function populateResultClassification(array $json): Classification
+    {
+        return new Classification([
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'Properties' => !isset($json['Properties']) ? null : $this->populateResultParametersMap($json['Properties']),
+        ]);
+    }
+
+    /**
+     * @return Classification[]
+     */
+    private function populateResultClassificationList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultClassification($item);
+        }
+
+        return $items;
+    }
+
+    private function populateResultCloudWatchLoggingConfiguration(array $json): CloudWatchLoggingConfiguration
+    {
+        return new CloudWatchLoggingConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'LogGroup' => isset($json['LogGroup']) ? (string) $json['LogGroup'] : null,
+            'LogStreamNamePrefix' => isset($json['LogStreamNamePrefix']) ? (string) $json['LogStreamNamePrefix'] : null,
+            'LogTypes' => !isset($json['LogTypes']) ? null : $this->populateResultLogTypesMap($json['LogTypes']),
+        ]);
+    }
+
     private function populateResultCustomerContentEncryptionConfiguration(array $json): CustomerContentEncryptionConfiguration
     {
         return new CustomerContentEncryptionConfiguration([
@@ -58,6 +95,18 @@ class GetWorkGroupOutput extends Result
         return new EncryptionConfiguration([
             'EncryptionOption' => (string) $json['EncryptionOption'],
             'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
+        ]);
+    }
+
+    private function populateResultEngineConfiguration(array $json): EngineConfiguration
+    {
+        return new EngineConfiguration([
+            'CoordinatorDpuSize' => isset($json['CoordinatorDpuSize']) ? (int) $json['CoordinatorDpuSize'] : null,
+            'MaxConcurrentDpus' => isset($json['MaxConcurrentDpus']) ? (int) $json['MaxConcurrentDpus'] : null,
+            'DefaultExecutorDpuSize' => isset($json['DefaultExecutorDpuSize']) ? (int) $json['DefaultExecutorDpuSize'] : null,
+            'AdditionalConfigs' => !isset($json['AdditionalConfigs']) ? null : $this->populateResultParametersMap($json['AdditionalConfigs']),
+            'SparkProperties' => !isset($json['SparkProperties']) ? null : $this->populateResultParametersMap($json['SparkProperties']),
+            'Classifications' => !isset($json['Classifications']) ? null : $this->populateResultClassificationList($json['Classifications']),
         ]);
     }
 
@@ -77,6 +126,43 @@ class GetWorkGroupOutput extends Result
         ]);
     }
 
+    /**
+     * @return string[]
+     */
+    private function populateResultLogTypeValuesList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, string[]>
+     */
+    private function populateResultLogTypesMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultLogTypeValuesList($value);
+        }
+
+        return $items;
+    }
+
+    private function populateResultManagedLoggingConfiguration(array $json): ManagedLoggingConfiguration
+    {
+        return new ManagedLoggingConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
+        ]);
+    }
+
     private function populateResultManagedQueryResultsConfiguration(array $json): ManagedQueryResultsConfiguration
     {
         return new ManagedQueryResultsConfiguration([
@@ -90,6 +176,28 @@ class GetWorkGroupOutput extends Result
         return new ManagedQueryResultsEncryptionConfiguration([
             'KmsKey' => (string) $json['KmsKey'],
         ]);
+    }
+
+    private function populateResultMonitoringConfiguration(array $json): MonitoringConfiguration
+    {
+        return new MonitoringConfiguration([
+            'CloudWatchLoggingConfiguration' => empty($json['CloudWatchLoggingConfiguration']) ? null : $this->populateResultCloudWatchLoggingConfiguration($json['CloudWatchLoggingConfiguration']),
+            'ManagedLoggingConfiguration' => empty($json['ManagedLoggingConfiguration']) ? null : $this->populateResultManagedLoggingConfiguration($json['ManagedLoggingConfiguration']),
+            'S3LoggingConfiguration' => empty($json['S3LoggingConfiguration']) ? null : $this->populateResultS3LoggingConfiguration($json['S3LoggingConfiguration']),
+        ]);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function populateResultParametersMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = (string) $value;
+        }
+
+        return $items;
     }
 
     private function populateResultQueryResultsS3AccessGrantsConfiguration(array $json): QueryResultsS3AccessGrantsConfiguration
@@ -108,6 +216,15 @@ class GetWorkGroupOutput extends Result
             'EncryptionConfiguration' => empty($json['EncryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['EncryptionConfiguration']),
             'ExpectedBucketOwner' => isset($json['ExpectedBucketOwner']) ? (string) $json['ExpectedBucketOwner'] : null,
             'AclConfiguration' => empty($json['AclConfiguration']) ? null : $this->populateResultAclConfiguration($json['AclConfiguration']),
+        ]);
+    }
+
+    private function populateResultS3LoggingConfiguration(array $json): S3LoggingConfiguration
+    {
+        return new S3LoggingConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
+            'LogLocation' => isset($json['LogLocation']) ? (string) $json['LogLocation'] : null,
         ]);
     }
 
@@ -135,6 +252,8 @@ class GetWorkGroupOutput extends Result
             'EngineVersion' => empty($json['EngineVersion']) ? null : $this->populateResultEngineVersion($json['EngineVersion']),
             'AdditionalConfiguration' => isset($json['AdditionalConfiguration']) ? (string) $json['AdditionalConfiguration'] : null,
             'ExecutionRole' => isset($json['ExecutionRole']) ? (string) $json['ExecutionRole'] : null,
+            'MonitoringConfiguration' => empty($json['MonitoringConfiguration']) ? null : $this->populateResultMonitoringConfiguration($json['MonitoringConfiguration']),
+            'EngineConfiguration' => empty($json['EngineConfiguration']) ? null : $this->populateResultEngineConfiguration($json['EngineConfiguration']),
             'CustomerContentEncryptionConfiguration' => empty($json['CustomerContentEncryptionConfiguration']) ? null : $this->populateResultCustomerContentEncryptionConfiguration($json['CustomerContentEncryptionConfiguration']),
             'EnableMinimumEncryptionConfiguration' => isset($json['EnableMinimumEncryptionConfiguration']) ? filter_var($json['EnableMinimumEncryptionConfiguration'], \FILTER_VALIDATE_BOOLEAN) : null,
             'IdentityCenterConfiguration' => empty($json['IdentityCenterConfiguration']) ? null : $this->populateResultIdentityCenterConfiguration($json['IdentityCenterConfiguration']),

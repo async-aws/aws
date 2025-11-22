@@ -2,8 +2,13 @@
 
 namespace AsyncAws\Athena\Result;
 
+use AsyncAws\Athena\ValueObject\Classification;
+use AsyncAws\Athena\ValueObject\CloudWatchLoggingConfiguration;
 use AsyncAws\Athena\ValueObject\EncryptionConfiguration;
 use AsyncAws\Athena\ValueObject\EngineConfiguration;
+use AsyncAws\Athena\ValueObject\ManagedLoggingConfiguration;
+use AsyncAws\Athena\ValueObject\MonitoringConfiguration;
+use AsyncAws\Athena\ValueObject\S3LoggingConfiguration;
 use AsyncAws\Athena\ValueObject\SessionConfiguration;
 use AsyncAws\Athena\ValueObject\SessionStatistics;
 use AsyncAws\Athena\ValueObject\SessionStatus;
@@ -56,6 +61,11 @@ class GetSessionResponse extends Result
     private $notebookVersion;
 
     /**
+     * @var MonitoringConfiguration|null
+     */
+    private $monitoringConfiguration;
+
+    /**
      * Contains the workgroup configuration information used by the session.
      *
      * @var SessionConfiguration|null
@@ -95,6 +105,13 @@ class GetSessionResponse extends Result
         $this->initialize();
 
         return $this->engineVersion;
+    }
+
+    public function getMonitoringConfiguration(): ?MonitoringConfiguration
+    {
+        $this->initialize();
+
+        return $this->monitoringConfiguration;
     }
 
     public function getNotebookVersion(): ?string
@@ -149,9 +166,41 @@ class GetSessionResponse extends Result
         $this->engineVersion = isset($data['EngineVersion']) ? (string) $data['EngineVersion'] : null;
         $this->engineConfiguration = empty($data['EngineConfiguration']) ? null : $this->populateResultEngineConfiguration($data['EngineConfiguration']);
         $this->notebookVersion = isset($data['NotebookVersion']) ? (string) $data['NotebookVersion'] : null;
+        $this->monitoringConfiguration = empty($data['MonitoringConfiguration']) ? null : $this->populateResultMonitoringConfiguration($data['MonitoringConfiguration']);
         $this->sessionConfiguration = empty($data['SessionConfiguration']) ? null : $this->populateResultSessionConfiguration($data['SessionConfiguration']);
         $this->status = empty($data['Status']) ? null : $this->populateResultSessionStatus($data['Status']);
         $this->statistics = empty($data['Statistics']) ? null : $this->populateResultSessionStatistics($data['Statistics']);
+    }
+
+    private function populateResultClassification(array $json): Classification
+    {
+        return new Classification([
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'Properties' => !isset($json['Properties']) ? null : $this->populateResultParametersMap($json['Properties']),
+        ]);
+    }
+
+    /**
+     * @return Classification[]
+     */
+    private function populateResultClassificationList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultClassification($item);
+        }
+
+        return $items;
+    }
+
+    private function populateResultCloudWatchLoggingConfiguration(array $json): CloudWatchLoggingConfiguration
+    {
+        return new CloudWatchLoggingConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'LogGroup' => isset($json['LogGroup']) ? (string) $json['LogGroup'] : null,
+            'LogStreamNamePrefix' => isset($json['LogStreamNamePrefix']) ? (string) $json['LogStreamNamePrefix'] : null,
+            'LogTypes' => !isset($json['LogTypes']) ? null : $this->populateResultLogTypesMap($json['LogTypes']),
+        ]);
     }
 
     private function populateResultEncryptionConfiguration(array $json): EncryptionConfiguration
@@ -166,10 +215,57 @@ class GetSessionResponse extends Result
     {
         return new EngineConfiguration([
             'CoordinatorDpuSize' => isset($json['CoordinatorDpuSize']) ? (int) $json['CoordinatorDpuSize'] : null,
-            'MaxConcurrentDpus' => (int) $json['MaxConcurrentDpus'],
+            'MaxConcurrentDpus' => isset($json['MaxConcurrentDpus']) ? (int) $json['MaxConcurrentDpus'] : null,
             'DefaultExecutorDpuSize' => isset($json['DefaultExecutorDpuSize']) ? (int) $json['DefaultExecutorDpuSize'] : null,
             'AdditionalConfigs' => !isset($json['AdditionalConfigs']) ? null : $this->populateResultParametersMap($json['AdditionalConfigs']),
             'SparkProperties' => !isset($json['SparkProperties']) ? null : $this->populateResultParametersMap($json['SparkProperties']),
+            'Classifications' => !isset($json['Classifications']) ? null : $this->populateResultClassificationList($json['Classifications']),
+        ]);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultLogTypeValuesList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, string[]>
+     */
+    private function populateResultLogTypesMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultLogTypeValuesList($value);
+        }
+
+        return $items;
+    }
+
+    private function populateResultManagedLoggingConfiguration(array $json): ManagedLoggingConfiguration
+    {
+        return new ManagedLoggingConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
+        ]);
+    }
+
+    private function populateResultMonitoringConfiguration(array $json): MonitoringConfiguration
+    {
+        return new MonitoringConfiguration([
+            'CloudWatchLoggingConfiguration' => empty($json['CloudWatchLoggingConfiguration']) ? null : $this->populateResultCloudWatchLoggingConfiguration($json['CloudWatchLoggingConfiguration']),
+            'ManagedLoggingConfiguration' => empty($json['ManagedLoggingConfiguration']) ? null : $this->populateResultManagedLoggingConfiguration($json['ManagedLoggingConfiguration']),
+            'S3LoggingConfiguration' => empty($json['S3LoggingConfiguration']) ? null : $this->populateResultS3LoggingConfiguration($json['S3LoggingConfiguration']),
         ]);
     }
 
@@ -186,12 +282,22 @@ class GetSessionResponse extends Result
         return $items;
     }
 
+    private function populateResultS3LoggingConfiguration(array $json): S3LoggingConfiguration
+    {
+        return new S3LoggingConfiguration([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
+            'LogLocation' => isset($json['LogLocation']) ? (string) $json['LogLocation'] : null,
+        ]);
+    }
+
     private function populateResultSessionConfiguration(array $json): SessionConfiguration
     {
         return new SessionConfiguration([
             'ExecutionRole' => isset($json['ExecutionRole']) ? (string) $json['ExecutionRole'] : null,
             'WorkingDirectory' => isset($json['WorkingDirectory']) ? (string) $json['WorkingDirectory'] : null,
             'IdleTimeoutSeconds' => isset($json['IdleTimeoutSeconds']) ? (int) $json['IdleTimeoutSeconds'] : null,
+            'SessionIdleTimeoutInMinutes' => isset($json['SessionIdleTimeoutInMinutes']) ? (int) $json['SessionIdleTimeoutInMinutes'] : null,
             'EncryptionConfiguration' => empty($json['EncryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['EncryptionConfiguration']),
         ]);
     }

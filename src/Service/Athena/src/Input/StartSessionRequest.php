@@ -3,6 +3,8 @@
 namespace AsyncAws\Athena\Input;
 
 use AsyncAws\Athena\ValueObject\EngineConfiguration;
+use AsyncAws\Athena\ValueObject\MonitoringConfiguration;
+use AsyncAws\Athena\ValueObject\Tag;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -36,6 +38,22 @@ final class StartSessionRequest extends Input
     private $engineConfiguration;
 
     /**
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     *
+     * @var string|null
+     */
+    private $executionRole;
+
+    /**
+     * Contains the configuration settings for managed log persistence, delivering logs to Amazon S3 buckets, Amazon
+     * CloudWatch log groups etc.
+     *
+     * @var MonitoringConfiguration|null
+     */
+    private $monitoringConfiguration;
+
+    /**
      * The notebook version. This value is supplied automatically for notebook sessions in the Athena console and is not
      * required for programmatic session access. The only valid notebook version is `Athena notebook version 1`. If you
      * specify a value for `NotebookVersion`, you must also specify a value for `NotebookId`. See
@@ -66,13 +84,31 @@ final class StartSessionRequest extends Input
     private $clientRequestToken;
 
     /**
+     * A list of comma separated tags to add to the session that is created.
+     *
+     * @var Tag[]|null
+     */
+    private $tags;
+
+    /**
+     * Copies the tags from the Workgroup to the Session when.
+     *
+     * @var bool|null
+     */
+    private $copyWorkGroupTags;
+
+    /**
      * @param array{
      *   Description?: string|null,
      *   WorkGroup?: string,
      *   EngineConfiguration?: EngineConfiguration|array,
+     *   ExecutionRole?: string|null,
+     *   MonitoringConfiguration?: MonitoringConfiguration|array|null,
      *   NotebookVersion?: string|null,
      *   SessionIdleTimeoutInMinutes?: int|null,
      *   ClientRequestToken?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   CopyWorkGroupTags?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -81,9 +117,13 @@ final class StartSessionRequest extends Input
         $this->description = $input['Description'] ?? null;
         $this->workGroup = $input['WorkGroup'] ?? null;
         $this->engineConfiguration = isset($input['EngineConfiguration']) ? EngineConfiguration::create($input['EngineConfiguration']) : null;
+        $this->executionRole = $input['ExecutionRole'] ?? null;
+        $this->monitoringConfiguration = isset($input['MonitoringConfiguration']) ? MonitoringConfiguration::create($input['MonitoringConfiguration']) : null;
         $this->notebookVersion = $input['NotebookVersion'] ?? null;
         $this->sessionIdleTimeoutInMinutes = $input['SessionIdleTimeoutInMinutes'] ?? null;
         $this->clientRequestToken = $input['ClientRequestToken'] ?? null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->copyWorkGroupTags = $input['CopyWorkGroupTags'] ?? null;
         parent::__construct($input);
     }
 
@@ -92,9 +132,13 @@ final class StartSessionRequest extends Input
      *   Description?: string|null,
      *   WorkGroup?: string,
      *   EngineConfiguration?: EngineConfiguration|array,
+     *   ExecutionRole?: string|null,
+     *   MonitoringConfiguration?: MonitoringConfiguration|array|null,
      *   NotebookVersion?: string|null,
      *   SessionIdleTimeoutInMinutes?: int|null,
      *   ClientRequestToken?: string|null,
+     *   Tags?: array<Tag|array>|null,
+     *   CopyWorkGroupTags?: bool|null,
      *   '@region'?: string|null,
      * }|StartSessionRequest $input
      */
@@ -108,6 +152,11 @@ final class StartSessionRequest extends Input
         return $this->clientRequestToken;
     }
 
+    public function getCopyWorkGroupTags(): ?bool
+    {
+        return $this->copyWorkGroupTags;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -118,6 +167,16 @@ final class StartSessionRequest extends Input
         return $this->engineConfiguration;
     }
 
+    public function getExecutionRole(): ?string
+    {
+        return $this->executionRole;
+    }
+
+    public function getMonitoringConfiguration(): ?MonitoringConfiguration
+    {
+        return $this->monitoringConfiguration;
+    }
+
     public function getNotebookVersion(): ?string
     {
         return $this->notebookVersion;
@@ -126,6 +185,14 @@ final class StartSessionRequest extends Input
     public function getSessionIdleTimeoutInMinutes(): ?int
     {
         return $this->sessionIdleTimeoutInMinutes;
+    }
+
+    /**
+     * @return Tag[]
+     */
+    public function getTags(): array
+    {
+        return $this->tags ?? [];
     }
 
     public function getWorkGroup(): ?string
@@ -166,6 +233,13 @@ final class StartSessionRequest extends Input
         return $this;
     }
 
+    public function setCopyWorkGroupTags(?bool $value): self
+    {
+        $this->copyWorkGroupTags = $value;
+
+        return $this;
+    }
+
     public function setDescription(?string $value): self
     {
         $this->description = $value;
@@ -180,6 +254,20 @@ final class StartSessionRequest extends Input
         return $this;
     }
 
+    public function setExecutionRole(?string $value): self
+    {
+        $this->executionRole = $value;
+
+        return $this;
+    }
+
+    public function setMonitoringConfiguration(?MonitoringConfiguration $value): self
+    {
+        $this->monitoringConfiguration = $value;
+
+        return $this;
+    }
+
     public function setNotebookVersion(?string $value): self
     {
         $this->notebookVersion = $value;
@@ -190,6 +278,16 @@ final class StartSessionRequest extends Input
     public function setSessionIdleTimeoutInMinutes(?int $value): self
     {
         $this->sessionIdleTimeoutInMinutes = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param Tag[] $value
+     */
+    public function setTags(array $value): self
+    {
+        $this->tags = $value;
 
         return $this;
     }
@@ -215,6 +313,12 @@ final class StartSessionRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "EngineConfiguration" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['EngineConfiguration'] = $v->requestBody();
+        if (null !== $v = $this->executionRole) {
+            $payload['ExecutionRole'] = $v;
+        }
+        if (null !== $v = $this->monitoringConfiguration) {
+            $payload['MonitoringConfiguration'] = $v->requestBody();
+        }
         if (null !== $v = $this->notebookVersion) {
             $payload['NotebookVersion'] = $v;
         }
@@ -223,6 +327,17 @@ final class StartSessionRequest extends Input
         }
         if (null !== $v = $this->clientRequestToken) {
             $payload['ClientRequestToken'] = $v;
+        }
+        if (null !== $v = $this->tags) {
+            $index = -1;
+            $payload['Tags'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Tags'][$index] = $listValue->requestBody();
+            }
+        }
+        if (null !== $v = $this->copyWorkGroupTags) {
+            $payload['CopyWorkGroupTags'] = (bool) $v;
         }
 
         return $payload;

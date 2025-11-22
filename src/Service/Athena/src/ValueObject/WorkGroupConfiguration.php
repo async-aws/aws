@@ -33,7 +33,8 @@ final class WorkGroupConfiguration
 
     /**
      * If set to "true", the settings for the workgroup override client-side settings. If set to "false", client-side
-     * settings are used. For more information, see Workgroup Settings Override Client-Side Settings [^1].
+     * settings are used. This property is not required for Apache Spark enabled workgroups. For more information, see
+     * Workgroup Settings Override Client-Side Settings [^1].
      *
      * [^1]: https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html
      *
@@ -92,6 +93,19 @@ final class WorkGroupConfiguration
     private $executionRole;
 
     /**
+     * Contains the configuration settings for managed log persistence, delivering logs to Amazon S3 buckets, Amazon
+     * CloudWatch log groups etc.
+     *
+     * @var MonitoringConfiguration|null
+     */
+    private $monitoringConfiguration;
+
+    /**
+     * @var EngineConfiguration|null
+     */
+    private $engineConfiguration;
+
+    /**
      * Specifies the KMS key that is used to encrypt the user's data stores in Athena. This setting does not apply to Athena
      * SQL workgroups.
      *
@@ -137,6 +151,8 @@ final class WorkGroupConfiguration
      *   EngineVersion?: EngineVersion|array|null,
      *   AdditionalConfiguration?: string|null,
      *   ExecutionRole?: string|null,
+     *   MonitoringConfiguration?: MonitoringConfiguration|array|null,
+     *   EngineConfiguration?: EngineConfiguration|array|null,
      *   CustomerContentEncryptionConfiguration?: CustomerContentEncryptionConfiguration|array|null,
      *   EnableMinimumEncryptionConfiguration?: bool|null,
      *   IdentityCenterConfiguration?: IdentityCenterConfiguration|array|null,
@@ -154,6 +170,8 @@ final class WorkGroupConfiguration
         $this->engineVersion = isset($input['EngineVersion']) ? EngineVersion::create($input['EngineVersion']) : null;
         $this->additionalConfiguration = $input['AdditionalConfiguration'] ?? null;
         $this->executionRole = $input['ExecutionRole'] ?? null;
+        $this->monitoringConfiguration = isset($input['MonitoringConfiguration']) ? MonitoringConfiguration::create($input['MonitoringConfiguration']) : null;
+        $this->engineConfiguration = isset($input['EngineConfiguration']) ? EngineConfiguration::create($input['EngineConfiguration']) : null;
         $this->customerContentEncryptionConfiguration = isset($input['CustomerContentEncryptionConfiguration']) ? CustomerContentEncryptionConfiguration::create($input['CustomerContentEncryptionConfiguration']) : null;
         $this->enableMinimumEncryptionConfiguration = $input['EnableMinimumEncryptionConfiguration'] ?? null;
         $this->identityCenterConfiguration = isset($input['IdentityCenterConfiguration']) ? IdentityCenterConfiguration::create($input['IdentityCenterConfiguration']) : null;
@@ -171,6 +189,8 @@ final class WorkGroupConfiguration
      *   EngineVersion?: EngineVersion|array|null,
      *   AdditionalConfiguration?: string|null,
      *   ExecutionRole?: string|null,
+     *   MonitoringConfiguration?: MonitoringConfiguration|array|null,
+     *   EngineConfiguration?: EngineConfiguration|array|null,
      *   CustomerContentEncryptionConfiguration?: CustomerContentEncryptionConfiguration|array|null,
      *   EnableMinimumEncryptionConfiguration?: bool|null,
      *   IdentityCenterConfiguration?: IdentityCenterConfiguration|array|null,
@@ -207,6 +227,11 @@ final class WorkGroupConfiguration
         return $this->enforceWorkGroupConfiguration;
     }
 
+    public function getEngineConfiguration(): ?EngineConfiguration
+    {
+        return $this->engineConfiguration;
+    }
+
     public function getEngineVersion(): ?EngineVersion
     {
         return $this->engineVersion;
@@ -225,6 +250,11 @@ final class WorkGroupConfiguration
     public function getManagedQueryResultsConfiguration(): ?ManagedQueryResultsConfiguration
     {
         return $this->managedQueryResultsConfiguration;
+    }
+
+    public function getMonitoringConfiguration(): ?MonitoringConfiguration
+    {
+        return $this->monitoringConfiguration;
     }
 
     public function getPublishCloudWatchMetricsEnabled(): ?bool

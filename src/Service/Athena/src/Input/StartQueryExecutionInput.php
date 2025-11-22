@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena\Input;
 
+use AsyncAws\Athena\ValueObject\EngineConfiguration;
 use AsyncAws\Athena\ValueObject\QueryExecutionContext;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
 use AsyncAws\Athena\ValueObject\ResultReuseConfiguration;
@@ -76,6 +77,11 @@ final class StartQueryExecutionInput extends Input
     private $resultReuseConfiguration;
 
     /**
+     * @var EngineConfiguration|null
+     */
+    private $engineConfiguration;
+
+    /**
      * @param array{
      *   QueryString?: string,
      *   ClientRequestToken?: string|null,
@@ -84,6 +90,7 @@ final class StartQueryExecutionInput extends Input
      *   WorkGroup?: string|null,
      *   ExecutionParameters?: string[]|null,
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
+     *   EngineConfiguration?: EngineConfiguration|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -96,6 +103,7 @@ final class StartQueryExecutionInput extends Input
         $this->workGroup = $input['WorkGroup'] ?? null;
         $this->executionParameters = $input['ExecutionParameters'] ?? null;
         $this->resultReuseConfiguration = isset($input['ResultReuseConfiguration']) ? ResultReuseConfiguration::create($input['ResultReuseConfiguration']) : null;
+        $this->engineConfiguration = isset($input['EngineConfiguration']) ? EngineConfiguration::create($input['EngineConfiguration']) : null;
         parent::__construct($input);
     }
 
@@ -108,6 +116,7 @@ final class StartQueryExecutionInput extends Input
      *   WorkGroup?: string|null,
      *   ExecutionParameters?: string[]|null,
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
+     *   EngineConfiguration?: EngineConfiguration|array|null,
      *   '@region'?: string|null,
      * }|StartQueryExecutionInput $input
      */
@@ -119,6 +128,11 @@ final class StartQueryExecutionInput extends Input
     public function getClientRequestToken(): ?string
     {
         return $this->clientRequestToken;
+    }
+
+    public function getEngineConfiguration(): ?EngineConfiguration
+    {
+        return $this->engineConfiguration;
     }
 
     /**
@@ -183,6 +197,13 @@ final class StartQueryExecutionInput extends Input
     public function setClientRequestToken(?string $value): self
     {
         $this->clientRequestToken = $value;
+
+        return $this;
+    }
+
+    public function setEngineConfiguration(?EngineConfiguration $value): self
+    {
+        $this->engineConfiguration = $value;
 
         return $this;
     }
@@ -262,6 +283,9 @@ final class StartQueryExecutionInput extends Input
         }
         if (null !== $v = $this->resultReuseConfiguration) {
             $payload['ResultReuseConfiguration'] = $v->requestBody();
+        }
+        if (null !== $v = $this->engineConfiguration) {
+            $payload['EngineConfiguration'] = $v->requestBody();
         }
 
         return $payload;

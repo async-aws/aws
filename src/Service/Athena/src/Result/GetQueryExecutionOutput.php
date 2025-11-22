@@ -147,6 +147,7 @@ class GetQueryExecutionOutput extends Result
             'QueryPlanningTimeInMillis' => isset($json['QueryPlanningTimeInMillis']) ? (int) $json['QueryPlanningTimeInMillis'] : null,
             'ServiceProcessingTimeInMillis' => isset($json['ServiceProcessingTimeInMillis']) ? (int) $json['ServiceProcessingTimeInMillis'] : null,
             'ResultReuseInformation' => empty($json['ResultReuseInformation']) ? null : $this->populateResultResultReuseInformation($json['ResultReuseInformation']),
+            'DpuCount' => isset($json['DpuCount']) ? (float) $json['DpuCount'] : null,
         ]);
     }
 
