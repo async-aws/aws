@@ -67,11 +67,21 @@ final class CreateLogGroupRequest extends Input
     private $logGroupClass;
 
     /**
+     * Use this parameter to enable deletion protection for the new log group. When enabled on a log group, deletion
+     * protection blocks all deletion operations until it is explicitly disabled. By default log groups are created without
+     * deletion protection enabled.
+     *
+     * @var bool|null
+     */
+    private $deletionProtectionEnabled;
+
+    /**
      * @param array{
      *   logGroupName?: string,
      *   kmsKeyId?: string|null,
      *   tags?: array<string, string>|null,
      *   logGroupClass?: LogGroupClass::*|null,
+     *   deletionProtectionEnabled?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -81,6 +91,7 @@ final class CreateLogGroupRequest extends Input
         $this->kmsKeyId = $input['kmsKeyId'] ?? null;
         $this->tags = $input['tags'] ?? null;
         $this->logGroupClass = $input['logGroupClass'] ?? null;
+        $this->deletionProtectionEnabled = $input['deletionProtectionEnabled'] ?? null;
         parent::__construct($input);
     }
 
@@ -90,12 +101,18 @@ final class CreateLogGroupRequest extends Input
      *   kmsKeyId?: string|null,
      *   tags?: array<string, string>|null,
      *   logGroupClass?: LogGroupClass::*|null,
+     *   deletionProtectionEnabled?: bool|null,
      *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getDeletionProtectionEnabled(): ?bool
+    {
+        return $this->deletionProtectionEnabled;
     }
 
     public function getKmsKeyId(): ?string
@@ -148,6 +165,13 @@ final class CreateLogGroupRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setDeletionProtectionEnabled(?bool $value): self
+    {
+        $this->deletionProtectionEnabled = $value;
+
+        return $this;
     }
 
     public function setKmsKeyId(?string $value): self
@@ -209,6 +233,9 @@ final class CreateLogGroupRequest extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "logGroupClass" for "%s". The value "%s" is not a valid "LogGroupClass".', __CLASS__, $v));
             }
             $payload['logGroupClass'] = $v;
+        }
+        if (null !== $v = $this->deletionProtectionEnabled) {
+            $payload['deletionProtectionEnabled'] = (bool) $v;
         }
 
         return $payload;

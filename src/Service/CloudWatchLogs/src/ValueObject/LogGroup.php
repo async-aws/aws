@@ -121,6 +121,14 @@ final class LogGroup
     private $logGroupArn;
 
     /**
+     * Indicates whether deletion protection is enabled for this log group. When enabled, deletion protection blocks all
+     * deletion operations until it is explicitly disabled.
+     *
+     * @var bool|null
+     */
+    private $deletionProtectionEnabled;
+
+    /**
      * @param array{
      *   logGroupName?: string|null,
      *   creationTime?: int|null,
@@ -133,6 +141,7 @@ final class LogGroup
      *   inheritedProperties?: array<InheritedProperty::*>|null,
      *   logGroupClass?: LogGroupClass::*|null,
      *   logGroupArn?: string|null,
+     *   deletionProtectionEnabled?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -148,6 +157,7 @@ final class LogGroup
         $this->inheritedProperties = $input['inheritedProperties'] ?? null;
         $this->logGroupClass = $input['logGroupClass'] ?? null;
         $this->logGroupArn = $input['logGroupArn'] ?? null;
+        $this->deletionProtectionEnabled = $input['deletionProtectionEnabled'] ?? null;
     }
 
     /**
@@ -163,6 +173,7 @@ final class LogGroup
      *   inheritedProperties?: array<InheritedProperty::*>|null,
      *   logGroupClass?: LogGroupClass::*|null,
      *   logGroupArn?: string|null,
+     *   deletionProtectionEnabled?: bool|null,
      * }|LogGroup $input
      */
     public static function create($input): self
@@ -186,6 +197,11 @@ final class LogGroup
     public function getDataProtectionStatus(): ?string
     {
         return $this->dataProtectionStatus;
+    }
+
+    public function getDeletionProtectionEnabled(): ?bool
+    {
+        return $this->deletionProtectionEnabled;
     }
 
     /**
