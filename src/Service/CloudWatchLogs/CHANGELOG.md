@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-isob-west-1` region
+- AWS api-change: New CloudWatch Logs feature - LogGroup Deletion Protection, a capability that allows customers to safeguard their critical CloudWatch log groups from accidental or unintended deletion.
 
 ### Dependency bumped
 

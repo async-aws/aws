@@ -69,6 +69,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   kmsKeyId?: string|null,
      *   tags?: array<string, string>|null,
      *   logGroupClass?: LogGroupClass::*|null,
+     *   deletionProtectionEnabled?: bool|null,
      *   '@region'?: string|null,
      * }|CreateLogGroupRequest $input
      *
