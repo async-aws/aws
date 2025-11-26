@@ -59,6 +59,13 @@ final class HostedZone
     private $linkedService;
 
     /**
+     * The features configuration for the hosted zone, including accelerated recovery settings and status information.
+     *
+     * @var HostedZoneFeatures|null
+     */
+    private $features;
+
+    /**
      * @param array{
      *   Id: string,
      *   Name: string,
@@ -66,6 +73,7 @@ final class HostedZone
      *   Config?: HostedZoneConfig|array|null,
      *   ResourceRecordSetCount?: int|null,
      *   LinkedService?: LinkedService|array|null,
+     *   Features?: HostedZoneFeatures|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -76,6 +84,7 @@ final class HostedZone
         $this->config = isset($input['Config']) ? HostedZoneConfig::create($input['Config']) : null;
         $this->resourceRecordSetCount = $input['ResourceRecordSetCount'] ?? null;
         $this->linkedService = isset($input['LinkedService']) ? LinkedService::create($input['LinkedService']) : null;
+        $this->features = isset($input['Features']) ? HostedZoneFeatures::create($input['Features']) : null;
     }
 
     /**
@@ -86,6 +95,7 @@ final class HostedZone
      *   Config?: HostedZoneConfig|array|null,
      *   ResourceRecordSetCount?: int|null,
      *   LinkedService?: LinkedService|array|null,
+     *   Features?: HostedZoneFeatures|array|null,
      * }|HostedZone $input
      */
     public static function create($input): self
@@ -101,6 +111,11 @@ final class HostedZone
     public function getConfig(): ?HostedZoneConfig
     {
         return $this->config;
+    }
+
+    public function getFeatures(): ?HostedZoneFeatures
+    {
+        return $this->features;
     }
 
     public function getId(): string

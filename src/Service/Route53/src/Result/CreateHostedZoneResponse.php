@@ -8,6 +8,8 @@ use AsyncAws\Route53\ValueObject\ChangeInfo;
 use AsyncAws\Route53\ValueObject\DelegationSet;
 use AsyncAws\Route53\ValueObject\HostedZone;
 use AsyncAws\Route53\ValueObject\HostedZoneConfig;
+use AsyncAws\Route53\ValueObject\HostedZoneFailureReasons;
+use AsyncAws\Route53\ValueObject\HostedZoneFeatures;
 use AsyncAws\Route53\ValueObject\LinkedService;
 use AsyncAws\Route53\ValueObject\VPC;
 
@@ -140,6 +142,7 @@ class CreateHostedZoneResponse extends Result
             'Config' => 0 === $xml->Config->count() ? null : $this->populateResultHostedZoneConfig($xml->Config),
             'ResourceRecordSetCount' => (null !== $v = $xml->ResourceRecordSetCount[0]) ? (int) (string) $v : null,
             'LinkedService' => 0 === $xml->LinkedService->count() ? null : $this->populateResultLinkedService($xml->LinkedService),
+            'Features' => 0 === $xml->Features->count() ? null : $this->populateResultHostedZoneFeatures($xml->Features),
         ]);
     }
 
@@ -148,6 +151,21 @@ class CreateHostedZoneResponse extends Result
         return new HostedZoneConfig([
             'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
             'PrivateZone' => (null !== $v = $xml->PrivateZone[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
+    }
+
+    private function populateResultHostedZoneFailureReasons(\SimpleXMLElement $xml): HostedZoneFailureReasons
+    {
+        return new HostedZoneFailureReasons([
+            'AcceleratedRecovery' => (null !== $v = $xml->AcceleratedRecovery[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultHostedZoneFeatures(\SimpleXMLElement $xml): HostedZoneFeatures
+    {
+        return new HostedZoneFeatures([
+            'AcceleratedRecoveryStatus' => (null !== $v = $xml->AcceleratedRecoveryStatus[0]) ? (string) $v : null,
+            'FailureReasons' => 0 === $xml->FailureReasons->count() ? null : $this->populateResultHostedZoneFailureReasons($xml->FailureReasons),
         ]);
     }
 
