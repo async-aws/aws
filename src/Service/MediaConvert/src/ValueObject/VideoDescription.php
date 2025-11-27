@@ -364,18 +364,21 @@ final class VideoDescription
         $payload = [];
         if (null !== $v = $this->afdSignaling) {
             if (!AfdSignaling::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "afdSignaling" for "%s". The value "%s" is not a valid "AfdSignaling".', __CLASS__, $v));
             }
             $payload['afdSignaling'] = $v;
         }
         if (null !== $v = $this->antiAlias) {
             if (!AntiAlias::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "antiAlias" for "%s". The value "%s" is not a valid "AntiAlias".', __CLASS__, $v));
             }
             $payload['antiAlias'] = $v;
         }
         if (null !== $v = $this->chromaPositionMode) {
             if (!ChromaPositionMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "chromaPositionMode" for "%s". The value "%s" is not a valid "ChromaPositionMode".', __CLASS__, $v));
             }
             $payload['chromaPositionMode'] = $v;
@@ -385,6 +388,7 @@ final class VideoDescription
         }
         if (null !== $v = $this->colorMetadata) {
             if (!ColorMetadata::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "colorMetadata" for "%s". The value "%s" is not a valid "ColorMetadata".', __CLASS__, $v));
             }
             $payload['colorMetadata'] = $v;
@@ -394,6 +398,7 @@ final class VideoDescription
         }
         if (null !== $v = $this->dropFrameTimecode) {
             if (!DropFrameTimecode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dropFrameTimecode" for "%s". The value "%s" is not a valid "DropFrameTimecode".', __CLASS__, $v));
             }
             $payload['dropFrameTimecode'] = $v;
@@ -409,12 +414,14 @@ final class VideoDescription
         }
         if (null !== $v = $this->respondToAfd) {
             if (!RespondToAfd::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "respondToAfd" for "%s". The value "%s" is not a valid "RespondToAfd".', __CLASS__, $v));
             }
             $payload['respondToAfd'] = $v;
         }
         if (null !== $v = $this->scalingBehavior) {
             if (!ScalingBehavior::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scalingBehavior" for "%s". The value "%s" is not a valid "ScalingBehavior".', __CLASS__, $v));
             }
             $payload['scalingBehavior'] = $v;
@@ -424,12 +431,14 @@ final class VideoDescription
         }
         if (null !== $v = $this->timecodeInsertion) {
             if (!VideoTimecodeInsertion::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timecodeInsertion" for "%s". The value "%s" is not a valid "VideoTimecodeInsertion".', __CLASS__, $v));
             }
             $payload['timecodeInsertion'] = $v;
         }
         if (null !== $v = $this->timecodeTrack) {
             if (!TimecodeTrack::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timecodeTrack" for "%s". The value "%s" is not a valid "TimecodeTrack".', __CLASS__, $v));
             }
             $payload['timecodeTrack'] = $v;

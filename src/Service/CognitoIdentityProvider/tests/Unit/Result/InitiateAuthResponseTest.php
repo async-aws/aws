@@ -27,7 +27,7 @@ class InitiateAuthResponseTest extends TestCase
                 'RefreshToken' => 'refresh-me',
                 'TokenType' => 'hash',
             ],
-            'ChallengeName' => 'chall78',
+            'ChallengeName' => 'ADMIN_NO_SRP_AUTH',
             'ChallengeParameters' => ['custom' => 'parameter'],
             'Session' => 'session123',
         ]));
@@ -51,7 +51,7 @@ class InitiateAuthResponseTest extends TestCase
             ),
             $result->getAuthenticationResult()
         );
-        self::assertSame('chall78', $result->getChallengeName());
+        self::assertSame('ADMIN_NO_SRP_AUTH', $result->getChallengeName());
         self::assertSame(['custom' => 'parameter'], $result->getChallengeParameters());
         self::assertSame('session123', $result->getSession());
     }

@@ -20,7 +20,11 @@ final class XavcAdaptiveQuantization
     public const MAX = 'MAX';
     public const MEDIUM = 'MEDIUM';
     public const OFF = 'OFF';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

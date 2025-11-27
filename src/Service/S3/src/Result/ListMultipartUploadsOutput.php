@@ -5,8 +5,11 @@ namespace AsyncAws\S3\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\RequestCharged;
+use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CommonPrefix;
@@ -368,7 +371,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $this->isTruncated = (null !== $v = $data->IsTruncated[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
         $this->uploads = (0 === ($v = $data->Upload)->count()) ? [] : $this->populateResultMultipartUploadList($v);
         $this->commonPrefixes = (0 === ($v = $data->CommonPrefixes)->count()) ? [] : $this->populateResultCommonPrefixList($v);
-        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (string) $v : null;
+        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (!EncodingType::exists((string) $data->EncodingType) ? EncodingType::UNKNOWN_TO_SDK : (string) $data->EncodingType) : null;
     }
 
     private function populateResultCommonPrefix(\SimpleXMLElement $xml): CommonPrefix
@@ -405,11 +408,11 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
             'UploadId' => (null !== $v = $xml->UploadId[0]) ? (string) $v : null,
             'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
             'Initiated' => (null !== $v = $xml->Initiated[0]) ? new \DateTimeImmutable((string) $v) : null,
-            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (string) $v : null,
+            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (!StorageClass::exists((string) $xml->StorageClass) ? StorageClass::UNKNOWN_TO_SDK : (string) $xml->StorageClass) : null,
             'Owner' => 0 === $xml->Owner->count() ? null : $this->populateResultOwner($xml->Owner),
             'Initiator' => 0 === $xml->Initiator->count() ? null : $this->populateResultInitiator($xml->Initiator),
-            'ChecksumAlgorithm' => (null !== $v = $xml->ChecksumAlgorithm[0]) ? (string) $v : null,
-            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (string) $v : null,
+            'ChecksumAlgorithm' => (null !== $v = $xml->ChecksumAlgorithm[0]) ? (!ChecksumAlgorithm::exists((string) $xml->ChecksumAlgorithm) ? ChecksumAlgorithm::UNKNOWN_TO_SDK : (string) $xml->ChecksumAlgorithm) : null,
+            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (!ChecksumType::exists((string) $xml->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $xml->ChecksumType) : null,
         ]);
     }
 

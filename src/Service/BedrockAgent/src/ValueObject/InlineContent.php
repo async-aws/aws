@@ -84,6 +84,7 @@ final class InlineContent
         $payload = [];
         $v = $this->type;
         if (!InlineContentType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "InlineContentType".', __CLASS__, $v));
         }
         $payload['type'] = $v;

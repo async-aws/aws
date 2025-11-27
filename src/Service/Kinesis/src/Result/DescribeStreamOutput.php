@@ -5,7 +5,10 @@ namespace AsyncAws\Kinesis\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Kinesis\Enum\EncryptionType;
 use AsyncAws\Kinesis\Enum\MetricsName;
+use AsyncAws\Kinesis\Enum\StreamMode;
+use AsyncAws\Kinesis\Enum\StreamStatus;
 use AsyncAws\Kinesis\Input\DescribeStreamInput;
 use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Kinesis\ValueObject\EnhancedMetrics;
@@ -119,6 +122,9 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!MetricsName::exists($a)) {
+                    $a = MetricsName::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -163,14 +169,14 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
         return new StreamDescription([
             'StreamName' => (string) $json['StreamName'],
             'StreamARN' => (string) $json['StreamARN'],
-            'StreamStatus' => (string) $json['StreamStatus'],
+            'StreamStatus' => !StreamStatus::exists((string) $json['StreamStatus']) ? StreamStatus::UNKNOWN_TO_SDK : (string) $json['StreamStatus'],
             'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
             'Shards' => $this->populateResultShardList($json['Shards']),
             'HasMoreShards' => filter_var($json['HasMoreShards'], \FILTER_VALIDATE_BOOLEAN),
             'RetentionPeriodHours' => (int) $json['RetentionPeriodHours'],
             'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StreamCreationTimestamp'])),
             'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($json['EnhancedMonitoring']),
-            'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,
+            'EncryptionType' => isset($json['EncryptionType']) ? (!EncryptionType::exists((string) $json['EncryptionType']) ? EncryptionType::UNKNOWN_TO_SDK : (string) $json['EncryptionType']) : null,
             'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,
         ]);
     }
@@ -178,7 +184,7 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
     private function populateResultStreamModeDetails(array $json): StreamModeDetails
     {
         return new StreamModeDetails([
-            'StreamMode' => (string) $json['StreamMode'],
+            'StreamMode' => !StreamMode::exists((string) $json['StreamMode']) ? StreamMode::UNKNOWN_TO_SDK : (string) $json['StreamMode'],
         ]);
     }
 }

@@ -116,6 +116,7 @@ final class MetadataAttributeValue
         $payload = [];
         $v = $this->type;
         if (!MetadataValueType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "MetadataValueType".', __CLASS__, $v));
         }
         $payload['type'] = $v;

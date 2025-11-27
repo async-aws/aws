@@ -12,7 +12,11 @@ final class UserStatusType
     public const RESET_REQUIRED = 'RESET_REQUIRED';
     public const UNCONFIRMED = 'UNCONFIRMED';
     public const UNKNOWN = 'UNKNOWN';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

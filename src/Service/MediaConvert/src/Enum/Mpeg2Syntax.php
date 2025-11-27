@@ -10,7 +10,11 @@ final class Mpeg2Syntax
 {
     public const DEFAULT = 'DEFAULT';
     public const D_10 = 'D_10';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

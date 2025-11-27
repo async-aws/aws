@@ -2,6 +2,8 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Result;
 
+use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
+use AsyncAws\CognitoIdentityProvider\Enum\UserStatusType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\MFAOptionType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\UserType;
@@ -71,7 +73,7 @@ class AdminCreateUserResponse extends Result
     private function populateResultMFAOptionType(array $json): MFAOptionType
     {
         return new MFAOptionType([
-            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (string) $json['DeliveryMedium'] : null,
+            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (!DeliveryMediumType::exists((string) $json['DeliveryMedium']) ? DeliveryMediumType::UNKNOWN_TO_SDK : (string) $json['DeliveryMedium']) : null,
             'AttributeName' => isset($json['AttributeName']) ? (string) $json['AttributeName'] : null,
         ]);
     }
@@ -84,7 +86,7 @@ class AdminCreateUserResponse extends Result
             'UserCreateDate' => (isset($json['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['UserCreateDate'])))) ? $d : null,
             'UserLastModifiedDate' => (isset($json['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['UserLastModifiedDate'])))) ? $d : null,
             'Enabled' => isset($json['Enabled']) ? filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'UserStatus' => isset($json['UserStatus']) ? (string) $json['UserStatus'] : null,
+            'UserStatus' => isset($json['UserStatus']) ? (!UserStatusType::exists((string) $json['UserStatus']) ? UserStatusType::UNKNOWN_TO_SDK : (string) $json['UserStatus']) : null,
             'MFAOptions' => !isset($json['MFAOptions']) ? null : $this->populateResultMFAOptionListType($json['MFAOptions']),
         ]);
     }

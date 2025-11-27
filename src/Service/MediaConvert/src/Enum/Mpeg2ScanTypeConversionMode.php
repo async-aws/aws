@@ -16,7 +16,11 @@ final class Mpeg2ScanTypeConversionMode
 {
     public const INTERLACED = 'INTERLACED';
     public const INTERLACED_OPTIMIZE = 'INTERLACED_OPTIMIZE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -80,6 +80,7 @@ final class TeletextDestinationSettings
             foreach ($v as $listValue) {
                 ++$index;
                 if (!TeletextPageType::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "pageTypes" for "%s". The value "%s" is not a valid "TeletextPageType".', __CLASS__, $listValue));
                 }
                 $payload['pageTypes'][$index] = $listValue;

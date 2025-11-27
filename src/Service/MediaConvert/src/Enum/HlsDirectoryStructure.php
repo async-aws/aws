@@ -9,7 +9,11 @@ final class HlsDirectoryStructure
 {
     public const SINGLE_DIRECTORY = 'SINGLE_DIRECTORY';
     public const SUBDIRECTORY_PER_STREAM = 'SUBDIRECTORY_PER_STREAM';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

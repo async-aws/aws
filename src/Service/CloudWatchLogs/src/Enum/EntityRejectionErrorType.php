@@ -11,7 +11,11 @@ final class EntityRejectionErrorType
     public const INVALID_TYPE_VALUE = 'InvalidTypeValue';
     public const MISSING_REQUIRED_FIELDS = 'MissingRequiredFields';
     public const UNSUPPORTED_LOG_GROUP_TYPE = 'UnsupportedLogGroupType';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

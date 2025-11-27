@@ -11,7 +11,11 @@ final class MovMpeg2FourCCControl
 {
     public const MPEG = 'MPEG';
     public const XDCAM = 'XDCAM';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -6,7 +6,11 @@ final class ImagePullCredentialsType
 {
     public const CODEBUILD = 'CODEBUILD';
     public const SERVICE_ROLE = 'SERVICE_ROLE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

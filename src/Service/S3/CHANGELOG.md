@@ -8,6 +8,7 @@
 
 ### Added
 
+- Add `UNKNOWN_TO_SDK` value to enums that is used when the API returns an value that is not (or not yet) known by the AsyncAws
 - AWS api-change: Added `us-isob-west-1` region
 - Added `S3Client::putPublicAccessBlock()` method
 - AWS api-change: Amazon Simple Storage Service / Features: Add conditional writes in CopyObject on destination key to prevent unintended object modifications.

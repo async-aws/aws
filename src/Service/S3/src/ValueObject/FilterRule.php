@@ -76,6 +76,7 @@ final class FilterRule
     {
         if (null !== $v = $this->name) {
             if (!FilterRuleName::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Name" for "%s". The value "%s" is not a valid "FilterRuleName".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Name', $v));

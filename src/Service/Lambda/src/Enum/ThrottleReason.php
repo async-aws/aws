@@ -10,7 +10,11 @@ final class ThrottleReason
     public const FUNCTION_INVOCATION_RATE_LIMIT_EXCEEDED = 'FunctionInvocationRateLimitExceeded';
     public const RESERVED_FUNCTION_CONCURRENT_INVOCATION_LIMIT_EXCEEDED = 'ReservedFunctionConcurrentInvocationLimitExceeded';
     public const RESERVED_FUNCTION_INVOCATION_RATE_LIMIT_EXCEEDED = 'ReservedFunctionInvocationRateLimitExceeded';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

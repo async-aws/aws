@@ -17,7 +17,11 @@ final class StorageClass
     public const SNOW = 'SNOW';
     public const STANDARD = 'STANDARD';
     public const STANDARD_IA = 'STANDARD_IA';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

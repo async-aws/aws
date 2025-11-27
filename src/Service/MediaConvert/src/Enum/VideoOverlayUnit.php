@@ -10,7 +10,11 @@ final class VideoOverlayUnit
 {
     public const PERCENTAGE = 'PERCENTAGE';
     public const PIXELS = 'PIXELS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

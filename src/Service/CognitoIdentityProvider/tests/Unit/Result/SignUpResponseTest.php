@@ -18,7 +18,7 @@ class SignUpResponseTest extends TestCase
         $response = new SimpleMockedResponse(json_encode([
             'CodeDeliveryDetails' => [
                 'AttributeName' => 'a',
-                'DeliveryMedium' => 'b',
+                'DeliveryMedium' => 'SMS',
                 'Destination' => 'c',
             ],
             'UserConfirmed' => false,
@@ -33,7 +33,7 @@ class SignUpResponseTest extends TestCase
         self::assertEquals(
             CodeDeliveryDetailsType::create([
                 'AttributeName' => 'a',
-                'DeliveryMedium' => 'b',
+                'DeliveryMedium' => 'SMS',
                 'Destination' => 'c',
             ]),
             $result->getCodeDeliveryDetails()

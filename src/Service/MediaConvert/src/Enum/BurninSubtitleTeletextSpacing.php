@@ -12,7 +12,11 @@ final class BurninSubtitleTeletextSpacing
     public const AUTO = 'AUTO';
     public const FIXED_GRID = 'FIXED_GRID';
     public const PROPORTIONAL = 'PROPORTIONAL';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -113,8 +113,9 @@ class ClassBuilder
     /**
      * @param Method[] $methods
      */
-    public function setMethods(array $methods): self
+    public function addMethods(array $methods): self
     {
+        $methods = array_merge($methods, $this->class->getMethods());
         $this->class->setMethods($methods);
 
         return $this;

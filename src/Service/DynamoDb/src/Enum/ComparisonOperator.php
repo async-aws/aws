@@ -18,6 +18,9 @@ final class ComparisonOperator
     public const NOT_NULL = 'NOT_NULL';
     public const NULL = 'NULL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

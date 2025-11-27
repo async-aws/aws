@@ -16,7 +16,11 @@ final class ComputeType
     public const BUILD_LAMBDA_4GB = 'BUILD_LAMBDA_4GB';
     public const BUILD_LAMBDA_8GB = 'BUILD_LAMBDA_8GB';
     public const CUSTOM_INSTANCE_TYPE = 'CUSTOM_INSTANCE_TYPE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

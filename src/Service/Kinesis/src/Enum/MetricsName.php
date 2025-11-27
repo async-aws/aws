@@ -12,7 +12,11 @@ final class MetricsName
     public const OUTGOING_RECORDS = 'OutgoingRecords';
     public const READ_PROVISIONED_THROUGHPUT_EXCEEDED = 'ReadProvisionedThroughputExceeded';
     public const WRITE_PROVISIONED_THROUGHPUT_EXCEEDED = 'WriteProvisionedThroughputExceeded';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

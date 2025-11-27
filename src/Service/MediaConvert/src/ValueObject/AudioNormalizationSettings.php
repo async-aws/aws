@@ -167,12 +167,14 @@ final class AudioNormalizationSettings
         $payload = [];
         if (null !== $v = $this->algorithm) {
             if (!AudioNormalizationAlgorithm::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "algorithm" for "%s". The value "%s" is not a valid "AudioNormalizationAlgorithm".', __CLASS__, $v));
             }
             $payload['algorithm'] = $v;
         }
         if (null !== $v = $this->algorithmControl) {
             if (!AudioNormalizationAlgorithmControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "algorithmControl" for "%s". The value "%s" is not a valid "AudioNormalizationAlgorithmControl".', __CLASS__, $v));
             }
             $payload['algorithmControl'] = $v;
@@ -182,12 +184,14 @@ final class AudioNormalizationSettings
         }
         if (null !== $v = $this->loudnessLogging) {
             if (!AudioNormalizationLoudnessLogging::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "loudnessLogging" for "%s". The value "%s" is not a valid "AudioNormalizationLoudnessLogging".', __CLASS__, $v));
             }
             $payload['loudnessLogging'] = $v;
         }
         if (null !== $v = $this->peakCalculation) {
             if (!AudioNormalizationPeakCalculation::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "peakCalculation" for "%s". The value "%s" is not a valid "AudioNormalizationPeakCalculation".', __CLASS__, $v));
             }
             $payload['peakCalculation'] = $v;

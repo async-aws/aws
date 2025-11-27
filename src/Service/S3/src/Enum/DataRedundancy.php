@@ -7,6 +7,9 @@ final class DataRedundancy
     public const SINGLE_AVAILABILITY_ZONE = 'SingleAvailabilityZone';
     public const SINGLE_LOCAL_ZONE = 'SingleLocalZone';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -25,7 +25,11 @@ final class AudioCodec
     public const PASSTHROUGH = 'PASSTHROUGH';
     public const VORBIS = 'VORBIS';
     public const WAV = 'WAV';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

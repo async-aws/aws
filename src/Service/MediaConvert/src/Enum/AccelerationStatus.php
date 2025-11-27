@@ -18,7 +18,11 @@ final class AccelerationStatus
     public const IN_PROGRESS = 'IN_PROGRESS';
     public const NOT_ACCELERATED = 'NOT_ACCELERATED';
     public const NOT_APPLICABLE = 'NOT_APPLICABLE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

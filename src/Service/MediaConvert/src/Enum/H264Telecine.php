@@ -14,7 +14,11 @@ final class H264Telecine
     public const HARD = 'HARD';
     public const NONE = 'NONE';
     public const SOFT = 'SOFT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

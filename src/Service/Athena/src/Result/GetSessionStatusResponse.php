@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena\Result;
 
+use AsyncAws\Athena\Enum\SessionState;
 use AsyncAws\Athena\ValueObject\SessionStatus;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
@@ -51,7 +52,7 @@ class GetSessionStatusResponse extends Result
             'LastModifiedDateTime' => (isset($json['LastModifiedDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModifiedDateTime'])))) ? $d : null,
             'EndDateTime' => (isset($json['EndDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['EndDateTime'])))) ? $d : null,
             'IdleSinceDateTime' => (isset($json['IdleSinceDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['IdleSinceDateTime'])))) ? $d : null,
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'State' => isset($json['State']) ? (!SessionState::exists((string) $json['State']) ? SessionState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
             'StateChangeReason' => isset($json['StateChangeReason']) ? (string) $json['StateChangeReason'] : null,
         ]);
     }

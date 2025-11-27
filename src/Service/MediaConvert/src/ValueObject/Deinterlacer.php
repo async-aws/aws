@@ -102,18 +102,21 @@ final class Deinterlacer
         $payload = [];
         if (null !== $v = $this->algorithm) {
             if (!DeinterlaceAlgorithm::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "algorithm" for "%s". The value "%s" is not a valid "DeinterlaceAlgorithm".', __CLASS__, $v));
             }
             $payload['algorithm'] = $v;
         }
         if (null !== $v = $this->control) {
             if (!DeinterlacerControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "control" for "%s". The value "%s" is not a valid "DeinterlacerControl".', __CLASS__, $v));
             }
             $payload['control'] = $v;
         }
         if (null !== $v = $this->mode) {
             if (!DeinterlacerMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mode" for "%s". The value "%s" is not a valid "DeinterlacerMode".', __CLASS__, $v));
             }
             $payload['mode'] = $v;

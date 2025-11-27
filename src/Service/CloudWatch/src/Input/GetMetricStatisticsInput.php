@@ -372,6 +372,7 @@ final class GetMetricStatisticsInput extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Statistic::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "Statistics" for "%s". The value "%s" is not a valid "Statistic".', __CLASS__, $listValue));
                 }
                 $payload['Statistics'][$index] = $listValue;
@@ -387,6 +388,7 @@ final class GetMetricStatisticsInput extends Input
         }
         if (null !== $v = $this->unit) {
             if (!StandardUnit::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Unit" for "%s". The value "%s" is not a valid "StandardUnit".', __CLASS__, $v));
             }
             $payload['Unit'] = $v;

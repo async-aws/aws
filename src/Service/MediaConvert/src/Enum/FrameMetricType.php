@@ -17,7 +17,11 @@ final class FrameMetricType
     public const SHOT_CHANGE = 'SHOT_CHANGE';
     public const SSIM = 'SSIM';
     public const VMAF = 'VMAF';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

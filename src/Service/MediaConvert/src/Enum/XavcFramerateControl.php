@@ -11,7 +11,11 @@ final class XavcFramerateControl
 {
     public const INITIALIZE_FROM_SOURCE = 'INITIALIZE_FROM_SOURCE';
     public const SPECIFIED = 'SPECIFIED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

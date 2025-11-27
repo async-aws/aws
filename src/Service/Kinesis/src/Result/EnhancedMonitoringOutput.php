@@ -92,6 +92,9 @@ class EnhancedMonitoringOutput extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!MetricsName::exists($a)) {
+                    $a = MetricsName::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }

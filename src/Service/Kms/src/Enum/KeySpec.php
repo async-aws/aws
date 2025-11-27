@@ -21,7 +21,11 @@ final class KeySpec
     public const RSA_4096 = 'RSA_4096';
     public const SM2 = 'SM2';
     public const SYMMETRIC_DEFAULT = 'SYMMETRIC_DEFAULT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

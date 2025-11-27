@@ -32,6 +32,9 @@ final class ObjectOwnership
     public const BUCKET_OWNER_PREFERRED = 'BucketOwnerPreferred';
     public const OBJECT_WRITER = 'ObjectWriter';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -164,18 +164,21 @@ final class HlsEncryptionSettings
         }
         if (null !== $v = $this->encryptionMethod) {
             if (!HlsEncryptionType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "encryptionMethod" for "%s". The value "%s" is not a valid "HlsEncryptionType".', __CLASS__, $v));
             }
             $payload['encryptionMethod'] = $v;
         }
         if (null !== $v = $this->initializationVectorInManifest) {
             if (!HlsInitializationVectorInManifest::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "initializationVectorInManifest" for "%s". The value "%s" is not a valid "HlsInitializationVectorInManifest".', __CLASS__, $v));
             }
             $payload['initializationVectorInManifest'] = $v;
         }
         if (null !== $v = $this->offlineEncrypted) {
             if (!HlsOfflineEncrypted::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "offlineEncrypted" for "%s". The value "%s" is not a valid "HlsOfflineEncrypted".', __CLASS__, $v));
             }
             $payload['offlineEncrypted'] = $v;
@@ -188,6 +191,7 @@ final class HlsEncryptionSettings
         }
         if (null !== $v = $this->type) {
             if (!HlsKeyProviderType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "HlsKeyProviderType".', __CLASS__, $v));
             }
             $payload['type'] = $v;

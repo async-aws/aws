@@ -9,6 +9,9 @@ final class Select
     public const COUNT = 'COUNT';
     public const SPECIFIC_ATTRIBUTES = 'SPECIFIC_ATTRIBUTES';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

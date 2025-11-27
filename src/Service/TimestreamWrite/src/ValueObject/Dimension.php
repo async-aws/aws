@@ -93,6 +93,7 @@ final class Dimension
         $payload['Value'] = $v;
         if (null !== $v = $this->dimensionValueType) {
             if (!DimensionValueType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "DimensionValueType" for "%s". The value "%s" is not a valid "DimensionValueType".', __CLASS__, $v));
             }
             $payload['DimensionValueType'] = $v;

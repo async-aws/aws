@@ -76,6 +76,7 @@ final class AutoRollbackConfiguration
             foreach ($v as $listValue) {
                 ++$index;
                 if (!AutoRollbackEvent::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "events" for "%s". The value "%s" is not a valid "AutoRollbackEvent".', __CLASS__, $listValue));
                 }
                 $payload['events'][$index] = $listValue;

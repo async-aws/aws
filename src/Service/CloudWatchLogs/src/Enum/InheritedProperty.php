@@ -5,7 +5,11 @@ namespace AsyncAws\CloudWatchLogs\Enum;
 final class InheritedProperty
 {
     public const ACCOUNT_DATA_PROTECTION = 'ACCOUNT_DATA_PROTECTION';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

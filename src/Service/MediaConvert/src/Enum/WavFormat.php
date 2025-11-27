@@ -12,7 +12,11 @@ final class WavFormat
     public const EXTENSIBLE = 'EXTENSIBLE';
     public const RF64 = 'RF64';
     public const RIFF = 'RIFF';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

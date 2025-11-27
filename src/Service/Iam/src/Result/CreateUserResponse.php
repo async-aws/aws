@@ -4,6 +4,7 @@ namespace AsyncAws\Iam\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Iam\Enum\PermissionsBoundaryAttachmentType;
 use AsyncAws\Iam\ValueObject\AttachedPermissionsBoundary;
 use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
@@ -40,7 +41,7 @@ class CreateUserResponse extends Result
     private function populateResultAttachedPermissionsBoundary(\SimpleXMLElement $xml): AttachedPermissionsBoundary
     {
         return new AttachedPermissionsBoundary([
-            'PermissionsBoundaryType' => (null !== $v = $xml->PermissionsBoundaryType[0]) ? (string) $v : null,
+            'PermissionsBoundaryType' => (null !== $v = $xml->PermissionsBoundaryType[0]) ? (!PermissionsBoundaryAttachmentType::exists((string) $xml->PermissionsBoundaryType) ? PermissionsBoundaryAttachmentType::UNKNOWN_TO_SDK : (string) $xml->PermissionsBoundaryType) : null,
             'PermissionsBoundaryArn' => (null !== $v = $xml->PermissionsBoundaryArn[0]) ? (string) $v : null,
         ]);
     }

@@ -15,7 +15,11 @@ final class DeinterlaceAlgorithm
     public const INTERPOLATE = 'INTERPOLATE';
     public const INTERPOLATE_TICKER = 'INTERPOLATE_TICKER';
     public const LINEAR_INTERPOLATION = 'LINEAR_INTERPOLATION';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

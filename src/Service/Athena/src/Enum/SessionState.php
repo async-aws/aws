@@ -12,7 +12,11 @@ final class SessionState
     public const IDLE = 'IDLE';
     public const TERMINATED = 'TERMINATED';
     public const TERMINATING = 'TERMINATING';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

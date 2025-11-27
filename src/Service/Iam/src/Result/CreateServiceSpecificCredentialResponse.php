@@ -4,6 +4,7 @@ namespace AsyncAws\Iam\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Iam\Enum\StatusType;
 use AsyncAws\Iam\ValueObject\ServiceSpecificCredential;
 
 class CreateServiceSpecificCredentialResponse extends Result
@@ -47,7 +48,7 @@ class CreateServiceSpecificCredentialResponse extends Result
             'ServiceCredentialSecret' => (null !== $v = $xml->ServiceCredentialSecret[0]) ? (string) $v : null,
             'ServiceSpecificCredentialId' => (string) $xml->ServiceSpecificCredentialId,
             'UserName' => (string) $xml->UserName,
-            'Status' => (string) $xml->Status,
+            'Status' => !StatusType::exists((string) $xml->Status) ? StatusType::UNKNOWN_TO_SDK : (string) $xml->Status,
         ]);
     }
 }

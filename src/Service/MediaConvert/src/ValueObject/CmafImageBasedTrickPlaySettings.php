@@ -135,6 +135,7 @@ final class CmafImageBasedTrickPlaySettings
         $payload = [];
         if (null !== $v = $this->intervalCadence) {
             if (!CmafIntervalCadence::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "intervalCadence" for "%s". The value "%s" is not a valid "CmafIntervalCadence".', __CLASS__, $v));
             }
             $payload['intervalCadence'] = $v;

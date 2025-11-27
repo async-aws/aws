@@ -13,7 +13,11 @@ final class BurninSubtitleAlignment
     public const AUTO = 'AUTO';
     public const CENTERED = 'CENTERED';
     public const LEFT = 'LEFT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

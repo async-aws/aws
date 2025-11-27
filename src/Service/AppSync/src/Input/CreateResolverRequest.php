@@ -429,6 +429,7 @@ final class CreateResolverRequest extends Input
         }
         if (null !== $v = $this->kind) {
             if (!ResolverKind::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "kind" for "%s". The value "%s" is not a valid "ResolverKind".', __CLASS__, $v));
             }
             $payload['kind'] = $v;
@@ -453,6 +454,7 @@ final class CreateResolverRequest extends Input
         }
         if (null !== $v = $this->metricsConfig) {
             if (!ResolverLevelMetricsConfig::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "ResolverLevelMetricsConfig".', __CLASS__, $v));
             }
             $payload['metricsConfig'] = $v;

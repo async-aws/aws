@@ -8,7 +8,11 @@ final class MacAlgorithmSpec
     public const HMAC_SHA_256 = 'HMAC_SHA_256';
     public const HMAC_SHA_384 = 'HMAC_SHA_384';
     public const HMAC_SHA_512 = 'HMAC_SHA_512';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

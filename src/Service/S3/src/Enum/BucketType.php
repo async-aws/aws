@@ -6,6 +6,9 @@ final class BucketType
 {
     public const DIRECTORY = 'Directory';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

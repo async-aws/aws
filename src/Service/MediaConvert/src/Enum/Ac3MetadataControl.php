@@ -10,7 +10,11 @@ final class Ac3MetadataControl
 {
     public const FOLLOW_INPUT = 'FOLLOW_INPUT';
     public const USE_CONFIGURED = 'USE_CONFIGURED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

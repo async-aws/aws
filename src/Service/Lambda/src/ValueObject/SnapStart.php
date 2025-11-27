@@ -57,6 +57,7 @@ final class SnapStart
         $payload = [];
         if (null !== $v = $this->applyOn) {
             if (!SnapStartApplyOn::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ApplyOn" for "%s". The value "%s" is not a valid "SnapStartApplyOn".', __CLASS__, $v));
             }
             $payload['ApplyOn'] = $v;

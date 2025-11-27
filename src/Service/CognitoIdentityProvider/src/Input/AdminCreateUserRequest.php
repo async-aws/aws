@@ -420,6 +420,7 @@ final class AdminCreateUserRequest extends Input
         }
         if (null !== $v = $this->messageAction) {
             if (!MessageActionType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "MessageAction" for "%s". The value "%s" is not a valid "MessageActionType".', __CLASS__, $v));
             }
             $payload['MessageAction'] = $v;
@@ -430,6 +431,7 @@ final class AdminCreateUserRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!DeliveryMediumType::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "DesiredDeliveryMediums" for "%s". The value "%s" is not a valid "DeliveryMediumType".', __CLASS__, $listValue));
                 }
                 $payload['DesiredDeliveryMediums'][$index] = $listValue;

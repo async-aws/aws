@@ -57,6 +57,6 @@ final class TooManyRequestsException extends ClientException
         $data = $response->toArray(false);
 
         $this->type = isset($data['Type']) ? (string) $data['Type'] : null;
-        $this->reason = isset($data['Reason']) ? (string) $data['Reason'] : null;
+        $this->reason = isset($data['Reason']) ? (!ThrottleReason::exists((string) $data['Reason']) ? ThrottleReason::UNKNOWN_TO_SDK : (string) $data['Reason']) : null;
     }
 }

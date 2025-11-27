@@ -124,6 +124,7 @@ final class InputTamsSettings
         }
         if (null !== $v = $this->gapHandling) {
             if (!TamsGapHandling::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "gapHandling" for "%s". The value "%s" is not a valid "TamsGapHandling".', __CLASS__, $v));
             }
             $payload['gapHandling'] = $v;

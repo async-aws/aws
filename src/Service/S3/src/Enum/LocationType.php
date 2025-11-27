@@ -6,7 +6,11 @@ final class LocationType
 {
     public const AVAILABILITY_ZONE = 'AvailabilityZone';
     public const LOCAL_ZONE = 'LocalZone';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

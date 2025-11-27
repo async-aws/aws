@@ -12,7 +12,11 @@ final class MxfXavcDurationMode
 {
     public const ALLOW_ANY_DURATION = 'ALLOW_ANY_DURATION';
     public const DROP_FRAMES_FOR_COMPLIANCE = 'DROP_FRAMES_FOR_COMPLIANCE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

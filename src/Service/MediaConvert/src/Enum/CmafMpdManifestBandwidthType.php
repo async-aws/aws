@@ -12,7 +12,11 @@ final class CmafMpdManifestBandwidthType
 {
     public const AVERAGE = 'AVERAGE';
     public const MAX = 'MAX';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

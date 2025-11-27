@@ -265,6 +265,7 @@ class RestXmlSerializer implements Serializer
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
             $this->usedClassesAdd(InvalidArgument::class);
             $body = 'if (!ENUM_CLASS::exists(INPUT)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
                 }
             ' . $body;

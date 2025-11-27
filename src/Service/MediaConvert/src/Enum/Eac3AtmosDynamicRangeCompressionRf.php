@@ -18,7 +18,11 @@ final class Eac3AtmosDynamicRangeCompressionRf
     public const MUSIC_STANDARD = 'MUSIC_STANDARD';
     public const NONE = 'NONE';
     public const SPEECH = 'SPEECH';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

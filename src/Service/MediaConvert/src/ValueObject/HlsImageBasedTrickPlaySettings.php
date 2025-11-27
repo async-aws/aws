@@ -135,6 +135,7 @@ final class HlsImageBasedTrickPlaySettings
         $payload = [];
         if (null !== $v = $this->intervalCadence) {
             if (!HlsIntervalCadence::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "intervalCadence" for "%s". The value "%s" is not a valid "HlsIntervalCadence".', __CLASS__, $v));
             }
             $payload['intervalCadence'] = $v;

@@ -12,7 +12,11 @@ final class VideoOverlayPlayBackMode
 {
     public const ONCE = 'ONCE';
     public const REPEAT = 'REPEAT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -31,7 +31,11 @@ final class StandardUnit
     public const TERABITS_SECOND = 'Terabits/Second';
     public const TERABYTES = 'Terabytes';
     public const TERABYTES_SECOND = 'Terabytes/Second';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

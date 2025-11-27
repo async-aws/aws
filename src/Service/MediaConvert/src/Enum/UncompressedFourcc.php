@@ -10,7 +10,11 @@ final class UncompressedFourcc
     public const I420 = 'I420';
     public const I422 = 'I422';
     public const I444 = 'I444';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -10,7 +10,11 @@ final class M3u8PcrControl
 {
     public const CONFIGURED_PCR_PERIOD = 'CONFIGURED_PCR_PERIOD';
     public const PCR_EVERY_PES_PACKET = 'PCR_EVERY_PES_PACKET';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

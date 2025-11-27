@@ -2,6 +2,8 @@
 
 namespace AsyncAws\BedrockAgent\Result;
 
+use AsyncAws\BedrockAgent\Enum\ContentDataSourceType;
+use AsyncAws\BedrockAgent\Enum\DocumentStatus;
 use AsyncAws\BedrockAgent\ValueObject\CustomDocumentIdentifier;
 use AsyncAws\BedrockAgent\ValueObject\DocumentIdentifier;
 use AsyncAws\BedrockAgent\ValueObject\KnowledgeBaseDocumentDetail;
@@ -45,7 +47,7 @@ class DeleteKnowledgeBaseDocumentsResponse extends Result
     private function populateResultDocumentIdentifier(array $json): DocumentIdentifier
     {
         return new DocumentIdentifier([
-            'dataSourceType' => (string) $json['dataSourceType'],
+            'dataSourceType' => !ContentDataSourceType::exists((string) $json['dataSourceType']) ? ContentDataSourceType::UNKNOWN_TO_SDK : (string) $json['dataSourceType'],
             's3' => empty($json['s3']) ? null : $this->populateResultS3Location($json['s3']),
             'custom' => empty($json['custom']) ? null : $this->populateResultCustomDocumentIdentifier($json['custom']),
         ]);
@@ -56,7 +58,7 @@ class DeleteKnowledgeBaseDocumentsResponse extends Result
         return new KnowledgeBaseDocumentDetail([
             'knowledgeBaseId' => (string) $json['knowledgeBaseId'],
             'dataSourceId' => (string) $json['dataSourceId'],
-            'status' => (string) $json['status'],
+            'status' => !DocumentStatus::exists((string) $json['status']) ? DocumentStatus::UNKNOWN_TO_SDK : (string) $json['status'],
             'identifier' => $this->populateResultDocumentIdentifier($json['identifier']),
             'statusReason' => isset($json['statusReason']) ? (string) $json['statusReason'] : null,
             'updatedAt' => isset($json['updatedAt']) && ($d = \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $json['updatedAt'])) ? $d : null,

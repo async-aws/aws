@@ -324,24 +324,28 @@ final class MpdSettings
         $payload = [];
         if (null !== $v = $this->accessibilityCaptionHints) {
             if (!MpdAccessibilityCaptionHints::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "accessibilityCaptionHints" for "%s". The value "%s" is not a valid "MpdAccessibilityCaptionHints".', __CLASS__, $v));
             }
             $payload['accessibilityCaptionHints'] = $v;
         }
         if (null !== $v = $this->audioDuration) {
             if (!MpdAudioDuration::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "MpdAudioDuration".', __CLASS__, $v));
             }
             $payload['audioDuration'] = $v;
         }
         if (null !== $v = $this->c2paManifest) {
             if (!MpdC2paManifest::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "c2paManifest" for "%s". The value "%s" is not a valid "MpdC2paManifest".', __CLASS__, $v));
             }
             $payload['c2paManifest'] = $v;
         }
         if (null !== $v = $this->captionContainerType) {
             if (!MpdCaptionContainerType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "captionContainerType" for "%s". The value "%s" is not a valid "MpdCaptionContainerType".', __CLASS__, $v));
             }
             $payload['captionContainerType'] = $v;
@@ -351,24 +355,28 @@ final class MpdSettings
         }
         if (null !== $v = $this->klvMetadata) {
             if (!MpdKlvMetadata::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "klvMetadata" for "%s". The value "%s" is not a valid "MpdKlvMetadata".', __CLASS__, $v));
             }
             $payload['klvMetadata'] = $v;
         }
         if (null !== $v = $this->manifestMetadataSignaling) {
             if (!MpdManifestMetadataSignaling::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "manifestMetadataSignaling" for "%s". The value "%s" is not a valid "MpdManifestMetadataSignaling".', __CLASS__, $v));
             }
             $payload['manifestMetadataSignaling'] = $v;
         }
         if (null !== $v = $this->scte35Esam) {
             if (!MpdScte35Esam::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Esam" for "%s". The value "%s" is not a valid "MpdScte35Esam".', __CLASS__, $v));
             }
             $payload['scte35Esam'] = $v;
         }
         if (null !== $v = $this->scte35Source) {
             if (!MpdScte35Source::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "MpdScte35Source".', __CLASS__, $v));
             }
             $payload['scte35Source'] = $v;
@@ -378,12 +386,14 @@ final class MpdSettings
         }
         if (null !== $v = $this->timedMetadata) {
             if (!MpdTimedMetadata::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timedMetadata" for "%s". The value "%s" is not a valid "MpdTimedMetadata".', __CLASS__, $v));
             }
             $payload['timedMetadata'] = $v;
         }
         if (null !== $v = $this->timedMetadataBoxVersion) {
             if (!MpdTimedMetadataBoxVersion::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timedMetadataBoxVersion" for "%s". The value "%s" is not a valid "MpdTimedMetadataBoxVersion".', __CLASS__, $v));
             }
             $payload['timedMetadataBoxVersion'] = $v;

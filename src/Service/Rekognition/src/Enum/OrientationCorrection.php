@@ -8,7 +8,11 @@ final class OrientationCorrection
     public const ROTATE_180 = 'ROTATE_180';
     public const ROTATE_270 = 'ROTATE_270';
     public const ROTATE_90 = 'ROTATE_90';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

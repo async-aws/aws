@@ -8,7 +8,11 @@ final class InvalidRequestDetailReason
     public const PAGE_LIMIT_EXCEEDED = 'PAGE_LIMIT_EXCEEDED';
     public const TEXTRACT_ACCESS_DENIED = 'TEXTRACT_ACCESS_DENIED';
     public const UNSUPPORTED_DOC_TYPE = 'UNSUPPORTED_DOC_TYPE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

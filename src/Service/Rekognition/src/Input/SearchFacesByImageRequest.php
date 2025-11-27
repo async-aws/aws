@@ -209,6 +209,7 @@ final class SearchFacesByImageRequest extends Input
         }
         if (null !== $v = $this->qualityFilter) {
             if (!QualityFilter::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "QualityFilter" for "%s". The value "%s" is not a valid "QualityFilter".', __CLASS__, $v));
             }
             $payload['QualityFilter'] = $v;

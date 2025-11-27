@@ -12,7 +12,11 @@ final class MpdCaptionContainerType
 {
     public const FRAGMENTED_MP4 = 'FRAGMENTED_MP4';
     public const RAW = 'RAW';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

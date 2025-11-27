@@ -57,6 +57,7 @@ final class AvcIntraUhdSettings
         $payload = [];
         if (null !== $v = $this->qualityTuningLevel) {
             if (!AvcIntraUhdQualityTuningLevel::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "AvcIntraUhdQualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;

@@ -10,7 +10,11 @@ final class OperationType
     public const DELETE_STACK = 'DELETE_STACK';
     public const ROLLBACK = 'ROLLBACK';
     public const UPDATE_STACK = 'UPDATE_STACK';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

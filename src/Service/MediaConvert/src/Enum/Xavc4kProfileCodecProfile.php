@@ -10,7 +10,11 @@ final class Xavc4kProfileCodecProfile
 {
     public const HIGH = 'HIGH';
     public const HIGH_422 = 'HIGH_422';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -108,6 +108,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!Architecture::exists($a)) {
+                    $a = Architecture::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -124,6 +127,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!Runtime::exists($a)) {
+                    $a = Runtime::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }

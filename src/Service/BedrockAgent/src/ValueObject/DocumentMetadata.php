@@ -88,6 +88,7 @@ final class DocumentMetadata
         $payload = [];
         $v = $this->type;
         if (!MetadataSourceType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "MetadataSourceType".', __CLASS__, $v));
         }
         $payload['type'] = $v;

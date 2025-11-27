@@ -4,6 +4,11 @@ namespace AsyncAws\CloudFormation\Result;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Enum\Capability;
+use AsyncAws\CloudFormation\Enum\DeletionMode;
+use AsyncAws\CloudFormation\Enum\DetailedStatus;
+use AsyncAws\CloudFormation\Enum\OperationType;
+use AsyncAws\CloudFormation\Enum\StackDriftStatus;
+use AsyncAws\CloudFormation\Enum\StackStatus;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
 use AsyncAws\CloudFormation\ValueObject\OperationEntry;
 use AsyncAws\CloudFormation\ValueObject\Output;
@@ -116,7 +121,11 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml->member as $item) {
-            $items[] = (string) $item;
+            $a = (string) $item;
+            if (!Capability::exists($a)) {
+                $a = Capability::UNKNOWN_TO_SDK;
+            }
+            $items[] = $a;
         }
 
         return $items;
@@ -151,7 +160,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     private function populateResultOperationEntry(\SimpleXMLElement $xml): OperationEntry
     {
         return new OperationEntry([
-            'OperationType' => (null !== $v = $xml->OperationType[0]) ? (string) $v : null,
+            'OperationType' => (null !== $v = $xml->OperationType[0]) ? (!OperationType::exists((string) $xml->OperationType) ? OperationType::UNKNOWN_TO_SDK : (string) $xml->OperationType) : null,
             'OperationId' => (null !== $v = $xml->OperationId[0]) ? (string) $v : null,
         ]);
     }
@@ -243,7 +252,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
             'DeletionTime' => (null !== $v = $xml->DeletionTime[0]) ? new \DateTimeImmutable((string) $v) : null,
             'LastUpdatedTime' => (null !== $v = $xml->LastUpdatedTime[0]) ? new \DateTimeImmutable((string) $v) : null,
             'RollbackConfiguration' => 0 === $xml->RollbackConfiguration->count() ? null : $this->populateResultRollbackConfiguration($xml->RollbackConfiguration),
-            'StackStatus' => (string) $xml->StackStatus,
+            'StackStatus' => !StackStatus::exists((string) $xml->StackStatus) ? StackStatus::UNKNOWN_TO_SDK : (string) $xml->StackStatus,
             'StackStatusReason' => (null !== $v = $xml->StackStatusReason[0]) ? (string) $v : null,
             'DisableRollback' => (null !== $v = $xml->DisableRollback[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'NotificationARNs' => (0 === ($v = $xml->NotificationARNs)->count()) ? null : $this->populateResultNotificationARNs($v),
@@ -257,8 +266,8 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
             'RootId' => (null !== $v = $xml->RootId[0]) ? (string) $v : null,
             'DriftInformation' => 0 === $xml->DriftInformation->count() ? null : $this->populateResultStackDriftInformation($xml->DriftInformation),
             'RetainExceptOnCreate' => (null !== $v = $xml->RetainExceptOnCreate[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-            'DeletionMode' => (null !== $v = $xml->DeletionMode[0]) ? (string) $v : null,
-            'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (string) $v : null,
+            'DeletionMode' => (null !== $v = $xml->DeletionMode[0]) ? (!DeletionMode::exists((string) $xml->DeletionMode) ? DeletionMode::UNKNOWN_TO_SDK : (string) $xml->DeletionMode) : null,
+            'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (!DetailedStatus::exists((string) $xml->DetailedStatus) ? DetailedStatus::UNKNOWN_TO_SDK : (string) $xml->DetailedStatus) : null,
             'LastOperations' => (0 === ($v = $xml->LastOperations)->count()) ? null : $this->populateResultLastOperations($v),
         ]);
     }
@@ -266,7 +275,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     private function populateResultStackDriftInformation(\SimpleXMLElement $xml): StackDriftInformation
     {
         return new StackDriftInformation([
-            'StackDriftStatus' => (string) $xml->StackDriftStatus,
+            'StackDriftStatus' => !StackDriftStatus::exists((string) $xml->StackDriftStatus) ? StackDriftStatus::UNKNOWN_TO_SDK : (string) $xml->StackDriftStatus,
             'LastCheckTimestamp' => (null !== $v = $xml->LastCheckTimestamp[0]) ? new \DateTimeImmutable((string) $v) : null,
         ]);
     }

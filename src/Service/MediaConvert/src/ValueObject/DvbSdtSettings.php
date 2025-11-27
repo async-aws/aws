@@ -102,6 +102,7 @@ final class DvbSdtSettings
         $payload = [];
         if (null !== $v = $this->outputSdt) {
             if (!OutputSdt::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "outputSdt" for "%s". The value "%s" is not a valid "OutputSdt".', __CLASS__, $v));
             }
             $payload['outputSdt'] = $v;

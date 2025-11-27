@@ -104,6 +104,7 @@ final class S3LogsConfig
         $payload = [];
         $v = $this->status;
         if (!LogsConfigStatusType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LogsConfigStatusType".', __CLASS__, $v));
         }
         $payload['status'] = $v;
@@ -115,6 +116,7 @@ final class S3LogsConfig
         }
         if (null !== $v = $this->bucketOwnerAccess) {
             if (!BucketOwnerAccess::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "bucketOwnerAccess" for "%s". The value "%s" is not a valid "BucketOwnerAccess".', __CLASS__, $v));
             }
             $payload['bucketOwnerAccess'] = $v;

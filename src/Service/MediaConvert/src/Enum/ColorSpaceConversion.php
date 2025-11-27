@@ -25,7 +25,11 @@ final class ColorSpaceConversion
     public const FORCE_P3D65_SDR = 'FORCE_P3D65_SDR';
     public const FORCE_P3DCI = 'FORCE_P3DCI';
     public const NONE = 'NONE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

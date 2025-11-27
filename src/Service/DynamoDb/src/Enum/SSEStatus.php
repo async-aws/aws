@@ -9,7 +9,11 @@ final class SSEStatus
     public const ENABLED = 'ENABLED';
     public const ENABLING = 'ENABLING';
     public const UPDATING = 'UPDATING';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

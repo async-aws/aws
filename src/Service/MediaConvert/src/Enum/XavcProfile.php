@@ -14,7 +14,11 @@ final class XavcProfile
     public const XAVC_4K_INTRA_VBR = 'XAVC_4K_INTRA_VBR';
     public const XAVC_HD = 'XAVC_HD';
     public const XAVC_HD_INTRA_CBG = 'XAVC_HD_INTRA_CBG';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

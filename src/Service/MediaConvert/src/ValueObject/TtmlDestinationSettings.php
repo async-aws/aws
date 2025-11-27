@@ -55,6 +55,7 @@ final class TtmlDestinationSettings
         $payload = [];
         if (null !== $v = $this->stylePassthrough) {
             if (!TtmlStylePassthrough::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "TtmlStylePassthrough".', __CLASS__, $v));
             }
             $payload['stylePassthrough'] = $v;

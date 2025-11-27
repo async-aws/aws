@@ -7,7 +7,11 @@ final class ScalarAttributeType
     public const B = 'B';
     public const N = 'N';
     public const S = 'S';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

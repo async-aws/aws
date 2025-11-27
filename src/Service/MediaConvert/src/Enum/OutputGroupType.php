@@ -12,7 +12,11 @@ final class OutputGroupType
     public const FILE_GROUP_SETTINGS = 'FILE_GROUP_SETTINGS';
     public const HLS_GROUP_SETTINGS = 'HLS_GROUP_SETTINGS';
     public const MS_SMOOTH_GROUP_SETTINGS = 'MS_SMOOTH_GROUP_SETTINGS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -12,7 +12,11 @@ final class MpdTimedMetadataBoxVersion
 {
     public const VERSION_0 = 'VERSION_0';
     public const VERSION_1 = 'VERSION_1';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

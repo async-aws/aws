@@ -10,6 +10,9 @@ final class ReturnValue
     public const UPDATED_NEW = 'UPDATED_NEW';
     public const UPDATED_OLD = 'UPDATED_OLD';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

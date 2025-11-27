@@ -304,6 +304,7 @@ final class AudioSelector
         $payload = [];
         if (null !== $v = $this->audioDurationCorrection) {
             if (!AudioDurationCorrection::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDurationCorrection" for "%s". The value "%s" is not a valid "AudioDurationCorrection".', __CLASS__, $v));
             }
             $payload['audioDurationCorrection'] = $v;
@@ -313,6 +314,7 @@ final class AudioSelector
         }
         if (null !== $v = $this->defaultSelection) {
             if (!AudioDefaultSelection::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "defaultSelection" for "%s". The value "%s" is not a valid "AudioDefaultSelection".', __CLASS__, $v));
             }
             $payload['defaultSelection'] = $v;
@@ -325,6 +327,7 @@ final class AudioSelector
         }
         if (null !== $v = $this->languageCode) {
             if (!LanguageCode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "languageCode" for "%s". The value "%s" is not a valid "LanguageCode".', __CLASS__, $v));
             }
             $payload['languageCode'] = $v;
@@ -348,6 +351,7 @@ final class AudioSelector
         }
         if (null !== $v = $this->selectorType) {
             if (!AudioSelectorType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "selectorType" for "%s". The value "%s" is not a valid "AudioSelectorType".', __CLASS__, $v));
             }
             $payload['selectorType'] = $v;

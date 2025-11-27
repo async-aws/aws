@@ -30,6 +30,6 @@ final class ValidationException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->reason = isset($data['reason']) ? (string) $data['reason'] : null;
+        $this->reason = isset($data['reason']) ? (!ValidationExceptionReason::exists((string) $data['reason']) ? ValidationExceptionReason::UNKNOWN_TO_SDK : (string) $data['reason']) : null;
     }
 }

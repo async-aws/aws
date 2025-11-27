@@ -196,6 +196,7 @@ final class Condition
         }
         $v = $this->comparisonOperator;
         if (!ComparisonOperator::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "ComparisonOperator" for "%s". The value "%s" is not a valid "ComparisonOperator".', __CLASS__, $v));
         }
         $payload['ComparisonOperator'] = $v;

@@ -57,6 +57,7 @@ final class SrtDestinationSettings
         $payload = [];
         if (null !== $v = $this->stylePassthrough) {
             if (!SrtStylePassthrough::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "SrtStylePassthrough".', __CLASS__, $v));
             }
             $payload['stylePassthrough'] = $v;

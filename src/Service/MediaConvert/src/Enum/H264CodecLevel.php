@@ -25,7 +25,11 @@ final class H264CodecLevel
     public const LEVEL_5 = 'LEVEL_5';
     public const LEVEL_5_1 = 'LEVEL_5_1';
     public const LEVEL_5_2 = 'LEVEL_5_2';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

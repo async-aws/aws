@@ -174,6 +174,7 @@ final class UpdateShardCountInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "ScalingType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ScalingType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "ScalingType" for "%s". The value "%s" is not a valid "ScalingType".', __CLASS__, $v));
         }
         $payload['ScalingType'] = $v;

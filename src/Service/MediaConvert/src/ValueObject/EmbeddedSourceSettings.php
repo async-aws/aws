@@ -106,6 +106,7 @@ final class EmbeddedSourceSettings
         $payload = [];
         if (null !== $v = $this->convert608To708) {
             if (!EmbeddedConvert608To708::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "convert608To708" for "%s". The value "%s" is not a valid "EmbeddedConvert608To708".', __CLASS__, $v));
             }
             $payload['convert608To708'] = $v;
@@ -118,6 +119,7 @@ final class EmbeddedSourceSettings
         }
         if (null !== $v = $this->terminateCaptions) {
             if (!EmbeddedTerminateCaptions::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "terminateCaptions" for "%s". The value "%s" is not a valid "EmbeddedTerminateCaptions".', __CLASS__, $v));
             }
             $payload['terminateCaptions'] = $v;

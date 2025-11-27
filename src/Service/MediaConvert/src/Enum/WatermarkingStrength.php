@@ -13,7 +13,11 @@ final class WatermarkingStrength
     public const LIGHTEST = 'LIGHTEST';
     public const STRONGER = 'STRONGER';
     public const STRONGEST = 'STRONGEST';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

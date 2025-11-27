@@ -13,7 +13,11 @@ final class DataCatalogStatus
     public const DELETE_COMPLETE = 'DELETE_COMPLETE';
     public const DELETE_FAILED = 'DELETE_FAILED';
     public const DELETE_IN_PROGRESS = 'DELETE_IN_PROGRESS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

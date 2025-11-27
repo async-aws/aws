@@ -441,6 +441,7 @@ final class RespondToAuthChallengeRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "ChallengeName" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ChallengeNameType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "ChallengeName" for "%s". The value "%s" is not a valid "ChallengeNameType".', __CLASS__, $v));
         }
         $payload['ChallengeName'] = $v;

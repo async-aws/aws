@@ -1084,12 +1084,14 @@ final class H265Settings
         $payload = [];
         if (null !== $v = $this->adaptiveQuantization) {
             if (!H265AdaptiveQuantization::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "adaptiveQuantization" for "%s". The value "%s" is not a valid "H265AdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['adaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->alternateTransferFunctionSei) {
             if (!H265AlternateTransferFunctionSei::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "alternateTransferFunctionSei" for "%s". The value "%s" is not a valid "H265AlternateTransferFunctionSei".', __CLASS__, $v));
             }
             $payload['alternateTransferFunctionSei'] = $v;
@@ -1102,48 +1104,56 @@ final class H265Settings
         }
         if (null !== $v = $this->codecLevel) {
             if (!H265CodecLevel::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codecLevel" for "%s". The value "%s" is not a valid "H265CodecLevel".', __CLASS__, $v));
             }
             $payload['codecLevel'] = $v;
         }
         if (null !== $v = $this->codecProfile) {
             if (!H265CodecProfile::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "H265CodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
         }
         if (null !== $v = $this->deblocking) {
             if (!H265Deblocking::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "deblocking" for "%s". The value "%s" is not a valid "H265Deblocking".', __CLASS__, $v));
             }
             $payload['deblocking'] = $v;
         }
         if (null !== $v = $this->dynamicSubGop) {
             if (!H265DynamicSubGop::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicSubGop" for "%s". The value "%s" is not a valid "H265DynamicSubGop".', __CLASS__, $v));
             }
             $payload['dynamicSubGop'] = $v;
         }
         if (null !== $v = $this->endOfStreamMarkers) {
             if (!H265EndOfStreamMarkers::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "endOfStreamMarkers" for "%s". The value "%s" is not a valid "H265EndOfStreamMarkers".', __CLASS__, $v));
             }
             $payload['endOfStreamMarkers'] = $v;
         }
         if (null !== $v = $this->flickerAdaptiveQuantization) {
             if (!H265FlickerAdaptiveQuantization::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "flickerAdaptiveQuantization" for "%s". The value "%s" is not a valid "H265FlickerAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['flickerAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!H265FramerateControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "H265FramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!H265FramerateConversionAlgorithm::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "H265FramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
@@ -1156,6 +1166,7 @@ final class H265Settings
         }
         if (null !== $v = $this->gopBReference) {
             if (!H265GopBReference::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "H265GopBReference".', __CLASS__, $v));
             }
             $payload['gopBReference'] = $v;
@@ -1168,6 +1179,7 @@ final class H265Settings
         }
         if (null !== $v = $this->gopSizeUnits) {
             if (!H265GopSizeUnits::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "gopSizeUnits" for "%s". The value "%s" is not a valid "H265GopSizeUnits".', __CLASS__, $v));
             }
             $payload['gopSizeUnits'] = $v;
@@ -1183,6 +1195,7 @@ final class H265Settings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!H265InterlaceMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "H265InterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
@@ -1195,12 +1208,14 @@ final class H265Settings
         }
         if (null !== $v = $this->mvOverPictureBoundaries) {
             if (!H265MvOverPictureBoundaries::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mvOverPictureBoundaries" for "%s". The value "%s" is not a valid "H265MvOverPictureBoundaries".', __CLASS__, $v));
             }
             $payload['mvOverPictureBoundaries'] = $v;
         }
         if (null !== $v = $this->mvTemporalPredictor) {
             if (!H265MvTemporalPredictor::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mvTemporalPredictor" for "%s". The value "%s" is not a valid "H265MvTemporalPredictor".', __CLASS__, $v));
             }
             $payload['mvTemporalPredictor'] = $v;
@@ -1213,6 +1228,7 @@ final class H265Settings
         }
         if (null !== $v = $this->parControl) {
             if (!H265ParControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "parControl" for "%s". The value "%s" is not a valid "H265ParControl".', __CLASS__, $v));
             }
             $payload['parControl'] = $v;
@@ -1229,6 +1245,7 @@ final class H265Settings
             foreach ($v as $listValue) {
                 ++$index;
                 if (!FrameMetricType::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "perFrameMetrics" for "%s". The value "%s" is not a valid "FrameMetricType".', __CLASS__, $listValue));
                 }
                 $payload['perFrameMetrics'][$index] = $listValue;
@@ -1236,6 +1253,7 @@ final class H265Settings
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!H265QualityTuningLevel::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "H265QualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;
@@ -1245,24 +1263,28 @@ final class H265Settings
         }
         if (null !== $v = $this->rateControlMode) {
             if (!H265RateControlMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "H265RateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;
         }
         if (null !== $v = $this->sampleAdaptiveOffsetFilterMode) {
             if (!H265SampleAdaptiveOffsetFilterMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "sampleAdaptiveOffsetFilterMode" for "%s". The value "%s" is not a valid "H265SampleAdaptiveOffsetFilterMode".', __CLASS__, $v));
             }
             $payload['sampleAdaptiveOffsetFilterMode'] = $v;
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!H265ScanTypeConversionMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "H265ScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->sceneChangeDetect) {
             if (!H265SceneChangeDetect::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "sceneChangeDetect" for "%s". The value "%s" is not a valid "H265SceneChangeDetect".', __CLASS__, $v));
             }
             $payload['sceneChangeDetect'] = $v;
@@ -1272,30 +1294,35 @@ final class H265Settings
         }
         if (null !== $v = $this->slowPal) {
             if (!H265SlowPal::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "H265SlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
         if (null !== $v = $this->spatialAdaptiveQuantization) {
             if (!H265SpatialAdaptiveQuantization::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "spatialAdaptiveQuantization" for "%s". The value "%s" is not a valid "H265SpatialAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['spatialAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!H265Telecine::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "H265Telecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }
         if (null !== $v = $this->temporalAdaptiveQuantization) {
             if (!H265TemporalAdaptiveQuantization::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "temporalAdaptiveQuantization" for "%s". The value "%s" is not a valid "H265TemporalAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['temporalAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->temporalIds) {
             if (!H265TemporalIds::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "temporalIds" for "%s". The value "%s" is not a valid "H265TemporalIds".', __CLASS__, $v));
             }
             $payload['temporalIds'] = $v;
@@ -1305,6 +1332,7 @@ final class H265Settings
         }
         if (null !== $v = $this->tilePadding) {
             if (!H265TilePadding::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "tilePadding" for "%s". The value "%s" is not a valid "H265TilePadding".', __CLASS__, $v));
             }
             $payload['tilePadding'] = $v;
@@ -1314,24 +1342,28 @@ final class H265Settings
         }
         if (null !== $v = $this->tiles) {
             if (!H265Tiles::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "tiles" for "%s". The value "%s" is not a valid "H265Tiles".', __CLASS__, $v));
             }
             $payload['tiles'] = $v;
         }
         if (null !== $v = $this->treeBlockSize) {
             if (!H265TreeBlockSize::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "treeBlockSize" for "%s". The value "%s" is not a valid "H265TreeBlockSize".', __CLASS__, $v));
             }
             $payload['treeBlockSize'] = $v;
         }
         if (null !== $v = $this->unregisteredSeiTimecode) {
             if (!H265UnregisteredSeiTimecode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "unregisteredSeiTimecode" for "%s". The value "%s" is not a valid "H265UnregisteredSeiTimecode".', __CLASS__, $v));
             }
             $payload['unregisteredSeiTimecode'] = $v;
         }
         if (null !== $v = $this->writeMp4PackagingType) {
             if (!H265WriteMp4PackagingType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "writeMp4PackagingType" for "%s". The value "%s" is not a valid "H265WriteMp4PackagingType".', __CLASS__, $v));
             }
             $payload['writeMp4PackagingType'] = $v;

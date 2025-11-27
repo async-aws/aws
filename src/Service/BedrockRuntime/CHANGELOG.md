@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add `UNKNOWN_TO_SDK` value to enums that is used when the API returns an value that is not (or not yet) known by the AsyncAws
 - AWS api-change: Amazon Bedrock Runtime Service Tier Support Launch
 - AWS api-change: Bedrock Runtime Reserved Service Support
 

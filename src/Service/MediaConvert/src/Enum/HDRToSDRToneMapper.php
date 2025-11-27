@@ -16,7 +16,11 @@ final class HDRToSDRToneMapper
 {
     public const PRESERVE_DETAILS = 'PRESERVE_DETAILS';
     public const VIBRANT = 'VIBRANT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

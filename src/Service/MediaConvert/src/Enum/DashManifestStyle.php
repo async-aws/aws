@@ -17,7 +17,11 @@ final class DashManifestStyle
     public const COMPACT = 'COMPACT';
     public const DISTINCT = 'DISTINCT';
     public const FULL = 'FULL';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

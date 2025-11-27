@@ -3,6 +3,7 @@
 namespace AsyncAws\CodeCommit\Result;
 
 use AsyncAws\CodeCommit\CodeCommitClient;
+use AsyncAws\CodeCommit\Enum\ChangeTypeEnum;
 use AsyncAws\CodeCommit\Input\GetDifferencesInput;
 use AsyncAws\CodeCommit\ValueObject\BlobMetadata;
 use AsyncAws\CodeCommit\ValueObject\Difference;
@@ -113,7 +114,7 @@ class GetDifferencesOutput extends Result implements \IteratorAggregate
         return new Difference([
             'beforeBlob' => empty($json['beforeBlob']) ? null : $this->populateResultBlobMetadata($json['beforeBlob']),
             'afterBlob' => empty($json['afterBlob']) ? null : $this->populateResultBlobMetadata($json['afterBlob']),
-            'changeType' => isset($json['changeType']) ? (string) $json['changeType'] : null,
+            'changeType' => isset($json['changeType']) ? (!ChangeTypeEnum::exists((string) $json['changeType']) ? ChangeTypeEnum::UNKNOWN_TO_SDK : (string) $json['changeType']) : null,
         ]);
     }
 

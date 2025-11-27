@@ -14,7 +14,11 @@ final class Vc3Class
     public const CLASS_145_8BIT = 'CLASS_145_8BIT';
     public const CLASS_220_10BIT = 'CLASS_220_10BIT';
     public const CLASS_220_8BIT = 'CLASS_220_8BIT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

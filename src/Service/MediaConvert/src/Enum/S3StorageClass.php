@@ -16,7 +16,11 @@ final class S3StorageClass
     public const REDUCED_REDUNDANCY = 'REDUCED_REDUNDANCY';
     public const STANDARD = 'STANDARD';
     public const STANDARD_IA = 'STANDARD_IA';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

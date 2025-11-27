@@ -9,7 +9,11 @@ final class Mpeg2CodecProfile
 {
     public const MAIN = 'MAIN';
     public const PROFILE_422 = 'PROFILE_422';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

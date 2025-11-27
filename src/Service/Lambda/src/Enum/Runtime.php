@@ -49,7 +49,11 @@ final class Runtime
     public const RUBY_3_2 = 'ruby3.2';
     public const RUBY_3_3 = 'ruby3.3';
     public const RUBY_3_4 = 'ruby3.4';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

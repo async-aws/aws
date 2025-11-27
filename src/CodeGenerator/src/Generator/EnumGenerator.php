@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\ListShape;
+use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
+use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
@@ -19,6 +22,8 @@ use Nette\PhpGenerator\Visibility;
  */
 class EnumGenerator
 {
+    public const UNKNOWN_VALUE = 'UNKNOWN_TO_SDK';
+
     /**
      * @var ClassRegistry
      */
@@ -34,10 +39,21 @@ class EnumGenerator
      */
     private $generated = [];
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry)
+    /**
+     * @var list<string>
+     */
+    private $managedMethods;
+
+    /**
+     * @var array<string, bool>|null
+     */
+    private $usedShapedOutput;
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, array $managedMethods)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->managedMethods = $managedMethods;
     }
 
     /**
@@ -63,13 +79,19 @@ class EnumGenerator
         }
         ksort($consts);
         $availableConsts = [];
+
         foreach ($consts as $constName => $constValue) {
             $classBuilder->addConstant($constName, $constValue)->setVisibility(Visibility::Public);
             $availableConsts[] = 'self::' . $constName . ' => true';
         }
+
+        if ($this->isShapeUsedOutput($shape)) {
+            $classBuilder->addConstant(self::UNKNOWN_VALUE, self::UNKNOWN_VALUE)->setVisibility(Visibility::Public);
+        }
         $classBuilder->addMethod('exists')
             ->setStatic(true)
             ->setReturnType('bool')
+            ->setComment('@psalm-assert-if-true self::* $value')
             ->setBody('
                 return isset([
                     ' . implode(",\n", $availableConsts) . '
@@ -102,5 +124,50 @@ class EnumGenerator
         }
 
         return $name;
+    }
+
+    private function isShapeUsedOutput(Shape $shape): bool
+    {
+        if (null === $this->usedShapedOutput) {
+            $service = $shape->getService();
+            $walk = function (?Shape $shape) use (&$walk) {
+                if (null === $shape) {
+                    return;
+                }
+                if (isset($this->usedShapedOutput[$shape->getName()])) {
+                    // Node already visited
+                    return;
+                }
+
+                $this->usedShapedOutput[$shape->getName()] = true;
+                if ($shape instanceof StructureShape) {
+                    foreach ($shape->getMembers() as $member) {
+                        $walk($member->getShape());
+                    }
+                } elseif ($shape instanceof ListShape) {
+                    $walk($shape->getMember()->getShape());
+                } elseif ($shape instanceof MapShape) {
+                    $walk($shape->getKey()->getShape());
+                    $walk($shape->getValue()->getShape());
+                }
+            };
+
+            foreach ($this->managedMethods as $method) {
+                if (null !== $operation = $service->getOperation($method)) {
+                    $walk($operation->getOutput());
+                    foreach ($operation->getErrors() as $error) {
+                        $walk($error);
+                    }
+                }
+                if (null !== $waiter = $service->getWaiter($method)) {
+                    $walk($waiter->getOperation()->getOutput());
+                    foreach ($waiter->getOperation()->getErrors() as $error) {
+                        $walk($error);
+                    }
+                }
+            }
+        }
+
+        return $this->usedShapedOutput[$shape->getName()] ?? false;
     }
 }

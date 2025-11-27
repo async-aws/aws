@@ -17,7 +17,11 @@ final class MpdAudioDuration
 {
     public const DEFAULT_CODEC_DURATION = 'DEFAULT_CODEC_DURATION';
     public const MATCH_VIDEO_DURATION = 'MATCH_VIDEO_DURATION';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -7,6 +7,9 @@ final class QueryResultType
     public const DATA_MANIFEST = 'DATA_MANIFEST';
     public const DATA_ROWS = 'DATA_ROWS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

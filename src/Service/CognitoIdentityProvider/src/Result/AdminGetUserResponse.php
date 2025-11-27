@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Result;
 
+use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 use AsyncAws\CognitoIdentityProvider\Enum\UserStatusType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\MFAOptionType;
@@ -174,7 +175,7 @@ class AdminGetUserResponse extends Result
         $this->userCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
         $this->userLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
         $this->enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->userStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
+        $this->userStatus = isset($data['UserStatus']) ? (!UserStatusType::exists((string) $data['UserStatus']) ? UserStatusType::UNKNOWN_TO_SDK : (string) $data['UserStatus']) : null;
         $this->mfaOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
         $this->preferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
         $this->userMfaSettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
@@ -217,7 +218,7 @@ class AdminGetUserResponse extends Result
     private function populateResultMFAOptionType(array $json): MFAOptionType
     {
         return new MFAOptionType([
-            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (string) $json['DeliveryMedium'] : null,
+            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (!DeliveryMediumType::exists((string) $json['DeliveryMedium']) ? DeliveryMediumType::UNKNOWN_TO_SDK : (string) $json['DeliveryMedium']) : null,
             'AttributeName' => isset($json['AttributeName']) ? (string) $json['AttributeName'] : null,
         ]);
     }

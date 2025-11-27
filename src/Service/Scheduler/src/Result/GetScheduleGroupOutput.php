@@ -89,6 +89,6 @@ class GetScheduleGroupOutput extends Result
         $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreationDate']))) ? $d : null;
         $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
-        $this->state = isset($data['State']) ? (string) $data['State'] : null;
+        $this->state = isset($data['State']) ? (!ScheduleGroupState::exists((string) $data['State']) ? ScheduleGroupState::UNKNOWN_TO_SDK : (string) $data['State']) : null;
     }
 }

@@ -13,7 +13,11 @@ final class InputScanType
 {
     public const AUTO = 'AUTO';
     public const PSF = 'PSF';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

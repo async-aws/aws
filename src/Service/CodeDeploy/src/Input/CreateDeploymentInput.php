@@ -383,6 +383,7 @@ final class CreateDeploymentInput extends Input
         }
         if (null !== $v = $this->fileExistsBehavior) {
             if (!FileExistsBehavior::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "fileExistsBehavior" for "%s". The value "%s" is not a valid "FileExistsBehavior".', __CLASS__, $v));
             }
             $payload['fileExistsBehavior'] = $v;

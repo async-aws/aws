@@ -21,7 +21,11 @@ final class RRType
     public const SVCB = 'SVCB';
     public const TLSA = 'TLSA';
     public const TXT = 'TXT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

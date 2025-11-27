@@ -42,7 +42,7 @@ final class BadRequestException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->reason = isset($data['reason']) ? (string) $data['reason'] : null;
+        $this->reason = isset($data['reason']) ? (!BadRequestReason::exists((string) $data['reason']) ? BadRequestReason::UNKNOWN_TO_SDK : (string) $data['reason']) : null;
         $this->detail = empty($data['detail']) ? null : $this->populateResultBadRequestDetail($data['detail']);
     }
 

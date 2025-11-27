@@ -201,18 +201,21 @@ final class FileSourceSettings
         $payload = [];
         if (null !== $v = $this->byteRateLimit) {
             if (!CaptionSourceByteRateLimit::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "byteRateLimit" for "%s". The value "%s" is not a valid "CaptionSourceByteRateLimit".', __CLASS__, $v));
             }
             $payload['byteRateLimit'] = $v;
         }
         if (null !== $v = $this->convert608To708) {
             if (!FileSourceConvert608To708::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "convert608To708" for "%s". The value "%s" is not a valid "FileSourceConvert608To708".', __CLASS__, $v));
             }
             $payload['convert608To708'] = $v;
         }
         if (null !== $v = $this->convertPaintToPop) {
             if (!CaptionSourceConvertPaintOnToPopOn::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "convertPaintToPop" for "%s". The value "%s" is not a valid "CaptionSourceConvertPaintOnToPopOn".', __CLASS__, $v));
             }
             $payload['convertPaintToPop'] = $v;
@@ -228,12 +231,14 @@ final class FileSourceSettings
         }
         if (null !== $v = $this->timeDeltaUnits) {
             if (!FileSourceTimeDeltaUnits::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timeDeltaUnits" for "%s". The value "%s" is not a valid "FileSourceTimeDeltaUnits".', __CLASS__, $v));
             }
             $payload['timeDeltaUnits'] = $v;
         }
         if (null !== $v = $this->upconvertStlToTeletext) {
             if (!CaptionSourceUpconvertSTLToTeletext::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "upconvertSTLToTeletext" for "%s". The value "%s" is not a valid "CaptionSourceUpconvertSTLToTeletext".', __CLASS__, $v));
             }
             $payload['upconvertSTLToTeletext'] = $v;

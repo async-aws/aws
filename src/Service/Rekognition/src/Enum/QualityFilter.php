@@ -10,6 +10,9 @@ final class QualityFilter
     public const MEDIUM = 'MEDIUM';
     public const NONE = 'NONE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

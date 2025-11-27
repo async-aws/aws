@@ -4,9 +4,17 @@ namespace AsyncAws\Kms\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
+use AsyncAws\Kms\Enum\ExpirationModelType;
 use AsyncAws\Kms\Enum\KeyAgreementAlgorithmSpec;
+use AsyncAws\Kms\Enum\KeyManagerType;
+use AsyncAws\Kms\Enum\KeySpec;
+use AsyncAws\Kms\Enum\KeyState;
+use AsyncAws\Kms\Enum\KeyUsageType;
 use AsyncAws\Kms\Enum\MacAlgorithmSpec;
+use AsyncAws\Kms\Enum\MultiRegionKeyType;
+use AsyncAws\Kms\Enum\OriginType;
 use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\ValueObject\KeyMetadata;
 use AsyncAws\Kms\ValueObject\MultiRegionConfiguration;
@@ -45,6 +53,9 @@ class CreateKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!EncryptionAlgorithmSpec::exists($a)) {
+                    $a = EncryptionAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -61,6 +72,9 @@ class CreateKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!KeyAgreementAlgorithmSpec::exists($a)) {
+                    $a = KeyAgreementAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -77,17 +91,17 @@ class CreateKeyResponse extends Result
             'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
             'Enabled' => isset($json['Enabled']) ? filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
-            'KeyUsage' => isset($json['KeyUsage']) ? (string) $json['KeyUsage'] : null,
-            'KeyState' => isset($json['KeyState']) ? (string) $json['KeyState'] : null,
+            'KeyUsage' => isset($json['KeyUsage']) ? (!KeyUsageType::exists((string) $json['KeyUsage']) ? KeyUsageType::UNKNOWN_TO_SDK : (string) $json['KeyUsage']) : null,
+            'KeyState' => isset($json['KeyState']) ? (!KeyState::exists((string) $json['KeyState']) ? KeyState::UNKNOWN_TO_SDK : (string) $json['KeyState']) : null,
             'DeletionDate' => (isset($json['DeletionDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['DeletionDate'])))) ? $d : null,
             'ValidTo' => (isset($json['ValidTo']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ValidTo'])))) ? $d : null,
-            'Origin' => isset($json['Origin']) ? (string) $json['Origin'] : null,
+            'Origin' => isset($json['Origin']) ? (!OriginType::exists((string) $json['Origin']) ? OriginType::UNKNOWN_TO_SDK : (string) $json['Origin']) : null,
             'CustomKeyStoreId' => isset($json['CustomKeyStoreId']) ? (string) $json['CustomKeyStoreId'] : null,
             'CloudHsmClusterId' => isset($json['CloudHsmClusterId']) ? (string) $json['CloudHsmClusterId'] : null,
-            'ExpirationModel' => isset($json['ExpirationModel']) ? (string) $json['ExpirationModel'] : null,
-            'KeyManager' => isset($json['KeyManager']) ? (string) $json['KeyManager'] : null,
-            'CustomerMasterKeySpec' => isset($json['CustomerMasterKeySpec']) ? (string) $json['CustomerMasterKeySpec'] : null,
-            'KeySpec' => isset($json['KeySpec']) ? (string) $json['KeySpec'] : null,
+            'ExpirationModel' => isset($json['ExpirationModel']) ? (!ExpirationModelType::exists((string) $json['ExpirationModel']) ? ExpirationModelType::UNKNOWN_TO_SDK : (string) $json['ExpirationModel']) : null,
+            'KeyManager' => isset($json['KeyManager']) ? (!KeyManagerType::exists((string) $json['KeyManager']) ? KeyManagerType::UNKNOWN_TO_SDK : (string) $json['KeyManager']) : null,
+            'CustomerMasterKeySpec' => isset($json['CustomerMasterKeySpec']) ? (!CustomerMasterKeySpec::exists((string) $json['CustomerMasterKeySpec']) ? CustomerMasterKeySpec::UNKNOWN_TO_SDK : (string) $json['CustomerMasterKeySpec']) : null,
+            'KeySpec' => isset($json['KeySpec']) ? (!KeySpec::exists((string) $json['KeySpec']) ? KeySpec::UNKNOWN_TO_SDK : (string) $json['KeySpec']) : null,
             'EncryptionAlgorithms' => !isset($json['EncryptionAlgorithms']) ? null : $this->populateResultEncryptionAlgorithmSpecList($json['EncryptionAlgorithms']),
             'SigningAlgorithms' => !isset($json['SigningAlgorithms']) ? null : $this->populateResultSigningAlgorithmSpecList($json['SigningAlgorithms']),
             'KeyAgreementAlgorithms' => !isset($json['KeyAgreementAlgorithms']) ? null : $this->populateResultKeyAgreementAlgorithmSpecList($json['KeyAgreementAlgorithms']),
@@ -109,6 +123,9 @@ class CreateKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!MacAlgorithmSpec::exists($a)) {
+                    $a = MacAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -119,7 +136,7 @@ class CreateKeyResponse extends Result
     private function populateResultMultiRegionConfiguration(array $json): MultiRegionConfiguration
     {
         return new MultiRegionConfiguration([
-            'MultiRegionKeyType' => isset($json['MultiRegionKeyType']) ? (string) $json['MultiRegionKeyType'] : null,
+            'MultiRegionKeyType' => isset($json['MultiRegionKeyType']) ? (!MultiRegionKeyType::exists((string) $json['MultiRegionKeyType']) ? MultiRegionKeyType::UNKNOWN_TO_SDK : (string) $json['MultiRegionKeyType']) : null,
             'PrimaryKey' => empty($json['PrimaryKey']) ? null : $this->populateResultMultiRegionKey($json['PrimaryKey']),
             'ReplicaKeys' => !isset($json['ReplicaKeys']) ? null : $this->populateResultMultiRegionKeyList($json['ReplicaKeys']),
         ]);
@@ -155,6 +172,9 @@ class CreateKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!SigningAlgorithmSpec::exists($a)) {
+                    $a = SigningAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }

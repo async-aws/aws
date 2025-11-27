@@ -60,6 +60,6 @@ class StartSessionResponse extends Result
         $data = $response->toArray();
 
         $this->sessionId = isset($data['SessionId']) ? (string) $data['SessionId'] : null;
-        $this->state = isset($data['State']) ? (string) $data['State'] : null;
+        $this->state = isset($data['State']) ? (!SessionState::exists((string) $data['State']) ? SessionState::UNKNOWN_TO_SDK : (string) $data['State']) : null;
     }
 }

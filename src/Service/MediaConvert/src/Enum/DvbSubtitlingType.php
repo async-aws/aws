@@ -10,7 +10,11 @@ final class DvbSubtitlingType
 {
     public const HEARING_IMPAIRED = 'HEARING_IMPAIRED';
     public const STANDARD = 'STANDARD';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

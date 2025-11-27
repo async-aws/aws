@@ -305,6 +305,7 @@ final class CreateQueueRequest extends Input
                 $payload['Attributes'] = [];
                 foreach ($v as $name => $mv) {
                     if (!QueueAttributeName::exists($name)) {
+                        /** @psalm-suppress NoValue */
                         throw new InvalidArgument(\sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $name));
                     }
                     $payload['Attributes'][$name] = $mv;

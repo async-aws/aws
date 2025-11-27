@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add `UNKNOWN_TO_SDK` value to enums that is used when the API returns an value that is not (or not yet) known by the AsyncAws
 - AWS api-change: Add NodeJs 24 (nodejs24.x) support to AWS Lambda.
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Added SerializedRequestEntityTooLargeException to Lambda Invoke API

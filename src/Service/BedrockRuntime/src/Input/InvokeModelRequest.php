@@ -230,6 +230,7 @@ final class InvokeModelRequest extends Input
         }
         if (null !== $this->trace) {
             if (!Trace::exists($this->trace)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "trace" for "%s". The value "%s" is not a valid "Trace".', __CLASS__, $this->trace));
             }
             $headers['X-Amzn-Bedrock-Trace'] = $this->trace;
@@ -242,12 +243,14 @@ final class InvokeModelRequest extends Input
         }
         if (null !== $this->performanceConfigLatency) {
             if (!PerformanceConfigLatency::exists($this->performanceConfigLatency)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "performanceConfigLatency" for "%s". The value "%s" is not a valid "PerformanceConfigLatency".', __CLASS__, $this->performanceConfigLatency));
             }
             $headers['X-Amzn-Bedrock-PerformanceConfig-Latency'] = $this->performanceConfigLatency;
         }
         if (null !== $this->serviceTier) {
             if (!ServiceTierType::exists($this->serviceTier)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "serviceTier" for "%s". The value "%s" is not a valid "ServiceTierType".', __CLASS__, $this->serviceTier));
             }
             $headers['X-Amzn-Bedrock-Service-Tier'] = $this->serviceTier;

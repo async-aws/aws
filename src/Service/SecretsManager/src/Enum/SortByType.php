@@ -9,6 +9,9 @@ final class SortByType
     public const LAST_CHANGED_DATE = 'last-changed-date';
     public const NAME = 'name';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

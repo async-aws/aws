@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Rekognition\Enum\KnownGenderType;
 use AsyncAws\Rekognition\ValueObject\KnownGender;
 
 class GetCelebrityInfoResponse extends Result
@@ -65,7 +66,7 @@ class GetCelebrityInfoResponse extends Result
     private function populateResultKnownGender(array $json): KnownGender
     {
         return new KnownGender([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!KnownGenderType::exists((string) $json['Type']) ? KnownGenderType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
         ]);
     }
 

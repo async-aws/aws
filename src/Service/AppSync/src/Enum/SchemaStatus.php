@@ -10,7 +10,11 @@ final class SchemaStatus
     public const NOT_APPLICABLE = 'NOT_APPLICABLE';
     public const PROCESSING = 'PROCESSING';
     public const SUCCESS = 'SUCCESS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

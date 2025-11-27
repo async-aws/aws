@@ -17,7 +17,11 @@ final class SigningAlgorithmSpec
     public const RSASSA_PSS_SHA_384 = 'RSASSA_PSS_SHA_384';
     public const RSASSA_PSS_SHA_512 = 'RSASSA_PSS_SHA_512';
     public const SM2DSA = 'SM2DSA';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

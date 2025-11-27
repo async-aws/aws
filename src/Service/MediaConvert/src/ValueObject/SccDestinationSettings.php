@@ -57,6 +57,7 @@ final class SccDestinationSettings
         $payload = [];
         if (null !== $v = $this->framerate) {
             if (!SccDestinationFramerate::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerate" for "%s". The value "%s" is not a valid "SccDestinationFramerate".', __CLASS__, $v));
             }
             $payload['framerate'] = $v;

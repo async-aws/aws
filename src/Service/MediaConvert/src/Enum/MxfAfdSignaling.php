@@ -14,7 +14,11 @@ final class MxfAfdSignaling
 {
     public const COPY_FROM_VIDEO = 'COPY_FROM_VIDEO';
     public const NO_COPY = 'NO_COPY';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

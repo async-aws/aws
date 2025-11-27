@@ -3,6 +3,19 @@
 namespace AsyncAws\CodeDeploy\Result;
 
 use AsyncAws\CodeDeploy\Enum\AutoRollbackEvent;
+use AsyncAws\CodeDeploy\Enum\BundleType;
+use AsyncAws\CodeDeploy\Enum\ComputePlatform;
+use AsyncAws\CodeDeploy\Enum\DeploymentCreator;
+use AsyncAws\CodeDeploy\Enum\DeploymentOption;
+use AsyncAws\CodeDeploy\Enum\DeploymentReadyAction;
+use AsyncAws\CodeDeploy\Enum\DeploymentStatus;
+use AsyncAws\CodeDeploy\Enum\DeploymentType;
+use AsyncAws\CodeDeploy\Enum\EC2TagFilterType;
+use AsyncAws\CodeDeploy\Enum\ErrorCode;
+use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
+use AsyncAws\CodeDeploy\Enum\GreenFleetProvisioningAction;
+use AsyncAws\CodeDeploy\Enum\InstanceAction;
+use AsyncAws\CodeDeploy\Enum\RevisionLocationType;
 use AsyncAws\CodeDeploy\ValueObject\Alarm;
 use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AppSpecContent;
@@ -112,6 +125,9 @@ class GetDeploymentOutput extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!AutoRollbackEvent::exists($a)) {
+                    $a = AutoRollbackEvent::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -147,7 +163,7 @@ class GetDeploymentOutput extends Result
     private function populateResultBlueInstanceTerminationOption(array $json): BlueInstanceTerminationOption
     {
         return new BlueInstanceTerminationOption([
-            'action' => isset($json['action']) ? (string) $json['action'] : null,
+            'action' => isset($json['action']) ? (!InstanceAction::exists((string) $json['action']) ? InstanceAction::UNKNOWN_TO_SDK : (string) $json['action']) : null,
             'terminationWaitTimeInMinutes' => isset($json['terminationWaitTimeInMinutes']) ? (int) $json['terminationWaitTimeInMinutes'] : null,
         ]);
     }
@@ -161,14 +177,14 @@ class GetDeploymentOutput extends Result
             'deploymentId' => isset($json['deploymentId']) ? (string) $json['deploymentId'] : null,
             'previousRevision' => empty($json['previousRevision']) ? null : $this->populateResultRevisionLocation($json['previousRevision']),
             'revision' => empty($json['revision']) ? null : $this->populateResultRevisionLocation($json['revision']),
-            'status' => isset($json['status']) ? (string) $json['status'] : null,
+            'status' => isset($json['status']) ? (!DeploymentStatus::exists((string) $json['status']) ? DeploymentStatus::UNKNOWN_TO_SDK : (string) $json['status']) : null,
             'errorInformation' => empty($json['errorInformation']) ? null : $this->populateResultErrorInformation($json['errorInformation']),
             'createTime' => (isset($json['createTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['createTime'])))) ? $d : null,
             'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['startTime'])))) ? $d : null,
             'completeTime' => (isset($json['completeTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['completeTime'])))) ? $d : null,
             'deploymentOverview' => empty($json['deploymentOverview']) ? null : $this->populateResultDeploymentOverview($json['deploymentOverview']),
             'description' => isset($json['description']) ? (string) $json['description'] : null,
-            'creator' => isset($json['creator']) ? (string) $json['creator'] : null,
+            'creator' => isset($json['creator']) ? (!DeploymentCreator::exists((string) $json['creator']) ? DeploymentCreator::UNKNOWN_TO_SDK : (string) $json['creator']) : null,
             'ignoreApplicationStopFailures' => isset($json['ignoreApplicationStopFailures']) ? filter_var($json['ignoreApplicationStopFailures'], \FILTER_VALIDATE_BOOLEAN) : null,
             'autoRollbackConfiguration' => empty($json['autoRollbackConfiguration']) ? null : $this->populateResultAutoRollbackConfiguration($json['autoRollbackConfiguration']),
             'updateOutdatedInstancesOnly' => isset($json['updateOutdatedInstancesOnly']) ? filter_var($json['updateOutdatedInstancesOnly'], \FILTER_VALIDATE_BOOLEAN) : null,
@@ -179,9 +195,9 @@ class GetDeploymentOutput extends Result
             'blueGreenDeploymentConfiguration' => empty($json['blueGreenDeploymentConfiguration']) ? null : $this->populateResultBlueGreenDeploymentConfiguration($json['blueGreenDeploymentConfiguration']),
             'loadBalancerInfo' => empty($json['loadBalancerInfo']) ? null : $this->populateResultLoadBalancerInfo($json['loadBalancerInfo']),
             'additionalDeploymentStatusInfo' => isset($json['additionalDeploymentStatusInfo']) ? (string) $json['additionalDeploymentStatusInfo'] : null,
-            'fileExistsBehavior' => isset($json['fileExistsBehavior']) ? (string) $json['fileExistsBehavior'] : null,
+            'fileExistsBehavior' => isset($json['fileExistsBehavior']) ? (!FileExistsBehavior::exists((string) $json['fileExistsBehavior']) ? FileExistsBehavior::UNKNOWN_TO_SDK : (string) $json['fileExistsBehavior']) : null,
             'deploymentStatusMessages' => !isset($json['deploymentStatusMessages']) ? null : $this->populateResultDeploymentStatusMessageList($json['deploymentStatusMessages']),
-            'computePlatform' => isset($json['computePlatform']) ? (string) $json['computePlatform'] : null,
+            'computePlatform' => isset($json['computePlatform']) ? (!ComputePlatform::exists((string) $json['computePlatform']) ? ComputePlatform::UNKNOWN_TO_SDK : (string) $json['computePlatform']) : null,
             'externalId' => isset($json['externalId']) ? (string) $json['externalId'] : null,
             'relatedDeployments' => empty($json['relatedDeployments']) ? null : $this->populateResultRelatedDeployments($json['relatedDeployments']),
             'overrideAlarmConfiguration' => empty($json['overrideAlarmConfiguration']) ? null : $this->populateResultAlarmConfiguration($json['overrideAlarmConfiguration']),
@@ -203,7 +219,7 @@ class GetDeploymentOutput extends Result
     private function populateResultDeploymentReadyOption(array $json): DeploymentReadyOption
     {
         return new DeploymentReadyOption([
-            'actionOnTimeout' => isset($json['actionOnTimeout']) ? (string) $json['actionOnTimeout'] : null,
+            'actionOnTimeout' => isset($json['actionOnTimeout']) ? (!DeploymentReadyAction::exists((string) $json['actionOnTimeout']) ? DeploymentReadyAction::UNKNOWN_TO_SDK : (string) $json['actionOnTimeout']) : null,
             'waitTimeInMinutes' => isset($json['waitTimeInMinutes']) ? (int) $json['waitTimeInMinutes'] : null,
         ]);
     }
@@ -227,8 +243,8 @@ class GetDeploymentOutput extends Result
     private function populateResultDeploymentStyle(array $json): DeploymentStyle
     {
         return new DeploymentStyle([
-            'deploymentType' => isset($json['deploymentType']) ? (string) $json['deploymentType'] : null,
-            'deploymentOption' => isset($json['deploymentOption']) ? (string) $json['deploymentOption'] : null,
+            'deploymentType' => isset($json['deploymentType']) ? (!DeploymentType::exists((string) $json['deploymentType']) ? DeploymentType::UNKNOWN_TO_SDK : (string) $json['deploymentType']) : null,
+            'deploymentOption' => isset($json['deploymentOption']) ? (!DeploymentOption::exists((string) $json['deploymentOption']) ? DeploymentOption::UNKNOWN_TO_SDK : (string) $json['deploymentOption']) : null,
         ]);
     }
 
@@ -253,7 +269,7 @@ class GetDeploymentOutput extends Result
         return new EC2TagFilter([
             'Key' => isset($json['Key']) ? (string) $json['Key'] : null,
             'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!EC2TagFilterType::exists((string) $json['Type']) ? EC2TagFilterType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
         ]);
     }
 
@@ -313,7 +329,7 @@ class GetDeploymentOutput extends Result
     private function populateResultErrorInformation(array $json): ErrorInformation
     {
         return new ErrorInformation([
-            'code' => isset($json['code']) ? (string) $json['code'] : null,
+            'code' => isset($json['code']) ? (!ErrorCode::exists((string) $json['code']) ? ErrorCode::UNKNOWN_TO_SDK : (string) $json['code']) : null,
             'message' => isset($json['message']) ? (string) $json['message'] : null,
         ]);
     }
@@ -329,7 +345,7 @@ class GetDeploymentOutput extends Result
     private function populateResultGreenFleetProvisioningOption(array $json): GreenFleetProvisioningOption
     {
         return new GreenFleetProvisioningOption([
-            'action' => isset($json['action']) ? (string) $json['action'] : null,
+            'action' => isset($json['action']) ? (!GreenFleetProvisioningAction::exists((string) $json['action']) ? GreenFleetProvisioningAction::UNKNOWN_TO_SDK : (string) $json['action']) : null,
         ]);
     }
 
@@ -377,7 +393,7 @@ class GetDeploymentOutput extends Result
     private function populateResultRevisionLocation(array $json): RevisionLocation
     {
         return new RevisionLocation([
-            'revisionType' => isset($json['revisionType']) ? (string) $json['revisionType'] : null,
+            'revisionType' => isset($json['revisionType']) ? (!RevisionLocationType::exists((string) $json['revisionType']) ? RevisionLocationType::UNKNOWN_TO_SDK : (string) $json['revisionType']) : null,
             's3Location' => empty($json['s3Location']) ? null : $this->populateResultS3Location($json['s3Location']),
             'gitHubLocation' => empty($json['gitHubLocation']) ? null : $this->populateResultGitHubLocation($json['gitHubLocation']),
             'string' => empty($json['string']) ? null : $this->populateResultRawString($json['string']),
@@ -399,7 +415,7 @@ class GetDeploymentOutput extends Result
         return new S3Location([
             'bucket' => isset($json['bucket']) ? (string) $json['bucket'] : null,
             'key' => isset($json['key']) ? (string) $json['key'] : null,
-            'bundleType' => isset($json['bundleType']) ? (string) $json['bundleType'] : null,
+            'bundleType' => isset($json['bundleType']) ? (!BundleType::exists((string) $json['bundleType']) ? BundleType::UNKNOWN_TO_SDK : (string) $json['bundleType']) : null,
             'version' => isset($json['version']) ? (string) $json['version'] : null,
             'eTag' => isset($json['eTag']) ? (string) $json['eTag'] : null,
         ]);

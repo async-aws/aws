@@ -4,6 +4,7 @@ namespace AsyncAws\Ses\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Ses\Enum\SuppressionListReason;
 use AsyncAws\Ses\ValueObject\SuppressedDestination;
 use AsyncAws\Ses\ValueObject\SuppressedDestinationAttributes;
 
@@ -37,7 +38,7 @@ class GetSuppressedDestinationResponse extends Result
     {
         return new SuppressedDestination([
             'EmailAddress' => (string) $json['EmailAddress'],
-            'Reason' => (string) $json['Reason'],
+            'Reason' => !SuppressionListReason::exists((string) $json['Reason']) ? SuppressionListReason::UNKNOWN_TO_SDK : (string) $json['Reason'],
             'LastUpdateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateTime'])),
             'Attributes' => empty($json['Attributes']) ? null : $this->populateResultSuppressedDestinationAttributes($json['Attributes']),
         ]);

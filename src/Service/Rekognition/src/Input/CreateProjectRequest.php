@@ -175,12 +175,14 @@ final class CreateProjectRequest extends Input
         $payload['ProjectName'] = $v;
         if (null !== $v = $this->feature) {
             if (!CustomizationFeature::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Feature" for "%s". The value "%s" is not a valid "CustomizationFeature".', __CLASS__, $v));
             }
             $payload['Feature'] = $v;
         }
         if (null !== $v = $this->autoUpdate) {
             if (!ProjectAutoUpdate::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "AutoUpdate" for "%s". The value "%s" is not a valid "ProjectAutoUpdate".', __CLASS__, $v));
             }
             $payload['AutoUpdate'] = $v;

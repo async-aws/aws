@@ -72,6 +72,7 @@ final class Grant
         }
         if (null !== $v = $this->permission) {
             if (!Permission::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Permission" for "%s". The value "%s" is not a valid "Permission".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Permission', $v));

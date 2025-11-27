@@ -20,7 +20,11 @@ final class HlsSegmentLengthControl
     public const EXACT = 'EXACT';
     public const GOP_MULTIPLE = 'GOP_MULTIPLE';
     public const MATCH = 'MATCH';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

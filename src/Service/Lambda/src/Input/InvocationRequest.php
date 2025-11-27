@@ -192,12 +192,14 @@ final class InvocationRequest extends Input
         ];
         if (null !== $this->invocationType) {
             if (!InvocationType::exists($this->invocationType)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->invocationType));
             }
             $headers['X-Amz-Invocation-Type'] = $this->invocationType;
         }
         if (null !== $this->logType) {
             if (!LogType::exists($this->logType)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "LogType" for "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->logType));
             }
             $headers['X-Amz-Log-Type'] = $this->logType;

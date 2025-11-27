@@ -38,7 +38,11 @@ final class ErrorCode
     public const REVISION_MISSING = 'REVISION_MISSING';
     public const THROTTLED = 'THROTTLED';
     public const TIMEOUT = 'TIMEOUT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

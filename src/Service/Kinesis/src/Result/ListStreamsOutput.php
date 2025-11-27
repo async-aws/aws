@@ -5,6 +5,8 @@ namespace AsyncAws\Kinesis\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Kinesis\Enum\StreamMode;
+use AsyncAws\Kinesis\Enum\StreamStatus;
 use AsyncAws\Kinesis\Input\ListStreamsInput;
 use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
@@ -194,7 +196,7 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
     private function populateResultStreamModeDetails(array $json): StreamModeDetails
     {
         return new StreamModeDetails([
-            'StreamMode' => (string) $json['StreamMode'],
+            'StreamMode' => !StreamMode::exists((string) $json['StreamMode']) ? StreamMode::UNKNOWN_TO_SDK : (string) $json['StreamMode'],
         ]);
     }
 
@@ -219,7 +221,7 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
         return new StreamSummary([
             'StreamName' => (string) $json['StreamName'],
             'StreamARN' => (string) $json['StreamARN'],
-            'StreamStatus' => (string) $json['StreamStatus'],
+            'StreamStatus' => !StreamStatus::exists((string) $json['StreamStatus']) ? StreamStatus::UNKNOWN_TO_SDK : (string) $json['StreamStatus'],
             'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
             'StreamCreationTimestamp' => (isset($json['StreamCreationTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StreamCreationTimestamp'])))) ? $d : null,
         ]);

@@ -42,7 +42,11 @@ class GetQueueAttributesResult extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = (string) $value;
+            $name = (string) $name;
+            if (!QueueAttributeName::exists($name)) {
+                $name = QueueAttributeName::UNKNOWN_TO_SDK;
+            }
+            $items[$name] = (string) $value;
         }
 
         return $items;

@@ -148,12 +148,14 @@ final class ListRepositoriesInput extends Input
         }
         if (null !== $v = $this->sortBy) {
             if (!SortByEnum::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "sortBy" for "%s". The value "%s" is not a valid "SortByEnum".', __CLASS__, $v));
             }
             $payload['sortBy'] = $v;
         }
         if (null !== $v = $this->order) {
             if (!OrderEnum::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "order" for "%s". The value "%s" is not a valid "OrderEnum".', __CLASS__, $v));
             }
             $payload['order'] = $v;

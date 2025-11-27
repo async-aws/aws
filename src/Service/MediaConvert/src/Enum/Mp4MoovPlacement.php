@@ -10,7 +10,11 @@ final class Mp4MoovPlacement
 {
     public const NORMAL = 'NORMAL';
     public const PROGRESSIVE_DOWNLOAD = 'PROGRESSIVE_DOWNLOAD';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

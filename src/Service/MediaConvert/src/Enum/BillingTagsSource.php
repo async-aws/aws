@@ -12,7 +12,11 @@ final class BillingTagsSource
     public const JOB_TEMPLATE = 'JOB_TEMPLATE';
     public const PRESET = 'PRESET';
     public const QUEUE = 'QUEUE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -226,6 +226,7 @@ final class CreateBucketRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->acl) {
             if (!BucketCannedACL::exists($this->acl)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->acl));
             }
             $headers['x-amz-acl'] = $this->acl;
@@ -250,6 +251,7 @@ final class CreateBucketRequest extends Input
         }
         if (null !== $this->objectOwnership) {
             if (!ObjectOwnership::exists($this->objectOwnership)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ObjectOwnership" for "%s". The value "%s" is not a valid "ObjectOwnership".', __CLASS__, $this->objectOwnership));
             }
             $headers['x-amz-object-ownership'] = $this->objectOwnership;

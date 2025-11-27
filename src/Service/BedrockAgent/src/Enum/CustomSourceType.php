@@ -7,6 +7,9 @@ final class CustomSourceType
     public const IN_LINE = 'IN_LINE';
     public const S3_LOCATION = 'S3_LOCATION';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([
