@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Amazon Bedrock Runtime Service Tier Support Launch
+- AWS api-change: Bedrock Runtime Reserved Service Support
 
 ### Dependency bumped
 
